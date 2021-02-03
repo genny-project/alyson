@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Genny App",
+  "name": "Generic App Built on Genny Stack",
   "icons": [
     {
       "src": "favicon.ico",
