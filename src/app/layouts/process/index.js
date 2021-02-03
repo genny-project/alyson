@@ -9,9 +9,9 @@ const Process = () => {
   if (!processCodes) return null
   return (
     <Grid container direction="row" spacing={1} wrap="nowrap">
-      {processCodes.map(sbe => (
-        <Grid item key={sbe}>
-          <Lane sbeCode={sbe} />
+      {processCodes.map(sbeCode => (
+        <Grid item key={sbeCode}>
+          <Lane sbeCode={sbeCode} />
         </Grid>
       ))}
     </Grid>
