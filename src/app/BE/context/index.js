@@ -34,12 +34,16 @@ const ContextMenu = ({ parentCode, code, children, actions }) => {
         anchorReference="anchorPosition"
         anchorPosition={menu !== null ? { top: menu.mouseY, left: menu.mouseX } : undefined}
       >
-        <MenuItem disabled>
-          <Typography variant="h6" color="primary">
-            {baseEntityName?.value}
-          </Typography>
-        </MenuItem>
-        <Divider />
+        {baseEntityName && (
+          <div>
+            <MenuItem disabled>
+              <Typography variant="h6" color="primary">
+                {baseEntityName?.value}
+              </Typography>
+            </MenuItem>
+            <Divider />
+          </div>
+        )}
         {actions.map(action => (
           <Action key={action} targetCode={code} code={action} parentCode={parentCode} />
         ))}

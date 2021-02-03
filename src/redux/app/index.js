@@ -14,7 +14,11 @@ const appSlice = createSlice({
 
       const { cmd_type, code, targetCodes } = payload
 
-      state[cmd_type] = targetCodes || code
+      if (cmd_type === 'DISPLAY' && code === 'NONE') {
+        state.MODAL_DISPLAY = code
+      } else {
+        state[cmd_type] = targetCodes || code
+      }
     },
     newMsg: (state, { payload }) => {
       const { parentCode, items } = payload

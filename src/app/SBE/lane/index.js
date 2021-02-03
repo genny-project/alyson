@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import { selectRows, selectCode } from 'redux/db/selectors'
-import { Grid, Typography } from '@material-ui/core'
+import { Grid } from '@material-ui/core'
 import getColumns from '../utils/get-columns'
 import getActions from '../utils/get-actions'
 import ContextMenu from 'app/BE/context'
@@ -17,12 +17,16 @@ const Lane = ({ sbeCode }) => {
   const actions = getActions(table)
 
   return (
-    <Grid container direction="column">
-      <Title sbeCode={sbeCode} />
+    <Grid container direction="column" spacing={1}>
+      <Grid item>
+        <Title sbeCode={sbeCode} />
+      </Grid>
       {rows.map(row => (
-        <ContextMenu key={row} code={row} parentCode={sbeCode} actions={actions}>
-          <BECard columns={columns} code={row} parentCode={sbeCode} />
-        </ContextMenu>
+        <Grid item key={row}>
+          <ContextMenu code={row} parentCode={sbeCode} actions={actions}>
+            <BECard columns={columns} code={row} parentCode={sbeCode} />
+          </ContextMenu>
+        </Grid>
       ))}
     </Grid>
   )
