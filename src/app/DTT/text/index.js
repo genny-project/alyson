@@ -7,4 +7,5 @@ const Text = {
   Write,
   Read,
 }
+
 export default Text

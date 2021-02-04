@@ -9,9 +9,6 @@ const ChildAsk = ({ parentCode, questionCode }) => {
 
   const { attributeCode, targetCode, name, question } = data
   const dbValue = useSelector(selectCode(targetCode, attributeCode))
-  const dtt = useSelector(selectCode(attributeCode))
-  const something = useSelector(selectCode(dtt))
-  console.log(something)
 
   const component = question.attribute.dataType.component
   const onSendAnswer = createSendAnswer(data)
