@@ -1,6 +1,4 @@
-import { lazy } from 'react'
-
-import { Suspense } from 'react'
+import { lazy, Suspense } from 'react'
 
 const Person = lazy(() => import('./templates/person'))
 

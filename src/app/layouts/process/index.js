@@ -1,20 +1,18 @@
 import { useSelector } from 'react-redux'
 import { selectProcess } from 'redux/app/selectors'
 import Lane from 'app/SBE/lane'
-import { Grid } from '@material-ui/core'
+import { HStack } from '@chakra-ui/react'
 
 const Process = () => {
   const processCodes = useSelector(selectProcess)
 
   if (!processCodes) return null
   return (
-    <Grid container direction="row" spacing={1} wrap="nowrap">
+    <HStack align="flex-start">
       {processCodes.map(sbeCode => (
-        <Grid item key={sbeCode}>
-          <Lane sbeCode={sbeCode} />
-        </Grid>
+        <Lane key={sbeCode} sbeCode={sbeCode} />
       ))}
-    </Grid>
+    </HStack>
   )
 }
 

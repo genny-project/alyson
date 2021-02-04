@@ -1,8 +1,8 @@
 import { useSelector } from 'react-redux'
-import { Button, Menu, MenuItem } from '@material-ui/core'
+import { Button } from '@chakra-ui/react'
 import { selectCode } from 'redux/db/selectors'
 import sendAskClick from 'app/ASKS/utils/send-ask-click'
-import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state'
+import { Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react'
 
 const ChildButton = ({ questionCode, childCode }) => {
   const data = useSelector(selectCode(questionCode, childCode))
@@ -15,38 +15,25 @@ const ChildButton = ({ questionCode, childCode }) => {
 
   if (!childAsks)
     return (
-      <Button
-        style={{ textTransform: 'none' }}
-        size="small"
-        color="secondary"
-        variant="outlined"
-        onClick={onClick}
-      >
+      <Button colorScheme="blue" onClick={onClick}>
         {name}
       </Button>
     )
   return (
-    <PopupState variant="popover">
-      {popupState => (
-        <>
-          <Button size="small" variant="outlined" {...bindTrigger(popupState)}>
-            {name}
-          </Button>
-          <Menu {...bindMenu(popupState)}>
-            {childAsks.map(childAsk => (
-              <MenuItem
-                onClick={() => sendAskClick(childAsk.questionCode, childAsk.questionCode)}
-                test-id={childAsk.questionCode}
-                button
-                key={childAsk.questionCode}
-              >
-                {childAsk.name}
-              </MenuItem>
-            ))}
-          </Menu>
-        </>
-      )}
-    </PopupState>
+    <Menu>
+      <MenuButton as={Button}>{name}</MenuButton>
+      <MenuList>
+        {childAsks.map(childAsk => (
+          <MenuItem
+            onClick={() => sendAskClick(childAsk.questionCode, childAsk.questionCode)}
+            test-id={childAsk.questionCode}
+            key={childAsk.questionCode}
+          >
+            {childAsk.name}
+          </MenuItem>
+        ))}
+      </MenuList>
+    </Menu>
   )
 }
 

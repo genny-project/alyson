@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import sendAskClick from 'app/ASKS/utils/send-ask-click'
-import { MenuItem } from '@material-ui/core'
+import { MenuItem } from '@chakra-ui/react'
 
 const ChildMenuItem = ({ questionCode, childCode }) => {
   const data = useSelector(selectCode(questionCode, childCode))

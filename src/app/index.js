@@ -1,15 +1,15 @@
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import Navigation from 'app/layouts/navigation'
 import Display from 'app/layouts/display'
+import { ChakraProvider, extendTheme } from '@chakra-ui/react'
 
 const App = () => {
-  const theme = createMuiTheme()
+  const theme = extendTheme()
 
   return (
-    <ThemeProvider theme={theme}>
+    <ChakraProvider theme={theme}>
       <Navigation />
       <Display />
-    </ThemeProvider>
+    </ChakraProvider>
   )
 }
 

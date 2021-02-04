@@ -1,15 +1,15 @@
-import { Grid } from '@material-ui/core'
+import { Thead, Tr } from '@chakra-ui/react'
 import Cell from './Cell'
 
 const Header = ({ columns, parentCode }) => {
   return (
-    <Grid item spacing={1} container direction="row" justifyContent="flex-start" wrap="nowrap">
-      {columns.map(col => (
-        <Grid key={`${parentCode}-${col}`} item>
-          <Cell showAttributeName code={parentCode} attribute={col} />
-        </Grid>
-      ))}
-    </Grid>
+    <Thead>
+      <Tr>
+        {columns.map(col => (
+          <Cell key={`${parentCode}-${col}`} showAttributeName code={parentCode} attribute={col} />
+        ))}
+      </Tr>
+    </Thead>
   )
 }
 
