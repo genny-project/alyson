@@ -2,6 +2,11 @@ import { forEach, compose, keys, includes, find } from 'ramda'
 import sortByIndex from './sort-by-index'
 
 export const formatBaseEntity = (state, alias, parentCode) => (item = {}) => {
+  if (!item) {
+    console.error(`null item`, parentCode)
+    return
+  }
+
   const { code, baseEntityAttributes = [] } = item
 
   if (parentCode) {

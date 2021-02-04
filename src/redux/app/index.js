@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { includes, map, prop } from 'ramda'
+import { includes, map, prop, head } from 'ramda'
 import log from 'utils/log'
+import { isForm, isTable, isAsk, getQuestionCode } from './utils/get-type'
 
 const initialState = { cmds: [], DISPLAY: 'DASHBOARD' }
 
@@ -21,10 +22,12 @@ const appSlice = createSlice({
       }
     },
     newMsg: (state, { payload }) => {
-      const { parentCode, items } = payload
+      const { parentCode, items, data_type } = payload
 
-      if (includes('SBE_', parentCode || '')) {
-        state.TABLE = { parentCode, rows: map(prop('code'), items) }
+      if (isTable(parentCode || '')) state.TABLE = { parentCode, rows: map(prop('code'), items) }
+      if (isAsk(data_type)) {
+        const questionCode = getQuestionCode(items)
+        if (isForm(questionCode)) state.FORM = questionCode
       }
     },
   },

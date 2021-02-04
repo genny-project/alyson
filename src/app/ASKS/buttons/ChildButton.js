@@ -13,8 +13,6 @@ const ChildButton = ({ questionCode, childCode }) => {
 
   const onClick = () => sendAskClick(childCode, childCode)
 
-  console.log(childAsks, 'hi')
-
   if (!childAsks)
     return (
       <Button

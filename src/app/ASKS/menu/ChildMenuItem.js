@@ -10,7 +10,7 @@ const ChildMenuItem = ({ questionCode, childCode }) => {
 
   const { name } = data
 
-  const onClick = () => sendAskClick(childCode, childCode)
+  const onClick = () => sendAskClick(questionCode, childCode)
 
   return <MenuItem onClick={onClick}>{name}</MenuItem>
 }
