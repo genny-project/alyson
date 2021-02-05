@@ -24,7 +24,7 @@ const Ask = ({ parentCode, questionCode }) => {
   const onSendAnswer = createSendAnswer(askData)
 
   return component === 'button' ? (
-    <Button name={name} onClick={() => console.log(questionCode)} />
+    <Button askData={askData} />
   ) : (
     <FormControl>
       <FormLabel>{name}</FormLabel>
