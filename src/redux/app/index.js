@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { includes, map, prop, head } from 'ramda'
+import { map, prop } from 'ramda'
 import log from 'utils/log'
 import { isForm, isTable, isAsk, getQuestionCode } from './utils/get-type'
+import { keycloak } from 'config/get-api-config'
 
 const initialState = { cmds: [], DISPLAY: 'DASHBOARD' }
 
@@ -13,12 +14,15 @@ const appSlice = createSlice({
       log('❗', payload)
       state.cmds.push(payload)
 
-      const { cmd_type, code, targetCodes } = payload
+      const { cmd_type, code, targetCodes, exec } = payload
 
       if (cmd_type === 'DISPLAY' && code === 'NONE') {
         state.MODAL_DISPLAY = code
       } else {
         state[cmd_type] = targetCodes || code
+      }
+      if (cmd_type === 'LOGOUT' && exec) {
+        keycloak.logout()
       }
     },
     newMsg: (state, { payload }) => {

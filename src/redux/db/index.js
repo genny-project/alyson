@@ -10,9 +10,9 @@ const db = createSlice({
   initialState: initialState,
   extraReducers: {
     [newMsg]: (state, { payload }) => {
-      const { items, data_type, alias, parentCode } = payload
+      const { items, data_type, aliasCode, parentCode } = payload
 
-      if (data_type === 'BaseEntity') forEach(formatBaseEntity(state, alias, parentCode), items)
+      if (data_type === 'BaseEntity') forEach(formatBaseEntity(state, aliasCode, parentCode), items)
       if (data_type === 'Ask') forEach(formatAsk(state), items)
       if (data_type === 'Attribute') forEach(formatAttribute(state), items)
     },

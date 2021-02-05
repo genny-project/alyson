@@ -15,13 +15,15 @@ const ChildButton = ({ questionCode, childCode }) => {
 
   if (!childAsks)
     return (
-      <Button colorScheme="blue" onClick={onClick}>
+      <Button test-id={childCode} size="xs" colorScheme="blue" onClick={onClick}>
         {name}
       </Button>
     )
   return (
     <Menu>
-      <MenuButton as={Button}>{name}</MenuButton>
+      <MenuButton test-id={childCode} size="xs" colorScheme="teal" as={Button}>
+        {name}
+      </MenuButton>
       <MenuList>
         {childAsks.map(childAsk => (
           <MenuItem

@@ -1,4 +1,4 @@
-import { Button } from '@material-ui/core'
+import { Button } from '@chakra-ui/react'
 
 const EventButton = props => {
   const { name, onClick, disabled } = props

@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux'
 import { Box } from '@chakra-ui/react'
 import { selectCode } from 'redux/db/selectors'
 import { getAttribute } from 'app/SBE/utils/get-columns'
+import Text from 'app/DTT/text'
 
 const Person = ({ parentCode, code, columns }) => {
   const title = useSelector(selectCode(code, getAttribute(columns[0])))
@@ -18,6 +19,7 @@ const Person = ({ parentCode, code, columns }) => {
       borderRadius="lg"
       overflow="hidden"
     >
+      <Text.Read value={title?.value} />
       <Box mt="1" fontWeight="semibold" as="h4" lineHeight="tight" isTruncated>
         {title?.value}
       </Box>

@@ -9,9 +9,9 @@ const AskButtons = ({ questionCode }) => {
   if (!data) return null
 
   return (
-    <HStack>
+    <HStack test-id={questionCode}>
       {data.map(childCode => (
-        <ChildButton questionCode={questionCode} childCode={childCode} />
+        <ChildButton key={childCode} questionCode={questionCode} childCode={childCode} />
       ))}
     </HStack>
   )

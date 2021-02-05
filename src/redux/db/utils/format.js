@@ -1,7 +1,7 @@
 import { forEach, compose, keys, includes, find } from 'ramda'
 import sortByIndex from './sort-by-index'
 
-export const formatBaseEntity = (state, alias, parentCode) => (item = {}) => {
+export const formatBaseEntity = (state, aliasCode, parentCode) => (item = {}) => {
   if (!item) {
     console.error(`null item`, parentCode)
     return
@@ -15,7 +15,7 @@ export const formatBaseEntity = (state, alias, parentCode) => (item = {}) => {
     if (state[rowKey].indexOf(code) === -1) state[rowKey].push(code)
   }
 
-  if (alias) state[alias] = code
+  if (aliasCode) state[aliasCode] = code
   if (!state[code]) state[code] = []
 
   forEach(attribute => {

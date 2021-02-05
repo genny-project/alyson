@@ -3,8 +3,8 @@ import log from 'utils/log'
 
 export const messageHandler = onNewMsg => body => {
   if (body) {
-    const { data_type, messages } = body
-    log(`⬇️ - ${data_type}`, body)
+    const { data_type, messages, aliasCode } = body
+    log(`⬇️ - ${aliasCode || data_type}`, body)
 
     if (data_type === 'QBulkMessage') {
       forEach(messageHandler(onNewMsg))(messages)

@@ -1,7 +1,7 @@
-import { Grid } from '@material-ui/core'
 import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
 import Ask from './Ask'
+import { VStack } from '@chakra-ui/react'
 
 const AsksForm = ({ questionCode }) => {
   const childAsks = useSelector(selectCode(questionCode))
@@ -9,13 +9,11 @@ const AsksForm = ({ questionCode }) => {
   if (!childAsks) return null
 
   return (
-    <Grid container spacing={1}>
+    <VStack>
       {childAsks.map(childAsk => (
-        <Grid item key={childAsk}>
-          <Ask parentCode={questionCode} questionCode={childAsk} />
-        </Grid>
+        <Ask key={childAsk} parentCode={questionCode} questionCode={childAsk} />
       ))}
-    </Grid>
+    </VStack>
   )
 }
 

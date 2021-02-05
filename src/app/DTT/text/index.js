@@ -1,7 +1,7 @@
-import { TextField, Typography } from '@material-ui/core'
+import { Input, Text as ChakraText } from '@chakra-ui/react'
 
-export const Write = props => <TextField {...props} />
-export const Read = props => <Typography>{props.value}</Typography>
+export const Write = props => <Input {...props} />
+export const Read = props => <ChakraText>{props.value}</ChakraText>
 
 const Text = {
   Write,
