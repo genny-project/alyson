@@ -8,10 +8,19 @@ const Write = ({ value, onSendAnswer, groupCode }) => {
   const optionData = useSelector(selectCodes(options, 'PRI_NAME'))
 
   return (
-    <RadioGroup test-id={'groupCode'} value={value} onChange={onSendAnswer}>
+    <RadioGroup test-id={groupCode} value={value} onChange={onSendAnswer}>
       <Stack direction="row">
         {optionData.map(
-          option => option && <CRadio value={option.baseEntityCode}>{option.value}</CRadio>,
+          option =>
+            option && (
+              <CRadio
+                key={option.baseEntityCode}
+                test-id={option.baseEntityCode}
+                value={option.baseEntityCode}
+              >
+                {option.value}
+              </CRadio>
+            ),
         )}
       </Stack>
     </RadioGroup>

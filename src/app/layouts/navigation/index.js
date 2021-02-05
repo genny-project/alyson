@@ -8,7 +8,21 @@ import Search from './Search'
 const Navigation = () => {
   const showImage = useBreakpointValue({ base: false, lg: true })
   return (
-    <header style={{ position: 'sticky', top: 0, zIndex: 3, width: '100%', left: 0, right: 0 }}>
+    <header
+      style={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 3,
+        width: '100%',
+        left: 0,
+        right: 0,
+        transition: 'box-shadow 0.2s',
+        background: '#FFFFFF',
+        borderTop: '6px solid',
+        borderTopColor: '#38B2AC',
+        boxShadow: 'rgb(0 0 0 / 5%) 0px 1px 2px 0px',
+      }}
+    >
       <Flex p="3">
         {showImage && apiConfig?.realm === 'internmatch' && (
           <Image w="xs" src={`/internMatchLogo.png`} />

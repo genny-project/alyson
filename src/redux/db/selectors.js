@@ -5,5 +5,5 @@ export const selectCode = (code, childCode) => state =>
 
 export const selectRows = code => state => state.db[`${code}@rows`]
 
-export const selectCodes = (codes, attribute) => state =>
+export const selectCodes = (codes = [], attribute) => state =>
   map(code => selectCode(code, attribute)(state), codes)
