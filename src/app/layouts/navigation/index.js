@@ -25,7 +25,7 @@ const Navigation = () => {
     >
       <Flex p="3">
         {showImage && apiConfig?.realm === 'internmatch' && (
-          <Image w="xs" src={`/internMatchLogo.png`} />
+          <Image w="220px" src={`/internMatchLogo.png`} />
         )}
         <Spacer />
         <Buttons questionCode={'QUE_PROJECT_SIDEBAR_GRP'} />
