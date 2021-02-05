@@ -4,6 +4,7 @@ import { selectCode } from 'redux/db/selectors'
 import Text from 'app/DTT/text'
 import Upload from 'app/DTT/upload'
 import Social from 'app/DTT/social'
+import Status from 'app/DTT/status'
 
 const Attribute = ({ code, attribute }) => {
   const data = useSelector(selectCode(code, attribute))
@@ -21,6 +22,8 @@ const Attribute = ({ code, attribute }) => {
     <Upload.Read data={data} dttData={dttData} />
   ) : component === 'social' ? (
     <Social.Read data={data} dttData={dttData} />
+  ) : component === 'status' ? (
+    <Status.Read data={data} />
   ) : (
     <div>{data?.value}</div>
   )

@@ -4,6 +4,7 @@ import { Flex, Spacer, Image, Center, HStack, useBreakpointValue } from '@chakra
 import { apiConfig } from 'config/get-api-config'
 import Avatar from './Avatar'
 import Search from './Search'
+import { onSendMessage } from 'vertx'
 
 const Navigation = () => {
   const showImage = useBreakpointValue({ base: false, lg: true })
@@ -25,7 +26,14 @@ const Navigation = () => {
     >
       <Flex p="3">
         {showImage && apiConfig?.realm === 'internmatch' && (
-          <Image w="220px" src={`/internMatchLogo.png`} />
+          <Image
+            onClick={() =>
+              onSendMessage({ code: 'QUE_DASHBOARD_VIEW', parentCode: 'QUE_DASHBOARD_VIEW' })
+            }
+            w="220px"
+            src={`/internMatchLogo.png`}
+            style={{ cursor: 'pointer' }}
+          />
         )}
         <Spacer />
         <Buttons questionCode={'QUE_PROJECT_SIDEBAR_GRP'} />
