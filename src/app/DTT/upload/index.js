@@ -1,15 +1,9 @@
-import useApi from 'api'
-import { Avatar } from '@chakra-ui/react'
+import ImageType from './Image'
 
-const Read = ({ data }) => {
-  const { getImageSrc } = useApi()
+const Read = ({ data, dttData }) => {
+  const typeName = dttData?.typeName
 
-  const { attributeName } = data
-  const src = getImageSrc(data.value)
-
-  if (!src) return <div />
-
-  return attributeName === 'ImageUrl' ? <Avatar src={src} /> : <div>UPLOAD</div>
+  return typeName === 'Image' ? <ImageType.Read data={data} /> : <div>Upload</div>
 }
 
 const Upload = {

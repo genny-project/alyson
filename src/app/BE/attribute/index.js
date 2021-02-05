@@ -15,7 +15,7 @@ const Attribute = ({ code, attribute }) => {
   return component === 'text' ? (
     <Text.Read data={data} />
   ) : component === 'upload' ? (
-    <Upload.Read data={data} />
+    <Upload.Read data={data} dttData={dttData} />
   ) : (
     <div>{data?.value}</div>
   )

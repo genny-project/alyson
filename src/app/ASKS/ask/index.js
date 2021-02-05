@@ -9,19 +9,18 @@ import Button from 'app/DTT/button'
 import Radio from 'app/DTT/radio'
 import Select from 'app/DTT/select'
 
-const ChildAsk = ({ parentCode, questionCode }) => {
-  const data = useSelector(selectCode(parentCode, questionCode))
+const Ask = ({ parentCode, questionCode }) => {
+  const askData = useSelector(selectCode(parentCode, questionCode))
 
-  const { attributeCode, targetCode, name, question } = data
+  const { attributeCode, targetCode, name, question } = askData
 
-  const dbAttribute = useSelector(selectCode(targetCode, attributeCode))
+  const data = useSelector(selectCode(targetCode, attributeCode))
 
-  const value = dbAttribute?.value
   const component = question.attribute.dataType.component
   const groupCode = getGroupCode(question)
   const description = question.attribute.description
 
-  const onSendAnswer = createSendAnswer(data)
+  const onSendAnswer = createSendAnswer(askData)
 
   return component === 'button' ? (
     <Button name={name} onClick={() => console.log(questionCode)} />
@@ -33,7 +32,6 @@ const ChildAsk = ({ parentCode, questionCode }) => {
           groupCode={groupCode}
           attributeCode={attributeCode}
           onSendAnswer={onSendAnswer}
-          value={value}
           placeholder={description}
         />
       ) : component === 'radio' ? (
@@ -41,7 +39,7 @@ const ChildAsk = ({ parentCode, questionCode }) => {
           groupCode={groupCode}
           attributeCode={attributeCode}
           onSendAnswer={onSendAnswer}
-          value={value}
+          data={data}
         />
       ) : component === 'text' ? (
         <Text.Write label={name} onSendAnswer={onSendAnswer} />
@@ -52,4 +50,4 @@ const ChildAsk = ({ parentCode, questionCode }) => {
   )
 }
 
-export default ChildAsk
+export default Ask

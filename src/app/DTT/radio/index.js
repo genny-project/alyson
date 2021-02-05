@@ -3,9 +3,11 @@ import { useSelector } from 'react-redux'
 import { selectCodes, selectRows } from 'redux/db/selectors'
 import { Read } from 'app/DTT/text'
 
-const Write = ({ value, onSendAnswer, groupCode }) => {
+const Write = ({ data, onSendAnswer, groupCode }) => {
   const options = useSelector(selectRows(groupCode))
   const optionData = useSelector(selectCodes(options, 'PRI_NAME'))
+
+  const value = data.value
 
   return (
     <RadioGroup test-id={groupCode} value={value} onChange={onSendAnswer}>

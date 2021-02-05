@@ -1,6 +1,6 @@
 import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
-import Ask from './Ask'
+import Ask from 'app/ASKS/ask'
 import { VStack, Center } from '@chakra-ui/react'
 
 const AsksForm = ({ questionCode }) => {
