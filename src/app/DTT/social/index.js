@@ -1,7 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCoffee } from '@fortawesome/free-solid-svg-icons'
 import { faLinkedin } from '@fortawesome/free-brands-svg-icons'
-import { IconButton } from '@chakra-ui/react'
+import { IconButton, Icon, InputGroup, InputLeftAddon } from '@chakra-ui/react'
+import { Write as TextWrite } from 'app/DTT/text'
 
 const Read = ({ data }) => {
   const attributeName = data?.attributeName
@@ -14,8 +15,18 @@ const Read = ({ data }) => {
   )
 }
 
+const Write = ({ onSendAnswer }) => (
+  <InputGroup>
+    <InputLeftAddon>
+      <FontAwesomeIcon size="lg" icon={faLinkedin} />
+    </InputLeftAddon>
+    <TextWrite onSendAnswer={onSendAnswer} />
+  </InputGroup>
+)
+
 const Social = {
   Read,
+  Write,
 }
 
 export default Social

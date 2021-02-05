@@ -8,6 +8,7 @@ import Text from 'app/DTT/text'
 import Button from 'app/DTT/button'
 import Radio from 'app/DTT/radio'
 import Select from 'app/DTT/select'
+import Social from 'app/DTT/social'
 
 const Ask = ({ parentCode, questionCode }) => {
   const askData = useSelector(selectCode(parentCode, questionCode))
@@ -42,7 +43,9 @@ const Ask = ({ parentCode, questionCode }) => {
           data={data}
         />
       ) : component === 'text' ? (
-        <Text.Write label={name} onSendAnswer={onSendAnswer} />
+        <Text.Write onSendAnswer={onSendAnswer} />
+      ) : component === 'social' ? (
+        <Social.Write onSendAnswer={onSendAnswer} />
       ) : (
         <div>{component}</div>
       )}
