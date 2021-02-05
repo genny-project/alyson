@@ -10,7 +10,7 @@ const Display = () => {
   const display = useSelector(selectDisplay)
 
   return (
-    <Box marginTop="1rem">
+    <Box marginTop="8rem">
       {includes('FORM', display || '') ? (
         <Form />
       ) : display === 'TABLE' ? (
