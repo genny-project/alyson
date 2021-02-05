@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
-import { Menu, MenuList, MenuButton, MenuItem, MenuGroup } from '@chakra-ui/react'
+import { Menu, MenuList, MenuButton, MenuGroup } from '@chakra-ui/react'
 import { selectCode } from 'redux/db/selectors'
 import Action from './Action'
 
@@ -26,7 +26,7 @@ const ContextMenu = ({ parentCode, code, children, actions }) => {
   }
 
   return (
-    <div style={{ cursor: 'context-menu' }} onContextMenu={handleContextMenu}>
+    <div onContextMenu={handleContextMenu}>
       <Menu isLazy isOpen={menu !== null} onClose={handleClose}>
         <MenuButton>{children}</MenuButton>
         <MenuList>

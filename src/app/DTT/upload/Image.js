@@ -3,9 +3,9 @@ import { Avatar } from '@chakra-ui/react'
 
 const Read = ({ data }) => {
   const { getImageSrc } = useApi()
-  const src = getImageSrc(data.value)
+  const src = getImageSrc(data?.value)
 
-  if (!src || !data.value) return <Avatar />
+  if (!src || !data?.value) return <Avatar />
   return <Avatar src={src} />
 }
 

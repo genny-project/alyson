@@ -8,7 +8,7 @@ const Process = () => {
 
   if (!processCodes) return null
   return (
-    <HStack align="flex-start">
+    <HStack align="flex-start" p="6" spacing="6">
       {processCodes.map(sbeCode => (
         <Lane key={sbeCode} sbeCode={sbeCode} />
       ))}

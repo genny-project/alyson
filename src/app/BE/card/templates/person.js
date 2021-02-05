@@ -1,12 +1,14 @@
 import { useSelector } from 'react-redux'
-import { Box } from '@chakra-ui/react'
+import { Box, HStack, VStack } from '@chakra-ui/react'
 import { selectCode } from 'redux/db/selectors'
 import { getAttribute } from 'app/SBE/utils/get-columns'
 import Text from 'app/DTT/text'
+import Image from 'app/DTT/upload/Image'
 
 const Person = ({ parentCode, code, columns }) => {
   const title = useSelector(selectCode(code, getAttribute(columns[0])))
   const subTitle = useSelector(selectCode(code, getAttribute(columns[1])))
+  const image = useSelector(selectCode(code, 'PRI_IMAGE_URL'))
 
   return (
     <Box
@@ -17,15 +19,32 @@ const Person = ({ parentCode, code, columns }) => {
       h="30"
       borderWidth="1px"
       borderRadius="lg"
-      overflow="hidden"
     >
-      <Text.Read value={title?.value} />
-      <Box mt="1" fontWeight="semibold" as="h4" lineHeight="tight" isTruncated>
-        {title?.value}
-      </Box>
-      <Box as="span" color="gray.600" fontSize="sm">
-        {subTitle?.value}
-      </Box>
+      <HStack spacing="3">
+        <Image.Read data={image} />
+        <VStack alignItems="baseline">
+          <Text.Read
+            data={title}
+            textProps={{
+              fontWeigth: 'semibold',
+              as: 'h4',
+              lineHeight: 'tight',
+              isTruncated: true,
+              maxW: '14rem',
+            }}
+          />
+          <Text.Read
+            textProps={{
+              as: 'span',
+              color: 'gray.600',
+              fontSize: 'sm',
+              isTruncated: true,
+              maxW: '14rem',
+            }}
+            data={subTitle}
+          />
+        </VStack>
+      </HStack>
     </Box>
   )
 }
