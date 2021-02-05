@@ -5,21 +5,17 @@ import { Box } from '@chakra-ui/react'
 import Table from 'app/layouts/table'
 import Process from 'app/layouts/process'
 import Form from 'app/layouts/form'
+import Dashboard from 'app/layouts/dashboard'
 
 const Display = () => {
   const display = useSelector(selectDisplay)
 
   return (
     <Box marginTop="8rem">
-      {includes('FORM', display || '') ? (
-        <Form />
-      ) : display === 'TABLE' ? (
-        <Table />
-      ) : display === 'PROCESS' ? (
-        <Process />
-      ) : (
-        <div>{display}</div>
-      )}
+      {display === 'DASHBOARD' && <Dashboard />}
+      {display === 'TABLE' && <Table />}
+      {display === 'PROCESS' && <Process />}
+      {includes('FORM', display || '') && <Form />}
     </Box>
   )
 }
