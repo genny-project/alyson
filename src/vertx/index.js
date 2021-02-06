@@ -12,8 +12,20 @@ import createSendMessage from './utils/create-send-message'
 export const eventBus = new EventBus(VERTX_URL)
 
 let onSendMessage = identity
+
 const onSendAnswer = data =>
   onSendMessage([data], { msg_type: 'DATA_MSG', data_type: 'Answer', event_type: false })
+
+const onSendSearch = ({ searchValue, searchType, sbeCode }) =>
+  onSendAnswer({
+    askId: 272,
+    attributeCode: 'PRI_SEARCH_TEXT',
+    code: 'QUE_SEARCH',
+    identifier: 'QUE_SEARCH',
+    weight: 1,
+    value: `${searchType}${searchValue}`,
+    ...(sbeCode ? { targetCode: sbeCode } : {}),
+  })
 
 const VertxContainer = () => {
   const { keycloak } = useKeycloak()
@@ -45,4 +57,4 @@ const VertxContainer = () => {
 }
 
 export default VertxContainer
-export { onSendMessage, onSendAnswer }
+export { onSendMessage, onSendAnswer, onSendSearch }

@@ -1,13 +1,27 @@
 import Buttons from 'app/ASKS/buttons'
 import AskMenu from 'app/ASKS/menu'
-import { Flex, Spacer, Image, Center, HStack, useBreakpointValue } from '@chakra-ui/react'
+import {
+  Flex,
+  Spacer,
+  Image,
+  Center,
+  HStack,
+  useBreakpointValue,
+  useColorModeValue,
+  useTheme,
+} from '@chakra-ui/react'
 import { apiConfig } from 'config/get-api-config'
 import Avatar from './Avatar'
 import Search from './Search'
+import ColorToggler from './ColorToggler'
 import { onSendMessage } from 'vertx'
 
 const Navigation = () => {
   const showImage = useBreakpointValue({ base: false, lg: true })
+  const theme = useTheme()
+
+  const bg = useColorModeValue('white', theme.colors.teal[900])
+
   return (
     <header
       style={{
@@ -17,8 +31,8 @@ const Navigation = () => {
         width: '100%',
         left: 0,
         right: 0,
+        backgroundColor: bg,
         transition: 'box-shadow 0.2s',
-        background: '#FFFFFF',
         borderTop: '6px solid',
         borderTopColor: '#38B2AC',
         boxShadow: 'rgb(0 0 0 / 5%) 0px 1px 2px 0px',
@@ -39,7 +53,8 @@ const Navigation = () => {
         <Buttons questionCode={'QUE_PROJECT_SIDEBAR_GRP'} />
         <Spacer />
         <Center>
-          <Search />
+          {/* <Search /> */}
+          <ColorToggler />
         </Center>
         <Spacer />
         <HStack>

@@ -7,7 +7,7 @@ import getApiConfig from 'config/get-api-config'
 import Vertx from 'vertx'
 import { Provider } from 'react-redux'
 import store from 'redux/store'
-import CssBaseline from '@material-ui/core/CssBaseline'
+import { CSSReset } from '@chakra-ui/react'
 
 const initialiseApp = async () => {
   try {
@@ -17,7 +17,7 @@ const initialiseApp = async () => {
       <React.StrictMode>
         <ReactKeycloakProvider authClient={keycloak} initOptions={{ onLoad: 'login-required' }}>
           <Provider store={store}>
-            <CssBaseline />
+            <CSSReset />
             <Vertx />
             <App />
           </Provider>
@@ -29,7 +29,7 @@ const initialiseApp = async () => {
     ReactDOM.render(
       <React.StrictMode>
         <Provider store={store}>
-          <CssBaseline />
+          <CSSReset />
           <div>OFFLINE-OFFLINE-OFFLINE-OFFLINE-OFFLINE-OFFLINE</div>
           <App />
         </Provider>

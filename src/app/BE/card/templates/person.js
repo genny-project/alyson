@@ -26,7 +26,7 @@ const Person = ({ parentCode, code, columns }) => {
           <Text.Read
             data={title}
             textProps={{
-              fontWeigth: 'semibold',
+              fontWeight: 'semibold',
               as: 'h4',
               lineHeight: 'tight',
               isTruncated: true,
