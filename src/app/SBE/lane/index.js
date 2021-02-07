@@ -11,7 +11,7 @@ const Lane = ({ sbeCode }) => {
   const table = useSelector(selectCode(sbeCode))
   const rows = useSelector(selectRows(sbeCode))
 
-  if (!table || !rows) return null
+  if (!table) return null
 
   const columns = getColumns(table)
   const actions = getActions(table)

@@ -4,7 +4,6 @@ import {
   Flex,
   Spacer,
   Image,
-  Center,
   HStack,
   useBreakpointValue,
   useColorModeValue,
@@ -12,15 +11,18 @@ import {
 } from '@chakra-ui/react'
 import { apiConfig } from 'config/get-api-config'
 import Avatar from './Avatar'
-import Search from './Search'
-import ColorToggler from './ColorToggler'
 import { onSendMessage } from 'vertx'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus, faQuidditch } from '@fortawesome/free-solid-svg-icons'
+import MobileNav from './mobile'
 
 const Navigation = () => {
-  const showImage = useBreakpointValue({ base: false, lg: true })
+  const mobile = useBreakpointValue({ base: true, lg: false })
   const theme = useTheme()
 
   const bg = useColorModeValue('white', theme.colors.teal[900])
+
+  if (mobile) return <MobileNav />
 
   return (
     <header
@@ -39,26 +41,24 @@ const Navigation = () => {
       }}
     >
       <Flex p="3">
-        {showImage && apiConfig?.realm === 'internmatch' && (
+        {apiConfig && (
           <Image
             onClick={() =>
               onSendMessage({ code: 'QUE_DASHBOARD_VIEW', parentCode: 'QUE_DASHBOARD_VIEW' })
             }
-            w="220px"
-            src={`/internMatchLogo.png`}
+            src={apiConfig.PRI_FAVICON}
             style={{ cursor: 'pointer' }}
           />
         )}
         <Spacer />
-        <Buttons questionCode={'QUE_PROJECT_SIDEBAR_GRP'} />
-        <Spacer />
-        <Center>
-          {/* <Search /> */}
-          <ColorToggler />
-        </Center>
+        <Buttons vertical questionCode={'QUE_PROJECT_SIDEBAR_GRP'} />
         <Spacer />
         <HStack>
-          <AskMenu questionCode={'QUE_ADD_ITEMS_GRP'} />
+          <AskMenu questionCode={'QUE_ADD_ITEMS_GRP'} icon={<FontAwesomeIcon icon={faPlus} />} />
+          <AskMenu
+            questionCode={'QUE_QUICK_ADD_ITEMS_GRP'}
+            icon={<FontAwesomeIcon icon={faQuidditch} />}
+          />
           <Avatar />
         </HStack>
       </Flex>

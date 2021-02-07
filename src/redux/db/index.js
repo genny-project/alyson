@@ -10,7 +10,11 @@ const db = createSlice({
   initialState: initialState,
   extraReducers: {
     [newMsg]: (state, { payload }) => {
-      const { items, data_type, aliasCode, parentCode } = payload
+      const { items, data_type, aliasCode, parentCode, replace } = payload
+
+      if (replace && parentCode) {
+        state[`${parentCode}@rows`] = []
+      }
 
       if (data_type === 'BaseEntity') forEach(formatBaseEntity(state, aliasCode, parentCode), items)
       if (data_type === 'Ask') forEach(formatAsk(state), items)

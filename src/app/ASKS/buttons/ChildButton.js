@@ -4,7 +4,7 @@ import { selectCode } from 'redux/db/selectors'
 import sendAskClick from 'app/ASKS/utils/send-ask-click'
 import { Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react'
 
-const ChildButton = ({ questionCode, childCode }) => {
+const ChildButton = ({ questionCode, childCode, size }) => {
   const data = useSelector(selectCode(questionCode, childCode))
 
   if (!data) return null
@@ -15,13 +15,13 @@ const ChildButton = ({ questionCode, childCode }) => {
 
   if (!childAsks)
     return (
-      <Button test-id={childCode} size="xs" colorScheme="blue" onClick={onClick}>
+      <Button test-id={childCode} size={size} colorScheme="blue" onClick={onClick}>
         {name}
       </Button>
     )
   return (
     <Menu>
-      <MenuButton test-id={childCode} size="xs" colorScheme="teal" as={Button}>
+      <MenuButton test-id={childCode} size={size} colorScheme="teal" as={Button}>
         {name}
       </MenuButton>
       <MenuList>

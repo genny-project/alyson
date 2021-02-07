@@ -4,7 +4,7 @@ import { Menu, MenuList, MenuButton, MenuGroup } from '@chakra-ui/react'
 import { selectCode } from 'redux/db/selectors'
 import Action from './Action'
 
-const ContextMenu = ({ parentCode, code, children, actions }) => {
+const ContextMenu = ({ parentCode, code, children, actions = [] }) => {
   const baseEntityName = useSelector(selectCode(code, 'PRI_NAME'))
 
   const [menu, setMenu] = useState(null)

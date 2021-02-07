@@ -1,22 +1,23 @@
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import ChildMenuItem from './ChildMenuItem'
-import { Menu, MenuButton, MenuList, IconButton } from '@chakra-ui/react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+import { Menu, MenuButton, MenuList, IconButton, MenuGroup } from '@chakra-ui/react'
 
-const AsksMenu = ({ questionCode }) => {
+const AsksMenu = ({ questionCode, icon }) => {
   const data = useSelector(selectCode(questionCode))
+  const title = useSelector(selectCode(questionCode, 'title'))
 
   if (!data) return null
 
   return (
     <Menu>
-      <MenuButton as={IconButton} icon={<FontAwesomeIcon icon={faCoffee} />} variant="outline" />
+      <MenuButton as={IconButton} icon={icon} variant="outline" />
       <MenuList>
-        {data.map(childCode => (
-          <ChildMenuItem key={childCode} questionCode={questionCode} childCode={childCode} />
-        ))}
+        <MenuGroup title={title}>
+          {data.map(childCode => (
+            <ChildMenuItem key={childCode} questionCode={questionCode} childCode={childCode} />
+          ))}
+        </MenuGroup>
       </MenuList>
     </Menu>
   )

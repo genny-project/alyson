@@ -12,6 +12,7 @@ const ThemeToggler = () => {
 
   return (
     <IconButton
+      m="2"
       ref={buttonRef}
       onClick={toggleColorMode}
       variant="ghost"

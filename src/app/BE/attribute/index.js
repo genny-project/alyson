@@ -12,8 +12,6 @@ const Attribute = ({ code, attribute }) => {
   const dttData = useSelector(selectCode(dtt))
   const component = dttData?.component
 
-  console.log(component)
-
   if (!component) return <div />
 
   return component === 'text' ? (

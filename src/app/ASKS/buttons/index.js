@@ -1,19 +1,24 @@
 import ChildButton from './ChildButton'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
-import { HStack } from '@chakra-ui/react'
+import { Stack } from '@chakra-ui/react'
 
-const AskButtons = ({ questionCode }) => {
+const AskButtons = ({ questionCode, direction = 'row', size = 'xs' }) => {
   const data = useSelector(selectCode(questionCode))
 
   if (!data) return null
 
   return (
-    <HStack test-id={questionCode}>
+    <Stack direction={direction} test-id={questionCode}>
       {data.map(childCode => (
-        <ChildButton key={childCode} questionCode={questionCode} childCode={childCode} />
+        <ChildButton
+          size={size}
+          key={childCode}
+          questionCode={questionCode}
+          childCode={childCode}
+        />
       ))}
-    </HStack>
+    </Stack>
   )
 }
 

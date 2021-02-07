@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux'
 import { selectProcess } from 'redux/app/selectors'
 import Lane from 'app/SBE/lane'
 import { HStack } from '@chakra-ui/react'
-import Search from './Search'
+import Search from 'app/SBE/search/Search'
 
 const Process = () => {
   const processCodes = useSelector(selectProcess)
@@ -10,7 +10,7 @@ const Process = () => {
   if (!processCodes) return null
   return (
     <div>
-      <Search />
+      <Search sbeCode={JSON.stringify(processCodes)} />
       <HStack align="flex-start" p="6" spacing="6">
         {processCodes.map(sbeCode => (
           <Lane key={sbeCode} sbeCode={sbeCode} />

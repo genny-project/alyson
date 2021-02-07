@@ -1,9 +1,9 @@
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import useApi from 'api'
-import { Menu, MenuButton, MenuList, Avatar, MenuGroup } from '@chakra-ui/react'
+import { Menu, MenuButton, MenuList, Avatar, MenuGroup, Flex, Spacer } from '@chakra-ui/react'
 import ChildMenuItem from 'app/ASKS/menu/ChildMenuItem'
-
+import ColorToggler from './ColorToggler'
 const QUE_AVATAR_GRP = 'QUE_AVATAR_GRP'
 
 const AvatarMenu = () => {
@@ -38,6 +38,10 @@ const AvatarMenu = () => {
             <ChildMenuItem key={childAsk} questionCode={QUE_AVATAR_GRP} childCode={childAsk} />
           ))}
         </MenuGroup>
+        <Flex>
+          <Spacer />
+          <ColorToggler />
+        </Flex>
       </MenuList>
     </Menu>
   )
