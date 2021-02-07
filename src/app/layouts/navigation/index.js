@@ -8,6 +8,7 @@ import {
   useBreakpointValue,
   useColorModeValue,
   useTheme,
+  Center,
 } from '@chakra-ui/react'
 import { apiConfig } from 'config/get-api-config'
 import Avatar from './Avatar'
@@ -51,7 +52,9 @@ const Navigation = () => {
           />
         )}
         <Spacer />
-        <Buttons vertical questionCode={'QUE_PROJECT_SIDEBAR_GRP'} />
+        <Center>
+          <Buttons questionCode={'QUE_PROJECT_SIDEBAR_GRP'} />
+        </Center>
         <Spacer />
         <HStack>
           <AskMenu questionCode={'QUE_ADD_ITEMS_GRP'} icon={<FontAwesomeIcon icon={faPlus} />} />

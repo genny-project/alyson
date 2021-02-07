@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import { Stack } from '@chakra-ui/react'
 
-const AskButtons = ({ questionCode, direction = 'row', size = 'xs' }) => {
+const AskButtons = ({ questionCode, direction = 'row', size = 'sm' }) => {
   const data = useSelector(selectCode(questionCode))
 
   if (!data) return null

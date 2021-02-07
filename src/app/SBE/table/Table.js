@@ -6,6 +6,7 @@ import getColumns from '../utils/get-columns'
 import getActions from '../utils/get-actions'
 import { selectCode } from 'redux/db/selectors'
 import Search from 'app/SBE/search/Search'
+import Footer from './Footer'
 
 const DataTable = ({ parentCode, rows }) => {
   const tableData = useSelector(selectCode(parentCode))
@@ -29,6 +30,7 @@ const DataTable = ({ parentCode, rows }) => {
             <Row key={row} parentCode={parentCode} code={row} columns={columns} actions={actions} />
           ))}
         </Tbody>
+        <Footer sbeCode={parentCode} />
       </Table>
     </Box>
   )

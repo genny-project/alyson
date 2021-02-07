@@ -17,7 +17,7 @@ const AvatarMenu = () => {
   const { getImageSrc } = useApi()
 
   const title = `${name?.value || userName?.value}${
-    associatedEntitiy ? ` - ${associatedEntitiy?.value}` : ''
+    associatedEntitiy?.value ? ` - ${associatedEntitiy?.value}` : ''
   }`
 
   if (!avatarAsks) return null
