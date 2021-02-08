@@ -28,11 +28,7 @@ const initialiseApp = async () => {
   } catch (err) {
     ReactDOM.render(
       <React.StrictMode>
-        <Provider store={store}>
-          <CSSReset />
-          <div>OFFLINE-OFFLINE-OFFLINE-OFFLINE-OFFLINE-OFFLINE</div>
-          <App />
-        </Provider>
+        <div>OFFLINE-OFFLINE-OFFLINE-OFFLINE-OFFLINE-OFFLINE</div>
       </React.StrictMode>,
       document.getElementById('root'),
     )

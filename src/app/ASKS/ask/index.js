@@ -18,18 +18,24 @@ const Ask = ({ parentCode, questionCode }) => {
 
   const { attributeCode, targetCode, name, question } = askData
 
-  const data = useSelector(selectCode(targetCode, attributeCode))
+  const data = useSelector(selectCode(targetCode, attributeCode)) || {}
 
-  const component = question.attribute.dataType.component
   const groupCode = getGroupCode(question)
-  const description = question.attribute.description
+
+  const {
+    mandatory,
+    attribute: {
+      description,
+      dataType: { component },
+    },
+  } = question
 
   const onSendAnswer = createSendAnswer(askData)
 
   return component === 'button' ? (
     <Button askData={askData} />
   ) : (
-    <FormControl>
+    <FormControl isRequired={mandatory}>
       <FormLabel>{name}</FormLabel>
       {component === 'email' ? (
         <Email.Write onSendAnswer={onSendAnswer} askData={askData} />
@@ -43,6 +49,7 @@ const Ask = ({ parentCode, questionCode }) => {
           attributeCode={attributeCode}
           onSendAnswer={onSendAnswer}
           placeholder={description}
+          mandatory={mandatory}
         />
       ) : component === 'radio' ? (
         <Radio.Write
@@ -50,11 +57,12 @@ const Ask = ({ parentCode, questionCode }) => {
           attributeCode={attributeCode}
           onSendAnswer={onSendAnswer}
           data={data}
+          mandatory={mandatory}
         />
       ) : component === 'text' ? (
-        <Text.Write onSendAnswer={onSendAnswer} />
+        <Text.Write mandatory={mandatory} data={data} onSendAnswer={onSendAnswer} />
       ) : component === 'social' ? (
-        <Social.Write onSendAnswer={onSendAnswer} />
+        <Social.Write mandatory={mandatory} data={data} onSendAnswer={onSendAnswer} />
       ) : (
         <div>{component}</div>
       )}

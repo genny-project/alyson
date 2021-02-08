@@ -15,7 +15,12 @@ const Write = ({ placeholder, onSendAnswer, groupCode }) => {
     >
       {optionData &&
         optionData.map(
-          option => option && <option value={option.baseEntityCode}>{option.value}</option>,
+          option =>
+            option && (
+              <option key={option.baseEntityCode} value={option.baseEntityCode}>
+                {option.value}
+              </option>
+            ),
         )}
     </CSelect>
   )

@@ -7,9 +7,7 @@ const TableWrapper = () => {
 
   if (!table) return null
 
-  const { parentCode, rows } = table
-
-  return <Table parentCode={parentCode} rows={rows} />
+  return <Table parentCode={table} />
 }
 
 export default TableWrapper

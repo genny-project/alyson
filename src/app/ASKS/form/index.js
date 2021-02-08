@@ -1,16 +1,16 @@
 import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
 import Ask from 'app/ASKS/ask'
-import { VStack, Center } from '@chakra-ui/react'
+import { VStack, Center, Heading } from '@chakra-ui/react'
 
 const AsksForm = ({ questionCode }) => {
-  const childAsks = useSelector(selectCode(questionCode))
-
-  if (!childAsks) return null
+  const childAsks = useSelector(selectCode(questionCode)) || []
+  const title = useSelector(selectCode(questionCode, 'title'))
 
   return (
-    <Center p="8">
+    <Center>
       <VStack>
+        <Heading>{title}</Heading>
         {childAsks.map(childAsk => (
           <Ask key={childAsk} parentCode={questionCode} questionCode={childAsk} />
         ))}

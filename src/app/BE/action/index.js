@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
-import { MenuItem } from '@chakra-ui/react'
+import { Button } from '@chakra-ui/react'
 import { onSendMessage } from 'vertx'
 
 const Action = ({ parentCode, code, targetCode }) => {
@@ -15,7 +15,11 @@ const Action = ({ parentCode, code, targetCode }) => {
       targetCode,
     })
 
-  return <MenuItem onClick={handleClick}>{data.attributeName}</MenuItem>
+  return (
+    <Button onClick={handleClick} size="xs">
+      {data.attributeName}
+    </Button>
+  )
 }
 
 export default Action
