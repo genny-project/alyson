@@ -38,6 +38,10 @@ const appSlice = createSlice({
             state.DRAWER = 'NONE'
           }
         }
+
+        state.FORM = ''
+        state.TABLE = ''
+        state.DETAIL = ''
       } else {
         state[cmd_type] = targetCodes || code
       }
