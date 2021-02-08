@@ -39,8 +39,10 @@ const appSlice = createSlice({
           }
         }
 
-        state.FORM = ''
-        state.TABLE = ''
+        if (!includes('DRAWER', code)) {
+          state.FORM = ''
+          state.TABLE = ''
+        }
         state.DETAIL = ''
       } else {
         state[cmd_type] = targetCodes || code
