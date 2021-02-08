@@ -43,9 +43,9 @@ const Ask = ({ parentCode, questionCode }) => {
           data={data}
         />
       ) : component === 'text' ? (
-        <Text.Write onSendAnswer={onSendAnswer} />
+        <Text.Write data={data} onSendAnswer={onSendAnswer} />
       ) : component === 'social' ? (
-        <Social.Write onSendAnswer={onSendAnswer} />
+        <Social.Write data={data} onSendAnswer={onSendAnswer} />
       ) : (
         <div>{component}</div>
       )}
