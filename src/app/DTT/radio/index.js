@@ -7,7 +7,7 @@ const Write = ({ data, onSendAnswer, groupCode }) => {
   const options = useSelector(selectRows(groupCode))
   const optionData = useSelector(selectCodes(options, 'PRI_NAME'))
 
-  const value = data.value
+  const value = data?.value
 
   return (
     <RadioGroup test-id={groupCode} value={value} onChange={onSendAnswer}>
