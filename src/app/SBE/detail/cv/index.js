@@ -12,9 +12,14 @@ const Cv = ({ sbeCode }) => {
   const rows = useSelector(selectRows(sbeCode)) || ['']
   const code = rows[0]
 
+  const attributes = useSelector(selectCode(code))
+  // const assocOccupation = useSelector(selectCode(code, 'PRI_ASSOC_OCCUPATION'))
+
   if (!sbe) return null
 
   const actions = getActions(sbe)
+
+  // const Code = ({ attr }) => <Attribute code={code} attribute={attr} />
 
   return (
     <VStack p="3" w="full">
@@ -23,8 +28,9 @@ const Cv = ({ sbeCode }) => {
           <Action key={action} parentCode={sbeCode} code={action} targetCode={code} />
         ))}
       </HStack>
-      <Attribute code={code} attribute={'PRI_IMAGE_URL'} />
-      <Attribute code={code} attribute={'PRI_NAME'} />
+      {attributes.map(attr => (
+        <Attribute key={attr} code={code} attribute={attr} />
+      ))}
     </VStack>
   )
 }
