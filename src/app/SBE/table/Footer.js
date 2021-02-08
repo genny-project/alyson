@@ -1,3 +1,4 @@
+import { useCallback } from 'react'
 import { Tfoot, Tr, Th, Text, IconButton, Kbd, VStack } from '@chakra-ui/react'
 import getPaginationActions from 'app/SBE/utils/get-pagination-actions'
 import { selectCode } from 'redux/db/selectors'
@@ -7,14 +8,14 @@ import { faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { useHotkeys } from 'react-hotkeys-hook'
 
 const TableFooter = ({ sbeCode }) => {
-  const paginationActions = getPaginationActions(sbeCode)
+  const paginationActions = useCallback(() => getPaginationActions(sbeCode), [sbeCode])
   const pageSize = useSelector(selectCode(sbeCode, 'SCH_PAGE_SIZE'))
   const pageStart = useSelector(selectCode(sbeCode, 'SCH_PAGE_START'))
   const totalResults = useSelector(selectCode(sbeCode, 'PRI_TOTAL_RESULTS'))
   const pageNumber = useSelector(selectCode(sbeCode, 'PRI_INDEX'))
 
-  useHotkeys('shift+left', paginationActions.previous)
-  useHotkeys('shift+right', paginationActions.next)
+  useHotkeys('shift+left', paginationActions().previous)
+  useHotkeys('shift+right', paginationActions().next)
 
   if (!(pageSize && totalResults && pageStart && pageNumber)) return null
 

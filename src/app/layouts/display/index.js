@@ -6,6 +6,7 @@ import Table from 'app/layouts/table'
 import Process from 'app/layouts/process'
 import Form from 'app/layouts/form'
 import Dashboard from 'app/layouts/dashboard'
+import DisplayDrawer from './drawer'
 
 const Display = () => {
   const display = useSelector(selectDisplay)
@@ -16,6 +17,7 @@ const Display = () => {
       {display === 'TABLE' && <Table />}
       {display === 'PROCESS' && <Process />}
       {includes('FORM', display || '') && <Form />}
+      <DisplayDrawer />
     </Box>
   )
 }

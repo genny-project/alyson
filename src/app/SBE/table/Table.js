@@ -1,16 +1,16 @@
 import { useSelector } from 'react-redux'
-import { Table, Tbody, Box, Heading, HStack } from '@chakra-ui/react'
-import Row from './Row'
+import { Table, Box, HStack } from '@chakra-ui/react'
 import Header from './Header'
 import getColumns from '../utils/get-columns'
 import getActions from '../utils/get-actions'
 import { selectCode } from 'redux/db/selectors'
 import Search from 'app/SBE/search/Search'
 import Footer from './Footer'
+import Body from './Body'
+import Title from './Title'
 
-const DataTable = ({ parentCode, rows }) => {
+const DataTable = ({ parentCode }) => {
   const tableData = useSelector(selectCode(parentCode))
-  const title = useSelector(selectCode(parentCode, 'SCH_TITLE'))
 
   if (!tableData) return null
 
@@ -20,16 +20,12 @@ const DataTable = ({ parentCode, rows }) => {
   return (
     <Box m="2">
       <HStack>
-        <Heading ml="5">{title?.value}</Heading>
+        <Title sbeCode={parentCode} />
         <Search sbeCode={parentCode} />
       </HStack>
       <Table>
-        <Header columns={columns} parentCode={parentCode} />
-        <Tbody>
-          {rows.map(row => (
-            <Row key={row} parentCode={parentCode} code={row} columns={columns} actions={actions} />
-          ))}
-        </Tbody>
+        <Header columns={columns} parentCode={parentCode} actions={actions} />
+        <Body columns={columns} parentCode={parentCode} actions={actions} />
         <Footer sbeCode={parentCode} />
       </Table>
     </Box>

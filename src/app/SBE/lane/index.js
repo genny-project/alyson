@@ -20,9 +20,7 @@ const Lane = ({ sbeCode }) => {
     <VStack>
       <Title sbeCode={sbeCode} />
       {rows.map(row => (
-        <ContextMenu key={row} code={row} parentCode={sbeCode} actions={actions}>
-          <BECard columns={columns} code={row} parentCode={sbeCode} />
-        </ContextMenu>
+        <BECard columns={columns} code={row} parentCode={sbeCode} />
       ))}
     </VStack>
   )
