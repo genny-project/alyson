@@ -25,6 +25,14 @@ const getApiConfig = async () => {
   document.title = apiConfig.PRI_NAME || ''
   document.querySelector("link[rel*='icon']").href = apiConfig.PRI_FAVICON
 
+  /* Google Api */
+  const maps = document.createElement('script')
+  maps.setAttribute(
+    'src',
+    `https://maps.googleapis.com/maps/api/js?key=${apiConfig.ENV_GOOGLE_MAPS_APIKEY}&libraries=places,drawing`,
+  )
+  document.head.appendChild(maps)
+
   return { keycloak }
 }
 

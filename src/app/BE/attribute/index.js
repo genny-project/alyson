@@ -17,7 +17,7 @@ const Attribute = ({ code, attribute }) => {
   if (!component) return <div />
 
   return component === 'email' ? (
-    <Email data={data} />
+    <Email.Read data={data} />
   ) : component === 'phone' ? (
     <Phone.Read data={data} />
   ) : component === 'text' ? (

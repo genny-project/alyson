@@ -1,7 +1,7 @@
-import { Input } from '@chakra-ui/react'
 import { Read } from 'app/DTT/text'
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete'
 
-const Write = ({ onSendAnswer }) => <Input onBlur={e => onSendAnswer(e.target.value)} />
+const Write = ({ onSendAnswer, data }) => <GooglePlacesAutocomplete />
 
 const Address = {
   Write,
