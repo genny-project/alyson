@@ -21,13 +21,21 @@ const appSlice = createSlice({
         if (includes(':', code)) {
           const codes = split(':', code)
 
-          state[codes[0]] = codes[1]
+          if (codes[0] === 'DRAWER') {
+            state[codes[0]] = codes[1]
+          } else {
+            state[cmd_type] = code
+            state.MODAL = 'NONE'
+            state.DRAWER = 'NONE'
+          }
         } else {
           if (code === 'NONE') {
-            state.MODAL_DISPLAY = code
+            state.MODAL = code
             state.DRAWER = code
           } else {
             state[cmd_type] = code
+            state.MODAL = 'NONE'
+            state.DRAWER = 'NONE'
           }
         }
       } else {

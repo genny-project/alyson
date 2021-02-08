@@ -10,6 +10,8 @@ const config = {
 const App = () => {
   const theme = extendTheme({ config })
 
+  console.log(navigator.platform)
+
   return (
     <ChakraProvider theme={theme}>
       <ColorModeScript />

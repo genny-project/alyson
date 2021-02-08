@@ -7,7 +7,7 @@ const setDisplayCode = state => items => {
 
     if (code && includes('SBE_', code)) {
       const displayCode = items[0].baseEntityAttributes?.find(
-        attr => console.log(attr) || attr.attributeCode === 'SCH_DISPLAY_MODE',
+        attr => attr.attributeCode === 'SCH_DISPLAY_MODE',
       )
 
       if (!displayCode) {

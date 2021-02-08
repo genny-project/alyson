@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { useHotkeys } from 'react-hotkeys-hook'
 import { onSendSearch } from 'vertx'
+import KeyboardShortcut from 'app/layouts/components/kbd_shortcut'
 
 const ProcessSearch = ({ sbeCode }) => {
   const [searchValue, setSearchValue] = useState('')
@@ -30,16 +31,16 @@ const ProcessSearch = ({ sbeCode }) => {
     setSearchValue('')
   }
 
-  useHotkeys('cmd+k', () => {
+  useHotkeys('ctrl+k, cmd+k', () => {
     setSearchValue('')
     inputRef?.current?.focus()
   })
 
-  useHotkeys('cmd+c', () => {
+  useHotkeys('ctrl+c, cmd+c', () => {
     clearRef?.current?.click()
   })
 
-  useHotkeys('enter', handleSubmit, {
+  useHotkeys('enter', () => focused && handleSubmit(), {
     enableOnTags: ['INPUT'],
   })
 
@@ -64,7 +65,7 @@ const ProcessSearch = ({ sbeCode }) => {
             </Center>
           ) : (
             <HStack spacing="1" color="gray.500">
-              <Kbd>⌘</Kbd>
+              <KeyboardShortcut />
               <Kbd>K</Kbd>
             </HStack>
           )}
@@ -75,7 +76,7 @@ const ProcessSearch = ({ sbeCode }) => {
         ref={clearRef}
         rightIcon={
           <HStack spacing="1" color="gray.500">
-            <Kbd>⌘</Kbd>
+            <KeyboardShortcut />
             <Kbd>C</Kbd>
           </HStack>
         }
