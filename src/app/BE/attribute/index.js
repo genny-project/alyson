@@ -2,9 +2,11 @@ import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 
 import Text from 'app/DTT/text'
+import Email from 'app/DTT/email'
 import Upload from 'app/DTT/upload'
 import Social from 'app/DTT/social'
 import Status from 'app/DTT/status'
+import Phone from 'app/DTT/phone'
 
 const Attribute = ({ code, attribute }) => {
   const data = useSelector(selectCode(code, attribute))
@@ -14,7 +16,11 @@ const Attribute = ({ code, attribute }) => {
 
   if (!component) return <div />
 
-  return component === 'text' ? (
+  return component === 'email' ? (
+    <Email data={data} />
+  ) : component === 'phone' ? (
+    <Phone.Read data={data} />
+  ) : component === 'text' ? (
     <Text.Read data={data} />
   ) : component === 'upload' ? (
     <Upload.Read data={data} dttData={dttData} />
