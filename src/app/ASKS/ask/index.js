@@ -16,14 +16,13 @@ import Address from 'app/DTT/address'
 const Ask = ({ parentCode, questionCode }) => {
   const askData = useSelector(selectCode(parentCode, questionCode))
 
-  const { attributeCode, targetCode, name, question } = askData
+  const { attributeCode, targetCode, name, question, mandatory } = askData
 
   const data = useSelector(selectCode(targetCode, attributeCode)) || {}
 
   const groupCode = getGroupCode(question)
 
   const {
-    mandatory,
     attribute: {
       description,
       dataType: { component },
