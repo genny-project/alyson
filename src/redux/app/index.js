@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { map, prop, includes, split } from 'ramda'
+import { includes, split } from 'ramda'
 import log from 'utils/log'
-import { isForm, isTable, isAsk, getQuestionCode } from './utils/get-type'
+import { isForm, isAsk, getQuestionCode } from './utils/get-type'
 import { keycloak } from 'config/get-api-config'
+import setDisplayCode from './utils/set-display-code'
 
 const initialState = { cmds: [], DISPLAY: 'DASHBOARD', DRAWER: 'NONE' }
 
@@ -37,9 +38,10 @@ const appSlice = createSlice({
       }
     },
     newMsg: (state, { payload }) => {
-      const { parentCode, items, data_type } = payload
+      const { items, data_type } = payload
 
-      if (isTable(parentCode || '')) state.TABLE = parentCode
+      if (data_type === 'BaseEntity') setDisplayCode(state)(items)
+
       if (isAsk(data_type)) {
         const questionCode = getQuestionCode(items)
         if (isForm(questionCode)) state.FORM = questionCode

@@ -3,7 +3,6 @@ import { selectRows, selectCode } from 'redux/db/selectors'
 import { VStack } from '@chakra-ui/react'
 import getColumns from '../utils/get-columns'
 import getActions from '../utils/get-actions'
-import ContextMenu from 'app/BE/context'
 import BECard from 'app/BE/card'
 import Title from './Title'
 

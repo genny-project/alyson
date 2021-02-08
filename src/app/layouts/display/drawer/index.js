@@ -2,6 +2,7 @@ import { Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton } from '@chakra
 import { useSelector, useDispatch } from 'react-redux'
 import { closeDrawer } from 'redux/app'
 import { selectDrawer } from 'redux/app/selectors'
+import Detail from 'app/BE/detail'
 
 const DisplayDrawer = () => {
   const drawer = useSelector(selectDrawer)
@@ -14,7 +15,7 @@ const DisplayDrawer = () => {
       <DrawerOverlay>
         <DrawerContent>
           <DrawerCloseButton />
-          <div>hi</div>
+          {drawer === 'DETAIL' && <Detail />}
         </DrawerContent>
       </DrawerOverlay>
     </Drawer>
