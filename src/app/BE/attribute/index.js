@@ -6,6 +6,7 @@ import Email from 'app/DTT/email'
 import Upload from 'app/DTT/upload'
 import Social from 'app/DTT/social'
 import Status from 'app/DTT/status'
+import Phone from 'app/DTT/phone'
 
 const Attribute = ({ code, attribute }) => {
   const data = useSelector(selectCode(code, attribute))
@@ -17,6 +18,8 @@ const Attribute = ({ code, attribute }) => {
 
   return component === 'email' ? (
     <Email data={data} />
+  ) : component === 'phone' ? (
+    <Phone.Read data={data} />
   ) : component === 'text' ? (
     <Text.Read data={data} />
   ) : component === 'upload' ? (

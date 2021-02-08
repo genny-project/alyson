@@ -10,6 +10,7 @@ import Radio from 'app/DTT/radio'
 import Select from 'app/DTT/select'
 import Social from 'app/DTT/social'
 import Email from 'app/DTT/email'
+import Phone from 'app/DTT/phone'
 
 const Ask = ({ parentCode, questionCode }) => {
   const askData = useSelector(selectCode(parentCode, questionCode))
@@ -31,6 +32,8 @@ const Ask = ({ parentCode, questionCode }) => {
       <FormLabel>{name}</FormLabel>
       {component === 'email' ? (
         <Email.Write onSendAnswer={onSendAnswer} />
+      ) : component === 'phone' ? (
+        <Phone.Write onSendAnswer={onSendAnswer} />
       ) : component === 'dropdown' ? (
         <Select.Write
           groupCode={groupCode}
