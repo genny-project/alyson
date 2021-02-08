@@ -1,7 +1,9 @@
 import { Input } from '@chakra-ui/react'
 import { Read } from 'app/DTT/text'
 
-const Write = ({ onSendAnswer }) => <Input type="tel" onBlur={e => onSendAnswer(e.target.value)} />
+const Write = ({ data, onSendAnswer }) => (
+  <Input defaultValue={data?.value} onBlur={e => onSendAnswer(e.target.value)} />
+)
 
 const Phone = {
   Write,

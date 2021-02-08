@@ -40,7 +40,7 @@ const Ask = ({ parentCode, questionCode }) => {
       {component === 'email' ? (
         <Email.Write onSendAnswer={onSendAnswer} askData={askData} />
       ) : component === 'phone' ? (
-        <Phone.Write onSendAnswer={onSendAnswer} />
+        <Phone.Write onSendAnswer={onSendAnswer} data={data} />
       ) : component === 'address' ? (
         <Address.Write onSendAnswer={onSendAnswer} />
       ) : component === 'dropdown' || component === 'tag' ? (
