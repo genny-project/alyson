@@ -20,9 +20,9 @@ const Write = ({ data, openDropzone, onSendAnswer, handleSave, setLoading }) => 
 
   return (
     <div>
-      <div hidden={!openSnap}>
+      {openSnap && (
         <Snap handleSave={handleSave} setOpenSnap={setOpenSnap} setLoading={setLoading} />
-      </div>
+      )}
       <div hidden={openSnap}>
         <ButtonGroup isAttached variant="outline">
           <Button onClick={openDropzone} leftIcon={<FontAwesomeIcon icon={faUpload} />}>

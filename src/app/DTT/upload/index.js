@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import ImageType from './Image'
 import { DropzoneDialog } from 'material-ui-dropzone'
-import { CircularProgress } from '@chakra-ui/react'
+import { CircularProgress, IconButton } from '@chakra-ui/react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUpload } from '@fortawesome/free-solid-svg-icons'
 import useApi from 'api'
 
 const Read = ({ data, dttData }) => {
@@ -49,7 +51,7 @@ const Write = ({ data, dttData, onSendAnswer }) => {
             setLoading={setLoading}
           />
         ) : (
-          <div>Upload</div>
+          <IconButton icon={<FontAwesomeIcon icon={faUpload} />} />
         )}
         <DropzoneDialog
           open={dropzone}

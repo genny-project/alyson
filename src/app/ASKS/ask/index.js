@@ -13,6 +13,7 @@ import Email from 'app/DTT/email'
 import Phone from 'app/DTT/phone'
 import Address from 'app/DTT/address'
 import Upload from 'app/DTT/upload'
+import Date from 'app/DTT/date'
 
 const Ask = ({ parentCode, questionCode }) => {
   const askData = useSelector(selectCode(parentCode, questionCode))
@@ -38,13 +39,10 @@ const Ask = ({ parentCode, questionCode }) => {
   ) : (
     <FormControl isRequired={mandatory}>
       <FormLabel>{name}</FormLabel>
-      {component === 'email' ? (
-        <Email.Write onSendAnswer={onSendAnswer} askData={askData} />
-      ) : component === 'phone' ? (
-        <Phone.Write onSendAnswer={onSendAnswer} data={data} />
-      ) : component === 'address' ? (
-        <Address.Write onSendAnswer={onSendAnswer} />
-      ) : component === 'dropdown' || component === 'tag' ? (
+      {component === 'email' && <Email.Write onSendAnswer={onSendAnswer} askData={askData} />}
+      {component === 'phone' && <Phone.Write onSendAnswer={onSendAnswer} data={data} />}
+      {component === 'address' && <Address.Write onSendAnswer={onSendAnswer} />}
+      {(component === 'dropdown' || component === 'tag') && (
         <Select.Write
           groupCode={groupCode}
           attributeCode={attributeCode}
@@ -52,7 +50,8 @@ const Ask = ({ parentCode, questionCode }) => {
           placeholder={description}
           mandatory={mandatory}
         />
-      ) : component === 'radio' ? (
+      )}
+      {component === 'radio' && (
         <Radio.Write
           groupCode={groupCode}
           attributeCode={attributeCode}
@@ -60,15 +59,18 @@ const Ask = ({ parentCode, questionCode }) => {
           data={data}
           mandatory={mandatory}
         />
-      ) : component === 'text' ? (
-        <Text.Write mandatory={mandatory} data={data} onSendAnswer={onSendAnswer} />
-      ) : component === 'social' ? (
-        <Social.Write mandatory={mandatory} data={data} onSendAnswer={onSendAnswer} />
-      ) : component === 'upload' ? (
-        <Upload.Write dttData={dataType} data={data} onSendAnswer={onSendAnswer} />
-      ) : (
-        <div>{component}</div>
       )}
+      {component === 'text' && (
+        <Text.Write mandatory={mandatory} data={data} onSendAnswer={onSendAnswer} />
+      )}
+      {component === 'social' && (
+        <Social.Write mandatory={mandatory} data={data} onSendAnswer={onSendAnswer} />
+      )}
+      {component === 'upload' && (
+        <Upload.Write dttData={dataType} data={data} onSendAnswer={onSendAnswer} />
+      )}
+      {component === 'date' && <Date.Write data={data} onSendAnswer={onSendAnswer} />}
+      <div>{component}</div>
     </FormControl>
   )
 }
