@@ -12,6 +12,7 @@ import Social from 'app/DTT/social'
 import Email from 'app/DTT/email'
 import Phone from 'app/DTT/phone'
 import Address from 'app/DTT/address'
+import Upload from 'app/DTT/upload'
 
 const Ask = ({ parentCode, questionCode }) => {
   const askData = useSelector(selectCode(parentCode, questionCode))
@@ -26,6 +27,7 @@ const Ask = ({ parentCode, questionCode }) => {
     attribute: {
       description,
       dataType: { component },
+      dataType,
     },
   } = question
 
@@ -62,6 +64,8 @@ const Ask = ({ parentCode, questionCode }) => {
         <Text.Write mandatory={mandatory} data={data} onSendAnswer={onSendAnswer} />
       ) : component === 'social' ? (
         <Social.Write mandatory={mandatory} data={data} onSendAnswer={onSendAnswer} />
+      ) : component === 'upload' ? (
+        <Upload.Write dttData={dataType} data={data} onSendAnswer={onSendAnswer} />
       ) : (
         <div>{component}</div>
       )}

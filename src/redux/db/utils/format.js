@@ -18,7 +18,7 @@ export const formatBaseEntity = (state, aliasCode, parentCode) => (item = {}) =>
   forEach(attribute => {
     const attributeCode = attribute.attributeCode
 
-    if (attribute.value === undefined) {
+    if (!('value' in attribute)) {
       const valueKey = compose(find(includes('value')), keys)(attribute)
 
       attribute.value = attribute[valueKey]

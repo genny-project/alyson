@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 export const useInterval = (cb, delay) => {
   const savedCb = useRef()
@@ -19,3 +19,34 @@ export const useInterval = (cb, delay) => {
     }
   }, [cb, delay])
 }
+
+export const useUserMedia = (requestedMedia, setError) => {
+  const [mediaStream, setMediaStream] = useState(null)
+
+  useEffect(() => {
+    const enableStream = async () => {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia(requestedMedia)
+        setMediaStream(stream)
+      } catch (err) {
+        setError(err)
+      }
+    }
+
+    if (!mediaStream) {
+      enableStream()
+    } else {
+      return () => {
+        if (mediaStream) {
+          mediaStream.getTracks().forEach(track => {
+            track.stop()
+          })
+        }
+      }
+    }
+  }, [mediaStream, requestedMedia, setError])
+
+  return mediaStream
+}
+
+export default useUserMedia

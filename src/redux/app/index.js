@@ -39,7 +39,7 @@ const appSlice = createSlice({
           }
         }
 
-        if (!includes('DRAWER', code)) {
+        if (!includes('DRAWER', code) && code !== 'NONE') {
           state.FORM = ''
           state.TABLE = ''
         }
