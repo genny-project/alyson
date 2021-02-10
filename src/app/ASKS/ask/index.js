@@ -1,3 +1,4 @@
+import { includes } from 'ramda'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import createSendAnswer from 'app/ASKS/utils/create-send-answer'
@@ -17,7 +18,7 @@ import Date from 'app/DTT/date'
 import RichText from 'app/DTT/rich_text'
 import DateRange from 'app/DTT/date_range'
 import Video from 'app/DTT/video'
-
+import TimeRange from 'app/DTT/time_range'
 const Ask = ({ parentCode, questionCode }) => {
   const askData = useSelector(selectCode(parentCode, questionCode))
 
@@ -30,11 +31,13 @@ const Ask = ({ parentCode, questionCode }) => {
   const {
     attribute: {
       description,
-      dataType: { component },
+      dataType: { component, typeName },
       dataType,
     },
     html,
   } = question
+
+  const multiple = includes('multiple', typeName || '') || component === 'tag'
 
   const onSendAnswer = createSendAnswer(askData)
 
@@ -42,7 +45,7 @@ const Ask = ({ parentCode, questionCode }) => {
     <Button askData={askData} />
   ) : (
     <FormControl isRequired={mandatory}>
-      <FormLabel>{name}</FormLabel>
+      {!multiple && <FormLabel fontWeight="semibold">{name}</FormLabel>}
       {component === 'email' && <Email.Write onSendAnswer={onSendAnswer} askData={askData} />}
       {component === 'phone' && <Phone.Write onSendAnswer={onSendAnswer} data={data} />}
       {component === 'address' && <Address.Write onSendAnswer={onSendAnswer} />}
@@ -53,6 +56,10 @@ const Ask = ({ parentCode, questionCode }) => {
           onSendAnswer={onSendAnswer}
           placeholder={description}
           mandatory={mandatory}
+          component={component}
+          dataType={dataType}
+          data={data}
+          label={name}
         />
       )}
       {component === 'radio' && (
@@ -81,7 +88,8 @@ const Ask = ({ parentCode, questionCode }) => {
         <DateRange.Write data={data} onSendAnswer={onSendAnswer} html={html} />
       )}
       {component === 'video' && <Video.Write data={data} onSendAnswer={onSendAnswer} html={html} />}
-      <div>{component}</div>
+      {component === 'time_range' && <TimeRange.Write data={data} onSendAnswer={onSendAnswer} />}
+      {/* <div>{component}</div> */}
     </FormControl>
   )
 }

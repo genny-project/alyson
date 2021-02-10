@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Box, Button } from '@chakra-ui/react'
 import { EditorState, convertFromHTML, ContentState } from 'draft-js'
 import { Editor } from 'react-draft-wysiwyg'
@@ -14,10 +14,19 @@ const Write = ({ data, onSendAnswer, description }) => {
     blocksFromHTML.entityMap,
   )
 
+  const [dataValue, setDataValue] = useState(data?.value)
   const [edit, setEdit] = useState(!data?.value)
   const [editor, setEditor] = useState(
     !data?.value ? EditorState.createEmpty() : EditorState.createWithContent(state),
   )
+
+  useEffect(() => {
+    if (data?.value !== dataValue) {
+      setDataValue(data?.value)
+      setEdit(false)
+      setEditor(EditorState.createWithContent(state))
+    }
+  }, [data?.value, dataValue, edit, state])
 
   const handleSave = () => {
     onSendAnswer(stateToHTML(editor.getCurrentContent()))
@@ -39,7 +48,7 @@ const Write = ({ data, onSendAnswer, description }) => {
     </Box>
   ) : (
     <Box w="2xl" border="1px solid #E2E8F0" borderRadius="0.375rem" p="1rem">
-      <div dangerouslySetInnerHTML={{ __html: data.value }} />
+      <div style={{ padding: '1rem' }} dangerouslySetInnerHTML={{ __html: data.value }} />
       <Button m="2" leftIcon={<FontAwesomeIcon icon={faEdit} />} onClick={() => setEdit(true)}>
         Edit
       </Button>

@@ -35,6 +35,17 @@ const useApi = () => {
     return {}
   }
 
+  const getMediaFileName = async ({ uuid }) => {
+    const resp = await axios({
+      method: 'GET',
+      url: `${MEDIA_URL}/${uuid}/name`,
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    })
+    return resp?.data?.data?.name || ''
+  }
+
   const getImageSrc = uuid => (uuid ? `${IMAGE_URL}/${MEDIA_URL}/${uuid}` : null)
   const getSrc = uuid => (uuid ? `${MEDIA_URL}/${uuid}` : null)
 
@@ -42,6 +53,7 @@ const useApi = () => {
     getImageSrc,
     postMediaFile,
     getSrc,
+    getMediaFileName,
   }
 }
 

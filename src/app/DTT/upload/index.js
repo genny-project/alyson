@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import ImageType from './Image'
 import { DropzoneDialog } from 'material-ui-dropzone'
-import { CircularProgress, IconButton } from '@chakra-ui/react'
+import { CircularProgress, IconButton, Button, Tooltip } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUpload } from '@fortawesome/free-solid-svg-icons'
 import useApi from 'api'
@@ -16,10 +16,20 @@ const Write = ({ data, dttData, onSendAnswer }) => {
   const api = useApi()
   const typeName = dttData?.typeName
 
+  const [fileName, setFileName] = useState('')
   const [dropzone, setDropzone] = useState(false)
   const [loading, setLoading] = useState(false)
   const openDropzone = () => setDropzone(true)
   const closeDropzone = () => setDropzone(false)
+
+  useEffect(() => {
+    const getFileName = async uuid => {
+      setFileName(await api.getMediaFileName(uuid))
+    }
+    if (data?.value) {
+      getFileName(data?.value)
+    }
+  }, [api, data?.value])
 
   const handleSave = async files => {
     if (!files && files.length) return
@@ -50,8 +60,12 @@ const Write = ({ data, dttData, onSendAnswer }) => {
             onSendAnswer={onSendAnswer}
             setLoading={setLoading}
           />
+        ) : data?.value ? (
+          <Tooltip label="Click to remove">
+            <Button onClick={() => onSendAnswer()}>{'Uploaded'}</Button>
+          </Tooltip>
         ) : (
-          <IconButton icon={<FontAwesomeIcon icon={faUpload} />} />
+          <IconButton onClick={openDropzone} icon={<FontAwesomeIcon icon={faUpload} />} />
         )}
         <DropzoneDialog
           open={dropzone}
