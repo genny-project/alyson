@@ -6,6 +6,8 @@ import { onSendMessage } from 'vertx'
 const EventButton = ({ askData }) => {
   const { questionCode, targetCode, name, disabled } = askData
 
+  console.log(disabled)
+
   const onClick = () =>
     onSendMessage({
       code: questionCode,

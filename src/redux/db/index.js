@@ -1,6 +1,6 @@
 import { forEach } from 'ramda'
 import { createSlice } from '@reduxjs/toolkit'
-import { newMsg } from '../app'
+import { newMsg, newCmd } from '../app'
 import { formatAsk, formatAttribute, formatBaseEntity } from './utils/format'
 
 const initialState = {}
@@ -20,8 +20,16 @@ const db = createSlice({
       if (data_type === 'Ask') forEach(formatAsk(state), items)
       if (data_type === 'Attribute') forEach(formatAttribute(state), items)
     },
+    [newCmd]: (state, { payload }) => {
+      const { cmd_type, code, sourceCode, targetCode } = payload
+
+      if (cmd_type === 'MOVE_ENTITY') {
+        if (sourceCode)
+          state[`${sourceCode}@rows`] = state[`${sourceCode}@rows`].filter(item => item !== code)
+        if (targetCode) state[`${targetCode}@rows`] = [code, ...state[`${sourceCode}@rows`]]
+      }
+    },
   },
 })
 
-export const { newCmd } = db.actions
 export default db.reducer

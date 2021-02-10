@@ -58,7 +58,7 @@ const Write = ({ label, placeholder, onSendAnswer, groupCode, component, dataTyp
     <CSelect
       placeholder={placeholder}
       test-id={groupCode}
-      onChange={e => onSendAnswer(e.target.value)}
+      onChange={e => onSendAnswer([e.target.value])}
       defaultValue={data?.value}
     >
       {optionData &&

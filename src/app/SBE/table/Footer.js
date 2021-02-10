@@ -30,7 +30,7 @@ const TableFooter = ({ sbeCode }) => {
         <Th>
           <VStack>
             <IconButton
-              onClick={paginationActions.previous}
+              onClick={paginationActions().previous}
               isDisabled={!hasPrevPage}
               icon={<FontAwesomeIcon icon={faArrowLeft} />}
             />
@@ -44,7 +44,7 @@ const TableFooter = ({ sbeCode }) => {
         <Th>
           <VStack>
             <IconButton
-              onClick={paginationActions.next}
+              onClick={paginationActions().next}
               isDisabled={!hasNextPage}
               icon={<FontAwesomeIcon icon={faArrowRight} />}
             />
