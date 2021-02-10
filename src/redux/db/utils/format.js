@@ -43,6 +43,14 @@ export const formatAsk = state => (item = {}) => {
 
     state[`${questionCode}@${childAskCode}`] = childAsk
   }, sortByIndex(childAsks))
+
+  if (!childAsks.length) {
+    const keys = Object.keys(state)
+    const questions = keys.filter(includes(`@${questionCode}`))
+    forEach(question => {
+      state[question] = item
+    }, questions)
+  }
 }
 
 export const formatAttribute = state => (item = {}) => {
