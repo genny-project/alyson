@@ -47,6 +47,8 @@ const GoogleMaps = ({ addressRef, setAllOptions, allOptions }) => {
       }
     }
 
+    window.google.maps.event.clearInstanceListeners(autocomplete)
+
     const initService = (() => {
       const service = new window.google.maps.places.AutocompleteService()
       service.getQueryPredictions({ input: addressRef.current.value }, displaySuggestions)
@@ -60,6 +62,7 @@ const GoogleMaps = ({ addressRef, setAllOptions, allOptions }) => {
     googleMapScript.addEventListener('load', () => {
       googleMap.current = initMap()
     })
+    document.querySelector('.pac-container')?.remove()
   })
 
   return <div id="google-map" ref={googleMapRef} />
