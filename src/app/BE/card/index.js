@@ -1,11 +1,11 @@
 import { lazy, Suspense } from 'react'
 
-const Person = lazy(() => import('./templates/person'))
+const Card = lazy(() => import('./templates/Card'))
 
 const BECard = ({ parentCode, code, columns, actions }) => {
   return (
     <Suspense fallback={<div />}>
-      <Person actions={actions} parentCode={parentCode} code={code} columns={columns} />
+      <Card actions={actions} parentCode={parentCode} code={code} columns={columns} />
     </Suspense>
   )
 }

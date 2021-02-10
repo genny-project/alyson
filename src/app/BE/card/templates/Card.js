@@ -15,32 +15,26 @@ import Text from 'app/DTT/text'
 import Image from 'app/DTT/upload/Image'
 import ContextMenu from 'app/BE/context'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
-import { faAccessibleIcon } from '@fortawesome/free-brands-svg-icons'
+import { faEllipsisV, faInfo } from '@fortawesome/free-solid-svg-icons'
+import PickedAttribute from 'app/SBE/lane/PickedAttribute'
+import statusColors from './status_colors'
 
-const Person = ({ parentCode, actions, code, columns }) => {
+const Card = ({ parentCode, actions = [], code, columns }) => {
   const title = useSelector(selectCode(code, getAttribute(columns[0])))
   const subTitle = useSelector(selectCode(code, getAttribute(columns[1])))
   const image = useSelector(selectCode(code, 'PRI_IMAGE_URL'))
+  const statusColor = useSelector(selectCode(code, 'PRI_STATUS_COLOR'))
 
   const { isOpen, onToggle } = useDisclosure()
 
+  const color = statusColors[statusColor?.value]
+
   return (
-    <Box
-      _hover={{ bg: 'blackAlpha.50' }}
-      transition="all 0.2s"
-      cursor="pointer"
-      p="4"
-      w="xs"
-      h="30"
-      borderWidth="1px"
-      borderRadius="lg"
-      onClick={onToggle}
-    >
+    <Box bg={color} transition="all 0.2s" p="4" w="xs" h="30" borderWidth="1px" borderRadius="lg">
       <Flex spacing="3">
         <HStack>
           <Image.Read data={image} />
-          <VStack alignItems="baseline">
+          <VStack alignItems="baseline" maxW="12">
             <Text.Read
               data={title}
               textProps={{
@@ -64,20 +58,28 @@ const Person = ({ parentCode, actions, code, columns }) => {
           </VStack>
         </HStack>
         <Spacer />
-        <ContextMenu
-          actions={actions}
-          code={code}
-          parentCode={parentCode}
-          button={<IconButton variant="ghost" icon={<FontAwesomeIcon icon={faEllipsisV} />} />}
-        />
+        <HStack>
+          <IconButton size="xs" onClick={onToggle} icon={<FontAwesomeIcon icon={faInfo} />} />
+
+          <ContextMenu
+            actions={actions}
+            code={code}
+            parentCode={parentCode}
+            button={<IconButton variant="ghost" icon={<FontAwesomeIcon icon={faEllipsisV} />} />}
+          />
+        </HStack>
       </Flex>
       <Collapse in={isOpen} animateOpacity>
-        <Box p="40px" color="white" mt="4" bg="teal.500" rounded="md" shadow="md">
-          hi
+        <Box p="3">
+          <VStack align="left">
+            {columns.map(col => (
+              <PickedAttribute key={col} col={col} code={code} parentCode={parentCode} />
+            ))}
+          </VStack>
         </Box>
       </Collapse>
     </Box>
   )
 }
 
-export default Person
+export default Card

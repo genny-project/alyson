@@ -7,6 +7,7 @@ import Upload from 'app/DTT/upload'
 import Social from 'app/DTT/social'
 import Status from 'app/DTT/status'
 import Phone from 'app/DTT/phone'
+import Date from 'app/DTT/date'
 
 const Attribute = ({ code, attribute }) => {
   const data = useSelector(selectCode(code, attribute))
@@ -28,6 +29,8 @@ const Attribute = ({ code, attribute }) => {
     <Social.Read data={data} dttData={dttData} />
   ) : component === 'status' ? (
     <Status.Read data={data} />
+  ) : component === 'date' ? (
+    <Date.Read data={data} />
   ) : (
     <div>{data?.value}</div>
   )

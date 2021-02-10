@@ -15,7 +15,11 @@ const Action = ({ parentCode, code, targetCode }) => {
       targetCode,
     })
 
-  return <MenuItem onClick={handleClick}>{data.attributeName}</MenuItem>
+  return (
+    <MenuItem test-id={code} onClick={handleClick}>
+      {data.attributeName}
+    </MenuItem>
+  )
 }
 
 export default Action
