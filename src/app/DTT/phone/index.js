@@ -1,12 +1,20 @@
-import { Input, Text, useClipboard } from '@chakra-ui/react'
+import { Input, Text, useClipboard, useToast } from '@chakra-ui/react'
 import phoneNumberFormatter from 'utils/formatters/phone-number'
 const Read = ({ data }) => {
-  const { hasCopied, onCopy } = useClipboard(data.value)
+  const { onCopy } = useClipboard(data.value)
+  const toast = useToast()
 
   if (!data?.value) return null
 
+  const onClick = () => {
+    onCopy()
+    toast({
+      title: `${data?.value} copied!`,
+      status: 'success',
+    })
+  }
   return (
-    <Text _hover={{ textColor: 'whiteAlpha.500' }} onClick={onCopy}>
+    <Text cursor="pointer" onClick={onClick}>
       {phoneNumberFormatter(data.value)}
     </Text>
   )
