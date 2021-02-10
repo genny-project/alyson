@@ -9,7 +9,7 @@ const AsksForm = ({ questionCode }) => {
 
   return (
     <Center>
-      <VStack spacing={4}>
+      <VStack spacing={4} marginBottom={8}>
         <Heading>{title}</Heading>
         {childAsks.map(childAsk => (
           <Ask key={childAsk} parentCode={questionCode} questionCode={childAsk} />
