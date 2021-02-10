@@ -14,6 +14,9 @@ import Phone from 'app/DTT/phone'
 import Address from 'app/DTT/address'
 import Upload from 'app/DTT/upload'
 import Date from 'app/DTT/date'
+import RichText from 'app/DTT/rich_text'
+import DateRange from 'app/DTT/date_range'
+import Video from 'app/DTT/video'
 
 const Ask = ({ parentCode, questionCode }) => {
   const askData = useSelector(selectCode(parentCode, questionCode))
@@ -30,6 +33,7 @@ const Ask = ({ parentCode, questionCode }) => {
       dataType: { component },
       dataType,
     },
+    html,
   } = question
 
   const onSendAnswer = createSendAnswer(askData)
@@ -70,6 +74,13 @@ const Ask = ({ parentCode, questionCode }) => {
         <Upload.Write dttData={dataType} data={data} onSendAnswer={onSendAnswer} />
       )}
       {component === 'date' && <Date.Write data={data} onSendAnswer={onSendAnswer} />}
+      {component === 'richtext_editor' && (
+        <RichText.Write data={data} onSendAnswer={onSendAnswer} description={description} />
+      )}
+      {component === 'date_range' && (
+        <DateRange.Write data={data} onSendAnswer={onSendAnswer} html={html} />
+      )}
+      {component === 'video' && <Video.Write data={data} onSendAnswer={onSendAnswer} html={html} />}
       <div>{component}</div>
     </FormControl>
   )

@@ -36,10 +36,12 @@ const useApi = () => {
   }
 
   const getImageSrc = uuid => (uuid ? `${IMAGE_URL}/${MEDIA_URL}/${uuid}` : null)
+  const getSrc = uuid => (uuid ? `${MEDIA_URL}/${uuid}` : null)
 
   return {
     getImageSrc,
     postMediaFile,
+    getSrc,
   }
 }
 
