@@ -9,11 +9,7 @@ const Dashboard = () => {
   if (!dashboardSbes) return <div />
   return (
     <Center m="4">
-      <Stack
-        direction={{ base: 'column', lg: 'row' }}
-        spacing="10"
-        align={{ base: '', column: 'start' }}
-      >
+      <Stack direction="column" spacing="10">
         {dashboardSbes.map(sbeCode => (
           <DisplaySbe sbeCode={sbeCode} />
         ))}

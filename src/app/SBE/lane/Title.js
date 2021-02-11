@@ -7,7 +7,7 @@ const Title = ({ sbeCode }) => {
   const total = useSelector(selectCode(sbeCode, 'PRI_TOTAL_RESULTS'))
 
   return (
-    <Flex style={{ width: '100%' }}>
+    <Flex w="15rem">
       <Heading color="teal">{title?.value}</Heading>
       <Spacer />
       <Stat color="teal.700">
