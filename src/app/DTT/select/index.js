@@ -56,7 +56,7 @@ const Write = ({ label, placeholder, onSendAnswer, groupCode, component, dataTyp
     <Text>Waiting on another answer</Text>
   ) : (
     <CSelect
-      placeholder={placeholder}
+      placeholder={placeholder || label}
       test-id={groupCode}
       onChange={e => onSendAnswer([e.target.value])}
       defaultValue={data?.value}

@@ -25,7 +25,9 @@ const db = createSlice({
 
       if (cmd_type === 'MOVE_ENTITY') {
         if (sourceCode)
-          state[`${sourceCode}@rows`] = state[`${sourceCode}@rows`].filter(item => item !== code)
+          state[`${sourceCode}@rows`] = (state[`${sourceCode}@rows`] || []).filter(
+            item => item !== code,
+          )
         if (targetCode) state[`${targetCode}@rows`] = [code, ...state[`${sourceCode}@rows`]]
       }
     },

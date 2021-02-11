@@ -1,6 +1,6 @@
 import { Input, Text, useClipboard, useToast } from '@chakra-ui/react'
 import phoneNumberFormatter from 'utils/formatters/phone-number'
-const Read = ({ data }) => {
+const Read = ({ data, size }) => {
   const { onCopy } = useClipboard(data.value)
   const toast = useToast()
 
@@ -11,10 +11,11 @@ const Read = ({ data }) => {
     toast({
       title: `${data?.value} copied!`,
       status: 'success',
+      duration: 1000,
     })
   }
   return (
-    <Text cursor="pointer" onClick={onClick}>
+    <Text fontSize={size} cursor="pointer" onClick={onClick}>
       {phoneNumberFormatter(data.value)}
     </Text>
   )

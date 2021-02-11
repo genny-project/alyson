@@ -24,13 +24,12 @@ const Cv = ({ sbeCode }) => {
   return (
     <VStack p="3" w="full">
       <HStack>
-        {actions.map(action => (
-          <Action key={action} parentCode={sbeCode} code={action} targetCode={code} />
-        ))}
+        {actions &&
+          actions.map(action => (
+            <Action key={action} parentCode={sbeCode} code={action} targetCode={code} />
+          ))}
       </HStack>
-      {attributes.map(attr => (
-        <Attribute key={attr} code={code} attribute={attr} />
-      ))}
+      {attributes && attributes.map(attr => <Attribute key={attr} code={code} attribute={attr} />)}
     </VStack>
   )
 }

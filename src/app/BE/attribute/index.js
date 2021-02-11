@@ -8,8 +8,9 @@ import Social from 'app/DTT/social'
 import Status from 'app/DTT/status'
 import Phone from 'app/DTT/phone'
 import Date from 'app/DTT/date'
+import ProgressBar from 'app/DTT/progress_bar'
 
-const Attribute = ({ code, attribute }) => {
+const Attribute = ({ code, attribute, size }) => {
   const data = useSelector(selectCode(code, attribute))
   const dtt = useSelector(selectCode(data?.attributeCode))
   const dttData = useSelector(selectCode(dtt))
@@ -18,19 +19,21 @@ const Attribute = ({ code, attribute }) => {
   if (!component) return <div />
 
   return component === 'email' ? (
-    <Email.Read data={data} />
+    <Email.Read data={data} size={size} />
   ) : component === 'phone' ? (
-    <Phone.Read data={data} />
+    <Phone.Read data={data} size={size} />
   ) : component === 'text' ? (
-    <Text.Read data={data} />
+    <Text.Read data={data} size={size} />
   ) : component === 'upload' ? (
-    <Upload.Read data={data} dttData={dttData} />
+    <Upload.Read data={data} dttData={dttData} size={size} />
   ) : component === 'social' ? (
-    <Social.Read data={data} dttData={dttData} />
+    <Social.Read data={data} dttData={dttData} size={size} />
   ) : component === 'status' ? (
-    <Status.Read data={data} />
+    <Status.Read data={data} size={size} />
   ) : component === 'date' ? (
-    <Date.Read data={data} />
+    <Date.Read data={data} size={size} />
+  ) : component === 'progress' ? (
+    <ProgressBar.Read data={data} />
   ) : (
     <div>{data?.value}</div>
   )

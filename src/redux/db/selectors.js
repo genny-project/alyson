@@ -1,4 +1,4 @@
-import { map } from 'ramda'
+import { map, keys } from 'ramda'
 
 export const selectCode = (code, childCode) => state =>
   state.db[childCode ? `${code}@${childCode}` : code]
@@ -10,3 +10,7 @@ export const selectCodes = (codes = [], attribute) => state =>
 
 export const selectAttributes = (parentCode, attributes) => state =>
   map(attr => selectCode(parentCode, attr)(state), attributes)
+
+// Developer selectors
+
+export const selectKeys = state => keys(state.db)

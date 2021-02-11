@@ -18,6 +18,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisV, faInfo } from '@fortawesome/free-solid-svg-icons'
 import PickedAttribute from 'app/SBE/lane/PickedAttribute'
 import statusColors from './status_colors'
+import MainDetails from './MainDetails'
 
 const Card = ({ parentCode, actions = [], code, columns }) => {
   const title = useSelector(selectCode(code, getAttribute(columns[0])))
@@ -34,7 +35,7 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
       <Flex spacing="3">
         <HStack>
           <Image.Read data={image} />
-          <VStack alignItems="baseline" maxW="12">
+          <VStack alignItems="baseline" w="30">
             <Text.Read
               data={title}
               textProps={{
@@ -60,7 +61,6 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
         <Spacer />
         <HStack>
           <IconButton size="xs" onClick={onToggle} icon={<FontAwesomeIcon icon={faInfo} />} />
-
           <ContextMenu
             actions={actions}
             code={code}
@@ -69,6 +69,7 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
           />
         </HStack>
       </Flex>
+      <MainDetails code={code} columns={columns} parentCode={parentCode} />
       <Collapse in={isOpen} animateOpacity>
         <Box p="3">
           <VStack align="left">
