@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Input } from '@chakra-ui/react'
 import { isEmpty, map } from 'ramda'
 import initialiseMap from './helpers/initialise-map'
+
 const GetAddress = () => {
   const inputRef = useRef(null)
   const [searchAddress, setSearchAddress] = useState('')
@@ -11,12 +12,15 @@ const GetAddress = () => {
     setSearchAddress(description)
     setShowSuggestions(false)
   }
+
   useEffect(() => {
     initialiseMap(inputRef, searchAddress, allOptions, setAllOptions)
-  })
+  }, [searchAddress, allOptions])
+
   useEffect(() => {
     isEmpty(searchAddress) && setAllOptions([])
   }, [searchAddress])
+
   return (
     <div>
       <div onClick={() => setShowSuggestions(true)}>
