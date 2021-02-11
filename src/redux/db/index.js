@@ -28,7 +28,7 @@ const db = createSlice({
           state[`${sourceCode}@rows`] = (state[`${sourceCode}@rows`] || []).filter(
             item => item !== code,
           )
-        if (targetCode) state[`${targetCode}@rows`] = [code, ...state[`${sourceCode}@rows`]]
+        if (targetCode) state[`${targetCode}@rows`] = [code, ...(state[`${sourceCode}@rows`] || [])]
       }
     },
   },
