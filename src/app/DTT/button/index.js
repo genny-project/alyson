@@ -3,10 +3,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { onSendMessage } from 'vertx'
 
-const EventButton = ({ askData }) => {
+const EventButton = ({ askData, onFinish }) => {
   const { questionCode, targetCode, name, disabled } = askData
 
-  const onClick = () =>
+  const onClick = () => {
     onSendMessage({
       code: questionCode,
       rootCode: questionCode,
@@ -14,6 +14,9 @@ const EventButton = ({ askData }) => {
       targetCode,
       value: true,
     })
+    if (questionCode === 'QUE_SUBMIT' && typeof onFinish === 'function') onFinish()
+  }
+
   return (
     <Button
       isDisabled={disabled}

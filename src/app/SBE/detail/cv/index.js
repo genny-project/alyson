@@ -6,6 +6,7 @@ import { selectCode, selectRows } from 'redux/db/selectors'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 import Action from 'app/BE/action'
+import Label from 'app/BE/attribute/Label'
 
 const Cv = ({ sbeCode }) => {
   const sbe = useSelector(selectCode(sbeCode))
@@ -22,14 +23,20 @@ const Cv = ({ sbeCode }) => {
   // const Code = ({ attr }) => <Attribute code={code} attribute={attr} />
 
   return (
-    <VStack p="3" w="full">
+    <VStack spacing="4" p="3" w="full" h="max-content">
       <HStack>
         {actions &&
           actions.map(action => (
             <Action key={action} parentCode={sbeCode} code={action} targetCode={code} />
           ))}
       </HStack>
-      {attributes && attributes.map(attr => <Attribute key={attr} code={code} attribute={attr} />)}
+      {attributes &&
+        attributes.map(attr => (
+          <VStack key={attr}>
+            <Label code={code} attribute={attr} />
+            <Attribute code={code} attribute={attr} />
+          </VStack>
+        ))}
     </VStack>
   )
 }

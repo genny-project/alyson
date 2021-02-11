@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import Ask from 'app/ASKS/ask'
 import { VStack, Center, Heading } from '@chakra-ui/react'
 
-const AsksForm = ({ questionCode }) => {
+const AsksForm = ({ questionCode, onFinish }) => {
   const childAsks = useSelector(selectCode(questionCode)) || []
   const title = useSelector(selectCode(questionCode, 'title'))
 
@@ -12,7 +12,12 @@ const AsksForm = ({ questionCode }) => {
       <VStack spacing={4} marginBottom={8}>
         <Heading>{title}</Heading>
         {childAsks.map(childAsk => (
-          <Ask key={childAsk} parentCode={questionCode} questionCode={childAsk} />
+          <Ask
+            onFinish={onFinish}
+            key={childAsk}
+            parentCode={questionCode}
+            questionCode={childAsk}
+          />
         ))}
       </VStack>
     </Center>

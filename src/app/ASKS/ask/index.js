@@ -22,7 +22,7 @@ import TimeRange from 'app/DTT/time_range'
 import HtmlDisplay from 'app/DTT/html_display'
 import Signature from 'app/DTT/signature'
 
-const Ask = ({ parentCode, questionCode }) => {
+const Ask = ({ parentCode, questionCode, onFinish }) => {
   const askData = useSelector(selectCode(parentCode, questionCode))
 
   const { attributeCode, targetCode, name, question, mandatory } = askData
@@ -45,7 +45,7 @@ const Ask = ({ parentCode, questionCode }) => {
   const onSendAnswer = createSendAnswer(askData)
 
   return component === 'button' ? (
-    <Button askData={askData} />
+    <Button askData={askData} onFinish={onFinish} />
   ) : (
     <FormControl isRequired={mandatory}>
       {!multiple && <FormLabel fontWeight="semibold">{name}</FormLabel>}

@@ -3,11 +3,11 @@ import { selectForm } from 'redux/app/selectors'
 import AsksForm from 'app/ASKS/form'
 import { CircularProgress, Center } from '@chakra-ui/react'
 
-const Form = () => {
+const Form = ({ onFinish }) => {
   const data = useSelector(selectForm)
 
   return data ? (
-    <AsksForm questionCode={data} />
+    <AsksForm onFinish={onFinish} questionCode={data} />
   ) : (
     <Center>
       <CircularProgress isIndeterminate />
