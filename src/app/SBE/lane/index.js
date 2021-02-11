@@ -26,7 +26,7 @@ const Lane = ({ sbeCode }) => {
         <BECard columns={columns} actions={actions} code={row} parentCode={sbeCode} />
       ))}
       {rows.length < totalResults.value && (
-        <Button onClick={paginationActions().lazy}>{`See ${
+        <Button variant="ghost" colorScheme="cyan" onClick={paginationActions().lazy}>{`See ${
           totalResults.value - rows.length
         } more`}</Button>
       )}
