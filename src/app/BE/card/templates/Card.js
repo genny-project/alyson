@@ -31,7 +31,15 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
   const color = statusColors[statusColor?.value]
 
   return (
-    <Box bg={color} transition="all 0.2s" p="4" w="xs" h="30" borderWidth="1px" borderRadius="lg">
+    <Box
+      bg={color || 'white'}
+      transition="all 0.2s"
+      p="4"
+      w="xs"
+      h="30"
+      borderWidth="1px"
+      borderRadius="lg"
+    >
       <Flex spacing="3">
         <HStack>
           <Image.Read data={image} />

@@ -20,7 +20,7 @@ const Lane = ({ sbeCode }) => {
   const actions = getActions(table)
 
   return (
-    <VStack>
+    <VStack bg="blue.50" p="3" borderRadius="lg" shadow="lg">
       <Title sbeCode={sbeCode} />
       {rows.map(row => (
         <BECard columns={columns} actions={actions} code={row} parentCode={sbeCode} />

@@ -9,6 +9,7 @@ import Status from 'app/DTT/status'
 import Phone from 'app/DTT/phone'
 import Date from 'app/DTT/date'
 import ProgressBar from 'app/DTT/progress_bar'
+import HtmlDisplay from 'app/DTT/html_display'
 
 const Attribute = ({ code, attribute, size }) => {
   const data = useSelector(selectCode(code, attribute))
@@ -34,6 +35,8 @@ const Attribute = ({ code, attribute, size }) => {
     <Date.Read data={data} size={size} />
   ) : component === 'progress' ? (
     <ProgressBar.Read data={data} />
+  ) : component === 'html_display' ? (
+    <HtmlDisplay.Read data={data} />
   ) : (
     <div>{data?.value}</div>
   )

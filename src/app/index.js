@@ -4,8 +4,7 @@ import { ChakraProvider, extendTheme } from '@chakra-ui/react'
 import { ColorModeScript } from '@chakra-ui/react'
 
 const config = {
-  initialColorMode: 'dark',
-  useSystemColorMode: true,
+  initialColorMode: 'light',
 }
 const App = () => {
   const theme = extendTheme({ config })

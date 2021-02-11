@@ -19,6 +19,9 @@ import RichText from 'app/DTT/rich_text'
 import DateRange from 'app/DTT/date_range'
 import Video from 'app/DTT/video'
 import TimeRange from 'app/DTT/time_range'
+import HtmlDisplay from 'app/DTT/html_display'
+import Signature from 'app/DTT/signature'
+
 const Ask = ({ parentCode, questionCode }) => {
   const askData = useSelector(selectCode(parentCode, questionCode))
 
@@ -89,6 +92,8 @@ const Ask = ({ parentCode, questionCode }) => {
       )}
       {component === 'video' && <Video.Write data={data} onSendAnswer={onSendAnswer} html={html} />}
       {component === 'time_range' && <TimeRange.Write data={data} onSendAnswer={onSendAnswer} />}
+      {component === 'html_display' && <HtmlDisplay.Read data={data} />}
+      {component === 'signature' && <Signature.Write data={data} onSendAnswer={onSendAnswer} />}
       {/* <div>{component}</div> */}
     </FormControl>
   )
