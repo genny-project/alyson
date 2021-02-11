@@ -50,6 +50,9 @@ const appSlice = createSlice({
       if (cmd_type === 'LOGOUT' && exec) {
         keycloak.logout()
       }
+      if (cmd_type === 'DOWNLOAD_FILE' && exec) {
+        window.open(code)
+      }
     },
     newMsg: (state, { payload }) => {
       const { items, data_type } = payload

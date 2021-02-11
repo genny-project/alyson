@@ -8,7 +8,11 @@ const Read = ({ data, size }) => {
   const date = dateFormatter(data?.value)
 
   if (!date) return null
-  return <Text fontSize={size}>{date}</Text>
+  return (
+    <Text w="8rem" fontSize={size}>
+      {date}
+    </Text>
+  )
 }
 const Write = ({ data, onSendAnswer }) => {
   return <ReactDatePicker selected={data?.value} onChange={onSendAnswer} isClearable />

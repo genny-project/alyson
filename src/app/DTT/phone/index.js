@@ -15,7 +15,7 @@ const Read = ({ data, size }) => {
     })
   }
   return (
-    <Text fontSize={size} cursor="pointer" onClick={onClick}>
+    <Text w="10rem" fontSize={size} cursor="pointer" onClick={onClick}>
       {phoneNumberFormatter(data.value)}
     </Text>
   )
