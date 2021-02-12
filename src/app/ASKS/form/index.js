@@ -9,7 +9,7 @@ const AsksForm = ({ questionCode, onFinish }) => {
 
   return (
     <Center>
-      <VStack spacing={4} marginBottom={8}>
+      <VStack maxW="2xl" spacing={4} marginBottom={8}>
         <Heading>{title}</Heading>
         {childAsks.map(childAsk => (
           <Ask

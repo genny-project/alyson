@@ -9,9 +9,11 @@ const Read = ({ data }) => {
   const icon = attributeName === 'LinkedIn URL' ? faLinkedin : faCoffee
 
   return (
-    <IconButton colorScheme="linkedin">
-      <FontAwesomeIcon size="lg" icon={icon} />
-    </IconButton>
+    <a href={data?.value}>
+      <IconButton colorScheme="linkedin" isDisabled={!data?.value}>
+        <FontAwesomeIcon size="lg" icon={icon} />
+      </IconButton>
+    </a>
   )
 }
 

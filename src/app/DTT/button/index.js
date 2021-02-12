@@ -3,14 +3,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { onSendMessage } from 'vertx'
 
-const EventButton = ({ askData, onFinish }) => {
+const EventButton = ({ askData, onFinish, parentCode }) => {
   const { questionCode, targetCode, name, disabled } = askData
 
   const onClick = () => {
     onSendMessage({
       code: questionCode,
-      rootCode: questionCode,
-      parentCode: questionCode,
+      rootCode: parentCode,
+      parentCode,
       targetCode,
       value: true,
     })

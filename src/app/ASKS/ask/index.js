@@ -45,13 +45,15 @@ const Ask = ({ parentCode, questionCode, onFinish }) => {
   const onSendAnswer = createSendAnswer(askData)
 
   return component === 'button' ? (
-    <Button askData={askData} onFinish={onFinish} />
+    <Button parentCode={parentCode} askData={askData} onFinish={onFinish} />
   ) : (
     <FormControl isRequired={mandatory}>
       {!multiple && <FormLabel fontWeight="semibold">{name}</FormLabel>}
-      {component === 'email' && <Email.Write onSendAnswer={onSendAnswer} askData={askData} />}
+      {component === 'email' && (
+        <Email.Write data={data} onSendAnswer={onSendAnswer} askData={askData} />
+      )}
       {component === 'phone' && <Phone.Write onSendAnswer={onSendAnswer} data={data} />}
-      {component === 'address' && <Address.Write onSendAnswer={onSendAnswer} />}
+      {component === 'address' && <Address.Write data={data} onSendAnswer={onSendAnswer} />}
       {(component === 'dropdown' || component === 'tag') && (
         <Select.Write
           groupCode={groupCode}
@@ -83,7 +85,9 @@ const Ask = ({ parentCode, questionCode, onFinish }) => {
       {component === 'upload' && (
         <Upload.Write dttData={dataType} data={data} onSendAnswer={onSendAnswer} />
       )}
-      {component === 'date' && <Date.Write data={data} onSendAnswer={onSendAnswer} />}
+      {component === 'date' && (
+        <Date.Write typeName={typeName} data={data} onSendAnswer={onSendAnswer} />
+      )}
       {component === 'richtext_editor' && (
         <RichText.Write data={data} onSendAnswer={onSendAnswer} description={description} />
       )}

@@ -1,30 +1,30 @@
 import { useState } from 'react'
-import { filter, identity, includes, map, prop } from 'ramda'
+import { filter, identity, includes, map, prop, find, propEq, pathOr } from 'ramda'
 import { useSelector } from 'react-redux'
 import { selectCodes, selectRows } from 'redux/db/selectors'
-import { Read } from 'app/DTT/text'
 import { Select as CSelect, Text, Box } from '@chakra-ui/react'
 import { CUIAutoComplete } from 'chakra-ui-autocomplete'
+import safelyParseJson from 'utils/helpers/safely-parse-json'
 
-const Multiple = ({ label, data, onSendAnswer, placeholder, optionData }) => {
-  const [selected, setSelected] = useState(data?.value || [])
+const getValue = (data, options) =>
+  map(opt => find(propEq('value', opt))(options), safelyParseJson(data?.value, []))
 
+const Multiple = ({ label, value, onSendAnswer, placeholder, optionData }) => {
   const options = map(
     ({ value, baseEntityCode }) => ({ label: value, value: baseEntityCode }),
     filter(identity, optionData),
   )
+  const [selected, setSelected] = useState(value)
 
   return !options.length ? (
     <Text>Waiting on another answer</Text>
   ) : (
-    <Box marginBottom="-10">
+    <Box marginBottom="-10" maxW="2xl">
       <CUIAutoComplete
         label={label}
         placeholder={placeholder}
         items={options}
         selectedItems={selected}
-        listStyleProps={{ bg: 'gray.500' }}
-        listItemStyleProps={{ color: 'gray.900' }}
         onSelectedItemsChange={changes => {
           setSelected(changes.selectedItems)
           onSendAnswer(map(prop('value'), changes.selectedItems || []))
@@ -41,9 +41,12 @@ const Write = ({ label, placeholder, onSendAnswer, groupCode, component, dataTyp
   const { typeName } = dataType
   const multiple = includes('multiple', typeName || '') || component === 'tag'
 
+  const value = getValue(data, options)
+
   if (multiple)
     return (
       <Multiple
+        value={value}
         data={data}
         onSendAnswer={onSendAnswer}
         placeholder={placeholder}
@@ -72,6 +75,17 @@ const Write = ({ label, placeholder, onSendAnswer, groupCode, component, dataTyp
         )}
     </CSelect>
   )
+}
+
+const getGroupFromDTT = pathOr('', ['validationList', 0, 'selectionBaseEntityGroupList', 0])
+
+const Read = ({ data, dataType }) => {
+  const groupCode = getGroupFromDTT(dataType)
+  const options = useSelector(selectRows(groupCode))
+
+  const value = getValue(data, options)
+
+  return <div>{`${value}`}</div>
 }
 
 const Select = {

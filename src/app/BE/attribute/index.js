@@ -10,6 +10,8 @@ import Phone from 'app/DTT/phone'
 import Date from 'app/DTT/date'
 import ProgressBar from 'app/DTT/progress_bar'
 import HtmlDisplay from 'app/DTT/html_display'
+import RichText from 'app/DTT/rich_text'
+import Select from 'app/DTT/select'
 
 const Attribute = ({ code, attribute, size }) => {
   const data = useSelector(selectCode(code, attribute))
@@ -37,8 +39,15 @@ const Attribute = ({ code, attribute, size }) => {
     <ProgressBar.Read data={data} />
   ) : component === 'html_display' ? (
     <HtmlDisplay.Read data={data} />
+  ) : component === 'richtext_editor' ? (
+    <RichText.Read data={data} />
+  ) : component === 'dropdown' ? (
+    <Select.Read dataType={dttData} data={data} />
   ) : (
-    <div>{data?.value}</div>
+    <div>
+      {component}
+      {data?.value}
+    </div>
   )
 }
 

@@ -36,6 +36,7 @@ const useApi = () => {
   }
 
   const getMediaFileName = async ({ uuid }) => {
+    if (!uuid) return ''
     const resp = await axios({
       method: 'GET',
       url: `${MEDIA_URL}/${uuid}/name`,

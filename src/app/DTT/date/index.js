@@ -1,9 +1,10 @@
+import { includes } from 'ramda'
 import ReactDatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import './date-picker.css'
 import { Text } from '@chakra-ui/react'
 import dateFormatter from 'utils/formatters/date'
-
+import { parseISO } from 'date-fns'
 const Read = ({ data, size }) => {
   const date = dateFormatter(data?.value)
 
@@ -14,8 +15,26 @@ const Read = ({ data, size }) => {
     </Text>
   )
 }
-const Write = ({ data, onSendAnswer }) => {
-  return <ReactDatePicker selected={data?.value} onChange={onSendAnswer} isClearable />
+const Write = ({ data, onSendAnswer, typeName }) => {
+  const includeTime = includes('LocalDateTime', typeName)
+
+  const selected = data?.value ? parseISO(data.value) : null
+
+  try {
+    return (
+      <ReactDatePicker
+        showTimeSelect={includeTime}
+        selected={selected}
+        onChange={onSendAnswer}
+        isClearable
+        inline
+      />
+    )
+  } catch (err) {
+    return (
+      <ReactDatePicker showTimeSelect={includeTime} onChange={onSendAnswer} isClearable inline />
+    )
+  }
 }
 
 const DatePicker = {
