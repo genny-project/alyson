@@ -1,10 +1,13 @@
 import { Read } from 'app/DTT/text'
-import GetAddress from './get_address'
+import AddressPicker from './address_picker'
+
 const Write = ({ onSendAnswer, data }) => {
-  return <GetAddress onSendAnswer={onSendAnswer} data={data} />
+  return <AddressPicker onSendAnswer={onSendAnswer} data={data} />
 }
+
 const Address = {
   Write,
   Read,
 }
+
 export default Address
