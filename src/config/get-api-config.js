@@ -5,10 +5,12 @@ import { INIT_URL } from './genny'
 import loginAsGuest from '../keycloak/login-as-guest'
 import setupLogRocketReact from 'logrocket-react'
 import LogRocket from 'logrocket'
+import getTokenFromURL from 'keycloak/get-token-from-url'
 
 let apiConfig = {}
 let keycloak = {}
 let guestKeycloak = null
+let tokenFromUrl = null
 
 const getApiConfig = async () => {
   const response = await axios({
@@ -36,6 +38,8 @@ const getApiConfig = async () => {
     guestKeycloak = await loginAsGuest()
   }
 
+  tokenFromUrl = getTokenFromURL(keycloak)
+
   /* DOM */
   document.title = apiConfig.PRI_NAME || ''
   document.querySelector("link[rel*='icon']").href = apiConfig.PRI_FAVICON
@@ -51,5 +55,5 @@ const getApiConfig = async () => {
   return { keycloak }
 }
 
-export { apiConfig, keycloak, guestKeycloak }
+export { apiConfig, keycloak, guestKeycloak, tokenFromUrl }
 export default getApiConfig

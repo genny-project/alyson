@@ -10,7 +10,13 @@ const ChildMenuItem = ({ questionCode, childCode }) => {
 
   const { name } = data
 
-  const onClick = () => sendAskClick(questionCode, childCode)
+  const onClick = () => {
+    sendAskClick(questionCode, childCode)
+    if (name === 'Logout') {
+      window.localStorage.setItem('localToken', '')
+      window.location.href = window.location.origin
+    }
+  }
 
   return <MenuItem onClick={onClick}>{name}</MenuItem>
 }

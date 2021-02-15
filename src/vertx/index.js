@@ -10,6 +10,9 @@ import makeAuthInitData from './utils/make-auth-init-data'
 import createSendMessage from './utils/create-send-message'
 import urlStateManager from 'utils/url-state-manager'
 
+import { tokenFromUrl, guestKeycloak } from 'config/get-api-config'
+import { getSessionIdFromToken } from 'keycloak/get-token-from-url'
+
 export const eventBus = new EventBus(VERTX_URL)
 
 let onSendMessage = identity
@@ -43,14 +46,25 @@ const onSendSearch = ({ searchValue, searchType, sbeCode }) =>
 
 const VertxContainer = () => {
   const { keycloak } = useKeycloak()
-  const { sessionId, token } = keycloak
+  const { login } = keycloak
+  const { sessionId: kSessionId, token: kToken } = keycloak
+  const guestSessionId = guestKeycloak?.data?.session_state
+  const guestToken = guestKeycloak?.data?.access_token
+  const urlToken = tokenFromUrl
+  const urlSessionId = urlToken ? getSessionIdFromToken(urlToken) : null
+
+  const token = kToken || urlToken || guestToken
+  const sessionId = kSessionId || urlSessionId || guestSessionId
 
   const dispatch = useDispatch()
   const onNewCmd = compose(dispatch, newCmd)
   const onNewMsg = compose(dispatch, newMsg)
 
-  if (sessionId && token && !eventBus.handlers[sessionId]) {
+  if (!(token && sessionId)) login({ redirectUri: `${window.location.href}` })
+
+  if (!eventBus.handlers[sessionId]) {
     try {
+      console.log('trying to register', token, sessionId)
       eventBus.registerHandler(sessionId, (_, { body }) => {
         if (body.msg_type === 'CMD_MSG') onNewCmd(body)
         else messageHandler(onNewMsg)(body)

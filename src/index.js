@@ -7,7 +7,7 @@ import getApiConfig from 'config/get-api-config'
 import Vertx from 'vertx'
 import { Provider } from 'react-redux'
 import store from 'redux/store'
-import { CSSReset, Center, Heading, VStack } from '@chakra-ui/react'
+import { CSSReset, Center, Heading, VStack, CircularProgress } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
 
@@ -17,7 +17,14 @@ const initialiseApp = async () => {
 
     ReactDOM.render(
       <React.StrictMode>
-        <ReactKeycloakProvider authClient={keycloak} initOptions={{ onLoad: 'login-required' }}>
+        <ReactKeycloakProvider
+          authClient={keycloak}
+          LoadingComponent={
+            <Center>
+              <CircularProgress isIndeterminate />
+            </Center>
+          }
+        >
           <Provider store={store}>
             <CSSReset />
             <Vertx />
