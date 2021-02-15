@@ -14,7 +14,7 @@ import { apiConfig } from 'config/get-api-config'
 import Avatar from './Avatar'
 import { onSendMessage } from 'vertx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus, faQuidditch } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faBolt } from '@fortawesome/free-solid-svg-icons'
 import MobileNav from './mobile'
 
 const Navigation = () => {
@@ -60,7 +60,7 @@ const Navigation = () => {
           <AskMenu questionCode={'QUE_ADD_ITEMS_GRP'} icon={<FontAwesomeIcon icon={faPlus} />} />
           <AskMenu
             questionCode={'QUE_QUICK_ADD_ITEMS_GRP'}
-            icon={<FontAwesomeIcon icon={faQuidditch} />}
+            icon={<FontAwesomeIcon icon={faBolt} />}
           />
           <Avatar />
         </HStack>

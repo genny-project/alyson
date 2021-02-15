@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
-import { Heading, VStack, HStack, Stat, StatLabel, StatNumber } from '@chakra-ui/react'
+import { Text, VStack, HStack, Stat, StatLabel, StatNumber } from '@chakra-ui/react'
 import { getTableActions } from 'app/SBE/utils/get-actions'
 import Action from 'app/BE/action'
 
@@ -12,7 +12,9 @@ const DashboardSearch = ({ sbeCode }) => {
 
   return (
     <VStack>
-      <Heading>{title?.value}</Heading>
+      <Text color="teal" fontWeight="bold">
+        {title?.value}
+      </Text>
       <HStack>
         <Stat>
           <StatLabel>Total</StatLabel>

@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
-import { Heading, VStack, HStack, Badge } from '@chakra-ui/react'
+import { Text, VStack, HStack, Badge } from '@chakra-ui/react'
 import getActions from 'app/SBE/utils/get-actions'
 import Action from 'app/BE/action'
 
@@ -12,10 +12,11 @@ const HeroTask = ({ sbeCode, rows }) => {
   const actions = getActions(sbe)
   const validation = useSelector(selectCode(targetCode, 'PRI_VALIDATION'))
 
-  console.log(validation)
   return (
     <VStack>
-      <Heading>{title?.value}</Heading>
+      <Text color="teal" fontWeight="bold">
+        {title?.value}
+      </Text>
       {validation?.value === 'Ready' ? (
         <Badge colorScheme="green">Complete</Badge>
       ) : (

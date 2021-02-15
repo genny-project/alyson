@@ -21,6 +21,7 @@ import Video from 'app/DTT/video'
 import TimeRange from 'app/DTT/time_range'
 import HtmlDisplay from 'app/DTT/html_display'
 import Signature from 'app/DTT/signature'
+import URL from 'app/DTT/url'
 
 const Ask = ({ parentCode, questionCode, onFinish }) => {
   const askData = useSelector(selectCode(parentCode, questionCode))
@@ -98,6 +99,7 @@ const Ask = ({ parentCode, questionCode, onFinish }) => {
       {component === 'time_range' && <TimeRange.Write data={data} onSendAnswer={onSendAnswer} />}
       {component === 'html_display' && <HtmlDisplay.Read data={data} />}
       {component === 'signature' && <Signature.Write data={data} onSendAnswer={onSendAnswer} />}
+      {component === 'link' && <URL.Write data={data} onSendAnswer={onSendAnswer} />}
       {/* <div>{component}</div> */}
     </FormControl>
   )

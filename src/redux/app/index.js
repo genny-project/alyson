@@ -4,8 +4,9 @@ import log from 'utils/log'
 import { isForm, isAsk, getQuestionCode } from './utils/get-type'
 import { keycloak } from 'config/get-api-config'
 import setDisplayCode from './utils/set-display-code'
+import { onSendFilter } from 'vertx'
 
-const initialState = { cmds: [], DISPLAY: 'DASHBOARD', DRAWER: 'NONE', DIALOG: 'NONE' }
+const initialState = { filters: [], cmds: [], DISPLAY: 'DASHBOARD', DRAWER: 'NONE', DIALOG: 'NONE' }
 
 const appSlice = createSlice({
   name: 'app',
@@ -46,6 +47,7 @@ const appSlice = createSlice({
         if (!(includes('DRAWER', code) || includes('DIALOG', code)) && code !== 'NONE') {
           state.FORM = ''
           state.TABLE = ''
+          state.FILTERS = []
         }
         state.DETAIL = ''
       } else {
@@ -74,8 +76,23 @@ const appSlice = createSlice({
     closeDialog: state => {
       state.DIALOG = 'NONE'
     },
+    addFilter: (state, { payload }) => {
+      state.filters.push(payload)
+      onSendFilter(payload)
+    },
+    removeFilter: (state, { payload }) => {
+      state.filters = state.filters.filter(f => f.attributeCode !== payload.attributeCode)
+      onSendFilter({ ...payload, value: '' })
+    },
   },
 })
 
-export const { newCmd, newMsg, closeDrawer, closeDialog } = appSlice.actions
+export const {
+  newCmd,
+  newMsg,
+  closeDrawer,
+  closeDialog,
+  addFilter,
+  removeFilter,
+} = appSlice.actions
 export default appSlice.reducer

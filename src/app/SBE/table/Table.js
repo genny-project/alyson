@@ -8,6 +8,7 @@ import Search from 'app/SBE/search/Search'
 import Footer from './Footer'
 import Body from './Body'
 import Title from './Title'
+import Filters from '../filters'
 
 const DataTable = ({ parentCode }) => {
   const tableData = useSelector(selectCode(parentCode))
@@ -22,6 +23,7 @@ const DataTable = ({ parentCode }) => {
       <HStack>
         <Title sbeCode={parentCode} />
         <Search sbeCode={parentCode} />
+        <Filters sbeCode={parentCode} />
       </HStack>
       <Table>
         <Header columns={columns} parentCode={parentCode} actions={actions} />

@@ -16,6 +16,19 @@ let onSendMessage = identity
 const onSendAnswer = data =>
   onSendMessage([data], { msg_type: 'DATA_MSG', data_type: 'Answer', event_type: false })
 
+const onSendFilter = ({ value, attributeCode, targetCode, sourceCode, type }) =>
+  onSendAnswer({
+    askId: 0,
+    attributeCode,
+    code: 'QUE_FILTER',
+    identifier: 'QUE_FILTER',
+    type,
+    weight: 1,
+    value: `L:${value}`,
+    targetCode,
+    sourceCode,
+  })
+
 const onSendSearch = ({ searchValue, searchType, sbeCode }) =>
   onSendAnswer({
     askId: 272,
@@ -57,4 +70,4 @@ const VertxContainer = () => {
 }
 
 export default VertxContainer
-export { onSendMessage, onSendAnswer, onSendSearch }
+export { onSendMessage, onSendAnswer, onSendSearch, onSendFilter }
