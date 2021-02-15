@@ -64,7 +64,6 @@ const VertxContainer = () => {
 
   if (!eventBus.handlers[sessionId]) {
     try {
-      console.log('trying to register', token, sessionId)
       eventBus.registerHandler(sessionId, (_, { body }) => {
         if (body.msg_type === 'CMD_MSG') onNewCmd(body)
         else messageHandler(onNewMsg)(body)

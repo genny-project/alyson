@@ -11,8 +11,6 @@ const DisplaySbe = ({ sbeCode }) => {
 
   if (!rows || !displayMode) return null
 
-  console.log(displayMode)
-
   return (
     <div>
       {displayMode.value === 'dashboard_search' && (

@@ -62,7 +62,7 @@ const Write = ({ label, placeholder, onSendAnswer, groupCode, component, dataTyp
       placeholder={placeholder || label}
       test-id={groupCode}
       onChange={e => onSendAnswer([e.target.value])}
-      defaultValue={data?.value}
+      defaultValue={safelyParseJson(data?.value)}
     >
       {optionData &&
         optionData.map(

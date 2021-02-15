@@ -10,9 +10,11 @@ import store from 'redux/store'
 import { CSSReset, Center, Heading, VStack, CircularProgress } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
+import { initLog } from 'utils/log'
 
 const initialiseApp = async () => {
   try {
+    initLog()
     const { keycloak } = await getApiConfig()
 
     ReactDOM.render(

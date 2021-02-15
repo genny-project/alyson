@@ -21,7 +21,7 @@ const TableFooter = ({ sbeCode }) => {
 
   const hasNextPage = pageSize.value + pageStart.value < totalResults.value
   const hasPrevPage = pageNumber.value > 1
-  const totalPages = Math.floor(totalResults.value / pageSize.value)
+  const totalPages = Math.ceil(totalResults.value / pageSize.value)
 
   return totalPages ? (
     <Tfoot>

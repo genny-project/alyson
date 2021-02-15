@@ -11,7 +11,7 @@ const Dashboard = () => {
     <Center m="4">
       <Stack direction="column" spacing="10">
         {dashboardSbes.map(sbeCode => (
-          <DisplaySbe sbeCode={sbeCode} />
+          <DisplaySbe key={sbeCode} sbeCode={sbeCode} />
         ))}
       </Stack>
     </Center>

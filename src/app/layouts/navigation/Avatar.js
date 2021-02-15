@@ -1,9 +1,20 @@
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import useApi from 'api'
-import { Menu, MenuButton, MenuList, Avatar, MenuGroup, Flex, Spacer } from '@chakra-ui/react'
+import { useKeycloak } from '@react-keycloak/web'
+import {
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  Avatar,
+  MenuGroup,
+  Flex,
+  Spacer,
+} from '@chakra-ui/react'
 import ChildMenuItem from 'app/ASKS/menu/ChildMenuItem'
 import ColorToggler from './ColorToggler'
+import { onSendMessage } from 'vertx'
 const QUE_AVATAR_GRP = 'QUE_AVATAR_GRP'
 
 const AvatarMenu = () => {
@@ -13,6 +24,7 @@ const AvatarMenu = () => {
   const userName = useSelector(selectCode(userCode, 'PRI_USERNAME'))
   const associatedEntitiy = useSelector(selectCode(userCode, 'PRI_ASSOC_ENTITY_NAME'))
   const avatarAsks = useSelector(selectCode(QUE_AVATAR_GRP))
+  const { keycloak } = useKeycloak()
 
   const { getImageSrc } = useApi()
 
@@ -34,9 +46,26 @@ const AvatarMenu = () => {
       </MenuButton>
       <MenuList>
         <MenuGroup title={title}>
-          {avatarAsks.map(childAsk => (
-            <ChildMenuItem key={childAsk} questionCode={QUE_AVATAR_GRP} childCode={childAsk} />
-          ))}
+          {avatarAsks
+            .filter(childAsk => childAsk !== 'QUE_AVATAR_LOGOUT')
+            .map(childAsk => (
+              <ChildMenuItem
+                rootCode={userCode}
+                targetCode={userCode}
+                key={childAsk}
+                questionCode={QUE_AVATAR_GRP}
+                childCode={childAsk}
+              />
+            ))}
+          <MenuItem
+            onClick={() => {
+              onSendMessage({ code: 'LOGOUT' }, { event_type: 'LOGOUT' })
+              window.localStorage.localToken = ''
+              keycloak.logout()
+            }}
+          >
+            Logout
+          </MenuItem>
         </MenuGroup>
         <Flex>
           <Spacer />

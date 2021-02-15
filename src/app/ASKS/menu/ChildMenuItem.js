@@ -3,20 +3,14 @@ import { selectCode } from 'redux/db/selectors'
 import sendAskClick from 'app/ASKS/utils/send-ask-click'
 import { MenuItem } from '@chakra-ui/react'
 
-const ChildMenuItem = ({ questionCode, childCode }) => {
+const ChildMenuItem = ({ questionCode, childCode, rootCode, targetCode }) => {
   const data = useSelector(selectCode(questionCode, childCode))
 
   if (!data) return null
 
   const { name } = data
 
-  const onClick = () => {
-    sendAskClick(questionCode, childCode)
-    if (name === 'Logout') {
-      window.localStorage.setItem('localToken', '')
-      window.location.href = window.location.origin
-    }
-  }
+  const onClick = () => sendAskClick(questionCode, childCode, rootCode, targetCode)
 
   return <MenuItem onClick={onClick}>{name}</MenuItem>
 }
