@@ -1,10 +1,10 @@
 import { useCallback } from 'react'
-import { Tfoot, Tr, Th, Text, IconButton, Kbd, VStack } from '@chakra-ui/react'
+import { Tfoot, Tr, Th, Text, IconButton, Kbd, VStack, Center } from '@chakra-ui/react'
 import getPaginationActions from 'app/SBE/utils/get-pagination-actions'
 import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { faArrowRight, faArrowLeft, faBinoculars } from '@fortawesome/free-solid-svg-icons'
 import { useHotkeys } from 'react-hotkeys-hook'
 
 const TableFooter = ({ sbeCode }) => {
@@ -23,7 +23,7 @@ const TableFooter = ({ sbeCode }) => {
   const hasPrevPage = pageNumber.value > 1
   const totalPages = Math.floor(totalResults.value / pageSize.value)
 
-  return (
+  return totalPages ? (
     <Tfoot>
       <Tr>
         <Th />
@@ -53,6 +53,13 @@ const TableFooter = ({ sbeCode }) => {
         </Th>
       </Tr>
     </Tfoot>
+  ) : (
+    <Center mt="10">
+      <VStack>
+        <FontAwesomeIcon color="grey" icon={faBinoculars} size="3x" />
+        <Text fontWeight="semibold">We looked, nothing seems to be here!</Text>
+      </VStack>
+    </Center>
   )
 }
 

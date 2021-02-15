@@ -7,7 +7,9 @@ import getApiConfig from 'config/get-api-config'
 import Vertx from 'vertx'
 import { Provider } from 'react-redux'
 import store from 'redux/store'
-import { CSSReset } from '@chakra-ui/react'
+import { CSSReset, Center, Heading, VStack } from '@chakra-ui/react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
 
 const initialiseApp = async () => {
   try {
@@ -28,7 +30,12 @@ const initialiseApp = async () => {
   } catch (err) {
     ReactDOM.render(
       <React.StrictMode>
-        <div>OFFLINE-OFFLINE-OFFLINE-OFFLINE-OFFLINE-OFFLINE</div>
+        <Center h="90vh">
+          <VStack spacing="15">
+            <FontAwesomeIcon size="4x" icon={faExclamationCircle} color="red" />
+            <Heading>Sorry our server is not responding, try again later!</Heading>
+          </VStack>
+        </Center>
       </React.StrictMode>,
       document.getElementById('root'),
     )

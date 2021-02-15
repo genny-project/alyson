@@ -5,7 +5,7 @@ const Header = ({ columns, parentCode, actions }) => {
   return (
     <Thead>
       <Tr>
-        {actions?.length && <Th />}
+        {actions?.length ? <Th /> : null}
         {columns.map(col => (
           <Cell key={`${parentCode}-${col}`} showAttributeName code={parentCode} attribute={col} />
         ))}

@@ -10,10 +10,14 @@ const setDisplayCode = state => items => {
         attr => attr.attributeCode === 'SCH_DISPLAY_MODE',
       )
 
-      if (!displayCode) {
+      if (displayCode) {
+        if (includes('DETAIL_VIEW', displayCode.valueString || '')) {
+          state.DETAIL = code
+        } else {
+          state.TABLE = code
+        }
+      } else {
         state.TABLE = code
-      } else if (includes('DETAIL_VIEW', displayCode.valueString || '')) {
-        state.DETAIL = code
       }
     }
   }

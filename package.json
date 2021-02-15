@@ -27,6 +27,8 @@
     "localforage": "^1.9.0",
     "localforage-observable": "^2.1.1",
     "lodash.debounce": "^4.0.8",
+    "logrocket": "^1.0.14",
+    "logrocket-react": "^4.0.1",
     "material-ui-dropzone": "^3.5.0",
     "megadraft": "^0.7.4",
     "moment": "^2.29.1",

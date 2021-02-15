@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux'
 import { newCmd, newMsg } from 'redux/app'
 import makeAuthInitData from './utils/make-auth-init-data'
 import createSendMessage from './utils/create-send-message'
+import urlStateManager from 'utils/url-state-manager'
 
 export const eventBus = new EventBus(VERTX_URL)
 
@@ -43,6 +44,7 @@ const onSendSearch = ({ searchValue, searchType, sbeCode }) =>
 const VertxContainer = () => {
   const { keycloak } = useKeycloak()
   const { sessionId, token } = keycloak
+
   const dispatch = useDispatch()
   const onNewCmd = compose(dispatch, newCmd)
   const onNewMsg = compose(dispatch, newMsg)
@@ -64,6 +66,8 @@ const VertxContainer = () => {
     })
 
     onSendMessage = createSendMessage(token)
+
+    urlStateManager(onSendMessage)(window.location.pathname)
   }
 
   return null
