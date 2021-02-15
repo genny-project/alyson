@@ -17,12 +17,12 @@ const Read = ({ data }) => {
   )
 }
 
-const Write = ({ onSendAnswer, data }) => (
+const Write = ({ questionCode, onSendAnswer, data }) => (
   <InputGroup>
     <InputLeftAddon>
       <FontAwesomeIcon size="lg" icon={faLinkedin} />
     </InputLeftAddon>
-    <TextWrite data={data} onSendAnswer={onSendAnswer} />
+    <TextWrite test-id={questionCode} data={data} onSendAnswer={onSendAnswer} />
   </InputGroup>
 )
 

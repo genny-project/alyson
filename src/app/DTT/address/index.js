@@ -1,8 +1,8 @@
 import { Read } from 'app/DTT/text'
 import AddressPicker from './address_picker'
 
-const Write = ({ onSendAnswer, data }) => {
-  return <AddressPicker onSendAnswer={onSendAnswer} data={data} />
+const Write = ({ questionCode, onSendAnswer, data }) => {
+  return <AddressPicker questionCode={questionCode} onSendAnswer={onSendAnswer} data={data} />
 }
 
 const Address = {

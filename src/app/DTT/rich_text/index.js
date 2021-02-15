@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSave, faEdit } from '@fortawesome/free-solid-svg-icons'
 import '../../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
-const Write = ({ data, onSendAnswer, description }) => {
+const Write = ({ questionCode, data, onSendAnswer, description }) => {
   const blocksFromHTML = convertFromHTML(data?.value)
   const state = ContentState.createFromBlockArray(
     blocksFromHTML.contentBlocks,
@@ -35,8 +35,14 @@ const Write = ({ data, onSendAnswer, description }) => {
 
   return edit ? (
     <Box w="2xl" border="1px solid #E2E8F0" borderRadius="0.375rem" p="1rem">
-      <Editor editorState={editor} onEditorStateChange={setEditor} placeholder={description} />
+      <Editor
+        test-id={questionCode}
+        editorState={editor}
+        onEditorStateChange={setEditor}
+        placeholder={description}
+      />
       <Button
+        test-id={questionCode + '-save'}
         m="2"
         leftIcon={<FontAwesomeIcon icon={faSave} />}
         onClick={handleSave}

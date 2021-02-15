@@ -6,7 +6,7 @@ import useApi from 'api'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSave, faVideo } from '@fortawesome/free-solid-svg-icons'
 
-const Write = ({ onSendAnswer, html, data }) => {
+const Write = ({ questionCode, onSendAnswer, html, data }) => {
   const config = safelyParseJson(html, {})
 
   const { postMediaFile, getSrc } = useApi()
@@ -33,6 +33,7 @@ const Write = ({ onSendAnswer, html, data }) => {
       <VStack>
         <video style={{ width: '20rem', borderRadius: '1rem' }} src={src} controls />
         <Button
+          test-id={questionCode + 'clear'}
           onClick={() => {
             setNewData(null)
             setStartVideo(false)
@@ -54,6 +55,7 @@ const Write = ({ onSendAnswer, html, data }) => {
             controls
           />
           <Button
+            test-id={questionCode + '-save'}
             colorScheme="teal"
             leftIcon={<FontAwesomeIcon icon={faSave} />}
             onClick={() => handleSave(newData)}
@@ -63,7 +65,12 @@ const Write = ({ onSendAnswer, html, data }) => {
         </VStack>
       )}
       {startVideo ? (
-        <VideoRecorder setStartVideo={setStartVideo} setData={setNewData} config={config} />
+        <VideoRecorder
+          test-id={questionCode}
+          setStartVideo={setStartVideo}
+          setData={setNewData}
+          config={config}
+        />
       ) : (
         <VStack>
           <Text>
@@ -77,6 +84,7 @@ const Write = ({ onSendAnswer, html, data }) => {
           </a>
 
           <Button
+            test-id={questionCode + '-start'}
             leftIcon={<FontAwesomeIcon icon={faVideo} />}
             onClick={() => setStartVideo(true)}
           >{`Ready!`}</Button>

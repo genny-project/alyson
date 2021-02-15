@@ -47,17 +47,32 @@ const Ask = ({ parentCode, questionCode, onFinish }) => {
   const onSendAnswer = createSendAnswer(askData)
 
   return component === 'button' ? (
-    <Button parentCode={parentCode} askData={askData} onFinish={onFinish} />
+    <Button
+      questionCode={questionCode}
+      parentCode={parentCode}
+      askData={askData}
+      onFinish={onFinish}
+    />
   ) : (
     <FormControl isRequired={mandatory}>
       {!multiple && <FormLabel fontWeight="semibold">{name}</FormLabel>}
       {component === 'email' && (
-        <Email.Write data={data} onSendAnswer={onSendAnswer} askData={askData} />
+        <Email.Write
+          questionCode={questionCode}
+          data={data}
+          onSendAnswer={onSendAnswer}
+          askData={askData}
+        />
       )}
-      {component === 'phone' && <Phone.Write onSendAnswer={onSendAnswer} data={data} />}
-      {component === 'address' && <Address.Write onSendAnswer={onSendAnswer} data={data} />}
+      {component === 'phone' && (
+        <Phone.Write questionCode={questionCode} onSendAnswer={onSendAnswer} data={data} />
+      )}
+      {component === 'address' && (
+        <Address.Write questionCode={questionCode} onSendAnswer={onSendAnswer} data={data} />
+      )}
       {(component === 'dropdown' || component === 'tag') && (
         <Select.Write
+          questionCode={questionCode}
           groupCode={groupCode}
           attributeCode={attributeCode}
           onSendAnswer={onSendAnswer}
@@ -71,6 +86,7 @@ const Ask = ({ parentCode, questionCode, onFinish }) => {
       )}
       {component === 'radio' && (
         <Radio.Write
+          questionCode={questionCode}
           groupCode={groupCode}
           attributeCode={attributeCode}
           onSendAnswer={onSendAnswer}
@@ -79,29 +95,74 @@ const Ask = ({ parentCode, questionCode, onFinish }) => {
         />
       )}
       {component === 'text' && (
-        <Text.Write mandatory={mandatory} data={data} onSendAnswer={onSendAnswer} />
+        <Text.Write
+          questionCode={questionCode}
+          mandatory={mandatory}
+          data={data}
+          onSendAnswer={onSendAnswer}
+        />
       )}
       {component === 'social' && (
-        <Social.Write mandatory={mandatory} data={data} onSendAnswer={onSendAnswer} />
+        <Social.Write
+          questionCode={questionCode}
+          mandatory={mandatory}
+          data={data}
+          onSendAnswer={onSendAnswer}
+        />
       )}
       {component === 'upload' && (
-        <Upload.Write dttData={dataType} data={data} onSendAnswer={onSendAnswer} />
+        <Upload.Write
+          questionCode={questionCode}
+          dttData={dataType}
+          data={data}
+          onSendAnswer={onSendAnswer}
+        />
       )}
       {component === 'date' && (
-        <Date.Write typeName={typeName} data={data} onSendAnswer={onSendAnswer} />
+        <Date.Write
+          questionCode={questionCode}
+          typeName={typeName}
+          data={data}
+          onSendAnswer={onSendAnswer}
+        />
       )}
       {component === 'richtext_editor' && (
-        <RichText.Write data={data} onSendAnswer={onSendAnswer} description={description} />
+        <RichText.Write
+          questionCode={questionCode}
+          data={data}
+          onSendAnswer={onSendAnswer}
+          description={description}
+        />
       )}
       {component === 'date_range' && (
-        <DateRange.Write data={data} onSendAnswer={onSendAnswer} html={html} />
+        <DateRange.Write
+          questionCode={questionCode}
+          data={data}
+          onSendAnswer={onSendAnswer}
+          html={html}
+        />
       )}
-      {component === 'video' && <Video.Write data={data} onSendAnswer={onSendAnswer} html={html} />}
-      {component === 'time_range' && <TimeRange.Write data={data} onSendAnswer={onSendAnswer} />}
-      {component === 'html_display' && <HtmlDisplay.Read data={data} />}
-      {component === 'signature' && <Signature.Write data={data} onSendAnswer={onSendAnswer} />}
-      {component === 'link' && <URL.Write data={data} onSendAnswer={onSendAnswer} />}
-      {component === 'abn_number' && <ABN.Write data={data} onSendAnswer={onSendAnswer} />}
+      {component === 'video' && (
+        <Video.Write
+          questionCode={questionCode}
+          data={data}
+          onSendAnswer={onSendAnswer}
+          html={html}
+        />
+      )}
+      {component === 'time_range' && (
+        <TimeRange.Write questionCode={questionCode} data={data} onSendAnswer={onSendAnswer} />
+      )}
+      {component === 'html_display' && <HtmlDisplay.Read questionCode={questionCode} data={data} />}
+      {component === 'signature' && (
+        <Signature.Write questionCode={questionCode} data={data} onSendAnswer={onSendAnswer} />
+      )}
+      {component === 'link' && (
+        <URL.Write questionCode={questionCode} data={data} onSendAnswer={onSendAnswer} />
+      )}
+      {component === 'abn_number' && (
+        <ABN.Write questionCode={questionCode} data={data} onSendAnswer={onSendAnswer} />
+      )}
       {/* <div>{component}</div> */}
     </FormControl>
   )

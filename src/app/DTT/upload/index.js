@@ -28,7 +28,7 @@ const Read = ({ data, dttData }) => {
   )
 }
 
-const Write = ({ data, dttData, onSendAnswer }) => {
+const Write = ({ questionCode, data, dttData, onSendAnswer }) => {
   const api = useApi()
   const typeName = dttData?.typeName
 
@@ -75,15 +75,23 @@ const Write = ({ data, dttData, onSendAnswer }) => {
             data={data}
             onSendAnswer={onSendAnswer}
             setLoading={setLoading}
+            test-id={questionCode}
           />
         ) : data?.value ? (
           <Tooltip label="Click to remove">
-            <Button onClick={() => onSendAnswer()}>{`${fileName || 'File'} Uploaded`}</Button>
+            <Button test-id={questionCode} onClick={() => onSendAnswer()}>{`${
+              fileName || 'File'
+            } Uploaded`}</Button>
           </Tooltip>
         ) : (
-          <IconButton onClick={openDropzone} icon={<FontAwesomeIcon icon={faUpload} />} />
+          <IconButton
+            test-id={questionCode}
+            onClick={openDropzone}
+            icon={<FontAwesomeIcon icon={faUpload} />}
+          />
         )}
         <DropzoneDialog
+          test-id={questionCode}
           open={dropzone}
           onClose={closeDropzone}
           onSave={handleSave}

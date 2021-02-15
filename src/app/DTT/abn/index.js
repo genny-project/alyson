@@ -17,7 +17,7 @@ import {
 } from '@chakra-ui/react'
 import { Read } from '../text'
 
-const Write = ({ data, onSendAnswer }) => {
+const Write = ({ questionCode, data, onSendAnswer }) => {
   const { callAbnLookup } = useApi()
 
   const [isOpen, setIsOpen] = useState(false)
@@ -48,13 +48,14 @@ const Write = ({ data, onSendAnswer }) => {
           <PopoverCloseButton />
           <PopoverHeader>Search For Name</PopoverHeader>
           <PopoverBody>
-            <Input onChange={onChangeLookup} />
+            <Input test-id={`${questionCode}-abn-lookup`} onChange={onChangeLookup} />
             {loading ? (
               <CircularProgress mt="5" isIndeterminate />
             ) : (
               <VStack mt="5">
                 {options.map(opt => (
                   <Button
+                    test-id={opt.abn}
                     colorScheme="teal"
                     h="4rem"
                     w="full"
@@ -84,6 +85,7 @@ const Write = ({ data, onSendAnswer }) => {
           </Button>
         </InputLeftElement>
         <Input
+          test-id={questionCode}
           pl="10rem"
           value={value}
           onChange={e => setValue(e.target.value)}

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { selectCodes, selectRows } from 'redux/db/selectors'
 import { Read } from 'app/DTT/text'
 
-const Write = ({ data, onSendAnswer, groupCode }) => {
+const Write = ({ questionCode, data, onSendAnswer, groupCode }) => {
   const options = useSelector(selectRows(groupCode))
   const optionData = useSelector(selectCodes(options, 'PRI_NAME'))
 
