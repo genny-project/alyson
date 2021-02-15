@@ -1,13 +1,12 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { isEmpty, map } from 'ramda'
 import { Input, Text } from '@chakra-ui/react'
-import initialiseMap from './helpers/initialise-map'
-import setAddressSuggestions from './helpers/set-address-suggestions'
+
+let service
 
 const AddressPicker = ({ onSendAnswer, data }) => {
-  const inputRef = useRef(null)
   const [searchAddress, setSearchAddress] = useState('')
-  const [allOptions, setAllOptions] = useState([])
+  const [options, setOptions] = useState([])
   const [showSuggestiongs, setShowSuggestions] = useState(true)
 
   const handleOptionClick = description => {
@@ -16,26 +15,19 @@ const AddressPicker = ({ onSendAnswer, data }) => {
     onSendAnswer(description)
   }
 
-  const service = new window.google.maps.places.AutocompleteService()
+  service = new window.google.maps.places.AutocompleteService()
 
   useEffect(() => {
-    initialiseMap(inputRef)
-  }, [])
-
-  useEffect(() => {
-    isEmpty(searchAddress) && setAllOptions([])
+    isEmpty(searchAddress)
+      ? setOptions([])
+      : service.getQueryPredictions({ input: searchAddress }, setOptions)
   }, [searchAddress])
-
-  useEffect(() => {
-    setAddressSuggestions(searchAddress, allOptions, setAllOptions, service)
-  }, [allOptions, searchAddress])
 
   return (
     <div>
       <Input
         test-id={data?.attributeCode}
         id="address-input"
-        ref={inputRef}
         value={searchAddress}
         onChange={e => {
           setSearchAddress(e.target.value)
@@ -47,15 +39,19 @@ const AddressPicker = ({ onSendAnswer, data }) => {
       {showSuggestiongs &&
         map(({ description }) => (
           <Text
+            key={description}
             test-id={description}
             id={description}
             onClick={() => handleOptionClick(description)}
-            borderBottom="1px solid teal"
-            padding="7px 0"
+            p="2"
+            pl="4"
+            cursor="pointer"
+            borderRadius="lg"
+            _hover={{ bg: 'lightgrey' }}
           >
             {description}
           </Text>
-        ))(allOptions || [])}
+        ))(options || [])}
     </div>
   )
 }
