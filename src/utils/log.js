@@ -44,7 +44,8 @@ const initLog = async () => {
   )
 }
 
-const prettyLog = (msg, data) => console.info(`%c${msg}`, 'margin: 1rem', data)
+const prettyLog = (msg, data, style) =>
+  console.info(`%c${msg}`, style || 'padding: 1rem', '\n', data)
 
 export default prettyLog
 export { initLog }

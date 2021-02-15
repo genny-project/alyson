@@ -1,5 +1,6 @@
 import { eventBus } from 'vertx'
 import log from 'utils/log'
+import { orange } from '@material-ui/core/colors'
 
 const createSendMessage = token => (data, options) => {
   const { msg_type = 'EVT_MSG', event_type = 'BTN_CLICK', data_type, redirect = true } =
@@ -18,7 +19,7 @@ const createSendMessage = token => (data, options) => {
 
   if (eventBus.state) {
     try {
-      log('⬆️', message)
+      log(`⬆️ SENDING ${msg_type}`, message, 'color: darkSalmon;padding: 60px;')
       eventBus.send('address.inbound', message)
     } catch (error) {
       window.location.reload()
