@@ -48,7 +48,7 @@ const Ask = ({ parentCode, questionCode }) => {
       {!multiple && <FormLabel fontWeight="semibold">{name}</FormLabel>}
       {component === 'email' && <Email.Write onSendAnswer={onSendAnswer} askData={askData} />}
       {component === 'phone' && <Phone.Write onSendAnswer={onSendAnswer} data={data} />}
-      {component === 'address' && <Address.Write onSendAnswer={onSendAnswer} />}
+      {component === 'address' && <Address.Write onSendAnswer={onSendAnswer} data={data} />}
       {(component === 'dropdown' || component === 'tag') && (
         <Select.Write
           groupCode={groupCode}

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { isEmpty, map } from 'ramda'
-import { Input } from '@chakra-ui/react'
+import { Input, Text } from '@chakra-ui/react'
 import initialiseMap from './helpers/initialise-map'
 import setAddressSuggestions from './helpers/set-address-suggestions'
 
@@ -15,6 +15,7 @@ const AddressPicker = ({ onSendAnswer, data }) => {
     setShowSuggestions(false)
     onSendAnswer(description)
   }
+
   const service = new window.google.maps.places.AutocompleteService()
 
   useEffect(() => {
@@ -22,30 +23,36 @@ const AddressPicker = ({ onSendAnswer, data }) => {
   }, [])
 
   useEffect(() => {
-    isEmpty(searchAddress) && setAllOptions([])
-  }, [searchAddress])
-
-  if (!isEmpty(searchAddress)) {
-    setAddressSuggestions(searchAddress, allOptions, setAllOptions, service)
-  }
+    isEmpty(searchAddress)
+      ? setAllOptions([])
+      : setAddressSuggestions(searchAddress, allOptions, setAllOptions, service)
+  }, [allOptions, searchAddress])
 
   return (
     <div>
-      <div onClick={() => setShowSuggestions(true)}>
-        <Input
-          id="address-input"
-          ref={inputRef}
-          onChange={e => {
-            setSearchAddress(e.target.value)
-          }}
-          value={searchAddress}
-        />
-      </div>
+      <Input
+        test-id={data?.attributeCode}
+        id="address-input"
+        ref={inputRef}
+        value={searchAddress}
+        onChange={e => {
+          setSearchAddress(e.target.value)
+        }}
+        onClick={() => {
+          setShowSuggestions(true)
+        }}
+      />
       {showSuggestiongs &&
         map(({ description }) => (
-          <div onClick={() => handleOptionClick(description)}>
-            <option id={description}>{description}</option>
-          </div>
+          <Text
+            test-id={description}
+            id={description}
+            onClick={() => handleOptionClick(description)}
+            borderBottom="1px solid teal"
+            padding="7px 0"
+          >
+            {description}
+          </Text>
         ))(allOptions || [])}
     </div>
   )

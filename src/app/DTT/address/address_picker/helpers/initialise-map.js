@@ -1,6 +1,6 @@
 let map
 
-const initialiseMap = (inputRef, searchAddress, allOptions, setAllOptions) => {
+const initialiseMap = inputRef => {
   map = new window.google.maps.Map(inputRef.current)
 }
 
