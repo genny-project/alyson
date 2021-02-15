@@ -49,7 +49,7 @@ const Filters = ({ sbeCode }) => {
   })
 
   const submitFilter = value => {
-    onAddFilter({ ...newFilter, value })
+    onAddFilter({ ...newFilter, value, weight: filters.length + 1 })
     setNewFilter({
       sourceCode,
       targetCode: sbeCode,

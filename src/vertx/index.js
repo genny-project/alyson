@@ -20,14 +20,14 @@ let onSendMessage = identity
 const onSendAnswer = data =>
   onSendMessage([data], { msg_type: 'DATA_MSG', data_type: 'Answer', event_type: false })
 
-const onSendFilter = ({ value, attributeCode, targetCode, sourceCode, type }) =>
+const onSendFilter = ({ value, attributeCode, targetCode, sourceCode, type, weight }) =>
   onSendAnswer({
     askId: 0,
     attributeCode,
     code: 'QUE_FILTER',
     identifier: 'QUE_FILTER',
     type,
-    weight: 1,
+    weight,
     value: `L:${value}`,
     targetCode,
     sourceCode,
