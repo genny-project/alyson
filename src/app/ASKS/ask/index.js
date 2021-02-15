@@ -54,7 +54,7 @@ const Ask = ({ parentCode, questionCode, onFinish }) => {
         <Email.Write data={data} onSendAnswer={onSendAnswer} askData={askData} />
       )}
       {component === 'phone' && <Phone.Write onSendAnswer={onSendAnswer} data={data} />}
-      {component === 'address' && <Address.Write data={data} onSendAnswer={onSendAnswer} />}
+      {component === 'address' && <Address.Write onSendAnswer={onSendAnswer} data={data} />}
       {(component === 'dropdown' || component === 'tag') && (
         <Select.Write
           groupCode={groupCode}

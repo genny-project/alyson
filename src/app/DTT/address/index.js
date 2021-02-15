@@ -1,7 +1,9 @@
 import { Read } from 'app/DTT/text'
-import GooglePlacesAutocomplete from 'react-google-places-autocomplete'
+import AddressPicker from './address_picker'
 
-const Write = ({ onSendAnswer, data }) => <GooglePlacesAutocomplete />
+const Write = ({ onSendAnswer, data }) => {
+  return <AddressPicker onSendAnswer={onSendAnswer} data={data} />
+}
 
 const Address = {
   Write,
