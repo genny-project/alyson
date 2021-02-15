@@ -7,7 +7,8 @@ const BaseEntityDetail = () => {
   const code = useSelector(selectDetail)
   const displayMode = useSelector(selectCode(code, 'SCH_DISPLAY_MODE'))
 
-  return <Cv sbeCode={code} />
+  if (!displayMode) return null
+  return displayMode.value === 'cv' ? <Cv sbeCode={code} /> : <div>{displayMode.value}</div>
 }
 
 export default BaseEntityDetail

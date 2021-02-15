@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import App from 'app'
 import { ReactKeycloakProvider } from '@react-keycloak/web'
-import reportWebVitals from './reportWebVitals'
+// import reportWebVitals from './reportWebVitals'
 import getApiConfig from 'config/get-api-config'
 import Vertx from 'vertx'
 import { Provider } from 'react-redux'
@@ -52,4 +52,4 @@ const initialiseApp = async () => {
 }
 
 initialiseApp()
-reportWebVitals()
+// reportWebVitals()
