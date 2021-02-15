@@ -3,8 +3,6 @@ import Attribute from 'app/BE/attribute'
 import getActions from 'app/SBE/utils/get-actions'
 import { useSelector } from 'react-redux'
 import { selectCode, selectRows } from 'redux/db/selectors'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 import Action from 'app/BE/action'
 import Label from 'app/BE/attribute/Label'
 

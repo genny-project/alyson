@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import 'react-dates/initialize'
 import 'react-dates/lib/css/_datepicker.css'
-// import { compose, multiply, subtract, __ } from 'ramda'
+import { compose, multiply, subtract, __ } from 'ramda'
 import { DateRangePicker } from 'react-dates'
 import moment from 'moment'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
@@ -13,7 +13,7 @@ const defaultDateRange = {
   endDate: new Date(),
 }
 
-// const durationIntoNights = compose(subtract(__, 3), multiply(7), parseInt)
+const durationIntoNights = compose(subtract(__, 3), multiply(7), parseInt)
 
 const returnYears = () => {
   let years = []
@@ -41,7 +41,7 @@ const renderMonthElement = ({ month, onMonthSelect, onYearSelect }) => (
 )
 
 const Write = ({ onSendAnswer, data, html }) => {
-  // const { duration: durationKey } = safelyParseJson(html, {})
+  const { duration } = safelyParseJson(html, {})
 
   const { startDate: initialStartDate, endDate: initialEndDate } = data?.value
     ? safelyParseJson(data.value, defaultDateRange)
@@ -73,7 +73,7 @@ const Write = ({ onSendAnswer, data, html }) => {
       renderMonthElement={renderMonthElement}
       withPortal
       showClearDates
-      // minimumNights={duration ? durationIntoNights(duration) : false}
+      minimumNights={duration ? durationIntoNights(duration) : false}
     />
   )
 }

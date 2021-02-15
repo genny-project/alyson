@@ -1,15 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { selectDialog } from 'redux/app/selectors'
 import { closeDialog } from 'redux/app'
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-} from '@chakra-ui/react'
+import { Modal, ModalOverlay, ModalContent, ModalBody, ModalCloseButton } from '@chakra-ui/react'
 
 import Form from 'app/layouts/form'
 
