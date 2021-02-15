@@ -26,6 +26,7 @@
     "keycloak-js": "^12.0.2",
     "localforage": "^1.9.0",
     "localforage-observable": "^2.1.1",
+    "lodash.debounce": "^4.0.8",
     "material-ui-dropzone": "^3.5.0",
     "megadraft": "^0.7.4",
     "moment": "^2.29.1",

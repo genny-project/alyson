@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { apiConfig } from 'config/get-api-config'
 import { useKeycloak } from '@react-keycloak/web'
+import debounce from 'lodash.debounce'
 
 const useApi = () => {
   const { keycloak } = useKeycloak()
@@ -50,11 +51,30 @@ const useApi = () => {
   const getImageSrc = uuid => (uuid ? `${IMAGE_URL}/${MEDIA_URL}/${uuid}` : null)
   const getSrc = uuid => (uuid ? `${MEDIA_URL}/${uuid}` : null)
 
+  const callABN = async value =>
+    await axios({
+      method: 'GET',
+      url: `${ABN_URL}?name=${value}&size=${5}`,
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    })
+
+  const callAbnLookup = debounce(async ({ value, onResult, setLoading }) => {
+    setLoading(true)
+
+    const resp = await callABN(value)
+
+    onResult(resp?.data.names || [])
+    setLoading(false)
+  }, 800)
+
   return {
     getImageSrc,
     postMediaFile,
     getSrc,
     getMediaFileName,
+    callAbnLookup,
   }
 }
 

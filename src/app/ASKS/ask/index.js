@@ -22,6 +22,7 @@ import TimeRange from 'app/DTT/time_range'
 import HtmlDisplay from 'app/DTT/html_display'
 import Signature from 'app/DTT/signature'
 import URL from 'app/DTT/url'
+import ABN from 'app/DTT/abn'
 
 const Ask = ({ parentCode, questionCode, onFinish }) => {
   const askData = useSelector(selectCode(parentCode, questionCode))
@@ -100,6 +101,7 @@ const Ask = ({ parentCode, questionCode, onFinish }) => {
       {component === 'html_display' && <HtmlDisplay.Read data={data} />}
       {component === 'signature' && <Signature.Write data={data} onSendAnswer={onSendAnswer} />}
       {component === 'link' && <URL.Write data={data} onSendAnswer={onSendAnswer} />}
+      {component === 'abn_number' && <ABN.Write data={data} onSendAnswer={onSendAnswer} />}
       {/* <div>{component}</div> */}
     </FormControl>
   )
