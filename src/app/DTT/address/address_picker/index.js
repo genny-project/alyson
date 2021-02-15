@@ -23,9 +23,11 @@ const AddressPicker = ({ onSendAnswer, data }) => {
   }, [])
 
   useEffect(() => {
-    isEmpty(searchAddress)
-      ? setAllOptions([])
-      : setAddressSuggestions(searchAddress, allOptions, setAllOptions, service)
+    isEmpty(searchAddress) && setAllOptions([])
+  }, [searchAddress])
+
+  useEffect(() => {
+    setAddressSuggestions(searchAddress, allOptions, setAllOptions, service)
   }, [allOptions, searchAddress])
 
   return (
