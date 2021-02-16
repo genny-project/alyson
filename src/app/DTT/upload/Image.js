@@ -4,6 +4,7 @@ import { Avatar, ButtonGroup, Button, IconButton, Tooltip } from '@chakra-ui/rea
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCameraRetro, faUpload } from '@fortawesome/free-solid-svg-icons'
 import Snap from './Snap'
+import { onSendMessage } from 'vertx'
 
 const Write = ({ data, openDropzone, onSendAnswer, handleSave, setLoading }) => {
   const { getImageSrc } = useApi()
@@ -38,12 +39,16 @@ const Write = ({ data, openDropzone, onSendAnswer, handleSave, setLoading }) => 
   )
 }
 
-const Read = ({ data }) => {
+const Read = ({ data, parentCode }) => {
   const { getImageSrc } = useApi()
   const src = getImageSrc(data?.value)
 
   if (!src || !data?.value) return <Avatar />
-  return <Avatar src={src} />
+
+  const viewDetail = () =>
+    onSendMessage({ parentCode, targetCode: data.baseEntityCode, code: 'ACT_PRI_EVENT_VIEW' })
+
+  return <Avatar cursor="pointer" onClick={viewDetail} src={src} />
 }
 
 const ImageType = {
