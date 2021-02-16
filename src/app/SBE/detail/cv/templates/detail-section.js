@@ -1,17 +1,30 @@
 import { Text } from '@chakra-ui/react'
 import { map } from 'ramda'
+import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+import { IconButton } from '@chakra-ui/react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+import Attribute from 'app/BE/attribute'
 import styles from './styles'
-const DetailSection = ({ details: { sectionIcon, title, attributes } }) => {
+
+const DetailSection = ({ code, details: { sectionIcon, title, attributes } }) => {
   return (
     <div style={styles.detailSectionContainer}>
-      <div style={styles.detailSectionIconContainer}>{sectionIcon}</div>
+      <div style={styles.detailSectionIconContainer}>
+        <IconButton>
+          <FontAwesomeIcon size="lg" icon={faCoffee} />
+        </IconButton>
+      </div>
+
       <div style={styles.detailSectionInformationContainer}>
         <div style={{ flexGrow: 2, background: 'black' }}>
           <Text fontSize="xl">{title}</Text>
         </div>
         {map(attr => (
           <div style={{ flexGrow: 1, background: 'black' }}>
-            <Text>{attr}</Text>
+            <Text>
+              <Attribute code={code} attribute={attr} />
+            </Text>
           </div>
         ))(attributes)}
       </div>

@@ -9,7 +9,6 @@ const BaseEntityDetail = () => {
   const displayMode = useSelector(selectCode(code, 'SCH_DISPLAY_MODE'))
 
   const displayType = getDetailType(displayMode?.value)
-  console.warn({ displayType })
 
   if (displayType === 'CV') {
     return <Cv sbeCode={code} />
