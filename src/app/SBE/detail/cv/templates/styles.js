@@ -16,6 +16,7 @@ const styles = {
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: '1em',
+    paddingBottom: 0,
   },
 
   headerSectionInfoContainer: {
@@ -51,6 +52,7 @@ const styles = {
     display: 'flex',
     flexGrow: '1',
     padding: '1em',
+    paddingBottom: 0,
   },
 
   detailSectionIconContainer: {

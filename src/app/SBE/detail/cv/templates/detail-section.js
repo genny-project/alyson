@@ -1,6 +1,5 @@
 import { Text } from '@chakra-ui/react'
 import { map } from 'ramda'
-import { faCoffee } from '@fortawesome/free-solid-svg-icons'
 import { IconButton } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -12,7 +11,7 @@ const DetailSection = ({ code, details: { sectionIcon, title, attributes } }) =>
     <div style={styles.detailSectionContainer}>
       <div style={styles.detailSectionIconContainer}>
         <IconButton>
-          <FontAwesomeIcon size="lg" icon={faCoffee} />
+          <FontAwesomeIcon size="lg" icon={sectionIcon} />
         </IconButton>
       </div>
 
