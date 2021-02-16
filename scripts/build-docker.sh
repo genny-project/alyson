@@ -1,5 +1,5 @@
 #!/bin/bash
-project='alyson'
+project='alyson-v9'
 branch=$(git rev-parse --symbolic-full-name --abbrev-ref HEAD)
 commit_hash=$(git rev-parse HEAD)
 

@@ -5,8 +5,8 @@ ADD package.json package.json
 ADD . .
 RUN rm -f .env
 RUN apk add git
-RUN npm install
-RUN npm run build -- --profile
+RUN npm ci
+RUN npm run build 
 
 WORKDIR /app
 FROM nginx
