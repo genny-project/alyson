@@ -96,7 +96,7 @@ const Read = ({ data, dataType }) => {
 
   const value = getValue(data, options)
 
-  return <div>{`${value}`}</div>
+  return <Text>{`${value}`}</Text>
 }
 
 const Select = {

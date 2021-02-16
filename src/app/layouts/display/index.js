@@ -12,6 +12,8 @@ import Dialog from 'app/layouts/dialog'
 const Display = () => {
   const display = useSelector(selectDisplay)
 
+  console.log(display)
+
   return (
     <Box marginTop="6rem" id="main-display">
       {display === 'DASHBOARD' && <Dashboard />}

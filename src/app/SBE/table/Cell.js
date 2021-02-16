@@ -10,7 +10,7 @@ const Cell = ({ code, attribute, showAttributeName }) => {
     <Th>{data?.attributeName}</Th>
   ) : (
     <Td>
-      <Attribute code={code} attribute={attribute} />
+      <Attribute code={code} attribute={attribute} mini />
     </Td>
   )
 }

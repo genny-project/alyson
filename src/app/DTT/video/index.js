@@ -1,10 +1,22 @@
 import React, { useState } from 'react'
-import { Button, Text, VStack } from '@chakra-ui/react'
+import {
+  Button,
+  Text,
+  VStack,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverBody,
+  PopoverArrow,
+  PopoverCloseButton,
+  IconButton,
+  PopoverHeader,
+} from '@chakra-ui/react'
 import VideoRecorder from './video_recorder'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import useApi from 'api'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSave, faVideo } from '@fortawesome/free-solid-svg-icons'
+import { faSave, faVideo, faExpand } from '@fortawesome/free-solid-svg-icons'
 
 const Write = ({ questionCode, onSendAnswer, html, data }) => {
   const config = safelyParseJson(html, {})
@@ -94,11 +106,29 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
   )
 }
 
-const Read = ({ data }) => {
+const Read = ({ data, mini }) => {
   const api = useApi()
   const src = api.getSrc(data?.value)
 
-  return src ? <video src={src} /> : null
+  if (!src) return null
+
+  return mini ? (
+    <Popover>
+      <PopoverTrigger>
+        <IconButton icon={<FontAwesomeIcon icon={faExpand} />} />
+      </PopoverTrigger>
+      <PopoverContent>
+        <PopoverArrow />
+        <PopoverCloseButton />
+        <PopoverHeader>{data.attributeName}</PopoverHeader>
+        <PopoverBody>
+          <video controls style={{ width: '20rem', borderRadius: '1rem' }} src={src} />
+        </PopoverBody>
+      </PopoverContent>
+    </Popover>
+  ) : (
+    <video controls style={{ width: '20rem', borderRadius: '1rem' }} src={src} />
+  )
 }
 
 const Video = {

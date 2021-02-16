@@ -1,10 +1,21 @@
 import { useState, useEffect } from 'react'
-import { Box, Button } from '@chakra-ui/react'
+import {
+  Box,
+  Button,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverBody,
+  PopoverArrow,
+  PopoverCloseButton,
+  IconButton,
+  PopoverHeader,
+} from '@chakra-ui/react'
 import { EditorState, convertFromHTML, ContentState } from 'draft-js'
 import { Editor } from 'react-draft-wysiwyg'
 import { stateToHTML } from 'draft-js-export-html'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSave, faEdit } from '@fortawesome/free-solid-svg-icons'
+import { faSave, faEdit, faExpand } from '@fortawesome/free-solid-svg-icons'
 import '../../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
 const Write = ({ questionCode, data, onSendAnswer, description }) => {
@@ -61,9 +72,25 @@ const Write = ({ questionCode, data, onSendAnswer, description }) => {
     </Box>
   )
 }
-const Read = ({ data }) => {
+const Read = ({ data, mini }) => {
   if (!data?.value) return null
-  return <div dangerouslySetInnerHTML={{ __html: data.value }} />
+  return mini ? (
+    <Popover>
+      <PopoverTrigger>
+        <IconButton icon={<FontAwesomeIcon icon={faExpand} />} />
+      </PopoverTrigger>
+      <PopoverContent>
+        <PopoverArrow />
+        <PopoverCloseButton />
+        <PopoverHeader>{data.attributeName}</PopoverHeader>
+        <PopoverBody>
+          <div dangerouslySetInnerHTML={{ __html: data.value }} />
+        </PopoverBody>
+      </PopoverContent>
+    </Popover>
+  ) : (
+    <div dangerouslySetInnerHTML={{ __html: data.value }} />
+  )
 }
 
 const RichText = {

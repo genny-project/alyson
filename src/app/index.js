@@ -1,4 +1,6 @@
 import Navigation from 'app/layouts/navigation'
+import { useKeycloak } from '@react-keycloak/web'
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 import { ChakraProvider, extendTheme } from '@chakra-ui/react'
 import { ColorModeScript } from '@chakra-ui/react'
 import { lazy, Suspense } from 'react'
@@ -12,6 +14,7 @@ const config = {
   initialColorMode: 'light',
 }
 const App = () => {
+  const { keycloak } = useKeycloak()
   const theme = extendTheme({ config })
 
   return (
@@ -20,10 +23,42 @@ const App = () => {
       <Vertx />
       <ChakraProvider theme={theme}>
         <ColorModeScript />
-        <Navigation />
-        <Suspense fallback={<div />}>
-          <Display />
-        </Suspense>
+        <BrowserRouter>
+          <Switch>
+            <Route
+              path="/"
+              exact
+              component={() =>
+                keycloak.authenticated ? (
+                  <Redirect to={{ pathname: '/home' }} />
+                ) : (
+                  <Redirect to={{ pathname: '/public' }} />
+                )
+              }
+            />
+            <Route
+              path="/home"
+              exact
+              component={() => (
+                <>
+                  <Navigation />
+                  <Suspense fallback={<div />}>
+                    <Display />
+                  </Suspense>
+                </>
+              )}
+            />
+            <Route
+              path={`/public`}
+              exact
+              component={() => (
+                <Suspense fallback={<div />}>
+                  <Display />
+                </Suspense>
+              )}
+            />
+          </Switch>
+        </BrowserRouter>
       </ChakraProvider>
     </Provider>
   )

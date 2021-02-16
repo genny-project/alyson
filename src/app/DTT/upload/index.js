@@ -3,7 +3,7 @@ import ImageType from './Image'
 import { DropzoneDialog } from 'material-ui-dropzone'
 import { CircularProgress, IconButton, Button, Tooltip, Link } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUpload } from '@fortawesome/free-solid-svg-icons'
+import { faFileDownload, faUpload } from '@fortawesome/free-solid-svg-icons'
 import useApi from 'api'
 
 const Read = ({ data, dttData }) => {
@@ -21,10 +21,14 @@ const Read = ({ data, dttData }) => {
     }
   }, [api, data?.value])
 
+  if (!data?.value) return null
+
   return typeName === 'Image' ? (
     <ImageType.Read data={data} />
   ) : (
-    <Link href={api.getSrc(data?.value)}>{fileName || 'Download'}</Link>
+    <Link p="2" color="teal" href={api.getSrc(data?.value)}>
+      <FontAwesomeIcon size="lg" icon={faFileDownload} />
+    </Link>
   )
 }
 
