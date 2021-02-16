@@ -11,7 +11,7 @@ const Process = () => {
   return (
     <div>
       <Search sbeCode={JSON.stringify(processCodes)} />
-      <HStack align="flex-start" p="6" m="3" spacing="6">
+      <HStack align="flex-start" p="5" spacing="6">
         {processCodes.map(sbeCode => (
           <Lane key={sbeCode} sbeCode={sbeCode} />
         ))}
