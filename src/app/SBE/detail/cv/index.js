@@ -1,41 +1,56 @@
-import { VStack, HStack } from '@chakra-ui/react'
-import Attribute from 'app/BE/attribute'
-import getActions from 'app/SBE/utils/get-actions'
-import { useSelector } from 'react-redux'
-import { selectCode, selectRows } from 'redux/db/selectors'
-import Action from 'app/BE/action'
-import Label from 'app/BE/attribute/Label'
+import Header from './templates/header'
+import DetailSection from './templates/detail-section'
+import styles from './templates/styles'
+
+const contactDetails = {
+  sectionIcon: 'person',
+  title: 'Contact Details',
+  attributes: ['PRI_NAME', 'PRI_MOBILE', 'PRI_EMAIL', 'PRI_ADDRESS_FULL'],
+}
 
 const Cv = ({ sbeCode }) => {
-  const sbe = useSelector(selectCode(sbeCode))
-  const rows = useSelector(selectRows(sbeCode)) || ['']
-  const code = rows[0]
-
-  const attributes = useSelector(selectCode(code))
-  // const assocOccupation = useSelector(selectCode(code, 'PRI_ASSOC_OCCUPATION'))
-
-  if (!sbe) return null
-
-  const actions = getActions(sbe)
-
-  // const Code = ({ attr }) => <Attribute code={code} attribute={attr} />
-
   return (
-    <VStack spacing="4" p="3" w="full" h="max-content">
-      <HStack>
-        {actions &&
-          actions.map(action => (
-            <Action key={action} parentCode={sbeCode} code={action} targetCode={code} />
-          ))}
-      </HStack>
-      {attributes &&
-        attributes.map(attr => (
-          <VStack key={attr}>
-            <Label code={code} attribute={attr} />
-            <Attribute code={code} attribute={attr} />
-          </VStack>
-        ))}
-    </VStack>
+    <div style={styles.container}>
+      <Header />
+      <DetailSection details={contactDetails} />
+      <div style={{ background: 'tomato', display: 'flex', flexGrow: '1', padding: '1em' }}>
+        <div style={{ background: 'red', padding: '1em 2em 0 2em' }}>{`two`}</div>
+        <div
+          style={{
+            background: 'blue',
+            display: 'flex',
+            flexDirection: 'column',
+            flexGrow: '1',
+            paddingTop: '1em',
+          }}
+        >
+          <div style={{ flexGrow: 1, background: 'black' }}>{`Internship Details`}</div>
+          <div style={{ flexGrow: 1, background: 'tomato' }}>{`hello-2`}</div>
+          <div style={{ flexGrow: 1, background: 'black' }}>{`hello-3`}</div>
+          <div style={{ flexGrow: 1, background: 'tomato' }}>{`hello-4`}</div>
+          <div style={{ flexGrow: 1, background: 'toblackmato' }}>{`hello-1`}</div>
+        </div>
+      </div>
+
+      <div style={{ background: 'yellow', display: 'flex', flexGrow: '1', padding: '1em' }}>
+        <div style={{ background: 'red', padding: '1em 2em 0 2em' }}>{`three`}</div>
+        <div
+          style={{
+            background: 'blue',
+            display: 'flex',
+            flexDirection: 'column',
+            flexGrow: '1',
+            paddingTop: '1em',
+          }}
+        >
+          <div style={{ flexGrow: 1, background: 'black' }}>{`Education Details`}</div>
+          <div style={{ flexGrow: 1, background: 'tomato' }}>{`hello-2`}</div>
+          <div style={{ flexGrow: 1, background: 'black' }}>{`hello-3`}</div>
+          <div style={{ flexGrow: 1, background: 'tomato' }}>{`hello-4`}</div>
+          <div style={{ flexGrow: 1, background: 'black' }}>{`hello-1`}</div>
+        </div>
+      </div>
+    </div>
   )
 }
 
