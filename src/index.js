@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom'
 // import reportWebVitals from './reportWebVitals'
 import getApiConfig from 'config/get-api-config'
 import { initLog } from 'utils/log'
-
-const App = lazy(() => import('app'))
+import { ReactKeycloakProvider } from '@react-keycloak/web'
+import { Center, CircularProgress } from '@chakra-ui/react'
+import App from 'app'
 const Error = lazy(() => import('error'))
 
 const initialiseApp = async () => {
@@ -14,9 +15,16 @@ const initialiseApp = async () => {
 
     ReactDOM.render(
       <React.StrictMode>
-        <Suspense fallback={<div />}>
-          <App keycloak={keycloak} />
-        </Suspense>
+        <ReactKeycloakProvider
+          authClient={keycloak}
+          LoadingComponent={
+            <Center>
+              <CircularProgress isIndeterminate />
+            </Center>
+          }
+        >
+          <App />
+        </ReactKeycloakProvider>
       </React.StrictMode>,
       document.getElementById('root'),
     )

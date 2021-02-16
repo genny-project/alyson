@@ -13,7 +13,7 @@ const Display = () => {
   const display = useSelector(selectDisplay)
 
   return (
-    <Box marginTop="8rem" id="main-display">
+    <Box marginTop="6rem" id="main-display">
       {display === 'DASHBOARD' && <Dashboard />}
       {display === 'TABLE' && <Table />}
       {display === 'PROCESS' && <Process />}
