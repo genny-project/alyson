@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import { selectTable } from 'redux/app/selectors'
-import Table from '../../SBE/table/Table'
+import Table from 'app/SBE/table/Table'
 
 const TableWrapper = () => {
   const table = useSelector(selectTable)

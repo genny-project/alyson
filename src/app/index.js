@@ -53,7 +53,7 @@ const App = () => {
               exact
               component={() => (
                 <Suspense fallback={<div />}>
-                  <Display />
+                  <Display isPublic />
                 </Suspense>
               )}
             />
