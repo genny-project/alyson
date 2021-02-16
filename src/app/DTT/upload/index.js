@@ -3,10 +3,10 @@ import ImageType from './Image'
 import { DropzoneDialog } from 'material-ui-dropzone'
 import { CircularProgress, IconButton, Button, Tooltip, Link } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUpload } from '@fortawesome/free-solid-svg-icons'
+import { faFileDownload, faUpload } from '@fortawesome/free-solid-svg-icons'
 import useApi from 'api'
 
-const Read = ({ data, dttData }) => {
+const Read = ({ data, dttData, parentCode }) => {
   const typeName = dttData?.typeName
   const api = useApi()
 
@@ -21,14 +21,20 @@ const Read = ({ data, dttData }) => {
     }
   }, [api, data?.value])
 
+  if (!data?.value) return null
+
   return typeName === 'Image' ? (
-    <ImageType.Read data={data} />
+    <ImageType.Read data={data} parentCode={parentCode} />
   ) : (
-    <Link href={api.getSrc(data?.value)}>{fileName || 'Download'}</Link>
+    <Tooltip label={fileName}>
+      <Link p="2" color="teal" href={api.getSrc(data?.value)}>
+        <FontAwesomeIcon size="lg" icon={faFileDownload} />
+      </Link>
+    </Tooltip>
   )
 }
 
-const Write = ({ data, dttData, onSendAnswer }) => {
+const Write = ({ questionCode, data, dttData, onSendAnswer }) => {
   const api = useApi()
   const typeName = dttData?.typeName
 
@@ -75,15 +81,23 @@ const Write = ({ data, dttData, onSendAnswer }) => {
             data={data}
             onSendAnswer={onSendAnswer}
             setLoading={setLoading}
+            test-id={questionCode}
           />
         ) : data?.value ? (
           <Tooltip label="Click to remove">
-            <Button onClick={() => onSendAnswer()}>{`${fileName || 'File'} Uploaded`}</Button>
+            <Button test-id={questionCode} onClick={() => onSendAnswer()}>{`${
+              fileName || 'File'
+            } Uploaded`}</Button>
           </Tooltip>
         ) : (
-          <IconButton onClick={openDropzone} icon={<FontAwesomeIcon icon={faUpload} />} />
+          <IconButton
+            test-id={questionCode}
+            onClick={openDropzone}
+            icon={<FontAwesomeIcon icon={faUpload} />}
+          />
         )}
         <DropzoneDialog
+          test-id={questionCode}
           open={dropzone}
           onClose={closeDropzone}
           onSave={handleSave}

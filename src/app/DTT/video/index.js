@@ -1,12 +1,24 @@
 import React, { useState } from 'react'
-import { Button, Text, VStack } from '@chakra-ui/react'
+import {
+  Button,
+  Text,
+  VStack,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverBody,
+  PopoverArrow,
+  PopoverCloseButton,
+  IconButton,
+  PopoverHeader,
+} from '@chakra-ui/react'
 import VideoRecorder from './video_recorder'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import useApi from 'api'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSave, faVideo } from '@fortawesome/free-solid-svg-icons'
+import { faSave, faVideo, faExpand } from '@fortawesome/free-solid-svg-icons'
 
-const Write = ({ onSendAnswer, html, data }) => {
+const Write = ({ questionCode, onSendAnswer, html, data }) => {
   const config = safelyParseJson(html, {})
 
   const { postMediaFile, getSrc } = useApi()
@@ -33,6 +45,7 @@ const Write = ({ onSendAnswer, html, data }) => {
       <VStack>
         <video style={{ width: '20rem', borderRadius: '1rem' }} src={src} controls />
         <Button
+          test-id={questionCode + 'clear'}
           onClick={() => {
             setNewData(null)
             setStartVideo(false)
@@ -54,6 +67,7 @@ const Write = ({ onSendAnswer, html, data }) => {
             controls
           />
           <Button
+            test-id={questionCode + '-save'}
             colorScheme="teal"
             leftIcon={<FontAwesomeIcon icon={faSave} />}
             onClick={() => handleSave(newData)}
@@ -63,7 +77,12 @@ const Write = ({ onSendAnswer, html, data }) => {
         </VStack>
       )}
       {startVideo ? (
-        <VideoRecorder setStartVideo={setStartVideo} setData={setNewData} config={config} />
+        <VideoRecorder
+          test-id={questionCode}
+          setStartVideo={setStartVideo}
+          setData={setNewData}
+          config={config}
+        />
       ) : (
         <VStack>
           <Text>
@@ -77,6 +96,7 @@ const Write = ({ onSendAnswer, html, data }) => {
           </a>
 
           <Button
+            test-id={questionCode + '-start'}
             leftIcon={<FontAwesomeIcon icon={faVideo} />}
             onClick={() => setStartVideo(true)}
           >{`Ready!`}</Button>
@@ -86,11 +106,29 @@ const Write = ({ onSendAnswer, html, data }) => {
   )
 }
 
-const Read = ({ data }) => {
+const Read = ({ data, mini }) => {
   const api = useApi()
   const src = api.getSrc(data?.value)
 
-  return src ? <video src={src} /> : null
+  if (!src) return null
+
+  return mini ? (
+    <Popover>
+      <PopoverTrigger>
+        <IconButton icon={<FontAwesomeIcon icon={faExpand} />} />
+      </PopoverTrigger>
+      <PopoverContent>
+        <PopoverArrow />
+        <PopoverCloseButton />
+        <PopoverHeader>{data.attributeName}</PopoverHeader>
+        <PopoverBody>
+          <video controls style={{ width: '20rem', borderRadius: '1rem' }} src={src} />
+        </PopoverBody>
+      </PopoverContent>
+    </Popover>
+  ) : (
+    <video controls style={{ width: '20rem', borderRadius: '1rem' }} src={src} />
+  )
 }
 
 const Video = {

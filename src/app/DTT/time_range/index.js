@@ -5,7 +5,7 @@ import { Read } from '../text'
 
 const defaultTimeRange = [9, 17.5]
 
-const Write = ({ onSendAnswer, data }) => {
+const Write = ({ questionCode, onSendAnswer, data }) => {
   const [initialStartTime, initialEndTime] = data?.value
     ? safelyParseJson(data?.value, defaultTimeRange)
     : defaultTimeRange
@@ -26,6 +26,7 @@ const Write = ({ onSendAnswer, data }) => {
 
   return (
     <Slider
+      test-id={questionCode}
       value={selectedRange}
       onChange={handleChange}
       onChangeCommitted={handleCommit}

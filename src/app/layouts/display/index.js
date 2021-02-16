@@ -9,11 +9,13 @@ import Dashboard from 'app/layouts/dashboard'
 import DisplayDrawer from './drawer'
 import Dialog from 'app/layouts/dialog'
 
-const Display = () => {
+const Display = ({ isPublic }) => {
   const display = useSelector(selectDisplay)
 
-  return (
-    <Box marginTop="8rem" id="main-display">
+  return isPublic ? (
+    <Table />
+  ) : (
+    <Box marginTop="6rem" id="main-display">
       {display === 'DASHBOARD' && <Dashboard />}
       {display === 'TABLE' && <Table />}
       {display === 'PROCESS' && <Process />}

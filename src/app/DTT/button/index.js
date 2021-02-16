@@ -19,6 +19,7 @@ const EventButton = ({ askData, onFinish, parentCode }) => {
 
   return (
     <Button
+      test-id={questionCode}
       isDisabled={disabled}
       onClick={onClick}
       leftIcon={<FontAwesomeIcon icon={faCheck} />}

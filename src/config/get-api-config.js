@@ -24,8 +24,10 @@ const getApiConfig = async () => {
   apiConfig = response.data
 
   /* Log Rocket */
-  LogRocket.init('geop13/alyson-dev', { release: apiConfig.realm })
-  setupLogRocketReact(LogRocket)
+  if (process.env.NODE_ENV !== 'development') {
+    LogRocket.init('geop13/alyson-dev', { release: apiConfig.realm })
+    setupLogRocketReact(LogRocket)
+  }
 
   /* Keycloak */
   keycloak = new Keycloak({

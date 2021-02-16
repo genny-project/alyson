@@ -12,8 +12,13 @@ import ProgressBar from 'app/DTT/progress_bar'
 import HtmlDisplay from 'app/DTT/html_display'
 import RichText from 'app/DTT/rich_text'
 import Select from 'app/DTT/select'
+import Video from 'app/DTT/video'
+import Address from 'app/DTT/address'
+import ABN from 'app/DTT/abn'
+import URL from 'app/DTT/url'
+import Rating from 'app/DTT/rating'
 
-const Attribute = ({ code, attribute, size }) => {
+const Attribute = ({ code, attribute, size, mini, parentCode }) => {
   const data = useSelector(selectCode(code, attribute))
   const dtt = useSelector(selectCode(data?.attributeCode))
   const dttData = useSelector(selectCode(dtt))
@@ -28,7 +33,7 @@ const Attribute = ({ code, attribute, size }) => {
   ) : component === 'text' ? (
     <Text.Read data={data} size={size} />
   ) : component === 'upload' ? (
-    <Upload.Read data={data} dttData={dttData} size={size} />
+    <Upload.Read parentCode={parentCode} data={data} dttData={dttData} size={size} />
   ) : component === 'social' ? (
     <Social.Read data={data} dttData={dttData} size={size} />
   ) : component === 'status' ? (
@@ -40,9 +45,19 @@ const Attribute = ({ code, attribute, size }) => {
   ) : component === 'html_display' ? (
     <HtmlDisplay.Read data={data} />
   ) : component === 'richtext_editor' ? (
-    <RichText.Read data={data} />
+    <RichText.Read data={data} mini={mini} />
   ) : component === 'dropdown' ? (
     <Select.Read dataType={dttData} data={data} />
+  ) : component === 'video' ? (
+    <Video.Read mini={mini} dataType={dttData} data={data} />
+  ) : component === 'address' ? (
+    <Address.Read data={data} />
+  ) : component === 'abn_number' ? (
+    <ABN.Read data={data} />
+  ) : component === 'link' ? (
+    <URL.Read data={data} />
+  ) : component === 'rating' ? (
+    <Rating.Read data={data} />
   ) : (
     <div>
       {component}

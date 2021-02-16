@@ -40,7 +40,7 @@ const renderMonthElement = ({ month, onMonthSelect, onYearSelect }) => (
   </div>
 )
 
-const Write = ({ onSendAnswer, data, html }) => {
+const Write = ({ questionCode, onSendAnswer, data, html }) => {
   const { duration } = safelyParseJson(html, {})
 
   const { startDate: initialStartDate, endDate: initialEndDate } = data?.value
@@ -61,6 +61,7 @@ const Write = ({ onSendAnswer, data, html }) => {
 
   return (
     <DateRangePicker
+      test-id={questionCode}
       displayFormat={DATE_FORMAT}
       startDate={dates.startDate}
       startDateId="start_date_id"

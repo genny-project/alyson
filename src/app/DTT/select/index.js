@@ -9,7 +9,7 @@ import safelyParseJson from 'utils/helpers/safely-parse-json'
 const getValue = (data, options) =>
   map(opt => find(propEq('value', opt))(options), safelyParseJson(data?.value, []))
 
-const Multiple = ({ label, value, onSendAnswer, placeholder, optionData }) => {
+const Multiple = ({ questionCode, label, value, onSendAnswer, placeholder, optionData }) => {
   const options = map(
     ({ value, baseEntityCode }) => ({ label: value, value: baseEntityCode }),
     filter(identity, optionData),
@@ -21,6 +21,7 @@ const Multiple = ({ label, value, onSendAnswer, placeholder, optionData }) => {
   ) : (
     <Box marginBottom="-10" maxW="2xl">
       <CUIAutoComplete
+        test-id={questionCode}
         label={label}
         placeholder={placeholder}
         items={options}
@@ -34,7 +35,16 @@ const Multiple = ({ label, value, onSendAnswer, placeholder, optionData }) => {
   )
 }
 
-const Write = ({ label, placeholder, onSendAnswer, groupCode, component, dataType, data }) => {
+const Write = ({
+  questionCode,
+  label,
+  placeholder,
+  onSendAnswer,
+  groupCode,
+  component,
+  dataType,
+  data,
+}) => {
   const options = useSelector(selectRows(groupCode))
   const optionData = useSelector(selectCodes(options, 'PRI_NAME'))
 
@@ -46,6 +56,7 @@ const Write = ({ label, placeholder, onSendAnswer, groupCode, component, dataTyp
   if (multiple)
     return (
       <Multiple
+        questionCode={questionCode}
         value={value}
         data={data}
         onSendAnswer={onSendAnswer}
@@ -85,7 +96,7 @@ const Read = ({ data, dataType }) => {
 
   const value = getValue(data, options)
 
-  return <div>{`${value}`}</div>
+  return <Text>{`${value}`}</Text>
 }
 
 const Select = {

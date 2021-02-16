@@ -1,16 +1,12 @@
-import React from 'react'
+import React, { lazy, Suspense } from 'react'
 import ReactDOM from 'react-dom'
-import App from 'app'
-import { ReactKeycloakProvider } from '@react-keycloak/web'
-import reportWebVitals from './reportWebVitals'
+// import reportWebVitals from './reportWebVitals'
 import getApiConfig from 'config/get-api-config'
-import Vertx from 'vertx'
-import { Provider } from 'react-redux'
-import store from 'redux/store'
-import { CSSReset, Center, Heading, VStack, CircularProgress } from '@chakra-ui/react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
 import { initLog } from 'utils/log'
+import { ReactKeycloakProvider } from '@react-keycloak/web'
+import { Center, CircularProgress } from '@chakra-ui/react'
+import App from 'app'
+const Error = lazy(() => import('error'))
 
 const initialiseApp = async () => {
   try {
@@ -27,11 +23,7 @@ const initialiseApp = async () => {
             </Center>
           }
         >
-          <Provider store={store}>
-            <CSSReset />
-            <Vertx />
-            <App />
-          </Provider>
+          <App />
         </ReactKeycloakProvider>
       </React.StrictMode>,
       document.getElementById('root'),
@@ -39,12 +31,9 @@ const initialiseApp = async () => {
   } catch (err) {
     ReactDOM.render(
       <React.StrictMode>
-        <Center h="90vh">
-          <VStack spacing="15">
-            <FontAwesomeIcon size="4x" icon={faExclamationCircle} color="red" />
-            <Heading>Sorry our server is not responding, try again later!</Heading>
-          </VStack>
-        </Center>
+        <Suspense fallback={<div />}>
+          <Error />
+        </Suspense>
       </React.StrictMode>,
       document.getElementById('root'),
     )
@@ -52,4 +41,4 @@ const initialiseApp = async () => {
 }
 
 initialiseApp()
-reportWebVitals()
+// reportWebVitals()

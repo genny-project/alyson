@@ -1,37 +1,11 @@
-import useApi from 'api'
 import { useState, useEffect } from 'react'
-import {
-  Popover,
-  PopoverContent,
-  PopoverHeader,
-  PopoverBody,
-  PopoverArrow,
-  PopoverCloseButton,
-  Button,
-  Input,
-  Text,
-  VStack,
-  CircularProgress,
-  InputGroup,
-  InputLeftElement,
-} from '@chakra-ui/react'
+import { Button, Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
 import { Read } from '../text'
+import ABNLookup from './abn_lookup'
 
-const Write = ({ data, onSendAnswer }) => {
-  const { callAbnLookup } = useApi()
-
-  const [isOpen, setIsOpen] = useState(false)
+const Write = ({ questionCode, data, onSendAnswer }) => {
   const [value, setValue] = useState(data?.value)
-  const [options, setOptions] = useState([])
-  const [loading, setLoading] = useState(false)
-
-  const onChangeLookup = e => {
-    callAbnLookup({
-      onResult: setOptions,
-      setLoading,
-      value: e.target.value,
-    })
-  }
+  const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
     setValue(data?.value)
@@ -42,41 +16,12 @@ const Write = ({ data, onSendAnswer }) => {
 
   return (
     <>
-      <Popover isOpen={isOpen} onClose={close}>
-        <PopoverContent>
-          <PopoverArrow />
-          <PopoverCloseButton />
-          <PopoverHeader>Search For Name</PopoverHeader>
-          <PopoverBody>
-            <Input onChange={onChangeLookup} />
-            {loading ? (
-              <CircularProgress mt="5" isIndeterminate />
-            ) : (
-              <VStack mt="5">
-                {options.map(opt => (
-                  <Button
-                    colorScheme="teal"
-                    h="4rem"
-                    w="full"
-                    variant="outline"
-                    fontWeight="normal"
-                    key={opt.abn}
-                    onClick={() => {
-                      close()
-                      onSendAnswer(opt.abn)
-                    }}
-                  >
-                    <VStack m="1" cursor="pointer">
-                      <Text fontWeight="semibold">{opt.name}</Text>
-                      <Text>{`${opt.state} - ${opt.postcode}, ABN ${opt.abn}`}</Text>
-                    </VStack>
-                  </Button>
-                ))}
-              </VStack>
-            )}
-          </PopoverBody>
-        </PopoverContent>
-      </Popover>
+      <ABNLookup
+        isOpen={isOpen}
+        close={close}
+        questionCode={questionCode}
+        onSendAnswer={onSendAnswer}
+      />
       <InputGroup>
         <InputLeftElement w="8rem">
           <Button w="8rem" variant="outline" colorScheme="blue" onClick={open}>
@@ -84,6 +29,7 @@ const Write = ({ data, onSendAnswer }) => {
           </Button>
         </InputLeftElement>
         <Input
+          test-id={questionCode}
           pl="10rem"
           value={value}
           onChange={e => setValue(e.target.value)}

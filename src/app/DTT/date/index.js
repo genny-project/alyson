@@ -15,7 +15,7 @@ const Read = ({ data, size }) => {
     </Text>
   )
 }
-const Write = ({ data, onSendAnswer, typeName }) => {
+const Write = ({ questionCode, data, onSendAnswer, typeName }) => {
   const includeTime = includes('LocalDateTime', typeName)
 
   const selected = data?.value ? parseISO(data.value) : null
@@ -23,6 +23,7 @@ const Write = ({ data, onSendAnswer, typeName }) => {
   try {
     return (
       <ReactDatePicker
+        test-id={questionCode}
         showTimeSelect={includeTime}
         selected={selected}
         onChange={onSendAnswer}

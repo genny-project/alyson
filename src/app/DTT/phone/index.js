@@ -21,8 +21,12 @@ const Read = ({ data, size }) => {
   )
 }
 
-const Write = ({ data, onSendAnswer }) => (
-  <Input defaultValue={data?.value} onBlur={e => onSendAnswer(e.target.value)} />
+const Write = ({ questionCode, data, onSendAnswer }) => (
+  <Input
+    test-id={questionCode}
+    defaultValue={data?.value}
+    onBlur={e => onSendAnswer(e.target.value)}
+  />
 )
 
 const Phone = {
