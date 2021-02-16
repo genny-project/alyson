@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFileDownload, faUpload } from '@fortawesome/free-solid-svg-icons'
 import useApi from 'api'
 
-const Read = ({ data, dttData }) => {
+const Read = ({ data, dttData, parentCode }) => {
   const typeName = dttData?.typeName
   const api = useApi()
 
@@ -24,11 +24,13 @@ const Read = ({ data, dttData }) => {
   if (!data?.value) return null
 
   return typeName === 'Image' ? (
-    <ImageType.Read data={data} />
+    <ImageType.Read data={data} parentCode={parentCode} />
   ) : (
-    <Link p="2" color="teal" href={api.getSrc(data?.value)}>
-      <FontAwesomeIcon size="lg" icon={faFileDownload} />
-    </Link>
+    <Tooltip label={fileName}>
+      <Link p="2" color="teal" href={api.getSrc(data?.value)}>
+        <FontAwesomeIcon size="lg" icon={faFileDownload} />
+      </Link>
+    </Tooltip>
   )
 }
 

@@ -23,6 +23,7 @@ import HtmlDisplay from 'app/DTT/html_display'
 import Signature from 'app/DTT/signature'
 import URL from 'app/DTT/url'
 import ABN from 'app/DTT/abn'
+import Rating from 'app/DTT/rating'
 
 const Ask = ({ parentCode, questionCode, onFinish }) => {
   const askData = useSelector(selectCode(parentCode, questionCode))
@@ -162,6 +163,9 @@ const Ask = ({ parentCode, questionCode, onFinish }) => {
       )}
       {component === 'abn_number' && (
         <ABN.Write questionCode={questionCode} data={data} onSendAnswer={onSendAnswer} />
+      )}
+      {component === 'rating' && (
+        <Rating.Write data={data} questionCode={questionCode} onSendAnswer={onSendAnswer} />
       )}
       {/* <div>{component}</div> */}
     </FormControl>

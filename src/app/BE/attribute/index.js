@@ -16,8 +16,9 @@ import Video from 'app/DTT/video'
 import Address from 'app/DTT/address'
 import ABN from 'app/DTT/abn'
 import URL from 'app/DTT/url'
+import Rating from 'app/DTT/rating'
 
-const Attribute = ({ code, attribute, size, mini }) => {
+const Attribute = ({ code, attribute, size, mini, parentCode }) => {
   const data = useSelector(selectCode(code, attribute))
   const dtt = useSelector(selectCode(data?.attributeCode))
   const dttData = useSelector(selectCode(dtt))
@@ -32,7 +33,7 @@ const Attribute = ({ code, attribute, size, mini }) => {
   ) : component === 'text' ? (
     <Text.Read data={data} size={size} />
   ) : component === 'upload' ? (
-    <Upload.Read data={data} dttData={dttData} size={size} />
+    <Upload.Read parentCode={parentCode} data={data} dttData={dttData} size={size} />
   ) : component === 'social' ? (
     <Social.Read data={data} dttData={dttData} size={size} />
   ) : component === 'status' ? (
@@ -55,6 +56,8 @@ const Attribute = ({ code, attribute, size, mini }) => {
     <ABN.Read data={data} />
   ) : component === 'link' ? (
     <URL.Read data={data} />
+  ) : component === 'rating' ? (
+    <Rating.Read data={data} />
   ) : (
     <div>
       {component}
