@@ -1,16 +1,15 @@
 import {
   Button,
-  Text,
-  VStack,
   Popover,
   PopoverTrigger,
   PopoverContent,
   PopoverBody,
   PopoverArrow,
   PopoverCloseButton,
-  IconButton,
   PopoverHeader,
 } from '@chakra-ui/react'
+import { faStreetView } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import AddressPicker from './address_picker'
 import StreetView from './street_view'
 
@@ -24,14 +23,16 @@ const Read = ({ data }) => {
   return (
     <Popover isLazy>
       <PopoverTrigger>
-        <Button>{data?.value}</Button>
+        <Button leftIcon={<FontAwesomeIcon icon={faStreetView} />} size="xs" colorScheme="teal">
+          {data.value}
+        </Button>
       </PopoverTrigger>
       <PopoverContent style={{ width: '42rem', height: '34rem' }}>
         <PopoverArrow />
         <PopoverCloseButton />
-        <PopoverHeader>{data.attributeName}</PopoverHeader>
+        <PopoverHeader>{`${data.attributeName}, ${data.value}`}</PopoverHeader>
         <PopoverBody>
-          <StreetView address={data?.value} />
+          <StreetView address={data.value} />
         </PopoverBody>
       </PopoverContent>
     </Popover>
