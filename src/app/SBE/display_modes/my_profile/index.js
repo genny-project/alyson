@@ -1,9 +1,7 @@
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
-import { Heading, Text, VStack } from '@chakra-ui/react'
 import getActions from 'app/SBE/utils/get-actions'
 import getColumns from 'app/SBE/utils/get-columns'
-import Action from 'app/BE/action'
 import Card from 'app/BE/card'
 
 const MyProfile = ({ rows, sbeCode }) => {

@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import { Tfoot, Tr, Th, Text, IconButton, Kbd, VStack, Center } from '@chakra-ui/react'
+import { Tfoot, Tr, Th, Text, IconButton, Kbd, VStack } from '@chakra-ui/react'
 import getPaginationActions from 'app/SBE/utils/get-pagination-actions'
 import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
