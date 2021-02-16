@@ -1,6 +1,6 @@
 import { selectRows } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
-import { Tbody, Center, VStack, Text, Tr, Td } from '@chakra-ui/react'
+import { Tbody, Text, Tr, Td } from '@chakra-ui/react'
 import Row from './Row'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBinoculars } from '@fortawesome/free-solid-svg-icons'
