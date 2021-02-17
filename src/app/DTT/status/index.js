@@ -5,7 +5,8 @@ const Read = ({ data }) => {
 
   if (!data) return null
 
-  const colorScheme = value === 'AVAILABLE' ? 'green' : value === 'PROGRESS' ? 'purple' : 'red'
+  const colorScheme =
+    value === 'AVAILABLE' || value === 'ACTIVE' ? 'green' : value === 'PROGRESS' ? 'purple' : 'red'
 
   return <Badge colorScheme={colorScheme}>{value}</Badge>
 }
