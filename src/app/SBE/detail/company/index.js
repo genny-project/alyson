@@ -3,7 +3,6 @@ import { selectCode, selectRows } from 'redux/db/selectors'
 import { faUser, faBriefcase, faGraduationCap } from '@fortawesome/free-solid-svg-icons'
 import { Divider } from '@chakra-ui/react'
 
-import useApi from 'api'
 import Header from './templates/header'
 import DetailSection from './templates/detail-section'
 import styles from './templates/styles'
@@ -34,13 +33,15 @@ const companyDescription = {
 }
 
 const Cv = ({ sbeCode }) => {
-  const sbe = useSelector(selectCode(sbeCode)) || ''
-  const rows = useSelector(selectRows(sbeCode)) || ['']
+  const sbe = useSelector(selectCode(sbeCode))
+  const rows = useSelector(selectRows(sbeCode))
+
+  if (!sbe || !rows.length) return null
+
   const code = rows[0]
   const actions = getActions(sbe)
 
   const imageAttribute = 'PRI_IMAGE_URL'
-
   const headerAttribute = 'PRI_NAME'
 
   return (

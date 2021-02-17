@@ -10,7 +10,7 @@ const Header = ({ code, sbeCode, imageSrc, headerAttribute, actions }) => {
     <div style={styles.headerContainer}>
       <div style={styles.headerSectionInfoContainer}>
         <div style={styles.headerSectionProfile}>
-          <Attribute code={code} attribute={imageSrc} profileImage />
+          <Attribute code={code} attribute={imageSrc} variant={'profile_image'} />
         </div>
         <div style={styles.headerSectionName}>
           <Text fontSize="4xl">
