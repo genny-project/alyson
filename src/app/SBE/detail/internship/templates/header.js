@@ -6,7 +6,6 @@ import Attribute from 'app/BE/attribute'
 import styles from './styles'
 
 const Header = ({ code, sbeCode, imageSrc, headerAttribute, actions }) => {
-  console.warn('imageSrc', imageSrc)
   return (
     <div style={styles.headerContainer}>
       <div style={styles.headerSectionInfoContainer}>
