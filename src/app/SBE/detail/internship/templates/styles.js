@@ -3,8 +3,8 @@ const styles = {
     display: 'flex',
     justifyContent: '',
     flexDirection: 'column',
+    minHeight: '80vh',
     width: '70vw',
-    height: '80vh',
     margin: 'auto',
     border: '1px solid #e5e5e5',
     borderRadius: '10px',
@@ -16,7 +16,6 @@ const styles = {
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: '1em',
-    paddingBottom: 0,
   },
 
   headerSectionInfoContainer: {
@@ -47,7 +46,6 @@ const styles = {
     display: 'flex',
     flexGrow: '1',
     padding: '1em',
-    paddingBottom: 0,
   },
 
   detailSectionIconContainer: {
