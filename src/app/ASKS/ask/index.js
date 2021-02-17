@@ -2,7 +2,7 @@ import { includes } from 'ramda'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import createSendAnswer from 'app/ASKS/utils/create-send-answer'
-import { FormControl, FormLabel } from '@chakra-ui/react'
+import { FormControl, FormLabel, FormHelperText } from '@chakra-ui/react'
 import getGroupCode from 'app/ASKS/utils/get-group-code'
 
 import Text from 'app/DTT/text'
@@ -119,7 +119,7 @@ const Ask = ({ parentCode, questionCode, onFinish }) => {
           onSendAnswer={onSendAnswer}
         />
       )}
-      {component === 'date' && (
+      {(component === 'date' || component === 'year') && (
         <Date.Write
           questionCode={questionCode}
           typeName={typeName}
@@ -167,7 +167,7 @@ const Ask = ({ parentCode, questionCode, onFinish }) => {
       {component === 'rating' && (
         <Rating.Write data={data} questionCode={questionCode} onSendAnswer={onSendAnswer} />
       )}
-      {/* <div>{component}</div> */}
+      <FormHelperText>{data?.value && `Saved ${data.value}`}</FormHelperText>
     </FormControl>
   )
 }
