@@ -1,5 +1,5 @@
 import { Thead, Tr, Th } from '@chakra-ui/react'
-import Cell from './Cell'
+import Cell from './HeaderCell'
 
 const Header = ({ columns, parentCode, actions }) => {
   return (
@@ -7,7 +7,7 @@ const Header = ({ columns, parentCode, actions }) => {
       <Tr>
         {actions?.length ? <Th /> : null}
         {columns.map(col => (
-          <Cell key={`${parentCode}-${col}`} showAttributeName code={parentCode} attribute={col} />
+          <Cell key={`${parentCode}-${col}`} parentCode={parentCode} attribute={col} />
         ))}
       </Tr>
     </Thead>
