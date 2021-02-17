@@ -8,6 +8,7 @@ import Form from 'app/layouts/form'
 import Dashboard from 'app/layouts/dashboard'
 import DisplayDrawer from './drawer'
 import Dialog from 'app/layouts/dialog'
+import Toast from './toast'
 
 const Display = ({ isPublic }) => {
   const display = useSelector(selectDisplay)
@@ -22,6 +23,7 @@ const Display = ({ isPublic }) => {
       {includes('FORM', display || '') && <Form />}
       <DisplayDrawer />
       <Dialog />
+      <Toast />
     </Box>
   )
 }
