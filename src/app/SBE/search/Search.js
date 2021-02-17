@@ -52,23 +52,26 @@ const ProcessSearch = ({ sbeCode }) => {
         </InputLeftAddon>
         <Input
           onFocus={() => setFocused(true)}
-          onBlur={() => setFocused(false)}
+          onBlur={() => {
+            setFocused(false)
+            handleSubmit()
+          }}
           ref={inputRef}
           value={searchValue}
           onChange={e => setSearchValue(e.currentTarget.value)}
           placeholder="Search"
         />
-        <InputRightAddon>
-          {focused ? (
-            <Center color="gray.500" cursor="pointer">
-              <Kbd onClick={handleSubmit}>enter</Kbd>
-            </Center>
-          ) : (
-            <HStack spacing="1" color="gray.500">
-              <KeyboardShortcut />
-              <Kbd>K</Kbd>
-            </HStack>
-          )}
+        <InputRightAddon cursor="pointer" onClick={handleSubmit}>
+          <HStack spacing="1" color="gray.500">
+            {focused ? (
+              <Kbd>enter</Kbd>
+            ) : (
+              <>
+                <KeyboardShortcut />
+                <Kbd>K</Kbd>
+              </>
+            )}
+          </HStack>
         </InputRightAddon>
       </InputGroup>
       <Button
