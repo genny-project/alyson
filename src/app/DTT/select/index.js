@@ -9,12 +9,12 @@ import safelyParseJson from 'utils/helpers/safely-parse-json'
 const getValue = (data, options) =>
   map(opt => find(propEq('value', opt))(options), safelyParseJson(data?.value, []))
 
-const Multiple = ({ questionCode, label, value, onSendAnswer, placeholder, optionData }) => {
+const Multiple = ({ questionCode, label, data, onSendAnswer, placeholder, optionData }) => {
   const options = map(
     ({ value, baseEntityCode }) => ({ label: value, value: baseEntityCode }),
     filter(identity, optionData),
   )
-  const [selected, setSelected] = useState(value)
+  const [selected, setSelected] = useState(getValue(data, options))
 
   return !options.length ? (
     <Text>Waiting on another answer</Text>
@@ -24,8 +24,8 @@ const Multiple = ({ questionCode, label, value, onSendAnswer, placeholder, optio
         test-id={questionCode}
         label={label}
         placeholder={placeholder}
-        items={options}
-        selectedItems={selected}
+        items={filter(identity, options || [])}
+        selectedItems={filter(identity, selected)}
         onSelectedItemsChange={changes => {
           setSelected(changes.selectedItems)
           onSendAnswer(map(prop('value'), changes.selectedItems || []))
@@ -51,13 +51,10 @@ const Write = ({
   const { typeName } = dataType
   const multiple = includes('multiple', typeName || '') || component === 'tag'
 
-  const value = getValue(data, options)
-
   if (multiple)
     return (
       <Multiple
         questionCode={questionCode}
-        value={value}
         data={data}
         onSendAnswer={onSendAnswer}
         placeholder={placeholder}
