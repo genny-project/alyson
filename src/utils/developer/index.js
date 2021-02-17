@@ -31,3 +31,5 @@ const DeveloperConsole = () => {
 }
 
 export default DeveloperConsole
+
+export const isDev = process.env.NODE_ENV === 'development' || localStorage.getItem('useDev')

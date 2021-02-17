@@ -8,14 +8,14 @@ import { Provider } from 'react-redux'
 import store from 'redux/store'
 import { CSSReset } from '@chakra-ui/react'
 import Vertx from 'vertx'
+import { isDev } from 'utils/developer'
+
 const Display = lazy(() => import('app/layouts/display'))
 const Sandbox = lazy(() => import('utils/developer/Sandbox'))
 
 const config = {
   initialColorMode: 'light',
 }
-
-const isDev = process.env.NODE_ENV === 'development' || localStorage.getItem('useDev')
 
 const App = () => {
   const { keycloak } = useKeycloak()

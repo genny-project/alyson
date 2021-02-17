@@ -4,7 +4,6 @@ import { selectCode } from 'redux/db/selectors'
 import createSendAnswer from 'app/ASKS/utils/create-send-answer'
 import { FormControl, FormLabel, FormHelperText } from '@chakra-ui/react'
 import getGroupCode from 'app/ASKS/utils/get-group-code'
-
 import Text from 'app/DTT/text'
 import Button from 'app/DTT/button'
 import Radio from 'app/DTT/radio'
@@ -24,6 +23,7 @@ import Signature from 'app/DTT/signature'
 import URL from 'app/DTT/url'
 import ABN from 'app/DTT/abn'
 import Rating from 'app/DTT/rating'
+import { isDev } from 'utils/developer'
 
 const Ask = ({ parentCode, questionCode, onFinish }) => {
   const askData = useSelector(selectCode(parentCode, questionCode))
@@ -167,7 +167,7 @@ const Ask = ({ parentCode, questionCode, onFinish }) => {
       {component === 'rating' && (
         <Rating.Write data={data} questionCode={questionCode} onSendAnswer={onSendAnswer} />
       )}
-      <FormHelperText>{data?.value && `Saved ${data.value}`}</FormHelperText>
+      <FormHelperText>{data?.value && `${isDev ? '✅  ' + data.value : '✅'}`}</FormHelperText>
     </FormControl>
   )
 }
