@@ -2,7 +2,7 @@ import { includes } from 'ramda'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import createSendAnswer from 'app/ASKS/utils/create-send-answer'
-import { FormControl, FormLabel, FormHelperText } from '@chakra-ui/react'
+import { FormControl, FormLabel, FormHelperText, FormErrorMessage } from '@chakra-ui/react'
 import getGroupCode from 'app/ASKS/utils/get-group-code'
 import Text from 'app/DTT/text'
 import Button from 'app/DTT/button'
@@ -23,7 +23,10 @@ import Signature from 'app/DTT/signature'
 import URL from 'app/DTT/url'
 import ABN from 'app/DTT/abn'
 import Rating from 'app/DTT/rating'
+import ThirdPartyVideo from 'app/DTT/third_party_video'
 import { isDev } from 'utils/developer'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 
 const Ask = ({ parentCode, questionCode, onFinish }) => {
   const askData = useSelector(selectCode(parentCode, questionCode))
@@ -43,6 +46,8 @@ const Ask = ({ parentCode, questionCode, onFinish }) => {
     html,
   } = question
 
+  const feedback = data?.feedback
+
   const multiple = includes('multiple', typeName || '') || component === 'tag'
 
   const onSendAnswer = createSendAnswer(askData)
@@ -55,7 +60,7 @@ const Ask = ({ parentCode, questionCode, onFinish }) => {
       onFinish={onFinish}
     />
   ) : (
-    <FormControl isRequired={mandatory}>
+    <FormControl isRequired={mandatory} isInvalid={!!feedback}>
       {!multiple && <FormLabel fontWeight="semibold">{name}</FormLabel>}
       {component === 'email' && (
         <Email.Write
@@ -167,7 +172,25 @@ const Ask = ({ parentCode, questionCode, onFinish }) => {
       {component === 'rating' && (
         <Rating.Write data={data} questionCode={questionCode} onSendAnswer={onSendAnswer} />
       )}
-      <FormHelperText>{data?.value && `${isDev ? '✅  ' + data.value : '✅'}`}</FormHelperText>
+      {component === 'youtube' && (
+        <ThirdPartyVideo.Write
+          data={data}
+          questionCode={questionCode}
+          onSendAnswer={onSendAnswer}
+        />
+      )}
+      <FormErrorMessage>{feedback}</FormErrorMessage>
+      <FormHelperText ml="1" color="green">
+        {data?.value ? (
+          !isDev ? (
+            <FontAwesomeIcon icon={faCheckCircle} />
+          ) : (
+            `${'saved - ' + data.value}`
+          )
+        ) : (
+          ''
+        )}
+      </FormHelperText>
     </FormControl>
   )
 }

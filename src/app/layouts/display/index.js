@@ -15,7 +15,7 @@ const Display = ({ isPublic }) => {
   return isPublic ? (
     <Table />
   ) : (
-    <Box marginTop="6rem" id="main-display">
+    <Box paddingTop="6rem" id="main-display">
       {display === 'DASHBOARD' && <Dashboard />}
       {display === 'TABLE' && <Table />}
       {display === 'PROCESS' && <Process />}

@@ -14,7 +14,7 @@ const convertTypes = {
 
 const makeType = types => convertTypes[head(types)]
 
-const addMetaData = data => addressObject => ({
+const addMetaData = data => (addressObject = {}) => ({
   ...path([0, 'access_points', 0, 'location'], data),
   ...{
     full_address: path([0, 'formatted_address'], data),

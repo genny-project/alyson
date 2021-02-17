@@ -3,7 +3,7 @@ import ImageType from './Image'
 import { DropzoneDialog } from 'material-ui-dropzone'
 import { CircularProgress, IconButton, Button, Tooltip, Link } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFileDownload, faUpload } from '@fortawesome/free-solid-svg-icons'
+import { faFileCode, faFileDownload, faUpload } from '@fortawesome/free-solid-svg-icons'
 import useApi from 'api'
 
 const Read = ({ data, dttData, parentCode, variant }) => {
@@ -57,6 +57,8 @@ const Write = ({ questionCode, data, dttData, onSendAnswer }) => {
     if (!files && files.length) return
 
     setLoading(true)
+
+    closeDropzone()
     let data = new FormData()
     data.append('file', files[0])
 
@@ -67,7 +69,6 @@ const Write = ({ questionCode, data, dttData, onSendAnswer }) => {
       console.error(err)
     }
 
-    closeDropzone()
     setLoading(false)
   }
 
@@ -85,9 +86,12 @@ const Write = ({ questionCode, data, dttData, onSendAnswer }) => {
           />
         ) : data?.value ? (
           <Tooltip label="Click to remove">
-            <Button test-id={questionCode} onClick={() => onSendAnswer()}>{`${
-              fileName || 'File'
-            } Uploaded`}</Button>
+            <Button
+              leftIcon={<FontAwesomeIcon icon={faFileCode} />}
+              test-id={questionCode}
+              onClick={() => onSendAnswer()}
+              colorScheme="green"
+            >{`${fileName || 'File'} Uploaded`}</Button>
           </Tooltip>
         ) : (
           <IconButton

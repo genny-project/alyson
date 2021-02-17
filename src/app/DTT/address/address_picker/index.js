@@ -34,7 +34,7 @@ const AddressPicker = ({ onSendAnswer, data }) => {
     }
   }, [onSendAnswer])
 
-  return <Input ref={autoCompleteRef} />
+  return <Input defaultValue={data?.value} ref={autoCompleteRef} />
 }
 
 export default AddressPicker

@@ -6,7 +6,7 @@ const Write = ({ questionCode, data, onSendAnswer }) => (
     test-id={questionCode}
     defaultValue={data?.value}
     type="email"
-    onChange={e => onSendAnswer(e.target.value)}
+    onBlur={e => onSendAnswer(e.target.value)}
   />
 )
 

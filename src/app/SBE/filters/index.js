@@ -58,7 +58,7 @@ const Filters = ({ sbeCode }) => {
     })
   }
 
-  useHotkeys('enter', () => submitFilter(inputRef?.current.value), {
+  useHotkeys('enter', () => inputRef?.current && submitFilter(inputRef?.current.value), {
     enableOnTags: ['INPUT'],
   })
 
