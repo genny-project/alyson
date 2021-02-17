@@ -36,6 +36,7 @@ const styles = {
     justifyContent: 'center',
     background: 'black',
     maxWidth: '40%',
+    maxHeight: '100%',
   },
 
   headerSectionName: {

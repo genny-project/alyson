@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import { selectCode, selectRows } from 'redux/db/selectors'
-import { faUser } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faBriefcase, faGraduationCap } from '@fortawesome/free-solid-svg-icons'
 
 import useApi from 'api'
 import Header from './templates/header'
@@ -15,13 +15,13 @@ const contactDetails = {
 }
 
 const internshipDetail = {
-  sectionIcon: faUser,
+  sectionIcon: faBriefcase,
   title: 'Internship Details',
   attributes: ['PRI_START_DATE', 'PRI_ASSOC_DURATION', 'PRI_TRANSPORT'],
 }
 
 const careerObj = {
-  sectionIcon: faUser,
+  sectionIcon: faGraduationCap,
   title: 'Career Objective',
   attributes: ['PRI_CAREER_OBJ'],
 }
