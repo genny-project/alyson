@@ -2,7 +2,7 @@ import { includes } from 'ramda'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCoffee } from '@fortawesome/free-solid-svg-icons'
 import { faLinkedin } from '@fortawesome/free-brands-svg-icons'
-import { IconButton, InputGroup, InputLeftAddon, LinkOverlay } from '@chakra-ui/react'
+import { IconButton, InputGroup, InputLeftAddon } from '@chakra-ui/react'
 import { Write as TextWrite } from 'app/DTT/text'
 
 const Read = ({ data }) => {
