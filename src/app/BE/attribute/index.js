@@ -18,7 +18,7 @@ import ABN from 'app/DTT/abn'
 import URL from 'app/DTT/url'
 import Rating from 'app/DTT/rating'
 
-const Attribute = ({ code, attribute, size, mini, parentCode }) => {
+const Attribute = ({ code, attribute, size, mini, parentCode, variant }) => {
   const data = useSelector(selectCode(code, attribute))
   const dtt = useSelector(selectCode(data?.attributeCode))
   const dttData = useSelector(selectCode(dtt))
@@ -33,7 +33,13 @@ const Attribute = ({ code, attribute, size, mini, parentCode }) => {
   ) : component === 'text' ? (
     <Text.Read data={data} size={size} />
   ) : component === 'upload' ? (
-    <Upload.Read parentCode={parentCode} data={data} dttData={dttData} size={size} />
+    <Upload.Read
+      parentCode={parentCode}
+      data={data}
+      dttData={dttData}
+      size={size}
+      variant={variant}
+    />
   ) : component === 'social' ? (
     <Social.Read data={data} dttData={dttData} size={size} />
   ) : component === 'status' ? (

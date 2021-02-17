@@ -11,22 +11,22 @@ import getActions from 'app/SBE/utils/get-actions'
 const contactDetails = {
   sectionIcon: faUser,
   title: 'Contact Details',
-  attributes: ['PRI_PREFERRED_NAME', 'PRI_MOBILE', 'PRI_EMAIL', 'PRI_ADDRESS_FULL'],
+  attributes: ['PRI_NAME', 'PRI_MOBILE', 'PRI_EMAIL', 'PRI_ADDRESS_FULL'],
 }
 
-const internshipDetail = {
+const aboutMyself = {
   sectionIcon: faBriefcase,
-  title: 'Internship Details',
-  attributes: ['PRI_START_DATE', 'PRI_ASSOC_DURATION', 'PRI_TRANSPORT'],
+  title: 'About Myself',
+  attributes: [],
 }
 
-const careerObj = {
+const moreInfo = {
   sectionIcon: faGraduationCap,
-  title: 'Career Objective',
-  attributes: ['PRI_CAREER_OBJ'],
+  title: 'More Information',
+  attributes: [],
 }
 
-const Cv = ({ sbeCode }) => {
+const DefaultView = ({ sbeCode }) => {
   const sbe = useSelector(selectCode(sbeCode))
   const rows = useSelector(selectRows(sbeCode))
 
@@ -36,6 +36,7 @@ const Cv = ({ sbeCode }) => {
   const actions = getActions(sbe)
 
   const imageAttribute = 'PRI_IMAGE_URL'
+
   const headerAttribute = 'PRI_NAME'
 
   return (
@@ -50,11 +51,11 @@ const Cv = ({ sbeCode }) => {
       <Divider />
       <DetailSection code={code} details={contactDetails} />
       <Divider />
-      <DetailSection code={code} details={internshipDetail} />
+      <DetailSection code={code} details={aboutMyself} />
       <Divider />
-      <DetailSection code={code} details={careerObj} />
+      <DetailSection code={code} details={moreInfo} />
     </div>
   )
 }
 
-export default Cv
+export default DefaultView
