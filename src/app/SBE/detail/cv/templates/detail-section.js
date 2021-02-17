@@ -1,6 +1,5 @@
-import { Text } from '@chakra-ui/react'
+import { Text, IconButton } from '@chakra-ui/react'
 import { map } from 'ramda'
-import { IconButton } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import Attribute from 'app/BE/attribute'
@@ -16,11 +15,11 @@ const DetailSection = ({ code, details: { sectionIcon, title, attributes } }) =>
       </div>
 
       <div style={styles.detailSectionInformationContainer}>
-        <div style={{ flexGrow: 2, background: 'black' }}>
+        <div style={{ flexGrow: 2 }}>
           <Text fontSize="xl">{title}</Text>
         </div>
         {map(attr => (
-          <div style={{ flexGrow: 1, background: 'black' }}>
+          <div style={{ flexGrow: 1 }}>
             <Text>
               <Attribute code={code} attribute={attr} />
             </Text>

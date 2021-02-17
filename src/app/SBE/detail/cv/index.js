@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux'
 import { selectCode, selectRows } from 'redux/db/selectors'
 import { faUser, faBriefcase, faGraduationCap } from '@fortawesome/free-solid-svg-icons'
+import { Divider } from '@chakra-ui/react'
 
 import useApi from 'api'
 import Header from './templates/header'
@@ -45,8 +46,11 @@ const Cv = ({ sbeCode }) => {
         headerAttribute={headerAttribute}
         actions={actions}
       />
+      <Divider />
       <DetailSection code={code} details={contactDetails} />
+      <Divider />
       <DetailSection code={code} details={internshipDetail} />
+      <Divider />
       <DetailSection code={code} details={careerObj} />
     </div>
   )

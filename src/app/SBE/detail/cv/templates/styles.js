@@ -3,14 +3,14 @@ const styles = {
     display: 'flex',
     justifyContent: '',
     flexDirection: 'column',
-    background: 'red',
     width: '70vw',
     height: '80vh',
     margin: 'auto',
+    border: '1px solid #e5e5e5',
+    borderRadius: '10px',
   },
 
   headerContainer: {
-    background: 'green',
     display: 'flex',
     flexGrow: '1',
     flexDirection: 'row',
@@ -22,19 +22,15 @@ const styles = {
   headerSectionInfoContainer: {
     display: 'flex',
     width: '40%',
-    background: 'royalblue',
   },
 
-  headerSectionActionContainer: {
-    background: 'black',
-  },
+  headerSectionActionContainer: {},
 
   headerSectionProfile: {
     display: 'flex',
     flexGrow: '1',
     alignItems: 'center',
     justifyContent: 'center',
-    background: 'black',
     maxWidth: '40%',
     maxHeight: '100%',
   },
@@ -44,12 +40,10 @@ const styles = {
     flexGrow: '2',
     alignItems: 'center',
     justifyContent: 'center',
-    background: 'tomato',
     maxWidth: '60%',
   },
 
   detailSectionContainer: {
-    background: 'gold',
     display: 'flex',
     flexGrow: '1',
     padding: '1em',
@@ -57,12 +51,10 @@ const styles = {
   },
 
   detailSectionIconContainer: {
-    background: 'red',
     padding: '1em 2em 0 2em',
   },
 
   detailSectionInformationContainer: {
-    background: 'blue',
     display: 'flex',
     flexDirection: 'column',
     flexGrow: '1',
