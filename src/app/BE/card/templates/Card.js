@@ -78,7 +78,7 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
         </HStack>
       </Flex>
       <MainDetails code={code} columns={columns} parentCode={parentCode} />
-      <Collapse in={isOpen} animateOpacity>
+      <Collapse unmountOnExit in={isOpen} animateOpacity>
         <Box p="3">
           <VStack align="left">
             {columns.map(col => (
