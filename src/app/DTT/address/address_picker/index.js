@@ -5,9 +5,9 @@ import { Input, Text } from '@chakra-ui/react'
 let service
 
 const AddressPicker = ({ onSendAnswer, data }) => {
-  const [searchAddress, setSearchAddress] = useState('')
+  const [searchAddress, setSearchAddress] = useState(data?.value)
   const [options, setOptions] = useState([])
-  const [showSuggestiongs, setShowSuggestions] = useState(true)
+  const [showSuggestiongs, setShowSuggestions] = useState(false)
 
   const handleOptionClick = description => {
     setSearchAddress(description)
@@ -32,7 +32,7 @@ const AddressPicker = ({ onSendAnswer, data }) => {
         onChange={e => {
           setSearchAddress(e.target.value)
         }}
-        onClick={() => {
+        onFocus={() => {
           setShowSuggestions(true)
         }}
       />
