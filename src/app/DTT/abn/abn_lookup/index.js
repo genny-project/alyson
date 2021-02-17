@@ -11,6 +11,7 @@ import {
   Text,
   VStack,
   CircularProgress,
+  InputGroup,
 } from '@chakra-ui/react'
 
 const ABNLookup = ({ isOpen, questionCode, close, onSendAnswer }) => {
@@ -33,7 +34,9 @@ const ABNLookup = ({ isOpen, questionCode, close, onSendAnswer }) => {
         <PopoverCloseButton />
         <PopoverHeader>Search For Name</PopoverHeader>
         <PopoverBody>
-          <Input test-id={`${questionCode}-abn-lookup`} onChange={onChangeLookup} />
+          <InputGroup>
+            <Input test-id={`${questionCode}-abn-lookup`} onChange={onChangeLookup} />
+          </InputGroup>
           {loading ? (
             <CircularProgress mt="5" isIndeterminate />
           ) : (

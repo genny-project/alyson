@@ -1,22 +1,25 @@
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import { Heading, VStack } from '@chakra-ui/react'
-import { getTableActions } from 'app/SBE/utils/get-actions'
+import getActions from 'app/SBE/utils/get-actions'
 import Action from 'app/BE/action'
+import Image from 'app/DTT/upload/Image'
 
 const MyAgency = ({ rows, sbeCode }) => {
   const agency = rows[0]
 
   const sbe = useSelector(selectCode(sbeCode))
-  const tableActions = getTableActions(sbe)
+  const actions = getActions(sbe)
 
   const agencyName = useSelector(selectCode(agency, 'PRI_NAME'))
+  const agencyImage = useSelector(selectCode(agency, 'PRI_IMAGE_URL'))
 
   return (
     <VStack>
       <Heading>{agencyName?.value}</Heading>
-      {tableActions?.map(action => (
-        <Action key={action} parentCode={sbeCode} code={action} />
+      <Image.Read data={agencyImage} />
+      {actions?.map(action => (
+        <Action key={action} parentCode={sbeCode} code={action} targetCode={agency} />
       ))}
     </VStack>
   )
