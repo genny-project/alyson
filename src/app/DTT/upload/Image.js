@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import useApi from 'api'
-import { Avatar, ButtonGroup, Button, IconButton, Tooltip } from '@chakra-ui/react'
+import { Avatar, ButtonGroup, Button, IconButton, Tooltip, Image } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCameraRetro, faUpload } from '@fortawesome/free-solid-svg-icons'
 import Snap from './Snap'
@@ -39,7 +39,7 @@ const Write = ({ data, openDropzone, onSendAnswer, handleSave, setLoading }) => 
   )
 }
 
-const Read = ({ data, parentCode }) => {
+const Read = ({ data, parentCode, variant }) => {
   const { getImageSrc } = useApi()
   const src = getImageSrc(data?.value)
 
@@ -47,6 +47,10 @@ const Read = ({ data, parentCode }) => {
 
   const viewDetail = () =>
     onSendMessage({ parentCode, targetCode: data.baseEntityCode, code: 'ACT_PRI_EVENT_VIEW' })
+
+  if (variant === 'profile_image') {
+    return <Image src={src} alt="profile-picture" w="10rem" borderRadius="xl" />
+  }
 
   return <Avatar cursor="pointer" onClick={viewDetail} src={src} />
 }

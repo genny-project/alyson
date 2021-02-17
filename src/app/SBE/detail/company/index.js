@@ -11,19 +11,25 @@ import getActions from 'app/SBE/utils/get-actions'
 const contactDetails = {
   sectionIcon: faUser,
   title: 'Contact Details',
-  attributes: ['PRI_PREFERRED_NAME', 'PRI_MOBILE', 'PRI_EMAIL', 'PRI_ADDRESS_FULL'],
+  attributes: [
+    'PRI_LEGAL_NAME',
+    'PRI_ABN',
+    'PRI_MOBILE',
+    'PRI_COMPANY_WEBSITE_URL',
+    'PRI_ADDRESS_FULL',
+  ],
 }
 
-const internshipDetail = {
+const industryDetails = {
   sectionIcon: faBriefcase,
-  title: 'Internship Details',
-  attributes: ['PRI_START_DATE', 'PRI_ASSOC_DURATION', 'PRI_TRANSPORT'],
+  title: 'Industry Details',
+  attributes: ['PRI_STATUS', 'PRI_ASSOC_INDUSTRY', 'PRI_LINKEDIN_URL'],
 }
 
-const careerObj = {
+const companyDescription = {
   sectionIcon: faGraduationCap,
-  title: 'Career Objective',
-  attributes: ['PRI_CAREER_OBJ'],
+  title: 'Company Description',
+  attributes: ['PRI_COMPANY_DESCRIPTION'],
 }
 
 const Cv = ({ sbeCode }) => {
@@ -50,9 +56,9 @@ const Cv = ({ sbeCode }) => {
       <Divider />
       <DetailSection code={code} details={contactDetails} />
       <Divider />
-      <DetailSection code={code} details={internshipDetail} />
+      <DetailSection code={code} details={industryDetails} />
       <Divider />
-      <DetailSection code={code} details={careerObj} />
+      <DetailSection code={code} details={companyDescription} />
     </div>
   )
 }

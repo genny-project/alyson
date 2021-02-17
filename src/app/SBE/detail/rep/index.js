@@ -11,22 +11,22 @@ import getActions from 'app/SBE/utils/get-actions'
 const contactDetails = {
   sectionIcon: faUser,
   title: 'Contact Details',
-  attributes: ['PRI_PREFERRED_NAME', 'PRI_MOBILE', 'PRI_EMAIL', 'PRI_ADDRESS_FULL'],
+  attributes: ['PRI_MOBILE', 'PRI_EMAIL'],
 }
 
-const internshipDetail = {
+const companyDetails = {
   sectionIcon: faBriefcase,
-  title: 'Internship Details',
-  attributes: ['PRI_START_DATE', 'PRI_ASSOC_DURATION', 'PRI_TRANSPORT'],
+  title: 'Company Details',
+  attributes: ['PRI_ASSOC_HC', 'PRI_JOB_TITLE'],
 }
 
-const careerObj = {
+const aboutMyself = {
   sectionIcon: faGraduationCap,
-  title: 'Career Objective',
-  attributes: ['PRI_CAREER_OBJ'],
+  title: 'About Myself',
+  attributes: ['PRI_BIO'],
 }
 
-const Cv = ({ sbeCode }) => {
+const Rep = ({ sbeCode }) => {
   const sbe = useSelector(selectCode(sbeCode))
   const rows = useSelector(selectRows(sbeCode))
 
@@ -50,11 +50,11 @@ const Cv = ({ sbeCode }) => {
       <Divider />
       <DetailSection code={code} details={contactDetails} />
       <Divider />
-      <DetailSection code={code} details={internshipDetail} />
+      <DetailSection code={code} details={companyDetails} />
       <Divider />
-      <DetailSection code={code} details={careerObj} />
+      <DetailSection code={code} details={aboutMyself} />
     </div>
   )
 }
 
-export default Cv
+export default Rep
