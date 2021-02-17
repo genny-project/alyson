@@ -9,10 +9,14 @@ import store from 'redux/store'
 import { CSSReset } from '@chakra-ui/react'
 import Vertx from 'vertx'
 const Display = lazy(() => import('app/layouts/display'))
+const Sandbox = lazy(() => import('utils/developer/Sandbox'))
 
 const config = {
   initialColorMode: 'light',
 }
+
+const isDev = process.env.NODE_ENV === 'development' || localStorage.getItem('useDev')
+
 const App = () => {
   const { keycloak } = useKeycloak()
   const theme = extendTheme({ config })
@@ -56,6 +60,19 @@ const App = () => {
                   <Display isPublic />
                 </Suspense>
               )}
+            />
+            <Route
+              path={`/sandbox`}
+              exact
+              component={() =>
+                isDev ? (
+                  <Suspense fallback={<div />}>
+                    <Sandbox />
+                  </Suspense>
+                ) : (
+                  <Redirect to={{ pathname: '/home' }} />
+                )
+              }
             />
           </Switch>
         </BrowserRouter>
