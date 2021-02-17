@@ -14,11 +14,11 @@ const Read = ({ data }) => {
   const href = includes('http', data.value) ? data.value : `https://${data.value}`
 
   return (
-    <LinkOverlay href={href}>
+    <a href={href}>
       <IconButton colorScheme="linkedin" isDisabled={!data?.value}>
         <FontAwesomeIcon size="lg" icon={icon} />
       </IconButton>
-    </LinkOverlay>
+    </a>
   )
 }
 
