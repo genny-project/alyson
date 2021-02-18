@@ -18,26 +18,22 @@ import ContextMenu from 'app/BE/context'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisV, faInfo } from '@fortawesome/free-solid-svg-icons'
 import PickedAttribute from 'app/SBE/lane/PickedAttribute'
-import statusColors from './status_colors'
-import MainDetails from './MainDetails'
 
 const Card = ({ parentCode, actions = [], code, columns }) => {
-  const title = useSelector(selectCode(code, getAttribute(columns[0])))
+  const title = useSelector(selectCode(code, 'PRI_ASSOC_HC'))
   const subTitle = useSelector(selectCode(code, getAttribute(columns[1])))
   const image = useSelector(selectCode(code, 'PRI_IMAGE_URL'))
-  const statusColor = useSelector(selectCode(code, 'PRI_STATUS_COLOR'))
 
   const { isOpen, onToggle } = useDisclosure()
 
   const defaultColor = useColorModeValue('white', 'gray.900')
-  const color = statusColors[statusColor?.value]
 
   return (
     <Box
       bg={defaultColor}
       transition="all 0.2s"
       p="4"
-      w="xs"
+      w="sm"
       h="30"
       borderWidth="1px"
       borderRadius="lg"
@@ -70,12 +66,7 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
         </HStack>
         <Spacer />
         <HStack>
-          <IconButton
-            bg={color}
-            size="xs"
-            onClick={onToggle}
-            icon={<FontAwesomeIcon icon={faInfo} />}
-          />
+          <IconButton size="xs" onClick={onToggle} icon={<FontAwesomeIcon icon={faInfo} />} />
           <ContextMenu
             actions={actions}
             code={code}
@@ -84,7 +75,6 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
           />
         </HStack>
       </Flex>
-      <MainDetails code={code} columns={columns} parentCode={parentCode} />
       <Collapse unmountOnExit in={isOpen} animateOpacity>
         <Box p="3">
           <VStack align="left">
