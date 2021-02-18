@@ -46,7 +46,7 @@ const onSendSearch = ({ searchValue, searchType, sbeCode }) =>
 
 const VertxContainer = () => {
   const { keycloak } = useKeycloak()
-  const { login } = keycloak
+  const { login, logout } = keycloak
   const { sessionId: kSessionId, token: kToken } = keycloak
   const guestSessionId = guestKeycloak?.data?.session_state
   const guestToken = guestKeycloak?.data?.access_token
@@ -60,8 +60,8 @@ const VertxContainer = () => {
   const onNewCmd = compose(dispatch, newCmd)
   const onNewMsg = compose(dispatch, newMsg)
 
-  if (!(token && sessionId)) login({ redirectUri: `${window.location.href}` })
-
+  if (!(token && sessionId) && !guestKeycloak) login({ redirectUri: `${window.location.href}` })
+  if (guestKeycloak && kToken) logout()
   if (!eventBus.handlers[sessionId]) {
     try {
       eventBus.registerHandler(sessionId, (_, { body }) => {

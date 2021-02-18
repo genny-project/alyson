@@ -29,6 +29,7 @@ const initialiseApp = async () => {
       document.getElementById('root'),
     )
   } catch (err) {
+    console.error(err)
     ReactDOM.render(
       <React.StrictMode>
         <Suspense fallback={<div />}>
