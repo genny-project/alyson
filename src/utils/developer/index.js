@@ -13,9 +13,9 @@ const DeveloperConsole = () => {
   const suggestions = code ? compose(slice(0, 20), filter(includes(code)))(keys) : []
 
   return (
-    <HStack alignItems="start">
-      <VStack>
-        <FormControl>
+    <HStack alignItems="start" m="10">
+      <VStack alignItems="left">
+        <FormControl w="20rem">
           <FormLabel>Code</FormLabel>
           <Input value={code} onChange={e => setCode(e.target.value)} />
         </FormControl>
@@ -25,7 +25,17 @@ const DeveloperConsole = () => {
           </Text>
         ))}
       </VStack>
-      <VStack>{selection && selection.map(key => <Text>{key}</Text>)}</VStack>
+      <VStack>
+        {selection ? (
+          selection.map ? (
+            selection.map(key => <Text>{key}</Text>)
+          ) : (
+            <Text>{JSON.stringify(selection)}</Text>
+          )
+        ) : (
+          <div />
+        )}
+      </VStack>
     </HStack>
   )
 }
