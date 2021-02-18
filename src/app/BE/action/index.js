@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
-import { MenuItem } from '@chakra-ui/react'
+import { Text } from '@chakra-ui/react'
 import { onSendMessage } from 'vertx'
 
 const Action = ({ parentCode, code, targetCode, size = 'xs' }) => {
@@ -16,9 +16,9 @@ const Action = ({ parentCode, code, targetCode, size = 'xs' }) => {
     })
 
   return (
-    <MenuItem onClick={handleClick} size={size}>
+    <Text onClick={handleClick} size={size}>
       {data.attributeName}
-    </MenuItem>
+    </Text>
   )
 }
 
