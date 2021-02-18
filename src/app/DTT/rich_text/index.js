@@ -77,7 +77,7 @@ const Read = ({ data, mini }) => {
   return mini ? (
     <Popover>
       <PopoverTrigger>
-        <IconButton icon={<FontAwesomeIcon icon={faExpand} />} />
+        <Button leftIcon={<FontAwesomeIcon icon={faExpand} />}>{data?.attributeName}</Button>
       </PopoverTrigger>
       <PopoverContent>
         <PopoverArrow />

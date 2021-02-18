@@ -26,15 +26,19 @@ const MyInternship = ({ rows, sbeCode }) => {
   return (
     <VStack>
       <Heading>{internshipName?.value}</Heading>
-      <Text>{`${startDate?.value} - ${endDate?.value}`}</Text>
+      <Text>{`${startDate?.value || 'No Start Date'} - ${endDate?.value || 'No End Date'}`}</Text>
       <HStack>
-        {internshipData.map(attribute => (
-          <Attribute code={internship} attribute={attribute} parentCode={sbeCode} />
+        {actions?.map(action => (
+          <Action key={action} parentCode={sbeCode} code={action} targetCode={internship} />
         ))}
       </HStack>
-      {actions?.map(action => (
-        <Action key={action} parentCode={sbeCode} code={action} targetCode={internship} />
-      ))}
+
+      <HStack>
+        {internshipData.map(attribute => (
+          <Attribute mini code={internship} attribute={attribute} parentCode={sbeCode} />
+        ))}
+      </HStack>
+
       <Text>{description?.value}</Text>
     </VStack>
   )
