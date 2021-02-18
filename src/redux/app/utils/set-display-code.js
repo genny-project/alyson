@@ -1,4 +1,4 @@
-import { includes } from 'ramda'
+import { includes, uniq } from 'ramda'
 
 const setDisplayCode = state => items => {
   if (!items) return
@@ -9,6 +9,10 @@ const setDisplayCode = state => items => {
       const displayCode = items[0].baseEntityAttributes?.find(
         attr => attr.attributeCode === 'SCH_DISPLAY_MODE',
       )
+
+      if (includes('_COUNT_', code)) {
+        state.DASHBOARD_COUNTS = uniq([...(state.DASHBOARD_COUNTS || []), code])
+      }
 
       if (includes('DETAIL_VIEW', displayCode?.valueString || '')) {
         state.DETAIL = code
