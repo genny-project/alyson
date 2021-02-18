@@ -11,10 +11,13 @@ import {
   MenuGroup,
   Flex,
   Spacer,
+  useDisclosure,
 } from '@chakra-ui/react'
 import ChildMenuItem from 'app/ASKS/menu/ChildMenuItem'
 import ColorToggler from './ColorToggler'
 import { onSendMessage } from 'vertx'
+import SettingsModal from './SettingsModal'
+
 const QUE_AVATAR_GRP = 'QUE_AVATAR_GRP'
 
 const AvatarMenu = () => {
@@ -26,6 +29,7 @@ const AvatarMenu = () => {
   const avatarAsks = useSelector(selectCode(QUE_AVATAR_GRP))
   const { keycloak } = useKeycloak()
 
+  const { isOpen, onOpen, onClose } = useDisclosure()
   const { getImageSrc } = useApi()
 
   const title = `${name?.value || userName?.value}${
@@ -47,7 +51,9 @@ const AvatarMenu = () => {
       <MenuList>
         <MenuGroup title={title}>
           {avatarAsks
-            .filter(childAsk => childAsk !== 'QUE_AVATAR_LOGOUT')
+            .filter(
+              childAsk => childAsk !== 'QUE_AVATAR_LOGOUT' && childAsk !== 'QUE_AVATAR_SETTINGS',
+            )
             .map(childAsk => (
               <ChildMenuItem
                 rootCode={userCode}
@@ -57,6 +63,7 @@ const AvatarMenu = () => {
                 childCode={childAsk}
               />
             ))}
+          <MenuItem onClick={onOpen}>Settings</MenuItem>
           <MenuItem
             onClick={() => {
               onSendMessage({ code: 'LOGOUT' }, { event_type: 'LOGOUT' })
@@ -72,6 +79,7 @@ const AvatarMenu = () => {
           <ColorToggler />
         </Flex>
       </MenuList>
+      <SettingsModal isOpen={isOpen} onClose={onClose} />
     </Menu>
   )
 }

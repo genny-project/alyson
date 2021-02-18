@@ -7,6 +7,9 @@ import {
   PopoverArrow,
   PopoverCloseButton,
   PopoverHeader,
+  HStack,
+  IconButton,
+  Text,
 } from '@chakra-ui/react'
 import { faStreetView } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -21,21 +24,22 @@ const Read = ({ data }) => {
   if (!data?.value) return null
 
   return (
-    <Popover isLazy>
-      <PopoverTrigger>
-        <Button leftIcon={<FontAwesomeIcon icon={faStreetView} />} size="xs" colorScheme="teal">
-          {data.value}
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent style={{ width: '42rem', height: '34rem' }}>
-        <PopoverArrow />
-        <PopoverCloseButton />
-        <PopoverHeader>{`${data.attributeName}, ${data.value}`}</PopoverHeader>
-        <PopoverBody>
-          <StreetView address={data.value} />
-        </PopoverBody>
-      </PopoverContent>
-    </Popover>
+    <HStack>
+      <Popover isLazy>
+        <PopoverTrigger>
+          <IconButton icon={<FontAwesomeIcon icon={faStreetView} />} />
+        </PopoverTrigger>
+        <PopoverContent style={{ width: '42rem', height: '34rem' }}>
+          <PopoverArrow />
+          <PopoverCloseButton />
+          <PopoverHeader>{`${data.attributeName}, ${data.value}`}</PopoverHeader>
+          <PopoverBody>
+            <StreetView address={data.value} />
+          </PopoverBody>
+        </PopoverContent>
+      </Popover>
+      <Text minW="8rem">{data.value}</Text>
+    </HStack>
   )
 }
 
