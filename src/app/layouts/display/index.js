@@ -9,6 +9,7 @@ import Dashboard from 'app/layouts/dashboard'
 import DisplayDrawer from './drawer'
 import Dialog from 'app/layouts/dialog'
 import Toast from './toast'
+import Detail from 'app/SBE/detail'
 
 const Display = ({ isPublic }) => {
   const display = useSelector(selectDisplay)
@@ -21,6 +22,7 @@ const Display = ({ isPublic }) => {
       {display === 'TABLE' && <Table />}
       {display === 'PROCESS' && <Process />}
       {includes('FORM', display || '') && <Form />}
+      {display === 'DETAIL' && <Detail />}
       <DisplayDrawer />
       <Dialog />
       <Toast />
