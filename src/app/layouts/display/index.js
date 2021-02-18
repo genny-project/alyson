@@ -14,7 +14,7 @@ const Display = ({ isPublic }) => {
   const display = useSelector(selectDisplay)
 
   return isPublic ? (
-    <Table />
+    <Table mapSearch />
   ) : (
     <Box paddingTop="6rem" id="main-display">
       {display === 'DASHBOARD' && <Dashboard />}
