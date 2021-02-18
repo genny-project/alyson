@@ -5,7 +5,7 @@ import { Box, Divider } from '@chakra-ui/react'
 import Header from './templates/header'
 import DetailSection from './templates/detail-section'
 import getActions from 'app/SBE/utils/get-actions'
-import sectionAttributes from './section-attributes'
+import sectionAttributes from './utils/section-attributes'
 
 const Cv = ({ sbeCode }) => {
   const sbe = useSelector(selectCode(sbeCode))
@@ -22,7 +22,7 @@ const Cv = ({ sbeCode }) => {
     careerObj,
     imageAttribute,
     headerAttribute,
-  } = sectionAttributes()
+  } = sectionAttributes
 
   return (
     <Box w="90vw">

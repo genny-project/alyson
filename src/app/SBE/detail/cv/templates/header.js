@@ -1,8 +1,7 @@
-import { Stack, Flex, Spacer, Box } from '@chakra-ui/react'
+import { Flex, Spacer, Box } from '@chakra-ui/react'
 import { map } from 'ramda'
-import { Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react'
+import { Menu, MenuButton, MenuList } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 
 import Action from 'app/BE/action'
@@ -22,21 +21,18 @@ const Header = ({ code, sbeCode, imageSrc, headerAttribute, actions }) => {
 
       <Spacer />
 
-      <Menu>
-        <MenuButton>
-          <FontAwesomeIcon size="lg" icon={faEllipsisV} />
-        </MenuButton>
-        <MenuList>
-          {actions &&
-            map(action => (
-              <MenuItem>
-                <Action parentCode={sbeCode} code={action} targetCode={code} />
-              </MenuItem>
-            ))(actions)}
-        </MenuList>
-      </Menu>
       <Box mt="6">
-        <Stack direction={['row', 'column']}></Stack>
+        <Menu>
+          <MenuButton>
+            <FontAwesomeIcon size="lg" icon={faEllipsisV} />
+          </MenuButton>
+          <MenuList>
+            {actions &&
+              map(action => <Action parentCode={sbeCode} code={action} targetCode={code} />)(
+                actions,
+              )}
+          </MenuList>
+        </Menu>
       </Box>
     </Flex>
   )
