@@ -34,7 +34,7 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
 
   return (
     <Box
-      bg={color || defaultColor}
+      bg={defaultColor}
       transition="all 0.2s"
       p="4"
       w="xs"
@@ -70,7 +70,12 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
         </HStack>
         <Spacer />
         <HStack>
-          <IconButton size="xs" onClick={onToggle} icon={<FontAwesomeIcon icon={faInfo} />} />
+          <IconButton
+            bg={color}
+            size="xs"
+            onClick={onToggle}
+            icon={<FontAwesomeIcon icon={faInfo} />}
+          />
           <ContextMenu
             actions={actions}
             code={code}

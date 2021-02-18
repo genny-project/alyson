@@ -9,6 +9,7 @@ import Footer from './Footer'
 import Body from './Body'
 import Title from './Title'
 import Filters from '../filters'
+import Download from '../download'
 
 const DataTable = ({ parentCode }) => {
   const tableData = useSelector(selectCode(parentCode))
@@ -24,6 +25,7 @@ const DataTable = ({ parentCode }) => {
         <Title sbeCode={parentCode} />
         <Search sbeCode={parentCode} />
         <Filters sbeCode={parentCode} />
+        <Download sbeCode={parentCode} />
       </HStack>
       <Table>
         <Header columns={columns} parentCode={parentCode} actions={actions} />
