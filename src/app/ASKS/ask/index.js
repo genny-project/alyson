@@ -180,7 +180,7 @@ const Ask = ({ parentCode, questionCode, onFinish }) => {
         />
       )}
       <FormErrorMessage>{feedback}</FormErrorMessage>
-      <FormHelperText ml="1" color="green">
+      <FormHelperText ml="1" color="green" noOfLines="1">
         {data?.value ? (
           !isDev ? (
             <FontAwesomeIcon icon={faCheckCircle} />

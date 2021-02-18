@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import { selectRows, selectCode } from 'redux/db/selectors'
-import { VStack, Button } from '@chakra-ui/react'
+import { VStack, Button, useColorModeValue } from '@chakra-ui/react'
 import getColumns from '../utils/get-columns'
 import getActions from '../utils/get-actions'
 import BECard from 'app/BE/card'
@@ -14,16 +14,18 @@ const Lane = ({ sbeCode }) => {
   const totalResults = useSelector(selectCode(sbeCode, 'PRI_TOTAL_RESULTS'))
   const paginationActions = useCallback(() => getPaginationActions(sbeCode), [sbeCode])
 
+  const color = useColorModeValue('blue.50', 'blue.900')
+
   if (!table) return null
 
   const columns = getColumns(table)
   const actions = getActions(table)
 
   return (
-    <VStack bg="blue.50" p="3" borderRadius="lg" shadow="lg">
+    <VStack bg={color} p="3" borderRadius="lg" shadow="lg">
       <Title sbeCode={sbeCode} />
       {rows.map(row => (
-        <BECard columns={columns} actions={actions} code={row} parentCode={sbeCode} />
+        <BECard key={row} columns={columns} actions={actions} code={row} parentCode={sbeCode} />
       ))}
       {rows.length < totalResults.value && (
         <Button variant="ghost" colorScheme="cyan" onClick={paginationActions().lazy}>{`See ${

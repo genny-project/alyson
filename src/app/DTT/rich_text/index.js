@@ -19,7 +19,7 @@ import { faSave, faEdit, faExpand } from '@fortawesome/free-solid-svg-icons'
 import '../../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
 const Write = ({ questionCode, data, onSendAnswer, description }) => {
-  const blocksFromHTML = convertFromHTML(data?.value)
+  const blocksFromHTML = convertFromHTML(data?.value || '')
   const state = ContentState.createFromBlockArray(
     blocksFromHTML.contentBlocks,
     blocksFromHTML.entityMap,

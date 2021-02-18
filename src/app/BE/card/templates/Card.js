@@ -8,6 +8,7 @@ import {
   IconButton,
   Flex,
   Spacer,
+  useColorModeValue,
 } from '@chakra-ui/react'
 import { selectCode } from 'redux/db/selectors'
 import { getAttribute } from 'app/SBE/utils/get-columns'
@@ -28,11 +29,12 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
 
   const { isOpen, onToggle } = useDisclosure()
 
+  const defaultColor = useColorModeValue('white', 'gray.900')
   const color = statusColors[statusColor?.value]
 
   return (
     <Box
-      bg={color || 'white'}
+      bg={color || defaultColor}
       transition="all 0.2s"
       p="4"
       w="xs"
