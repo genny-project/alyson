@@ -8,7 +8,7 @@ import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 const Row = ({ parentCode, code, columns, actions }) => {
   return (
     <Tr>
-      {actions?.length && (
+      {actions?.length ? (
         <Td>
           <ContextMenu
             actions={actions}
@@ -17,8 +17,7 @@ const Row = ({ parentCode, code, columns, actions }) => {
             button={<IconButton variant="ghost" icon={<FontAwesomeIcon icon={faEllipsisV} />} />}
           />
         </Td>
-      )}
-
+      ) : null}
       {columns.map(col => (
         <Cell
           actions={actions}

@@ -45,7 +45,7 @@ const Attribute = ({ code, attribute, size, mini, parentCode, variant, config })
   ) : component === 'status' ? (
     <Status.Read data={data} size={size} />
   ) : component === 'date' ? (
-    <Date.Read data={data} size={size} />
+    <Date.Read data={data} size={size} typeName={dttData.typeName} />
   ) : component === 'progress' ? (
     <ProgressBar.Read data={data} />
   ) : component === 'html_display' ? (

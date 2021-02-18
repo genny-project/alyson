@@ -50,9 +50,9 @@ const appSlice = createSlice({
           state.FILTERS = []
         }
         state.DETAIL = ''
+        state.DOWNLOAD_FILE = ''
       } else {
         state[cmd_type] = targetCodes || code
-        if (cmd_type === 'TOAST') state[cmd_type] = payload
       }
       if (cmd_type === 'LOGOUT' && exec) {
         keycloak.logout()
