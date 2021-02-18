@@ -3,6 +3,8 @@ import { Button } from '@chakra-ui/react'
 import { selectCode } from 'redux/db/selectors'
 import sendAskClick from 'app/ASKS/utils/send-ask-click'
 import { Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
 
 const ChildButton = ({ questionCode, childCode, size }) => {
   const data = useSelector(selectCode(questionCode, childCode))
@@ -21,7 +23,13 @@ const ChildButton = ({ questionCode, childCode, size }) => {
     )
   return (
     <Menu>
-      <MenuButton test-id={childCode} size={size} colorScheme="teal" as={Button}>
+      <MenuButton
+        test-id={childCode}
+        size={size}
+        colorScheme="blue"
+        rightIcon={<FontAwesomeIcon icon={faCaretDown} />}
+        as={Button}
+      >
         {name}
       </MenuButton>
       <MenuList>
