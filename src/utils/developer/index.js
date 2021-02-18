@@ -25,7 +25,7 @@ const DeveloperConsole = () => {
           </Text>
         ))}
       </VStack>
-      <Text>{JSON.stringify(selection)}</Text>
+      <VStack>{selection && selection.map(key => <Text>{key}</Text>)}</VStack>
     </HStack>
   )
 }
