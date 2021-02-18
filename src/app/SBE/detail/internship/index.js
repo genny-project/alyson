@@ -1,11 +1,10 @@
 import { useSelector } from 'react-redux'
 import { selectCode, selectRows } from 'redux/db/selectors'
 import { faUser, faBriefcase, faGraduationCap } from '@fortawesome/free-solid-svg-icons'
-import { Divider } from '@chakra-ui/react'
+import { Box, Divider } from '@chakra-ui/react'
 
 import Header from './templates/header'
 import DetailSection from './templates/detail-section'
-import styles from './templates/styles'
 import getActions from 'app/SBE/utils/get-actions'
 
 const contactDetails = {
@@ -57,7 +56,7 @@ const Internship = ({ sbeCode }) => {
   const headerAttribute = 'PRI_ASSOC_HC'
 
   return (
-    <div style={styles.container}>
+    <Box>
       <Header
         code={code}
         sbeCode={sbeCode}
@@ -75,7 +74,7 @@ const Internship = ({ sbeCode }) => {
       <DetailSection code={code} details={basicLearningOutcome} />
       <Divider />
       <DetailSection code={code} details={technicalSkills} />
-    </div>
+    </Box>
   )
 }
 

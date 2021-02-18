@@ -17,7 +17,7 @@ const DisplayDrawer = () => {
   const isOpen = drawer !== 'NONE'
 
   return (
-    <Drawer size="full" isOpen={isOpen} onClose={() => dispatch(closeDrawer())}>
+    <Drawer placement="bottom" size="full" isOpen={isOpen} onClose={() => dispatch(closeDrawer())}>
       <DrawerOverlay>
         <DrawerContent>
           <DrawerCloseButton />

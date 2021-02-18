@@ -10,11 +10,13 @@ import { CSSReset } from '@chakra-ui/react'
 import Vertx from 'vertx'
 import { isDev } from 'utils/developer'
 
+const DeveloperConsole = lazy(() => import('utils/developer'))
 const Display = lazy(() => import('app/layouts/display'))
 const Sandbox = lazy(() => import('utils/developer/Sandbox'))
 
 const config = {
   initialColorMode: 'light',
+  useSystemColorMode: true,
 }
 
 const App = () => {
@@ -60,6 +62,19 @@ const App = () => {
                   <Display isPublic />
                 </Suspense>
               )}
+            />
+            <Route
+              path={`/redux`}
+              exact
+              component={() =>
+                isDev ? (
+                  <Suspense fallback={<div />}>
+                    <DeveloperConsole />
+                  </Suspense>
+                ) : (
+                  <Redirect to={{ pathname: '/home' }} />
+                )
+              }
             />
             <Route
               path={`/sandbox`}

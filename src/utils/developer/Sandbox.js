@@ -24,6 +24,7 @@ import {
   Grid,
 } from '@chakra-ui/react'
 import { EmailIcon, StarIcon } from '@chakra-ui/icons'
+import DeveloperConsole from '../developer'
 
 const App = () => (
   <ChakraProvider resetCSS>

@@ -7,7 +7,7 @@ export const Write = ({ questionCode, data, onSendAnswer }) => (
     onBlur={e => onSendAnswer(e.target.value)}
   />
 )
-export const Read = ({ data, size }) => <ChakraText fontSize={size}>{data?.value}</ChakraText>
+export const Read = ({ data, config }) => <ChakraText {...config}>{data?.value}</ChakraText>
 
 const Text = {
   Write,
