@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import Attribute from 'app/BE/attribute'
 
-const DetailSection = ({ code, details: { sectionIcon, title, attributes } }) => {
+const DetailSection = ({ beCode, details: { sectionIcon, title, attributes } }) => {
   return (
     <HStack p="4" alignItems="start">
       <Text pr="4" pt="1">
@@ -12,7 +12,7 @@ const DetailSection = ({ code, details: { sectionIcon, title, attributes } }) =>
       </Text>
       <VStack alignItems="left">
         <Text fontSize="xl">{title}</Text>
-        {map(attr => <Attribute code={code} attribute={attr} />)(attributes)}
+        {map(attr => <Attribute code={beCode} attribute={attr} />)(attributes)}
       </VStack>
     </HStack>
   )

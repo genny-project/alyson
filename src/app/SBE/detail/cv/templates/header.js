@@ -7,13 +7,13 @@ import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 import Action from 'app/BE/action'
 import Attribute from 'app/BE/attribute'
 
-const Header = ({ code, sbeCode, imageSrc, headerAttribute, actions }) => {
+const Header = ({ beCode, sbeCode, imageSrc, headerAttribute, actions }) => {
   return (
     <Flex p="2" alignItems="start">
-      <Attribute code={code} attribute={imageSrc} variant={'profile_image'} />
+      <Attribute code={beCode} attribute={imageSrc} variant={'profile_image'} />
       <Box p="3">
         <Attribute
-          code={code}
+          code={beCode}
           attribute={headerAttribute}
           config={{ fontSize: '3xl', fontWeight: 'semibold' }}
         />
@@ -30,7 +30,7 @@ const Header = ({ code, sbeCode, imageSrc, headerAttribute, actions }) => {
             {actions &&
               map(action => (
                 <MenuItem>
-                  <Action parentCode={sbeCode} code={action} targetCode={code} />
+                  <Action parentCode={sbeCode} code={action} targetCode={beCode} />
                 </MenuItem>
               ))(actions)}
           </MenuList>

@@ -12,7 +12,7 @@ const Cv = ({ sbeCode }) => {
   const actions = getActions(sbe)
 
   const rows = useSelector(selectRows(sbeCode))
-  const code = rows[0]
+  const beCode = rows[0]
 
   if (!sbe || !rows.length) return null
 
@@ -25,20 +25,20 @@ const Cv = ({ sbeCode }) => {
   } = sectionAttributes
 
   return (
-    <Box w="90vw">
+    <Box mx={10}>
       <Header
-        code={code}
+        beCode={beCode}
         sbeCode={sbeCode}
         imageSrc={imageAttribute}
         headerAttribute={headerAttribute}
         actions={actions}
       />
       <Divider />
-      <DetailSection code={code} details={contactDetails} />
+      <DetailSection beCode={beCode} details={contactDetails} />
       <Divider />
-      <DetailSection code={code} details={internshipDetail} />
+      <DetailSection beCode={beCode} details={internshipDetail} />
       <Divider />
-      <DetailSection code={code} details={careerObj} />
+      <DetailSection beCode={beCode} details={careerObj} />
     </Box>
   )
 }
