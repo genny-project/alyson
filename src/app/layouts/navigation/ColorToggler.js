@@ -8,7 +8,7 @@ const ThemeToggler = () => {
   const { colorMode, toggleColorMode } = useColorMode()
   const buttonRef = useRef(null)
 
-  useHotkeys('cmd+i', () => buttonRef?.current.click())
+  useHotkeys('ctrl+i, cmd+i', () => buttonRef?.current.click())
 
   return (
     <IconButton
@@ -16,7 +16,7 @@ const ThemeToggler = () => {
       ref={buttonRef}
       onClick={toggleColorMode}
       variant="ghost"
-      icon={<FontAwesomeIcon icon={colorMode === 'dark' ? faMoon : faSun} />}
+      icon={<FontAwesomeIcon icon={colorMode === 'dark' ? faSun : faMoon} />}
     />
   )
 }
