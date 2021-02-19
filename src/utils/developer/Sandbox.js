@@ -1,45 +1,50 @@
 /* eslint-disable */
-import React, { useState } from 'react'
+import React from 'react'
+import { IconButton, HStack, Center } from '@chakra-ui/react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faClone, faPhoneAlt, faEnvelope, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
 
-import {
-  ChakraProvider,
-  Box,
-  Stack,
-  Avatar,
-  AvatarBadge,
-  Alert,
-  AlertIcon,
-  AlertTitle,
-  AlertDescription,
-  FormLabel,
-  Input,
-  FormHelperText,
-  FormErrorMessage,
-  Switch,
-  InputGroup,
-  InputRightElement,
-  Icon,
-  Text,
-  Divider,
-  Grid,
-} from '@chakra-ui/react'
-import { EmailIcon, StarIcon } from '@chakra-ui/icons'
-import DeveloperConsole from '../developer'
+const Sandbox = () => (
+  <Center>
+    <HStack>
+      <IconButton
+        color="white"
+        bgGradient="linear(to-tr, blue.500,purple.400)"
+        _hover={{
+          bgGradient: 'linear(to-br, yellow.300, orange.500)',
+        }}
+        aria-label="copy"
+        icon={<FontAwesomeIcon icon={faClone} />}
+      />
+      <IconButton
+        color="white"
+        bgGradient="linear(to-tr, blue.500,purple.400)"
+        _hover={{
+          bgGradient: 'linear(to-br, yellow.300, orange.500)',
+        }}
+        aria-label="phone"
+        icon={<FontAwesomeIcon icon={faPhoneAlt} />}
+      />
+      <IconButton
+        color="white"
+        bgGradient="linear(to-tr, blue.500,purple.400)"
+        _hover={{
+          bgGradient: 'linear(to-br, yellow.300, orange.500)',
+        }}
+        aria-label="email"
+        icon={<FontAwesomeIcon icon={faEnvelope} />}
+      />
+      <IconButton
+        color="white"
+        bgGradient="linear(to-tr, blue.500,purple.400)"
+        _hover={{
+          bgGradient: 'linear(to-br, yellow.300, orange.500)',
+        }}
+        aria-label="location"
+        icon={<FontAwesomeIcon icon={faMapMarkerAlt} />}
+      />
+    </HStack>
+  </Center>
+)
 
-const App = () => {
-  const [hover, setHover] = useState(false)
-
-  const toggle = () => setHover(h => !h)
-
-  return (
-    <div
-      onMouseOver={toggle}
-      onMouseLeave={toggle}
-      style={{ width: '30rem', height: '30rem', border: '1px solid black' }}
-    >
-      {`${hover}`}
-    </div>
-  )
-}
-
-export default App
+export default Sandbox
