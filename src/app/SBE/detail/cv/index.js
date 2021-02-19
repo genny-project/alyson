@@ -9,12 +9,13 @@ import sectionAttributes from './utils/section-attributes'
 
 const Cv = ({ sbeCode }) => {
   const sbe = useSelector(selectCode(sbeCode))
-  const actions = getActions(sbe)
 
   const rows = useSelector(selectRows(sbeCode))
-  const beCode = rows[0]
 
   if (!sbe || !rows.length) return null
+
+  const beCode = rows[0]
+  const actions = getActions(sbe)
 
   const {
     contactDetails,
