@@ -8,7 +8,6 @@ import {
   PopoverBody,
   PopoverArrow,
   PopoverCloseButton,
-  IconButton,
   PopoverHeader,
 } from '@chakra-ui/react'
 import { EditorState, convertFromHTML, ContentState } from 'draft-js'
