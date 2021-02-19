@@ -7,7 +7,7 @@ const AsksMenu = ({ questionCode, icon }) => {
   const data = useSelector(selectCode(questionCode))
   const title = useSelector(selectCode(questionCode, 'title'))
 
-  if (!data) return null
+  if (!data || !data.length) return null
 
   return (
     <Menu>
