@@ -1,13 +1,14 @@
 import { Flex, Spacer, Box } from '@chakra-ui/react'
 import { map } from 'ramda'
-import { Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
+import { useBreakpointValue, HStack } from '@chakra-ui/react'
 
 import Action from 'app/BE/action'
 import Attribute from 'app/BE/attribute'
+import HeaderActions from './header-actions'
 
 const Header = ({ beCode, sbeCode, imageSrc, headerAttribute, actions }) => {
+  const mobile = useBreakpointValue({ base: true, lg: false })
+
   return (
     <Flex p="2" alignItems="start">
       <Attribute code={beCode} attribute={imageSrc} variant={'profile_image'} />
@@ -18,23 +19,19 @@ const Header = ({ beCode, sbeCode, imageSrc, headerAttribute, actions }) => {
           config={{ fontSize: '3xl', fontWeight: 'semibold' }}
         />
       </Box>
-
       <Spacer />
-
       <Box mt="6">
-        <Menu>
-          <MenuButton>
-            <FontAwesomeIcon size="lg" icon={faEllipsisV} />
-          </MenuButton>
-          <MenuList>
-            {actions &&
-              map(action => (
-                <MenuItem>
-                  <Action parentCode={sbeCode} code={action} targetCode={beCode} />
-                </MenuItem>
-              ))(actions)}
-          </MenuList>
-        </Menu>
+        {mobile ? (
+          <HeaderActions actions={actions} beCode={beCode} sbeCode={sbeCode} />
+        ) : (
+          actions && (
+            <HStack>
+              {map(action => <Action parentCode={sbeCode} code={action} targetCode={beCode} />)(
+                actions,
+              )}
+            </HStack>
+          )
+        )}
       </Box>
     </Flex>
   )
