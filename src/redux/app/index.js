@@ -5,6 +5,8 @@ import { isForm, isAsk, getQuestionCode } from './utils/get-type'
 import { keycloak } from 'config/get-api-config'
 import setDisplayCode from './utils/set-display-code'
 import { onSendFilter } from 'vertx'
+import history from 'config/history'
+import { makePathname } from 'utils/pathname'
 
 const initialState = { filters: [], cmds: [], DISPLAY: 'DASHBOARD', DRAWER: 'NONE', DIALOG: 'NONE' }
 
@@ -73,6 +75,11 @@ const appSlice = createSlice({
         if (isForm(questionCode)) state.FORM = questionCode
       }
     },
+    sendMessage: (state, { payload }) => {
+      const redirect = payload?.data?.redirect
+
+      if (redirect) history.push(makePathname(payload.data.data), payload.data)
+    },
     closeDrawer: state => {
       state.DRAWER = 'NONE'
     },
@@ -97,5 +104,6 @@ export const {
   closeDialog,
   addFilter,
   removeFilter,
+  sendMessage,
 } = appSlice.actions
 export default appSlice.reducer
