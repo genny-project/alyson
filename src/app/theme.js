@@ -6,5 +6,7 @@ const config = {
   useSystemColorMode: true,
 }
 
+//TODO: if isDev then initialColorMode: 'dark' lol
+
 const theme = extendTheme({ config })
 export default theme
