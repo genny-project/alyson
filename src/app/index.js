@@ -44,7 +44,6 @@ const App = () => {
             />
             <Route
               path="/home"
-              exact
               component={() => (
                 <>
                   <Navigation />
