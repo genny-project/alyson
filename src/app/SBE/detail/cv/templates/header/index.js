@@ -26,9 +26,9 @@ const Header = ({ beCode, sbeCode, imageSrc, headerAttribute, actions }) => {
         ) : (
           actions && (
             <HStack>
-              {map(action => <Action parentCode={sbeCode} code={action} targetCode={beCode} />)(
-                actions,
-              )}
+              {map(action => (
+                <Action parentCode={sbeCode} code={action} targetCode={beCode} key={action} />
+              ))(actions)}
             </HStack>
           )
         )}
