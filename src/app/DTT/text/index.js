@@ -7,7 +7,11 @@ export const Write = ({ questionCode, data, onSendAnswer }) => (
     onBlur={e => onSendAnswer(e.target.value)}
   />
 )
-export const Read = ({ data, config }) => <ChakraText {...config}>{data?.value}</ChakraText>
+export const Read = ({ data, config }) => (
+  <ChakraText noOfLines={3} {...config}>
+    {data?.value}
+  </ChakraText>
+)
 
 const Text = {
   Write,

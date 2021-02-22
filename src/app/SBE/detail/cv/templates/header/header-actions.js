@@ -1,4 +1,4 @@
-import { Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react'
+import { Menu, MenuButton, MenuList } from '@chakra-ui/react'
 import { map } from 'ramda'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
@@ -13,9 +13,7 @@ const HeaderActions = ({ actions, sbeCode, beCode }) => {
       <MenuList>
         {actions &&
           map(action => (
-            <MenuItem>
-              <Action parentCode={sbeCode} code={action} targetCode={beCode} />
-            </MenuItem>
+            <Action parentCode={sbeCode} code={action} targetCode={beCode} key={action} mobile />
           ))(actions)}
       </MenuList>
     </Menu>

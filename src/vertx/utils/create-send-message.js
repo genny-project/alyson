@@ -1,7 +1,7 @@
 import { eventBus } from 'vertx'
 import log from 'utils/log'
 
-const createSendMessage = token => (data, options) => {
+const createSendMessage = (token, onSendMsg) => (data, options) => {
   const { msg_type = 'EVT_MSG', event_type = 'BTN_CLICK', data_type, redirect = true } =
     options || {}
 
@@ -20,6 +20,7 @@ const createSendMessage = token => (data, options) => {
     try {
       log(`⬆️ SENDING ${msg_type}`, message, 'color: darkSalmon;padding: 60px;')
       eventBus.send('address.inbound', message)
+      onSendMsg(message)
     } catch (error) {
       window.location.reload()
     }

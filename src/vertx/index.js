@@ -5,7 +5,7 @@ import { useKeycloak } from '@react-keycloak/web'
 import sendAuthInit from 'config/send-auth-init'
 import { messageHandler } from './handlers'
 import { useDispatch } from 'react-redux'
-import { newCmd, newMsg } from 'redux/app'
+import { newCmd, newMsg, sendMessage } from 'redux/app'
 import makeAuthInitData from './utils/make-auth-init-data'
 import createSendMessage from './utils/create-send-message'
 import urlStateManager from 'utils/url-state-manager'
@@ -59,6 +59,7 @@ const VertxContainer = () => {
   const dispatch = useDispatch()
   const onNewCmd = compose(dispatch, newCmd)
   const onNewMsg = compose(dispatch, newMsg)
+  const onSendMsg = compose(dispatch, sendMessage)
 
   if (!(token && sessionId) && !guestKeycloak) login({ redirectUri: `${window.location.href}` })
   if (guestKeycloak && kToken) logout()
@@ -78,7 +79,7 @@ const VertxContainer = () => {
       data: makeAuthInitData({ sessionId, token }),
     })
 
-    onSendMessage = createSendMessage(token)
+    onSendMessage = createSendMessage(token, onSendMsg)
 
     urlStateManager(onSendMessage)(window.location.pathname)
   }

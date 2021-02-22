@@ -68,6 +68,7 @@ const AvatarMenu = () => {
             onClick={() => {
               onSendMessage({ code: 'LOGOUT' }, { event_type: 'LOGOUT' })
               window.localStorage.localToken = ''
+              window.location.assign(window.location.origin)
               keycloak.logout()
             }}
           >

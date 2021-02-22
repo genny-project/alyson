@@ -9,6 +9,7 @@ import MyProfile from './display_modes/my_profile'
 import MyInternship from './display_modes/my_internship'
 import MyEducationProvider from './display_modes/my_education_provider'
 import OurEduProReps from './display_modes/edu_pro_reps'
+import Agents from './display_modes/agents'
 
 const DisplaySbe = ({ sbeCode }) => {
   const displayMode = useSelector(selectCode(sbeCode, 'SCH_DISPLAY_MODE'))
@@ -34,6 +35,7 @@ const DisplaySbe = ({ sbeCode }) => {
       {displayMode.value === 'edu_pro_summary_count' && (
         <DashboardSearch sbeCode={sbeCode} rows={rows} />
       )}
+      {displayMode.value === 'agents' && <Agents sbeCode={sbeCode} rows={rows} />}
     </div>
   )
 }
