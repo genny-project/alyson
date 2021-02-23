@@ -20,6 +20,9 @@ import { faEllipsisV, faInfo } from '@fortawesome/free-solid-svg-icons'
 import PickedAttribute from 'app/SBE/lane/PickedAttribute'
 import statusColors from './status_colors'
 import MainDetails from './MainDetails'
+import makeMotion from 'utils/motion'
+
+const MotionBox = makeMotion(Box)
 
 const Card = ({ parentCode, actions = [], code, columns }) => {
   const title = useSelector(selectCode(code, getAttribute(columns[0])))
@@ -33,14 +36,15 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
   const color = statusColors[statusColor?.value]
 
   return (
-    <Box
+    <MotionBox
       bg={defaultColor}
-      transition="all 0.2s"
       p="4"
       w="xs"
       h="30"
       borderWidth="1px"
       borderRadius="lg"
+      whileHover={{ scale: 1.1 }}
+      transition={{ duration: 0.1 }}
     >
       <Flex spacing="3">
         <HStack>
@@ -94,7 +98,7 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
           </VStack>
         </Box>
       </Collapse>
-    </Box>
+    </MotionBox>
   )
 }
 

@@ -5,6 +5,9 @@ import sendAskClick from 'app/ASKS/utils/send-ask-click'
 import { Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
+import makeMotion from 'utils/motion'
+
+const MotionButton = makeMotion(Button)
 
 const ChildButton = ({ questionCode, childCode, size }) => {
   const data = useSelector(selectCode(questionCode, childCode))
@@ -17,9 +20,16 @@ const ChildButton = ({ questionCode, childCode, size }) => {
 
   if (!childAsks)
     return (
-      <Button test-id={childCode} size={size} colorScheme="blue" onClick={onClick}>
+      <MotionButton
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        test-id={childCode}
+        size={size}
+        colorScheme="blue"
+        onClick={onClick}
+      >
         {name}
-      </Button>
+      </MotionButton>
     )
   return (
     <Menu>
