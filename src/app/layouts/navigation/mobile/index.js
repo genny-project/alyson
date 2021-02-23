@@ -18,7 +18,7 @@ import {
 import { apiConfig } from 'config/get-api-config'
 import Avatar from '../Avatar'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus, faQuidditch } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faBolt } from '@fortawesome/free-solid-svg-icons'
 import Buttons from 'app/ASKS/buttons'
 
 const MobileNav = () => {
@@ -40,8 +40,6 @@ const MobileNav = () => {
           right: 0,
           backgroundColor: bg,
           transition: 'box-shadow 0.2s',
-          borderTop: '6px solid',
-          borderTopColor: '#38B2AC',
           boxShadow: 'rgb(0 0 0 / 5%) 0px 1px 2px 0px',
         }}
       >
@@ -59,7 +57,7 @@ const MobileNav = () => {
             <AskMenu questionCode={'QUE_ADD_ITEMS_GRP'} icon={<FontAwesomeIcon icon={faPlus} />} />
             <AskMenu
               questionCode={'QUE_QUICK_ADD_ITEMS_GRP'}
-              icon={<FontAwesomeIcon icon={faQuidditch} />}
+              icon={<FontAwesomeIcon icon={faBolt} />}
             />
             <Avatar />
           </HStack>
