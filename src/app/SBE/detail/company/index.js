@@ -31,14 +31,18 @@ const companyDescription = {
   attributes: ['PRI_COMPANY_DESCRIPTION'],
 }
 
-const Cv = ({ sbeCode }) => {
+const Cv = ({ sbeCode, targetCode }) => {
   const sbe = useSelector(selectCode(sbeCode))
+
   const rows = useSelector(selectRows(sbeCode))
 
-  if (!sbe || !rows.length) return null
+  if (!sbe) return null
 
-  const code = rows[0]
+  const beCode = targetCode ? targetCode : rows?.length ? rows[0] : null
+
   const actions = getActions(sbe)
+
+  if (!beCode) return null
 
   const imageAttribute = 'PRI_IMAGE_URL'
   const headerAttribute = 'PRI_NAME'
