@@ -33,7 +33,9 @@ const ChildButton = ({ questionCode, childCode, size }) => {
     )
   return (
     <Menu>
-      <MenuButton
+      <MotionButton
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
         test-id={childCode}
         size={size}
         colorScheme="blue"
@@ -41,7 +43,7 @@ const ChildButton = ({ questionCode, childCode, size }) => {
         as={Button}
       >
         {name}
-      </MenuButton>
+      </MotionButton>
       <MenuList>
         {childAsks.map(childAsk => (
           <MenuItem
