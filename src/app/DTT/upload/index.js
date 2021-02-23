@@ -100,7 +100,7 @@ const Write = ({ questionCode, data, dttData, onSendAnswer }) => {
             icon={<FontAwesomeIcon icon={faUpload} />}
           />
         )}
-        {/* {dropzone && <DropZone handleSave={handleSave} closeDropzone={closeDropzone} />} */}
+        {dropzone && <DropZone handleSave={handleSave} closeDropzone={closeDropzone} />}
       </div>
       <div hidden={!loading}>
         <CircularProgress isIndeterminate />

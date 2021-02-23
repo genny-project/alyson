@@ -16,7 +16,7 @@ const DropZone = ({ handleSave, closeDropzone, maxSize = '5000000' }) => {
             preview: URL.createObjectURL(file),
           }),
         ),
-        rejectedFiles.map(file => () => alert('There was an error, try again!')),
+        rejectedFiles.map(file => alert('There was an error, try again!')),
       )
     },
   })
