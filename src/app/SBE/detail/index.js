@@ -9,13 +9,13 @@ import Profile from './profile'
 import DefaultView from './default-view'
 import getDetailType from './helpers/get-detail-type'
 
-const BaseEntityDetail = () => {
+const BaseEntityDetail = ({ targetCode }) => {
   const code = useSelector(selectDetail)
   const displayMode = useSelector(selectCode(code, 'SCH_DISPLAY_MODE'))
   const displayType = getDetailType(displayMode?.value)
 
   if (displayType === 'CV') {
-    return <Cv sbeCode={code} />
+    return <Cv sbeCode={code} targetCode={targetCode} />
   }
 
   if (displayType === 'COMPANY') {
