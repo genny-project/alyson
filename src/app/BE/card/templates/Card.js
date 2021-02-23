@@ -9,6 +9,7 @@ import {
   Flex,
   Spacer,
   useColorModeValue,
+  Divider,
 } from '@chakra-ui/react'
 import { selectCode } from 'redux/db/selectors'
 import { getAttribute } from 'app/SBE/utils/get-columns'
@@ -17,10 +18,10 @@ import Image from 'app/DTT/upload/Image'
 import ContextMenu from 'app/BE/context'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisV, faInfo } from '@fortawesome/free-solid-svg-icons'
-import PickedAttribute from 'app/SBE/lane/PickedAttribute'
 import statusColors from './status_colors'
 import MainDetails from './MainDetails'
 import makeMotion from 'utils/motion'
+import RestDetails from './RestDetails'
 
 const MotionBox = makeMotion(Box)
 
@@ -43,7 +44,7 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
       h="30"
       borderWidth="1px"
       borderRadius="lg"
-      whileHover={{ scale: 1.1 }}
+      whileHover={{ scale: 1.05 }}
       transition={{ duration: 0.1 }}
     >
       <Flex spacing="3">
@@ -90,13 +91,8 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
       </Flex>
       <MainDetails code={code} columns={columns} parentCode={parentCode} />
       <Collapse unmountOnExit in={isOpen} animateOpacity>
-        <Box p="3">
-          <VStack align="left">
-            {columns.map(col => (
-              <PickedAttribute key={col} col={col} code={code} parentCode={parentCode} />
-            ))}
-          </VStack>
-        </Box>
+        <Divider />
+        <RestDetails code={code} columns={columns} parentCode={parentCode} />
       </Collapse>
     </MotionBox>
   )

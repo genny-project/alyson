@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
-import { Heading, VStack, Stat, StatLabel, StatNumber, HStack, Text } from '@chakra-ui/react'
+import { Heading, VStack, Stat, StatLabel, StatNumber, HStack } from '@chakra-ui/react'
 import { getTableActions } from 'app/SBE/utils/get-actions'
 import Action from 'app/BE/action'
 
