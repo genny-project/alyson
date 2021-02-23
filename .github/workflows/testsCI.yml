@@ -2,15 +2,23 @@ name: Tests CI
 
 on:
   push:
-    branches: [dev]
+    branches: [dev-testci]
   pull_request:
-    branches: [dev]
+    branches: [dev-testci]
 
 jobs:
-  runNpmTarget:
-    name: Run NPM target
+  build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
     steps:
-      - uses: actions/checkout@v1
-      - name: Run NPM target
-        uses: anna-money/github-actions-npm@v2
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm ci
+      - run: npm run test
+        env:
+          CI: false
