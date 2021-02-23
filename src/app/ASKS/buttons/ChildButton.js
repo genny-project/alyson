@@ -2,12 +2,9 @@ import { useSelector } from 'react-redux'
 import { Button } from '@chakra-ui/react'
 import { selectCode } from 'redux/db/selectors'
 import sendAskClick from 'app/ASKS/utils/send-ask-click'
-import { Menu, MenuList, MenuItem } from '@chakra-ui/react'
+import { Menu, MenuList, MenuItem, MenuButton } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
-import makeMotion from 'utils/motion'
-
-const MotionButton = makeMotion(Button)
 
 const ChildButton = ({ questionCode, childCode, size }) => {
   const data = useSelector(selectCode(questionCode, childCode))
@@ -20,24 +17,13 @@ const ChildButton = ({ questionCode, childCode, size }) => {
 
   if (!childAsks)
     return (
-      <MotionButton
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        transition={{ duration: 0.1 }}
-        test-id={childCode}
-        size={size}
-        colorScheme="blue"
-        onClick={onClick}
-      >
+      <Button test-id={childCode} size={size} colorScheme="blue" onClick={onClick}>
         {name}
-      </MotionButton>
+      </Button>
     )
   return (
     <Menu>
-      <MotionButton
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        transition={{ duration: 0.1 }}
+      <MenuButton
         test-id={childCode}
         size={size}
         colorScheme="blue"
@@ -45,7 +31,7 @@ const ChildButton = ({ questionCode, childCode, size }) => {
         as={Button}
       >
         {name}
-      </MotionButton>
+      </MenuButton>
       <MenuList>
         {childAsks.map(childAsk => (
           <MenuItem
