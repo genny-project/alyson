@@ -1,20 +1,22 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { Box, Flex, Text, Input, Button, Center, Image } from '@chakra-ui/react'
 import { isEmpty, map } from 'ramda'
 
-const DropZone = ({ handleSave, closeDropzone }) => {
+const DropZone = ({ handleSave, closeDropzone, maxSize = '5000000' }) => {
   const [files, setFiles] = useState([])
 
   const { getRootProps, getInputProps } = useDropzone({
     accept: 'image/*',
-    onDrop: acceptedFiles => {
+    maxSize: maxSize,
+    onDrop: (acceptedFiles, rejectedFiles) => {
       setFiles(
         acceptedFiles.map(file =>
           Object.assign(file, {
             preview: URL.createObjectURL(file),
           }),
         ),
+        rejectedFiles.map(file => () => alert('There was an error, try again!')),
       )
     },
   })
