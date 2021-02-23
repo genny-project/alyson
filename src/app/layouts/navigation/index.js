@@ -17,9 +17,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faBolt } from '@fortawesome/free-solid-svg-icons'
 import MobileNav from './mobile'
 
+const getLogo = (realm, lightMode) =>
+  realm === 'internmatch'
+    ? lightMode
+      ? 'https://internmatch-uploads.s3-ap-southeast-2.amazonaws.com/internmatch_logo_light.png'
+      : 'https://internmatch-uploads.s3-ap-southeast-2.amazonaws.com/internmatch_logo_dark.png'
+    : 'https://raw.githubusercontent.com/OutcomeLife/prj_mentormatch/7.17.0/docs/mentormatch_logo.png'
+
 const Navigation = () => {
   const mobile = useBreakpointValue({ base: true, lg: false })
   const theme = useTheme()
+
+  const { realm } = apiConfig
+  const logoSrc = useColorModeValue(getLogo(realm, true), getLogo(realm))
 
   const bg = useColorModeValue('white', theme.colors.teal[900])
 
@@ -37,6 +47,7 @@ const Navigation = () => {
         backgroundColor: bg,
         transition: 'box-shadow 0.2s',
         boxShadow: 'rgb(0 0 0 / 5%) 0px 1px 2px 0px',
+        height: '75px',
       }}
     >
       <Flex p="3">
@@ -45,8 +56,9 @@ const Navigation = () => {
             onClick={() =>
               onSendMessage({ code: 'QUE_DASHBOARD_VIEW', parentCode: 'QUE_DASHBOARD_VIEW' })
             }
-            src={apiConfig.PRI_FAVICON}
-            style={{ cursor: 'pointer' }}
+            src={logoSrc}
+            style={{ cursor: 'pointer', position: 'absolute' }}
+            htmlWidth="250px"
           />
         )}
         <Spacer />
