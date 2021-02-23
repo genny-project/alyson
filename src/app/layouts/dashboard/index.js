@@ -19,7 +19,9 @@ const Dashboard = () => {
           <DisplaySbe key={sbeCode} sbeCode={sbeCode} />
         ))}
         <Spacer />
-        <Text as="samp">Powered By GADA Technology</Text>
+        <Text as="samp" fontSize="xs">
+          Powered By GADA Technology
+        </Text>
       </Stack>
     </Center>
   )
