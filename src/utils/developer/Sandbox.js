@@ -6,8 +6,9 @@ import { faClone, faPhoneAlt, faEnvelope, faMapMarkerAlt } from '@fortawesome/fr
 
 const Sandbox = () => (
   <Center>
-    <HStack>
+    <HStack m="5">
       <IconButton
+        transition="all 0.5s ease"
         color="white"
         bgGradient="linear(to-tr, blue.500,purple.400)"
         _hover={{
@@ -26,6 +27,7 @@ const Sandbox = () => (
         icon={<FontAwesomeIcon icon={faPhoneAlt} />}
       />
       <IconButton
+        transition="all 0.2s"
         color="white"
         bgGradient="linear(to-tr, blue.500,purple.400)"
         _hover={{
@@ -35,6 +37,7 @@ const Sandbox = () => (
         icon={<FontAwesomeIcon icon={faEnvelope} />}
       />
       <IconButton
+        transition="all 0.2s"
         color="white"
         bgGradient="linear(to-tr, blue.500,purple.400)"
         _hover={{

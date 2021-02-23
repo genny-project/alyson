@@ -12,27 +12,22 @@ const Cell = ({ attribute, parentCode }) => {
 
   return (
     <Td>
-      <HStack spacing="4" color={sort && sort.weight === 0 ? 'teal' : ''}>
+      <HStack spacing="4" color={sort?.weight === 0 ? 'teal' : ''}>
         <Text fontWeight="semibold">{data?.attributeName}</Text>
-        <IconButton
-          variant="ghost"
-          cursor={sort ? 'pointer' : null}
-          onClick={
-            sort
-              ? () =>
-                  onSendAnswer({
-                    attributeCode: sort.attributeCode,
-                    targetCode: sort.baseEntityCode,
-                    value: sort.value === 'ASC' ? 'DESC' : 'ASC',
-                  })
-              : null
-          }
-          icon={
-            <FontAwesomeIcon
-              icon={sort ? (sort.value === 'ASC' ? faAngleUp : faAngleDown) : null}
-            />
-          }
-        />
+        {sort && (
+          <IconButton
+            variant="ghost"
+            cursor={'pointer'}
+            onClick={() =>
+              onSendAnswer({
+                attributeCode: sort.attributeCode,
+                targetCode: sort.baseEntityCode,
+                value: sort.value === 'ASC' ? 'DESC' : 'ASC',
+              })
+            }
+            icon={<FontAwesomeIcon icon={sort.value === 'ASC' ? faAngleUp : faAngleDown} />}
+          />
+        )}
       </HStack>
     </Td>
   )

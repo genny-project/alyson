@@ -6,6 +6,9 @@ import { initLog } from 'utils/log'
 import { ReactKeycloakProvider } from '@react-keycloak/web'
 import { Center, CircularProgress } from '@chakra-ui/react'
 import App from 'app'
+import { ColorModeScript, ChakraProvider } from '@chakra-ui/react'
+import theme from 'config/theme'
+
 const Error = lazy(() => import('error'))
 
 const initialiseApp = async () => {
@@ -15,16 +18,19 @@ const initialiseApp = async () => {
 
     ReactDOM.render(
       <React.StrictMode>
-        <ReactKeycloakProvider
-          authClient={keycloak}
-          LoadingComponent={
-            <Center>
-              <CircularProgress isIndeterminate />
-            </Center>
-          }
-        >
-          <App />
-        </ReactKeycloakProvider>
+        <ChakraProvider theme={theme}>
+          <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+          <ReactKeycloakProvider
+            authClient={keycloak}
+            LoadingComponent={
+              <Center>
+                <CircularProgress isIndeterminate />
+              </Center>
+            }
+          >
+            <App />
+          </ReactKeycloakProvider>
+        </ChakraProvider>
       </React.StrictMode>,
       document.getElementById('root'),
     )

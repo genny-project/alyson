@@ -2,14 +2,12 @@ import Navigation from 'app/layouts/navigation'
 import { useKeycloak } from '@react-keycloak/web'
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 import { ChakraProvider } from '@chakra-ui/react'
-import { ColorModeScript } from '@chakra-ui/react'
 import { lazy, Suspense } from 'react'
 import { Provider } from 'react-redux'
 import store from 'redux/store'
 import { CSSReset } from '@chakra-ui/react'
 import Vertx from 'vertx'
 import { isDev } from 'utils/developer'
-import theme from './theme'
 
 const DeveloperConsole = lazy(() => import('utils/developer'))
 const Display = lazy(() => import('app/layouts/display'))
@@ -22,70 +20,67 @@ const App = () => {
     <Provider store={store}>
       <CSSReset />
       <Vertx />
-      <ChakraProvider theme={theme}>
-        <ColorModeScript />
-        <BrowserRouter>
-          <Switch>
-            <Route
-              path="/"
-              exact
-              component={() =>
-                keycloak.authenticated ? (
-                  <Redirect to={{ pathname: '/home' }} />
-                ) : (
-                  <Redirect to={{ pathname: '/public' }} />
-                )
-              }
-            />
-            <Route
-              path="/home"
-              component={() => (
-                <>
-                  <Navigation />
-                  <Suspense fallback={<div />}>
-                    <Display />
-                  </Suspense>
-                </>
-              )}
-            />
-            <Route
-              path={`/public`}
-              exact
-              component={() => (
+      <BrowserRouter>
+        <Switch>
+          <Route
+            path="/"
+            exact
+            component={() =>
+              keycloak.authenticated ? (
+                <Redirect to={{ pathname: '/home' }} />
+              ) : (
+                <Redirect to={{ pathname: '/public' }} />
+              )
+            }
+          />
+          <Route
+            path="/home"
+            component={() => (
+              <>
+                <Navigation />
                 <Suspense fallback={<div />}>
-                  <Display isPublic />
+                  <Display />
                 </Suspense>
-              )}
-            />
-            <Route
-              path={`/redux`}
-              exact
-              component={() =>
-                isDev ? (
-                  <Suspense fallback={<div />}>
-                    <DeveloperConsole />
-                  </Suspense>
-                ) : (
-                  <Redirect to={{ pathname: '/home' }} />
-                )
-              }
-            />
-            <Route
-              path={`/sandbox`}
-              exact
-              component={() =>
-                isDev ? (
-                  <Suspense fallback={<div />}>
-                    <Sandbox />
-                  </Suspense>
-                ) : (
-                  <Redirect to={{ pathname: '/home' }} />
-                )
-              }
-            />
-          </Switch>
-        </BrowserRouter>
-      </ChakraProvider>
+              </>
+            )}
+          />
+          <Route
+            path={`/public`}
+            exact
+            component={() => (
+              <Suspense fallback={<div />}>
+                <Display isPublic />
+              </Suspense>
+            )}
+          />
+          <Route
+            path={`/redux`}
+            exact
+            component={() =>
+              isDev ? (
+                <Suspense fallback={<div />}>
+                  <DeveloperConsole />
+                </Suspense>
+              ) : (
+                <Redirect to={{ pathname: '/home' }} />
+              )
+            }
+          />
+          <Route
+            path={`/sandbox`}
+            exact
+            component={() =>
+              isDev ? (
+                <Suspense fallback={<div />}>
+                  <Sandbox />
+                </Suspense>
+              ) : (
+                <Redirect to={{ pathname: '/home' }} />
+              )
+            }
+          />
+        </Switch>
+      </BrowserRouter>
     </Provider>
   )
 }
