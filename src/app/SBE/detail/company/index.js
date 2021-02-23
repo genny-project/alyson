@@ -50,18 +50,18 @@ const Cv = ({ sbeCode, targetCode }) => {
   return (
     <Box>
       <Header
-        code={code}
+        code={beCode}
         sbeCode={sbeCode}
         imageSrc={imageAttribute}
         headerAttribute={headerAttribute}
         actions={actions}
       />
       <Divider />
-      <DetailSection code={code} details={contactDetails} />
+      <DetailSection code={beCode} details={contactDetails} />
       <Divider />
-      <DetailSection code={code} details={industryDetails} />
+      <DetailSection code={beCode} details={industryDetails} />
       <Divider />
-      <DetailSection code={code} details={companyDescription} />
+      <DetailSection code={beCode} details={companyDescription} />
     </Box>
   )
 }
