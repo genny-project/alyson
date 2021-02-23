@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFileCode, faFileDownload, faUpload } from '@fortawesome/free-solid-svg-icons'
 import useApi from 'api'
 
+import DropZone from './dropzone'
+
 const Read = ({ data, dttData, parentCode, variant }) => {
   const typeName = dttData?.typeName
   const api = useApi()
@@ -100,11 +102,14 @@ const Write = ({ questionCode, data, dttData, onSendAnswer }) => {
             icon={<FontAwesomeIcon icon={faUpload} />}
           />
         )}
+
+        {/* {dropzone && <DropZone handleSave={handleSave} closeDropzone={closeDropzone} />} */}
+
         <DropzoneDialog
           test-id={questionCode}
           open={dropzone}
           onClose={closeDropzone}
-          onSave={handleSave}
+          handleSave={handleSave}
           showPreviews
           maxFileSize={50000000}
           filesLimit={1}
