@@ -23,7 +23,7 @@ const TableFooter = ({ sbeCode }) => {
   const hasPrevPage = pageNumber.value > 1
   const totalPages = Math.ceil(totalResults.value / pageSize.value)
 
-  return (
+  return totalPages > 1 ? (
     <Tfoot>
       <Tr>
         <Th />
@@ -53,7 +53,7 @@ const TableFooter = ({ sbeCode }) => {
         </Th>
       </Tr>
     </Tfoot>
-  )
+  ) : null
 }
 
 export default TableFooter

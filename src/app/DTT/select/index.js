@@ -93,7 +93,7 @@ const Read = ({ data, dataType }) => {
 
   const value = getValue(data, options)
 
-  return <Text>{`${value}`}</Text>
+  return <Text noOfLines={3}>{`${value}`}</Text>
 }
 
 const Select = {

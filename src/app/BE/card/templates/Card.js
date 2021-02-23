@@ -9,6 +9,7 @@ import {
   Flex,
   Spacer,
   useColorModeValue,
+  Divider,
 } from '@chakra-ui/react'
 import { selectCode } from 'redux/db/selectors'
 import { getAttribute } from 'app/SBE/utils/get-columns'
@@ -17,9 +18,12 @@ import Image from 'app/DTT/upload/Image'
 import ContextMenu from 'app/BE/context'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisV, faInfo } from '@fortawesome/free-solid-svg-icons'
-import PickedAttribute from 'app/SBE/lane/PickedAttribute'
 import statusColors from './status_colors'
 import MainDetails from './MainDetails'
+import makeMotion from 'utils/motion'
+import RestDetails from './RestDetails'
+
+const MotionBox = makeMotion(Box)
 
 const Card = ({ parentCode, actions = [], code, columns }) => {
   const title = useSelector(selectCode(code, getAttribute(columns[0])))
@@ -33,14 +37,15 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
   const color = statusColors[statusColor?.value]
 
   return (
-    <Box
+    <MotionBox
       bg={defaultColor}
-      transition="all 0.2s"
       p="4"
       w="xs"
       h="30"
       borderWidth="1px"
       borderRadius="lg"
+      whileHover={{ scale: 1.05 }}
+      transition={{ duration: 0.1 }}
     >
       <Flex spacing="3">
         <HStack>
@@ -86,15 +91,10 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
       </Flex>
       <MainDetails code={code} columns={columns} parentCode={parentCode} />
       <Collapse unmountOnExit in={isOpen} animateOpacity>
-        <Box p="3">
-          <VStack align="left">
-            {columns.map(col => (
-              <PickedAttribute key={col} col={col} code={code} parentCode={parentCode} />
-            ))}
-          </VStack>
-        </Box>
+        <Divider />
+        <RestDetails code={code} columns={columns} parentCode={parentCode} />
       </Collapse>
-    </Box>
+    </MotionBox>
   )
 }
 
