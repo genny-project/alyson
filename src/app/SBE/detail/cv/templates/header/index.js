@@ -13,7 +13,7 @@ const Header = ({ beCode, sbeCode, imageSrc, headerAttribute, actions, videoAttr
 
   return (
     <Flex p="2" alignItems="start">
-      {video ? (
+      {video?.value ? (
         <Attribute code={beCode} attribute={videoAttribute} />
       ) : (
         <Attribute code={beCode} attribute={imageSrc} variant={'profile_image'} />
