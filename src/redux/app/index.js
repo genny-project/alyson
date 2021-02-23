@@ -78,7 +78,7 @@ const appSlice = createSlice({
     sendMessage: (state, { payload }) => {
       const redirect = payload?.data?.redirect
 
-      if (redirect) history.push(makePathname(payload.data.data), payload.data)
+      // if (redirect) history.push(makePathname(payload.data.data), payload.data)
     },
     closeDrawer: state => {
       state.DRAWER = 'NONE'
