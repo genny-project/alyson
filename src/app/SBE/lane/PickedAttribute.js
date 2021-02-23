@@ -13,7 +13,13 @@ const PickedAttribute = ({ col, code, parentCode, color }) => {
 
   return (
     <VStack align="left" key={col}>
-      <Badge colorScheme={label === 'Name' || label === 'Email' ? 'purple' : color}>{label}</Badge>
+      <Badge
+        colorScheme={
+          label === 'Name' || label === 'Email' ? 'purple' : label === 'Internship' ? 'teal' : color
+        }
+      >
+        {label}
+      </Badge>
       <Attribute size="sm" code={code} attribute={attribute} />
     </VStack>
   )
