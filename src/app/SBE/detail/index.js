@@ -9,36 +9,36 @@ import Profile from './profile'
 import DefaultView from './default-view'
 import getDetailType from './helpers/get-detail-type'
 
-const BaseEntityDetail = () => {
+const BaseEntityDetail = ({ targetCode }) => {
   const code = useSelector(selectDetail)
   const displayMode = useSelector(selectCode(code, 'SCH_DISPLAY_MODE'))
   const displayType = getDetailType(displayMode?.value)
 
   if (displayType === 'CV') {
-    return <Cv sbeCode={code} />
+    return <Cv sbeCode={code} targetCode={targetCode} />
   }
 
   if (displayType === 'COMPANY') {
-    return <Company sbeCode={code} />
+    return <Company sbeCode={code} targetCode={targetCode} />
   }
 
   if (displayType === 'INTERNSHIP') {
-    return <Internship sbeCode={code} />
+    return <Internship sbeCode={code} targetCode={targetCode} />
   }
 
   if (displayType === 'APPLICATION') {
-    return <Internship sbeCode={code} />
+    return <Internship sbeCode={code} targetCode={targetCode} />
   }
 
   if (displayType === 'REP') {
-    return <Rep sbeCode={code} />
+    return <Rep sbeCode={code} targetCode={targetCode} />
   }
 
   if (displayType === 'USER_PROFILE') {
-    return <Profile sbeCode={code} />
+    return <Profile sbeCode={code} targetCode={targetCode} />
   }
 
-  return <DefaultView sbeCode={code} />
+  return <DefaultView sbeCode={code} targetCode={targetCode} />
 }
 
 export default BaseEntityDetail

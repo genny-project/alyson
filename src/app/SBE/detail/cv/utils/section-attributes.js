@@ -2,6 +2,7 @@ import { faUser, faBriefcase, faGraduationCap } from '@fortawesome/free-solid-sv
 
 const sectionAttributes = {
   imageAttribute: 'PRI_IMAGE_URL',
+  videoAttribute: 'PRI_VIDEO_URL',
   headerAttribute: 'PRI_NAME',
   contactDetails: {
     sectionIcon: faUser,
