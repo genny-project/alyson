@@ -36,8 +36,6 @@ const Navigation = () => {
         right: 0,
         backgroundColor: bg,
         transition: 'box-shadow 0.2s',
-        borderTop: '6px solid',
-        borderTopColor: '#38B2AC',
         boxShadow: 'rgb(0 0 0 / 5%) 0px 1px 2px 0px',
       }}
     >

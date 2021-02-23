@@ -4,7 +4,7 @@ import { selectCode } from 'redux/db/selectors'
 import sendAskClick from 'app/ASKS/utils/send-ask-click'
 import { Menu, MenuList, MenuItem } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import makeMotion from 'utils/motion'
 
 const MotionButton = makeMotion(Button)
@@ -41,7 +41,7 @@ const ChildButton = ({ questionCode, childCode, size }) => {
         test-id={childCode}
         size={size}
         colorScheme="blue"
-        rightIcon={<FontAwesomeIcon icon={faCaretDown} />}
+        rightIcon={<FontAwesomeIcon icon={faAngleDown} />}
         as={Button}
       >
         {name}
