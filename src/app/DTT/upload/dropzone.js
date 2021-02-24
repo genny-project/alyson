@@ -3,7 +3,7 @@ import { useDropzone } from 'react-dropzone'
 import { Box, Flex, Text, Input, Button, Center, Image, useToast } from '@chakra-ui/react'
 import { isEmpty, map } from 'ramda'
 
-const DropZone = ({ handleSave, closeDropzone, maxSize = '1000' }) => {
+const DropZone = ({ handleSave, closeDropzone, maxSize = '5000000' }) => {
   const [files, setFiles] = useState([])
   const toast = useToast()
   const { getRootProps, getInputProps } = useDropzone({
