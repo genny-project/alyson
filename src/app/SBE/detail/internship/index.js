@@ -74,7 +74,7 @@ const Internship = ({ sbeCode, targetCode }) => {
       <Divider />
       <HStack alignItems="start">
         <DetailSection code={beCode} details={internshipDetail} />
-        <VStack alignItems="start" pt="50px">
+        <VStack alignItems="start" pt="53px">
           <Label code={beCode} attribute={'PRI_SOFTWARE'} />
           <Attribute code={beCode} attribute={'PRI_SOFTWARE'} />
         </VStack>

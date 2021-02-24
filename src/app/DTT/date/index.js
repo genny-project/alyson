@@ -10,7 +10,7 @@ const Read = ({ data, size, typeName }) => {
 
   if (!date) return null
   return (
-    <Text w="8rem" fontSize={size}>
+    <Text w="10rem" fontSize={size}>
       {date}
     </Text>
   )
