@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
-import { Box, Flex, Text, Input, Button, Center, Image } from '@chakra-ui/react'
+import { Box, Flex, Text, Input, Button, Center, Image, useToast } from '@chakra-ui/react'
 import { isEmpty, map } from 'ramda'
 
-const DropZone = ({ handleSave, closeDropzone, maxSize = '5000000' }) => {
+const DropZone = ({ handleSave, closeDropzone, maxSize = '1000' }) => {
   const [files, setFiles] = useState([])
-
+  const toast = useToast()
   const { getRootProps, getInputProps } = useDropzone({
     accept: 'image/*',
     maxSize: maxSize,
@@ -16,24 +16,29 @@ const DropZone = ({ handleSave, closeDropzone, maxSize = '5000000' }) => {
             preview: URL.createObjectURL(file),
           }),
         ),
-        rejectedFiles.map(file => alert('There was an error, try again!')),
+        rejectedFiles.map(file =>
+          toast({
+            position: 'bottom',
+            title: 'An error occurred.',
+            description: `There was an error, try again!`,
+            status: 'error',
+            duration: 3000,
+          }),
+        ),
       )
     },
   })
-
   const preview = map(file => (
     <Box w="200px" h="200px" key={file.name}>
       <Image src={file.preview} alt="drag and drop" boxSize="200px" objectFit="cover" />
     </Box>
   ))(files)
-
   useEffect(
     () => () => {
       files.forEach(file => URL.revokeObjectURL(file.preview))
     },
     [files],
   )
-
   return (
     <Flex w="100%" p={4} direction="column" bg="white">
       <Text color="black">{`Upload File`}</Text>
@@ -63,5 +68,4 @@ const DropZone = ({ handleSave, closeDropzone, maxSize = '5000000' }) => {
     </Flex>
   )
 }
-
 export default DropZone
