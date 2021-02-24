@@ -20,7 +20,7 @@ const PickedAttribute = ({ col, code, parentCode, color }) => {
       >
         {label}
       </Badge>
-      <Attribute size="sm" code={code} attribute={attribute} />
+      <Attribute size="sm" code={code} attribute={attribute} config={{ portal: true }} />
     </VStack>
   )
 }

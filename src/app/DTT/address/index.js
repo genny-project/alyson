@@ -20,7 +20,7 @@ const Write = ({ questionCode, onSendAnswer, data }) => {
   return <AddressPicker questionCode={questionCode} onSendAnswer={onSendAnswer} data={data} />
 }
 
-const Read = ({ data }) => {
+const Read = ({ data, config }) => {
   if (!data?.value) return null
 
   return (
@@ -29,6 +29,27 @@ const Read = ({ data }) => {
         <PopoverTrigger>
           <IconButton icon={<FontAwesomeIcon icon={faMapMarkerAlt} />} />
         </PopoverTrigger>
+        {config?.portal ? (
+          <Portal>
+            <PopoverContent style={{ width: '42rem', height: '34rem' }}>
+              <PopoverArrow />
+              <PopoverCloseButton />
+              <PopoverHeader>{`${data.attributeName}, ${data.value}`}</PopoverHeader>
+              <PopoverBody>
+                <StreetView address={data.value} />
+              </PopoverBody>
+            </PopoverContent>
+          </Portal>
+        ) : (
+          <PopoverContent style={{ width: '42rem', height: '34rem' }}>
+            <PopoverArrow />
+            <PopoverCloseButton />
+            <PopoverHeader>{`${data.attributeName}, ${data.value}`}</PopoverHeader>
+            <PopoverBody>
+              <StreetView address={data.value} />
+            </PopoverBody>
+          </PopoverContent>
+        )}
         <Portal>
           <PopoverContent style={{ width: '42rem', height: '34rem' }}>
             <PopoverArrow />

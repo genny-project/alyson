@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import { selectRows } from 'redux/db/selectors'
-import { Grid, Box, HStack, VStack } from '@chakra-ui/react'
+import { HStack, VStack } from '@chakra-ui/react'
 import getColumns from 'app/SBE/utils/get-columns'
 import getActions from 'app/SBE/utils/get-actions'
 import { selectCode } from 'redux/db/selectors'
@@ -38,7 +38,7 @@ const MapSearch = ({ parentCode }) => {
             />
           ))}
         </VStack>
-        <Map rows={rows} />
+        <Map rows={rows} parentCode={parentCode} />
       </HStack>
     </VStack>
   )
