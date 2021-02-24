@@ -2,7 +2,7 @@ import { includes, uniq } from 'ramda'
 
 const setDisplayCode = state => items => {
   if (!items) return
-  if (items.length === 1) {
+  if (items.length === 1 && items[0]) {
     const code = items[0].code
 
     if (code && includes('SBE_', code)) {
