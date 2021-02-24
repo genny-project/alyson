@@ -12,7 +12,7 @@ const DropZone = ({ handleSave, closeDropzone, maxSize = '5000000', maxFiles = 1
     const errorMessage = pathOr('', ['errors', 0, 'message'])(file)
     return toast({
       position: 'bottom',
-      title: 'An error occurred.',
+      title: 'Oops something went wrong! Please try again! ☹️',
       description: errorMessage,
       status: 'error',
       duration: 3000,
@@ -57,7 +57,14 @@ const DropZone = ({ handleSave, closeDropzone, maxSize = '5000000', maxFiles = 1
   return (
     <Flex w="100%" p={4} direction="column" bg="white">
       <Text color="black">{`Upload File`}</Text>
-      <Box {...getRootProps()} p="10" my="4" cursor="pointer" border="1px black dashed">
+      <Box
+        {...getRootProps()}
+        p="10"
+        my="4"
+        cursor="pointer"
+        border="1px black dashed"
+        borderRadius="10px"
+      >
         <Center>
           <Text color="black">{`Drag 'n' drop some files here, or click to select files`}</Text>
         </Center>
