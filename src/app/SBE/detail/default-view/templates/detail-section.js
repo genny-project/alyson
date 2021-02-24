@@ -1,19 +1,26 @@
-import { Text, HStack, VStack } from '@chakra-ui/react'
+import { Text, HStack, Stack, VStack } from '@chakra-ui/react'
 import { map } from 'ramda'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
 import Attribute from 'app/BE/attribute'
+import Label from 'app/BE/attribute/Label'
 
-const DetailSection = ({ code, details: { sectionIcon, title, attributes } }) => {
+const DetailSection = ({ noTitle, row, code, details: { sectionIcon, title, attributes } }) => {
   return (
     <HStack p="4" alignItems="start">
-      <Text pr="4" pt="1">
-        <FontAwesomeIcon size="lg" icon={sectionIcon} />
-      </Text>
-      <VStack alignItems="left">
-        <Text fontSize="xl">{title}</Text>
-        {map(attr => <Attribute code={code} attribute={attr} />)(attributes)}
-      </VStack>
+      {!noTitle && (
+        <Text pr="4" pt="1">
+          <FontAwesomeIcon size="lg" icon={sectionIcon} />
+        </Text>
+      )}
+      <Stack direction={row ? 'row' : 'column'} alignItems="left">
+        {!noTitle && <Text fontSize="xl">{title}</Text>}
+        {map(attr => (
+          <VStack alignItems="left">
+            {attributes.length > 1 && <Label colorScheme="blue" code={code} attribute={attr} />}
+            <Attribute code={code} attribute={attr} />
+          </VStack>
+        ))(attributes)}
+      </Stack>
     </HStack>
   )
 }

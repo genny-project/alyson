@@ -3,8 +3,9 @@ import { map } from 'ramda'
 
 import Action from 'app/BE/action'
 import Attribute from 'app/BE/attribute'
+import DetailSection from './detail-section'
 
-const Header = ({ code, sbeCode, imageSrc, headerAttribute, actions }) => {
+const Header = ({ contactDetails, code, sbeCode, imageSrc, headerAttribute, actions }) => {
   return (
     <Flex p="2" alignItems="start">
       <Attribute code={code} attribute={imageSrc} variant={'profile_image'} />
@@ -23,6 +24,7 @@ const Header = ({ code, sbeCode, imageSrc, headerAttribute, actions }) => {
             map(action => <Action parentCode={sbeCode} code={action} targetCode={code} />)(actions)}
         </Stack>
       </Box>
+      {contactDetails && <DetailSection code={code} details={contactDetails} />}
     </Flex>
   )
 }

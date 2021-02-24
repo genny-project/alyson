@@ -50,9 +50,8 @@ const DefaultView = ({ sbeCode, targetCode }) => {
         imageSrc={imageAttribute}
         headerAttribute={headerAttribute}
         actions={actions}
+        contactDetails={contactDetails}
       />
-      <Divider />
-      <DetailSection code={beCode} details={contactDetails} />
       <Divider />
       <DetailSection code={beCode} details={aboutMyself} />
       <Divider />

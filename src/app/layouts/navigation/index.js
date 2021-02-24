@@ -51,7 +51,7 @@ const Navigation = () => {
       }}
     >
       <Flex p="3">
-        {apiConfig && (
+        {apiConfig && realm === 'internmatch' && (
           <Image
             onClick={() =>
               onSendMessage({ code: 'QUE_DASHBOARD_VIEW', parentCode: 'QUE_DASHBOARD_VIEW' })

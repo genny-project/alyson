@@ -3,8 +3,8 @@ import { selectCode, selectRows } from 'redux/db/selectors'
 import { faUser, faBriefcase, faGraduationCap } from '@fortawesome/free-solid-svg-icons'
 import { Box, Divider } from '@chakra-ui/react'
 
-import Header from './templates/header'
-import DetailSection from './templates/detail-section'
+import Header from '../default-view/templates/header'
+import DetailSection from '../default-view/templates/detail-section'
 import getActions from 'app/SBE/utils/get-actions'
 
 const contactDetails = {
