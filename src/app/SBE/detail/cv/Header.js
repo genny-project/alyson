@@ -4,7 +4,7 @@ import { useBreakpointValue, HStack } from '@chakra-ui/react'
 import { useSelector } from 'react-redux'
 import Action from 'app/BE/action'
 import Attribute from 'app/BE/attribute'
-import HeaderActions from './header-actions'
+import HeaderActions from './mobile-actions'
 import { selectCode } from 'redux/db/selectors'
 
 const Header = ({ beCode, sbeCode, imageSrc, headerAttribute, actions, videoAttribute }) => {
