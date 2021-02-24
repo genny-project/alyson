@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 import ImageType from './Image'
-import { DropzoneDialog } from 'material-ui-dropzone'
 import { CircularProgress, IconButton, Button, Tooltip, Link } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFileCode, faFileDownload, faUpload } from '@fortawesome/free-solid-svg-icons'
 import useApi from 'api'
+import DropZone from './dropzone'
 
 const Read = ({ data, dttData, parentCode, variant }) => {
   const typeName = dttData?.typeName
@@ -100,15 +100,7 @@ const Write = ({ questionCode, data, dttData, onSendAnswer }) => {
             icon={<FontAwesomeIcon icon={faUpload} />}
           />
         )}
-        <DropzoneDialog
-          test-id={questionCode}
-          open={dropzone}
-          onClose={closeDropzone}
-          onSave={handleSave}
-          showPreviews
-          maxFileSize={50000000}
-          filesLimit={1}
-        />
+        {dropzone && <DropZone handleSave={handleSave} closeDropzone={closeDropzone} />}
       </div>
       <div hidden={!loading}>
         <CircularProgress isIndeterminate />
