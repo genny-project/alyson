@@ -57,7 +57,7 @@ const Attribute = ({ code, attribute, size, mini, parentCode, variant, config })
   ) : component === 'video' ? (
     <Video.Read mini={mini} dataType={dttData} data={data} />
   ) : component === 'address' ? (
-    <Address.Read data={data} />
+    <Address.Read data={data} config={config} />
   ) : component === 'abn_number' ? (
     <ABN.Read data={data} />
   ) : component === 'link' ? (

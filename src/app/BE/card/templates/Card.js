@@ -49,7 +49,7 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
     >
       <Flex spacing="3">
         <HStack>
-          <Image.Read data={image} />
+          <Image.Read data={image} parentCode={parentCode} />
           <VStack alignItems="baseline" w="30">
             <Text.Read
               data={title}

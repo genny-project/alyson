@@ -23,6 +23,7 @@ const Display = ({ isPublic }) => {
       {display === 'PROCESS' && <Process />}
       {includes('FORM', display || '') && <Form />}
       {display === 'DETAIL' && <Detail />}
+      {display === 'MAP' && <Table mapSearch />}
       <DisplayDrawer />
       <Dialog />
       <Toast />
