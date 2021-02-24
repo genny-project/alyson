@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux'
 import { selectCode, selectRows } from 'redux/db/selectors'
 import { Box, Divider } from '@chakra-ui/react'
 
-import Header from './templates/header'
+import Header from './Header'
 import DetailSection from '../default-view/templates/detail-section'
 import getActions from 'app/SBE/utils/get-actions'
 import sectionAttributes from './utils/section-attributes'
