@@ -3,19 +3,22 @@ import { selectCode, selectRows } from 'redux/db/selectors'
 import { Box, Divider } from '@chakra-ui/react'
 
 import Header from './templates/header'
-import DetailSection from './templates/detail-section'
+import DetailSection from '../default-view/templates/detail-section'
 import getActions from 'app/SBE/utils/get-actions'
 import sectionAttributes from './utils/section-attributes'
 
-const Cv = ({ sbeCode }) => {
+const Cv = ({ sbeCode, targetCode }) => {
   const sbe = useSelector(selectCode(sbeCode))
 
   const rows = useSelector(selectRows(sbeCode))
 
-  if (!sbe || !rows.length) return null
+  if (!sbe) return null
 
-  const beCode = rows[0]
+  const beCode = targetCode ? targetCode : rows?.length ? rows[0] : null
+
   const actions = getActions(sbe)
+
+  if (!beCode) return null
 
   const {
     contactDetails,
@@ -23,6 +26,7 @@ const Cv = ({ sbeCode }) => {
     careerObj,
     imageAttribute,
     headerAttribute,
+    videoAttribute,
   } = sectionAttributes
 
   return (
@@ -32,6 +36,7 @@ const Cv = ({ sbeCode }) => {
         sbeCode={sbeCode}
         imageSrc={imageAttribute}
         headerAttribute={headerAttribute}
+        videoAttribute={videoAttribute}
         actions={actions}
       />
       <Divider />

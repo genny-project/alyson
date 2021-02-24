@@ -18,10 +18,10 @@ const Snapshot = ({ handleSave, setLoading, setOpenSnap }) => {
 
   const onSnapshot = useCallback(async () => {
     setLoading(true)
-    setOpenSnap(false)
     const imageCapture = new ImageCapture(stream.getVideoTracks()[0])
     const photoBlob = await imageCapture.takePhoto()
     handleSave([photoBlob])
+    setOpenSnap(false)
   }, [handleSave, setLoading, setOpenSnap, stream])
 
   return (

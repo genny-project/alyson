@@ -1,16 +1,18 @@
 import { useSelector } from 'react-redux'
 import { selectCode, selectRows } from 'redux/db/selectors'
 import { faUser, faBriefcase, faGraduationCap } from '@fortawesome/free-solid-svg-icons'
-import { Box, Divider } from '@chakra-ui/react'
+import { Box, Divider, HStack, VStack } from '@chakra-ui/react'
 
 import Header from './templates/header'
-import DetailSection from './templates/detail-section'
+import DetailSection from '../default-view/templates/detail-section'
 import getActions from 'app/SBE/utils/get-actions'
+import Attribute from 'app/BE/attribute'
+import Label from 'app/BE/attribute/Label'
 
 const contactDetails = {
   sectionIcon: faUser,
-  title: 'Contact Details',
-  attributes: ['PRI_NAME', 'PRI_MOBILE', 'PRI_EMAIL', 'PRI_ADDRESS_FULL'],
+  title: 'Dedicated Internship Contact Details',
+  attributes: ['PRI_ASSOC_SUPERVISOR', 'PRI_MOBILE', 'PRI_EMAIL', 'PRI_ADDRESS_FULL'],
 }
 
 const internshipDetail = {
@@ -43,14 +45,18 @@ const technicalSkills = {
   attributes: ['PRI_SPECIFIC_LEARNING_OUTCOMES'],
 }
 
-const Internship = ({ sbeCode }) => {
+const Internship = ({ sbeCode, targetCode }) => {
   const sbe = useSelector(selectCode(sbeCode))
+
   const rows = useSelector(selectRows(sbeCode))
 
-  if (!sbe || !rows.length) return null
+  if (!sbe) return null
 
-  const code = rows[0]
+  const beCode = targetCode ? targetCode : rows?.length ? rows[0] : null
+
   const actions = getActions(sbe)
+
+  if (!beCode) return null
 
   const imageAttribute = 'PRI_IMAGE_URL'
   const headerAttribute = 'PRI_ASSOC_HC'
@@ -58,22 +64,27 @@ const Internship = ({ sbeCode }) => {
   return (
     <Box>
       <Header
-        code={code}
+        code={beCode}
         sbeCode={sbeCode}
         imageSrc={imageAttribute}
         headerAttribute={headerAttribute}
         actions={actions}
+        contactDetails={contactDetails}
       />
       <Divider />
-      <DetailSection code={code} details={contactDetails} />
+      <HStack alignItems="start">
+        <DetailSection code={beCode} details={internshipDetail} />
+        <VStack alignItems="start" pt="53px">
+          <Label code={beCode} attribute={'PRI_SOFTWARE'} />
+          <Attribute code={beCode} attribute={'PRI_SOFTWARE'} />
+        </VStack>
+      </HStack>
       <Divider />
-      <DetailSection code={code} details={internshipDetail} />
+      <DetailSection code={beCode} details={responsibilities} />
       <Divider />
-      <DetailSection code={code} details={responsibilities} />
+      <DetailSection code={beCode} details={basicLearningOutcome} />
       <Divider />
-      <DetailSection code={code} details={basicLearningOutcome} />
-      <Divider />
-      <DetailSection code={code} details={technicalSkills} />
+      <DetailSection code={beCode} details={technicalSkills} />
     </Box>
   )
 }

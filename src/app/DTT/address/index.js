@@ -9,6 +9,7 @@ import {
   HStack,
   IconButton,
   Text,
+  Portal,
 } from '@chakra-ui/react'
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -28,14 +29,16 @@ const Read = ({ data }) => {
         <PopoverTrigger>
           <IconButton icon={<FontAwesomeIcon icon={faMapMarkerAlt} />} />
         </PopoverTrigger>
-        <PopoverContent style={{ width: '42rem', height: '34rem' }}>
-          <PopoverArrow />
-          <PopoverCloseButton />
-          <PopoverHeader>{`${data.attributeName}, ${data.value}`}</PopoverHeader>
-          <PopoverBody>
-            <StreetView address={data.value} />
-          </PopoverBody>
-        </PopoverContent>
+        <Portal>
+          <PopoverContent style={{ width: '42rem', height: '34rem' }}>
+            <PopoverArrow />
+            <PopoverCloseButton />
+            <PopoverHeader>{`${data.attributeName}, ${data.value}`}</PopoverHeader>
+            <PopoverBody>
+              <StreetView address={data.value} />
+            </PopoverBody>
+          </PopoverContent>
+        </Portal>
       </Popover>
       <Text minW="8rem">{data.value}</Text>
     </HStack>

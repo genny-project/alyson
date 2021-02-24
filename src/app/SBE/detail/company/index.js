@@ -4,7 +4,7 @@ import { faUser, faBriefcase, faGraduationCap } from '@fortawesome/free-solid-sv
 import { Box, Divider } from '@chakra-ui/react'
 
 import Header from './templates/header'
-import DetailSection from './templates/detail-section'
+import DetailSection from '../default-view/templates/detail-section'
 import getActions from 'app/SBE/utils/get-actions'
 
 const contactDetails = {
@@ -31,14 +31,18 @@ const companyDescription = {
   attributes: ['PRI_COMPANY_DESCRIPTION'],
 }
 
-const Cv = ({ sbeCode }) => {
+const Cv = ({ sbeCode, targetCode }) => {
   const sbe = useSelector(selectCode(sbeCode))
+
   const rows = useSelector(selectRows(sbeCode))
 
-  if (!sbe || !rows.length) return null
+  if (!sbe) return null
 
-  const code = rows[0]
+  const beCode = targetCode ? targetCode : rows?.length ? rows[0] : null
+
   const actions = getActions(sbe)
+
+  if (!beCode) return null
 
   const imageAttribute = 'PRI_IMAGE_URL'
   const headerAttribute = 'PRI_NAME'
@@ -46,18 +50,18 @@ const Cv = ({ sbeCode }) => {
   return (
     <Box>
       <Header
-        code={code}
+        code={beCode}
         sbeCode={sbeCode}
         imageSrc={imageAttribute}
         headerAttribute={headerAttribute}
         actions={actions}
       />
       <Divider />
-      <DetailSection code={code} details={contactDetails} />
+      <DetailSection code={beCode} details={contactDetails} />
       <Divider />
-      <DetailSection code={code} details={industryDetails} />
+      <DetailSection code={beCode} details={industryDetails} />
       <Divider />
-      <DetailSection code={code} details={companyDescription} />
+      <DetailSection code={beCode} details={companyDescription} />
     </Box>
   )
 }

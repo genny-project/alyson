@@ -25,14 +25,18 @@ const moreInfo = {
   attributes: [],
 }
 
-const DefaultView = ({ sbeCode }) => {
+const DefaultView = ({ sbeCode, targetCode }) => {
   const sbe = useSelector(selectCode(sbeCode))
+
   const rows = useSelector(selectRows(sbeCode))
 
-  if (!sbe || !rows.length) return null
+  if (!sbe) return null
 
-  const code = rows[0]
+  const beCode = targetCode ? targetCode : rows?.length ? rows[0] : null
+
   const actions = getActions(sbe)
+
+  if (!beCode) return null
 
   const imageAttribute = 'PRI_IMAGE_URL'
 
@@ -41,18 +45,17 @@ const DefaultView = ({ sbeCode }) => {
   return (
     <Box>
       <Header
-        code={code}
+        code={beCode}
         sbeCode={sbeCode}
         imageSrc={imageAttribute}
         headerAttribute={headerAttribute}
         actions={actions}
+        contactDetails={contactDetails}
       />
       <Divider />
-      <DetailSection code={code} details={contactDetails} />
+      <DetailSection code={beCode} details={aboutMyself} />
       <Divider />
-      <DetailSection code={code} details={aboutMyself} />
-      <Divider />
-      <DetailSection code={code} details={moreInfo} />
+      <DetailSection code={beCode} details={moreInfo} />
     </Box>
   )
 }
