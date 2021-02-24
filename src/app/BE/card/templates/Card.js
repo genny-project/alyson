@@ -26,8 +26,8 @@ import RestDetails from './RestDetails'
 const MotionBox = makeMotion(Box)
 
 const Card = ({ parentCode, actions = [], code, columns }) => {
-  const title = useSelector(selectCode(code, getAttribute(columns[0])))
-  const subTitle = useSelector(selectCode(code, getAttribute(columns[1])))
+  const title = useSelector(selectCode(code, getAttribute(columns[0] || '')))
+  const subTitle = useSelector(selectCode(code, getAttribute(columns[1] || '')))
   const image = useSelector(selectCode(code, 'PRI_IMAGE_URL'))
   const statusColor = useSelector(selectCode(code, 'PRI_STATUS_COLOR'))
 
