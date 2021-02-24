@@ -25,8 +25,6 @@ const Map = ({ rows, parentCode }) => {
         const lng = lngs[idx]
         const targetCode = lat.baseEntityCode
 
-        console.log(lat)
-
         const marker = new window.google.maps.Marker({
           position: { lat: lat.value, lng: lng.value },
           map: gMap,
