@@ -19,7 +19,15 @@ const Header = ({ contactDetails, code, sbeCode, imageSrc, headerAttribute, acti
           <Attribute code={code} attribute={'PRI_NAME'} /> Internship
         </Text>
       </Box>
-      {contactDetails && <DetailSection noTitle row code={code} details={contactDetails} />}
+      {contactDetails && (
+        <DetailSection
+          config={{ collapse: true }}
+          noTitle
+          row
+          code={code}
+          details={contactDetails}
+        />
+      )}
 
       <Spacer />
       <Box mt="6">

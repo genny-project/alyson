@@ -10,6 +10,9 @@ import {
   IconButton,
   Text,
   Portal,
+  Collapse,
+  useDisclosure,
+  VStack,
 } from '@chakra-ui/react'
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -21,9 +24,21 @@ const Write = ({ questionCode, onSendAnswer, data }) => {
 }
 
 const Read = ({ data, config }) => {
+  const { isOpen, onToggle } = useDisclosure({ defaultIsOpen: true })
+
   if (!data?.value) return null
 
-  return (
+  return config?.collapse ? (
+    <VStack alignItems="start">
+      <HStack>
+        <IconButton onClick={onToggle} icon={<FontAwesomeIcon icon={faMapMarkerAlt} />} />
+        <Text minW="8rem">{data.value}</Text>
+      </HStack>
+      <Collapse in={isOpen}>
+        <StreetView address={data.value} />
+      </Collapse>
+    </VStack>
+  ) : (
     <HStack>
       <Popover isLazy>
         <PopoverTrigger>

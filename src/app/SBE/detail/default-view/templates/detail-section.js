@@ -4,7 +4,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Attribute from 'app/BE/attribute'
 import Label from 'app/BE/attribute/Label'
 
-const DetailSection = ({ noTitle, row, code, details: { sectionIcon, title, attributes } }) => {
+const DetailSection = ({
+  config,
+  noTitle,
+  row,
+  code,
+  details: { sectionIcon, title, attributes },
+}) => {
   return (
     <HStack p="4" alignItems="start">
       {!noTitle && (
@@ -17,7 +23,7 @@ const DetailSection = ({ noTitle, row, code, details: { sectionIcon, title, attr
         {map(attr => (
           <VStack alignItems="left">
             {attributes.length > 1 && <Label colorScheme="blue" code={code} attribute={attr} />}
-            <Attribute code={code} attribute={attr} />
+            <Attribute config={config} code={code} attribute={attr} />
           </VStack>
         ))(attributes)}
       </Stack>
