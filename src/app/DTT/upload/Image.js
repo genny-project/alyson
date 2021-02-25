@@ -2,7 +2,7 @@ import { useState } from 'react'
 import useApi from 'api'
 import { Avatar, ButtonGroup, Button, IconButton, Tooltip, Image } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCameraRetro, faUpload } from '@fortawesome/free-solid-svg-icons'
+import { faCamera, faUpload } from '@fortawesome/free-solid-svg-icons'
 import Snap from './Snap'
 import { onSendMessage } from 'vertx'
 
@@ -29,10 +29,9 @@ const Write = ({ data, openDropzone, onSendAnswer, handleSave, setLoading }) => 
           <Button onClick={openDropzone} leftIcon={<FontAwesomeIcon icon={faUpload} />}>
             Upload a Photo
           </Button>
-          <IconButton
-            onClick={() => setOpenSnap(true)}
-            icon={<FontAwesomeIcon icon={faCameraRetro} />}
-          />
+          <Button onClick={() => setOpenSnap(true)} leftIcon={<FontAwesomeIcon icon={faCamera} />}>
+            Take a Photo
+          </Button>
         </ButtonGroup>
       </div>
     </div>
