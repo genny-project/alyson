@@ -12,7 +12,7 @@ import Label from 'app/BE/attribute/Label'
 const contactDetails = {
   sectionIcon: faUser,
   title: 'Dedicated Internship Contact Details',
-  attributes: ['PRI_ASSOC_SUPERVISOR', 'PRI_MOBILE', 'PRI_EMAIL', 'PRI_ADDRESS_FULL'],
+  attributes: ['PRI_ASSOC_SUPERVISOR', 'PRI_MOBILE', 'PRI_EMAIL'],
 }
 
 const internshipDetail = {
@@ -62,30 +62,33 @@ const Internship = ({ sbeCode, targetCode }) => {
   const headerAttribute = 'PRI_ASSOC_HC'
 
   return (
-    <Box>
-      <Header
-        code={beCode}
-        sbeCode={sbeCode}
-        imageSrc={imageAttribute}
-        headerAttribute={headerAttribute}
-        actions={actions}
-        contactDetails={contactDetails}
-      />
-      <Divider />
-      <HStack alignItems="start">
-        <DetailSection code={beCode} details={internshipDetail} />
-        <VStack alignItems="start" pt="53px">
-          <Label code={beCode} attribute={'PRI_SOFTWARE'} />
-          <Attribute code={beCode} attribute={'PRI_SOFTWARE'} />
-        </VStack>
-      </HStack>
-      <Divider />
-      <DetailSection code={beCode} details={responsibilities} />
-      <Divider />
-      <DetailSection code={beCode} details={basicLearningOutcome} />
-      <Divider />
-      <DetailSection code={beCode} details={technicalSkills} />
-    </Box>
+    <HStack alignItems="start">
+      <Box>
+        <Header
+          code={beCode}
+          sbeCode={sbeCode}
+          imageSrc={imageAttribute}
+          headerAttribute={headerAttribute}
+          actions={actions}
+          contactDetails={contactDetails}
+        />
+        <Divider />
+        <HStack alignItems="start">
+          <DetailSection code={beCode} details={internshipDetail} />
+          <VStack alignItems="start" pt="53px">
+            <Label code={beCode} attribute={'PRI_SOFTWARE'} />
+            <Attribute code={beCode} attribute={'PRI_SOFTWARE'} />
+          </VStack>
+        </HStack>
+        <Divider />
+        <DetailSection code={beCode} details={responsibilities} />
+        <Divider />
+        <DetailSection code={beCode} details={basicLearningOutcome} />
+        <Divider />
+        <DetailSection code={beCode} details={technicalSkills} />
+      </Box>
+      <Attribute code={beCode} attribute={'PRI_ADDRESS_FULL'} config={{ collapse: true }} />
+    </HStack>
   )
 }
 
