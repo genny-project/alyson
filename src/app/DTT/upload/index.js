@@ -4,7 +4,7 @@ import { CircularProgress, IconButton, Button, Tooltip, Link } from '@chakra-ui/
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFileCode, faFileDownload, faUpload } from '@fortawesome/free-solid-svg-icons'
 import useApi from 'api'
-import DropZone from './dropzone'
+import DropZone from './Dropzone'
 
 const Read = ({ data, dttData, parentCode, variant }) => {
   const typeName = dttData?.typeName
