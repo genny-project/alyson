@@ -1,5 +1,8 @@
 # Alyson-v9 Generic Frontend for Genny Project
 
+[![Node.js CI](https://github.com/genny-project/alyson-v9/actions/workflows/nodeci.yml/badge.svg)](https://github.com/genny-project/alyson-v9/actions/workflows/nodeci.yml)
+[![Linter](https://github.com/genny-project/alyson-v9/actions/workflows/linter.yml/badge.svg)](https://github.com/genny-project/alyson-v9/actions/workflows/linter.yml)
+
 ### Setup
 
 #### To run locally with npm start
