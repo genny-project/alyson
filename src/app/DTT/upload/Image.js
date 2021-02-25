@@ -25,12 +25,12 @@ const Write = ({ data, openDropzone, onSendAnswer, handleSave, setLoading }) => 
         <Snap handleSave={handleSave} setOpenSnap={setOpenSnap} setLoading={setLoading} />
       )}
       <div hidden={openSnap}>
-        <ButtonGroup isAttached variant="outline">
+        <ButtonGroup>
           <Button onClick={openDropzone} leftIcon={<FontAwesomeIcon icon={faUpload} />}>
-            Upload a Photo
+            Upload photo
           </Button>
           <Button onClick={() => setOpenSnap(true)} leftIcon={<FontAwesomeIcon icon={faCamera} />}>
-            Take a Photo
+            Take photo
           </Button>
         </ButtonGroup>
       </div>

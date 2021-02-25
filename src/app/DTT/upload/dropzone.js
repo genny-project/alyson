@@ -56,7 +56,6 @@ const DropZone = ({ handleSave, closeDropzone, maxSize = '5000000', maxFiles = 1
 
   return (
     <Flex w="100%" p={4} direction="column">
-      <Text>{`Upload File`}</Text>
       <Box
         {...getRootProps()}
         p="10"

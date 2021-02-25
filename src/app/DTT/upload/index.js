@@ -94,11 +94,13 @@ const Write = ({ questionCode, data, dttData, onSendAnswer }) => {
             >{`${fileName || 'File'} Uploaded`}</Button>
           </Tooltip>
         ) : (
-          <IconButton
+          <Button
             test-id={questionCode}
             onClick={openDropzone}
-            icon={<FontAwesomeIcon icon={faUpload} />}
-          />
+            leftIcon={<FontAwesomeIcon icon={faUpload} />}
+          >
+            Upload file
+          </Button>
         )}
         {dropzone && <DropZone handleSave={handleSave} closeDropzone={closeDropzone} />}
       </div>
