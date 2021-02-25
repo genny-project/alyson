@@ -6,7 +6,6 @@ import {
   InputLeftAddon,
   InputRightAddon,
   Kbd,
-  Center,
   Button,
 } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
