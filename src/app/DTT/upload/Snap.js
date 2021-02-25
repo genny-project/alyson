@@ -1,6 +1,8 @@
 import React, { useRef, useCallback } from 'react'
 import { useUserMedia } from 'utils/hooks'
-import { Button, VStack, HStack, useToast } from '@chakra-ui/react'
+import { Button, VStack, HStack, useToast, IconButton } from '@chakra-ui/react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
 
 const CAPTURE_OPTIONS = {
   video: true,
@@ -46,9 +48,11 @@ const Snapshot = ({ handleSave, setLoading, setOpenSnap }) => {
         Stream not available
       </video>
       <HStack>
-        <Button size="sm" onClick={() => setOpenSnap(false)}>
-          Back
-        </Button>
+        <IconButton
+          icon={<FontAwesomeIcon icon={faTimes} />}
+          size="sm"
+          onClick={() => setOpenSnap(false)}
+        />
         <Button isDisabled={!stream} size="sm" colorScheme="green" onClick={onSnapshot}>
           Snap!
         </Button>
