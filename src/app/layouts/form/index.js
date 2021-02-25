@@ -7,7 +7,6 @@ import {
   Center,
   HStack,
   Box,
-  Text,
   useDisclosure,
   Collapse,
   Button,
