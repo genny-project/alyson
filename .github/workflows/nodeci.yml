@@ -1,13 +1,11 @@
-name: Build CI
+name: Node.js CI
 
 on:
   push:
-    branches: [main]
   pull_request:
-    branches: [main]
 
 jobs:
-  build:
+  nodeci:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -20,3 +18,4 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm i
       - run: npm run build
+      - run: npm run test
