@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import useApi from 'api'
-import { Avatar, ButtonGroup, Button, IconButton, Tooltip, Image } from '@chakra-ui/react'
+import { Avatar, ButtonGroup, Button, Tooltip, Image } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCamera, faUpload } from '@fortawesome/free-solid-svg-icons'
 import Snap from './Snap'
