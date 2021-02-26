@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import ImageType from './Image'
-import { CircularProgress, Box, Button, Tooltip, Link, HStack, CloseButton } from '@chakra-ui/react'
+import { CircularProgress, Button, Tooltip, Link, HStack, CloseButton } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faFileDownload, faUpload } from '@fortawesome/free-solid-svg-icons'
 import useApi from 'api'
