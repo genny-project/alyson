@@ -1,84 +1,70 @@
-import React, { useState } from 'react'
-import 'react-dates/initialize'
-import 'react-dates/lib/css/_datepicker.css'
-import { compose, multiply, subtract, __ } from 'ramda'
-import { DateRangePicker } from 'react-dates'
+import { useState } from 'react'
 import moment from 'moment'
-import safelyParseJson from 'utils/helpers/safely-parse-json'
-import { DATE_FORMAT } from 'utils/constants'
+import { Input, HStack, VStack, Text, IconButton } from '@chakra-ui/react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
+
 import { Read } from '../text'
+import safelyParseJson from 'utils/helpers/safely-parse-json'
+import todaysDateInIsoFormat from 'utils/helpers/todays-date-in-iso-format'
+import setYearForDate from 'utils/helpers/set-year-for-date'
 
 const defaultDateRange = {
   startDate: new Date(),
   endDate: new Date(),
 }
-
-const durationIntoNights = compose(subtract(__, 3), multiply(7), parseInt)
-
-const returnYears = () => {
-  let years = []
-  for (let i = moment().year() - 100; i <= moment().year(); i++) {
-    years.push(<option value={i}>{i}</option>)
-  }
-  return years
-}
-
-const renderMonthElement = ({ month, onMonthSelect, onYearSelect }) => (
-  <div style={{ display: 'flex', justifyContent: 'center' }}>
-    <div>
-      <select value={month.month()} onChange={e => onMonthSelect(month, e.target.value)}>
-        {moment.months().map((label, value) => (
-          <option value={value}>{label}</option>
-        ))}
-      </select>
-    </div>
-    <div>
-      <select value={month.year()} onChange={e => onYearSelect(month, e.target.value)}>
-        {returnYears()}
-      </select>
-    </div>
-  </div>
-)
-
-const Write = ({ questionCode, onSendAnswer, data, html }) => {
-  const { duration } = safelyParseJson(html, {})
-
+const Write = ({ questionCode, onSendAnswer, data }) => {
   const { startDate: initialStartDate, endDate: initialEndDate } = data?.value
     ? safelyParseJson(data.value, defaultDateRange)
     : {}
-
-  const [focusedInput, setFocusedInput] = useState(null)
 
   const [dates, setDates] = useState({
     startDate: initialStartDate ? moment(initialStartDate) : null,
     endDate: initialEndDate ? moment(initialEndDate) : null,
   })
 
-  const onDatesChange = selection => {
-    setDates(selection)
-    onSendAnswer(selection)
+  const handleDateChange = (e, date) => {
+    setDates(dates => ({ ...dates, [date]: e.target.value }))
+    onSendAnswer({ ...dates, [date]: e.target.value })
+  }
+
+  const handleClearDate = () => {
+    onSendAnswer({ ...dates, startDate: null, endDate: null })
   }
 
   return (
-    <DateRangePicker
-      test-id={questionCode}
-      displayFormat={DATE_FORMAT}
-      startDate={dates.startDate}
-      startDateId="start_date_id"
-      endDate={dates.endDate}
-      endDateId="end_date_id"
-      onDatesChange={onDatesChange}
-      focusedInput={focusedInput}
-      onFocusChange={setFocusedInput}
-      isOutsideRange={() => false}
-      renderMonthElement={renderMonthElement}
-      withPortal
-      showClearDates
-      minimumNights={duration ? durationIntoNights(duration) : false}
-    />
+    <div>
+      <HStack spacing={5}>
+        <VStack align="left" spacing={2}>
+          <Text>{`Start Date`}</Text>
+          <Input
+            test-id={questionCode}
+            type={`date`}
+            defaultValue={dates.startDate}
+            onBlur={e => handleDateChange(e, 'startDate')}
+            min={setYearForDate()}
+            max={todaysDateInIsoFormat}
+          />
+        </VStack>
+        <VStack align="left" spacing={2}>
+          <Text>{`End Date`}</Text>
+          <Input
+            test-id={questionCode}
+            type={`date`}
+            defaultValue={dates.endDate}
+            onBlur={e => handleDateChange(e, 'endDate')}
+            min={setYearForDate()}
+            max={todaysDateInIsoFormat}
+          />
+        </VStack>
+        <IconButton
+          icon={<FontAwesomeIcon size="sm" icon={faTimesCircle} />}
+          onClick={handleClearDate}
+        />
+      </HStack>
+    </div>
   )
 }
-
 const DateRange = {
   Write,
   Read,
