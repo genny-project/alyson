@@ -1,3 +1,4 @@
+import { identity } from 'ramda'
 import { useEffect, useRef, useState } from 'react'
 
 export const useInterval = (cb, delay) => {
@@ -20,7 +21,7 @@ export const useInterval = (cb, delay) => {
   }, [cb, delay])
 }
 
-export const useUserMedia = (requestedMedia, setError) => {
+export const useUserMedia = (requestedMedia, setError = identity) => {
   const [mediaStream, setMediaStream] = useState(null)
 
   useEffect(() => {
@@ -29,7 +30,7 @@ export const useUserMedia = (requestedMedia, setError) => {
         const stream = await navigator.mediaDevices.getUserMedia(requestedMedia)
         setMediaStream(stream)
       } catch (err) {
-        setError(err)
+        setError(err?.message)
       }
     }
 
