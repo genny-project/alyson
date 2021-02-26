@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import ImageType from './Image'
-import { CircularProgress, Button, Tooltip, Link } from '@chakra-ui/react'
+import { CircularProgress, Box, Button, Tooltip, Link, HStack, CloseButton } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFileCode, faFileDownload, faUpload } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faFileDownload, faUpload } from '@fortawesome/free-solid-svg-icons'
 import useApi from 'api'
 import DropZone from './Dropzone'
 
@@ -85,14 +85,14 @@ const Write = ({ questionCode, data, dttData, onSendAnswer }) => {
             test-id={questionCode}
           />
         ) : data?.value ? (
-          <Tooltip label="Click to remove">
-            <Button
-              leftIcon={<FontAwesomeIcon icon={faFileCode} />}
-              test-id={questionCode}
-              onClick={() => onSendAnswer()}
-              colorScheme="green"
-            >{`${fileName || 'File'} Uploaded`}</Button>
-          </Tooltip>
+          <HStack>
+            <Button leftIcon={<FontAwesomeIcon icon={faCheck} />} colorScheme="green">{`${
+              fileName || 'File'
+            } Uploaded`}</Button>
+            <Tooltip label="Click to remove">
+              <CloseButton cursor="pointer" test-id={questionCode} onClick={() => onSendAnswer()} />
+            </Tooltip>
+          </HStack>
         ) : (
           <Button
             test-id={questionCode}

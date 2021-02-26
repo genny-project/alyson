@@ -55,14 +55,14 @@ const DropZone = ({ handleSave, closeDropzone, maxSize = '5000000', maxFiles = 1
   })(files)
 
   return (
-    <Flex w="100%" p={4} direction="column">
+    <Flex w="100%" direction="column">
       <Box
         {...getRootProps()}
         p="10"
         my="4"
         cursor="pointer"
         border="1px dashed"
-        borderRadius="10px"
+        borderRadius="4px"
       >
         <Center>
           <Text>{`Drag 'n' drop some files here, or click to select files`}</Text>
@@ -73,14 +73,8 @@ const DropZone = ({ handleSave, closeDropzone, maxSize = '5000000', maxFiles = 1
         {preview}
       </Flex>
       <Flex justify="flex-end">
+        <Button mr="2" variant="ghost" onClick={closeDropzone}>{`Cancel`}</Button>
         <Button
-          mr="2"
-          colorScheme="blue"
-          variant="ghost"
-          onClick={closeDropzone}
-        >{`Cancel`}</Button>
-        <Button
-          colorScheme="blue"
           variant="solid"
           isDisabled={!!isEmpty(files)}
           onClick={() => handleSave(files)}

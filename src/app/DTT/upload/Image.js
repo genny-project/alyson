@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import useApi from 'api'
-import { Avatar, ButtonGroup, Button, Tooltip, Image } from '@chakra-ui/react'
+import { Avatar, ButtonGroup, Button, Tooltip, Image, CloseButton, HStack } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCamera, faUpload } from '@fortawesome/free-solid-svg-icons'
 import Snap from './Snap'
@@ -14,9 +14,12 @@ const Write = ({ data, openDropzone, onSendAnswer, handleSave, setLoading }) => 
 
   if (src)
     return (
-      <Tooltip label="Click to remove">
-        <Avatar cursor="pointer" onClick={() => onSendAnswer()} size="xl" src={src} />
-      </Tooltip>
+      <HStack>
+        <Avatar size="xl" src={src} />
+        <Tooltip label="Click to remove">
+          <CloseButton cursor="pointer" onClick={() => onSendAnswer()} />
+        </Tooltip>
+      </HStack>
     )
 
   return (
