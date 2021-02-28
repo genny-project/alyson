@@ -39,6 +39,11 @@ const App = () => {
                 <div>
                   <Navigation />
                   <Display />
+                  {isDev ? (
+                    <Suspense fallback={<div />}>
+                      <DeveloperConsole />
+                    </Suspense>
+                  ) : null}
                 </div>
               </Suspense>
             )}
@@ -51,19 +56,6 @@ const App = () => {
                 <Display isPublic />
               </Suspense>
             )}
-          />
-          <Route
-            path={`/redux`}
-            exact
-            component={() =>
-              isDev ? (
-                <Suspense fallback={<div />}>
-                  <DeveloperConsole />
-                </Suspense>
-              ) : (
-                <Redirect to={{ pathname: '/home' }} />
-              )
-            }
           />
           <Route
             path={`/sandbox`}

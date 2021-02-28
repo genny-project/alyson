@@ -1,66 +1,31 @@
-import { useState, useRef } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { selectAttributes, selectCode } from 'redux/db/selectors'
-import { addFilter, removeFilter } from 'redux/app'
-import { selectFilters } from 'redux/app/selectors'
-import getSorts, { getAsField } from '../utils/get-sorts'
+import { useSelector } from 'react-redux'
+import { selectAttributes } from 'redux/db/selectors'
 import { useHotkeys } from 'react-hotkeys-hook'
 import {
   Popover,
   PopoverTrigger,
   PopoverContent,
-  PopoverHeader,
   PopoverBody,
   PopoverArrow,
   PopoverCloseButton,
   Button,
-  Input,
-  InputGroup,
-  InputRightAddon,
-  Kbd,
-  Wrap,
-  WrapItem,
-  Tag,
-  TagLabel,
-  TagCloseButton,
   HStack,
 } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFilter } from '@fortawesome/free-solid-svg-icons'
+import Ask from 'app/ASKS/ask'
 
 const Filters = ({ sbeCode }) => {
-  const inputRef = useRef(null)
-  const dispatch = useDispatch()
-  const sourceCode = useSelector(selectCode('USER'))
+  const [addFilters, existingFilters] = useSelector(
+    selectAttributes(`QUE_FILTER_GRP_${sbeCode}`, [
+      'QUE_ADD_FILTER_GRP',
+      'QUE_EXISTING_FILTERS_GRP',
+    ]),
+  )
 
-  const onAddFilter = filter => dispatch(addFilter(filter))
-  const onRemoveFilter = filter => dispatch(removeFilter(filter))
+  console.log(addFilters, existingFilters)
 
-  const sorts = getSorts(useSelector(selectCode(sbeCode)))
-  const filters = useSelector(selectFilters)
-
-  const sortData = useSelector(selectAttributes(sbeCode, sorts))
-
-  const [newFilter, setNewFilter] = useState({
-    sourceCode,
-    targetCode: sbeCode,
-    attributeCode: null,
-    attributeName: '',
-  })
-
-  const submitFilter = value => {
-    onAddFilter({ ...newFilter, value, weight: filters.length + 1 })
-    setNewFilter({
-      sourceCode,
-      targetCode: sbeCode,
-      attributeCode: null,
-      attributeName: '',
-    })
-  }
-
-  useHotkeys('enter', () => inputRef?.current && submitFilter(inputRef?.current.value), {
-    enableOnTags: ['INPUT'],
-  })
+  if (!addFilters) return null
 
   return (
     <HStack>
@@ -77,46 +42,13 @@ const Filters = ({ sbeCode }) => {
         <PopoverContent>
           <PopoverArrow />
           <PopoverCloseButton />
-          <PopoverHeader>
-            {newFilter.attributeName ? `Filter ${newFilter.attributeName}` : `Pick a Column`}
-          </PopoverHeader>
           <PopoverBody>
-            {!newFilter.attributeCode ? (
-              <Wrap>
-                {sortData.map(({ attributeCode, attributeName }) => (
-                  <WrapItem key={attributeCode}>
-                    <Button
-                      test-id={attributeCode}
-                      onClick={() =>
-                        setNewFilter(f => ({
-                          ...f,
-                          attributeCode: getAsField(attributeCode),
-                          attributeName,
-                        }))
-                      }
-                    >
-                      {attributeName}
-                    </Button>
-                  </WrapItem>
-                ))}
-              </Wrap>
-            ) : (
-              <InputGroup>
-                <Input autoFocus ref={inputRef} />
-                <InputRightAddon>
-                  <Kbd onClick={() => submitFilter(inputRef?.current.value)}>enter</Kbd>
-                </InputRightAddon>
-              </InputGroup>
-            )}
+            {addFilters.childAsks.map(childAskObject => (
+              <Ask passedAskData={childAskObject} />
+            ))}
           </PopoverBody>
         </PopoverContent>
       </Popover>
-      {filters.map(filter => (
-        <Tag key={filter.attributeCode} colorScheme="blue">
-          <TagLabel>{`${filter.attributeName} - ${filter.value}`}</TagLabel>
-          <TagCloseButton onClick={() => onRemoveFilter(filter)} />
-        </Tag>
-      ))}
     </HStack>
   )
 }
