@@ -27,6 +27,9 @@ const defaultProjectTheme = {
       800: '#702459',
       900: '#521B41',
     },
+    error: { 50: '#FFF5F5', 500: '#E53E3E' },
+    warning: { 50: '#FFFAF0', 500: '#DD6B20' },
+    success: { 50: '#F0FFF4', 500: '#38A169' },
   },
 }
 
