@@ -28,8 +28,8 @@ import { isDev } from 'utils/developer'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 
-const Ask = ({ parentCode, questionCode, onFinish }) => {
-  const askData = useSelector(selectCode(parentCode, questionCode))
+const Ask = ({ parentCode, questionCode, onFinish, passedAskData }) => {
+  const askData = useSelector(selectCode(parentCode, questionCode)) || passedAskData
 
   const { attributeCode, targetCode, name, question, mandatory } = askData
 
