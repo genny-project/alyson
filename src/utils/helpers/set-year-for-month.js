@@ -3,6 +3,7 @@ import { compose, split, prop, join, update, adjust, subtract, length, init, __ 
 const setYearForMonthDefault = compose(
   join('-'),
   adjust(0, subtract(__, 100)),
+  update(1, '01'),
   init,
   split('-'),
   prop(0),
@@ -13,6 +14,7 @@ const setYearForMonthUsingValue = value =>
   compose(
     join('-'),
     update(0, value),
+    update(1, '01'),
     init,
     split('-'),
     prop(0),
