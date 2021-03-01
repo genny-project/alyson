@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import moment from 'moment'
-import { Input } from '@chakra-ui/react'
 
 import { Read } from '../text'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
@@ -16,7 +15,7 @@ const defaultDateRange = {
 const Write = ({ questionCode, onSendAnswer, data, html }) => {
   const config = safelyParseJson(html, {})
 
-  const { maxDate, granularity = 'year' } = config
+  const { maxDate, granularity = 'date' } = config
 
   const { startDate: initialStartDate, endDate: initialEndDate } = data?.value
     ? safelyParseJson(data.value, defaultDateRange)

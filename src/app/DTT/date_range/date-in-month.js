@@ -2,13 +2,13 @@ import { Input, HStack, VStack, Text, IconButton } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 
-import todaysMonthInIsoFormat from 'utils/helpers/todays-month-in-iso-format'
+import { currentMonthInIsoFormat } from 'utils/helpers/date-info-in-iso-format'
 import setYearForMonth from 'utils/helpers/set-year-for-month'
 
 const DateInMonth = ({
   questionCode,
   dates,
-  maxDate = todaysMonthInIsoFormat,
+  maxDate = currentMonthInIsoFormat,
   handleDateChange,
   handleClearDate,
 }) => {
@@ -20,7 +20,7 @@ const DateInMonth = ({
           <Input
             test-id={questionCode}
             type={'month'}
-            defaultValue={dates.startDate || todaysMonthInIsoFormat}
+            defaultValue={dates.startDate || currentMonthInIsoFormat}
             onBlur={e => handleDateChange(e, 'startDate')}
             min={setYearForMonth('2000')}
             max={maxDate}
@@ -31,7 +31,7 @@ const DateInMonth = ({
           <Input
             test-id={questionCode}
             type={'month'}
-            defaultValue={dates.endDate || todaysMonthInIsoFormat}
+            defaultValue={dates.endDate || currentMonthInIsoFormat}
             onBlur={e => handleDateChange(e, 'endDate')}
             min={setYearForMonth()}
             max={maxDate}

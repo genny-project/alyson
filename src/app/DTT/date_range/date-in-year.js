@@ -2,7 +2,7 @@ import { HStack, VStack, Text, IconButton, Select } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 
-import todaysYearInIsoFormat from 'utils/helpers/todays-year-in-iso-format'
+import { currentYearInIsoFormat } from 'utils/helpers/date-info-in-iso-format'
 import { map } from 'ramda'
 
 const getAllYears = minYear => maxYear => (allYear = []) => {
@@ -16,7 +16,7 @@ const getAllYears = minYear => maxYear => (allYear = []) => {
 const DateInYear = ({
   questionCode,
   dates,
-  maxDate = todaysYearInIsoFormat,
+  maxDate = currentYearInIsoFormat,
   handleDateChange,
   handleClearDate,
 }) => {

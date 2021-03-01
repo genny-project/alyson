@@ -2,13 +2,13 @@ import { Input, HStack, VStack, Text, IconButton } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 
-import todaysDateInIsoFormat from 'utils/helpers/todays-date-in-iso-format'
+import { currentDateInIsoFormat } from 'utils/helpers/date-info-in-iso-format'
 import setYearForDate from 'utils/helpers/set-year-for-date'
 
 const DateInDay = ({
   questionCode,
   dates,
-  maxDate = todaysDateInIsoFormat,
+  maxDate = currentDateInIsoFormat,
   handleDateChange,
   handleClearDate,
 }) => {
