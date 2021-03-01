@@ -5,38 +5,39 @@ import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import { currentYearInIsoFormat } from 'utils/helpers/date-info-in-iso-format'
 import { map } from 'ramda'
 
-const getAllYears = minYear => maxYear => (allYear = []) => {
-  if (maxYear >= minYear) {
-    allYear.push(minYear)
-    return getAllYears(minYear + 1)(maxYear)(allYear)
-  }
-  return allYear
-}
+const yearRange = (years = 100) =>
+  Array.from(Array(years), (_, idx) => currentYearInIsoFormat - idx)
 
-const DateInYear = ({
-  questionCode,
-  dates,
-  maxDate = currentYearInIsoFormat,
-  handleDateChange,
-  handleClearDate,
-}) => {
+const DateInYear = ({ questionCode, handleDateChange, handleClearDate }) => {
   return (
     <div>
       <HStack spacing={5}>
         <VStack align="left" spacing={2}>
           <Text>{`Start Date`}</Text>
-          <Select placeholder="Select Year" test-id={questionCode}>
+          <Select
+            placeholder="Select Year"
+            test-id={questionCode}
+            onChange={e => handleDateChange(e, 'startDate')}
+          >
             {map(individualYear => (
-              <option key={`${questionCode}-${individualYear}`}>{individualYear}</option>
-            ))(getAllYears(1999)(2019)([]))}
+              <option key={`${questionCode}-${individualYear}`} value={individualYear}>
+                {individualYear}
+              </option>
+            ))(yearRange())}
           </Select>
         </VStack>
         <VStack align="left" spacing={2}>
           <Text>{`End Date`}</Text>
-          <Select placeholder="Select Year" test-id={questionCode}>
+          <Select
+            placeholder="Select Year"
+            test-id={questionCode}
+            onChange={e => handleDateChange(e, 'endDate')}
+          >
             {map(individualYear => (
-              <option key={`${questionCode}-${individualYear}`}>{individualYear}</option>
-            ))(getAllYears(2002)(2022)([]))}
+              <option key={`${questionCode}-${individualYear}`} value={individualYear}>
+                {individualYear}
+              </option>
+            ))(yearRange())}
           </Select>
         </VStack>
         <IconButton

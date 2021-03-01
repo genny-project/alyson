@@ -3,9 +3,7 @@ import moment from 'moment'
 
 import { Read } from '../text'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
-import DateInDay from './date-in-day'
-import DateInMonth from './date-in-month'
-import DateInYear from './date-in-year'
+import { DateInDay, DateInMonth, DateInYear } from './granularity'
 
 const defaultDateRange = {
   startDate: new Date(),
@@ -14,9 +12,7 @@ const defaultDateRange = {
 
 const Write = ({ questionCode, onSendAnswer, data, html }) => {
   const config = safelyParseJson(html, {})
-
-  const { maxDate, granularity = 'date' } = config
-
+  const { maxDate, granularityy = 'year' } = config
   const { startDate: initialStartDate, endDate: initialEndDate } = data?.value
     ? safelyParseJson(data.value, defaultDateRange)
     : {}
@@ -35,7 +31,7 @@ const Write = ({ questionCode, onSendAnswer, data, html }) => {
     onSendAnswer({ ...dates, startDate: null, endDate: null })
   }
 
-  if (granularity === 'month') {
+  if (granularityy === 'month') {
     return (
       <DateInMonth
         questionCode={questionCode}
@@ -47,7 +43,7 @@ const Write = ({ questionCode, onSendAnswer, data, html }) => {
     )
   }
 
-  if (granularity === 'year') {
+  if (granularityy === 'year') {
     return (
       <DateInYear
         questionCode={questionCode}
