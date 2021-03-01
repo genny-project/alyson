@@ -68,7 +68,7 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
           />
           <Button
             test-id={questionCode + '-save'}
-            colorScheme="teal"
+            colorScheme="primary"
             leftIcon={<FontAwesomeIcon icon={faSave} />}
             onClick={() => handleSave(newData)}
           >

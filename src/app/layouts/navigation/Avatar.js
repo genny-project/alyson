@@ -43,7 +43,7 @@ const AvatarMenu = () => {
       <MenuButton>
         <Avatar
           color="whitesmoke"
-          bg="teal.400"
+          bg="primary.400"
           name={name?.value || userName?.value}
           src={getImageSrc(userImage?.value)}
         />

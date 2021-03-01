@@ -44,7 +44,7 @@ const ABNLookup = ({ isOpen, questionCode, close, onSendAnswer }) => {
               {options.map(opt => (
                 <Button
                   test-id={opt.abn}
-                  colorScheme="teal"
+                  colorScheme="primary"
                   h="4rem"
                   w="full"
                   variant="outline"

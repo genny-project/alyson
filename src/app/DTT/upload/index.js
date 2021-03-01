@@ -27,7 +27,7 @@ const Read = ({ data, dttData, parentCode, variant }) => {
     <ImageType.Read data={data} parentCode={parentCode} variant={variant} />
   ) : (
     <Tooltip label={fileName}>
-      <Link p="2" color="teal" href={api.getSrc(data?.value)}>
+      <Link p="2" color="primary" href={api.getSrc(data?.value)}>
         <FontAwesomeIcon size="lg" icon={faFileDownload} />
       </Link>
     </Tooltip>

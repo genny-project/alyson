@@ -17,7 +17,7 @@ const ChildButton = ({ questionCode, childCode, size }) => {
 
   if (!childAsks)
     return (
-      <Button test-id={childCode} size={size} colorScheme="blue" onClick={onClick}>
+      <Button test-id={childCode} size={size} colorScheme="primary" onClick={onClick}>
         {name}
       </Button>
     )
@@ -26,7 +26,7 @@ const ChildButton = ({ questionCode, childCode, size }) => {
       <MenuButton
         test-id={childCode}
         size={size}
-        colorScheme="blue"
+        colorScheme="primary"
         rightIcon={<FontAwesomeIcon icon={faAngleDown} />}
         as={Button}
       >

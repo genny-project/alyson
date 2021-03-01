@@ -1,9 +1,40 @@
 import { extendTheme } from '@chakra-ui/react'
 import { isDev } from 'utils/developer'
 
-const config = {
-  initialColorMode: isDev ? 'dark' : 'light',
+const defaultProjectTheme = {
+  colors: {
+    primary: {
+      50: '#EBF8FF',
+      100: '#BEE3F8',
+      200: '#90CDF4',
+      300: '#63B3ED',
+      400: '#4299E1',
+      500: '#3182CE',
+      600: '#2B6CB0',
+      700: '#2C5282',
+      800: '#2A4365',
+      900: '#1A365D',
+    },
+    secondary: {
+      50: '#FFF5F7',
+      100: '#FED7E2',
+      200: '#FBB6CE',
+      300: '#F687B3',
+      400: '#ED64A6',
+      500: '#D53F8C',
+      600: '#B83280',
+      700: '#97266D',
+      800: '#702459',
+      900: '#521B41',
+    },
+  },
 }
 
-const theme = extendTheme({ config })
-export default theme
+const getTheme = (projectTheme = defaultProjectTheme) =>
+  extendTheme({
+    config: {
+      initialColorMode: isDev ? 'dark' : 'light',
+    },
+    ...projectTheme,
+  })
+export default getTheme
