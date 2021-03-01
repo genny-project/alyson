@@ -45,9 +45,9 @@ const DropZone = ({ handleSave, closeDropzone, maxSize = '5000000', maxFiles = 1
     }
 
     return (
-      <Flex key={name} p="4" background="teal.50">
-        <Text color="black">{`Uploaded File:`}</Text>
-        <Text color="black" ml="2" fontWeight="bold">
+      <Flex key={name} p="4">
+        <Text>{`Uploaded File:`}</Text>
+        <Text ml="2" fontWeight="bold">
           {name}
         </Text>
       </Flex>
@@ -55,18 +55,17 @@ const DropZone = ({ handleSave, closeDropzone, maxSize = '5000000', maxFiles = 1
   })(files)
 
   return (
-    <Flex w="100%" p={4} direction="column" bg="white">
-      <Text color="black">{`Upload File`}</Text>
+    <Flex w="100%" direction="column">
       <Box
         {...getRootProps()}
         p="10"
         my="4"
         cursor="pointer"
-        border="1px black dashed"
-        borderRadius="10px"
+        border="1px dashed"
+        borderRadius="4px"
       >
         <Center>
-          <Text color="black">{`Drag 'n' drop some files here, or click to select files`}</Text>
+          <Text>{`Drag 'n' drop some files here, or click to select files`}</Text>
         </Center>
         <Input {...getInputProps()} />
       </Box>
@@ -74,15 +73,9 @@ const DropZone = ({ handleSave, closeDropzone, maxSize = '5000000', maxFiles = 1
         {preview}
       </Flex>
       <Flex justify="flex-end">
+        <Button mr="2" variant="ghost" onClick={closeDropzone}>{`Cancel`}</Button>
         <Button
-          mr="2"
-          colorScheme="blue"
-          variant="outline"
-          onClick={closeDropzone}
-        >{`Cancel`}</Button>
-        <Button
-          colorScheme="blue"
-          variant="outline"
+          variant="solid"
           isDisabled={!!isEmpty(files)}
           onClick={() => handleSave(files)}
         >{`Submit`}</Button>
@@ -90,4 +83,5 @@ const DropZone = ({ handleSave, closeDropzone, maxSize = '5000000', maxFiles = 1
     </Flex>
   )
 }
+
 export default DropZone

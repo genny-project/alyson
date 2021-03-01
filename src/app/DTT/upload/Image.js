@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import useApi from 'api'
-import { Avatar, ButtonGroup, Button, IconButton, Tooltip, Image } from '@chakra-ui/react'
+import { Avatar, ButtonGroup, Button, Tooltip, Image, CloseButton, HStack } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCameraRetro, faUpload } from '@fortawesome/free-solid-svg-icons'
+import { faCamera, faUpload } from '@fortawesome/free-solid-svg-icons'
 import Snap from './Snap'
 import { onSendMessage } from 'vertx'
 
@@ -14,9 +14,12 @@ const Write = ({ data, openDropzone, onSendAnswer, handleSave, setLoading }) => 
 
   if (src)
     return (
-      <Tooltip label="Click to remove">
-        <Avatar cursor="pointer" onClick={() => onSendAnswer()} size="xl" src={src} />
-      </Tooltip>
+      <HStack>
+        <Avatar size="xl" src={src} />
+        <Tooltip label="Click to remove">
+          <CloseButton cursor="pointer" onClick={() => onSendAnswer()} />
+        </Tooltip>
+      </HStack>
     )
 
   return (
@@ -25,14 +28,13 @@ const Write = ({ data, openDropzone, onSendAnswer, handleSave, setLoading }) => 
         <Snap handleSave={handleSave} setOpenSnap={setOpenSnap} setLoading={setLoading} />
       )}
       <div hidden={openSnap}>
-        <ButtonGroup isAttached variant="outline">
+        <ButtonGroup>
           <Button onClick={openDropzone} leftIcon={<FontAwesomeIcon icon={faUpload} />}>
-            Upload a Photo
+            Upload photo
           </Button>
-          <IconButton
-            onClick={() => setOpenSnap(true)}
-            icon={<FontAwesomeIcon icon={faCameraRetro} />}
-          />
+          <Button onClick={() => setOpenSnap(true)} leftIcon={<FontAwesomeIcon icon={faCamera} />}>
+            Take photo
+          </Button>
         </ButtonGroup>
       </div>
     </div>
