@@ -5,7 +5,13 @@ import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import todaysMonthInIsoFormat from 'utils/helpers/todays-month-in-iso-format'
 import setYearForMonth from 'utils/helpers/set-year-for-month'
 
-const DateInMonth = ({ questionCode, dates, handleDateChange, handleClearDate }) => {
+const DateInMonth = ({
+  questionCode,
+  dates,
+  maxDate = todaysMonthInIsoFormat,
+  handleDateChange,
+  handleClearDate,
+}) => {
   return (
     <div>
       <HStack spacing={5}>
@@ -17,7 +23,7 @@ const DateInMonth = ({ questionCode, dates, handleDateChange, handleClearDate })
             defaultValue={dates.startDate || todaysMonthInIsoFormat}
             onBlur={e => handleDateChange(e, 'startDate')}
             min={setYearForMonth('2000')}
-            max={todaysMonthInIsoFormat}
+            max={maxDate}
           />
         </VStack>
         <VStack align="left" spacing={2}>
@@ -28,7 +34,7 @@ const DateInMonth = ({ questionCode, dates, handleDateChange, handleClearDate })
             defaultValue={dates.endDate || todaysMonthInIsoFormat}
             onBlur={e => handleDateChange(e, 'endDate')}
             min={setYearForMonth()}
-            max={todaysMonthInIsoFormat}
+            max={maxDate}
           />
         </VStack>
         <IconButton

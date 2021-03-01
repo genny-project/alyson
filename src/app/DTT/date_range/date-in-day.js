@@ -5,7 +5,13 @@ import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import todaysDateInIsoFormat from 'utils/helpers/todays-date-in-iso-format'
 import setYearForDate from 'utils/helpers/set-year-for-date'
 
-const DateInDay = ({ questionCode, dates, handleDateChange, handleClearDate }) => {
+const DateInDay = ({
+  questionCode,
+  dates,
+  maxDate = todaysDateInIsoFormat,
+  handleDateChange,
+  handleClearDate,
+}) => {
   return (
     <div>
       <HStack spacing={5}>
@@ -17,7 +23,7 @@ const DateInDay = ({ questionCode, dates, handleDateChange, handleClearDate }) =
             defaultValue={dates.startDate}
             onBlur={e => handleDateChange(e, 'startDate')}
             min={setYearForDate('2002')}
-            max={todaysDateInIsoFormat}
+            max={maxDate}
           />
         </VStack>
         <VStack align="left" spacing={2}>
@@ -28,7 +34,7 @@ const DateInDay = ({ questionCode, dates, handleDateChange, handleClearDate }) =
             defaultValue={dates.endDate}
             onBlur={e => handleDateChange(e, 'endDate')}
             min={setYearForDate()}
-            max={todaysDateInIsoFormat}
+            max={maxDate}
           />
         </VStack>
         <IconButton

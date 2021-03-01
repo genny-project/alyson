@@ -14,7 +14,7 @@ const defaultDateRange = {
 const Write = ({ questionCode, onSendAnswer, data, html }) => {
   const config = safelyParseJson(html, {})
 
-  const { maxDate, granularity = 'day' } = config
+  const { maxDate, granularity = 'month' } = config
 
   const { startDate: initialStartDate, endDate: initialEndDate } = data?.value
     ? safelyParseJson(data.value, defaultDateRange)
@@ -39,6 +39,7 @@ const Write = ({ questionCode, onSendAnswer, data, html }) => {
       <DateInMonth
         questionCode={questionCode}
         dates={dates}
+        maxDate={maxDate}
         handleDateChange={handleDateChange}
         handleClearDate={handleClearDate}
       />
@@ -49,6 +50,7 @@ const Write = ({ questionCode, onSendAnswer, data, html }) => {
     <DateInDay
       questionCode={questionCode}
       dates={dates}
+      maxDate={maxDate}
       handleDateChange={handleDateChange}
       handleClearDate={handleClearDate}
     />
