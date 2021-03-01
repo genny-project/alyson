@@ -25,31 +25,58 @@ const DeveloperConsole = () => {
   const suggestions = code ? compose(slice(0, 20), filter(includes(code)))(keys) : []
 
   return (
-    <div>
-      <Button onClick={onToggle}>redux search</Button>
+    <VStack m="10">
+      <Button size="xs" onClick={onToggle}>
+        db search
+      </Button>
       <Collapse in={isOpen}>
-        <HStack alignItems="start" m="10">
-          <VStack alignItems="left">
-            <FormControl w="20rem">
-              <FormLabel>Code</FormLabel>
-              <Input value={code} onChange={e => setCode(e.target.value)} />
-            </FormControl>
+        <VStack alignItems="left">
+          <FormControl w="40rem">
+            <FormLabel>Code</FormLabel>
+            <Input autoFocus value={code} onChange={e => setCode(e.target.value)} />
+          </FormControl>
+        </VStack>
+        <HStack alignItems="start">
+          <VStack alignItems="left" w="40rem">
             {suggestions.map(sug => (
-              <Text cursor="pointer" onClick={() => setCode(sug)}>
+              <Text
+                fontFamily="mono"
+                borderRadius="lg"
+                p="1"
+                _hover={{ bg: 'grey' }}
+                cursor="pointer"
+                onClick={() => setCode(sug)}
+              >
                 {sug}
               </Text>
             ))}
           </VStack>
-          <VStack>
+          <VStack alignItems="left" w="40rem">
             {selection ? (
               selection.map ? (
-                selection.map(key => (
-                  <Text cursor="pointer" onClick={() => setCode(key)}>
-                    {key}
+                <>
+                  <Text size="lg" fontWeight="bold">
+                    Has Keys
                   </Text>
-                ))
+                  {selection.map(key => (
+                    <Text
+                      borderRadius="lg"
+                      p="1"
+                      _hover={{ bg: 'grey' }}
+                      cursor="pointer"
+                      onClick={() => setCode(key)}
+                    >
+                      {key}
+                    </Text>
+                  ))}
+                </>
               ) : (
-                <Text>{JSON.stringify(selection)}</Text>
+                <>
+                  <Text size="lg" fontWeight="bold">
+                    Has VALUE
+                  </Text>
+                  <Text>{JSON.stringify(selection)}</Text>
+                </>
               )
             ) : (
               <div />
@@ -57,7 +84,7 @@ const DeveloperConsole = () => {
           </VStack>
         </HStack>
       </Collapse>
-    </div>
+    </VStack>
   )
 }
 
