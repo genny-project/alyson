@@ -15,7 +15,11 @@ const PickedAttribute = ({ col, code, parentCode, color }) => {
     <VStack align="left" key={col}>
       <Badge
         colorScheme={
-          label === 'Name' || label === 'Email' ? 'purple' : label === 'Internship' ? 'teal' : color
+          label === 'Name' || label === 'Email'
+            ? 'purple'
+            : label === 'Internship'
+            ? 'primary'
+            : color
         }
       >
         {label}

@@ -23,7 +23,7 @@ import Buttons from 'app/ASKS/buttons'
 
 const MobileNav = () => {
   const theme = useTheme()
-  const bg = useColorModeValue('white', theme.colors.teal[900])
+  const bg = useColorModeValue('white', theme.colors.primary[900])
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = useRef()
 

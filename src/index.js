@@ -7,14 +7,13 @@ import { ReactKeycloakProvider } from '@react-keycloak/web'
 import { Center, CircularProgress } from '@chakra-ui/react'
 import App from 'app'
 import { ColorModeScript, ChakraProvider } from '@chakra-ui/react'
-import theme from 'config/theme'
 
 const Error = lazy(() => import('error'))
 
 const initialiseApp = async () => {
   try {
     initLog()
-    const { keycloak } = await getApiConfig()
+    const { keycloak, theme } = await getApiConfig()
 
     ReactDOM.render(
       <React.StrictMode>

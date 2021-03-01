@@ -8,9 +8,9 @@ const Title = ({ sbeCode }) => {
 
   return (
     <Flex w="15rem">
-      <Heading color="teal">{title?.value}</Heading>
+      <Heading color="primary">{title?.value}</Heading>
       <Spacer />
-      <Stat color="teal.700">
+      <Stat color="primary.700">
         <StatLabel>Total</StatLabel>
         <StatNumber>{total?.value}</StatNumber>
       </Stat>

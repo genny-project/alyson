@@ -24,7 +24,7 @@ const Write = ({ questionCode, data, onSendAnswer }) => {
       />
       <InputGroup>
         <InputLeftElement w="8rem">
-          <Button w="8rem" variant="outline" colorScheme="blue" onClick={open}>
+          <Button w="8rem" variant="outline" colorScheme="primary" onClick={open}>
             ABN Lookup
           </Button>
         </InputLeftElement>

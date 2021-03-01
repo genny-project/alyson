@@ -23,7 +23,7 @@ const EventButton = ({ askData, onFinish, parentCode }) => {
       isDisabled={disabled}
       onClick={onClick}
       leftIcon={<FontAwesomeIcon icon={faCheck} />}
-      colorScheme="teal"
+      colorScheme="primary"
       variant="solid"
     >
       {name}

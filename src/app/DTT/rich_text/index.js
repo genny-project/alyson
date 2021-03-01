@@ -57,7 +57,7 @@ const Write = ({ questionCode, data, onSendAnswer, description }) => {
         leftIcon={<FontAwesomeIcon icon={faSave} />}
         onClick={handleSave}
         variant="outline"
-        color="teal.500"
+        color="primary.500"
       >
         Save
       </Button>
