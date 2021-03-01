@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import { selectAttributes } from 'redux/db/selectors'
-import { useHotkeys } from 'react-hotkeys-hook'
+// import { useHotkeys } from 'react-hotkeys-hook'
 import {
   Popover,
   PopoverTrigger,
