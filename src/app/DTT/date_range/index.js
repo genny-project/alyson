@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import moment from 'moment'
+import { Input } from '@chakra-ui/react'
 
 import { Read } from '../text'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import DateInDay from './date-in-day'
 import DateInMonth from './date-in-month'
+import DateInYear from './date-in-year'
 
 const defaultDateRange = {
   startDate: new Date(),
@@ -14,7 +16,7 @@ const defaultDateRange = {
 const Write = ({ questionCode, onSendAnswer, data, html }) => {
   const config = safelyParseJson(html, {})
 
-  const { maxDate, granularity = 'month' } = config
+  const { maxDate, granularity = 'year' } = config
 
   const { startDate: initialStartDate, endDate: initialEndDate } = data?.value
     ? safelyParseJson(data.value, defaultDateRange)
@@ -37,6 +39,18 @@ const Write = ({ questionCode, onSendAnswer, data, html }) => {
   if (granularity === 'month') {
     return (
       <DateInMonth
+        questionCode={questionCode}
+        dates={dates}
+        maxDate={maxDate}
+        handleDateChange={handleDateChange}
+        handleClearDate={handleClearDate}
+      />
+    )
+  }
+
+  if (granularity === 'year') {
+    return (
+      <DateInYear
         questionCode={questionCode}
         dates={dates}
         maxDate={maxDate}
