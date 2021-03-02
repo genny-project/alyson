@@ -44,13 +44,8 @@ const Write = ({ questionCode, data, onSendAnswer, description }) => {
   }
 
   return edit ? (
-    <Box w="2xl" border="1px solid #E2E8F0" borderRadius="0.375rem" p="1rem">
-      <Editor
-        test-id={questionCode}
-        editorState={editor}
-        onEditorStateChange={setEditor}
-        placeholder={description}
-      />
+    <Box test-id={questionCode} w="2xl" border="1px solid #E2E8F0" borderRadius="0.375rem" p="1rem">
+      <Editor editorState={editor} onEditorStateChange={setEditor} placeholder={description} />
       <Button
         test-id={questionCode + '-save'}
         m="2"
