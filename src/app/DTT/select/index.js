@@ -19,9 +19,8 @@ const Multiple = ({ questionCode, label, data, onSendAnswer, placeholder, option
   return !options.length ? (
     <Text>Waiting on another answer</Text>
   ) : (
-    <Box marginBottom="-10" maxW="2xl">
+    <Box marginBottom="-10" maxW="2xl" test-id={questionCode}>
       <CUIAutoComplete
-        test-id={questionCode}
         label={label}
         placeholder={placeholder}
         items={filter(identity, options || [])}
@@ -69,6 +68,9 @@ const Write = ({
     <CSelect
       placeholder={placeholder || label}
       test-id={groupCode}
+      rootProps={{
+        'test-id': questionCode,
+      }}
       onChange={e => onSendAnswer([e.target.value])}
       defaultValue={safelyParseJson(data?.value)}
     >
