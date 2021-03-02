@@ -4,7 +4,7 @@ import makeAddressData from './make-address-data'
 
 let autocomplete
 
-const AddressPicker = ({ onSendAnswer, data }) => {
+const AddressPicker = ({ onSendAnswer, data, questionCode }) => {
   const autoCompleteRef = useRef(null)
 
   useEffect(() => {
@@ -34,7 +34,7 @@ const AddressPicker = ({ onSendAnswer, data }) => {
     }
   }, [onSendAnswer])
 
-  return <Input defaultValue={data?.value} ref={autoCompleteRef} />
+  return <Input test-id={questionCode} defaultValue={data?.value} ref={autoCompleteRef} />
 }
 
 export default AddressPicker

@@ -12,7 +12,11 @@ const ChildMenuItem = ({ questionCode, childCode, rootCode, targetCode }) => {
 
   const onClick = () => sendAskClick(questionCode, childCode, rootCode, targetCode)
 
-  return <MenuItem onClick={onClick}>{name}</MenuItem>
+  return (
+    <MenuItem test-id={childCode} onClick={onClick}>
+      {name}
+    </MenuItem>
+  )
 }
 
 export default ChildMenuItem

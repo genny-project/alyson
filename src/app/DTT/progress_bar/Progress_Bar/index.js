@@ -21,7 +21,7 @@ const ProgressBar = props => {
     <Box>
       <Box w="90%" m="auto" mb={2}>
         <Text mb={1} fontSize="md" textTransform="none">{`Internship progress`}</Text>
-        <Progress colorScheme="teal" size="xs" value={completedPercentage} />
+        <Progress colorScheme="primary" size="xs" value={completedPercentage} />
       </Box>
       <Box w="90%" m="auto" mb={2}>
         <Text
@@ -29,7 +29,7 @@ const ProgressBar = props => {
           fontSize="md"
           textTransform="none"
         >{`Journal progress ${completedJournals}`}</Text>
-        <Progress colorScheme="pink" size="xs" value={completedJournalsPercentage} />
+        <Progress colorScheme="secondary" size="xs" value={completedJournalsPercentage} />
       </Box>
     </Box>
   )

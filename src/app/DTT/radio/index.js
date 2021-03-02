@@ -10,8 +10,8 @@ const Write = ({ questionCode, data, onSendAnswer, groupCode }) => {
   const value = data?.value
 
   return (
-    <RadioGroup test-id={groupCode} value={value} onChange={onSendAnswer}>
-      <Stack direction="row">
+    <RadioGroup test-id={questionCode} value={value} onChange={onSendAnswer}>
+      <Stack test-id={groupCode} direction="row">
         {optionData.map(
           option =>
             option && (

@@ -88,7 +88,7 @@ const VideoRecorder = ({ setData, config, setStartVideo }) => {
         />
         <div style={{ marginTop: '-4rem' }}>
           <Button
-            colorScheme="teal"
+            colorScheme="primary"
             leftIcon={<FontAwesomeIcon color={capturing ? 'red' : 'grey'} icon={faRecordVinyl} />}
             onClick={capturing ? onStopCapture : onStartCapture}
           >

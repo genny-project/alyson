@@ -31,6 +31,7 @@ const Write = ({ questionCode, onSendAnswer, data }) => {
   return (
     <HStack>
       <Select
+        test-id={questionCode + '-start'}
         value={selectedRange[0]}
         onChange={e => handleChange(0, e.target.value)}
         placeholder="Start Time"
@@ -38,10 +39,11 @@ const Write = ({ questionCode, onSendAnswer, data }) => {
         {options
           .filter(v => v < selectedRange[1])
           .map(time => (
-            <option value={time}>{`${getLabel(time)}`}</option>
+            <option test-id={time} value={time}>{`${getLabel(time)}`}</option>
           ))}
       </Select>
       <Select
+        test-id={questionCode + '-to'}
         value={selectedRange[1]}
         onChange={e => handleChange(1, e.target.value)}
         placeholder="Finish Time"
@@ -49,7 +51,7 @@ const Write = ({ questionCode, onSendAnswer, data }) => {
         {options
           .filter(v => v > selectedRange[0])
           .map(time => (
-            <option value={time}>{`${getLabel(time)}`}</option>
+            <option test-id={time} value={time}>{`${getLabel(time)}`}</option>
           ))}
       </Select>
     </HStack>

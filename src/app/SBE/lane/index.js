@@ -14,7 +14,7 @@ const Lane = ({ sbeCode }) => {
   const totalResults = useSelector(selectCode(sbeCode, 'PRI_TOTAL_RESULTS'))
   const paginationActions = useCallback(() => getPaginationActions(sbeCode), [sbeCode])
 
-  const color = useColorModeValue('blue.50', 'blue.900')
+  const color = useColorModeValue('primary.50', 'primary.900')
 
   if (!table) return null
 
@@ -28,7 +28,7 @@ const Lane = ({ sbeCode }) => {
         <BECard key={row} columns={columns} actions={actions} code={row} parentCode={sbeCode} />
       ))}
       {rows.length < totalResults.value && (
-        <Button variant="ghost" colorScheme="cyan" onClick={paginationActions().lazy}>{`See ${
+        <Button variant="ghost" colorScheme="secondary" onClick={paginationActions().lazy}>{`See ${
           totalResults.value - rows.length
         } more`}</Button>
       )}

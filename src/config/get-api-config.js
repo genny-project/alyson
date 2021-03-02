@@ -6,6 +6,7 @@ import loginAsGuest from '../keycloak/login-as-guest'
 import setupLogRocketReact from 'logrocket-react'
 import LogRocket from 'logrocket'
 import getTokenFromURL from 'keycloak/get-token-from-url'
+import getTheme from 'config/theme'
 
 let apiConfig = {}
 let keycloak = {}
@@ -54,7 +55,11 @@ const getApiConfig = async () => {
   )
   document.head.appendChild(maps)
 
-  return { keycloak }
+  /* Theme */
+  const { projectTheme } = apiConfig
+  const theme = getTheme(projectTheme)
+
+  return { keycloak, theme }
 }
 
 export { apiConfig, keycloak, guestKeycloak, tokenFromUrl }

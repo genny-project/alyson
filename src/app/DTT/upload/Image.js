@@ -6,7 +6,7 @@ import { faCamera, faUpload } from '@fortawesome/free-solid-svg-icons'
 import Snap from './Snap'
 import { onSendMessage } from 'vertx'
 
-const Write = ({ data, openDropzone, onSendAnswer, handleSave, setLoading }) => {
+const Write = ({ questionCode, data, openDropzone, onSendAnswer, handleSave, setLoading }) => {
   const { getImageSrc } = useApi()
   const src = getImageSrc(data?.value)
 
@@ -29,7 +29,11 @@ const Write = ({ data, openDropzone, onSendAnswer, handleSave, setLoading }) => 
       )}
       <div hidden={openSnap}>
         <ButtonGroup>
-          <Button onClick={openDropzone} leftIcon={<FontAwesomeIcon icon={faUpload} />}>
+          <Button
+            test-id={questionCode}
+            onClick={openDropzone}
+            leftIcon={<FontAwesomeIcon icon={faUpload} />}
+          >
             Upload photo
           </Button>
           <Button onClick={() => setOpenSnap(true)} leftIcon={<FontAwesomeIcon icon={faCamera} />}>
