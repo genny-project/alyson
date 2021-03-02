@@ -45,7 +45,7 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
       <VStack>
         <video style={{ width: '20rem', borderRadius: '1rem' }} src={src} controls />
         <Button
-          test-id={questionCode + 'clear'}
+          test-id={questionCode + '-clear'}
           onClick={() => {
             setNewData(null)
             setStartVideo(false)

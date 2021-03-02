@@ -7,7 +7,7 @@ const ContextMenu = ({ button, parentCode, code, actions = [] }) => {
   const baseEntityName = useSelector(selectCode(code, 'PRI_NAME'))
   return (
     <Menu isLazy>
-      <MenuButton>{button}</MenuButton>
+      <MenuButton test-id={`${code}-actions`}>{button}</MenuButton>
       <Portal>
         <MenuList>
           <MenuGroup title={baseEntityName?.value}>

@@ -82,7 +82,7 @@ const Write = ({ questionCode, data, dttData, onSendAnswer }) => {
             data={data}
             onSendAnswer={onSendAnswer}
             setLoading={setLoading}
-            test-id={questionCode}
+            questionCode={questionCode}
           />
         ) : data?.value ? (
           <HStack>

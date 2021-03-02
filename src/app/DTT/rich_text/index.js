@@ -64,8 +64,17 @@ const Write = ({ questionCode, data, onSendAnswer, description }) => {
     </Box>
   ) : (
     <Box w="2xl" border="1px solid #E2E8F0" borderRadius="0.375rem" p="1rem">
-      <div style={{ padding: '1rem' }} dangerouslySetInnerHTML={{ __html: data.value }} />
-      <Button m="2" leftIcon={<FontAwesomeIcon icon={faEdit} />} onClick={() => setEdit(true)}>
+      <div
+        test-id={questionCode + '-saved'}
+        style={{ padding: '1rem' }}
+        dangerouslySetInnerHTML={{ __html: data.value }}
+      />
+      <Button
+        test-id={questionCode + '-edit'}
+        m="2"
+        leftIcon={<FontAwesomeIcon icon={faEdit} />}
+        onClick={() => setEdit(true)}
+      >
         Edit
       </Button>
     </Box>

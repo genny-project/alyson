@@ -14,7 +14,7 @@ const Read = ({ data }) => {
 
   return (
     <a href={href}>
-      <IconButton colorScheme="linkedin" isDisabled={!data?.value}>
+      <IconButton test-id={data?.baseEntityCode} colorScheme="linkedin" isDisabled={!data?.value}>
         <FontAwesomeIcon size="lg" icon={icon} />
       </IconButton>
     </a>

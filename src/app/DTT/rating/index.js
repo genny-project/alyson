@@ -6,7 +6,7 @@ const Write = ({ data, onSendAnswer, questionCode }) => {
 
   return (
     <Rating
-      test-id={questionCode}
+      questionCode={questionCode}
       onChange={onSendAnswer}
       value={data?.value}
       hover={hover}

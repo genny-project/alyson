@@ -76,7 +76,11 @@ const Write = ({
         optionData.map(
           option =>
             option && (
-              <option key={option.baseEntityCode} value={option.baseEntityCode}>
+              <option
+                test-id={option.baseEntityCode}
+                key={option.baseEntityCode}
+                value={option.baseEntityCode}
+              >
                 {option.value}
               </option>
             ),
