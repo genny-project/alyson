@@ -3,6 +3,7 @@ import { isDev } from 'utils/developer'
 
 const defaultProjectTheme = {
   colors: {
+    background: { light: '#ffffff', dark: '#171923' },
     primary: {
       50: '#EBF8FF',
       100: '#BEE3F8',

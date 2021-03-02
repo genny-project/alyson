@@ -9,6 +9,7 @@ import {
   Flex,
   Spacer,
   useColorModeValue,
+  useTheme,
 } from '@chakra-ui/react'
 import { selectCode } from 'redux/db/selectors'
 import { getAttribute } from 'app/SBE/utils/get-columns'
@@ -20,13 +21,17 @@ import { faEllipsisV, faInfo } from '@fortawesome/free-solid-svg-icons'
 import PickedAttribute from 'app/SBE/lane/PickedAttribute'
 
 const Card = ({ parentCode, actions = [], code, columns }) => {
+  const theme = useTheme()
   const title = useSelector(selectCode(code, 'PRI_ASSOC_HC'))
   const subTitle = useSelector(selectCode(code, getAttribute(columns[1])))
   const image = useSelector(selectCode(code, 'PRI_IMAGE_URL'))
 
   const { isOpen, onToggle } = useDisclosure()
 
-  const defaultColor = useColorModeValue('white', 'gray.900')
+  const defaultColor = useColorModeValue(
+    theme.colors.background.light,
+    theme.colors.background.dark,
+  )
 
   return (
     <Box

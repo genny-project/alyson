@@ -10,6 +10,7 @@ import {
   Spacer,
   useColorModeValue,
   Divider,
+  useTheme,
 } from '@chakra-ui/react'
 import { selectCode } from 'redux/db/selectors'
 import { getAttribute } from 'app/SBE/utils/get-columns'
@@ -26,6 +27,7 @@ import RestDetails from './RestDetails'
 const MotionBox = makeMotion(Box)
 
 const Card = ({ parentCode, actions = [], code, columns }) => {
+  const theme = useTheme()
   const title = useSelector(selectCode(code, getAttribute(columns[0] || '')))
   const subTitle = useSelector(selectCode(code, getAttribute(columns[1] || '')))
   const image = useSelector(selectCode(code, 'PRI_IMAGE_URL'))
@@ -33,7 +35,10 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
 
   const { isOpen, onToggle } = useDisclosure()
 
-  const defaultColor = useColorModeValue('white', 'gray.900')
+  const defaultColor = useColorModeValue(
+    theme.colors.background.light,
+    theme.colors.background.dark,
+  )
   const color = statusColors[statusColor?.value]
 
   return (
