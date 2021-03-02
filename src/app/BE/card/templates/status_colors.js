@@ -1,8 +1,7 @@
 const statusColors = {
-  error: 'red.500',
-  warning: 'amber.500',
-  success: 'green.500',
-  info: 'blue.500',
+  error: 'error.500',
+  warning: 'warning.500',
+  success: 'success.500',
 }
 
 export default statusColors

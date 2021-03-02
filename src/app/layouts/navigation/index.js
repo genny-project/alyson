@@ -31,7 +31,7 @@ const Navigation = () => {
   const { realm } = apiConfig
   const logoSrc = useColorModeValue(getLogo(realm, true), getLogo(realm))
 
-  const bg = useColorModeValue('white', theme.colors.primary[900])
+  const bg = useColorModeValue(theme.colors.background.light, theme.colors.primary[900])
 
   if (mobile) return <MobileNav />
 
