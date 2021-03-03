@@ -123,3 +123,131 @@ describe('Send Message', () => {
     )
   })
 })
+
+describe('New MSG', () => {
+  const intialStateCount = {
+    ...initialState,
+    DASHBOARD_COUNTS: ['SBE_COUNT_TEST_ONE'],
+  }
+
+  const payload = {
+    data_type: 'BaseEntity',
+    msg_type: 'DATA_MSG',
+    option: 'EXEC',
+    replace: true,
+    items: [],
+  }
+
+  const payloadDefault = {
+    ...payload,
+    items: [
+      {
+        baseEntityAttributes: [
+          {
+            attributeCode: 'SCH_TITLE',
+            attributeName: 'Title',
+            baseEntityCode: 'SBE_TEST_ONE',
+            value: 'Testing',
+            valueString: 'Testing',
+          },
+          {
+            attributeCode: 'COL_PRI_PHONE',
+            attributeName: 'Phone',
+            baseEntityCode: 'SBE_TEST_ONE',
+            index: 4,
+            value: '0123456789',
+          },
+          {
+            attributeCode: 'SCH_DISPLAY_MODE',
+            attributeName: 'DisplayMode',
+            baseEntityCode: 'SBE_TEST_ONE',
+            value: 'test',
+            valueString: 'test',
+          },
+        ],
+        code: 'SBE_TEST_ONE',
+        name: 'SBE_TEST_ONE',
+        questions: [],
+      },
+    ],
+  }
+
+  const payloadDetail = {
+    ...payload,
+    items: [
+      {
+        baseEntityAttributes: [
+          {
+            attributeCode: 'SCH_TITLE',
+            attributeName: 'Title',
+            baseEntityCode: 'SBE_TEST_DETAIL_VIEW',
+            value: 'Testing',
+            valueString: 'Testing',
+          },
+          {
+            attributeCode: 'COL_PRI_PHONE',
+            attributeName: 'Phone',
+            baseEntityCode: 'SBE_TEST_DETAIL_VIEW',
+            index: 4,
+            value: '0123456789',
+          },
+          {
+            attributeCode: 'SCH_DISPLAY_MODE',
+            attributeName: 'DisplayMode',
+            baseEntityCode: 'SBE_TEST_DETAIL_VIEW',
+            value: 'DETAIL_VIEW:test',
+            valueString: 'DETAIL_VIEW:test',
+          },
+        ],
+        code: 'SBE_TEST_DETAIL_VIEW',
+        name: 'SBE_TEST_DETAIL_VIEW',
+        questions: [],
+      },
+    ],
+  }
+
+  const payloadCount = {
+    ...payload,
+    items: [
+      {
+        baseEntityAttributes: [
+          {
+            attributeCode: 'SCH_DISPLAY_MODE',
+            attributeName: 'DisplayMode',
+            baseEntityCode: 'SBE_TEST_COUNT_TEN',
+            value: 'NESTED_COUNT',
+            valueString: 'NESTED_COUNT',
+          },
+        ],
+        code: 'SBE_TEST_COUNT_TEN',
+      },
+    ],
+  }
+
+  const expectedDefaultStateForNewMsg = {
+    ...initialState,
+    TABLE: 'SBE_TEST_ONE',
+  }
+
+  const expectedStateForNewMsgDetail = {
+    ...initialState,
+    DETAIL: 'SBE_TEST_DETAIL_VIEW',
+  }
+
+  const expectedStateForNewMsgCount = {
+    ...initialState,
+    DASHBOARD_COUNTS: ['SBE_COUNT_TEST_ONE', 'SBE_TEST_COUNT_TEN'],
+  }
+
+  it('should add the current SBE code to the table key in the state', () => {
+    expect(appReducer(initialState, newMsg(payloadDefault))).toEqual(expectedDefaultStateForNewMsg)
+  })
+
+  it('should add the current SBE code to the DETAIL key in the state if the diplay mode in payload contains DETAIL_VIEW in it', () => {
+    expect(appReducer(initialState, newMsg(payloadDetail))).toEqual(expectedStateForNewMsgDetail)
+  })
+
+  it('should place a unique array of all the counts in DASHBOARD_COUNTS key of the state', () => {
+    expect(appReducer(intialStateCount, newMsg(payloadCount))).toEqual(expectedStateForNewMsgCount)
+  })
+})
