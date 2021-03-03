@@ -42,13 +42,5 @@ const appSlice = createSlice({
   },
 })
 
-export const {
-  newCmd,
-  newMsg,
-  closeDrawer,
-  closeDialog,
-  addFilter,
-  removeFilter,
-  sendMessage,
-} = appSlice.actions
+export const { newCmd, newMsg, closeDrawer, closeDialog, sendMessage } = appSlice.actions
 export default appSlice.reducer
