@@ -224,6 +224,25 @@ describe('New MSG', () => {
     ],
   }
 
+  const payloadAsk = {
+    data_type: 'Ask',
+    items: [
+      {
+        attributeCode: 'QQQ_QUESTION_GROUP',
+        childAsks: [],
+        id: 13811,
+        name: 'Intern',
+        question: {},
+        questionCode: 'QUE_TEST_GRP',
+        realm: 'internmatch',
+        sourceCode: 'PER_TEST_ONE',
+        targetCode: 'PER_TEST_TWO',
+      },
+    ],
+    msg_type: 'DATA_MSG',
+    option: 'EXEC',
+  }
+
   const expectedDefaultStateForNewMsg = {
     ...initialState,
     TABLE: 'SBE_TEST_ONE',
@@ -239,6 +258,11 @@ describe('New MSG', () => {
     DASHBOARD_COUNTS: ['SBE_COUNT_TEST_ONE', 'SBE_TEST_COUNT_TEN'],
   }
 
+  const expectedStateForNewMsgASK = {
+    ...initialState,
+    FORM: 'QUE_TEST_GRP',
+  }
+
   it('should add the current SBE code to the table key in the state', () => {
     expect(appReducer(initialState, newMsg(payloadDefault))).toEqual(expectedDefaultStateForNewMsg)
   })
@@ -249,5 +273,9 @@ describe('New MSG', () => {
 
   it('should place a unique array of all the counts in DASHBOARD_COUNTS key of the state', () => {
     expect(appReducer(intialStateCount, newMsg(payloadCount))).toEqual(expectedStateForNewMsgCount)
+  })
+
+  it('should add the current questionCode from the payload to the FORM key in the state', () => {
+    expect(appReducer(initialState, newMsg(payloadAsk))).toEqual(expectedStateForNewMsgASK)
   })
 })
