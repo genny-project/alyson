@@ -168,6 +168,21 @@ describe('New Msg', () => {
     items: [attributePageSize, attributeColour, attributeEvent, attributeQuestionGroup],
   }
 
+  const payloadMoveEntityWithoutSC = {
+    cmd_type: 'MOVE_ENTITY',
+    code: 'APP_TEST_ONE',
+    exec: true,
+    msg_type: 'CMD_MSG',
+    option: 'EXEC',
+    send: true,
+    targetCode: 'SBE_TEST_ONE',
+  }
+
+  const payloadMoveEntityWithSC = {
+    ...payloadMoveEntityWithoutSC,
+    sourceCode: 'SBE_TEST_TWO',
+  }
+
   const expectedStateForNewMsgBE = {
     ...initialState,
     'SBE_TEST_ONE@rows': ['CPY_TEST_ONE'],
@@ -196,6 +211,22 @@ describe('New Msg', () => {
     DTT_STRING: eventDataType,
   }
 
+  const expectedStateForNewMsgMoveEntityWithoutSC = {
+    ...initialState,
+    'SBE_TEST_ONE@rows': ['APP_TEST_ONE'],
+  }
+
+  const expectedStateForNewMsgMoveEntityWithSC = {
+    ...initialState,
+    'SBE_TEST_ONE@rows': ['APP_TEST_ONE'],
+    'SBE_TEST_TWO@rows': ['APP_TEST_TWO', 'APP_TEST_THREE'],
+  }
+
+  const stateMoveBaseEntity = {
+    ...initialState,
+    'SBE_TEST_TWO@rows': ['APP_TEST_ONE', 'APP_TEST_TWO', 'APP_TEST_THREE'],
+  }
+
   it('should add a key with @row appended to the parentcode and add a key for each baseEntityCode@attributeCode, if replace is true and parentcode is not falsy', () => {
     expect(dbReducer(initialState, newMsg(payloadBE))).toEqual(expectedStateForNewMsgBE)
   })
@@ -209,7 +240,16 @@ describe('New Msg', () => {
       expectedStateForNewMsgAttribute,
     )
   })
-})
 
-//questionCode = "QUE_PROJECT_TEST_GRP"
-//childAskCode = [QUE_TEST_ONE_VIEW, QUE_TEST_TWO_VIEW]
+  it('should create targetCode@row in the state if not already present and push the current code in the value', () => {
+    expect(dbReducer(initialState, newCmd(payloadMoveEntityWithoutSC))).toEqual(
+      expectedStateForNewMsgMoveEntityWithoutSC,
+    )
+  })
+
+  it('should remove the current code from the value of key sourceCode@row in the state', () => {
+    expect(dbReducer(stateMoveBaseEntity, newCmd(payloadMoveEntityWithSC))).toEqual(
+      expectedStateForNewMsgMoveEntityWithSC,
+    )
+  })
+})
