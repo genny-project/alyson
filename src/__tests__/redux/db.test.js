@@ -9,6 +9,7 @@ const nameAttribute = {
   baseEntityCode: 'CPY_TEST_ONE',
   index: 0,
 }
+
 const phoneAttribute = {
   attributeCode: 'PRI_PHONE',
   attributeName: 'Phone ',
@@ -23,18 +24,59 @@ const addressAtrribute = {
   index: 2,
 }
 
+const pazeSizeDataType = {
+  dttCode: 'DTT_1_TO_20',
+  className: 'java.lang.Integer',
+  typeName: 'java.lang.Integer',
+  component: 'text',
+}
+
+const colourDataType = {
+  dttCode: 'DTT_TEXT',
+  className: 'Text',
+  typeName: 'Text',
+  component: 'text',
+  validationList: Array(1),
+}
+
+const eventDataType = {
+  dttCode: 'DTT_STRING',
+  className: 'java.lang.String',
+  typeName: 'java.lang.String',
+}
+
+const questionGroupDataType = {
+  className: 'java.lang.String',
+  dttCode: 'DTT_STRING',
+  typeName: 'java.lang.String',
+}
+
+const attributePageSize = {
+  code: 'SCH_PAGE_SIZE',
+  dataType: pazeSizeDataType,
+}
+
+const attributeColour = {
+  code: 'PRI_COLOR',
+  dataType: colourDataType,
+}
+
+const attributeEvent = {
+  code: 'PRI_EVENT',
+  dataType: eventDataType,
+}
+
+const attributeQuestionGroup = {
+  code: 'QQQ_QUESTION_GROUP',
+  dataType: questionGroupDataType,
+  name: 'link',
+}
+
 const childAskEvent = {
   attributeCode: 'PRI_EVENT',
   name: 'Dashboard',
   question: {
-    attribute: {
-      code: 'PRI_EVENT',
-      dataType: {
-        dttCode: 'DTT_STRING',
-        className: 'java.lang.String',
-        typeName: 'java.lang.String',
-      },
-    },
+    attribute: attributeEvent,
     attributeCode: 'PRI_EVENT',
     code: 'QUE_TEST_ONE_VIEW',
     name: 'Dashboard',
@@ -51,16 +93,7 @@ const childAskQuestion = {
       attributeCode: 'PRI_EVENT',
       name: 'Interns',
       question: {
-        attribute: {
-          code: 'PRI_EVENT',
-          dataType: {
-            dttCode: 'DTT_STRING',
-            className: 'java.lang.String',
-            typeName: 'java.lang.String',
-            inputmask: '',
-            validationList: Array(0),
-          },
-        },
+        attribute: attributeEvent,
         attributeCode: 'PRI_EVENT',
         code: 'QUE_TREE_ITEM_INTERNS',
         name: 'Interns',
@@ -72,16 +105,7 @@ const childAskQuestion = {
   ],
   name: 'Contacts',
   question: {
-    attribute: {
-      code: 'QQQ_QUESTION_GROUP',
-      dataType: {
-        className: 'java.lang.String',
-        dttCode: 'DTT_STRING',
-        inputmask: '',
-        typeName: 'java.lang.String',
-      },
-      name: 'link',
-    },
+    attribute: attributeQuestionGroup,
     attributeCode: 'QQQ_QUESTION_GROUP',
     code: 'QUE_TEST_TWO_VIEW',
     name: 'contacts',
@@ -138,6 +162,12 @@ describe('New Msg', () => {
     ],
   }
 
+  const payloadAttribute = {
+    ...payload,
+    data_type: 'Attribute',
+    items: [attributePageSize, attributeColour, attributeEvent, attributeQuestionGroup],
+  }
+
   const expectedStateForNewMsgBE = {
     ...initialState,
     'SBE_TEST_ONE@rows': ['CPY_TEST_ONE'],
@@ -155,12 +185,29 @@ describe('New Msg', () => {
     'QUE_PROJECT_TEST_GRP@QUE_TEST_TWO_VIEW': childAskQuestion,
   }
 
+  const expectedStateForNewMsgAttribute = {
+    ...initialState,
+    SCH_PAGE_SIZE: 'DTT_1_TO_20',
+    PRI_COLOR: 'DTT_TEXT',
+    PRI_EVENT: 'DTT_STRING',
+    QQQ_QUESTION_GROUP: 'DTT_STRING',
+    DTT_1_TO_20: pazeSizeDataType,
+    DTT_TEXT: colourDataType,
+    DTT_STRING: eventDataType,
+  }
+
   it('should add a key with @row appended to the parentcode and add a key for each baseEntityCode@attributeCode, if replace is true and parentcode is not falsy', () => {
     expect(dbReducer(initialState, newMsg(payloadBE))).toEqual(expectedStateForNewMsgBE)
   })
 
   it('should create keys for all the childAsks with questionCode@childAskCode in the state', () => {
     expect(dbReducer(initialState, newMsg(payloadAsk))).toEqual(expectedStateForNewMsgAsk)
+  })
+
+  it('should create keys for all the individual attributes and data types in the state', () => {
+    expect(dbReducer(initialState, newMsg(payloadAttribute))).toEqual(
+      expectedStateForNewMsgAttribute,
+    )
   })
 })
 
