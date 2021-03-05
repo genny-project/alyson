@@ -1,11 +1,13 @@
 import { AppState } from './app/types'
 import { DBState } from './db/types'
+
 export interface Item {
   [key: string]: any
 }
 
+export type Items = Array<Item>
 export interface MsgPayload {
-  items: Array<Item>
+  items: Items
   data_type: string
   aliasCode?: string
   parentCode?: string

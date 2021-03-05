@@ -12,6 +12,7 @@ export const initialState = {
   DRAWER: 'NONE',
   DIALOG: 'NONE',
   TOAST: null,
+  DASHBOARD_COUNTS: null,
 }
 
 const appSlice = createSlice({
