@@ -14,6 +14,6 @@ test('the difference between the two functions executed should be the time in ms
   await sleep(3000)
   const afterSleep = new Date()
   const diff = afterSleep - beforeSleep
-  expect(diff).toBeGreaterThan(2999)
-  expect(diff).toBeLessThan(3010)
+  expect(diff).toBeGreaterThanOrEqual(2990)
+  expect(diff).toBeLessThanOrEqual(3010)
 })
