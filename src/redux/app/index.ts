@@ -3,14 +3,16 @@ import log from 'utils/log'
 import { isForm, isAsk, getQuestionCode } from './utils/get-type'
 import setDisplayCode from './utils/set-display-code'
 import { cmdMachine } from './utils/handlers'
+import { AppState } from './types'
+import { CmdPayload, MsgPayload } from 'redux/types'
 
-const initialState = { cmds: [], DISPLAY: 'DASHBOARD', DRAWER: 'NONE', DIALOG: 'NONE' }
+const initialState = { cmds: [], DISPLAY: 'DASHBOARD', DRAWER: 'NONE', DIALOG: 'NONE', TOAST: null }
 
 const appSlice = createSlice({
   name: 'app',
-  initialState: initialState,
+  initialState: initialState as AppState,
   reducers: {
-    newCmd: (state, { payload }) => {
+    newCmd: (state: AppState, { payload }: { payload: CmdPayload }) => {
       log('❗', payload)
       state.cmds.push(payload)
 
@@ -20,13 +22,13 @@ const appSlice = createSlice({
         ? cmdMachine[cmd_type](state, payload)
         : cmdMachine.DEFAULT(state, payload)
     },
-    newMsg: (state, { payload }) => {
+    newMsg: (state: AppState, { payload }: { payload: MsgPayload }) => {
       const { items, data_type } = payload
 
       if (data_type === 'BaseEntity') setDisplayCode(state)(items)
 
       if (isAsk(data_type)) {
-        const questionCode = getQuestionCode(items)
+        const questionCode: string = getQuestionCode(items)
         if (isForm(questionCode)) state.FORM = questionCode
       }
     },
@@ -42,13 +44,6 @@ const appSlice = createSlice({
   },
 })
 
-export const {
-  newCmd,
-  newMsg,
-  closeDrawer,
-  closeDialog,
-  addFilter,
-  removeFilter,
-  sendMessage,
-} = appSlice.actions
+export const { newCmd, newMsg, closeDrawer, closeDialog, sendMessage } = appSlice.actions
+
 export default appSlice.reducer
