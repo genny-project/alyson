@@ -1,4 +1,4 @@
-import { RootState } from 'redux/store'
+import { RootState } from 'redux/types'
 import { map, keys } from 'ramda'
 
 export const selectCode = (code: string, childCode: string) => (state: RootState) =>

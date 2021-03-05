@@ -1,4 +1,4 @@
-import { RootState } from 'redux/store'
+import { RootState } from 'redux/types'
 
 const app = (at: string) => (state: RootState) => state.app[at]
 
