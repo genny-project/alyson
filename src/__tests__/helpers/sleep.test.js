@@ -5,8 +5,8 @@ test('the difference between the two functions executed should be 1 second by de
   await sleep()
   const afterSleep = new Date()
   const diff = afterSleep - beforeSleep
-  expect(diff).toBeGreaterThan(1000)
-  expect(diff).toBeLessThan(1010)
+  expect(diff).toBeGreaterThanOrEqual(990)
+  expect(diff).toBeLessThanOrEqual(1010)
 })
 
 test('the difference between the two functions executed should be the time in ms, passed as argument while invoking the function', async () => {
