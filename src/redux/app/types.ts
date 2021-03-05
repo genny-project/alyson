@@ -7,4 +7,19 @@ export interface AppState {
   DRAWER: string
   DIALOG: string
   TOAST: Keyable | null
+  DASHBOARD_COUNTS: Array<String> | null
+}
+
+export interface BaseEntityAttribute {
+  attributeCode: string
+  attributeName: string
+  baseEntityCode: string
+  created: string
+  index: Number
+  inferred: boolean
+  privacyFlag: boolean
+  readOnly: boolean
+  value: string
+  valueString: string
+  weight: number
 }
