@@ -1,5 +1,6 @@
 import { forEach, compose, keys, includes, find } from 'ramda'
 import { Item, MsgPayload } from 'redux/types'
+import { Keyable } from 'utils/types'
 import { DBState } from '../types'
 import sortByIndex from './sort-by-index'
 
@@ -23,7 +24,7 @@ export const formatBaseEntity = (
   if (aliasCode) state[aliasCode] = code
   if (!state[code]) state[code] = []
 
-  forEach((attribute: { [key: string]: any }) => {
+  forEach((attribute: Keyable) => {
     const attributeCode = attribute.attributeCode
 
     if (!('value' in attribute)) {
@@ -45,7 +46,7 @@ export const formatAsk = (state: DBState) => (item: Item) => {
   if (!state[questionCode]) state[questionCode] = []
   if (!state[`${questionCode}@title`]) state[`${questionCode}@title`] = name
 
-  forEach((childAsk: { [key: string]: any }) => {
+  forEach((childAsk: Keyable) => {
     const childAskCode = childAsk.questionCode
 
     const codes = state[questionCode] as Array<string>

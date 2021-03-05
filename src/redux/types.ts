@@ -1,3 +1,5 @@
+import { AppState } from './app/types'
+import { DBState } from './db/types'
 export interface Item {
   [key: string]: any
 }
@@ -17,4 +19,9 @@ export interface CmdPayload {
   targetCode?: string
   exec: boolean
   targetCodes?: Array<string>
+}
+
+export interface RootState {
+  app: AppState
+  db: DBState
 }
