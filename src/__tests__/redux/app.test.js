@@ -1,6 +1,11 @@
-import appReducer, { newCmd, newMsg, closeDrawer, closeDialog, sendMessage } from 'redux/app'
-
-const initialState = { cmds: [], DISPLAY: 'DASHBOARD', DRAWER: 'NONE', DIALOG: 'NONE' }
+import appReducer, {
+  newCmd,
+  newMsg,
+  closeDrawer,
+  closeDialog,
+  sendMessage,
+  initialState,
+} from 'redux/app'
 
 describe('App Reducer', () => {
   it('should return the initial state', () => {

@@ -17,8 +17,8 @@ export const formatBaseEntity = (
     const rowKey = `${parentCode}@rows`
     if (!state[rowKey]) state[rowKey] = []
 
-    const rows = state[rowKey] as Array<string>
-    if (rows.indexOf(code) === -1) rows.push(code)
+    if ((state[rowKey] as Array<string>).indexOf(code) === -1)
+      (state[rowKey] as Array<string>).push(code)
   }
 
   if (aliasCode) state[aliasCode] = code

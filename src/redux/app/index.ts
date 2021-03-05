@@ -6,7 +6,13 @@ import { cmdMachine } from './utils/handlers'
 import { AppState } from './types'
 import { CmdPayload, MsgPayload } from 'redux/types'
 
-const initialState = { cmds: [], DISPLAY: 'DASHBOARD', DRAWER: 'NONE', DIALOG: 'NONE', TOAST: null }
+export const initialState = {
+  cmds: [],
+  DISPLAY: 'DASHBOARD',
+  DRAWER: 'NONE',
+  DIALOG: 'NONE',
+  TOAST: null,
+}
 
 const appSlice = createSlice({
   name: 'app',

@@ -28,9 +28,14 @@ const db = createSlice({
       const { cmd_type, code, sourceCode, targetCode } = payload
 
       if (cmd_type === 'MOVE_ENTITY') {
-        const items: Array<string> = state[`${sourceCode}@rows`] as Array<string>
-        if (sourceCode) state[`${sourceCode}@rows`] = addKey(items, code)
-        if (targetCode) state[`${targetCode}@rows`] = removeKey(items, code)
+        if (sourceCode)
+          state[`${sourceCode}@rows`] = removeKey(
+            state[`${sourceCode}@rows`] as Array<string>,
+            code,
+          )
+        if (targetCode) {
+          state[`${targetCode}@rows`] = addKey(state[`${targetCode}@rows`] as Array<string>, code)
+        }
       }
     })
   },
