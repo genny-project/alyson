@@ -6,7 +6,7 @@ import { cmdMachine } from './utils/handlers'
 import { AppState } from './types'
 import { CmdPayload, MsgPayload } from 'redux/types'
 
-const initialState = {
+export const initialState = {
   cmds: [],
   DISPLAY: 'DASHBOARD',
   DRAWER: 'NONE',
@@ -52,5 +52,4 @@ const appSlice = createSlice({
 })
 
 export const { newCmd, newMsg, closeDrawer, closeDialog, sendMessage } = appSlice.actions
-
 export default appSlice.reducer
