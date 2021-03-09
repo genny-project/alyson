@@ -1,5 +1,5 @@
-import { useSelector } from 'react-redux'
-import { selectAttributes } from 'redux/db/selectors'
+// import { useSelector } from 'react-redux'
+// import { selectAttributes } from 'redux/db/selectors'
 // import { useHotkeys } from 'react-hotkeys-hook'
 import {
   Popover,
@@ -16,15 +16,16 @@ import { faFilter } from '@fortawesome/free-solid-svg-icons'
 import Ask from 'app/ASKS/ask'
 
 const Filters = ({ sbeCode }) => {
-  const [addFilters, existingFilters] = useSelector(
-    selectAttributes(`QUE_FILTER_GRP_${sbeCode}`, [
-      'QUE_ADD_FILTER_GRP',
-      'QUE_EXISTING_FILTERS_GRP',
-    ]),
-  )
+  // const [addFilters, existingFilters] = useSelector(
+  //   selectAttributes(`QUE_FILTER_GRP_${sbeCode}`, [
+  //     'QUE_ADD_FILTER_GRP',
+  //     'QUE_EXISTING_FILTERS_GRP',
+  //   ]),
+  // )
 
   // console.log(addFilters, existingFilters)
 
+  const addFilters = null
   if (!addFilters) return null
 
   return (
