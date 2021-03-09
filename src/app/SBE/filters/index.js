@@ -23,7 +23,7 @@ const Filters = ({ sbeCode }) => {
     ]),
   )
 
-  console.log(addFilters, existingFilters)
+  // console.log(addFilters, existingFilters)
 
   if (!addFilters) return null
 
@@ -44,7 +44,7 @@ const Filters = ({ sbeCode }) => {
           <PopoverCloseButton />
           <PopoverBody>
             {addFilters.childAsks.map(childAskObject => (
-              <Ask passedAskData={childAskObject} />
+              <Ask key={childAskObject.attributeCode} passedAskData={childAskObject} />
             ))}
           </PopoverBody>
         </PopoverContent>

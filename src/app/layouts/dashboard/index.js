@@ -25,7 +25,7 @@ const Dashboard = () => {
         {apiConfig && realm === 'mentormatch' && (
           <Image src={logoSrc} style={{ cursor: 'pointer' }} htmlWidth="250px" />
         )}
-        <HStack>
+        <HStack spacing={4}>
           {dashboardCounts &&
             dashboardCounts.map(sbeCode => <DisplaySbe key={sbeCode} sbeCode={sbeCode} />)}
         </HStack>
@@ -33,9 +33,11 @@ const Dashboard = () => {
           <DisplaySbe key={sbeCode} sbeCode={sbeCode} />
         ))}
         <Spacer />
-        <Text as="samp" fontSize="xs">
-          Powered By GADA Technology
-        </Text>
+        <Center>
+          <Text as="samp" fontSize="xs">
+            Powered By GADA Technology
+          </Text>
+        </Center>
       </Stack>
     </Center>
   )
