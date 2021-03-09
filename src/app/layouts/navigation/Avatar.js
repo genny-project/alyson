@@ -63,8 +63,11 @@ const AvatarMenu = () => {
                 childCode={childAsk}
               />
             ))}
-          <MenuItem onClick={onOpen}>Settings</MenuItem>
+          <MenuItem test-id={'QUE_AVATAR_SETTINGS'} onClick={onOpen}>
+            Settings
+          </MenuItem>
           <MenuItem
+            test-id={'QUE_AVATAR_LOGOUT'}
             onClick={() => {
               onSendMessage({ code: 'LOGOUT' }, { event_type: 'LOGOUT' })
               window.localStorage.localToken = ''
