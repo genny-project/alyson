@@ -17,11 +17,11 @@ const DisplayDrawer = () => {
   const isOpen = drawer !== 'NONE'
 
   return (
-    <Drawer placement="bottom" size="full" isOpen={isOpen} onClose={() => dispatch(closeDrawer())}>
+    <Drawer placement="bottom" isOpen={isOpen} onClose={() => dispatch(closeDrawer())}>
       <DrawerOverlay>
-        <DrawerContent>
-          <DrawerCloseButton />
-          <DrawerBody>{drawer === 'DETAIL' && <Detail />}</DrawerBody>
+        <DrawerContent w="70vw" ml="15vw" borderTopRadius="lg">
+          {/* <DrawerCloseButton /> */}
+          {drawer === 'DETAIL' && <Detail />}
         </DrawerContent>
       </DrawerOverlay>
     </Drawer>

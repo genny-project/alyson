@@ -6,7 +6,7 @@ let pano = {}
 
 const geocoder = new window.google.maps.Geocoder()
 
-const StreetView = ({ address }) => {
+const StreetView = ({ address, style = { width: '40rem', height: '30rem' } }) => {
   const [geo, setGeo] = useState(null)
 
   const panoRef = useRef(null)
@@ -38,7 +38,7 @@ const StreetView = ({ address }) => {
   }, [geo])
 
   return (
-    <HStack style={{ width: '40rem', height: '30rem' }}>
+    <HStack style={style}>
       {!geo && (
         <Center w="40rem">
           <CircularProgress isIndeterminate />

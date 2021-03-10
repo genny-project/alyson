@@ -48,6 +48,7 @@ const Attribute = ({
       dttData={dttData}
       size={size}
       variant={variant}
+      config={config}
     />
   ) : component === 'social' ? (
     <Social.Read data={data} dttData={dttData} size={size} />
