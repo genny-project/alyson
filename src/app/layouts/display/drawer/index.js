@@ -14,7 +14,6 @@ const DisplayDrawer = () => {
     <Drawer placement="bottom" isOpen={isOpen} onClose={() => dispatch(closeDrawer())}>
       <DrawerOverlay>
         <DrawerContent w="70vw" ml="15vw" borderTopRadius="lg">
-          {/* <DrawerCloseButton /> */}
           {drawer === 'DETAIL' && <Detail />}
         </DrawerContent>
       </DrawerOverlay>

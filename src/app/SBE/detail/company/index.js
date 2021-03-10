@@ -102,7 +102,7 @@ const Company = ({ sbeCode, targetCode }) => {
       </Box>
       <VStack mt="-24" h="60vh" overflow="scroll">
         <Link href={url?.value}>
-          <Text fontSize="4xl" fontWeight="semibold" flexWrap="nowrap">
+          <Text fontSize="3xl" fontWeight="semibold" flexWrap="nowrap">
             {name?.value}
             <Status.Read data={status} config={{ ml: '3' }} />
           </Text>
