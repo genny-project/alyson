@@ -33,11 +33,6 @@ const Dashboard = () => {
           <DisplaySbe key={sbeCode} sbeCode={sbeCode} />
         ))}
         <Spacer />
-        <Center>
-          <Text as="samp" fontSize="xs">
-            Powered By GADA Technology
-          </Text>
-        </Center>
       </Stack>
     </Center>
   )

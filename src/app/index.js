@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 import { lazy, Suspense } from 'react'
 import { Provider } from 'react-redux'
 import store from 'redux/store'
-import { CSSReset } from '@chakra-ui/react'
+import { Box, CSSReset } from '@chakra-ui/react'
 import Vertx from 'vertx'
 import { isDev } from 'utils/developer'
 
@@ -36,7 +36,7 @@ const App = () => {
             path="/home"
             component={() => (
               <Suspense fallback={<div />}>
-                <div>
+                <Box>
                   <Navigation />
                   <Display />
                   {isDev ? (
@@ -44,7 +44,7 @@ const App = () => {
                       <DeveloperConsole />
                     </Suspense>
                   ) : null}
-                </div>
+                </Box>
               </Suspense>
             )}
           />

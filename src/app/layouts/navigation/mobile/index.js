@@ -16,6 +16,7 @@ import {
   DrawerBody,
   IconButton,
   Center,
+  Text,
 } from '@chakra-ui/react'
 import { apiConfig } from 'config/get-api-config'
 import Avatar from '../Avatar'
@@ -27,6 +28,8 @@ import { onSendMessage } from 'vertx'
 const MobileNav = ({ logoSrc }) => {
   const theme = useTheme()
   const bg = useColorModeValue(theme.colors.background.light, theme.colors.primary[900])
+  const color = useColorModeValue(theme.colors.text.light, theme.colors.text.dark)
+
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = useRef()
 
@@ -34,6 +37,7 @@ const MobileNav = ({ logoSrc }) => {
     <>
       <header
         style={{
+          color,
           position: 'fixed',
           top: 0,
           zIndex: 3,
@@ -65,7 +69,7 @@ const MobileNav = ({ logoSrc }) => {
             )}
           </Center>
           <Spacer />
-          <HStack>
+          <HStack w="144px">
             <AskMenu questionCode={'QUE_ADD_ITEMS_GRP'} icon={<FontAwesomeIcon icon={faPlus} />} />
             <AskMenu
               questionCode={'QUE_QUICK_ADD_ITEMS_GRP'}
@@ -75,13 +79,22 @@ const MobileNav = ({ logoSrc }) => {
           </HStack>
         </Flex>
       </header>
-      <Drawer isOpen={isOpen} placement="left" onClose={onClose} finalFocusRef={btnRef}>
+      <Drawer
+        preserveScrollBarGap
+        isOpen={isOpen}
+        placement="left"
+        onClose={onClose}
+        finalFocusRef={btnRef}
+      >
         <DrawerOverlay>
           <DrawerContent>
             <DrawerCloseButton />
             <DrawerHeader />
             <DrawerBody mt="4">
               <Buttons onClose={onClose} questionCode={'QUE_PROJECT_SIDEBAR_GRP'} />
+              <Text as="samp" fontSize="xs" style={{ position: 'absolute', bottom: 5 }}>
+                Powered By GADA Technology
+              </Text>
             </DrawerBody>
           </DrawerContent>
         </DrawerOverlay>
