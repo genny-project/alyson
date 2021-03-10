@@ -62,6 +62,11 @@ const Company = ({ sbeCode, targetCode }) => {
         fullscreenControl: false,
       })
 
+      new window.google.maps.Marker({
+        position: geo,
+        map,
+      })
+
       map.setStreetView(pano)
     }
   }, [geo])
