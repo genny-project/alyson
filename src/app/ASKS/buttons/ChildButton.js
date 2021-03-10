@@ -1,12 +1,13 @@
 import { useSelector } from 'react-redux'
-import { Button } from '@chakra-ui/react'
+import { HStack, IconButton, Text } from '@chakra-ui/react'
 import { selectCode } from 'redux/db/selectors'
 import sendAskClick from 'app/ASKS/utils/send-ask-click'
 import { Menu, MenuList, MenuItem, MenuButton } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
+import icons from 'utils/icons'
 
-const ChildButton = ({ questionCode, childCode, size }) => {
+const ChildButton = ({ questionCode, childCode }) => {
   const data = useSelector(selectCode(questionCode, childCode))
 
   if (!data) return null
@@ -17,20 +18,32 @@ const ChildButton = ({ questionCode, childCode, size }) => {
 
   if (!childAsks)
     return (
-      <Button test-id={childCode} size={size} colorScheme="primary" onClick={onClick}>
-        {name}
-      </Button>
+      <HStack spacing="4" role="group" p="2" test-id={childCode} onClick={onClick} as="button">
+        <IconButton
+          colorScheme="primary"
+          variant="solid"
+          icon={<FontAwesomeIcon icon={icons[childCode]} />}
+        />
+
+        <Text fontSize="larger" _hover={{ opacity: 1.0 }} opacity="0.8" fontWeight="semibold">
+          {name}
+        </Text>
+      </HStack>
     )
   return (
     <Menu>
-      <MenuButton
-        test-id={childCode}
-        size={size}
-        colorScheme="primary"
-        rightIcon={<FontAwesomeIcon icon={faAngleDown} />}
-        as={Button}
-      >
-        {name}
+      <MenuButton test-id={childCode} colorScheme="primary">
+        <HStack spacing="4" role="group" p="2" test-id={childCode} onClick={onClick} as="button">
+          <IconButton
+            colorScheme="primary"
+            variant="solid"
+            icon={<FontAwesomeIcon icon={icons[childCode]} />}
+          />
+          <Text fontSize="larger" _hover={{ opacity: 1.0 }} opacity="0.8" fontWeight="semibold">
+            {name}
+          </Text>
+          <FontAwesomeIcon icon={faAngleDown} />
+        </HStack>
       </MenuButton>
       <MenuList>
         {childAsks.map(childAsk => (

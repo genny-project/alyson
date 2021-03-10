@@ -12,9 +12,7 @@ const DashboardSearch = ({ sbeCode }) => {
 
   return (
     <VStack>
-      <Text color="primary" fontWeight="bold">
-        {title?.value}
-      </Text>
+      <Text fontWeight="bold">{title?.value}</Text>
       <HStack>
         <Stat>
           <StatLabel>Total</StatLabel>

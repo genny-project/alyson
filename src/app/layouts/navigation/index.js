@@ -24,8 +24,10 @@ const getLogo = (realm, lightMode) =>
       : 'https://internmatch-uploads.s3-ap-southeast-2.amazonaws.com/internmatch_logo_dark.png'
     : 'https://raw.githubusercontent.com/OutcomeLife/prj_mentormatch/7.17.0/docs/mentormatch_logo.png'
 
+const onlyMobile = true
+
 const Navigation = () => {
-  const mobile = useBreakpointValue({ base: true, lg: false })
+  const mobile = useBreakpointValue({ base: true, lg: false }) || onlyMobile
   const theme = useTheme()
 
   const { realm } = apiConfig
@@ -33,7 +35,7 @@ const Navigation = () => {
 
   const bg = useColorModeValue(theme.colors.background.light, theme.colors.primary[900])
 
-  if (mobile) return <MobileNav />
+  if (mobile) return <MobileNav logoSrc={logoSrc} />
 
   return (
     <header
@@ -46,6 +48,7 @@ const Navigation = () => {
         right: 0,
         backgroundColor: bg,
         transition: 'box-shadow 0.2s',
+        borderBottom: '1px solid lightgrey',
         boxShadow: 'rgb(0 0 0 / 5%) 0px 1px 2px 0px',
         height: '75px',
       }}
@@ -61,9 +64,8 @@ const Navigation = () => {
             htmlWidth="250px"
           />
         )}
-        <Spacer />
-        <Center>
-          <Buttons questionCode={'QUE_PROJECT_SIDEBAR_GRP'} />
+        <Center ml="260px" mt="2px">
+          <Buttons size="lg" questionCode={'QUE_PROJECT_SIDEBAR_GRP'} />
         </Center>
         <Spacer />
         <HStack>

@@ -14,14 +14,17 @@ import {
   DrawerHeader,
   DrawerCloseButton,
   DrawerBody,
+  IconButton,
+  Center,
 } from '@chakra-ui/react'
 import { apiConfig } from 'config/get-api-config'
 import Avatar from '../Avatar'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus, faBolt } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faBolt, faBars } from '@fortawesome/free-solid-svg-icons'
 import Buttons from 'app/ASKS/buttons'
+import { onSendMessage } from 'vertx'
 
-const MobileNav = () => {
+const MobileNav = ({ logoSrc }) => {
   const theme = useTheme()
   const bg = useColorModeValue(theme.colors.background.light, theme.colors.primary[900])
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -41,17 +44,26 @@ const MobileNav = () => {
           backgroundColor: bg,
           transition: 'box-shadow 0.2s',
           boxShadow: 'rgb(0 0 0 / 5%) 0px 1px 2px 0px',
+          borderBottom: '1px solid lightgrey',
         }}
       >
         <Flex p="3">
-          {apiConfig && (
-            <Image
-              onClick={onOpen}
-              ref={btnRef}
-              src={apiConfig.PRI_FAVICON}
-              style={{ cursor: 'pointer' }}
-            />
-          )}
+          <IconButton onClick={onOpen} variant="ghost" size="lg">
+            <FontAwesomeIcon icon={faBars} />
+          </IconButton>
+          <Spacer />
+          <Center mr="-125px" style={{ cursor: 'pointer' }}>
+            {apiConfig && (
+              <Image
+                onClick={() =>
+                  onSendMessage({ code: 'QUE_DASHBOARD_VIEW', parentCode: 'QUE_DASHBOARD_VIEW' })
+                }
+                ref={btnRef}
+                src={logoSrc}
+                htmlWidth="250px"
+              />
+            )}
+          </Center>
           <Spacer />
           <HStack>
             <AskMenu questionCode={'QUE_ADD_ITEMS_GRP'} icon={<FontAwesomeIcon icon={faPlus} />} />
@@ -67,9 +79,9 @@ const MobileNav = () => {
         <DrawerOverlay>
           <DrawerContent>
             <DrawerCloseButton />
-            <DrawerHeader>{apiConfig.PRI_NAME}</DrawerHeader>
-            <DrawerBody>
-              <Buttons direction="column" size="lg" questionCode={'QUE_PROJECT_SIDEBAR_GRP'} />
+            <DrawerHeader />
+            <DrawerBody mt="4">
+              <Buttons questionCode={'QUE_PROJECT_SIDEBAR_GRP'} />
             </DrawerBody>
           </DrawerContent>
         </DrawerOverlay>
