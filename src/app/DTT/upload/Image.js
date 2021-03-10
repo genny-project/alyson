@@ -49,8 +49,6 @@ const Read = ({ data, parentCode, variant }) => {
   const { getImageSrc } = useApi()
   const src = getImageSrc(data?.value)
 
-  if (!src || !data?.value) return <Avatar />
-
   const viewDetail = () =>
     onSendMessage({ parentCode, targetCode: data.baseEntityCode, code: 'ACT_PRI_EVENT_VIEW' })
 

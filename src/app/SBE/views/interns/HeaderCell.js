@@ -1,5 +1,5 @@
 import { replace } from 'ramda'
-import { IconButton, Th } from '@chakra-ui/react'
+import { HStack, IconButton, Th } from '@chakra-ui/react'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import { onSendAnswer } from 'vertx'
@@ -10,6 +10,7 @@ const Cell = ({ attribute, parentCode }) => {
   const data = useSelector(selectCode(parentCode, attribute))
   const sort = useSelector(selectCode(parentCode, replace('COL_', 'SRT_', attribute)))
 
+  console.log(sort)
   return (
     <Th>
       {data?.attributeName}

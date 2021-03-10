@@ -26,7 +26,7 @@ import RestDetails from './RestDetails'
 
 const MotionBox = makeMotion(Box)
 
-const Card = ({ parentCode, actions = [], code, columns }) => {
+const Card = ({ parentCode, actions = [], code, columns, noExpansion }) => {
   const theme = useTheme()
   const title = useSelector(selectCode(code, getAttribute(columns[0] || '')))
   const subTitle = useSelector(selectCode(code, getAttribute(columns[1] || '')))
@@ -58,7 +58,7 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
           <VStack alignItems="baseline" w="30">
             <Text.Read
               data={title}
-              textProps={{
+              config={{
                 fontWeight: 'semibold',
                 as: 'h4',
                 lineHeight: 'tight',
@@ -67,7 +67,7 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
               }}
             />
             <Text.Read
-              textProps={{
+              config={{
                 as: 'span',
                 color: 'gray.600',
                 fontSize: 'sm',
@@ -80,12 +80,14 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
         </HStack>
         <Spacer />
         <HStack>
-          <IconButton
-            bg={color}
-            size="xs"
-            onClick={onToggle}
-            icon={<FontAwesomeIcon icon={faInfo} />}
-          />
+          {!noExpansion && (
+            <IconButton
+              bg={color}
+              size="xs"
+              onClick={onToggle}
+              icon={<FontAwesomeIcon icon={faInfo} />}
+            />
+          )}
           <ContextMenu
             actions={actions}
             code={code}

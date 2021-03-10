@@ -81,7 +81,7 @@ const MobileNav = ({ logoSrc }) => {
             <DrawerCloseButton />
             <DrawerHeader />
             <DrawerBody mt="4">
-              <Buttons questionCode={'QUE_PROJECT_SIDEBAR_GRP'} />
+              <Buttons onClose={onClose} questionCode={'QUE_PROJECT_SIDEBAR_GRP'} />
             </DrawerBody>
           </DrawerContent>
         </DrawerOverlay>
