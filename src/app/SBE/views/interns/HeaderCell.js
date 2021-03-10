@@ -1,5 +1,5 @@
 import { replace } from 'ramda'
-import { HStack, IconButton, Th } from '@chakra-ui/react'
+import { IconButton, Th } from '@chakra-ui/react'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import { onSendAnswer } from 'vertx'
