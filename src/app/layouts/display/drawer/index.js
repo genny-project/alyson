@@ -1,10 +1,4 @@
-import {
-  Drawer,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerCloseButton,
-  DrawerBody,
-} from '@chakra-ui/react'
+import { Drawer, DrawerOverlay, DrawerContent } from '@chakra-ui/react'
 import { useSelector, useDispatch } from 'react-redux'
 import { closeDrawer } from 'redux/app'
 import { selectDrawer } from 'redux/app/selectors'
