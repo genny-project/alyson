@@ -2,7 +2,7 @@ import { onSendMessage } from 'vertx'
 
 const getFormattedValue = value => (typeof value === 'object' ? JSON.stringify(value) : value)
 
-const createSendAnswer = fieldData => value => {
+const createSendAnswer = (fieldData, { passedTargetCode }) => value => {
   const { id: askId, attributeCode, sourceCode, targetCode, weight, questionCode } = fieldData
 
   onSendMessage(
@@ -11,7 +11,7 @@ const createSendAnswer = fieldData => value => {
         askId,
         attributeCode,
         sourceCode,
-        targetCode,
+        targetCode: passedTargetCode || targetCode,
         code: questionCode,
         identifier: questionCode,
         weight,

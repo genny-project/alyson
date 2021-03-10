@@ -28,10 +28,10 @@ import { isDev } from 'utils/developer'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 
-const Ask = ({ parentCode, questionCode, onFinish, passedAskData }) => {
+const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCode }) => {
   const askData = useSelector(selectCode(parentCode, questionCode)) || passedAskData
 
-  const { attributeCode, targetCode, name, question, mandatory } = askData
+  const { attributeCode, targetCode, name, question, mandatory, hidden } = askData
 
   const data = useSelector(selectCode(targetCode, attributeCode)) || {}
 
@@ -50,7 +50,9 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData }) => {
 
   const multiple = includes('multiple', typeName || '') || component === 'tag'
 
-  const onSendAnswer = createSendAnswer(askData)
+  const onSendAnswer = createSendAnswer(askData, { passedTargetCode })
+
+  if (hidden) return null
 
   return component === 'button' ? (
     <Button
