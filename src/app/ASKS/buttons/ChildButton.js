@@ -7,14 +7,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import icons from 'utils/icons'
 
-const ChildButton = ({ questionCode, childCode }) => {
+const ChildButton = ({ questionCode, childCode, onClose }) => {
   const data = useSelector(selectCode(questionCode, childCode))
 
   if (!data) return null
 
   const { name, childAsks } = data
 
-  const onClick = () => sendAskClick(childCode, childCode)
+  const onClick = () => {
+    sendAskClick(childCode, childCode)
+    onClose()
+  }
 
   if (!childAsks)
     return (
@@ -48,7 +51,10 @@ const ChildButton = ({ questionCode, childCode }) => {
       <MenuList>
         {childAsks.map(childAsk => (
           <MenuItem
-            onClick={() => sendAskClick(childAsk.questionCode, childAsk.questionCode)}
+            onClick={() => {
+              sendAskClick(childAsk.questionCode, childAsk.questionCode)
+              onClose()
+            }}
             test-id={childAsk.questionCode}
             key={childAsk.questionCode}
           >

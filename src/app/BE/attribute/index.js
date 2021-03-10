@@ -18,13 +18,22 @@ import ABN from 'app/DTT/abn'
 import URL from 'app/DTT/url'
 import Rating from 'app/DTT/rating'
 
-const Attribute = ({ code, attribute, size, mini, parentCode, variant, config }) => {
+const Attribute = ({
+  code,
+  attribute,
+  size,
+  mini,
+  parentCode,
+  variant,
+  config,
+  fallback = null,
+}) => {
   const data = useSelector(selectCode(code, attribute))
   const dtt = useSelector(selectCode(data?.attributeCode))
   const dttData = useSelector(selectCode(dtt))
   const component = dttData?.component
 
-  if (!component) return <div />
+  if (!component) return fallback
 
   return component === 'email' ? (
     <Email.Read data={data} size={size} />
