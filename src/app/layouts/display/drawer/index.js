@@ -1,10 +1,4 @@
-import {
-  Drawer,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerCloseButton,
-  DrawerBody,
-} from '@chakra-ui/react'
+import { Drawer, DrawerOverlay, DrawerContent } from '@chakra-ui/react'
 import { useSelector, useDispatch } from 'react-redux'
 import { closeDrawer } from 'redux/app'
 import { selectDrawer } from 'redux/app/selectors'
@@ -17,11 +11,10 @@ const DisplayDrawer = () => {
   const isOpen = drawer !== 'NONE'
 
   return (
-    <Drawer placement="bottom" size="full" isOpen={isOpen} onClose={() => dispatch(closeDrawer())}>
+    <Drawer placement="bottom" isOpen={isOpen} onClose={() => dispatch(closeDrawer())}>
       <DrawerOverlay>
-        <DrawerContent>
-          <DrawerCloseButton />
-          <DrawerBody>{drawer === 'DETAIL' && <Detail />}</DrawerBody>
+        <DrawerContent w="70vw" ml="15vw" borderTopRadius="lg">
+          {drawer === 'DETAIL' && <Detail />}
         </DrawerContent>
       </DrawerOverlay>
     </Drawer>

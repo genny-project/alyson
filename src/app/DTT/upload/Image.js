@@ -45,7 +45,7 @@ const Write = ({ questionCode, data, openDropzone, onSendAnswer, handleSave, set
   )
 }
 
-const Read = ({ data, parentCode, variant }) => {
+const Read = ({ data, parentCode, variant, config }) => {
   const { getImageSrc } = useApi()
   const src = getImageSrc(data?.value)
 
@@ -53,10 +53,10 @@ const Read = ({ data, parentCode, variant }) => {
     onSendMessage({ parentCode, targetCode: data.baseEntityCode, code: 'ACT_PRI_EVENT_VIEW' })
 
   if (variant === 'profile_image') {
-    return <Image src={src} alt="profile-picture" w="10rem" borderRadius="xl" />
+    return <Image {...config} src={src} alt="profile-picture" w="10rem" borderRadius="xl" />
   }
 
-  return <Avatar cursor="pointer" onClick={viewDetail} src={src} />
+  return <Avatar {...config} cursor="pointer" onClick={viewDetail} src={src} />
 }
 
 const ImageType = {
