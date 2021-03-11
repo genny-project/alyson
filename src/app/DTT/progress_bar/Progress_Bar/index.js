@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Progress, Box, VStack } from '@chakra-ui/react'
+import { Text, Progress, VStack } from '@chakra-ui/react'
 
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 
