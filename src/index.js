@@ -38,7 +38,9 @@ const initialiseApp = async () => {
     ReactDOM.render(
       <React.StrictMode>
         <Suspense fallback={<div />}>
-          <Error />
+          <ChakraProvider>
+            <Error />
+          </ChakraProvider>
         </Suspense>
       </React.StrictMode>,
       document.getElementById('root'),
