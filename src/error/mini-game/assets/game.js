@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Box, HStack, VStack, Flex, Text, Button } from '@chakra-ui/react'
+import { Box, HStack, Flex, Text, Button } from '@chakra-ui/react'
 
 import calculateWinner from '../helpers/calculate-winner'
 import Board from './board'
@@ -14,9 +14,7 @@ const Game = () => {
     const timeInHistory = history.slice(0, stepNumber + 1)
     const current = timeInHistory[stepNumber]
     const squares = [...current]
-    // If user click an occupied square or if game is won, return
     if (winner || squares[i]) return
-    // Put an X or an O in the clicked square
     squares[i] = xIsNext ? '🐱' : '🐭'
     setHistory([...timeInHistory, squares])
     setStepNumber(timeInHistory.length)
@@ -54,7 +52,7 @@ const Game = () => {
             <Text fontSize="4xl">{`The Winner is: ${winner} `} </Text>
           </>
         ) : (
-          <Text fontSize="2xl">{`Next Player: ` + (xIsNext ? '🐱' : '🐭')}</Text>
+          <Text fontSize="3xl">{`Next Player: ` + (xIsNext ? '🐱' : '🐭')}</Text>
         )}
       </Box>
       <Flex>
