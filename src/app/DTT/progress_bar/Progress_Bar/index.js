@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Progress, Box } from '@chakra-ui/react'
+import { Text, Progress, Box, VStack } from '@chakra-ui/react'
 
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 
@@ -18,20 +18,12 @@ const ProgressBar = props => {
   })()
 
   return (
-    <Box>
-      <Box w="90%" m="auto" mb={2}>
-        <Text mb={1} fontSize="md" textTransform="none">{`Internship progress`}</Text>
-        <Progress colorScheme="primary" size="xs" value={completedPercentage} />
-      </Box>
-      <Box w="90%" m="auto" mb={2}>
-        <Text
-          mb={1}
-          fontSize="md"
-          textTransform="none"
-        >{`Journal progress ${completedJournals}`}</Text>
-        <Progress colorScheme="secondary" size="xs" value={completedJournalsPercentage} />
-      </Box>
-    </Box>
+    <VStack alignItems="start" w="48">
+      <Text mb={1}>{`Internship progress`}</Text>
+      <Progress w="full" colorScheme="primary" size="sm" value={completedPercentage} />
+      <Text mb={1}>{`Journal progress ${completedJournals || ''}`}</Text>
+      <Progress w="full" colorScheme="secondary" size="sm" value={completedJournalsPercentage} />
+    </VStack>
   )
 }
 

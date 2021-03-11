@@ -46,6 +46,7 @@ const AvatarMenu = () => {
           bg="primary.400"
           name={name?.value || userName?.value}
           src={getImageSrc(userImage?.value)}
+          size="sm"
         />
       </MenuButton>
       <MenuList>
