@@ -4,10 +4,10 @@ import { Box, HStack, Flex, Text, Button } from '@chakra-ui/react'
 import calculateWinner from '../helpers/calculate-winner'
 import Board from './board'
 
-const Game = ({ playerOne, playerTwo }) => {
+const Game = ({ playerOne, playerTwo = '🎅🏼' }) => {
   const [history, setHistory] = useState([Array(9).fill(null)])
   const [stepNumber, setStepNumber] = useState(0)
-  const [xIsNext, setXisNext] = useState(true)
+  const [playerOneTurn, setplayerOneTurn] = useState(true)
   const winner = calculateWinner(history[stepNumber])
 
   const handleClick = i => {
@@ -15,15 +15,15 @@ const Game = ({ playerOne, playerTwo }) => {
     const current = timeInHistory[stepNumber]
     const squares = [...current]
     if (winner || squares[i]) return
-    squares[i] = xIsNext ? playerOne : playerTwo
+    squares[i] = playerOneTurn ? playerOne : playerTwo
     setHistory([...timeInHistory, squares])
     setStepNumber(timeInHistory.length)
-    setXisNext(!xIsNext)
+    setplayerOneTurn(!playerOneTurn)
   }
 
   const jumpTo = step => {
     setStepNumber(step)
-    setXisNext(step % 2 === 0)
+    setplayerOneTurn(step % 2 === 0)
   }
 
   const renderMoves = () =>
@@ -52,7 +52,7 @@ const Game = ({ playerOne, playerTwo }) => {
             <Text fontSize="4xl">{`The Winner is: ${winner} `} </Text>
           </>
         ) : (
-          <Text fontSize="3xl">{`Next Player: ` + (xIsNext ? playerOne : playerTwo)}</Text>
+          <Text fontSize="3xl">{`Next Player: ` + (playerOneTurn ? playerOne : playerTwo)}</Text>
         )}
       </Box>
       <Flex>

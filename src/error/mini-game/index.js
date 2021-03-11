@@ -1,7 +1,5 @@
 import { Box, Flex, Text } from '@chakra-ui/react'
-import Game from './assets/game'
-
-import SelectCharacter from './select-character'
+import GameMode from './game-mode'
 
 const MiniGame = () => {
   return (
@@ -13,7 +11,7 @@ const MiniGame = () => {
           fontSize="4xl"
         >{`Our Server is down. Please enjoy the game in the meantime!`}</Text>
       </Box>
-      <SelectCharacter />
+      <GameMode />
     </Flex>
   )
 }

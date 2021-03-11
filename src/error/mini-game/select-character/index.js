@@ -5,10 +5,53 @@ import Game from '../assets/game'
 
 const characters = ['🐶', '🐱', '🐭', '🐷', '🐯', '🐼', '🦁']
 
-const SelectCharacter = () => {
+const SelectCharacter = ({ playerMode }) => {
   const [playerOne, setPlayerOne] = useState(null)
   const [playerTwo, setPlayerTwo] = useState(null)
   const [showCharacterSelection, setShowCharacterSelection] = useState(true)
+
+  if (playerMode === 'singlePlayer') {
+    return showCharacterSelection ? (
+      <VStack spacing="20">
+        <Box mr="20">
+          <VStack spacing="5">
+            <Text
+              bgGradient="linear(to-r, black, red)"
+              bgClip="text"
+              fontSize="2xl"
+            >{`Choose Player One`}</Text>
+            <HStack VStack spacing="4">
+              {map(character => (
+                <Button
+                  size="lg"
+                  onClick={() => setPlayerOne(character)}
+                  isDisabled={character === playerTwo}
+                >
+                  {character}
+                </Button>
+              ))(characters)}
+            </HStack>
+            {playerOne ? (
+              <Text fontSize="2xl">{`Selected Character: ${playerOne}`}</Text>
+            ) : (
+              <Text fontSize="2xl">{`Selected Character: Not Selected`}</Text>
+            )}
+          </VStack>
+        </Box>
+        <Box w="100%" textAlign="end">
+          <Button
+            w="fit-content"
+            minWidth="15rem"
+            colorScheme="blue"
+            isDisabled={!playerOne}
+            onClick={() => setShowCharacterSelection(false)}
+          >{`Next`}</Button>
+        </Box>
+      </VStack>
+    ) : (
+      <Game playerOne={playerOne} />
+    )
+  }
 
   return showCharacterSelection ? (
     <VStack spacing="20">
