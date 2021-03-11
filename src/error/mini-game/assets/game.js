@@ -4,7 +4,7 @@ import { Box, HStack, Flex, Text, Button } from '@chakra-ui/react'
 import calculateWinner from '../helpers/calculate-winner'
 import Board from './board'
 
-const Game = () => {
+const Game = ({ playerOne, playerTwo }) => {
   const [history, setHistory] = useState([Array(9).fill(null)])
   const [stepNumber, setStepNumber] = useState(0)
   const [xIsNext, setXisNext] = useState(true)
@@ -15,7 +15,7 @@ const Game = () => {
     const current = timeInHistory[stepNumber]
     const squares = [...current]
     if (winner || squares[i]) return
-    squares[i] = xIsNext ? '🐱' : '🐭'
+    squares[i] = xIsNext ? playerOne : playerTwo
     setHistory([...timeInHistory, squares])
     setStepNumber(timeInHistory.length)
     setXisNext(!xIsNext)
@@ -52,7 +52,7 @@ const Game = () => {
             <Text fontSize="4xl">{`The Winner is: ${winner} `} </Text>
           </>
         ) : (
-          <Text fontSize="3xl">{`Next Player: ` + (xIsNext ? '🐱' : '🐭')}</Text>
+          <Text fontSize="3xl">{`Next Player: ` + (xIsNext ? playerOne : playerTwo)}</Text>
         )}
       </Box>
       <Flex>
