@@ -6,11 +6,11 @@ const MotionBox = makeMotion(Button)
 const Square = ({ value, onClick }) => (
   //   <MotionBox whileHover={{ scale: 1.2 }} transition={{ duration: 0.1 }}>
   <Button
-    border="1px solid black"
+    border="1px solid #1183c8"
     borderRadius="0"
     height="100%"
     width="100%"
-    bg="white"
+    bg="ligthGrey"
     fontSize="60px"
     cursor="pointer"
     fontWeight="800"

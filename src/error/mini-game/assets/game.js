@@ -30,13 +30,12 @@ const Game = () => {
 
   const renderMoves = () =>
     history.map((_step, move) => {
-      const destination = move ? `Got to move #${move}` : `Reset`
+      const destination = move ? `Move #${move}` : `Start Over`
       return (
         <HStack spacing={2}>
           <Button
-            bgGradient="linear(to-l, #7928CA, #FF0080)"
-            variant="outline"
-            colorScheme="primary"
+            variant={destination === 'Start Over' ? 'solid' : 'ghost'}
+            colorScheme="blue"
             onClick={() => jumpTo(move)}
             mt="2"
           >
@@ -47,18 +46,22 @@ const Game = () => {
     })
 
   return (
-    <>
-      <Board squares={history[stepNumber]} onClick={handleClick} />
-      <Box margin="20px auto">
-        <Text fontSize="2xl">
-          {winner
-            ? `The Winner is: ${winner} 🎉 🎉 🎉 🎉`
-            : `Next Player: ` + (xIsNext ? '🐱' : '🐭')}
-        </Text>
+    <Flex margin="20px auto" direction="column">
+      <Box mb="10">
+        {winner ? (
+          <>
+            <Text fontSize="4xl">{`🎉  🎈  🎉  🎈  🎉  🎈  🎉  🎈  🎉`} </Text>
+            <Text fontSize="4xl">{`The Winner is: ${winner} `} </Text>
+          </>
+        ) : (
+          <Text fontSize="2xl">{`Next Player: ` + (xIsNext ? '🐱' : '🐭')}</Text>
+        )}
       </Box>
-
-      <Box margin="20px auto">{renderMoves()}</Box>
-    </>
+      <Flex>
+        <Board squares={history[stepNumber]} onClick={handleClick} />
+        <Box ml="20">{renderMoves()}</Box>
+      </Flex>
+    </Flex>
   )
 }
 
