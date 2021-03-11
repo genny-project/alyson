@@ -1,5 +1,5 @@
 import { includes, slice, compose, filter, length, sortBy, toUpper } from 'ramda'
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { selectCode, selectKeys } from 'redux/db/selectors'
 import {
@@ -22,21 +22,30 @@ import {
   DrawerHeader,
 } from '@chakra-ui/react'
 
+let init = new Date()
 const DeveloperConsole = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const firstField = useRef()
 
+  const [timer, setTimer] = useState(0)
   const [code, setCode] = useState('')
 
   const keys = useSelector(selectKeys)
   const selection = useSelector(selectCode(code))
 
+  const testGrp = useSelector(selectCode('QUE_DRAFTS_GRP'))
+
   const suggestions = code
     ? compose(slice(0, 20), sortBy(length), filter(includes(code)))(keys)
     : []
 
+  useEffect(() => {
+    if (testGrp) setTimer(new Date() - init)
+  }, [testGrp])
+
   return (
     <VStack m="10">
+      <Text>{timer ? timer + 'ms for load' : 'loading'}</Text>
       <Button
         size="xs"
         onClick={() => {
