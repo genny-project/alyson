@@ -51,6 +51,7 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
       borderRadius="lg"
       whileHover={{ scale: 1.05 }}
       transition={{ duration: 0.1 }}
+      bgColor={color}
     >
       <Flex spacing="3">
         <HStack>
@@ -81,7 +82,7 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
         <Spacer />
         <HStack>
           <IconButton
-            bg={color}
+            variant="ghost"
             size="xs"
             onClick={onToggle}
             icon={<FontAwesomeIcon icon={faInfo} />}

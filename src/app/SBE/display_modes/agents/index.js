@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
-import { Heading, VStack, Stat, StatLabel, StatNumber, HStack } from '@chakra-ui/react'
+import { Text, VStack, Stat, StatLabel, StatNumber, HStack } from '@chakra-ui/react'
 import { getTableActions } from 'app/SBE/utils/get-actions'
 import Action from 'app/BE/action'
 
@@ -11,7 +11,9 @@ const Agents = ({ sbeCode }) => {
 
   return (
     <VStack>
-      <Heading>Our Agents</Heading>
+      <Text fontSize="2xl" fontWeight="medium">
+        Our Agents
+      </Text>
       <HStack>
         <Stat>
           <StatLabel>Total</StatLabel>
