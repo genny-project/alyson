@@ -95,7 +95,7 @@ const MobileNav = ({ logoSrc }) => {
             <DrawerCloseButton />
             <DrawerHeader />
             <DrawerBody mt="4">
-              <Buttons onClose={onClose} questionCode={'QUE_PROJECT_SIDEBAR_GRP'} />
+              <Buttons onClick={onClose} questionCode={'QUE_PROJECT_SIDEBAR_GRP'} />
               <Text as="samp" fontSize="xs" style={{ position: 'absolute', bottom: 5 }}>
                 Powered By GADA Technology
               </Text>

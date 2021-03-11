@@ -7,21 +7,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import icons from 'utils/icons'
 
-const ChildButton = ({ questionCode, childCode, onClose }) => {
+const ChildButton = ({ questionCode, childCode, onClick }) => {
   const data = useSelector(selectCode(questionCode, childCode))
 
   if (!data) return null
 
   const { name, childAsks } = data
 
-  const onClick = () => {
+  const handleClick = () => {
     sendAskClick(childCode, childCode)
-    onClose()
+    onClick()
   }
 
   if (!childAsks)
     return (
-      <HStack spacing="4" role="group" p="2" test-id={childCode} onClick={onClick} as="button">
+      <HStack spacing="4" role="group" p="2" test-id={childCode} onClick={handleClick} as="button">
         <IconButton
           colorScheme="primary"
           variant="solid"
@@ -53,7 +53,7 @@ const ChildButton = ({ questionCode, childCode, onClose }) => {
           <MenuItem
             onClick={() => {
               sendAskClick(childAsk.questionCode, childAsk.questionCode)
-              onClose()
+              onClick()
             }}
             test-id={childAsk.questionCode}
             key={childAsk.questionCode}

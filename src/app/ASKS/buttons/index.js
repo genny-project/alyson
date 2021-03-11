@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import { VStack } from '@chakra-ui/react'
 
-const AskButtons = ({ questionCode, onClose }) => {
+const AskButtons = ({ questionCode, onClick }) => {
   const data = useSelector(selectCode(questionCode))
 
   if (!data) return null
@@ -12,7 +12,7 @@ const AskButtons = ({ questionCode, onClose }) => {
     <VStack alignItems="start" test-id={questionCode}>
       {data.map(childCode => (
         <ChildButton
-          onClose={onClose}
+          onClick={onClick}
           key={childCode}
           questionCode={questionCode}
           childCode={childCode}
