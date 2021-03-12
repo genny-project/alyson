@@ -19,11 +19,20 @@ const Public = () => {
         <Heading color="blackAlpha.800">The worlds number 1 internship platform</Heading>
         <Search />
         {/* <Filters /> */}
-        <a href="https://internmatch.io/sign-up/">
-          <Button variant="solid" colorScheme="teal">
-            Sign up
+        <HStack>
+          <a href="https://internmatch.io/sign-up/">
+            <Button variant="solid" colorScheme="teal">
+              Sign up
+            </Button>
+          </a>
+          <Button
+            variant="solid"
+            colorScheme="blue"
+            onClick={() => (window.location.pathname = '/home')}
+          >
+            Login
           </Button>
-        </a>
+        </HStack>
       </VStack>
 
       <VStack
