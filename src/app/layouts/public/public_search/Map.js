@@ -24,7 +24,7 @@ const Map = () => {
   useEffect(() => {
     gMap = new window.google.maps.Map(mapRef.current, {
       zoom: 3,
-      center: { lat: 0, lng: 200 },
+      center: { lat: -10, lng: 140 },
       disableDefaultUI: true,
     })
 

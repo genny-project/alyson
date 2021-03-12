@@ -36,14 +36,7 @@ const ProcessSearch = () => {
   })
 
   return (
-    <InputGroup
-      size="lg"
-      bg="white"
-      borderRadius="lg"
-      marginLeft="6"
-      w="md"
-      onSubmit={handleSubmit}
-    >
+    <InputGroup maxW="70vw" size="lg" bg="white" borderRadius="lg" w="md" onSubmit={handleSubmit}>
       <InputLeftElement>
         <FontAwesomeIcon icon={faSearch} />
       </InputLeftElement>

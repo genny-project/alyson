@@ -1,4 +1,4 @@
-import { Box, Heading, HStack, VStack, Image, Text } from '@chakra-ui/react'
+import { Box, Heading, HStack, VStack, Image, Text, Center } from '@chakra-ui/react'
 import Map from './public_search/Map'
 import Search from './public_search/PublicSearch'
 // import Filters from 'app/SBE/filters'
@@ -8,7 +8,7 @@ const Public = () => {
   return (
     <Box pt="5">
       <VStack
-        style={{ left: 200, right: 200, top: 30 }}
+        style={{ left: '10vw', right: '10vw', top: 30 }}
         position="fixed"
         borderRadius="3xl"
         bg="rgba(0, 51, 102,0.3)"
@@ -27,7 +27,7 @@ const Public = () => {
       </VStack>
 
       <VStack
-        style={{ left: 200, right: 200, bottom: 30 }}
+        style={{ left: '10vw', right: '10vw', bottom: 30 }}
         position="fixed"
         borderRadius="3xl"
         bg="rgba(0, 51, 102,0.3)"
@@ -37,18 +37,20 @@ const Public = () => {
         <Text fontSize="2xl" fontWeight="medium">
           Proudly supported by
         </Text>
-        <HStack wrap="wrap">
-          {[
-            'mandela.png',
-            'study_nsw.png',
-            'study_melbourne.png',
-            'launchvic.png',
-            'nsw_government.png',
-            'rotary.png',
-          ].map(src => (
-            <Image src={`logos/${src}`} maxH="10rem" borderRadius="lg" mb="3" />
-          ))}
-        </HStack>
+        <Center w="full">
+          <HStack>
+            {[
+              'mandela.png',
+              'study_nsw.png',
+              'study_melbourne.png',
+              'launchvic.png',
+              'nsw_government.png',
+              'rotary.png',
+            ].map(src => (
+              <Image src={`logos/${src}`} maxH="7vw" borderRadius="lg" mb="3" />
+            ))}
+          </HStack>
+        </Center>
       </VStack>
 
       {/* <Cards parentCode={table} /> */}
