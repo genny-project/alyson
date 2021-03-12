@@ -10,12 +10,13 @@ const Game = ({ playerOne, playerTwo = '🎅🏼', singlePlayer }) => {
   const winner = calculateWinner(history[stepNumber])
 
   const getRandomElementWithNullValue = (items) => {
-  const item = items[Math.floor(Math.random() * items.length)]
-  const index = items.indexOf(item)
-  if( items[index] === null){
-    return index
-  }
-  return getRandomElementWithNullValue(items)
+  const nullIndexes = items.reduce((a, e, i) => {
+    if (e === null)
+        a.push(i);
+    return a;
+}, [])
+  const selectedIndex = nullIndexes[Math.floor(Math.random() * nullIndexes.length)]
+  return selectedIndex
 }
 
   const makeAiMove = (squares) => {
@@ -23,8 +24,10 @@ const Game = ({ playerOne, playerTwo = '🎅🏼', singlePlayer }) => {
 
     const makeMove = () => {
       const getNullIndex = getRandomElementWithNullValue(squares)
+      if (getNullIndex){
       squares[getNullIndex] = playerTwo
       setplayerOneTurn(true)
+      }
     }
     setTimeout(makeMove, 2000)
   }
