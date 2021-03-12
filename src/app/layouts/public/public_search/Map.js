@@ -19,8 +19,8 @@ const Map = ({ parentCode }) => {
 
   useEffect(() => {
     gMap = new window.google.maps.Map(mapRef.current, {
-      zoom: 3,
-      center: { lat: -34.397, lng: 150.644 },
+      zoom: 5,
+      center: { lat: -34, lng: 150 },
       disableDefaultUI: true,
     })
 

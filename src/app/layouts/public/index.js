@@ -11,10 +11,9 @@ import Cards from './public_search/Cards'
 
 const Public = () => {
   const table = useSelector(
-    compose(head, split('@'), find(includes('SBE_INTERNSHIPS_')), keys, prop('db')),
+    compose(head, a => split('@', a || ''), find(includes('SBE_INTERNSHIPS_')), keys, prop('db')),
   )
 
-  console.log(table)
   return (
     <Box pt="5">
       <VStack

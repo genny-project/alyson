@@ -1,5 +1,4 @@
 import { extendTheme } from '@chakra-ui/react'
-import { isDev } from 'utils/developer'
 
 const defaultProjectTheme = {
   colors: {
@@ -41,7 +40,7 @@ const defaultProjectTheme = {
 const getTheme = (projectTheme = defaultProjectTheme) =>
   extendTheme({
     config: {
-      initialColorMode: isDev ? 'dark' : 'light',
+      initialColorMode: 'light',
     },
     ...projectTheme,
   })
