@@ -1,19 +1,13 @@
 import { useSelector } from 'react-redux'
-import { Box, VStack, useColorModeValue, useTheme, Image, Text } from '@chakra-ui/react'
+import { Box, VStack, Image, Text } from '@chakra-ui/react'
 import { selectCode } from 'redux/db/selectors'
 import { getAttribute } from 'app/SBE/utils/get-columns'
 import useApi from 'api'
 
 const Card = ({ parentCode, actions = [], code, columns }) => {
   const { getImageSrc } = useApi()
-  const theme = useTheme()
   const subTitle = useSelector(selectCode(code, getAttribute(columns[1])))
   const image = useSelector(selectCode(code, 'PRI_IMAGE_URL'))
-
-  const defaultColor = useColorModeValue(
-    theme.colors.background.light,
-    theme.colors.background.dark,
-  )
 
   const imageSrc = getImageSrc(image?.value)
 
@@ -21,15 +15,14 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
     <Box
       cursor="pointer"
       _hover={{ boxShadow: 'md' }}
-      bg={defaultColor}
+      bg="rgba(0, 51, 102,0.3)"
       p="4"
       w="sm"
       h="30"
-      borderWidth="1px"
       borderRadius="lg"
     >
       <VStack spacing="3">
-        <Image src={imageSrc} maxH="10rem" />
+        <Image src={imageSrc} maxH="10rem" borderRadius="lg" />
         <Text textAlign="center" fontSize="xl" fontWeight="medium">{`${subTitle?.value}`}</Text>
       </VStack>
     </Box>

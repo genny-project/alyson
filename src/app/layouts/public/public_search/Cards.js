@@ -17,7 +17,16 @@ const Cards = ({ parentCode }) => {
   const actions = getActions(tableData)
 
   return (
-    <VStack ml="4" alignItems="start">
+    <VStack
+      style={{
+        right: 20,
+        position: 'fixed',
+        top: 20,
+        bottom: 0,
+        overflowX: 'hidden',
+      }}
+      alignItems="start"
+    >
       {rows.slice(0, 10).map(code => (
         <Card key={code} code={code} parentCode={parentCode} actions={actions} columns={columns} />
       ))}

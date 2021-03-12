@@ -17,10 +17,9 @@ const Public = () => {
   return (
     <Box pt="5">
       <VStack
+        style={{ left: 20 }}
         position="fixed"
         borderRadius="3xl"
-        ml="25vw"
-        mr="25vw"
         bg="rgba(0, 51, 102,0.3)"
         p="5"
         spacing="5"
