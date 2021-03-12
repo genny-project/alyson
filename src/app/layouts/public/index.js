@@ -1,10 +1,33 @@
+import { useEffect, useRef } from 'react'
 import { Box, Heading, HStack, VStack, Image, Text, Center } from '@chakra-ui/react'
 import Map from './public_search/Map'
 import Search from './public_search/PublicSearch'
 // import Filters from 'app/SBE/filters'
 import { Button } from '@chakra-ui/button'
 
+let gMap
+
 const Public = () => {
+  const mapRef = useRef(null)
+
+  useEffect(() => {
+    gMap = new window.google.maps.Map(mapRef.current, {
+      zoom: 3,
+      center: { lat: -10, lng: 140 },
+      disableDefaultUI: true,
+    })
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        const geolocation = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        }
+        gMap.setCenter(geolocation)
+      })
+    }
+  }, [])
+
   return (
     <Box pt="5">
       <VStack
@@ -66,7 +89,10 @@ const Public = () => {
       </VStack>
 
       {/* <Cards parentCode={table} /> */}
-      <Map />
+      <Map map={gMap} />
+      <Box position="fixed" w="100vw" h="100vh" style={{ left: 0, top: 0, zIndex: -1 }}>
+        <div style={{ width: '100%', height: '100%' }} ref={mapRef} id="map" />
+      </Box>
     </Box>
   )
 }
