@@ -1,4 +1,4 @@
-import { Box, Heading, HStack, VStack, Image, Text, Spacer } from '@chakra-ui/react'
+import { Box, Heading, HStack, VStack, Image, Text } from '@chakra-ui/react'
 import Map from './public_search/Map'
 import Search from './public_search/PublicSearch'
 // import Filters from 'app/SBE/filters'

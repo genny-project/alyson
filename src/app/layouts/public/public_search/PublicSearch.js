@@ -1,16 +1,16 @@
-import { find, includes, keys, prop, split, head, compose } from 'ramda'
-import { useSelector } from 'react-redux'
+// import { find, includes, keys, prop, split, head, compose } from 'ramda'
+// import { useSelector } from 'react-redux'
 import { useRef, useState } from 'react'
 import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { useHotkeys } from 'react-hotkeys-hook'
-import { onSendSearch } from 'vertx'
+// import { onSendSearch } from 'vertx'
 
 const ProcessSearch = () => {
-  const sbeCode = useSelector(
-    compose(head, a => split('@', a || ''), find(includes('SBE_INTERNSHIPS_')), keys, prop('db')),
-  )
+  // const sbeCode = useSelector(
+  //   compose(head, a => split('@', a || ''), find(includes('SBE_INTERNSHIPS_')), keys, prop('db')),
+  // )
   const [searchValue, setSearchValue] = useState('')
   const [focused, setFocused] = useState(false)
   const inputRef = useRef(null)
