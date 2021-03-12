@@ -1,6 +1,6 @@
 {
   "name": "alyson-v9",
-  "version": "internmatch",
+  "version": "v7.22",
   "private": true,
   "dependencies": {
     "@chakra-ui/react": "^1.3.3",
