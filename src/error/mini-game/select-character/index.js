@@ -49,7 +49,7 @@ const SelectCharacter = ({ playerMode }) => {
         </Box>
       </VStack>
     ) : (
-      <Game playerOne={playerOne} />
+      <Game playerOne={playerOne} singlePlayer />
     )
   }
 

@@ -1,26 +1,45 @@
 import { useState } from 'react'
 import { Box, HStack, Flex, Text, Button } from '@chakra-ui/react'
-
 import calculateWinner from '../helpers/calculate-winner'
 import Board from './board'
 
-const Game = ({ playerOne, playerTwo = '🎅🏼' }) => {
+const Game = ({ playerOne, playerTwo = '🎅🏼', singlePlayer }) => {
   const [history, setHistory] = useState([Array(9).fill(null)])
   const [stepNumber, setStepNumber] = useState(0)
   const [playerOneTurn, setplayerOneTurn] = useState(true)
   const winner = calculateWinner(history[stepNumber])
 
+  const getRandomElementWithNullValue = (items) => {
+  const item = items[Math.floor(Math.random() * items.length)]
+  const index = items.indexOf(item)
+  if( items[index] === null){
+    return index
+  }
+  return getRandomElementWithNullValue(items)
+}
+
+  const makeAiMove = (squares) => {
+    console.warn('squares', squares)
+
+    const makeMove = () => {
+      const getNullIndex = getRandomElementWithNullValue(squares)
+      squares[getNullIndex] = playerTwo
+      setplayerOneTurn(true)
+    }
+    setTimeout(makeMove, 2000)
+  }
+
   const handleClick = i => {
     const timeInHistory = history.slice(0, stepNumber + 1)
     const current = timeInHistory[stepNumber]
     const squares = [...current]
+    singlePlayer && makeAiMove(squares)
     if (winner || squares[i]) return
     squares[i] = playerOneTurn ? playerOne : playerTwo
     setHistory([...timeInHistory, squares])
     setStepNumber(timeInHistory.length)
     setplayerOneTurn(!playerOneTurn)
   }
-
   const jumpTo = step => {
     setStepNumber(step)
     setplayerOneTurn(step % 2 === 0)
@@ -42,7 +61,6 @@ const Game = ({ playerOne, playerTwo = '🎅🏼' }) => {
         </HStack>
       )
     })
-
   return (
     <Flex margin="20px auto" direction="column">
       <Box mb="10">
@@ -62,5 +80,4 @@ const Game = ({ playerOne, playerTwo = '🎅🏼' }) => {
     </Flex>
   )
 }
-
 export default Game
