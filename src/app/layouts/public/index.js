@@ -28,7 +28,10 @@ const Public = () => {
           <Button
             variant="solid"
             colorScheme="blue"
-            onClick={() => (window.location.pathname = '/home')}
+            onClick={() => {
+              window.location.pathname = '/home'
+              localStorage.removeItem('state')
+            }}
           >
             Login
           </Button>
