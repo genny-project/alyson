@@ -1,23 +1,14 @@
-import { find, includes, keys, prop, split, head, compose } from 'ramda'
-import { Image } from '@chakra-ui/image'
-import { Box, Heading, HStack, VStack } from '@chakra-ui/layout'
-import { useSelector } from 'react-redux'
+import { Box, Heading, HStack, VStack, Image, Text, Spacer } from '@chakra-ui/react'
 import Map from './public_search/Map'
 import Search from './public_search/PublicSearch'
-import Filters from 'app/SBE/filters'
-import { Input } from '@chakra-ui/input'
+// import Filters from 'app/SBE/filters'
 import { Button } from '@chakra-ui/button'
-import Cards from './public_search/Cards'
 
 const Public = () => {
-  const table = useSelector(
-    compose(head, a => split('@', a || ''), find(includes('SBE_INTERNSHIPS_')), keys, prop('db')),
-  )
-
   return (
     <Box pt="5">
       <VStack
-        style={{ left: 20 }}
+        style={{ left: 200, right: 200, top: 30 }}
         position="fixed"
         borderRadius="3xl"
         bg="rgba(0, 51, 102,0.3)"
@@ -26,17 +17,42 @@ const Public = () => {
       >
         <Image src="logo512.png" htmlWidth="512px" />
         <Heading color="blackAlpha.800">The worlds number 1 internship platform</Heading>
-        <Search sbeCode={table} />
-        <Filters sbeCode={table} />
-        <HStack>
-          <Input bg="white" borderRadius="lg" placeholder="Email" />
+        <Search />
+        {/* <Filters /> */}
+        <a href="https://internmatch.io/sign-up/">
           <Button variant="solid" colorScheme="teal">
             Sign up
           </Button>
+        </a>
+      </VStack>
+
+      <VStack
+        style={{ left: 200, right: 200, bottom: 30 }}
+        position="fixed"
+        borderRadius="3xl"
+        bg="rgba(0, 51, 102,0.3)"
+        p="5"
+        spacing="5"
+      >
+        <Text fontSize="2xl" fontWeight="medium">
+          Proudly supported by
+        </Text>
+        <HStack wrap="wrap">
+          {[
+            'mandela.png',
+            'study_nsw.png',
+            'study_melbourne.png',
+            'launchvic.png',
+            'nsw_government.png',
+            'rotary.png',
+          ].map(src => (
+            <Image src={`logos/${src}`} maxH="10rem" borderRadius="lg" mb="3" />
+          ))}
         </HStack>
       </VStack>
-      <Cards parentCode={table} />
-      <Map parentCode={table} />
+
+      {/* <Cards parentCode={table} /> */}
+      <Map />
     </Box>
   )
 }

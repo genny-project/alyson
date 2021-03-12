@@ -1,13 +1,17 @@
+import { find, includes, keys, prop, split, head, compose } from 'ramda'
 import { useRef, useEffect } from 'react'
 import { Box } from '@chakra-ui/react'
 import { useSelector } from 'react-redux'
 import { selectCodes } from 'redux/db/selectors'
-import { onSendMessage } from 'vertx'
 import { selectRows } from 'redux/db/selectors'
 
 let gMap
 
-const Map = ({ parentCode }) => {
+const Map = () => {
+  const parentCode = useSelector(
+    compose(head, a => split('@', a || ''), find(includes('SBE_INTERNSHIPS_')), keys, prop('db')),
+  )
+
   const mapRef = useRef(null)
 
   const rows = useSelector(selectRows(parentCode))
@@ -37,7 +41,7 @@ const Map = ({ parentCode }) => {
     lats.forEach((lat, idx) => {
       if (lat?.value) {
         const lng = lngs[idx]
-        const targetCode = lat.baseEntityCode
+        // const targetCode = lat.baseEntityCode
 
         const marker = new window.google.maps.Marker({
           position: { lat: lat.value, lng: lng.value },
@@ -45,11 +49,7 @@ const Map = ({ parentCode }) => {
         })
 
         marker.addListener('click', () => {
-          onSendMessage({
-            code: 'ACT_PRI_EVENT_VIEW',
-            targetCode,
-            parentCode,
-          })
+          window.open('https://internmatch.io/sign-up/')
         })
       }
 

@@ -1,3 +1,5 @@
+import { find, includes, keys, prop, split, head, compose } from 'ramda'
+import { useSelector } from 'react-redux'
 import { useRef, useState } from 'react'
 import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -5,15 +7,19 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { useHotkeys } from 'react-hotkeys-hook'
 import { onSendSearch } from 'vertx'
 
-const ProcessSearch = ({ sbeCode }) => {
+const ProcessSearch = () => {
+  const sbeCode = useSelector(
+    compose(head, a => split('@', a || ''), find(includes('SBE_INTERNSHIPS_')), keys, prop('db')),
+  )
   const [searchValue, setSearchValue] = useState('')
   const [focused, setFocused] = useState(false)
   const inputRef = useRef(null)
   const clearRef = useRef(null)
 
   const handleSubmit = () => {
-    onSendSearch({ searchValue, sbeCode, searchType: '!' })
+    // onSendSearch({ searchValue, sbeCode, searchType: '!' })
     inputRef.current.blur()
+    window.open('https://internmatch.io/sign-up/')
   }
 
   useHotkeys('ctrl+k, cmd+k', () => {
