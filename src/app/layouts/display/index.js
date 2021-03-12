@@ -10,6 +10,7 @@ import DisplayDrawer from './drawer'
 import Dialog from 'app/layouts/dialog'
 import Toast from './toast'
 import Detail from 'app/SBE/detail'
+import Public from 'app/layouts/public'
 
 const Display = ({ isPublic }) => {
   const display = useSelector(selectDisplay)
@@ -17,7 +18,7 @@ const Display = ({ isPublic }) => {
   const color = useColorModeValue(theme.colors.text.light, theme.colors.text.dark)
 
   return isPublic ? (
-    <Table mapSearch />
+    <Public />
   ) : (
     <Box paddingTop="6rem" id="main-display" color={color}>
       {display === 'DASHBOARD' && <Dashboard />}
