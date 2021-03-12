@@ -7,6 +7,7 @@ import { ReactKeycloakProvider } from '@react-keycloak/web'
 import { Center, CircularProgress } from '@chakra-ui/react'
 import App from 'app'
 import { ColorModeScript, ChakraProvider } from '@chakra-ui/react'
+import { Fonts } from 'config/fonts'
 
 const Error = lazy(() => import('error'))
 
@@ -18,6 +19,7 @@ const initialiseApp = async () => {
     ReactDOM.render(
       <React.StrictMode>
         <ChakraProvider theme={theme}>
+          <Fonts />
           <ColorModeScript initialColorMode={theme.config.initialColorMode} />
           <ReactKeycloakProvider
             authClient={keycloak}
