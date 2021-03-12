@@ -7,7 +7,6 @@ import { AppState } from './types'
 import { CmdPayload, MsgPayload } from 'redux/types'
 
 export const initialState = {
-  cmds: [],
   DISPLAY: 'DASHBOARD',
   DRAWER: 'NONE',
   DIALOG: 'NONE',
@@ -21,7 +20,6 @@ const appSlice = createSlice({
   reducers: {
     newCmd: (state: AppState, { payload }: { payload: CmdPayload }) => {
       log('❗', payload)
-      state.cmds.push(payload)
 
       const { cmd_type } = payload
 
