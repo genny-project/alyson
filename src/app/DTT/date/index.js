@@ -19,12 +19,14 @@ const Write = ({ questionCode, data, onSendAnswer, typeName }) => {
   const includeTime = includes('LocalDateTime', typeName)
   const onlyYear = typeName === 'year'
 
+  const handleChange = e => onSendAnswer(new Date(e.target.value).toUTCString())
+
   return (
     <Input
       test-id={questionCode}
       defaultValue={data?.value}
       type={onlyYear ? 'number' : includeTime ? 'datetime-local' : 'date'}
-      onBlur={e => onSendAnswer(e.target.value)}
+      onBlur={e => handleChange(e)}
     />
   )
 }
