@@ -13,14 +13,13 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFilter } from '@fortawesome/free-solid-svg-icons'
 import Ask from 'app/ASKS/ask'
+import ExistingFilters from './existing_filters'
 
 const Filters = ({ sbeCode }) => {
   const filterGrp = `QUE_FILTER_GRP_${sbeCode}`
   const [addFilters, existingFilters] = useSelector(
     selectAttributes(filterGrp, ['QUE_ADD_FILTER_GRP', 'QUE_EXISTING_FILTERS_GRP']),
   )
-
-  console.log('existing filters -', existingFilters)
 
   if (!addFilters) return null
 
@@ -50,6 +49,7 @@ const Filters = ({ sbeCode }) => {
           </PopoverBody>
         </PopoverContent>
       </Popover>
+      <ExistingFilters existingFilters={existingFilters} />
     </HStack>
   )
 }
