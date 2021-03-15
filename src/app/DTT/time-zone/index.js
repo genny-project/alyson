@@ -3,7 +3,7 @@ import { map } from 'ramda'
 import defaultTimeZones from 'utils/helpers/time-zone.json'
 import { Read } from 'app/DTT/text'
 
-const Write = () => {
+const Write = ({ questionCode, onSendAnswer, data }) => {
   return (
     <Select placeholder="Select Time Zone" onChange={e => console.log(e.target.value)}>
       {map(([key, val]) => {
