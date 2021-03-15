@@ -3,16 +3,24 @@ import { selectDashboard, selectDashboardCounts } from 'redux/app/selectors'
 import DisplaySbe from 'app/SBE'
 import { Center, HStack, Stack, Spacer, Image, useColorModeValue } from '@chakra-ui/react'
 import { apiConfig } from 'config/get-api-config'
+import { selectCode } from 'redux/db/selectors'
+import getUserType from 'utils/helpers/get-user-type'
+import Intern from './intern'
 
 const Dashboard = () => {
   const dashboardSbes = useSelector(selectDashboard)
   const dashboardCounts = useSelector(selectDashboardCounts)
+  const userCode = useSelector(selectCode('USER'))
+
+  const userType = getUserType(useSelector(selectCode(userCode)))
+
   const { realm } = apiConfig
   const logoSrc = useColorModeValue(
     'https://internmatch-uploads.s3-ap-southeast-2.amazonaws.com/internmatch_logo_light.png',
     'https://internmatch-uploads.s3-ap-southeast-2.amazonaws.com/internmatch_logo_dark.png',
   )
 
+  if (userType === 'INTERN') return <Intern userCode={userCode} />
   if (!dashboardSbes) return <div />
   return (
     <Center m="4">
