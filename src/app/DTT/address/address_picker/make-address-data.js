@@ -30,7 +30,12 @@ const addMetaData = data => (addressObject = {}) => ({
   ...path([0, 'access_points', 0, 'location'], data),
   ...{
     full_address: path([0, 'formatted_address'], data),
-    street_address: compose(head, split(','), path([0, 'formatted_address']))(data),
+    street_address: compose(
+      head,
+      split(','),
+      either(identity, always('')),
+      path([0, 'formatted_address']),
+    )(data),
   },
   ...{
     latitude: path([0, 'geometry', 'location', 'lat'], data)(),
