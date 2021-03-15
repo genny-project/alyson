@@ -1,11 +1,12 @@
-import moment from 'moment'
-
-import { DATE_FORMAT, WITH_TIME } from 'utils/constants'
+import { split } from 'ramda'
 
 const formatDate = (date, includeTime) => {
-  const momentDate = moment(date)
-  if (!momentDate.isValid()) return ''
-  return momentDate.format(includeTime ? WITH_TIME : DATE_FORMAT)
+  const splittedDateTime = date && split('T')(date)
+  const dateOnly = splittedDateTime && splittedDateTime[0]
+  const timeOnly = splittedDateTime && splittedDateTime[1]
+  const dateWithTime = `${dateOnly}, ${timeOnly}`
+
+  return includeTime ? dateWithTime : dateOnly
 }
 
 export default formatDate
