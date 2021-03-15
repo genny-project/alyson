@@ -1,10 +1,6 @@
 import { Button } from '@chakra-ui/react'
-import makeMotion from 'utils/motion'
-
-const MotionBox = makeMotion(Button)
 
 const Square = ({ value, onClick }) => (
-  //   <MotionBox whileHover={{ scale: 1.2 }} transition={{ duration: 0.1 }}>
   <Button
     border="1px solid black"
     borderRadius="0"
@@ -18,7 +14,6 @@ const Square = ({ value, onClick }) => (
   >
     {value}
   </Button>
-  //   </MotionBox>
 )
 
 export default Square

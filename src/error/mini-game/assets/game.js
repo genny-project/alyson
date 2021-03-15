@@ -9,24 +9,21 @@ const Game = ({ playerOne, playerTwo = '🎅🏼', singlePlayer }) => {
   const [playerOneTurn, setplayerOneTurn] = useState(true)
   const winner = calculateWinner(history[stepNumber])
 
-  const getRandomElementWithNullValue = (items) => {
-  const nullIndexes = items.reduce((a, e, i) => {
-    if (e === null)
-        a.push(i);
-    return a;
-}, [])
-  const selectedIndex = nullIndexes[Math.floor(Math.random() * nullIndexes.length)]
-  return selectedIndex
-}
+  const getRandomElementWithNullValue = items => {
+    const nullIndexes = items.reduce((a, e, i) => {
+      if (e === null) a.push(i)
+      return a
+    }, [])
+    const selectedIndex = nullIndexes[Math.floor(Math.random() * nullIndexes.length)]
+    return selectedIndex
+  }
 
-  const makeAiMove = (squares) => {
-    console.warn('squares', squares)
-
+  const makeAiMove = squares => {
     const makeMove = () => {
       const getNullIndex = getRandomElementWithNullValue(squares)
-      if (getNullIndex){
-      squares[getNullIndex] = playerTwo
-      setplayerOneTurn(true)
+      if (getNullIndex) {
+        squares[getNullIndex] = playerTwo
+        setplayerOneTurn(true)
       }
     }
     setTimeout(makeMove, 2000)
