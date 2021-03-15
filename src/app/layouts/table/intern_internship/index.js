@@ -23,7 +23,7 @@ const InternInternshipSearch = ({ sbeCode }) => {
       <Wrap ml="10" mr="10">
         {rows.map(code => (
           <WrapItem key={code}>
-            <InternshipCard code={code} />
+            <InternshipCard code={code} parentCode={sbeCode} />
           </WrapItem>
         ))}
       </Wrap>

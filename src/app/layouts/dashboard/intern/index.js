@@ -7,6 +7,7 @@ import { Button } from '@chakra-ui/button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight, faCalendar, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { faAngellist } from '@fortawesome/free-brands-svg-icons'
+import { onSendMessage } from 'vertx'
 
 const Intern = ({ userCode }) => {
   const [name] = useSelector(selectAttributes(userCode, ['PRI_NAME']))
@@ -30,6 +31,12 @@ const Intern = ({ userCode }) => {
           {`Welcome ${name?.value}`}
         </Text>
         <Button
+          onClick={() =>
+            onSendMessage({
+              code: 'QUE_TREE_ITEM_INTERNSHIPS',
+              parentCode: 'QUE_TREE_ITEM_INTERNSHIPS',
+            })
+          }
           colorScheme="secondary"
           leftIcon={<FontAwesomeIcon icon={faSearch} />}
           rightIcon={<FontAwesomeIcon icon={faArrowRight} />}

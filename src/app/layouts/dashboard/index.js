@@ -6,6 +6,7 @@ import { apiConfig } from 'config/get-api-config'
 import { selectCode } from 'redux/db/selectors'
 import getUserType from 'utils/helpers/get-user-type'
 import Intern from './intern'
+import HostCompanyRep from './hcr'
 
 const Dashboard = () => {
   const dashboardSbes = useSelector(selectDashboard)
@@ -20,6 +21,7 @@ const Dashboard = () => {
     'https://internmatch-uploads.s3-ap-southeast-2.amazonaws.com/internmatch_logo_dark.png',
   )
 
+  if (userType === 'REP') return <HostCompanyRep userCode={userCode} />
   if (userType === 'INTERN') return <Intern userCode={userCode} />
   if (!dashboardSbes) return <div />
   return (
