@@ -1,4 +1,16 @@
-import { compose, prop, head, map, toString, mergeAll, path, split } from 'ramda'
+import {
+  compose,
+  prop,
+  head,
+  map,
+  toString,
+  mergeAll,
+  path,
+  split,
+  identity,
+  either,
+  always,
+} from 'ramda'
 
 const convertTypes = {
   street_number: 'street_number',
@@ -33,6 +45,7 @@ const makeAddressData = data =>
     addMetaData(data),
     mergeAll,
     map(({ long_name, types }) => ({ [makeType(types)]: long_name })),
+    either(identity, always([])),
     prop('address_components'),
     head,
   )(data)
