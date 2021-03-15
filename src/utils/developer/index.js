@@ -1,5 +1,5 @@
 import { includes, slice, compose, filter, length, sortBy, toUpper } from 'ramda'
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { selectCode, selectKeys } from 'redux/db/selectors'
 import {
