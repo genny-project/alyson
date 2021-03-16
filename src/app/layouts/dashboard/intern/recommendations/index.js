@@ -26,7 +26,7 @@ const Recommendations = () => {
       </Text>
       <HStack>
         {rows.slice(0, 3).map(code => (
-          <InternshipCard code={code} parentCode={sbeCode} />
+          <InternshipCard key={code} code={code} parentCode={sbeCode} />
         ))}
       </HStack>
     </VStack>
