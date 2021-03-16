@@ -38,8 +38,14 @@ const addMetaData = data => (addressObject = {}) => ({
     )(data),
   },
   ...{
-    latitude: path([0, 'geometry', 'location', 'lat'], data)(),
-    longitude: path([0, 'geometry', 'location', 'lng'], data)(),
+    latitude:
+      typeof path([0, 'geometry', 'location', 'lat'], data) === 'function'
+        ? path([0, 'geometry', 'location', 'lat'], data)()
+        : 0,
+    longitude:
+      typeof path([0, 'geometry', 'location', 'lng'], data) === 'function'
+        ? path([0, 'geometry', 'location', 'lng'], data)()
+        : 0,
   },
   ...addressObject,
 })
