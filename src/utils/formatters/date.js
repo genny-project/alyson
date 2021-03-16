@@ -10,7 +10,7 @@ const dateTimeInfo = date => {
 
   const year = dateInfo[0]
   const month = dateInfo[1]
-  const day = dateInfo[1]
+  const day = dateInfo[2]
   const hour = timeInfo[0]
   const minute = timeInfo[1]
   const seconds = timeInfo[2]
@@ -36,7 +36,7 @@ const formatDate = (utcDate, includeTime) => {
     const dateString = timeOnly ? `${dateOnly}, ${timeOnly}` : `${dateOnly}`
     return includeTime ? dateString : dateOnly
   }
-  return 'N/A'
+  return ''
 }
 
 export default formatDate

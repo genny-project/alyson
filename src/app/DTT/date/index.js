@@ -26,7 +26,7 @@ const Write = ({ questionCode, data, onSendAnswer, typeName }) => {
       test-id={questionCode}
       defaultValue={data?.value}
       type={onlyYear ? 'number' : includeTime ? 'datetime-local' : 'date'}
-      onBlur={e => handleChange(e)}
+      onBlur={handleChange}
     />
   )
 }
