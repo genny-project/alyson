@@ -22,8 +22,8 @@ const Write = ({ questionCode, onSendAnswer, data, html }) => {
   })
 
   const handleDateChange = (e, date) => {
-    setDates(dates => ({ ...dates, [date]: e.target.value }))
-    onSendAnswer({ ...dates, [date]: e.target.value })
+    setDates(dates => ({ ...dates, [date]: new Date(e.target.value).toISOString() }))
+    onSendAnswer({ ...dates, [date]: new Date(e.target.value).toISOString() })
   }
 
   if (granularity === 'month') {
