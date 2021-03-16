@@ -1,4 +1,16 @@
-import { compose, prop, head, map, toString, mergeAll, path, split } from 'ramda'
+import {
+  compose,
+  prop,
+  head,
+  map,
+  toString,
+  mergeAll,
+  path,
+  split,
+  identity,
+  either,
+  always,
+} from 'ramda'
 
 const convertTypes = {
   street_number: 'street_number',
@@ -18,11 +30,22 @@ const addMetaData = data => (addressObject = {}) => ({
   ...path([0, 'access_points', 0, 'location'], data),
   ...{
     full_address: path([0, 'formatted_address'], data),
-    street_address: compose(head, split(','), path([0, 'formatted_address']))(data),
+    street_address: compose(
+      head,
+      split(','),
+      either(identity, always('')),
+      path([0, 'formatted_address']),
+    )(data),
   },
   ...{
-    latitude: path([0, 'geometry', 'location', 'lat'], data)(),
-    longitude: path([0, 'geometry', 'location', 'lng'], data)(),
+    latitude:
+      typeof path([0, 'geometry', 'location', 'lat'], data) === 'function'
+        ? path([0, 'geometry', 'location', 'lat'], data)()
+        : 0,
+    longitude:
+      typeof path([0, 'geometry', 'location', 'lng'], data) === 'function'
+        ? path([0, 'geometry', 'location', 'lng'], data)()
+        : 0,
   },
   ...addressObject,
 })
@@ -33,6 +56,7 @@ const makeAddressData = data =>
     addMetaData(data),
     mergeAll,
     map(({ long_name, types }) => ({ [makeType(types)]: long_name })),
+    either(identity, always([])),
     prop('address_components'),
     head,
   )(data)

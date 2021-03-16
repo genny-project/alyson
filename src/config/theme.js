@@ -2,8 +2,16 @@ import { extendTheme } from '@chakra-ui/react'
 import { isDev } from 'utils/developer'
 
 const defaultProjectTheme = {
+  fonts: {
+    heading: 'Roboto',
+    body: 'Roboto',
+  },
   colors: {
     background: { light: '#ffffff', dark: '#171923' },
+    text: {
+      light: '#2D3748',
+      dark: '#F7FAFC',
+    },
     primary: {
       50: '#EBF8FF',
       100: '#BEE3F8',

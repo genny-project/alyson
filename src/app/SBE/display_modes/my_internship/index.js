@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import { selectAttributes, selectCode } from 'redux/db/selectors'
-import { Heading, HStack, Text, VStack } from '@chakra-ui/react'
+import { Text, HStack, VStack } from '@chakra-ui/react'
 import getActions from 'app/SBE/utils/get-actions'
 import Action from 'app/BE/action'
 import Attribute from 'app/BE/attribute'
@@ -22,10 +22,12 @@ const MyInternship = ({ rows, sbeCode }) => {
     selectAttributes(internship, ['PRI_START_DATE', 'PRI_END_DATE']),
   )
 
-  if (!rows.length) return <Heading>No Internship Yet!</Heading>
+  if (!rows.length) return <Text>No Internship Yet!</Text>
   return (
     <VStack>
-      <Heading>{internshipName?.value}</Heading>
+      <Text fontSize="2xl" fontWeight="medium">
+        {internshipName?.value}
+      </Text>
       <Text>{`${startDate?.value || 'No Start Date'} - ${endDate?.value || 'No End Date'}`}</Text>
       <HStack>
         {actions?.map(action => (

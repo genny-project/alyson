@@ -1,22 +1,17 @@
 import { useSelector } from 'react-redux'
 import { selectDashboard, selectDashboardCounts } from 'redux/app/selectors'
 import DisplaySbe from 'app/SBE'
-import { Center, HStack, Stack, Text, Spacer, Image, useColorModeValue } from '@chakra-ui/react'
+import { Center, HStack, Stack, Spacer, Image, useColorModeValue } from '@chakra-ui/react'
 import { apiConfig } from 'config/get-api-config'
-
-const getLogo = (realm, lightMode) =>
-  realm === 'internmatch'
-    ? lightMode
-      ? 'https://internmatch-uploads.s3-ap-southeast-2.amazonaws.com/internmatch_logo_light.png'
-      : 'https://internmatch-uploads.s3-ap-southeast-2.amazonaws.com/internmatch_logo_dark.png'
-    : 'https://raw.githubusercontent.com/OutcomeLife/prj_mentormatch/7.17.0/docs/mentormatch_logo.png'
 
 const Dashboard = () => {
   const dashboardSbes = useSelector(selectDashboard)
   const dashboardCounts = useSelector(selectDashboardCounts)
-
   const { realm } = apiConfig
-  const logoSrc = useColorModeValue(getLogo(realm, true), getLogo(realm))
+  const logoSrc = useColorModeValue(
+    'https://internmatch-uploads.s3-ap-southeast-2.amazonaws.com/internmatch_logo_light.png',
+    'https://internmatch-uploads.s3-ap-southeast-2.amazonaws.com/internmatch_logo_dark.png',
+  )
 
   if (!dashboardSbes) return <div />
   return (
@@ -33,11 +28,6 @@ const Dashboard = () => {
           <DisplaySbe key={sbeCode} sbeCode={sbeCode} />
         ))}
         <Spacer />
-        <Center>
-          <Text as="samp" fontSize="xs">
-            Powered By GADA Technology
-          </Text>
-        </Center>
       </Stack>
     </Center>
   )

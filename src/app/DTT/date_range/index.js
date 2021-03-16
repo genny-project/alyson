@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import moment from 'moment'
 
 import { Read } from '../text'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
@@ -18,13 +17,13 @@ const Write = ({ questionCode, onSendAnswer, data, html }) => {
     : {}
 
   const [dates, setDates] = useState({
-    startDate: initialStartDate ? moment(initialStartDate) : null,
-    endDate: initialEndDate ? moment(initialEndDate) : null,
+    startDate: initialStartDate ? new Date(initialStartDate) : null,
+    endDate: initialEndDate ? new Date(initialEndDate) : null,
   })
 
   const handleDateChange = (e, date) => {
-    setDates(dates => ({ ...dates, [date]: e.target.value }))
-    onSendAnswer({ ...dates, [date]: e.target.value })
+    setDates(dates => ({ ...dates, [date]: new Date(e.target.value).toISOString() }))
+    onSendAnswer({ ...dates, [date]: new Date(e.target.value).toISOString() })
   }
 
   if (granularity === 'month') {

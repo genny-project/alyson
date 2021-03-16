@@ -1,4 +1,4 @@
-import { Heading, Flex, Spacer, Stat, StatLabel, StatNumber } from '@chakra-ui/react'
+import { HStack, Spacer, Text } from '@chakra-ui/react'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 
@@ -7,14 +7,13 @@ const Title = ({ sbeCode }) => {
   const total = useSelector(selectCode(sbeCode, 'PRI_TOTAL_RESULTS'))
 
   return (
-    <Flex w="15rem">
-      <Heading color="primary">{title?.value}</Heading>
+    <HStack w="15rem">
+      <Text fontSize="3xl" fontWeight="normal" color="primary">
+        {title?.value}
+      </Text>
       <Spacer />
-      <Stat color="primary.700">
-        <StatLabel>Total</StatLabel>
-        <StatNumber>{total?.value}</StatNumber>
-      </Stat>
-    </Flex>
+      <Text fontWeight="light">{total?.value}</Text>
+    </HStack>
   )
 }
 

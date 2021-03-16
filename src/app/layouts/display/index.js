@@ -1,7 +1,7 @@
 import { includes } from 'ramda'
 import { useSelector } from 'react-redux'
 import { selectDisplay } from 'redux/app/selectors'
-import { Box } from '@chakra-ui/react'
+import { Box, useTheme, useColorModeValue } from '@chakra-ui/react'
 import Table from 'app/layouts/table'
 import Process from 'app/layouts/process'
 import Form from 'app/layouts/form'
@@ -13,11 +13,13 @@ import Detail from 'app/SBE/detail'
 
 const Display = ({ isPublic }) => {
   const display = useSelector(selectDisplay)
+  const theme = useTheme()
+  const color = useColorModeValue(theme.colors.text.light, theme.colors.text.dark)
 
   return isPublic ? (
     <Table mapSearch />
   ) : (
-    <Box paddingTop="6rem" id="main-display">
+    <Box paddingTop="6rem" id="main-display" color={color}>
       {display === 'DASHBOARD' && <Dashboard />}
       {display === 'TABLE' && <Table />}
       {display === 'PROCESS' && <Process />}

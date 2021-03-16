@@ -44,7 +44,6 @@ describe('New CMD MSG', () => {
 
   const expectedStateForCmdDisplay = {
     ...initialState,
-    cmds: [{ ...payloadDisplay }],
     DETAIL: '',
     DOWNLOAD_FILE: '',
     TOAST: null,
@@ -54,13 +53,11 @@ describe('New CMD MSG', () => {
 
   const expectedStateForCmdDefault = {
     ...initialState,
-    cmds: [{ ...payloadDefault }],
     TEST_ONE: ['SBE_TEST_ONE', 'SBE_TEST_TWO', 'SBE_TEST_THREE'],
   }
 
   const expectedStateForToast = {
     ...initialState,
-    cmds: [{ ...payloadToast }],
     TOAST: payloadToast,
   }
 

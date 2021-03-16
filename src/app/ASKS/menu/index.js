@@ -11,7 +11,13 @@ const AsksMenu = ({ questionCode, icon }) => {
 
   return (
     <Menu>
-      <MenuButton test-id={questionCode} as={IconButton} icon={icon} variant="outline" />
+      <MenuButton
+        color="gray.600"
+        test-id={questionCode}
+        as={IconButton}
+        icon={icon}
+        variant="ghost"
+      />
       <MenuList>
         <MenuGroup title={title}>
           {data.map(childCode => (

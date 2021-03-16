@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import useApi from 'api'
@@ -36,6 +37,10 @@ const AvatarMenu = () => {
     associatedEntitiy?.value ? ` - ${associatedEntitiy?.value}` : ''
   }`
 
+  useEffect(() => {
+    if (userCode)
+      onSendMessage({ code: 'QUE_CLEAR_TASKS', parentCode: 'QUE_DRAFTS_GRP', targetCode: userCode })
+  }, [userCode])
   if (!avatarAsks) return null
 
   return (
@@ -46,6 +51,7 @@ const AvatarMenu = () => {
           bg="primary.400"
           name={name?.value || userName?.value}
           src={getImageSrc(userImage?.value)}
+          size="sm"
         />
       </MenuButton>
       <MenuList>
@@ -71,6 +77,7 @@ const AvatarMenu = () => {
             onClick={() => {
               onSendMessage({ code: 'LOGOUT' }, { event_type: 'LOGOUT' })
               window.localStorage.localToken = ''
+              window.localStorage.removeItem('state')
               window.location.assign(window.location.origin)
               keycloak.logout()
             }}
