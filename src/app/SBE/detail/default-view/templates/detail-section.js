@@ -21,7 +21,7 @@ const DetailSection = ({
       <Stack direction={row ? 'row' : 'column'} alignItems="left">
         {!noTitle && <Text fontSize="xl">{title}</Text>}
         {map(attr => (
-          <VStack alignItems="left">
+          <VStack alignItems="left" key={attr}>
             {attributes.length > 1 && <Label colorScheme="primary" code={code} attribute={attr} />}
             <Attribute config={config} code={code} attribute={attr} />
           </VStack>
