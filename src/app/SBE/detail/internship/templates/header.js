@@ -18,6 +18,7 @@ const Header = ({ contactDetails, code, sbeCode, imageSrc, headerAttribute, acti
         <Text>
           <Attribute code={code} attribute={'PRI_NAME'} /> Internship
         </Text>
+        <Attribute code={code} attribute={'PRI_ADDRESS_FULL'} />
       </Box>
       {contactDetails && (
         <DetailSection

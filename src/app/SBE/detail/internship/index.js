@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 import { selectCode, selectRows } from 'redux/db/selectors'
 import { faUser, faBriefcase, faGraduationCap } from '@fortawesome/free-solid-svg-icons'
-import { Box, Divider, HStack, VStack } from '@chakra-ui/react'
+import { Box, Center, Divider, HStack, VStack } from '@chakra-ui/react'
 
 import Header from './templates/header'
 import DetailSection from '../default-view/templates/detail-section'
@@ -62,33 +62,30 @@ const Internship = ({ sbeCode, targetCode }) => {
   const headerAttribute = 'PRI_ASSOC_HC'
 
   return (
-    <HStack alignItems="start">
-      <Box>
-        <Header
-          code={beCode}
-          sbeCode={sbeCode}
-          imageSrc={imageAttribute}
-          headerAttribute={headerAttribute}
-          actions={actions}
-          contactDetails={contactDetails}
-        />
-        <Divider />
-        <HStack alignItems="start">
-          <DetailSection code={beCode} details={internshipDetail} />
-          <VStack alignItems="start" pt="53px">
-            <Label code={beCode} attribute={'PRI_SOFTWARE'} />
-            <Attribute code={beCode} attribute={'PRI_SOFTWARE'} />
-          </VStack>
-        </HStack>
-        <Divider />
-        <DetailSection code={beCode} details={responsibilities} />
-        <Divider />
-        <DetailSection code={beCode} details={basicLearningOutcome} />
-        <Divider />
-        <DetailSection code={beCode} details={technicalSkills} />
-      </Box>
-      <Attribute code={beCode} attribute={'PRI_ADDRESS_FULL'} config={{ collapse: true }} />
-    </HStack>
+    <Box maxH="100vh" overflow="scroll">
+      <Header
+        code={beCode}
+        sbeCode={sbeCode}
+        imageSrc={imageAttribute}
+        headerAttribute={headerAttribute}
+        actions={actions}
+        contactDetails={contactDetails}
+      />
+      <Divider />
+      <HStack alignItems="start">
+        <DetailSection code={beCode} details={internshipDetail} />
+        <VStack alignItems="start" pt="53px">
+          <Label code={beCode} attribute={'PRI_SOFTWARE'} />
+          <Attribute code={beCode} attribute={'PRI_SOFTWARE'} />
+        </VStack>
+      </HStack>
+      <Divider />
+      <DetailSection code={beCode} details={responsibilities} />
+      <Divider />
+      <DetailSection code={beCode} details={basicLearningOutcome} />
+      <Divider />
+      <DetailSection code={beCode} details={technicalSkills} />
+    </Box>
   )
 }
 
