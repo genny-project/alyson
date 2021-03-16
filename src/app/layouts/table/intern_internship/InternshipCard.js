@@ -14,7 +14,9 @@ const InternshipCard = ({ code, parentCode }) => {
   const src = getImageSrc(img?.value)
 
   return (
-    <div onClick={() => onSendMessage({ code: 'PRI_EVENT_VIEW', targetCode: code, parentCode })}>
+    <div
+      onClick={() => onSendMessage({ code: 'ACT_PRI_EVENT_VIEW', targetCode: code, parentCode })}
+    >
       <VStack
         _hover={{ boxShadow: '2xl' }}
         cursor="pointer"
