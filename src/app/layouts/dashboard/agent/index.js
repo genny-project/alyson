@@ -6,7 +6,7 @@ import { Center, HStack, Stack } from '@chakra-ui/react'
 import Recommendations from '../intern/recommendations'
 
 const Agent = ({ userCode }) => {
-  const dashboardSbes = useSelector(selectDashboard)
+  const dashboardSbes = useSelector(selectDashboard) || []
 
   return (
     <Center>

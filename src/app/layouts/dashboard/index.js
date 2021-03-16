@@ -16,11 +16,11 @@ const Dashboard = () => {
 
   const userType = getUserType(useSelector(selectCode(userCode)))
 
-  console.log(userType)
+  if (!dashboardSbes) return <div />
+
   if (userType === 'REP') return <HostCompanyRep userCode={userCode} />
   if (userType === 'INTERN') return <Intern userCode={userCode} />
   if (userType === 'AGENT' || userType === 'ADMIN') return <Agent userCode={userCode} />
-  if (!dashboardSbes) return <div />
   return (
     <Center>
       <Stack direction="column" spacing="10" h="84vh">
