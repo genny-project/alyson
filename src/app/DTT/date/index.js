@@ -19,7 +19,7 @@ const Write = ({ questionCode, data, onSendAnswer, typeName }) => {
   const includeTime = includes('LocalDateTime', typeName)
   const onlyYear = typeName === 'year'
 
-  const handleChange = e => onSendAnswer(new Date(e.target.value).toISOString())
+  const handleChange = e => e.target.value && onSendAnswer(new Date(e.target.value).toISOString())
 
   return (
     <Input
