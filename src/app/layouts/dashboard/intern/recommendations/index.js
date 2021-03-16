@@ -17,7 +17,7 @@ const Recommendations = () => {
   if (!rows) return null
 
   return (
-    <VStack>
+    <VStack p="5" borderRadius="lg" boxShadow="dark-lg">
       <Text fontSize="xl" fontWeight="semibold">
         ✨ Congrats! ✨
       </Text>

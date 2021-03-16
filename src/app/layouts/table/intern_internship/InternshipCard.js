@@ -19,7 +19,6 @@ const InternshipCard = ({ code, parentCode }) => {
         _hover={{ boxShadow: '2xl' }}
         cursor="pointer"
         borderRadius="lg"
-        boxShadow="md"
         w="17rem"
         p="3"
         h="18rem"
