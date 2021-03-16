@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight, faCalendar, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { faAngellist } from '@fortawesome/free-brands-svg-icons'
 import { onSendMessage } from 'vertx'
+import Recommendations from './recommendations'
 
 const Intern = ({ userCode }) => {
   const [name] = useSelector(selectAttributes(userCode, ['PRI_NAME']))
@@ -78,6 +79,7 @@ const Intern = ({ userCode }) => {
             )}
           </Box>
         </HStack>
+        <Recommendations />
       </VStack>
     </Center>
   )

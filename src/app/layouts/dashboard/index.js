@@ -1,12 +1,13 @@
 import { useSelector } from 'react-redux'
 import { selectDashboard, selectDashboardCounts } from 'redux/app/selectors'
 import DisplaySbe from 'app/SBE'
-import { Center, HStack, Stack, Spacer, Image, useColorModeValue } from '@chakra-ui/react'
+import { Center, HStack, Stack, Image, useColorModeValue } from '@chakra-ui/react'
 import { apiConfig } from 'config/get-api-config'
 import { selectCode } from 'redux/db/selectors'
 import getUserType from 'utils/helpers/get-user-type'
 import Intern from './intern'
 import HostCompanyRep from './hcr'
+import Recommendations from './intern/recommendations'
 
 const Dashboard = () => {
   const dashboardSbes = useSelector(selectDashboard)
@@ -25,7 +26,7 @@ const Dashboard = () => {
   if (userType === 'INTERN') return <Intern userCode={userCode} />
   if (!dashboardSbes) return <div />
   return (
-    <Center m="4">
+    <Center>
       <Stack direction="column" spacing="10" h="84vh">
         {apiConfig && realm === 'mentormatch' && (
           <Image src={logoSrc} style={{ cursor: 'pointer' }} htmlWidth="250px" />
@@ -37,7 +38,7 @@ const Dashboard = () => {
         {dashboardSbes.map(sbeCode => (
           <DisplaySbe key={sbeCode} sbeCode={sbeCode} />
         ))}
-        <Spacer />
+        <Recommendations />
       </Stack>
     </Center>
   )
