@@ -12,9 +12,9 @@ const Recommendations = () => {
     find(includes('SBE_INTERN_RECOMMENDATION')),
   )(useSelector(selectKeys))
 
-  const rows = useSelector(selectRows(sbeCode))
+  const rows = useSelector(selectRows(sbeCode)) || []
 
-  if (!rows) return null
+  if (!rows.length) return null
 
   return (
     <VStack p="5" borderRadius="lg" boxShadow="dark-lg">
