@@ -24,7 +24,7 @@ const InternshipCard = ({ code, parentCode }) => {
         h="18rem"
         justify="flex-end"
       >
-        <Image src={src} w="10rem" />
+        <Image src={src} maxW="10rem" maxH="10rem" />
         <Text fontWeight="semibold">{hostCpy?.value}</Text>
         <Text>{name?.value}</Text>
       </VStack>
