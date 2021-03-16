@@ -17,6 +17,7 @@ import Address from 'app/DTT/address'
 import ABN from 'app/DTT/abn'
 import URL from 'app/DTT/url'
 import Rating from 'app/DTT/rating'
+import TimeZonePicker from 'app/DTT/time-zone'
 
 const Attribute = ({ code, attribute, size, mini, parentCode, variant, config }) => {
   const data = useSelector(selectCode(code, attribute))
@@ -64,6 +65,8 @@ const Attribute = ({ code, attribute, size, mini, parentCode, variant, config })
     <URL.Read data={data} />
   ) : component === 'rating' ? (
     <Rating.Read data={data} />
+  ) : component === 'time_zone' ? (
+    <TimeZonePicker.Read data={data} />
   ) : (
     <div>
       {component}

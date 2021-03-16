@@ -24,6 +24,7 @@ import URL from 'app/DTT/url'
 import ABN from 'app/DTT/abn'
 import Rating from 'app/DTT/rating'
 import ThirdPartyVideo from 'app/DTT/third_party_video'
+import TimeZonePicker from 'app/DTT/time-zone'
 import { isDev } from 'utils/developer'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
@@ -180,6 +181,9 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
           questionCode={questionCode}
           onSendAnswer={onSendAnswer}
         />
+      )}
+      {component === 'time_zone' && (
+        <TimeZonePicker.Write data={data} questionCode={questionCode} onSendAnswer={onSendAnswer} />
       )}
       <FormErrorMessage>{feedback}</FormErrorMessage>
       <FormHelperText ml="1" color="green" noOfLines="1">
