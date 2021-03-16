@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+// import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import useApi from 'api'
@@ -37,10 +37,10 @@ const AvatarMenu = () => {
     associatedEntitiy?.value ? ` - ${associatedEntitiy?.value}` : ''
   }`
 
-  useEffect(() => {
-    if (userCode)
-      onSendMessage({ code: 'QUE_CLEAR_TASKS', parentCode: 'QUE_DRAFTS_GRP', targetCode: userCode })
-  }, [userCode])
+  // useEffect(() => {
+  //   if (userCode)
+  //     onSendMessage({ code: 'QUE_CLEAR_TASKS', parentCode: 'QUE_DRAFTS_GRP', targetCode: userCode })
+  // }, [userCode])
   if (!avatarAsks) return null
 
   return (
