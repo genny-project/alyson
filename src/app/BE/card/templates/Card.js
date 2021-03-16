@@ -46,7 +46,6 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
       bg={defaultColor}
       p="4"
       w="xs"
-      h="30"
       borderWidth="1px"
       borderRadius="lg"
       whileHover={{ scale: 1.05 }}
