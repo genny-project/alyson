@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { filter, identity, includes, map, prop, find, propEq, pathOr } from 'ramda'
 import { useSelector } from 'react-redux'
 import { selectCodes, selectRows } from 'redux/db/selectors'
@@ -15,6 +15,10 @@ const Multiple = ({ questionCode, label, data, onSendAnswer, placeholder, option
     filter(identity, optionData),
   )
   const [selected, setSelected] = useState(getValue(data, options))
+
+  useEffect(() => {
+    if (data.value === '') setSelected([])
+  }, [data.value])
 
   return !options.length ? (
     <Text>Waiting on another answer</Text>
