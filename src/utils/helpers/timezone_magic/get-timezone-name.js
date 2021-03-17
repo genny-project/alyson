@@ -3,6 +3,7 @@ import { apiConfig } from 'config/get-api-config'
 import timeZone from './time-zone-from-browser'
 
 export const fromLatLng = async ({ lat, lng }) => {
+  // eslint-disable-next-line
   const turnThisOn = await axios.get(
     `${
       apiConfig.api_url
