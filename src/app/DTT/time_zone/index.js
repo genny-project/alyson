@@ -12,12 +12,18 @@ const Write = ({ questionCode, onSendAnswer, data }) => {
       <HStack spacing="0">
         <Text>{`We've detected your timezone as`}</Text>
         <Text pl="1" pr="1" fontWeight="semibold">
-          {timeZone}
+          {data?.value || timeZone}
         </Text>
         <Text>{`is this correct?`}</Text>
       </HStack>
       <ButtonGroup>
-        <Button colorScheme="primary" onClick={() => onSendAnswer(timeZone)}>
+        <Button
+          colorScheme="primary"
+          onClick={() => {
+            onSendAnswer(timeZone)
+            setConfirm(true)
+          }}
+        >
           Yes!
         </Button>
         <Button onClick={() => setConfirm(false)}>Nope</Button>
