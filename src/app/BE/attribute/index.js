@@ -17,7 +17,7 @@ import Address from 'app/DTT/address'
 import ABN from 'app/DTT/abn'
 import URL from 'app/DTT/url'
 import Rating from 'app/DTT/rating'
-import TimeZonePicker from 'app/DTT/time-zone'
+import TimeZonePicker from 'app/DTT/time_zone'
 
 const Attribute = ({ code, attribute, size, mini, parentCode, variant, config }) => {
   const data = useSelector(selectCode(code, attribute))

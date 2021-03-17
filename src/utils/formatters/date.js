@@ -1,5 +1,5 @@
 import { split, pathOr } from 'ramda'
-import timeBasedOnTimeZone from 'utils/helpers/time-based-on-timezone'
+import timeBasedOnTimeZone from 'utils/helpers/timezone_magic/time-based-on-timezone'
 
 const dateTimeInfo = date => {
   const splittedDateTime = date && split('T')(date)
