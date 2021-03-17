@@ -23,10 +23,8 @@ const Write = ({ questionCode, onSendAnswer, data }) => {
     setSelectedRange(v => (idx ? [v[0], parseFloat(value)] : [parseFloat(value), v[1]]))
 
   useEffect(() => {
-    onSendAnswer(selectedRange)
-  }, [onSendAnswer, selectedRange])
-
-  console.log(options)
+    if (!data.value) onSendAnswer(selectedRange)
+  }, [data.value, onSendAnswer, selectedRange])
 
   return (
     <HStack>
