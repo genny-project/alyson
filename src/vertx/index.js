@@ -1,4 +1,4 @@
-import EventBus from 'vertx3-eventbus-client'
+import EventBus from '@vertx/eventbus-bridge-client.js'
 import { compose, identity } from 'ramda'
 import { VERTX_URL } from 'config/genny'
 import { useKeycloak } from '@react-keycloak/web'
