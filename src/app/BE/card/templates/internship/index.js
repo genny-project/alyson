@@ -45,7 +45,13 @@ const InternshipCard = ({ parentCode, actions = [], code }) => {
         <Spacer />
         <VStack>
           {actions.map(action => (
-            <Action colorScheme="primary" targetCode={code} code={action} parentCode={parentCode} />
+            <Action
+              key={action}
+              colorScheme="primary"
+              targetCode={code}
+              code={action}
+              parentCode={parentCode}
+            />
           ))}
         </VStack>
       </Flex>
