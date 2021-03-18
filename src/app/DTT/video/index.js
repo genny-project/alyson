@@ -106,7 +106,7 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
   )
 }
 
-const Read = ({ data, mini }) => {
+const Read = ({ data, mini, styles }) => {
   const api = useApi()
   const src = api.getSrc(data?.value)
 
@@ -127,7 +127,14 @@ const Read = ({ data, mini }) => {
       </PopoverContent>
     </Popover>
   ) : (
-    <video controls style={{ width: '20rem', borderRadius: '1rem' }} src={src} />
+    <video
+      controls
+      autoplay
+      loop
+      muted
+      style={styles || { width: '20rem', borderRadius: '1rem' }}
+      src={src}
+    />
   )
 }
 
