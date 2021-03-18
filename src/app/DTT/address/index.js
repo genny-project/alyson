@@ -16,6 +16,7 @@ import {
 } from '@chakra-ui/react'
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import HeroIconButton from 'app/layouts/components/hero_icon_button'
 import AddressPicker from './address_picker'
 import StreetView from './street_view'
 
@@ -42,7 +43,10 @@ const Read = ({ data, config }) => {
     <HStack>
       <Popover isLazy>
         <PopoverTrigger>
-          <IconButton icon={<FontAwesomeIcon icon={faMapMarkerAlt} />} />
+          <IconButton
+            variant="unstyled"
+            icon={<HeroIconButton icon={<FontAwesomeIcon icon={faMapMarkerAlt} />} />}
+          />
         </PopoverTrigger>
         {config?.portal ? (
           <Portal>
@@ -65,16 +69,6 @@ const Read = ({ data, config }) => {
             </PopoverBody>
           </PopoverContent>
         )}
-        <Portal>
-          <PopoverContent style={{ width: '42rem', height: '34rem' }}>
-            <PopoverArrow />
-            <PopoverCloseButton />
-            <PopoverHeader>{`${data.attributeName}, ${data.value}`}</PopoverHeader>
-            <PopoverBody>
-              <StreetView address={data.value} />
-            </PopoverBody>
-          </PopoverContent>
-        </Portal>
       </Popover>
       <Text minW="8rem">{data.value}</Text>
     </HStack>
