@@ -140,4 +140,6 @@ export default DeveloperConsole
 export const isDev =
   process.env.NODE_ENV === 'development' ||
   localStorage.getItem('useDev') === 'true' ||
-  (window && (window.location.indexOf('dev') !== -1 || window.location.indexOf('staging') !== -1))
+  (window &&
+    (window.location.hostname.indexOf('dev') !== -1 ||
+      window.location.hostname.indexOf('staging') !== -1))
