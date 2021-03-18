@@ -9,8 +9,14 @@ import Attribute from 'app/BE/attribute'
 import Action from 'app/BE/action'
 import Status from 'app/DTT/status'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
+import {
+  faEnvelopeOpenText,
+  faPeopleArrows,
+  faTimesCircle,
+  faUser,
+} from '@fortawesome/free-solid-svg-icons'
 import { closeDrawer } from 'redux/app'
+import Lane from 'app/SBE/lane'
 
 const geocoder = new window.google.maps.Geocoder()
 
@@ -38,7 +44,7 @@ const Company = ({ sbeCode, targetCode }) => {
   const [geo, setGeo] = useState(null)
   const [topHeight, setTopHeight] = useState('40vh')
 
-  const handleScroll = e => {
+  const handleScroll = () => {
     if (topHeight !== '5vh') setTopHeight('5vh')
   }
 
@@ -123,10 +129,17 @@ const Company = ({ sbeCode, targetCode }) => {
           icon={<FontAwesomeIcon icon={faTimesCircle} />}
         />
       </Box>
-      <Box position="absolute" right="5">
-        <VStack align="right" mt="5">
+      <Box
+        position="absolute"
+        right="5"
+        zIndex="modal"
+        height={topHeight === '40vh' ? null : '0'}
+        overflow="hidden"
+      >
+        <VStack align="flex-end" mt="5">
           {actions.map(action => (
             <Action
+              isFullWidth
               key={action}
               parentCode={sbeCode}
               targetCode={beCode}
@@ -134,50 +147,53 @@ const Company = ({ sbeCode, targetCode }) => {
               colorScheme="primary"
             />
           ))}
+          <Attribute code={beCode} attribute={'PRI_LINKEDIN_URL'} />
         </VStack>
       </Box>
-      <Box onClick={() => setTopHeight('40vh')} mt="-4.75rem" ml="calc(35vw - 4.75rem)">
-        <Avatar
-          borderRadius="full"
-          bg="white"
-          p="4px"
-          src={src}
-          w="9.5rem"
-          h="9.5rem"
-          zIndex="modal"
-        />
-      </Box>
-      <VStack onScroll={handleScroll} overflow="scroll" h={`calc(90vh - ${topHeight})`}>
+      <Avatar
+        onClick={() => setTopHeight('40vh')}
+        mt="-4.75rem"
+        left="calc(35vw - 4.75rem)"
+        bg="white"
+        p="4px"
+        src={src}
+        w="9.5rem"
+        h="9.5rem"
+        zIndex="modal"
+        position="absolute"
+      />
+      <VStack pt="5rem" onScroll={handleScroll} overflow="scroll" h={`calc(90vh - ${topHeight})`}>
         <Link href={url?.value}>
           <Text fontSize="3xl" fontWeight="semibold" flexWrap="nowrap">
             {name?.value}
           </Text>
         </Link>
-        <Status.Read data={status} />
-
-        <HStack w="65vw">
-          <VStack align="left">
-            <Attribute code={beCode} attribute={'PRI_MOBILE'} />
-            <Text>
-              <Attribute code={beCode} attribute={'PRI_LEGAL_NAME'} />
-            </Text>
-            <Text>
-              <Attribute code={beCode} attribute={'PRI_ABN'} />
-            </Text>
-            <HStack>
-              <Attribute code={beCode} attribute={'PRI_LINKEDIN_URL'} />
-              <Attribute code={beCode} attribute={'PRI_ASSOC_INDUSTRY'} />
+        <Attribute code={beCode} attribute={'PRI_ASSOC_INDUSTRY'} />
+        <HStack w="65vw" align="start" pt="5" spacing="5">
+          <VStack align="start" w="50%">
+            <HStack spacing="10" align="start">
+              <FontAwesomeIcon icon={faUser} />
+              <VStack align="start">
+                <Text fontWeight="semibold">Contact details</Text>
+                <Status.Read data={status} />
+                <Attribute code={beCode} attribute={'PRI_MOBILE'} />
+                <Attribute code={beCode} attribute={'PRI_LEGAL_NAME'} />
+                <Attribute code={beCode} attribute={'PRI_ABN'} />
+              </VStack>
             </HStack>
-
-            <Box p="10">
-              <Attribute
-                code={beCode}
-                attribute={'PRI_COMPANY_DESCRIPTION'}
-                fallback={<Text>No company description</Text>}
-              />
-            </Box>
+            <HStack spacing="10" align="start">
+              <FontAwesomeIcon icon={faEnvelopeOpenText} />
+              <VStack align="start">
+                <Text fontWeight="semibold">Description</Text>
+                <Attribute
+                  code={beCode}
+                  attribute={'PRI_COMPANY_DESCRIPTION'}
+                  fallback={<Text>No company description</Text>}
+                />
+              </VStack>
+            </HStack>
           </VStack>
-          <Box>Hi</Box>
+          <Lane sbeCode={'SBE_LINKED_INTERNSHIP_OPP_CF14AAC6-396E-4558-9F02-A94221C25968'} />
         </HStack>
       </VStack>
     </Box>

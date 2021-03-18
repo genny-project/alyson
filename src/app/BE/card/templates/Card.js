@@ -45,7 +45,7 @@ const Card = ({ parentCode, actions = [], code, columns, noExpansion }) => {
     <MotionBox
       bg={defaultColor}
       p="4"
-      w="xs"
+      w="full"
       borderWidth="1px"
       borderRadius="lg"
       whileHover={{ scale: 1.05 }}
