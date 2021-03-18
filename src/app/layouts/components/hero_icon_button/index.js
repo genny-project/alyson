@@ -7,6 +7,7 @@ const HeroIconButton = ({ icon, onClick }) => (
     w="35px"
     borderRadius="lg"
     bg={gradient}
+    color="white"
     as="button"
     onClick={onClick}
     _hover={{ boxShadow: 'dark-lg' }}
