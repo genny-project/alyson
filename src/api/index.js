@@ -48,7 +48,10 @@ const useApi = () => {
     return resp?.data?.data?.name || ''
   }
 
-  const getImageSrc = uuid => (uuid ? `${IMAGE_URL}/${MEDIA_URL}/${uuid}` : null)
+  const getImageSrc = (uuid, dim) =>
+    uuid
+      ? `${IMAGE_URL}/${dim ? `${dim.width}x${dim.height || ''},fit/` : ''}${MEDIA_URL}/${uuid}`
+      : null
   const getSrc = uuid => (uuid ? `${MEDIA_URL}/${uuid}` : null)
 
   const callABN = async value =>

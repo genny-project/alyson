@@ -1,13 +1,16 @@
 import { useState, useRef, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { selectCode, selectRows } from 'redux/db/selectors'
-import { Avatar, Box, Circle, HStack, Link, Text, VStack } from '@chakra-ui/react'
+import { Avatar, Box, Flex, HStack, IconButton, Link, Spacer, Text, VStack } from '@chakra-ui/react'
 import useApi from 'api'
 
 import getActions from 'app/SBE/utils/get-actions'
 import Attribute from 'app/BE/attribute'
 import Action from 'app/BE/action'
 import Status from 'app/DTT/status'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
+import { closeDrawer } from 'redux/app'
 
 const geocoder = new window.google.maps.Geocoder()
 
@@ -15,6 +18,8 @@ let map = {}
 let pano = {}
 
 const Company = ({ sbeCode, targetCode }) => {
+  const dispatch = useDispatch()
+  const onClose = () => dispatch(closeDrawer())
   const sbe = useSelector(selectCode(sbeCode))
   const rows = useSelector(selectRows(sbeCode))
 
@@ -31,6 +36,11 @@ const Company = ({ sbeCode, targetCode }) => {
   const actions = getActions(sbe)
 
   const [geo, setGeo] = useState(null)
+  const [topHeight, setTopHeight] = useState('40vh')
+
+  const handleScroll = e => {
+    if (topHeight !== '5vh') setTopHeight('5vh')
+  }
 
   const panoRef = useRef(null)
   const mapRef = useRef(null)
@@ -45,7 +55,7 @@ const Company = ({ sbeCode, targetCode }) => {
     if (geo && panoRef?.current && mapRef?.current) {
       map = new window.google.maps.Map(mapRef.current, {
         center: geo,
-        zoom: 14,
+        zoom: 12,
         disableDefaultUI: true,
       })
 
@@ -74,67 +84,101 @@ const Company = ({ sbeCode, targetCode }) => {
   if (!beCode) return null
 
   return (
-    <Box w="70vw" h="90vh">
-      <div
-        ref={mapRef}
-        style={{
-          position: 'absolute',
-          borderTopLeftRadius: '0.5rem',
-          borderTopRightRadius: '0.5rem',
-          width: '100%',
-          height: '30vh',
-        }}
-      />
-      <div
-        ref={panoRef}
-        style={{
-          borderTopLeftRadius: '0.5rem',
-          width: '20rem',
-          height: '30vh',
-        }}
-      />
-      <Box mt="-10" ml="5">
-        <Circle
-          w="10rem"
-          h="10rem"
-          p="4px"
+    <Box
+      w="70vw"
+      h="90vh"
+      style={{
+        borderTopLeftRadius: '0.5rem',
+        borderTopRightRadius: '0.5rem',
+      }}
+    >
+      <Flex onClick={() => setTopHeight('40vh')}>
+        <div
+          ref={panoRef}
           style={{
-            background: '-webkit-linear-gradient(left top, teal 0%, crimson 100%)',
+            width: '100%',
+            borderTopLeftRadius: '0.5rem',
+            height: topHeight,
+            marginRight: '2px',
+            transition: 'height 1s',
           }}
-        >
-          <Avatar bg="white" p="8px" src={src} w="9.5rem" h="9.5rem" zIndex="modal" />
-        </Circle>
+        />
+        <Spacer />
+        <div
+          ref={mapRef}
+          style={{
+            borderTopRightRadius: '0.5rem',
+            width: '100%',
+            height: topHeight,
+            marginLeft: '2px',
+            transition: 'height 1s',
+          }}
+        />
+      </Flex>
+      <Box position="absolute" right="2" top="2">
+        <IconButton
+          onClick={onClose}
+          color="white"
+          variant="unstyled"
+          icon={<FontAwesomeIcon icon={faTimesCircle} />}
+        />
       </Box>
-      <VStack mt="-24" h="60vh" overflow="scroll">
+      <Box position="absolute" right="5">
+        <VStack align="right" mt="5">
+          {actions.map(action => (
+            <Action
+              key={action}
+              parentCode={sbeCode}
+              targetCode={beCode}
+              code={action}
+              colorScheme="primary"
+            />
+          ))}
+        </VStack>
+      </Box>
+      <Box onClick={() => setTopHeight('40vh')} mt="-4.75rem" ml="calc(35vw - 4.75rem)">
+        <Avatar
+          borderRadius="full"
+          bg="white"
+          p="4px"
+          src={src}
+          w="9.5rem"
+          h="9.5rem"
+          zIndex="modal"
+        />
+      </Box>
+      <VStack onScroll={handleScroll} overflow="scroll" h={`calc(90vh - ${topHeight})`}>
         <Link href={url?.value}>
           <Text fontSize="3xl" fontWeight="semibold" flexWrap="nowrap">
             {name?.value}
-            <Status.Read data={status} config={{ ml: '3' }} />
           </Text>
         </Link>
-        <Attribute code={beCode} attribute={'PRI_MOBILE'} />
-        <Text>
-          <Attribute code={beCode} attribute={'PRI_LEGAL_NAME'} />
-        </Text>
-        <Text>
-          <Attribute code={beCode} attribute={'PRI_ABN'} />
-        </Text>
-        <HStack>
-          <Attribute code={beCode} attribute={'PRI_LINKEDIN_URL'} />
-          <Attribute code={beCode} attribute={'PRI_ASSOC_INDUSTRY'} />
+        <Status.Read data={status} />
+
+        <HStack w="65vw">
+          <VStack align="left">
+            <Attribute code={beCode} attribute={'PRI_MOBILE'} />
+            <Text>
+              <Attribute code={beCode} attribute={'PRI_LEGAL_NAME'} />
+            </Text>
+            <Text>
+              <Attribute code={beCode} attribute={'PRI_ABN'} />
+            </Text>
+            <HStack>
+              <Attribute code={beCode} attribute={'PRI_LINKEDIN_URL'} />
+              <Attribute code={beCode} attribute={'PRI_ASSOC_INDUSTRY'} />
+            </HStack>
+
+            <Box p="10">
+              <Attribute
+                code={beCode}
+                attribute={'PRI_COMPANY_DESCRIPTION'}
+                fallback={<Text>No company description</Text>}
+              />
+            </Box>
+          </VStack>
+          <Box>Hi</Box>
         </HStack>
-        <HStack>
-          {actions.map(action => (
-            <Action key={action} parentCode={sbeCode} targetCode={beCode} code={action} />
-          ))}
-        </HStack>
-        <Box p="10">
-          <Attribute
-            code={beCode}
-            attribute={'PRI_COMPANY_DESCRIPTION'}
-            fallback={<Text>No company description</Text>}
-          />
-        </Box>
       </VStack>
     </Box>
   )
