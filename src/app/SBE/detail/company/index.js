@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelopeOpenText, faTimesCircle, faUser } from '@fortawesome/free-solid-svg-icons'
 import { closeDrawer } from 'redux/app'
 import Lane from 'app/SBE/lane'
+import { replace } from 'ramda'
 
 const geocoder = new window.google.maps.Geocoder()
 
@@ -188,7 +189,7 @@ const Company = ({ sbeCode, targetCode }) => {
               </VStack>
             </HStack>
           </VStack>
-          <Lane sbeCode={'SBE_LINKED_INTERNSHIP_OPP_CF14AAC6-396E-4558-9F02-A94221C25968'} />
+          <Lane sbeCode={replace('SBE_HOST_CPY_', 'SBE_LINKED_INTERNSHIP_OPP_', sbeCode)} />
         </HStack>
       </VStack>
     </Box>
