@@ -48,4 +48,9 @@ const getTheme = (projectTheme = defaultProjectTheme) =>
     },
     ...projectTheme,
   })
+
+export const gradient = 'linear-gradient(135deg, #38B2AC 0%, #3182CE 100%)'
+export const darkGradient =
+  'linear-gradient(135deg, rgba(56, 178, 172, 0.5) 0%, rgba(49, 130, 206, 0.5) 100%), #000000'
+
 export default getTheme
