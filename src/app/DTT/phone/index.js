@@ -1,7 +1,8 @@
-import { Input, Text, useClipboard, useToast, HStack, IconButton } from '@chakra-ui/react'
+import { Input, Text, useClipboard, useToast, HStack } from '@chakra-ui/react'
 import phoneNumberFormatter from 'utils/formatters/phone-number'
 import { faPhoneAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import HeroIconButton from 'app/layouts/components/hero_icon_button'
 
 const Read = ({ data, size }) => {
   const { onCopy } = useClipboard(data.value)
@@ -19,7 +20,7 @@ const Read = ({ data, size }) => {
   }
   return (
     <HStack spacing={2}>
-      <IconButton icon={<FontAwesomeIcon size="sm" icon={faPhoneAlt} />} onClick={onClick} />
+      <HeroIconButton onClick={onClick} icon={<FontAwesomeIcon size="sm" icon={faPhoneAlt} />} />
       <Text w="10rem" fontSize={size}>
         {phoneNumberFormatter(data.value)}
       </Text>
