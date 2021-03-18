@@ -129,8 +129,9 @@ const Company = ({ sbeCode, targetCode }) => {
         position="absolute"
         right="5"
         zIndex="modal"
-        height={topHeight === '40vh' ? null : '0'}
+        height={topHeight === '40vh' ? '10rem' : '0'}
         overflow="hidden"
+        transition="height 1s"
       >
         <VStack align="flex-end" mt="5">
           {actions.map(action => (
