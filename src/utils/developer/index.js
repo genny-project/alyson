@@ -138,4 +138,6 @@ const DeveloperConsole = () => {
 export default DeveloperConsole
 
 export const isDev =
-  process.env.NODE_ENV === 'development' || localStorage.getItem('useDev') === 'true'
+  process.env.NODE_ENV === 'development' ||
+  window.location.indexOf('dev') !== -1 ||
+  localStorage.getItem('useDev') === 'true'
