@@ -75,7 +75,7 @@ const Write = ({ questionCode, data, onSendAnswer, description }) => {
     </Box>
   )
 }
-const Read = ({ data, mini }) => {
+const Read = ({ data, mini, styles }) => {
   if (!data?.value) return null
   return mini ? (
     <Popover>
@@ -94,7 +94,7 @@ const Read = ({ data, mini }) => {
       </PopoverContent>
     </Popover>
   ) : (
-    <div dangerouslySetInnerHTML={{ __html: data.value }} />
+    <div dangerouslySetInnerHTML={{ __html: data.value }} style={styles} />
   )
 }
 

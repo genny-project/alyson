@@ -63,7 +63,7 @@ const Attribute = ({
   ) : component === 'html_display' ? (
     <HtmlDisplay.Read data={data} />
   ) : component === 'richtext_editor' ? (
-    <RichText.Read data={data} mini={mini} />
+    <RichText.Read data={data} mini={mini} styles={styles} />
   ) : component === 'dropdown' ? (
     <Select.Read dataType={dttData} data={data} />
   ) : component === 'video' ? (

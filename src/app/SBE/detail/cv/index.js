@@ -22,13 +22,15 @@ const Company = ({ sbeCode, targetCode }) => {
 
   const image = useSelector(selectCode(beCode, 'PRI_IMAGE_URL'))
   const name = useSelector(selectCode(beCode, 'PRI_NAME'))
+  const video = useSelector(selectCode(beCode, 'PRI_VIDEO_URL'))?.value
+  const careerObj = useSelector(selectCode(beCode, 'PRI_CAREER_OBJ'))?.value
 
   const { getImageSrc } = useApi()
   const src = getImageSrc(image?.value)
 
   const actions = getActions(sbe)
 
-  const [topHeight, setTopHeight] = useState('40vh')
+  const [topHeight, setTopHeight] = useState('35vh')
 
   const handleScroll = () => {
     if (topHeight !== '5vh') setTopHeight('5vh')
@@ -42,6 +44,14 @@ const Company = ({ sbeCode, targetCode }) => {
     height: topHeight,
     marginRight: '2px',
     transition: 'height 1s',
+  }
+
+  const careerObjStyles = {
+    color: '#ffffff',
+    margin: 'auto',
+    fontSize: '24px',
+    paddingLeft: '64px',
+    paddingRight: '64px',
   }
 
   return (
@@ -61,21 +71,31 @@ const Company = ({ sbeCode, targetCode }) => {
           icon={<FontAwesomeIcon icon={faTimesCircle} />}
         />
       </Box>
-      <Flex onClick={() => setTopHeight('40vh')} justifyContent="center">
-        <Flex flexGrow="1" maxWidth="50%" height={topHeight} transition="height 1s">
-          <Attribute code={beCode} attribute={'PRI_VIDEO_URL'} styles={videoStyle} />
-        </Flex>
-        <Flex
-          flexGrow="1"
-          bgGradient="linear(to-br, teal.400,blue.500)"
-          height={topHeight}
-          transition="height 1s"
-        >
-          <Attribute code={beCode} attribute={'PRI_CAREER_OBJ'} styles={videoStyle} />
-        </Flex>
+      <Flex onClick={() => setTopHeight('35vh')} justifyContent="center">
+        {video && (
+          <Flex
+            flexGrow="1"
+            maxWidth="50%"
+            minWidth="50%"
+            height={topHeight}
+            transition="height 1s"
+          >
+            <Attribute code={beCode} attribute={'PRI_VIDEO_URL'} styles={videoStyle} />
+          </Flex>
+        )}
+        {careerObj && (
+          <Flex
+            flexGrow="1"
+            bgGradient="linear(to-br, teal.400,blue.500)"
+            height={topHeight}
+            transition="height 1s"
+          >
+            <Attribute code={beCode} attribute={'PRI_CAREER_OBJ'} styles={careerObjStyles} />
+          </Flex>
+        )}
       </Flex>
       <Avatar
-        onClick={() => setTopHeight('40vh')}
+        onClick={() => setTopHeight('35vh')}
         mt="-4.75rem"
         left="calc(35vw - 4.75rem)"
         bg="white"
