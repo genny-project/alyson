@@ -7,7 +7,9 @@ const ThemeToggler = () => {
 
   return (
     <IconButton
-      m="2"
+      mr="2"
+      size="sm"
+      colorScheme="primary"
       onClick={toggleColorMode}
       variant="ghost"
       icon={<FontAwesomeIcon icon={colorMode === 'dark' ? faSun : faMoon} />}
