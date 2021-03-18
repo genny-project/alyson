@@ -9,12 +9,7 @@ import Attribute from 'app/BE/attribute'
 import Action from 'app/BE/action'
 import Status from 'app/DTT/status'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faEnvelopeOpenText,
-  faPeopleArrows,
-  faTimesCircle,
-  faUser,
-} from '@fortawesome/free-solid-svg-icons'
+import { faEnvelopeOpenText, faTimesCircle, faUser } from '@fortawesome/free-solid-svg-icons'
 import { closeDrawer } from 'redux/app'
 import Lane from 'app/SBE/lane'
 
