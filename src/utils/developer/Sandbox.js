@@ -4,11 +4,9 @@ import {
   Box,
   Center,
   IconButton,
-  Image,
   Flex,
   Text,
   Stack,
-  Button,
   useColorModeValue,
 } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
