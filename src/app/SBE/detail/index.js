@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 import { selectDetail } from 'redux/app/selectors'
 import { selectCode } from 'redux/db/selectors'
-import Cv from './cv'
+import Cv from './intern'
 import Company from './company'
 import Internship from './internship'
 import Rep from './rep'

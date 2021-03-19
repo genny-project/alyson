@@ -103,9 +103,11 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
   )
 }
 
-const Read = ({ data, mini }) => {
+const Read = ({ data, mini, styles }) => {
   const api = useApi()
   const src = api.getSrc(data?.value)
+
+  console.log(styles)
 
   return mini ? (
     <Popover>
@@ -117,7 +119,7 @@ const Read = ({ data, mini }) => {
       </PopoverContent>
     </Popover>
   ) : (
-    <Player src={src} />
+    <Player src={src} styles={styles} />
   )
 }
 

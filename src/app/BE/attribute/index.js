@@ -28,6 +28,7 @@ const Attribute = ({
   variant,
   config,
   fallback = null,
+  styles,
 }) => {
   const data = useSelector(selectCode(code, attribute))
   const dtt = useSelector(selectCode(data?.attributeCode))
@@ -62,11 +63,11 @@ const Attribute = ({
   ) : component === 'html_display' ? (
     <HtmlDisplay.Read data={data} />
   ) : component === 'richtext_editor' ? (
-    <RichText.Read data={data} mini={mini} />
+    <RichText.Read data={data} mini={mini} styles={styles} />
   ) : component === 'dropdown' ? (
     <Select.Read dataType={dttData} data={data} />
   ) : component === 'video' ? (
-    <Video.Read mini={mini} dataType={dttData} data={data} />
+    <Video.Read mini={mini} dataType={dttData} data={data} styles={styles} />
   ) : component === 'address' ? (
     <Address.Read data={data} config={config} />
   ) : component === 'abn_number' ? (
