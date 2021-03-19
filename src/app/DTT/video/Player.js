@@ -33,7 +33,7 @@ const Player = ({ src }) => {
         transition="opacity 0.5s"
         position="relative"
         left="calc(50% - 24px)"
-        top="5rem"
+        top="5.5rem"
         variant="unstyled"
         color="white"
         icon={<FontAwesomeIcon size="3x" icon={faPlayCircle} />}
