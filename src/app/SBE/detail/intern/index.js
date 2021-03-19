@@ -31,7 +31,7 @@ const Intern = ({ sbeCode, targetCode }) => {
 
   const actions = getActions(sbe)
 
-  const [topHeight, setTopHeight] = useState('45vh')
+  const [topHeight, setTopHeight] = useState('30vh')
 
   const handleScroll = () => {
     if (topHeight !== '5vh') setTopHeight('5vh')
@@ -72,7 +72,7 @@ const Intern = ({ sbeCode, targetCode }) => {
           icon={<FontAwesomeIcon icon={faTimesCircle} />}
         />
       </Box>
-      <Flex onClick={() => setTopHeight('45vh')} justifyContent="center">
+      <Flex onClick={() => setTopHeight('30vh')} justifyContent="center">
         {video?.value && (
           <Flex
             flexGrow="1"
@@ -80,6 +80,8 @@ const Intern = ({ sbeCode, targetCode }) => {
             minWidth="50%"
             height={topHeight}
             transition="height 1s"
+            background="gray.100"
+            borderTopLeftRadius="0.5rem"
           >
             <Player src={videoSrc} styles={videoStyle} />
           </Flex>
@@ -92,13 +94,14 @@ const Intern = ({ sbeCode, targetCode }) => {
             transition="height 1s"
             borderTopRightRadius="0.5rem"
             borderTopLeftRadius={video?.value ? '' : '0.5rem'}
+            overflow="scroll"
           >
             <Attribute code={beCode} attribute={'PRI_CAREER_OBJ'} styles={careerObjStyles} />
           </Flex>
         )}
       </Flex>
       <Avatar
-        onClick={() => setTopHeight('45vh')}
+        onClick={() => setTopHeight('30vh')}
         mt="-4.75rem"
         left="calc(35vw - 4.75rem)"
         bg="white"
