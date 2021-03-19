@@ -148,7 +148,8 @@ const Company = ({ sbeCode, targetCode }) => {
         </VStack>
       </Box>
       <Avatar
-        onClick={() => setTopHeight('40vh')}
+        cursor="pointer"
+        onClick={() => setTopHeight(topHeight => (topHeight === '40vh' ? '0' : '40vh'))}
         mt="-4.75rem"
         left="calc(35vw - 4.75rem)"
         bg="white"

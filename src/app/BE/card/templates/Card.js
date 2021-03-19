@@ -3,13 +3,10 @@ import {
   Box,
   HStack,
   VStack,
-  useDisclosure,
-  Collapse,
   IconButton,
   Flex,
   Spacer,
   useColorModeValue,
-  Divider,
   useTheme,
 } from '@chakra-ui/react'
 import { selectCode } from 'redux/db/selectors'
@@ -18,22 +15,19 @@ import Text from 'app/DTT/text'
 import Image from 'app/DTT/upload/Image'
 import ContextMenu from 'app/BE/context'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEllipsisV, faInfo } from '@fortawesome/free-solid-svg-icons'
+import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 import statusColors from './status_colors'
 import MainDetails from './MainDetails'
 import makeMotion from 'utils/motion'
-import RestDetails from './RestDetails'
 
 const MotionBox = makeMotion(Box)
 
-const Card = ({ parentCode, actions = [], code, columns, noExpansion }) => {
+const Card = ({ parentCode, actions = [], code, columns }) => {
   const theme = useTheme()
   const title = useSelector(selectCode(code, getAttribute(columns[0] || '')))
   const subTitle = useSelector(selectCode(code, getAttribute(columns[1] || '')))
   const image = useSelector(selectCode(code, 'PRI_IMAGE_URL'))
   const statusColor = useSelector(selectCode(code, 'PRI_STATUS_COLOR'))
-
-  const { isOpen, onToggle } = useDisclosure()
 
   const defaultColor = useColorModeValue(
     theme.colors.background.light,
@@ -80,9 +74,6 @@ const Card = ({ parentCode, actions = [], code, columns, noExpansion }) => {
         </HStack>
         <Spacer />
         <HStack>
-          {!noExpansion && (
-            <IconButton size="xs" onClick={onToggle} icon={<FontAwesomeIcon icon={faInfo} />} />
-          )}
           <ContextMenu
             actions={actions}
             code={code}
@@ -92,10 +83,6 @@ const Card = ({ parentCode, actions = [], code, columns, noExpansion }) => {
         </HStack>
       </Flex>
       <MainDetails code={code} columns={columns} parentCode={parentCode} />
-      <Collapse unmountOnExit in={isOpen} animateOpacity>
-        <Divider />
-        <RestDetails code={code} columns={columns} parentCode={parentCode} />
-      </Collapse>
     </MotionBox>
   )
 }

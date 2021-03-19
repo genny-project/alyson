@@ -1,4 +1,4 @@
-import { Tag, VStack } from '@chakra-ui/react'
+import { HStack, Tag, VStack } from '@chakra-ui/react'
 import Attribute from 'app/BE/attribute'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
@@ -12,9 +12,10 @@ const PickedAttribute = ({ col, code, parentCode, color }) => {
   if (label === ' ') return null
 
   return (
-    <VStack align="start" key={col}>
+    <HStack align="start" key={col}>
       <Tag
-        ml="-1"
+        w="7rem"
+        variant="subtle"
         colorScheme={
           label === 'Name' || label === 'Email'
             ? 'purple'
@@ -26,7 +27,7 @@ const PickedAttribute = ({ col, code, parentCode, color }) => {
         {label}
       </Tag>
       <Attribute size="sm" code={code} attribute={attribute} config={{ portal: true }} />
-    </VStack>
+    </HStack>
   )
 }
 

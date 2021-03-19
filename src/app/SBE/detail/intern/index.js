@@ -23,7 +23,7 @@ const Intern = ({ sbeCode, targetCode }) => {
   const image = useSelector(selectCode(beCode, 'PRI_IMAGE_URL'))
   const name = useSelector(selectCode(beCode, 'PRI_NAME'))
   const video = useSelector(selectCode(beCode, 'PRI_VIDEO_URL'))
-  const careerObj = useSelector(selectCode(beCode, 'PRI_CAREER_OBJ'))?.value
+  const careerObj = useSelector(selectCode(beCode, 'PRI_CAREER_OBJ'))
 
   const { getImageSrc, getSrc } = useApi()
   const videoSrc = getSrc(video?.value)
@@ -31,10 +31,10 @@ const Intern = ({ sbeCode, targetCode }) => {
 
   const actions = getActions(sbe)
 
-  const [topHeight, setTopHeight] = useState('45vh')
+  const [topHeight, setTopHeight] = useState(careerObj?.value || video?.value ? '45vh' : '0')
 
   const handleScroll = () => {
-    if (topHeight !== '5vh') setTopHeight('5vh')
+    if (topHeight !== '0') setTopHeight('0')
   }
 
   if (!beCode) return null
@@ -67,7 +67,7 @@ const Intern = ({ sbeCode, targetCode }) => {
       <Box position="absolute" right="2" top="2">
         <IconButton
           onClick={onClose}
-          color="white"
+          color={topHeight === '0' ? 'darkgrey' : 'white'}
           variant="unstyled"
           icon={<FontAwesomeIcon icon={faTimesCircle} />}
         />
@@ -98,10 +98,11 @@ const Intern = ({ sbeCode, targetCode }) => {
         )}
       </Flex>
       <Avatar
-        onClick={() => setTopHeight('45vh')}
+        cursor="pointer"
+        onClick={() => setTopHeight(topHeight => (topHeight === '45vh' ? '0' : '45vh'))}
         mt="-4.75rem"
         left="calc(35vw - 4.75rem)"
-        bg="white"
+        bg={src ? 'white' : 'lightgrey'}
         p="4px"
         src={src}
         w="9.5rem"
