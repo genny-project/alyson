@@ -6,11 +6,7 @@ import {
   Popover,
   PopoverTrigger,
   PopoverContent,
-  PopoverBody,
-  PopoverArrow,
-  PopoverCloseButton,
   IconButton,
-  PopoverHeader,
 } from '@chakra-ui/react'
 import VideoRecorder from './video_recorder'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
