@@ -1,12 +1,11 @@
 import { Box } from '@chakra-ui/layout'
-import { gradient } from 'config/theme'
 
 const HeroIconButton = ({ icon, onClick }) => (
   <Box
     h="35px"
     w="35px"
     borderRadius="lg"
-    bg={gradient}
+    colorScheme="gradient"
     color="white"
     as="button"
     onClick={onClick}

@@ -18,7 +18,6 @@ import ChildMenuItem from 'app/ASKS/menu/ChildMenuItem'
 import ColorToggler from './ColorToggler'
 import { onSendMessage } from 'vertx'
 import SettingsModal from './SettingsModal'
-import { gradient } from 'config/theme'
 
 const QUE_AVATAR_GRP = 'QUE_AVATAR_GRP'
 
@@ -49,7 +48,7 @@ const AvatarMenu = () => {
       <MenuButton>
         <Avatar
           color="whitesmoke"
-          bg={gradient}
+          colorScheme="gradient"
           name={name?.value || userName?.value}
           src={getImageSrc(userImage?.value)}
           size="sm"

@@ -60,7 +60,7 @@ const Sandbox = () => {
             <Stack spacing={0} align={'center'}>
               <IconButton
                 transition="all 0.2s"
-                bgGradient={'linear(to-br, teal.400,blue.500)'}
+                colorScheme="gradient"
                 color={'white'}
                 rounded={'md'}
                 _hover={{
@@ -73,7 +73,7 @@ const Sandbox = () => {
             <Stack spacing={0} align={'center'}>
               <IconButton
                 transition="all 0.2s"
-                bgGradient={'linear(to-br, teal.400,blue.500)'}
+                colorScheme="gradient"
                 color={'white'}
                 rounded={'md'}
                 _hover={{
@@ -86,7 +86,8 @@ const Sandbox = () => {
             <Stack spacing={0} align={'center'}>
               <IconButton
                 transition="all 0.2s"
-                bgGradient={'linear(to-br, teal.400,blue.500)'}
+                colorScheme="gradient"
+                isDisabled="true"
                 color={'white'}
                 rounded={'md'}
                 _hover={{
