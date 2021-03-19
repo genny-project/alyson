@@ -12,7 +12,7 @@ import { faEnvelopeOpenText, faTimesCircle, faUser } from '@fortawesome/free-sol
 import { closeDrawer } from 'redux/app'
 import { map } from 'ramda'
 
-const Company = ({ sbeCode, targetCode }) => {
+const Cv = ({ sbeCode, targetCode }) => {
   const dispatch = useDispatch()
   const onClose = () => dispatch(closeDrawer())
   const sbe = useSelector(selectCode(sbeCode))
@@ -156,4 +156,4 @@ const Company = ({ sbeCode, targetCode }) => {
   )
 }
 
-export default Company
+export default Cv
