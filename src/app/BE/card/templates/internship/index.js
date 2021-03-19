@@ -5,7 +5,7 @@ import Text from 'app/DTT/text'
 import statusColors from '../status_colors'
 import Action from 'app/BE/action'
 
-const InternshipCard = ({ parentCode, actions = [], code, columns, noExpansion }) => {
+const InternshipCard = ({ parentCode, actions = [], code }) => {
   const theme = useTheme()
   const title = useSelector(selectCode(code, 'PRI_NAME'))
   const subTitle = useSelector(selectCode(code, 'PRI_ASSOC_INDUSTRY'))
@@ -45,7 +45,13 @@ const InternshipCard = ({ parentCode, actions = [], code, columns, noExpansion }
         <Spacer />
         <VStack>
           {actions.map(action => (
-            <Action colorScheme="primary" code={action} parentCode={parentCode} />
+            <Action
+              key={action}
+              colorScheme="primary"
+              targetCode={code}
+              code={action}
+              parentCode={parentCode}
+            />
           ))}
         </VStack>
       </Flex>
