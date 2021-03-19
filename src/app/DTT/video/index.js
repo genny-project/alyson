@@ -127,14 +127,7 @@ const Read = ({ data, mini, styles }) => {
       </PopoverContent>
     </Popover>
   ) : (
-    <video
-      controls
-      autoplay
-      loop
-      muted
-      style={styles || { width: '20rem', borderRadius: '1rem' }}
-      src={src}
-    />
+    <video controls style={styles || { width: '20rem', borderRadius: '1rem' }} src={src} />
   )
 }
 
