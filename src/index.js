@@ -4,10 +4,10 @@ import ReactDOM from 'react-dom'
 import getApiConfig from 'config/get-api-config'
 import { initLog } from 'utils/log'
 import { ReactKeycloakProvider } from '@react-keycloak/web'
-import { Center, CircularProgress } from '@chakra-ui/react'
 import App from 'app'
 import { ColorModeScript, ChakraProvider } from '@chakra-ui/react'
 import { Fonts } from 'config/fonts'
+import Loading from 'keycloak/loading'
 
 const Error = lazy(() => import('error'))
 
@@ -21,14 +21,7 @@ const initialiseApp = async () => {
         <ChakraProvider theme={theme}>
           <Fonts />
           <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-          <ReactKeycloakProvider
-            authClient={keycloak}
-            LoadingComponent={
-              <Center>
-                <CircularProgress isIndeterminate />
-              </Center>
-            }
-          >
+          <ReactKeycloakProvider authClient={keycloak} LoadingComponent={<Loading />}>
             <App />
           </ReactKeycloakProvider>
         </ChakraProvider>
