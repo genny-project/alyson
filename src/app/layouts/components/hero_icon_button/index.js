@@ -1,19 +1,19 @@
-import { Box } from '@chakra-ui/layout'
+import { IconButton } from '@chakra-ui/react'
 
 const HeroIconButton = ({ icon, onClick }) => (
-  <Box
-    h="35px"
-    w="35px"
-    borderRadius="lg"
+  <IconButton
+    transition="all 0.2s"
     colorScheme="gradient"
     color="white"
-    as="button"
+    rounded={'md'}
     onClick={onClick}
-    _hover={{ boxShadow: 'dark-lg' }}
-    transition="box-shadow 0.2s"
+    _hover={{
+      transform: 'translateY(-2px)',
+      boxShadow: 'lg',
+    }}
   >
     {icon}
-  </Box>
+  </IconButton>
 )
 
 export default HeroIconButton
