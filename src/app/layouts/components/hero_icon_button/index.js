@@ -4,7 +4,6 @@ const HeroIconButton = ({ icon, onClick }) => (
   <IconButton
     transition="all 0.2s"
     colorScheme="gradient"
-    color="white"
     rounded={'md'}
     onClick={onClick}
     _hover={{

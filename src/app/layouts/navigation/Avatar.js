@@ -47,8 +47,8 @@ const AvatarMenu = () => {
     <Menu>
       <MenuButton>
         <Avatar
-          color="whitesmoke"
-          colorScheme="gradient"
+          color="white"
+          bg="gradient.400"
           name={name?.value || userName?.value}
           src={getImageSrc(userImage?.value)}
           size="sm"
