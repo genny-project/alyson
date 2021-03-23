@@ -9,7 +9,7 @@ import TabTop from './tab_top'
 const Notes = () => {
   const notesTargets = useSelector(selectNotes)
 
-  if (!notesTargets)
+  if (!notesTargets || !notesTargets.length)
     return (
       <Center>
         <VStack>
