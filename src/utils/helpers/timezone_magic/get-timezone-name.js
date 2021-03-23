@@ -2,15 +2,22 @@ import axios from 'axios'
 import { apiConfig } from 'config/get-api-config'
 import timeZone from './time-zone-from-browser'
 
-export const fromLatLng = async ({ lat, lng }) => {
-  // eslint-disable-next-line
-  const turnThisOn = await axios.get(
-    `${
-      apiConfig.api_url
-    }/maps/api/timezone/json?location=${lat},${lng}&timestamp=${Date.now()}&key=${
-      apiConfig.ENV_GOOGLE_MAPS_APIKEY
-    }`,
-  )
-
-  return timeZone
+export const fromLatLng = async ({ lat, lng, token }) => {
+  try {
+    const response = await axios({
+      method: 'GET',
+      url: `${apiConfig.api_url}googleapi/v1/timezone?location=${lat},${lng}&key=${apiConfig.ENV_GOOGLE_MAPS_APIKEY}`,
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    })
+    const { data } = response
+    return data
+  } catch (err) {
+    console.error(
+      `There was an error trying to fetch the timezone you requested, the timezone has been set to ${timeZone}`,
+      err,
+    )
+    return timeZone
+  }
 }
