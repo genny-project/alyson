@@ -10,7 +10,7 @@ import { onSendMessage } from 'vertx'
 const AddNote = ({ targetCode }) => {
   const sourceCode = useSelector(selectCode('USER'))
 
-  const [noteContent, setNoteContent] = useState('')
+  const [content, setContent] = useState('')
 
   const handleSave = e => {
     e.preventDefault()
@@ -19,17 +19,18 @@ const AddNote = ({ targetCode }) => {
       targetCode,
       sourceCode,
       tags: [],
+      content,
     })
-    setNoteContent('')
+    setContent('')
   }
 
   return (
     <form onSubmit={handleSave} style={{ width: '100%' }}>
       <InputGroup>
         <Input
-          value={noteContent}
+          value={content}
           placeholder="Take a note"
-          onChange={e => setNoteContent(e.target.value)}
+          onChange={e => setContent(e.target.value)}
         />
         <InputRightElement>
           <IconButton h="100%" onClick={handleSave} icon={<FontAwesomeIcon icon={faSave} />} />
