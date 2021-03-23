@@ -1,10 +1,11 @@
 import { useSelector } from 'react-redux'
-import { Box, VStack, Flex, Spacer, useColorModeValue, useTheme } from '@chakra-ui/react'
+import { Box, VStack, Flex, Spacer, useColorModeValue, useTheme, Button } from '@chakra-ui/react'
 import { selectCode } from 'redux/db/selectors'
 import Text from 'app/DTT/text'
 import Attribute from 'app/BE/attribute'
+import { onSendMessage } from 'vertx'
 
-const Card = ({ code }) => {
+const Card = ({ code, parentCode }) => {
   const theme = useTheme()
   const title = useSelector(selectCode(code, 'PRI_ASSOC_INDUSTRY'))
   const subTitle = useSelector(selectCode(code, 'PRI_NAME'))
@@ -38,6 +39,15 @@ const Card = ({ code }) => {
         <Spacer />
         <VStack>
           <Attribute code={code} attribute={'PRI_STATUS'} />
+          <Button
+            size="sm"
+            colorScheme="primary"
+            onClick={() =>
+              onSendMessage({ code: 'ACT_PRI_EVENT_VIEW', targetCode: code, parentCode })
+            }
+          >
+            View
+          </Button>
         </VStack>
       </Flex>
     </Box>

@@ -10,7 +10,7 @@ import Action from 'app/BE/action'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelopeOpenText, faTimesCircle, faUser } from '@fortawesome/free-solid-svg-icons'
 import { closeDrawer } from 'redux/app'
-import { map, replace } from 'ramda'
+import { includes, map, replace } from 'ramda'
 import LinkedInternships from 'app/SBE/detail/rep/linked_internships'
 
 const Rep = ({ sbeCode, targetCode }) => {
@@ -30,10 +30,10 @@ const Rep = ({ sbeCode, targetCode }) => {
 
   const actions = getActions(sbe)
 
-  const [topHeight, setTopHeight] = useState('5vh')
+  const [topHeight, setTopHeight] = useState('1vh')
 
   const handleScroll = () => {
-    if (topHeight !== '5vh') setTopHeight('5vh')
+    if (topHeight !== '1vh') setTopHeight('1vh')
   }
 
   if (!beCode) return null
@@ -114,9 +114,15 @@ const Rep = ({ sbeCode, targetCode }) => {
               </VStack>
             </HStack>
           </VStack>
-          <LinkedInternships
-            sbeCode={replace('SBE_EDU_PRO_REP_', 'SBE_LINKED_INTERNSHIP_OF_SUPERVISOR_', sbeCode)}
-          />
+          {includes('SBE_HOST_CPY_REP_', sbeCode) && (
+            <LinkedInternships
+              sbeCode={replace(
+                'SBE_HOST_CPY_REP_',
+                'SBE_LINKED_INTERNSHIP_OF_SUPERVISOR_',
+                sbeCode,
+              )}
+            />
+          )}
         </HStack>
       </VStack>
     </Box>
