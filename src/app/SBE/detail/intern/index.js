@@ -8,7 +8,12 @@ import getActions from 'app/SBE/utils/get-actions'
 import Attribute from 'app/BE/attribute'
 import Action from 'app/BE/action'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEnvelopeOpenText, faTimesCircle, faUser } from '@fortawesome/free-solid-svg-icons'
+import {
+  faCompactDisc,
+  faEnvelopeOpenText,
+  faTimesCircle,
+  faUser,
+} from '@fortawesome/free-solid-svg-icons'
 import { closeDrawer } from 'redux/app'
 import { map } from 'ramda'
 import Player from 'app/DTT/video/Player'
@@ -94,7 +99,7 @@ const Intern = ({ sbeCode, targetCode }) => {
             transition="height 1s"
             borderTopRightRadius="0.5rem"
             borderTopLeftRadius={video?.value ? '' : '0.5rem'}
-            overflow="scroll"
+            overflow="hidden"
           >
             <Attribute code={beCode} attribute={'PRI_CAREER_OBJ'} styles={careerObjStyles} />
           </Flex>
@@ -113,7 +118,13 @@ const Intern = ({ sbeCode, targetCode }) => {
         zIndex="modal"
         position="absolute"
       />
-      <VStack pt="5rem" onScroll={handleScroll} overflow="scroll" h={`calc(90vh - ${topHeight})`}>
+      <VStack
+        pt="5rem"
+        onScroll={handleScroll}
+        overflow="scroll"
+        overflowX="hidden"
+        h={`calc(90vh - ${topHeight})`}
+      >
         <Text fontSize="3xl" fontWeight="semibold" flexWrap="nowrap">
           {name?.value}
         </Text>
@@ -145,15 +156,40 @@ const Intern = ({ sbeCode, targetCode }) => {
                 <Attribute code={beCode} attribute={'PRI_MOBILE'} />
                 <Attribute code={beCode} attribute={'PRI_EMAIL'} />
                 <Attribute code={beCode} attribute={'PRI_ADDRESS_FULL'} />
+                <Attribute code={beCode} attribute={'PRI_LINKEDIN_URL'} />
               </VStack>
             </HStack>
             <HStack spacing="10" align="start" mb="1rem">
               <FontAwesomeIcon icon={faEnvelopeOpenText} />
               <VStack align="start">
                 <Text fontWeight="semibold">{`Internship Details`}</Text>
-                <Attribute code={beCode} attribute={'PRI_START_DATE'} />
-                <Attribute code={beCode} attribute={'PRI_ASSOC_DURATION'} />
-                <Attribute code={beCode} attribute={'PRI_TRANSPORT'} />
+                <HStack>
+                  <Text w="8rem" fontWeight="semibold">
+                    Start Date
+                  </Text>
+                  <Attribute code={beCode} attribute={'PRI_START_DATE'} />
+                </HStack>
+                <HStack>
+                  <Text w="8rem" fontWeight="semibold">
+                    Duration
+                  </Text>
+                  <Attribute code={beCode} attribute={'PRI_ASSOC_DURATION'} />
+                </HStack>
+                <HStack>
+                  <Text w="8rem" fontWeight="semibold">
+                    Transport
+                  </Text>
+                  <Attribute code={beCode} attribute={'PRI_TRANSPORT'} />
+                </HStack>
+              </VStack>
+            </HStack>
+          </VStack>
+          <VStack>
+            <HStack spacing="10" align="start" mb="1rem">
+              <FontAwesomeIcon icon={faCompactDisc} />
+              <VStack align="start">
+                <Text fontWeight="semibold">{`Known Software`}</Text>
+                <Attribute code={beCode} attribute={'PRI_ASSOC_CURRENT_SOFTWARE'} />
               </VStack>
             </HStack>
           </VStack>

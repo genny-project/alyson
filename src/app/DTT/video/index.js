@@ -107,8 +107,6 @@ const Read = ({ data, mini, styles }) => {
   const api = useApi()
   const src = api.getSrc(data?.value)
 
-  console.log(styles)
-
   return mini ? (
     <Popover>
       <PopoverTrigger>
