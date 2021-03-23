@@ -6,7 +6,7 @@ import { DBState, Note } from './types'
 import { MsgPayload, CmdPayload } from 'redux/types'
 import { addKey, removeKey } from './utils/update-keys'
 
-const initialState = {
+export const initialState = {
   NOTES: {},
 }
 

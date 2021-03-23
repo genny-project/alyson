@@ -1,7 +1,5 @@
-import dbReducer from 'redux/db'
+import dbReducer, { initialState } from 'redux/db'
 import { newCmd, newMsg } from 'redux/app'
-
-const initialState = {}
 
 const nameAttribute = {
   attributeCode: 'PRI_NAME',
