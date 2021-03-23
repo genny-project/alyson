@@ -50,7 +50,7 @@ const Read = ({ data, parentCode, variant, config }) => {
   const src = getImageSrc(data?.value)
 
   const viewDetail = () =>
-    onSendMessage({ parentCode, targetCode: data.baseEntityCode, code: 'ACT_PRI_EVENT_VIEW' })
+    onSendMessage({ parentCode, targetCode: data?.baseEntityCode, code: 'ACT_PRI_EVENT_VIEW' })
 
   if (variant === 'profile_image') {
     return <Image {...config} src={src} alt="profile-picture" w="10rem" borderRadius="xl" />

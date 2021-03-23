@@ -1,4 +1,4 @@
-import { HStack, Tag, VStack } from '@chakra-ui/react'
+import { HStack, Tag } from '@chakra-ui/react'
 import Attribute from 'app/BE/attribute'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
