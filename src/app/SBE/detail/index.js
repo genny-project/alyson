@@ -6,6 +6,7 @@ import Company from './company'
 import Internship from './internship'
 import Rep from './rep'
 import Profile from './profile'
+import Agent from './agent'
 import DefaultView from './default-view'
 import getDetailType from './helpers/get-detail-type'
 
@@ -36,6 +37,10 @@ const BaseEntityDetail = ({ targetCode }) => {
 
   if (displayType === 'USER_PROFILE') {
     return <Profile sbeCode={code} targetCode={targetCode} />
+  }
+
+  if (displayType === 'AGENT') {
+    return <Agent sbeCode={code} targetCode={targetCode} />
   }
 
   return <DefaultView sbeCode={code} targetCode={targetCode} />
