@@ -1,12 +1,14 @@
 import { forEach } from 'ramda'
 import { createSlice } from '@reduxjs/toolkit'
 import { newMsg, newCmd } from '../app'
-import { formatAsk, formatAttribute, formatBaseEntity } from './utils/format'
-import { DBState } from './types'
+import { formatAsk, formatAttribute, formatBaseEntity, formatNotes } from './utils/format'
+import { DBState, Note } from './types'
 import { MsgPayload, CmdPayload } from 'redux/types'
 import { addKey, removeKey } from './utils/update-keys'
 
-const initialState = {}
+export const initialState = {
+  NOTES: {},
+}
 
 const db = createSlice({
   name: 'db',
@@ -23,6 +25,7 @@ const db = createSlice({
       if (data_type === 'BaseEntity') forEach(formatBaseEntity(state, aliasCode, parentCode), items)
       if (data_type === 'Ask') forEach(formatAsk(state), items)
       if (data_type === 'Attribute') forEach(formatAttribute(state), items)
+      if (data_type === 'Note') forEach(formatNotes(state), items as Array<Note>)
     })
     builder.addCase(newCmd, (state: DBState, { payload }: { payload: CmdPayload }) => {
       const { cmd_type, code, sourceCode, targetCode } = payload

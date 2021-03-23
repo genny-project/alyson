@@ -92,17 +92,31 @@ const DeveloperConsole = () => {
                         <Text size="lg" fontWeight="bold">
                           Has Keys
                         </Text>
-                        {selection.map(key => (
-                          <Text
-                            borderRadius="lg"
-                            p="1"
-                            _hover={{ bg: 'grey' }}
-                            cursor="pointer"
-                            onClick={() => setCode(key)}
-                          >
-                            {key}
-                          </Text>
-                        ))}
+                        {selection.map(key =>
+                          console.log(key) || typeof key === 'object' ? (
+                            Object.keys(key).map(key_2 => (
+                              <Text
+                                borderRadius="lg"
+                                p="1"
+                                _hover={{ bg: 'grey' }}
+                                cursor="pointer"
+                                onClick={() => setCode(key)}
+                              >
+                                {`${key[key_2]}`}
+                              </Text>
+                            ))
+                          ) : (
+                            <Text
+                              borderRadius="lg"
+                              p="1"
+                              _hover={{ bg: 'grey' }}
+                              cursor="pointer"
+                              onClick={() => setCode(key)}
+                            >
+                              {`${key}`}
+                            </Text>
+                          ),
+                        )}
                       </>
                     ) : (
                       <>
@@ -114,11 +128,11 @@ const DeveloperConsole = () => {
                           Object.keys(selection).map(key => (
                             <HStack>
                               <Text w="15rem">{key}</Text>
-                              <Text>{selection[key]}</Text>
+                              <Text>{`${selection[key]}`}</Text>
                             </HStack>
                           ))
                         ) : (
-                          <Text>{selection}</Text>
+                          <Text>{`${selection}`}</Text>
                         )}
                       </>
                     )

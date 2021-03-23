@@ -71,6 +71,7 @@ const VertxContainer = () => {
       })
     } catch (err) {
       console.error(err)
+      window.location.reload()
     }
 
     sendAuthInit({ token })

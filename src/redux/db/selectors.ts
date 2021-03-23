@@ -12,7 +12,7 @@ export const selectCodes = (codes: Array<string>, attribute: string) => (state: 
 export const selectAttributes = (parentCode: string, attributes: Array<string>) => (
   state: RootState,
 ) => map(attr => selectCode(parentCode, attr)(state), attributes)
+export const selectNote = (id: string) => (state: RootState) => state.db.NOTES[id]
 
 // Developer selectors
-
 export const selectKeys = (state: RootState) => keys(state.db)
