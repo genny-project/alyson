@@ -31,11 +31,7 @@ const Intern = ({ sbeCode, targetCode }) => {
 
   const actions = getActions(sbe)
 
-<<<<<<< HEAD
   const [topHeight, setTopHeight] = useState('30vh')
-=======
-  const [topHeight, setTopHeight] = useState(careerObj?.value || video?.value ? '45vh' : '0')
->>>>>>> internmatch
 
   const handleScroll = () => {
     if (topHeight !== '0') setTopHeight('0')
@@ -105,12 +101,7 @@ const Intern = ({ sbeCode, targetCode }) => {
         )}
       </Flex>
       <Avatar
-<<<<<<< HEAD
         onClick={() => setTopHeight('30vh')}
-=======
-        cursor="pointer"
-        onClick={() => setTopHeight(topHeight => (topHeight === '45vh' ? '0' : '45vh'))}
->>>>>>> internmatch
         mt="-4.75rem"
         left="calc(35vw - 4.75rem)"
         bg={src ? 'white' : 'lightgrey'}
