@@ -10,8 +10,9 @@ import Action from 'app/BE/action'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelopeOpenText, faTimesCircle, faUser } from '@fortawesome/free-solid-svg-icons'
 import { closeDrawer } from 'redux/app'
-import { map } from 'ramda'
+import { map, replace } from 'ramda'
 import Player from 'app/DTT/video/Player'
+import LinkedInternships from 'app/SBE/detail/rep/linked_internships'
 
 const Intern = ({ sbeCode, targetCode }) => {
   const dispatch = useDispatch()
@@ -145,7 +146,6 @@ const Intern = ({ sbeCode, targetCode }) => {
                 <Text fontWeight="semibold">{`Contact details`}</Text>
                 <Attribute code={beCode} attribute={'PRI_MOBILE'} />
                 <Attribute code={beCode} attribute={'PRI_EMAIL'} />
-                <Attribute code={beCode} attribute={'PRI_LINKEDIN_URL'} />
               </VStack>
             </HStack>
             <HStack spacing="10" align="start" mb="1rem">
@@ -155,6 +155,13 @@ const Intern = ({ sbeCode, targetCode }) => {
                 <Attribute code={beCode} attribute={'PRI_BIO'} />
               </VStack>
             </HStack>
+            <LinkedInternships
+              sbeCode={replace(
+                'SBE_HOST_CPY_REP_',
+                'SBE_LINKED_INTERNSHIP_OF_SUPERVISOR_',
+                sbeCode,
+              )}
+            />
           </VStack>
         </HStack>
       </VStack>
