@@ -32,7 +32,7 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCode }) => {
   const askData = useSelector(selectCode(parentCode, questionCode)) || passedAskData
 
-  const { attributeCode, targetCode, name, question, mandatory, hidden } = askData
+  const { attributeCode, targetCode, name, question, mandatory, hidden, disabled } = askData
 
   const data = useSelector(selectCode(targetCode, attributeCode)) || {}
 
@@ -63,7 +63,7 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
       onFinish={onFinish}
     />
   ) : (
-    <FormControl isRequired={mandatory} isInvalid={!!feedback}>
+    <FormControl isDisabled={!!disabled} isRequired={mandatory} isInvalid={!!feedback}>
       {!multiple && <FormLabel fontWeight="semibold">{name}</FormLabel>}
       {component === 'email' && (
         <Email.Write
@@ -170,7 +170,12 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
         <URL.Write questionCode={questionCode} data={data} onSendAnswer={onSendAnswer} />
       )}
       {component === 'abn_number' && (
-        <ABN.Write questionCode={questionCode} data={data} onSendAnswer={onSendAnswer} />
+        <ABN.Write
+          disabled={disabled}
+          questionCode={questionCode}
+          data={data}
+          onSendAnswer={onSendAnswer}
+        />
       )}
       {component === 'rating' && (
         <Rating.Write data={data} questionCode={questionCode} onSendAnswer={onSendAnswer} />

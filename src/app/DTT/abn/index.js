@@ -3,7 +3,7 @@ import { Button, Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
 import { Read } from '../text'
 import ABNLookup from './abn_lookup'
 
-const Write = ({ questionCode, data, onSendAnswer }) => {
+const Write = ({ questionCode, data, onSendAnswer, disabled }) => {
   const [value, setValue] = useState(data?.value)
   const [isOpen, setIsOpen] = useState(false)
 
@@ -24,7 +24,13 @@ const Write = ({ questionCode, data, onSendAnswer }) => {
       />
       <InputGroup>
         <InputLeftElement w="8rem">
-          <Button w="8rem" variant="outline" colorScheme="primary" onClick={open}>
+          <Button
+            isDisabled={disabled}
+            w="8rem"
+            variant="outline"
+            colorScheme="primary"
+            onClick={open}
+          >
             ABN Lookup
           </Button>
         </InputLeftElement>
