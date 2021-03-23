@@ -73,6 +73,7 @@
   },
   "devDependencies": {
     "@types/lodash.throttle": "^4.1.6",
-    "@types/ramda": "^0.27.39"
+    "@types/ramda": "^0.27.39",
+    "@types/react-redux": "^7.1.16"
   }
 }

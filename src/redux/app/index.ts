@@ -12,6 +12,7 @@ export const initialState = {
   DIALOG: 'NONE',
   TOAST: null,
   DASHBOARD_COUNTS: null,
+  NOTES: null,
 }
 
 const appSlice = createSlice({
@@ -28,9 +29,10 @@ const appSlice = createSlice({
         : cmdMachine.DEFAULT(state, payload)
     },
     newMsg: (state: AppState, { payload }: { payload: MsgPayload }) => {
-      const { items, data_type } = payload
+      const { items, data_type, targetCodes } = payload
 
       if (data_type === 'BaseEntity') setDisplayCode(state)(items)
+      if (data_type === 'Note') state.NOTES = targetCodes
 
       if (isAsk(data_type)) {
         const questionCode: string = getQuestionCode(items)
@@ -46,8 +48,18 @@ const appSlice = createSlice({
     closeDialog: state => {
       state.DIALOG = 'NONE'
     },
+    closeNotes: state => {
+      state.NOTES = null
+    },
   },
 })
 
-export const { newCmd, newMsg, closeDrawer, closeDialog, sendMessage } = appSlice.actions
+export const {
+  newCmd,
+  newMsg,
+  closeDrawer,
+  closeDialog,
+  sendMessage,
+  closeNotes,
+} = appSlice.actions
 export default appSlice.reducer

@@ -1,7 +1,9 @@
 import { forEach, compose, keys, includes, find } from 'ramda'
 import { Item, MsgPayload } from 'redux/types'
+import initialiseKey from 'utils/helpers/initialise-key'
+import pushUniqueString from 'utils/helpers/push-unique-string'
 import { Keyable } from 'utils/types'
-import { DBState } from '../types'
+import { DBState, Note } from '../types'
 import sortByIndex from './sort-by-index'
 
 export const formatBaseEntity = (
@@ -43,15 +45,15 @@ export const formatBaseEntity = (
 export const formatAsk = (state: DBState) => (item: Item) => {
   const { questionCode, childAsks = [], name } = item
 
-  if (!state[questionCode]) state[questionCode] = []
-  if (!state[`${questionCode}@title`]) state[`${questionCode}@title`] = name
+  initialiseKey(state, questionCode, [])
+  initialiseKey(state, `${questionCode}@title`, name)
 
   forEach((childAsk: Keyable) => {
     const childAskCode = childAsk.questionCode
 
     const codes = state[questionCode] as Array<string>
-    if (codes.indexOf(childAskCode) === -1) codes.push(childAskCode)
 
+    pushUniqueString(codes, childAskCode)
     state[`${questionCode}@${childAskCode}`] = childAsk
   }, sortByIndex(childAsks))
 
@@ -70,4 +72,13 @@ export const formatAttribute = (state: DBState) => (item: Item) => {
 
   state[code] = dttCode
   state[dttCode] = dataType
+}
+
+export const formatNotes = (state: DBState) => (item: Note) => {
+  const { id, targetCode } = item
+  initialiseKey(state, `${targetCode}@NOTES`, [])
+  pushUniqueString(state[`${targetCode}@NOTES`] as Array<string>, `${id}`)
+
+  initialiseKey(state, 'NOTES', {})
+  state.NOTES[`${id}`] = item
 }

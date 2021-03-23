@@ -1,10 +1,10 @@
 import { AppState } from './app/types'
-import { DBState } from './db/types'
+import { DBState, Note } from './db/types'
 
 export interface Item {
   [key: string]: any
 }
-
+export type TargetCode = string
 export type Items = Array<Item>
 export interface MsgPayload {
   items: Items
@@ -12,6 +12,7 @@ export interface MsgPayload {
   aliasCode?: string
   parentCode?: string
   replace: boolean
+  targetCodes: Array<TargetCode>
 }
 
 export interface CmdPayload {
