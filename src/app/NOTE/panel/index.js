@@ -9,7 +9,7 @@ import NoteCard from '../note_card'
 const NotePanel = ({ targetCode }) => {
   const notes = useSelector(selectCode(targetCode, 'NOTES'))
 
-  if (!notes || !notes.length)
+  if (!notes)
     return (
       <VStack>
         <Text>No notes found</Text>
