@@ -1,12 +1,30 @@
-import { useRef, useState } from 'react'
-import { Box, IconButton } from '@chakra-ui/react'
+import { useRef, useState, useEffect } from 'react'
+import { Box, Center, IconButton, Text } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlayCircle } from '@fortawesome/free-solid-svg-icons'
+import axios from 'axios'
 
 const Player = ({ src, styles = {} }) => {
   const videoRef = useRef(null)
 
   const [paused, setPaused] = useState(true)
+  const [error, setError] = useState(false)
+
+  useEffect(() => {
+    const getSrc = async () => {
+      if (src) {
+        try {
+          await axios.get(src)
+        } catch (err) {
+          setError(err)
+        }
+      } else {
+        setError(true)
+      }
+    }
+
+    getSrc()
+  }, [src])
 
   const handleClick = () => {
     if (videoRef) {
@@ -20,6 +38,12 @@ const Player = ({ src, styles = {} }) => {
     }
   }
 
+  if (error)
+    return (
+      <Center w="100%" color="lightgrey">
+        Error retrieving video
+      </Center>
+    )
   return (
     <Box
       onClick={handleClick}

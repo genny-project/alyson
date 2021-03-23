@@ -12,7 +12,7 @@ const ExistingFilters = ({ existingFilters }) => {
       {existingFilters.childAsks.map(
         ({ sourceCode, targetCode, question: { name, attributeCode, code } }) => (
           <Button
-            variant="ghost"
+            variant="outline"
             leftIcon={<FontAwesomeIcon icon={faTimesCircle} />}
             onClick={() => onSendMessage({ sourceCode, targetCode, attributeCode, code })}
           >

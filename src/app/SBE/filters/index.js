@@ -37,7 +37,6 @@ const Filters = ({ sbeCode }) => {
         </PopoverTrigger>
         <PopoverContent>
           <PopoverArrow />
-          <PopoverCloseButton />
           <PopoverBody>
             {addFilters.childAsks.map(childAskObject => (
               <Ask
