@@ -80,6 +80,8 @@ const Intern = ({ sbeCode, targetCode }) => {
             minWidth="50%"
             height={topHeight}
             transition="height 1s"
+            background="gray.100"
+            borderTopLeftRadius="0.5rem"
           >
             <Player src={videoSrc} styles={videoStyle} />
           </Flex>
@@ -92,6 +94,7 @@ const Intern = ({ sbeCode, targetCode }) => {
             transition="height 1s"
             borderTopRightRadius="0.5rem"
             borderTopLeftRadius={video?.value ? '' : '0.5rem'}
+            overflow="scroll"
           >
             <Attribute code={beCode} attribute={'PRI_CAREER_OBJ'} styles={careerObjStyles} />
           </Flex>
