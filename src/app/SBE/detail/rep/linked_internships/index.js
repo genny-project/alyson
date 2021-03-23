@@ -7,7 +7,6 @@ import Card from 'app/SBE/detail/rep/linked_internships/Card'
 
 const LinkedInternships = ({ sbeCode }) => {
   const rows = useSelector(selectRows(sbeCode))
-  const title = useSelector(selectCode(sbeCode, 'SCH_TITLE'))
   const total = useSelector(selectCode(sbeCode, 'PRI_TOTAL_RESULTS'))
 
   const color = useColorModeValue('primary.50', 'primary.900')
@@ -16,7 +15,7 @@ const LinkedInternships = ({ sbeCode }) => {
     <VStack bg={color} p="3" borderRadius="lg" shadow="lg" mb="4">
       <HStack w="full" p="2">
         <Text fontSize="xl" fontWeight="normal" color="primary">
-          {title?.value}
+          Internships I Look After
         </Text>
         <Spacer />
         <Text fontSize="xl" fontWeight="normal">
