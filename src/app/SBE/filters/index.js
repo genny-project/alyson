@@ -6,7 +6,6 @@ import {
   PopoverContent,
   PopoverBody,
   PopoverArrow,
-  PopoverCloseButton,
   Button,
   HStack,
 } from '@chakra-ui/react'

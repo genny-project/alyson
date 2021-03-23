@@ -41,7 +41,7 @@ const Player = ({ src, styles = {} }) => {
   if (error)
     return (
       <Center w="100%" color="lightgrey">
-        Error retrieving video
+        <Text as="samp"> Error retrieving video</Text>
       </Center>
     )
   return (
