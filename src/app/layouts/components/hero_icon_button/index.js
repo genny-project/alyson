@@ -1,23 +1,18 @@
-import { Box } from '@chakra-ui/layout'
-import { gradient } from 'config/theme'
+import { IconButton } from '@chakra-ui/react'
 
 const HeroIconButton = ({ icon, onClick }) => (
-  <Box
-    h="40px"
-    w="40px"
-    borderRadius="lg"
-    bg={gradient}
-    color="white"
-    as="button"
+  <IconButton
+    transition="all 0.2s"
+    colorScheme="gradient"
+    rounded={'md'}
     onClick={onClick}
     _hover={{
       transform: 'translateY(-2px)',
       boxShadow: 'lg',
     }}
-    transition="all 0.2s"
   >
     {icon}
-  </Box>
+  </IconButton>
 )
 
 export default HeroIconButton
