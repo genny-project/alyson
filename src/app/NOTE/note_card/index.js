@@ -25,10 +25,14 @@ const NoteCard = ({ id }) => {
         </HStack>
 
         <Text>{content}</Text>
-        <Text fontSize="xs" as="samp">
-          {created}
-          <Attribute code={targetCode} attribute="PRI_NAME" />
-        </Text>
+        <HStack>
+          <Text fontSize="xs" as="samp">
+            {new Date(created).toLocaleDateString()}
+          </Text>
+          <Text fontSize="xs" as="samp">
+            <Attribute code={targetCode} attribute="PRI_NAME" />
+          </Text>
+        </HStack>
       </VStack>
     </Box>
   )
