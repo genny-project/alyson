@@ -15,11 +15,13 @@ const NoteCard = ({ id }) => {
     <Box p="3" w="full" borderWidth="1px" borderRadius="lg">
       <VStack align="start">
         <HStack w="full">
-          {tags.map(tag =>
+          {tags.map((tag, idx) =>
             includes('per_', tag?.name) ? (
-              <Attribute code={toUpper(tag?.name)} attribute="PRI_IMAGE_URL" />
+              <Attribute key={idx} code={toUpper(tag?.name)} attribute="PRI_IMAGE_URL" />
             ) : (
-              <Text fontWeight="semibold">{tag.name}</Text>
+              <Text key={idx} fontWeight="semibold">
+                {tag.name}
+              </Text>
             ),
           )}
         </HStack>

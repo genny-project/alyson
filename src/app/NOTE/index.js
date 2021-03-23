@@ -22,7 +22,7 @@ const Notes = () => {
     <Tabs>
       <TabList>
         {notesTargets.map(targetCode => (
-          <TabTop targetCode={targetCode} />
+          <TabTop key={targetCode} targetCode={targetCode} />
         ))}
       </TabList>
       <TabPanels>
