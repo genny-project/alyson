@@ -33,7 +33,6 @@ const formatDate = (utcDate, includeTime) => {
 
   if (displayLocalDate !== 'Invalid Date') {
     const { dateOnly, timeOnly } = utcDateTimeInfo(displayLocalDate)
-    console.log(timeOnly)
     const dateString = timeOnly ? `${dateOnly}, ${timeOnly}` : `${dateOnly}`
     return includeTime ? dateString : dateOnly
   }
