@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Input, InputGroup, InputRightElement } from '@chakra-ui/input'
+import { Input, InputGroup, InputRightAddon, InputRightElement } from '@chakra-ui/input'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import { IconButton } from '@chakra-ui/button'
@@ -32,7 +32,12 @@ const AddNote = ({ targetCode }) => {
           onChange={e => setNoteContent(e.target.value)}
         />
         <InputRightElement>
-          <IconButton h="100%" onClick={handleSave} icon={<FontAwesomeIcon icon={faSave} />} />
+          <IconButton
+            borderLeftRadius="0px"
+            h="100%"
+            onClick={handleSave}
+            icon={<FontAwesomeIcon icon={faSave} />}
+          />
         </InputRightElement>
       </InputGroup>
     </form>
