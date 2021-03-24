@@ -1,6 +1,8 @@
 import { keycloak } from 'config/get-api-config'
+import history from 'config/history'
 import { includes } from 'ramda'
-import { CmdPayload } from 'redux/types'
+import { CmdPayload, Message } from 'redux/types'
+import { makePathname } from 'utils/pathname'
 import { AppState } from '../types'
 
 const displayMachine: {
@@ -53,4 +55,7 @@ const cmdMachine: {
     (state[cmd_type] = targetCodes || code),
 }
 
-export { cmdMachine }
+const handleSendMessage = (message: Message) => {
+  if (message.redirect) history.push(makePathname(message.data), message)
+}
+export { cmdMachine, handleSendMessage }

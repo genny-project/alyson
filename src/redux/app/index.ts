@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import log from 'utils/log'
 import { isForm, isAsk, getQuestionCode } from './utils/get-type'
 import setDisplayCode from './utils/set-display-code'
-import { cmdMachine } from './utils/handlers'
+import { cmdMachine, handleSendMessage } from './utils/handlers'
 import { AppState } from './types'
 import { CmdPayload, MsgPayload } from 'redux/types'
 
@@ -40,6 +40,7 @@ const appSlice = createSlice({
       }
     },
     sendMessage: (state, { payload }) => {
+      handleSendMessage(payload.data)
       state.lastMessage = payload
     },
     closeDrawer: state => {
