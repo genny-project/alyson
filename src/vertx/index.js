@@ -18,7 +18,12 @@ export const eventBus = new EventBus(VERTX_URL)
 let onSendMessage = identity
 
 const onSendAnswer = data =>
-  onSendMessage([data], { msg_type: 'DATA_MSG', data_type: 'Answer', event_type: false })
+  onSendMessage([data], {
+    redirect: false,
+    msg_type: 'DATA_MSG',
+    data_type: 'Answer',
+    event_type: false,
+  })
 
 const onSendFilter = ({ value, attributeCode, targetCode, sourceCode, type, weight }) =>
   onSendAnswer({

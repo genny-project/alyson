@@ -18,7 +18,7 @@ const createSendAnswer = (fieldData, { passedTargetCode }) => value => {
         value: getFormattedValue(value),
       },
     ],
-    { msg_type: 'DATA_MSG', data_type: 'Answer', event_type: false },
+    { msg_type: 'DATA_MSG', data_type: 'Answer', event_type: false, redirect: false },
   )
 }
 
