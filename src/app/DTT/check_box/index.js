@@ -8,7 +8,7 @@ const Write = ({ questionCode, data, onSendAnswer }) => {
       <Checkbox
         colorScheme="green"
         isChecked={data?.value === 'true'}
-        value={data?.value}
+        value={`Yes`}
         onChange={() => onSendAnswer('true')}
       >{`Yes`}</Checkbox>
     </HStack>
