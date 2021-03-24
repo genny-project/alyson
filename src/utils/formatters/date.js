@@ -1,4 +1,4 @@
-import { split, pathOr } from 'ramda'
+import { split, pathOr, replace } from 'ramda'
 import timeBasedOnTimeZone from 'utils/helpers/timezone_magic/time-based-on-timezone'
 
 const dateTimeInfo = date => {
@@ -21,7 +21,7 @@ const dateTimeInfo = date => {
 const utcDateTimeInfo = date => {
   const splittedDateTime = date && split(',')(date)
   const dateOnly = pathOr('', [0])(splittedDateTime)
-  const timeOnly = pathOr('', [1])(splittedDateTime)
+  const timeOnly = replace(':00', '', pathOr('', [1])(splittedDateTime))
 
   return { dateOnly, timeOnly }
 }

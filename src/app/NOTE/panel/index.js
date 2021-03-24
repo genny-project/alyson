@@ -9,21 +9,19 @@ import NoteCard from '../note_card'
 const NotePanel = ({ targetCode }) => {
   const notes = useSelector(selectCode(targetCode, 'NOTES'))
 
-  if (!notes)
-    return (
-      <VStack>
-        <Text>No notes found</Text>
-        <Button onClick={() => onSendMessage({ code: 'ACT_PRI_EVENT_ACCESS_NOTES', targetCode })}>
-          Refetch?
-        </Button>
-      </VStack>
-    )
   return (
     <VStack align="start">
       <AddNote targetCode={targetCode} />
-      {notes.map(id => (
-        <NoteCard key={id} id={id} />
-      ))}
+      {!notes ? (
+        <VStack>
+          <Text>No notes found</Text>
+          <Button onClick={() => onSendMessage({ code: 'ACT_PRI_EVENT_ACCESS_NOTES', targetCode })}>
+            Refetch?
+          </Button>
+        </VStack>
+      ) : (
+        notes.map(id => <NoteCard key={id} id={id} />)
+      )}
     </VStack>
   )
 }
