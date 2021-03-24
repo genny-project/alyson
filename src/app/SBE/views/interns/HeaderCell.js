@@ -10,7 +10,6 @@ const Cell = ({ attribute, parentCode }) => {
   const data = useSelector(selectCode(parentCode, attribute))
   const sort = useSelector(selectCode(parentCode, replace('COL_', 'SRT_', attribute)))
 
-  console.log(sort)
   return (
     <Th>
       {data?.attributeName}
