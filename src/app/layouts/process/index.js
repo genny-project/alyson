@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 import { selectProcess } from 'redux/app/selectors'
 import Lane from 'app/SBE/lane'
-import { HStack, Stack, VStack } from '@chakra-ui/react'
+import { HStack } from '@chakra-ui/react'
 import Search from 'app/SBE/search/Search'
 
 const Process = ({ dashboard }) => {
