@@ -24,6 +24,21 @@ export interface CmdPayload {
   targetCodes?: Array<string>
 }
 
+interface MessageData {
+  code: string
+  parentCode: string | undefined
+  rootCode: string | undefined
+  targetCode: string | undefined
+}
+export interface Message {
+  data_type: string | undefined
+  event_type: string
+  msg_type: string
+  redirect: Boolean
+  token: string
+  data: MessageData
+}
+
 export interface RootState {
   app: AppState
   db: DBState

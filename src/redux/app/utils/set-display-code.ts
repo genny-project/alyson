@@ -15,7 +15,8 @@ const setDisplayCode = (state: AppState) => (items: Items) => {
       if (includes('DETAIL_VIEW', displayCode?.valueString || '')) {
         state.DETAIL = code
       } else {
-        if (!includes('NESTED', displayCode?.valueString || '')) state.TABLE = code
+        if (!includes('NESTED', displayCode?.valueString || '') && !includes('_SUMMARY_', code))
+          state.TABLE = code
       }
     }
   }
