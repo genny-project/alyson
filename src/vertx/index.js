@@ -12,8 +12,17 @@ import urlStateManager from 'utils/url-state-manager'
 
 import { tokenFromUrl, guestKeycloak } from 'config/get-api-config'
 import { getSessionIdFromToken } from 'keycloak/get-token-from-url'
+import sleep from 'utils/helpers/sleep'
 
 export const eventBus = new EventBus(VERTX_URL)
+
+const callBucketView = async () => {
+  await sleep(500)
+  onSendMessage(
+    { code: 'QUE_TAB_BUCKET_VIEW', parentCode: 'QUE_TAB_BUCKET_VIEW' },
+    { redirect: false },
+  )
+}
 
 let onSendMessage = identity
 
@@ -87,10 +96,7 @@ const VertxContainer = () => {
 
     onSendMessage = createSendMessage(token, onSendMsg)
 
-    onSendMessage(
-      { code: 'QUE_TAB_BUCKET_VIEW', parentCode: 'QUE_TAB_BUCKET_VIEW' },
-      { redirect: false },
-    )
+    callBucketView()
 
     urlStateManager(onSendMessage)(window.location.pathname)
   }

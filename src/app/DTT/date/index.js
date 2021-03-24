@@ -1,14 +1,15 @@
 import { includes } from 'ramda'
 import { Text, Input } from '@chakra-ui/react'
-import dateFormatter from 'utils/formatters/date'
+import timeBasedOnTimeZone from 'utils/helpers/timezone_magic/time-based-on-timezone.ts'
 
 const Read = ({ data, size, typeName }) => {
   const includeTime = includes('LocalDateTime', typeName)
-  // const onlyYear = typeName === 'year'
 
-  const date = dateFormatter(data?.value, includeTime)
+  if (!data.value) return null
 
-  if (!date) return null
+  const date = timeBasedOnTimeZone(new Date(data.value + 'Z'), { includeTime })
+
+  if (date === 'Invalid Date') return null
   return (
     <Text w="10rem" fontSize={size}>
       {date}
