@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Input, InputGroup, InputRightAddon, InputRightElement } from '@chakra-ui/input'
+import { Input, InputGroup, InputRightElement } from '@chakra-ui/input'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import { IconButton } from '@chakra-ui/button'
