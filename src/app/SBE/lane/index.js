@@ -8,7 +8,7 @@ import BECard from 'app/BE/card'
 import Title from './Title'
 import getPaginationActions from 'app/SBE/utils/get-pagination-actions'
 
-const Lane = ({ sbeCode }) => {
+const Lane = ({ sbeCode, dashboard }) => {
   const table = useSelector(selectCode(sbeCode))
   const rows = useSelector(selectRows(sbeCode))
   const totalResults = useSelector(selectCode(sbeCode, 'PRI_TOTAL_RESULTS'))
@@ -20,6 +20,8 @@ const Lane = ({ sbeCode }) => {
 
   const columns = getColumns(table)
   const actions = getActions(table)
+
+  if (dashboard && !rows.length) return null
 
   return (
     <VStack bg={color} p="3" borderRadius="lg" shadow="lg">

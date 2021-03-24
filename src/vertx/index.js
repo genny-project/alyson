@@ -87,6 +87,11 @@ const VertxContainer = () => {
 
     onSendMessage = createSendMessage(token, onSendMsg)
 
+    onSendMessage(
+      { code: 'QUE_TAB_BUCKET_VIEW', parentCode: 'QUE_TAB_BUCKET_VIEW' },
+      { redirect: false },
+    )
+
     urlStateManager(onSendMessage)(window.location.pathname)
   }
 

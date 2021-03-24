@@ -1,4 +1,4 @@
-import { Center, HStack, Text, VStack } from '@chakra-ui/layout'
+import { Box, Center, HStack, Text, VStack } from '@chakra-ui/layout'
 import { selectAttributes } from 'redux/db/selectors'
 import { selectDashboard } from 'redux/app/selectors'
 import { useSelector } from 'react-redux'
@@ -8,6 +8,7 @@ import { Button, ButtonGroup, IconButton } from '@chakra-ui/button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBriefcase, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { onSendMessage } from 'vertx'
+import Process from 'app/layouts/process'
 
 const HostCompanyRep = ({ userCode }) => {
   const [name, hc, jobTitle] = useSelector(
@@ -20,6 +21,12 @@ const HostCompanyRep = ({ userCode }) => {
 
   return (
     <Center>
+      <Box position="absolute" style={{ right: 10, top: 80 }}>
+        <VStack spacing="5">
+          <DisplaySbe sbeCode={serviceAgreement} />
+          <DisplaySbe sbeCode={ohsDeclaration} />
+        </VStack>
+      </Box>
       <VStack spacing="5">
         <Text fontSize="2xl" fontWeight="semibold">{`Welcome ${name?.value}`}</Text>
         <Text>{`${jobTitle?.value} ${hc?.value}`}</Text>
@@ -65,10 +72,7 @@ const HostCompanyRep = ({ userCode }) => {
           </ButtonGroup>
         </HStack>
 
-        <HStack spacing="5">
-          <DisplaySbe sbeCode={serviceAgreement} />
-          <DisplaySbe sbeCode={ohsDeclaration} />
-        </HStack>
+        <Process dashboard />
       </VStack>
     </Center>
   )
