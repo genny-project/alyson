@@ -3,8 +3,8 @@ import { isDev } from 'utils/developer'
 
 const defaultProjectTheme = {
   fonts: {
-    heading: 'Roboto',
-    body: 'Roboto',
+    heading: 'Inter',
+    body: 'Inter',
   },
   colors: {
     background: { light: '#ffffff', dark: '#171923' },
