@@ -9,6 +9,7 @@ import { faArrowRight, faCalendar, faSearch } from '@fortawesome/free-solid-svg-
 import { faAngellist } from '@fortawesome/free-brands-svg-icons'
 import { onSendMessage } from 'vertx'
 import Recommendations from './recommendations'
+import Process from 'app/layouts/process'
 
 const Intern = ({ userCode }) => {
   const [name] = useSelector(selectAttributes(userCode, ['PRI_NAME']))
@@ -69,6 +70,7 @@ const Intern = ({ userCode }) => {
           </Box>
         </HStack>
         <Recommendations />
+        <Process dashboard />
       </VStack>
     </Center>
   )
