@@ -32,8 +32,8 @@ const Intern = ({ userCode }) => {
         >
           {`Find an Internship`}
         </Button>
-        <Recommendations />
         <Process dashboard />
+        <Recommendations />
       </VStack>
     </Center>
   )
