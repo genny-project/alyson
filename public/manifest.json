@@ -1,6 +1,6 @@
 {
-  "short_name": "Genny App",
-  "name": "Generic App Built on Genny Stack",
+  "short_name": "MentorMatch",
+  "name": "MentorMatch",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,7 +8,7 @@
       "type": "image/x-icon"
     },
     {
-      "src": "logo512.png",
+      "src": "logo.png",
       "type": "image/png",
       "sizes": "512x512"
     }
