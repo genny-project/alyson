@@ -6,6 +6,7 @@ import { Button, HStack, Stack, VStack } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBolt, faColumns } from '@fortawesome/free-solid-svg-icons'
 import Search from 'app/layouts/navigation/Search'
+import { onSendMessage } from 'vertx'
 
 const Agent = ({ userCode }) => {
   const dashboardSbes = useSelector(selectDashboard) || []
@@ -23,6 +24,12 @@ const Agent = ({ userCode }) => {
         </VStack>
       </Stack>
       <Button
+        onClick={() =>
+          onSendMessage({
+            code: 'QUE_TAB_BUCKET_VIEW',
+            parentCode: 'QUE_TAB_BUCKET_VIEW',
+          })
+        }
         leftIcon={<FontAwesomeIcon icon={faColumns} />}
         rightIcon={<FontAwesomeIcon icon={faBolt} />}
         colorScheme="gradient"
