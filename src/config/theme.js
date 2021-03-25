@@ -40,18 +40,22 @@ const defaultProjectTheme = {
     warning: { 50: '#FFFAF0', 500: '#DD6B20' },
     success: { 50: '#F0FFF4', 500: '#38A169' },
   },
-  components: {
-    Heading: {
-      baseStyle: {
-        fontWeight: 'bold',
-        textTransform: 'uppercase',
-      },
+  textStyles: {
+    head1: {
+      fontSize: ['48px', '72px'],
+      fontWeight: 'bold',
     },
-    Text: {
-      baseStyle: {
-        fontWeight: 'bold',
-        textTransform: 'uppercase',
-      },
+    head2: {
+      fontSize: ['36px', '48px'],
+      fontWeight: 'semibold',
+    },
+    body1: {
+      fontSize: ['30px', '36px'],
+      fontWeight: 'bold',
+    },
+    body2: {
+      fontSize: ['24px', '30px'],
+      fontWeight: 'semibold',
     },
   },
 }
