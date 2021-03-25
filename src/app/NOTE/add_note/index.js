@@ -32,7 +32,12 @@ const AddNote = ({ targetCode }) => {
           onChange={e => setNoteContent(e.target.value)}
         />
         <InputRightElement>
-          <IconButton h="100%" onClick={handleSave} icon={<FontAwesomeIcon icon={faSave} />} />
+          <IconButton
+            borderLeftRadius="0px"
+            h="100%"
+            onClick={handleSave}
+            icon={<FontAwesomeIcon icon={faSave} />}
+          />
         </InputRightElement>
       </InputGroup>
     </form>

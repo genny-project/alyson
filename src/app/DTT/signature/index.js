@@ -1,5 +1,5 @@
-import { Box, VStack, Badge, Input, Button, IconButton, Text } from '@chakra-ui/react'
-import { faCross, faTimes, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
+import { Box, VStack, Badge, Input, IconButton, Text } from '@chakra-ui/react'
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useEffect, useRef, useState } from 'react'
 import SignatureCanvas from 'react-signature-canvas'
