@@ -18,6 +18,7 @@ import ChildMenuItem from 'app/ASKS/menu/ChildMenuItem'
 import ColorToggler from './ColorToggler'
 import { onSendMessage } from 'vertx'
 import SettingsModal from './SettingsModal'
+import HelpModal from './HelpModal'
 
 const QUE_AVATAR_GRP = 'QUE_AVATAR_GRP'
 
@@ -31,16 +32,13 @@ const AvatarMenu = () => {
   const { keycloak } = useKeycloak()
 
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const { isOpen: isOpenHelp, onOpen: onOpenHelp, onClose: onCloseHelp } = useDisclosure()
   const { getImageSrc } = useApi()
 
   const title = `${name?.value || userName?.value}${
     associatedEntitiy?.value ? ` - ${associatedEntitiy?.value}` : ''
   }`
 
-  // useEffect(() => {
-  //   if (userCode)
-  //     onSendMessage({ code: 'QUE_CLEAR_TASKS', parentCode: 'QUE_DRAFTS_GRP', targetCode: userCode })
-  // }, [userCode])
   if (!avatarAsks) return null
 
   return (
@@ -72,6 +70,9 @@ const AvatarMenu = () => {
           <MenuItem test-id={'QUE_AVATAR_SETTINGS'} onClick={onOpen}>
             Account
           </MenuItem>
+          <MenuItem test-id={'HELP'} onClick={onOpenHelp}>
+            {`Help & Support`}
+          </MenuItem>
           <MenuItem
             test-id={'QUE_AVATAR_LOGOUT'}
             onClick={() => {
@@ -90,6 +91,7 @@ const AvatarMenu = () => {
           <ColorToggler />
         </Flex>
       </MenuList>
+      <HelpModal isOpen={isOpenHelp} onClose={onCloseHelp} />
       <SettingsModal isOpen={isOpen} onClose={onClose} />
     </Menu>
   )
