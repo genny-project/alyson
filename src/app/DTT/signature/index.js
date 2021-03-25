@@ -9,16 +9,6 @@ const Write = ({ questionCode, data, onSendAnswer }) => {
   const canvasRef = useRef(null)
   const [text, setText] = useState('')
 
-  useEffect(() => {
-    const canvas = canvasRef.current
-    if (canvas && canvas.getContext) {
-      const ctx = canvas.getContext('2d')
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-      ctx.font = '40px Homemade Apple'
-      ctx.fillText(text, canvas.width / 6, canvas.height / 1.8)
-    }
-  }, [onSendAnswer, text])
-
   const handleClear = () => {
     setText('')
     const sigCanvas = signatureRef.current.getCanvas()
@@ -28,6 +18,16 @@ const Write = ({ questionCode, data, onSendAnswer }) => {
     }
     onSendAnswer(null)
   }
+
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (canvas && canvas.getContext) {
+      const ctx = canvas.getContext('2d')
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      ctx.font = '40px Homemade Apple'
+      ctx.fillText(text, canvas.width / 6, canvas.height / 1.8)
+    }
+  }, [text])
 
   useEffect(() => {
     if (data?.value) {
