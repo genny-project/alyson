@@ -29,7 +29,7 @@ const Read = ({ data }) => {
   return (
     <HStack spacing="2">
       <HeroIconButton onClick={onClick} icon={<FontAwesomeIcon size="sm" icon={faEnvelope} />} />
-      <Text w="10rem">{data?.value}</Text>
+      <Text w="16rem">{data?.value}</Text>
     </HStack>
   )
 }
