@@ -1,10 +1,8 @@
 import { useSelector } from 'react-redux'
 import { selectDashboard } from 'redux/app/selectors'
 import DisplaySbe from 'app/SBE'
-import { Box, Button, Center, HStack, Stack, VStack } from '@chakra-ui/react'
+import { Button, HStack, Stack, VStack } from '@chakra-ui/react'
 
-import Recommendations from '../intern/recommendations'
-import Process from 'app/layouts/process'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBolt, faColumns } from '@fortawesome/free-solid-svg-icons'
 import Search from 'app/layouts/navigation/Search'
