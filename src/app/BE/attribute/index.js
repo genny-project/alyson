@@ -18,6 +18,7 @@ import ABN from 'app/DTT/abn'
 import URL from 'app/DTT/url'
 import Rating from 'app/DTT/rating'
 import TimeZonePicker from 'app/DTT/time_zone'
+import CheckBox from 'app/DTT/check_box'
 
 const Attribute = ({ code, attribute, size, mini, parentCode, variant, config }) => {
   const data = useSelector(selectCode(code, attribute))
@@ -67,6 +68,8 @@ const Attribute = ({ code, attribute, size, mini, parentCode, variant, config })
     <Rating.Read data={data} />
   ) : component === 'time_zone' ? (
     <TimeZonePicker.Read data={data} />
+  ) : component === 'checkbox' ? (
+    <CheckBox.Read data={data} />
   ) : (
     <div>
       {component}
