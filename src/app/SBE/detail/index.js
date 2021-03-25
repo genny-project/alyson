@@ -10,11 +10,12 @@ import Agent from './agent'
 import DefaultView from './default-view'
 import getDetailType from './helpers/get-detail-type'
 
-const BaseEntityDetail = ({ targetCode }) => {
+const BaseEntityDetail = ({ targetCode, defaultView }) => {
   const code = useSelector(selectDetail)
   const displayMode = useSelector(selectCode(code, 'SCH_DISPLAY_MODE'))
   const displayType = getDetailType(displayMode?.value)
 
+  if (defaultView) return <DefaultView sbeCode={code} targetCode={targetCode} />
   if (displayType === 'CV') {
     return <Cv sbeCode={code} targetCode={targetCode} />
   }

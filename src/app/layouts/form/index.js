@@ -39,7 +39,7 @@ const Form = ({ onFinish }) => {
             Preview
           </Button>
           <Collapse in={isOpen} animateOpacity>
-            <BaseEntityDetail targetCode={submit?.targetCode} />
+            <BaseEntityDetail defaultView targetCode={submit?.targetCode} />
           </Collapse>
         </Box>
       </HStack>
