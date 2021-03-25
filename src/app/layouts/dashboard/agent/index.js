@@ -1,25 +1,38 @@
 import { useSelector } from 'react-redux'
 import { selectDashboard } from 'redux/app/selectors'
 import DisplaySbe from 'app/SBE'
-import { Center, HStack, Stack } from '@chakra-ui/react'
+import { Box, Button, Center, HStack, Stack, VStack } from '@chakra-ui/react'
 
 import Recommendations from '../intern/recommendations'
+import Process from 'app/layouts/process'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBolt, faColumns } from '@fortawesome/free-solid-svg-icons'
+import Search from 'app/layouts/navigation/Search'
 
 const Agent = ({ userCode }) => {
   const dashboardSbes = useSelector(selectDashboard) || []
 
   return (
-    <Center>
-      <Stack direction="column">
-        <HStack spacing={4}>
-          {dashboardSbes.map(sbeCode => (
-            <DisplaySbe key={sbeCode} sbeCode={sbeCode} />
-          ))}
-        </HStack>
-
-        <Recommendations />
+    <VStack spacing={4}>
+      <Stack shadow="lg" w="sm" p="3" borderRadius="md" direction="column">
+        <VStack spacing={4}>
+          <DisplaySbe sbeCode={dashboardSbes[0]} />
+          <HStack spacing={4}>
+            {dashboardSbes.slice(1, Infinity).map(sbeCode => (
+              <DisplaySbe key={sbeCode} sbeCode={sbeCode} />
+            ))}
+          </HStack>
+        </VStack>
       </Stack>
-    </Center>
+      <Button
+        leftIcon={<FontAwesomeIcon icon={faColumns} />}
+        rightIcon={<FontAwesomeIcon icon={faBolt} />}
+        colorScheme="gradient"
+      >
+        Go to Process View
+      </Button>
+      <Search />
+    </VStack>
   )
 }
 
