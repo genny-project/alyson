@@ -8,11 +8,6 @@ import {
   Spacer,
   useColorModeValue,
   useTheme,
-  Menu,
-  MenuList,
-  MenuButton,
-  MenuGroup,
-  Portal,
 } from '@chakra-ui/react'
 import { selectCode } from 'redux/db/selectors'
 import { getAttribute } from 'app/SBE/utils/get-columns'
@@ -20,11 +15,10 @@ import Text from 'app/DTT/text'
 import Image from 'app/DTT/upload/Image'
 import ContextMenu from 'app/BE/context'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEllipsisV, faHamburger } from '@fortawesome/free-solid-svg-icons'
+import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 import statusColors from './status_colors'
 import MainDetails from './MainDetails'
 import makeMotion from 'utils/motion'
-import Action from 'app/BE/context/Action'
 
 const MotionBox = makeMotion(Box)
 
@@ -34,7 +28,6 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
   const subTitle = useSelector(selectCode(code, getAttribute(columns[1] || '')))
   const image = useSelector(selectCode(code, 'PRI_IMAGE_URL'))
   const statusColor = useSelector(selectCode(code, 'PRI_STATUS_COLOR'))
-  const baseEntityName = useSelector(selectCode(code, 'PRI_NAME'))
 
   const defaultColor = useColorModeValue('white', theme.colors.background.dark)
   const color = statusColors[statusColor?.value]
