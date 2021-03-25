@@ -14,7 +14,7 @@ const Lane = ({ sbeCode, dashboard }) => {
   const totalResults = useSelector(selectCode(sbeCode, 'PRI_TOTAL_RESULTS'))
   const paginationActions = useCallback(() => getPaginationActions(sbeCode), [sbeCode])
 
-  const color = useColorModeValue('primary.50', 'primary.900')
+  const color = useColorModeValue('gray.50', 'gray.900')
 
   if (!table) return null
 
@@ -24,7 +24,7 @@ const Lane = ({ sbeCode, dashboard }) => {
   if (dashboard && !rows.length) return null
 
   return (
-    <VStack bg={color} p="3" borderRadius="lg" shadow="lg">
+    <VStack bg={color} p="3" borderRadius="md" shadow="inner">
       <Title sbeCode={sbeCode} />
       {rows.map(row => (
         <BECard key={row} columns={columns} actions={actions} code={row} parentCode={sbeCode} />

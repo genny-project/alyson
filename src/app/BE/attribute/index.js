@@ -38,12 +38,14 @@ const Attribute = ({
 
   if (!component) return fallback
 
+  console.log(component)
+
   return component === 'email' ? (
     <Email.Read data={data} size={size} />
   ) : component === 'phone' ? (
     <Phone.Read data={data} size={size} />
   ) : component === 'text' ? (
-    <Text.Read data={data} config={config} />
+    <Text.Read size={size} data={data} config={config} />
   ) : component === 'upload' ? (
     <Upload.Read
       parentCode={parentCode}
