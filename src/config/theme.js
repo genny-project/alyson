@@ -42,20 +42,30 @@ const defaultProjectTheme = {
   },
   textStyles: {
     head1: {
-      fontSize: '2xl',
-      fontWeight: 'bold',
+      fontSize: '3xl',
+      fontWeight: 500,
     },
     head2: {
-      fontSize: 'lg',
-      fontWeight: 'semibold',
+      fontSize: 'xl',
+      fontWeight: 500,
     },
     body1: {
       fontSize: 'md',
-      fontWeight: 'medium',
+      fontWeight: 400,
     },
     body2: {
       fontSize: 'sm',
-      fontWeight: 'normal',
+      fontWeight: 500,
+    },
+    tail1: {
+      fontSize: 'xs',
+      fontWeight: 500,
+      textTransform: 'uppercase',
+    },
+    tail2: {
+      fontSize: 'xs',
+      fontWeight: 400,
+      textTransform: 'uppercase',
     },
   },
 }
