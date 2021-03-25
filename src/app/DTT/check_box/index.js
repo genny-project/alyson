@@ -1,11 +1,22 @@
 import { Checkbox, HStack } from '@chakra-ui/react'
-import { Read } from 'app/DTT/text'
 
-const Write = ({ questionCode, data, onSendAnswer }) => {
-  console.warn('data', data)
+const Read = ({ data }) => {
   return (
     <HStack spacing={2}>
       <Checkbox
+        colorScheme="green"
+        isChecked={data?.value === 'true'}
+        isDisabled="true"
+      >{`Yes`}</Checkbox>
+    </HStack>
+  )
+}
+
+const Write = ({ questionCode, data, onSendAnswer }) => {
+  return (
+    <HStack spacing={2}>
+      <Checkbox
+        test-id={questionCode}
         colorScheme="green"
         isChecked={data?.value === 'true'}
         value={`Yes`}
