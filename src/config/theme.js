@@ -40,6 +40,20 @@ const defaultProjectTheme = {
     warning: { 50: '#FFFAF0', 500: '#DD6B20' },
     success: { 50: '#F0FFF4', 500: '#38A169' },
   },
+  components: {
+    Heading: {
+      baseStyle: {
+        fontWeight: 'bold',
+        textTransform: 'uppercase',
+      },
+    },
+    Text: {
+      baseStyle: {
+        fontWeight: 'bold',
+        textTransform: 'uppercase',
+      },
+    },
+  },
 }
 
 const getTheme = (projectTheme = defaultProjectTheme) =>
