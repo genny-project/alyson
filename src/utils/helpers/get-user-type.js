@@ -1,8 +1,8 @@
-import { find, includes, split, last, compose, either, identity, always } from 'ramda'
+import { find, includes, compose, either, identity, always, replace } from 'ramda'
 
 const getUserType = compose(
-  last,
-  s => split('_', s || ''),
+  replace('PRI_IS_', ''),
+  either(identity, always('')),
   find(includes('PRI_IS_')),
   either(identity, always(' ')),
 )

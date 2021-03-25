@@ -8,6 +8,7 @@ import Intern from './intern'
 import HostCompanyRep from './hcr'
 import Recommendations from './intern/recommendations'
 import Agent from './agent'
+import Process from '../process'
 
 const Dashboard = () => {
   const dashboardSbes = useSelector(selectDashboard)
@@ -18,20 +19,28 @@ const Dashboard = () => {
 
   if (!dashboardSbes) return <div />
 
-  if (userType === 'REP') return <HostCompanyRep userCode={userCode} />
+  if (userType === 'HOST_CPY_REP') return <HostCompanyRep userCode={userCode} />
   if (userType === 'INTERN') return <Intern userCode={userCode} />
   if (userType === 'AGENT' || userType === 'ADMIN') return <Agent userCode={userCode} />
   return (
     <Center>
       <Stack direction="column" spacing="10" h="84vh">
-        <HStack spacing={4}>
-          {dashboardCounts &&
-            dashboardCounts.map(sbeCode => <DisplaySbe key={sbeCode} sbeCode={sbeCode} />)}
-        </HStack>
-        {dashboardSbes.map(sbeCode => (
-          <DisplaySbe key={sbeCode} sbeCode={sbeCode} />
-        ))}
+        <Center>
+          <HStack spacing={4}>
+            {dashboardCounts &&
+              dashboardCounts.map(sbeCode => <DisplaySbe key={sbeCode} sbeCode={sbeCode} />)}
+          </HStack>
+        </Center>
+        <Center>
+          <HStack spacing={4}>
+            {dashboardSbes.map(sbeCode => (
+              <DisplaySbe key={sbeCode} sbeCode={sbeCode} />
+            ))}
+          </HStack>
+        </Center>
+
         <Recommendations />
+        <Process dashboard />
       </Stack>
     </Center>
   )
