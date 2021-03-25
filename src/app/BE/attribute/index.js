@@ -38,8 +38,6 @@ const Attribute = ({
 
   if (!component) return fallback
 
-  console.log(component)
-
   return component === 'email' ? (
     <Email.Read data={data} size={size} />
   ) : component === 'phone' ? (

@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCamera, faUpload } from '@fortawesome/free-solid-svg-icons'
 import Snap from './Snap'
 import { onSendMessage } from 'vertx'
+import { useSelector } from 'react-redux'
+import { selectCode } from 'redux/db/selectors'
 
 const Write = ({ questionCode, data, openDropzone, onSendAnswer, handleSave, setLoading }) => {
   const { getImageSrc } = useApi()
@@ -49,6 +51,8 @@ const Read = ({ data, parentCode, variant, config }) => {
   const { getImageSrc } = useApi()
   const src = getImageSrc(data?.value)
 
+  const name = useSelector(selectCode(data?.baseEntityCode, 'PRI_NAME'))
+  const assocName = useSelector(selectCode(data?.baseEntityCode, 'PRI_INTERN_NAME'))
   const viewDetail = () =>
     onSendMessage({ parentCode, targetCode: data?.baseEntityCode, code: 'ACT_PRI_EVENT_VIEW' })
 
@@ -56,7 +60,15 @@ const Read = ({ data, parentCode, variant, config }) => {
     return <Image {...config} src={src} alt="profile-picture" w="10rem" borderRadius="xl" />
   }
 
-  return <Avatar {...config} cursor="pointer" onClick={viewDetail} src={src} />
+  return (
+    <Avatar
+      name={name?.value || assocName?.value}
+      {...config}
+      cursor="pointer"
+      onClick={viewDetail}
+      src={src}
+    />
+  )
 }
 
 const ImageType = {

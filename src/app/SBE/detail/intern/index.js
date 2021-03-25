@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectCode, selectRows } from 'redux/db/selectors'
 import { Avatar, Box, Flex, HStack, IconButton, Text, VStack } from '@chakra-ui/react'
@@ -36,11 +36,15 @@ const Intern = ({ sbeCode, targetCode }) => {
 
   const actions = getActions(sbe)
 
-  const [topHeight, setTopHeight] = useState(careerObj?.value || video?.value ? '45vh' : '0')
+  const [topHeight, setTopHeight] = useState('45vh')
 
   const handleScroll = () => {
     if (topHeight !== '0') setTopHeight('0')
   }
+
+  useEffect(() => {
+    !videoSrc && !careerObj?.value ? setTopHeight('0') : setTopHeight('45vh')
+  }, [careerObj?.value, videoSrc])
 
   if (!beCode) return null
 
