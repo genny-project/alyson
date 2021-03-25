@@ -6,6 +6,7 @@ import { selectCode } from 'redux/db/selectors'
 import getUserType from 'utils/helpers/get-user-type'
 import { includes } from 'ramda'
 import InternInternshipSearch from './intern_internship'
+import Journals from './journals'
 
 const TableWrapper = ({ mapSearch }) => {
   const table = useSelector(selectTable)
@@ -17,6 +18,8 @@ const TableWrapper = ({ mapSearch }) => {
 
   if (includes('_INTERNSHIPS_', table) && userType === 'INTERN')
     return <InternInternshipSearch sbeCode={table} />
+
+  if (includes('_JOURNALS_', table)) return <Journals sbeCode={table} />
 
   return <Table parentCode={table} />
 }
