@@ -1,6 +1,6 @@
 import { keycloak } from 'config/get-api-config'
 import history from 'config/history'
-import { includes } from 'ramda'
+import { equals, includes } from 'ramda'
 import { CmdPayload, Message } from 'redux/types'
 import { makePathname } from 'utils/pathname'
 import { AppState } from '../types'
@@ -52,8 +52,13 @@ const cmdMachine: {
     if (exec) window.open(code)
     state.DOWNLOAD_FILE = code
   },
-  DEFAULT: (state: AppState, { targetCodes, code, cmd_type }: CmdPayload) =>
-    (state[cmd_type] = targetCodes || code),
+  DEFAULT: (state: AppState, { targetCodes, code, cmd_type }: CmdPayload) => {
+    if (targetCodes) {
+      if (!equals(state[cmd_type], targetCodes)) state[cmd_type] = targetCodes
+    } else {
+      state[cmd_type] = code
+    }
+  },
 }
 
 const handleSendMessage = (message: Message) => {
