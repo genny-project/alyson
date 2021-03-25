@@ -24,7 +24,7 @@ const Dashboard = () => {
     toast({
       title: 'Welcome to Internmatch',
       description: `We've recently updated our look! Thanks so much for joining our growing platform 🥰. Any questions please email us at 📧 internmatch@outcomelife.com.au`,
-      duration: 9000,
+      duration: 90000,
       isClosable: true,
     })
   }
