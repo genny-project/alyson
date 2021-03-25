@@ -48,8 +48,9 @@ const cmdMachine: {
   LOGOUT: (_: AppState, { exec }: CmdPayload) => {
     exec && (keycloak as any).logout()
   },
-  DOWNLOAD_FILE: (_: AppState, { code }: CmdPayload) => {
-    window.open(code)
+  DOWNLOAD_FILE: (state: AppState, { code, exec }: CmdPayload) => {
+    if (exec) window.open(code)
+    state.DOWNLOAD_FILE = code
   },
   DEFAULT: (state: AppState, { targetCodes, code, cmd_type }: CmdPayload) =>
     (state[cmd_type] = targetCodes || code),
