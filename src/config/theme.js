@@ -43,7 +43,7 @@ const defaultProjectTheme = {
   textStyles: {
     head1: {
       fontSize: '3xl',
-      fontWeight: 500,
+      fontWeight: 700,
     },
     head2: {
       fontSize: 'xl',
@@ -59,12 +59,12 @@ const defaultProjectTheme = {
     },
     tail1: {
       fontSize: 'xs',
-      fontWeight: 500,
+      fontWeight: 600,
       textTransform: 'uppercase',
     },
     tail2: {
       fontSize: 'xs',
-      fontWeight: 400,
+      fontWeight: 100,
       textTransform: 'uppercase',
     },
   },
