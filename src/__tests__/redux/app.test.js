@@ -116,11 +116,11 @@ describe('Send Message', () => {
 
   const expectedStateSendMessage = {
     ...initialState,
-    lastMessage: payloadSendMessgae,
+    lastMessage: { data: payloadSendMessgae },
   }
 
   it('should assign the value of payload to the lastMessage key in the state', () => {
-    expect(appReducer(initialState, sendMessage(payloadSendMessgae))).toEqual(
+    expect(appReducer(initialState, sendMessage({ data: payloadSendMessgae }))).toEqual(
       expectedStateSendMessage,
     )
   })
