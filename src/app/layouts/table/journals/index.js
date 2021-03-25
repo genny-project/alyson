@@ -1,10 +1,9 @@
 import { useSelector } from 'react-redux'
 import { selectCode, selectRows } from 'redux/db/selectors'
-import getActions, { getTableActions } from 'app/SBE/utils/get-actions'
+import getActions from 'app/SBE/utils/get-actions'
 import { Box, Divider, HStack, Text } from '@chakra-ui/layout'
 import Journal from './Journal'
 import Download from 'app/SBE/download'
-import Title from 'app/SBE/lane/Title'
 import TableFooter from 'app/SBE/table/Footer'
 import { Table } from '@chakra-ui/table'
 
@@ -13,7 +12,6 @@ const Journals = ({ sbeCode }) => {
 
   const rows = useSelector(selectRows(sbeCode))
   const actions = getActions(tableData)
-  const tableActions = getTableActions(tableData)
   const title = useSelector(selectCode(sbeCode, 'SCH_TITLE'))
 
   return (
