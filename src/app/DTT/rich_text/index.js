@@ -16,6 +16,7 @@ import { stateToHTML } from 'draft-js-export-html'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSave, faEdit, faExpand } from '@fortawesome/free-solid-svg-icons'
 import '../../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
+import { useIsMobile } from 'utils/hooks'
 
 const Write = ({ questionCode, data, onSendAnswer, description }) => {
   const blocksFromHTML = convertFromHTML(data?.value || '')
@@ -29,6 +30,8 @@ const Write = ({ questionCode, data, onSendAnswer, description }) => {
   const [editor, setEditor] = useState(
     !data?.value ? EditorState.createEmpty() : EditorState.createWithContent(state),
   )
+
+  const isMobile = useIsMobile()
 
   useEffect(() => {
     if (data?.value !== dataValue) {
@@ -44,7 +47,13 @@ const Write = ({ questionCode, data, onSendAnswer, description }) => {
   }
 
   return edit ? (
-    <Box test-id={questionCode} w="2xl" border="1px solid #E2E8F0" borderRadius="0.375rem" p="1rem">
+    <Box
+      test-id={questionCode}
+      w={isMobile ? '80vw' : '2xl'}
+      border="1px solid #E2E8F0"
+      borderRadius="0.375rem"
+      p="1rem"
+    >
       <Editor editorState={editor} onEditorStateChange={setEditor} placeholder={description} />
       <Button
         test-id={questionCode + '-save'}

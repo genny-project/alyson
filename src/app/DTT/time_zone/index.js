@@ -9,7 +9,7 @@ const Write = ({ questionCode, onSendAnswer, data }) => {
 
   return confirm === null ? (
     <VStack align="start">
-      <HStack spacing="0">
+      <HStack spacing="0" wrap="wrap">
         <Text>{`We've detected your timezone as`}</Text>
         <Text pl="1" pr="1">
           {data?.value || timeZone}
