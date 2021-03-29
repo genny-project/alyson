@@ -17,7 +17,6 @@ import {
   IconButton,
   Center,
   Text,
-  Button,
 } from '@chakra-ui/react'
 import { apiConfig } from 'config/get-api-config'
 import Avatar from '../Avatar'
@@ -26,7 +25,7 @@ import { faPlus, faBolt, faBars } from '@fortawesome/free-solid-svg-icons'
 import Buttons from 'app/ASKS/buttons'
 import { onSendMessage } from 'vertx'
 
-const MobileNav = ({ logoSrc }) => {
+const DesktopNav = ({ logoSrc }) => {
   const theme = useTheme()
   const bg = useColorModeValue(theme.colors.background.light, theme.colors.primary[900])
   const color = useColorModeValue(theme.colors.text.light, theme.colors.text.dark)
@@ -56,7 +55,7 @@ const MobileNav = ({ logoSrc }) => {
               <FontAwesomeIcon icon={faBars} />
             </IconButton>
             <Spacer />
-            <Center style={{ cursor: 'pointer' }}>
+            <Center mr="-125px" style={{ cursor: 'pointer' }}>
               {apiConfig && (
                 <Image
                   opacity="0.8"
@@ -70,7 +69,17 @@ const MobileNav = ({ logoSrc }) => {
               )}
             </Center>
             <Spacer />
-            <Avatar />
+            <HStack w="144px">
+              <AskMenu
+                questionCode={'QUE_ADD_ITEMS_GRP'}
+                icon={<FontAwesomeIcon icon={faPlus} />}
+              />
+              <AskMenu
+                questionCode={'QUE_QUICK_ADD_ITEMS_GRP'}
+                icon={<FontAwesomeIcon icon={faBolt} />}
+              />
+              <Avatar />
+            </HStack>
           </Flex>
         </nav>
       </header>
@@ -84,23 +93,10 @@ const MobileNav = ({ logoSrc }) => {
         <DrawerOverlay>
           <DrawerContent>
             <DrawerCloseButton />
-            <DrawerHeader>
-              <HStack>
-                <AskMenu
-                  onClose={onClose}
-                  questionCode={'QUE_ADD_ITEMS_GRP'}
-                  icon={<Button leftIcon={<FontAwesomeIcon icon={faPlus} />}>Add</Button>}
-                />
-                <AskMenu
-                  onClose={onClose}
-                  questionCode={'QUE_QUICK_ADD_ITEMS_GRP'}
-                  icon={<Button leftIcon={<FontAwesomeIcon icon={faBolt} />}>Quick Add</Button>}
-                />
-              </HStack>
-            </DrawerHeader>
+            <DrawerHeader />
             <DrawerBody mt="4">
               <Buttons onClick={onClose} questionCode={'QUE_PROJECT_SIDEBAR_GRP'} />
-              <Text textStyle="tail2" style={{ position: 'absolute', bottom: 5 }}>
+              <Text textStyle="body1" style={{ position: 'absolute', bottom: 5 }}>
                 Powered By GADA Technology
               </Text>
             </DrawerBody>
@@ -111,4 +107,4 @@ const MobileNav = ({ logoSrc }) => {
   )
 }
 
-export default MobileNav
+export default DesktopNav

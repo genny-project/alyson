@@ -14,9 +14,7 @@ const HeroTask = ({ sbeCode, rows }) => {
 
   return (
     <VStack>
-      <Text color="primary" fontWeight="bold">
-        {title?.value}
-      </Text>
+      <Text color="primary">{title?.value}</Text>
       {validation?.value === 'Ready' ? (
         <Badge colorScheme="green">Complete</Badge>
       ) : (

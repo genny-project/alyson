@@ -1,3 +1,4 @@
+import { useBreakpointValue } from '@chakra-ui/media-query'
 import { identity } from 'ramda'
 import { useEffect, useRef, useState } from 'react'
 
@@ -50,4 +51,8 @@ export const useUserMedia = (requestedMedia, setError = identity) => {
   return mediaStream
 }
 
-export default useUserMedia
+export const useIsMobile = () => {
+  const isMobile = useBreakpointValue({ base: true, sm: true, md: true, lg: false, xl: false })
+
+  return isMobile
+}

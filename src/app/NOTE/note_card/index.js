@@ -19,17 +19,15 @@ const NoteCard = ({ id }) => {
             includes('per_', tag?.name) ? (
               <Attribute code={toUpper(tag?.name)} attribute="PRI_IMAGE_URL" />
             ) : (
-              <Text fontWeight="semibold">{tag.name}</Text>
+              <Text>{tag.name}</Text>
             ),
           )}
         </HStack>
 
         <Text>{content}</Text>
         <HStack>
-          <Text fontSize="xs" as="samp">
-            {new Date(created).toLocaleDateString()}
-          </Text>
-          <Text fontSize="xs" as="samp">
+          <Text textStyle="body1">{new Date(created).toLocaleDateString()}</Text>
+          <Text textStyle="body1">
             <Attribute code={targetCode} attribute="PRI_NAME" />
           </Text>
         </HStack>

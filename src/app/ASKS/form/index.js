@@ -1,26 +1,30 @@
 import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
-import Ask from 'app/ASKS/ask'
-import { VStack, Center, Heading } from '@chakra-ui/react'
+
+import { useIsMobile } from 'utils/hooks'
+import FormMobileView from 'app/ASKS/form/mobile_view'
+import FormDesktopView from 'app/ASKS/form/desktop_view'
 
 const AsksForm = ({ questionCode, onFinish }) => {
   const childAsks = useSelector(selectCode(questionCode)) || []
   const title = useSelector(selectCode(questionCode, 'title'))
 
-  return (
-    <Center>
-      <VStack maxW="2xl" spacing={4} marginBottom={8}>
-        <Heading>{title}</Heading>
-        {childAsks.map(childAsk => (
-          <Ask
-            onFinish={onFinish}
-            key={childAsk}
-            parentCode={questionCode}
-            questionCode={childAsk}
-          />
-        ))}
-      </VStack>
-    </Center>
+  const isMobile = useIsMobile()
+
+  return isMobile ? (
+    <FormMobileView
+      title={title}
+      childAsks={childAsks}
+      onFinish={onFinish}
+      questionCode={questionCode}
+    />
+  ) : (
+    <FormDesktopView
+      title={title}
+      childAsks={childAsks}
+      onFinish={onFinish}
+      questionCode={questionCode}
+    />
   )
 }
 

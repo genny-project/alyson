@@ -10,11 +10,7 @@ const Header = ({ contactDetails, code, sbeCode, imageSrc, headerAttribute, acti
     <Flex p="2" alignItems="start">
       <Attribute code={code} attribute={imageSrc} variant={'profile_image'} />
       <Box p="3">
-        <Attribute
-          code={code}
-          attribute={headerAttribute}
-          config={{ fontSize: '3xl', fontWeight: 'semibold' }}
-        />
+        <Attribute code={code} attribute={headerAttribute} config={{ textStyle: 'head2' }} />
       </Box>
 
       <Spacer />
