@@ -83,8 +83,9 @@ const ProcessSearch = ({ sbeCode }) => {
           </HStack>
         }
         onClick={handleClear}
+        w="10rem"
       >
-        Clear Search
+        Clear
       </Button>
     </HStack>
   )

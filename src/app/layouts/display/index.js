@@ -21,7 +21,7 @@ const Display = ({ isPublic }) => {
   return isPublic ? (
     <Public />
   ) : (
-    <Box paddingTop="6rem" id="main-display" color={color}>
+    <Box maxW="100vw" overflow="scroll" paddingTop="6rem" id="main-display" color={color}>
       {display === 'DASHBOARD' && <Dashboard />}
       {display === 'TABLE' && <Table />}
       {display === 'PROCESS' && <Process />}
