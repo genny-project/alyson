@@ -3,7 +3,7 @@ import { selectCode } from 'redux/db/selectors'
 import ChildMenuItem from './ChildMenuItem'
 import { Menu, MenuButton, MenuList, IconButton, MenuGroup } from '@chakra-ui/react'
 
-const AsksMenu = ({ questionCode, icon }) => {
+const AsksMenu = ({ questionCode, icon, onClose }) => {
   const data = useSelector(selectCode(questionCode))
   const title = useSelector(selectCode(questionCode, 'title'))
 
@@ -21,7 +21,12 @@ const AsksMenu = ({ questionCode, icon }) => {
       <MenuList>
         <MenuGroup title={title}>
           {data.map(childCode => (
-            <ChildMenuItem key={childCode} questionCode={questionCode} childCode={childCode} />
+            <ChildMenuItem
+              onClose={onClose}
+              key={childCode}
+              questionCode={questionCode}
+              childCode={childCode}
+            />
           ))}
         </MenuGroup>
       </MenuList>

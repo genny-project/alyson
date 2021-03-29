@@ -17,6 +17,7 @@ import {
   IconButton,
   Center,
   Text,
+  Button,
 } from '@chakra-ui/react'
 import { apiConfig } from 'config/get-api-config'
 import Avatar from '../Avatar'
@@ -69,17 +70,7 @@ const MobileNav = ({ logoSrc }) => {
               )}
             </Center>
             <Spacer />
-            <HStack w="144px">
-              <AskMenu
-                questionCode={'QUE_ADD_ITEMS_GRP'}
-                icon={<FontAwesomeIcon icon={faPlus} />}
-              />
-              <AskMenu
-                questionCode={'QUE_QUICK_ADD_ITEMS_GRP'}
-                icon={<FontAwesomeIcon icon={faBolt} />}
-              />
-              <Avatar />
-            </HStack>
+            <Avatar />
           </Flex>
         </nav>
       </header>
@@ -93,10 +84,23 @@ const MobileNav = ({ logoSrc }) => {
         <DrawerOverlay>
           <DrawerContent>
             <DrawerCloseButton />
-            <DrawerHeader />
+            <DrawerHeader>
+              <HStack>
+                <AskMenu
+                  onClose={onClose}
+                  questionCode={'QUE_ADD_ITEMS_GRP'}
+                  icon={<Button leftIcon={<FontAwesomeIcon icon={faPlus} />}>Add</Button>}
+                />
+                <AskMenu
+                  onClose={onClose}
+                  questionCode={'QUE_QUICK_ADD_ITEMS_GRP'}
+                  icon={<Button leftIcon={<FontAwesomeIcon icon={faBolt} />}>Quick Add</Button>}
+                />
+              </HStack>
+            </DrawerHeader>
             <DrawerBody mt="4">
               <Buttons onClick={onClose} questionCode={'QUE_PROJECT_SIDEBAR_GRP'} />
-              <Text textStyle="body1" style={{ position: 'absolute', bottom: 5 }}>
+              <Text textStyle="tail2" style={{ position: 'absolute', bottom: 5 }}>
                 Powered By GADA Technology
               </Text>
             </DrawerBody>
