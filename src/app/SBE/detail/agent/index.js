@@ -47,7 +47,7 @@ const Agent = ({ sbeCode, targetCode }) => {
     geocoder.geocode({ address }, res => {
       setGeo(res[0]?.geometry.location)
     })
-  }, [address, geocoder])
+  }, [address])
 
   useEffect(() => {
     if (geo && panoRef?.current && mapRef?.current) {
