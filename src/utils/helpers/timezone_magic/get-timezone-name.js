@@ -6,7 +6,7 @@ export const fromLatLng = async ({ lat, lng, token }) => {
   try {
     const response = await axios({
       method: 'GET',
-      url: `${apiConfig.api_url}googleapi/v1/timezone?location=${lat},${lng}&key=${apiConfig.ENV_GOOGLE_MAPS_APIKEY}`,
+      url: `https://maps.googleapis.com/maps/api/timezone?location=${lat},${lng}&key=${apiConfig.ENV_GOOGLE_MAPS_APIKEY}`,
       headers: {
         Authorization: `bearer ${token}`,
       },

@@ -48,7 +48,7 @@ const Write = ({
   dataType,
   data,
 }) => {
-  const options = useSelector(selectRows(groupCode))
+  const options = filter(includes('SEL_'), useSelector(selectRows(groupCode)))
   const optionData = useSelector(selectCodes(options, 'PRI_NAME'))
 
   const { typeName } = dataType
