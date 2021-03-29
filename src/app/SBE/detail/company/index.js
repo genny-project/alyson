@@ -14,12 +14,12 @@ import { closeDrawer } from 'redux/app'
 import Lane from 'app/SBE/lane'
 import { replace } from 'ramda'
 
-const geocoder = new window.google.maps.Geocoder()
-
 let map = {}
 let pano = {}
 
 const Company = ({ sbeCode, targetCode }) => {
+  const geocoder = new window.google.maps.Geocoder()
+
   const dispatch = useDispatch()
   const onClose = () => dispatch(closeDrawer())
   const sbe = useSelector(selectCode(sbeCode))
