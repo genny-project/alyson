@@ -56,7 +56,7 @@ const MobileNav = ({ logoSrc }) => {
               <FontAwesomeIcon icon={faBars} />
             </IconButton>
             <Spacer />
-            <Center mr="-125px" style={{ cursor: 'pointer' }}>
+            <Center style={{ cursor: 'pointer' }}>
               {apiConfig && (
                 <Image
                   opacity="0.8"
