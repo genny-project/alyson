@@ -13,9 +13,10 @@ import { closeDrawer } from 'redux/app'
 
 let map = {}
 let pano = {}
+let geocoder = {}
 
 const Agent = ({ sbeCode, targetCode }) => {
-  const geocoder = new window.google.maps.Geocoder()
+  geocoder = new window.google.maps.Geocoder()
 
   const dispatch = useDispatch()
   const onClose = () => dispatch(closeDrawer())
@@ -46,7 +47,7 @@ const Agent = ({ sbeCode, targetCode }) => {
     geocoder.geocode({ address }, res => {
       setGeo(res[0]?.geometry.location)
     })
-  }, [address])
+  }, [address, geocoder])
 
   useEffect(() => {
     if (geo && panoRef?.current && mapRef?.current) {

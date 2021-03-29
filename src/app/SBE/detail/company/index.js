@@ -16,9 +16,10 @@ import { replace } from 'ramda'
 
 let map = {}
 let pano = {}
+let geocoder = {}
 
 const Company = ({ sbeCode, targetCode }) => {
-  const geocoder = new window.google.maps.Geocoder()
+  geocoder = new window.google.maps.Geocoder()
 
   const dispatch = useDispatch()
   const onClose = () => dispatch(closeDrawer())
@@ -51,7 +52,7 @@ const Company = ({ sbeCode, targetCode }) => {
     geocoder.geocode({ address }, res => {
       setGeo(res[0]?.geometry.location)
     })
-  }, [address])
+  }, [address, geocoder])
 
   useEffect(() => {
     if (geo && panoRef?.current && mapRef?.current) {
