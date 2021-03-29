@@ -36,7 +36,7 @@ const DeveloperConsole = () => {
     : []
 
   return (
-    <VStack m="10">
+    <VStack>
       <Button
         size="xs"
         onClick={() => {

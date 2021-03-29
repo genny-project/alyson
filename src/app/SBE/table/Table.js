@@ -22,14 +22,14 @@ const DataTable = ({ parentCode }) => {
   const tableActions = getTableActions(tableData)
 
   return (
-    <Box m="2">
+    <Box p="2">
       <HStack>
         <Title sbeCode={parentCode} />
         <Search sbeCode={parentCode} />
         <Filters sbeCode={parentCode} />
         <Download sbeCode={parentCode} />
       </HStack>
-      <HStack m="5">
+      <HStack p="5">
         {tableActions &&
           tableActions.map(action => (
             <Action
@@ -41,7 +41,7 @@ const DataTable = ({ parentCode }) => {
             />
           ))}
       </HStack>
-      <Table>
+      <Table position="relative">
         <Header columns={columns} parentCode={parentCode} actions={actions} />
         <Body columns={columns} parentCode={parentCode} actions={actions} />
         <Footer sbeCode={parentCode} />
