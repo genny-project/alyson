@@ -3,8 +3,8 @@ import { isDev } from 'utils/developer'
 
 const defaultProjectTheme = {
   fonts: {
-    heading: 'Roboto',
-    body: 'Roboto',
+    heading: 'Inter, sans-serif',
+    body: 'Inter, sans-serif',
   },
   colors: {
     background: { light: '#ffffff', dark: '#171923' },
@@ -39,6 +39,34 @@ const defaultProjectTheme = {
     error: { 50: '#FFF5F5', 500: '#E53E3E' },
     warning: { 50: '#FFFAF0', 500: '#DD6B20' },
     success: { 50: '#F0FFF4', 500: '#38A169' },
+  },
+  textStyles: {
+    head1: {
+      fontSize: '3xl',
+      fontWeight: 700,
+    },
+    head2: {
+      fontSize: 'xl',
+      fontWeight: 500,
+    },
+    body1: {
+      fontSize: 'md',
+      fontWeight: 400,
+    },
+    body2: {
+      fontSize: 'sm',
+      fontWeight: 500,
+    },
+    tail1: {
+      fontSize: 'xs',
+      fontWeight: 600,
+      textTransform: 'uppercase',
+    },
+    tail2: {
+      fontSize: 'xs',
+      fontWeight: 100,
+      textTransform: 'uppercase',
+    },
   },
 }
 
