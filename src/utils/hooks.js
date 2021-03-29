@@ -52,7 +52,7 @@ export const useUserMedia = (requestedMedia, setError = identity) => {
 }
 
 export const useIsMobile = () => {
-  const isMobile = useBreakpointValue({ sm: true, md: true, lg: false, xl: false })
+  const isMobile = useBreakpointValue({ base: true, sm: true, md: true, lg: false, xl: false })
 
   return isMobile
 }
