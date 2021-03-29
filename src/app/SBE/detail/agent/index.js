@@ -11,12 +11,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle, faUser } from '@fortawesome/free-solid-svg-icons'
 import { closeDrawer } from 'redux/app'
 
-const geocoder = new window.google.maps.Geocoder()
-
 let map = {}
 let pano = {}
 
 const Agent = ({ sbeCode, targetCode }) => {
+  const geocoder = new window.google.maps.Geocoder()
+
   const dispatch = useDispatch()
   const onClose = () => dispatch(closeDrawer())
   const sbe = useSelector(selectCode(sbeCode))
