@@ -8,7 +8,7 @@ import LogRocket from 'logrocket'
 import getTokenFromURL from 'keycloak/get-token-from-url'
 import getTheme from 'config/theme'
 
-let apiConfig = {}
+let apiConfig = { api_url: '' }
 let keycloak = {}
 let guestKeycloak = null
 let tokenFromUrl = null
@@ -46,14 +46,6 @@ const getApiConfig = async () => {
   /* DOM */
   document.title = apiConfig.PRI_NAME || ''
   document.querySelector("link[rel*='icon']").href = apiConfig.PRI_FAVICON
-
-  /* Google Api */
-  const maps = document.createElement('script')
-  maps.setAttribute(
-    'src',
-    `https://maps.googleapis.com/maps/api/js?key=${apiConfig.ENV_GOOGLE_MAPS_APIKEY}&libraries=places,drawing`,
-  )
-  document.head.appendChild(maps)
 
   /* Theme */
   const { projectTheme } = apiConfig
