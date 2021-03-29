@@ -3,10 +3,10 @@ import { HStack, Center, CircularProgress } from '@chakra-ui/react'
 
 let map = {}
 let pano = {}
-
-const geocoder = new window.google.maps.Geocoder()
+let geocoder = {}
 
 const StreetView = ({ address, style = { width: '40rem', height: '30rem' } }) => {
+  geocoder = new window.google.maps.Geocoder()
   const [geo, setGeo] = useState(null)
 
   const panoRef = useRef(null)
