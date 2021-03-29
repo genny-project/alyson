@@ -59,9 +59,7 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
             <Text.Read
               data={title}
               textProps={{
-                fontWeight: 'semibold',
-                as: 'h4',
-                lineHeight: 'tight',
+                textStyle: 'head2',
                 isTruncated: true,
                 maxW: '14rem',
               }}
@@ -70,7 +68,7 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
               textProps={{
                 as: 'span',
                 color: 'gray.600',
-                fontSize: 'sm',
+                textStyle: 'body2',
                 isTruncated: true,
                 maxW: '14rem',
               }}

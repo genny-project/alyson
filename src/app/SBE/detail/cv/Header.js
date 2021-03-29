@@ -19,11 +19,7 @@ const Header = ({ beCode, sbeCode, imageSrc, headerAttribute, actions, videoAttr
         <Attribute code={beCode} attribute={imageSrc} variant={'profile_image'} />
       )}
       <Box p="3">
-        <Attribute
-          code={beCode}
-          attribute={headerAttribute}
-          config={{ fontSize: '3xl', fontWeight: 'semibold' }}
-        />
+        <Attribute code={beCode} attribute={headerAttribute} config={{ textStyle: 'head2' }} />
       </Box>
       <Spacer />
       <Box mt="6">

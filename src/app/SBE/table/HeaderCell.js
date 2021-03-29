@@ -13,7 +13,7 @@ const Cell = ({ attribute, parentCode }) => {
   return (
     <Td>
       <HStack spacing="4" color={sort?.weight === 0 ? 'primary' : ''}>
-        <Text fontWeight="semibold">{data?.attributeName}</Text>
+        <Text>{data?.attributeName}</Text>
         {sort && (
           <IconButton
             variant="ghost"

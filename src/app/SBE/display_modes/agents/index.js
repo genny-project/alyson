@@ -11,9 +11,7 @@ const Agents = ({ sbeCode }) => {
 
   return (
     <VStack>
-      <Text fontSize="2xl" fontWeight="medium">
-        Our Agents
-      </Text>
+      <Text textStyle="body1">Our Agents</Text>
       <HStack>
         <Stat>
           <StatLabel>Total</StatLabel>

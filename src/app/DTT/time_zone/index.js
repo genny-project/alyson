@@ -11,7 +11,7 @@ const Write = ({ questionCode, onSendAnswer, data }) => {
     <VStack align="start">
       <HStack spacing="0">
         <Text>{`We've detected your timezone as`}</Text>
-        <Text pl="1" pr="1" fontWeight="semibold">
+        <Text pl="1" pr="1">
           {data?.value || timeZone}
         </Text>
         <Text>{`is this correct?`}</Text>
