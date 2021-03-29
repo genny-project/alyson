@@ -13,6 +13,7 @@ import urlStateManager from 'utils/url-state-manager'
 import { tokenFromUrl, guestKeycloak } from 'config/get-api-config'
 import { getSessionIdFromToken } from 'keycloak/get-token-from-url'
 import sleep from 'utils/helpers/sleep'
+import selectToken from 'keycloak/utils/select-token'
 
 export const eventBus = new EventBus(VERTX_URL)
 
@@ -61,13 +62,11 @@ const onSendSearch = ({ searchValue, searchType = '', sbeCode }) =>
 const VertxContainer = () => {
   const { keycloak } = useKeycloak()
   const { login, logout } = keycloak
-  const { sessionId: kSessionId, token: kToken } = keycloak
+  const { sessionId: kSessionId, token: tokenFromKeycloak } = keycloak
   const guestSessionId = guestKeycloak?.data?.session_state
-  const guestToken = guestKeycloak?.data?.access_token
-  const urlToken = tokenFromUrl
-  const urlSessionId = urlToken ? getSessionIdFromToken(urlToken) : null
+  const urlSessionId = tokenFromUrl ? getSessionIdFromToken(tokenFromUrl) : null
 
-  const token = kToken || urlToken || guestToken
+  const token = selectToken({ guestKeycloak, tokenFromKeycloak, tokenFromUrl })
   const sessionId = kSessionId || urlSessionId || guestSessionId
 
   const dispatch = useDispatch()
@@ -76,7 +75,7 @@ const VertxContainer = () => {
   const onSendMsg = compose(dispatch, sendMessage)
 
   if (!(token && sessionId) && !guestKeycloak) login({ redirectUri: `${window.location.href}` })
-  if (guestKeycloak && kToken) logout()
+  if (guestKeycloak && tokenFromKeycloak) logout()
   if (!eventBus.handlers[sessionId]) {
     try {
       eventBus.registerHandler(sessionId, (_, { body }) => {
