@@ -48,7 +48,6 @@ const ABNLookup = ({ isOpen, questionCode, close, onSendAnswer }) => {
                   h="4rem"
                   w="full"
                   variant="outline"
-                  fontWeight="normal"
                   key={opt.abn}
                   onClick={() => {
                     close()
@@ -56,7 +55,7 @@ const ABNLookup = ({ isOpen, questionCode, close, onSendAnswer }) => {
                   }}
                 >
                   <VStack m="1" cursor="pointer">
-                    <Text fontWeight="semibold">{opt.name}</Text>
+                    <Text>{opt.name}</Text>
                     <Text>{`${opt.state} - ${opt.postcode}, ABN ${opt.abn}`}</Text>
                   </VStack>
                 </Button>

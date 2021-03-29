@@ -89,9 +89,7 @@ const DeveloperConsole = () => {
                   {selection ? (
                     selection.map ? (
                       <>
-                        <Text size="lg" fontWeight="bold">
-                          Has Keys
-                        </Text>
+                        <Text size="lg">Has Keys</Text>
                         {selection.map(key =>
                           console.log(key) || typeof key === 'object' ? (
                             Object.keys(key).map(key_2 => (
@@ -120,9 +118,7 @@ const DeveloperConsole = () => {
                       </>
                     ) : (
                       <>
-                        <Text size="lg" fontWeight="bold">
-                          Has VALUE
-                        </Text>
+                        <Text size="lg">Has VALUE</Text>
 
                         {typeof selection === 'object' ? (
                           Object.keys(selection).map(key => (

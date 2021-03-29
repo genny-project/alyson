@@ -2,8 +2,8 @@ import { extendTheme } from '@chakra-ui/react'
 
 const defaultProjectTheme = {
   fonts: {
-    heading: 'Roboto',
-    body: 'Roboto',
+    heading: 'Inter, sans-serif',
+    body: 'Inter, sans-serif',
   },
   colors: {
     background: { light: '#ffffff', dark: '#171923' },
@@ -49,6 +49,34 @@ const defaultProjectTheme = {
       700: 'linear-gradient(135deg, #285E61, #2C5282)',
       800: 'linear-gradient(135deg, #234E52, #2A4365)',
       900: 'linear-gradient(135deg, #1D4044, #1A365D)',
+    },
+  },
+  textStyles: {
+    head1: {
+      fontSize: '3xl',
+      fontWeight: 700,
+    },
+    head2: {
+      fontSize: 'xl',
+      fontWeight: 500,
+    },
+    body1: {
+      fontSize: 'md',
+      fontWeight: 400,
+    },
+    body2: {
+      fontSize: 'sm',
+      fontWeight: 500,
+    },
+    tail1: {
+      fontSize: 'xs',
+      fontWeight: 600,
+      textTransform: 'uppercase',
+    },
+    tail2: {
+      fontSize: 'xs',
+      fontWeight: 100,
+      textTransform: 'uppercase',
     },
   },
 }

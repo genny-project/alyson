@@ -11,9 +11,7 @@ const OurInterns = ({ sbeCode }) => {
 
   return (
     <VStack>
-      <Text fontSize="2xl" fontWeight="medium">
-        Our Interns
-      </Text>
+      <Text textStyle="body1">Our Interns</Text>
       <HStack>
         <Stat>
           <StatLabel>Total</StatLabel>

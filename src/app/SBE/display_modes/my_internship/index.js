@@ -25,9 +25,7 @@ const MyInternship = ({ rows, sbeCode }) => {
   if (!rows.length) return <Text>No Internship Yet!</Text>
   return (
     <VStack>
-      <Text fontSize="2xl" fontWeight="medium">
-        {internshipName?.value}
-      </Text>
+      <Text textStyle="body1">{internshipName?.value}</Text>
       <Text>{`${startDate?.value || 'No Start Date'} - ${endDate?.value || 'No End Date'}`}</Text>
       <HStack>
         {actions?.map(action => (

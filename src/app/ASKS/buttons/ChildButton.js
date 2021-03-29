@@ -28,7 +28,7 @@ const ChildButton = ({ questionCode, childCode, onClick }) => {
           icon={<FontAwesomeIcon icon={icons[childCode]} />}
         />
 
-        <Text fontSize="larger" _hover={{ opacity: 1.0 }} opacity="0.8" fontWeight="semibold">
+        <Text textStyle="body1" _hover={{ opacity: 1.0 }} opacity="0.8">
           {name}
         </Text>
       </HStack>
@@ -42,7 +42,7 @@ const ChildButton = ({ questionCode, childCode, onClick }) => {
             variant="solid"
             icon={<FontAwesomeIcon icon={icons[childCode]} />}
           />
-          <Text fontSize="larger" _hover={{ opacity: 1.0 }} opacity="0.8" fontWeight="semibold">
+          <Text textStyle="body1" _hover={{ opacity: 1.0 }} opacity="0.8">
             {name}
           </Text>
           <FontAwesomeIcon icon={faAngleDown} />

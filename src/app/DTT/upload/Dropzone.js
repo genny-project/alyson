@@ -47,9 +47,7 @@ const DropZone = ({ handleSave, closeDropzone, maxSize = '5000000', maxFiles = 1
     return (
       <Flex key={name} p="4">
         <Text>{`Uploaded File:`}</Text>
-        <Text ml="2" fontWeight="bold">
-          {name}
-        </Text>
+        <Text ml="2">{name}</Text>
       </Flex>
     )
   })(files)

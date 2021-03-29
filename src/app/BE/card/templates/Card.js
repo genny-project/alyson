@@ -49,10 +49,8 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
           <VStack alignItems="baseline" w="30">
             <Text.Read
               data={title}
-              config={{
-                fontWeight: 'semibold',
-                as: 'h4',
-                lineHeight: 'tight',
+              textProps={{
+                textStyle: 'head2',
                 isTruncated: true,
                 maxW: '14rem',
               }}
@@ -61,7 +59,7 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
               config={{
                 as: 'span',
                 color: 'gray.600',
-                fontSize: 'sm',
+                textStyle: 'body2',
                 isTruncated: true,
                 maxW: '14rem',
               }}

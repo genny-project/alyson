@@ -22,9 +22,7 @@ const Body = ({ parentCode, columns, actions }) => {
           <FontAwesomeIcon color="grey" icon={faBinoculars} size="3x" />
         </Td>
         <Td>
-          <Text width="20rem" fontWeight="semibold">
-            We looked, nothing seems to be here!
-          </Text>
+          <Text width="20rem">We looked, nothing seems to be here!</Text>
         </Td>
       </Tr>
     </Tbody>

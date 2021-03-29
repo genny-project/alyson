@@ -65,7 +65,7 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
     />
   ) : (
     <FormControl isDisabled={!!disabled} isRequired={mandatory} isInvalid={!!feedback}>
-      {!multiple && <FormLabel fontWeight="semibold">{name}</FormLabel>}
+      {!multiple && <FormLabel>{name}</FormLabel>}
       {component === 'email' && (
         <Email.Write
           questionCode={questionCode}

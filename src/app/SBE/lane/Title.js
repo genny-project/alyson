@@ -7,12 +7,12 @@ const Title = ({ sbeCode }) => {
   const total = useSelector(selectCode(sbeCode, 'PRI_TOTAL_RESULTS'))
 
   return (
-    <HStack w="full" p="2">
-      <Text fontSize="3xl" fontWeight="normal" color="primary">
+    <HStack w="15rem">
+      <Text textStyle="head1" color="primary">
         {title?.value}
       </Text>
       <Spacer />
-      <Text fontWeight="light">{total?.value}</Text>
+      <Text>{total?.value}</Text>
     </HStack>
   )
 }
