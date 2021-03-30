@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useCallback } from 'react'
+import { useRef, useState, useEffect, useCallback } from 'react'
 import { length } from 'ramda'
 import { useUserMedia } from 'utils/hooks'
 import { Button, Text, VStack } from '@chakra-ui/react'
@@ -75,7 +75,7 @@ const VideoRecorder = ({ setData, config, setStartVideo }) => {
       </VStack>
     )
   return (
-    <VStack>
+    <VStack spacing="8">
       <VStack hidden={length(recordedChunks) && !capturing}>
         <video
           style={{ width: '20rem', borderRadius: '1rem' }}
@@ -95,8 +95,8 @@ const VideoRecorder = ({ setData, config, setStartVideo }) => {
             {capturing ? 'Stop Recording' : 'Start Recording!'}
           </Button>
         </div>
-        <Text style={{ maxWidth: '30rem' }}>{config.description}</Text>
       </VStack>
+      <Text maxW="30rem">{config.description}</Text>
       <div hidden={!length(recordedChunks) || capturing}>
         <Button
           onClick={() => {

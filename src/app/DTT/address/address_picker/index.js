@@ -32,7 +32,9 @@ const AddressPicker = ({ onSendAnswer, data, questionCode }) => {
         })
       }
     }
-  }, [onSendAnswer])
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return <Input test-id={questionCode} defaultValue={data?.value} ref={autoCompleteRef} />
 }

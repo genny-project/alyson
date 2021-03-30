@@ -7,6 +7,7 @@ import {
   PopoverTrigger,
   PopoverContent,
   IconButton,
+  HStack,
 } from '@chakra-ui/react'
 import VideoRecorder from './video_recorder'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
@@ -56,47 +57,31 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
 
   return (
     <VStack>
-      {newData && (
-        <VStack>
-          <video
-            style={{ width: '20rem', borderRadius: '1rem' }}
-            src={URL.createObjectURL(newData)}
-            controls
-          />
-          <Button
-            test-id={questionCode + '-save'}
-            colorScheme="primary"
-            leftIcon={<FontAwesomeIcon icon={faSave} />}
-            onClick={() => handleSave(newData)}
-          >
-            Save
-          </Button>
-        </VStack>
-      )}
       {startVideo ? (
         <VideoRecorder
           test-id={questionCode}
           setStartVideo={setStartVideo}
-          setData={setNewData}
+          setData={handleSave}
           config={config}
         />
       ) : (
-        <VStack>
+        <VStack align="start">
           <Text>
             {
               "Record a short introduction about yourself, don't worry we'll give you time to prepare and let you re-record!"
             }
           </Text>
-          <Text>{'Feel free to skip this and come back later.'}</Text>
-          <a href={config.explanation_video}>
-            <Button leftIcon={<div>❓</div>}>{`Click here for instructions`}</Button>
-          </a>
-
-          <Button
-            test-id={questionCode + '-start'}
-            leftIcon={<FontAwesomeIcon icon={faVideo} />}
-            onClick={() => setStartVideo(true)}
-          >{`Ready!`}</Button>
+          <HStack>
+            <a href={config.explanation_video} target="_blank" rel="noreferrer">
+              <Button>{`Instructions`}</Button>
+            </a>
+            <Button
+              test-id={questionCode + '-start'}
+              leftIcon={<FontAwesomeIcon icon={faVideo} />}
+              onClick={() => setStartVideo(true)}
+              colorScheme="primary"
+            >{`Ready!`}</Button>
+          </HStack>
         </VStack>
       )}
     </VStack>

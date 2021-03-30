@@ -1,11 +1,13 @@
 import Ask from 'app/ASKS/ask'
-import { VStack, Center, Heading } from '@chakra-ui/react'
+import { VStack, Center, Heading, useColorModeValue } from '@chakra-ui/react'
 import { map } from 'ramda'
 
 const FormDesktopView = ({ title, childAsks, onFinish, questionCode }) => {
+  const bgColor = useColorModeValue('white', 'whiteAlpha.100')
+
   return (
-    <Center>
-      <VStack maxW="2xl" spacing={4} marginBottom={8}>
+    <Center bgColor={bgColor} borderRadius="md" shadow="base" mr="10vw" ml="10vw" pt="1rem">
+      <VStack p="3" spacing={8} marginBottom={8}>
         <Heading>{title}</Heading>
         {map(childAsk => (
           <Ask
