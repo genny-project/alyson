@@ -65,8 +65,8 @@ const Read = ({ data, parentCode, variant, config }) => {
     return (
       <Avatar
         {...config}
-        color="white"
-        bg="primary.500"
+        color="primary.500"
+        bg="transparent"
         icon={<FontAwesomeIcon icon={faUserAlt} />}
       />
     )
