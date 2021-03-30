@@ -17,6 +17,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSave, faEdit, faExpand } from '@fortawesome/free-solid-svg-icons'
 import '../../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import { useIsMobile } from 'utils/hooks'
+import DOMPurify from 'dompurify'
 
 const Write = ({ questionCode, data, onSendAnswer, description }) => {
   const blocksFromHTML = convertFromHTML(data?.value || '')
@@ -86,6 +87,9 @@ const Write = ({ questionCode, data, onSendAnswer, description }) => {
 }
 const Read = ({ data, mini }) => {
   if (!data?.value) return null
+
+  const cleanHtml = DOMPurify.sanitize(data.value)
+
   return mini ? (
     <Popover>
       <PopoverTrigger>
@@ -97,13 +101,13 @@ const Read = ({ data, mini }) => {
         <PopoverHeader>{data.attributeName}</PopoverHeader>
         <PopoverBody>
           <Box pl="4">
-            <div dangerouslySetInnerHTML={{ __html: data.value }} />
+            <div dangerouslySetInnerHTML={{ __html: cleanHtml }} />
           </Box>
         </PopoverBody>
       </PopoverContent>
     </Popover>
   ) : (
-    <div dangerouslySetInnerHTML={{ __html: data.value }} />
+    <div dangerouslySetInnerHTML={{ __html: cleanHtml }} />
   )
 }
 

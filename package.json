@@ -22,6 +22,7 @@
     "@vertx/eventbus-bridge-client.js": "^1.0.0",
     "axios": "^0.21.1",
     "chakra-ui-autocomplete": "^1.2.6",
+    "dompurify": "^2.2.7",
     "draft-js": "^0.11.7",
     "draft-js-export-html": "^1.4.1",
     "framer-motion": "^3.9.0",
