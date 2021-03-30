@@ -37,15 +37,7 @@ const DeveloperConsole = () => {
 
   return (
     <VStack>
-      <Button
-        size="xs"
-        onClick={() => {
-          localStorage.removeItem('useDev')
-        }}
-      >
-        turn off dev mode
-      </Button>
-      <Button size="xs" onClick={onOpen}>
+      <Button size="xs" onClick={onOpen} position="fixed" bottom="0" left="0">
         db search
       </Button>
 

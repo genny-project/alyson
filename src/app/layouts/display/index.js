@@ -13,6 +13,7 @@ import Detail from 'app/SBE/detail'
 import Public from 'app/layouts/public'
 import NotesDrawer from './notes_drawer'
 import Navigation from '../navigation'
+import DeveloperConsole, { isDev } from 'utils/developer'
 
 const Display = ({ isPublic }) => {
   const display = useSelector(selectDisplay)
@@ -46,6 +47,7 @@ const Display = ({ isPublic }) => {
         <Dialog />
         <Toast />
       </Box>
+      {isDev ? <DeveloperConsole /> : null}
     </Box>
   )
 }

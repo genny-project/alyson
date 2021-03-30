@@ -7,7 +7,6 @@ import { CSSReset } from '@chakra-ui/react'
 import Vertx from 'vertx'
 import { isDev } from 'utils/developer'
 
-const DeveloperConsole = lazy(() => import('utils/developer'))
 const Display = lazy(() => import('app/layouts/display'))
 const Sandbox = lazy(() => import('utils/developer/Sandbox'))
 
@@ -61,11 +60,6 @@ const App = () => {
               )
             }
           />
-          {isDev ? (
-            <Suspense fallback={<div />}>
-              <DeveloperConsole />
-            </Suspense>
-          ) : null}
         </Switch>
       </BrowserRouter>
     </Provider>
