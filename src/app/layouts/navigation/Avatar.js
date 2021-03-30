@@ -32,12 +32,13 @@ const AvatarMenu = () => {
   const { keycloak } = useKeycloak()
 
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const { isOpen: isOpenHelp, onOpen: onOpenHelp, onClose: onCloseHelp } = useDisclosure()
   const { getImageSrc } = useApi()
 
   const title = `${name?.value || userName?.value}${
     associatedEntitiy?.value ? ` - ${associatedEntitiy?.value}` : ''
   }`
+
+  const onOpenHelp = () => onSendMessage({ code: 'ACT_PRI_HELPER_FUNCTION' })
 
   if (!avatarAsks) return null
 
@@ -91,7 +92,7 @@ const AvatarMenu = () => {
           <ColorToggler />
         </Flex>
       </MenuList>
-      <HelpModal isOpen={isOpenHelp} onClose={onCloseHelp} />
+      {/* <HelpModal isOpen={isOpenHelp} onClose={onCloseHelp} /> */}
       <SettingsModal isOpen={isOpen} onClose={onClose} />
     </Menu>
   )
