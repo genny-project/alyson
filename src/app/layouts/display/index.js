@@ -12,26 +12,40 @@ import Toast from './toast'
 import Detail from 'app/SBE/detail'
 import Public from 'app/layouts/public'
 import NotesDrawer from './notes_drawer'
+import Navigation from '../navigation'
 
 const Display = ({ isPublic }) => {
   const display = useSelector(selectDisplay)
   const theme = useTheme()
   const color = useColorModeValue(theme.colors.text.light, theme.colors.text.dark)
-
+  const backgroundColor = useColorModeValue('gray.50', '')
   return isPublic ? (
     <Public />
   ) : (
-    <Box maxW="100vw" paddingTop="6rem" id="main-display" color={color}>
-      {display === 'DASHBOARD' && <Dashboard />}
-      {display === 'TABLE' && <Table />}
-      {display === 'PROCESS' && <Process />}
-      {includes('FORM', display || '') && <Form />}
-      {display === 'DETAIL' && <Detail />}
-      {display === 'MAP' && <Table mapSearch />}
-      <NotesDrawer />
-      <DisplayDrawer />
-      <Dialog />
-      <Toast />
+    <Box
+      backgroundColor={backgroundColor}
+      id="main-display"
+      color={color}
+      position="fixed"
+      left="0"
+      right="0"
+      top="0"
+      bottom="0"
+      overflow="scroll"
+    >
+      <Navigation />
+      <Box paddingTop="6rem">
+        {display === 'DASHBOARD' && <Dashboard />}
+        {display === 'TABLE' && <Table />}
+        {display === 'PROCESS' && <Process />}
+        {includes('FORM', display || '') && <Form />}
+        {display === 'DETAIL' && <Detail />}
+        {display === 'MAP' && <Table mapSearch />}
+        <NotesDrawer />
+        <DisplayDrawer />
+        <Dialog />
+        <Toast />
+      </Box>
     </Box>
   )
 }

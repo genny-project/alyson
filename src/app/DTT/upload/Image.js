@@ -1,13 +1,21 @@
 import { useState } from 'react'
 import useApi from 'api'
-import { Avatar, ButtonGroup, Button, Tooltip, Image, CloseButton, HStack } from '@chakra-ui/react'
+import {
+  Avatar,
+  ButtonGroup,
+  Button,
+  Tooltip,
+  Image,
+  CloseButton,
+  HStack,
+  useColorModeValue,
+} from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCamera, faUpload, faUserAlt } from '@fortawesome/free-solid-svg-icons'
 import Snap from './Snap'
 import { onSendMessage } from 'vertx'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
-import { always } from 'ramda'
 
 const Write = ({ questionCode, data, openDropzone, onSendAnswer, handleSave, setLoading }) => {
   const { getImageSrc } = useApi()
@@ -57,19 +65,13 @@ const Read = ({ data, parentCode, variant, config }) => {
   const viewDetail = () =>
     onSendMessage({ parentCode, targetCode: data?.baseEntityCode, code: 'ACT_PRI_EVENT_VIEW' })
 
+  const bg = useColorModeValue('gray.300', 'gray.600')
   if (variant === 'profile_image') {
     return <Image {...config} src={src} alt="profile-picture" w="10rem" borderRadius="xl" />
   }
 
   if (!src)
-    return (
-      <Avatar
-        {...config}
-        color="primary.500"
-        bg="transparent"
-        icon={<FontAwesomeIcon icon={faUserAlt} />}
-      />
-    )
+    return <Avatar {...config} bg={bg} color="white" icon={<FontAwesomeIcon icon={faUserAlt} />} />
   return (
     <Avatar
       name={name?.value || assocName?.value}
