@@ -103,9 +103,11 @@ const Intern = ({ sbeCode, targetCode }) => {
             transition="height 1s"
             borderTopRightRadius="0.5rem"
             borderTopLeftRadius={video?.value ? '' : '0.5rem'}
-            overflow="hidden"
+            overflow="scroll"
           >
-            <Attribute code={beCode} attribute={'PRI_CAREER_OBJ'} styles={careerObjStyles} />
+            <Box m="auto" p="16px">
+              <Attribute code={beCode} attribute={'PRI_CAREER_OBJ'} styles={careerObjStyles} />
+            </Box>
           </Flex>
         )}
       </Flex>
