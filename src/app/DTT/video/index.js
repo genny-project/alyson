@@ -13,15 +13,13 @@ import VideoRecorder from './video_recorder'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import useApi from 'api'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSave, faVideo, faExpand } from '@fortawesome/free-solid-svg-icons'
+import { faVideo, faExpand } from '@fortawesome/free-solid-svg-icons'
 import Player from './Player'
 
 const Write = ({ questionCode, onSendAnswer, html, data }) => {
   const config = safelyParseJson(html, {})
 
   const { postMediaFile, getSrc } = useApi()
-
-  const [newData, setNewData] = useState(null)
   const [startVideo, setStartVideo] = useState(false)
 
   const handleSave = async file => {
@@ -45,7 +43,6 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
         <Button
           test-id={questionCode + '-clear'}
           onClick={() => {
-            setNewData(null)
             setStartVideo(false)
             onSendAnswer()
           }}
