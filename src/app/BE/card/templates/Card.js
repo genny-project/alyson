@@ -19,7 +19,6 @@ import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 import statusColors from './status_colors'
 import MainDetails from './MainDetails'
 import makeMotion from 'utils/motion'
-import { onSendMessage } from 'vertx'
 
 const MotionBox = makeMotion(Box)
 
@@ -33,8 +32,6 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
   const defaultColor = useColorModeValue('white', theme.colors.background.dark)
   const color = statusColors[statusColor?.value]
 
-  const triggerDetailView = () =>
-    onSendMessage({ code: 'ACT_PRI_EVENT_VIEW', targetCode: code, parentCode })
   return (
     <MotionBox
       bg={defaultColor}
@@ -46,7 +43,6 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
       transition={{ duration: 0.1 }}
       bgColor={color}
       cursor="pointer"
-      onClick={triggerDetailView}
     >
       <Flex spacing="3">
         <HStack>
