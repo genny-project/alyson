@@ -14,7 +14,7 @@ const Lane = ({ sbeCode, dashboard }) => {
   const totalResults = useSelector(selectCode(sbeCode, 'PRI_TOTAL_RESULTS'))
   const paginationActions = useCallback(() => getPaginationActions(sbeCode), [sbeCode])
 
-  const color = useColorModeValue('gray.50', 'gray.900')
+  const color = useColorModeValue('gray.100', 'gray.900')
 
   if (!table) return null
 

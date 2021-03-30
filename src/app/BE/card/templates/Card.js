@@ -41,7 +41,7 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
       p="4"
       w="full"
       borderRadius="md"
-      shadow="md"
+      shadow="base"
       whileHover={{ scale: 1.02 }}
       transition={{ duration: 0.1 }}
       bgColor={color}
