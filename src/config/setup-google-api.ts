@@ -1,5 +1,5 @@
 import { apiConfig } from 'config/get-api-config'
-import axios from 'axios'
+// import axios from 'axios'
 //const setupGoogleApi = async ({ token }: { token: string }) => {
 const setupGoogleApi = () => {
   const maps = document.createElement('script')
