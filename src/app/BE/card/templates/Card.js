@@ -42,7 +42,6 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
       whileHover={{ scale: 1.02 }}
       transition={{ duration: 0.1 }}
       bgColor={color}
-      cursor="pointer"
     >
       <Flex spacing="3">
         <HStack>

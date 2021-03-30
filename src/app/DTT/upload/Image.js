@@ -71,7 +71,16 @@ const Read = ({ data, parentCode, variant, config }) => {
   }
 
   if (!src)
-    return <Avatar {...config} bg={bg} color="white" icon={<FontAwesomeIcon icon={faUserAlt} />} />
+    return (
+      <Avatar
+        onClick={viewDetail}
+        cursor="pointer"
+        {...config}
+        bg={bg}
+        color="white"
+        icon={<FontAwesomeIcon icon={faUserAlt} />}
+      />
+    )
   return (
     <Avatar
       name={name?.value || assocName?.value}
