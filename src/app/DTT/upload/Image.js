@@ -2,11 +2,12 @@ import { useState } from 'react'
 import useApi from 'api'
 import { Avatar, ButtonGroup, Button, Tooltip, Image, CloseButton, HStack } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCamera, faUpload } from '@fortawesome/free-solid-svg-icons'
+import { faCamera, faUpload, faUserAlt } from '@fortawesome/free-solid-svg-icons'
 import Snap from './Snap'
 import { onSendMessage } from 'vertx'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
+import { always } from 'ramda'
 
 const Write = ({ questionCode, data, openDropzone, onSendAnswer, handleSave, setLoading }) => {
   const { getImageSrc } = useApi()
@@ -60,6 +61,15 @@ const Read = ({ data, parentCode, variant, config }) => {
     return <Image {...config} src={src} alt="profile-picture" w="10rem" borderRadius="xl" />
   }
 
+  if (!src)
+    return (
+      <Avatar
+        {...config}
+        color="white"
+        bg="primary.500"
+        icon={<FontAwesomeIcon icon={faUserAlt} />}
+      />
+    )
   return (
     <Avatar
       name={name?.value || assocName?.value}
