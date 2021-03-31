@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { filter, identity, map, prop } from 'ramda'
-import { Text, Box } from '@chakra-ui/react'
+import { Text } from '@chakra-ui/react'
 import { CUIAutoComplete } from 'chakra-ui-autocomplete'
 import { getValue } from './get-value'
 
