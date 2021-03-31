@@ -3,12 +3,17 @@ import { VStack, Text } from '@chakra-ui/react'
 const Sandbox = () => {
   return (
     <VStack p={10} spacing={5} align="stretch">
-      <Text textStyle="head1">Head One</Text>
-      <Text textStyle="head2">Head Two</Text>
-      <Text textStyle="body1">Body One</Text>
-      <Text textStyle="body2">Body Two</Text>
-      <Text textStyle="tail1">Tail One</Text>
-      <Text textStyle="tail2">Tail Two</Text>
+      <Text textStyle="head1">The quick brown fox jumps over the lazy dog.</Text>
+      <Text textStyle="head2">The quick brown fox jumps over the lazy dog.</Text>
+      <Text textStyle="head3">The quick brown fox jumps over the lazy dog.</Text>
+
+      <Text textStyle="body1">The quick brown fox jumps over the lazy dog.</Text>
+      <Text textStyle="body2">The quick red panda jumps over the lazy yak.</Text>
+      <Text textStyle="body3">The quick brown fox jumps over the lazy dog.</Text>
+
+      <Text textStyle="tail1">The quick brown fox jumps over the lazy dog.</Text>
+      <Text textStyle="tail2">The quick brown fox jumps over the lazy dog.</Text>
+      <Text textStyle="tail3">The quick brown fox jumps over the lazy dog.</Text>
     </VStack>
   )
 }
