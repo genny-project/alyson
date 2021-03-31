@@ -17,16 +17,7 @@ const NotePanel = ({ tab: { code: targetCode, title, image } }) => {
         title={title}
         image={<ImageType.Read data={{ value: image }} config={{ size: 'xs' }} />}
       />
-      {!notes ? (
-        <VStack>
-          <Text>No notes found</Text>
-          <Button onClick={() => onSendMessage({ code: 'ACT_PRI_EVENT_ACCESS_NOTES', targetCode })}>
-            Refetch?
-          </Button>
-        </VStack>
-      ) : (
-        notes.map(id => <NoteCard key={id} id={id} />)
-      )}
+      {notes && notes.map(id => <NoteCard key={id} id={id} />)}
     </VStack>
   )
 }

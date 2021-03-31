@@ -63,7 +63,9 @@ const Read = ({ data, parentCode, variant, config }) => {
   const name = useSelector(selectCode(data?.baseEntityCode, 'PRI_NAME'))
   const assocName = useSelector(selectCode(data?.baseEntityCode, 'PRI_INTERN_NAME'))
   const viewDetail = () =>
-    onSendMessage({ parentCode, targetCode: data?.baseEntityCode, code: 'ACT_PRI_EVENT_VIEW' })
+    parentCode
+      ? onSendMessage({ parentCode, targetCode: data.baseEntityCode, code: 'ACT_PRI_EVENT_VIEW' })
+      : null
 
   const bg = useColorModeValue('gray.300', 'gray.600')
   if (variant === 'profile_image') {
