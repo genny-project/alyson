@@ -1,8 +1,7 @@
-import { includes } from 'ramda'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import createSendAnswer from 'app/ASKS/utils/create-send-answer'
-import { FormControl, FormLabel, FormHelperText, FormErrorMessage } from '@chakra-ui/react'
+import { FormControl, FormLabel, FormErrorMessage, HStack, Box } from '@chakra-ui/react'
 import getGroupCode from 'app/ASKS/utils/get-group-code'
 import Text from 'app/DTT/text'
 import Button from 'app/DTT/button'
@@ -26,7 +25,6 @@ import Rating from 'app/DTT/rating'
 import ThirdPartyVideo from 'app/DTT/third_party_video'
 import TimeZonePicker from 'app/DTT/time_zone'
 import CheckBox from 'app/DTT/check_box'
-import { isDev } from 'utils/developer'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 
@@ -49,9 +47,6 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
   } = question
 
   const feedback = data?.feedback
-
-  const multiple = includes('multiple', typeName || '') || component === 'tag'
-
   const onSendAnswer = createSendAnswer(askData, { passedTargetCode })
 
   if (hidden) return null
@@ -65,7 +60,13 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
     />
   ) : (
     <FormControl isDisabled={!!disabled} isRequired={mandatory} isInvalid={!!feedback}>
-      {!multiple && <FormLabel>{name}</FormLabel>}
+      <HStack>
+        <FormLabel minW="94%" fontWeight="semibold">
+          {name}
+        </FormLabel>
+        <Box>{data?.value ? <FontAwesomeIcon color="green" icon={faCheckCircle} /> : null}</Box>
+      </HStack>
+
       {component === 'email' && (
         <Email.Write
           questionCode={questionCode}
@@ -195,17 +196,6 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
         <CheckBox.Write data={data} questionCode={questionCode} onSendAnswer={onSendAnswer} />
       )}
       <FormErrorMessage>{feedback}</FormErrorMessage>
-      <FormHelperText ml="1" color="green" noOfLines="1">
-        {data?.value ? (
-          !isDev ? (
-            <FontAwesomeIcon icon={faCheckCircle} />
-          ) : (
-            `${'saved - ' + data.value}`
-          )
-        ) : (
-          ''
-        )}
-      </FormHelperText>
     </FormControl>
   )
 }
