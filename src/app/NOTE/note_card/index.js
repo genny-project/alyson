@@ -17,7 +17,7 @@ const NoteCard = ({ id }) => {
         <HStack w="full">
           {tags.map(tag =>
             includes('per_', tag?.name) ? (
-              <Attribute code={toUpper(tag?.name)} attribute="PRI_IMAGE_URL" />
+              <Attribute key={tag?.name} code={toUpper(tag?.name)} attribute="PRI_IMAGE_URL" />
             ) : (
               <Text>{tag.name}</Text>
             ),

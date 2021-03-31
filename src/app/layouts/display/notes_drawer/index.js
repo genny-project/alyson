@@ -33,7 +33,7 @@ const NotesDrawer = () => {
           })
         }
       />
-      <Drawer placement="right" size="md" isOpen={isOpen} onClose={() => dispatch(closeNotes())}>
+      <Drawer placement="right" size="2xl" isOpen={isOpen} onClose={() => dispatch(closeNotes())}>
         <DrawerOverlay>
           <DrawerContent>
             <DrawerCloseButton />
