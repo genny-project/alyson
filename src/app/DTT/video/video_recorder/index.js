@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react'
 import { length } from 'ramda'
 import { useUserMedia } from 'utils/hooks'
-import { Button, Text, VStack } from '@chakra-ui/react'
+import { Button, Progress, Text, VStack } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRecordVinyl } from '@fortawesome/free-solid-svg-icons'
 
@@ -98,12 +98,8 @@ const VideoRecorder = ({ setData, config, setStartVideo }) => {
         <Text style={{ maxWidth: '30rem' }}>{config.description}</Text>
       </VStack>
       <div hidden={!length(recordedChunks) || capturing}>
-        <Button
-          onClick={() => {
-            setRecordedChunks([])
-            setData(null)
-          }}
-        >{`Try Again`}</Button>
+        <Text textStyle="body3">Saving!</Text>
+        <Progress borderRadius="md" w="20rem" isIndeterminate />
       </div>
     </VStack>
   )
