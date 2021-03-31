@@ -1,7 +1,7 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
 import appReducer from './app'
 import dbReducer from './db'
-import { saveState, loadState } from './localStore'
+import { saveState } from './localStore'
 import throttle from 'lodash.throttle'
 
 const store = configureStore({
@@ -10,7 +10,6 @@ const store = configureStore({
     app: appReducer,
     db: dbReducer,
   },
-  preloadedState: loadState(),
 })
 
 store.subscribe(throttle(() => saveState(store.getState()), 1000))
