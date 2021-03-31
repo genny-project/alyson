@@ -107,9 +107,9 @@ const Intern = ({ sbeCode, targetCode }) => {
               m="auto"
             >
               <Text
-                textStyle="head2"
+                textStyle="head1"
                 dangerouslySetInnerHTML={{ __html: careerObj?.value }}
-                noOfLines={8}
+                noOfLines={5}
               />
             </Box>
           </Flex>
