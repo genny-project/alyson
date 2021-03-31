@@ -3,13 +3,18 @@ import { CircularProgress } from '@chakra-ui/progress'
 import { TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/tabs'
 import { useSelector } from 'react-redux'
 import { selectNotes } from 'redux/app/selectors'
+import { getTabs, getTitle } from './helpers/get-data'
 import NotePanel from './panel'
 import TabTop from './tab_top'
 
 const Notes = () => {
-  const notesTargets = useSelector(selectNotes)
+  const notes = useSelector(selectNotes)
 
-  if (!notesTargets || !notesTargets.length)
+  const tabs = getTabs(notes)
+
+  // console.log(tabs, notes)
+
+  if (!notes)
     return (
       <Center>
         <VStack>
@@ -21,14 +26,14 @@ const Notes = () => {
   return (
     <Tabs>
       <TabList>
-        {notesTargets.map(targetCode => (
-          <TabTop targetCode={targetCode} />
+        {tabs.map(key => (
+          <TabTop key={key} tab={notes[key]} title={getTitle(key)} />
         ))}
       </TabList>
       <TabPanels>
-        {notesTargets.map(targetCode => (
-          <TabPanel key={targetCode}>
-            <NotePanel targetCode={targetCode} />
+        {tabs.map(key => (
+          <TabPanel key={key}>
+            <NotePanel tab={notes[key]} title={getTitle(key)} />
           </TabPanel>
         ))}
       </TabPanels>

@@ -1,13 +1,13 @@
 import { useState } from 'react'
-import { Input, InputGroup, InputRightElement } from '@chakra-ui/input'
+import { Input, InputGroup, InputLeftElement, InputRightElement } from '@chakra-ui/input'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import { IconButton } from '@chakra-ui/button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSave } from '@fortawesome/free-solid-svg-icons'
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import { onSendMessage } from 'vertx'
 
-const AddNote = ({ targetCode }) => {
+const AddNote = ({ targetCode, image, title }) => {
   const sourceCode = useSelector(selectCode('USER'))
 
   const [noteContent, setNoteContent] = useState('')
@@ -19,6 +19,7 @@ const AddNote = ({ targetCode }) => {
       targetCode,
       sourceCode,
       tags: [],
+      content: noteContent,
     })
     setNoteContent('')
   }
@@ -26,17 +27,19 @@ const AddNote = ({ targetCode }) => {
   return (
     <form onSubmit={handleSave} style={{ width: '100%' }}>
       <InputGroup>
+        <InputLeftElement>{image}</InputLeftElement>
         <Input
           value={noteContent}
-          placeholder="Take a note"
+          placeholder={`Take a note on ${title}`}
           onChange={e => setNoteContent(e.target.value)}
         />
         <InputRightElement>
           <IconButton
+            variant="unstyled"
             borderLeftRadius="0px"
             h="100%"
             onClick={handleSave}
-            icon={<FontAwesomeIcon icon={faSave} />}
+            icon={<FontAwesomeIcon icon={faPlusCircle} />}
           />
         </InputRightElement>
       </InputGroup>
