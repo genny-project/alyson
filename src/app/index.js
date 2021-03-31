@@ -7,6 +7,7 @@ import { Box, CSSReset } from '@chakra-ui/react'
 import Vertx from 'vertx'
 import { isDev } from 'utils/developer'
 import setupGoogleApi from 'config/setup-google-api'
+import { guestKeycloak, tokenFromUrl } from 'config/get-api-config'
 
 const Navigation = lazy(() => import('app/layouts/navigation'))
 const DeveloperConsole = lazy(() => import('utils/developer'))
@@ -17,7 +18,7 @@ const App = () => {
   const { keycloak } = useKeycloak()
 
   useEffect(() => {
-    if (!window.google) setupGoogleApi(keycloak.token)
+    if (!window.google) setupGoogleApi(keycloak.token || tokenFromUrl || guestKeycloak.token)
   }, [keycloak.token])
 
   return (
