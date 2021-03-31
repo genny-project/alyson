@@ -36,14 +36,14 @@ const Intern = ({ sbeCode, targetCode }) => {
 
   const actions = getActions(sbe)
 
-  const [topHeight, setTopHeight] = useState('45vh')
+  const [topHeight, setTopHeight] = useState('35vh')
 
   const handleScroll = () => {
     if (topHeight !== '0') setTopHeight('0')
   }
 
   useEffect(() => {
-    !videoSrc && !careerObj?.value ? setTopHeight('0') : setTopHeight('45vh')
+    !videoSrc && !careerObj?.value ? setTopHeight('0') : setTopHeight('35vh')
   }, [careerObj?.value, videoSrc])
 
   if (!beCode) return null
@@ -53,15 +53,6 @@ const Intern = ({ sbeCode, targetCode }) => {
     borderTopLeftRadius: '0.5rem',
     height: topHeight,
     transition: 'height 1s',
-  }
-
-  const careerObjStyles = {
-    color: '#ffffff',
-    margin: 'auto',
-    fontSize: '24px',
-    paddingLeft: '64px',
-    paddingRight: '64px',
-    borderTopRightRadius: '0.5rem',
   }
 
   return (
@@ -81,7 +72,13 @@ const Intern = ({ sbeCode, targetCode }) => {
           icon={<FontAwesomeIcon icon={faTimesCircle} />}
         />
       </Box>
-      <Flex onClick={() => setTopHeight('45vh')} justifyContent="center">
+      <Flex
+        onClick={() => setTopHeight('35vh')}
+        justifyContent="center"
+        borderTopLeftRadius="0.5rem"
+        borderTopRightRadius="0.5rem"
+        bgGradient="linear(to-br, teal.400,blue.500)"
+      >
         {video?.value && (
           <Flex
             flexGrow="1"
@@ -90,30 +87,38 @@ const Intern = ({ sbeCode, targetCode }) => {
             height={topHeight}
             transition="height 1s"
             background="gray.100"
-            borderTopLeftRadius="0.5rem"
+            borderTopLeftRadius={careerObj?.value ? '0.5rem' : ''}
           >
             <Player src={videoSrc} styles={videoStyle} />
           </Flex>
         )}
-        {careerObj && (
+        {careerObj?.value && (
           <Flex
             flexGrow="1"
-            bgGradient="linear(to-br, teal.400,blue.500)"
             height={topHeight}
             transition="height 1s"
             borderTopRightRadius="0.5rem"
             borderTopLeftRadius={video?.value ? '' : '0.5rem'}
-            overflow="scroll"
+            overflow="hidden"
           >
-            <Box m="auto" p="16px">
-              <Attribute code={beCode} attribute={'PRI_CAREER_OBJ'} styles={careerObjStyles} />
+            <Box
+              p={video?.value ? '16px 48px 64px 40px' : '16px 48px 80px 40px'}
+              overflow="hidden"
+              m="auto"
+            >
+              <Text
+                textStyle="head1"
+                dangerouslySetInnerHTML={{ __html: careerObj?.value }}
+                noOfLines={[3,4,5]}
+                color='white'
+              />
             </Box>
           </Flex>
         )}
       </Flex>
       <Avatar
         cursor="pointer"
-        onClick={() => setTopHeight(topHeight => (topHeight === '45vh' ? '0' : '45vh'))}
+        onClick={() => setTopHeight(topHeight => (topHeight === '35vh' ? '0' : '35vh'))}
         mt="-4.75rem"
         left="calc(35vw - 4.75rem)"
         bg={src ? 'white' : 'lightgrey'}
