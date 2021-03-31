@@ -52,7 +52,9 @@ const Read = ({ data, parentCode, variant, config = {} }) => {
   if (!src || !data?.value) return <Avatar {...config} />
 
   const viewDetail = () =>
-    onSendMessage({ parentCode, targetCode: data.baseEntityCode, code: 'ACT_PRI_EVENT_VIEW' })
+    parentCode
+      ? onSendMessage({ parentCode, targetCode: data.baseEntityCode, code: 'ACT_PRI_EVENT_VIEW' })
+      : null
 
   if (variant === 'profile_image') {
     return <Image src={src} alt="profile-picture" w="10rem" borderRadius="xl" />
