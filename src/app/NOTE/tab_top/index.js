@@ -1,18 +1,15 @@
-import { HStack, Text } from '@chakra-ui/layout'
+import { Text, VStack } from '@chakra-ui/layout'
 import { Tab } from '@chakra-ui/tabs'
-import Attribute from 'app/BE/attribute'
-import { useSelector } from 'react-redux'
-import { selectCode } from 'redux/db/selectors'
+import ImageType from 'app/DTT/upload/Image'
 
-const TabTop = ({ targetCode }) => {
-  const name = useSelector(selectCode(targetCode, 'PRI_NAME'))
-
+const TabTop = ({ tab: { image, title: name }, title }) => {
   return (
     <Tab>
-      <HStack>
-        <Attribute code={targetCode} attribute={'PRI_IMAGE_URL'} />
-        <Text>{name?.value || targetCode}</Text>
-      </HStack>
+      <VStack align="start" w="12rem">
+        <ImageType.Read data={{ value: image }} />
+        <Text isTruncated>{name}</Text>
+        <Text textStyle="body3">{title}</Text>
+      </VStack>
     </Tab>
   )
 }

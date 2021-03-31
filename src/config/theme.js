@@ -53,30 +53,43 @@ const defaultProjectTheme = {
   },
   textStyles: {
     head1: {
-      fontSize: '3xl',
+      fontSize: '2xl',
       fontWeight: 700,
     },
     head2: {
-      fontSize: 'xl',
-      fontWeight: 500,
+      fontSize: '2xl',
+      fontWeight: 400,
+    },
+    head3: {
+      fontSize: '2xl',
+      fontWeight: 400,
+      color: 'gray.500',
     },
     body1: {
       fontSize: 'md',
-      fontWeight: 400,
+      fontWeight: 700,
     },
     body2: {
-      fontSize: 'sm',
-      fontWeight: 500,
+      fontSize: 'md',
+      fontWeight: 400,
+    },
+    body3: {
+      fontSize: 'md',
+      fontWeight: 400,
+      color: 'gray.500',
     },
     tail1: {
       fontSize: 'xs',
-      fontWeight: 600,
-      textTransform: 'uppercase',
+      fontWeight: 700,
     },
     tail2: {
       fontSize: 'xs',
-      fontWeight: 100,
-      textTransform: 'uppercase',
+      fontWeight: 400,
+    },
+    tail3: {
+      fontSize: 'xs',
+      fontWeight: 400,
+      color: 'gray.500',
     },
   },
 }

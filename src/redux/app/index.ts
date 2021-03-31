@@ -12,7 +12,7 @@ export const initialState = {
   DIALOG: 'NONE',
   TOAST: null,
   DASHBOARD_COUNTS: null,
-  NOTES: null,
+  NOTES: {},
 }
 
 const appSlice = createSlice({
@@ -29,10 +29,10 @@ const appSlice = createSlice({
         : cmdMachine.DEFAULT(state, payload)
     },
     newMsg: (state: AppState, { payload }: { payload: MsgPayload }) => {
-      const { items, data_type, targetCodes } = payload
+      const { items, data_type } = payload
 
       if (data_type === 'BaseEntity') setDisplayCode(state)(items)
-      if (data_type === 'Note') state.NOTES = targetCodes
+      if (data_type === 'Note') state.NOTES = payload
 
       if (isAsk(data_type)) {
         const questionCode: string = getQuestionCode(items)

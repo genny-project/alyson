@@ -1,4 +1,3 @@
-import { TargetCode } from 'redux/types'
 import { Keyable } from 'utils/types'
 
 export interface AppState {
@@ -9,7 +8,7 @@ export interface AppState {
   DIALOG: string
   TOAST: Keyable | null
   DASHBOARD_COUNTS: Array<String> | null
-  NOTES: null | Array<TargetCode>
+  NOTES: null | Keyable
 }
 
 export interface BaseEntityAttribute {
