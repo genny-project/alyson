@@ -36,14 +36,14 @@ const Intern = ({ sbeCode, targetCode }) => {
 
   const actions = getActions(sbe)
 
-  const [topHeight, setTopHeight] = useState('25vh')
+  const [topHeight, setTopHeight] = useState('35vh')
 
   const handleScroll = () => {
     if (topHeight !== '0') setTopHeight('0')
   }
 
   useEffect(() => {
-    !videoSrc && !careerObj?.value ? setTopHeight('0') : setTopHeight('25vh')
+    !videoSrc && !careerObj?.value ? setTopHeight('0') : setTopHeight('35vh')
   }, [careerObj?.value, videoSrc])
 
   if (!beCode) return null
@@ -73,7 +73,7 @@ const Intern = ({ sbeCode, targetCode }) => {
         />
       </Box>
       <Flex
-        onClick={() => setTopHeight('25vh')}
+        onClick={() => setTopHeight('35vh')}
         justifyContent="center"
         borderTopLeftRadius="0.5rem"
         borderTopRightRadius="0.5rem"
@@ -109,7 +109,8 @@ const Intern = ({ sbeCode, targetCode }) => {
               <Text
                 textStyle="head1"
                 dangerouslySetInnerHTML={{ __html: careerObj?.value }}
-                noOfLines={5}
+                noOfLines={[3,4,5]}
+                color='white'
               />
             </Box>
           </Flex>
@@ -117,7 +118,7 @@ const Intern = ({ sbeCode, targetCode }) => {
       </Flex>
       <Avatar
         cursor="pointer"
-        onClick={() => setTopHeight(topHeight => (topHeight === '25vh' ? '0' : '25vh'))}
+        onClick={() => setTopHeight(topHeight => (topHeight === '35vh' ? '0' : '35vh'))}
         mt="-4.75rem"
         left="calc(35vw - 4.75rem)"
         bg={src ? 'white' : 'lightgrey'}
