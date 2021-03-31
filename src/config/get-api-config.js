@@ -48,9 +48,6 @@ const getApiConfig = async () => {
   document.title = apiConfig.PRI_NAME || ''
   document.querySelector("link[rel*='icon']").href = apiConfig.PRI_FAVICON
 
-  /* Google */
-  setupGoogleApi()
-
   /* Theme */
   const { projectTheme } = apiConfig
   const theme = getTheme(projectTheme)
