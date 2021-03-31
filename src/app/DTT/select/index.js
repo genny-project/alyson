@@ -16,12 +16,13 @@ const Write = ({
   dataType,
   data,
 }) => {
-  const options = filter(includes('SEL_'), useSelector(selectRows(groupCode)))
+  const options = filter(a => !includes('GRP_', a), useSelector(selectRows(groupCode)))
   const optionData = useSelector(selectCodes(options, 'PRI_NAME'))
 
   const { typeName } = dataType
   const multiple = includes('multiple', typeName || '') || component === 'tag'
 
+  console.log(options)
   if (multiple)
     return (
       <Multiple
