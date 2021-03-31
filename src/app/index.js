@@ -6,17 +6,12 @@ import store from 'redux/store'
 import { CSSReset } from '@chakra-ui/react'
 import Vertx from 'vertx'
 import { isDev } from 'utils/developer'
-import setupGoogleApi from 'config/setup-google-api'
 
 const Display = lazy(() => import('app/layouts/display'))
 const Sandbox = lazy(() => import('utils/developer/Sandbox'))
 
 const App = () => {
   const { keycloak } = useKeycloak()
-
-  useEffect(() => {
-    if (!window.google) setupGoogleApi(keycloak.token)
-  }, [keycloak.token])
 
   return (
     <Provider store={store}>
