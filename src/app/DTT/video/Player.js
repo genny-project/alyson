@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { IconButton } from '@chakra-ui/react'
+import { IconButton, Box } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlayCircle } from '@fortawesome/free-solid-svg-icons'
 
@@ -21,10 +21,7 @@ const Player = ({ src }) => {
   }
 
   return (
-    <Box
-      onClick={togglePlay}
-      style={{ position: 'absolute', width: '40rem', overflow: 'hidden', ...styles }}
-    >
+    <Box onClick={togglePlay} style={{ position: 'absolute', width: '40rem', overflow: 'hidden' }}>
       <video style={{ position: 'absolute', width: '100%' }} src={src} ref={videoRef} />
       <IconButton
         onClick={togglePlay}
