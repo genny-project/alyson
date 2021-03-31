@@ -1,14 +1,14 @@
-import { Box } from '@chakra-ui/layout'
+import { Box, Flex } from '@chakra-ui/layout'
 import { Progress } from '@chakra-ui/progress'
 import LoadingText from './loading-text'
 
 const Loading = () => (
-  <div>
+  <Flex justifyContent="center">
     <Progress w="full" isIndeterminate />
-    <Box position="fixed" top="50%" left="calc(50% - 13rem)">
+    <Box position="fixed" top="50%">
       <LoadingText />
     </Box>
-  </div>
+  </Flex>
 )
 
 export default Loading
