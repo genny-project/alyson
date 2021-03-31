@@ -100,17 +100,18 @@ const Intern = ({ sbeCode, targetCode }) => {
             borderTopRightRadius="0.5rem"
             borderTopLeftRadius={video?.value ? '' : '0.5rem'}
             overflow="hidden"
-            p={video?.value ? '16px 48px 64px 40px' : '16px 48px 80px 40px'}
           >
             <Box
+              p={video?.value ? '16px 48px 64px 40px' : '16px 48px 80px 40px'}
               overflow="hidden"
               m="auto"
-              dangerouslySetInnerHTML={{ __html: careerObj?.value }}
-              color="#ffffff"
-              textStyle="head2"
-              maxH="15vh"
-              backgroundColor="red"
-            />
+            >
+              <Text
+                textStyle="head2"
+                dangerouslySetInnerHTML={{ __html: careerObj?.value }}
+                noOfLines={8}
+              />
+            </Box>
           </Flex>
         )}
       </Flex>
