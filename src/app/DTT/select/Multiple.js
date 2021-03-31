@@ -20,16 +20,15 @@ export const Multiple = ({ questionCode, data, onSendAnswer, placeholder, option
       Waiting on another answer
     </Text>
   ) : (
-    <Box marginBottom="-10" maxW="2xl" test-id={questionCode}>
-      <CUIAutoComplete
-        placeholder={placeholder}
-        items={filter(identity, options || [])}
-        selectedItems={filter(identity, selected)}
-        onSelectedItemsChange={changes => {
-          setSelected(changes.selectedItems)
-          onSendAnswer(map(prop('value'), changes.selectedItems || []))
-        }}
-      />
-    </Box>
+    <CUIAutoComplete
+      test-id={questionCode}
+      placeholder={placeholder}
+      items={filter(identity, options || [])}
+      selectedItems={filter(identity, selected)}
+      onSelectedItemsChange={changes => {
+        setSelected(changes.selectedItems)
+        onSendAnswer(map(prop('value'), changes.selectedItems || []))
+      }}
+    />
   )
 }
