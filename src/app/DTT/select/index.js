@@ -22,7 +22,6 @@ const Write = ({
   const { typeName } = dataType
   const multiple = includes('multiple', typeName || '') || component === 'tag'
 
-  console.log(options)
   if (multiple)
     return (
       <Multiple

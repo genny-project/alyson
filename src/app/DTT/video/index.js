@@ -8,6 +8,7 @@ import {
   PopoverContent,
   IconButton,
   HStack,
+  Badge,
 } from '@chakra-ui/react'
 import VideoRecorder from './video_recorder'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
@@ -40,6 +41,9 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
     return (
       <VStack>
         <video style={{ width: '20rem', borderRadius: '1rem' }} src={src} controls />
+        <Badge variant="subtle" colorScheme="green">
+          Saved!
+        </Badge>
         <Button
           test-id={questionCode + '-clear'}
           onClick={() => {

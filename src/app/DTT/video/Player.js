@@ -26,7 +26,7 @@ const Player = ({ src, styles = {} }) => {
     getSrc()
   }, [src])
 
-  const handleClick = () => {
+  const togglePlay = () => {
     if (videoRef) {
       if (paused) {
         videoRef.current.play()
@@ -46,12 +46,12 @@ const Player = ({ src, styles = {} }) => {
     )
   return (
     <Box
-      onClick={handleClick}
+      onClick={togglePlay}
       style={{ position: 'absolute', width: '40rem', overflow: 'hidden', ...styles }}
     >
       <video style={{ position: 'absolute', width: '100%' }} src={src} ref={videoRef} />
       <IconButton
-        onClick={handleClick}
+        onClick={togglePlay}
         opacity={paused ? '1' : '0'}
         transition="opacity 0.5s"
         position="relative"
