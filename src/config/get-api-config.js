@@ -7,7 +7,6 @@ import setupLogRocketReact from 'logrocket-react'
 import LogRocket from 'logrocket'
 import getTokenFromURL from 'keycloak/get-token-from-url'
 import getTheme from 'config/theme'
-import setupGoogleApi from './setup-google-api'
 
 let apiConfig = { api_url: '', ENV_GOOGLE_MAPS_APIKEY: '' }
 let keycloak = {}
