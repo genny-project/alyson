@@ -12,7 +12,7 @@ export const initialState = {
   DIALOG: 'NONE',
   TOAST: null,
   DASHBOARD_COUNTS: null,
-  NOTES: {},
+  NOTES: null,
 }
 
 const appSlice = createSlice({
