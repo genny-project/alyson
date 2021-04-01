@@ -31,7 +31,6 @@ const InternsMobileView = ({
   video,
   careerObj,
   videoSrc,
-  videoStyle,
   internsName,
   beCode,
   actions,
@@ -52,6 +51,11 @@ const InternsMobileView = ({
   const actionTwo = actions?.[1]
   const actionRest = slice(2, Infinity)(actions)
 
+  const videoStyle = {
+    width: '100%',
+    height: topHeight,
+  }
+
   return (
     <Box w="100vw" h="100vh">
       <Box position="absolute" right="4" top="4">
@@ -62,31 +66,24 @@ const InternsMobileView = ({
           icon={<FontAwesomeIcon icon={faTimesCircle} />}
         />
       </Box>
-      <Flex
-        onClick={() => setTopHeight('35vh')}
-        justifyContent="center"
-        bgGradient="linear(to-br, teal.400,blue.500)"
-      >
-        {video?.value && (
-          <Flex flexGrow="1" height={topHeight} transition="height 1s" background="gray.100">
+      <Flex onClick={() => setTopHeight('35vh')} bgGradient="linear(to-br, teal.400,blue.500)">
+        {false ? (
+          <Box height={topHeight} transition="height 1s">
             <Player src={videoSrc} styles={videoStyle} />
-          </Flex>
-        )}
-        {careerObj?.value && (
-          <Flex flexGrow="1" height={topHeight} transition="height 1s" overflow="hidden">
-            <Box
-              p={video?.value ? '16px 48px 64px 40px' : '16px 48px 80px 40px'}
-              overflow="hidden"
-              m="auto"
-            >
+          </Box>
+        ) : false ? (
+          <Flex height={topHeight} transition="height 1s" overflow="hidden">
+            <Box p="16px 48px 80px 40px" overflow="hidden" m="auto">
               <Text
                 textStyle="head1"
                 dangerouslySetInnerHTML={{ __html: careerObj?.value }}
-                noOfLines={[3, 4, 5]}
+                noOfLines={[4, 5, 6]}
                 color="white"
               />
             </Box>
           </Flex>
+        ) : (
+          <Box height={topHeight} bgGradient="linear(to-br, teal.400,blue.500)" />
         )}
       </Flex>
       <Avatar
