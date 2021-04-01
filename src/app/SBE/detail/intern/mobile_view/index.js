@@ -28,7 +28,6 @@ import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 
 const InternsMobileView = ({
   onClose,
-  video,
   careerObj,
   videoSrc,
   internsName,
@@ -67,11 +66,11 @@ const InternsMobileView = ({
         />
       </Box>
       <Flex onClick={() => setTopHeight('35vh')} bgGradient="linear(to-br, teal.400,blue.500)">
-        {false ? (
+        {videoSrc ? (
           <Box height={topHeight} transition="height 1s">
             <Player src={videoSrc} styles={videoStyle} />
           </Box>
-        ) : false ? (
+        ) : careerObj?.value ? (
           <Flex height={topHeight} transition="height 1s" overflow="hidden">
             <Box p="16px 48px 80px 40px" overflow="hidden" m="auto">
               <Text
@@ -83,7 +82,7 @@ const InternsMobileView = ({
             </Box>
           </Flex>
         ) : (
-          <Box height={topHeight} bgGradient="linear(to-br, teal.400,blue.500)" />
+          <Box />
         )}
       </Flex>
       <Avatar

@@ -61,10 +61,8 @@ const Intern = ({ sbeCode, targetCode }) => {
   return isMobile ? (
     <InternsMobileView
       onClose={onClose}
-      video={video}
       careerObj={careerObj}
       videoSrc={videoSrc}
-      videoStyle={videoStyle}
       internsName={internsName}
       beCode={beCode}
       actions={actions}
@@ -95,7 +93,7 @@ const Intern = ({ sbeCode, targetCode }) => {
         borderTopRightRadius="0.5rem"
         bgGradient="linear(to-br, teal.400,blue.500)"
       >
-        {video?.value && (
+        {videoSrc && (
           <Flex
             flexGrow="1"
             maxWidth="50%"
