@@ -7,8 +7,8 @@ import {
   PopoverTrigger,
   PopoverContent,
   IconButton,
-  HStack,
   Badge,
+  HStack,
 } from '@chakra-ui/react'
 import VideoRecorder from './video_recorder'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
