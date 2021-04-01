@@ -17,8 +17,8 @@ const DisplayDrawer = () => {
     <Drawer placement="bottom" isOpen={isOpen} onClose={() => dispatch(closeDrawer())}>
       <DrawerOverlay>
         <DrawerContent
-          w={isMobile ? '90vw' : '70vw'}
-          ml={isMobile ? '5vw' : '15vw'}
+          w={isMobile ? '100vw' : '70vw'}
+          ml={isMobile ? '0vw' : '15vw'}
           borderTopRadius="lg"
         >
           {drawer === 'DETAIL' && <Detail />}

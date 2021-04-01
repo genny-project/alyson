@@ -32,7 +32,6 @@ const InternsMobileView = ({
   careerObj,
   videoSrc,
   videoStyle,
-  handleScroll,
   internsName,
   beCode,
   actions,
@@ -40,6 +39,10 @@ const InternsMobileView = ({
   sbeCode,
 }) => {
   const [topHeight, setTopHeight] = useState('35vh')
+
+  const handleScroll = () => {
+    if (topHeight !== '0') setTopHeight('0')
+  }
 
   useEffect(() => {
     !videoSrc && !careerObj?.value ? setTopHeight('0') : setTopHeight('35vh')
@@ -50,15 +53,8 @@ const InternsMobileView = ({
   const actionRest = slice(2, Infinity)(actions)
 
   return (
-    <Box
-      w="90vw"
-      h="95vh"
-      style={{
-        borderTopLeftRadius: '0.5rem',
-        borderTopRightRadius: '0.5rem',
-      }}
-    >
-      <Box position="absolute" right="2" top="2">
+    <Box w="100vw" h="100vh">
+      <Box position="absolute" right="4" top="4">
         <IconButton
           onClick={onClose}
           color={topHeight === '0' ? 'darkgrey' : 'white'}
@@ -69,32 +65,15 @@ const InternsMobileView = ({
       <Flex
         onClick={() => setTopHeight('35vh')}
         justifyContent="center"
-        borderTopLeftRadius="0.5rem"
-        borderTopRightRadius="0.5rem"
         bgGradient="linear(to-br, teal.400,blue.500)"
       >
         {video?.value && (
-          <Flex
-            flexGrow="1"
-            maxWidth="50%"
-            minWidth="50%"
-            height={topHeight}
-            transition="height 1s"
-            background="gray.100"
-            borderTopLeftRadius={careerObj?.value ? '0.5rem' : ''}
-          >
+          <Flex flexGrow="1" height={topHeight} transition="height 1s" background="gray.100">
             <Player src={videoSrc} styles={videoStyle} />
           </Flex>
         )}
         {careerObj?.value && (
-          <Flex
-            flexGrow="1"
-            height={topHeight}
-            transition="height 1s"
-            borderTopRightRadius="0.5rem"
-            borderTopLeftRadius={video?.value ? '' : '0.5rem'}
-            overflow="hidden"
-          >
+          <Flex flexGrow="1" height={topHeight} transition="height 1s" overflow="hidden">
             <Box
               p={video?.value ? '16px 48px 64px 40px' : '16px 48px 80px 40px'}
               overflow="hidden"
@@ -113,8 +92,8 @@ const InternsMobileView = ({
       <Avatar
         cursor="pointer"
         onClick={() => setTopHeight(topHeight => (topHeight === '35vh' ? '0' : '35vh'))}
-        mt="-4.75rem"
-        left="calc(35vw)"
+        mt={topHeight !== '0' ? '-4.75rem' : '1rem'}
+        left="calc(50vw - 4.75rem)"
         bg={src ? 'white' : 'lightgrey'}
         p="4px"
         src={src}
@@ -123,7 +102,7 @@ const InternsMobileView = ({
         zIndex="modal"
       />
       <VStack
-        pt="5rem"
+        pt="1rem"
         onScroll={handleScroll}
         overflow="scroll"
         overflowX="hidden"
@@ -180,7 +159,7 @@ const InternsMobileView = ({
             }
           </HStack>
         </Flex>
-        <HStack w="65vw" align="start" pt="5" spacing="5">
+        <HStack w="80vw" align="start" pt="5" spacing="5">
           <VStack align="start" w="50%">
             <HStack spacing="10" align="start" mb="1rem">
               <FontAwesomeIcon icon={faUser} />

@@ -65,7 +65,6 @@ const Intern = ({ sbeCode, targetCode }) => {
       careerObj={careerObj}
       videoSrc={videoSrc}
       videoStyle={videoStyle}
-      handleScroll={handleScroll}
       internsName={internsName}
       beCode={beCode}
       actions={actions}
@@ -112,6 +111,8 @@ const Intern = ({ sbeCode, targetCode }) => {
         {careerObj?.value && (
           <Flex
             flexGrow="1"
+            maxWidth="50%"
+            minWidth="50%"
             height={topHeight}
             transition="height 1s"
             borderTopRightRadius="0.5rem"
