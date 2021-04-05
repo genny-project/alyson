@@ -68,7 +68,7 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
             <MainDetails code={code} columns={columns} parentCode={parentCode} />
           </VStack>
         </HStack>
-        <Spacer />
+        <Spacer minW="1rem" />
         <ContextMenu
           actions={actions}
           code={code}

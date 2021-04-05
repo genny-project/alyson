@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { filter, identity, map, prop } from 'ramda'
-import { Text, Box } from '@chakra-ui/react'
+import { Text } from '@chakra-ui/react'
 import { CUIAutoComplete } from 'chakra-ui-autocomplete'
 import { getValue } from './get-value'
 
@@ -20,16 +20,15 @@ export const Multiple = ({ questionCode, data, onSendAnswer, placeholder, option
       Waiting on another answer
     </Text>
   ) : (
-    <Box marginBottom="-10" maxW="2xl" test-id={questionCode}>
-      <CUIAutoComplete
-        placeholder={placeholder}
-        items={filter(identity, options || [])}
-        selectedItems={filter(identity, selected)}
-        onSelectedItemsChange={changes => {
-          setSelected(changes.selectedItems)
-          onSendAnswer(map(prop('value'), changes.selectedItems || []))
-        }}
-      />
-    </Box>
+    <CUIAutoComplete
+      test-id={questionCode}
+      placeholder={placeholder}
+      items={filter(identity, options || [])}
+      selectedItems={filter(identity, selected)}
+      onSelectedItemsChange={changes => {
+        setSelected(changes.selectedItems)
+        onSendAnswer(map(prop('value'), changes.selectedItems || []))
+      }}
+    />
   )
 }

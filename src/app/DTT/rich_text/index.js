@@ -55,7 +55,14 @@ const Write = ({ questionCode, data, onSendAnswer, description }) => {
       borderRadius="0.375rem"
       p="1rem"
     >
-      <Editor editorState={editor} onEditorStateChange={setEditor} placeholder={description} />
+      <Editor
+        toolbar={{
+          options: ['fontSize', 'fontFamily', 'list', 'textAlign'],
+        }}
+        editorState={editor}
+        onEditorStateChange={setEditor}
+        placeholder={description}
+      />
       <Button
         test-id={questionCode + '-save'}
         m="2"
@@ -85,7 +92,7 @@ const Write = ({ questionCode, data, onSendAnswer, description }) => {
     </Box>
   )
 }
-const Read = ({ data, mini, styles }) => {
+const Read = ({ data, mini }) => {
   if (!data?.value) return null
 
   const cleanHtml = DOMPurify.sanitize(data.value)

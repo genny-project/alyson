@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 import { selectDashboard } from 'redux/app/selectors'
 import DisplaySbe from 'app/SBE'
-import { Button, HStack, Stack, VStack } from '@chakra-ui/react'
+import { Button, HStack, Stack, useColorModeValue, VStack } from '@chakra-ui/react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBolt, faColumns } from '@fortawesome/free-solid-svg-icons'
@@ -10,10 +10,11 @@ import { onSendMessage } from 'vertx'
 
 const Agent = ({ userCode }) => {
   const dashboardSbes = useSelector(selectDashboard) || []
+  const bgColor = useColorModeValue('white', '')
 
   return (
     <VStack spacing={4}>
-      <Stack shadow="lg" w="sm" p="3" borderRadius="md" direction="column">
+      <Stack bgColor={bgColor} shadow="lg" w="sm" p="3" borderRadius="md" direction="column">
         <VStack spacing={4}>
           <DisplaySbe sbeCode={dashboardSbes[0]} />
           <HStack spacing={4}>

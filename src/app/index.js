@@ -1,22 +1,17 @@
 import { useKeycloak } from '@react-keycloak/web'
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
-import { lazy, Suspense, useEffect } from 'react'
+import { lazy, Suspense } from 'react'
 import { Provider } from 'react-redux'
 import store from 'redux/store'
 import { CSSReset } from '@chakra-ui/react'
 import Vertx from 'vertx'
 import { isDev } from 'utils/developer'
-import setupGoogleApi from 'config/setup-google-api'
 
 const Display = lazy(() => import('app/layouts/display'))
 const Sandbox = lazy(() => import('utils/developer/Sandbox'))
 
 const App = () => {
   const { keycloak } = useKeycloak()
-
-  useEffect(() => {
-    if (!window.google) setupGoogleApi(keycloak.token)
-  }, [keycloak.token])
 
   return (
     <Provider store={store}>
