@@ -8,7 +8,7 @@ const Error = () => (
       <Text>
         <FontAwesomeIcon color="grey" size="2x" icon={faCogs} />
       </Text>
-      <Text color="grey">Sorry Internmatch is just down for maintenance.</Text>
+      <Text color="grey">Sorry, Internmatch is just down for maintenance.</Text>
       <Text color="grey">
         Check <Link href={'https://internmatch.io/'}>https://internmatch.io/</Link> for updates.
       </Text>
