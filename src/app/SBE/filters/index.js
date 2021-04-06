@@ -9,8 +9,6 @@ import {
   Button,
   HStack,
 } from '@chakra-ui/react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFilter } from '@fortawesome/free-solid-svg-icons'
 import Ask from 'app/ASKS/ask'
 import ExistingFilters from './existing_filters'
 
