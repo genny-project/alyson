@@ -1,20 +1,9 @@
-import {
-  Avatar,
-  Box,
-  Divider,
-  Flex,
-  HStack,
-  IconButton,
-  Link,
-  Spacer,
-  Text,
-  VStack,
-} from '@chakra-ui/react'
+import { Avatar, Box, Divider, HStack, IconButton, Link, Text, VStack } from '@chakra-ui/react'
 import Attribute from 'app/BE/attribute'
 import Action from 'app/BE/action'
 import Status from 'app/DTT/status'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEnvelopeOpenText, faTimesCircle, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import Lane from 'app/SBE/lane'
 import { replace } from 'ramda'
 

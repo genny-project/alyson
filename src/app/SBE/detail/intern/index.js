@@ -125,7 +125,7 @@ const Intern = ({ sbeCode, targetCode }) => {
               <Text
                 textStyle="head1"
                 dangerouslySetInnerHTML={{ __html: careerObj?.value }}
-                noOfLines={[3, 4, 5]}
+                noOfLines={[3, 4]}
                 color="white"
               />
             </Box>
@@ -191,19 +191,19 @@ const Intern = ({ sbeCode, targetCode }) => {
               <VStack align="start">
                 <Text fontWeight="semibold">{`Internship Details`}</Text>
                 <HStack>
-                  <Text w="8rem" fontWeight="semibold">
+                  <Text w="6rem" fontWeight="semibold">
                     Start Date
                   </Text>
                   <Attribute code={beCode} attribute={'PRI_START_DATE'} />
                 </HStack>
                 <HStack>
-                  <Text w="8rem" fontWeight="semibold">
+                  <Text w="6rem" fontWeight="semibold">
                     Duration
                   </Text>
                   <Attribute code={beCode} attribute={'PRI_ASSOC_DURATION'} />
                 </HStack>
                 <HStack>
-                  <Text w="8rem" fontWeight="semibold">
+                  <Text w="6rem" fontWeight="semibold">
                     Transport
                   </Text>
                   <Attribute code={beCode} attribute={'PRI_TRANSPORT'} />

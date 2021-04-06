@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { closeDrawer } from 'redux/app'
 import { selectDrawer } from 'redux/app/selectors'
 import Detail from 'app/SBE/detail'
-import { useIsMobile, useMobileValue } from 'utils/hooks'
+import { useMobileValue } from 'utils/hooks'
 
 const DisplayDrawer = () => {
   const drawer = useSelector(selectDrawer)
