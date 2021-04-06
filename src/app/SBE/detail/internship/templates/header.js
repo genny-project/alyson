@@ -1,41 +1,30 @@
-import { Stack, Flex, Spacer, Box, Text } from '@chakra-ui/react'
+import { Text, VStack, HStack } from '@chakra-ui/react'
 import { map } from 'ramda'
 
 import Action from 'app/BE/action'
 import Attribute from 'app/BE/attribute'
-import DetailSection from '../../default-view/templates/detail-section'
 
-const Header = ({ contactDetails, code, sbeCode, imageSrc, headerAttribute, actions }) => {
+const Header = ({ code, sbeCode, imageSrc, headerAttribute, actions }) => {
   return (
-    <Flex p="2" alignItems="start">
-      <Attribute code={code} attribute={imageSrc} variant={'profile_image'} />
-      <Box pl="3">
+    <VStack p="2" align="start">
+      <HStack align="start">
+        <Attribute code={code} attribute={imageSrc} variant={'profile_image'} />
         <Attribute code={code} attribute={headerAttribute} config={{ textStyle: 'head2' }} />
-        <Text>
-          <Attribute code={code} attribute={'PRI_NAME'} /> Internship
+      </HStack>
+      <VStack>
+        <Text textStyle="body1">
+          <Attribute code={code} attribute={'PRI_NAME'} />
         </Text>
         <Attribute code={code} attribute={'PRI_ADDRESS_FULL'} />
-      </Box>
-      {contactDetails && (
-        <DetailSection
-          config={{ collapse: true }}
-          noTitle
-          row
-          code={code}
-          details={contactDetails}
-        />
-      )}
+      </VStack>
 
-      <Spacer />
-      <Box mt="6">
-        <Stack direction={['row', 'column']}>
-          {actions &&
-            map(action => (
-              <Action key={action} parentCode={sbeCode} code={action} targetCode={code} />
-            ))(actions)}
-        </Stack>
-      </Box>
-    </Flex>
+      <HStack>
+        {actions &&
+          map(action => (
+            <Action key={action} parentCode={sbeCode} code={action} targetCode={code} />
+          ))(actions)}
+      </HStack>
+    </VStack>
   )
 }
 

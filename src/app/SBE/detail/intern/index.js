@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import { selectCode, selectRows } from 'redux/db/selectors'
 import { Avatar, Box, Flex, HStack, IconButton, Text, VStack } from '@chakra-ui/react'
 import useApi from 'api'
-
 import getActions from 'app/SBE/utils/get-actions'
 import Attribute from 'app/BE/attribute'
 import Action from 'app/BE/action'
