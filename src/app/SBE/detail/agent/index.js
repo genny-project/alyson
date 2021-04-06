@@ -10,6 +10,8 @@ import Action from 'app/BE/action'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle, faUser } from '@fortawesome/free-solid-svg-icons'
 import { closeDrawer } from 'redux/app'
+import { useIsMobile } from 'utils/hooks'
+import AgentMobile from './mobile_view'
 
 let map = {}
 let pano = {}
@@ -39,6 +41,7 @@ const Agent = ({ sbeCode, targetCode }) => {
   const handleScroll = () => {
     if (topHeight !== '5vh') setTopHeight('5vh')
   }
+  const isMobile = useIsMobile()
 
   const panoRef = useRef(null)
   const mapRef = useRef(null)
@@ -80,6 +83,17 @@ const Agent = ({ sbeCode, targetCode }) => {
   }, [geo])
 
   if (!beCode) return null
+  if (isMobile)
+    return (
+      <AgentMobile
+        onClose={onClose}
+        actions={actions}
+        sbeCode={sbeCode}
+        beCode={beCode}
+        src={src}
+        name={name}
+      />
+    )
 
   return (
     <Box
