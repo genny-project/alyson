@@ -67,7 +67,14 @@ const InternsMobileView = ({
         zIndex="modal"
         mt={videoSrc ? '-5rem' : '0.5rem'}
       />
-      <VStack mt="-5rem" pt="5rem" overflowX="hidden" overflowY="scroll" h="65vh">
+      <VStack
+        mt="-5rem"
+        pt="5rem"
+        overflowX="hidden"
+        overflowY="scroll"
+        pb="1rem"
+        h={videoSrc ? '65vh' : 'calc(100vh - 5rem)'}
+      >
         <Text fontSize="3xl" fontWeight="semibold" flexWrap="nowrap">
           {internsName?.value}
         </Text>
@@ -127,7 +134,10 @@ const InternsMobileView = ({
             <Attribute code={beCode} attribute={'PRI_LINKEDIN_URL'} />
           </VStack>
           <Divider />
-          <Text>{careerObj?.value}</Text>
+          <VStack align="start">
+            <Text textStyle="body1">{`Career Objectives`}</Text>
+            <Text textStyle="body2" dangerouslySetInnerHTML={{ __html: careerObj?.value }} />
+          </VStack>
           <Divider />
           <Text fontWeight="semibold">{`Internship Details`}</Text>
           <VStack align="start">
@@ -154,6 +164,28 @@ const InternsMobileView = ({
 
           <Text fontWeight="semibold">{`Known Software`}</Text>
           <Attribute code={beCode} attribute={'PRI_ASSOC_CURRENT_SOFTWARE'} />
+
+          <Divider />
+
+          <Text textStyle="body1">{`Recent Employment`}</Text>
+          <HStack>
+            <Text w="6rem" textStyle="body3">
+              Employer
+            </Text>
+            <Attribute code={beCode} attribute={'PRI_PREV_EMPLOYER'} />
+          </HStack>
+          <HStack>
+            <Text w="6rem" textStyle="body3">
+              Title
+            </Text>
+            <Attribute code={beCode} attribute={'PRI_PREV_JOB_TITLE'} />
+          </HStack>
+          <HStack>
+            <Text w="6rem" textStyle="body3">
+              CV
+            </Text>
+            <Attribute code={beCode} attribute={'PRI_CV'} />
+          </HStack>
         </VStack>
       </VStack>
     </Box>

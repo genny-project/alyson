@@ -59,7 +59,13 @@ const Player = ({ src, styles = {} }) => {
         top="calc(50% - 24px)"
         variant="unstyled"
         color="white"
-        icon={<FontAwesomeIcon size="3x" icon={faPlayCircle} />}
+        icon={
+          <FontAwesomeIcon
+            style={{ backgroundColor: 'black', borderRadius: '50%', padding: '1px' }}
+            size="3x"
+            icon={faPlayCircle}
+          />
+        }
       />
     </Box>
   )

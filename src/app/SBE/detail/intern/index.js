@@ -11,8 +11,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faCompactDisc,
   faEnvelopeOpenText,
+  faObjectGroup,
   faTimesCircle,
   faUser,
+  faUserClock,
 } from '@fortawesome/free-solid-svg-icons'
 import { closeDrawer } from 'redux/app'
 import { map } from 'ramda'
@@ -184,6 +186,12 @@ const Intern = ({ sbeCode, targetCode }) => {
                 <Attribute code={beCode} attribute={'PRI_EMAIL'} />
                 <Attribute code={beCode} attribute={'PRI_ADDRESS_FULL'} />
                 <Attribute code={beCode} attribute={'PRI_LINKEDIN_URL'} />
+                <HStack>
+                  <Text w="6rem" textStyle="body3">
+                    Student ID
+                  </Text>
+                  <Attribute code={beCode} attribute={'PRI_STUDENT_ID'} />
+                </HStack>
               </VStack>
             </HStack>
             <HStack spacing="10" align="start" mb="1rem">
@@ -191,19 +199,19 @@ const Intern = ({ sbeCode, targetCode }) => {
               <VStack align="start">
                 <Text fontWeight="semibold">{`Internship Details`}</Text>
                 <HStack>
-                  <Text w="6rem" fontWeight="semibold">
+                  <Text w="6rem" textStyle="body3">
                     Start Date
                   </Text>
                   <Attribute code={beCode} attribute={'PRI_START_DATE'} />
                 </HStack>
                 <HStack>
-                  <Text w="6rem" fontWeight="semibold">
+                  <Text w="6rem" textStyle="body3">
                     Duration
                   </Text>
                   <Attribute code={beCode} attribute={'PRI_ASSOC_DURATION'} />
                 </HStack>
                 <HStack>
-                  <Text w="6rem" fontWeight="semibold">
+                  <Text w="6rem" textStyle="body3">
                     Transport
                   </Text>
                   <Attribute code={beCode} attribute={'PRI_TRANSPORT'} />
@@ -211,12 +219,43 @@ const Intern = ({ sbeCode, targetCode }) => {
               </VStack>
             </HStack>
           </VStack>
-          <VStack>
+          <VStack align="start">
             <HStack spacing="10" align="start" mb="1rem">
               <FontAwesomeIcon icon={faCompactDisc} />
               <VStack align="start">
                 <Text fontWeight="semibold">{`Known Software`}</Text>
                 <Attribute code={beCode} attribute={'PRI_ASSOC_CURRENT_SOFTWARE'} />
+              </VStack>
+            </HStack>
+            <HStack spacing="10" align="start" mb="1rem">
+              <FontAwesomeIcon icon={faUserClock} />
+              <VStack align="start">
+                <Text textStyle="body1">{`Recent Employment`}</Text>
+                <HStack>
+                  <Text w="6rem" textStyle="body3">
+                    Employer
+                  </Text>
+                  <Attribute code={beCode} attribute={'PRI_PREV_EMPLOYER'} />
+                </HStack>
+                <HStack>
+                  <Text w="6rem" textStyle="body3">
+                    Title
+                  </Text>
+                  <Attribute code={beCode} attribute={'PRI_PREV_JOB_TITLE'} />
+                </HStack>
+                <HStack>
+                  <Text w="6rem" textStyle="body3">
+                    CV
+                  </Text>
+                  <Attribute code={beCode} attribute={'PRI_CV'} />
+                </HStack>
+              </VStack>
+            </HStack>
+            <HStack spacing="10" align="start" mb="1rem">
+              <FontAwesomeIcon icon={faObjectGroup} />
+              <VStack align="start">
+                <Text textStyle="body1">{`Career Objectives`}</Text>
+                <Text textStyle="body2" dangerouslySetInnerHTML={{ __html: careerObj?.value }} />
               </VStack>
             </HStack>
           </VStack>
