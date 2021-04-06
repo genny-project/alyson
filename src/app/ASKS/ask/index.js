@@ -64,7 +64,11 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
         <FormLabel minW="94%" fontWeight="semibold">
           {name}
         </FormLabel>
-        <Box>{data?.value ? <FontAwesomeIcon color="green" icon={faCheckCircle} /> : null}</Box>
+        <Box>
+          {data?.value ? (
+            <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
+          ) : null}
+        </Box>
       </HStack>
 
       {component === 'email' && (
