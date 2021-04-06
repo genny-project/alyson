@@ -5,14 +5,14 @@ import { CircularProgress, Center } from '@chakra-ui/react'
 
 import { selectCode } from 'redux/db/selectors'
 
-const Form = ({ onFinish }) => {
+const Form = ({ onFinish, shadow = true }) => {
   const data = useSelector(selectForm)
   const submit = useSelector(selectCode(data, 'QUE_SUBMIT'))
 
   if (!submit) return null
 
   return data ? (
-    <AsksForm onFinish={onFinish} questionCode={data} />
+    <AsksForm shadow={shadow} onFinish={onFinish} questionCode={data} />
   ) : (
     <Center>
       <CircularProgress isIndeterminate />

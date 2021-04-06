@@ -7,7 +7,7 @@ import Process from 'app/layouts/process'
 import Form from 'app/layouts/form'
 import Dashboard from 'app/layouts/dashboard'
 import DisplayDrawer from './drawer'
-import Dialog from 'app/layouts/dialog'
+import Dialog from 'app/layouts/display/dialog'
 import Toast from './toast'
 import Detail from 'app/SBE/detail'
 import Public from 'app/layouts/public'
@@ -36,7 +36,6 @@ const Display = ({ isPublic }) => {
         tokenParsed: { email },
       } = keycloak
       LogRocket.identify(email, { userName, userCode, userType, isDev })
-      LogRocket.getSessionURL(console.log)
     }
   }, [keycloak, userCode, userName, userType])
 

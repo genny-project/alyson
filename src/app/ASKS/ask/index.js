@@ -27,6 +27,7 @@ import TimeZonePicker from 'app/DTT/time_zone'
 import CheckBox from 'app/DTT/check_box'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import LogRocketSession from 'app/DTT/log_rocket_session'
 
 const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCode }) => {
   const askData = useSelector(selectCode(parentCode, questionCode)) || passedAskData
@@ -49,8 +50,6 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
   const feedback = data?.feedback
   const onSendAnswer = createSendAnswer(askData, { passedTargetCode })
 
-  if (hidden) return null
-
   return component === 'button' ? (
     <Button
       questionCode={questionCode}
@@ -59,7 +58,12 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
       onFinish={onFinish}
     />
   ) : (
-    <FormControl isDisabled={!!disabled} isRequired={mandatory} isInvalid={!!feedback}>
+    <FormControl
+      visibility={hidden || component === 'log_rocket_session' ? 'hidden' : 'visible'}
+      isDisabled={!!disabled}
+      isRequired={mandatory}
+      isInvalid={!!feedback}
+    >
       <HStack>
         <FormLabel minW="94%" fontWeight="semibold">
           {name}
@@ -199,6 +203,7 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
       {component === 'checkbox' && (
         <CheckBox.Write data={data} questionCode={questionCode} onSendAnswer={onSendAnswer} />
       )}
+      {component === 'log_rocket_session' && <LogRocketSession.Write onSendAnswer={onSendAnswer} />}
       <FormErrorMessage>{feedback}</FormErrorMessage>
     </FormControl>
   )
