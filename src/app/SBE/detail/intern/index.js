@@ -125,6 +125,7 @@ const Intern = ({ sbeCode, targetCode }) => {
             >
               <Text
                 textStyle="head1"
+                textAlign="center"
                 dangerouslySetInnerHTML={{ __html: careerObj?.value }}
                 noOfLines={[3, 4]}
                 color="white"
