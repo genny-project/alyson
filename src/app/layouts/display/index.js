@@ -14,12 +14,31 @@ import Public from 'app/layouts/public'
 import NotesDrawer from './notes_drawer'
 import Navigation from '../navigation'
 import DeveloperConsole, { isDev } from 'utils/developer'
+import { selectCode } from 'redux/db/selectors'
+import { useKeycloak } from '@react-keycloak/web'
+import { useEffect } from 'react'
+import LogRocket from 'logrocket'
+import getUserType from 'utils/helpers/get-user-type'
 
 const Display = ({ isPublic }) => {
   const display = useSelector(selectDisplay)
   const theme = useTheme()
   const color = useColorModeValue(theme.colors.text.light, theme.colors.text.dark)
   const backgroundColor = useColorModeValue('gray.50', '')
+  const { keycloak } = useKeycloak()
+  const userCode = useSelector(selectCode('USER'))
+  const userName = useSelector(selectCode(userCode, 'PRI_NAME'))
+  const userType = getUserType(useSelector(selectCode(userCode)))
+
+  useEffect(() => {
+    if (keycloak.authenticated && userName) {
+      const {
+        tokenParsed: { email },
+      } = keycloak
+      LogRocket.identify(email, { userName, userCode, userType, isDev })
+      LogRocket.getSessionURL(console.log)
+    }
+  }, [keycloak, userCode, userName, userType])
 
   return isPublic ? (
     <Public />

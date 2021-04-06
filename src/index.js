@@ -1,6 +1,5 @@
-import React, { lazy, Suspense } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
-// import reportWebVitals from './reportWebVitals'
 import getApiConfig from 'config/get-api-config'
 import { initLog } from 'utils/log'
 import { ReactKeycloakProvider } from '@react-keycloak/web'
@@ -8,8 +7,10 @@ import App from 'app'
 import { ColorModeScript, ChakraProvider } from '@chakra-ui/react'
 import { Fonts } from 'config/fonts'
 import Loading from 'keycloak/loading'
+import LogRocket from 'logrocket'
+import Error from 'error'
 
-const Error = lazy(() => import('error'))
+LogRocket.init('geop13/internmatch')
 
 const initialiseApp = async () => {
   try {
@@ -32,9 +33,7 @@ const initialiseApp = async () => {
     console.error(err)
     ReactDOM.render(
       <React.StrictMode>
-        <Suspense fallback={<div />}>
-          <Error />
-        </Suspense>
+        <Error />
       </React.StrictMode>,
       document.getElementById('root'),
     )
