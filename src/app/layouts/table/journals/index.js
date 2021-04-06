@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 import { selectCode, selectRows } from 'redux/db/selectors'
 import getActions from 'app/SBE/utils/get-actions'
-import { Box, Center, Divider, HStack, Text, VStack } from '@chakra-ui/layout'
+import { Box, Divider, Text, VStack } from '@chakra-ui/layout'
 import Journal from './Journal'
 import Download from 'app/SBE/download'
 import TableFooter from 'app/SBE/table/Footer'
