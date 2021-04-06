@@ -13,13 +13,10 @@ import Filters from '../filters'
 import Download from '../download'
 import Action from 'app/BE/action'
 
-import InternsTable from 'app/SBE/views/interns'
-
 const DataTable = ({ parentCode }) => {
   const tableData = useSelector(selectCode(parentCode))
 
   if (!tableData) return null
-  if (includes('_INTERNS_', parentCode)) return <InternsTable parentCode={parentCode} />
 
   const columns = getColumns(tableData)
   const actions = getActions(tableData)

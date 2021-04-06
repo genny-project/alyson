@@ -72,6 +72,7 @@ const Read = ({ data, parentCode, variant, config }) => {
     return <Image {...config} src={src} alt="profile-picture" w="10rem" borderRadius="xl" />
   }
 
+  console.log(src)
   if (!src)
     return (
       <Avatar

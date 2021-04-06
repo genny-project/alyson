@@ -19,6 +19,7 @@ import URL from 'app/DTT/url'
 import Rating from 'app/DTT/rating'
 import TimeZonePicker from 'app/DTT/time_zone'
 import CheckBox from 'app/DTT/check_box'
+import ImageType from 'app/DTT/upload/Image'
 
 const Attribute = ({
   code,
@@ -36,6 +37,8 @@ const Attribute = ({
   const dttData = useSelector(selectCode(dtt))
   const component = dttData?.component
 
+  if (attribute === 'PRI_IMAGE_URL' && !data)
+    return <ImageType.Read data={{ baseEntityCode: code }} parentCode={parentCode} />
   if (!component) return fallback
 
   return component === 'email' ? (

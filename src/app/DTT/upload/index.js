@@ -21,11 +21,11 @@ const Read = ({ data, dttData, parentCode, variant, config }) => {
     }
   }, [api, data?.value])
 
+  if (typeName === 'Image')
+    return <ImageType.Read data={data} parentCode={parentCode} variant={variant} config={config} />
   if (!data?.value) return null
 
-  return typeName === 'Image' ? (
-    <ImageType.Read data={data} parentCode={parentCode} variant={variant} config={config} />
-  ) : (
+  return (
     <Tooltip label={fileName}>
       <Link p="2" color="primary" href={api.getSrc(data?.value)}>
         <FontAwesomeIcon size="lg" icon={faFileDownload} />
