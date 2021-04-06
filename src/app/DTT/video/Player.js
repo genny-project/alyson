@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlayCircle } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
 
-const Player = ({ src, styles = {} }) => {
+const Player = ({ src, styles = { width: '20rem', height: '15rem', borderRadius: '1rem' } }) => {
   const videoRef = useRef(null)
 
   const [paused, setPaused] = useState(true)
