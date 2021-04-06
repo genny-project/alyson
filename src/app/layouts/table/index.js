@@ -19,7 +19,7 @@ const TableWrapper = ({ mapSearch }) => {
   if (includes('_INTERNSHIPS_', table) && userType === 'INTERN')
     return <InternInternshipSearch sbeCode={table} />
 
-  if (includes('_JOURNALS_', table)) return <Journals sbeCode={table} />
+  if (includes('_JNLS_', table)) return <Journals sbeCode={table} />
 
   return <Table parentCode={table} />
 }

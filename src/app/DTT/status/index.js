@@ -6,7 +6,11 @@ const Read = ({ data, config }) => {
   if (!data) return null
 
   const colorScheme =
-    value === 'AVAILABLE' || value === 'ACTIVE' ? 'green' : value === 'PROGRESS' ? 'purple' : 'red'
+    value === 'APPROVED' || value === 'AVAILABLE' || value === 'ACTIVE'
+      ? 'green'
+      : value === 'PROGRESS'
+      ? 'purple'
+      : 'red'
 
   return (
     <Badge {...config} colorScheme={colorScheme}>

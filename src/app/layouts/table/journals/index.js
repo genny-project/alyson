@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 import { selectCode, selectRows } from 'redux/db/selectors'
 import getActions from 'app/SBE/utils/get-actions'
-import { Box, Divider, HStack, Text } from '@chakra-ui/layout'
+import { Box, Center, Divider, HStack, Text, VStack } from '@chakra-ui/layout'
 import Journal from './Journal'
 import Download from 'app/SBE/download'
 import TableFooter from 'app/SBE/table/Footer'
@@ -19,17 +19,19 @@ const Journals = ({ sbeCode }) => {
       <Table>
         <TableFooter sbeCode={sbeCode} />
       </Table>
-      <HStack m="3" spacing="5">
-        <Text fontWeight="semibold" fontSize="lg">{`${title?.value} - Journals`}</Text>
-        <Download sbeCode={sbeCode} />
-      </HStack>
 
-      {rows.map(code => (
-        <Box key={code}>
-          <Journal code={code} actions={actions} />
-          <Divider orientation="horizontal" w="50%" />
-        </Box>
-      ))}
+      <VStack>
+        <VStack m="3">
+          <Text fontWeight="semibold" fontSize="lg">{`${title?.value} - Journals`}</Text>
+          <Download sbeCode={sbeCode} />
+        </VStack>
+        {rows.map(code => (
+          <VStack key={code}>
+            <Journal code={code} actions={actions} parentCode={sbeCode} />
+            <Divider w="50%" />
+          </VStack>
+        ))}
+      </VStack>
     </Box>
   )
 }
