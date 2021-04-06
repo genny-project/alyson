@@ -13,6 +13,8 @@ import { faEnvelopeOpenText, faTimesCircle, faUser } from '@fortawesome/free-sol
 import { closeDrawer } from 'redux/app'
 import Lane from 'app/SBE/lane'
 import { replace } from 'ramda'
+import { useIsMobile } from 'utils/hooks'
+import CompanyMobile from './mobile_view'
 
 let map = {}
 let pano = {}
@@ -84,7 +86,25 @@ const Company = ({ sbeCode, targetCode }) => {
     }
   }, [geo])
 
+  const isMobile = useIsMobile()
+
   if (!beCode) return null
+  if (isMobile)
+    return (
+      <CompanyMobile
+        name={name}
+        status={status}
+        url={url}
+        panoRef={panoRef}
+        mapRef={mapRef}
+        topHeight={topHeight}
+        onClose={onClose}
+        actions={actions}
+        sbeCode={sbeCode}
+        beCode={beCode}
+        src={src}
+      />
+    )
 
   return (
     <Box

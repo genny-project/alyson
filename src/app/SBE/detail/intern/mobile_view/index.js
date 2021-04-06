@@ -11,15 +11,11 @@ import {
   MenuButton,
   MenuList,
   Button,
+  Divider,
 } from '@chakra-ui/react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faCompactDisc,
-  faEnvelopeOpenText,
-  faTimesCircle,
-  faUser,
-} from '@fortawesome/free-solid-svg-icons'
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import Player from 'app/DTT/video/Player'
 import Attribute from 'app/BE/attribute'
 import Action from 'app/BE/action'
@@ -36,78 +32,47 @@ const InternsMobileView = ({
   src,
   sbeCode,
 }) => {
-  const [topHeight, setTopHeight] = useState('35vh')
-
-  const handleScroll = () => {
-    if (topHeight !== '0') setTopHeight('0')
-  }
-
-  useEffect(() => {
-    !videoSrc && !careerObj?.value ? setTopHeight('0') : setTopHeight('35vh')
-  }, [careerObj?.value, videoSrc])
-
   const actionOne = actions?.[0]
   const actionTwo = actions?.[1]
   const actionRest = slice(2, Infinity)(actions)
 
-  const videoStyle = {
-    width: '100%',
-    height: topHeight,
-  }
-
   return (
     <Box w="100vw" h="100vh">
-      <Box position="absolute" right="4" top="4">
+      <Box zIndex="modal" position="absolute" right="4" top="4">
         <IconButton
           onClick={onClose}
-          color={topHeight === '0' ? 'darkgrey' : 'white'}
+          color={'black'}
           variant="unstyled"
           icon={<FontAwesomeIcon icon={faTimesCircle} />}
         />
       </Box>
-      <Flex onClick={() => setTopHeight('35vh')} bgGradient="linear(to-br, teal.400,blue.500)">
-        {videoSrc ? (
-          <Box height={topHeight} transition="height 1s">
-            <Player src={videoSrc} styles={videoStyle} />
-          </Box>
-        ) : careerObj?.value ? (
-          <Flex height={topHeight} transition="height 1s" overflow="hidden">
-            <Box p="16px 48px 80px 40px" overflow="hidden" m="auto">
-              <Text
-                textStyle="head1"
-                dangerouslySetInnerHTML={{ __html: careerObj?.value }}
-                noOfLines={[4, 5, 6]}
-                color="white"
-              />
-            </Box>
-          </Flex>
-        ) : (
-          <Box />
-        )}
-      </Flex>
+      {videoSrc && (
+        <Box w="100vw" height={'35vh'}>
+          <Player
+            src={videoSrc}
+            styles={{
+              width: '100%',
+              height: '35vh',
+            }}
+          />
+        </Box>
+      )}
       <Avatar
         cursor="pointer"
-        onClick={() => setTopHeight(topHeight => (topHeight === '35vh' ? '0' : '35vh'))}
-        mt={topHeight !== '0' ? '-4.75rem' : '1rem'}
         left="calc(50vw - 4.75rem)"
         bg={src ? 'white' : 'lightgrey'}
         p="4px"
         src={src}
-        w="9.5rem"
-        h="9.5rem"
+        w="10rem"
+        h="10rem"
         zIndex="modal"
+        mt={videoSrc ? '-5rem' : '0.5rem'}
       />
-      <VStack
-        pt="1rem"
-        onScroll={handleScroll}
-        overflow="scroll"
-        overflowX="hidden"
-        h={`calc(90vh - ${topHeight})`}
-      >
+      <VStack mt="-5rem" pt="5rem" overflowX="hidden" overflowY="scroll" h="65vh">
         <Text fontSize="3xl" fontWeight="semibold" flexWrap="nowrap">
           {internsName?.value}
         </Text>
-        <Box mb="1rem">
+        <Box>
           <Attribute code={beCode} attribute={'PRI_PREFERRED_NAME'} />
         </Box>
         <Flex justifyContent="center" mb="1rem">
@@ -118,7 +83,7 @@ const InternsMobileView = ({
                 code={actionOne}
                 targetCode={beCode}
                 key={actionOne}
-                size="md"
+                size="sm"
                 colorScheme="blue"
               />
             )}
@@ -128,14 +93,14 @@ const InternsMobileView = ({
                 code={actionTwo}
                 targetCode={beCode}
                 key={actionTwo}
-                size="md"
+                size="sm"
                 colorScheme="blue"
               />
             )}
             {
               <Menu>
-                <MenuButton as={Button} colorScheme="blue">
-                  <FontAwesomeIcon size="lg" icon={faEllipsisV} />
+                <MenuButton size="sm" as={Button} colorScheme="blue">
+                  <FontAwesomeIcon size="sm" icon={faEllipsisV} />
                 </MenuButton>
                 <MenuList>
                   {!isEmpty(actionRest) &&
@@ -155,51 +120,42 @@ const InternsMobileView = ({
             }
           </HStack>
         </Flex>
-        <HStack w="80vw" align="start" pt="5" spacing="5">
-          <VStack align="start" w="50%">
-            <HStack spacing="10" align="start" mb="1rem">
-              <FontAwesomeIcon icon={faUser} />
-              <VStack align="start">
-                <Text fontWeight="semibold">{`Contact details`}</Text>
-                <Attribute code={beCode} attribute={'PRI_MOBILE'} />
-                <Attribute code={beCode} attribute={'PRI_EMAIL'} />
-                <Attribute code={beCode} attribute={'PRI_ADDRESS_FULL'} />
-                <Attribute code={beCode} attribute={'PRI_LINKEDIN_URL'} />
-              </VStack>
+        <VStack w="100%" pl="8" spacing="3" align="start">
+          <VStack align="start">
+            <Attribute code={beCode} attribute={'PRI_MOBILE'} />
+            <Attribute code={beCode} attribute={'PRI_EMAIL'} />
+            <Attribute code={beCode} attribute={'PRI_ADDRESS_FULL'} />
+            <Attribute code={beCode} attribute={'PRI_LINKEDIN_URL'} />
+          </VStack>
+          <Divider />
+          <Text>{careerObj?.value}</Text>
+          <Divider />
+          <Text fontWeight="semibold">{`Internship Details`}</Text>
+          <VStack align="start">
+            <HStack>
+              <Text w="8rem" fontWeight="semibold">
+                Start Date
+              </Text>
+              <Attribute code={beCode} attribute={'PRI_START_DATE'} />
             </HStack>
-            <HStack spacing="10" align="start" mb="1rem">
-              <FontAwesomeIcon icon={faEnvelopeOpenText} />
-              <VStack align="start">
-                <Text fontWeight="semibold">{`Internship Details`}</Text>
-                <HStack>
-                  <Text w="8rem" fontWeight="semibold">
-                    Start Date
-                  </Text>
-                  <Attribute code={beCode} attribute={'PRI_START_DATE'} />
-                </HStack>
-                <HStack>
-                  <Text w="8rem" fontWeight="semibold">
-                    Duration
-                  </Text>
-                  <Attribute code={beCode} attribute={'PRI_ASSOC_DURATION'} />
-                </HStack>
-                <HStack>
-                  <Text w="8rem" fontWeight="semibold">
-                    Transport
-                  </Text>
-                  <Attribute code={beCode} attribute={'PRI_TRANSPORT'} />
-                </HStack>
-              </VStack>
+            <HStack>
+              <Text w="8rem" fontWeight="semibold">
+                Duration
+              </Text>
+              <Attribute code={beCode} attribute={'PRI_ASSOC_DURATION'} />
             </HStack>
-            <HStack spacing="10" align="start" mb="1rem">
-              <FontAwesomeIcon icon={faCompactDisc} />
-              <VStack align="start">
-                <Text fontWeight="semibold">{`Known Software`}</Text>
-                <Attribute code={beCode} attribute={'PRI_ASSOC_CURRENT_SOFTWARE'} />
-              </VStack>
+            <HStack>
+              <Text w="8rem" fontWeight="semibold">
+                Transport
+              </Text>
+              <Attribute code={beCode} attribute={'PRI_TRANSPORT'} />
             </HStack>
           </VStack>
-        </HStack>
+          <Divider />
+
+          <Text fontWeight="semibold">{`Known Software`}</Text>
+          <Attribute code={beCode} attribute={'PRI_ASSOC_CURRENT_SOFTWARE'} />
+        </VStack>
       </VStack>
     </Box>
   )

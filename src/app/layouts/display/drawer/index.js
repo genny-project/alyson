@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { closeDrawer } from 'redux/app'
 import { selectDrawer } from 'redux/app/selectors'
 import Detail from 'app/SBE/detail'
-import { useIsMobile } from 'utils/hooks'
+import { useIsMobile, useMobileValue } from 'utils/hooks'
 
 const DisplayDrawer = () => {
   const drawer = useSelector(selectDrawer)
@@ -11,16 +11,14 @@ const DisplayDrawer = () => {
 
   const isOpen = drawer !== 'NONE'
 
-  const isMobile = useIsMobile()
+  const w = useMobileValue(['100vw', '70vw'])
+  const ml = useMobileValue(['0vw', '15vw'])
+  const size = useMobileValue(['full'])
 
   return (
-    <Drawer placement="bottom" isOpen={isOpen} onClose={() => dispatch(closeDrawer())}>
+    <Drawer size={size} placement="bottom" isOpen={isOpen} onClose={() => dispatch(closeDrawer())}>
       <DrawerOverlay>
-        <DrawerContent
-          w={isMobile ? '100vw' : '70vw'}
-          ml={isMobile ? '0vw' : '15vw'}
-          borderTopRadius="lg"
-        >
+        <DrawerContent w={w} ml={ml} borderTopRadius="lg">
           {drawer === 'DETAIL' && <Detail />}
         </DrawerContent>
       </DrawerOverlay>

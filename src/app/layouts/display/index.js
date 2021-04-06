@@ -20,6 +20,7 @@ const Display = ({ isPublic }) => {
   const theme = useTheme()
   const color = useColorModeValue(theme.colors.text.light, theme.colors.text.dark)
   const backgroundColor = useColorModeValue('gray.50', '')
+
   return isPublic ? (
     <Public />
   ) : (
