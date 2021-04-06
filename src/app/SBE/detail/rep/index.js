@@ -12,6 +12,8 @@ import { faEnvelopeOpenText, faTimesCircle, faUser } from '@fortawesome/free-sol
 import { closeDrawer } from 'redux/app'
 import { includes, map, replace } from 'ramda'
 import LinkedInternships from 'app/SBE/detail/rep/linked_internships'
+import { useIsMobile } from 'utils/hooks'
+import RepMobile from './mobile_view'
 
 const Rep = ({ sbeCode, targetCode }) => {
   const dispatch = useDispatch()
@@ -36,7 +38,22 @@ const Rep = ({ sbeCode, targetCode }) => {
     if (topHeight !== '1vh') setTopHeight('1vh')
   }
 
+  const isMobile = useIsMobile()
   if (!beCode) return null
+
+  if (isMobile)
+    return (
+      <RepMobile
+        onClose={onClose}
+        src={src}
+        name={name}
+        jobTitle={jobTitle}
+        assocHC={assocHC}
+        actions={actions}
+        sbeCode={sbeCode}
+        beCode={beCode}
+      />
+    )
 
   return (
     <Box
