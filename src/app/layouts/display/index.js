@@ -14,8 +14,7 @@ import Public from 'app/layouts/public'
 import NotesDrawer from './notes_drawer'
 import Navigation from '../navigation'
 import DeveloperConsole, { isDev } from 'utils/developer'
-import { selectCode } from 'redux/db/selectors'
-import { useKeycloak } from '@react-keycloak/web'
+import { selectAttributes, selectCode } from 'redux/db/selectors'
 import { useEffect } from 'react'
 import LogRocket from 'logrocket'
 import getUserType from 'utils/helpers/get-user-type'
@@ -25,19 +24,19 @@ const Display = ({ isPublic }) => {
   const theme = useTheme()
   const color = useColorModeValue(theme.colors.text.light, theme.colors.text.dark)
   const backgroundColor = useColorModeValue('gray.50', '')
-  const { keycloak } = useKeycloak()
-  const userCode = useSelector(selectCode('USER'))
-  const userName = useSelector(selectCode(userCode, 'PRI_NAME'))
-  const userType = getUserType(useSelector(selectCode(userCode)))
+  const code = useSelector(selectCode('USER'))
+  const [nameData, emailData] = useSelector(selectAttributes(code, ['PRI_NAME', 'PRI_EMAIL']))
+  const type = getUserType(useSelector(selectCode(code)))
 
   useEffect(() => {
-    if (keycloak.authenticated && userName) {
-      const {
-        tokenParsed: { email },
-      } = keycloak
-      LogRocket.identify(email, { userName, userCode, userType, isDev })
+    if (code) {
+      const name = nameData?.value
+      const email = emailData?.value
+      console.log('logrocket identified')
+      LogRocket.identify(email, { code, name, email, type, isDev })
     }
-  }, [keycloak, userCode, userName, userType])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [code])
 
   return isPublic ? (
     <Public />
