@@ -3,30 +3,26 @@ import {
   Box,
   HStack,
   VStack,
-  useDisclosure,
-  Collapse,
   IconButton,
   Flex,
   Spacer,
   useColorModeValue,
   useTheme,
+  Text,
 } from '@chakra-ui/react'
 import { selectCode } from 'redux/db/selectors'
 import { getAttribute } from 'app/SBE/utils/get-columns'
-import Text from 'app/DTT/text'
 import Image from 'app/DTT/upload/Image'
 import ContextMenu from 'app/BE/context'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEllipsisV, faInfo } from '@fortawesome/free-solid-svg-icons'
-import PickedAttribute from 'app/SBE/lane/PickedAttribute'
+import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 
 const Card = ({ parentCode, actions = [], code, columns }) => {
   const theme = useTheme()
   const title = useSelector(selectCode(code, 'PRI_ASSOC_HC'))
   const subTitle = useSelector(selectCode(code, getAttribute(columns[1])))
   const image = useSelector(selectCode(code, 'PRI_IMAGE_URL'))
-
-  const { isOpen, onToggle } = useDisclosure()
+  const address = useSelector(selectCode(code, 'PRI_ADDRESS_FULL'))
 
   const defaultColor = useColorModeValue(
     theme.colors.background.light,
@@ -34,42 +30,24 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
   )
 
   return (
-    <Box
-      bg={defaultColor}
-      transition="all 0.2s"
-      p="4"
-      w="sm"
-      h="30"
-      borderWidth="1px"
-      borderRadius="lg"
-    >
+    <Box bg={defaultColor} p="4" w="95%" h="10rem" borderWidth="1px" borderRadius="lg">
       <Flex spacing="3">
-        <HStack>
-          <Image.Read data={image} />
+        <HStack w="28rem">
+          <Image.Read data={image} config={{ size: 'xl' }} />
           <VStack alignItems="baseline" w="30">
-            <Text.Read
-              data={title}
-              textProps={{
-                textStyle: 'head2',
-                isTruncated: true,
-                maxW: '14rem',
-              }}
-            />
-            <Text.Read
-              textProps={{
-                as: 'span',
-                color: 'gray.600',
-
-                isTruncated: true,
-                maxW: '14rem',
-              }}
-              data={subTitle}
-            />
+            <Text data={title} textStyle="body1">
+              {title?.value}
+            </Text>
+            <Text data={title} textStyle="body2">
+              {subTitle?.value}
+            </Text>
+            <Text data={title} textStyle="tail2">
+              {address?.value}
+            </Text>
           </VStack>
         </HStack>
         <Spacer />
         <HStack>
-          <IconButton size="xs" onClick={onToggle} icon={<FontAwesomeIcon icon={faInfo} />} />
           <ContextMenu
             actions={actions}
             code={code}
@@ -78,15 +56,6 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
           />
         </HStack>
       </Flex>
-      <Collapse unmountOnExit in={isOpen} animateOpacity>
-        <Box p="3">
-          <VStack align="left">
-            {columns.map(col => (
-              <PickedAttribute key={col} col={col} code={code} parentCode={parentCode} />
-            ))}
-          </VStack>
-        </Box>
-      </Collapse>
     </Box>
   )
 }

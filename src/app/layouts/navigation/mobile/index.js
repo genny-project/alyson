@@ -41,7 +41,7 @@ const MobileNav = ({ logoSrc }) => {
           color,
           position: 'fixed',
           top: 0,
-          zIndex: 3,
+          zIndex: 9999,
           width: '100%',
           maxWidth: '100vw',
           left: 0,

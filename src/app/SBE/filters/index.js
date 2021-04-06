@@ -24,15 +24,9 @@ const Filters = ({ sbeCode }) => {
 
   return (
     <HStack>
-      <Popover>
-        <PopoverTrigger>
-          <Button
-            color="GrayText"
-            leftIcon={<FontAwesomeIcon icon={faFilter} />}
-            test-id={'filters'}
-          >
-            Filters
-          </Button>
+      <Popover isLazy>
+        <PopoverTrigger test-id={'filters'}>
+          <Button>Filters</Button>
         </PopoverTrigger>
         <PopoverContent>
           <PopoverArrow />

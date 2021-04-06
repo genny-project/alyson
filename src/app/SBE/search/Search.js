@@ -3,16 +3,15 @@ import {
   HStack,
   Input,
   InputGroup,
-  InputLeftAddon,
   InputRightAddon,
-  Kbd,
   Button,
+  IconButton,
+  InputLeftElement,
 } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faSearch, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { useHotkeys } from 'react-hotkeys-hook'
 import { onSendSearch } from 'vertx'
-import KeyboardShortcut from 'app/layouts/components/kbd_shortcut'
 
 const ProcessSearch = ({ sbeCode }) => {
   const [searchValue, setSearchValue] = useState('')
@@ -45,10 +44,10 @@ const ProcessSearch = ({ sbeCode }) => {
 
   return (
     <HStack spacing={1}>
-      <InputGroup marginLeft="6" w="md">
-        <InputLeftAddon>
+      <InputGroup w="xs">
+        <InputLeftElement>
           <FontAwesomeIcon icon={faSearch} />
-        </InputLeftAddon>
+        </InputLeftElement>
         <Input
           onFocus={() => setFocused(true)}
           onBlur={() => {
@@ -61,29 +60,14 @@ const ProcessSearch = ({ sbeCode }) => {
           placeholder="Search"
         />
         <InputRightAddon cursor="pointer" onClick={handleSubmit}>
-          <HStack spacing="1" color="gray.500">
-            {focused ? (
-              <Kbd>enter</Kbd>
-            ) : (
-              <>
-                <KeyboardShortcut />
-                <Kbd>K</Kbd>
-              </>
-            )}
-          </HStack>
+          <IconButton icon={<FontAwesomeIcon icon={faPlus} />} />
         </InputRightAddon>
       </InputGroup>
       <Button
         color="GrayText"
         ref={clearRef}
-        rightIcon={
-          <HStack spacing="1" color="gray.500">
-            <KeyboardShortcut />
-            <Kbd>C</Kbd>
-          </HStack>
-        }
+        leftIcon={<FontAwesomeIcon icon={faTimes} />}
         onClick={handleClear}
-        w="10rem"
       >
         Clear
       </Button>
