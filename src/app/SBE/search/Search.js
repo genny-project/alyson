@@ -5,11 +5,11 @@ import {
   InputGroup,
   InputRightAddon,
   Button,
-  IconButton,
   InputLeftElement,
+  Text,
 } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus, faSearch, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { useHotkeys } from 'react-hotkeys-hook'
 import { onSendSearch } from 'vertx'
 
@@ -46,7 +46,7 @@ const ProcessSearch = ({ sbeCode }) => {
     <HStack spacing={1}>
       <InputGroup w="xs">
         <InputLeftElement>
-          <FontAwesomeIcon icon={faSearch} />
+          <FontAwesomeIcon color="grey" icon={faSearch} />
         </InputLeftElement>
         <Input
           onFocus={() => setFocused(true)}
@@ -57,18 +57,10 @@ const ProcessSearch = ({ sbeCode }) => {
           ref={inputRef}
           value={searchValue}
           onChange={e => setSearchValue(e.currentTarget.value)}
-          placeholder="Search"
         />
-        <InputRightAddon cursor="pointer" onClick={handleSubmit}>
-          <IconButton icon={<FontAwesomeIcon icon={faPlus} />} />
-        </InputRightAddon>
       </InputGroup>
-      <Button
-        color="GrayText"
-        ref={clearRef}
-        leftIcon={<FontAwesomeIcon icon={faTimes} />}
-        onClick={handleClear}
-      >
+      <Button colorScheme="primary">Search</Button>
+      <Button ref={clearRef} leftIcon={<FontAwesomeIcon icon={faTimes} />} onClick={handleClear}>
         Clear
       </Button>
     </HStack>
