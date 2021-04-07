@@ -1,13 +1,5 @@
 import { useRef, useState } from 'react'
-import {
-  HStack,
-  Input,
-  InputGroup,
-  InputRightAddon,
-  Button,
-  InputLeftElement,
-  Text,
-} from '@chakra-ui/react'
+import { HStack, Input, InputGroup, Button, InputLeftElement } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { useHotkeys } from 'react-hotkeys-hook'

@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import { getAttribute } from '../utils/get-columns'
 
-const PickedAttribute = ({ col, code, parentCode, color }) => {
+const PickedAttribute = ({ col, code, parentCode }) => {
   const colData = useSelector(selectCode(parentCode, col))
   const attribute = getAttribute(col)
   const label = colData?.attributeName
@@ -17,7 +17,7 @@ const PickedAttribute = ({ col, code, parentCode, color }) => {
         size="xs"
         code={code}
         attribute={attribute}
-        config={{ portal: true, style: { textTransform: 'uppercase' }, color: 'grey' }}
+        config={{ portal: true, textStyle: 'tail2' }}
       />
     </HStack>
   )

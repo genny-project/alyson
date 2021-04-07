@@ -10,11 +10,7 @@ const Read = ({ data, size, typeName }) => {
   const date = timeBasedOnTimeZone(new Date(data.value + 'Z'), { includeTime })
 
   if (date === 'Invalid Date') return null
-  return (
-    <Text w="10rem" fontSize={size}>
-      {date}
-    </Text>
-  )
+  return <Text textStyle="tail2">{date}</Text>
 }
 const Write = ({ questionCode, data, onSendAnswer, typeName }) => {
   const includeTime = includes('LocalDateTime', typeName)

@@ -20,7 +20,7 @@ const MainDetails = ({ columns, parentCode, code }) => {
   return (
     <VStack align="left">
       {details.map(col => (
-        <PickedAttribute key={col} color={'blue'} col={col} code={code} parentCode={parentCode} />
+        <PickedAttribute key={col} col={col} code={code} parentCode={parentCode} />
       ))}
     </VStack>
   )
