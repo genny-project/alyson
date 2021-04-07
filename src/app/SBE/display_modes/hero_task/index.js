@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
-import { Text, VStack, HStack, Badge, IconButton, Flex, Spacer } from '@chakra-ui/react'
+import { Text, HStack, Spacer } from '@chakra-ui/react'
 import getActions from 'app/SBE/utils/get-actions'
 import Action from 'app/BE/action'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

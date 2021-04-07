@@ -1,4 +1,4 @@
-import { Box, Center, HStack, Text, VStack } from '@chakra-ui/layout'
+import { Box, HStack, Text, VStack } from '@chakra-ui/layout'
 import { selectAttributes } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
 import { Button } from '@chakra-ui/button'
