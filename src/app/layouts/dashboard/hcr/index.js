@@ -9,7 +9,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBriefcase, faFile, faPaperPlane, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { onSendMessage } from 'vertx'
 import Process from 'app/layouts/process'
-import { Avatar } from '@chakra-ui/avatar'
 import { useColorModeValue } from '@chakra-ui/color-mode'
 import Attribute from 'app/BE/attribute'
 
