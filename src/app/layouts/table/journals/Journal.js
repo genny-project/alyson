@@ -17,26 +17,22 @@ const Journal = ({ code, actions, parentCode }) => {
           <Text textStyle="body1">{`${date?.value}`}</Text>
           <Text color="teal" textStyle="body1">{`${hours?.value} hrs`}</Text>
           <Attribute code={code} attribute={'PRI_STATUS'} />
-        </HStack>
-        <HStack>
           {actions &&
             actions.map(action => (
-              <Action code={action} targetCode={code} parentCode={parentCode} />
+              <Action key={action} code={action} targetCode={code} parentCode={parentCode} />
             ))}
         </HStack>
-
         <VStack align="start" justify="start">
           <Text w="15rem" textStyle="body3">
             Learning Outcomes
           </Text>
-          <Text w="40rem">{learningOutcomes?.value}</Text>
+          <Text dangerouslySetInnerHTML={{ __html: learningOutcomes?.value }} w="40rem" />
         </VStack>
-
         <VStack justify="start" align="start">
           <Text w="15rem" textStyle="body3">
             Tasks
           </Text>
-          <Text w="40rem">{tasks?.value}</Text>
+          <Text dangerouslySetInnerHTML={{ __html: tasks?.value }} w="40rem" />
         </VStack>
       </VStack>
     </Box>
