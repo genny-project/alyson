@@ -2,7 +2,6 @@ import { useEffect, useState, useRef } from 'react'
 import { Input, InputGroup, InputRightAddon } from '@chakra-ui/input'
 import { Text } from '@chakra-ui/layout'
 import { Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/menu'
-import { useKeycloak } from '@react-keycloak/web'
 
 import { fromLatLng } from 'utils/helpers/timezone_magic/get-timezone-name'
 import defaultTimeZones from 'utils/helpers/time-zone.json'
@@ -10,8 +9,6 @@ import defaultTimeZones from 'utils/helpers/time-zone.json'
 let places
 
 const PlacesAutocomplete = ({ onSelect }) => {
-  const { keycloak } = useKeycloak()
-  const token = keycloak.token
   const inputRef = useRef(null)
   const [input, setInput] = useState('')
 
@@ -23,16 +20,16 @@ const PlacesAutocomplete = ({ onSelect }) => {
       })
       window.google.maps.event.addListener(places, 'place_changed', async () => {
         const { geometry } = places.getPlace() || {}
-        const { location } = geometry
+        const { location } = geometry || {}
         const timezone = await fromLatLng({
-          lat: location.lat(),
-          lng: location.lng(),
-          token: token,
+          lat: location?.lat(),
+          lng: location?.lng(),
         })
+        console.log(timezone)
         onSelect(timezone)
       })
     }
-  }, [onSelect, token])
+  }, [onSelect])
 
   return (
     <div>

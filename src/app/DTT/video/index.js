@@ -51,7 +51,7 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
             onSendAnswer()
           }}
         >
-          Clear
+          Re-Record
         </Button>
       </VStack>
     )

@@ -15,7 +15,7 @@ const Map = ({ parentCode }) => {
         }),
       )
 
-      if (navigator.geolocation) {
+      if (navigator.geolocation && gMap) {
         navigator.geolocation.getCurrentPosition(position => {
           const geolocation = {
             lat: position.coords.latitude,

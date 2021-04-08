@@ -7,6 +7,7 @@ import PlacesAutocomplete from './places'
 const Write = ({ questionCode, onSendAnswer, data }) => {
   const [confirm, setConfirm] = useState(null)
 
+  console.log(data)
   return confirm === null ? (
     <VStack align="start">
       <HStack spacing="0" wrap="wrap">
@@ -30,7 +31,7 @@ const Write = ({ questionCode, onSendAnswer, data }) => {
       </ButtonGroup>
     </VStack>
   ) : confirm ? (
-    <Text>{`Thanks, your timezone is ${data?.value || timeZone}`}</Text>
+    <Text>{`Thanks, your timezone is ${data?.value}`}</Text>
   ) : (
     <PlacesAutocomplete
       test-id={questionCode}

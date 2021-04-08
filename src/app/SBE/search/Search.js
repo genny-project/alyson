@@ -26,16 +26,12 @@ const ProcessSearch = ({ sbeCode }) => {
     inputRef?.current?.focus()
   })
 
-  useHotkeys('ctrl+c, cmd+c', () => {
-    clearRef?.current?.click()
-  })
-
   useHotkeys('enter', () => focused && handleSubmit(), {
     enableOnTags: ['INPUT'],
   })
 
   return (
-    <HStack spacing={1}>
+    <HStack spacing={1} w="28vw">
       <InputGroup w="xs">
         <InputLeftElement>
           <FontAwesomeIcon color="grey" icon={faSearch} />

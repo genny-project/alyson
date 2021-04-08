@@ -10,8 +10,8 @@ const FormDesktopView = ({ title, childAsks, onFinish, questionCode, shadow }) =
       bgColor={bgColor}
       borderRadius="md"
       shadow={shadow ? 'base' : ''}
-      mr="10vw"
-      ml="10vw"
+      mr={shadow ? '10vw' : ''}
+      ml={shadow ? '10vw' : ''}
       pt="1rem"
     >
       <VStack p="3" spacing={8} marginBottom={8}>
