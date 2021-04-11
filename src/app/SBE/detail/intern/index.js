@@ -219,17 +219,19 @@ const Intern = ({ sbeCode, targetCode }) => {
               </VStack>
             </HStack>
           </VStack>
-          <VStack align="start">
+          <VStack align="start" w="50%">
             <HStack spacing="10" align="start" mb="1rem">
               <FontAwesomeIcon icon={faCompactDisc} />
               <VStack align="start">
                 <Text fontWeight="semibold">{`Known Software`}</Text>
-                <Attribute code={beCode} attribute={'PRI_ASSOC_CURRENT_SOFTWARE'} />
+                <Text maxW="20rem">
+                  <Attribute code={beCode} attribute={'PRI_ASSOC_CURRENT_SOFTWARE'} />
+                </Text>
               </VStack>
             </HStack>
             <HStack spacing="10" align="start" mb="1rem">
               <FontAwesomeIcon icon={faUserClock} />
-              <VStack align="start">
+              <VStack align="stretch">
                 <Text textStyle="body1">{`Recent Employment`}</Text>
                 <HStack>
                   <Text w="6rem" textStyle="body3">
