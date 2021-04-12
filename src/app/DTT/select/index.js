@@ -40,6 +40,7 @@ const Write = ({
     </Text>
   ) : (
     <CSelect
+      placeholder={placeholder || 'Select'}
       test-id={groupCode}
       rootProps={{
         'test-id': questionCode,

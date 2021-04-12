@@ -23,7 +23,7 @@ export const Multiple = ({ questionCode, data, onSendAnswer, placeholder, option
     <Box maxW="53vw">
       <CUIAutoComplete
         test-id={questionCode}
-        placeholder={placeholder}
+        placeholder={placeholder || 'Select'}
         items={filter(identity, options || [])}
         selectedItems={filter(identity, selected)}
         onSelectedItemsChange={changes => {
