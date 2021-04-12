@@ -95,37 +95,37 @@ const defaultProjectTheme = {
   components: {
     Button: {
       variants: {
-        'custom-button': {
-          bg: 'green.100',
-          size: 'md',
-          height: '48px',
-          width: '200px',
+        special: {
+          bg: 'gradient.400',
+          color: 'white',
+        },
+        primary: {
+          bg: 'primary.400',
+          color: 'white',
+        },
+        secondary: {
           border: '2px',
-          borderColor: 'red.500',
+          borderColor: 'primary.500',
+          color: 'primary.500',
         },
       },
     },
-    Box: {
-      variants: {
-        'card-one': {
-          boxShadow: 'lg',
-          p: '6',
-          rounded: 'md',
-          bg: 'white',
-        },
-        'card-two': {
-          boxShadow: 'lg',
-          p: '6',
-          rounded: 'md',
-          bg: 'white',
-        },
-        'card-three': {
-          boxShadow: 'lg',
-          p: '6',
-          rounded: 'md',
-          bg: 'white',
-        },
-      },
+  },
+  layerStyles: {
+    card1: {
+      bg: 'red.500',
+      color: 'teal.700',
+      borderColor: 'orange.500',
+    },
+    card2: {
+      bg: 'orange.500',
+      color: 'teal.700',
+      borderColor: 'orange.500',
+    },
+    card3: {
+      bg: 'yellow.500',
+      color: 'teal.700',
+      borderColor: 'orange.500',
     },
   },
 }

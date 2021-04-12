@@ -2,6 +2,7 @@ import {
   Heading,
   Avatar,
   Box,
+  Button,
   Center,
   IconButton,
   Flex,
@@ -11,10 +12,12 @@ import {
 } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPhoneAlt, faEnvelope, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
+import ThemeToggler from '../../app/layouts/navigation/ColorToggler.js'
 
 const Sandbox = () => {
   return (
     <Center py={6}>
+      <ThemeToggler></ThemeToggler>
       <Box
         maxW={'300px'}
         w={'full'}
@@ -100,6 +103,9 @@ const Sandbox = () => {
           </Stack>
         </Box>
       </Box>
+      <Button variant="special">Special</Button>
+      <Button variant="primary">Primary</Button>
+      <Button variant="secondary">Secondary</Button>
     </Center>
   )
 }
