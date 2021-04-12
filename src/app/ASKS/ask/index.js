@@ -50,6 +50,16 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
   const feedback = data?.feedback
   const onSendAnswer = createSendAnswer(askData, { passedTargetCode })
 
+  if (component === 'checkbox')
+    return (
+      <CheckBox.Write
+        data={data}
+        questionCode={questionCode}
+        onSendAnswer={onSendAnswer}
+        label={name}
+        isRequired={mandatory}
+      />
+    )
   return component === 'button' ? (
     <Button
       questionCode={questionCode}

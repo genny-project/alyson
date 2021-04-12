@@ -3,7 +3,7 @@ import Card from './templates/Card'
 import InternshipCard from './templates/internship'
 
 const BECard = ({ parentCode, code, columns, actions, noExpansion }) => {
-  return includes('BEG_', code) ? (
+  return includes('BEG_', code || '') ? (
     <InternshipCard actions={actions} parentCode={parentCode} code={code} columns={columns} />
   ) : (
     <Card

@@ -1,6 +1,6 @@
 import { Button } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { onSendMessage } from 'vertx'
 import { useState } from 'react'
 
@@ -29,8 +29,14 @@ const EventButton = ({ askData, onFinish, parentCode }) => {
       test-id={questionCode}
       isDisabled={disabled}
       onClick={onClick}
-      leftIcon={<FontAwesomeIcon icon={faCheck} />}
-      colorScheme="primary"
+      leftIcon={
+        questionCode === 'QUE_SUBMIT_NO' ? (
+          <FontAwesomeIcon icon={faTimes} />
+        ) : (
+          <FontAwesomeIcon icon={faCheck} />
+        )
+      }
+      colorScheme={questionCode === 'QUE_SUBMIT_NO' ? 'red' : 'primary'}
       variant="solid"
     >
       {name}
