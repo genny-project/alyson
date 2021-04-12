@@ -1,5 +1,6 @@
+import { useColorModeValue } from '@chakra-ui/color-mode'
 import { Image } from '@chakra-ui/image'
-import { Text, VStack } from '@chakra-ui/layout'
+import { Box, Text, VStack } from '@chakra-ui/layout'
 import useApi from 'api'
 import { useSelector } from 'react-redux'
 import { selectAttributes } from 'redux/db/selectors'
@@ -12,25 +13,25 @@ const InternshipCard = ({ code, parentCode }) => {
 
   const { getImageSrc } = useApi()
   const src = getImageSrc(img?.value)
+  const bgColor = useColorModeValue('white', '')
 
   return (
-    <div
+    <Box
+      _hover={{ boxShadow: '2xl' }}
+      cursor="pointer"
+      borderRadius="lg"
+      w="17rem"
+      p="3"
+      h="18rem"
+      background={bgColor}
       onClick={() => onSendMessage({ code: 'ACT_PRI_EVENT_VIEW', targetCode: code, parentCode })}
     >
-      <VStack
-        _hover={{ boxShadow: '2xl' }}
-        cursor="pointer"
-        borderRadius="lg"
-        w="17rem"
-        p="3"
-        h="18rem"
-        justify="flex-end"
-      >
+      <VStack>
         <Image src={src} maxW="10rem" maxH="10rem" />
         <Text fontWeight="semibold">{hostCpy?.value}</Text>
         <Text>{name?.value}</Text>
       </VStack>
-    </div>
+    </Box>
   )
 }
 

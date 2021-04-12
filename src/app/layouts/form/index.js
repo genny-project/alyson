@@ -3,13 +3,8 @@ import { selectForm } from 'redux/app/selectors'
 import AsksForm from 'app/ASKS/form'
 import { CircularProgress, Center } from '@chakra-ui/react'
 
-import { selectCode } from 'redux/db/selectors'
-
 const Form = ({ onFinish, shadow = true }) => {
   const data = useSelector(selectForm)
-  const submit = useSelector(selectCode(data, 'QUE_SUBMIT'))
-
-  if (!submit) return null
 
   return data ? (
     <AsksForm shadow={shadow} onFinish={onFinish} questionCode={data} />

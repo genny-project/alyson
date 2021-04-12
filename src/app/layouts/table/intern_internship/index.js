@@ -13,9 +13,8 @@ const InternInternshipSearch = ({ sbeCode }) => {
       <Center>
         <VStack>
           <Text fontSize="2xl" fontWeight="medium">
-            Internships
+            Search for your Internship
           </Text>
-          <Text>Find your career link</Text>
           <Search sbeCode={sbeCode} />
           <Filters sbeCode={sbeCode} />
         </VStack>

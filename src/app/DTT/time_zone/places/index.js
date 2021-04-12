@@ -25,8 +25,7 @@ const PlacesAutocomplete = ({ onSelect }) => {
           lat: location?.lat(),
           lng: location?.lng(),
         })
-        console.log(timezone)
-        onSelect(timezone)
+        onSelect(timezone?.timeZoneId)
       })
     }
   }, [onSelect])

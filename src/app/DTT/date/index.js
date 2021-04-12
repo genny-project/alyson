@@ -2,7 +2,7 @@ import { includes } from 'ramda'
 import { Text, Input } from '@chakra-ui/react'
 import timeBasedOnTimeZone from 'utils/helpers/timezone_magic/time-based-on-timezone.ts'
 
-const Read = ({ data, size, typeName }) => {
+const Read = ({ data, typeName }) => {
   const includeTime = includes('LocalDateTime', typeName)
 
   if (!data.value) return null
