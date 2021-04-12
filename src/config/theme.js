@@ -92,6 +92,42 @@ const defaultProjectTheme = {
       color: 'gray.500',
     },
   },
+  components: {
+    Button: {
+      variants: {
+        'custom-button': {
+          bg: 'green.100',
+          size: 'md',
+          height: '48px',
+          width: '200px',
+          border: '2px',
+          borderColor: 'red.500',
+        },
+      },
+    },
+    Box: {
+      variants: {
+        'card-one': {
+          boxShadow: 'lg',
+          p: '6',
+          rounded: 'md',
+          bg: 'white',
+        },
+        'card-two': {
+          boxShadow: 'lg',
+          p: '6',
+          rounded: 'md',
+          bg: 'white',
+        },
+        'card-three': {
+          boxShadow: 'lg',
+          p: '6',
+          rounded: 'md',
+          bg: 'white',
+        },
+      },
+    },
+  },
 }
 
 const getTheme = (projectTheme = defaultProjectTheme) =>
