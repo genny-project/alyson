@@ -11,6 +11,8 @@ import {
 } from '@chakra-ui/react'
 import Ask from 'app/ASKS/ask'
 import ExistingFilters from './existing_filters'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFilter } from '@fortawesome/free-solid-svg-icons'
 
 const Filters = ({ sbeCode }) => {
   const filterGrp = `QUE_FILTER_GRP_${sbeCode}`
@@ -24,7 +26,13 @@ const Filters = ({ sbeCode }) => {
     <HStack>
       <Popover isLazy>
         <PopoverTrigger test-id={'filters'}>
-          <Button>Filters</Button>
+          <Button
+            leftIcon={<FontAwesomeIcon icon={faFilter} />}
+            colorScheme="primary"
+            variant="outline"
+          >
+            Filters
+          </Button>
         </PopoverTrigger>
         <PopoverContent>
           <PopoverArrow />

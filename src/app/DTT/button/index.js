@@ -2,9 +2,12 @@ import { Button } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { onSendMessage } from 'vertx'
+import { useState } from 'react'
 
 const EventButton = ({ askData, onFinish, parentCode }) => {
   const { questionCode, targetCode, name, disabled } = askData
+
+  const [loading, setLoading] = useState(false)
 
   const onClick = () => {
     onSendMessage({
@@ -14,11 +17,15 @@ const EventButton = ({ askData, onFinish, parentCode }) => {
       targetCode,
       value: true,
     })
-    if (questionCode === 'QUE_SUBMIT' && typeof onFinish === 'function') onFinish()
+    if (questionCode === 'QUE_SUBMIT') {
+      typeof onFinish === 'function' && onFinish()
+      setLoading(true)
+    }
   }
 
   return (
     <Button
+      isLoading={loading}
       test-id={questionCode}
       isDisabled={disabled}
       onClick={onClick}
