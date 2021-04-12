@@ -9,11 +9,15 @@ import Recommendations from './recommendations'
 import Process from 'app/layouts/process'
 import { useColorModeValue } from '@chakra-ui/color-mode'
 import Attribute from 'app/BE/attribute'
+import { selectDashboard } from 'redux/app/selectors'
+import { find, includes } from 'ramda'
 
 const Intern = ({ userCode }) => {
   const [name] = useSelector(selectAttributes(userCode, ['PRI_NAME']))
-
+  const dashboardSbes = useSelector(selectDashboard)
   const cardBg = useColorModeValue('white', '')
+
+  const internSbe = find(includes('_INTERN_'), dashboardSbes || [])
 
   return (
     <VStack spacing="6">
@@ -54,7 +58,17 @@ const Intern = ({ userCode }) => {
             >
               {`Find an Internship`}
             </Button>
-            <Button colorScheme="primary" variant="outline">
+            <Button
+              onClick={() =>
+                onSendMessage({
+                  code: 'ACT_PRI_EVENT_EDIT',
+                  parentCode: internSbe,
+                  targetCode: userCode,
+                })
+              }
+              colorScheme="primary"
+              variant="outline"
+            >
               Edit Your Profile
             </Button>
           </VStack>
