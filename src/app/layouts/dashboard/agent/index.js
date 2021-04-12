@@ -14,7 +14,15 @@ const Agent = ({ userCode }) => {
 
   return (
     <VStack spacing={4}>
-      <Stack bgColor={bgColor} shadow="lg" w="sm" p="3" borderRadius="md" direction="column">
+      <Stack
+        bgColor={bgColor}
+        shadow="lg"
+        w="sm"
+        p="3"
+        borderRadius="md"
+        direction="column"
+        spacing="4"
+      >
         <VStack spacing={4}>
           <DisplaySbe sbeCode={dashboardSbes[0]} />
           <HStack spacing={4}>
@@ -23,21 +31,21 @@ const Agent = ({ userCode }) => {
             ))}
           </HStack>
         </VStack>
+        <Button
+          colorScheme="primary"
+          onClick={() =>
+            onSendMessage({
+              code: 'QUE_TAB_BUCKET_VIEW',
+              parentCode: 'QUE_TAB_BUCKET_VIEW',
+            })
+          }
+          leftIcon={<FontAwesomeIcon icon={faColumns} />}
+          rightIcon={<FontAwesomeIcon icon={faBolt} />}
+        >
+          Go to Process View
+        </Button>
+        <Search />
       </Stack>
-      <Button
-        onClick={() =>
-          onSendMessage({
-            code: 'QUE_TAB_BUCKET_VIEW',
-            parentCode: 'QUE_TAB_BUCKET_VIEW',
-          })
-        }
-        leftIcon={<FontAwesomeIcon icon={faColumns} />}
-        rightIcon={<FontAwesomeIcon icon={faBolt} />}
-        colorScheme="gradient"
-      >
-        Go to Process View
-      </Button>
-      <Search />
     </VStack>
   )
 }
