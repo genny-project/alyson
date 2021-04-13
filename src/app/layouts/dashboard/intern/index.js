@@ -71,6 +71,19 @@ const Intern = ({ userCode }) => {
             >
               Edit Your Profile
             </Button>
+            <Button
+              colorScheme="primary"
+              variant="outline"
+              onClick={() =>
+                onSendMessage({
+                  code: 'ACT_PRI_EVENT_TERMS_AND_CONDITIONS',
+                  parentCode: internSbe,
+                  targetCode: userCode,
+                })
+              }
+            >
+              Terms and Conditions
+            </Button>
           </VStack>
         </Box>
       </HStack>

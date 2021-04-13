@@ -15,8 +15,6 @@ const DropZone = ({ handleSave, closeDropzone, maxSize = '5000000', maxFiles = 1
     }
   }, [closeDropzone, files, handleSave])
 
-  console.log(files)
-
   const showErrorMessage = file => {
     const errorMessage = pathOr('', ['errors', 0, 'message'])(file)
     return toast({

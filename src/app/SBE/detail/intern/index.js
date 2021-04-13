@@ -47,7 +47,6 @@ const Intern = ({ sbeCode, targetCode }) => {
   const [topHeight, setTopHeight] = useState(lg)
 
   const handleScroll = e => {
-    console.log(e)
     if (topHeight !== sm) setTopHeight(sm)
   }
 

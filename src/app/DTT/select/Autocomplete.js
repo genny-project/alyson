@@ -43,8 +43,6 @@ const Autocomplete = ({ questionCode, defaultValue, options, onChange, placehold
     handler: onBlur,
   })
 
-  console.log(options, selected)
-
   return (
     <Box ref={ref} test-id={questionCode}>
       {selected.length ? (

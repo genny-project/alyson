@@ -26,7 +26,7 @@ const App = () => {
               keycloak.authenticated ? (
                 <Redirect to={{ pathname: '/home' }} />
               ) : (
-                <Redirect to={{ pathname: '/public' }} />
+                <Redirect to={{ pathname: '/home' }} />
               )
             }
           />
@@ -38,15 +38,7 @@ const App = () => {
               </Suspense>
             )}
           />
-          <Route
-            path={`/public`}
-            exact
-            component={() => (
-              <Suspense fallback={<div />}>
-                <Display isPublic />
-              </Suspense>
-            )}
-          />
+          <Route path={`/public`} exact component={() => <Redirect to={{ pathname: '/home' }} />} />
           <Route
             path={`/sandbox`}
             exact

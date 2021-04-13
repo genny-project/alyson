@@ -15,7 +15,6 @@ const HeroTask = ({ sbeCode, rows }) => {
   const actions = getActions(sbe)
   const validation = useSelector(selectCode(targetCode, 'PRI_VALIDATION'))
 
-  console.log(actions)
   return (
     <HStack w="full">
       <FontAwesomeIcon icon={faFile} />
