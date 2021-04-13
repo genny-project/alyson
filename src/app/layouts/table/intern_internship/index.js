@@ -1,4 +1,4 @@
-import { Box, Center, Grid, HStack, Text, VStack, Wrap, WrapItem } from '@chakra-ui/layout'
+import { Center, Grid, HStack, Text, VStack, WrapItem } from '@chakra-ui/layout'
 import { useSelector } from 'react-redux'
 import Search from 'app/SBE/search/Search'
 import { selectCode, selectRows } from 'redux/db/selectors'

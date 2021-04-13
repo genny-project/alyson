@@ -1,10 +1,7 @@
-import { useState } from 'react'
 import { HStack, Text, VStack } from '@chakra-ui/layout'
 import InternshipCard from 'app/layouts/table/intern_internship/InternshipCard'
-import { always, compose, either, find, head, identity, includes, split } from 'ramda'
 import { useSelector } from 'react-redux'
-import { selectCode, selectKeys, selectRows } from 'redux/db/selectors'
-import { getRandomInRange } from 'utils/helpers/get-random'
+import { selectCode } from 'redux/db/selectors'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 
 const Recommendations = () => {
