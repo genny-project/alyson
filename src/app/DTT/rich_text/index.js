@@ -14,7 +14,7 @@ import { EditorState, convertFromHTML, ContentState } from 'draft-js'
 import { Editor } from 'react-draft-wysiwyg'
 import { stateToHTML } from 'draft-js-export-html'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSave, faEdit, faExpand } from '@fortawesome/free-solid-svg-icons'
+import { faEdit, faExpand } from '@fortawesome/free-solid-svg-icons'
 import '../../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import { useIsMobile } from 'utils/hooks'
 import DOMPurify from 'dompurify'
@@ -62,17 +62,8 @@ const Write = ({ questionCode, data, onSendAnswer, description }) => {
         editorState={editor}
         onEditorStateChange={setEditor}
         placeholder={description}
+        onBlur={handleSave}
       />
-      <Button
-        test-id={questionCode + '-save'}
-        m="2"
-        leftIcon={<FontAwesomeIcon icon={faSave} />}
-        onClick={handleSave}
-        variant="outline"
-        color="primary.500"
-      >
-        Save
-      </Button>
     </Box>
   ) : (
     <Box w="2xl" border="1px solid #E2E8F0" borderRadius="0.375rem" p="1rem">

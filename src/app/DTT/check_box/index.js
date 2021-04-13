@@ -1,4 +1,4 @@
-import { Checkbox, FormControl, FormLabel, HStack, Text } from '@chakra-ui/react'
+import { Checkbox, FormControl, FormLabel, HStack } from '@chakra-ui/react'
 
 const Read = ({ data }) => {
   return (

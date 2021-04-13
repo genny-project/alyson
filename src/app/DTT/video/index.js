@@ -14,7 +14,7 @@ import VideoRecorder from './video_recorder'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import useApi from 'api'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faVideo, faExpand } from '@fortawesome/free-solid-svg-icons'
+import { faVideo, faExpand, faBan } from '@fortawesome/free-solid-svg-icons'
 import Player from './Player'
 
 const Write = ({ questionCode, onSendAnswer, html, data }) => {
@@ -44,15 +44,26 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
         <Badge variant="subtle" colorScheme="green">
           Saved!
         </Badge>
-        <Button
-          test-id={questionCode + '-clear'}
-          onClick={() => {
-            setStartVideo(false)
-            onSendAnswer()
-          }}
-        >
-          Re-Record
-        </Button>
+        <HStack>
+          <Button
+            test-id={questionCode + '-clear'}
+            onClick={() => {
+              setStartVideo(false)
+              onSendAnswer()
+            }}
+          >
+            Re-Record
+          </Button>
+          <Button
+            leftIcon={<FontAwesomeIcon icon={faBan} />}
+            onClick={() => {
+              setStartVideo(false)
+              onSendAnswer('')
+            }}
+          >
+            Delete Video
+          </Button>
+        </HStack>
       </VStack>
     )
 
@@ -74,14 +85,14 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
           </Text>
           <HStack>
             <a href={config.explanation_video} target="_blank" rel="noreferrer">
-              <Button>{`Instructions`}</Button>
+              <Button colorScheme="green">{`Instructions`}</Button>
             </a>
             <Button
               test-id={questionCode + '-start'}
               leftIcon={<FontAwesomeIcon icon={faVideo} />}
               onClick={() => setStartVideo(true)}
               colorScheme="primary"
-            >{`Ready!`}</Button>
+            >{`Get Started!`}</Button>
           </HStack>
         </VStack>
       )}

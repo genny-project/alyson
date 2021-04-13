@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, HStack, Input, InputGroup, InputRightAddon, VStack } from '@chakra-ui/react'
+import { Button, HStack, Input } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { onSendSearch } from 'vertx'

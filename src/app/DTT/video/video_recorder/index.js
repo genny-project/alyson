@@ -86,15 +86,13 @@ const VideoRecorder = ({ setData, config, setStartVideo }) => {
           playsInline
           muted
         />
-        <div style={{ marginTop: '-4rem' }}>
-          <Button
-            colorScheme="primary"
-            leftIcon={<FontAwesomeIcon color={capturing ? 'red' : 'grey'} icon={faRecordVinyl} />}
-            onClick={capturing ? onStopCapture : onStartCapture}
-          >
-            {capturing ? 'Stop Recording' : 'Start Recording!'}
-          </Button>
-        </div>
+        <Button
+          colorScheme="primary"
+          leftIcon={<FontAwesomeIcon color={capturing ? 'red' : 'grey'} icon={faRecordVinyl} />}
+          onClick={capturing ? onStopCapture : onStartCapture}
+        >
+          {capturing ? 'Stop Recording' : 'Start Recording!'}
+        </Button>
       </VStack>
       <Text maxW="30rem">{config.description}</Text>
       <div hidden={!length(recordedChunks) || capturing}>

@@ -23,9 +23,10 @@ const Dashboard = () => {
     localStorage.setItem('localFreshness', 'visited')
     toast({
       title: 'Welcome to Internmatch',
-      description: `We've recently updated our look! Thanks so much for joining our growing platform 🥰. Any questions please email us at 📧 internmatch@outcomelife.com.au`,
-      duration: 90000,
+      description: `We've recently updated our look! Thanks so much for joining our growing platform 🥰. For help, please access the Helper Portal from your profile menu!`,
+      duration: 14000,
       isClosable: true,
+      position: 'top-right',
     })
   }
 
