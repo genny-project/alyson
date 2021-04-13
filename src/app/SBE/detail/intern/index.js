@@ -202,6 +202,12 @@ const Intern = ({ sbeCode, targetCode }) => {
                     </Text>
                     <Attribute code={beCode} attribute={'PRI_STUDENT_ID'} />
                   </HStack>
+                  <HStack>
+                    <Text w="6rem" textStyle="body3">
+                      Education Provider
+                    </Text>
+                    <Attribute code={beCode} attribute={'PRI_ASSOC_EP'} />
+                  </HStack>
                 </VStack>
               </HStack>
               <HStack spacing="10" align="start" mb="1rem">
