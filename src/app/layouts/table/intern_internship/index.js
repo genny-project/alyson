@@ -1,32 +1,41 @@
-import { Box, Center, Text, VStack, Wrap, WrapItem } from '@chakra-ui/layout'
+import { Box, Center, Grid, HStack, Text, VStack, Wrap, WrapItem } from '@chakra-ui/layout'
 import { useSelector } from 'react-redux'
 import Search from 'app/SBE/search/Search'
-import { selectRows } from 'redux/db/selectors'
+import { selectCode, selectRows } from 'redux/db/selectors'
 import InternshipCard from './InternshipCard'
 import Filters from 'app/SBE/filters'
+import { useColorModeValue } from '@chakra-ui/color-mode'
 
 const InternInternshipSearch = ({ sbeCode }) => {
   const rows = useSelector(selectRows(sbeCode))
+  const userCode = useSelector(selectCode('USER'))
+  const userName = useSelector(selectCode(userCode, 'PRI_NAME'))
+
+  const bgColor = useColorModeValue('white', '')
 
   return (
-    <Box>
+    <VStack>
       <Center>
-        <VStack>
-          <Text fontSize="2xl" fontWeight="medium">
-            Search for your Internship
+        <VStack shadow="md" bg={bgColor} p="5" m="5" borderRadius="md">
+          <Text py="5" fontSize="2xl" fontWeight="medium">
+            {`Hey ${
+              userName?.value || 'there'
+            }, please feel free to search for your ideal internship below`}
           </Text>
-          <Search sbeCode={sbeCode} />
-          <Filters sbeCode={sbeCode} />
+          <HStack align="start">
+            <Search sbeCode={sbeCode} />
+            <Filters sbeCode={sbeCode} />
+          </HStack>
         </VStack>
       </Center>
-      <Wrap ml="10" mr="10">
+      <Grid templateColumns="repeat(5, 1fr)" gap={6}>
         {rows.map(code => (
           <WrapItem key={code}>
             <InternshipCard code={code} parentCode={sbeCode} />
           </WrapItem>
         ))}
-      </Wrap>
-    </Box>
+      </Grid>
+    </VStack>
   )
 }
 

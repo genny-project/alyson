@@ -187,28 +187,30 @@ const Internship = ({ sbeCode, targetCode }) => {
               details={internshipDetail}
             />
           </VStack>
-          <LinkedHostCpy sbeCode={linkedHostCpy} />
+          <VStack>
+            <LinkedHostCpy sbeCode={linkedHostCpy} />
+            <Box w="full">
+              <VStack align="start">
+                <Text textStyle="body1">Roles and Responsibilities</Text>
+                <Box p="5">
+                  <Attribute code={beCode} attribute={'PRI_ROLES_AND_RESPONSIBILITIES'} />
+                </Box>
+              </VStack>
+              <VStack align="start">
+                <Text textStyle="body1">Base Learning Outcomes</Text>
+                <Box p="5">
+                  <Attribute code={beCode} attribute={'PRI_BASE_LEARNING_OUTCOMES'} />
+                </Box>
+              </VStack>
+              <VStack align="start">
+                <Text textStyle="body1">Specific Learning Outcomes</Text>
+                <Box p="5">
+                  <Attribute code={beCode} attribute={'PRI_SPECIFIC_LEARNING_OUTCOMES'} />
+                </Box>
+              </VStack>
+            </Box>
+          </VStack>
         </HStack>
-        <Box w="full" p="5">
-          <VStack align="start">
-            <Text textStyle="body1">Roles and Responsibilities</Text>
-            <Box p="5">
-              <Attribute code={beCode} attribute={'PRI_ROLES_AND_RESPONSIBILITIES'} />
-            </Box>
-          </VStack>
-          <VStack align="start">
-            <Text textStyle="body1">Base Learning Outcomes</Text>
-            <Box p="5">
-              <Attribute code={beCode} attribute={'PRI_BASE_LEARNING_OUTCOMES'} />
-            </Box>
-          </VStack>
-          <VStack align="start">
-            <Text textStyle="body1">Specific Learning Outcomes</Text>
-            <Box p="5">
-              <Attribute code={beCode} attribute={'PRI_SPECIFIC_LEARNING_OUTCOMES'} />
-            </Box>
-          </VStack>
-        </Box>
       </VStack>
     </Box>
   )
