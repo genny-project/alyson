@@ -206,29 +206,29 @@ const Application = ({ sbeCode, targetCode }) => {
                 attribute={'PRI_WHICH_DAYS_STRIPPED'}
               />
             </HStack>
-            <Divider w="90%" pt="5" />
-            <VStack w="full" align="start" p="5" pl="10">
-              <VStack align="start">
-                <Text textStyle="body1">Roles and Responsibilities</Text>
-                <Box>
-                  <Attribute code={beCode} attribute={'PRI_ROLES_AND_RESPONSIBILITIES'} />
-                </Box>
-              </VStack>
-              <VStack align="start">
-                <Text textStyle="body1">Base Learning Outcomes</Text>
-                <Box p="5">
-                  <Attribute code={beCode} attribute={'PRI_BASE_LEARNING_OUTCOMES'} />
-                </Box>
-              </VStack>
-              <VStack align="start">
-                <Text textStyle="body1">Specific Learning Outcomes</Text>
-                <Box p="5">
-                  <Attribute code={beCode} attribute={'PRI_SPECIFIC_LEARNING_OUTCOMES'} />
-                </Box>
-              </VStack>
-            </VStack>
           </VStack>
         </HStack>
+        <Divider w="90%" pt="5" />
+        <VStack w="full" align="start" p="5" pl="10">
+          <VStack align="start">
+            <Text textStyle="body1">Roles and Responsibilities</Text>
+            <Box>
+              <Attribute code={beCode} attribute={'PRI_ROLES_AND_RESPONSIBILITIES'} />
+            </Box>
+          </VStack>
+          <VStack align="start">
+            <Text textStyle="body1">Base Learning Outcomes</Text>
+            <Box p="5">
+              <Attribute code={beCode} attribute={'PRI_BASE_LEARNING_OUTCOMES'} />
+            </Box>
+          </VStack>
+          <VStack align="start">
+            <Text textStyle="body1">Specific Learning Outcomes</Text>
+            <Box p="5">
+              <Attribute code={beCode} attribute={'PRI_SPECIFIC_LEARNING_OUTCOMES'} />
+            </Box>
+          </VStack>
+        </VStack>
       </VStack>
     </Box>
   )
