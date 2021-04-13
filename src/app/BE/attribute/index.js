@@ -61,7 +61,7 @@ const Attribute = ({
   ) : component === 'status' ? (
     <Status.Read data={data} size={size} />
   ) : component === 'date' ? (
-    <Date.Read data={data} size={size} typeName={dttData.typeName} />
+    <Date.Read config={config} data={data} size={size} typeName={dttData.typeName} />
   ) : component === 'progress' ? (
     <ProgressBar.Read data={data} />
   ) : component === 'html_display' ? (

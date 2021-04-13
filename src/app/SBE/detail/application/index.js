@@ -1,37 +1,32 @@
 import { useState, useRef, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectCode, selectRows } from 'redux/db/selectors'
-import { Avatar, Box, Flex, HStack, IconButton, Link, Spacer, Text, VStack } from '@chakra-ui/react'
+import {
+  Avatar,
+  Box,
+  Divider,
+  Flex,
+  HStack,
+  IconButton,
+  Link,
+  Spacer,
+  Text,
+  VStack,
+} from '@chakra-ui/react'
 import useApi from 'api'
 
 import getActions from 'app/SBE/utils/get-actions'
 import Attribute from 'app/BE/attribute'
 import Action from 'app/BE/action'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBriefcase, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import { closeDrawer } from 'redux/app'
-import { replace } from 'ramda'
-import LinkedSupervisor from './templates/LinkedSupervisor'
-import LinkedHostCpy from './templates/LinkedHostCpy'
-import DetailSection from '../default-view/templates/detail-section'
-
-const internshipDetail = {
-  sectionIcon: faBriefcase,
-  title: 'Internship Details',
-  attributes: [
-    'PRI_WORKSITE',
-    'PRI_INTERNSHIP_START_DATE',
-    'PRI_WHICH_DAYS_STRIPPED',
-    'PRI_DRESS_CODE',
-    'PRI_ASSOC_NUM_INTERNS',
-  ],
-}
 
 let map = {}
 let pano = {}
 let geocoder = {}
 
-const Internship = ({ sbeCode, targetCode }) => {
+const Application = ({ sbeCode, targetCode }) => {
   const sbe = useSelector(selectCode(sbeCode))
   const rows = useSelector(selectRows(sbeCode))
   const dispatch = useDispatch()
@@ -49,9 +44,6 @@ const Internship = ({ sbeCode, targetCode }) => {
   const url = useSelector(selectCode(beCode, 'PRI_COMPANY_WEBSITE_URL'))
   const name = useSelector(selectCode(beCode, 'PRI_NAME'))
   const actions = getActions(sbe)
-
-  const linkedSupervisor = replace('SBE_INTERNSHIP_', 'SBE_LINKED_INTERN_SUPERVISOR_', sbeCode)
-  const linkedHostCpy = replace('SBE_INTERNSHIP_', 'SBE_LINKED_HOST_CPY_', sbeCode)
 
   const [geo, setGeo] = useState(null)
   const [topHeight, setTopHeight] = useState('40vh')
@@ -177,22 +169,50 @@ const Internship = ({ sbeCode, targetCode }) => {
             />
           ))}
         </HStack>
-        <HStack w="65vw" align="start" pt="5" spacing="5">
+        <HStack align="start" pt="1rem">
           <VStack align="start">
-            <LinkedSupervisor sbeCode={linkedSupervisor} />
-            <DetailSection
-              config={{ textStyle: 'body2' }}
-              noTitle
-              code={beCode}
-              details={internshipDetail}
-            />
+            <Text textStyle="body1">Internship Supervisor</Text>
+            <Attribute code={beCode} attribute={'PRI_SUPER_NAME'} />
+            <Attribute code={beCode} attribute={'PRI_SUPER_JOB_TITLE'} />
+            <Attribute code={beCode} attribute={'PRI_SUPER_EMAIL'} />
+            <Attribute code={beCode} attribute={'PRI_SUPER_MOBILE'} />
           </VStack>
-          <LinkedHostCpy sbeCode={linkedHostCpy} />
+          <VStack align="start">
+            <HStack>
+              <Text>Internship Hosted By</Text>
+              <Attribute config={{ textStyle: 'body1' }} code={beCode} attribute={'PRI_ASSOC_HC'} />
+            </HStack>
+            <HStack>
+              <Text>Intern Applying</Text>
+              <Attribute
+                config={{ textStyle: 'body1' }}
+                code={beCode}
+                attribute={'PRI_INTERN_NAME'}
+              />
+            </HStack>
+            <HStack>
+              <Text>Start Date</Text>
+              <Attribute
+                config={{ textStyle: 'body1' }}
+                code={beCode}
+                attribute={'PRI_START_DATE'}
+              />
+            </HStack>
+            <HStack>
+              <Text>Days</Text>
+              <Attribute
+                config={{ textStyle: 'body1' }}
+                code={beCode}
+                attribute={'PRI_WHICH_DAYS_STRIPPED'}
+              />
+            </HStack>
+          </VStack>
         </HStack>
-        <Box w="full" p="5">
+        <Divider w="90%" pt="5" />
+        <VStack w="full" align="start" p="5" pl="10">
           <VStack align="start">
             <Text textStyle="body1">Roles and Responsibilities</Text>
-            <Box p="5">
+            <Box>
               <Attribute code={beCode} attribute={'PRI_ROLES_AND_RESPONSIBILITIES'} />
             </Box>
           </VStack>
@@ -208,10 +228,10 @@ const Internship = ({ sbeCode, targetCode }) => {
               <Attribute code={beCode} attribute={'PRI_SPECIFIC_LEARNING_OUTCOMES'} />
             </Box>
           </VStack>
-        </Box>
+        </VStack>
       </VStack>
     </Box>
   )
 }
 
-export default Internship
+export default Application

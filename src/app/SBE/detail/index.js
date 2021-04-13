@@ -8,6 +8,7 @@ import Rep from './rep'
 import Agent from './agent'
 import DefaultView from './default-view'
 import getDetailType from './helpers/get-detail-type'
+import Application from './application'
 
 const BaseEntityDetail = ({ targetCode, defaultView }) => {
   const code = useSelector(selectDetail)
@@ -28,7 +29,7 @@ const BaseEntityDetail = ({ targetCode, defaultView }) => {
   }
 
   if (displayType === 'APPLICATION') {
-    return <Internship sbeCode={code} targetCode={targetCode} />
+    return <Application sbeCode={code} targetCode={targetCode} />
   }
 
   if (displayType === 'REP') {

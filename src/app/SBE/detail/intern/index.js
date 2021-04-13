@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectCode, selectRows } from 'redux/db/selectors'
-import { Avatar, Box, Flex, HStack, IconButton, Text, VStack } from '@chakra-ui/react'
+import { Avatar, Box, Button, Flex, HStack, IconButton, Text, VStack } from '@chakra-ui/react'
 import useApi from 'api'
 import getActions from 'app/SBE/utils/get-actions'
 import Attribute from 'app/BE/attribute'
 import Action from 'app/BE/action'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
+  faCaretUp,
   faCompactDisc,
   faEnvelopeOpenText,
   faObjectGroup,
@@ -20,6 +21,9 @@ import { map } from 'ramda'
 import Player from 'app/DTT/video/Player'
 import { useIsMobile } from 'utils/hooks'
 import InternsMobileView from './mobile_view'
+
+const sm = '0vh'
+const lg = '35vh'
 
 const Intern = ({ sbeCode, targetCode }) => {
   const isMobile = useIsMobile()
@@ -40,14 +44,15 @@ const Intern = ({ sbeCode, targetCode }) => {
 
   const actions = getActions(sbe)
 
-  const [topHeight, setTopHeight] = useState('35vh')
+  const [topHeight, setTopHeight] = useState(lg)
 
-  const handleScroll = () => {
-    if (topHeight !== '0') setTopHeight('0')
+  const handleScroll = e => {
+    console.log(e)
+    if (topHeight !== sm) setTopHeight(sm)
   }
 
   useEffect(() => {
-    !videoSrc && !careerObj?.value ? setTopHeight('0') : setTopHeight('35vh')
+    !videoSrc && !careerObj?.value ? setTopHeight(sm) : setTopHeight(lg)
   }, [careerObj?.value, videoSrc])
 
   const videoStyle = {
@@ -79,16 +84,26 @@ const Intern = ({ sbeCode, targetCode }) => {
         borderTopRightRadius: '0.5rem',
       }}
     >
+      <Box hidden={topHeight === lg} position="absolute" left="2" top="2">
+        <Button
+          color="grey"
+          variant="unstyled"
+          onClick={() => setTopHeight(lg)}
+          leftIcon={<FontAwesomeIcon icon={faCaretUp} />}
+        >
+          Show Header
+        </Button>
+      </Box>
       <Box position="absolute" right="2" top="2">
         <IconButton
           onClick={onClose}
-          color={topHeight === '0' ? 'darkgrey' : 'white'}
+          color={topHeight === sm ? 'darkgrey' : 'white'}
           variant="unstyled"
           icon={<FontAwesomeIcon icon={faTimesCircle} />}
         />
       </Box>
       <Flex
-        onClick={() => setTopHeight('35vh')}
+        onClick={() => setTopHeight(lg)}
         justifyContent="center"
         borderTopLeftRadius="0.5rem"
         borderTopRightRadius="0.5rem"
@@ -113,7 +128,7 @@ const Intern = ({ sbeCode, targetCode }) => {
             maxWidth="50%"
             minWidth="50%"
             height={topHeight}
-            transition="height 1s"
+            transition="height 0.5s"
             borderTopRightRadius="0.5rem"
             borderTopLeftRadius={video?.value ? '' : '0.5rem'}
             overflow="hidden"
@@ -136,7 +151,7 @@ const Intern = ({ sbeCode, targetCode }) => {
       </Flex>
       <Avatar
         cursor="pointer"
-        onClick={() => setTopHeight(topHeight => (topHeight === '35vh' ? '0' : '35vh'))}
+        onClick={() => setTopHeight(topHeight => (topHeight === lg ? '0vh' : lg))}
         mt="-4.75rem"
         left="calc(35vw - 4.75rem)"
         bg={src ? 'white' : 'lightgrey'}
@@ -147,122 +162,122 @@ const Intern = ({ sbeCode, targetCode }) => {
         zIndex="modal"
         position="absolute"
       />
-      <VStack
-        pt="5rem"
-        onScroll={handleScroll}
-        overflow="scroll"
-        overflowX="hidden"
-        h={`calc(90vh - ${topHeight})`}
-      >
-        <Text fontSize="3xl" fontWeight="semibold" flexWrap="nowrap">
-          {internsName?.value}
-        </Text>
-        <Box mb="1rem">
-          <Attribute code={beCode} attribute={'PRI_PREFERRED_NAME'} />
-        </Box>
-        <Flex justifyContent="center" mb="1rem">
-          {actions && (
-            <HStack>
-              {map(action => (
-                <Action
-                  parentCode={sbeCode}
-                  code={action}
-                  targetCode={beCode}
-                  key={action}
-                  size="md"
-                  colorScheme="blue"
-                />
-              ))(actions)}
-            </HStack>
-          )}
-        </Flex>
-        <HStack w="65vw" align="start" pt="5" spacing="5">
-          <VStack align="start" w="50%">
-            <HStack spacing="10" align="start" mb="1rem">
-              <FontAwesomeIcon icon={faUser} />
-              <VStack align="start">
-                <Text fontWeight="semibold">{`Contact details`}</Text>
-                <Attribute code={beCode} attribute={'PRI_MOBILE'} />
-                <Attribute code={beCode} attribute={'PRI_EMAIL'} />
-                <Attribute code={beCode} attribute={'PRI_ADDRESS_FULL'} />
-                <Attribute code={beCode} attribute={'PRI_LINKEDIN_URL'} />
-                <HStack>
-                  <Text w="6rem" textStyle="body3">
-                    Student ID
+      <Box onScroll={handleScroll} overflow="scroll" h={`calc(90vh - ${topHeight})`}>
+        <VStack pt="5rem" overflowX="hidden">
+          <Text fontSize="3xl" fontWeight="semibold" flexWrap="nowrap">
+            {internsName?.value}
+          </Text>
+          <Box mb="1rem">
+            <Attribute code={beCode} attribute={'PRI_PREFERRED_NAME'} />
+          </Box>
+          <Flex justifyContent="center" mb="1rem">
+            {actions && (
+              <HStack>
+                {map(action => (
+                  <Action
+                    parentCode={sbeCode}
+                    code={action}
+                    targetCode={beCode}
+                    key={action}
+                    size="md"
+                    colorScheme="blue"
+                  />
+                ))(actions)}
+              </HStack>
+            )}
+          </Flex>
+          <HStack w="65vw" align="start" pt="5" spacing="5">
+            <VStack align="start" w="50%">
+              <HStack spacing="10" align="start" mb="1rem">
+                <FontAwesomeIcon icon={faUser} />
+                <VStack align="start">
+                  <Text fontWeight="semibold">{`Contact details`}</Text>
+                  <Attribute code={beCode} attribute={'PRI_MOBILE'} />
+                  <Attribute code={beCode} attribute={'PRI_EMAIL'} />
+                  <Attribute code={beCode} attribute={'PRI_ADDRESS_FULL'} />
+                  <Attribute code={beCode} attribute={'PRI_LINKEDIN_URL'} />
+                  <HStack>
+                    <Text w="6rem" textStyle="body3">
+                      Student ID
+                    </Text>
+                    <Attribute code={beCode} attribute={'PRI_STUDENT_ID'} />
+                  </HStack>
+                </VStack>
+              </HStack>
+              <HStack spacing="10" align="start" mb="1rem">
+                <FontAwesomeIcon icon={faEnvelopeOpenText} />
+                <VStack align="start">
+                  <Text fontWeight="semibold">{`Internship Details`}</Text>
+                  <HStack>
+                    <Text w="6rem" textStyle="body3">
+                      Start Date
+                    </Text>
+                    <Attribute
+                      config={{ textStyle: 'body2' }}
+                      code={beCode}
+                      attribute={'PRI_START_DATE'}
+                    />
+                  </HStack>
+                  <HStack>
+                    <Text w="6rem" textStyle="body3">
+                      Duration
+                    </Text>
+                    <Attribute code={beCode} attribute={'PRI_ASSOC_DURATION'} />
+                  </HStack>
+                  <HStack>
+                    <Text w="6rem" textStyle="body3">
+                      Transport
+                    </Text>
+                    <Attribute code={beCode} attribute={'PRI_TRANSPORT'} />
+                  </HStack>
+                </VStack>
+              </HStack>
+            </VStack>
+            <VStack align="start" w="50%">
+              <HStack spacing="10" align="start" mb="1rem">
+                <FontAwesomeIcon icon={faCompactDisc} />
+                <VStack align="start">
+                  <Text fontWeight="semibold">{`Known Software`}</Text>
+                  <Text maxW="20rem">
+                    <Attribute code={beCode} attribute={'PRI_ASSOC_CURRENT_SOFTWARE'} />
                   </Text>
-                  <Attribute code={beCode} attribute={'PRI_STUDENT_ID'} />
-                </HStack>
-              </VStack>
-            </HStack>
-            <HStack spacing="10" align="start" mb="1rem">
-              <FontAwesomeIcon icon={faEnvelopeOpenText} />
-              <VStack align="start">
-                <Text fontWeight="semibold">{`Internship Details`}</Text>
-                <HStack>
-                  <Text w="6rem" textStyle="body3">
-                    Start Date
-                  </Text>
-                  <Attribute code={beCode} attribute={'PRI_START_DATE'} />
-                </HStack>
-                <HStack>
-                  <Text w="6rem" textStyle="body3">
-                    Duration
-                  </Text>
-                  <Attribute code={beCode} attribute={'PRI_ASSOC_DURATION'} />
-                </HStack>
-                <HStack>
-                  <Text w="6rem" textStyle="body3">
-                    Transport
-                  </Text>
-                  <Attribute code={beCode} attribute={'PRI_TRANSPORT'} />
-                </HStack>
-              </VStack>
-            </HStack>
-          </VStack>
-          <VStack align="start" w="50%">
-            <HStack spacing="10" align="start" mb="1rem">
-              <FontAwesomeIcon icon={faCompactDisc} />
-              <VStack align="start">
-                <Text fontWeight="semibold">{`Known Software`}</Text>
-                <Text maxW="20rem">
-                  <Attribute code={beCode} attribute={'PRI_ASSOC_CURRENT_SOFTWARE'} />
-                </Text>
-              </VStack>
-            </HStack>
-            <HStack spacing="10" align="start" mb="1rem">
-              <FontAwesomeIcon icon={faUserClock} />
-              <VStack align="stretch">
-                <Text textStyle="body1">{`Recent Employment`}</Text>
-                <HStack>
-                  <Text w="6rem" textStyle="body3">
-                    Employer
-                  </Text>
-                  <Attribute code={beCode} attribute={'PRI_PREV_EMPLOYER'} />
-                </HStack>
-                <HStack>
-                  <Text w="6rem" textStyle="body3">
-                    Title
-                  </Text>
-                  <Attribute code={beCode} attribute={'PRI_PREV_JOB_TITLE'} />
-                </HStack>
-                <HStack>
-                  <Text w="6rem" textStyle="body3">
-                    CV
-                  </Text>
-                  <Attribute code={beCode} attribute={'PRI_CV'} />
-                </HStack>
-              </VStack>
-            </HStack>
-            <HStack spacing="10" align="start" mb="1rem">
-              <FontAwesomeIcon icon={faObjectGroup} />
-              <VStack align="start">
-                <Text textStyle="body1">{`Career Objectives`}</Text>
-                <Text textStyle="body2" dangerouslySetInnerHTML={{ __html: careerObj?.value }} />
-              </VStack>
-            </HStack>
-          </VStack>
-        </HStack>
-      </VStack>
+                </VStack>
+              </HStack>
+              <HStack spacing="10" align="start" mb="1rem">
+                <FontAwesomeIcon icon={faUserClock} />
+                <VStack align="stretch">
+                  <Text textStyle="body1">{`Recent Employment`}</Text>
+                  <HStack>
+                    <Text w="6rem" textStyle="body3">
+                      Employer
+                    </Text>
+                    <Attribute code={beCode} attribute={'PRI_PREV_EMPLOYER'} />
+                  </HStack>
+                  <HStack>
+                    <Text w="6rem" textStyle="body3">
+                      Title
+                    </Text>
+                    <Attribute code={beCode} attribute={'PRI_PREV_JOB_TITLE'} />
+                  </HStack>
+                  <HStack>
+                    <Text w="6rem" textStyle="body3">
+                      CV
+                    </Text>
+                    <Attribute code={beCode} attribute={'PRI_CV'} />
+                  </HStack>
+                </VStack>
+              </HStack>
+              <HStack spacing="10" align="start" mb="1rem">
+                <FontAwesomeIcon icon={faObjectGroup} />
+                <VStack align="start">
+                  <Text textStyle="body1">{`Career Objectives`}</Text>
+                  <Text textStyle="body2" dangerouslySetInnerHTML={{ __html: careerObj?.value }} />
+                </VStack>
+              </HStack>
+            </VStack>
+          </HStack>
+        </VStack>
+      </Box>
     </Box>
   )
 }
