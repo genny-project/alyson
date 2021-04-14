@@ -17,6 +17,8 @@ let map = {}
 let pano = {}
 let geocoder = {}
 
+const topHeight = '40vh'
+
 const Agent = ({ sbeCode, targetCode }) => {
   geocoder = new window.google.maps.Geocoder()
 
@@ -36,11 +38,6 @@ const Agent = ({ sbeCode, targetCode }) => {
   const actions = getActions(sbe)
 
   const [geo, setGeo] = useState(null)
-  const [topHeight, setTopHeight] = useState('40vh')
-
-  const handleScroll = () => {
-    if (topHeight !== '5vh') setTopHeight('5vh')
-  }
   const isMobile = useIsMobile()
 
   const panoRef = useRef(null)
@@ -98,13 +95,13 @@ const Agent = ({ sbeCode, targetCode }) => {
   return (
     <Box
       w="70vw"
-      h="90vh"
+      h="100vh"
       style={{
         borderTopLeftRadius: '0.5rem',
         borderTopRightRadius: '0.5rem',
       }}
     >
-      <Flex onClick={() => setTopHeight('40vh')}>
+      <Flex>
         <div
           ref={panoRef}
           style={{
@@ -139,7 +136,7 @@ const Agent = ({ sbeCode, targetCode }) => {
         position="absolute"
         right="5"
         zIndex="modal"
-        height={topHeight === '40vh' ? '10rem' : '0'}
+        height={topHeight}
         overflow="hidden"
         transition="height 1s"
       >
@@ -162,8 +159,6 @@ const Agent = ({ sbeCode, targetCode }) => {
         </VStack>
       </Box>
       <Avatar
-        cursor="pointer"
-        onClick={() => setTopHeight(topHeight => (topHeight === '40vh' ? '0' : '40vh'))}
         mt="-4.75rem"
         left="calc(35vw - 4.75rem)"
         bg="white"
@@ -174,7 +169,7 @@ const Agent = ({ sbeCode, targetCode }) => {
         zIndex="modal"
         position="absolute"
       />
-      <VStack pt="5rem" onScroll={handleScroll} overflow="scroll" h={`calc(90vh - ${topHeight})`}>
+      <VStack pt="5rem" overflow="scroll" h={`calc(100vh - ${topHeight})`}>
         <Text fontSize="3xl" fontWeight="semibold" flexWrap="nowrap">
           {name?.value}
         </Text>

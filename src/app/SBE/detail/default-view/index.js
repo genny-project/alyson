@@ -12,9 +12,10 @@ const DefaultView = ({ sbeCode, targetCode }) => {
   const sbe = useSelector(selectCode(sbeCode))
 
   const rows = useSelector(selectRows(sbeCode))
-  const columns = getColumns(sbe)
 
   if (!sbe) return null
+
+  const columns = getColumns(sbe)
 
   const beCode = targetCode ? targetCode : rows?.length ? rows[0] : null
 
@@ -27,7 +28,7 @@ const DefaultView = ({ sbeCode, targetCode }) => {
   const headerAttribute = 'PRI_NAME'
 
   return (
-    <Box minH="50vh">
+    <Box minH="100vh">
       <Header
         code={beCode}
         sbeCode={sbeCode}
