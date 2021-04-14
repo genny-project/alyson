@@ -1,3 +1,4 @@
+import { useColorModeValue } from '@chakra-ui/color-mode'
 import { HStack, Text, VStack } from '@chakra-ui/layout'
 import InternshipCard from 'app/layouts/table/intern_internship/InternshipCard'
 import { useSelector } from 'react-redux'
@@ -9,10 +10,11 @@ const Recommendations = () => {
   const matchString = useSelector(selectCode(userCode, 'PRI_MATCHED_INTERNSHIPS'))
   const matchCodes = safelyParseJson(matchString?.value, [])
 
+  const bgColor = useColorModeValue('white', '')
   if (!matchCodes.length) return null
 
   return (
-    <VStack p="5" borderRadius="lg" boxShadow="dark-lg">
+    <VStack p="5" borderRadius="lg" boxShadow="lg" bg={bgColor}>
       <Text fontSize="xl" fontWeight="semibold">
         ✨ Congrats! ✨
       </Text>
