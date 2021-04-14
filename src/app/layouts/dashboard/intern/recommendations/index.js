@@ -1,4 +1,3 @@
-import { useColorModeValue } from '@chakra-ui/color-mode'
 import { HStack, Text, VStack } from '@chakra-ui/layout'
 import Card from 'app/layouts/components/card'
 import InternshipCard from 'app/layouts/table/intern_internship/InternshipCard'
