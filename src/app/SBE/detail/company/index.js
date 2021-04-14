@@ -143,7 +143,6 @@ const Company = ({ sbeCode, targetCode }) => {
         />
       </Box>
       <Avatar
-        cursor="pointer"
         mt="-4.75rem"
         left="calc(35vw - 4.75rem)"
         bg="white"

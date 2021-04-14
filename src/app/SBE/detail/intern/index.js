@@ -83,6 +83,7 @@ const Intern = ({ sbeCode, targetCode }) => {
         borderTopLeftRadius="0.5rem"
         borderTopRightRadius="0.5rem"
         bgGradient="linear(to-br, teal.400,blue.500)"
+        h={topHeight}
       >
         {videoSrc && (
           <Flex
@@ -125,7 +126,6 @@ const Intern = ({ sbeCode, targetCode }) => {
         )}
       </Flex>
       <Avatar
-        cursor="pointer"
         mt="-4.75rem"
         left="calc(35vw - 4.75rem)"
         bg={src ? 'white' : 'lightgrey'}

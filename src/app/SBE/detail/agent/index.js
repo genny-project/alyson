@@ -159,7 +159,6 @@ const Agent = ({ sbeCode, targetCode }) => {
         </VStack>
       </Box>
       <Avatar
-        cursor="pointer"
         mt="-4.75rem"
         left="calc(35vw - 4.75rem)"
         bg="white"

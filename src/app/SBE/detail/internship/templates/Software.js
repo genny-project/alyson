@@ -1,4 +1,4 @@
-import { Badge, HStack, Wrap, WrapItem } from '@chakra-ui/layout'
+import { Badge, Wrap, WrapItem } from '@chakra-ui/layout'
 import { split } from 'ramda'
 
 const Software = ({ value }) => {
