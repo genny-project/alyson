@@ -14,23 +14,27 @@ const styles = {
     variant: 'outline',
     colorScheme: 'primary',
   },
-  tertiary: {
-    variant: 'link',
-    colorScheme: 'primary',
+  positive: {
+    variant: 'solid',
+    colorScheme: 'green',
+  },
+  negative: {
+    variant: 'solid',
+    colorScheme: 'red',
   },
 } as Styles
 
 type ButtonProps = {
-  custom: custom
+  onClick: any
+  variant: variant
   rest: []
   children: ReactChildren
 }
 
-const Button = ({ custom, children, ...rest }: ButtonProps) => {
-  const stylesConfig = styles[custom]
-
+const Button = ({ onClick, variant, children, ...rest }: ButtonProps) => {
+  const stylesConfig = styles[variant]
   return (
-    <ChakraButton {...stylesConfig} {...rest}>
+    <ChakraButton onClick={onClick} {...stylesConfig} {...rest}>
       {children}
     </ChakraButton>
   )
@@ -40,8 +44,9 @@ interface Styles {
   primary: any
   secondary: any
   special: any
-  tertiary: any
+  positive: any
+  negative: any
 }
-type custom = 'primary' | 'secondary' | 'special' | 'tertiary'
+type variant = 'primary' | 'secondary' | 'special' | 'positive' | 'negative'
 
 export default Button
