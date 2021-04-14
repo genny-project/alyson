@@ -20,6 +20,8 @@ const icons = {
   QUE_TREE_ITEM_HCRS: faPeopleArrows,
   QUE_TREE_ITEM_APPLICATIONS_APPLIED: faPaperclip,
   QUE_HOST_COMPANY_VIEW: faBuilding,
+  QUE_TREE_ITEM_EPRS: faPeopleArrows,
+  QUE_TREE_ITEM_INTERNS: faGraduationCap,
 }
 
 export default icons

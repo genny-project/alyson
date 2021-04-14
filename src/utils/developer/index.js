@@ -83,7 +83,7 @@ const DeveloperConsole = () => {
                       <>
                         <Text size="lg">Has Keys</Text>
                         {selection.map(key =>
-                          console.log(key) || typeof key === 'object' ? (
+                          typeof key === 'object' ? (
                             Object.keys(key).map(key_2 => (
                               <Text
                                 borderRadius="lg"
