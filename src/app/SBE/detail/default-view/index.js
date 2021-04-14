@@ -1,10 +1,8 @@
 import { useSelector } from 'react-redux'
 import { selectCode, selectRows } from 'redux/db/selectors'
-import { faUser, faBriefcase, faGraduationCap } from '@fortawesome/free-solid-svg-icons'
-import { Box, Divider, HStack, VStack } from '@chakra-ui/react'
+import { Box, HStack, VStack } from '@chakra-ui/react'
 
 import Header from './templates/header'
-import DetailSection from './templates/detail-section'
 import getActions from 'app/SBE/utils/get-actions'
 import getColumns, { getAttribute } from 'app/SBE/utils/get-columns'
 import Label from 'app/BE/attribute/Label'
