@@ -11,6 +11,7 @@ import {
 } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPhoneAlt, faEnvelope, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
+import Button from '../../app/layouts/components/button'
 
 const Sandbox = () => {
   return (
@@ -99,6 +100,10 @@ const Sandbox = () => {
             </Stack>
           </Stack>
         </Box>
+        <Button custom="primary">Primary</Button>
+        <Button custom="secondary">Secondary</Button>
+        <Button custom="tertiary">Tertiary</Button>
+        <Button custom="special">Special</Button>
       </Box>
     </Center>
   )
