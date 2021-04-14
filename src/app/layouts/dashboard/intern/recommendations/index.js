@@ -11,7 +11,6 @@ const Recommendations = () => {
   const matchString = useSelector(selectCode(userCode, 'PRI_MATCHED_INTERNSHIPS'))
   const matchCodes = safelyParseJson(matchString?.value, [])
 
-  const bgColor = useColorModeValue('white', '')
   if (!matchCodes.length) return null
 
   return (
