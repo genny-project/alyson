@@ -2,6 +2,7 @@ import { forEach, compose, keys, includes, find } from 'ramda'
 import { Item, MsgPayload } from 'redux/types'
 import initialiseKey from 'utils/helpers/initialise-key'
 import pushUniqueString from 'utils/helpers/push-unique-string'
+import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { Keyable } from 'utils/types'
 import { DBState, Note } from '../types'
 import sortByIndex from './sort-by-index'
@@ -43,10 +44,16 @@ export const formatBaseEntity = (
 }
 
 export const formatAsk = (state: DBState) => (item: Item) => {
-  const { questionCode, childAsks = [], name } = item
+  const {
+    questionCode,
+    childAsks = [],
+    name,
+    question: { html },
+  } = item
 
   initialiseKey(state, questionCode, [])
   initialiseKey(state, `${questionCode}@title`, name)
+  initialiseKey(state, `${questionCode}@config`, safelyParseJson(html, {}))
 
   forEach((childAsk: Keyable) => {
     const childAskCode = childAsk.questionCode

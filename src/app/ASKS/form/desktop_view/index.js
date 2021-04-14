@@ -1,10 +1,13 @@
 import Ask from 'app/ASKS/ask'
-import { VStack, Center, Heading, useColorModeValue } from '@chakra-ui/react'
+import { VStack, Center, Heading, useColorModeValue, Text, Divider } from '@chakra-ui/react'
 import { map } from 'ramda'
 
-const FormDesktopView = ({ title, childAsks, onFinish, questionCode, shadow }) => {
+const FormDesktopView = ({ title, childAsks, onFinish, questionCode, shadow, config = {} }) => {
   const bgColor = useColorModeValue('white', 'whiteAlpha.100')
 
+  const { subHeader, divider = [] } = config
+
+  console.log(divider)
   return (
     <Center
       bgColor={bgColor}
@@ -16,14 +19,18 @@ const FormDesktopView = ({ title, childAsks, onFinish, questionCode, shadow }) =
     >
       <VStack p="3" spacing={8} marginBottom={8}>
         <Heading>{title}</Heading>
-        {map(childAsk => (
-          <Ask
-            onFinish={onFinish}
-            key={childAsk}
-            parentCode={questionCode}
-            questionCode={childAsk}
-          />
-        ))(childAsks)}
+        {config ? <Text textStyle="head2">{subHeader}</Text> : null}
+        {childAsks.map((childAsk, idx) => (
+          <>
+            <Ask
+              onFinish={onFinish}
+              key={childAsk}
+              parentCode={questionCode}
+              questionCode={childAsk}
+            />
+            {divider.includes(idx) && <Divider />}
+          </>
+        ))}
       </VStack>
     </Center>
   )

@@ -8,7 +8,7 @@ const Toast = () => {
   const newToast = useSelector(selectToast)
 
   useEffect(() => {
-    if (newToast) toast({ position: 'top-right', description: newToast.message })
+    if (newToast) toast({ isClosable: true, position: 'top-right', description: newToast.message })
   }, [newToast, toast])
   return null
 }

@@ -8,6 +8,7 @@ import FormDesktopView from 'app/ASKS/form/desktop_view'
 const AsksForm = ({ questionCode, onFinish, shadow }) => {
   const childAsks = useSelector(selectCode(questionCode)) || []
   const title = useSelector(selectCode(questionCode, 'title'))
+  const config = useSelector(selectCode(questionCode, 'config'))
 
   const isMobile = useIsMobile()
 
@@ -18,6 +19,7 @@ const AsksForm = ({ questionCode, onFinish, shadow }) => {
       childAsks={childAsks}
       onFinish={onFinish}
       questionCode={questionCode}
+      config={config}
     />
   ) : (
     <FormDesktopView
@@ -26,6 +28,7 @@ const AsksForm = ({ questionCode, onFinish, shadow }) => {
       childAsks={childAsks}
       onFinish={onFinish}
       questionCode={questionCode}
+      config={config}
     />
   )
 }
