@@ -9,7 +9,7 @@ import { useColorModeValue } from '@chakra-ui/color-mode'
 const InternInternshipSearch = ({ sbeCode }) => {
   const rows = useSelector(selectRows(sbeCode))
   const userCode = useSelector(selectCode('USER'))
-  const userName = useSelector(selectCode(userCode, 'PRI_NAME'))
+  const userName = useSelector(selectCode(userCode, 'PRI_FIRSTNAME'))
 
   const bgColor = useColorModeValue('white', '')
 
