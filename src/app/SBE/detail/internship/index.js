@@ -14,6 +14,7 @@ import { replace } from 'ramda'
 import LinkedSupervisor from './templates/LinkedSupervisor'
 import LinkedHostCpy from './templates/LinkedHostCpy'
 import DetailSection from '../default-view/templates/detail-section'
+import Software from './templates/Software'
 
 const internshipDetail = {
   sectionIcon: faBriefcase,
@@ -30,6 +31,8 @@ const internshipDetail = {
 let map = {}
 let pano = {}
 let geocoder = {}
+
+const topHeight = '40vh'
 
 const Internship = ({ sbeCode, targetCode }) => {
   const sbe = useSelector(selectCode(sbeCode))
@@ -48,17 +51,13 @@ const Internship = ({ sbeCode, targetCode }) => {
   const src = getImageSrc(image?.value)
   const url = useSelector(selectCode(beCode, 'PRI_COMPANY_WEBSITE_URL'))
   const name = useSelector(selectCode(beCode, 'PRI_NAME'))
+  const software = useSelector(selectCode(beCode, 'PRI_SOFTWARE'))
   const actions = getActions(sbe)
 
   const linkedSupervisor = replace('SBE_INTERNSHIP_', 'SBE_LINKED_INTERN_SUPERVISOR_', sbeCode)
   const linkedHostCpy = replace('SBE_INTERNSHIP_', 'SBE_LINKED_HOST_CPY_', sbeCode)
 
   const [geo, setGeo] = useState(null)
-  const [topHeight, setTopHeight] = useState('40vh')
-
-  const handleScroll = () => {
-    if (topHeight !== '5vh') setTopHeight('5vh')
-  }
 
   const panoRef = useRef(null)
   const mapRef = useRef(null)
@@ -106,13 +105,13 @@ const Internship = ({ sbeCode, targetCode }) => {
   return (
     <Box
       w="70vw"
-      h="90vh"
+      h="100vh"
       style={{
         borderTopLeftRadius: '0.5rem',
         borderTopRightRadius: '0.5rem',
       }}
     >
-      <Flex onClick={() => setTopHeight('40vh')}>
+      <Flex>
         <div
           ref={panoRef}
           style={{
@@ -145,7 +144,6 @@ const Internship = ({ sbeCode, targetCode }) => {
       </Box>
       <Avatar
         cursor="pointer"
-        onClick={() => setTopHeight(topHeight => (topHeight === '40vh' ? '0' : '40vh'))}
         mt="-4.75rem"
         left="calc(35vw - 4.75rem)"
         bg="white"
@@ -156,7 +154,7 @@ const Internship = ({ sbeCode, targetCode }) => {
         zIndex="modal"
         position="absolute"
       />
-      <VStack pt="5rem" onScroll={handleScroll} overflow="scroll" h={`calc(90vh - ${topHeight})`}>
+      <VStack pt="5rem" overflow="scroll" h={`calc(100vh - ${topHeight})`}>
         <Link href={url?.value}>
           <Text fontSize="3xl" fontWeight="semibold" flexWrap="nowrap">
             {name?.value}
@@ -186,6 +184,8 @@ const Internship = ({ sbeCode, targetCode }) => {
               code={beCode}
               details={internshipDetail}
             />
+            <Text textStyle="body1">Software to be Used</Text>
+            <Software value={software?.value || ''} />
           </VStack>
           <VStack>
             <LinkedHostCpy sbeCode={linkedHostCpy} />

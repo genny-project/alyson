@@ -21,10 +21,12 @@ import Action from 'app/BE/action'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import { closeDrawer } from 'redux/app'
+import Software from '../internship/templates/Software'
 
 let map = {}
 let pano = {}
 let geocoder = {}
+const topHeight = '40vh'
 
 const Application = ({ sbeCode, targetCode }) => {
   const sbe = useSelector(selectCode(sbeCode))
@@ -43,14 +45,10 @@ const Application = ({ sbeCode, targetCode }) => {
   const src = getImageSrc(image?.value)
   const url = useSelector(selectCode(beCode, 'PRI_COMPANY_WEBSITE_URL'))
   const name = useSelector(selectCode(beCode, 'PRI_NAME'))
+  const software = useSelector(selectCode(beCode, 'PRI_SOFTWARE'))
   const actions = getActions(sbe)
 
   const [geo, setGeo] = useState(null)
-  const [topHeight, setTopHeight] = useState('40vh')
-
-  const handleScroll = () => {
-    if (topHeight !== '5vh') setTopHeight('5vh')
-  }
 
   const panoRef = useRef(null)
   const mapRef = useRef(null)
@@ -98,13 +96,13 @@ const Application = ({ sbeCode, targetCode }) => {
   return (
     <Box
       w="70vw"
-      h="90vh"
+      h="100vh"
       style={{
         borderTopLeftRadius: '0.5rem',
         borderTopRightRadius: '0.5rem',
       }}
     >
-      <Flex onClick={() => setTopHeight('40vh')}>
+      <Flex>
         <div
           ref={panoRef}
           style={{
@@ -137,7 +135,6 @@ const Application = ({ sbeCode, targetCode }) => {
       </Box>
       <Avatar
         cursor="pointer"
-        onClick={() => setTopHeight(topHeight => (topHeight === '40vh' ? '0' : '40vh'))}
         mt="-4.75rem"
         left="calc(35vw - 4.75rem)"
         bg="white"
@@ -148,7 +145,7 @@ const Application = ({ sbeCode, targetCode }) => {
         zIndex="modal"
         position="absolute"
       />
-      <VStack pt="5rem" onScroll={handleScroll} overflow="scroll" h={`calc(90vh - ${topHeight})`}>
+      <VStack pt="5rem" overflow="scroll" h={`calc(100vh - ${topHeight})`}>
         <Link href={url?.value}>
           <Text fontSize="3xl" fontWeight="semibold" flexWrap="nowrap">
             {name?.value}
@@ -206,13 +203,17 @@ const Application = ({ sbeCode, targetCode }) => {
                 attribute={'PRI_WHICH_DAYS_STRIPPED'}
               />
             </HStack>
+            <HStack>
+              <Text>Software to be Used</Text>
+              <Software value={software?.value || ''} />
+            </HStack>
           </VStack>
         </HStack>
         <Divider w="90%" pt="5" />
         <VStack w="full" align="start" p="5" pl="10">
           <VStack align="start">
             <Text textStyle="body1">Roles and Responsibilities</Text>
-            <Box>
+            <Box p="5">
               <Attribute code={beCode} attribute={'PRI_ROLES_AND_RESPONSIBILITIES'} />
             </Box>
           </VStack>

@@ -19,6 +19,7 @@ import CompanyMobile from './mobile_view'
 let map = {}
 let pano = {}
 let geocoder = {}
+const topHeight = '40vh'
 
 const Company = ({ sbeCode, targetCode }) => {
   geocoder = new window.google.maps.Geocoder()
@@ -41,11 +42,6 @@ const Company = ({ sbeCode, targetCode }) => {
   const actions = getActions(sbe)
 
   const [geo, setGeo] = useState(null)
-  const [topHeight, setTopHeight] = useState('40vh')
-
-  const handleScroll = () => {
-    if (topHeight !== '5vh') setTopHeight('5vh')
-  }
 
   const panoRef = useRef(null)
   const mapRef = useRef(null)
@@ -109,13 +105,13 @@ const Company = ({ sbeCode, targetCode }) => {
   return (
     <Box
       w="70vw"
-      h="90vh"
+      h="100vh"
       style={{
         borderTopLeftRadius: '0.5rem',
         borderTopRightRadius: '0.5rem',
       }}
     >
-      <Flex onClick={() => setTopHeight('40vh')}>
+      <Flex>
         <div
           ref={panoRef}
           style={{
@@ -146,31 +142,8 @@ const Company = ({ sbeCode, targetCode }) => {
           icon={<FontAwesomeIcon icon={faTimesCircle} />}
         />
       </Box>
-      <Box
-        position="absolute"
-        right="5"
-        zIndex="modal"
-        height={topHeight === '40vh' ? '10rem' : '0'}
-        overflow="hidden"
-        transition="height 1s"
-      >
-        <VStack align="flex-end" mt="5">
-          {actions.map(action => (
-            <Action
-              isFullWidth
-              key={action}
-              parentCode={sbeCode}
-              targetCode={beCode}
-              code={action}
-              colorScheme="primary"
-            />
-          ))}
-          <Attribute code={beCode} attribute={'PRI_LINKEDIN_URL'} />
-        </VStack>
-      </Box>
       <Avatar
         cursor="pointer"
-        onClick={() => setTopHeight(topHeight => (topHeight === '40vh' ? '0' : '40vh'))}
         mt="-4.75rem"
         left="calc(35vw - 4.75rem)"
         bg="white"
@@ -181,13 +154,25 @@ const Company = ({ sbeCode, targetCode }) => {
         zIndex="modal"
         position="absolute"
       />
-      <VStack pt="5rem" onScroll={handleScroll} overflow="scroll" h={`calc(90vh - ${topHeight})`}>
+      <VStack pt="5rem" overflow="scroll" h={`calc(100vh - ${topHeight})`}>
         <Link href={url?.value}>
           <Text fontSize="3xl" fontWeight="semibold" flexWrap="nowrap">
             {name?.value}
           </Text>
         </Link>
         <Attribute code={beCode} attribute={'PRI_ASSOC_INDUSTRY'} />
+        <HStack>
+          {actions.map(action => (
+            <Action
+              key={action}
+              parentCode={sbeCode}
+              targetCode={beCode}
+              code={action}
+              colorScheme="primary"
+              size="md"
+            />
+          ))}
+        </HStack>
         <HStack w="65vw" align="start" pt="5" spacing="5">
           <VStack align="start" w="50%">
             <HStack spacing="10" align="start">
@@ -198,6 +183,7 @@ const Company = ({ sbeCode, targetCode }) => {
                 <Attribute code={beCode} attribute={'PRI_MOBILE'} />
                 <Attribute code={beCode} attribute={'PRI_LEGAL_NAME'} />
                 <Attribute code={beCode} attribute={'PRI_ABN'} />
+                <Attribute code={beCode} attribute={'PRI_LINKEDIN_URL'} />
               </VStack>
             </HStack>
             <HStack spacing="10" align="start">

@@ -1,14 +1,12 @@
-import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectCode, selectRows } from 'redux/db/selectors'
-import { Avatar, Box, Button, Flex, HStack, IconButton, Text, VStack } from '@chakra-ui/react'
+import { Avatar, Box, Flex, HStack, IconButton, Text, VStack } from '@chakra-ui/react'
 import useApi from 'api'
 import getActions from 'app/SBE/utils/get-actions'
 import Attribute from 'app/BE/attribute'
 import Action from 'app/BE/action'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faCaretUp,
   faCompactDisc,
   faEnvelopeOpenText,
   faObjectGroup,
@@ -22,8 +20,7 @@ import Player from 'app/DTT/video/Player'
 import { useIsMobile } from 'utils/hooks'
 import InternsMobileView from './mobile_view'
 
-const sm = '0vh'
-const lg = '35vh'
+const topHeight = '35vh'
 
 const Intern = ({ sbeCode, targetCode }) => {
   const isMobile = useIsMobile()
@@ -43,16 +40,6 @@ const Intern = ({ sbeCode, targetCode }) => {
   const src = getImageSrc(image?.value)
 
   const actions = getActions(sbe)
-
-  const [topHeight, setTopHeight] = useState(lg)
-
-  const handleScroll = e => {
-    if (topHeight !== sm) setTopHeight(sm)
-  }
-
-  useEffect(() => {
-    !videoSrc && !careerObj?.value ? setTopHeight(sm) : setTopHeight(lg)
-  }, [careerObj?.value, videoSrc])
 
   const videoStyle = {
     width: '50%',
@@ -83,26 +70,15 @@ const Intern = ({ sbeCode, targetCode }) => {
         borderTopRightRadius: '0.5rem',
       }}
     >
-      <Box hidden={topHeight === lg} position="absolute" left="2" top="2">
-        <Button
-          color="grey"
-          variant="unstyled"
-          onClick={() => setTopHeight(lg)}
-          leftIcon={<FontAwesomeIcon icon={faCaretUp} />}
-        >
-          Show Header
-        </Button>
-      </Box>
       <Box position="absolute" right="2" top="2">
         <IconButton
           onClick={onClose}
-          color={topHeight === sm ? 'darkgrey' : 'white'}
+          color={'white'}
           variant="unstyled"
           icon={<FontAwesomeIcon icon={faTimesCircle} />}
         />
       </Box>
       <Flex
-        onClick={() => setTopHeight(lg)}
         justifyContent="center"
         borderTopLeftRadius="0.5rem"
         borderTopRightRadius="0.5rem"
@@ -150,7 +126,6 @@ const Intern = ({ sbeCode, targetCode }) => {
       </Flex>
       <Avatar
         cursor="pointer"
-        onClick={() => setTopHeight(topHeight => (topHeight === lg ? '0vh' : lg))}
         mt="-4.75rem"
         left="calc(35vw - 4.75rem)"
         bg={src ? 'white' : 'lightgrey'}
@@ -161,7 +136,7 @@ const Intern = ({ sbeCode, targetCode }) => {
         zIndex="modal"
         position="absolute"
       />
-      <Box onScroll={handleScroll} overflow="scroll" h={`calc(90vh - ${topHeight})`}>
+      <Box overflow="scroll" h={`calc(100vh - ${topHeight})`}>
         <VStack pt="5rem" overflowX="hidden">
           <Text fontSize="3xl" fontWeight="semibold" flexWrap="nowrap">
             {internsName?.value}

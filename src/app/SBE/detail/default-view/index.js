@@ -28,7 +28,7 @@ const DefaultView = ({ sbeCode, targetCode }) => {
   const headerAttribute = 'PRI_NAME'
 
   return (
-    <Box minH="50vh">
+    <Box minH="100vh">
       <Header
         code={beCode}
         sbeCode={sbeCode}
