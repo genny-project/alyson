@@ -1,13 +1,11 @@
 import Ask from 'app/ASKS/ask'
 import { VStack, Center, Heading, useColorModeValue, Text, Divider } from '@chakra-ui/react'
-import { map } from 'ramda'
 
 const FormDesktopView = ({ title, childAsks, onFinish, questionCode, shadow, config = {} }) => {
   const bgColor = useColorModeValue('white', 'whiteAlpha.100')
 
   const { subHeader, divider = [] } = config
 
-  console.log(divider)
   return (
     <Center
       bgColor={bgColor}

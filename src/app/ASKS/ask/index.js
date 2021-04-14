@@ -161,6 +161,7 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
           data={data}
           onSendAnswer={onSendAnswer}
           description={description}
+          html={html}
         />
       )}
       {component === 'date_range' && (

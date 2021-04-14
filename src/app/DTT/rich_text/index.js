@@ -9,6 +9,8 @@ import {
   PopoverArrow,
   PopoverCloseButton,
   PopoverHeader,
+  Text,
+  HStack,
 } from '@chakra-ui/react'
 import { EditorState, convertFromHTML, ContentState } from 'draft-js'
 import { Editor } from 'react-draft-wysiwyg'
@@ -18,8 +20,10 @@ import { faEdit, faExpand } from '@fortawesome/free-solid-svg-icons'
 import '../../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import { useIsMobile } from 'utils/hooks'
 import DOMPurify from 'dompurify'
+import safelyParseJson from 'utils/helpers/safely-parse-json'
 
-const Write = ({ questionCode, data, onSendAnswer, description }) => {
+const Write = ({ questionCode, data, onSendAnswer, description, html }) => {
+  const { minCharacterCount = 0, maxCharacterCount } = safelyParseJson(html, {})
   const blocksFromHTML = convertFromHTML(data?.value || '')
   const state = ContentState.createFromBlockArray(
     blocksFromHTML.contentBlocks,
@@ -42,9 +46,20 @@ const Write = ({ questionCode, data, onSendAnswer, description }) => {
     }
   }, [data?.value, dataValue, edit, state])
 
+  const curLength = (stateToHTML(editor.getCurrentContent()) || '')
+    .replace(/(<([^>]+)>)/gi, '')
+    .replace(/&nbsp;/g, ' ').length
+
   const handleSave = () => {
-    onSendAnswer(stateToHTML(editor.getCurrentContent()))
-    setEdit(false)
+    if (minCharacterCount || maxCharacterCount) {
+      if (minCharacterCount < curLength && curLength < maxCharacterCount) {
+        onSendAnswer(stateToHTML(editor.getCurrentContent()))
+        setEdit(false)
+      }
+    } else {
+      onSendAnswer(stateToHTML(editor.getCurrentContent()))
+      setEdit(false)
+    }
   }
 
   return edit ? (
@@ -55,6 +70,24 @@ const Write = ({ questionCode, data, onSendAnswer, description }) => {
       borderRadius="0.375rem"
       p="1rem"
     >
+      {minCharacterCount ? (
+        <HStack>
+          <Text>{`Please use between`}</Text>
+          <Text color={curLength < minCharacterCount ? 'red' : 'green'}>{minCharacterCount}</Text>
+          <Text>{`and`}</Text>
+          <Text color={curLength > maxCharacterCount ? 'red' : 'green'}>{maxCharacterCount}</Text>
+        </HStack>
+      ) : null}
+      {minCharacterCount ? (
+        <Text>
+          {minCharacterCount > curLength
+            ? `Keep typing please`
+            : curLength > maxCharacterCount
+            ? `Too much text`
+            : `That's perfect, thanks!`}
+        </Text>
+      ) : null}
+
       <Editor
         toolbar={{
           options: ['fontSize', 'fontFamily', 'list', 'textAlign'],
