@@ -5,6 +5,11 @@ const styles = {
   special: {
     variant: 'solid',
     colorScheme: 'gradient',
+    transition: 'all 0.2s',
+    _hover: {
+      transform: 'translateY(-2px)',
+      boxShadow: 'lg',
+    },
   },
   primary: {
     variant: 'solid',

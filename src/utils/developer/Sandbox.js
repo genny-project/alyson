@@ -1,9 +1,11 @@
 import { Center } from '@chakra-ui/react'
 import Button from '../../app/layouts/components/button'
+import ThemeToggler from '../../app/layouts/navigation/ColorToggler'
 
 const Sandbox = () => {
   return (
-    <Center mt={150}>
+    <Center m={2}>
+      <ThemeToggler></ThemeToggler>
       <Button m={2} variant="special">
         Special
       </Button>
