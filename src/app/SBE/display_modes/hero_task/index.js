@@ -15,6 +15,13 @@ const HeroTask = ({ sbeCode, rows }) => {
   const actions = getActions(sbe)
   const validation = useSelector(selectCode(targetCode, 'PRI_VALIDATION'))
 
+  const value = validation?.value
+
+  const ready =
+    value === 'Ready' ||
+    (includes('_OHNS_', sbeCode) && value === 'OHS') ||
+    (includes('_SERVICE_AGREEMENT_DOC_', sbeCode) && value === 'HCS')
+
   return (
     <HStack w="full">
       <FontAwesomeIcon icon={faFile} />
@@ -22,9 +29,7 @@ const HeroTask = ({ sbeCode, rows }) => {
       <Spacer w="1rem" />
       {actions
         ?.filter(action =>
-          validation?.value === 'Ready'
-            ? includes('_DOWNLOAD_', action)
-            : !includes('_DOWNLOAD_', action),
+          ready ? includes('_DOWNLOAD_', action) : !includes('_DOWNLOAD_', action),
         )
         .map(action => (
           <Action key={action} parentCode={sbeCode} code={action} targetCode={targetCode} />
