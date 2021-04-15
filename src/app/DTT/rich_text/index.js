@@ -76,6 +76,7 @@ const Write = ({ questionCode, data, onSendAnswer, description, html }) => {
           <Text color={curLength < minCharacterCount ? 'red' : 'green'}>{minCharacterCount}</Text>
           <Text>{`and`}</Text>
           <Text color={curLength > maxCharacterCount ? 'red' : 'green'}>{maxCharacterCount}</Text>
+          <Text>{`characters`}</Text>
         </HStack>
       ) : null}
       {minCharacterCount ? (
