@@ -9,6 +9,7 @@ import HostCompanyRep from './hcr'
 import Recommendations from './intern/recommendations'
 import Agent from './agent'
 import Process from '../process'
+import EduProRep from './edu_pro_rep'
 
 const Dashboard = () => {
   const dashboardSbes = useSelector(selectDashboard)
@@ -35,6 +36,7 @@ const Dashboard = () => {
   if (userType === 'HOST_CPY_REP') return <HostCompanyRep userCode={userCode} />
   if (userType === 'INTERN') return <Intern userCode={userCode} />
   if (userType === 'AGENT' || userType === 'ADMIN') return <Agent userCode={userCode} />
+  if (userType === 'EDU_PRO_REP') return <EduProRep userCode={userCode} />
   return (
     <Center>
       <Stack direction="column" spacing="10" h="84vh">

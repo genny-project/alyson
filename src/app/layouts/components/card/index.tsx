@@ -6,6 +6,7 @@ const styles = {
   lg: {
     shadow: 'lg',
     borderRadius: 'lg',
+    padding: '5',
   },
 } as Styles // Barad to build
 
@@ -15,7 +16,7 @@ type CardProps = {
   children: ReactChildren
 }
 
-const Card = ({ variant, children, ...rest }: CardProps) => {
+const Card = ({ variant = 'lg', children, ...rest }: CardProps) => {
   const bg = useColorModeValue('white', '')
   const stylesConfig = styles[variant]
 
