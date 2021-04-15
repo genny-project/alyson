@@ -8,8 +8,6 @@ import {
   HStack,
   DrawerOverlay,
   DrawerContent,
-  useColorModeValue,
-  useTheme,
   useDisclosure,
   DrawerHeader,
   DrawerCloseButton,
@@ -26,10 +24,6 @@ import Buttons from 'app/ASKS/buttons'
 import { onSendMessage } from 'vertx'
 
 const DesktopNav = ({ logoSrc }) => {
-  const theme = useTheme()
-  const bg = useColorModeValue(theme.colors.background.light, theme.colors.primary[900])
-  const color = useColorModeValue(theme.colors.text.light, theme.colors.text.dark)
-
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = useRef()
 
@@ -37,7 +31,6 @@ const DesktopNav = ({ logoSrc }) => {
     <>
       <header
         style={{
-          color,
           position: 'fixed',
           top: 0,
           zIndex: 9999,
@@ -45,7 +38,6 @@ const DesktopNav = ({ logoSrc }) => {
           maxWidth: '100vw',
           left: 0,
           right: 0,
-          backgroundColor: bg,
           boxShadow: 'rgb(0 0 0 / 10%) 0px 2px 0px 0px',
         }}
       >
