@@ -20,9 +20,9 @@ const FormDesktopView = ({ title, childAsks, onFinish, questionCode, shadow, con
         {config ? <Text textStyle="head2">{subHeader}</Text> : null}
         {childAsks.map((childAsk, idx) => (
           <>
-            {divider.hasOwnProperty(idx) && (
+            {divider.hasOwnProperty(idx + 1) && (
               <VStack align="start" w="full">
-                <Text textStyle="body3">{divider[idx].label}</Text>
+                <Text textStyle="body3">{divider[idx + 1].label}</Text>
                 <Divider />
               </VStack>
             )}
