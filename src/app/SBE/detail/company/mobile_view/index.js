@@ -7,42 +7,9 @@ import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import Lane from 'app/SBE/lane'
 import { replace } from 'ramda'
 
-const CompanyMobile = ({
-  name,
-  status,
-  url,
-  panoRef,
-  mapRef,
-  topHeight,
-  onClose,
-  actions,
-  sbeCode,
-  beCode,
-  src,
-}) => {
+const CompanyMobile = ({ name, status, url, onClose, actions, sbeCode, beCode, src }) => {
   return (
     <Box w="100vw" h="100vh" overflowY="scroll">
-      {/* <div
-        ref={panoRef}
-        style={{
-          width: '100%',
-          borderTopLeftRadius: '0.5rem',
-          height: topHeight,
-          marginRight: '2px',
-          transition: 'height 1s',
-        }}
-      /> */}
-      {/* 
-      <div
-        ref={mapRef}
-        style={{
-          borderTopRightRadius: '0.5rem',
-          width: '100%',
-          height: topHeight,
-          marginLeft: '2px',
-          transition: 'height 1s',
-        }}
-      /> */}
       <Box position="absolute" right="2" top="2">
         <IconButton
           onClick={onClose}
