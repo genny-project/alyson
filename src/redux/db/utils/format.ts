@@ -35,6 +35,7 @@ export const formatBaseEntity = (
 
       attribute.value = attribute[valueKey]
     }
+    attribute.created = ''
 
     if ((state[code] as Array<string>).indexOf(attributeCode) === -1)
       (state[code] as Array<string>).push(attributeCode)

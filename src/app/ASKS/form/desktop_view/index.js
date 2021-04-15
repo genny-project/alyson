@@ -4,7 +4,7 @@ import { VStack, Center, Heading, useColorModeValue, Text, Divider } from '@chak
 const FormDesktopView = ({ title, childAsks, onFinish, questionCode, shadow, config = {} }) => {
   const bgColor = useColorModeValue('white', 'whiteAlpha.100')
 
-  const { subHeader, divider = [] } = config
+  const { subHeader, divider = {} } = config
 
   return (
     <Center
@@ -20,13 +20,19 @@ const FormDesktopView = ({ title, childAsks, onFinish, questionCode, shadow, con
         {config ? <Text textStyle="head2">{subHeader}</Text> : null}
         {childAsks.map((childAsk, idx) => (
           <>
+            {divider.hasOwnProperty(idx) && (
+              <VStack align="start" w="full">
+                <Text textStyle="body3">{divider[idx].label}</Text>
+                <Divider />
+              </VStack>
+            )}
+
             <Ask
               onFinish={onFinish}
               key={childAsk}
               parentCode={questionCode}
               questionCode={childAsk}
             />
-            {divider.includes(idx) && <Divider />}
           </>
         ))}
       </VStack>
