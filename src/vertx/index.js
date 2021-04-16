@@ -10,7 +10,7 @@ import makeAuthInitData from './utils/make-auth-init-data'
 import createSendMessage from './utils/create-send-message'
 import urlStateManager from 'utils/url-state-manager'
 
-import { tokenFromUrl, guestKeycloak } from 'config/get-api-config'
+import { tokenFromUrl } from 'config/get-api-config'
 import { getSessionIdFromToken } from 'keycloak/get-token-from-url'
 import sleep from 'utils/helpers/sleep'
 import selectToken from 'keycloak/utils/select-token'
@@ -61,22 +61,20 @@ const onSendSearch = ({ searchValue, searchType = '', sbeCode }) =>
 
 const VertxContainer = () => {
   const { keycloak } = useKeycloak()
-  const { login, logout } = keycloak
+  const { login } = keycloak
   const { sessionId: kSessionId, token: tokenFromKeycloak } = keycloak
-  const guestSessionId = guestKeycloak?.data?.session_state
   const urlSessionId = tokenFromUrl ? getSessionIdFromToken(tokenFromUrl) : null
 
-  const token = selectToken({ guestKeycloak, tokenFromKeycloak, tokenFromUrl })
-  const sessionId = kSessionId || urlSessionId || guestSessionId
+  const token = selectToken({ tokenFromKeycloak, tokenFromUrl })
+  const sessionId = kSessionId || urlSessionId
 
   const dispatch = useDispatch()
   const onNewCmd = compose(dispatch, newCmd)
   const onNewMsg = compose(dispatch, newMsg)
   const onSendMsg = compose(dispatch, sendMessage)
 
-  if (!(token && sessionId) && !guestKeycloak) login({ redirectUri: `${window.location.href}` })
-  if (guestKeycloak && tokenFromKeycloak) logout()
-  if (!eventBus.handlers[sessionId]) {
+  if (!(token && sessionId)) login({ redirectUri: `${window.location.href}` })
+  if (token && sessionId && !eventBus.handlers[sessionId]) {
     try {
       eventBus.registerHandler(sessionId, (_, { body }) => {
         if (body.msg_type === 'CMD_MSG') onNewCmd(body)
