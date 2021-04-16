@@ -5,19 +5,14 @@ import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { DateInDay, DateInMonth, DateInYear } from './granularity'
 import safelyParseDate from 'utils/helpers/safely-parse-date'
 
-const defaultDateRange = {
-  startDate: '',
-  endDate: '',
-}
-
 const Write = ({ questionCode, onSendAnswer, data, html }) => {
   const config = safelyParseJson(html, {})
   const { maxDate, granularity = 'date' } = config
-  const { startDate, endDate } = data?.value ? safelyParseJson(data.value, defaultDateRange) : {}
+  const { startDate, endDate } = data?.value ? safelyParseJson(data.value, {}) : {}
 
   const [dates, setDates] = useState({
-    startDate: safelyParseDate(startDate),
-    endDate: safelyParseDate(endDate),
+    startDate: startDate ? safelyParseDate(startDate) : '',
+    endDate: endDate ? safelyParseDate(endDate) : '',
   })
 
   const handleDateChange = (e, date) => {
