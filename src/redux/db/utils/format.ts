@@ -1,4 +1,4 @@
-import { forEach, compose, keys, includes, find } from 'ramda'
+import { forEach, compose, keys, includes, find, filter } from 'ramda'
 import { Item, MsgPayload } from 'redux/types'
 import initialiseKey from 'utils/helpers/initialise-key'
 import pushUniqueString from 'utils/helpers/push-unique-string'
@@ -26,6 +26,12 @@ export const formatBaseEntity = (
 
   if (aliasCode) state[aliasCode] = code
   if (!state[code]) state[code] = []
+
+  const allActionsCurrentlyPresent = filter(includes(`${code}@ACT_`), keys(state as object))
+
+  forEach(action => {
+    delete state[action as string]
+  }, allActionsCurrentlyPresent)
 
   forEach((attribute: Keyable) => {
     const attributeCode = attribute.attributeCode
