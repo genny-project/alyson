@@ -1,4 +1,3 @@
-import { useState, useRef, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectCode, selectRows } from 'redux/db/selectors'
 import { Avatar, Box, Flex, HStack, IconButton, Spacer, Text, VStack } from '@chakra-ui/react'
@@ -12,16 +11,11 @@ import { faTimesCircle, faUser } from '@fortawesome/free-solid-svg-icons'
 import { closeDrawer } from 'redux/app'
 import { useIsMobile } from 'utils/hooks'
 import AgentMobile from './mobile_view'
-
-let map = {}
-let pano = {}
-let geocoder = {}
+import DetailHeader from 'app/layouts/components/header'
 
 const topHeight = '40vh'
 
 const Agent = ({ sbeCode, targetCode }) => {
-  geocoder = new window.google.maps.Geocoder()
-
   const dispatch = useDispatch()
   const onClose = () => dispatch(closeDrawer())
   const sbe = useSelector(selectCode(sbeCode))
@@ -37,47 +31,7 @@ const Agent = ({ sbeCode, targetCode }) => {
   const name = useSelector(selectCode(beCode, 'PRI_NAME'))
   const actions = getActions(sbe)
 
-  const [geo, setGeo] = useState(null)
   const isMobile = useIsMobile()
-
-  const panoRef = useRef(null)
-  const mapRef = useRef(null)
-
-  useEffect(() => {
-    geocoder.geocode({ address }, res => {
-      setGeo(res[0]?.geometry.location)
-    })
-  }, [address])
-
-  useEffect(() => {
-    if (geo && panoRef?.current && mapRef?.current) {
-      map = new window.google.maps.Map(mapRef.current, {
-        center: geo,
-        zoom: 12,
-        disableDefaultUI: true,
-      })
-
-      pano = new window.google.maps.StreetViewPanorama(panoRef.current, {
-        position: geo,
-        pov: {
-          heading: 34,
-          pitch: 10,
-        },
-        linksControl: false,
-        panControl: false,
-        enableCloseButton: false,
-        zoomControl: false,
-        fullscreenControl: false,
-      })
-
-      new window.google.maps.Marker({
-        position: geo,
-        map,
-      })
-
-      map.setStreetView(pano)
-    }
-  }, [geo])
 
   if (!beCode) return null
   if (isMobile)
@@ -101,29 +55,7 @@ const Agent = ({ sbeCode, targetCode }) => {
         borderTopRightRadius: '0.5rem',
       }}
     >
-      <Flex>
-        <div
-          ref={panoRef}
-          style={{
-            width: '100%',
-            borderTopLeftRadius: '0.5rem',
-            height: topHeight,
-            marginRight: '2px',
-            transition: 'height 1s',
-          }}
-        />
-        <Spacer />
-        <div
-          ref={mapRef}
-          style={{
-            borderTopRightRadius: '0.5rem',
-            width: '100%',
-            height: topHeight,
-            marginLeft: '2px',
-            transition: 'height 1s',
-          }}
-        />
-      </Flex>
+      <DetailHeader address={address} />
       <Box position="absolute" right="2" top="2">
         <IconButton
           onClick={onClose}

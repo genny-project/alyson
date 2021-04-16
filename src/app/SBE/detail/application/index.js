@@ -1,18 +1,6 @@
-import { useState, useRef, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectCode, selectRows } from 'redux/db/selectors'
-import {
-  Avatar,
-  Box,
-  Divider,
-  Flex,
-  HStack,
-  IconButton,
-  Link,
-  Spacer,
-  Text,
-  VStack,
-} from '@chakra-ui/react'
+import { Avatar, Box, Divider, HStack, IconButton, Link, Text, VStack } from '@chakra-ui/react'
 import useApi from 'api'
 
 import getActions from 'app/SBE/utils/get-actions'
@@ -22,10 +10,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import { closeDrawer } from 'redux/app'
 import Software from '../internship/templates/Software'
+import DetailHeader from 'app/layouts/components/header'
 
-let map = {}
-let pano = {}
-let geocoder = {}
 const topHeight = '40vh'
 
 const Application = ({ sbeCode, targetCode }) => {
@@ -33,8 +19,6 @@ const Application = ({ sbeCode, targetCode }) => {
   const rows = useSelector(selectRows(sbeCode))
   const dispatch = useDispatch()
   const onClose = () => dispatch(closeDrawer())
-
-  geocoder = new window.google.maps.Geocoder()
 
   const beCode = targetCode ? targetCode : rows?.length ? rows[0] : null
 
@@ -47,47 +31,6 @@ const Application = ({ sbeCode, targetCode }) => {
   const name = useSelector(selectCode(beCode, 'PRI_NAME'))
   const software = useSelector(selectCode(beCode, 'PRI_SOFTWARE'))
   const actions = getActions(sbe)
-
-  const [geo, setGeo] = useState(null)
-
-  const panoRef = useRef(null)
-  const mapRef = useRef(null)
-
-  useEffect(() => {
-    geocoder.geocode({ address }, res => {
-      setGeo(res[0]?.geometry.location)
-    })
-  }, [address])
-
-  useEffect(() => {
-    if (geo && panoRef?.current && mapRef?.current) {
-      map = new window.google.maps.Map(mapRef.current, {
-        center: geo,
-        zoom: 12,
-        disableDefaultUI: true,
-      })
-
-      pano = new window.google.maps.StreetViewPanorama(panoRef.current, {
-        position: geo,
-        pov: {
-          heading: 34,
-          pitch: 10,
-        },
-        linksControl: false,
-        panControl: false,
-        enableCloseButton: false,
-        zoomControl: false,
-        fullscreenControl: false,
-      })
-
-      new window.google.maps.Marker({
-        position: geo,
-        map,
-      })
-
-      map.setStreetView(pano)
-    }
-  }, [geo])
 
   if (!sbe) return null
 
@@ -102,29 +45,7 @@ const Application = ({ sbeCode, targetCode }) => {
         borderTopRightRadius: '0.5rem',
       }}
     >
-      <Flex>
-        <div
-          ref={panoRef}
-          style={{
-            width: '100%',
-            borderTopLeftRadius: '0.5rem',
-            height: topHeight,
-            marginRight: '2px',
-            transition: 'height 1s',
-          }}
-        />
-        <Spacer />
-        <div
-          ref={mapRef}
-          style={{
-            borderTopRightRadius: '0.5rem',
-            width: '100%',
-            height: topHeight,
-            marginLeft: '2px',
-            transition: 'height 1s',
-          }}
-        />
-      </Flex>
+      <DetailHeader address={address} />
       <Box position="absolute" right="2" top="2">
         <IconButton
           onClick={onClose}

@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { selectCode, selectRows } from 'redux/db/selectors'
-import { Avatar, Box, Flex, HStack, IconButton, Link, Spacer, Text, VStack } from '@chakra-ui/react'
+import { Avatar, Box, HStack, IconButton, Link, Text, VStack } from '@chakra-ui/react'
 import useApi from 'api'
 
 import getActions from 'app/SBE/utils/get-actions'
