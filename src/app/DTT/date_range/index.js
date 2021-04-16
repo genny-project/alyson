@@ -3,27 +3,26 @@ import { useState } from 'react'
 import { Read } from '../text'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { DateInDay, DateInMonth, DateInYear } from './granularity'
+import safelyParseDate from 'utils/helpers/safely-parse-date'
 
 const defaultDateRange = {
-  startDate: new Date(),
-  endDate: new Date(),
+  startDate: safelyParseDate(),
+  endDate: safelyParseDate(),
 }
 
 const Write = ({ questionCode, onSendAnswer, data, html }) => {
   const config = safelyParseJson(html, {})
   const { maxDate, granularity = 'date' } = config
-  const { startDate: initialStartDate, endDate: initialEndDate } = data?.value
-    ? safelyParseJson(data.value, defaultDateRange)
-    : {}
+  const { startDate, endDate } = data?.value ? safelyParseJson(data.value, defaultDateRange) : {}
 
   const [dates, setDates] = useState({
-    startDate: initialStartDate ? new Date(initialStartDate) : null,
-    endDate: initialEndDate ? new Date(initialEndDate) : null,
+    startDate,
+    endDate,
   })
 
   const handleDateChange = (e, date) => {
-    setDates(dates => ({ ...dates, [date]: new Date(e.target.value).toISOString() }))
-    onSendAnswer({ ...dates, [date]: new Date(e.target.value).toISOString() })
+    setDates(dates => ({ ...dates, [date]: safelyParseDate(e.target.value).toISOString() }))
+    onSendAnswer({ ...dates, [date]: safelyParseDate(e.target.value).toISOString() })
   }
 
   if (granularity === 'month') {
