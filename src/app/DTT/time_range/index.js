@@ -38,7 +38,7 @@ const Write = ({ questionCode, onSendAnswer, data }) => {
         {options
           .filter(v => !selectedRange[1] || v < selectedRange[1])
           .map(time => (
-            <option test-id={time} value={time}>{`${getLabel(time)}`}</option>
+            <option key={time} test-id={time} value={time}>{`${getLabel(time)}`}</option>
           ))}
       </Select>
       <Select
@@ -50,7 +50,7 @@ const Write = ({ questionCode, onSendAnswer, data }) => {
         {options
           .filter(v => !selectedRange[0] || v > selectedRange[0])
           .map(time => (
-            <option test-id={time} value={time}>{`${getLabel(time)}`}</option>
+            <option key={time} test-id={time} value={time}>{`${getLabel(time)}`}</option>
           ))}
       </Select>
     </HStack>
