@@ -14,38 +14,41 @@ import NotesDrawer from './notes_drawer'
 import Navigation from '../navigation'
 import DeveloperConsole, { isDev } from 'utils/developer'
 import LogrocketIdentifier from '../components/logrocket_identifier'
+import ErrorBoundary from 'utils/developer/ErrorBoundary'
 
 const Display = () => {
   const display = useSelector(selectDisplay)
   const backgroundColor = useColorModeValue('gray.50', '')
 
   return (
-    <Box
-      backgroundColor={backgroundColor}
-      id="main-display"
-      position="fixed"
-      left="0"
-      right="0"
-      top="0"
-      bottom="0"
-      overflow="scroll"
-    >
-      <Navigation />
-      <Box paddingTop="6rem">
-        {display === 'DASHBOARD' && <Dashboard />}
-        {display === 'TABLE' && <Table />}
-        {display === 'PROCESS' && <Process />}
-        {includes('FORM', display || '') && <Form />}
-        {display === 'DETAIL' && <Detail />}
-        {display === 'MAP' && <Table mapSearch />}
-        <NotesDrawer />
-        <DisplayDrawer />
-        <Dialog />
-        <Toast />
+    <ErrorBoundary>
+      <Box
+        backgroundColor={backgroundColor}
+        id="main-display"
+        position="fixed"
+        left="0"
+        right="0"
+        top="0"
+        bottom="0"
+        overflow="scroll"
+      >
+        <Navigation />
+        <Box paddingTop="6rem">
+          {display === 'DASHBOARD' && <Dashboard />}
+          {display === 'TABLE' && <Table />}
+          {display === 'PROCESS' && <Process />}
+          {includes('FORM', display || '') && <Form />}
+          {display === 'DETAIL' && <Detail />}
+          {display === 'MAP' && <Table mapSearch />}
+          <NotesDrawer />
+          <DisplayDrawer />
+          <Dialog />
+          <Toast />
+        </Box>
+        {isDev ? <DeveloperConsole /> : null}
+        <LogrocketIdentifier />
       </Box>
-      {isDev ? <DeveloperConsole /> : null}
-      <LogrocketIdentifier />
-    </Box>
+    </ErrorBoundary>
   )
 }
 
