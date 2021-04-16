@@ -2,12 +2,16 @@ import { HStack, Text, VStack } from '@chakra-ui/layout'
 import Card from 'app/layouts/components/card'
 import { zip, compose, map, prop, reduce, zipObj } from 'ramda'
 import { useSelector } from 'react-redux'
-import { selectCode } from 'redux/db/selectors'
+import { selectCodes } from 'redux/db/selectors'
 
 const Counts = ({ sbeCodes }) => {
-  const titles = compose(map(prop('value')), useSelector)(selectCode(sbeCodes, 'SCH_TITLE'))
-  const counts = compose(map(prop('value')), useSelector)(selectCode(sbeCodes, 'PRI_TOTAL_RESULTS'))
+  const titles = compose(map(prop('value')), useSelector)(selectCodes(sbeCodes, 'SCH_TITLE'))
+  const counts = compose(
+    map(prop('value')),
+    useSelector,
+  )(selectCodes(sbeCodes, 'PRI_TOTAL_RESULTS'))
 
+  if (!titles) return null
   const zipper = zip(titles, counts)
   const total = reduce((prev, cur) => prev + cur[1], 0, zipper)
   const zipped = zipObj(titles, counts)
