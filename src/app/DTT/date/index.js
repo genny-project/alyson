@@ -1,8 +1,6 @@
 import { includes } from 'ramda'
-import { Text, Input, Badge, HStack } from '@chakra-ui/react'
+import { Text, Input } from '@chakra-ui/react'
 import timeBasedOnTimeZone from 'utils/helpers/timezone_magic/time-based-on-timezone.ts'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import DateChip from './DateChip'
 
 const Read = ({ data, typeName, config }) => {
