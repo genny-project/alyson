@@ -10,7 +10,6 @@ const DateInMonth = ({
   maxDate = currentMonthInIsoFormat,
   handleDateChange,
 }) => {
-  console.log(dates)
   return (
     <HStack spacing={5}>
       <VStack align="left" spacing={2}>
