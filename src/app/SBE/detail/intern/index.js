@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { selectCode, selectRows } from 'redux/db/selectors'
-import { Avatar, Box, Flex, HStack, IconButton, Text, VStack } from '@chakra-ui/react'
+import { Box, Flex, HStack, IconButton, Text, VStack } from '@chakra-ui/react'
 import useApi from 'api'
 import getActions from 'app/SBE/utils/get-actions'
 import Attribute from 'app/BE/attribute'
@@ -19,8 +19,8 @@ import { map } from 'ramda'
 import Player from 'app/DTT/video/Player'
 import { useIsMobile } from 'utils/hooks'
 import InternsMobileView from './mobile_view'
-
-const topHeight = '35vh'
+import { topHeight } from 'app/SBE/detail/helpers/set-top-height'
+import ProfilePicture from 'app/layouts/components/profile_picture'
 
 const Intern = ({ sbeCode, targetCode }) => {
   const isMobile = useIsMobile()
@@ -125,17 +125,8 @@ const Intern = ({ sbeCode, targetCode }) => {
           </Flex>
         )}
       </Flex>
-      <Avatar
-        mt="-4.75rem"
-        left="calc(35vw - 4.75rem)"
-        bg={src ? 'white' : 'lightgrey'}
-        p="4px"
-        src={src}
-        w="9.5rem"
-        h="9.5rem"
-        zIndex="modal"
-        position="absolute"
-      />
+      <ProfilePicture src={src} />
+
       <Box overflow="scroll" h={`calc(100vh - ${topHeight})`}>
         <VStack pt="5rem" overflowX="hidden">
           <Text fontSize="3xl" fontWeight="semibold" flexWrap="nowrap">

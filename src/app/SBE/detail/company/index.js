@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { selectCode, selectRows } from 'redux/db/selectors'
-import { Avatar, Box, HStack, IconButton, Link, Text, VStack } from '@chakra-ui/react'
+import { Box, HStack, Link, Text, VStack } from '@chakra-ui/react'
 import useApi from 'api'
 
 import getActions from 'app/SBE/utils/get-actions'
@@ -8,15 +8,15 @@ import Attribute from 'app/BE/attribute'
 import Action from 'app/BE/action'
 import Status from 'app/DTT/status'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEnvelopeOpenText, faTimesCircle, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faEnvelopeOpenText, faUser } from '@fortawesome/free-solid-svg-icons'
 import { closeDrawer } from 'redux/app'
 import Lane from 'app/SBE/lane'
 import { replace } from 'ramda'
 import { useIsMobile } from 'utils/hooks'
 import CompanyMobile from './mobile_view'
+import { topHeight } from 'app/SBE/detail/helpers/set-top-height'
 import DetailHeader from 'app/layouts/components/header'
-
-const topHeight = '40vh'
+import ProfilePicture from 'app/layouts/components/profile_picture'
 
 const Company = ({ sbeCode, targetCode }) => {
   const dispatch = useDispatch()
@@ -64,25 +64,8 @@ const Company = ({ sbeCode, targetCode }) => {
       }}
     >
       <DetailHeader address={address} />
-      <Box position="absolute" right="2" top="2">
-        <IconButton
-          onClick={onClose}
-          color="white"
-          variant="unstyled"
-          icon={<FontAwesomeIcon icon={faTimesCircle} />}
-        />
-      </Box>
-      <Avatar
-        mt="-4.75rem"
-        left="calc(35vw - 4.75rem)"
-        bg="white"
-        p="4px"
-        src={src}
-        w="9.5rem"
-        h="9.5rem"
-        zIndex="modal"
-        position="absolute"
-      />
+      <ProfilePicture src={src} />
+
       <VStack pt="5rem" overflow="scroll" h={`calc(100vh - ${topHeight})`}>
         <Link href={url?.value}>
           <Text fontSize="3xl" fontWeight="semibold" flexWrap="nowrap">

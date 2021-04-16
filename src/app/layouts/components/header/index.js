@@ -1,5 +1,10 @@
 import { Flex, Spacer } from '@chakra-ui/react'
 import { useState, useRef, useEffect } from 'react'
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
+import { Box, IconButton } from '@chakra-ui/react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { closeDrawer } from 'redux/app'
+import { useDispatch } from 'react-redux'
 
 const topHeight = '40vh'
 
@@ -14,6 +19,9 @@ const DetailHeader = ({ address }) => {
 
   const panoRef = useRef(null)
   const mapRef = useRef(null)
+
+  const dispatch = useDispatch()
+  const onClose = () => dispatch(closeDrawer())
 
   useEffect(() => {
     geocoder.geocode({ address }, res => {
@@ -51,27 +59,37 @@ const DetailHeader = ({ address }) => {
     }
   }, [geo])
   return (
-    <Flex>
-      <div
-        ref={panoRef}
-        style={{
-          width: '100%',
-          borderTopLeftRadius: '0.5rem',
-          height: topHeight,
-          marginRight: '2px',
-        }}
-      />
-      <Spacer />
-      <div
-        ref={mapRef}
-        style={{
-          borderTopRightRadius: '0.5rem',
-          width: '100%',
-          height: topHeight,
-          marginLeft: '2px',
-        }}
-      />
-    </Flex>
+    <Box>
+      <Flex>
+        <div
+          ref={panoRef}
+          style={{
+            width: '100%',
+            borderTopLeftRadius: '0.5rem',
+            height: topHeight,
+            marginRight: '2px',
+          }}
+        />
+        <Spacer />
+        <div
+          ref={mapRef}
+          style={{
+            borderTopRightRadius: '0.5rem',
+            width: '100%',
+            height: topHeight,
+            marginLeft: '2px',
+          }}
+        />
+      </Flex>
+      <Box position="absolute" right="2" top="2">
+        <IconButton
+          onClick={onClose}
+          color="white"
+          variant="unstyled"
+          icon={<FontAwesomeIcon icon={faTimesCircle} />}
+        />
+      </Box>
+    </Box>
   )
 }
 

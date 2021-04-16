@@ -14,6 +14,7 @@ import { includes, map, replace } from 'ramda'
 import LinkedInternships from 'app/SBE/detail/rep/linked_internships'
 import { useIsMobile } from 'utils/hooks'
 import RepMobile from './mobile_view'
+import ProfilePicture from 'app/layouts/components/profile_picture'
 
 const Rep = ({ sbeCode, targetCode }) => {
   const dispatch = useDispatch()
@@ -71,18 +72,8 @@ const Rep = ({ sbeCode, targetCode }) => {
           icon={<FontAwesomeIcon icon={faTimesCircle} />}
         />
       </Box>
-      <Avatar
-        onClick={() => setTopHeight('30vh')}
-        mt="-4.75rem"
-        left="calc(35vw - 4.75rem)"
-        bg="white"
-        p="4px"
-        src={src}
-        w="9.5rem"
-        h="9.5rem"
-        zIndex="modal"
-        position="absolute"
-      />
+      <ProfilePicture src={src} />
+
       <VStack pt="5rem" onScroll={handleScroll} overflow="scroll" h={`calc(90vh - ${topHeight})`}>
         <Text fontSize="3xl" fontWeight="semibold" flexWrap="nowrap">
           {name?.value}
