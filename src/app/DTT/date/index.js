@@ -3,6 +3,7 @@ import { Text, Input, Badge, HStack } from '@chakra-ui/react'
 import timeBasedOnTimeZone from 'utils/helpers/timezone_magic/time-based-on-timezone.ts'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import DateChip from './DateChip'
 
 const Read = ({ data, typeName, config }) => {
   const includeTime = includes('LocalDateTime', typeName)
@@ -25,12 +26,7 @@ const Write = ({ questionCode, data, onSendAnswer, typeName }) => {
   const handleChange = e => e.target.value && onSendAnswer(new Date(e.target.value).toISOString())
 
   return data?.value ? (
-    <Badge colorScheme="purple" cursor="pointer" onClick={() => onSendAnswer(null)}>
-      <HStack padding="1">
-        <FontAwesomeIcon icon={faTimes} />
-        <Text>{timeBasedOnTimeZone(new Date(data.value))}</Text>
-      </HStack>
-    </Badge>
+    <DateChip onClick={() => onSendAnswer(null)} date={new Date(data.value)} />
   ) : (
     <Input
       test-id={questionCode}

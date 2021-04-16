@@ -6,8 +6,8 @@ import { DateInDay, DateInMonth, DateInYear } from './granularity'
 import safelyParseDate from 'utils/helpers/safely-parse-date'
 
 const defaultDateRange = {
-  startDate: safelyParseDate(),
-  endDate: safelyParseDate(),
+  startDate: '',
+  endDate: '',
 }
 
 const Write = ({ questionCode, onSendAnswer, data, html }) => {
@@ -16,13 +16,18 @@ const Write = ({ questionCode, onSendAnswer, data, html }) => {
   const { startDate, endDate } = data?.value ? safelyParseJson(data.value, defaultDateRange) : {}
 
   const [dates, setDates] = useState({
-    startDate,
-    endDate,
+    startDate: safelyParseDate(startDate),
+    endDate: safelyParseDate(endDate),
   })
 
   const handleDateChange = (e, date) => {
-    setDates(dates => ({ ...dates, [date]: safelyParseDate(e.target.value).toISOString() }))
-    onSendAnswer({ ...dates, [date]: safelyParseDate(e.target.value).toISOString() })
+    if (!e) {
+      setDates(dates => ({ ...dates, [date]: null }))
+      onSendAnswer({ ...dates, [date]: null })
+    } else {
+      setDates(dates => ({ ...dates, [date]: safelyParseDate(e.target.value) }))
+      onSendAnswer({ ...dates, [date]: safelyParseDate(e.target.value).toISOString() })
+    }
   }
 
   if (granularity === 'month') {
