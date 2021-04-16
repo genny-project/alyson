@@ -5,7 +5,6 @@ import useApi from 'api'
 
 import getActions from 'app/SBE/utils/get-actions'
 import Attribute from 'app/BE/attribute'
-import Action from 'app/BE/action'
 import Status from 'app/DTT/status'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelopeOpenText, faUser } from '@fortawesome/free-solid-svg-icons'
@@ -17,6 +16,7 @@ import CompanyMobile from './mobile_view'
 import { topHeight } from 'app/SBE/detail/helpers/set-top-height'
 import DetailHeader from 'app/layouts/components/header'
 import ProfilePicture from 'app/layouts/components/profile_picture'
+import Actions from 'app/layouts/components/actions'
 
 const Company = ({ sbeCode, targetCode }) => {
   const dispatch = useDispatch()
@@ -73,18 +73,8 @@ const Company = ({ sbeCode, targetCode }) => {
           </Text>
         </Link>
         <Attribute code={beCode} attribute={'PRI_ASSOC_INDUSTRY'} />
-        <HStack>
-          {actions.map(action => (
-            <Action
-              key={action}
-              parentCode={sbeCode}
-              targetCode={beCode}
-              code={action}
-              colorScheme="primary"
-              size="md"
-            />
-          ))}
-        </HStack>
+        <Actions actions={actions} sbeCode={sbeCode} beCode={beCode} />
+
         <HStack w="65vw" align="start" pt="5" spacing="5">
           <VStack align="start" w="50%">
             <HStack spacing="10" align="start">

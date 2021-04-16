@@ -5,7 +5,6 @@ import useApi from 'api'
 
 import getActions from 'app/SBE/utils/get-actions'
 import Attribute from 'app/BE/attribute'
-import Action from 'app/BE/action'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { closeDrawer } from 'redux/app'
@@ -14,6 +13,7 @@ import AgentMobile from './mobile_view'
 import { topHeight } from 'app/SBE/detail/helpers/set-top-height'
 import DetailHeader from 'app/layouts/components/header'
 import ProfilePicture from 'app/layouts/components/profile_picture'
+import Actions from 'app/layouts/components/actions'
 
 const Agent = ({ sbeCode, targetCode }) => {
   const dispatch = useDispatch()
@@ -65,20 +65,7 @@ const Agent = ({ sbeCode, targetCode }) => {
         transition="height 1s"
       >
         <VStack align="flex-end" mt="5">
-          {actions && (
-            <HStack>
-              {actions.map(action => (
-                <Action
-                  parentCode={sbeCode}
-                  code={action}
-                  targetCode={beCode}
-                  key={action}
-                  size="md"
-                  colorScheme="blue"
-                />
-              ))}
-            </HStack>
-          )}
+          <Actions actions={actions} sbeCode={sbeCode} beCode={beCode} />
           <Attribute code={beCode} attribute={'PRI_LINKEDIN_URL'} />
         </VStack>
       </Box>

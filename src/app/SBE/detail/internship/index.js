@@ -5,7 +5,6 @@ import useApi from 'api'
 
 import getActions from 'app/SBE/utils/get-actions'
 import Attribute from 'app/BE/attribute'
-import Action from 'app/BE/action'
 import { faBriefcase } from '@fortawesome/free-solid-svg-icons'
 import { replace } from 'ramda'
 import LinkedSupervisor from './templates/LinkedSupervisor'
@@ -15,6 +14,7 @@ import Software from './templates/Software'
 import { topHeight } from 'app/SBE/detail/helpers/set-top-height'
 import DetailHeader from 'app/layouts/components/header'
 import ProfilePicture from 'app/layouts/components/profile_picture'
+import Actions from 'app/layouts/components/actions'
 
 const internshipDetail = {
   sectionIcon: faBriefcase,
@@ -70,19 +70,8 @@ const Internship = ({ sbeCode, targetCode }) => {
         </Link>
         <Attribute code={beCode} attribute={'PRI_ASSOC_INDUSTRY'} />
         <Attribute code={beCode} attribute={'PRI_STATUS'} />
-        <HStack>
-          {actions.map(action => (
-            <Action
-              isFullWidth
-              key={action}
-              parentCode={sbeCode}
-              targetCode={beCode}
-              code={action}
-              colorScheme="primary"
-              size="md"
-            />
-          ))}
-        </HStack>
+        <Actions actions={actions} sbeCode={sbeCode} beCode={beCode} />
+
         <HStack w="65vw" align="start" pt="5" spacing="5">
           <VStack align="start">
             <LinkedSupervisor sbeCode={linkedSupervisor} />

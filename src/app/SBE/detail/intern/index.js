@@ -4,7 +4,6 @@ import { Box, Flex, HStack, IconButton, Text, VStack } from '@chakra-ui/react'
 import useApi from 'api'
 import getActions from 'app/SBE/utils/get-actions'
 import Attribute from 'app/BE/attribute'
-import Action from 'app/BE/action'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faCompactDisc,
@@ -15,12 +14,12 @@ import {
   faUserClock,
 } from '@fortawesome/free-solid-svg-icons'
 import { closeDrawer } from 'redux/app'
-import { map } from 'ramda'
 import Player from 'app/DTT/video/Player'
 import { useIsMobile } from 'utils/hooks'
 import InternsMobileView from './mobile_view'
 import { topHeight } from 'app/SBE/detail/helpers/set-top-height'
 import ProfilePicture from 'app/layouts/components/profile_picture'
+import Actions from 'app/layouts/components/actions'
 
 const Intern = ({ sbeCode, targetCode }) => {
   const isMobile = useIsMobile()
@@ -136,20 +135,7 @@ const Intern = ({ sbeCode, targetCode }) => {
             <Attribute code={beCode} attribute={'PRI_PREFERRED_NAME'} />
           </Box>
           <Flex justifyContent="center" mb="1rem">
-            {actions && (
-              <HStack>
-                {map(action => (
-                  <Action
-                    parentCode={sbeCode}
-                    code={action}
-                    targetCode={beCode}
-                    key={action}
-                    size="md"
-                    colorScheme="blue"
-                  />
-                ))(actions)}
-              </HStack>
-            )}
+            <Actions actions={actions} sbeCode={sbeCode} beCode={beCode} />
           </Flex>
           <HStack w="65vw" align="start" pt="5" spacing="5">
             <VStack align="start" w="50%">

@@ -5,11 +5,11 @@ import useApi from 'api'
 
 import getActions from 'app/SBE/utils/get-actions'
 import Attribute from 'app/BE/attribute'
-import Action from 'app/BE/action'
 import Software from '../internship/templates/Software'
 import { topHeight } from 'app/SBE/detail/helpers/set-top-height'
 import DetailHeader from 'app/layouts/components/header'
 import ProfilePicture from 'app/layouts/components/profile_picture'
+import Actions from 'app/layouts/components/actions'
 
 const Application = ({ sbeCode, targetCode }) => {
   const sbe = useSelector(selectCode(sbeCode))
@@ -50,19 +50,8 @@ const Application = ({ sbeCode, targetCode }) => {
         </Link>
         <Attribute code={beCode} attribute={'PRI_ASSOC_INDUSTRY'} />
         <Attribute code={beCode} attribute={'PRI_STATUS'} />
-        <HStack>
-          {actions.map(action => (
-            <Action
-              isFullWidth
-              key={action}
-              parentCode={sbeCode}
-              targetCode={beCode}
-              code={action}
-              colorScheme="primary"
-              size="md"
-            />
-          ))}
-        </HStack>
+        <Actions actions={actions} sbeCode={sbeCode} beCode={beCode} />
+
         <HStack align="start" pt="1rem">
           <VStack align="start">
             <Text textStyle="body1">Internship Supervisor</Text>
