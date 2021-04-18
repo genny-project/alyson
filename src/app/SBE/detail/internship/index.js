@@ -81,8 +81,7 @@ const Internship = ({ sbeCode, targetCode }) => {
               code={beCode}
               details={internshipDetail}
             />
-            <Text textStyle="body1">Software to be Used</Text>
-            <Software value={software?.value || ''} />
+            <Software value={software?.value || ''} title={`Software to be Used`} />
           </VStack>
           <VStack>
             <LinkedHostCpy sbeCode={linkedHostCpy} />
