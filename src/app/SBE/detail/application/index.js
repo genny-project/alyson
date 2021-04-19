@@ -1,40 +1,19 @@
-import { useState, useRef, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { selectCode, selectRows } from 'redux/db/selectors'
-import {
-  Avatar,
-  Box,
-  Divider,
-  Flex,
-  HStack,
-  IconButton,
-  Link,
-  Spacer,
-  Text,
-  VStack,
-} from '@chakra-ui/react'
+import { Box, Divider, HStack, Link, Text, VStack } from '@chakra-ui/react'
 import useApi from 'api'
 
 import getActions from 'app/SBE/utils/get-actions'
 import Attribute from 'app/BE/attribute'
-import Action from 'app/BE/action'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
-import { closeDrawer } from 'redux/app'
 import Software from '../internship/templates/Software'
-
-let map = {}
-let pano = {}
-let geocoder = {}
-const topHeight = '40vh'
+import { topHeight } from 'app/SBE/detail/helpers/set-top-height'
+import DetailHeader from 'app/layouts/components/header'
+import ProfilePicture from 'app/layouts/components/profile_picture'
+import Actions from 'app/layouts/components/actions'
 
 const Application = ({ sbeCode, targetCode }) => {
   const sbe = useSelector(selectCode(sbeCode))
   const rows = useSelector(selectRows(sbeCode))
-  const dispatch = useDispatch()
-  const onClose = () => dispatch(closeDrawer())
-
-  geocoder = new window.google.maps.Geocoder()
 
   const beCode = targetCode ? targetCode : rows?.length ? rows[0] : null
 
@@ -47,47 +26,6 @@ const Application = ({ sbeCode, targetCode }) => {
   const name = useSelector(selectCode(beCode, 'PRI_NAME'))
   const software = useSelector(selectCode(beCode, 'PRI_SOFTWARE'))
   const actions = getActions(sbe)
-
-  const [geo, setGeo] = useState(null)
-
-  const panoRef = useRef(null)
-  const mapRef = useRef(null)
-
-  useEffect(() => {
-    geocoder.geocode({ address }, res => {
-      setGeo(res[0]?.geometry.location)
-    })
-  }, [address])
-
-  useEffect(() => {
-    if (geo && panoRef?.current && mapRef?.current) {
-      map = new window.google.maps.Map(mapRef.current, {
-        center: geo,
-        zoom: 12,
-        disableDefaultUI: true,
-      })
-
-      pano = new window.google.maps.StreetViewPanorama(panoRef.current, {
-        position: geo,
-        pov: {
-          heading: 34,
-          pitch: 10,
-        },
-        linksControl: false,
-        panControl: false,
-        enableCloseButton: false,
-        zoomControl: false,
-        fullscreenControl: false,
-      })
-
-      new window.google.maps.Marker({
-        position: geo,
-        map,
-      })
-
-      map.setStreetView(pano)
-    }
-  }, [geo])
 
   if (!sbe) return null
 
@@ -102,48 +40,8 @@ const Application = ({ sbeCode, targetCode }) => {
         borderTopRightRadius: '0.5rem',
       }}
     >
-      <Flex>
-        <div
-          ref={panoRef}
-          style={{
-            width: '100%',
-            borderTopLeftRadius: '0.5rem',
-            height: topHeight,
-            marginRight: '2px',
-            transition: 'height 1s',
-          }}
-        />
-        <Spacer />
-        <div
-          ref={mapRef}
-          style={{
-            borderTopRightRadius: '0.5rem',
-            width: '100%',
-            height: topHeight,
-            marginLeft: '2px',
-            transition: 'height 1s',
-          }}
-        />
-      </Flex>
-      <Box position="absolute" right="2" top="2">
-        <IconButton
-          onClick={onClose}
-          color="white"
-          variant="unstyled"
-          icon={<FontAwesomeIcon icon={faTimesCircle} />}
-        />
-      </Box>
-      <Avatar
-        mt="-4.75rem"
-        left="calc(35vw - 4.75rem)"
-        bg="white"
-        p="4px"
-        src={src}
-        w="9.5rem"
-        h="9.5rem"
-        zIndex="modal"
-        position="absolute"
-      />
+      <DetailHeader address={address} />
+      <ProfilePicture src={src} />
       <VStack pt="5rem" overflow="scroll" h={`calc(100vh - ${topHeight})`}>
         <Link href={url?.value}>
           <Text fontSize="3xl" fontWeight="semibold" flexWrap="nowrap">
@@ -152,19 +50,8 @@ const Application = ({ sbeCode, targetCode }) => {
         </Link>
         <Attribute code={beCode} attribute={'PRI_ASSOC_INDUSTRY'} />
         <Attribute code={beCode} attribute={'PRI_STATUS'} />
-        <HStack>
-          {actions.map(action => (
-            <Action
-              isFullWidth
-              key={action}
-              parentCode={sbeCode}
-              targetCode={beCode}
-              code={action}
-              colorScheme="primary"
-              size="md"
-            />
-          ))}
-        </HStack>
+        <Actions actions={actions} sbeCode={sbeCode} beCode={beCode} />
+
         <HStack align="start" pt="1rem">
           <VStack align="start">
             <Text textStyle="body1">Internship Supervisor</Text>

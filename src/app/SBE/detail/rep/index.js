@@ -1,19 +1,20 @@
 import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectCode, selectRows } from 'redux/db/selectors'
-import { Avatar, Box, Flex, HStack, IconButton, Text, VStack } from '@chakra-ui/react'
+import { Box, Flex, HStack, IconButton, Text, VStack } from '@chakra-ui/react'
 import useApi from 'api'
 
 import getActions from 'app/SBE/utils/get-actions'
 import Attribute from 'app/BE/attribute'
-import Action from 'app/BE/action'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelopeOpenText, faTimesCircle, faUser } from '@fortawesome/free-solid-svg-icons'
 import { closeDrawer } from 'redux/app'
-import { includes, map, replace } from 'ramda'
+import { includes, replace } from 'ramda'
 import LinkedInternships from 'app/SBE/detail/rep/linked_internships'
 import { useIsMobile } from 'utils/hooks'
 import RepMobile from './mobile_view'
+import ProfilePicture from 'app/layouts/components/profile_picture'
+import Actions from 'app/layouts/components/actions'
 
 const Rep = ({ sbeCode, targetCode }) => {
   const dispatch = useDispatch()
@@ -71,18 +72,8 @@ const Rep = ({ sbeCode, targetCode }) => {
           icon={<FontAwesomeIcon icon={faTimesCircle} />}
         />
       </Box>
-      <Avatar
-        onClick={() => setTopHeight('30vh')}
-        mt="-4.75rem"
-        left="calc(35vw - 4.75rem)"
-        bg="white"
-        p="4px"
-        src={src}
-        w="9.5rem"
-        h="9.5rem"
-        zIndex="modal"
-        position="absolute"
-      />
+      <ProfilePicture src={src} />
+
       <VStack pt="5rem" onScroll={handleScroll} overflow="scroll" h={`calc(90vh - ${topHeight})`}>
         <Text fontSize="3xl" fontWeight="semibold" flexWrap="nowrap">
           {name?.value}
@@ -91,20 +82,7 @@ const Rep = ({ sbeCode, targetCode }) => {
           {assocHC ? <Text>{`${jobTitle}, ${assocHC}`}</Text> : <Text>{`${jobTitle}`}</Text>}
         </Box>
         <Flex justifyContent="center" mb="1rem">
-          {actions && (
-            <HStack>
-              {map(action => (
-                <Action
-                  parentCode={sbeCode}
-                  code={action}
-                  targetCode={beCode}
-                  key={action}
-                  size="md"
-                  colorScheme="blue"
-                />
-              ))(actions)}
-            </HStack>
-          )}
+          <Actions actions={actions} sbeCode={sbeCode} beCode={beCode} />
         </Flex>
         <HStack w="65vw" align="start" pt="5" spacing="5">
           <VStack align="start" w="50%">
