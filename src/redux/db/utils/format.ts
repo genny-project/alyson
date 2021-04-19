@@ -98,8 +98,6 @@ export const formatNotes = (state: DBState) => (item: Note) => {
 }
 
 export const formatGroupData = (state: DBState, parentCode: string, items: Array<Item>) => {
-  if (!state[parentCode]) {
-    const formatted = map(({ name, code }) => ({ code, name }), items || [])
-    state[parentCode] = filter(({ code }) => !includes('GRP_', code), formatted)
-  }
+  const formatted = map(({ name, code }) => ({ code, name }), items || [])
+  state[parentCode] = filter(({ code }) => !includes('GRP_', code), formatted)
 }
