@@ -17,9 +17,11 @@ import { closeDrawer } from 'redux/app'
 import Player from 'app/DTT/video/Player'
 import { useIsMobile } from 'utils/hooks'
 import InternsMobileView from './mobile_view'
-import { topHeight } from 'app/SBE/detail/helpers/set-top-height'
 import ProfilePicture from 'app/layouts/components/profile_picture'
 import Actions from 'app/layouts/components/actions'
+import Software from '../internship/templates/Software'
+
+const topHeight = '35vh'
 
 const Intern = ({ sbeCode, targetCode }) => {
   const isMobile = useIsMobile()
@@ -33,6 +35,7 @@ const Intern = ({ sbeCode, targetCode }) => {
   const internsName = useSelector(selectCode(beCode, 'PRI_NAME'))
   const video = useSelector(selectCode(beCode, 'PRI_VIDEO_URL'))
   const careerObj = useSelector(selectCode(beCode, 'PRI_CAREER_OBJ'))
+  const software = useSelector(selectCode(beCode, 'PRI_ASSOC_CURRENT_SOFTWARE'))
 
   const { getImageSrc, getSrc } = useApi()
   const videoSrc = getSrc(video?.value)
@@ -63,7 +66,7 @@ const Intern = ({ sbeCode, targetCode }) => {
   ) : (
     <Box
       w="70vw"
-      h="90vh"
+      h="100vh"
       style={{
         borderTopLeftRadius: '0.5rem',
         borderTopRightRadius: '0.5rem',
@@ -138,7 +141,7 @@ const Intern = ({ sbeCode, targetCode }) => {
             <Actions actions={actions} sbeCode={sbeCode} beCode={beCode} />
           </Flex>
           <HStack w="65vw" align="start" pt="5" spacing="5">
-            <VStack align="start" w="50%">
+            <VStack align="start" w="40%">
               <HStack spacing="10" align="start" mb="1rem">
                 <FontAwesomeIcon icon={faUser} />
                 <VStack align="start">
@@ -195,9 +198,7 @@ const Intern = ({ sbeCode, targetCode }) => {
                 <FontAwesomeIcon icon={faCompactDisc} />
                 <VStack align="start">
                   <Text fontWeight="semibold">{`Known Software`}</Text>
-                  <Text maxW="20rem">
-                    <Attribute code={beCode} attribute={'PRI_ASSOC_CURRENT_SOFTWARE'} />
-                  </Text>
+                  <Software value={software?.value} />
                 </VStack>
               </HStack>
               <HStack spacing="10" align="start" mb="1rem">

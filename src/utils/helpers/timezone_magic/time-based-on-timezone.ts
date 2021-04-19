@@ -4,7 +4,10 @@ const userLocale = navigator.language || navigator.languages[0]
 
 const timeBasedOnTimeZone = (
   date: Date,
-  { locale = userLocale, includeTime }: { locale: string; includeTime: Boolean | undefined },
+  { locale, includeTime }: { locale: string; includeTime: Boolean | undefined } = {
+    locale: userLocale,
+    includeTime: false,
+  },
 ) =>
   includeTime
     ? date.toLocaleString(locale, { timeZone })

@@ -49,7 +49,7 @@ const Autocomplete = ({ questionCode, defaultValue, options, onChange, placehold
         <Box pb="2">
           <Wrap maxW="50vw">
             {selected.map(item => (
-              <WrapItem>
+              <WrapItem key={item}>
                 <Badge
                   cursor="pointer"
                   onClick={() => onSelectChange(item)}

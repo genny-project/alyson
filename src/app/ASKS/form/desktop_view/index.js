@@ -1,10 +1,10 @@
 import Ask from 'app/ASKS/ask'
-import { VStack, Center, Heading, useColorModeValue, Text, Divider } from '@chakra-ui/react'
+import { VStack, Center, Heading, useColorModeValue, Text, Divider, Box } from '@chakra-ui/react'
 
 const FormDesktopView = ({ title, childAsks, onFinish, questionCode, shadow, config = {} }) => {
   const bgColor = useColorModeValue('white', 'whiteAlpha.100')
 
-  const { subHeader, divider = [] } = config
+  const { subHeader, divider = {} } = config
 
   return (
     <Center
@@ -19,15 +19,21 @@ const FormDesktopView = ({ title, childAsks, onFinish, questionCode, shadow, con
         <Heading>{title}</Heading>
         {config ? <Text textStyle="head2">{subHeader}</Text> : null}
         {childAsks.map((childAsk, idx) => (
-          <>
+          <Box w="full" key={childAsk}>
+            {divider.hasOwnProperty(idx + 1) && (
+              <VStack align="start" w="full">
+                <Text textStyle="body3">{divider[idx + 1].label}</Text>
+                <Divider />
+              </VStack>
+            )}
+
             <Ask
               onFinish={onFinish}
               key={childAsk}
               parentCode={questionCode}
               questionCode={childAsk}
             />
-            {divider.includes(idx) && <Divider />}
-          </>
+          </Box>
         ))}
       </VStack>
     </Center>

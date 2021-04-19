@@ -1,4 +1,4 @@
-import { forEach, compose, keys, includes, find } from 'ramda'
+import { forEach, compose, keys, includes, find, filter, map } from 'ramda'
 import { Item, MsgPayload } from 'redux/types'
 import initialiseKey from 'utils/helpers/initialise-key'
 import pushUniqueString from 'utils/helpers/push-unique-string'
@@ -27,6 +27,12 @@ export const formatBaseEntity = (
   if (aliasCode) state[aliasCode] = code
   if (!state[code]) state[code] = []
 
+  const allActionsCurrentlyPresent = filter(includes(`${code}@ACT_`), keys(state as object))
+
+  forEach(action => {
+    delete state[action as string]
+  }, allActionsCurrentlyPresent)
+
   forEach((attribute: Keyable) => {
     const attributeCode = attribute.attributeCode
 
@@ -35,6 +41,7 @@ export const formatBaseEntity = (
 
       attribute.value = attribute[valueKey]
     }
+    attribute.created = ''
 
     if ((state[code] as Array<string>).indexOf(attributeCode) === -1)
       (state[code] as Array<string>).push(attributeCode)
@@ -88,4 +95,9 @@ export const formatNotes = (state: DBState) => (item: Note) => {
 
   initialiseKey(state, 'NOTES', {})
   state.NOTES[`${id}`] = item
+}
+
+export const formatGroupData = (state: DBState, parentCode: string, items: Array<Item>) => {
+  const formatted = map(({ name, code }) => ({ code, name }), items || [])
+  state[parentCode] = filter(({ code }) => !includes('GRP_', code), formatted)
 }
