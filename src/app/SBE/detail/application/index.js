@@ -25,6 +25,7 @@ const Application = ({ sbeCode, targetCode }) => {
   const url = useSelector(selectCode(beCode, 'PRI_COMPANY_WEBSITE_URL'))
   const name = useSelector(selectCode(beCode, 'PRI_NAME'))
   const software = useSelector(selectCode(beCode, 'PRI_SOFTWARE'))
+  const internshipSupervisor = useSelector(selectCode(beCode, 'PRI_SUPER_NAME'))
   const actions = getActions(sbe)
 
   if (!sbe) return null
@@ -53,7 +54,7 @@ const Application = ({ sbeCode, targetCode }) => {
         <Actions actions={actions} sbeCode={sbeCode} beCode={beCode} />
 
         <HStack align="start" pt="1rem">
-          <VStack align="start">
+          <VStack hidden={!!internshipSupervisor?.value} align="start">
             <Text textStyle="body1">Internship Supervisor</Text>
             <Attribute code={beCode} attribute={'PRI_SUPER_NAME'} />
             <Attribute code={beCode} attribute={'PRI_SUPER_JOB_TITLE'} />
