@@ -7,12 +7,18 @@ import { map } from 'ramda'
 const DetailSubHeader = ({ url, name, beCode, sbeCode, actions, subHeaderAttributes }) => {
   return (
     <>
-      <Link href={url?.value}>
+      {url ? (
+        <Link href={url?.value}>
+          <Text fontSize="3xl" fontWeight="semibold" flexWrap="nowrap">
+            {name?.value}
+          </Text>
+        </Link>
+      ) : (
         <Text fontSize="3xl" fontWeight="semibold" flexWrap="nowrap">
           {name?.value}
         </Text>
-      </Link>
-      <VStack>
+      )}
+      <VStack mb="1rem">
         {map(attr => <Attribute code={beCode} attribute={attr} />)(subHeaderAttributes)}
       </VStack>
       <Actions actions={actions} sbeCode={sbeCode} beCode={beCode} />

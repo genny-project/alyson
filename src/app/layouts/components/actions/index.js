@@ -4,7 +4,7 @@ import Action from 'app/BE/action'
 
 const Actions = ({ actions, sbeCode, beCode }) => {
   return (
-    <HStack>
+    <HStack mb="1rem">
       {actions &&
         map(action => (
           <Action

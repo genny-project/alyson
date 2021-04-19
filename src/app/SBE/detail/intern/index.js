@@ -14,14 +14,15 @@ import {
   faUserClock,
 } from '@fortawesome/free-solid-svg-icons'
 import { closeDrawer } from 'redux/app'
-import Player from 'app/DTT/video/Player'
 import { useIsMobile } from 'utils/hooks'
 import InternsMobileView from './mobile_view'
 import ProfilePicture from 'app/layouts/components/profile_picture'
-import Actions from 'app/layouts/components/actions'
 import Software from '../internship/templates/Software'
+import DetailSubHeader from 'app/layouts/components/subheader'
+import DetailHeader from './template/Header'
 
 const topHeight = '35vh'
+const subHeaderAttributes = ['PRI_PREFERRED_NAME']
 
 const Intern = ({ sbeCode, targetCode }) => {
   const isMobile = useIsMobile()
@@ -42,13 +43,6 @@ const Intern = ({ sbeCode, targetCode }) => {
   const src = getImageSrc(image?.value)
 
   const actions = getActions(sbe)
-
-  const videoStyle = {
-    width: '50%',
-    borderTopLeftRadius: '0.5rem',
-    height: topHeight,
-    transition: 'height 1s',
-  }
 
   if (!beCode) return null
 
@@ -72,74 +66,18 @@ const Intern = ({ sbeCode, targetCode }) => {
         borderTopRightRadius: '0.5rem',
       }}
     >
-      <Box position="absolute" right="2" top="2">
-        <IconButton
-          onClick={onClose}
-          color={'white'}
-          variant="unstyled"
-          icon={<FontAwesomeIcon icon={faTimesCircle} />}
-        />
-      </Box>
-      <Flex
-        justifyContent="center"
-        borderTopLeftRadius="0.5rem"
-        borderTopRightRadius="0.5rem"
-        bgGradient="linear(to-br, teal.400,blue.500)"
-        h={topHeight}
-      >
-        {videoSrc && (
-          <Flex
-            flexGrow="1"
-            maxWidth="50%"
-            minWidth="50%"
-            height={topHeight}
-            transition="height 1s"
-            background="gray.100"
-            borderTopLeftRadius={careerObj?.value ? '0.5rem' : ''}
-          >
-            <Player src={videoSrc} styles={videoStyle} />
-          </Flex>
-        )}
-        {careerObj?.value && (
-          <Flex
-            flexGrow="1"
-            maxWidth="50%"
-            minWidth="50%"
-            height={topHeight}
-            transition="height 0.5s"
-            borderTopRightRadius="0.5rem"
-            borderTopLeftRadius={video?.value ? '' : '0.5rem'}
-            overflow="hidden"
-          >
-            <Box
-              p={video?.value ? '16px 48px 64px 40px' : '16px 48px 80px 40px'}
-              overflow="hidden"
-              m="auto"
-            >
-              <Text
-                textStyle="head1"
-                textAlign="center"
-                dangerouslySetInnerHTML={{ __html: careerObj?.value }}
-                noOfLines={[3, 4]}
-                color="white"
-              />
-            </Box>
-          </Flex>
-        )}
-      </Flex>
+      <DetailHeader videoSrc={videoSrc} careerObj={careerObj} video={video} topHeight={topHeight} />
       <ProfilePicture src={src} />
 
       <Box overflow="scroll" h={`calc(100vh - ${topHeight})`}>
         <VStack pt="5rem" overflowX="hidden">
-          <Text fontSize="3xl" fontWeight="semibold" flexWrap="nowrap">
-            {internsName?.value}
-          </Text>
-          <Box mb="1rem">
-            <Attribute code={beCode} attribute={'PRI_PREFERRED_NAME'} />
-          </Box>
-          <Flex justifyContent="center" mb="1rem">
-            <Actions actions={actions} sbeCode={sbeCode} beCode={beCode} />
-          </Flex>
+          <DetailSubHeader
+            name={internsName}
+            beCode={beCode}
+            sbeCode={sbeCode}
+            actions={actions}
+            subHeaderAttributes={subHeaderAttributes}
+          />
           <HStack w="65vw" align="start" pt="5" spacing="5">
             <VStack align="start" w="40%">
               <HStack spacing="10" align="start" mb="1rem">
