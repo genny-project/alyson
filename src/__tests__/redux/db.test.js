@@ -196,6 +196,7 @@ describe('New Msg', () => {
     'QUE_PROJECT_TEST_GRP@title': 'Test',
     'QUE_PROJECT_TEST_GRP@QUE_TEST_ONE_VIEW': childAskEvent,
     'QUE_PROJECT_TEST_GRP@QUE_TEST_TWO_VIEW': childAskQuestion,
+    'QUE_PROJECT_TEST_GRP@config': {},
   }
 
   const expectedStateForNewMsgAttribute = {
