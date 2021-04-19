@@ -10,7 +10,7 @@ const timeBasedOnTimeZone = (
   },
 ) =>
   includeTime
-    ? date.toLocaleString(locale, { timeZone })
+    ? date.toLocaleString(locale, { timeZone, hour12: true }).replace(':00', '')
     : date.toLocaleDateString(locale, { timeZone })
 
 export default timeBasedOnTimeZone
