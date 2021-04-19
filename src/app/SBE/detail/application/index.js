@@ -54,7 +54,7 @@ const Application = ({ sbeCode, targetCode }) => {
         <Actions actions={actions} sbeCode={sbeCode} beCode={beCode} />
 
         <HStack align="start" pt="1rem">
-          <VStack hidden={!!internshipSupervisor?.value} align="start">
+          <VStack hidden={!internshipSupervisor?.value} align="start">
             <Text textStyle="body1">Internship Supervisor</Text>
             <Attribute code={beCode} attribute={'PRI_SUPER_NAME'} />
             <Attribute code={beCode} attribute={'PRI_SUPER_JOB_TITLE'} />
