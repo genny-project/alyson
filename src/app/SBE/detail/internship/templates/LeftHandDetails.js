@@ -1,6 +1,6 @@
 import { VStack } from '@chakra-ui/react'
 
-import DetailSection from 'app/SBE/detail/default-view/templates/detail-section'
+import DetailSection from 'app/layouts/components/detail_section'
 import LinkedSupervisor from './LinkedSupervisor'
 import Software from './Software'
 

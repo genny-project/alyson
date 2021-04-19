@@ -9,9 +9,9 @@ import getActions from 'app/SBE/utils/get-actions'
 import { topHeight } from 'app/SBE/detail/helpers/set-top-height'
 import DetailHeader from 'app/layouts/components/header'
 import ProfilePicture from 'app/layouts/components/profile_picture'
+import DetailSubHeader from 'app/layouts/components/subheader'
 import RightHandDetails from './templates/RightHandDetails'
 import LeftHandDetails from './templates/LeftHandDetails'
-import DetailSubHeader from './templates/DetailSubHeader'
 
 const internshipDetail = {
   sectionIcon: faBriefcase,
@@ -30,6 +30,8 @@ const responsibilitiesAndOutcomes = [
   'PRI_BASE_LEARNING_OUTCOMES',
   'PRI_SPECIFIC_LEARNING_OUTCOMES',
 ]
+
+const subHeaderAttributes = ['PRI_ASSOC_INDUSTRY', 'PRI_STATUS']
 
 const Internship = ({ sbeCode, targetCode }) => {
   const sbe = useSelector(selectCode(sbeCode))
@@ -72,6 +74,7 @@ const Internship = ({ sbeCode, targetCode }) => {
           beCode={beCode}
           sbeCode={sbeCode}
           actions={actions}
+          subHeaderAttributes={subHeaderAttributes}
         />
 
         <HStack w="65vw" align="start" pt="5" spacing="5">

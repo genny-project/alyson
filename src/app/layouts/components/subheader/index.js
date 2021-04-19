@@ -1,9 +1,10 @@
-import { Link, Text } from '@chakra-ui/react'
+import { Link, Text, VStack } from '@chakra-ui/react'
 
 import Attribute from 'app/BE/attribute'
 import Actions from 'app/layouts/components/actions'
+import { map } from 'ramda'
 
-const DetailSubHeader = ({ url, name, beCode, sbeCode, actions }) => {
+const DetailSubHeader = ({ url, name, beCode, sbeCode, actions, subHeaderAttributes }) => {
   return (
     <>
       <Link href={url?.value}>
@@ -11,8 +12,9 @@ const DetailSubHeader = ({ url, name, beCode, sbeCode, actions }) => {
           {name?.value}
         </Text>
       </Link>
-      <Attribute code={beCode} attribute={'PRI_ASSOC_INDUSTRY'} />
-      <Attribute code={beCode} attribute={'PRI_STATUS'} />
+      <VStack>
+        {map(attr => <Attribute code={beCode} attribute={attr} />)(subHeaderAttributes)}
+      </VStack>
       <Actions actions={actions} sbeCode={sbeCode} beCode={beCode} />
     </>
   )

@@ -3,6 +3,7 @@ import { map } from 'ramda'
 
 import Attribute from 'app/BE/attribute'
 import Label from 'app/BE/attribute/Label'
+import Status from 'app/DTT/status'
 
 const DetailSection = ({
   config,
@@ -11,10 +12,12 @@ const DetailSection = ({
   code,
   details: { title, attributes },
   hideLabel = false,
+  status,
 }) => {
   return (
     <Stack direction={row ? 'row' : 'column'} alignItems="left">
       {!noTitle && <Text textStyle="body1">{title}</Text>}
+      {status && <Status.Read data={status} config={{ width: 'min-content' }} />}
       {map(attr => (
         <VStack alignItems="left" key={attr}>
           {!hideLabel && <Label code={code} attribute={attr} />}
