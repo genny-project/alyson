@@ -1,6 +1,6 @@
 import { filter, includes, pathOr } from 'ramda'
 import { useSelector } from 'react-redux'
-import { selectCodes, selectRows } from 'redux/db/selectors'
+import { selectCode, selectCodes, selectRows } from 'redux/db/selectors'
 import { Select as CSelect, Text } from '@chakra-ui/react'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { Multiple } from './Multiple'
@@ -16,8 +16,7 @@ const Write = ({
   dataType,
   data,
 }) => {
-  const options = filter(a => !includes('GRP_', a), useSelector(selectRows(groupCode)))
-  const optionData = useSelector(selectCodes(options, 'PRI_NAME'))
+  const options = useSelector(selectCode(groupCode)) || []
 
   const { typeName } = dataType
   const multiple = includes('multiple', typeName || '') || component === 'tag'
@@ -29,7 +28,7 @@ const Write = ({
         data={data}
         onSendAnswer={onSendAnswer}
         placeholder={placeholder}
-        optionData={optionData}
+        optionData={options}
         label={label}
       />
     )
@@ -48,16 +47,12 @@ const Write = ({
       onChange={e => onSendAnswer([e.target.value])}
       defaultValue={safelyParseJson(data?.value)}
     >
-      {optionData &&
-        optionData.map(
+      {options &&
+        options.map(
           option =>
             option && (
-              <option
-                test-id={option.baseEntityCode}
-                key={option.baseEntityCode}
-                value={option.baseEntityCode}
-              >
-                {option.value}
+              <option test-id={option.code} key={option.code} value={option.code}>
+                {option.name}
               </option>
             ),
         )}

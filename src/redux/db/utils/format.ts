@@ -1,4 +1,4 @@
-import { forEach, compose, keys, includes, find, filter } from 'ramda'
+import { forEach, compose, keys, includes, find, filter, map } from 'ramda'
 import { Item, MsgPayload } from 'redux/types'
 import initialiseKey from 'utils/helpers/initialise-key'
 import pushUniqueString from 'utils/helpers/push-unique-string'
@@ -95,4 +95,9 @@ export const formatNotes = (state: DBState) => (item: Note) => {
 
   initialiseKey(state, 'NOTES', {})
   state.NOTES[`${id}`] = item
+}
+
+export const formatGroupData = (state: DBState, parentCode: string, items: Array<Item>) => {
+  const formatted = map(({ name, code }) => ({ code, name }), items || [])
+  state[parentCode] = filter(({ code }) => !includes('GRP_', code), formatted)
 }

@@ -5,8 +5,8 @@ import Autocomplete from './Autocomplete'
 
 export const Multiple = ({ questionCode, data, onSendAnswer, placeholder, optionData }) => {
   const options = map(
-    ({ value, baseEntityCode }) => ({ label: value, value: baseEntityCode }),
-    filter(identity, optionData),
+    ({ code, name }) => ({ label: name, value: code }),
+    filter(identity, optionData || []),
   )
 
   return !options.length ? (
@@ -17,7 +17,7 @@ export const Multiple = ({ questionCode, data, onSendAnswer, placeholder, option
     <Autocomplete
       questionCode={questionCode}
       defaultValue={data?.value ? getValue(data, options) : []}
-      options={filter(identity, options || [])}
+      options={options}
       placeholder={placeholder || 'Select'}
       onChange={onSendAnswer}
     />
