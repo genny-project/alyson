@@ -50,7 +50,7 @@ export const formatBaseEntity = (
   }, sortByIndex(baseEntityAttributes))
 }
 
-export const formatAsk = (state: DBState) => (item: Item) => {
+export const formatAsk = (state: DBState, replace: Boolean) => (item: Item) => {
   const {
     questionCode,
     childAsks = [],
@@ -61,6 +61,8 @@ export const formatAsk = (state: DBState) => (item: Item) => {
   initialiseKey(state, questionCode, [])
   initialiseKey(state, `${questionCode}@title`, name)
   initialiseKey(state, `${questionCode}@config`, safelyParseJson(html, {}))
+
+  if (replace) state[questionCode] = []
 
   forEach((childAsk: Keyable) => {
     const childAskCode = childAsk.questionCode

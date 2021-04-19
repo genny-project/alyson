@@ -24,6 +24,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faBolt, faBars } from '@fortawesome/free-solid-svg-icons'
 import Buttons from 'app/ASKS/buttons'
 import { onSendMessage } from 'vertx'
+import Drafts from '../drafts/Drafts'
 
 const DesktopNav = ({ logoSrc }) => {
   const theme = useTheme()
@@ -40,7 +41,7 @@ const DesktopNav = ({ logoSrc }) => {
           color,
           position: 'fixed',
           top: 0,
-          zIndex: 9999,
+          zIndex: 3,
           width: '100%',
           maxWidth: '100vw',
           left: 0,
@@ -69,6 +70,7 @@ const DesktopNav = ({ logoSrc }) => {
               )}
             </Center>
             <Spacer />
+            <Drafts />
             <HStack w="144px">
               <AskMenu
                 questionCode={'QUE_ADD_ITEMS_GRP'}
