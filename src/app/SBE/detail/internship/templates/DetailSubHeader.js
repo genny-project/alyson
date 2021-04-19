@@ -1,4 +1,5 @@
-import { Box, Link, Text } from '@chakra-ui/react'
+import { Link, Text } from '@chakra-ui/react'
+
 import Attribute from 'app/BE/attribute'
 import Actions from 'app/layouts/components/actions'
 

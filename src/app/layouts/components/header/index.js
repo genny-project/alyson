@@ -58,6 +58,7 @@ const DetailHeader = ({ address }) => {
       map.setStreetView(pano)
     }
   }, [geo])
+
   return (
     <Box>
       <Flex>

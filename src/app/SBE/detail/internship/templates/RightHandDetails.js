@@ -1,5 +1,6 @@
 import { map } from 'ramda'
 import { Box, VStack } from '@chakra-ui/react'
+
 import Label from 'app/BE/attribute/Label'
 import Attribute from 'app/BE/attribute'
 import LinkedHostCpy from './LinkedHostCpy'

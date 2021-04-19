@@ -1,7 +1,8 @@
 import { VStack } from '@chakra-ui/react'
+
+import DetailSection from 'app/SBE/detail/default-view/templates/detail-section'
 import LinkedSupervisor from './LinkedSupervisor'
 import Software from './Software'
-import DetailSection from 'app/SBE/detail/default-view/templates/detail-section'
 
 const LeftHandDetails = ({ beCode, internshipDetail, linkedSupervisor, software }) => {
   return (

@@ -1,5 +1,6 @@
 import { Text, Stack, VStack } from '@chakra-ui/react'
 import { map } from 'ramda'
+
 import Attribute from 'app/BE/attribute'
 import Label from 'app/BE/attribute/Label'
 
