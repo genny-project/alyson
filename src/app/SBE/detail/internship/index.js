@@ -7,14 +7,13 @@ import getActions from 'app/SBE/utils/get-actions'
 import Attribute from 'app/BE/attribute'
 import { faBriefcase } from '@fortawesome/free-solid-svg-icons'
 import { replace } from 'ramda'
-import LinkedSupervisor from './templates/LinkedSupervisor'
-import LinkedHostCpy from './templates/LinkedHostCpy'
-import DetailSection from '../default-view/templates/detail-section'
-import Software from './templates/Software'
 import { topHeight } from 'app/SBE/detail/helpers/set-top-height'
 import DetailHeader from 'app/layouts/components/header'
 import ProfilePicture from 'app/layouts/components/profile_picture'
 import Actions from 'app/layouts/components/actions'
+import RightHandDetails from './templates/RightHandDetails'
+import LeftHandDetails from './templates/LeftHandDetails'
+import DetailSubHeader from './templates/DetailSubHeader'
 
 const internshipDetail = {
   sectionIcon: faBriefcase,
@@ -27,6 +26,12 @@ const internshipDetail = {
     'PRI_ASSOC_NUM_INTERNS',
   ],
 }
+
+const responsibilitiesAndOutcomes = [
+  'PRI_ROLES_AND_RESPONSIBILITIES',
+  'PRI_BASE_LEARNING_OUTCOMES',
+  'PRI_SPECIFIC_LEARNING_OUTCOMES',
+]
 
 const Internship = ({ sbeCode, targetCode }) => {
   const sbe = useSelector(selectCode(sbeCode))
@@ -63,49 +68,26 @@ const Internship = ({ sbeCode, targetCode }) => {
       <DetailHeader address={address} />
       <ProfilePicture src={src} />
       <VStack pt="5rem" overflow="scroll" h={`calc(100vh - ${topHeight})`}>
-        <Link href={url?.value}>
-          <Text fontSize="3xl" fontWeight="semibold" flexWrap="nowrap">
-            {name?.value}
-          </Text>
-        </Link>
-        <Attribute code={beCode} attribute={'PRI_ASSOC_INDUSTRY'} />
-        <Attribute code={beCode} attribute={'PRI_STATUS'} />
-        <Actions actions={actions} sbeCode={sbeCode} beCode={beCode} />
+        <DetailSubHeader
+          url={url}
+          name={name}
+          beCode={beCode}
+          sbeCode={sbeCode}
+          actions={actions}
+        />
 
         <HStack w="65vw" align="start" pt="5" spacing="5">
-          <VStack align="start">
-            <LinkedSupervisor sbeCode={linkedSupervisor} />
-            <DetailSection
-              config={{ textStyle: 'body2' }}
-              noTitle
-              code={beCode}
-              details={internshipDetail}
-            />
-            <Software value={software?.value || ''} title={`Software to be Used`} />
-          </VStack>
-          <VStack>
-            <LinkedHostCpy sbeCode={linkedHostCpy} />
-            <Box w="full">
-              <VStack align="start">
-                <Text textStyle="body1">Roles and Responsibilities</Text>
-                <Box p="5">
-                  <Attribute code={beCode} attribute={'PRI_ROLES_AND_RESPONSIBILITIES'} />
-                </Box>
-              </VStack>
-              <VStack align="start">
-                <Text textStyle="body1">Base Learning Outcomes</Text>
-                <Box p="5">
-                  <Attribute code={beCode} attribute={'PRI_BASE_LEARNING_OUTCOMES'} />
-                </Box>
-              </VStack>
-              <VStack align="start">
-                <Text textStyle="body1">Specific Learning Outcomes</Text>
-                <Box p="5">
-                  <Attribute code={beCode} attribute={'PRI_SPECIFIC_LEARNING_OUTCOMES'} />
-                </Box>
-              </VStack>
-            </Box>
-          </VStack>
+          <LeftHandDetails
+            beCode={beCode}
+            internshipDetail={internshipDetail}
+            linkedSupervisor={linkedSupervisor}
+            software={software}
+          />
+          <RightHandDetails
+            code={beCode}
+            sbeCode={linkedHostCpy}
+            attributes={responsibilitiesAndOutcomes}
+          />
         </HStack>
       </VStack>
     </Box>
