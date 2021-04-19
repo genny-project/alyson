@@ -1,6 +1,6 @@
-import { filter, includes, pathOr } from 'ramda'
+import { includes, pathOr } from 'ramda'
 import { useSelector } from 'react-redux'
-import { selectCode, selectCodes, selectRows } from 'redux/db/selectors'
+import { selectCode, selectRows } from 'redux/db/selectors'
 import { Select as CSelect, Text } from '@chakra-ui/react'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { Multiple } from './Multiple'

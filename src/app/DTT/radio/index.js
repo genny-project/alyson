@@ -1,8 +1,7 @@
 import { Radio as CRadio, RadioGroup, Stack } from '@chakra-ui/react'
 import { useSelector } from 'react-redux'
-import { selectCode, selectCodes, selectRows } from 'redux/db/selectors'
+import { selectCode } from 'redux/db/selectors'
 import { Read } from 'app/DTT/text'
-import { includes } from 'ramda'
 
 const Write = ({ questionCode, data, onSendAnswer, groupCode }) => {
   const options = useSelector(selectCode(groupCode))
