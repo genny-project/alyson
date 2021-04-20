@@ -5,7 +5,6 @@ import { onSendMessage } from 'vertx'
 
 const Draft = ({ code, parentCode }) => {
   const draft = useSelector(selectCode(parentCode, code))
-  console.log(draft)
   if (!draft) return null
   return (
     <MenuItem
