@@ -1,28 +1,39 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { selectCode, selectRows } from 'redux/db/selectors'
-import { Box, Flex, HStack, IconButton, Text, VStack } from '@chakra-ui/react'
+import { Box, HStack, VStack } from '@chakra-ui/react'
 import useApi from 'api'
 import getActions from 'app/SBE/utils/get-actions'
-import Attribute from 'app/BE/attribute'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faCompactDisc,
-  faEnvelopeOpenText,
-  faObjectGroup,
-  faTimesCircle,
-  faUser,
-  faUserClock,
-} from '@fortawesome/free-solid-svg-icons'
+
 import { closeDrawer } from 'redux/app'
 import { useIsMobile } from 'utils/hooks'
 import InternsMobileView from './mobile_view'
 import ProfilePicture from 'app/layouts/components/profile_picture'
-import Software from '../internship/templates/Software'
 import DetailSubHeader from 'app/layouts/components/subheader'
 import DetailHeader from './template/Header'
+import LeftHandDetails from './template/LeftHandDetails'
+import RightHandDetails from './template/RightHandDetails'
 
 const topHeight = '35vh'
 const subHeaderAttributes = ['PRI_PREFERRED_NAME']
+
+const contactDetails = {
+  title: 'Contact Details',
+  attributes: ['PRI_MOBILE', 'PRI_EMAIL', 'PRI_ADDRESS_FULL', 'PRI_LINKEDIN_URL'],
+}
+
+const horizontalLayoutDetails = {
+  attributes: ['PRI_STUDENT_ID', 'PRI_ASSOC_EP'],
+}
+
+const internshipDetails = {
+  title: 'Internship Details',
+  attributes: ['PRI_START_DATE', 'PRI_ASSOC_DURATION', 'PRI_TRANSPORT'],
+}
+
+const recentEmployment = {
+  title: 'Recent Employment',
+  attributes: ['PRI_PREV_EMPLOYER', 'PRI_PREV_JOB_TITLE', 'PRI_CV'],
+}
 
 const Intern = ({ sbeCode, targetCode }) => {
   const isMobile = useIsMobile()
@@ -79,98 +90,18 @@ const Intern = ({ sbeCode, targetCode }) => {
             subHeaderAttributes={subHeaderAttributes}
           />
           <HStack w="65vw" align="start" pt="5" spacing="5">
-            <VStack align="start" w="40%">
-              <HStack spacing="10" align="start" mb="1rem">
-                <FontAwesomeIcon icon={faUser} />
-                <VStack align="start">
-                  <Text fontWeight="semibold">{`Contact details`}</Text>
-                  <Attribute code={beCode} attribute={'PRI_MOBILE'} />
-                  <Attribute code={beCode} attribute={'PRI_EMAIL'} />
-                  <Attribute code={beCode} attribute={'PRI_ADDRESS_FULL'} />
-                  <Attribute code={beCode} attribute={'PRI_LINKEDIN_URL'} />
-                  <HStack>
-                    <Text w="6rem" textStyle="body3">
-                      Student ID
-                    </Text>
-                    <Attribute code={beCode} attribute={'PRI_STUDENT_ID'} />
-                  </HStack>
-                  <HStack>
-                    <Text w="6rem" textStyle="body3">
-                      Education Provider
-                    </Text>
-                    <Attribute code={beCode} attribute={'PRI_ASSOC_EP'} />
-                  </HStack>
-                </VStack>
-              </HStack>
-              <HStack spacing="10" align="start" mb="1rem">
-                <FontAwesomeIcon icon={faEnvelopeOpenText} />
-                <VStack align="start">
-                  <Text fontWeight="semibold">{`Internship Details`}</Text>
-                  <HStack>
-                    <Text w="6rem" textStyle="body3">
-                      Start Date
-                    </Text>
-                    <Attribute
-                      config={{ textStyle: 'body2' }}
-                      code={beCode}
-                      attribute={'PRI_START_DATE'}
-                    />
-                  </HStack>
-                  <HStack>
-                    <Text w="6rem" textStyle="body3">
-                      Duration
-                    </Text>
-                    <Attribute code={beCode} attribute={'PRI_ASSOC_DURATION'} />
-                  </HStack>
-                  <HStack>
-                    <Text w="6rem" textStyle="body3">
-                      Transport
-                    </Text>
-                    <Attribute code={beCode} attribute={'PRI_TRANSPORT'} />
-                  </HStack>
-                </VStack>
-              </HStack>
-            </VStack>
-            <VStack align="start" w="50%">
-              <HStack spacing="10" align="start" mb="1rem">
-                <FontAwesomeIcon icon={faCompactDisc} />
-                <VStack align="start">
-                  <Text fontWeight="semibold">{`Known Software`}</Text>
-                  <Software value={software?.value} />
-                </VStack>
-              </HStack>
-              <HStack spacing="10" align="start" mb="1rem">
-                <FontAwesomeIcon icon={faUserClock} />
-                <VStack align="stretch">
-                  <Text textStyle="body1">{`Recent Employment`}</Text>
-                  <HStack>
-                    <Text w="6rem" textStyle="body3">
-                      Employer
-                    </Text>
-                    <Attribute code={beCode} attribute={'PRI_PREV_EMPLOYER'} />
-                  </HStack>
-                  <HStack>
-                    <Text w="6rem" textStyle="body3">
-                      Title
-                    </Text>
-                    <Attribute code={beCode} attribute={'PRI_PREV_JOB_TITLE'} />
-                  </HStack>
-                  <HStack>
-                    <Text w="6rem" textStyle="body3">
-                      CV
-                    </Text>
-                    <Attribute code={beCode} attribute={'PRI_CV'} />
-                  </HStack>
-                </VStack>
-              </HStack>
-              <HStack spacing="10" align="start" mb="1rem">
-                <FontAwesomeIcon icon={faObjectGroup} />
-                <VStack align="start">
-                  <Text textStyle="body1">{`Career Objectives`}</Text>
-                  <Text textStyle="body2" dangerouslySetInnerHTML={{ __html: careerObj?.value }} />
-                </VStack>
-              </HStack>
-            </VStack>
+            <LeftHandDetails
+              beCode={beCode}
+              contactDetails={contactDetails}
+              horizontalLayoutDetails={horizontalLayoutDetails}
+              internshipDetails={internshipDetails}
+            />
+            <RightHandDetails
+              beCode={beCode}
+              software={software}
+              recentEmployment={recentEmployment}
+              careerObj={careerObj}
+            />
           </HStack>
         </VStack>
       </Box>

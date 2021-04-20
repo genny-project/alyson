@@ -1,4 +1,4 @@
-import { Text, Stack, VStack } from '@chakra-ui/react'
+import { Text, Stack, VStack, Flex, Center } from '@chakra-ui/react'
 import { map } from 'ramda'
 
 import Attribute from 'app/BE/attribute'
@@ -13,9 +13,23 @@ const DetailSection = ({
   details: { title, attributes },
   hideLabel = false,
   status,
+  horizontalLayout,
 }) => {
-  return (
-    <Stack direction={row ? 'row' : 'column'} alignItems="left">
+  return horizontalLayout ? (
+    <Stack direction={row ? 'column' : 'column'} alignItems="left">
+      {!noTitle && <Text textStyle="body1">{title}</Text>}
+      {status && <Status.Read data={status} config={{ width: 'min-content' }} />}
+      {map(attr => (
+        <Flex alignItems="left" key={attr}>
+          <Label code={code} attribute={attr} horizontalLayout />
+          <Center>
+            <Attribute config={config} code={code} attribute={attr} />
+          </Center>
+        </Flex>
+      ))(attributes)}
+    </Stack>
+  ) : (
+    <Stack direction={row ? 'column' : 'column'} alignItems="left">
       {!noTitle && <Text textStyle="body1">{title}</Text>}
       {status && <Status.Read data={status} config={{ width: 'min-content' }} />}
       {map(attr => (
