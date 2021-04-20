@@ -19,6 +19,7 @@ const HeroTask = ({ sbeCode, rows }) => {
 
   const ready =
     value === 'Ready' ||
+    value === 'Validated' ||
     (includes('_OHNS_', sbeCode) && value === 'OHS') ||
     (includes('_SERVICE_AGREEMENT_DOC_', sbeCode) && value === 'HCS')
 
