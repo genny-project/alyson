@@ -1,8 +1,9 @@
 import { HStack, Text, VStack } from '@chakra-ui/react'
-import Attribute from 'app/BE/attribute'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelopeOpenText, faUser } from '@fortawesome/free-solid-svg-icons'
+
 import DetailSection from 'app/layouts/components/detail_section'
+import Attribute from 'app/BE/attribute'
 
 const LeftHandDetails = ({ beCode, contactdetails, status }) => {
   return (

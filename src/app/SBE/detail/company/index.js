@@ -5,7 +5,6 @@ import { Box, HStack, VStack } from '@chakra-ui/react'
 import useApi from 'api'
 
 import getActions from 'app/SBE/utils/get-actions'
-
 import { closeDrawer } from 'redux/app'
 import Lane from 'app/SBE/lane'
 import { useIsMobile } from 'utils/hooks'
