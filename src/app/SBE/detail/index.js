@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 import { selectDetail } from 'redux/app/selectors'
 import { selectCode } from 'redux/db/selectors'
-import Cv from './intern'
+import Intern from './intern'
 import Company from './company'
 import Internship from './internship'
 import Rep from './rep'
@@ -17,7 +17,7 @@ const BaseEntityDetail = ({ targetCode, defaultView }) => {
 
   if (defaultView) return <DefaultView sbeCode={code} targetCode={targetCode} />
   if (displayType === 'CV') {
-    return <Cv sbeCode={code} targetCode={targetCode} />
+    return <Intern sbeCode={code} targetCode={targetCode} />
   }
 
   if (displayType === 'COMPANY') {
