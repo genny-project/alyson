@@ -1,11 +1,12 @@
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
-import { Text, HStack, Spacer, VStack, Badge } from '@chakra-ui/react'
+import { Text, HStack, Spacer, VStack, Badge, Button } from '@chakra-ui/react'
 import getActions from 'app/SBE/utils/get-actions'
 import Action from 'app/BE/action'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFile } from '@fortawesome/free-solid-svg-icons'
-import { includes } from 'ramda'
+import { faClipboard, faFile, faFileDownload } from '@fortawesome/free-solid-svg-icons'
+import { head, includes } from 'ramda'
+import { onSendMessage } from 'vertx'
 
 const HeroTask = ({ sbeCode, rows }) => {
   const targetCode = rows[0]
@@ -22,6 +23,11 @@ const HeroTask = ({ sbeCode, rows }) => {
     (includes('_OHNS_', sbeCode) && value === 'OHS') ||
     (includes('_SERVICE_AGREEMENT_DOC_', sbeCode) && value === 'HCS')
 
+  const actionCode = head(
+    actions.filter(act =>
+      ready ? includes('_DOWN', act || '') : !includes('_DOWN', act || ''),
+    ) || [''],
+  )
   return (
     <HStack w="full" align="start">
       <VStack align="start">
@@ -29,18 +35,42 @@ const HeroTask = ({ sbeCode, rows }) => {
           <FontAwesomeIcon icon={faFile} />
           <Text>{title?.value}</Text>
         </HStack>
-        <Badge colorScheme={ready ? 'green' : 'red'}>{ready ? 'Verified' : 'Unverified'}</Badge>
+        <Badge colorScheme={ready ? 'green' : 'red'}>
+          {ready ? 'Verified' : 'Action Required'}
+        </Badge>
       </VStack>
 
       <Spacer w="1rem" />
       <VStack>
-        {actions
-          ?.filter(action =>
-            ready ? includes('_DOWNLOAD_', action) : !includes('_DOWNLOAD_', action),
-          )
-          .map(action => (
-            <Action key={action} parentCode={sbeCode} code={action} targetCode={targetCode} />
-          ))}
+        {ready ? (
+          <Button
+            onClick={() =>
+              onSendMessage({
+                code: actionCode,
+                parentCode: sbeCode,
+                targetCode,
+              })
+            }
+            leftIcon={<FontAwesomeIcon icon={faFileDownload} />}
+            variant="ghost"
+          >
+            Download
+          </Button>
+        ) : (
+          <Button
+            onClick={() =>
+              onSendMessage({
+                code: actionCode,
+                parentCode: sbeCode,
+                targetCode,
+              })
+            }
+            colorScheme="red"
+            leftIcon={<FontAwesomeIcon icon={faClipboard} />}
+          >
+            Please Completete
+          </Button>
+        )}
       </VStack>
     </HStack>
   )
