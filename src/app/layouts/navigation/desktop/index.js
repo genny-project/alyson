@@ -70,7 +70,9 @@ const DesktopNav = ({ logoSrc }) => {
               )}
             </Center>
             <Spacer />
-            <Drafts />
+            <HStack ml="-2rem">
+              <Drafts />
+            </HStack>
             <HStack w="144px">
               <AskMenu
                 questionCode={'QUE_ADD_ITEMS_GRP'}

@@ -20,9 +20,13 @@ const Drafts = () => {
 
   return (
     <Menu>
-      <MenuButton>
-        <IconButton variant="ghost" icon={<FontAwesomeIcon icon={faDraftingCompass} />} />
-      </MenuButton>
+      <MenuButton
+        as={IconButton}
+        variant="ghost"
+        colorScheme="pink"
+        icon={<FontAwesomeIcon icon={faDraftingCompass} />}
+      />
+
       <MenuList maxH="20vh" overflow="scroll">
         {drafts.map(draft => (
           <Draft key={draft} parentCode={DRAFT_GROUP} code={draft} />
