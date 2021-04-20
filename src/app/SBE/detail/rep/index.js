@@ -77,7 +77,6 @@ const Rep = ({ sbeCode, targetCode }) => {
         />
       </Box>
       <ProfilePicture src={src} />
-
       <VStack pt="5rem" onScroll={handleScroll} overflow="scroll" h={`calc(90vh - ${topHeight})`}>
         <DetailSubHeader
           name={name}

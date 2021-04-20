@@ -1,19 +1,26 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { selectCode, selectRows } from 'redux/db/selectors'
-import { Box, HStack, Text, VStack } from '@chakra-ui/react'
+import { Box, HStack, VStack } from '@chakra-ui/react'
 import useApi from 'api'
-
-import getActions from 'app/SBE/utils/get-actions'
-import Attribute from 'app/BE/attribute'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
+
+import { selectCode, selectRows } from 'redux/db/selectors'
 import { closeDrawer } from 'redux/app'
 import { useIsMobile } from 'utils/hooks'
-import AgentMobile from './mobile_view'
 import { topHeight } from 'app/SBE/detail/helpers/set-top-height'
+import AgentMobile from './mobile_view'
+import getActions from 'app/SBE/utils/get-actions'
 import DetailHeader from 'app/layouts/components/header'
 import ProfilePicture from 'app/layouts/components/profile_picture'
-import Actions from 'app/layouts/components/actions'
+import DetailSubHeader from 'app/layouts/components/subheader'
+import DetailSection from 'app/layouts/components/detail_section'
+
+const subHeaderAttributes = ['PRI_STATUS']
+
+const contactDetails = {
+  title: 'Contact Details',
+  attributes: ['PRI_MOBILE', 'PRI_ADDRESS_FULL', 'PRI_EMAIL', 'PRI_LINKEDIN_URL'],
+}
 
 const Agent = ({ sbeCode, targetCode }) => {
   const dispatch = useDispatch()
@@ -56,35 +63,26 @@ const Agent = ({ sbeCode, targetCode }) => {
       }}
     >
       <DetailHeader address={address} />
-      <Box
-        position="absolute"
-        right="5"
-        zIndex="modal"
-        height={topHeight}
-        overflow="hidden"
-        transition="height 1s"
-      >
-        <VStack align="flex-end" mt="5">
-          <Actions actions={actions} sbeCode={sbeCode} beCode={beCode} />
-          <Attribute code={beCode} attribute={'PRI_LINKEDIN_URL'} />
-        </VStack>
-      </Box>
       <ProfilePicture src={src} />
       <VStack pt="5rem" overflow="scroll" h={`calc(100vh - ${topHeight})`}>
-        <Text fontSize="3xl" fontWeight="semibold" flexWrap="nowrap">
-          {name?.value}
-        </Text>
-        <Attribute code={beCode} attribute={'PRI_STATUS'} />
+        <DetailSubHeader
+          name={name}
+          beCode={beCode}
+          sbeCode={sbeCode}
+          actions={actions}
+          subHeaderAttributes={subHeaderAttributes}
+        />
         <HStack w="65vw" align="start" pt="5" spacing="5">
           <VStack align="start" w="50%">
             <HStack spacing="10" align="start">
               <FontAwesomeIcon icon={faUser} />
-              <VStack align="start">
-                <Text fontWeight="semibold">Contact details</Text>
-                <Attribute code={beCode} attribute={'PRI_MOBILE'} />
-                <Attribute code={beCode} attribute={'PRI_ADDRESS_FULL'} />
-                <Attribute code={beCode} attribute={'PRI_EMAIL'} />
-              </VStack>
+              <DetailSection
+                config={{ textStyle: 'body2' }}
+                noTitle={false}
+                code={beCode}
+                details={contactDetails}
+                hideLabel
+              />
             </HStack>
           </VStack>
         </HStack>
