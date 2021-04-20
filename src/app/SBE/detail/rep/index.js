@@ -1,20 +1,24 @@
 import { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { selectCode, selectRows } from 'redux/db/selectors'
-import { Box, Flex, HStack, IconButton, Text, VStack } from '@chakra-ui/react'
 import useApi from 'api'
+import { useSelector, useDispatch } from 'react-redux'
+import { Box, HStack, IconButton, VStack } from '@chakra-ui/react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 
 import getActions from 'app/SBE/utils/get-actions'
-import Attribute from 'app/BE/attribute'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEnvelopeOpenText, faTimesCircle, faUser } from '@fortawesome/free-solid-svg-icons'
 import { closeDrawer } from 'redux/app'
-import { includes, replace } from 'ramda'
-import LinkedInternships from 'app/SBE/detail/rep/linked_internships'
+import { selectCode, selectRows } from 'redux/db/selectors'
 import { useIsMobile } from 'utils/hooks'
 import RepMobile from './mobile_view'
 import ProfilePicture from 'app/layouts/components/profile_picture'
-import Actions from 'app/layouts/components/actions'
+import DetailSubHeader from './templates/SubHeader'
+import LeftHandDetails from './templates/LeftHandDetails'
+import RightHandDetails from './templates/RightHandDetails'
+
+const contactDetails = {
+  title: 'Contact Details',
+  attributes: ['PRI_MOBILE', 'PRI_EMAIL', 'PRI_LINKEDIN_URL'],
+}
 
 const Rep = ({ sbeCode, targetCode }) => {
   const dispatch = useDispatch()
@@ -75,49 +79,17 @@ const Rep = ({ sbeCode, targetCode }) => {
       <ProfilePicture src={src} />
 
       <VStack pt="5rem" onScroll={handleScroll} overflow="scroll" h={`calc(90vh - ${topHeight})`}>
-        <Text fontSize="3xl" fontWeight="semibold" flexWrap="nowrap">
-          {name?.value}
-        </Text>
-        <Box mb="1rem">
-          {assocHC ? <Text>{`${jobTitle}, ${assocHC}`}</Text> : <Text>{`${jobTitle}`}</Text>}
-        </Box>
-        <Flex justifyContent="center" mb="1rem">
-          <Actions actions={actions} sbeCode={sbeCode} beCode={beCode} />
-        </Flex>
+        <DetailSubHeader
+          name={name}
+          assocHC={assocHC}
+          jobTitle={jobTitle}
+          actions={actions}
+          beCode={beCode}
+          sbeCode={sbeCode}
+        />
         <HStack w="65vw" align="start" pt="5" spacing="5">
-          <VStack align="start" w="50%">
-            <HStack spacing="10" align="start" mb="1rem">
-              <FontAwesomeIcon icon={faUser} />
-              <VStack align="start">
-                <Text fontWeight="semibold">{`Contact details`}</Text>
-                <Attribute code={beCode} attribute={'PRI_MOBILE'} />
-                <Attribute code={beCode} attribute={'PRI_EMAIL'} />
-                <Attribute code={beCode} attribute={'PRI_LINKEDIN_URL'} />
-              </VStack>
-            </HStack>
-            <HStack spacing="10" align="start" mb="1rem">
-              <FontAwesomeIcon icon={faEnvelopeOpenText} />
-              <VStack align="start">
-                <Text fontWeight="semibold">{`About Myself`}</Text>
-                <Attribute code={beCode} attribute={'PRI_BIO'} />
-                <HStack>
-                  <Text w="8rem" fontWeight="semibold">
-                    Department
-                  </Text>
-                  <Attribute code={beCode} attribute={'PRI_DEPARTMENT'} />
-                </HStack>
-              </VStack>
-            </HStack>
-          </VStack>
-          {includes('SBE_HOST_CPY_REP_', sbeCode) && (
-            <LinkedInternships
-              sbeCode={replace(
-                'SBE_HOST_CPY_REP_',
-                'SBE_LINKED_INTERNSHIP_OF_SUPERVISOR_',
-                sbeCode,
-              )}
-            />
-          )}
+          <LeftHandDetails beCode={beCode} contactDetails={contactDetails} />
+          <RightHandDetails sbeCode={sbeCode} />
         </HStack>
       </VStack>
     </Box>
