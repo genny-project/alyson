@@ -35,7 +35,6 @@ const Write = ({ questionCode, data, onSendAnswer, typeName }) => {
       test-id={questionCode}
       type={onlyYear ? 'number' : includeTime ? 'datetime-local' : 'date'}
       onBlur={handleChange}
-      step={900}
     />
   )
 }
