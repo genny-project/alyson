@@ -6,7 +6,11 @@ const Label = ({ code, attribute, horizontalLayout }) => {
   const data = useSelector(selectCode(code, attribute))
 
   return (
-    <Text textStyle={horizontalLayout ? 'body3' : 'body1'} w={horizontalLayout ? '6rem' : 'auto'}>
+    <Text
+      textStyle={horizontalLayout ? 'body3' : 'body1'}
+      w={horizontalLayout ? '7rem' : 'auto'}
+      mr={2}
+    >
       {data?.attributeName}
     </Text>
   )
