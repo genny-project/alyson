@@ -12,14 +12,17 @@ const HeroTask = ({ sbeCode, rows }) => {
 
   const sbe = useSelector(selectCode(sbeCode))
   const title = useSelector(selectCode(sbeCode, 'SCH_TITLE'))
+  const validationAttribute = useSelector(selectCode(sbeCode, 'SCH_VALIDATION_ATTRIBUTE'))
+
   const actions = getActions(sbe)
-  const validation = useSelector(selectCode(targetCode, 'PRI_VALIDATION'))
+  const validation = useSelector(selectCode(targetCode, validationAttribute?.value))
 
   const value = validation?.value
 
   const ready =
     value === 'Ready' ||
     value === 'Validated' ||
+    value === true ||
     (includes('_OHNS_', sbeCode) && value === 'OHS') ||
     (includes('_SERVICE_AGREEMENT_DOC_', sbeCode) && value === 'HCS')
 
