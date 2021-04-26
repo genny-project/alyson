@@ -1,7 +1,8 @@
-import { forEach, compose, keys, includes, find } from 'ramda'
+import { forEach, compose, keys, includes, find, filter, map } from 'ramda'
 import { Item, MsgPayload } from 'redux/types'
 import initialiseKey from 'utils/helpers/initialise-key'
 import pushUniqueString from 'utils/helpers/push-unique-string'
+import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { Keyable } from 'utils/types'
 import { DBState, Note } from '../types'
 import sortByIndex from './sort-by-index'
@@ -15,6 +16,9 @@ export const formatBaseEntity = (
 
   const { code, baseEntityAttributes = [] } = item
 
+  if (aliasCode) state[aliasCode] = code
+  if (!state[code]) state[code] = []
+
   if (parentCode) {
     const rowKey = `${parentCode}@rows`
     if (!state[rowKey]) state[rowKey] = []
@@ -23,8 +27,11 @@ export const formatBaseEntity = (
       (state[rowKey] as Array<string>).push(code)
   }
 
-  if (aliasCode) state[aliasCode] = code
-  if (!state[code]) state[code] = []
+  if (includes('SBE_', code)) {
+    forEach(action => {
+      delete state[action as string]
+    }, filter(includes(`${code}@ACT_`), keys(state as object)))
+  }
 
   forEach((attribute: Keyable) => {
     const attributeCode = attribute.attributeCode
@@ -34,6 +41,7 @@ export const formatBaseEntity = (
 
       attribute.value = attribute[valueKey]
     }
+    attribute.created = ''
 
     if ((state[code] as Array<string>).indexOf(attributeCode) === -1)
       (state[code] as Array<string>).push(attributeCode)
@@ -42,11 +50,19 @@ export const formatBaseEntity = (
   }, sortByIndex(baseEntityAttributes))
 }
 
-export const formatAsk = (state: DBState) => (item: Item) => {
-  const { questionCode, childAsks = [], name } = item
+export const formatAsk = (state: DBState, replace: Boolean) => (item: Item) => {
+  const {
+    questionCode,
+    childAsks = [],
+    name,
+    question: { html },
+  } = item
 
   initialiseKey(state, questionCode, [])
   initialiseKey(state, `${questionCode}@title`, name)
+  initialiseKey(state, `${questionCode}@config`, safelyParseJson(html, {}))
+
+  if (replace) state[questionCode] = []
 
   forEach((childAsk: Keyable) => {
     const childAskCode = childAsk.questionCode
@@ -81,4 +97,9 @@ export const formatNotes = (state: DBState) => (item: Note) => {
 
   initialiseKey(state, 'NOTES', {})
   state.NOTES[`${id}`] = item
+}
+
+export const formatGroupData = (state: DBState, parentCode: string, items: Array<Item>) => {
+  const formatted = map(({ name, code }) => ({ code, name }), items || [])
+  state[parentCode] = filter(({ code }) => !includes('GRP_', code), formatted)
 }
