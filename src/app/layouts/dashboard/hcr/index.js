@@ -20,6 +20,7 @@ const HostCompanyRep = ({ userCode }) => {
 
   const serviceAgreement = find(includes('_SERVICE_AGREEMENT_DOC_'))(dashboardSbes)
   const ohsDeclaration = find(includes('_OHNS_'))(dashboardSbes)
+  const termsAndConditions = find(includes('_TERMS_AND_CONDITIONS_'))(dashboardSbes)
 
   const cardBg = useColorModeValue('white', '')
   return (
@@ -52,6 +53,7 @@ const HostCompanyRep = ({ userCode }) => {
             <Text textStyle="body1">Documents</Text>
             <DisplaySbe sbeCode={serviceAgreement} />
             <DisplaySbe sbeCode={ohsDeclaration} />
+            <DisplaySbe sbeCode={termsAndConditions} />
           </VStack>
         </VStack>
 
