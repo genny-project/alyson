@@ -1,0 +1,5 @@
+#!/bin/bash
+set -x
+npmline="npm $@"
+echo $npmline
+docker run -p 3000:3000 -v "$PWD":/usr/src/app -w /usr/src/app node:14.16-alpine3.10 sh -c "${npmline}"
