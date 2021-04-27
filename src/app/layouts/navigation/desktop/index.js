@@ -25,6 +25,7 @@ import { faPlus, faBolt, faBars } from '@fortawesome/free-solid-svg-icons'
 import Buttons from 'app/ASKS/buttons'
 import { onSendMessage } from 'vertx'
 import Drafts from '../drafts/Drafts'
+import Views from './Views'
 
 const DesktopNav = ({ logoSrc }) => {
   const theme = useTheme()
@@ -52,9 +53,7 @@ const DesktopNav = ({ logoSrc }) => {
       >
         <nav>
           <Flex p="3">
-            <IconButton color="gray.600" onClick={onOpen} variant="ghost">
-              <FontAwesomeIcon icon={faBars} />
-            </IconButton>
+            <Views />
             <Spacer />
             <Center mr="-125px" style={{ cursor: 'pointer' }}>
               {apiConfig && (
