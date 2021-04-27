@@ -20,11 +20,10 @@ import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 import statusColors from './status_colors'
 import MainDetails from './MainDetails'
 import makeMotion from 'utils/motion'
-import { head, includes } from 'ramda'
+import { includes } from 'ramda'
 import AvailableInternCard from './available_interns'
 import getUserType from 'utils/helpers/get-user-type'
 import ImageType from 'app/DTT/upload/Image'
-import safelyParseJson from 'utils/helpers/safely-parse-json'
 
 const MotionBox = makeMotion(Box)
 
