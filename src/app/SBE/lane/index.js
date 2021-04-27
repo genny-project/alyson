@@ -4,6 +4,7 @@ import { VStack, useColorModeValue } from '@chakra-ui/react'
 import BECard from 'app/BE/card'
 import Title from './Title'
 import Footer from './Footer'
+import './lane.css'
 
 const Lane = ({ sbeCode, dashboard }) => {
   const rows = useSelector(selectRows(sbeCode), (prev, next) => prev.length === next.length)
@@ -15,9 +16,12 @@ const Lane = ({ sbeCode, dashboard }) => {
   return (
     <VStack bg={color} p="3" borderRadius="md" shadow="inner">
       <Title sbeCode={sbeCode} />
-      {rows.map(row => (
-        <BECard key={row} code={row} parentCode={sbeCode} />
-      ))}
+      <VStack className="nobar" maxH="100vh" overflowY="scroll">
+        {rows.map(row => (
+          <BECard key={row} code={row} parentCode={sbeCode} />
+        ))}
+      </VStack>
+
       <Footer sbeCode={sbeCode} rows={rows} />
     </VStack>
   )
