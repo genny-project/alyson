@@ -97,6 +97,8 @@ const Write = ({ questionCode, data, onSendAnswer, description, html }) => {
         onEditorStateChange={setEditor}
         placeholder={description}
         onBlur={handleSave}
+        spellCheck={true}
+        lang="en"
       />
     </Box>
   ) : (
