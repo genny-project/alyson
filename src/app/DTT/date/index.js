@@ -12,7 +12,7 @@ const Read = ({ data, typeName, config }) => {
 
   const date = timeBasedOnTimeZone(
     includes('Z', data.value || '') ? new Date(data.value) : new Date(data.value + 'Z'),
-    { includeTime },
+    { includeTime, onlyYear },
   )
 
   if (date === 'Invalid Date') return null
@@ -27,8 +27,6 @@ const Write = ({ questionCode, data, onSendAnswer, typeName }) => {
   const onlyYear = typeName === 'year'
 
   const handleChange = e => e.target.value && onSendAnswer(new Date(e.target.value).toISOString())
-
-  console.log(data)
 
   return data?.value ? (
     <DateChip
