@@ -3,11 +3,11 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import timeBasedOnTimeZone from 'utils/helpers/timezone_magic/time-based-on-timezone'
 
-const DateChip = ({ onClick, date, includeTime }) => (
+const DateChip = ({ onClick, date, includeTime, onlyYear }) => (
   <Badge colorScheme="purple" cursor="pointer" onClick={onClick}>
     <HStack padding="1">
       <FontAwesomeIcon icon={faTimes} />
-      <Text>{timeBasedOnTimeZone(date, { includeTime })}</Text>
+      <Text>{timeBasedOnTimeZone(date, { includeTime, onlyYear })}</Text>
     </HStack>
   </Badge>
 )
