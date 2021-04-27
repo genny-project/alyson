@@ -47,7 +47,7 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
   const defaultColor = useColorModeValue('white', theme.colors.background.dark)
   const color = statusColors[statusColor?.value]
 
-  const agentPerCode = head(safelyParseJson(agentCode?.value, [null]))
+  const agentPerCode = agentCode?.value
 
   if (includes('SBE_AVAILABLE_INTERNS', parentCode || ''))
     return <AvailableInternCard parentCode={parentCode} actions={actions} code={code} />
