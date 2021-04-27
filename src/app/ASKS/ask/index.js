@@ -35,6 +35,7 @@ import CheckBox from 'app/DTT/check_box'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import LogRocketSession from 'app/DTT/log_rocket_session'
+import Attribute from 'app/BE/attribute'
 
 const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCode }) => {
   const askData = useSelector(selectCode(parentCode, questionCode)) || passedAskData
@@ -67,18 +68,10 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
   const onSendAnswer = createSendAnswer(askData, { passedTargetCode })
 
   if (readonly) {
-    if (component === 'date')
-      return (
-        <HStack>
-          <CText textStyle="body1">{name}</CText>
-          <Date.Read config={{ textStyle: 'body1' }} data={data} typeName={typeName} />
-        </HStack>
-      )
-
     return (
       <HStack>
         <CText textStyle="body1">{name}</CText>
-        <CText>{data?.value}</CText>
+        <Attribute config={{ textStyle: 'body1' }} code={targetCode} attribute={attributeCode} />
       </HStack>
     )
   }
