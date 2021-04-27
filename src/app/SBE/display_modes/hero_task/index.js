@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux'
-import { selectCode } from 'redux/db/selectors'
+import { selectCode, selectAttributes } from 'redux/db/selectors'
 import { Text, HStack, Spacer, VStack, Badge, Button } from '@chakra-ui/react'
 import getActions from 'app/SBE/utils/get-actions'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -15,6 +15,7 @@ const HeroTask = ({ sbeCode, rows }) => {
   const validationAttribute = useSelector(selectCode(sbeCode, 'SCH_VALIDATION_ATTRIBUTE'))
 
   const actions = getActions(sbe)
+  // console.warn('actions', actions)
   const validation = useSelector(selectCode(targetCode, validationAttribute?.value))
 
   const value = validation?.value
@@ -28,9 +29,19 @@ const HeroTask = ({ sbeCode, rows }) => {
 
   const actionCode = head(
     actions.filter(act =>
-      ready ? includes('_DOWN', act || '') : !includes('_DOWN', act || ''),
+      ready ? includes('_VALIDATED', act || '') : includes('_UNVALIDATED', act || ''),
     ) || [''],
   )
+
+  const validatedAction = actions.filter(act => includes('_VALIDATED', act || ''))
+  const unvalidatedAction = actions.filter(act => includes('_UNVALIDATED', act || ''))
+
+  const validatedActionButtonLabel = useSelector(selectCode(sbeCode, validatedAction))
+    ?.attributeName
+
+  const unvalidatedActionButtonLabel = useSelector(selectCode(sbeCode, unvalidatedAction))
+    ?.attributeName
+
   return (
     <HStack w="full" align="start">
       <VStack align="start">
@@ -54,10 +65,9 @@ const HeroTask = ({ sbeCode, rows }) => {
                 targetCode,
               })
             }
-            leftIcon={<FontAwesomeIcon icon={faFileDownload} />}
             variant="ghost"
           >
-            Download
+            {validatedActionButtonLabel}
           </Button>
         ) : (
           <Button
@@ -71,7 +81,7 @@ const HeroTask = ({ sbeCode, rows }) => {
             colorScheme="red"
             leftIcon={<FontAwesomeIcon icon={faClipboard} />}
           >
-            Please Completete
+            {unvalidatedActionButtonLabel}
           </Button>
         )}
       </VStack>
