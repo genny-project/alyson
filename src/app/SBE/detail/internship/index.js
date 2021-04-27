@@ -12,7 +12,6 @@ import ProfilePicture from 'app/layouts/components/profile_picture'
 import DetailSubHeader from 'app/layouts/components/subheader'
 import RightHandDetails from './templates/RightHandDetails'
 import LeftHandDetails from './templates/LeftHandDetails'
-import Attribute from 'app/BE/attribute'
 
 const internshipDetail = {
   sectionIcon: faBriefcase,
