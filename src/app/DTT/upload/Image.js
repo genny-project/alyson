@@ -56,7 +56,7 @@ const Write = ({ questionCode, data, openDropzone, onSendAnswer, handleSave, set
   )
 }
 
-const Read = ({ data, parentCode, variant, config }) => {
+const Read = ({ code, data, parentCode, variant, config }) => {
   const { getImageSrc } = useApi()
   const src = getImageSrc(data?.value)
 
@@ -64,7 +64,11 @@ const Read = ({ data, parentCode, variant, config }) => {
   const assocName = useSelector(selectCode(data?.baseEntityCode, 'PRI_INTERN_NAME'))
   const viewDetail = () =>
     parentCode
-      ? onSendMessage({ parentCode, targetCode: data?.baseEntityCode, code: 'ACT_PRI_EVENT_VIEW' })
+      ? onSendMessage({
+          parentCode,
+          targetCode: code || data.baseEntityCode,
+          code: 'ACT_PRI_EVENT_VIEW',
+        })
       : null
 
   const bg = useColorModeValue('gray.300', 'gray.600')

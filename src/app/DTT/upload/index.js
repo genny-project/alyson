@@ -6,7 +6,7 @@ import { faCheck, faFileDownload, faUpload } from '@fortawesome/free-solid-svg-i
 import useApi from 'api'
 import DropZone from './Dropzone'
 
-const Read = ({ data, dttData, parentCode, variant, config }) => {
+const Read = ({ code, data, dttData, parentCode, variant, config }) => {
   const typeName = dttData?.typeName
   const api = useApi()
 
@@ -22,7 +22,15 @@ const Read = ({ data, dttData, parentCode, variant, config }) => {
   }, [api, data?.value])
 
   if (typeName === 'Image')
-    return <ImageType.Read data={data} parentCode={parentCode} variant={variant} config={config} />
+    return (
+      <ImageType.Read
+        code={code}
+        data={data}
+        parentCode={parentCode}
+        variant={variant}
+        config={config}
+      />
+    )
   if (!data?.value) return null
 
   return (

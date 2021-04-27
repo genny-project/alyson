@@ -18,7 +18,6 @@ import ChildMenuItem from 'app/ASKS/menu/ChildMenuItem'
 import ColorToggler from './ColorToggler'
 import { onSendMessage } from 'vertx'
 import SettingsModal from './SettingsModal'
-// import HelpModal from './HelpModal'
 
 const QUE_AVATAR_GRP = 'QUE_AVATAR_GRP'
 
@@ -122,7 +121,6 @@ const AvatarMenu = () => {
           <ColorToggler />
         </Flex>
       </MenuList>
-      {/* <HelpModal isOpen={isOpenHelp} onClose={onCloseHelp} /> */}
       <SettingsModal isOpen={isOpen} onClose={onClose} />
     </Menu>
   )

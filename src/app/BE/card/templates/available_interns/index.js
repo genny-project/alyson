@@ -11,27 +11,24 @@ import {
   Text as CText,
 } from '@chakra-ui/react'
 import { selectAttributes, selectCode } from 'redux/db/selectors'
-import { getAttribute } from 'app/SBE/utils/get-columns'
 import Text from 'app/DTT/text'
 import Image from 'app/DTT/upload/Image'
 import ContextMenu from 'app/BE/context'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
-import statusColors from './status_colors'
-import MainDetails from './MainDetails'
+import statusColors from '../status_colors'
 import makeMotion from 'utils/motion'
-import { head, includes } from 'ramda'
-import AvailableInternCard from './available_interns'
-import getUserType from 'utils/helpers/get-user-type'
 import ImageType from 'app/DTT/upload/Image'
+import getUserType from 'utils/helpers/get-user-type'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
+import { head } from 'ramda'
 
 const MotionBox = makeMotion(Box)
 
-const Card = ({ parentCode, actions = [], code, columns }) => {
+const AvailableInternCard = ({ parentCode, actions = [], code }) => {
   const theme = useTheme()
-  const title = useSelector(selectCode(code, getAttribute(columns[0] || '')))
-  const subTitle = useSelector(selectCode(code, getAttribute(columns[1] || '')))
+  const title = useSelector(selectCode(code, 'PRI_NAME'))
+  const subTitle = useSelector(selectCode(code, 'PRI_ASSOC_OCCUPATION'))
   const image = useSelector(selectCode(code, 'PRI_IMAGE_URL'))
   const statusColor = useSelector(selectCode(code, 'PRI_STATUS_COLOR'))
   const userCode = useSelector(selectCode('USER'))
@@ -44,13 +41,11 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
       'LNK_AGENT',
     ]),
   )
+
   const defaultColor = useColorModeValue('white', theme.colors.background.dark)
   const color = statusColors[statusColor?.value]
 
   const agentPerCode = head(safelyParseJson(agentCode?.value, [null]))
-
-  if (includes('SBE_AVAILABLE_INTERNS', parentCode || ''))
-    return <AvailableInternCard parentCode={parentCode} actions={actions} code={code} />
 
   return (
     <MotionBox
@@ -63,7 +58,7 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
       transition={{ duration: 0.1 }}
       bgColor={color}
     >
-      <Flex spacing="3">
+      <Flex spacing="3" w="20rem">
         <HStack>
           <Image.Read
             config={{ size: 'xl' }}
@@ -71,24 +66,29 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
             parentCode={parentCode}
           />
           <VStack alignItems="baseline" w="30">
-            <Text.Read
-              data={title}
-              textProps={{
-                textStyle: 'body1',
-                isTruncated: true,
-                maxW: '14rem',
-              }}
-            />
-            <Text.Read
-              config={{
-                as: 'span',
-                textStyle: 'body3',
-                isTruncated: true,
-                maxW: '14rem',
-              }}
-              data={subTitle}
-            />
-            <MainDetails code={code} columns={columns} parentCode={parentCode} />
+            {title?.value ? (
+              <Text.Read
+                data={title}
+                textProps={{
+                  textStyle: 'body1',
+                  maxW: '16rem',
+                }}
+              />
+            ) : (
+              <CText textStyle="body3">Not yet set</CText>
+            )}
+            {subTitle?.value ? (
+              <Text.Read
+                config={{
+                  as: 'span',
+                  textStyle: 'body3',
+                  maxW: '16rem',
+                }}
+                data={subTitle}
+              />
+            ) : (
+              <CText textStyle="body3">Not yet set</CText>
+            )}
           </VStack>
         </HStack>
         <Spacer minW="1rem" />
@@ -119,4 +119,4 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
   )
 }
 
-export default Card
+export default AvailableInternCard

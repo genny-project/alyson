@@ -39,12 +39,12 @@ const Attribute = ({
   const component = dttData?.component
 
   if (attribute === 'PRI_IMAGE_URL' && !data)
-    return <ImageType.Read data={data} parentCode={parentCode} />
+    return <ImageType.Read code={code} data={data} parentCode={parentCode} />
 
   if (!component && fallback) return fallback
 
   if (data && data.attributeName === 'ImageUrl')
-    return <ImageType.Read data={data} parentCode={parentCode} />
+    return <ImageType.Read code={code} data={data} parentCode={parentCode} />
 
   return component === 'email' ? (
     <Email.Read data={data} size={size} />
@@ -54,6 +54,7 @@ const Attribute = ({
     <Text.Read size={size} data={data} config={config} />
   ) : component === 'upload' ? (
     <Upload.Read
+      code={code}
       parentCode={parentCode}
       data={data}
       dttData={dttData}
