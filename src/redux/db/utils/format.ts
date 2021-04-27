@@ -16,6 +16,9 @@ export const formatBaseEntity = (
 
   const { code, baseEntityAttributes = [] } = item
 
+  if (aliasCode) state[aliasCode] = code
+  if (!state[code]) state[code] = []
+
   if (parentCode) {
     const rowKey = `${parentCode}@rows`
     if (!state[rowKey]) state[rowKey] = []
@@ -24,14 +27,11 @@ export const formatBaseEntity = (
       (state[rowKey] as Array<string>).push(code)
   }
 
-  if (aliasCode) state[aliasCode] = code
-  if (!state[code]) state[code] = []
-
-  const allActionsCurrentlyPresent = filter(includes(`${code}@ACT_`), keys(state as object))
-
-  forEach(action => {
-    delete state[action as string]
-  }, allActionsCurrentlyPresent)
+  if (includes('SBE_', code)) {
+    forEach(action => {
+      delete state[action as string]
+    }, filter(includes(`${code}@ACT_`), keys(state as object)))
+  }
 
   forEach((attribute: Keyable) => {
     const attributeCode = attribute.attributeCode
@@ -50,7 +50,7 @@ export const formatBaseEntity = (
   }, sortByIndex(baseEntityAttributes))
 }
 
-export const formatAsk = (state: DBState) => (item: Item) => {
+export const formatAsk = (state: DBState, replace: Boolean) => (item: Item) => {
   const {
     questionCode,
     childAsks = [],
@@ -61,6 +61,8 @@ export const formatAsk = (state: DBState) => (item: Item) => {
   initialiseKey(state, questionCode, [])
   initialiseKey(state, `${questionCode}@title`, name)
   initialiseKey(state, `${questionCode}@config`, safelyParseJson(html, {}))
+
+  if (replace) state[questionCode] = []
 
   forEach((childAsk: Keyable) => {
     const childAskCode = childAsk.questionCode

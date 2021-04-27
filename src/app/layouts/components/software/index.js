@@ -2,7 +2,7 @@ import { Badge, Wrap, WrapItem, Box, Text } from '@chakra-ui/layout'
 import { split } from 'ramda'
 
 const Software = ({ value, title }) => {
-  const array = split(', ', value)
+  const array = split(', ', value || '')
 
   return (
     <Box>

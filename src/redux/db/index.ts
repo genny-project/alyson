@@ -32,7 +32,7 @@ const db = createSlice({
         formatGroupData(state, parentCode, items)
       if (data_type === 'BaseEntity' && !includes('GRP_', (parentCode as string) || ''))
         forEach(formatBaseEntity(state, aliasCode, parentCode), items)
-      if (data_type === 'Ask') forEach(formatAsk(state), items)
+      if (data_type === 'Ask') forEach(formatAsk(state, replace), items)
       if (data_type === 'Attribute') forEach(formatAttribute(state), items)
       if (data_type === 'Note') forEach(formatNotes(state), items as Array<Note>)
     })

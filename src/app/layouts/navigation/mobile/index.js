@@ -25,6 +25,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faBolt, faBars } from '@fortawesome/free-solid-svg-icons'
 import Buttons from 'app/ASKS/buttons'
 import { onSendMessage } from 'vertx'
+import Drafts from '../drafts/Drafts'
 
 const MobileNav = ({ logoSrc }) => {
   const theme = useTheme()
@@ -70,6 +71,7 @@ const MobileNav = ({ logoSrc }) => {
               )}
             </Center>
             <Spacer />
+            <Drafts />
             <Avatar />
           </Flex>
         </nav>

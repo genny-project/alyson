@@ -2,6 +2,7 @@ import { includes } from 'ramda'
 import { Text, Input } from '@chakra-ui/react'
 import timeBasedOnTimeZone from 'utils/helpers/timezone_magic/time-based-on-timezone.ts'
 import DateChip from './DateChip'
+import getDate from 'utils/helpers/timezone_magic/get-date'
 
 const Read = ({ data, typeName, config }) => {
   const includeTime = includes('LocalDateTime', typeName)
@@ -24,7 +25,11 @@ const Write = ({ questionCode, data, onSendAnswer, typeName }) => {
   const handleChange = e => e.target.value && onSendAnswer(new Date(e.target.value).toISOString())
 
   return data?.value ? (
-    <DateChip onClick={() => onSendAnswer(null)} date={new Date(data.value)} />
+    <DateChip
+      includeTime={includeTime}
+      onClick={() => onSendAnswer(null)}
+      date={getDate(data?.value)}
+    />
   ) : (
     <Input
       test-id={questionCode}

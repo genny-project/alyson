@@ -1,7 +1,14 @@
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import createSendAnswer from 'app/ASKS/utils/create-send-answer'
-import { FormControl, FormLabel, FormErrorMessage, HStack, Box } from '@chakra-ui/react'
+import {
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  HStack,
+  Box,
+  Text as CText,
+} from '@chakra-ui/react'
 import getGroupCode from 'app/ASKS/utils/get-group-code'
 import Text from 'app/DTT/text'
 import Button from 'app/DTT/button'
@@ -32,7 +39,16 @@ import LogRocketSession from 'app/DTT/log_rocket_session'
 const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCode }) => {
   const askData = useSelector(selectCode(parentCode, questionCode)) || passedAskData
 
-  const { attributeCode, targetCode, name, question, mandatory, hidden, disabled } = askData
+  const {
+    attributeCode,
+    targetCode,
+    name,
+    question,
+    mandatory,
+    hidden,
+    disabled,
+    readonly,
+  } = askData
 
   const data = useSelector(selectCode(targetCode, attributeCode)) || {}
 
@@ -49,6 +65,14 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
 
   const feedback = data?.feedback
   const onSendAnswer = createSendAnswer(askData, { passedTargetCode })
+
+  if (readonly)
+    return (
+      <HStack>
+        <CText textStyle="body1">{name}</CText>
+        <CText>{data?.value}</CText>
+      </HStack>
+    )
 
   if (component === 'checkbox')
     return (

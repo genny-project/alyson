@@ -4,6 +4,7 @@ import { useUserMedia } from 'utils/hooks'
 import { Button, Progress, Text, VStack } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRecordVinyl } from '@fortawesome/free-solid-svg-icons'
+import iOS from 'utils/helpers/is-ios'
 
 const CAPTURE_OPTIONS = {
   audio: true,
@@ -61,6 +62,13 @@ const VideoRecorder = ({ setData, config, setStartVideo }) => {
   useEffect(() => {
     if (!recorderRef.current) setCapturing(false)
   }, [recorderRef])
+
+  if (iOS())
+    return (
+      <Text textStyle="body3">
+        Sorry we can't support this device, please try a different device for recording!
+      </Text>
+    )
 
   if (error)
     return (
