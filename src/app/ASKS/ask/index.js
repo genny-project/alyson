@@ -66,13 +66,22 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
   const feedback = data?.feedback
   const onSendAnswer = createSendAnswer(askData, { passedTargetCode })
 
-  if (readonly)
+  if (readonly) {
+    if (component === 'date')
+      return (
+        <HStack>
+          <CText textStyle="body1">{name}</CText>
+          <Date.Read config={{ textStyle: 'body1' }} data={data} typeName={typeName} />
+        </HStack>
+      )
+
     return (
       <HStack>
         <CText textStyle="body1">{name}</CText>
         <CText>{data?.value}</CText>
       </HStack>
     )
+  }
 
   if (component === 'checkbox')
     return (
