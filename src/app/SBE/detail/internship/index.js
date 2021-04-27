@@ -12,6 +12,7 @@ import ProfilePicture from 'app/layouts/components/profile_picture'
 import DetailSubHeader from 'app/layouts/components/subheader'
 import RightHandDetails from './templates/RightHandDetails'
 import LeftHandDetails from './templates/LeftHandDetails'
+import Attribute from 'app/BE/attribute'
 
 const internshipDetail = {
   sectionIcon: faBriefcase,
@@ -48,6 +49,7 @@ const Internship = ({ sbeCode, targetCode }) => {
   const name = useSelector(selectCode(beCode, 'PRI_NAME'))
   const software = useSelector(selectCode(beCode, 'PRI_SOFTWARE'))
   const actions = getActions(sbe)
+  const videoData = useSelector(selectCode('PRI_VIDEO_URL'))
 
   const linkedSupervisor = replace('SBE_INTERNSHIP_', 'SBE_LINKED_INTERN_SUPERVISOR_', sbeCode)
   const linkedHostCpy = replace('SBE_INTERNSHIP_', 'SBE_LINKED_HOST_CPY_', sbeCode)
@@ -67,6 +69,7 @@ const Internship = ({ sbeCode, targetCode }) => {
     >
       <DetailHeader address={address} />
       <ProfilePicture src={src} />
+
       <VStack pt="5rem" overflow="scroll" h={`calc(100vh - ${topHeight})`}>
         <DetailSubHeader
           url={url}
@@ -79,6 +82,7 @@ const Internship = ({ sbeCode, targetCode }) => {
 
         <HStack w="65vw" align="start" pt="5" spacing="5">
           <LeftHandDetails
+            videoData={videoData}
             beCode={beCode}
             internshipDetail={internshipDetail}
             linkedSupervisor={linkedSupervisor}
