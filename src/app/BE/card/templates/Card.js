@@ -20,10 +20,11 @@ import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 import statusColors from './status_colors'
 import MainDetails from './MainDetails'
 import makeMotion from 'utils/motion'
-import { includes } from 'ramda'
+import { head, includes } from 'ramda'
 import AvailableInternCard from './available_interns'
 import getUserType from 'utils/helpers/get-user-type'
 import ImageType from 'app/DTT/upload/Image'
+import safelyParseJson from 'utils/helpers/safely-parse-json'
 
 const MotionBox = makeMotion(Box)
 
@@ -36,11 +37,17 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
   const userCode = useSelector(selectCode('USER'))
   const userType = getUserType(useSelector(selectCode(userCode)))
 
-  const [agentName, agentImage] = useSelector(
-    selectAttributes(code, ['PRI_LNK_AGENT__PRI_NAME', 'PRI_LNK_AGENT__PRI_IMAGE_URL']),
+  const [agentName, agentImage, agentCode] = useSelector(
+    selectAttributes(code, [
+      'PRI_LNK_AGENT__PRI_NAME',
+      'PRI_LNK_AGENT__PRI_IMAGE_URL',
+      'LNK_AGENT',
+    ]),
   )
   const defaultColor = useColorModeValue('white', theme.colors.background.dark)
   const color = statusColors[statusColor?.value]
+
+  const agentPerCode = head(safelyParseJson(agentCode?.value, [null]))
 
   if (includes('SBE_AVAILABLE_INTERNS', parentCode || ''))
     return <AvailableInternCard parentCode={parentCode} actions={actions} code={code} />
@@ -94,12 +101,17 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
           }
         />
       </Flex>
-      {userType === 'AGENT' || userType === 'ADMIN' ? (
+      {(userType === 'AGENT' || userType === 'ADMIN') && agentPerCode ? (
         <Flex w="full">
           <Spacer />
           <HStack>
             <CText textStyle="tail2">{agentName?.value}</CText>
-            <ImageType.Read config={{ size: 'sm' }} data={agentImage} parentCode={parentCode} />
+            <ImageType.Read
+              code={agentPerCode}
+              config={{ size: 'sm' }}
+              data={agentImage}
+              parentCode={parentCode}
+            />
           </HStack>
         </Flex>
       ) : null}
