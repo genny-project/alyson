@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
-
+import { Text as CText } from '@chakra-ui/react'
 import Text from 'app/DTT/text'
 import Email from 'app/DTT/email'
 import Upload from 'app/DTT/upload'
@@ -20,6 +20,7 @@ import Rating from 'app/DTT/rating'
 import TimeZonePicker from 'app/DTT/time_zone'
 import CheckBox from 'app/DTT/check_box'
 import ImageType from 'app/DTT/upload/Image'
+import fixLnk from './fix-lnk'
 
 const Attribute = ({
   code,
@@ -32,14 +33,18 @@ const Attribute = ({
   fallback = null,
   styles,
 }) => {
-  const data = useSelector(selectCode(code, attribute))
+  const data = useSelector(selectCode(code, fixLnk(attribute)))
   const dtt = useSelector(selectCode(data?.attributeCode))
   const dttData = useSelector(selectCode(dtt))
   const component = dttData?.component
 
   if (attribute === 'PRI_IMAGE_URL' && !data)
+    return <ImageType.Read data={data} parentCode={parentCode} />
+
+  if (!component && fallback) return fallback
+
+  if (data && data.attributeName === 'ImageUrl')
     return <ImageType.Read data={{ baseEntityCode: code }} parentCode={parentCode} />
-  if (!component) return fallback
 
   return component === 'email' ? (
     <Email.Read data={data} size={size} />
@@ -85,10 +90,7 @@ const Attribute = ({
   ) : component === 'checkbox' ? (
     <CheckBox.Read data={data} />
   ) : (
-    <div>
-      {component}
-      {data?.value}
-    </div>
+    <CText>{data?.value}</CText>
   )
 }
 
