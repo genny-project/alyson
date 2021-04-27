@@ -1,22 +1,26 @@
 import { useSelector, useDispatch } from 'react-redux'
+import { replace } from 'ramda'
 import { selectCode, selectRows } from 'redux/db/selectors'
-import { Box, HStack, Link, Text, VStack } from '@chakra-ui/react'
+import { Box, HStack, VStack } from '@chakra-ui/react'
 import useApi from 'api'
 
 import getActions from 'app/SBE/utils/get-actions'
-import Attribute from 'app/BE/attribute'
-import Status from 'app/DTT/status'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEnvelopeOpenText, faUser } from '@fortawesome/free-solid-svg-icons'
 import { closeDrawer } from 'redux/app'
 import Lane from 'app/SBE/lane'
-import { replace } from 'ramda'
 import { useIsMobile } from 'utils/hooks'
 import CompanyMobile from './mobile_view'
 import { topHeight } from 'app/SBE/detail/helpers/set-top-height'
 import DetailHeader from 'app/layouts/components/header'
 import ProfilePicture from 'app/layouts/components/profile_picture'
-import Actions from 'app/layouts/components/actions'
+import DetailSubHeader from 'app/layouts/components/subheader'
+import LeftHandDetails from './templates/LeftHandDetails'
+
+const subHeaderAttributes = ['PRI_ASSOC_INDUSTRY']
+
+const contactdetails = {
+  title: 'Contact Details',
+  attributes: ['PRI_MOBILE', 'PRI_LEGAL_NAME', 'PRI_ABN', 'PRI_LINKEDIN_URL'],
+}
 
 const Company = ({ sbeCode, targetCode }) => {
   const dispatch = useDispatch()
@@ -67,39 +71,17 @@ const Company = ({ sbeCode, targetCode }) => {
       <ProfilePicture src={src} />
 
       <VStack pt="5rem" overflow="scroll" h={`calc(100vh - ${topHeight})`}>
-        <Link href={url?.value}>
-          <Text fontSize="3xl" fontWeight="semibold" flexWrap="nowrap">
-            {name?.value}
-          </Text>
-        </Link>
-        <Attribute code={beCode} attribute={'PRI_ASSOC_INDUSTRY'} />
-        <Actions actions={actions} sbeCode={sbeCode} beCode={beCode} />
+        <DetailSubHeader
+          url={url}
+          name={name}
+          beCode={beCode}
+          sbeCode={sbeCode}
+          actions={actions}
+          subHeaderAttributes={subHeaderAttributes}
+        />
 
         <HStack w="65vw" align="start" pt="5" spacing="5">
-          <VStack align="start" w="50%">
-            <HStack spacing="10" align="start">
-              <FontAwesomeIcon icon={faUser} />
-              <VStack align="start">
-                <Text fontWeight="semibold">Contact details</Text>
-                <Status.Read data={status} />
-                <Attribute code={beCode} attribute={'PRI_MOBILE'} />
-                <Attribute code={beCode} attribute={'PRI_LEGAL_NAME'} />
-                <Attribute code={beCode} attribute={'PRI_ABN'} />
-                <Attribute code={beCode} attribute={'PRI_LINKEDIN_URL'} />
-              </VStack>
-            </HStack>
-            <HStack spacing="10" align="start">
-              <FontAwesomeIcon icon={faEnvelopeOpenText} />
-              <VStack align="start">
-                <Text fontWeight="semibold">Description</Text>
-                <Attribute
-                  code={beCode}
-                  attribute={'PRI_COMPANY_DESCRIPTION'}
-                  fallback={<Text>No company description</Text>}
-                />
-              </VStack>
-            </HStack>
-          </VStack>
+          <LeftHandDetails beCode={beCode} contactdetails={contactdetails} status={status} />
           <Lane sbeCode={replace('SBE_HOST_CPY_', 'SBE_LINKED_INTERNSHIP_OPP_', sbeCode)} />
         </HStack>
       </VStack>

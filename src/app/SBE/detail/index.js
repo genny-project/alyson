@@ -1,11 +1,12 @@
 import { useSelector } from 'react-redux'
 import { selectDetail } from 'redux/app/selectors'
 import { selectCode } from 'redux/db/selectors'
-import Cv from './intern'
+import Intern from './intern'
 import Company from './company'
 import Internship from './internship'
 import Rep from './rep'
 import Agent from './agent'
+import EduProDetail from './edu_pro'
 import DefaultView from './default-view'
 import getDetailType from './helpers/get-detail-type'
 import Application from './application'
@@ -17,7 +18,7 @@ const BaseEntityDetail = ({ targetCode, defaultView }) => {
 
   if (defaultView) return <DefaultView sbeCode={code} targetCode={targetCode} />
   if (displayType === 'CV') {
-    return <Cv sbeCode={code} targetCode={targetCode} />
+    return <Intern sbeCode={code} targetCode={targetCode} />
   }
 
   if (displayType === 'COMPANY') {
@@ -38,6 +39,10 @@ const BaseEntityDetail = ({ targetCode, defaultView }) => {
 
   if (displayType === 'AGENT') {
     return <Agent sbeCode={code} targetCode={targetCode} />
+  }
+
+  if (displayType === 'EDU_PRO') {
+    return <EduProDetail sbeCode={code} targetCode={targetCode} />
   }
 
   return <DefaultView sbeCode={code} targetCode={targetCode} />
