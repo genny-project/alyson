@@ -3,8 +3,23 @@ import { Input, InputGroup, InputRightElement } from '@chakra-ui/input'
 import { Badge, Box, HStack, Text, VStack, Wrap, WrapItem } from '@chakra-ui/layout'
 import { faAngleDown, faCheckCircle, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { append, compose, filter, find, includes, not, prop, propEq, toLower } from 'ramda'
+import {
+  append,
+  compose,
+  filter,
+  find,
+  includes,
+  not,
+  prop,
+  propEq,
+  replace,
+  toLower,
+  toUpper,
+} from 'ramda'
 import { useRef, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { selectCode } from 'redux/db/selectors'
+import getUserType from 'utils/helpers/get-user-type'
 import { onlyValue } from './get-value'
 
 const Autocomplete = ({ questionCode, defaultValue, options, onChange, placeholder }) => {
@@ -12,6 +27,9 @@ const Autocomplete = ({ questionCode, defaultValue, options, onChange, placehold
   const [input, setInput] = useState('')
   const [open, setOpen] = useState(false)
   const ref = useRef()
+
+  const user = useSelector(selectCode('USER'))
+  const userType = getUserType(useSelector(selectCode(user)))
 
   const toggleOpen = () => setOpen(not)
   const onInputChange = ({ target: { value } }) => {
@@ -30,6 +48,10 @@ const Autocomplete = ({ questionCode, defaultValue, options, onChange, placehold
   const onBlur = () => {
     setOpen(false)
     setInput('')
+  }
+
+  const createNew = () => {
+    onSelectChange(`NEW_${toUpper(replace(' ', '_', input))}`)
   }
 
   const renderLabel = item => compose(prop('label'), find(propEq('value', item)))(options)
@@ -101,6 +123,12 @@ const Autocomplete = ({ questionCode, defaultValue, options, onChange, placehold
                   <Text>{option.label}</Text>
                 </HStack>
               ))
+            ) : userType === 'AGENT' || userType === 'ADMIN' ? (
+              <Text
+                cursor="pointer"
+                _hover={{ color: 'teal' }}
+                onClick={createNew}
+              >{`Not found, create "${input}"?`}</Text>
             ) : (
               <Text>No options found!</Text>
             )}
