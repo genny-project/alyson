@@ -1,15 +1,16 @@
 import { Box, HStack, Text, VStack } from '@chakra-ui/layout'
-import { selectAttributes } from 'redux/db/selectors'
-import { selectDashboard } from 'redux/app/selectors'
-import { useSelector } from 'react-redux'
-import DisplaySbe from 'app/SBE'
-import { includes, find } from 'ramda'
 import { Button } from '@chakra-ui/button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBriefcase } from '@fortawesome/free-solid-svg-icons'
+import { includes, find } from 'ramda'
+import { useSelector } from 'react-redux'
+import { useColorModeValue } from '@chakra-ui/color-mode'
+
+import { selectAttributes } from 'redux/db/selectors'
+import { selectDashboard } from 'redux/app/selectors'
+import DisplaySbe from 'app/SBE'
 import { onSendMessage } from 'vertx'
 import Process from 'app/layouts/process'
-import { useColorModeValue } from '@chakra-ui/color-mode'
 import Attribute from 'app/BE/attribute'
 
 const HostCompanyRep = ({ userCode }) => {

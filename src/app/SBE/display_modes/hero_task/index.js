@@ -1,9 +1,9 @@
 import { useSelector } from 'react-redux'
-import { selectCode, selectAttributes } from 'redux/db/selectors'
+import { selectCode } from 'redux/db/selectors'
 import { Text, HStack, Spacer, VStack, Badge, Button } from '@chakra-ui/react'
 import getActions from 'app/SBE/utils/get-actions'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faClipboard, faFile, faFileDownload } from '@fortawesome/free-solid-svg-icons'
+import { faClipboard, faFile } from '@fortawesome/free-solid-svg-icons'
 import { head, includes } from 'ramda'
 import { onSendMessage } from 'vertx'
 
@@ -15,7 +15,6 @@ const HeroTask = ({ sbeCode, rows }) => {
   const validationAttribute = useSelector(selectCode(sbeCode, 'SCH_VALIDATION_ATTRIBUTE'))
 
   const actions = getActions(sbe)
-  // console.warn('actions', actions)
   const validation = useSelector(selectCode(targetCode, validationAttribute?.value))
 
   const value = validation?.value
@@ -65,7 +64,7 @@ const HeroTask = ({ sbeCode, rows }) => {
                 targetCode,
               })
             }
-            variant="ghost"
+            colorScheme="primary"
           >
             {validatedActionButtonLabel}
           </Button>
