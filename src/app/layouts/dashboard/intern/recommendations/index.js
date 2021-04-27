@@ -15,15 +15,12 @@ const Recommendations = () => {
   return (
     <Card variant="lg">
       <VStack>
-        <Text fontSize="xl" fontWeight="semibold">
-          ✨ Congrats! ✨
-        </Text>
-        <Text fontWeight="semibold">
-          We've matched you directly with these available Internships!
+        <Text textStyle="body2">
+          Congratulations, below are some internships that we have recommended for you
         </Text>
         <HStack>
           {matchCodes.map(code => (
-            <InternshipCard key={code} code={code} />
+            <InternshipCard key={code} code={code} parentCode={'PRI_MATCHED_INTERNSHIPS'} />
           ))}
         </HStack>
       </VStack>
