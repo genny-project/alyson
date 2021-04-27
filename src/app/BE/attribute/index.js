@@ -44,7 +44,7 @@ const Attribute = ({
   if (!component && fallback) return fallback
 
   if (data && data.attributeName === 'ImageUrl')
-    return <ImageType.Read data={{ baseEntityCode: code }} parentCode={parentCode} />
+    return <ImageType.Read data={data} parentCode={parentCode} />
 
   return component === 'email' ? (
     <Email.Read data={data} size={size} />
