@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect, useCallback } from 'react'
 import { length } from 'ramda'
 import { useUserMedia } from 'utils/hooks'
-import { Button, Progress, Text, VStack } from '@chakra-ui/react'
+import { Button, Progress, Text, VStack, Box } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRecordVinyl } from '@fortawesome/free-solid-svg-icons'
 import iOS from 'utils/helpers/is-ios'
@@ -73,7 +73,7 @@ const VideoRecorder = ({ setData, config, setStartVideo }) => {
   if (error)
     return (
       <VStack>
-        <Text style={{ maxWidth: '30rem' }}>
+        <Text style={{ maxWidth: '60rem' }} mb="5">
           {`Hi, either we were not granted permission to acccess your camera or we could 
   not find it. If you see a camera in the right hand side of 
   the address bar, click it to enable access. Try disconnecting 
@@ -94,13 +94,15 @@ const VideoRecorder = ({ setData, config, setStartVideo }) => {
           playsInline
           muted
         />
-        <Button
-          colorScheme="primary"
-          leftIcon={<FontAwesomeIcon color={capturing ? 'red' : 'grey'} icon={faRecordVinyl} />}
-          onClick={capturing ? onStopCapture : onStartCapture}
-        >
-          {capturing ? 'Stop Recording' : 'Start Recording!'}
-        </Button>
+        <Box pt="5">
+          <Button
+            colorScheme="primary"
+            leftIcon={<FontAwesomeIcon color={capturing ? 'red' : 'grey'} icon={faRecordVinyl} />}
+            onClick={capturing ? onStopCapture : onStartCapture}
+          >
+            {capturing ? 'Stop Recording' : 'Start Recording!'}
+          </Button>
+        </Box>
       </VStack>
       <Text maxW="60rem">{config.description}</Text>
       <div hidden={!length(recordedChunks) || capturing}>

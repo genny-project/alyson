@@ -43,11 +43,11 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
   if (src)
     return (
       <VStack>
-        <video style={{ width: '20rem', borderRadius: '1rem' }} src={src} controls />
-        <Badge variant="subtle" colorScheme="green">
-          Saved!
+        <video style={{ width: '60rem', borderRadius: '1rem' }} src={src} controls />
+        <Badge variant="subtle" colorScheme="green" mt="2">
+          {`Saved!`}
         </Badge>
-        <HStack>
+        <HStack style={{ marginTop: '40px' }}>
           <Button
             test-id={questionCode + '-clear'}
             onClick={() => {
@@ -55,7 +55,7 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
               onSendAnswer()
             }}
           >
-            Re-Record
+            {`Re-Record`}
           </Button>
           <Button
             leftIcon={<FontAwesomeIcon icon={faBan} />}
@@ -64,7 +64,7 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
               onSendAnswer('')
             }}
           >
-            Delete Video
+            {`Delete Video`}
           </Button>
         </HStack>
       </VStack>
