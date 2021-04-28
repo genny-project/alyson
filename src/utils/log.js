@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { API_VERSION_URL, HOST } from 'config/genny'
 import { version } from '../../package.json'
-import { map, mergeAll, head, compose, keys, addIndex, values, uniq } from 'ramda'
+import { map, mergeAll, head, compose, keys, addIndex, values, uniq, includes } from 'ramda'
 
 const initLog = async () => {
   const apiResponse = await axios.get(API_VERSION_URL)
@@ -53,10 +53,42 @@ const prettyLog = (msg, data, style) => {
       : msg
     : msg
 
-  if (title === 'QBulkMessage') {
-  } else {
-    console.info(`%c${title}`, style || 'padding: 1rem; font-size: 1rem;', '\n', data)
+  if (title === 'QBulkMessage') return
+
+  if (data.cmd_type) {
+    console.info(
+      `%c${data.cmd_type}: ${data.code}`,
+      style || 'padding: 1rem; font-size: 1rem; color: salmon;',
+      '\n',
+      data,
+    )
+
+    return
   }
+
+  if (data?.data_type === 'Ask') {
+    console.info(`%c${title}`, style || 'padding: 1rem; font-size: 1rem; color: teal;', '\n', data)
+
+    return
+  }
+
+  if (includes('Rows -', title || '')) {
+    console.info(
+      `%c${title}`,
+      style || 'padding: 1rem; font-size: 1rem; color: lightgreen;',
+      '\n',
+      data,
+    )
+
+    return
+  }
+
+  console.info(
+    `%c${title}`,
+    style || 'padding: 1rem; font-size: 1rem; color: darkgreen',
+    '\n',
+    data,
+  )
 }
 
 export default prettyLog
