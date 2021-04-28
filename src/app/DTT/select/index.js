@@ -1,4 +1,4 @@
-import { includes, pathOr } from 'ramda'
+import { includes, pathOr, length } from 'ramda'
 import { useSelector } from 'react-redux'
 import { selectCode, selectRows } from 'redux/db/selectors'
 import { Select as CSelect, Text } from '@chakra-ui/react'
@@ -18,6 +18,7 @@ const Write = ({
 }) => {
   const options = useSelector(selectCode(groupCode)) || []
 
+  const defaultValue = safelyParseJson(data?.value).toString()
   const { typeName } = dataType
   const multiple = includes('multiple', typeName || '') || component === 'tag'
 
@@ -45,7 +46,7 @@ const Write = ({
         'test-id': questionCode,
       }}
       onChange={e => onSendAnswer([e.target.value])}
-      defaultValue={safelyParseJson(data?.value)}
+      defaultValue={defaultValue}
     >
       {options &&
         options.map(

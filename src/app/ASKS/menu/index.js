@@ -14,12 +14,7 @@ const AsksMenu = ({ questionCode }) => {
 
   return (
     <Menu>
-      <MenuButton
-        opacity={0.8}
-        _hover={{ opacity: 1 }}
-        test-id={questionCode}
-        colorScheme="primary"
-      >
+      <MenuButton opacity={0.8} _hover={{ opacity: 1 }} test-id={questionCode}>
         <VStack color="grey" test-id={questionCode}>
           <FontAwesomeIcon size="lg" icon={icons[questionCode]} />
           <HStack spacing={1}>
