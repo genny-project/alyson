@@ -3,19 +3,7 @@ import { Input, InputGroup, InputRightElement } from '@chakra-ui/input'
 import { Badge, Box, HStack, Text, VStack, Wrap, WrapItem } from '@chakra-ui/layout'
 import { faAngleDown, faCheckCircle, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  append,
-  compose,
-  filter,
-  find,
-  includes,
-  not,
-  prop,
-  propEq,
-  replace,
-  toLower,
-  toUpper,
-} from 'ramda'
+import { append, compose, filter, find, includes, not, prop, propEq, replace, toLower } from 'ramda'
 import { useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
