@@ -23,7 +23,7 @@ import getUserType from 'utils/helpers/get-user-type'
 import { onlyValue } from './get-value'
 
 const Autocomplete = ({ questionCode, defaultValue, options, onChange, placeholder }) => {
-  const [selected, setSelected] = useState(onlyValue(defaultValue || []))
+  const selected = onlyValue(defaultValue || [])
   const [input, setInput] = useState('')
   const [open, setOpen] = useState(false)
   const ref = useRef()
@@ -42,7 +42,6 @@ const Autocomplete = ({ questionCode, defaultValue, options, onChange, placehold
       : append(option, selected)
 
     onChange(newSelected)
-    setSelected(newSelected)
   }
 
   const onBlur = () => {
@@ -51,7 +50,7 @@ const Autocomplete = ({ questionCode, defaultValue, options, onChange, placehold
   }
 
   const createNew = () => {
-    onSelectChange(`NEW_${toUpper(replace(' ', '_', input))}`)
+    onSelectChange(`NEW_${replace(' ', '_', input)}`)
   }
 
   const renderLabel = item => compose(prop('label'), find(propEq('value', item)))(options)
