@@ -18,6 +18,7 @@ import useApi from 'api'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faVideo, faExpand, faBan } from '@fortawesome/free-solid-svg-icons'
 import Player from './Player'
+import videoIntroImage from './video-intro.png'
 
 const Write = ({ questionCode, onSendAnswer, html, data }) => {
   const config = safelyParseJson(html, {})
@@ -79,21 +80,22 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
           config={config}
         />
       ) : (
-        <VStack align="start" border="1px black solid" pl="8" pb="8" w="100%">
+        <VStack align="start" borderRadius="md" shadow="base" pl="8" pb="8" w="100%">
           <Text textStyle="head1" mt="8" mb="2">{`Add Introduction video?`}</Text>
           <Text textStyle="body2">{`Would you like to record a short introduction about yourself?`}</Text>
           <Text
             textStyle="body2"
             mb="2"
           >{`Don't worry, we'll give you time to prepare and let you record!`}</Text>
-
+          <Box mb="8" w="100%">
+            <Image src={videoIntroImage} alt="video-intro" m="auto" />
+          </Box>
           <HStack justify="flex-end" w="100%" pr="10">
             <Box mr="6">
               <a href={config.explanation_video} target="_blank" rel="noreferrer">
                 <Button colorScheme="green" variant="outline">{`View Instructions`}</Button>
               </a>
             </Box>
-
             <Button
               test-id={questionCode + '-start'}
               leftIcon={<FontAwesomeIcon icon={faVideo} />}
