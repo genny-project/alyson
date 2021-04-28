@@ -11,7 +11,7 @@ const Views = () => {
   return (
     <HStack align="end">
       {buttons.map(code => (
-        <NavButton code={code} questionCode={NAV_Q_CODE} />
+        <NavButton key={code} code={code} questionCode={NAV_Q_CODE} />
       ))}
     </HStack>
   )

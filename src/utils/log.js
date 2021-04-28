@@ -44,8 +44,20 @@ const initLog = async () => {
   )
 }
 
-const prettyLog = (msg, data, style) =>
-  console.info(`%c${msg}`, style || 'padding: 1rem', '\n', data)
+const prettyLog = (msg, data, style) => {
+  const title = data.items
+    ? data.items.length === 1
+      ? data.items[0].name
+      : data.parentCode
+      ? `Rows - ${data.parentCode}`
+      : msg
+    : msg
+
+  if (title === 'QBulkMessage') {
+  } else {
+    console.info(`%c${title}`, style || 'padding: 1rem; font-size: 1rem;', '\n', data)
+  }
+}
 
 export default prettyLog
 export { initLog }
