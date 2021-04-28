@@ -9,6 +9,8 @@ import {
   IconButton,
   Badge,
   HStack,
+  Box,
+  Image,
 } from '@chakra-ui/react'
 import VideoRecorder from './video_recorder'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
@@ -77,16 +79,21 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
           config={config}
         />
       ) : (
-        <VStack align="start">
-          <Text>
-            {
-              "Record a short introduction about yourself, don't worry we'll give you time to prepare and let you re-record!"
-            }
-          </Text>
-          <HStack>
-            <a href={config.explanation_video} target="_blank" rel="noreferrer">
-              <Button colorScheme="green">{`Instructions`}</Button>
-            </a>
+        <VStack align="start" border="1px black solid" pl="8" pb="8" w="100%">
+          <Text textStyle="head1" mt="8" mb="2">{`Add Introduction video?`}</Text>
+          <Text textStyle="body2">{`Would you like to record a short introduction about yourself?`}</Text>
+          <Text
+            textStyle="body2"
+            mb="2"
+          >{`Don't worry, we'll give you time to prepare and let you record!`}</Text>
+
+          <HStack justify="flex-end" w="100%" pr="10">
+            <Box mr="6">
+              <a href={config.explanation_video} target="_blank" rel="noreferrer">
+                <Button colorScheme="green" variant="outline">{`View Instructions`}</Button>
+              </a>
+            </Box>
+
             <Button
               test-id={questionCode + '-start'}
               leftIcon={<FontAwesomeIcon icon={faVideo} />}

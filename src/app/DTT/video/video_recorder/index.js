@@ -73,7 +73,7 @@ const VideoRecorder = ({ setData, config, setStartVideo }) => {
   if (error)
     return (
       <VStack>
-        <Text style={{ maxWidth: '30rem' }}>
+        <Text style={{ maxWidth: '60rem' }}>
           {`Hi, either we were not granted permission to acccess your camera or we could 
   not find it. If you see a camera in the right hand side of 
   the address bar, click it to enable access. Try disconnecting 
@@ -86,7 +86,7 @@ const VideoRecorder = ({ setData, config, setStartVideo }) => {
     <VStack spacing="8">
       <VStack hidden={length(recordedChunks) && !capturing}>
         <video
-          style={{ width: '20rem', borderRadius: '1rem' }}
+          style={{ width: '60rem', borderRadius: '1rem' }}
           id="preview"
           ref={videoRef}
           onCanPlay={onCanPlay}
