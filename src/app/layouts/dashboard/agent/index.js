@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBolt, faColumns } from '@fortawesome/free-solid-svg-icons'
 import { onSendMessage } from 'vertx'
 import Card from 'app/layouts/components/card'
+import AgentDashboardSummary from './summary'
 
 const Agent = () => {
   const dashboardSbes = useSelector(selectDashboard) || []
@@ -36,7 +37,7 @@ const Agent = () => {
           ))}
         </VStack>
       </Card>
-
+      <AgentDashboardSummary />
       {/* <Search /> */}
     </VStack>
   )
