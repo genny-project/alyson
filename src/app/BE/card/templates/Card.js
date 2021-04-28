@@ -8,9 +8,8 @@ import {
   Spacer,
   useColorModeValue,
   useTheme,
-  Text as CText,
 } from '@chakra-ui/react'
-import { selectAttributes, selectCode } from 'redux/db/selectors'
+import { selectCode } from 'redux/db/selectors'
 import { getAttribute } from 'app/SBE/utils/get-columns'
 import Text from 'app/DTT/text'
 import Image from 'app/DTT/upload/Image'
@@ -22,31 +21,20 @@ import MainDetails from './MainDetails'
 import makeMotion from 'utils/motion'
 import { includes } from 'ramda'
 import AvailableInternCard from './available_interns'
-import getUserType from 'utils/helpers/get-user-type'
-import ImageType from 'app/DTT/upload/Image'
+import AgentDetail from './AgentDetail'
+import sameValue from 'redux/utils/same-value'
 
 const MotionBox = makeMotion(Box)
 
 const Card = ({ parentCode, actions = [], code, columns }) => {
   const theme = useTheme()
-  const title = useSelector(selectCode(code, getAttribute(columns[0] || '')))
-  const subTitle = useSelector(selectCode(code, getAttribute(columns[1] || '')))
-  const image = useSelector(selectCode(code, 'PRI_IMAGE_URL'))
-  const statusColor = useSelector(selectCode(code, 'PRI_STATUS_COLOR'))
-  const userCode = useSelector(selectCode('USER'))
-  const userType = getUserType(useSelector(selectCode(userCode)))
+  const title = useSelector(selectCode(code, getAttribute(columns[0] || '')), sameValue)
+  const subTitle = useSelector(selectCode(code, getAttribute(columns[1] || '')), sameValue)
+  const image = useSelector(selectCode(code, 'PRI_IMAGE_URL'), sameValue)
+  const statusColor = useSelector(selectCode(code, 'PRI_STATUS_COLOR'), sameValue)
 
-  const [agentName, agentImage, agentCode] = useSelector(
-    selectAttributes(code, [
-      'PRI_LNK_AGENT__PRI_NAME',
-      'PRI_LNK_AGENT__PRI_IMAGE_URL',
-      'LNK_AGENT',
-    ]),
-  )
   const defaultColor = useColorModeValue('white', theme.colors.background.dark)
   const color = statusColors[statusColor?.value]
-
-  const agentPerCode = agentCode?.value
 
   if (includes('SBE_AVAILABLE_INTERNS', parentCode || ''))
     return <AvailableInternCard parentCode={parentCode} actions={actions} code={code} />
@@ -100,20 +88,7 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
           }
         />
       </Flex>
-      {(userType === 'AGENT' || userType === 'ADMIN') && agentPerCode ? (
-        <Flex w="full">
-          <Spacer />
-          <HStack>
-            <CText textStyle="tail2">{agentName?.value}</CText>
-            <ImageType.Read
-              code={agentPerCode}
-              config={{ size: 'sm' }}
-              data={agentImage}
-              parentCode={parentCode}
-            />
-          </HStack>
-        </Flex>
-      ) : null}
+      <AgentDetail code={code} parentCode={parentCode} />
     </MotionBox>
   )
 }
