@@ -28,11 +28,7 @@ const DetailHeader = ({ videoSrc, careerObj, video, topHeight }) => {
         {videoSrc && (
           <Flex
             flexGrow="1"
-            maxWidth="50%"
-            minWidth="50%"
             height={topHeight}
-            transition="height 1s"
-            background="gray.100"
             borderTopLeftRadius={careerObj?.value ? '0.5rem' : ''}
           >
             <Player src={videoSrc} styles={videoStyle} />
@@ -44,7 +40,6 @@ const DetailHeader = ({ videoSrc, careerObj, video, topHeight }) => {
             maxWidth="50%"
             minWidth="50%"
             height={topHeight}
-            transition="height 0.5s"
             borderTopRightRadius="0.5rem"
             borderTopLeftRadius={video?.value ? '' : '0.5rem'}
             overflow="hidden"
