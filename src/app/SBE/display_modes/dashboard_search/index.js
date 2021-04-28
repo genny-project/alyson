@@ -11,7 +11,6 @@ const DashboardSearch = ({ sbeCode }) => {
   const title = useSelector(selectCode(sbeCode, 'SCH_TITLE'))
   const tableActions = getTableActions(sbe)
 
-  console.log(title)
   return (
     <Card>
       <VStack>
