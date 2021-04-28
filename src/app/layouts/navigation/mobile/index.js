@@ -71,8 +71,10 @@ const MobileNav = ({ logoSrc }) => {
               )}
             </Center>
             <Spacer />
-            <Drafts />
-            <Avatar />
+            <HStack spacing={5}>
+              <Drafts />
+              <Avatar />
+            </HStack>
           </Flex>
         </nav>
       </header>
@@ -87,7 +89,7 @@ const MobileNav = ({ logoSrc }) => {
           <DrawerContent>
             <DrawerCloseButton />
             <DrawerHeader>
-              <HStack>
+              <HStack spacing="5">
                 <AskMenu
                   onClose={onClose}
                   questionCode={'QUE_ADD_ITEMS_GRP'}
