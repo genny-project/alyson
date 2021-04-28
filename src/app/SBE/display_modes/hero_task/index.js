@@ -3,7 +3,7 @@ import { selectCode } from 'redux/db/selectors'
 import { Text, HStack, Spacer, VStack, Badge, Button } from '@chakra-ui/react'
 import getActions from 'app/SBE/utils/get-actions'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faClipboard, faFile, faFileDownload } from '@fortawesome/free-solid-svg-icons'
+import { faClipboard, faFile } from '@fortawesome/free-solid-svg-icons'
 import { head, includes } from 'ramda'
 import { onSendMessage } from 'vertx'
 
@@ -28,9 +28,19 @@ const HeroTask = ({ sbeCode, rows }) => {
 
   const actionCode = head(
     actions.filter(act =>
-      ready ? includes('_DOWN', act || '') : !includes('_DOWN', act || ''),
+      ready ? includes('_VALIDATED', act || '') : includes('_UNVALIDATED', act || ''),
     ) || [''],
   )
+
+  const validatedAction = actions.filter(act => includes('_VALIDATED', act || ''))
+  const unvalidatedAction = actions.filter(act => includes('_UNVALIDATED', act || ''))
+
+  const validatedActionButtonLabel = useSelector(selectCode(sbeCode, validatedAction))
+    ?.attributeName
+
+  const unvalidatedActionButtonLabel = useSelector(selectCode(sbeCode, unvalidatedAction))
+    ?.attributeName
+
   return (
     <HStack w="full" align="start">
       <VStack align="start">
@@ -54,10 +64,9 @@ const HeroTask = ({ sbeCode, rows }) => {
                 targetCode,
               })
             }
-            leftIcon={<FontAwesomeIcon icon={faFileDownload} />}
-            variant="ghost"
+            colorScheme="primary"
           >
-            Download
+            {validatedActionButtonLabel}
           </Button>
         ) : (
           <Button
@@ -71,7 +80,7 @@ const HeroTask = ({ sbeCode, rows }) => {
             colorScheme="red"
             leftIcon={<FontAwesomeIcon icon={faClipboard} />}
           >
-            Please Completete
+            {unvalidatedActionButtonLabel}
           </Button>
         )}
       </VStack>
