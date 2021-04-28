@@ -12,7 +12,6 @@ const AsksMenu = ({ questionCode }) => {
 
   if (!data) return null
 
-  console.log(data)
   return (
     <Menu>
       <MenuButton
