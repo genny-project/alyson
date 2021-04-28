@@ -11,6 +11,7 @@ import { useColorModeValue } from '@chakra-ui/color-mode'
 import Attribute from 'app/BE/attribute'
 import { selectDashboard } from 'redux/app/selectors'
 import { find, includes } from 'ramda'
+import DisplaySbe from 'app/SBE'
 
 const Intern = ({ userCode }) => {
   const [name] = useSelector(selectAttributes(userCode, ['PRI_NAME']))
@@ -18,6 +19,10 @@ const Intern = ({ userCode }) => {
   const cardBg = useColorModeValue('white', '')
 
   const internSbe = find(includes('_INTERN_'), dashboardSbes || [])
+
+  const serviceAgreement = find(includes('_SERVICE_AGREEMENT_DOC_'))(dashboardSbes)
+  const ohsDeclaration = find(includes('_OHNS_'))(dashboardSbes)
+  const termsAndConditions = find(includes('_TERMS_AND_CONDITIONS_'))(dashboardSbes)
 
   return (
     <VStack spacing="6">
@@ -39,6 +44,12 @@ const Intern = ({ userCode }) => {
             <VStack align="start">
               <Text textStyle="tail3">Welcome back,</Text>
               <Text textStyle="head1">{name?.value}</Text>
+              <VStack align="stretch" padding="5" bg={cardBg} borderRadius="md" shadow="md">
+                <Text textStyle="body1">Documents</Text>
+                <DisplaySbe sbeCode={serviceAgreement} />
+                <DisplaySbe sbeCode={ohsDeclaration} />
+                <DisplaySbe sbeCode={termsAndConditions} />
+              </VStack>
             </VStack>
           </HStack>
         </Box>
