@@ -10,7 +10,7 @@ import {
   useTheme,
   Text as CText,
 } from '@chakra-ui/react'
-import { selectAttributes, selectCode } from 'redux/db/selectors'
+import { selectCode } from 'redux/db/selectors'
 import Text from 'app/DTT/text'
 import Image from 'app/DTT/upload/Image'
 import ContextMenu from 'app/BE/context'
@@ -18,34 +18,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 import statusColors from '../status_colors'
 import makeMotion from 'utils/motion'
-import ImageType from 'app/DTT/upload/Image'
-import getUserType from 'utils/helpers/get-user-type'
-import safelyParseJson from 'utils/helpers/safely-parse-json'
-import { head } from 'ramda'
+import AgentDetail from '../AgentDetail'
+import sameValue from 'redux/utils/same-value'
 
 const MotionBox = makeMotion(Box)
 
 const AvailableInternCard = ({ parentCode, actions = [], code }) => {
   const theme = useTheme()
-  const title = useSelector(selectCode(code, 'PRI_NAME'))
-  const subTitle = useSelector(selectCode(code, 'PRI_ASSOC_OCCUPATION'))
-  const image = useSelector(selectCode(code, 'PRI_IMAGE_URL'))
-  const statusColor = useSelector(selectCode(code, 'PRI_STATUS_COLOR'))
-  const userCode = useSelector(selectCode('USER'))
-  const userType = getUserType(useSelector(selectCode(userCode)))
-
-  const [agentName, agentImage, agentCode] = useSelector(
-    selectAttributes(code, [
-      'PRI_LNK_AGENT__PRI_NAME',
-      'PRI_LNK_AGENT__PRI_IMAGE_URL',
-      'LNK_AGENT',
-    ]),
-  )
+  const title = useSelector(selectCode(code, 'PRI_NAME'), sameValue)
+  const subTitle = useSelector(selectCode(code, 'PRI_ASSOC_OCCUPATION'), sameValue)
+  const image = useSelector(selectCode(code, 'PRI_IMAGE_URL'), sameValue)
+  const statusColor = useSelector(selectCode(code, 'PRI_STATUS_COLOR'), sameValue)
 
   const defaultColor = useColorModeValue('white', theme.colors.background.dark)
   const color = statusColors[statusColor?.value]
-
-  const agentPerCode = head(safelyParseJson(agentCode?.value, [null]))
 
   return (
     <MotionBox
@@ -101,20 +87,7 @@ const AvailableInternCard = ({ parentCode, actions = [], code }) => {
           }
         />
       </Flex>
-      {(userType === 'AGENT' || userType === 'ADMIN') && agentPerCode ? (
-        <Flex w="full">
-          <Spacer />
-          <HStack>
-            <CText textStyle="tail2">{agentName?.value}</CText>
-            <ImageType.Read
-              code={agentPerCode}
-              config={{ size: 'sm' }}
-              data={agentImage}
-              parentCode={parentCode}
-            />
-          </HStack>
-        </Flex>
-      ) : null}
+      <AgentDetail code={code} parentCode={parentCode} />
     </MotionBox>
   )
 }
