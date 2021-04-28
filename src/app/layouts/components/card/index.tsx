@@ -3,12 +3,24 @@ import { ReactChildren } from 'react'
 import { Box } from '@chakra-ui/layout'
 
 const styles = {
-  lg: {
-    shadow: 'lg',
-    borderRadius: 'lg',
-    padding: '5',
+  card0: {
+    shadow: 'inner',
+    borderRadius: 'md',
+    bg: useColorModeValue('gray.50', 'gray.500'),
   },
-} as Styles // Barad to build
+  card1: {
+    shadow: 'xs',
+    borderRadius: 'md',
+  },
+  card2: {
+    shadow: 'base',
+    borderRadius: 'md',
+  },
+  card3: {
+    shadow: 'lg',
+    borderRadius: 'md',
+  },
+} as Styles
 
 type CardProps = {
   variant: variant
@@ -16,22 +28,21 @@ type CardProps = {
   children: ReactChildren
 }
 
-const Card = ({ variant = 'lg', children, ...rest }: CardProps) => {
-  const bg = useColorModeValue('white', '')
+const Card = ({ variant, children, ...rest }: CardProps) => {
   const stylesConfig = styles[variant]
-
   return (
-    <Box bg={bg} {...stylesConfig} {...rest}>
+    <Box {...stylesConfig} {...rest}>
       {children}
     </Box>
   )
 }
 
 interface Styles {
-  sm: any
-  md: any
-  lg: any
+  card0: any
+  card1: any
+  card2: any
+  card3: any
 }
-type variant = 'sm' | 'md' | 'lg'
+type variant = 'card0' | 'card1' | 'card2' | 'card3'
 
 export default Card
