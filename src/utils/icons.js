@@ -1,16 +1,22 @@
 import {
   faAddressBook,
+  faBell,
   faBuilding,
   faCity,
   faColumns,
   faGraduationCap,
+  faMeteor,
   faPaperclip,
   faPeopleArrows,
+  faPlusCircle,
   faThLarge,
   faUserFriends,
 } from '@fortawesome/free-solid-svg-icons'
 
 const icons = {
+  QUE_DRAFTS_GRP: faBell,
+  QUE_QUICK_ADD_ITEMS_GRP: faMeteor,
+  QUE_ADD_ITEMS_GRP: faPlusCircle,
   QUE_DASHBOARD_VIEW: faThLarge,
   QUE_TAB_BUCKET_VIEW: faColumns,
   QUE_TREE_ITEM_CONTACTS_GRP: faUserFriends,
