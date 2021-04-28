@@ -50,7 +50,7 @@ const Drafts = () => {
       </MenuButton>
 
       <MenuList>
-        {drafts.map(draft => (
+        {drafts.reverse().map(draft => (
           <Draft key={draft} parentCode={DRAFT_GROUP} code={draft} />
         ))}
       </MenuList>
