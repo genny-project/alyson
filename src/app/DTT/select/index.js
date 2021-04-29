@@ -1,4 +1,4 @@
-import { includes, pathOr, length } from 'ramda'
+import { includes, pathOr } from 'ramda'
 import { useSelector } from 'react-redux'
 import { selectCode, selectRows } from 'redux/db/selectors'
 import { Select as CSelect, Text } from '@chakra-ui/react'
