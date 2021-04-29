@@ -6,7 +6,7 @@ import { faCheck, faFileDownload, faUpload } from '@fortawesome/free-solid-svg-i
 import useApi from 'api'
 import DropZone from './Dropzone'
 
-const Read = ({ data, dttData, parentCode, variant }) => {
+const Read = ({ code, data, dttData, parentCode, variant, config }) => {
   const typeName = dttData?.typeName
   const api = useApi()
 
@@ -21,11 +21,19 @@ const Read = ({ data, dttData, parentCode, variant }) => {
     }
   }, [api, data?.value])
 
+  if (typeName === 'Image')
+    return (
+      <ImageType.Read
+        code={code}
+        data={data}
+        parentCode={parentCode}
+        variant={variant}
+        config={config}
+      />
+    )
   if (!data?.value) return null
 
-  return typeName === 'Image' ? (
-    <ImageType.Read data={data} parentCode={parentCode} variant={variant} />
-  ) : (
+  return (
     <Tooltip label={fileName}>
       <Link p="2" color="primary" href={api.getSrc(data?.value)}>
         <FontAwesomeIcon size="lg" icon={faFileDownload} />

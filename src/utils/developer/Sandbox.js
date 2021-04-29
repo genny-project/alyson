@@ -1,20 +1,32 @@
-import { VStack, Text } from '@chakra-ui/react'
+import { Center } from '@chakra-ui/react'
+import Button from '../../app/layouts/components/button'
+import Card from '../../app/layouts/components/card'
+import ThemeToggler from '../../app/layouts/navigation/ColorToggler'
 
 const Sandbox = () => {
   return (
-    <VStack p={10} spacing={5} align="stretch">
-      <Text textStyle="head1">The quick brown fox jumps over the lazy dog.</Text>
-      <Text textStyle="head2">The quick brown fox jumps over the lazy dog.</Text>
-      <Text textStyle="head3">The quick brown fox jumps over the lazy dog.</Text>
-
-      <Text textStyle="body1">The quick brown fox jumps over the lazy dog.</Text>
-      <Text textStyle="body2">The quick red panda jumps over the lazy yak.</Text>
-      <Text textStyle="body3">The quick brown fox jumps over the lazy dog.</Text>
-
-      <Text textStyle="tail1">The quick brown fox jumps over the lazy dog.</Text>
-      <Text textStyle="tail2">The quick brown fox jumps over the lazy dog.</Text>
-      <Text textStyle="tail3">The quick brown fox jumps over the lazy dog.</Text>
-    </VStack>
+    <Center m={2}>
+      <ThemeToggler></ThemeToggler>
+      <Card m={2} w={20} h={20} variant="card0"></Card>
+      <Card m={2} w={20} h={20} variant="card1"></Card>
+      <Card m={2} w={20} h={20} variant="card2"></Card>
+      <Card m={2} w={20} h={20} variant="card3"></Card>
+      <Button m={2} variant="special">
+        Special
+      </Button>
+      <Button m={2} variant="primary">
+        Primary
+      </Button>
+      <Button m={2} variant="secondary">
+        Secondary
+      </Button>
+      <Button m={2} variant="positive">
+        Positive
+      </Button>
+      <Button m={2} variant="negative">
+        Negative
+      </Button>
+    </Center>
   )
 }
 

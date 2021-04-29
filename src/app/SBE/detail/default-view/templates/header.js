@@ -3,7 +3,7 @@ import { map } from 'ramda'
 
 import Action from 'app/BE/action'
 import Attribute from 'app/BE/attribute'
-import DetailSection from './detail-section'
+import DetailSection from 'app/layouts/components/detail_section'
 
 const Header = ({ contactDetails, code, sbeCode, imageSrc, headerAttribute, actions }) => {
   return (

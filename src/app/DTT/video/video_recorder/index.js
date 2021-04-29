@@ -1,9 +1,10 @@
-import React, { useRef, useState, useEffect, useCallback } from 'react'
+import { useRef, useState, useEffect, useCallback } from 'react'
 import { length } from 'ramda'
 import { useUserMedia } from 'utils/hooks'
 import { Button, Progress, Text, VStack } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRecordVinyl } from '@fortawesome/free-solid-svg-icons'
+import iOS from 'utils/helpers/is-ios'
 
 const CAPTURE_OPTIONS = {
   audio: true,
@@ -62,6 +63,13 @@ const VideoRecorder = ({ setData, config, setStartVideo }) => {
     if (!recorderRef.current) setCapturing(false)
   }, [recorderRef])
 
+  if (iOS())
+    return (
+      <Text textStyle="body3">
+        Sorry we can't support this device, please try a different device for recording!
+      </Text>
+    )
+
   if (error)
     return (
       <VStack>
@@ -75,7 +83,7 @@ const VideoRecorder = ({ setData, config, setStartVideo }) => {
       </VStack>
     )
   return (
-    <VStack>
+    <VStack spacing="8">
       <VStack hidden={length(recordedChunks) && !capturing}>
         <video
           style={{ width: '20rem', borderRadius: '1rem' }}
@@ -86,17 +94,15 @@ const VideoRecorder = ({ setData, config, setStartVideo }) => {
           playsInline
           muted
         />
-        <div style={{ marginTop: '-4rem' }}>
-          <Button
-            colorScheme="primary"
-            leftIcon={<FontAwesomeIcon color={capturing ? 'red' : 'grey'} icon={faRecordVinyl} />}
-            onClick={capturing ? onStopCapture : onStartCapture}
-          >
-            {capturing ? 'Stop Recording' : 'Start Recording!'}
-          </Button>
-        </div>
-        <Text style={{ maxWidth: '30rem' }}>{config.description}</Text>
+        <Button
+          colorScheme="primary"
+          leftIcon={<FontAwesomeIcon color={capturing ? 'red' : 'grey'} icon={faRecordVinyl} />}
+          onClick={capturing ? onStopCapture : onStartCapture}
+        >
+          {capturing ? 'Stop Recording' : 'Start Recording!'}
+        </Button>
       </VStack>
+      <Text maxW="30rem">{config.description}</Text>
       <div hidden={!length(recordedChunks) || capturing}>
         <Text textStyle="body3">Saving!</Text>
         <Progress borderRadius="md" w="20rem" isIndeterminate />

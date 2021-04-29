@@ -4,8 +4,7 @@ import { useIsMobile } from 'utils/hooks'
 import MobileNav from './mobile'
 import DesktopNav from './desktop'
 
-const getLogo = lightMode =>
-  lightMode ? '/internmatch_logo_light.png' : '/internmatch_logo_dark.png'
+const getLogo = () => '/logo.png'
 
 const Navigation = () => {
   const logoSrc = useColorModeValue(getLogo(true), getLogo())

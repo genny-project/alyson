@@ -1,24 +1,32 @@
-import { Button, HStack, Text, Kbd, Spacer } from '@chakra-ui/react'
+import { useState } from 'react'
+import { Button, HStack, Input } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { onSendSearch } from 'vertx'
 
 const Search = () => {
+  const [value, setValue] = useState('')
+
+  const handleSubmit = e => {
+    e.preventDefault()
+    onSendSearch({ searchValue: value })
+  }
   return (
-    <Button
-      color="gray.400"
-      variant="outline"
-      leftIcon={<FontAwesomeIcon icon={faSearch} />}
-      role="search"
-    >
-      <HStack display="flex">
-        <Text flex="1">Search</Text>
-        <Spacer />
-        <HStack spacing="1">
-          <Kbd color="gray.500">⌘</Kbd>
-          <Kbd color="gray.500">K</Kbd>
-        </HStack>
+    <form onSubmit={handleSubmit}>
+      <HStack>
+        <Input value={value} onChange={e => setValue(e.target.value)} />
+
+        <Button
+          w="10rem"
+          colorScheme="primary"
+          leftIcon={<FontAwesomeIcon icon={faSearch} />}
+          role="search"
+          onClick={handleSubmit}
+        >
+          Search
+        </Button>
       </HStack>
-    </Button>
+    </form>
   )
 }
 

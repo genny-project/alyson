@@ -9,6 +9,13 @@ const getTokenFromURL = keycloak => {
   return tokenFromURL
 }
 
-export const getSessionIdFromToken = token => jwt_decode(token)?.session_state || ''
+export const getSessionIdFromToken = token => {
+  try {
+    return jwt_decode(token)?.session_state || ''
+  } catch (err) {
+    console.error(err)
+    return ''
+  }
+}
 
 export default getTokenFromURL

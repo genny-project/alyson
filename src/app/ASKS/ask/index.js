@@ -1,8 +1,14 @@
-import { includes } from 'ramda'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import createSendAnswer from 'app/ASKS/utils/create-send-answer'
-import { FormControl, FormLabel, FormHelperText, FormErrorMessage } from '@chakra-ui/react'
+import {
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  HStack,
+  Box,
+  Text as CText,
+} from '@chakra-ui/react'
 import getGroupCode from 'app/ASKS/utils/get-group-code'
 import Text from 'app/DTT/text'
 import Button from 'app/DTT/button'
@@ -26,14 +32,24 @@ import Rating from 'app/DTT/rating'
 import ThirdPartyVideo from 'app/DTT/third_party_video'
 import TimeZonePicker from 'app/DTT/time_zone'
 import CheckBox from 'app/DTT/check_box'
-import { isDev } from 'utils/developer'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import LogRocketSession from 'app/DTT/log_rocket_session'
+import Attribute from 'app/BE/attribute'
 
 const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCode }) => {
   const askData = useSelector(selectCode(parentCode, questionCode)) || passedAskData
 
-  const { attributeCode, targetCode, name, question, mandatory, hidden, disabled } = askData
+  const {
+    attributeCode,
+    targetCode,
+    name,
+    question,
+    mandatory,
+    hidden,
+    disabled,
+    readonly,
+  } = askData
 
   const data = useSelector(selectCode(targetCode, attributeCode)) || {}
 
@@ -49,13 +65,27 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
   } = question
 
   const feedback = data?.feedback
-
-  const multiple = includes('multiple', typeName || '') || component === 'tag'
-
   const onSendAnswer = createSendAnswer(askData, { passedTargetCode })
 
-  if (hidden) return null
+  if (readonly) {
+    return (
+      <HStack>
+        <CText textStyle="body1">{name}</CText>
+        <Attribute config={{ textStyle: 'body1' }} code={targetCode} attribute={attributeCode} />
+      </HStack>
+    )
+  }
 
+  if (component === 'checkbox')
+    return (
+      <CheckBox.Write
+        data={data}
+        questionCode={questionCode}
+        onSendAnswer={onSendAnswer}
+        label={name}
+        isRequired={mandatory}
+      />
+    )
   return component === 'button' ? (
     <Button
       questionCode={questionCode}
@@ -64,8 +94,23 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
       onFinish={onFinish}
     />
   ) : (
-    <FormControl isDisabled={!!disabled} isRequired={mandatory} isInvalid={!!feedback}>
-      {!multiple && <FormLabel>{name}</FormLabel>}
+    <FormControl
+      visibility={hidden || component === 'log_rocket_session' ? 'hidden' : 'visible'}
+      isDisabled={!!disabled}
+      isRequired={mandatory}
+      isInvalid={!!feedback}
+    >
+      <HStack>
+        <FormLabel minW="94%" fontWeight="semibold">
+          {name}
+        </FormLabel>
+        <Box>
+          {data?.value ? (
+            <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
+          ) : null}
+        </Box>
+      </HStack>
+
       {component === 'email' && (
         <Email.Write
           questionCode={questionCode}
@@ -142,6 +187,7 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
           data={data}
           onSendAnswer={onSendAnswer}
           description={description}
+          html={html}
         />
       )}
       {component === 'date_range' && (
@@ -194,18 +240,8 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
       {component === 'checkbox' && (
         <CheckBox.Write data={data} questionCode={questionCode} onSendAnswer={onSendAnswer} />
       )}
+      {component === 'log_rocket_session' && <LogRocketSession.Write onSendAnswer={onSendAnswer} />}
       <FormErrorMessage>{feedback}</FormErrorMessage>
-      <FormHelperText ml="1" color="green" noOfLines="1">
-        {data?.value ? (
-          !isDev ? (
-            <FontAwesomeIcon icon={faCheckCircle} />
-          ) : (
-            `${'saved - ' + data.value}`
-          )
-        ) : (
-          ''
-        )}
-      </FormHelperText>
     </FormControl>
   )
 }

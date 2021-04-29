@@ -1,10 +1,21 @@
 import { useState } from 'react'
 import useApi from 'api'
-import { Avatar, ButtonGroup, Button, Tooltip, Image, CloseButton, HStack } from '@chakra-ui/react'
+import {
+  Avatar,
+  ButtonGroup,
+  Button,
+  Tooltip,
+  Image,
+  CloseButton,
+  HStack,
+  useColorModeValue,
+} from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCamera, faUpload } from '@fortawesome/free-solid-svg-icons'
+import { faCamera, faUpload, faUserAlt } from '@fortawesome/free-solid-svg-icons'
 import Snap from './Snap'
 import { onSendMessage } from 'vertx'
+import { useSelector } from 'react-redux'
+import { selectCode } from 'redux/db/selectors'
 
 const Write = ({ questionCode, data, openDropzone, onSendAnswer, handleSave, setLoading }) => {
   const { getImageSrc } = useApi()
@@ -45,22 +56,46 @@ const Write = ({ questionCode, data, openDropzone, onSendAnswer, handleSave, set
   )
 }
 
-const Read = ({ data, parentCode, variant, config = {} }) => {
+const Read = ({ code, data, parentCode, variant, config }) => {
   const { getImageSrc } = useApi()
   const src = getImageSrc(data?.value)
 
-  if (!src || !data?.value) return <Avatar {...config} />
-
+  const name = useSelector(selectCode(data?.baseEntityCode, 'PRI_NAME'))
+  const assocName = useSelector(selectCode(data?.baseEntityCode, 'PRI_INTERN_NAME'))
   const viewDetail = () =>
     parentCode
-      ? onSendMessage({ parentCode, targetCode: data.baseEntityCode, code: 'ACT_PRI_EVENT_VIEW' })
+      ? onSendMessage({
+          parentCode,
+          targetCode: code || data.baseEntityCode,
+          code: 'ACT_PRI_EVENT_VIEW',
+        })
       : null
 
+  const bg = useColorModeValue('gray.300', 'gray.600')
   if (variant === 'profile_image') {
-    return <Image src={src} alt="profile-picture" w="10rem" borderRadius="xl" />
+    return <Image {...config} src={src} alt="profile-picture" w="10rem" borderRadius="xl" />
   }
 
-  return <Avatar {...config} cursor="pointer" onClick={viewDetail} src={src} />
+  if (!src)
+    return (
+      <Avatar
+        onClick={viewDetail}
+        cursor="pointer"
+        {...config}
+        bg={bg}
+        color="white"
+        icon={<FontAwesomeIcon icon={faUserAlt} />}
+      />
+    )
+  return (
+    <Avatar
+      name={name?.value || assocName?.value}
+      {...config}
+      cursor="pointer"
+      onClick={viewDetail}
+      src={src}
+    />
+  )
 }
 
 const ImageType = {

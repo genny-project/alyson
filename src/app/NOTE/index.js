@@ -12,8 +12,6 @@ const Notes = () => {
 
   const tabs = getTabs(notes)
 
-  // console.log(tabs, notes)
-
   if (!notes)
     return (
       <Center>

@@ -37,21 +37,49 @@ const AvatarMenu = () => {
     associatedEntitiy?.value ? ` - ${associatedEntitiy?.value}` : ''
   }`
 
-  // useEffect(() => {
-  //   if (userCode)
-  //     onSendMessage({ code: 'QUE_CLEAR_TASKS', parentCode: 'QUE_DRAFTS_GRP', targetCode: userCode })
-  // }, [userCode])
-  if (!avatarAsks) return null
+  const onOpenHelp = () => onSendMessage({ code: 'ACT_PRI_HELPER_FUNCTION' })
+
+  if (!avatarAsks)
+    return (
+      <Menu>
+        <MenuButton>
+          <Avatar
+            color="white"
+            bg="gradient.400"
+            name={name?.value || userName?.value}
+            src={getImageSrc(userImage?.value)}
+          />
+        </MenuButton>
+        <MenuList>
+          <MenuGroup title={title}>
+            <MenuItem test-id={'HELP'} onClick={onOpenHelp}>
+              {`Help & Support`}
+            </MenuItem>
+            <MenuItem
+              test-id={'QUE_AVATAR_LOGOUT'}
+              onClick={() => {
+                onSendMessage({ code: 'LOGOUT' }, { event_type: 'LOGOUT' })
+                window.localStorage.localToken = ''
+                window.localStorage.removeItem('state')
+                window.location.assign(window.location.origin)
+                keycloak.logout()
+              }}
+            >
+              Logout
+            </MenuItem>
+          </MenuGroup>
+        </MenuList>
+      </Menu>
+    )
 
   return (
     <Menu>
       <MenuButton>
         <Avatar
-          color="whitesmoke"
-          bg="primary.400"
+          color="white"
+          bg="gradient.400"
           name={name?.value || userName?.value}
           src={getImageSrc(userImage?.value)}
-          size="sm"
         />
       </MenuButton>
       <MenuList>
@@ -70,7 +98,10 @@ const AvatarMenu = () => {
               />
             ))}
           <MenuItem test-id={'QUE_AVATAR_SETTINGS'} onClick={onOpen}>
-            Settings
+            Account
+          </MenuItem>
+          <MenuItem test-id={'HELP'} onClick={onOpenHelp}>
+            {`Help & Support`}
           </MenuItem>
           <MenuItem
             test-id={'QUE_AVATAR_LOGOUT'}

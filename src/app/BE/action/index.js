@@ -3,7 +3,15 @@ import { selectCode } from 'redux/db/selectors'
 import { Button, MenuItem } from '@chakra-ui/react'
 import { onSendMessage } from 'vertx'
 
-const Action = ({ parentCode, code, targetCode, size = 'xs', mobile, colorScheme }) => {
+const Action = ({
+  parentCode,
+  code,
+  targetCode,
+  size = 'xs',
+  mobile,
+  colorScheme,
+  isFullWidth,
+}) => {
   const data = useSelector(selectCode(parentCode, code))
 
   if (!data) return null
@@ -20,7 +28,13 @@ const Action = ({ parentCode, code, targetCode, size = 'xs', mobile, colorScheme
       {data.attributeName}
     </MenuItem>
   ) : (
-    <Button colorScheme={colorScheme} onClick={handleClick} size={size} test-id={code}>
+    <Button
+      isFullWidth={isFullWidth}
+      colorScheme={colorScheme}
+      onClick={handleClick}
+      size={size}
+      test-id={code}
+    >
       {data.attributeName}
     </Button>
   )
