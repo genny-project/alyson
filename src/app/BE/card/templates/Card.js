@@ -19,8 +19,6 @@ import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 import statusColors from './status_colors'
 import MainDetails from './MainDetails'
 import makeMotion from 'utils/motion'
-import { includes } from 'ramda'
-import AvailableInternCard from './available_interns'
 import AgentDetail from './AgentDetail'
 import sameValue from 'redux/utils/same-value'
 
@@ -35,9 +33,6 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
 
   const defaultColor = useColorModeValue('white', theme.colors.background.dark)
   const color = statusColors[statusColor?.value]
-
-  if (includes('SBE_AVAILABLE_INTERNS', parentCode || ''))
-    return <AvailableInternCard parentCode={parentCode} actions={actions} code={code} />
 
   return (
     <MotionBox

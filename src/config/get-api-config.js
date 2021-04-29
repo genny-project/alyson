@@ -26,10 +26,10 @@ const getApiConfig = async () => {
   apiConfig = response.data
 
   /* Log Rocket */
-  if (process.env.NODE_ENV !== 'development') {
-    LogRocket.init('geop13/alyson-dev', { release: apiConfig.realm })
-    setupLogRocketReact(LogRocket)
-  }
+  // if (process.env.NODE_ENV !== 'development') {
+  //   LogRocket.init('ur logrocket key', { release: apiConfig.realm })
+  //   setupLogRocketReact(LogRocket)
+  // }
 
   /* Keycloak */
   keycloak = new Keycloak({
@@ -38,9 +38,9 @@ const getApiConfig = async () => {
     clientId: 'alyson',
   })
 
-  if (includes('public', window.location.pathname)) {
-    guestKeycloak = await loginAsGuest()
-  }
+  // if (includes('public', window.location.pathname)) {
+  //   guestKeycloak = await loginAsGuest()
+  // }
 
   tokenFromUrl = getTokenFromURL(keycloak)
 
