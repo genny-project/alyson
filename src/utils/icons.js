@@ -1,7 +1,9 @@
+import { faSuperpowers } from '@fortawesome/free-brands-svg-icons'
 import {
   faAddressBook,
   faBell,
   faBuilding,
+  faBusinessTime,
   faCity,
   faColumns,
   faGraduationCap,
@@ -28,6 +30,9 @@ const icons = {
   QUE_HOST_COMPANY_VIEW: faBuilding,
   QUE_TREE_ITEM_EPRS: faPeopleArrows,
   QUE_TREE_ITEM_INTERNS: faGraduationCap,
+  QUE_ADMIN_MENU: faSuperpowers,
+  QUE_MENTEE_MENU: faGraduationCap,
+  QUE_MENTOR_MENU: faBusinessTime,
 }
 
 export default icons
