@@ -35,7 +35,7 @@ const NavButton = ({ code, questionCode }) => {
 
   return (
     <Menu>
-      <MenuButton opacity={0.8} _hover={{ opacity: 1 }} test-id={code} colorScheme="primary">
+      <MenuButton opacity={0.8} _hover={{ opacity: 1 }} test-id={code}>
         <VStack color="grey" test-id={code}>
           <FontAwesomeIcon size="lg" icon={icons[code]} />
           <HStack spacing={0.5}>
