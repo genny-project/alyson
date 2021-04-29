@@ -1,12 +1,16 @@
 import { Input, Text as ChakraText } from '@chakra-ui/react'
+import debounce from 'lodash.debounce'
+export const Write = ({ questionCode, data, onSendAnswer }) => {
+  const debouncedSendAnswer = debounce(onSendAnswer, 500)
 
-export const Write = ({ questionCode, data, onSendAnswer }) => (
-  <Input
-    test-id={questionCode}
-    defaultValue={data?.value}
-    onBlur={e => onSendAnswer(e.target.value)}
-  />
-)
+  return (
+    <Input
+      test-id={questionCode}
+      defaultValue={data?.value}
+      onChange={e => debouncedSendAnswer(e.target.value)}
+    />
+  )
+}
 export const Read = ({ data, config }) => (
   <ChakraText noOfLines={3} {...config}>
     {data?.value}

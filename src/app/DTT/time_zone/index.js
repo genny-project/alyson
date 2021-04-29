@@ -30,7 +30,7 @@ const Write = ({ questionCode, onSendAnswer, data }) => {
       </ButtonGroup>
     </VStack>
   ) : confirm ? (
-    <Text>{`Thanks, your timezone is ${data?.value || timeZone}`}</Text>
+    <Text>{`Thanks, your timezone is ${data?.value}`}</Text>
   ) : (
     <PlacesAutocomplete
       test-id={questionCode}

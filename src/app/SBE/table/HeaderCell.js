@@ -1,5 +1,5 @@
 import { replace } from 'ramda'
-import { HStack, IconButton, Td, Text } from '@chakra-ui/react'
+import { IconButton, Th } from '@chakra-ui/react'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import { onSendAnswer } from 'vertx'
@@ -11,25 +11,23 @@ const Cell = ({ attribute, parentCode }) => {
   const sort = useSelector(selectCode(parentCode, replace('COL_', 'SRT_', attribute)))
 
   return (
-    <Td>
-      <HStack spacing="4" color={sort?.weight === 0 ? 'primary' : ''}>
-        <Text>{data?.attributeName}</Text>
-        {sort && (
-          <IconButton
-            variant="ghost"
-            cursor={'pointer'}
-            onClick={() =>
-              onSendAnswer({
-                attributeCode: sort.attributeCode,
-                targetCode: sort.baseEntityCode,
-                value: sort.value === 'ASC' ? 'DESC' : 'ASC',
-              })
-            }
-            icon={<FontAwesomeIcon icon={sort.value === 'ASC' ? faAngleUp : faAngleDown} />}
-          />
-        )}
-      </HStack>
-    </Td>
+    <Th>
+      {data?.attributeName}
+      {sort && (
+        <IconButton
+          variant="ghost"
+          cursor={'pointer'}
+          onClick={() =>
+            onSendAnswer({
+              attributeCode: sort.attributeCode,
+              targetCode: sort.baseEntityCode,
+              value: sort.value === 'ASC' ? 'DESC' : 'ASC',
+            })
+          }
+          icon={<FontAwesomeIcon icon={sort.value === 'ASC' ? faAngleUp : faAngleDown} />}
+        />
+      )}
+    </Th>
   )
 }
 

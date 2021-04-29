@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { Box, Flex, Text, Input, Button, Center, Image, useToast } from '@chakra-ui/react'
 import { isEmpty, map, pathOr, compose, includes, split } from 'ramda'
@@ -7,6 +7,13 @@ const DropZone = ({ handleSave, closeDropzone, maxSize = '5000000', maxFiles = 1
   const [files, setFiles] = useState([])
   const toast = useToast()
   const checkIfImage = compose(includes('image'), split('/'))
+
+  useEffect(() => {
+    if (files.length) {
+      handleSave(files)
+      closeDropzone()
+    }
+  }, [closeDropzone, files, handleSave])
 
   const showErrorMessage = file => {
     const errorMessage = pathOr('', ['errors', 0, 'message'])(file)

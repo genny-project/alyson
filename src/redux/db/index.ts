@@ -1,7 +1,13 @@
-import { forEach } from 'ramda'
+import { forEach, includes } from 'ramda'
 import { createSlice } from '@reduxjs/toolkit'
 import { newMsg, newCmd } from '../app'
-import { formatAsk, formatAttribute, formatBaseEntity, formatNotes } from './utils/format'
+import {
+  formatAsk,
+  formatAttribute,
+  formatBaseEntity,
+  formatGroupData,
+  formatNotes,
+} from './utils/format'
 import { DBState, Note } from './types'
 import { MsgPayload, CmdPayload } from 'redux/types'
 import { addKey, removeKey } from './utils/update-keys'
@@ -22,8 +28,11 @@ const db = createSlice({
         state[`${parentCode}@rows`] = []
       }
 
-      if (data_type === 'BaseEntity') forEach(formatBaseEntity(state, aliasCode, parentCode), items)
-      if (data_type === 'Ask') forEach(formatAsk(state), items)
+      if (parentCode && includes('GRP_', parentCode as string))
+        formatGroupData(state, parentCode, items, replace)
+      if (data_type === 'BaseEntity' && !includes('GRP_', (parentCode as string) || ''))
+        forEach(formatBaseEntity(state, aliasCode, parentCode), items)
+      if (data_type === 'Ask') forEach(formatAsk(state, replace), items)
       if (data_type === 'Attribute') forEach(formatAttribute(state), items)
       if (data_type === 'Note') forEach(formatNotes(state), items as Array<Note>)
     })

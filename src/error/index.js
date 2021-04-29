@@ -1,12 +1,14 @@
-import { Center, Heading, VStack } from '@chakra-ui/react'
+import { Center, Text, VStack } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
+import { faCogs } from '@fortawesome/free-solid-svg-icons'
 
 const Error = () => (
   <Center h="90vh">
-    <VStack spacing="15">
-      <FontAwesomeIcon size="4x" icon={faExclamationCircle} color="red" />
-      <Heading>Sorry our server is not responding, try again later!</Heading>
+    <VStack>
+      <Text>
+        <FontAwesomeIcon color="grey" size="2x" icon={faCogs} />
+      </Text>
+      <Text color="grey">Sorry, server is just down for maintenance.</Text>
     </VStack>
   </Center>
 )

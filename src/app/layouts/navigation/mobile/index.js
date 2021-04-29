@@ -25,6 +25,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faBolt, faBars } from '@fortawesome/free-solid-svg-icons'
 import Buttons from 'app/ASKS/buttons'
 import { onSendMessage } from 'vertx'
+import Drafts from '../drafts/Drafts'
 
 const MobileNav = ({ logoSrc }) => {
   const theme = useTheme()
@@ -41,7 +42,7 @@ const MobileNav = ({ logoSrc }) => {
           color,
           position: 'fixed',
           top: 0,
-          zIndex: 3,
+          zIndex: 9999,
           width: '100%',
           maxWidth: '100vw',
           left: 0,
@@ -70,7 +71,10 @@ const MobileNav = ({ logoSrc }) => {
               )}
             </Center>
             <Spacer />
-            <Avatar />
+            <HStack spacing={5}>
+              <Drafts />
+              <Avatar />
+            </HStack>
           </Flex>
         </nav>
       </header>
@@ -85,7 +89,7 @@ const MobileNav = ({ logoSrc }) => {
           <DrawerContent>
             <DrawerCloseButton />
             <DrawerHeader>
-              <HStack>
+              <HStack spacing="5">
                 <AskMenu
                   onClose={onClose}
                   questionCode={'QUE_ADD_ITEMS_GRP'}

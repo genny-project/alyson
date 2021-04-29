@@ -1,5 +1,4 @@
 import { extendTheme } from '@chakra-ui/react'
-import { isDev } from 'utils/developer'
 
 const defaultProjectTheme = {
   fonts: {
@@ -7,7 +6,7 @@ const defaultProjectTheme = {
     body: 'Inter, sans-serif',
   },
   colors: {
-    background: { light: '#ffffff', dark: '#171923' },
+    background: { light: '#ffffff', dark: '#1A202C' },
     text: {
       light: '#2D3748',
       dark: '#F7FAFC',
@@ -39,6 +38,18 @@ const defaultProjectTheme = {
     error: { 50: '#FFF5F5', 500: '#E53E3E' },
     warning: { 50: '#FFFAF0', 500: '#DD6B20' },
     success: { 50: '#F0FFF4', 500: '#38A169' },
+    gradient: {
+      50: 'linear-gradient(135deg, #E6FFFA, #EBF8FF)',
+      100: 'linear-gradient(135deg, #B2F5EA, #BEE3F8)',
+      200: 'linear-gradient(135deg, #4FD1C5, #4299E1)',
+      300: 'linear-gradient(135deg, #38B2AC, #3182CE)',
+      400: 'linear-gradient(135deg, #319795, #2B6CB0)',
+      500: 'linear-gradient(135deg, #4FD1C5, #4299E1)',
+      600: 'linear-gradient(135deg, #38B2AC, #3182CE)',
+      700: 'linear-gradient(135deg, #319795, #2B6CB0)',
+      800: 'linear-gradient(135deg, #4FD1C5, #4299E1)',
+      900: 'linear-gradient(135deg, #38B2AC, #3182CE)',
+    },
   },
   textStyles: {
     head1: {
@@ -86,8 +97,9 @@ const defaultProjectTheme = {
 const getTheme = (projectTheme = defaultProjectTheme) =>
   extendTheme({
     config: {
-      initialColorMode: isDev ? 'dark' : 'light',
+      initialColorMode: 'light',
     },
     ...projectTheme,
   })
+
 export default getTheme

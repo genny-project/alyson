@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
-
+import { Text as CText } from '@chakra-ui/react'
 import Text from 'app/DTT/text'
 import Email from 'app/DTT/email'
 import Upload from 'app/DTT/upload'
@@ -19,45 +19,65 @@ import URL from 'app/DTT/url'
 import Rating from 'app/DTT/rating'
 import TimeZonePicker from 'app/DTT/time_zone'
 import CheckBox from 'app/DTT/check_box'
+import ImageType from 'app/DTT/upload/Image'
+import fixLnk from './fix-lnk'
 
-const Attribute = ({ code, attribute, size, mini, parentCode, variant, config }) => {
-  const data = useSelector(selectCode(code, attribute))
+const Attribute = ({
+  code,
+  attribute,
+  size,
+  mini,
+  parentCode,
+  variant,
+  config,
+  fallback = null,
+  styles,
+}) => {
+  const data = useSelector(selectCode(code, fixLnk(attribute)))
   const dtt = useSelector(selectCode(data?.attributeCode))
   const dttData = useSelector(selectCode(dtt))
   const component = dttData?.component
 
-  if (!component) return <div />
+  if (attribute === 'PRI_IMAGE_URL' && !data)
+    return <ImageType.Read code={code} data={data} parentCode={parentCode} />
+
+  if (!component && fallback) return fallback
+
+  if (data && data.attributeName === 'ImageUrl')
+    return <ImageType.Read code={code} data={data} parentCode={parentCode} />
 
   return component === 'email' ? (
     <Email.Read data={data} size={size} />
   ) : component === 'phone' ? (
     <Phone.Read data={data} size={size} />
   ) : component === 'text' ? (
-    <Text.Read data={data} config={config} />
+    <Text.Read size={size} data={data} config={config} />
   ) : component === 'upload' ? (
     <Upload.Read
+      code={code}
       parentCode={parentCode}
       data={data}
       dttData={dttData}
       size={size}
       variant={variant}
+      config={config}
     />
   ) : component === 'social' ? (
     <Social.Read data={data} dttData={dttData} size={size} />
   ) : component === 'status' ? (
     <Status.Read data={data} size={size} />
   ) : component === 'date' ? (
-    <Date.Read data={data} size={size} typeName={dttData.typeName} />
+    <Date.Read config={config} data={data} size={size} typeName={dttData.typeName} />
   ) : component === 'progress' ? (
     <ProgressBar.Read data={data} />
   ) : component === 'html_display' ? (
     <HtmlDisplay.Read data={data} />
   ) : component === 'richtext_editor' ? (
-    <RichText.Read data={data} mini={mini} />
+    <RichText.Read data={data} mini={mini} styles={styles} />
   ) : component === 'dropdown' ? (
     <Select.Read dataType={dttData} data={data} />
   ) : component === 'video' ? (
-    <Video.Read mini={mini} dataType={dttData} data={data} />
+    <Video.Read mini={mini} dataType={dttData} data={data} styles={styles} />
   ) : component === 'address' ? (
     <Address.Read data={data} config={config} />
   ) : component === 'abn_number' ? (
@@ -71,10 +91,7 @@ const Attribute = ({ code, attribute, size, mini, parentCode, variant, config })
   ) : component === 'checkbox' ? (
     <CheckBox.Read data={data} />
   ) : (
-    <div>
-      {component}
-      {data?.value}
-    </div>
+    <CText>{data?.value}</CText>
   )
 }
 

@@ -8,7 +8,6 @@ const TableWrapper = ({ mapSearch }) => {
 
   if (!table) return null
   if (mapSearch) return <MapSearch parentCode={table} />
-
   return <Table parentCode={table} />
 }
 

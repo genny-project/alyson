@@ -23,6 +23,7 @@ const NotesDrawer = () => {
   return (
     <>
       <IconButton
+        visibility="hidden"
         position="fixed"
         bottom="5"
         right="5"

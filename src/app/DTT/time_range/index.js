@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { Read } from '../text'
 import { HStack, Select } from '@chakra-ui/react'
 
-const defaultTimeRange = [9, 17.5]
+const defaultTimeRange = [null, null]
 
 const options = Array.from(Array(48), (_, idx) => idx / 2)
 
@@ -19,12 +19,13 @@ const Write = ({ questionCode, onSendAnswer, data }) => {
 
   const [selectedRange, setSelectedRange] = useState([initialStartTime, initialEndTime])
 
-  const handleChange = (idx, value) =>
-    setSelectedRange(v => (idx ? [v[0], parseFloat(value)] : [parseFloat(value), v[1]]))
-
-  useEffect(() => {
-    if (!data.value) onSendAnswer(selectedRange)
-  }, [data.value, onSendAnswer, selectedRange])
+  const handleChange = (idx, value) => {
+    const updated = idx
+      ? [selectedRange[0], parseFloat(value)]
+      : [parseFloat(value), selectedRange[1]]
+    onSendAnswer(updated)
+    setSelectedRange(updated)
+  }
 
   return (
     <HStack>
@@ -35,9 +36,9 @@ const Write = ({ questionCode, onSendAnswer, data }) => {
         placeholder="Start Time"
       >
         {options
-          .filter(v => v < selectedRange[1])
+          .filter(v => !selectedRange[1] || v < selectedRange[1])
           .map(time => (
-            <option test-id={time} value={time}>{`${getLabel(time)}`}</option>
+            <option key={time} test-id={time} value={time}>{`${getLabel(time)}`}</option>
           ))}
       </Select>
       <Select
@@ -47,9 +48,9 @@ const Write = ({ questionCode, onSendAnswer, data }) => {
         placeholder="Finish Time"
       >
         {options
-          .filter(v => v > selectedRange[0])
+          .filter(v => !selectedRange[0] || v > selectedRange[0])
           .map(time => (
-            <option test-id={time} value={time}>{`${getLabel(time)}`}</option>
+            <option key={time} test-id={time} value={time}>{`${getLabel(time)}`}</option>
           ))}
       </Select>
     </HStack>

@@ -6,10 +6,10 @@ export const selectCode = (code: string, childCode: string) => (state: RootState
 
 export const selectRows = (code: string) => (state: RootState) => state.db[`${code}@rows`] || []
 
-export const selectCodes = (codes: Array<string>, attribute: string) => (state: RootState) =>
-  map(code => selectCode(code, attribute)(state), codes)
+export const selectCodes = (codes: Array<string> = [], attribute: string) => (state: RootState) =>
+  map(code => selectCode(code, attribute)(state), codes || [])
 
-export const selectAttributes = (parentCode: string, attributes: Array<string>) => (
+export const selectAttributes = (parentCode: string, attributes: Array<string> = []) => (
   state: RootState,
 ) => map(attr => selectCode(parentCode, attr)(state), attributes)
 export const selectNote = (id: string) => (state: RootState) => state.db.NOTES[id]

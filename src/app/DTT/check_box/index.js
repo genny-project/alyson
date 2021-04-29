@@ -1,4 +1,4 @@
-import { Checkbox, HStack } from '@chakra-ui/react'
+import { Checkbox, FormControl, FormLabel, HStack } from '@chakra-ui/react'
 
 const Read = ({ data }) => {
   return (
@@ -12,16 +12,20 @@ const Read = ({ data }) => {
   )
 }
 
-const Write = ({ questionCode, data, onSendAnswer }) => {
+const Write = ({ questionCode, data, onSendAnswer, isRequired, label }) => {
+  const toggle = () => onSendAnswer(data?.value === 'true' ? 'false' : 'true')
   return (
-    <HStack spacing={2}>
+    <HStack w="full" spacing={2} align="start">
       <Checkbox
+        m="1"
         test-id={questionCode}
         colorScheme="green"
         isChecked={data?.value === 'true'}
-        value={`Yes`}
-        onChange={() => onSendAnswer('true')}
-      >{`Yes`}</Checkbox>
+        onChange={toggle}
+      />
+      <FormControl onClick={toggle} isRequired={isRequired}>
+        <FormLabel cursor="pointer">{label}</FormLabel>
+      </FormControl>
     </HStack>
   )
 }
