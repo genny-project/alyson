@@ -18,7 +18,6 @@ import useApi from 'api'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faVideo, faExpand, faBan } from '@fortawesome/free-solid-svg-icons'
 import Player from './Player'
-import videoIntroImage from './video-intro.png'
 
 const Write = ({ questionCode, onSendAnswer, html, data }) => {
   const config = safelyParseJson(html, {})
@@ -88,7 +87,7 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
             mb="2"
           >{`Don't worry, we'll give you time to prepare and let you record!`}</Text>
           <Box mb="8" w="100%">
-            <Image src={videoIntroImage} alt="video-intro" m="auto" />
+            <Image src={process.env.PUBLIC_URL + '/video-intro.png'} alt="video-intro" m="auto" />
           </Box>
           <HStack justify="flex-end" w="100%" pr="10">
             <Box mr="6">
