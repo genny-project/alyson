@@ -1,4 +1,3 @@
-import { useColorModeValue } from '@chakra-ui/color-mode'
 import { ReactChildren } from 'react'
 import { Box } from '@chakra-ui/layout'
 
@@ -6,7 +5,7 @@ const styles = {
   card0: {
     shadow: 'inner',
     borderRadius: 'md',
-    bg: useColorModeValue('gray.50', 'gray.500'),
+    bg: 'gray.50',
   },
   card1: {
     shadow: 'xs',
