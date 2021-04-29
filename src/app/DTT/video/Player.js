@@ -4,7 +4,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlayCircle } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
 
-const Player = ({ src, styles = { width: '20rem', height: '15rem', borderRadius: '1rem' } }) => {
+const Player = ({
+  videoHeight,
+  src,
+  styles = { width: '20rem', height: '15rem', borderRadius: '1rem' },
+}) => {
   const videoRef = useRef(null)
 
   const [paused, setPaused] = useState(true)
@@ -49,10 +53,14 @@ const Player = ({ src, styles = { width: '20rem', height: '15rem', borderRadius:
       onClick={togglePlay}
       style={{ position: 'absolute', width: '40rem', overflow: 'hidden', ...styles }}
     >
-      <video style={{ position: 'absolute', width: '100%' }} src={src} ref={videoRef} />
+      <video
+        style={{ position: 'absolute', width: '100%', height: '100%' }}
+        src={src}
+        ref={videoRef}
+      />
       <IconButton
         onClick={togglePlay}
-        opacity={paused ? '1' : '0'}
+        opacity={paused ? '0.8' : '0'}
         transition="opacity 0.5s"
         position="relative"
         left="calc(50% - 24px)"
