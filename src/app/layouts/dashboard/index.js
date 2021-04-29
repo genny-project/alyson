@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 import { selectDashboard, selectDashboardCounts } from 'redux/app/selectors'
 import DisplaySbe from 'app/SBE'
-import { Center, HStack, Stack, useToast } from '@chakra-ui/react'
+import { Center, HStack, Stack } from '@chakra-ui/react'
 import Process from '../process'
 
 const Dashboard = () => {
