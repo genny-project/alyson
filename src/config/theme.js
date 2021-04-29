@@ -6,7 +6,7 @@ const defaultProjectTheme = {
     body: 'Inter, sans-serif',
   },
   colors: {
-    background: { light: '#ffffff', dark: '#171923' },
+    background: { light: '#ffffff', dark: '#1A202C' },
     text: {
       light: '#2D3748',
       dark: '#F7FAFC',
