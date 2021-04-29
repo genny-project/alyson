@@ -1,33 +1,61 @@
 import { useSelector } from 'react-redux'
 import { selectDashboard, selectDashboardCounts } from 'redux/app/selectors'
 import DisplaySbe from 'app/SBE'
-import { Center, HStack, Stack, Spacer, Image, useColorModeValue } from '@chakra-ui/react'
-import { apiConfig } from 'config/get-api-config'
+import { Center, HStack, Stack, useToast } from '@chakra-ui/react'
+import { selectCode } from 'redux/db/selectors'
+import getUserType from 'utils/helpers/get-user-type'
+import Intern from './intern'
+import HostCompanyRep from './hcr'
+import Recommendations from './intern/recommendations'
+import Agent from './agent'
+import Process from '../process'
+import EduProRep from './edu_pro_rep'
 
 const Dashboard = () => {
   const dashboardSbes = useSelector(selectDashboard)
   const dashboardCounts = useSelector(selectDashboardCounts)
-  const { realm } = apiConfig
-  const logoSrc = useColorModeValue(
-    'https://internmatch-uploads.s3-ap-southeast-2.amazonaws.com/internmatch_logo_light.png',
-    'https://internmatch-uploads.s3-ap-southeast-2.amazonaws.com/internmatch_logo_dark.png',
-  )
+  const userCode = useSelector(selectCode('USER'))
+  const toast = useToast()
+
+  const userType = getUserType(useSelector(selectCode(userCode)))
+
+  const localFreshness = localStorage.getItem('localFreshness')
+  if (!localFreshness) {
+    localStorage.setItem('localFreshness', 'visited')
+    toast({
+      title: 'Welcome to Internmatch',
+      description: `We've recently updated our look! Thanks so much for joining our growing platform 🥰. For help, please access the Helper Portal from your profile menu!`,
+      duration: 14000,
+      isClosable: true,
+      position: 'top-right',
+    })
+  }
 
   if (!dashboardSbes) return <div />
+
+  if (userType === 'HOST_CPY_REP') return <HostCompanyRep userCode={userCode} />
+  if (userType === 'INTERN') return <Intern userCode={userCode} />
+  if (userType === 'AGENT' || userType === 'ADMIN') return <Agent userCode={userCode} />
+  if (userType === 'EDU_PRO_REP') return <EduProRep userCode={userCode} />
   return (
-    <Center m="4">
+    <Center>
       <Stack direction="column" spacing="10" h="84vh">
-        {apiConfig && realm === 'mentormatch' && (
-          <Image src={logoSrc} style={{ cursor: 'pointer' }} htmlWidth="250px" />
-        )}
-        <HStack spacing={4}>
-          {dashboardCounts &&
-            dashboardCounts.map(sbeCode => <DisplaySbe key={sbeCode} sbeCode={sbeCode} />)}
-        </HStack>
-        {dashboardSbes.map(sbeCode => (
-          <DisplaySbe key={sbeCode} sbeCode={sbeCode} />
-        ))}
-        <Spacer />
+        <Center>
+          <HStack spacing={4}>
+            {dashboardCounts &&
+              dashboardCounts.map(sbeCode => <DisplaySbe key={sbeCode} sbeCode={sbeCode} />)}
+          </HStack>
+        </Center>
+        <Center>
+          <HStack spacing={4}>
+            {dashboardSbes.map(sbeCode => (
+              <DisplaySbe key={sbeCode} sbeCode={sbeCode} />
+            ))}
+          </HStack>
+        </Center>
+
+        <Recommendations />
+        <Process dashboard />
       </Stack>
     </Center>
   )

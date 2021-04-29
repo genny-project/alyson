@@ -2,6 +2,8 @@ import axios from 'axios'
 import { apiConfig } from 'config/get-api-config'
 import { useKeycloak } from '@react-keycloak/web'
 import debounce from 'lodash.debounce'
+import { tokenFromUrl, guestKeycloak } from 'config/get-api-config'
+import selectToken from 'keycloak/utils/select-token'
 
 const useApi = () => {
   const { keycloak } = useKeycloak()
@@ -10,7 +12,9 @@ const useApi = () => {
   const ABN_URL = `${apiConfig.api_url}/json`
   const MEDIA_URL = apiConfig.ENV_MEDIA_PROXY_URL
 
-  const token = keycloak.token
+  const { token: tokenFromKeycloak } = keycloak
+
+  const token = selectToken({ guestKeycloak, tokenFromKeycloak, tokenFromUrl })
 
   const mediaSettings = {
     url: MEDIA_URL,
@@ -48,7 +52,10 @@ const useApi = () => {
     return resp?.data?.data?.name || ''
   }
 
-  const getImageSrc = uuid => (uuid ? `${IMAGE_URL}/${MEDIA_URL}/${uuid}` : null)
+  const getImageSrc = (uuid, dim) =>
+    uuid
+      ? `${IMAGE_URL}/${dim ? `${dim.width}x${dim.height || ''},fit/` : ''}${MEDIA_URL}/${uuid}`
+      : null
   const getSrc = uuid => (uuid ? `${MEDIA_URL}/${uuid}` : null)
 
   const callABN = async value =>

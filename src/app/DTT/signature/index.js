@@ -24,8 +24,8 @@ const Write = ({ questionCode, data, onSendAnswer }) => {
     if (canvas && canvas.getContext) {
       const ctx = canvas.getContext('2d')
       ctx.clearRect(0, 0, canvas.width, canvas.height)
-      ctx.font = '40px Homemade Apple'
-      ctx.fillText(text, canvas.width / 6, canvas.height / 1.8)
+      ctx.font = `${text.length > 20 ? 40 / (text.length / 18) : 40}px Homemade Apple`
+      ctx.fillText(text, canvas.width / 12, canvas.height / 1.8)
     }
   }, [text])
 

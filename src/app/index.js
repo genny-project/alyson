@@ -3,12 +3,10 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 import { lazy, Suspense } from 'react'
 import { Provider } from 'react-redux'
 import store from 'redux/store'
-import { Box, CSSReset } from '@chakra-ui/react'
+import { CSSReset } from '@chakra-ui/react'
 import Vertx from 'vertx'
 import { isDev } from 'utils/developer'
 
-const Navigation = lazy(() => import('app/layouts/navigation'))
-const DeveloperConsole = lazy(() => import('utils/developer'))
 const Display = lazy(() => import('app/layouts/display'))
 const Sandbox = lazy(() => import('utils/developer/Sandbox'))
 
@@ -28,7 +26,7 @@ const App = () => {
               keycloak.authenticated ? (
                 <Redirect to={{ pathname: '/home' }} />
               ) : (
-                <Redirect to={{ pathname: '/public' }} />
+                <Redirect to={{ pathname: '/home' }} />
               )
             }
           />
@@ -36,27 +34,11 @@ const App = () => {
             path="/home"
             component={() => (
               <Suspense fallback={<div />}>
-                <Box>
-                  <Navigation />
-                  <Display />
-                  {isDev ? (
-                    <Suspense fallback={<div />}>
-                      <DeveloperConsole />
-                    </Suspense>
-                  ) : null}
-                </Box>
+                <Display />
               </Suspense>
             )}
           />
-          <Route
-            path={`/public`}
-            exact
-            component={() => (
-              <Suspense fallback={<div />}>
-                <Display isPublic />
-              </Suspense>
-            )}
-          />
+          <Route path={`/public`} exact component={() => <Redirect to={{ pathname: '/home' }} />} />
           <Route
             path={`/sandbox`}
             exact

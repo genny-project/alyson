@@ -8,20 +8,19 @@ import {
   PopoverContent,
   IconButton,
   Badge,
+  HStack,
 } from '@chakra-ui/react'
 import VideoRecorder from './video_recorder'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import useApi from 'api'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSave, faVideo, faExpand } from '@fortawesome/free-solid-svg-icons'
+import { faVideo, faExpand, faBan } from '@fortawesome/free-solid-svg-icons'
 import Player from './Player'
 
 const Write = ({ questionCode, onSendAnswer, html, data }) => {
   const config = safelyParseJson(html, {})
 
   const { postMediaFile, getSrc } = useApi()
-
-  const [newData, setNewData] = useState(null)
   const [startVideo, setStartVideo] = useState(false)
 
   const handleSave = async file => {
@@ -45,69 +44,63 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
         <Badge variant="subtle" colorScheme="green">
           Saved!
         </Badge>
-        <Button
-          test-id={questionCode + '-clear'}
-          onClick={() => {
-            setNewData(null)
-            setStartVideo(false)
-            onSendAnswer()
-          }}
-        >
-          Clear
-        </Button>
+        <HStack>
+          <Button
+            test-id={questionCode + '-clear'}
+            onClick={() => {
+              setStartVideo(false)
+              onSendAnswer()
+            }}
+          >
+            Re-Record
+          </Button>
+          <Button
+            leftIcon={<FontAwesomeIcon icon={faBan} />}
+            onClick={() => {
+              setStartVideo(false)
+              onSendAnswer('')
+            }}
+          >
+            Delete Video
+          </Button>
+        </HStack>
       </VStack>
     )
 
   return (
     <VStack>
-      {newData && (
-        <VStack>
-          <video
-            style={{ width: '20rem', borderRadius: '1rem' }}
-            src={URL.createObjectURL(newData)}
-            controls
-          />
-          <Button
-            test-id={questionCode + '-save'}
-            colorScheme="primary"
-            leftIcon={<FontAwesomeIcon icon={faSave} />}
-            onClick={() => handleSave(newData)}
-          >
-            Save
-          </Button>
-        </VStack>
-      )}
       {startVideo ? (
         <VideoRecorder
           test-id={questionCode}
           setStartVideo={setStartVideo}
-          setData={setNewData}
+          setData={handleSave}
           config={config}
         />
       ) : (
-        <VStack>
+        <VStack align="start">
           <Text>
             {
               "Record a short introduction about yourself, don't worry we'll give you time to prepare and let you re-record!"
             }
           </Text>
-          <Text>{'Feel free to skip this and come back later.'}</Text>
-          <a href={config.explanation_video}>
-            <Button leftIcon={<div>❓</div>}>{`Click here for instructions`}</Button>
-          </a>
-
-          <Button
-            test-id={questionCode + '-start'}
-            leftIcon={<FontAwesomeIcon icon={faVideo} />}
-            onClick={() => setStartVideo(true)}
-          >{`Ready!`}</Button>
+          <HStack>
+            <a href={config.explanation_video} target="_blank" rel="noreferrer">
+              <Button colorScheme="green">{`Instructions`}</Button>
+            </a>
+            <Button
+              test-id={questionCode + '-start'}
+              leftIcon={<FontAwesomeIcon icon={faVideo} />}
+              onClick={() => setStartVideo(true)}
+              colorScheme="primary"
+            >{`Get Started!`}</Button>
+          </HStack>
         </VStack>
       )}
     </VStack>
   )
 }
 
-const Read = ({ data, mini }) => {
+const Read = ({ data, mini, styles }) => {
   const api = useApi()
   const src = api.getSrc(data?.value)
 
@@ -121,7 +114,7 @@ const Read = ({ data, mini }) => {
       </PopoverContent>
     </Popover>
   ) : (
-    <Player src={src} />
+    <Player src={src} styles={styles} />
   )
 }
 

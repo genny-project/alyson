@@ -1,29 +1,12 @@
 import { useSelector } from 'react-redux'
 import { selectCode, selectRows } from 'redux/db/selectors'
-import { faUser, faBriefcase, faGraduationCap } from '@fortawesome/free-solid-svg-icons'
-import { Box, Divider } from '@chakra-ui/react'
+import { Box, HStack, VStack } from '@chakra-ui/react'
 
 import Header from './templates/header'
-import DetailSection from './templates/detail-section'
 import getActions from 'app/SBE/utils/get-actions'
-
-const contactDetails = {
-  sectionIcon: faUser,
-  title: 'Contact Details',
-  attributes: ['PRI_NAME', 'PRI_MOBILE', 'PRI_EMAIL', 'PRI_ADDRESS_FULL'],
-}
-
-const aboutMyself = {
-  sectionIcon: faBriefcase,
-  title: 'About Myself',
-  attributes: [],
-}
-
-const moreInfo = {
-  sectionIcon: faGraduationCap,
-  title: 'More Information',
-  attributes: [],
-}
+import getColumns, { getAttribute } from 'app/SBE/utils/get-columns'
+import Label from 'app/BE/attribute/Label'
+import Attribute from 'app/BE/attribute'
 
 const DefaultView = ({ sbeCode, targetCode }) => {
   const sbe = useSelector(selectCode(sbeCode))
@@ -31,6 +14,8 @@ const DefaultView = ({ sbeCode, targetCode }) => {
   const rows = useSelector(selectRows(sbeCode))
 
   if (!sbe) return null
+
+  const columns = getColumns(sbe)
 
   const beCode = targetCode ? targetCode : rows?.length ? rows[0] : null
 
@@ -43,19 +28,24 @@ const DefaultView = ({ sbeCode, targetCode }) => {
   const headerAttribute = 'PRI_NAME'
 
   return (
-    <Box>
+    <Box minH="100vh">
       <Header
         code={beCode}
         sbeCode={sbeCode}
         imageSrc={imageAttribute}
         headerAttribute={headerAttribute}
         actions={actions}
-        contactDetails={contactDetails}
       />
-      <Divider />
-      <DetailSection code={beCode} details={aboutMyself} />
-      <Divider />
-      <DetailSection code={beCode} details={moreInfo} />
+      <VStack align="start" p="5">
+        {columns.map(col => (
+          <HStack key={col}>
+            <Box w="10rem">
+              <Label code={beCode} attribute={getAttribute(col)} />
+            </Box>
+            <Attribute code={beCode} attribute={getAttribute(col)} />
+          </HStack>
+        ))}
+      </VStack>
     </Box>
   )
 }

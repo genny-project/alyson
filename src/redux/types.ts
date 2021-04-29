@@ -1,5 +1,5 @@
 import { AppState } from './app/types'
-import { DBState, Note } from './db/types'
+import { DBState } from './db/types'
 
 export interface Item {
   [key: string]: any

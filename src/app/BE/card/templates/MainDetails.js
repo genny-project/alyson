@@ -18,9 +18,9 @@ const MainDetails = ({ columns, parentCode, code }) => {
   if (!details?.length) return null
 
   return (
-    <VStack align="left" p="3">
-      {details.map((col, idx) => (
-        <PickedAttribute key={col} color={'blue'} col={col} code={code} parentCode={parentCode} />
+    <VStack align="left">
+      {details.map(col => (
+        <PickedAttribute key={col} col={col} code={code} parentCode={parentCode} />
       ))}
     </VStack>
   )

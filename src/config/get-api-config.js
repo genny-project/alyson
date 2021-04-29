@@ -44,10 +44,6 @@ const getApiConfig = async () => {
 
   tokenFromUrl = getTokenFromURL(keycloak)
 
-  /* DOM */
-  document.title = apiConfig.PRI_NAME || ''
-  document.querySelector("link[rel*='icon']").href = apiConfig.PRI_FAVICON
-
   setupGoogleApi()
 
   /* Theme */

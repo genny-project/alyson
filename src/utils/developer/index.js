@@ -37,15 +37,7 @@ const DeveloperConsole = () => {
 
   return (
     <VStack>
-      <Button
-        size="xs"
-        onClick={() => {
-          localStorage.removeItem('useDev')
-        }}
-      >
-        turn off dev mode
-      </Button>
-      <Button size="xs" onClick={onOpen}>
+      <Button size="xs" onClick={onOpen} position="fixed" bottom="0" left="0">
         db search
       </Button>
 
@@ -91,7 +83,7 @@ const DeveloperConsole = () => {
                       <>
                         <Text size="lg">Has Keys</Text>
                         {selection.map(key =>
-                          console.log(key) || typeof key === 'object' ? (
+                          typeof key === 'object' ? (
                             Object.keys(key).map(key_2 => (
                               <Text
                                 borderRadius="lg"
@@ -148,4 +140,8 @@ const DeveloperConsole = () => {
 export default DeveloperConsole
 
 export const isDev =
-  process.env.NODE_ENV === 'development' || localStorage.getItem('useDev') === 'true'
+  process.env.NODE_ENV === 'development' ||
+  localStorage.getItem('useDev') === 'true' ||
+  (window &&
+    (window.location.hostname.indexOf('dev') !== -1 ||
+      window.location.hostname.indexOf('staging') !== -1))

@@ -1,19 +1,17 @@
 import { useSelector } from 'react-redux'
 import { selectCode, selectRows } from 'redux/db/selectors'
-import { faUser, faBriefcase, faGraduationCap } from '@fortawesome/free-solid-svg-icons'
-import { Box, Divider, HStack, VStack } from '@chakra-ui/react'
+import { Box, HStack, VStack } from '@chakra-ui/react'
+import useApi from 'api'
+import { replace } from 'ramda'
+import { faBriefcase } from '@fortawesome/free-solid-svg-icons'
 
-import Header from './templates/header'
-import DetailSection from '../default-view/templates/detail-section'
 import getActions from 'app/SBE/utils/get-actions'
-import Attribute from 'app/BE/attribute'
-import Label from 'app/BE/attribute/Label'
-
-const contactDetails = {
-  sectionIcon: faUser,
-  title: 'Dedicated Internship Contact Details',
-  attributes: ['PRI_ASSOC_SUPERVISOR', 'PRI_MOBILE', 'PRI_EMAIL'],
-}
+import { topHeight } from 'app/SBE/detail/helpers/set-top-height'
+import DetailHeader from 'app/layouts/components/header'
+import ProfilePicture from 'app/layouts/components/profile_picture'
+import DetailSubHeader from 'app/layouts/components/subheader'
+import RightHandDetails from './templates/RightHandDetails'
+import LeftHandDetails from './templates/LeftHandDetails'
 
 const internshipDetail = {
   sectionIcon: faBriefcase,
@@ -27,68 +25,76 @@ const internshipDetail = {
   ],
 }
 
-const responsibilities = {
-  sectionIcon: faGraduationCap,
-  title: 'Responsibilities',
-  attributes: ['PRI_ROLES_AND_RESPONSIBILITIES'],
-}
+const responsibilitiesAndOutcomes = [
+  'PRI_ROLES_AND_RESPONSIBILITIES',
+  'PRI_BASE_LEARNING_OUTCOMES',
+  'PRI_SPECIFIC_LEARNING_OUTCOMES',
+]
 
-const basicLearningOutcome = {
-  sectionIcon: faGraduationCap,
-  title: 'Basic Learning Outcome',
-  attributes: ['PRI_BASE_LEARNING_OUTCOMES'],
-}
-
-const technicalSkills = {
-  sectionIcon: faGraduationCap,
-  title: 'Technical Skills',
-  attributes: ['PRI_SPECIFIC_LEARNING_OUTCOMES'],
-}
+const subHeaderAttributes = ['PRI_ASSOC_INDUSTRY', 'PRI_STATUS']
 
 const Internship = ({ sbeCode, targetCode }) => {
   const sbe = useSelector(selectCode(sbeCode))
-
   const rows = useSelector(selectRows(sbeCode))
-
-  if (!sbe) return null
 
   const beCode = targetCode ? targetCode : rows?.length ? rows[0] : null
 
+  const addressData = useSelector(selectCode(beCode, 'PRI_ADDRESS_FULL'))
+  const address = addressData?.value
+  const image = useSelector(selectCode(beCode, 'PRI_IMAGE_URL'))
+  const { getImageSrc } = useApi()
+  const src = getImageSrc(image?.value)
+  const url = useSelector(selectCode(beCode, 'PRI_COMPANY_WEBSITE_URL'))
+  const name = useSelector(selectCode(beCode, 'PRI_NAME'))
+  const software = useSelector(selectCode(beCode, 'PRI_SOFTWARE'))
   const actions = getActions(sbe)
+  const videoData = useSelector(selectCode('PRI_VIDEO_URL'))
+
+  const linkedSupervisor = replace('SBE_INTERNSHIP_', 'SBE_LINKED_INTERN_SUPERVISOR_', sbeCode)
+  const linkedHostCpy = replace('SBE_INTERNSHIP_', 'SBE_LINKED_HOST_CPY_', sbeCode)
+
+  if (!sbe) return null
 
   if (!beCode) return null
 
-  const imageAttribute = 'PRI_IMAGE_URL'
-  const headerAttribute = 'PRI_ASSOC_HC'
-
   return (
-    <HStack alignItems="start">
-      <Box>
-        <Header
-          code={beCode}
+    <Box
+      w="70vw"
+      h="100vh"
+      style={{
+        borderTopLeftRadius: '0.5rem',
+        borderTopRightRadius: '0.5rem',
+      }}
+    >
+      <DetailHeader address={address} />
+      <ProfilePicture src={src} />
+
+      <VStack pt="5rem" overflow="scroll" h={`calc(100vh - ${topHeight})`}>
+        <DetailSubHeader
+          url={url}
+          name={name}
+          beCode={beCode}
           sbeCode={sbeCode}
-          imageSrc={imageAttribute}
-          headerAttribute={headerAttribute}
           actions={actions}
-          contactDetails={contactDetails}
+          subHeaderAttributes={subHeaderAttributes}
         />
-        <Divider />
-        <HStack alignItems="start">
-          <DetailSection code={beCode} details={internshipDetail} />
-          <VStack alignItems="start" pt="53px">
-            <Label code={beCode} attribute={'PRI_SOFTWARE'} />
-            <Attribute code={beCode} attribute={'PRI_SOFTWARE'} />
-          </VStack>
+
+        <HStack w="65vw" align="start" pt="5" spacing="5">
+          <LeftHandDetails
+            videoData={videoData}
+            beCode={beCode}
+            internshipDetail={internshipDetail}
+            linkedSupervisor={linkedSupervisor}
+            software={software}
+          />
+          <RightHandDetails
+            code={beCode}
+            sbeCode={linkedHostCpy}
+            attributes={responsibilitiesAndOutcomes}
+          />
         </HStack>
-        <Divider />
-        <DetailSection code={beCode} details={responsibilities} />
-        <Divider />
-        <DetailSection code={beCode} details={basicLearningOutcome} />
-        <Divider />
-        <DetailSection code={beCode} details={technicalSkills} />
-      </Box>
-      <Attribute code={beCode} attribute={'PRI_ADDRESS_FULL'} config={{ collapse: true }} />
-    </HStack>
+      </VStack>
+    </Box>
   )
 }
 

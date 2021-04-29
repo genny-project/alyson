@@ -1,6 +1,6 @@
 {
-  "short_name": "Genny App",
-  "name": "Generic App Built on Genny Stack",
+  "short_name": "Internmatch",
+  "name": "Internmatch",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,9 +8,9 @@
       "type": "image/x-icon"
     },
     {
-      "src": "logo512.png",
+      "src": "internmatch_logo_light.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "192x192"
     }
   ],
   "start_url": ".",

@@ -7,15 +7,15 @@ const LoadingText = () => {
       {
         <motion.div initial={{ opacity: 1 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
           <AnimateText
-            initial={{ y: '100%' }}
+            initial={{ x: 0 }}
             animate="visible"
             variants={{
               visible: i => ({
-                y: 0,
+                x: 10,
                 transition: {
                   repeat: Infinity,
                   repeatType: 'reverse',
-                  delay: i * 0.7,
+                  delay: i * 0.1,
                 },
               }),
             }}
