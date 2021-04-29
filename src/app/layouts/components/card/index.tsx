@@ -1,14 +1,52 @@
-import { useColorModeValue } from '@chakra-ui/color-mode'
 import { ReactChildren } from 'react'
 import { Box } from '@chakra-ui/layout'
+import { useColorModeValue } from '@chakra-ui/react'
 
-const styles = {
-  lg: {
-    shadow: 'lg',
-    borderRadius: 'lg',
-    padding: '5',
+const lightStyles = {
+  card0: {
+    shadow: 'inner',
+    borderRadius: 'md',
+    bg: 'gray.100',
   },
-} as Styles // Barad to build
+  card1: {
+    shadow: 'xs',
+    borderRadius: 'md',
+    bg: 'white',
+  },
+  card2: {
+    shadow: 'base',
+    borderRadius: 'md',
+    bg: 'white',
+  },
+  card3: {
+    shadow: 'lg',
+    borderRadius: 'md',
+    bg: 'white',
+  },
+} as Styles
+
+const darkStyles = {
+  card0: {
+    shadow: 'inner',
+    borderRadius: 'md',
+    bg: 'gray.900',
+  },
+  card1: {
+    shadow: 'xs',
+    borderRadius: 'md',
+    bg: 'gray.700',
+  },
+  card2: {
+    shadow: 'base',
+    borderRadius: 'md',
+    bg: 'gray.700',
+  },
+  card3: {
+    shadow: 'lg',
+    borderRadius: 'md',
+    bg: 'gray.700',
+  },
+} as Styles
 
 type CardProps = {
   variant: variant
@@ -16,22 +54,22 @@ type CardProps = {
   children: ReactChildren
 }
 
-const Card = ({ variant = 'lg', children, ...rest }: CardProps) => {
-  const bg = useColorModeValue('white', '')
-  const stylesConfig = styles[variant]
-
+const Card = ({ variant, children, ...rest }: CardProps) => {
+  const currentStyle = useColorModeValue(lightStyles, darkStyles)
+  const stylesConfig = currentStyle[variant]
   return (
-    <Box bg={bg} {...stylesConfig} {...rest}>
+    <Box {...stylesConfig} {...rest}>
       {children}
     </Box>
   )
 }
 
 interface Styles {
-  sm: any
-  md: any
-  lg: any
+  card0: any
+  card1: any
+  card2: any
+  card3: any
 }
-type variant = 'sm' | 'md' | 'lg'
+type variant = 'card0' | 'card1' | 'card2' | 'card3'
 
 export default Card

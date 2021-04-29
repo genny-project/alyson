@@ -99,7 +99,17 @@ export const formatNotes = (state: DBState) => (item: Note) => {
   state.NOTES[`${id}`] = item
 }
 
-export const formatGroupData = (state: DBState, parentCode: string, items: Array<Item>) => {
+export const formatGroupData = (
+  state: DBState,
+  parentCode: string,
+  items: Array<Item>,
+  replace: Boolean,
+) => {
   const formatted = map(({ name, code }) => ({ code, name }), items || [])
-  state[parentCode] = filter(({ code }) => !includes('GRP_', code), formatted)
+  if (!replace) {
+    initialiseKey(state, parentCode, [])
+    state[parentCode] = (state[parentCode] as Array<Keyable>).concat(formatted)
+  } else {
+    state[parentCode] = filter(({ code }) => !includes('GRP_', code), formatted)
+  }
 }
