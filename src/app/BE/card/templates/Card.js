@@ -8,7 +8,6 @@ import ContextMenu from 'app/BE/context'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 import MainDetails from './MainDetails'
-import { equals, includes } from 'ramda'
 import AgentDetail from './AgentDetail'
 import sameValue from 'redux/utils/same-value'
 import Card from 'app/layouts/components/card'
@@ -22,24 +21,10 @@ const DefaultCard = ({ parentCode, actions = [], code, columns }) => {
   const title = useSelector(selectCode(code, getAttribute(columns[0] || '')), sameValue)
   const subTitle = useSelector(selectCode(code, getAttribute(columns[1] || '')), sameValue)
   const image = useSelector(selectCode(code, 'PRI_IMAGE_URL'), sameValue)
-  const statusColor = useSelector(selectCode(code, 'PRI_STATUS_COLOR'), sameValue)
-  const color = useColorModeValue(`${statusColor?.value}.50`, `${statusColor?.value}.900`)
-
-  const userCode = useSelector(selectCode('USER'), equals)
-  const userType = getUserType(useSelector(selectCode(userCode), sameLength))
 
   return (
     <MotionBox w="full" whileHover={{ scale: 1.02 }} transition={{ duration: 0.1 }}>
-      <Card
-        maxW={['80vw', '80vw', '22rem']}
-        p={[2, 2, 2, 4]}
-        variant="card1"
-        {...(statusColor?.value &&
-        statusColor?.value !== 'default' &&
-        !includes('#', statusColor?.value || '')
-          ? { bg: color }
-          : {})}
-      >
+      <Card maxW={['80vw', '80vw', '22rem']} p={[2, 2, 2, 4]} variant="card1">
         <Flex>
           <HStack align="start">
             <Image.Read

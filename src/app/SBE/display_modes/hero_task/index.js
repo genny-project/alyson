@@ -19,12 +19,7 @@ const HeroTask = ({ sbeCode, rows }) => {
 
   const value = validation?.value
 
-  const ready =
-    value === 'Ready' ||
-    value === 'Validated' ||
-    value === true ||
-    (includes('_OHNS_', sbeCode) && value === 'OHS') ||
-    (includes('_SERVICE_AGREEMENT_DOC_', sbeCode) && value === 'HCS')
+  const ready = value === 'Ready' || value === 'Validated' || value === true
 
   const actionCode = head(
     actions.filter(act =>

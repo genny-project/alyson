@@ -1,21 +1,15 @@
 {
-  "short_name": "Internmatch",
-  "name": "Internmatch",
+  "short_name": "Alyson",
+  "name": "Alyson",
   "icons": [
     {
       "src": "favicon.ico",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
-    },
-    {
-      "src": "logo512.png",
-      "type": "image/png",
-      "sizes": "512x512 192x192"
     }
   ],
-  "start_url": "/home",
+  "start_url": ".",
   "display": "standalone",
-  "orientation": "portrait",
-  "background_color": "#3182CE",
-  "theme_color": "#3182CE"
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
 }
