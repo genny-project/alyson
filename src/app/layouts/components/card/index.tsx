@@ -5,7 +5,7 @@ const styles = {
   card0: {
     shadow: 'inner',
     borderRadius: 'md',
-    bg: 'gray.50',
+    bg: 'gray.100',
   },
   card1: {
     shadow: 'xs',
