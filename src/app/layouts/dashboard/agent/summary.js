@@ -1,4 +1,4 @@
-import { HStack, VStack, Text } from '@chakra-ui/layout'
+import { VStack, Text, Wrap, WrapItem } from '@chakra-ui/layout'
 import Card from 'app/layouts/components/card'
 import { useSelector } from 'react-redux'
 import { selectProcess } from 'redux/app/selectors'
@@ -13,16 +13,18 @@ const AgentDashboardSummary = () => {
   if (!titles.length) return null
   return (
     <Card>
-      <HStack spacing={5}>
+      <Wrap justify="center" spacing={5} w={['xs', 'md']} wrap="wrap">
         {titles.map((title, idx) =>
           title ? (
-            <VStack key={idx}>
-              <Text textStyle="body1">{title.value}</Text>
-              <Text>{totals[idx]?.value}</Text>
-            </VStack>
+            <WrapItem key={idx}>
+              <VStack>
+                <Text textStyle="body1">{title.value}</Text>
+                <Text>{totals[idx]?.value}</Text>
+              </VStack>
+            </WrapItem>
           ) : null,
         )}
-      </HStack>
+      </Wrap>
     </Card>
   )
 }

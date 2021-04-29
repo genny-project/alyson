@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 import { selectDashboard, selectDashboardCounts } from 'redux/app/selectors'
 import DisplaySbe from 'app/SBE'
-import { Center, HStack, Stack, useToast } from '@chakra-ui/react'
+import { Center, HStack, Stack } from '@chakra-ui/react'
 import { selectCode } from 'redux/db/selectors'
 import getUserType from 'utils/helpers/get-user-type'
 import Intern from './intern'
@@ -15,21 +15,7 @@ const Dashboard = () => {
   const dashboardSbes = useSelector(selectDashboard)
   const dashboardCounts = useSelector(selectDashboardCounts)
   const userCode = useSelector(selectCode('USER'))
-  const toast = useToast()
-
   const userType = getUserType(useSelector(selectCode(userCode)))
-
-  const localFreshness = localStorage.getItem('localFreshness')
-  if (!localFreshness) {
-    localStorage.setItem('localFreshness', 'visited')
-    toast({
-      title: 'Welcome to Internmatch',
-      description: `We've recently updated our look! Thanks so much for joining our growing platform 🥰. For help, please access the Helper Portal from your profile menu!`,
-      duration: 14000,
-      isClosable: true,
-      position: 'top-right',
-    })
-  }
 
   if (!dashboardSbes) return <div />
 
@@ -53,7 +39,6 @@ const Dashboard = () => {
             ))}
           </HStack>
         </Center>
-
         <Recommendations />
         <Process dashboard />
       </Stack>
