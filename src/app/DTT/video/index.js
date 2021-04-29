@@ -102,6 +102,9 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
 
 const Read = ({ data, mini, styles }) => {
   const api = useApi()
+
+  if (!data?.value) return null
+
   const src = api.getSrc(data?.value)
 
   return mini ? (
