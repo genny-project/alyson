@@ -22,7 +22,7 @@ const Read = ({ data }) => {
 }
 
 const Write = ({ questionCode, onSendAnswer, data }) => (
-  <InputGroup>
+  <InputGroup w='25vw'>
     <InputLeftAddon>
       <FontAwesomeIcon size="lg" icon={faLinkedin} />
     </InputLeftAddon>
