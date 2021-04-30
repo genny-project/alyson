@@ -3,6 +3,7 @@ import { Input, InputGroup, InputRightElement } from '@chakra-ui/input'
 import { Badge, Box, HStack, Text, VStack, Wrap, WrapItem } from '@chakra-ui/layout'
 import { faAngleDown, faCheckCircle, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Chip from 'app/layouts/components/chip'
 import { append, compose, filter, find, includes, not, prop, propEq, replace, toLower } from 'ramda'
 import { useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -59,17 +60,9 @@ const Autocomplete = ({ questionCode, defaultValue, options, onChange, placehold
           <Wrap maxW="50vw">
             {selected.map(item => (
               <WrapItem key={item}>
-                <Badge
-                  cursor="pointer"
-                  onClick={() => onSelectChange(item)}
-                  p="2"
-                  colorScheme="green"
-                >
-                  <HStack>
-                    <FontAwesomeIcon icon={faTimes} />
-                    <Text>{renderLabel(item)}</Text>
-                  </HStack>
-                </Badge>
+                <Chip onClick={() => onSelectChange(item)} p="2">
+                  {renderLabel(item)}
+                </Chip>
               </WrapItem>
             ))}
           </Wrap>
