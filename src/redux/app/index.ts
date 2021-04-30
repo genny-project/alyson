@@ -13,6 +13,7 @@ export const initialState = {
   TOAST: null,
   DASHBOARD_COUNTS: null,
   NOTES: null,
+  lastSentMessage: { data: { data: { code: 'QUE_DASHBOARD_VIEW' } } },
 }
 
 const appSlice = createSlice({
@@ -41,8 +42,10 @@ const appSlice = createSlice({
     },
     sendMessage: (state, { payload }) => {
       handleSendMessage(payload.data)
-      if (payload?.data?.redirect) state.FORM = null
-      state.lastMessage = payload
+      if (payload?.data?.redirect) {
+        state.FORM = null
+        state.lastMessage = payload
+      }
     },
     closeDrawer: state => {
       state.DRAWER = 'NONE'

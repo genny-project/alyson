@@ -9,6 +9,7 @@ export interface AppState {
   TOAST: Keyable | null
   DASHBOARD_COUNTS: Array<String> | null
   NOTES: null | Keyable
+  lastSentMessage: any
 }
 
 export interface BaseEntityAttribute {
