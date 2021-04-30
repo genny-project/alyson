@@ -1,4 +1,4 @@
-import { HStack, Text, VStack } from '@chakra-ui/layout'
+import { Stack, Text, VStack } from '@chakra-ui/layout'
 import Card from 'app/layouts/components/card'
 import { zip, compose, map, prop, reduce, zipObj } from 'ramda'
 import { useSelector } from 'react-redux'
@@ -33,7 +33,7 @@ const Counts = ({ sbeCodes }) => {
           )}%`}</Text>
         </VStack>
       </Card>
-      <HStack>
+      <Stack direction={['column', 'row']}>
         <Card w="10rem">
           <VStack>
             <Text textStyle="head1">{`Shortlisted`}</Text>
@@ -61,7 +61,7 @@ const Counts = ({ sbeCodes }) => {
             <Text textStyle="head2">{`${zipped['Placed Students']}`}</Text>
           </VStack>
         </Card>
-      </HStack>
+      </Stack>
     </VStack>
   )
 }

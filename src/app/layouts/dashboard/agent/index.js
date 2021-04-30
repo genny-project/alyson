@@ -15,7 +15,7 @@ const Agent = () => {
   return (
     <VStack spacing={4}>
       <Card>
-        <VStack spacing={10} w="md">
+        <VStack spacing={10} w={['xs', 'md']}>
           <Button
             colorScheme="gradient"
             onClick={() =>

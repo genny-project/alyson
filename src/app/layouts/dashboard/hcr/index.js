@@ -1,4 +1,4 @@
-import { Box, HStack, Text, VStack } from '@chakra-ui/layout'
+import { Box, HStack, Stack, Text, VStack } from '@chakra-ui/layout'
 import { Button } from '@chakra-ui/button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBriefcase } from '@fortawesome/free-solid-svg-icons'
@@ -26,7 +26,7 @@ const HostCompanyRep = ({ userCode }) => {
   const cardBg = useColorModeValue('white', '')
   return (
     <VStack>
-      <HStack align="stretch">
+      <Stack maxW="90vw" direction={['column', 'row']} align="stretch">
         <VStack align="stretch">
           <Box padding="5" bg={cardBg} borderRadius="md" shadow="md">
             <HStack spacing="5">
@@ -110,7 +110,7 @@ const HostCompanyRep = ({ userCode }) => {
             </Button>
           </VStack>
         </Box>
-      </HStack>
+      </Stack>
       <Process dashboard />
     </VStack>
   )

@@ -1,4 +1,4 @@
-import { Box, HStack, Text, VStack } from '@chakra-ui/layout'
+import { Box, HStack, Stack, Text, VStack } from '@chakra-ui/layout'
 import { selectAttributes } from 'redux/db/selectors'
 import { selectDashboardCounts } from 'redux/app/selectors'
 import { useSelector } from 'react-redux'
@@ -17,7 +17,7 @@ const EduProRep = ({ userCode }) => {
   const cardBg = useColorModeValue('white', '')
   return (
     <VStack>
-      <HStack align="stretch">
+      <Stack direction={['column', 'row']} align="stretch">
         <Box padding="5" bg={cardBg} borderRadius="md" shadow="md">
           <HStack spacing="5">
             <Box
@@ -84,10 +84,8 @@ const EduProRep = ({ userCode }) => {
             </Button>
           </VStack>
         </Box>
-      </HStack>
-      <HStack>
-        <Counts sbeCodes={dashboardCounts} />
-      </HStack>
+      </Stack>
+      <Counts sbeCodes={dashboardCounts} />
     </VStack>
   )
 }

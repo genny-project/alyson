@@ -1,4 +1,4 @@
-import { HStack, Text, VStack } from '@chakra-ui/layout'
+import { Stack, Text, VStack } from '@chakra-ui/layout'
 import Card from 'app/layouts/components/card'
 import InternshipCard from 'app/layouts/table/intern_internship/InternshipCard'
 import { useSelector } from 'react-redux'
@@ -13,16 +13,16 @@ const Recommendations = () => {
   if (!matchCodes.length) return null
 
   return (
-    <Card variant="lg">
+    <Card maxW="90vw">
       <VStack>
-        <Text textStyle="body2">
-          Congratulations, below are some internships that we have recommended for you
+        <Text align="center" textStyle="head2">
+          Congratulations, below are some recommended internships!
         </Text>
-        <HStack>
+        <Stack direction={['column', 'row']}>
           {matchCodes.map(code => (
             <InternshipCard key={code} code={code} parentCode={'PRI_MATCHED_INTERNSHIPS'} />
           ))}
-        </HStack>
+        </Stack>
       </VStack>
     </Card>
   )

@@ -1,4 +1,4 @@
-import { Box, HStack, Text, VStack } from '@chakra-ui/layout'
+import { Box, HStack, Text, VStack, Stack } from '@chakra-ui/layout'
 import { Button } from '@chakra-ui/button'
 import { useColorModeValue } from '@chakra-ui/color-mode'
 import { useSelector } from 'react-redux'
@@ -26,8 +26,8 @@ const Intern = ({ userCode }) => {
   const termsAndConditions = find(includes('_TERMS_AND_CONDITIONS_'))(dashboardSbes)
 
   return (
-    <VStack spacing="6">
-      <HStack align="stretch">
+    <VStack>
+      <Stack maxW="90vw" direction={['column', 'row']} align="stretch">
         <Box padding="5" bg={cardBg} borderRadius="md" shadow="md">
           <HStack spacing="5">
             <Box
@@ -45,7 +45,7 @@ const Intern = ({ userCode }) => {
             <VStack align="start">
               <Text textStyle="tail3">{`Welcome back,`}</Text>
               <Text textStyle="head1">{name?.value}</Text>
-              <VStack align="stretch" padding="5" bg={cardBg} borderRadius="md" shadow="md">
+              <VStack align="start">
                 <Text textStyle="body1">{`Documents`}</Text>
                 <DisplaySbe sbeCode={serviceAgreement} />
                 <DisplaySbe sbeCode={ohsDeclaration} />
@@ -87,8 +87,7 @@ const Intern = ({ userCode }) => {
             </VStack>
           </VStack>
         </Box>
-      </HStack>
-
+      </Stack>
       <Process dashboard />
       <Recommendations />
     </VStack>
