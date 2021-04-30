@@ -7,19 +7,29 @@ const FormDesktopView = ({ title, childAsks, onFinish, questionCode, shadow, con
   const fullwidthForm = includes('QUE_INTERVIEW')(childAsks)
   const bgColor = useColorModeValue('white', 'whiteAlpha.100')
 
-  const { subHeader, divider = {} } = config
+  const configg = {
+    subHeader: 'Please tell us a little about yourself',
+    divider: {
+      2: { label: 'Personal' },
+      4: { label: 'Contact' },
+      6: { label: 'More Info' },
+      8: { label: 'Business' },
+    },
+  }
+  const { subHeader, divider = {} } = configg
 
   return (
     <Center
       bgColor={bgColor}
       borderRadius="md"
       shadow={shadow ? 'base' : ''}
-      mr={shadow ? '10vw' : ''}
-      ml={shadow ? '10vw' : ''}
-      pt="1rem"
+      mr={shadow ? '25vw' : ''}
+      ml={shadow ? '25vw' : ''}
+      minimumWidth='max-content'
+      p='8'
     >
       <VStack p="3" spacing={8} marginBottom={8} w={fullwidthForm ? '90%' : 'inherit'}>
-        <Heading>{title}</Heading>
+        <Text textStyle='head1'>{title}</Text>
         {config ? <Text textStyle="head2">{subHeader}</Text> : null}
         {childAsks.map((childAsk, idx) => (
           <Box w="full" key={childAsk}>

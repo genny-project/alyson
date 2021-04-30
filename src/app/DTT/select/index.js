@@ -31,6 +31,7 @@ const Write = ({
         placeholder={placeholder}
         optionData={options}
         label={label}
+        w='25vw'
       />
     )
 
@@ -47,6 +48,7 @@ const Write = ({
       }}
       onChange={e => onSendAnswer([e.target.value])}
       defaultValue={defaultValue}
+      w='25vw'
     >
       {options &&
         options.map(

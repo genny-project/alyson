@@ -33,6 +33,7 @@ const Write = ({ questionCode, data, onSendAnswer }) => (
     test-id={questionCode}
     defaultValue={data?.value}
     onBlur={e => onSendAnswer(e.target.value)}
+    w='25vw'
   />
 )
 

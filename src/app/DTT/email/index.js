@@ -9,6 +9,7 @@ const Write = ({ questionCode, data, onSendAnswer }) => (
     defaultValue={data?.value}
     type="email"
     onBlur={e => onSendAnswer(e.target.value)}
+    w='25vw'
   />
 )
 

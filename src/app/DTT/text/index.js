@@ -8,6 +8,7 @@ export const Write = ({ questionCode, data, onSendAnswer }) => {
       test-id={questionCode}
       defaultValue={data?.value}
       onChange={e => debouncedSendAnswer(e.target.value)}
+      w='25vw'
     />
   )
 }
