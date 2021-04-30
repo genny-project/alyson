@@ -13,6 +13,7 @@ export const initialState = {
   TOAST: null,
   DASHBOARD_COUNTS: null,
   NOTES: null,
+  lastSentMessage: { data: { data: { code: 'QUE_DASHBOARD_VIEW' } } },
 }
 
 const appSlice = createSlice({
