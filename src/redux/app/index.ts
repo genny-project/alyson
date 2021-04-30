@@ -41,8 +41,10 @@ const appSlice = createSlice({
     },
     sendMessage: (state, { payload }) => {
       handleSendMessage(payload.data)
-      if (payload?.data?.redirect) state.FORM = null
-      state.lastMessage = payload
+      if (payload?.data?.redirect) {
+        state.FORM = null
+        state.lastMessage = payload
+      }
     },
     closeDrawer: state => {
       state.DRAWER = 'NONE'
