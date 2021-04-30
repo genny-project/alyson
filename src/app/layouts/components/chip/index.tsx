@@ -38,7 +38,7 @@ const styles = {
 } as Styles
 
 type ChipProps = {
-  onClick: any
+  onClick: function
   variant?: variant
   rest: []
   children: ReactChildren
