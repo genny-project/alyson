@@ -5,6 +5,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 
 const styles = {
+  default: {
+    variant: 'solid',
+    colorScheme: 'gray',
+    borderRadius: '3xl',
+    size: 'xs',
+  },
   primary: {
     variant: 'solid',
     colorScheme: 'primary',
@@ -38,7 +44,7 @@ type ChipProps = {
   children: ReactChildren
 }
 
-const Chip = ({ onClick, variant = 'primary', children, ...rest }: ChipProps) => {
+const Chip = ({ onClick, variant = 'default', children, ...rest }: ChipProps) => {
   const stylesConfig = styles[variant]
   return (
     <ChakraButton
@@ -53,11 +59,12 @@ const Chip = ({ onClick, variant = 'primary', children, ...rest }: ChipProps) =>
 }
 
 interface Styles {
+  default: Keyable
   primary: Keyable
   secondary: Keyable
   positive: Keyable
   negative: Keyable
 }
-type variant = 'primary' | 'secondary' | 'positive' | 'negative'
+type variant = 'default' | 'primary' | 'secondary' | 'positive' | 'negative'
 
 export default Chip
