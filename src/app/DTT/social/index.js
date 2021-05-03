@@ -25,7 +25,7 @@ const Read = ({ data }) => {
 
 const Write = ({ questionCode, onSendAnswer, data }) => {
   return (
-    <InputGroup w={useMobileValue(['100vw', '25vw'])}>
+    <InputGroup w={useMobileValue(['100%', '25vw'])}>
       <InputLeftAddon>
         <FontAwesomeIcon size="lg" icon={faLinkedin} />
       </InputLeftAddon>

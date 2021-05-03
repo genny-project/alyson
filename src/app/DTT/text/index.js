@@ -11,7 +11,7 @@ export const Write = ({ questionCode, data, onSendAnswer }) => {
       test-id={questionCode}
       defaultValue={data?.value}
       onChange={e => debouncedSendAnswer(e.target.value)}
-      w={useMobileValue(['100vw', '25vw'])}
+      w={useMobileValue(['100%', '25vw'])}
     />
   )
 }
