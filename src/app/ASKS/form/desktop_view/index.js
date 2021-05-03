@@ -220,7 +220,7 @@ const FormDesktopView = ({ title, onFinish, questionCode, config = {} }) => {
   const { subHeader, groups = {} } = configHcRep
 
   return (
-    <VStack mx="25vw" minimumWidth="max-content" spacing="4">
+    <VStack mx="25vw" spacing="4">
       <Header title={title} subHeader={subHeader} config={config} />
       <Body groups={groups} onFinish={onFinish} questionCode={questionCode} />
     </VStack>

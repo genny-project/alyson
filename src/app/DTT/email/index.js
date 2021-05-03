@@ -1,7 +1,9 @@
 import { HStack, Input, Text, useClipboard, useToast } from '@chakra-ui/react'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 import HeroIconButton from 'app/layouts/components/hero_icon_button'
+import { useMobileValue } from 'utils/hooks'
 
 const Write = ({ questionCode, data, onSendAnswer }) => (
   <Input
@@ -9,7 +11,7 @@ const Write = ({ questionCode, data, onSendAnswer }) => (
     defaultValue={data?.value}
     type="email"
     onBlur={e => onSendAnswer(e.target.value)}
-    w='25vw'
+    w={useMobileValue(['100%', '25vw'])}
   />
 )
 
