@@ -1,68 +1,37 @@
-import { VStack, useColorModeValue, Text, Box } from '@chakra-ui/react'
-import { includes } from 'ramda'
+import { VStack } from '@chakra-ui/react'
+import Header from './template/Header'
+import Body from './template/Body'
 
-import Ask from 'app/ASKS/ask'
-
-const FormDesktopView = ({ title, childAsks, onFinish, questionCode, shadow, config = {} }) => {
-  const fullwidthForm = includes('QUE_INTERVIEW')(childAsks)
-  const bgColor = useColorModeValue('white', 'whiteAlpha.100')
-
-  const configg = {
-    subHeader: 'Please tell us a little about yourself',
-    divider: {
-      2: { label: 'Personal' },
-      4: { label: 'Contact' },
-      6: { label: 'More Info' },
-      8: { label: 'Business' },
+const configg = {
+  subHeader: 'Please tell us a little about yourself',
+  groups: [
+    {
+      label: 'Personal',
+      questions: ['QUE_SELECT_HOST_COMPANY', 'QUE_FIRSTNAME', 'QUE_LASTNAME'],
     },
-  }
-  const { subHeader, divider = {} } = configg
-
-  return (
-    <Box
-      borderRadius="md"
-      mr={shadow ? '25vw' : ''}
-      ml={shadow ? '25vw' : ''}
-      minimumWidth='max-content'
-    >
-        <Box
-          bgColor={bgColor}
-          borderRadius="md"
-          shadow={shadow ? 'base' : ''}
-          minimumWidth='max-content'
-          p='8'
-          mb='4'
-        >
-          <Text textStyle='head1' w="100%" mb='2'>{title}</Text>
-          {config ? <Text textStyle="body3" w="100%">{subHeader}</Text> : null}
-        </Box>
-      <VStack
-        spacing='6'
-        mb='8'
-        p='8'
-        w={fullwidthForm ? '90%' : 'inherit'}
-        bgColor={bgColor}
-        borderRadius="md"
-        shadow={shadow ? 'base' : ''}
-      >
-        {childAsks.map((childAsk, idx) => (
-          <Box w="full" key={childAsk}>
-            {divider.hasOwnProperty(idx + 1) && (
-              <VStack align="start" w="full" mb='3'>
-                <Text textStyle="head1">{divider[idx + 1].label}</Text>
-              </VStack>
-            )}
-            <Ask
-              onFinish={onFinish}
-              key={childAsk}
-              parentCode={questionCode}
-              questionCode={childAsk}
-            />
-          </Box>
-        ))}
-      </VStack>
-    </Box>
-  )
+    { label: 'Contact', questions: ['QUE_EMAIL', 'QUE_MOBILE'] },
+    { label: 'More Info', questions: ['QUE_IMAGE', 'QUE_BIO'] },
+    {
+      label: 'Business',
+      questions: [
+        'QUE_JOB_TITLE',
+        'QUE_SUPER_QUALIFICATION',
+        'QUE_LINKEDIN_URL',
+        'QUE_SELECT_TIME_ZONE',
+        'QUE_SUBMIT',
+      ],
+    },
+  ],
 }
 
+const FormDesktopView = ({ title, onFinish, questionCode, config = {} }) => {
+  const { subHeader, groups = {}, fullWidth } = configg
+
+  return (
+    <VStack mx="25vw" minimumWidth="max-content" spacing="8">
+      <Header title={title} subHeader={subHeader} config={config} />
+      <Body groups={groups} onFinish={onFinish} questionCode={questionCode} />
+    </VStack>
+  )
+}
 export default FormDesktopView

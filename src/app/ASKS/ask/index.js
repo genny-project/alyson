@@ -101,7 +101,7 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
       isInvalid={!!feedback}
     >
       <HStack>
-        <FormLabel textStyle="body1" mb='4'>
+        <FormLabel textStyle="body1" mb="4">
           {name}
         </FormLabel>
         <Box>
