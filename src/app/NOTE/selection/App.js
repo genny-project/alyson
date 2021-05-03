@@ -1,18 +1,12 @@
 import { HStack, Text, VStack } from '@chakra-ui/layout'
 import Attribute from 'app/BE/attribute'
 import Card from 'app/layouts/components/card'
-import { head } from 'ramda'
-import { useSelector } from 'react-redux'
-import { selectCode } from 'redux/db/selectors'
-import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { onSendMessage } from 'vertx'
 
 const App = ({ code }) => {
-  const hcData = useSelector(selectCode(code, 'LNK_HOST_COMPANY'))
-  const hcCode = head(safelyParseJson(hcData?.value, ['']))
-
   return (
     <Card
+      h="full"
       w="25rem"
       cursor="pointer"
       variant="card2"
@@ -21,13 +15,28 @@ const App = ({ code }) => {
         onSendMessage({ code: 'ACT_PRI_EVENT_ACCESS_NOTES_APPLICATION', targetCode: code })
       }
     >
-      <HStack justify="start" w="full">
-        <Attribute code={hcCode} attribute={'PRI_IMAGE_URL'} />
+      <HStack align="start">
         <VStack align="start">
           <Text w="10rem" textStyle="body1">
+            <Text textStyle="body3">Host Company</Text>
             <Attribute code={code} attribute={'PRI_ASSOC_HC'} />
           </Text>
-          <Attribute code={code} attribute={'PRI_TITLE'} />
+          <Text textStyle="body3">Internship Title</Text>
+          <Text textStyle="body2" w="10rem">
+            <Attribute code={code} attribute={'PRI_TITLE'} />
+          </Text>
+        </VStack>
+        <VStack align="start">
+          <Text w="10rem" textStyle="body1">
+            <Text textStyle="body3">Intern</Text>
+            <Attribute code={code} attribute={'PRI_NAME'} />
+          </Text>
+          <Text w="10rem" textStyle="body3">
+            Start Date
+          </Text>
+          <Text textStyle="body2" w="10rem">
+            <Attribute config={{ textStyle: 'body2' }} code={code} attribute={'PRI_START_DATE'} />
+          </Text>
         </VStack>
       </HStack>
     </Card>

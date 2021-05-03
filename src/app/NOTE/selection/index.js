@@ -13,28 +13,31 @@ const Selection = () => {
   const apps = getApps(notes)
 
   return (
-    <HStack align="stretch">
-      <Card>
-        <Center h="100%">
-          <VStack>
-            <ImageType.Read data={{ value: notes?.Tab_Intern?.image }} config={{ size: 'lg' }} />
-            <Text>{`${notes?.Tab_Intern?.title}`}</Text>
-          </VStack>
-        </Center>
-      </Card>
-      <Card variant="card0">
-        <Center h="100%">
-          <Text>{`is applying for`}</Text>
-        </Center>
-      </Card>
-      <Wrap>
-        {apps.map(code => (
-          <WrapItem key={code}>
-            <App code={code} />
-          </WrapItem>
-        ))}
-      </Wrap>
-    </HStack>
+    <VStack align="start" m="5">
+      <Text textStyle="head3">Please narrow down selection</Text>
+      <HStack align="stretch">
+        <Card>
+          <Center h="100%">
+            <VStack>
+              <ImageType.Read data={{ value: notes?.Tab_Intern?.image }} config={{ size: 'lg' }} />
+              <Text>{`${notes?.Tab_Intern?.title}`}</Text>
+            </VStack>
+          </Center>
+        </Card>
+        <Card variant="card0" w="8rem">
+          <Center h="100%">
+            <Text textStyle="body3" textAlign="center">{`has these applications`}</Text>
+          </Center>
+        </Card>
+        <Wrap>
+          {apps.map(code => (
+            <WrapItem key={code}>
+              <App code={code} />
+            </WrapItem>
+          ))}
+        </Wrap>
+      </HStack>
+    </VStack>
   )
 }
 
