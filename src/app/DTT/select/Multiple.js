@@ -11,7 +11,7 @@ export const Multiple = ({ questionCode, data, onSendAnswer, placeholder, option
 
   return !options.length ? (
     <Text fontStyle="tail1" color="grey">
-      Waiting on another answer
+      {` Waiting on another answer`}
     </Text>
   ) : (
     <Autocomplete

@@ -217,7 +217,7 @@ const configAgent = {
 }
 
 const FormDesktopView = ({ title, onFinish, questionCode, config = {} }) => {
-  const { subHeader, groups = {}, fullWidth } = configHc
+  const { subHeader, groups = {} } = configHcRep
 
   return (
     <VStack mx="25vw" minimumWidth="max-content" spacing="8">
