@@ -13,7 +13,7 @@ const NoteCard = ({ id }) => {
   const { content, created, tags = [], targetCode } = note
 
   return (
-    <Card>
+    <Card maxW="20rem">
       <VStack align="start">
         {/* <HStack w="full">
           {tags.map((tag, idx) =>
