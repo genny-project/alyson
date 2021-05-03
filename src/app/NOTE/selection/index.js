@@ -9,8 +9,8 @@ import App from './App'
 const Selection = () => {
   const notes = useSelector(selectNotes)
 
+  if (!notes?.Tab_Intern?.linkedAPPs) return null
   const apps = getApps(notes)
-  if (!notes?.Tab_Intern) return null
 
   return (
     <HStack align="stretch">

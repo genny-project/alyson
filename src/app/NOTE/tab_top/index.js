@@ -13,9 +13,9 @@ const TabTop = ({ tab: { image, title: name, code }, title, rootCode }) => {
 
   return (
     <Tab>
-      <HStack onClick={handleClick} align="start" w="10rem">
+      <HStack onClick={handleClick} w="18rem">
         <ImageType.Read data={{ value: image }} />
-        <VStack>
+        <VStack align="start">
           <Text isTruncated>{name}</Text>
           <Text textStyle="body3">{title}</Text>
         </VStack>
