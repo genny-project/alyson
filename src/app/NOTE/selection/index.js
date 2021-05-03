@@ -1,5 +1,4 @@
-import { Center, Grid, HStack, SimpleGrid, Text, VStack, Wrap, WrapItem } from '@chakra-ui/layout'
-import Attribute from 'app/BE/attribute'
+import { Center, HStack, Text, VStack, Wrap, WrapItem } from '@chakra-ui/layout'
 import ImageType from 'app/DTT/upload/Image'
 import Card from 'app/layouts/components/card'
 import { useSelector } from 'react-redux'
