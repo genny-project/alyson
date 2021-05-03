@@ -5,7 +5,7 @@ import {
   faCity,
   faColumns,
   faGraduationCap,
-  faMeteor,
+  faRocket,
   faPaperclip,
   faPeopleArrows,
   faPlusCircle,
@@ -15,7 +15,7 @@ import {
 
 const icons = {
   QUE_DRAFTS_GRP: faBell,
-  QUE_QUICK_ADD_ITEMS_GRP: faMeteor,
+  QUE_QUICK_ADD_ITEMS_GRP: faRocket,
   QUE_ADD_ITEMS_GRP: faPlusCircle,
   QUE_DASHBOARD_VIEW: faThLarge,
   QUE_TAB_BUCKET_VIEW: faColumns,

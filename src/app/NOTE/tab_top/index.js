@@ -1,4 +1,4 @@
-import { Text, VStack } from '@chakra-ui/layout'
+import { HStack, Text, VStack } from '@chakra-ui/layout'
 import { Tab } from '@chakra-ui/tabs'
 import ImageType from 'app/DTT/upload/Image'
 import { onSendMessage } from 'vertx'
@@ -13,11 +13,13 @@ const TabTop = ({ tab: { image, title: name, code }, title, rootCode }) => {
 
   return (
     <Tab>
-      <VStack onClick={handleClick} align="start" w="12rem">
+      <HStack onClick={handleClick} w="18rem">
         <ImageType.Read data={{ value: image }} />
-        <Text isTruncated>{name}</Text>
-        <Text textStyle="body3">{title}</Text>
-      </VStack>
+        <VStack align="start">
+          <Text isTruncated>{name}</Text>
+          <Text textStyle="body3">{title}</Text>
+        </VStack>
+      </HStack>
     </Tab>
   )
 }

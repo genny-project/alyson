@@ -38,6 +38,7 @@ const AvatarMenu = () => {
   }`
 
   const onOpenHelp = () => onSendMessage({ code: 'ACT_PRI_HELPER_FUNCTION' })
+  const onTandC = () => onSendMessage({ code: 'ACT_PRI_EVENT_TERMS_AND_CONDITIONS' })
 
   if (!avatarAsks)
     return (
@@ -97,11 +98,15 @@ const AvatarMenu = () => {
                 childCode={childAsk}
               />
             ))}
+
           <MenuItem test-id={'QUE_AVATAR_SETTINGS'} onClick={onOpen}>
             Account
           </MenuItem>
           <MenuItem test-id={'HELP'} onClick={onOpenHelp}>
             {`Help & Support`}
+          </MenuItem>
+          <MenuItem test-id={'T&Cs'} onClick={onTandC}>
+            {`Terms & Conditions`}
           </MenuItem>
           <MenuItem
             test-id={'QUE_AVATAR_LOGOUT'}

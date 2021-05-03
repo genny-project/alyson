@@ -3,7 +3,7 @@ import { selectCode } from 'redux/db/selectors'
 import { Text, HStack, Spacer, VStack, Badge, Button } from '@chakra-ui/react'
 import getActions from 'app/SBE/utils/get-actions'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faClipboard, faFile } from '@fortawesome/free-solid-svg-icons'
+import { faFile } from '@fortawesome/free-solid-svg-icons'
 import { head, includes } from 'ramda'
 import { onSendMessage } from 'vertx'
 
@@ -48,37 +48,19 @@ const HeroTask = ({ sbeCode, rows }) => {
         </Badge>
       </VStack>
 
-      <Spacer w="1rem" />
-      <VStack>
-        {ready ? (
-          <Button
-            onClick={() =>
-              onSendMessage({
-                code: actionCode,
-                parentCode: sbeCode,
-                targetCode,
-              })
-            }
-            colorScheme="primary"
-          >
-            {validatedActionButtonLabel}
-          </Button>
-        ) : (
-          <Button
-            onClick={() =>
-              onSendMessage({
-                code: actionCode,
-                parentCode: sbeCode,
-                targetCode,
-              })
-            }
-            colorScheme="red"
-            leftIcon={<FontAwesomeIcon icon={faClipboard} />}
-          >
-            {unvalidatedActionButtonLabel}
-          </Button>
-        )}
-      </VStack>
+      <Spacer w={['', '1rem']} />
+      <Button
+        onClick={() =>
+          onSendMessage({
+            code: actionCode,
+            parentCode: sbeCode,
+            targetCode,
+          })
+        }
+        colorScheme={ready ? 'primary' : 'red'}
+      >
+        {ready ? validatedActionButtonLabel : unvalidatedActionButtonLabel}
+      </Button>
     </HStack>
   )
 }

@@ -19,17 +19,7 @@ const App = () => {
       <Vertx />
       <BrowserRouter>
         <Switch>
-          <Route
-            path="/"
-            exact
-            component={() =>
-              keycloak.authenticated ? (
-                <Redirect to={{ pathname: '/home' }} />
-              ) : (
-                <Redirect to={{ pathname: '/home' }} />
-              )
-            }
-          />
+          <Route exact path="/" component={() => <Redirect to={{ pathname: '/home' }} />} />
           <Route
             path="/home"
             component={() => (
