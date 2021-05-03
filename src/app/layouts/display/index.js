@@ -10,11 +10,11 @@ import DisplayDrawer from './drawer'
 import Dialog from 'app/layouts/display/dialog'
 import Toast from './toast'
 import Detail from 'app/SBE/detail'
-import NotesDrawer from './notes_drawer'
 import Navigation from '../navigation'
 import DeveloperConsole, { isDev } from 'utils/developer'
 import LogrocketIdentifier from '../components/logrocket_identifier'
 import ErrorBoundary from 'utils/developer/ErrorBoundary'
+import Notes from 'app/NOTE'
 
 const Display = () => {
   const display = useSelector(selectDisplay)
@@ -40,7 +40,7 @@ const Display = () => {
           {includes('FORM', display || '') && <Form />}
           {display === 'DETAIL' && <Detail />}
           {display === 'MAP' && <Table mapSearch />}
-          <NotesDrawer />
+          {display === 'NOTES' && <Notes />}
           <DisplayDrawer />
           <Dialog />
           <Toast />

@@ -9,6 +9,8 @@ import {
   IconButton,
   Badge,
   HStack,
+  Box,
+  Image,
 } from '@chakra-ui/react'
 import VideoRecorder from './video_recorder'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
@@ -40,11 +42,11 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
   if (src)
     return (
       <VStack>
-        <video style={{ width: '20rem', borderRadius: '1rem' }} src={src} controls />
-        <Badge variant="subtle" colorScheme="green">
-          Saved!
+        <video style={{ width: '60rem', borderRadius: '1rem' }} src={src} controls />
+        <Badge variant="subtle" colorScheme="green" mt="2">
+          {`Saved!`}
         </Badge>
-        <HStack>
+        <HStack style={{ marginTop: '40px' }}>
           <Button
             test-id={questionCode + '-clear'}
             onClick={() => {
@@ -52,7 +54,7 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
               onSendAnswer()
             }}
           >
-            Re-Record
+            {`Re-Record`}
           </Button>
           <Button
             leftIcon={<FontAwesomeIcon icon={faBan} />}
@@ -61,7 +63,7 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
               onSendAnswer('')
             }}
           >
-            Delete Video
+            {`Delete Video`}
           </Button>
         </HStack>
       </VStack>
@@ -77,16 +79,22 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
           config={config}
         />
       ) : (
-        <VStack align="start">
-          <Text>
-            {
-              "Record a short introduction about yourself, don't worry we'll give you time to prepare and let you re-record!"
-            }
-          </Text>
-          <HStack>
-            <a href={config.explanation_video} target="_blank" rel="noreferrer">
-              <Button colorScheme="green">{`Instructions`}</Button>
-            </a>
+        <VStack align="start" pl="8" pb="8" w="100%">
+          <Text textStyle="head1" mt="8" mb="2">{`Add Introduction video?`}</Text>
+          <Text textStyle="body2">{`Would you like to record a short introduction about yourself?`}</Text>
+          <Text
+            textStyle="body2"
+            mb="2"
+          >{`Don't worry, we'll give you time to prepare and let you record!`}</Text>
+          <Box mb="8" w="100%">
+            <Image src={process.env.PUBLIC_URL + '/video-intro.png'} alt="video-intro" m="auto" />
+          </Box>
+          <HStack justify="flex-end" w="100%" pr="10">
+            <Box mr="6">
+              <a href={config.explanation_video} target="_blank" rel="noreferrer">
+                <Button colorScheme="green" variant="outline">{`View Instructions`}</Button>
+              </a>
+            </Box>
             <Button
               test-id={questionCode + '-start'}
               leftIcon={<FontAwesomeIcon icon={faVideo} />}
@@ -102,6 +110,9 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
 
 const Read = ({ data, mini, styles }) => {
   const api = useApi()
+
+  if (!data?.value) return null
+
   const src = api.getSrc(data?.value)
 
   return mini ? (

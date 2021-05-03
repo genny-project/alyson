@@ -1,6 +1,6 @@
 import { Flex, HStack, Spacer, Text } from '@chakra-ui/layout'
 import ImageType from 'app/DTT/upload/Image'
-import { always, equals } from 'ramda'
+import { always, equals, includes } from 'ramda'
 import { useSelector } from 'react-redux'
 import { selectAttributes, selectCode } from 'redux/db/selectors'
 import sameLength from 'redux/utils/same-length'
@@ -13,8 +13,8 @@ const AgentDetail = ({ code, parentCode }) => {
 
   const [agentName, agentImage, agentCode] = useSelector(
     selectAttributes(code, [
-      'PRI_LNK_AGENT__PRI_NAME',
-      'PRI_LNK_AGENT__PRI_IMAGE_URL',
+      includes('APP_', parentCode || '') ? 'PRI_AGENT_NAME' : 'PRI_LNK_AGENT__PRI_NAME',
+      includes('APP_', parentCode || '') ? 'PRI_AGENT_IMAGE' : 'PRI_LNK_AGENT__PRI_IMAGE_URL',
       'LNK_AGENT',
     ]),
     always(true),
