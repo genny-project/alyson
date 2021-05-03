@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import { onSendMessage } from 'vertx'
 
-const AddNote = ({ targetCode, image, title }) => {
+const AddNote = ({ targetCode, image, title, parentCode }) => {
   const sourceCode = useSelector(selectCode('USER'))
 
   const [noteContent, setNoteContent] = useState('')
@@ -20,6 +20,7 @@ const AddNote = ({ targetCode, image, title }) => {
       sourceCode,
       tags: [],
       content: noteContent,
+      parentCode,
     })
     setNoteContent('')
   }
