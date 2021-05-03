@@ -1,4 +1,4 @@
-import { VStack } from '@chakra-ui/layout'
+import { VStack, Wrap, WrapItem } from '@chakra-ui/layout'
 import ImageType from 'app/DTT/upload/Image'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
@@ -16,7 +16,14 @@ const NotePanel = ({ tab: { code: targetCode, title, image }, parentCode }) => {
         title={title}
         image={<ImageType.Read data={{ value: image }} config={{ size: 'xs' }} />}
       />
-      {notes && notes.map(id => <NoteCard key={id} id={id} />)}
+      <Wrap>
+        {notes &&
+          notes.map(id => (
+            <WrapItem key={id}>
+              <NoteCard id={id} />
+            </WrapItem>
+          ))}
+      </Wrap>
     </VStack>
   )
 }

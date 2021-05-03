@@ -30,6 +30,7 @@ const App = ({ code }) => {
           <Text w="10rem" textStyle="body1">
             <Text textStyle="body3">Intern</Text>
             <Attribute code={code} attribute={'PRI_NAME'} />
+            <Attribute code={code} attribute={'PRI_STATUS'} />
           </Text>
           <Text w="10rem" textStyle="body3">
             Start Date

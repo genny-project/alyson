@@ -9,7 +9,7 @@ import App from './App'
 const Selection = () => {
   const notes = useSelector(selectNotes)
 
-  if (!notes?.Tab_Intern?.linkedAPPs) return null
+  if (!notes?.linkedApps) return null
   const apps = getApps(notes)
 
   return (
