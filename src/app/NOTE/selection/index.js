@@ -1,18 +1,40 @@
-import { HStack, Text } from '@chakra-ui/layout'
+import { Center, Grid, HStack, SimpleGrid, Text, VStack, Wrap, WrapItem } from '@chakra-ui/layout'
+import Attribute from 'app/BE/attribute'
+import ImageType from 'app/DTT/upload/Image'
+import Card from 'app/layouts/components/card'
 import { useSelector } from 'react-redux'
 import { selectNotes } from 'redux/app/selectors'
+import { getApps } from '../helpers/get-data'
+import App from './App'
 
 const Selection = () => {
   const notes = useSelector(selectNotes)
 
+  const apps = getApps(notes)
   if (!notes?.Tab_Intern) return null
 
   return (
-    <HStack>
-      <Text>{`${notes.Tab_Intern.title}`}</Text>
-      <Text>{`is applying for`}</Text>
-      <Text>{`${notes.Tab_Application.title}`}</Text>
-      <Text>{`at ${notes['Tab_Host Company']['title']}`}</Text>
+    <HStack align="stretch">
+      <Card>
+        <Center h="100%">
+          <VStack>
+            <ImageType.Read data={{ value: notes?.Tab_Intern?.image }} config={{ size: 'lg' }} />
+            <Text>{`${notes?.Tab_Intern?.title}`}</Text>
+          </VStack>
+        </Center>
+      </Card>
+      <Card variant="card0">
+        <Center h="100%">
+          <Text>{`is applying for`}</Text>
+        </Center>
+      </Card>
+      <Wrap>
+        {apps.map(code => (
+          <WrapItem key={code}>
+            <App code={code} />
+          </WrapItem>
+        ))}
+      </Wrap>
     </HStack>
   )
 }
