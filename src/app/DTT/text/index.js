@@ -1,5 +1,8 @@
 import { Input, Text as ChakraText } from '@chakra-ui/react'
 import debounce from 'lodash.debounce'
+
+import { useMobileValue } from 'utils/hooks'
+
 export const Write = ({ questionCode, data, onSendAnswer }) => {
   const debouncedSendAnswer = debounce(onSendAnswer, 500)
 
@@ -8,6 +11,7 @@ export const Write = ({ questionCode, data, onSendAnswer }) => {
       test-id={questionCode}
       defaultValue={data?.value}
       onChange={e => debouncedSendAnswer(e.target.value)}
+      w={useMobileValue(['100%', '25vw'])}
     />
   )
 }

@@ -7,9 +7,11 @@ import Chip from 'app/layouts/components/chip'
 import { append, compose, filter, find, includes, not, prop, propEq, replace, toLower } from 'ramda'
 import { useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
+
 import { selectCode } from 'redux/db/selectors'
 import getUserType from 'utils/helpers/get-user-type'
 import { onlyValue } from './get-value'
+import { useMobileValue } from 'utils/hooks'
 
 const Autocomplete = ({ questionCode, defaultValue, options, onChange, placeholder }) => {
   const selected = onlyValue(defaultValue || [])
@@ -48,6 +50,8 @@ const Autocomplete = ({ questionCode, defaultValue, options, onChange, placehold
     includes(toLower(input), toLower(option.label || '')),
   )
 
+  const width = useMobileValue(['100%', '25vw'])
+
   useOutsideClick({
     ref,
     handler: onBlur,
@@ -68,7 +72,7 @@ const Autocomplete = ({ questionCode, defaultValue, options, onChange, placehold
           </Wrap>
         </Box>
       ) : null}
-      <InputGroup>
+      <InputGroup w={width}>
         <Input
           onClick={toggleOpen}
           onChange={onInputChange}
