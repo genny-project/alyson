@@ -68,13 +68,6 @@ const VideoRecorder = ({ setData, config, setStartVideo }) => {
     if (!recorderRef.current) setCapturing(false)
   }, [recorderRef])
 
-  if (iOS())
-    return (
-      <Text textStyle="body.3">
-        Sorry we can't support this device, please try a different device for recording!
-      </Text>
-    )
-
   if (error)
     return (
       <VStack>
