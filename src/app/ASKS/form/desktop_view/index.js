@@ -8,7 +8,7 @@ const FormDesktopView = ({ title, onFinish, questionCode, childAsks, config }) =
   if (!config?.groups)
     return (
       <Card mx="25vw">
-        <VStack align="start">
+        <VStack align="start" spacing={8}>
           <Text textStyle="head2">{title}</Text>
           {config?.subHeader && <Text textStyle="body3">{config.subHeader}</Text>}
           {childAsks.map(code => (
