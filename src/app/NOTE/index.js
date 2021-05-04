@@ -25,7 +25,7 @@ const Notes = () => {
         <TabPanels>
           {tabs.map(key => (
             <TabPanel key={key}>
-              <NotePanel tab={notes[key]} title={getTitle(key)} />
+              <NotePanel parentCode={key} tab={notes[key]} title={getTitle(key)} />
             </TabPanel>
           ))}
         </TabPanels>

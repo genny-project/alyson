@@ -7,7 +7,7 @@ const Label = ({ code, attribute, horizontalLayout }) => {
 
   return (
     <Text
-      textStyle={horizontalLayout ? 'body3' : 'body1'}
+      textStyle={horizontalLayout ? 'body.3' : 'body.1'}
       w={horizontalLayout ? '7rem' : 'auto'}
       mr={2}
     >

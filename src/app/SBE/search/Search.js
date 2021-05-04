@@ -16,7 +16,6 @@ import { useHotkeys } from 'react-hotkeys-hook'
 import { onSendSearch } from 'vertx'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
-import timerResult from 'utils/formatters/timer-result'
 
 const ProcessSearch = ({ sbeCode }) => {
   const [searchValue, setSearchValue] = useState('')
@@ -86,8 +85,8 @@ const ProcessSearch = ({ sbeCode }) => {
       </HStack>
       <Text
         visibility={search?.value && typeof timer === 'number' ? 'visible' : 'hidden'}
-        textStyle="tail3"
-      >{`Found ${total?.value} in ${timerResult(timer)}`}</Text>
+        textStyle="tail.3"
+      >{`Found ${total?.value}`}</Text>
     </VStack>
   )
 }

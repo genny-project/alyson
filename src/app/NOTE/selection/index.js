@@ -9,12 +9,12 @@ import App from './App'
 const Selection = () => {
   const notes = useSelector(selectNotes)
 
-  if (!notes?.Tab_Intern?.linkedAPPs) return null
+  if (!notes?.linkedApps) return null
   const apps = getApps(notes)
 
   return (
     <VStack align="start" m="5">
-      <Text textStyle="head3">Please narrow down selection</Text>
+      <Text textStyle="head.3">Please narrow down selection</Text>
       <HStack align="stretch">
         <Card>
           <Center h="100%">
@@ -26,7 +26,7 @@ const Selection = () => {
         </Card>
         <Card variant="card0" w="8rem">
           <Center h="100%">
-            <Text textStyle="body3" textAlign="center">{`has these applications`}</Text>
+            <Text textStyle="body.3" textAlign="center">{`has these applications`}</Text>
           </Center>
         </Card>
         <Wrap>

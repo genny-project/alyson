@@ -17,7 +17,7 @@ const TabTop = ({ tab: { image, title: name, code }, title, rootCode }) => {
         <ImageType.Read data={{ value: image }} />
         <VStack align="start">
           <Text isTruncated>{name}</Text>
-          <Text textStyle="body3">{title}</Text>
+          <Text textStyle="body.3">{title}</Text>
         </VStack>
       </HStack>
     </Tab>

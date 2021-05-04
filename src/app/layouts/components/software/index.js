@@ -6,7 +6,7 @@ const Software = ({ value, title }) => {
 
   return (
     <Box>
-      <Text textStyle="body1" mb="2">
+      <Text textStyle="body.1" mb="2">
         {title}
       </Text>
       <Wrap maxW="30rem">

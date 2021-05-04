@@ -2,7 +2,9 @@ import { Input, Text, useClipboard, useToast, HStack } from '@chakra-ui/react'
 import phoneNumberFormatter from 'utils/formatters/phone-number'
 import { faPhoneAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 import HeroIconButton from 'app/layouts/components/hero_icon_button'
+import { useMobileValue } from 'utils/hooks'
 
 const Read = ({ data, size }) => {
   const { onCopy } = useClipboard(data.value)
@@ -33,6 +35,7 @@ const Write = ({ questionCode, data, onSendAnswer }) => (
     test-id={questionCode}
     defaultValue={data?.value}
     onBlur={e => onSendAnswer(e.target.value)}
+    w={useMobileValue(['100%', '25vw'])}
   />
 )
 
