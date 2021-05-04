@@ -13,11 +13,16 @@ import {
   Flex,
   Spacer,
   useDisclosure,
+  VStack,
+  HStack,
+  Text,
 } from '@chakra-ui/react'
 import ChildMenuItem from 'app/ASKS/menu/ChildMenuItem'
 import ColorToggler from './ColorToggler'
 import { onSendMessage } from 'vertx'
 import SettingsModal from './SettingsModal'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
 
 const QUE_AVATAR_GRP = 'QUE_AVATAR_GRP'
 
@@ -44,12 +49,19 @@ const AvatarMenu = () => {
     return (
       <Menu>
         <MenuButton>
-          <Avatar
-            color="white"
-            bg="gradient.400"
-            name={name?.value || userName?.value}
-            src={getImageSrc(userImage?.value)}
-          />
+          <VStack color="grey">
+            <Avatar
+              color="white"
+              bg="gradient.400"
+              size="xs"
+              name={name?.value || userName?.value}
+              src={getImageSrc(userImage?.value)}
+            />
+            <HStack spacing={1}>
+              <Text>Me</Text>
+              <FontAwesomeIcon icon={faCaretDown} />
+            </HStack>
+          </VStack>
         </MenuButton>
         <MenuList>
           <MenuGroup title={title}>
@@ -76,12 +88,19 @@ const AvatarMenu = () => {
   return (
     <Menu>
       <MenuButton>
-        <Avatar
-          color="white"
-          bg="gradient.400"
-          name={name?.value || userName?.value}
-          src={getImageSrc(userImage?.value)}
-        />
+        <VStack color="grey">
+          <Avatar
+            color="white"
+            bg="gradient.400"
+            size="xs"
+            name={name?.value || userName?.value}
+            src={getImageSrc(userImage?.value)}
+          />
+          <HStack spacing={1}>
+            <Text>Me</Text>
+            <FontAwesomeIcon icon={faCaretDown} />
+          </HStack>
+        </VStack>
       </MenuButton>
       <MenuList>
         <MenuGroup title={title}>
