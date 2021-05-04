@@ -14,7 +14,6 @@ import Ask from 'app/ASKS/ask'
 import ExistingFilters from './existing_filters'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFilter } from '@fortawesome/free-solid-svg-icons'
-import Card from 'app/layouts/components/card'
 
 const Filters = ({ sbeCode }) => {
   const filterGrp = `QUE_FILTER_GRP_${sbeCode}`
