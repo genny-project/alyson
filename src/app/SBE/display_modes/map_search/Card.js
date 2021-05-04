@@ -38,10 +38,10 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
             <Text data={title} textStyle="body.1">
               {title?.value}
             </Text>
-            <Text data={title} textStyle="body2">
+            <Text data={title} textStyle="body.2">
               {subTitle?.value}
             </Text>
-            <Text data={title} textStyle="tail2">
+            <Text data={title} textStyle="tail.2">
               {address?.value}
             </Text>
           </VStack>

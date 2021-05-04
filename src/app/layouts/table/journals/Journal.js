@@ -23,13 +23,13 @@ const Journal = ({ code, actions, parentCode }) => {
             ))}
         </HStack>
         <VStack justify="start" align="start">
-          <Text w="15rem" textStyle="body3">
+          <Text w="15rem" textStyle="body.3">
             Tasks
           </Text>
           <Text dangerouslySetInnerHTML={{ __html: tasks?.value }} w="40rem" />
         </VStack>
         <VStack align="start" justify="start">
-          <Text w="15rem" textStyle="body3">
+          <Text w="15rem" textStyle="body.3">
             Learning Outcomes
           </Text>
           <Text dangerouslySetInnerHTML={{ __html: learningOutcomes?.value }} w="40rem" />

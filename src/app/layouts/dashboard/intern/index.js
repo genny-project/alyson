@@ -43,7 +43,7 @@ const Intern = ({ userCode }) => {
               <Attribute code={userCode} attribute="PRI_IMAGE_URL" config={{ size: '2xl' }} />
             </Box>
             <VStack align="start">
-              <Text textStyle="tail3">{`Welcome back,`}</Text>
+              <Text textStyle="tail.3">{`Welcome back,`}</Text>
               <Text textStyle="head.1">{name?.value}</Text>
               <VStack align="start">
                 <Text textStyle="body.1">{`Documents`}</Text>

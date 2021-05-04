@@ -69,7 +69,7 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
             <Text.Read
               config={{
                 as: 'span',
-                textStyle: 'body3',
+                textStyle: 'body.3',
                 isTruncated: true,
                 maxW: '14rem',
               }}

@@ -43,10 +43,10 @@ const HostCompanyRep = ({ userCode }) => {
                 <Attribute code={userCode} attribute="PRI_IMAGE_URL" config={{ size: '2xl' }} />
               </Box>
               <VStack align="start">
-                <Text textStyle="tail3">Welcome back,</Text>
+                <Text textStyle="tail.3">Welcome back,</Text>
                 <Text textStyle="head.1">{name?.value}</Text>
-                <Text textStyle="body2">{jobTitle?.value}</Text>
-                <Text textStyle="body2">{hc?.value}</Text>
+                <Text textStyle="body.2">{jobTitle?.value}</Text>
+                <Text textStyle="body.2">{hc?.value}</Text>
               </VStack>
             </HStack>
           </Box>

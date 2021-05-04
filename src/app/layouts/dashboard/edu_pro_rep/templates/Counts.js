@@ -27,8 +27,8 @@ const Counts = ({ sbeCodes }) => {
       <Card>
         <VStack>
           <Text textStyle="head.1">{`In Progress Students`}</Text>
-          <Text textStyle="head2">{`${zipped['In Progress Students']} / ${total}`}</Text>
-          <Text textStyle="head3">{`${Math.round(
+          <Text textStyle="head.2">{`${zipped['In Progress Students']} / ${total}`}</Text>
+          <Text textStyle="head.3">{`${Math.round(
             (zipped['In Progress Students'] / total) * 100,
           )}%`}</Text>
         </VStack>
@@ -37,28 +37,28 @@ const Counts = ({ sbeCodes }) => {
         <Card w="10rem">
           <VStack>
             <Text textStyle="head.1">{`Shortlisted`}</Text>
-            <Text textStyle="head2">{`${zipped['Shortlisted Students']}`}</Text>
+            <Text textStyle="head.2">{`${zipped['Shortlisted Students']}`}</Text>
           </VStack>
         </Card>
 
         <Card w="10rem">
           <VStack>
             <Text textStyle="head.1">{`Interviewing`}</Text>
-            <Text textStyle="head2">{`${zipped['Interviewing Students']}`}</Text>
+            <Text textStyle="head.2">{`${zipped['Interviewing Students']}`}</Text>
           </VStack>
         </Card>
 
         <Card w="10rem">
           <VStack>
             <Text textStyle="head.1">{`Offered`}</Text>
-            <Text textStyle="head2">{`${zipped['Offered Students']}`}</Text>
+            <Text textStyle="head.2">{`${zipped['Offered Students']}`}</Text>
           </VStack>
         </Card>
 
         <Card w="10rem">
           <VStack>
             <Text textStyle="head.1">{`Placed`}</Text>
-            <Text textStyle="head2">{`${zipped['Placed Students']}`}</Text>
+            <Text textStyle="head.2">{`${zipped['Placed Students']}`}</Text>
           </VStack>
         </Card>
       </Stack>

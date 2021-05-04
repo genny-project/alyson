@@ -7,7 +7,7 @@ const Header = ({ title, subHeader, config }) => (
       {title}
     </Text>
     {config ? (
-      <Text textStyle="body3" w="100%">
+      <Text textStyle="body.3" w="100%">
         {subHeader}
       </Text>
     ) : null}

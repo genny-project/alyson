@@ -18,7 +18,7 @@ const RightHandDetails = ({ beCode, software, recentEmployment, careerObj }) => 
       <HStack spacing="10" align="start" mb="1rem">
         <FontAwesomeIcon icon={faUserClock} />
         <DetailSection
-          config={{ textStyle: 'body2' }}
+          config={{ textStyle: 'body.2' }}
           noTitle={false}
           code={beCode}
           details={recentEmployment}
@@ -30,7 +30,7 @@ const RightHandDetails = ({ beCode, software, recentEmployment, careerObj }) => 
         <FontAwesomeIcon icon={faObjectGroup} />
         <VStack align="start">
           <Text textStyle="body.1">{`Career Objectives`}</Text>
-          <Text textStyle="body2" dangerouslySetInnerHTML={{ __html: careerObj?.value }} />
+          <Text textStyle="body.2" dangerouslySetInnerHTML={{ __html: careerObj?.value }} />
         </VStack>
       </HStack>
     </VStack>
