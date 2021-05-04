@@ -62,7 +62,7 @@ const defaultProjectTheme = {
       2: { fontSize: 'md', fontWeight: 400 },
       3: { fontSize: 'md', fontWeight: 400, color: 'gray.500' },
     },
-    body: {
+    tail: {
       1: { fontSize: 'xs', fontWeight: 700 },
       2: { fontSize: 'xs', fontWeight: 400 },
       3: { fontSize: 'xs', fontWeight: 400, color: 'gray.500' },
