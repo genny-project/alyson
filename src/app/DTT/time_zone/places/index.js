@@ -38,7 +38,7 @@ const PlacesAutocomplete = ({ onSelect }) => {
         <InputRightAddon>
           <Menu>
             <MenuButton>Select From A List</MenuButton>
-            <MenuList>
+            <MenuList maxH="20rem" overflowY="scroll">
               {Object.entries(defaultTimeZones).map(([key, value]) => (
                 <MenuItem key={key} onClick={() => onSelect(value)}>{`${key}: ${value}`}</MenuItem>
               ))}

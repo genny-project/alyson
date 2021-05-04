@@ -12,6 +12,7 @@ import { selectCode } from 'redux/db/selectors'
 import getUserType from 'utils/helpers/get-user-type'
 import { onlyValue } from './get-value'
 import { useMobileValue } from 'utils/hooks'
+import Card from 'app/layouts/components/card'
 
 const Autocomplete = ({ questionCode, defaultValue, options, onChange, placeholder }) => {
   const selected = onlyValue(defaultValue || [])
@@ -91,7 +92,7 @@ const Autocomplete = ({ questionCode, defaultValue, options, onChange, placehold
         </InputRightElement>
       </InputGroup>
       {open && (
-        <Box borderRadius="md" p="3" shadow="md">
+        <Card variant="card3" maxH="20rem" overflowY="scroll" w={width}>
           <VStack align="stretch">
             {filteredOptions.length ? (
               filteredOptions.map(option => (
@@ -104,7 +105,7 @@ const Autocomplete = ({ questionCode, defaultValue, options, onChange, placehold
                   {includes(option.value, selected) ? (
                     <FontAwesomeIcon icon={faCheckCircle} color="green" />
                   ) : null}
-                  <Text>{option.label}</Text>
+                  <Text textStyle="body.2">{option.label}</Text>
                 </HStack>
               ))
             ) : userType === 'AGENT' || userType === 'ADMIN' ? (
@@ -117,7 +118,7 @@ const Autocomplete = ({ questionCode, defaultValue, options, onChange, placehold
               <Text>No options found!</Text>
             )}
           </VStack>
-        </Box>
+        </Card>
       )}
     </Box>
   )
