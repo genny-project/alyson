@@ -103,7 +103,7 @@ const CaptureButton = ({ onSnapshot, isDisabled }) => {
         opacity={count !== null && count >= 0 ? 0.7 : 0}
         transition="opacity 0.5s"
       >
-        <Text opacity="1" color="white" textStyle="body1">
+        <Text opacity="1" color="white" textStyle="body.1">
           {count}
         </Text>
       </Center>

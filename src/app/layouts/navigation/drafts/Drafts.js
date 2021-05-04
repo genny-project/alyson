@@ -40,7 +40,7 @@ const Drafts = () => {
               h="1.25rem"
               hidden={!drafts.length || drafts.length === 1}
             >
-              <Text textStyle="tail2">{drafts.length - 1}</Text>
+              <Text textStyle="tail.2">{drafts.length - 1}</Text>
             </Center>
           </Box>
           {!isMobile && (
