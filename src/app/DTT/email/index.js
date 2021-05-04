@@ -1,19 +1,26 @@
-import { HStack, Input, Text, useClipboard, useToast } from '@chakra-ui/react'
+import { Box, HStack, Input, Text, useClipboard, useToast } from '@chakra-ui/react'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import HeroIconButton from 'app/layouts/components/hero_icon_button'
 import { useMobileValue } from 'utils/hooks'
+import Duplicates from './Duplicates'
 
-const Write = ({ questionCode, data, onSendAnswer }) => (
-  <Input
-    test-id={questionCode}
-    defaultValue={data?.value}
-    type="email"
-    onBlur={e => onSendAnswer(e.target.value)}
-    w={useMobileValue(['100%', '25vw'])}
-  />
-)
+const Write = ({ questionCode, data, onSendAnswer }) => {
+  console.log(data)
+  return (
+    <Box>
+      <Input
+        test-id={questionCode}
+        defaultValue={data?.value}
+        type="email"
+        onBlur={e => onSendAnswer(e.target.value)}
+        w={useMobileValue(['100%', '25vw'])}
+      />
+      <Duplicates sourceCode={data.baseEntityCode} />
+    </Box>
+  )
+}
 
 const Read = ({ data }) => {
   const { onCopy } = useClipboard(data.value)
