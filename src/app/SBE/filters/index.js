@@ -8,11 +8,13 @@ import {
   PopoverArrow,
   Button,
   HStack,
+  VStack,
 } from '@chakra-ui/react'
 import Ask from 'app/ASKS/ask'
 import ExistingFilters from './existing_filters'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFilter } from '@fortawesome/free-solid-svg-icons'
+import Card from 'app/layouts/components/card'
 
 const Filters = ({ sbeCode }) => {
   const filterGrp = `QUE_FILTER_GRP_${sbeCode}`
@@ -34,16 +36,18 @@ const Filters = ({ sbeCode }) => {
             Filters
           </Button>
         </PopoverTrigger>
-        <PopoverContent>
+        <PopoverContent w="30vw">
           <PopoverArrow />
           <PopoverBody>
-            {addFilters.childAsks.map(childAskObject => (
-              <Ask
-                passedTargetCode={sbeCode}
-                key={childAskObject.attributeCode}
-                passedAskData={childAskObject}
-              />
-            ))}
+            <VStack m="5" spacing="5">
+              {addFilters.childAsks.map(childAskObject => (
+                <Ask
+                  passedTargetCode={sbeCode}
+                  key={childAskObject.attributeCode}
+                  passedAskData={childAskObject}
+                />
+              ))}
+            </VStack>
           </PopoverBody>
         </PopoverContent>
       </Popover>
