@@ -20,6 +20,7 @@ const displayMachine: {
 
     state.DIALOG = 'NONE'
     state.DRAWER = 'NONE'
+    state.DUPLICATE_EMAILS = ''
   },
 }
 
