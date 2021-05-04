@@ -7,7 +7,6 @@ import { useMobileValue } from 'utils/hooks'
 import Duplicates from './Duplicates'
 
 const Write = ({ questionCode, data, onSendAnswer }) => {
-  console.log(data)
   return (
     <Box>
       <Input
