@@ -1,13 +1,9 @@
 import { IconButton } from '@chakra-ui/button'
-import { HStack, Text, VStack } from '@chakra-ui/layout'
-import { faYCombinator } from '@fortawesome/free-brands-svg-icons'
+import { HStack, Text } from '@chakra-ui/layout'
 import { faLayerGroup, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Attribute from 'app/BE/attribute'
-import Button from 'app/layouts/components/button'
 import Card from 'app/layouts/components/card'
-import { useSelector } from 'react-redux'
-import { selectAttributes } from 'redux/db/selectors'
 import { onSendMessage } from 'vertx'
 
 const Duplicate = ({ code, sourceCode }) => {

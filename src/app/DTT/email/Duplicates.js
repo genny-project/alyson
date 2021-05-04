@@ -1,4 +1,4 @@
-import { Box, Flex, Text, VStack, Wrap, WrapItem } from '@chakra-ui/layout'
+import { Text, VStack, Wrap, WrapItem } from '@chakra-ui/layout'
 import Card from 'app/layouts/components/card'
 import { split } from 'ramda'
 import { useSelector } from 'react-redux'
