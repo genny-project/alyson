@@ -9,10 +9,10 @@ const FormMobileView = ({ title, childAsks, onFinish, questionCode, config }) =>
     return (
       <Center mx="8">
         <VStack spacing={8} align="start" width="full" mb={6}>
-          <Text textStyle="head2" my="6">
+          <Text textStyle="head.2" my="6">
             {title}
           </Text>
-          {config?.subHeader && <Text textStyle="head3">{config.subHeader}</Text>}
+          {config?.subHeader && <Text textStyle="head.3">{config.subHeader}</Text>}
           {map(childAsk => (
             <Ask
               onFinish={onFinish}

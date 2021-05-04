@@ -9,8 +9,8 @@ const FormDesktopView = ({ title, onFinish, questionCode, childAsks, config }) =
     return (
       <Card mx="25vw">
         <VStack align="start" spacing={8}>
-          <Text textStyle="head2">{title}</Text>
-          {config?.subHeader && <Text textStyle="body3">{config.subHeader}</Text>}
+          <Text textStyle="head.2">{title}</Text>
+          {config?.subHeader && <Text textStyle="body.3">{config.subHeader}</Text>}
           {childAsks.map(code => (
             <Ask questionCode={code} parentCode={questionCode} key={code} />
           ))}

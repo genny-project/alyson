@@ -15,7 +15,7 @@ const Recommendations = () => {
   return (
     <Card maxW="90vw">
       <VStack>
-        <Text align="center" textStyle="head2">
+        <Text align="center" textStyle="head.2">
           Congratulations, below are some recommended internships!
         </Text>
         <Stack direction={['column', 'row']}>

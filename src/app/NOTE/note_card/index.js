@@ -30,8 +30,8 @@ const NoteCard = ({ id }) => {
 
         <Text>{content}</Text>
         <HStack>
-          <Text textStyle="tail3">{new Date(created).toLocaleDateString()}</Text>
-          <Text textStyle="tail3">
+          <Text textStyle="tail.3">{new Date(created).toLocaleDateString()}</Text>
+          <Text textStyle="tail.3">
             <Attribute code={targetCode} attribute="PRI_NAME" />
           </Text>
         </HStack>

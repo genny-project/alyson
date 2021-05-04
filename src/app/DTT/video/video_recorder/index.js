@@ -70,7 +70,7 @@ const VideoRecorder = ({ setData, config, setStartVideo }) => {
 
   if (iOS())
     return (
-      <Text textStyle="body3">
+      <Text textStyle="body.3">
         Sorry we can't support this device, please try a different device for recording!
       </Text>
     )
@@ -111,7 +111,7 @@ const VideoRecorder = ({ setData, config, setStartVideo }) => {
       </VStack>
       <Text maxW="60rem">{config.description}</Text>
       <div hidden={!length(recordedChunks) || capturing}>
-        <Text textStyle="body3">Saving!</Text>
+        <Text textStyle="body.3">Saving!</Text>
         <Progress borderRadius="md" w="20rem" isIndeterminate />
       </div>
     </VStack>

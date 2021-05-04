@@ -43,14 +43,14 @@ const CompanyMobile = ({ name, status, url, onClose, actions, sbeCode, beCode, s
           <Attribute code={beCode} attribute={'PRI_MOBILE'} />
         </HStack>
 
-        <Text textStyle="body1">Legal Name</Text>
+        <Text textStyle="body.1">Legal Name</Text>
         <Attribute code={beCode} attribute={'PRI_LEGAL_NAME'} />
-        <Text textStyle="body1">ABN</Text>
+        <Text textStyle="body.1">ABN</Text>
         <Attribute code={beCode} attribute={'PRI_ABN'} />
-        <Text textStyle="body1">Industry</Text>
+        <Text textStyle="body.1">Industry</Text>
         <Attribute code={beCode} attribute={'PRI_ASSOC_INDUSTRY'} />
         <Divider />
-        <Text textStyle="body1">Description</Text>
+        <Text textStyle="body.1">Description</Text>
         <Attribute
           code={beCode}
           attribute={'PRI_COMPANY_DESCRIPTION'}

@@ -85,7 +85,7 @@ const ProcessSearch = ({ sbeCode }) => {
       </HStack>
       <Text
         visibility={search?.value && typeof timer === 'number' ? 'visible' : 'hidden'}
-        textStyle="tail3"
+        textStyle="tail.3"
       >{`Found ${total?.value}`}</Text>
     </VStack>
   )

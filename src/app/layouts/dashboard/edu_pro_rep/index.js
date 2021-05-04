@@ -33,17 +33,17 @@ const EduProRep = ({ userCode }) => {
               <Attribute code={userCode} attribute="PRI_IMAGE_URL" config={{ size: '2xl' }} />
             </Box>
             <VStack align="start">
-              <Text textStyle="tail3">Welcome back,</Text>
-              <Text textStyle="head1">{name?.value}</Text>
-              <Text textStyle="body2">{jobTitle?.value}</Text>
-              <Text textStyle="body2">{eduPro?.value}</Text>
+              <Text textStyle="tail.3">Welcome back,</Text>
+              <Text textStyle="head.1">{name?.value}</Text>
+              <Text textStyle="body.2">{jobTitle?.value}</Text>
+              <Text textStyle="body.2">{eduPro?.value}</Text>
             </VStack>
           </HStack>
         </Box>
 
         <Box padding="5" bg={cardBg} borderRadius="md" shadow="md">
           <VStack align="stretch">
-            <Text textStyle="body1">Actions</Text>
+            <Text textStyle="body.1">Actions</Text>
             <Button
               colorScheme="primary"
               onClick={() =>

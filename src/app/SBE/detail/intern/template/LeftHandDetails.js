@@ -16,14 +16,14 @@ const LeftHandDetails = ({
         <FontAwesomeIcon icon={faUser} />
         <VStack align="start">
           <DetailSection
-            config={{ textStyle: 'body2' }}
+            config={{ textStyle: 'body.2' }}
             noTitle={false}
             code={beCode}
             details={contactDetails}
             hideLabel
           />
           <DetailSection
-            config={{ textStyle: 'body2' }}
+            config={{ textStyle: 'body.2' }}
             noTitle
             code={beCode}
             details={horizontalLayoutDetails}
@@ -35,7 +35,7 @@ const LeftHandDetails = ({
       <HStack spacing="10" align="start" mb="1rem">
         <FontAwesomeIcon icon={faEnvelopeOpenText} />
         <DetailSection
-          config={{ textStyle: 'body2' }}
+          config={{ textStyle: 'body.2' }}
           noTitle={false}
           code={beCode}
           details={internshipDetails}

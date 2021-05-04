@@ -135,8 +135,8 @@ const InternsMobileView = ({
           </VStack>
           <Divider />
           <VStack align="start">
-            <Text textStyle="body1">{`Career Objectives`}</Text>
-            <Text textStyle="body2" dangerouslySetInnerHTML={{ __html: careerObj?.value }} />
+            <Text textStyle="body.1">{`Career Objectives`}</Text>
+            <Text textStyle="body.2" dangerouslySetInnerHTML={{ __html: careerObj?.value }} />
           </VStack>
           <Divider />
           <Text fontWeight="semibold">{`Internship Details`}</Text>
@@ -167,21 +167,21 @@ const InternsMobileView = ({
 
           <Divider />
 
-          <Text textStyle="body1">{`Recent Employment`}</Text>
+          <Text textStyle="body.1">{`Recent Employment`}</Text>
           <HStack>
-            <Text w="6rem" textStyle="body3">
+            <Text w="6rem" textStyle="body.3">
               Employer
             </Text>
             <Attribute code={beCode} attribute={'PRI_PREV_EMPLOYER'} />
           </HStack>
           <HStack>
-            <Text w="6rem" textStyle="body3">
+            <Text w="6rem" textStyle="body.3">
               Title
             </Text>
             <Attribute code={beCode} attribute={'PRI_PREV_JOB_TITLE'} />
           </HStack>
           <HStack>
-            <Text w="6rem" textStyle="body3">
+            <Text w="6rem" textStyle="body.3">
               CV
             </Text>
             <Attribute code={beCode} attribute={'PRI_CV'} />

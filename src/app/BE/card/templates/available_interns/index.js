@@ -56,24 +56,24 @@ const AvailableInternCard = ({ parentCode, actions = [], code }) => {
               <Text.Read
                 data={title}
                 textProps={{
-                  textStyle: 'body1',
+                  textStyle: 'body.1',
                   maxW: '16rem',
                 }}
               />
             ) : (
-              <CText textStyle="body3">Not yet set</CText>
+              <CText textStyle="body.3">Not yet set</CText>
             )}
             {subTitle?.value ? (
               <Text.Read
                 config={{
                   as: 'span',
-                  textStyle: 'body3',
+                  textStyle: 'body.3',
                   maxW: '16rem',
                 }}
                 data={subTitle}
               />
             ) : (
-              <CText textStyle="body3">Not yet set</CText>
+              <CText textStyle="body.3">Not yet set</CText>
             )}
           </VStack>
         </HStack>

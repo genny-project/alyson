@@ -77,7 +77,7 @@ const Agent = ({ sbeCode, targetCode }) => {
             <HStack spacing="10" align="start">
               <FontAwesomeIcon icon={faUser} />
               <DetailSection
-                config={{ textStyle: 'body2' }}
+                config={{ textStyle: 'body.2' }}
                 noTitle={false}
                 code={beCode}
                 details={contactDetails}

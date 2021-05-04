@@ -59,10 +59,10 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
   if (readonly) {
     return (
       <HStack>
-        <CText w={labelWidth} textStyle="body1">
+        <CText w={labelWidth} textStyle="body.1">
           {name}
         </CText>
-        <Attribute config={{ textStyle: 'body1' }} code={targetCode} attribute={attributeCode} />
+        <Attribute config={{ textStyle: 'body.1' }} code={targetCode} attribute={attributeCode} />
       </HStack>
     )
   }
@@ -92,7 +92,7 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
       isInvalid={!!feedback}
     >
       <HStack mb="4" w={labelWidth} justify="space-between">
-        <FormLabel textStyle="body1">{name}</FormLabel>
+        <FormLabel textStyle="body.1">{name}</FormLabel>
         {data?.value ? <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} /> : null}
       </HStack>
 

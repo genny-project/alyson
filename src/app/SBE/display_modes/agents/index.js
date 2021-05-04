@@ -11,7 +11,7 @@ const Agents = ({ sbeCode }) => {
 
   return (
     <VStack>
-      <Text textStyle="body2">{total?.value} Agents</Text>
+      <Text textStyle="body.2">{total?.value} Agents</Text>
       <HStack>
         {tableActions?.map(action => (
           <Action key={action} parentCode={sbeCode} code={action} />
