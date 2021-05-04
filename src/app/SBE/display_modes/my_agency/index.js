@@ -14,7 +14,7 @@ const MyAgency = ({ rows, sbeCode }) => {
 
   return (
     <VStack>
-      <Text textStyle="body1">{agencyName?.value}</Text>
+      <Text textStyle="body.1">{agencyName?.value}</Text>
       {actions?.map(action => (
         <Action key={action} parentCode={sbeCode} code={action} targetCode={agency} />
       ))}

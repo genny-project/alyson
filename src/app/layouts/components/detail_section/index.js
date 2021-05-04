@@ -17,7 +17,7 @@ const DetailSection = ({
 }) => {
   return horizontalLayout ? (
     <Stack direction={row ? 'column' : 'column'} alignItems="left">
-      {!noTitle && <Text textStyle="body1">{title}</Text>}
+      {!noTitle && <Text textStyle="body.1">{title}</Text>}
       {status && <Status.Read data={status} config={{ width: 'min-content' }} />}
       {map(attr => (
         <Flex alignItems="left" key={attr}>
@@ -30,7 +30,7 @@ const DetailSection = ({
     </Stack>
   ) : (
     <Stack direction={row ? 'column' : 'column'} alignItems="left">
-      {!noTitle && <Text textStyle="body1">{title}</Text>}
+      {!noTitle && <Text textStyle="body.1">{title}</Text>}
       {status && <Status.Read data={status} config={{ width: 'min-content' }} />}
       {map(attr => (
         <VStack alignItems="left" key={attr}>

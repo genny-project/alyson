@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 const TableTitle = ({ sbeCode }) => {
   const title = useSelector(selectCode(sbeCode, 'SCH_TITLE'))
 
-  return <Text textStyle="head1">{title?.value}</Text>
+  return <Text textStyle="head.1">{title?.value}</Text>
 }
 
 export default TableTitle

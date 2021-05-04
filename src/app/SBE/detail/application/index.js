@@ -55,7 +55,7 @@ const Application = ({ sbeCode, targetCode }) => {
 
         <HStack align="start" pt="1rem">
           <VStack hidden={!internshipSupervisor?.value} align="start">
-            <Text textStyle="body1">Internship Supervisor</Text>
+            <Text textStyle="body.1">Internship Supervisor</Text>
             <Attribute code={beCode} attribute={'PRI_SUPER_NAME'} />
             <Attribute code={beCode} attribute={'PRI_SUPER_JOB_TITLE'} />
             <Attribute code={beCode} attribute={'PRI_SUPER_EMAIL'} />
@@ -64,12 +64,16 @@ const Application = ({ sbeCode, targetCode }) => {
           <VStack align="start">
             <HStack>
               <Text>Internship Hosted By</Text>
-              <Attribute config={{ textStyle: 'body1' }} code={beCode} attribute={'PRI_ASSOC_HC'} />
+              <Attribute
+                config={{ textStyle: 'body.1' }}
+                code={beCode}
+                attribute={'PRI_ASSOC_HC'}
+              />
             </HStack>
             <HStack>
               <Text>Intern Applying</Text>
               <Attribute
-                config={{ textStyle: 'body1' }}
+                config={{ textStyle: 'body.1' }}
                 code={beCode}
                 attribute={'PRI_INTERN_NAME'}
               />
@@ -77,7 +81,7 @@ const Application = ({ sbeCode, targetCode }) => {
             <HStack>
               <Text>Start Date</Text>
               <Attribute
-                config={{ textStyle: 'body1' }}
+                config={{ textStyle: 'body.1' }}
                 code={beCode}
                 attribute={'PRI_START_DATE'}
               />
@@ -85,7 +89,7 @@ const Application = ({ sbeCode, targetCode }) => {
             <HStack>
               <Text>Days</Text>
               <Attribute
-                config={{ textStyle: 'body1' }}
+                config={{ textStyle: 'body.1' }}
                 code={beCode}
                 attribute={'PRI_WHICH_DAYS_STRIPPED'}
               />
@@ -99,19 +103,19 @@ const Application = ({ sbeCode, targetCode }) => {
         <Divider w="90%" pt="5" />
         <VStack w="full" align="start" p="5" pl="10">
           <VStack align="start">
-            <Text textStyle="body1">Roles and Responsibilities</Text>
+            <Text textStyle="body.1">Roles and Responsibilities</Text>
             <Box p="5">
               <Attribute code={beCode} attribute={'PRI_ROLES_AND_RESPONSIBILITIES'} />
             </Box>
           </VStack>
           <VStack align="start">
-            <Text textStyle="body1">Base Learning Outcomes</Text>
+            <Text textStyle="body.1">Base Learning Outcomes</Text>
             <Box p="5">
               <Attribute code={beCode} attribute={'PRI_BASE_LEARNING_OUTCOMES'} />
             </Box>
           </VStack>
           <VStack align="start">
-            <Text textStyle="body1">Specific Learning Outcomes</Text>
+            <Text textStyle="body.1">Specific Learning Outcomes</Text>
             <Box p="5">
               <Attribute code={beCode} attribute={'PRI_SPECIFIC_LEARNING_OUTCOMES'} />
             </Box>

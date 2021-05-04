@@ -12,7 +12,7 @@ const Group = ({ label, idx, group, groups, questions, onFinish, questionCode, s
       </Center>
 
       <VStack align="start" spacing={8} key={label}>
-        {groups.hasOwnProperty(idx) && <Text textStyle="head1">{groups[idx]?.label}</Text>}
+        {groups.hasOwnProperty(idx) && <Text textStyle="head.1">{groups[idx]?.label}</Text>}
         {questions.map((type, idx) =>
           Array.isArray(type) ? (
             <HStack w="full" justify="space-between" key={idx}>

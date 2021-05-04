@@ -35,7 +35,7 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
         <HStack w="28rem">
           <Image.Read data={image} config={{ size: 'xl' }} />
           <VStack alignItems="baseline" w="30">
-            <Text data={title} textStyle="body1">
+            <Text data={title} textStyle="body.1">
               {title?.value}
             </Text>
             <Text data={title} textStyle="body2">

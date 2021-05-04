@@ -61,7 +61,7 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
             <Text.Read
               data={title}
               textProps={{
-                textStyle: 'body1',
+                textStyle: 'body.1',
                 isTruncated: true,
                 maxW: '14rem',
               }}

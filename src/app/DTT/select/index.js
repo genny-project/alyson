@@ -39,7 +39,7 @@ const Write = ({
     )
 
   return !options.length ? (
-    <Text fontStyle="tail1" color="grey">
+    <Text fontStyle="tail.1" color="grey">
       {`Waiting on another answer`}
     </Text>
   ) : (

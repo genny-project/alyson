@@ -56,7 +56,7 @@ const AvailableInternCard = ({ parentCode, actions = [], code }) => {
               <Text.Read
                 data={title}
                 textProps={{
-                  textStyle: 'body1',
+                  textStyle: 'body.1',
                   maxW: '16rem',
                 }}
               />

@@ -135,7 +135,7 @@ const InternsMobileView = ({
           </VStack>
           <Divider />
           <VStack align="start">
-            <Text textStyle="body1">{`Career Objectives`}</Text>
+            <Text textStyle="body.1">{`Career Objectives`}</Text>
             <Text textStyle="body2" dangerouslySetInnerHTML={{ __html: careerObj?.value }} />
           </VStack>
           <Divider />
@@ -167,7 +167,7 @@ const InternsMobileView = ({
 
           <Divider />
 
-          <Text textStyle="body1">{`Recent Employment`}</Text>
+          <Text textStyle="body.1">{`Recent Employment`}</Text>
           <HStack>
             <Text w="6rem" textStyle="body3">
               Employer

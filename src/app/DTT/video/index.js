@@ -80,7 +80,7 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
         />
       ) : (
         <VStack align="start" pl="8" pb="8" w="100%">
-          <Text textStyle="head1" mt="8" mb="2">{`Add Introduction video?`}</Text>
+          <Text textStyle="head.1" mt="8" mb="2">{`Add Introduction video?`}</Text>
           <Text textStyle="body2">{`Would you like to record a short introduction about yourself?`}</Text>
           <Text
             textStyle="body2"

@@ -18,7 +18,7 @@ const LinkedSupervisor = ({ sbeCode }) => {
   return (
     <Box>
       <VStack align="start">
-        <Text textStyle="body1">Supervisor</Text>
+        <Text textStyle="body.1">Supervisor</Text>
         {columns.map(col => (
           <Attribute
             config={{ textStyle: 'body2' }}

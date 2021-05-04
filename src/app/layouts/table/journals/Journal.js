@@ -14,8 +14,8 @@ const Journal = ({ code, actions, parentCode }) => {
     <Box p="3">
       <VStack align="start">
         <HStack>
-          <Text textStyle="body1">{`${date?.value}`}</Text>
-          <Text color="teal" textStyle="body1">{`${hours?.value} hrs`}</Text>
+          <Text textStyle="body.1">{`${date?.value}`}</Text>
+          <Text color="teal" textStyle="body.1">{`${hours?.value} hrs`}</Text>
           <Attribute code={code} attribute={'PRI_STATUS'} />
           {actions &&
             actions.map(action => (

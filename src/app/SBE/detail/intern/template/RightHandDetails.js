@@ -29,7 +29,7 @@ const RightHandDetails = ({ beCode, software, recentEmployment, careerObj }) => 
       <HStack spacing="10" align="start" mb="1rem">
         <FontAwesomeIcon icon={faObjectGroup} />
         <VStack align="start">
-          <Text textStyle="body1">{`Career Objectives`}</Text>
+          <Text textStyle="body.1">{`Career Objectives`}</Text>
           <Text textStyle="body2" dangerouslySetInnerHTML={{ __html: careerObj?.value }} />
         </VStack>
       </HStack>

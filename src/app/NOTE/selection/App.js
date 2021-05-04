@@ -17,7 +17,7 @@ const App = ({ code }) => {
     >
       <HStack align="start">
         <VStack align="start">
-          <Text w="10rem" textStyle="body1">
+          <Text w="10rem" textStyle="body.1">
             <Text textStyle="body3">Host Company</Text>
             <Attribute code={code} attribute={'PRI_ASSOC_HC'} />
           </Text>
@@ -27,7 +27,7 @@ const App = ({ code }) => {
           </Text>
         </VStack>
         <VStack align="start">
-          <Text w="10rem" textStyle="body1">
+          <Text w="10rem" textStyle="body.1">
             <Text textStyle="body3">Intern</Text>
             <Attribute code={code} attribute={'PRI_NAME'} />
             <Attribute code={code} attribute={'PRI_STATUS'} />

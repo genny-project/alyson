@@ -3,7 +3,7 @@ import { Text } from '@chakra-ui/react'
 
 const Header = ({ title, subHeader, config }) => (
   <Card w="full">
-    <Text textStyle="head1" w="100%" mb="2">
+    <Text textStyle="head.1" w="100%" mb="2">
       {title}
     </Text>
     {config ? (

@@ -18,7 +18,7 @@ const AgentDashboardSummary = () => {
           title ? (
             <WrapItem key={idx}>
               <VStack>
-                <Text textStyle="body1">{title.value}</Text>
+                <Text textStyle="body.1">{title.value}</Text>
                 <Text>{totals[idx]?.value}</Text>
               </VStack>
             </WrapItem>

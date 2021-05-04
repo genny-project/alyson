@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconButton } from '@chakra-ui/button'
 
 const Timeline = ({ groups, group, setGroup }) => {
-  const textStyle = idx => (idx === group ? 'body1' : 'body3')
+  const textStyle = idx => (idx === group ? 'body.1' : 'body3')
   return (
     <HStack my="4">
       <IconButton

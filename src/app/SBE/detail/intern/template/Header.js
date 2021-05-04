@@ -50,7 +50,7 @@ const DetailHeader = ({ videoSrc, careerObj, video, topHeight }) => {
               m="auto"
             >
               <Text
-                textStyle="head1"
+                textStyle="head.1"
                 textAlign="center"
                 dangerouslySetInnerHTML={{ __html: careerObj?.value }}
                 noOfLines={[3, 4]}
