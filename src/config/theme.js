@@ -56,16 +56,22 @@ const defaultProjectTheme = {
       1: { fontSize: '2xl', fontWeight: 700 },
       2: { fontSize: '2xl', fontWeight: 400 },
       3: { fontSize: '2xl', fontWeight: 400, color: 'gray.500' },
+      error: { fontSize: '2xl', fontWeight: 400, color: 'red.500' },
+      success: { fontSize: '2xl', fontWeight: 400, color: 'green.500' },
     },
     body: {
       1: { fontSize: 'md', fontWeight: 700 },
       2: { fontSize: 'md', fontWeight: 400 },
       3: { fontSize: 'md', fontWeight: 400, color: 'gray.500' },
+      error: { fontSize: 'md', fontWeight: 400, color: 'red.500' },
+      success: { fontSize: 'md', fontWeight: 400, color: 'green.500' },
     },
     tail: {
       1: { fontSize: 'xs', fontWeight: 700 },
       2: { fontSize: 'xs', fontWeight: 400 },
       3: { fontSize: 'xs', fontWeight: 400, color: 'gray.500' },
+      error: { fontSize: 'xs', fontWeight: 400, color: 'red.500' },
+      success: { fontSize: 'xs', fontWeight: 400, color: 'green.500' },
     },
   },
 }
