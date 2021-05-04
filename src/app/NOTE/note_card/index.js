@@ -1,5 +1,6 @@
-import { Box, Text, VStack, HStack } from '@chakra-ui/layout'
+import { Text, VStack, HStack } from '@chakra-ui/layout'
 import Attribute from 'app/BE/attribute'
+import Card from 'app/layouts/components/card'
 import { includes, toUpper } from 'ramda'
 import { useSelector } from 'react-redux'
 import { selectNote } from 'redux/db/selectors'
@@ -12,27 +13,31 @@ const NoteCard = ({ id }) => {
   const { content, created, tags = [], targetCode } = note
 
   return (
-    <Box p="3" w="full" borderWidth="1px" borderRadius="lg">
+    <Card maxW="20rem">
       <VStack align="start">
-        <HStack w="full">
-          {tags.map(tag =>
+        {/* <HStack w="full">
+          {tags.map((tag, idx) =>
             includes('per_', tag?.name) ? (
-              <Attribute key={tag?.name} code={toUpper(tag?.name)} attribute="PRI_IMAGE_URL" />
+              <Attribute
+                key={tag?.name || idx}
+                code={toUpper(tag?.name)}
+                attribute="PRI_IMAGE_URL"
+              />
             ) : (
-              <Text>{tag.name}</Text>
+              <Text key={idx}>{tag.name}</Text>
             ),
           )}
-        </HStack>
+        </HStack> */}
 
         <Text>{content}</Text>
         <HStack>
-          <Text textStyle="body1">{new Date(created).toLocaleDateString()}</Text>
-          <Text textStyle="body1">
+          <Text textStyle="tail3">{new Date(created).toLocaleDateString()}</Text>
+          <Text textStyle="tail3">
             <Attribute code={targetCode} attribute="PRI_NAME" />
           </Text>
         </HStack>
       </VStack>
-    </Box>
+    </Card>
   )
 }
 

@@ -1,10 +1,12 @@
 import { includes, pathOr } from 'ramda'
 import { useSelector } from 'react-redux'
-import { selectCode, selectRows } from 'redux/db/selectors'
 import { Select as CSelect, Text } from '@chakra-ui/react'
+
+import { selectCode, selectRows } from 'redux/db/selectors'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { Multiple } from './Multiple'
 import { getValue } from './get-value'
+import { useMobileValue } from 'utils/hooks'
 
 const Write = ({
   questionCode,
@@ -21,6 +23,7 @@ const Write = ({
   const defaultValue = safelyParseJson(data?.value).toString()
   const { typeName } = dataType
   const multiple = includes('multiple', typeName || '') || component === 'tag'
+  const width = useMobileValue(['100%', '25vw'])
 
   if (multiple)
     return (
@@ -31,12 +34,13 @@ const Write = ({
         placeholder={placeholder}
         optionData={options}
         label={label}
+        w={width}
       />
     )
 
   return !options.length ? (
     <Text fontStyle="tail1" color="grey">
-      Waiting on another answer
+      {`Waiting on another answer`}
     </Text>
   ) : (
     <CSelect
@@ -47,6 +51,7 @@ const Write = ({
       }}
       onChange={e => onSendAnswer([e.target.value])}
       defaultValue={defaultValue}
+      w={width}
     >
       {options &&
         options.map(

@@ -8,7 +8,6 @@ import { AppState } from '../types'
 const displayMachine: {
   [key: string]: Function
 } = {
-  NOTES: (state: AppState) => (state.NOTES = []),
   'DRAWER:DETAIL': (state: AppState) => (state['DRAWER'] = 'DETAIL'),
   DIALOG_FORM: (state: AppState) => (state['DIALOG'] = 'FORM'),
   NONE: (state: AppState) => {
