@@ -13,9 +13,7 @@ import {
   Flex,
   Spacer,
   useDisclosure,
-  VStack,
   HStack,
-  Text,
 } from '@chakra-ui/react'
 import ChildMenuItem from 'app/ASKS/menu/ChildMenuItem'
 import ColorToggler from './ColorToggler'
@@ -49,19 +47,15 @@ const AvatarMenu = () => {
     return (
       <Menu>
         <MenuButton>
-          <VStack color="grey">
+          <HStack spacing={1} color="grey">
             <Avatar
               color="white"
               bg="gradient.400"
-              size="xs"
               name={name?.value || userName?.value}
               src={getImageSrc(userImage?.value)}
             />
-            <HStack spacing={1}>
-              <Text>Me</Text>
-              <FontAwesomeIcon icon={faCaretDown} />
-            </HStack>
-          </VStack>
+            <FontAwesomeIcon icon={faCaretDown} />
+          </HStack>
         </MenuButton>
         <MenuList>
           <MenuGroup title={title}>
@@ -88,19 +82,15 @@ const AvatarMenu = () => {
   return (
     <Menu>
       <MenuButton>
-        <VStack color="grey">
+        <HStack spacing={1} color="grey">
           <Avatar
             color="white"
             bg="gradient.400"
-            size="xs"
             name={name?.value || userName?.value}
             src={getImageSrc(userImage?.value)}
           />
-          <HStack spacing={1}>
-            <Text>Me</Text>
-            <FontAwesomeIcon icon={faCaretDown} />
-          </HStack>
-        </VStack>
+          <FontAwesomeIcon icon={faCaretDown} />
+        </HStack>
       </MenuButton>
       <MenuList>
         <MenuGroup title={title}>
