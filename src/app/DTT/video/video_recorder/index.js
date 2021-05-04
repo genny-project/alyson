@@ -48,7 +48,6 @@ const VideoRecorder = ({ setData, config, setStartVideo }) => {
       recorderRef.current.stop()
       setCapturing(false)
     } catch (err) {
-      setError(err)
       setCapturing(false)
     }
   }, [recorderRef])
