@@ -27,19 +27,17 @@ const Drafts = () => {
           <Box>
             <FontAwesomeIcon size="lg" icon={icons[DRAFT_GROUP]} />
             <Center
-              ml="0.8rem"
-              mt="-1rem"
+              ml="1rem"
+              mt="-2rem"
               position="absolute"
               bgColor="red.200"
               color="white"
               borderRadius="100%"
-              w="1.5rem"
-              h="1.5rem"
+              w="1.25rem"
+              h="1.25rem"
               hidden={!drafts.length || drafts.length === 1}
             >
-              <Text fontSize="xs" fontWeight="semibold">
-                {drafts.length - 1}
-              </Text>
+              <Text textStyle="tail2">{drafts.length - 1}</Text>
             </Center>
           </Box>
           <HStack spacing={1}>
