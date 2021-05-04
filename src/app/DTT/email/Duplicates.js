@@ -12,7 +12,7 @@ const Duplicates = ({ sourceCode }) => {
   if (duplicates.length === 1 && !duplicates[0].length) return null
 
   return (
-    <Card variant="card0" my="6">
+    <Card variant="card0" my="6" maxH="20rem" overflowY="scroll">
       <VStack align="start">
         <Text textStyle="error">{`${duplicates.length} potential duplicate found`}</Text>
         <Wrap>
