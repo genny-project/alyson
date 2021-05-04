@@ -34,21 +34,15 @@ import { useMobileValue } from 'utils/hooks'
 const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCode }) => {
   const askData = useSelector(selectCode(parentCode, questionCode)) || passedAskData
 
-  const {
-    attributeCode,
-    targetCode,
-    name,
-    question,
-    mandatory,
-    hidden,
-    disabled,
-    readonly,
-  } = askData
+  const { attributeCode, targetCode, name, question, mandatory, hidden, disabled, readonly } =
+    askData || {}
 
   const data = useSelector(selectCode(targetCode, attributeCode)) || {}
   const labelWidth = useMobileValue(['full', '25vw'])
 
   const groupCode = getGroupCode(question)
+
+  if (!question?.attribute) return null
 
   const {
     attribute: {
