@@ -23,6 +23,7 @@ const Write = ({ questionCode, data, onSendAnswer, disabled }) => {
         close={close}
         questionCode={questionCode}
         onSendAnswer={onSendAnswer}
+        targetCode={data.baseEntityCode}
       />
       <InputGroup w={useMobileValue(['100%', '25vw'])}>
         <InputLeftElement w="8rem">

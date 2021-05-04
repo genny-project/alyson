@@ -13,10 +13,13 @@ import {
   CircularProgress,
   InputGroup,
 } from '@chakra-ui/react'
+import createSendAnswer from 'app/ASKS/utils/create-send-answer'
+import { useSelector } from 'react-redux'
+import { selectCode } from 'redux/db/selectors'
 
-const ABNLookup = ({ isOpen, questionCode, close, onSendAnswer }) => {
+const ABNLookup = ({ isOpen, questionCode, close, onSendAnswer, targetCode }) => {
   const { callAbnLookup } = useApi()
-
+  const sourceCode = useSelector(selectCode('USER'))
   const [options, setOptions] = useState([])
   const [loading, setLoading] = useState(false)
 
@@ -26,6 +29,33 @@ const ABNLookup = ({ isOpen, questionCode, close, onSendAnswer }) => {
       setLoading,
       value: e.target.value,
     })
+  }
+
+  const onSendLegalName = createSendAnswer({
+    id: 201369,
+    attributeCode: 'PRI_LEGAL_NAME',
+    sourceCode,
+    targetCode,
+    weight: 1,
+    code: 'QUE_LEGAL_NAME',
+    identifier: 'QUE_LEGAL_NAME',
+  })
+
+  const onSendName = createSendAnswer({
+    id: 201368,
+    attributeCode: 'PRI_NAME',
+    sourceCode,
+    targetCode,
+    weight: 1,
+    code: 'QUE_TRADING_NAME',
+    identifier: 'QUE_TRADING_NAME',
+  })
+
+  const onClick = opt => {
+    close()
+    onSendAnswer(opt.abn)
+    onSendName(opt.name)
+    onSendLegalName(opt.name)
   }
 
   return (
@@ -49,10 +79,7 @@ const ABNLookup = ({ isOpen, questionCode, close, onSendAnswer }) => {
                   w="full"
                   variant="outline"
                   key={opt.abn}
-                  onClick={() => {
-                    close()
-                    onSendAnswer(opt.abn)
-                  }}
+                  onClick={() => onClick(opt)}
                 >
                   <VStack m="1" cursor="pointer">
                     <Text>{opt.name}</Text>
