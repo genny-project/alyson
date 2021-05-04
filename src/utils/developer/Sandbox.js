@@ -1,6 +1,4 @@
 import { Center, VStack, Text } from '@chakra-ui/react'
-import Chip from '../../app/layouts/components/chip'
-import ThemeToggler from '../../app/layouts/navigation/ColorToggler'
 
 const Sandbox = () => {
   return (
