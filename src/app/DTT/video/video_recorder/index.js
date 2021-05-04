@@ -45,8 +45,13 @@ const VideoRecorder = ({ setData, config, setStartVideo }) => {
   }, [stream])
 
   const onStopCapture = useCallback(() => {
-    recorderRef.current.stop()
-    setCapturing(false)
+    try {
+      recorderRef.current.stop()
+      setCapturing(false)
+    } catch (err) {
+      setError(err)
+      setCapturing(false)
+    }
   }, [recorderRef])
 
   useEffect(() => {
