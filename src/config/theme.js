@@ -52,44 +52,20 @@ const defaultProjectTheme = {
     },
   },
   textStyles: {
-    head1: {
-      fontSize: '2xl',
-      fontWeight: 700,
+    head: {
+      1: { fontSize: '2xl', fontWeight: 700 },
+      2: { fontSize: '2xl', fontWeight: 400 },
+      3: { fontSize: '2xl', fontWeight: 400, color: 'gray.500' },
     },
-    head2: {
-      fontSize: '2xl',
-      fontWeight: 400,
+    body: {
+      1: { fontSize: 'md', fontWeight: 700 },
+      2: { fontSize: 'md', fontWeight: 400 },
+      3: { fontSize: 'md', fontWeight: 400, color: 'gray.500' },
     },
-    head3: {
-      fontSize: '2xl',
-      fontWeight: 400,
-      color: 'gray.500',
-    },
-    body1: {
-      fontSize: 'md',
-      fontWeight: 700,
-    },
-    body2: {
-      fontSize: 'md',
-      fontWeight: 400,
-    },
-    body3: {
-      fontSize: 'md',
-      fontWeight: 400,
-      color: 'gray.500',
-    },
-    tail1: {
-      fontSize: 'xs',
-      fontWeight: 700,
-    },
-    tail2: {
-      fontSize: 'xs',
-      fontWeight: 400,
-    },
-    tail3: {
-      fontSize: 'xs',
-      fontWeight: 400,
-      color: 'gray.500',
+    body: {
+      1: { fontSize: 'xs', fontWeight: 700 },
+      2: { fontSize: 'xs', fontWeight: 400 },
+      3: { fontSize: 'xs', fontWeight: 400, color: 'gray.500' },
     },
   },
 }
