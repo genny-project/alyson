@@ -36,6 +36,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import LogRocketSession from 'app/DTT/log_rocket_session'
 import Attribute from 'app/BE/attribute'
+import { useMobileValue } from 'utils/hooks'
 
 const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCode }) => {
   const askData = useSelector(selectCode(parentCode, questionCode)) || passedAskData
@@ -52,6 +53,7 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
   } = askData
 
   const data = useSelector(selectCode(targetCode, attributeCode)) || {}
+  const labelWidth = useMobileValue(['full', '25vw'])
 
   const groupCode = getGroupCode(question)
 
@@ -70,7 +72,9 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
   if (readonly) {
     return (
       <HStack>
-        <CText textStyle="body1">{name}</CText>
+        <CText w={labelWidth} textStyle="body1">
+          {name}
+        </CText>
         <Attribute config={{ textStyle: 'body1' }} code={targetCode} attribute={attributeCode} />
       </HStack>
     )
@@ -100,15 +104,9 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
       isRequired={mandatory}
       isInvalid={!!feedback}
     >
-      <HStack>
-        <FormLabel textStyle="body1" mb="4">
-          {name}
-        </FormLabel>
-        <Box>
-          {data?.value ? (
-            <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
-          ) : null}
-        </Box>
+      <HStack mb="4" w={labelWidth} justify="space-between">
+        <FormLabel textStyle="body1">{name}</FormLabel>
+        {data?.value ? <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} /> : null}
       </HStack>
 
       {component === 'email' && (

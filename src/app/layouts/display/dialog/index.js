@@ -15,7 +15,7 @@ const Dialog = () => {
       <ModalOverlay />
       <ModalContent>
         <ModalCloseButton />
-        <ModalBody>{dialog === 'FORM' && <Form shadow={false} onFinish={onClose} />}</ModalBody>
+        <ModalBody>{dialog === 'FORM' && <Form dialog onFinish={onClose} />}</ModalBody>
       </ModalContent>
     </Modal>
   )
