@@ -49,6 +49,7 @@ describe('New CMD MSG', () => {
     TOAST: null,
     FORM: '',
     TABLE: '',
+    DUPLICATE_EMAILS: '',
   }
 
   const expectedStateForCmdDefault = {
