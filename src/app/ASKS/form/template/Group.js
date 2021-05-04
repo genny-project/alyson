@@ -15,7 +15,7 @@ const Group = ({ label, idx, group, groups, questions, onFinish, questionCode, s
         {groups.hasOwnProperty(idx) && <Text textStyle="head.1">{groups[idx]?.label}</Text>}
         {questions.map((type, idx) =>
           Array.isArray(type) ? (
-            <HStack w="full" justify="space-between" key={idx}>
+            <HStack align="start" w="full" justify="space-between" key={idx}>
               {type.map(code => (
                 <Ask onFinish={onFinish} key={code} parentCode={questionCode} questionCode={code} />
               ))}

@@ -86,7 +86,7 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
     />
   ) : (
     <FormControl
-      visibility={hidden || component === 'log_rocket_session' ? 'hidden' : 'visible'}
+      display={hidden || component === 'log_rocket_session' ? 'none' : 'block'}
       isDisabled={!!disabled}
       isRequired={mandatory}
       isInvalid={!!feedback}
