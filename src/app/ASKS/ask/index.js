@@ -1,14 +1,7 @@
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import createSendAnswer from 'app/ASKS/utils/create-send-answer'
-import {
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  HStack,
-  Box,
-  Text as CText,
-} from '@chakra-ui/react'
+import { FormControl, FormLabel, FormErrorMessage, HStack, Text as CText } from '@chakra-ui/react'
 import getGroupCode from 'app/ASKS/utils/get-group-code'
 import Text from 'app/DTT/text'
 import Button from 'app/DTT/button'
@@ -36,24 +29,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import LogRocketSession from 'app/DTT/log_rocket_session'
 import Attribute from 'app/BE/attribute'
+import { useMobileValue } from 'utils/hooks'
 
 const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCode }) => {
   const askData = useSelector(selectCode(parentCode, questionCode)) || passedAskData
 
-  const {
-    attributeCode,
-    targetCode,
-    name,
-    question,
-    mandatory,
-    hidden,
-    disabled,
-    readonly,
-  } = askData
+  const { attributeCode, targetCode, name, question, mandatory, hidden, disabled, readonly } =
+    askData || {}
 
   const data = useSelector(selectCode(targetCode, attributeCode)) || {}
+  const labelWidth = useMobileValue(['full', '25vw'])
 
   const groupCode = getGroupCode(question)
+
+  if (!question?.attribute) return null
 
   const {
     attribute: {
@@ -70,7 +59,9 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
   if (readonly) {
     return (
       <HStack>
-        <CText textStyle="body1">{name}</CText>
+        <CText w={labelWidth} textStyle="body1">
+          {name}
+        </CText>
         <Attribute config={{ textStyle: 'body1' }} code={targetCode} attribute={attributeCode} />
       </HStack>
     )
@@ -100,15 +91,9 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
       isRequired={mandatory}
       isInvalid={!!feedback}
     >
-      <HStack>
-        <FormLabel textStyle="body1" mb="4">
-          {name}
-        </FormLabel>
-        <Box>
-          {data?.value ? (
-            <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
-          ) : null}
-        </Box>
+      <HStack mb="4" w={labelWidth} justify="space-between">
+        <FormLabel textStyle="body1">{name}</FormLabel>
+        {data?.value ? <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} /> : null}
       </HStack>
 
       {component === 'email' && (
