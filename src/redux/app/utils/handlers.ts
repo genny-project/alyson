@@ -13,6 +13,7 @@ const displayMachine: {
   NONE: (state: AppState) => {
     state.DIALOG = 'NONE'
     state.DRAWER = 'NONE'
+    state.DUPLICATE_EMAILS = ''
   },
   DEFAULT: (state: AppState, { code }: CmdPayload) => {
     state['DISPLAY'] = code
