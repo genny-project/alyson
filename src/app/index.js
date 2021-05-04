@@ -1,4 +1,3 @@
-import { useKeycloak } from '@react-keycloak/web'
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 import { lazy, Suspense } from 'react'
 import { Provider } from 'react-redux'
@@ -11,8 +10,6 @@ const Display = lazy(() => import('app/layouts/display'))
 const Sandbox = lazy(() => import('utils/developer/Sandbox'))
 
 const App = () => {
-  const { keycloak } = useKeycloak()
-
   return (
     <Provider store={store}>
       <CSSReset />

@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
 import { Button, Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
+
 import { Read } from '../text'
 import ABNLookup from './abn_lookup'
+import { useMobileValue } from 'utils/hooks'
 
 const Write = ({ questionCode, data, onSendAnswer, disabled }) => {
   const [value, setValue] = useState(data?.value)
@@ -21,8 +23,9 @@ const Write = ({ questionCode, data, onSendAnswer, disabled }) => {
         close={close}
         questionCode={questionCode}
         onSendAnswer={onSendAnswer}
+        targetCode={data.baseEntityCode}
       />
-      <InputGroup>
+      <InputGroup w={useMobileValue(['100%', '25vw'])}>
         <InputLeftElement w="8rem">
           <Button
             isDisabled={disabled}

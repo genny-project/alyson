@@ -1,45 +1,31 @@
-import { VStack, Center, Heading, useColorModeValue, Text, Divider, Box } from '@chakra-ui/react'
-import { includes } from 'ramda'
-
+import { Text, VStack } from '@chakra-ui/react'
+import Header from '../template/Header'
+import Body from '../template/Body'
 import Ask from 'app/ASKS/ask'
+import Card from 'app/layouts/components/card'
 
-const FormDesktopView = ({ title, childAsks, onFinish, questionCode, shadow, config = {} }) => {
-  const fullwidthForm = includes('QUE_INTERVIEW')(childAsks)
-  const bgColor = useColorModeValue('white', 'whiteAlpha.100')
+const FormDesktopView = ({ title, onFinish, questionCode, childAsks, config }) => {
+  if (!config?.groups)
+    return (
+      <Card mx="25vw">
+        <VStack align="start" spacing={8}>
+          <Text textStyle="head.2">{title}</Text>
+          {config?.subHeader && <Text textStyle="body.3">{config.subHeader}</Text>}
+          {childAsks.map(code => (
+            <Ask questionCode={code} parentCode={questionCode} key={code} />
+          ))}
+        </VStack>
+      </Card>
+    )
 
-  const { subHeader, divider = {} } = config
+  const { subHeader, groups } = config
 
+  if (!groups) return null
   return (
-    <Center
-      bgColor={bgColor}
-      borderRadius="md"
-      shadow={shadow ? 'base' : ''}
-      mr={shadow ? '10vw' : ''}
-      ml={shadow ? '10vw' : ''}
-      pt="1rem"
-    >
-      <VStack p="3" spacing={8} marginBottom={8} w={fullwidthForm ? '90%' : 'inherit'}>
-        <Heading>{title}</Heading>
-        {config ? <Text textStyle="head2">{subHeader}</Text> : null}
-        {childAsks.map((childAsk, idx) => (
-          <Box w="full" key={childAsk}>
-            {divider.hasOwnProperty(idx + 1) && (
-              <VStack align="start" w="full">
-                <Text textStyle="body3">{divider[idx + 1].label}</Text>
-                <Divider />
-              </VStack>
-            )}
-            <Ask
-              onFinish={onFinish}
-              key={childAsk}
-              parentCode={questionCode}
-              questionCode={childAsk}
-            />
-          </Box>
-        ))}
-      </VStack>
-    </Center>
+    <VStack mx="20vw" spacing="4">
+      <Header title={title} subHeader={subHeader} config={config} />
+      <Body groups={groups} onFinish={onFinish} questionCode={questionCode} />
+    </VStack>
   )
 }
-
 export default FormDesktopView

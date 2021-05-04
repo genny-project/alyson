@@ -5,4 +5,4 @@ export const getTabs = compose(filter(includes('Tab_')), keys)
 
 export const getTitle = replace('Tab_', '')
 
-export const getApps = (notes: Keyable) => split(',', notes?.Tab_Intern?.linkedAPPs || '')
+export const getApps = (notes: Keyable) => split(',', notes?.linkedApps || '')

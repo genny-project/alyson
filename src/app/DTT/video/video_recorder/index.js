@@ -4,7 +4,6 @@ import { useUserMedia } from 'utils/hooks'
 import { Button, Progress, Text, VStack, Box } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRecordVinyl } from '@fortawesome/free-solid-svg-icons'
-import iOS from 'utils/helpers/is-ios'
 
 const CAPTURE_OPTIONS = {
   audio: true,
@@ -45,8 +44,12 @@ const VideoRecorder = ({ setData, config, setStartVideo }) => {
   }, [stream])
 
   const onStopCapture = useCallback(() => {
-    recorderRef.current.stop()
-    setCapturing(false)
+    try {
+      recorderRef.current.stop()
+      setCapturing(false)
+    } catch (err) {
+      setCapturing(false)
+    }
   }, [recorderRef])
 
   useEffect(() => {
@@ -62,13 +65,6 @@ const VideoRecorder = ({ setData, config, setStartVideo }) => {
   useEffect(() => {
     if (!recorderRef.current) setCapturing(false)
   }, [recorderRef])
-
-  if (iOS())
-    return (
-      <Text textStyle="body3">
-        Sorry we can't support this device, please try a different device for recording!
-      </Text>
-    )
 
   if (error)
     return (
@@ -106,7 +102,7 @@ const VideoRecorder = ({ setData, config, setStartVideo }) => {
       </VStack>
       <Text maxW="60rem">{config.description}</Text>
       <div hidden={!length(recordedChunks) || capturing}>
-        <Text textStyle="body3">Saving!</Text>
+        <Text textStyle="body.3">Saving!</Text>
         <Progress borderRadius="md" w="20rem" isIndeterminate />
       </div>
     </VStack>
