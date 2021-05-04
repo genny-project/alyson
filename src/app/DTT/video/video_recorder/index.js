@@ -4,7 +4,6 @@ import { useUserMedia } from 'utils/hooks'
 import { Button, Progress, Text, VStack, Box } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRecordVinyl } from '@fortawesome/free-solid-svg-icons'
-import iOS from 'utils/helpers/is-ios'
 
 const CAPTURE_OPTIONS = {
   audio: true,
