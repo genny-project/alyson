@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, useEffect, useState } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import { useUserMedia } from 'utils/hooks'
 import { Button, VStack, HStack, useToast, IconButton, Box, Text, Center } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
