@@ -1,7 +1,6 @@
 import { Text, VStack, HStack } from '@chakra-ui/layout'
 import Attribute from 'app/BE/attribute'
 import Card from 'app/layouts/components/card'
-import { includes, toUpper } from 'ramda'
 import { useSelector } from 'react-redux'
 import { selectNote } from 'redux/db/selectors'
 
@@ -10,7 +9,7 @@ const NoteCard = ({ id }) => {
 
   if (!note) return null
 
-  const { content, created, tags = [], targetCode } = note
+  const { content, created, targetCode } = note
 
   return (
     <Card maxW="20rem">

@@ -1,14 +1,7 @@
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import createSendAnswer from 'app/ASKS/utils/create-send-answer'
-import {
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  HStack,
-  Box,
-  Text as CText,
-} from '@chakra-ui/react'
+import { FormControl, FormLabel, FormErrorMessage, HStack, Text as CText } from '@chakra-ui/react'
 import getGroupCode from 'app/ASKS/utils/get-group-code'
 import Text from 'app/DTT/text'
 import Button from 'app/DTT/button'
