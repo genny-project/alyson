@@ -8,7 +8,7 @@ const FormMobileView = ({ title, childAsks, onFinish, questionCode, config }) =>
   if (!config.groups)
     return (
       <Center mx="8">
-        <VStack align="start" width="full" mb={6}>
+        <VStack spacing={8} align="start" width="full" mb={6}>
           <Text textStyle="head2" my="6">
             {title}
           </Text>
