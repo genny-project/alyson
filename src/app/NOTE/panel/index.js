@@ -5,12 +5,13 @@ import { selectCode } from 'redux/db/selectors'
 import AddNote from '../add_note'
 import NoteCard from '../note_card'
 
-const NotePanel = ({ tab: { code: targetCode, title, image }, parentCode }) => {
+const NotePanel = ({ rootCode, tab: { code: targetCode, title, image }, parentCode }) => {
   const notes = useSelector(selectCode(targetCode, 'NOTES'))
 
   return (
     <VStack align="start">
       <AddNote
+        rootCode={rootCode}
         parentCode={parentCode}
         targetCode={targetCode}
         title={title}

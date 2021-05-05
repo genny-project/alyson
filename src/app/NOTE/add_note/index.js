@@ -8,7 +8,7 @@ import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import { onSendMessage } from 'vertx'
 import Card from 'app/layouts/components/card'
 
-const AddNote = ({ targetCode, image, title, parentCode }) => {
+const AddNote = ({ targetCode, image, title, parentCode, rootCode }) => {
   const sourceCode = useSelector(selectCode('USER'))
 
   const [noteContent, setNoteContent] = useState('')
@@ -19,6 +19,7 @@ const AddNote = ({ targetCode, image, title, parentCode }) => {
       code: 'ACT_PRI_EVENT_SAVE_NOTE',
       targetCode,
       sourceCode,
+      rootCode,
       tags: [],
       content: noteContent,
       parentCode,

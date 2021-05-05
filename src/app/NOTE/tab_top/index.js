@@ -3,10 +3,10 @@ import { Tab } from '@chakra-ui/tabs'
 import ImageType from 'app/DTT/upload/Image'
 import { onSendMessage } from 'vertx'
 
-const TabTop = ({ tab: { image, title: name, code }, title, rootCode }) => {
+const TabTop = ({ tab: { image, title: name, code, click }, title, rootCode }) => {
   const handleClick = () =>
     onSendMessage({
-      code: 'ACT_PRI_EVENT_ACCESS_NOTES',
+      code: click,
       targetCode: code,
       rootCode,
     })
