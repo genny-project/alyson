@@ -1,5 +1,4 @@
 import { MenuItem } from '@chakra-ui/react'
-import { includes } from 'ramda'
 
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
@@ -9,17 +8,16 @@ const Action = ({
   parentCode,
   code,
   targetCode,
-  config = [
-    'ACT_PRI_EVENT_UNARCHIVE_INTERN',
-    'ACT_PRI_EVENT_VIEW_APPLICATIONS',
-    'ACT_PRI_EVENT_VIEW',
-  ],
 }) => {
+  const needsToBeConfirmed = useSelector(selectCode(parentCode, code))?.confirmation || true
+
+  console.warn('test', useSelector(selectCode(parentCode, code))?.confirmation)
+
   const data = useSelector(selectCode(parentCode, code))
   if (!data) return null
 
   const handleClick = (code, data) => {
-    includes(code)(config)
+    needsToBeConfirmed
       ? window.confirm(`Are you sure you want to ${data.attributeName}?`) &&
         onSendMessage({
           parentCode,
