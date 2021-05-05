@@ -26,7 +26,7 @@ const AgentDetail = ({ code, parentCode }) => {
     <Flex w="full">
       <Spacer />
       <HStack>
-        <Text textStyle="tail2">{agentName?.value}</Text>
+        <Text textStyle="tail.2">{agentName?.value}</Text>
         <ImageType.Read
           code={agentPerCode}
           config={{ size: 'sm' }}

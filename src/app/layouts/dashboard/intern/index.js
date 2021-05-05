@@ -43,10 +43,10 @@ const Intern = ({ userCode }) => {
               <Attribute code={userCode} attribute="PRI_IMAGE_URL" config={{ size: '2xl' }} />
             </Box>
             <VStack align="start">
-              <Text textStyle="tail3">{`Welcome back,`}</Text>
-              <Text textStyle="head1">{name?.value}</Text>
+              <Text textStyle="tail.3">{`Welcome back,`}</Text>
+              <Text textStyle="head.1">{name?.value}</Text>
               <VStack align="start">
-                <Text textStyle="body1">{`Documents`}</Text>
+                <Text textStyle="body.1">{`Documents`}</Text>
                 <DisplaySbe sbeCode={serviceAgreement} />
                 <DisplaySbe sbeCode={ohsDeclaration} />
                 <DisplaySbe sbeCode={termsAndConditions} />
@@ -56,7 +56,7 @@ const Intern = ({ userCode }) => {
         </Box>
         <Box padding="5" bg={cardBg} borderRadius="md" shadow="md">
           <VStack align="stretch" height="100%">
-            <Text textStyle="body1">{`Actions`}</Text>
+            <Text textStyle="body.1">{`Actions`}</Text>
             <VStack align="stretch" height="inherit" justifyContent="space-evenly">
               <Button
                 onClick={() =>

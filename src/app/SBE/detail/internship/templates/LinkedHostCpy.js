@@ -19,7 +19,7 @@ const LinkedHostCpy = ({ sbeCode }) => {
   return (
     <Box>
       <VStack align="start">
-        <Text textStyle="body1">Host Company</Text>
+        <Text textStyle="body.1">Host Company</Text>
         {columns.map(col => (
           <Attribute
             key={col}

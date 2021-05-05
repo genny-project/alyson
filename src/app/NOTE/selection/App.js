@@ -17,26 +17,26 @@ const App = ({ code }) => {
     >
       <HStack align="start">
         <VStack align="start">
-          <Text w="10rem" textStyle="body1">
-            <Text textStyle="body3">Host Company</Text>
+          <Text w="10rem" textStyle="body.1">
+            <Text textStyle="body.3">Host Company</Text>
             <Attribute code={code} attribute={'PRI_ASSOC_HC'} />
           </Text>
-          <Text textStyle="body3">Internship Title</Text>
-          <Text textStyle="body2" w="10rem">
+          <Text textStyle="body.3">Internship Title</Text>
+          <Text textStyle="body.2" w="10rem">
             <Attribute code={code} attribute={'PRI_TITLE'} />
           </Text>
         </VStack>
         <VStack align="start">
-          <Text w="10rem" textStyle="body1">
-            <Text textStyle="body3">Intern</Text>
+          <Text w="10rem" textStyle="body.1">
+            <Text textStyle="body.3">Intern</Text>
             <Attribute code={code} attribute={'PRI_NAME'} />
             <Attribute code={code} attribute={'PRI_STATUS'} />
           </Text>
-          <Text w="10rem" textStyle="body3">
+          <Text w="10rem" textStyle="body.3">
             Start Date
           </Text>
-          <Text textStyle="body2" w="10rem">
-            <Attribute config={{ textStyle: 'body2' }} code={code} attribute={'PRI_START_DATE'} />
+          <Text textStyle="body.2" w="10rem">
+            <Attribute config={{ textStyle: 'body.2' }} code={code} attribute={'PRI_START_DATE'} />
           </Text>
         </VStack>
       </HStack>

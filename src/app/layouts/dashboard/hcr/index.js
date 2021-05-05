@@ -43,15 +43,15 @@ const HostCompanyRep = ({ userCode }) => {
                 <Attribute code={userCode} attribute="PRI_IMAGE_URL" config={{ size: '2xl' }} />
               </Box>
               <VStack align="start">
-                <Text textStyle="tail3">Welcome back,</Text>
-                <Text textStyle="head1">{name?.value}</Text>
-                <Text textStyle="body2">{jobTitle?.value}</Text>
-                <Text textStyle="body2">{hc?.value}</Text>
+                <Text textStyle="tail.3">Welcome back,</Text>
+                <Text textStyle="head.1">{name?.value}</Text>
+                <Text textStyle="body.2">{jobTitle?.value}</Text>
+                <Text textStyle="body.2">{hc?.value}</Text>
               </VStack>
             </HStack>
           </Box>
           <VStack align="stretch" padding="5" bg={cardBg} borderRadius="md" shadow="md">
-            <Text textStyle="body1">Documents</Text>
+            <Text textStyle="body.1">Documents</Text>
             <DisplaySbe sbeCode={serviceAgreement} />
             <DisplaySbe sbeCode={ohsDeclaration} />
             <DisplaySbe sbeCode={termsAndConditions} />
@@ -60,7 +60,7 @@ const HostCompanyRep = ({ userCode }) => {
 
         <Box padding="5" bg={cardBg} borderRadius="md" shadow="md">
           <VStack align="stretch">
-            <Text textStyle="body1">Actions</Text>
+            <Text textStyle="body.1">Actions</Text>
             <Button
               onClick={() =>
                 onSendMessage({ code: 'QUE_INTERNSHIP_MENU', parentCode: 'QUE_ADD_ITEMS_GRP' })

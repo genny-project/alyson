@@ -28,7 +28,7 @@ const DateTimePicker = ({ type = 'date', onChange }: DateTimePickerProps) => {
             <HStack>
               <VStack>
                 <HStack>
-                  <Text textStyle="body1">{`${cur.getMonth()} ${cur.getFullYear()}`}</Text>
+                  <Text textStyle="body.1">{`${cur.getMonth()} ${cur.getFullYear()}`}</Text>
                 </HStack>
               </VStack>
             </HStack>

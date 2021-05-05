@@ -38,7 +38,7 @@ const AgentMobile = ({ onClose, actions, sbeCode, beCode, src, name }) => {
         <Attribute code={beCode} attribute={'PRI_LINKEDIN_URL'} />
         <Attribute code={beCode} attribute={'PRI_STATUS'} />
         <VStack align="start" p="3">
-          <Text textStyle="body1">Contact details</Text>
+          <Text textStyle="body.1">Contact details</Text>
           <Attribute code={beCode} attribute={'PRI_MOBILE'} />
           <Attribute code={beCode} attribute={'PRI_ADDRESS_FULL'} />
           <Attribute code={beCode} attribute={'PRI_EMAIL'} />

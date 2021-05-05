@@ -15,7 +15,7 @@ const LeftHandDetails = ({ videoData, beCode, internshipDetail, linkedSupervisor
       )}
       <LinkedSupervisor sbeCode={linkedSupervisor} />
       <DetailSection
-        config={{ textStyle: 'body2' }}
+        config={{ textStyle: 'body.2' }}
         noTitle
         code={beCode}
         details={internshipDetail}

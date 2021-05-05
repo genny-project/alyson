@@ -5,16 +5,13 @@ import { useIsMobile } from 'utils/hooks'
 import FormMobileView from 'app/ASKS/form/mobile_view'
 import FormDesktopView from 'app/ASKS/form/desktop_view'
 
-const AsksForm = ({ questionCode, onFinish, shadow }) => {
+const AsksForm = ({ questionCode, onFinish, dialog }) => {
   const childAsks = useSelector(selectCode(questionCode)) || []
   const title = useSelector(selectCode(questionCode, 'title'))
   const config = useSelector(selectCode(questionCode, 'config'))
 
-  const isMobile = useIsMobile()
-
-  return isMobile ? (
+  return useIsMobile() || dialog ? (
     <FormMobileView
-      shadow={shadow}
       title={title}
       childAsks={childAsks}
       onFinish={onFinish}
@@ -23,7 +20,6 @@ const AsksForm = ({ questionCode, onFinish, shadow }) => {
     />
   ) : (
     <FormDesktopView
-      shadow={shadow}
       title={title}
       childAsks={childAsks}
       onFinish={onFinish}

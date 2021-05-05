@@ -49,11 +49,11 @@ const RepMobile = ({ onClose, src, name, jobTitle, assocHC, actions, sbeCode, be
         )}
 
         <VStack align="start" w="100vw" p="3">
-          <Text textStyle="body1">{`Contact details`}</Text>
+          <Text textStyle="body.1">{`Contact details`}</Text>
           <Attribute code={beCode} attribute={'PRI_MOBILE'} />
           <Attribute code={beCode} attribute={'PRI_EMAIL'} />
           <Attribute code={beCode} attribute={'PRI_LINKEDIN_URL'} />
-          <Text textStyle="body1">{`About Myself`}</Text>
+          <Text textStyle="body.1">{`About Myself`}</Text>
           <Attribute code={beCode} attribute={'PRI_BIO'} />
           <HStack>
             <Text w="8rem" fontWeight="semibold">

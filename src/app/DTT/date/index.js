@@ -19,7 +19,7 @@ const Read = ({ data, typeName, config }) => {
 
   if (date === 'Invalid Date') return null
   return (
-    <Text textStyle="tail2" {...config}>
+    <Text textStyle="tail.2" {...config}>
       {date}
     </Text>
   )

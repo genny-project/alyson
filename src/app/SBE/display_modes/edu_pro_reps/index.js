@@ -11,7 +11,7 @@ const EduProReps = ({ sbeCode }) => {
 
   return (
     <VStack>
-      <Text textStyle="body1">Our Representatives</Text>
+      <Text textStyle="body.1">Our Representatives</Text>
       <HStack>
         <Stat>
           <StatLabel>Total</StatLabel>

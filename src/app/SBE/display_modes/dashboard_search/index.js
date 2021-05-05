@@ -14,7 +14,7 @@ const DashboardSearch = ({ sbeCode }) => {
   return (
     <Card>
       <VStack>
-        <Text textStyle="body1">{title?.value}</Text>
+        <Text textStyle="body.1">{title?.value}</Text>
         <HStack>
           <Text>{total?.value}</Text>
           <VStack align="right">

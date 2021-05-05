@@ -13,6 +13,7 @@ export const initialState = {
   TOAST: null,
   DASHBOARD_COUNTS: null,
   NOTES: null,
+  DUPLICATE_EMAILS: '',
   lastSentMessage: { data: { data: { code: 'QUE_DASHBOARD_VIEW' } } },
 }
 

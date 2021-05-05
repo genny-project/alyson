@@ -10,7 +10,7 @@ const LeftHandDetails = ({ beCode, contactdetails, horizontalLayoutDetails, stat
       <FontAwesomeIcon icon={faUser} />
       <VStack align="start">
         <DetailSection
-          config={{ textStyle: 'body2' }}
+          config={{ textStyle: 'body.2' }}
           noTitle={false}
           code={beCode}
           details={contactdetails}
@@ -18,7 +18,7 @@ const LeftHandDetails = ({ beCode, contactdetails, horizontalLayoutDetails, stat
           hideLabel
         />
         <DetailSection
-          config={{ textStyle: 'body2' }}
+          config={{ textStyle: 'body.2' }}
           noTitle
           code={beCode}
           details={horizontalLayoutDetails}

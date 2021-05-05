@@ -17,7 +17,7 @@ const PickedAttribute = ({ col, code, parentCode }) => {
         size="xs"
         code={code}
         attribute={attribute}
-        config={{ portal: true, textStyle: 'tail2' }}
+        config={{ portal: true, textStyle: 'tail.2' }}
       />
     </HStack>
   )

@@ -12,6 +12,8 @@ const Notes = () => {
 
   if (!notes) return null
 
+  const rootCode = notes.Tab_Application?.code
+
   const tabs = getTabs(notes)
   return (
     <Box w="full">
@@ -25,7 +27,12 @@ const Notes = () => {
         <TabPanels>
           {tabs.map(key => (
             <TabPanel key={key}>
-              <NotePanel parentCode={key} tab={notes[key]} title={getTitle(key)} />
+              <NotePanel
+                rootCode={rootCode}
+                parentCode={key}
+                tab={notes[key]}
+                title={getTitle(key)}
+              />
             </TabPanel>
           ))}
         </TabPanels>
