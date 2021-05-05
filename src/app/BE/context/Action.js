@@ -11,8 +11,6 @@ const Action = ({
 }) => {
   const needsToBeConfirmed = useSelector(selectCode(parentCode, code))?.confirmation || true
 
-  console.warn('test', useSelector(selectCode(parentCode, code))?.confirmation)
-
   const data = useSelector(selectCode(parentCode, code))
   if (!data) return null
 
