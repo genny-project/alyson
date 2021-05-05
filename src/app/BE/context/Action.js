@@ -9,9 +9,9 @@ const Action = ({
   code,
   targetCode,
 }) => {
-  const needsToBeConfirmed = useSelector(selectCode(parentCode, code))?.confirmation || true
-
+  const needsToBeConfirmed = useSelector(selectCode(parentCode, code))?.confirmationFlag || false
   const data = useSelector(selectCode(parentCode, code))
+
   if (!data) return null
 
   const handleClick = (code, data) => {
