@@ -8,8 +8,8 @@ const defaultProjectTheme = {
   colors: {
     background: { light: '#ffffff', dark: '#1A202C' },
     text: {
-      light: '#2D3748',
-      dark: '#F7FAFC',
+      light: '#000000',
+      dark: '#ffffff',
     },
     primary: {
       50: '#EBF8FF',
@@ -53,25 +53,25 @@ const defaultProjectTheme = {
   },
   textStyles: {
     head: {
-      1: { fontSize: '2xl', fontWeight: 700 },
-      2: { fontSize: '2xl', fontWeight: 400 },
-      3: { fontSize: '2xl', fontWeight: 400, color: 'gray.500' },
-      error: { fontSize: '2xl', fontWeight: 400, color: 'red.500' },
-      success: { fontSize: '2xl', fontWeight: 400, color: 'green.500' },
+      1: { fontSize: '2xl', fontWeight: 700, opacity: 0.9 },
+      2: { fontSize: '2xl', fontWeight: 400, opacity: 0.9 },
+      3: { fontSize: '2xl', fontWeight: 400, opacity: 0.6 },
+      error: { fontSize: '2xl', fontWeight: 400, color: 'red.500', opacity: 0.9 },
+      success: { fontSize: '2xl', fontWeight: 400, color: 'green.500', opacity: 0.9 },
     },
     body: {
-      1: { fontSize: 'md', fontWeight: 700 },
-      2: { fontSize: 'md', fontWeight: 400 },
-      3: { fontSize: 'md', fontWeight: 400, color: 'gray.500' },
-      error: { fontSize: 'md', fontWeight: 400, color: 'red.500' },
-      success: { fontSize: 'md', fontWeight: 400, color: 'green.500' },
+      1: { fontSize: 'md', fontWeight: 700, opacity: 0.9 },
+      2: { fontSize: 'md', fontWeight: 400, opacity: 0.9 },
+      3: { fontSize: 'md', fontWeight: 400, opacity: 0.6 },
+      error: { fontSize: 'md', fontWeight: 400, color: 'red.500', opacity: 0.9 },
+      success: { fontSize: 'md', fontWeight: 400, color: 'green.500', opacity: 0.9 },
     },
     tail: {
-      1: { fontSize: 'xs', fontWeight: 700 },
-      2: { fontSize: 'xs', fontWeight: 400 },
-      3: { fontSize: 'xs', fontWeight: 400, color: 'gray.500' },
-      error: { fontSize: 'xs', fontWeight: 400, color: 'red.500' },
-      success: { fontSize: 'xs', fontWeight: 400, color: 'green.500' },
+      1: { fontSize: 'xs', fontWeight: 700, opacity: 0.9 },
+      2: { fontSize: 'xs', fontWeight: 400, opacity: 0.9 },
+      3: { fontSize: 'xs', fontWeight: 400, opacity: 0.6 },
+      error: { fontSize: 'xs', fontWeight: 400, color: 'red.500', opacity: 0.9 },
+      success: { fontSize: 'xs', fontWeight: 400, color: 'green.500', opacity: 0.9 },
     },
   },
 }
