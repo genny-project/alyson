@@ -7,7 +7,7 @@ import { IconButton } from '@chakra-ui/button'
 const Timeline = ({ groups, group, setGroup }) => {
   const textStyle = idx => (idx === group ? 'body.1' : 'body.3')
   return (
-    <HStack my="4">
+    <HStack my="4" w="full">
       <IconButton
         visibility={group === 0 ? 'hidden' : 'visible'}
         variant="ghost"
@@ -16,7 +16,7 @@ const Timeline = ({ groups, group, setGroup }) => {
         onClick={() => setGroup(dec)}
         icon={<FontAwesomeIcon size="lg" icon={faArrowAltCircleLeft} />}
       />
-      <Center>
+      <Center w="full">
         <Wrap w="80%" align="center" justify="center">
           {groups.map((group, idx) => (
             <WrapItem key={idx}>
