@@ -10,7 +10,7 @@ import labels from 'utils/labels'
 const AsksMenu = ({ questionCode }) => {
   const data = useSelector(selectCode(questionCode))
 
-  if (!data) return null
+  if (!data?.length) return null
 
   return (
     <Menu>

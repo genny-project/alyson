@@ -15,10 +15,18 @@ import DeveloperConsole, { isDev } from 'utils/developer'
 import LogrocketIdentifier from '../components/logrocket_identifier'
 import ErrorBoundary from 'utils/developer/ErrorBoundary'
 import Notes from 'app/NOTE'
+import { onSendMessage } from 'vertx'
 
 const Display = () => {
   const display = useSelector(selectDisplay)
   const backgroundColor = useColorModeValue('gray.50', '')
+  window.onpopstate = event => {
+    try {
+      onSendMessage(event.state.state.data)
+    } catch (err) {
+      console.error(err)
+    }
+  }
 
   return (
     <ErrorBoundary>
