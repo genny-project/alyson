@@ -4,18 +4,14 @@ import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import { onSendMessage } from 'vertx'
 
-const Action = ({
-  parentCode,
-  code,
-  targetCode,
-}) => {
-  const needsToBeConfirmed = useSelector(selectCode(parentCode, code))?.confirmationFlag || false
+const Action = ({ parentCode, code, targetCode }) => {
+  const needsToBeConfirmed = useSelector(selectCode(parentCode, code))?.confirmationFlag
   const data = useSelector(selectCode(parentCode, code))
 
   if (!data) return null
 
   const handleClick = (code, data) => {
-    needsToBeConfirmed
+    !!needsToBeConfirmed
       ? window.confirm(`Are you sure you want to ${data.attributeName}?`) &&
         onSendMessage({
           parentCode,
