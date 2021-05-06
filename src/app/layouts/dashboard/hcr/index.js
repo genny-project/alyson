@@ -9,9 +9,10 @@ import { useColorModeValue } from '@chakra-ui/color-mode'
 import { selectAttributes } from 'redux/db/selectors'
 import { selectDashboard } from 'redux/app/selectors'
 import DisplaySbe from 'app/SBE'
-import { onSendMessage } from 'vertx'
+import { callBucketView, onSendMessage } from 'vertx'
 import Process from 'app/layouts/process'
 import Attribute from 'app/BE/attribute'
+import { useEffect } from 'react'
 
 const HostCompanyRep = ({ userCode }) => {
   const [name, hc, jobTitle] = useSelector(
@@ -24,6 +25,11 @@ const HostCompanyRep = ({ userCode }) => {
   const termsAndConditions = find(includes('_TERMS_AND_CONDITIONS_'))(dashboardSbes)
 
   const cardBg = useColorModeValue('white', '')
+
+  useEffect(() => {
+    callBucketView()
+  }, [])
+
   return (
     <VStack>
       <Stack maxW="90vw" direction={['column', 'row']} align="stretch">

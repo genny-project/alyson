@@ -8,11 +8,12 @@ import { find, includes } from 'ramda'
 
 import { selectAttributes } from 'redux/db/selectors'
 import { selectDashboard } from 'redux/app/selectors'
-import { onSendMessage } from 'vertx'
+import { callBucketView, onSendMessage } from 'vertx'
 import Recommendations from './recommendations'
 import Process from 'app/layouts/process'
 import Attribute from 'app/BE/attribute'
 import DisplaySbe from 'app/SBE'
+import { useEffect } from 'react'
 
 const Intern = ({ userCode }) => {
   const [name] = useSelector(selectAttributes(userCode, ['PRI_NAME']))
@@ -24,6 +25,10 @@ const Intern = ({ userCode }) => {
   const serviceAgreement = find(includes('_SERVICE_AGREEMENT_DOC_'))(dashboardSbes)
   const ohsDeclaration = find(includes('_OHNS_'))(dashboardSbes)
   const termsAndConditions = find(includes('_TERMS_AND_CONDITIONS_'))(dashboardSbes)
+
+  useEffect(() => {
+    callBucketView()
+  }, [])
 
   return (
     <VStack>

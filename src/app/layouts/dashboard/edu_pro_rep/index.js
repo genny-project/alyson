@@ -3,18 +3,23 @@ import { selectAttributes } from 'redux/db/selectors'
 import { selectDashboardCounts } from 'redux/app/selectors'
 import { useSelector } from 'react-redux'
 import { Button } from '@chakra-ui/button'
-import { onSendMessage } from 'vertx'
+import { callBucketView, onSendMessage } from 'vertx'
 import { useColorModeValue } from '@chakra-ui/color-mode'
 import Attribute from 'app/BE/attribute'
 import Counts from './templates/Counts'
+import { useEffect } from 'react'
 
 const EduProRep = ({ userCode }) => {
   const [name, eduPro, jobTitle] = useSelector(
     selectAttributes(userCode, ['PRI_NAME', 'PRI_ASSOC_EP', 'PRI_JOB_TITLE']),
   )
   const dashboardCounts = useSelector(selectDashboardCounts)
-
   const cardBg = useColorModeValue('white', '')
+
+  useEffect(() => {
+    callBucketView()
+  }, [])
+
   return (
     <VStack>
       <Stack direction={['column', 'row']} align="stretch">
