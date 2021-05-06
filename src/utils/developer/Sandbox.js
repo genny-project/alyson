@@ -5,9 +5,7 @@ const Sandbox = () => {
   return (
     <VStack m={8} spacing={8}>
       <ThemeToggler></ThemeToggler>
-      <Text textStyle="head.1">
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-      </Text>
+
       <Text textStyle="head.1">
         Lorem Ipsum is simply dummy text of the printing and typesetting industry.
       </Text>
