@@ -10,7 +10,7 @@ const Title = ({ sbeCode }) => {
     <HStack w="15rem">
       <Text textStyle="head.2">{title?.value}</Text>
       <Spacer />
-      <Text>{total?.value}</Text>
+      <Text textStyle="head.3">{total?.value}</Text>
     </HStack>
   )
 }
