@@ -70,6 +70,7 @@
     "@types/ramda": "^0.27.39",
     "@types/react-redux": "^7.1.16",
     "eslint": "^7.25.0",
+    "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-react": "^7.23.2",
     "prettier": "2.2.1"
   }
