@@ -11,19 +11,22 @@ import {
   HStack,
   Box,
   Image,
+  useBoolean,
 } from '@chakra-ui/react'
 import VideoRecorder from './video_recorder'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import useApi from 'api'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faVideo, faExpand, faBan } from '@fortawesome/free-solid-svg-icons'
+import { faVideo, faExpand, faBan, faSave } from '@fortawesome/free-solid-svg-icons'
 import Player from './Player'
+import Upload from '../upload'
 
 const Write = ({ questionCode, onSendAnswer, html, data }) => {
   const config = safelyParseJson(html, {})
 
   const { postMediaFile, getSrc } = useApi()
   const [startVideo, setStartVideo] = useState(false)
+  const [upload, setUpload] = useBoolean()
 
   const handleSave = async file => {
     let data = new FormData()
@@ -69,6 +72,15 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
       </VStack>
     )
 
+  if (upload)
+    return (
+      <VStack align="start">
+        <Button colorScheme="green" onClick={setUpload.off}>
+          Go back to recorder
+        </Button>
+        <Upload.Write video questionCode={questionCode} data={data} onSendAnswer={onSendAnswer} />
+      </VStack>
+    )
   return (
     <VStack>
       {startVideo ? (
@@ -90,7 +102,7 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
             <Image src={process.env.PUBLIC_URL + '/video-intro.png'} alt="video-intro" m="auto" />
           </Box>
           <HStack justify="flex-end" w="100%" pr="10">
-            <Box mr="6">
+            <Box>
               <a href={config.explanation_video} target="_blank" rel="noreferrer">
                 <Button colorScheme="green" variant="outline">{`View Instructions`}</Button>
               </a>
@@ -101,6 +113,13 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
               onClick={() => setStartVideo(true)}
               colorScheme="primary"
             >{`Get Started!`}</Button>
+            <Button
+              onClick={setUpload.on}
+              colorScheme="green"
+              leftIcon={<FontAwesomeIcon icon={faSave} />}
+            >
+              I have one I want to upload!
+            </Button>
           </HStack>
         </VStack>
       )}
