@@ -36,13 +36,13 @@ const DefaultView = ({ sbeCode, targetCode }) => {
         headerAttribute={headerAttribute}
         actions={actions}
       />
-      <VStack align="start" p="5" maxH="80vh">
+      <VStack align="start" p="5" h="85vh" overflowY="scroll">
         {columns.map(col => (
           <HStack key={col}>
             <Box w="15rem">
               <Label code={beCode} attribute={getAttribute(col)} />
             </Box>
-            <Attribute code={beCode} attribute={getAttribute(col)} />
+            <Attribute mini code={beCode} attribute={getAttribute(col)} />
           </HStack>
         ))}
       </VStack>
