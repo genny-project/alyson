@@ -9,7 +9,7 @@ const Views = () => {
   const buttons = useSelector(selectCode(NAV_Q_CODE)) || []
 
   return (
-    <HStack align="end">
+    <HStack zIndex="toast">
       {buttons.map(code => (
         <NavButton key={code} code={code} questionCode={NAV_Q_CODE} />
       ))}

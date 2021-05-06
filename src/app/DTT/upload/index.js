@@ -42,12 +42,12 @@ const Read = ({ code, data, dttData, parentCode, variant, config }) => {
   )
 }
 
-const Write = ({ questionCode, data, dttData, onSendAnswer }) => {
+const Write = ({ questionCode, data, dttData, onSendAnswer, video }) => {
   const api = useApi()
   const typeName = dttData?.typeName
 
   const [fileName, setFileName] = useState('')
-  const [dropzone, setDropzone] = useState(false)
+  const [dropzone, setDropzone] = useState(!!video)
   const [loading, setLoading] = useState(false)
   const openDropzone = () => setDropzone(true)
   const closeDropzone = () => setDropzone(false)
@@ -103,6 +103,7 @@ const Write = ({ questionCode, data, dttData, onSendAnswer }) => {
           </HStack>
         ) : (
           <Button
+            hidden={!!dropzone}
             test-id={questionCode}
             onClick={openDropzone}
             leftIcon={<FontAwesomeIcon icon={faUpload} />}
@@ -110,7 +111,9 @@ const Write = ({ questionCode, data, dttData, onSendAnswer }) => {
             Upload file
           </Button>
         )}
-        {dropzone && <DropZone handleSave={handleSave} closeDropzone={closeDropzone} />}
+        {dropzone && (
+          <DropZone video={video} handleSave={handleSave} closeDropzone={closeDropzone} />
+        )}
       </div>
       <div hidden={!loading}>
         <CircularProgress isIndeterminate />

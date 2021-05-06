@@ -1,24 +1,40 @@
+import { MenuItem } from '@chakra-ui/react'
+
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
-import { MenuItem } from '@chakra-ui/react'
 import { onSendMessage } from 'vertx'
 
-const Action = ({ parentCode, code, targetCode }) => {
+const Action = ({
+  parentCode,
+  code,
+  targetCode,
+}) => {
+  const needsToBeConfirmed = useSelector(selectCode(parentCode, code))?.confirmationFlag || false
   const data = useSelector(selectCode(parentCode, code))
 
   if (!data) return null
 
-  const handleClick = () =>
-    onSendMessage({
-      parentCode,
-      code,
-      targetCode,
-    })
+  const handleClick = (code, data) => {
+    needsToBeConfirmed
+      ? window.confirm(`Are you sure you want to ${data.attributeName}?`) &&
+        onSendMessage({
+          parentCode,
+          code,
+          targetCode,
+        })
+      : onSendMessage({
+          parentCode,
+          code,
+          targetCode,
+        })
+  }
 
   return (
-    <MenuItem test-id={code} onClick={handleClick}>
-      {data.attributeName}
-    </MenuItem>
+    <div>
+      <MenuItem test-id={code} onClick={() => handleClick(code, data)}>
+        {data.attributeName}
+      </MenuItem>
+    </div>
   )
 }
 

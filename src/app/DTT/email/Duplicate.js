@@ -6,7 +6,7 @@ import Attribute from 'app/BE/attribute'
 import Card from 'app/layouts/components/card'
 import { onSendMessage } from 'vertx'
 
-const Duplicate = ({ code, sourceCode }) => {
+const Duplicate = ({ code, sourceCode, email }) => {
   const onKill = () =>
     onSendMessage(
       {
@@ -14,6 +14,7 @@ const Duplicate = ({ code, sourceCode }) => {
         code: 'kill',
         targetCode: code,
         sourceCode,
+        rootCode: email,
       },
       { redirect: false },
     )
@@ -25,6 +26,7 @@ const Duplicate = ({ code, sourceCode }) => {
         code: 'merge',
         targetCode: code,
         sourceCode,
+        rootCode: email,
       },
       { redirect: false },
     )

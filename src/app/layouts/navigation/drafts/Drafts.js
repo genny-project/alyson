@@ -11,6 +11,8 @@ import labels from 'utils/labels'
 import Draft from './Draft'
 
 const DRAFT_GROUP = 'QUE_DRAFTS_GRP'
+const defaultDimension = 16
+const defaultMarginLength = 0.5
 
 const Drafts = () => {
   const userCode = useSelector(selectCode('USER'))
@@ -18,6 +20,9 @@ const Drafts = () => {
   const drafts = (useSelector(selectCode(DRAFT_GROUP)) || []).filter(
     code => code.indexOf('TASK') !== -1,
   )
+
+  var getDimension = defaultDimension + (drafts.length-1)*1.6 > 32 ? 32 :defaultDimension + (drafts.length-1)*1.6
+  var marginLeft = defaultMarginLength - 0.05*(drafts.length-1) < 0 ? 0 :defaultMarginLength - 0.05*(drafts.length-1)
 
   const isMobile = useIsMobile()
 
@@ -28,19 +33,19 @@ const Drafts = () => {
       <MenuButton>
         <VStack color="grey" test-id={DRAFT_GROUP}>
           <Box>
-            <FontAwesomeIcon size="lg" icon={icons[DRAFT_GROUP]} />
+            <FontAwesomeIcon size="lg" w='8' h='8' icon={icons[DRAFT_GROUP]} />
             <Center
-              ml="1rem"
-              mt="-2rem"
+              ml={`${marginLeft}rem`}
+              mt="-1.7rem"
               position="absolute"
-              bgColor="red.200"
+              bgColor="red.500"
               color="white"
               borderRadius="100%"
-              w="1.25rem"
-              h="1.25rem"
+              w={`${getDimension}px`}
+              h={`${getDimension}px`}
               hidden={!drafts.length || drafts.length === 1}
             >
-              <Text textStyle="tail.2">{drafts.length - 1}</Text>
+              <Text textStyle="tail.2">{drafts.length <= 11 ? drafts.length - 1 : `!!!`}</Text>
             </Center>
           </Box>
           {!isMobile && (
