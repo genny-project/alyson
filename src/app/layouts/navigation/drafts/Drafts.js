@@ -21,8 +21,14 @@ const Drafts = () => {
     code => code.indexOf('TASK') !== -1,
   )
 
-  var getDimension = defaultDimension + (drafts.length-1)*1.6 > 32 ? 32 :defaultDimension + (drafts.length-1)*1.6
-  var marginLeft = defaultMarginLength - 0.05*(drafts.length-1) < 0 ? 0 :defaultMarginLength - 0.05*(drafts.length-1)
+  var getDimension =
+    defaultDimension + (drafts.length - 1) * 1.6 > 32
+      ? 32
+      : defaultDimension + (drafts.length - 1) * 1.6
+  var marginLeft =
+    defaultMarginLength - 0.05 * (drafts.length - 1) < 0
+      ? 0
+      : defaultMarginLength - 0.05 * (drafts.length - 1)
 
   const isMobile = useIsMobile()
 
@@ -33,7 +39,7 @@ const Drafts = () => {
       <MenuButton>
         <VStack color="grey" test-id={DRAFT_GROUP}>
           <Box>
-            <FontAwesomeIcon size="lg" w='8' h='8' icon={icons[DRAFT_GROUP]} />
+            <FontAwesomeIcon size="lg" w="8" h="8" icon={icons[DRAFT_GROUP]} />
             <Center
               ml={`${marginLeft}rem`}
               mt="-1.7rem"
