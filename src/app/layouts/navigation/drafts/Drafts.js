@@ -28,7 +28,7 @@ const Drafts = () => {
       : defaultDimension + (drafts.length - 1) * 1.6
   let marginLeft =
     defaultMarginLength - 0.05 * (drafts.length - 1) < 0
-      ? 0
+      ? -0.5
       : defaultMarginLength - 0.05 * (drafts.length - 1)
 
   const isMobile = useIsMobile()
