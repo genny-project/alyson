@@ -39,11 +39,11 @@ const Duplicate = ({ code, sourceCode, email }) => {
           <Attribute code={code} attribute="PRI_NAME" fallback={<Text>No name set</Text>} />
         </HStack>
         <IconButton onClick={onKill} color="red.300" icon={<FontAwesomeIcon icon={faTrash} />} />
-        <IconButton
+        {/* <IconButton
           onClick={onMerge}
           color="blue.300"
           icon={<FontAwesomeIcon icon={faLayerGroup} />}
-        />
+        /> */}
       </HStack>
     </Card>
   )
