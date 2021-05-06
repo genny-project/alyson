@@ -4,8 +4,7 @@ import ThemeToggler from '../../app/layouts/navigation/ColorToggler'
 const Sandbox = () => {
   return (
     <VStack m={8} spacing={8}>
-      <ThemeToggler></ThemeToggler>
-
+      <ThemeToggler></ThemeToggler>{' '}
       <Text textStyle="head.1">
         Lorem Ipsum is simply dummy text of the printing and typesetting industry.
       </Text>
@@ -21,7 +20,6 @@ const Sandbox = () => {
       <Text textStyle="head.error">
         Lorem Ipsum is simply dummy text of the printing and typesetting industry.
       </Text>
-
       <Text textStyle="body.1">
         Lorem Ipsum is simply dummy text of the printing and typesetting industry.
       </Text>
@@ -37,7 +35,6 @@ const Sandbox = () => {
       <Text textStyle="body.error">
         Lorem Ipsum is simply dummy text of the printing and typesetting industry.
       </Text>
-
       <Text textStyle="tail.1">
         Lorem Ipsum is simply dummy text of the printing and typesetting industry.
       </Text>
