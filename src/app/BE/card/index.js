@@ -3,7 +3,7 @@ import getColumns from 'app/SBE/utils/get-columns'
 import { includes } from 'ramda'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
-import Card from './templates/Card'
+import DefaultCard from './templates/Card'
 import InternshipCard from './templates/internship'
 
 const BECard = ({ parentCode, code, noExpansion }) => {
@@ -17,7 +17,7 @@ const BECard = ({ parentCode, code, noExpansion }) => {
   return includes('BEG_', code || '') ? (
     <InternshipCard actions={actions} parentCode={parentCode} code={code} columns={columns} />
   ) : (
-    <Card
+    <DefaultCard
       actions={actions}
       parentCode={parentCode}
       code={code}

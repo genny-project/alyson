@@ -1,11 +1,4 @@
-import appReducer, {
-  newCmd,
-  newMsg,
-  closeDrawer,
-  closeDialog,
-  sendMessage,
-  initialState,
-} from 'redux/app'
+import appReducer, { newCmd, newMsg, closeDrawer, closeDialog, initialState } from 'redux/app'
 
 describe('App Reducer', () => {
   it('should return the initial state', () => {

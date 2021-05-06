@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 import { selectProcess } from 'redux/app/selectors'
 import Lane from 'app/SBE/lane'
-import { Box, Stack } from '@chakra-ui/react'
+import { Stack, VStack } from '@chakra-ui/react'
 import Search from 'app/SBE/search/Search'
 
 const Process = ({ dashboard }) => {
@@ -9,18 +9,14 @@ const Process = ({ dashboard }) => {
 
   if (!processCodes) return null
   return (
-    <div>
-      {!dashboard && (
-        <Box ml="1rem">
-          <Search sbeCode={JSON.stringify(processCodes)} />
-        </Box>
-      )}
-      <Stack direction={['column', 'row']} align="flex-start" p="5" spacing="6">
+    <VStack align="start" spacing={0} px="5">
+      {!dashboard && <Search sbeCode={JSON.stringify(processCodes)} />}
+      <Stack direction={'row'} spacing={5}>
         {processCodes.map(sbeCode => (
           <Lane key={sbeCode} sbeCode={sbeCode} dashboard={dashboard} />
         ))}
       </Stack>
-    </div>
+    </VStack>
   )
 }
 

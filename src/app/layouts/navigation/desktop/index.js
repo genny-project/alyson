@@ -32,22 +32,20 @@ const DesktopNav = ({ logoSrc }) => {
       }}
     >
       <nav>
-        <Flex px="3" pb="1.5" pt="4">
-          <Views />
-          <Spacer />
-          <Box cursor="pointer" position="absolute" right="50vw" mr="-125px" mt="-3px">
+        <Flex pr={8} py={2}>
+          <Box cursor="pointer" px={8}>
             {apiConfig && (
               <Image
-                opacity="0.8"
                 onClick={() =>
                   onSendMessage({ code: 'QUE_DASHBOARD_VIEW', parentCode: 'QUE_DASHBOARD_VIEW' })
                 }
                 ref={btnRef}
                 src={logoSrc}
-                htmlWidth="250px"
+                htmlWidth="80px"
               />
             )}
           </Box>
+          <Views />
           <Spacer />
           <HStack spacing={10}>
             <AskMenu questionCode={'QUE_ADD_ITEMS_GRP'} icon={<FontAwesomeIcon icon={faPlus} />} />

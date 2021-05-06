@@ -13,6 +13,7 @@ import urlStateManager from 'utils/url-state-manager'
 import { tokenFromUrl } from 'config/get-api-config'
 import { getSessionIdFromToken } from 'keycloak/get-token-from-url'
 import selectToken from 'keycloak/utils/select-token'
+import { wkid } from 'config/send-auth-init'
 
 export const eventBus = new EventBus(VERTX_URL)
 
@@ -22,6 +23,8 @@ export const callBucketView = async () => {
     { redirect: false },
   )
 }
+
+eventBus.enableReconnect(true)
 
 let onSendMessage = identity
 
@@ -74,7 +77,12 @@ const VertxContainer = () => {
   if (!(token && sessionId)) login({ redirectUri: `${window.location.href}` })
   if (token && sessionId && !eventBus.handlers[sessionId]) {
     try {
-      eventBus.registerHandler(sessionId, (_, { body }) => {
+      eventBus.registerHandler(`${sessionId}:${wkid}`, (_, { body }) => {
+        if (body.msg_type === 'CMD_MSG') onNewCmd(body)
+        else messageHandler(onNewMsg)(body)
+      })
+
+      eventBus.registerHandler(`${sessionId}`, (_, { body }) => {
         if (body.msg_type === 'CMD_MSG') onNewCmd(body)
         else messageHandler(onNewMsg)(body)
       })
