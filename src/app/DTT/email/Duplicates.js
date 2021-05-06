@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import { selectDuplicateEmails } from 'redux/app/selectors'
 import Duplicate from './Duplicate'
 
-const Duplicates = ({ sourceCode }) => {
+const Duplicates = ({ sourceCode, email }) => {
   const duplicates = split(',', useSelector(selectDuplicateEmails) || '')
 
   if (!duplicates) return null
@@ -18,7 +18,7 @@ const Duplicates = ({ sourceCode }) => {
         <Wrap>
           {duplicates.map(code => (
             <WrapItem key={code}>
-              <Duplicate code={code} sourceCode={sourceCode} />
+              <Duplicate email={email} code={code} sourceCode={sourceCode} />
             </WrapItem>
           ))}
         </Wrap>

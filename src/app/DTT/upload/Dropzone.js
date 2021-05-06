@@ -3,7 +3,7 @@ import { useDropzone } from 'react-dropzone'
 import { Box, Flex, Text, Input, Button, Center, Image, useToast } from '@chakra-ui/react'
 import { isEmpty, map, pathOr, compose, includes, split } from 'ramda'
 
-const DropZone = ({ handleSave, closeDropzone, maxSize = '5000000', maxFiles = 1 }) => {
+const DropZone = ({ video, handleSave, closeDropzone, maxSize = '5000000', maxFiles = 1 }) => {
   const [files, setFiles] = useState([])
   const toast = useToast()
   const checkIfImage = compose(includes('image'), split('/'))
@@ -27,7 +27,7 @@ const DropZone = ({ handleSave, closeDropzone, maxSize = '5000000', maxFiles = 1
   }
 
   const { getRootProps, getInputProps } = useDropzone({
-    accept: 'image/*, application/pdf',
+    accept: video ? 'video/*' : 'image/*, application/pdf',
     maxSize: maxSize,
     maxFiles: maxFiles,
     onDrop: (acceptedFiles, rejectedFiles) => {
