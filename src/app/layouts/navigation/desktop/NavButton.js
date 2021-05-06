@@ -1,4 +1,4 @@
-import { Box, HStack, Menu, MenuButton, MenuItem, MenuList, Text, VStack } from '@chakra-ui/react'
+import { HStack, Menu, MenuButton, MenuItem, MenuList, Text, VStack } from '@chakra-ui/react'
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import sendAskClick from 'app/ASKS/utils/send-ask-click'
@@ -24,23 +24,15 @@ const NavButton = ({ code, questionCode }) => {
   if (!childAsks)
     return (
       <VStack
-        opacity={0.8}
         test-id={code}
         _hover={{ opacity: 1 }}
+        opacity={0.8}
         cursor="pointer"
-        color="grey"
+        color={lastCode === code ? 'primary.500' : 'grey'}
         onClick={handleClick}
-        spacing={0}
       >
         <FontAwesomeIcon size="lg" icon={icons[code]} />
-        <Text pt="8px">{labels[code]}</Text>
-        <Box
-          w="100%"
-          h="2px"
-          bg="lightgrey"
-          opacity={lastCode === code ? 1 : 0}
-          transition="opacity 0.5s ease"
-        />
+        <Text textStyle="tail2">{labels[code]}</Text>
       </VStack>
     )
 

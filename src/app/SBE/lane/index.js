@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import { selectRows } from 'redux/db/selectors'
-import { VStack, useColorModeValue, Divider } from '@chakra-ui/react'
+import { VStack } from '@chakra-ui/react'
 import BECard from 'app/BE/card'
 import Title from './Title'
 import Footer from './Footer'
