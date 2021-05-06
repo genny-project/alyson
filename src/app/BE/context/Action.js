@@ -4,11 +4,7 @@ import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import { onSendMessage } from 'vertx'
 
-const Action = ({
-  parentCode,
-  code,
-  targetCode,
-}) => {
+const Action = ({ parentCode, code, targetCode }) => {
   const needsToBeConfirmed = useSelector(selectCode(parentCode, code))?.confirmationFlag || false
   const data = useSelector(selectCode(parentCode, code))
 
