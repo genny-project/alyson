@@ -18,6 +18,7 @@ import {
   Center,
   Text,
   Button,
+  Box,
 } from '@chakra-ui/react'
 import { apiConfig } from 'config/get-api-config'
 import Avatar from '../Avatar'
@@ -56,8 +57,7 @@ const MobileNav = ({ logoSrc }) => {
             <IconButton color="gray.600" onClick={onOpen} variant="ghost">
               <FontAwesomeIcon icon={faBars} />
             </IconButton>
-            <Spacer />
-            <Center style={{ cursor: 'pointer' }}>
+            <Box mx={5} style={{ cursor: 'pointer' }}>
               {apiConfig && (
                 <Image
                   opacity="0.8"
@@ -65,11 +65,11 @@ const MobileNav = ({ logoSrc }) => {
                     onSendMessage({ code: 'QUE_DASHBOARD_VIEW', parentCode: 'QUE_DASHBOARD_VIEW' })
                   }
                   ref={btnRef}
-                  src={logoSrc}
-                  htmlWidth="200px"
+                  src={'/favicon.png'}
+                  htmlWidth="45px"
                 />
               )}
-            </Center>
+            </Box>
             <Spacer />
             <HStack spacing={5}>
               <Drafts />
