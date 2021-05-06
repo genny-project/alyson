@@ -2,6 +2,7 @@ import { Box, Center, HStack, Text, VStack } from '@chakra-ui/layout'
 import { Menu, MenuButton, MenuList } from '@chakra-ui/menu'
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import getUserType from 'utils/helpers/get-user-type'
@@ -21,13 +22,13 @@ const Drafts = () => {
     code => code.indexOf('TASK') !== -1,
   )
 
-  var getDimension =
+  let getDimension =
     defaultDimension + (drafts.length - 1) * 1.6 > 32
-      ? 32
+      ? 36
       : defaultDimension + (drafts.length - 1) * 1.6
-  var marginLeft =
+  let marginLeft =
     defaultMarginLength - 0.05 * (drafts.length - 1) < 0
-      ? 0
+      ? -0.5
       : defaultMarginLength - 0.05 * (drafts.length - 1)
 
   const isMobile = useIsMobile()
