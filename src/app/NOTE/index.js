@@ -21,7 +21,13 @@ const Notes = () => {
       <Tabs mt="5">
         <TabList>
           {tabs.map(key => (
-            <TabTop key={key} rootCode={key} tab={notes[key]} title={getTitle(key)} />
+            <TabTop
+              key={key}
+              rootCode={key}
+              sourceCode={rootCode}
+              tab={notes[key]}
+              title={getTitle(key)}
+            />
           ))}
         </TabList>
         <TabPanels>

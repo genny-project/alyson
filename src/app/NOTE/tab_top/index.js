@@ -3,12 +3,13 @@ import { Tab } from '@chakra-ui/tabs'
 import ImageType from 'app/DTT/upload/Image'
 import { onSendMessage } from 'vertx'
 
-const TabTop = ({ tab: { image, title: name, code, click }, title, rootCode }) => {
+const TabTop = ({ tab: { image, title: name, code, click }, title, rootCode, sourceCode }) => {
   const handleClick = () =>
     onSendMessage({
       code: click,
       targetCode: code,
       rootCode,
+      sourceCode,
     })
 
   return (
