@@ -25,8 +25,6 @@ const DefaultCard = ({ parentCode, actions = [], code, columns }) => {
 
   const color = useColorModeValue(`${statusColor?.value}.50`, `${statusColor?.value}.900`)
 
-  if (statusColor?.value !== 'default' && !includes('#', statusColor?.value || ''))
-    console.log(statusColor, color)
   if (includes('SBE_AVAILABLE_INTERNS', parentCode || ''))
     return <AvailableInternCard parentCode={parentCode} actions={actions} code={code} />
 
