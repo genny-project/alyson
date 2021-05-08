@@ -10,7 +10,7 @@ import { selectAttributes } from 'redux/db/selectors'
 import { selectDashboard } from 'redux/app/selectors'
 import DisplaySbe from 'app/SBE'
 import { callBucketView, onSendMessage } from 'vertx'
-import Process from 'app/layouts/process'
+// import Process from 'app/layouts/process'
 import Attribute from 'app/BE/attribute'
 import { useEffect } from 'react'
 
@@ -117,7 +117,7 @@ const HostCompanyRep = ({ userCode }) => {
           </VStack>
         </Box>
       </Stack>
-      <Process dashboard />
+      {/* <Process dashboard /> */}
     </VStack>
   )
 }

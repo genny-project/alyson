@@ -33,7 +33,9 @@ const DefaultCard = ({ parentCode, actions = [], code, columns }) => {
       <Card
         p={5}
         variant="card1"
-        {...(statusColor?.value !== 'default' && !includes('#', statusColor?.value || '')
+        {...(statusColor?.value &&
+        statusColor?.value !== 'default' &&
+        !includes('#', statusColor?.value || '')
           ? { bg: color }
           : {})}
       >

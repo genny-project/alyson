@@ -10,7 +10,7 @@ const Read = ({ data }) => {
         border: '1px solid grey',
         height: '70vh',
       }}
-      minW="70vw"
+      w="70vw"
     >
       <iframe
         style={{ borderRadius: '10px', width: '100%', height: '100%' }}
