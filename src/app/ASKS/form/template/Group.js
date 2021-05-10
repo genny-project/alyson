@@ -1,9 +1,15 @@
-import { Box, Center, HStack, Text, VStack } from '@chakra-ui/layout'
+import {
+  Box,
+  // Center,
+  HStack,
+  Text,
+  VStack,
+} from '@chakra-ui/layout'
 
 import Ask from 'app/ASKS/ask'
 import Card from 'app/layouts/components/card'
 import ReactPlayer from 'react-player'
-import Timeline from './Timeline'
+// import Timeline from './Timeline'
 
 const Group = ({
   label,
@@ -17,15 +23,15 @@ const Group = ({
   questionCode,
   setGroup,
 }) => (
-  <Box w="full" key={label} display={idx === group ? 'block' : 'none'}>
+  <Box w="full" key={label}>
     <Card>
-      <Center w="full">
+      {/* <Center w="full">
         <Timeline groups={groups} group={group} setGroup={setGroup} />
-      </Center>
+      </Center> */}
 
       <VStack align="start" spacing={8}>
         <Text textStyle="head.1">{label}</Text>
-        <Text textStyle="head.3">{subHeader}</Text>
+        {subHeader && <Text textStyle="head.3">{subHeader}</Text>}
         {video && <ReactPlayer url={video.url} />}
         {questions.map((type, idx) =>
           Array.isArray(type) ? (

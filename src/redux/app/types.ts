@@ -2,7 +2,6 @@ import { Keyable } from 'utils/types'
 
 export interface AppState {
   [key: string]: string | object | Array<string> | null
-  cmds: Array<Object>
   DISPLAY: string
   DRAWER: string
   DIALOG: string
@@ -11,6 +10,8 @@ export interface AppState {
   NOTES: null | Keyable
   DUPLICATE_EMAILS: string
   lastSentMessage: any
+  lastReceivedMessage: any
+  highlightedQuestion: String
 }
 
 export interface BaseEntityAttribute {

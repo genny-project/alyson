@@ -30,6 +30,7 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import LogRocketSession from 'app/DTT/log_rocket_session'
 import Attribute from 'app/BE/attribute'
 import { useMobileValue } from 'utils/hooks'
+import { selectHighlightedQuestion } from 'redux/app/selectors'
 
 const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCode }) => {
   const askData = useSelector(selectCode(parentCode, questionCode)) || passedAskData
@@ -38,6 +39,7 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
     askData || {}
 
   const data = useSelector(selectCode(targetCode, attributeCode)) || {}
+  const highlightedQuestion = useSelector(selectHighlightedQuestion)
   const labelWidth = useMobileValue(['full', '25vw'])
 
   const groupCode = getGroupCode(question)
@@ -59,7 +61,7 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
   if (readonly) {
     return (
       <HStack>
-        <CText w={labelWidth} textStyle="body.1">
+        <CText id={attributeCode} w={labelWidth} textStyle="body.1">
           {name}
         </CText>
         <Attribute config={{ textStyle: 'body.1' }} code={targetCode} attribute={attributeCode} />
@@ -67,6 +69,16 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
     )
   }
 
+  if (!!disabled && component !== 'button')
+    return (
+      <FormControl isDisabled isRequired={mandatory}>
+        <HStack mb="4" w={labelWidth} justify="space-between">
+          <FormLabel id={attributeCode} textStyle="body.1">
+            {name}
+          </FormLabel>
+        </HStack>
+      </FormControl>
+    )
   if (component === 'checkbox')
     return (
       <CheckBox.Write
@@ -75,6 +87,7 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
         onSendAnswer={onSendAnswer}
         label={name}
         isRequired={mandatory}
+        id={attributeCode}
       />
     )
   return component === 'button' ? (
@@ -83,6 +96,7 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
       parentCode={parentCode}
       askData={askData}
       onFinish={onFinish}
+      id={attributeCode}
     />
   ) : (
     <FormControl
@@ -90,9 +104,15 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
       isDisabled={!!disabled}
       isRequired={mandatory}
       isInvalid={!!feedback}
+      border={highlightedQuestion === attributeCode ? '1px solid red' : ''}
+      borderRadius="md"
+      p={highlightedQuestion === attributeCode ? '5' : ''}
+      transition="all 0.5s"
     >
       <HStack mb="4" w={labelWidth} justify="space-between">
-        <FormLabel textStyle="body.1">{name}</FormLabel>
+        <FormLabel id={attributeCode} textStyle="body.1">
+          {name}
+        </FormLabel>
         {data?.value ? <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} /> : null}
       </HStack>
 

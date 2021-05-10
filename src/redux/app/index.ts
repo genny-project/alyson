@@ -14,7 +14,9 @@ export const initialState = {
   DASHBOARD_COUNTS: null,
   NOTES: null,
   DUPLICATE_EMAILS: '',
-  lastSentMessage: { data: { data: { code: 'QUE_DASHBOARD_VIEW' } } },
+  lastSentMessage: { time: '', data: { data: { code: 'QUE_DASHBOARD_VIEW' } } },
+  lastReceivedMessage: {},
+  highlightedQuestion: '',
 }
 
 const appSlice = createSlice({
@@ -33,6 +35,8 @@ const appSlice = createSlice({
     newMsg: (state: AppState, { payload }: { payload: MsgPayload }) => {
       const { items, data_type } = payload
 
+      state.lastReceivedMessage = { time: new Date(), ...payload }
+      state.lastEvent = new Date()
       if (data_type === 'BaseEntity') setDisplayCode(state)(items)
       if (data_type === 'Note') state.NOTES = payload
 
@@ -45,8 +49,9 @@ const appSlice = createSlice({
       handleSendMessage(payload.data)
       if (payload?.data?.redirect) {
         state.FORM = null
-        state.lastMessage = payload
       }
+      state.highlightedQuestion = ''
+      state.lastSentMessage = { time: new Date(), ...payload }
     },
     closeDrawer: state => {
       state.DRAWER = 'NONE'
@@ -56,6 +61,9 @@ const appSlice = createSlice({
     },
     closeNotes: state => {
       state.NOTES = null
+    },
+    highlightQuestion: (state, { payload }) => {
+      state.highlightedQuestion = payload
     },
   },
 })
@@ -67,5 +75,6 @@ export const {
   closeDialog,
   sendMessage,
   closeNotes,
+  highlightQuestion,
 } = appSlice.actions
 export default appSlice.reducer
