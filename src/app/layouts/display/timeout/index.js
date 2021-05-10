@@ -1,4 +1,3 @@
-// import { useBoolean } from "@chakra-ui/hooks"
 import { inc } from 'ramda'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -41,7 +40,7 @@ const Timeout = () => {
   }, [lastReceived])
 
   return (
-    <Modal isCentered isOpen={timeSinceLastSent !== null && timeSinceLastSent > 10}>
+    <Modal isCentered isOpen={timeSinceLastSent !== null && timeSinceLastSent >= 10}>
       <ModalOverlay />
       <ModalContent>
         <Alert borderRadius="md" p="5" status="error">
