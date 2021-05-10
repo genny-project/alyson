@@ -18,7 +18,7 @@ const AsksMenu = ({ questionCode }) => {
         <VStack color="grey" test-id={questionCode}>
           <FontAwesomeIcon size="lg" icon={icons[questionCode]} />
           <HStack spacing={1}>
-            <Text>{labels[questionCode]}</Text>
+            <Text fontSize="xs">{labels[questionCode]}</Text>
             <FontAwesomeIcon icon={faCaretDown} />
           </HStack>
         </VStack>

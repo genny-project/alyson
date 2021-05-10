@@ -11,6 +11,8 @@ export interface AppState {
   NOTES: null | Keyable
   DUPLICATE_EMAILS: string
   lastSentMessage: any
+  lastReceivedMessage: any
+  lastEvent: any
 }
 
 export interface BaseEntityAttribute {
