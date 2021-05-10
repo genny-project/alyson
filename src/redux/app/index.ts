@@ -16,6 +16,7 @@ export const initialState = {
   DUPLICATE_EMAILS: '',
   lastSentMessage: { time: '', data: { data: { code: 'QUE_DASHBOARD_VIEW' } } },
   lastReceivedMessage: {},
+  highlightedQuestion: '',
 }
 
 const appSlice = createSlice({
@@ -49,6 +50,7 @@ const appSlice = createSlice({
       if (payload?.data?.redirect) {
         state.FORM = null
       }
+      state.highlightedQuestion = ''
       state.lastSentMessage = { time: new Date(), ...payload }
     },
     closeDrawer: state => {
@@ -60,6 +62,9 @@ const appSlice = createSlice({
     closeNotes: state => {
       state.NOTES = null
     },
+    highlightQuestion: (state, { payload }) => {
+      state.highlightedQuestion = payload
+    },
   },
 })
 
@@ -70,5 +75,6 @@ export const {
   closeDialog,
   sendMessage,
   closeNotes,
+  highlightQuestion,
 } = appSlice.actions
 export default appSlice.reducer

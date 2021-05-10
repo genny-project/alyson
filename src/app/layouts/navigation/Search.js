@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, HStack, Input } from '@chakra-ui/react'
+import { Button, Input, VStack } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { onSendSearch } from 'vertx'
@@ -13,19 +13,19 @@ const Search = () => {
   }
   return (
     <form onSubmit={handleSubmit}>
-      <HStack>
+      <VStack>
         <Input value={value} onChange={e => setValue(e.target.value)} />
 
         <Button
-          w="10rem"
+          w="15rem"
           colorScheme="primary"
           leftIcon={<FontAwesomeIcon icon={faSearch} />}
           role="search"
           onClick={handleSubmit}
         >
-          Search
+          Search all of Internmatch
         </Button>
-      </HStack>
+      </VStack>
     </form>
   )
 }
