@@ -1,4 +1,4 @@
-import { Button } from '@chakra-ui/react'
+import { Box, Button, Text } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { onSendMessage } from 'vertx'
@@ -24,23 +24,28 @@ const EventButton = ({ askData, onFinish, parentCode }) => {
   }
 
   return (
-    <Button
-      isLoading={loading}
-      test-id={questionCode}
-      isDisabled={disabled}
-      onClick={onClick}
-      leftIcon={
-        questionCode === 'QUE_SUBMIT_NO' ? (
-          <FontAwesomeIcon icon={faTimes} />
-        ) : (
-          <FontAwesomeIcon icon={faCheck} />
-        )
-      }
-      colorScheme={questionCode === 'QUE_SUBMIT_NO' ? 'red' : 'primary'}
-      variant="solid"
-    >
-      {name}
-    </Button>
+    <Box>
+      {disabled && name === 'Submit' && (
+        <Text textStyle="body.error">Please complete all questions marked as mandatory with *</Text>
+      )}
+      <Button
+        isLoading={loading}
+        test-id={questionCode}
+        isDisabled={disabled}
+        onClick={onClick}
+        leftIcon={
+          questionCode === 'QUE_SUBMIT_NO' ? (
+            <FontAwesomeIcon icon={faTimes} />
+          ) : (
+            <FontAwesomeIcon icon={faCheck} />
+          )
+        }
+        colorScheme={questionCode === 'QUE_SUBMIT_NO' ? 'red' : 'primary'}
+        variant="solid"
+      >
+        {name}
+      </Button>
+    </Box>
   )
 }
 

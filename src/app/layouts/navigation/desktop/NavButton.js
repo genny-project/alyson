@@ -32,7 +32,9 @@ const NavButton = ({ code, questionCode }) => {
         onClick={handleClick}
       >
         <FontAwesomeIcon size="lg" icon={icons[code]} />
-        <Text textStyle="tail2">{labels[code]}</Text>
+        <Text fontSize="xs" textStyle="tail2">
+          {labels[code]}
+        </Text>
       </VStack>
     )
 
@@ -42,7 +44,7 @@ const NavButton = ({ code, questionCode }) => {
         <VStack color="grey" test-id={code}>
           <FontAwesomeIcon size="lg" icon={icons[code]} />
           <HStack spacing={0.5}>
-            <Text>{labels[code]}</Text>
+            <Text fontSize="xs">{labels[code]}</Text>
             <FontAwesomeIcon icon={faCaretDown} />
           </HStack>
         </VStack>
