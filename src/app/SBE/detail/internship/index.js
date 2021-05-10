@@ -12,6 +12,8 @@ import ProfilePicture from 'app/layouts/components/profile_picture'
 import DetailSubHeader from 'app/layouts/components/subheader'
 import RightHandDetails from './templates/RightHandDetails'
 import LeftHandDetails from './templates/LeftHandDetails'
+import { useIsMobile } from 'utils/hooks'
+import MobileView from './mobile-view'
 
 const internshipDetail = {
   sectionIcon: faBriefcase,
@@ -53,11 +55,15 @@ const Internship = ({ sbeCode, targetCode }) => {
   const linkedSupervisor = replace('SBE_INTERNSHIP_', 'SBE_LINKED_INTERN_SUPERVISOR_', sbeCode)
   const linkedHostCpy = replace('SBE_INTERNSHIP_', 'SBE_LINKED_HOST_CPY_', sbeCode)
 
+  const isMobile = useIsMobile()
+
   if (!sbe) return null
 
   if (!beCode) return null
 
-  return (
+  return isMobile ? (
+    <MobileView />
+  ) : (
     <Box
       w="70vw"
       h="100vh"
