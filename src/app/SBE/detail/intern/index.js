@@ -15,8 +15,8 @@ import DetailHeader from './template/Header'
 import LeftHandDetails from './template/LeftHandDetails'
 import RightHandDetails from './template/RightHandDetails'
 import fixLnk from 'app/BE/attribute/fix-lnk.ts'
+import { isNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
 
-const topHeight = '35vh'
 const subHeaderAttributes = ['PRI_PREFERRED_NAME']
 
 const contactDetails = {
@@ -35,7 +35,7 @@ const internshipDetails = {
 
 const recentEmployment = {
   title: 'Recent Employment',
-  attributes: ['PRI_PREV_EMPLOYER', 'PRI_PREV_JOB_TITLE', 'PRI_CV'],
+  attributes: ['PRI_PREV_EMPLOYER', 'PRI_PREV_JOB_TITLE'],
 }
 
 const Intern = ({ sbeCode, targetCode }) => {
@@ -61,6 +61,10 @@ const Intern = ({ sbeCode, targetCode }) => {
   const api = useApi()
   const cvData = useSelector(selectCode(beCode, fixLnk('PRI_CV')))
 
+  const careerObjText = careerObj?.value
+  const topHeight =
+    isNullOrUndefinedOrEmpty(videoSrc) && isNullOrUndefinedOrEmpty(careerObjText) ? '10vh' : '35vh'
+
   if (!beCode) return null
 
   return isMobile ? (
@@ -83,7 +87,12 @@ const Intern = ({ sbeCode, targetCode }) => {
         borderTopRightRadius: '0.5rem',
       }}
     >
-      <DetailHeader videoSrc={videoSrc} careerObj={careerObj} video={video} topHeight={topHeight} />
+      <DetailHeader
+        videoSrc={videoSrc}
+        careerObjText={careerObjText}
+        video={video}
+        topHeight={topHeight}
+      />
       <ProfilePicture src={src} />
       <Box overflow="scroll" h={`calc(100vh - ${topHeight})`}>
         <VStack pt="5rem" overflowX="hidden">
@@ -94,7 +103,7 @@ const Intern = ({ sbeCode, targetCode }) => {
             actions={actions}
             subHeaderAttributes={subHeaderAttributes}
           />
-          <HStack w="full" p="5">
+          {cvData?.value && (
             <Link
               isExternal
               p="2"
@@ -110,7 +119,7 @@ const Intern = ({ sbeCode, targetCode }) => {
                 <Text>{`Download CV`}</Text>
               </Button>
             </Link>
-          </HStack>
+          )}
 
           <HStack w="65vw" align="start" pt="5" spacing="5">
             <LeftHandDetails
