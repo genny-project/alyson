@@ -67,6 +67,16 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
     )
   }
 
+  if (!!disabled && component !== 'button')
+    return (
+      <FormControl isDisabled isRequired={mandatory}>
+        <HStack mb="4" w={labelWidth} justify="space-between">
+          <FormLabel id={attributeCode} textStyle="body.1">
+            {name}
+          </FormLabel>
+        </HStack>
+      </FormControl>
+    )
   if (component === 'checkbox')
     return (
       <CheckBox.Write
