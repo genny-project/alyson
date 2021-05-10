@@ -77,18 +77,18 @@ const Internship = ({ sbeCode, targetCode }) => {
           sbeCode={sbeCode}
           actions={actions}
           subHeaderAttributes={subHeaderAttributes}
+          videoData={videoData}
         />
-
         <HStack w="65vw" align="start" pt="5" spacing="5">
           <LeftHandDetails
-            videoData={videoData}
             beCode={beCode}
             internshipDetail={internshipDetail}
             linkedSupervisor={linkedSupervisor}
             software={software}
           />
           <RightHandDetails
-            code={beCode}
+            videoData={videoData}
+            beCode={beCode}
             sbeCode={linkedHostCpy}
             attributes={responsibilitiesAndOutcomes}
           />
