@@ -13,11 +13,16 @@ const timeBasedOnTimeZone = (
     includeTime: false,
     onlyYear: false,
   },
-) =>
-  onlyYear
-    ? new Intl.DateTimeFormat('en', { year: 'numeric' }).format(date)
-    : includeTime
-    ? date.toLocaleString(locale, { timeZone, hour12: true }).replace(':00', '')
-    : date.toLocaleDateString(locale, { timeZone })
+) => {
+  try {
+    return onlyYear
+      ? new Intl.DateTimeFormat('en', { year: 'numeric' }).format(date)
+      : includeTime
+      ? date.toLocaleString(locale, { timeZone, hour12: true }).replace(':00', '')
+      : date.toLocaleDateString(locale, { timeZone })
+  } catch (_) {
+    return new Intl.DateTimeFormat('en', { year: 'numeric' }).format(new Date())
+  }
+}
 
 export default timeBasedOnTimeZone
