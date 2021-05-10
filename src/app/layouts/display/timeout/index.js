@@ -1,4 +1,4 @@
-import { inc } from 'ramda'
+import { inc, isEmpty } from 'ramda'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { selectLastReceived, selectLastSent } from 'redux/app/selectors'
@@ -36,11 +36,11 @@ const Timeout = () => {
   }, [lastSent])
 
   useEffect(() => {
-    if (lastReceived) setTimeSinceLastSent(null)
+    if (!isEmpty(lastReceived)) setTimeSinceLastSent(null)
   }, [lastReceived])
 
   return (
-    <Modal isCentered isOpen={timeSinceLastSent !== null && timeSinceLastSent >= 10}>
+    <Modal isCentered isOpen={timeSinceLastSent !== null && timeSinceLastSent >= 8}>
       <ModalOverlay />
       <ModalContent>
         <Alert borderRadius="md" p="5" status="error">
