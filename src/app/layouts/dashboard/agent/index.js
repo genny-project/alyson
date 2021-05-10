@@ -12,6 +12,7 @@ import { selectCode } from 'redux/db/selectors'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { head } from 'ramda'
 import Attribute from 'app/BE/attribute'
+import Search from 'app/layouts/navigation/Search'
 
 const Agent = () => {
   const dashboardSbes = useSelector(selectDashboard) || []
@@ -43,10 +44,10 @@ const Agent = () => {
           {dashboardSbes.slice(1, Infinity).map(sbeCode => (
             <DisplaySbe key={sbeCode} sbeCode={sbeCode} />
           ))}
+          <Search />
         </VStack>
       </Card>
       <AgentDashboardSummary />
-      {/* <Search /> */}
     </VStack>
   )
 }
