@@ -8,9 +8,16 @@ import { faBolt, faColumns } from '@fortawesome/free-solid-svg-icons'
 import { onSendMessage } from 'vertx'
 import Card from 'app/layouts/components/card'
 import AgentDashboardSummary from './summary'
+import { selectCode } from 'redux/db/selectors'
+import safelyParseJson from 'utils/helpers/safely-parse-json'
+import { head } from 'ramda'
+import Attribute from 'app/BE/attribute'
 
 const Agent = () => {
   const dashboardSbes = useSelector(selectDashboard) || []
+
+  const userCode = useSelector(selectCode('USER'))
+  const agency = head(safelyParseJson(useSelector(selectCode(userCode, 'LNK_AGENCY'))?.value, ['']))
 
   return (
     <VStack spacing={4}>
@@ -31,6 +38,7 @@ const Agent = () => {
           >
             Process View
           </Button>
+          <Attribute config={{ size: 'xl' }} code={agency} attribute="PRI_IMAGE_URL" />
           <DisplaySbe sbeCode={dashboardSbes[0]} />
           {dashboardSbes.slice(1, Infinity).map(sbeCode => (
             <DisplaySbe key={sbeCode} sbeCode={sbeCode} />
