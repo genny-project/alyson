@@ -9,7 +9,7 @@ export const Write = ({ questionCode, data, onSendAnswer }) => {
   return (
     <Input
       test-id={questionCode}
-      onUpdate={e => debouncedSendAnswer(e.target.value)}
+      onChange={e => debouncedSendAnswer(e.target.value)}
       defaultValue={data?.value}
       w={useMobileValue(['100%', '25vw'])}
     />
