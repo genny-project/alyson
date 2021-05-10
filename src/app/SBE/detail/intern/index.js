@@ -1,7 +1,9 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { selectCode, selectRows } from 'redux/db/selectors'
-import { Box, HStack, VStack } from '@chakra-ui/react'
+import { Box, HStack, VStack, Text, Link, Button } from '@chakra-ui/react'
 import useApi from 'api'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFileDownload } from '@fortawesome/free-solid-svg-icons'
 
 import getActions from 'app/SBE/utils/get-actions'
 import { closeDrawer } from 'redux/app'
@@ -12,8 +14,9 @@ import DetailSubHeader from 'app/layouts/components/subheader'
 import DetailHeader from './template/Header'
 import LeftHandDetails from './template/LeftHandDetails'
 import RightHandDetails from './template/RightHandDetails'
+import fixLnk from 'app/BE/attribute/fix-lnk.ts'
+import { isNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
 
-const topHeight = '35vh'
 const subHeaderAttributes = ['PRI_PREFERRED_NAME']
 
 const contactDetails = {
@@ -32,7 +35,7 @@ const internshipDetails = {
 
 const recentEmployment = {
   title: 'Recent Employment',
-  attributes: ['PRI_PREV_EMPLOYER', 'PRI_PREV_JOB_TITLE', 'PRI_CV'],
+  attributes: ['PRI_PREV_EMPLOYER', 'PRI_PREV_JOB_TITLE'],
 }
 
 const Intern = ({ sbeCode, targetCode }) => {
@@ -54,6 +57,13 @@ const Intern = ({ sbeCode, targetCode }) => {
   const src = getImageSrc(image?.value)
 
   const actions = getActions(sbe)
+
+  const api = useApi()
+  const cvData = useSelector(selectCode(beCode, fixLnk('PRI_CV')))
+
+  const careerObjText = careerObj?.value
+  const topHeight =
+    isNullOrUndefinedOrEmpty(videoSrc) && isNullOrUndefinedOrEmpty(careerObjText) ? '10vh' : '35vh'
 
   if (!beCode) return null
 
@@ -77,9 +87,13 @@ const Intern = ({ sbeCode, targetCode }) => {
         borderTopRightRadius: '0.5rem',
       }}
     >
-      <DetailHeader videoSrc={videoSrc} careerObj={careerObj} video={video} topHeight={topHeight} />
+      <DetailHeader
+        videoSrc={videoSrc}
+        careerObjText={careerObjText}
+        video={video}
+        topHeight={topHeight}
+      />
       <ProfilePicture src={src} />
-
       <Box overflow="scroll" h={`calc(100vh - ${topHeight})`}>
         <VStack pt="5rem" overflowX="hidden">
           <DetailSubHeader
@@ -89,6 +103,24 @@ const Intern = ({ sbeCode, targetCode }) => {
             actions={actions}
             subHeaderAttributes={subHeaderAttributes}
           />
+          {cvData?.value && (
+            <Link
+              isExternal
+              p="2"
+              color="primary"
+              href={api.getSrc(cvData?.value)}
+              style={{ textDecoration: 'none' }}
+            >
+              <Button
+                colorScheme="blue"
+                variant="solid"
+                leftIcon={<FontAwesomeIcon size="lg" icon={faFileDownload} />}
+              >
+                <Text>{`Download CV`}</Text>
+              </Button>
+            </Link>
+          )}
+
           <HStack w="65vw" align="start" pt="5" spacing="5">
             <LeftHandDetails
               beCode={beCode}
