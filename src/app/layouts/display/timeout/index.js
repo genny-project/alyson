@@ -40,7 +40,7 @@ const Timeout = () => {
   }, [lastReceived])
 
   return (
-    <Modal isCentered isOpen={timeSinceLastSent !== null && timeSinceLastSent >= 8}>
+    <Modal isCentered isOpen={false}>
       <ModalOverlay />
       <ModalContent>
         <Alert borderRadius="md" p="5" status="error">
