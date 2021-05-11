@@ -5,6 +5,7 @@ import { Box, IconButton } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { closeDrawer } from 'redux/app'
 import { useDispatch } from 'react-redux'
+import Attribute from 'app/BE/attribute'
 
 const topHeight = '40vh'
 
@@ -12,7 +13,7 @@ let map = {}
 let pano = {}
 let geocoder = {}
 
-const DetailHeader = ({ address }) => {
+const DetailHeader = ({ address, videoData, beCode }) => {
   geocoder = new window.google.maps.Geocoder()
 
   const [geo, setGeo] = useState(null)
@@ -30,7 +31,7 @@ const DetailHeader = ({ address }) => {
   }, [address])
 
   useEffect(() => {
-    if (geo && panoRef?.current && mapRef?.current) {
+    if (geo) {
       map = new window.google.maps.Map(mapRef.current, {
         center: geo,
         zoom: 12,
@@ -59,18 +60,30 @@ const DetailHeader = ({ address }) => {
     }
   }, [geo])
 
+  console.log(address)
+
   return (
-    <Box>
-      <Flex>
-        <div
-          ref={panoRef}
-          style={{
-            width: '100%',
-            borderTopLeftRadius: '0.5rem',
-            height: topHeight,
-            marginRight: '2px',
-          }}
-        />
+    <Box bg="gradient.500">
+      <Flex h={topHeight}>
+        {videoData ? (
+          <Attribute
+            code={beCode}
+            attribute={'PRI_VIDEO_URL'}
+            config={{ inline: true }}
+            styles={{ width: '100%' }}
+          />
+        ) : (
+          <div
+            ref={panoRef}
+            style={{
+              width: '100%',
+              borderTopLeftRadius: '0.5rem',
+              height: topHeight,
+              marginRight: '2px',
+            }}
+          />
+        )}
+
         <Spacer />
         <div
           ref={mapRef}

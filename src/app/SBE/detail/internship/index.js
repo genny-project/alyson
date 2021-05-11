@@ -66,7 +66,7 @@ const Internship = ({ sbeCode, targetCode }) => {
         borderTopRightRadius: '0.5rem',
       }}
     >
-      <DetailHeader address={address} />
+      <DetailHeader address={address} beCode={beCode} videoData={videoData} />
       <ProfilePicture src={src} />
 
       <VStack pt="5rem" overflow="scroll" h={`calc(100vh - ${topHeight})`}>
@@ -77,7 +77,6 @@ const Internship = ({ sbeCode, targetCode }) => {
           sbeCode={sbeCode}
           actions={actions}
           subHeaderAttributes={subHeaderAttributes}
-          videoData={videoData}
         />
         <HStack w="65vw" align="start" pt="5" spacing="5">
           <LeftHandDetails
@@ -87,7 +86,6 @@ const Internship = ({ sbeCode, targetCode }) => {
             software={software}
           />
           <RightHandDetails
-            videoData={videoData}
             beCode={beCode}
             sbeCode={linkedHostCpy}
             attributes={responsibilitiesAndOutcomes}

@@ -59,8 +59,8 @@ const Player = ({
           transition="opacity 0.5s"
           variant="unstyled"
           color="white"
-          mt="-80%"
-          ml="45%"
+          mt="-70%"
+          ml="48%"
           icon={
             <FontAwesomeIcon
               style={{ backgroundColor: 'black', borderRadius: '50%', padding: '1px' }}

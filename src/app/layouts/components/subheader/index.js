@@ -21,7 +21,9 @@ const DetailSubHeader = ({ url, name, beCode, sbeCode, actions, subHeaderAttribu
         )}
         {subHeaderAttributes && (
           <VStack mb="1rem">
-            {map(attr => <Attribute code={beCode} attribute={attr} />)(subHeaderAttributes)}
+            {map(attr => <Attribute key={attr} code={beCode} attribute={attr} />)(
+              subHeaderAttributes,
+            )}
           </VStack>
         )}
         <Actions actions={actions} sbeCode={sbeCode} beCode={beCode} />
