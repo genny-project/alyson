@@ -16,7 +16,7 @@ import LogrocketIdentifier from '../components/logrocket_identifier'
 import ErrorBoundary from 'utils/developer/ErrorBoundary'
 import Notes from 'app/NOTE'
 import { onSendMessage } from 'vertx'
-import Timeout from './timeout'
+// import Timeout from './timeout'
 
 const Display = () => {
   const display = useSelector(selectDisplay)
@@ -43,7 +43,7 @@ const Display = () => {
       >
         <Navigation />
         <Box paddingTop="6rem">
-          <Timeout />
+          {/* <Timeout /> */}
           {display === 'DASHBOARD' && <Dashboard />}
           {display === 'TABLE' && <Table />}
           {display === 'PROCESS' && <Process />}
