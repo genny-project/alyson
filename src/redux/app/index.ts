@@ -27,6 +27,8 @@ const appSlice = createSlice({
       log('❗', payload)
 
       const { cmd_type } = payload
+      state.lastReceivedMessage = { time: new Date(), ...payload }
+      state.lastEvent = new Date()
 
       cmdMachine[cmd_type]
         ? cmdMachine[cmd_type](state, payload)

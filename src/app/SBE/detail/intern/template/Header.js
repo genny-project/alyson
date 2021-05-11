@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { closeDrawer } from 'redux/app'
 import { useDispatch } from 'react-redux'
 
-const DetailHeader = ({ videoSrc, careerObj, video, topHeight }) => {
+const DetailHeader = ({ videoSrc, careerObjText, video, topHeight }) => {
   const videoStyle = {
     width: '50%',
     borderTopLeftRadius: '0.5rem',
@@ -26,15 +26,11 @@ const DetailHeader = ({ videoSrc, careerObj, video, topHeight }) => {
         h={topHeight}
       >
         {videoSrc && (
-          <Flex
-            flexGrow="1"
-            height={topHeight}
-            borderTopLeftRadius={careerObj?.value ? '0.5rem' : ''}
-          >
+          <Flex flexGrow="1" height={topHeight} borderTopLeftRadius={careerObjText ? '0.5rem' : ''}>
             <Player src={videoSrc} styles={videoStyle} />
           </Flex>
         )}
-        {careerObj?.value && (
+        {careerObjText && (
           <Flex
             flexGrow="1"
             maxWidth="50%"
@@ -52,7 +48,7 @@ const DetailHeader = ({ videoSrc, careerObj, video, topHeight }) => {
               <Text
                 textStyle="head.1"
                 textAlign="center"
-                dangerouslySetInnerHTML={{ __html: careerObj?.value }}
+                dangerouslySetInnerHTML={{ __html: careerObjText }}
                 noOfLines={[3, 4]}
                 color="white"
               />

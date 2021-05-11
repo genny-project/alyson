@@ -11,7 +11,7 @@ const RightHandDetails = ({ code, attributes, sbeCode }) => {
       <LinkedHostCpy sbeCode={sbeCode} />
       <Box w="full">
         {map(attr => (
-          <VStack align="start">
+          <VStack key={attr} align="start">
             <Label code={code} attribute={attr} />
             <Box p="5">
               <Attribute code={code} attribute={attr} />
