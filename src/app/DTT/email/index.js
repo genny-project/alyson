@@ -16,7 +16,7 @@ const Write = ({ questionCode, data, onSendAnswer }) => {
         onBlur={e => onSendAnswer(e.target.value)}
         w={useMobileValue(['100%', '25vw'])}
       />
-      <Duplicates email={data?.value} sourceCode={data.baseEntityCode} />
+      {/* <Duplicates email={data?.value} sourceCode={data.baseEntityCode} /> */}
     </Box>
   )
 }
