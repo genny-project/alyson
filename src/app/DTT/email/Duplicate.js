@@ -1,9 +1,6 @@
 import { IconButton } from '@chakra-ui/button'
 import { HStack, Text } from '@chakra-ui/layout'
-import {
-  // faLayerGroup,
-  faTrash,
-} from '@fortawesome/free-solid-svg-icons'
+import { faLayerGroup, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Attribute from 'app/BE/attribute'
 import Card from 'app/layouts/components/card'
@@ -22,17 +19,17 @@ const Duplicate = ({ code, sourceCode, email }) => {
       { redirect: false },
     )
 
-  // const onMerge = () =>
-  //   onSendMessage(
-  //     {
-  //       parentCode: 'DUPLICATE_EMAILS',
-  //       code: 'merge',
-  //       targetCode: code,
-  //       sourceCode,
-  //       rootCode: email,
-  //     },
-  //     { redirect: false },
-  //   )
+  const onMerge = () =>
+    onSendMessage(
+      {
+        parentCode: 'DUPLICATE_EMAILS',
+        code: 'merge',
+        targetCode: code,
+        sourceCode,
+        rootCode: email,
+      },
+      { redirect: false },
+    )
 
   return (
     <Card variant="card1" w="20rem">
@@ -42,11 +39,11 @@ const Duplicate = ({ code, sourceCode, email }) => {
           <Attribute code={code} attribute="PRI_NAME" fallback={<Text>No name set</Text>} />
         </HStack>
         <IconButton onClick={onKill} color="red.300" icon={<FontAwesomeIcon icon={faTrash} />} />
-        {/* <IconButton
+        <IconButton
           onClick={onMerge}
           color="blue.300"
           icon={<FontAwesomeIcon icon={faLayerGroup} />}
-        /> */}
+        />
       </HStack>
     </Card>
   )
