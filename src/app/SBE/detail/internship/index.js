@@ -13,7 +13,7 @@ import DetailSubHeader from 'app/layouts/components/subheader'
 import RightHandDetails from './templates/RightHandDetails'
 import LeftHandDetails from './templates/LeftHandDetails'
 import { useIsMobile } from 'utils/hooks'
-import MobileView from './mobile-view'
+import InternshipMobileView from './mobile-view'
 
 const internshipDetail = {
   sectionIcon: faBriefcase,
@@ -62,7 +62,19 @@ const Internship = ({ sbeCode, targetCode }) => {
   if (!beCode) return null
 
   return isMobile ? (
-    <MobileView />
+    <InternshipMobileView
+      beCode={beCode}
+      actions={actions}
+      src={src}
+      sbeCode={sbeCode}
+      url={url}
+      name={name}
+      subHeaderAttributes={subHeaderAttributes}
+      otherAttributes={responsibilitiesAndOutcomes}
+      linkedHostCpy={linkedHostCpy}
+      linkedSupervisor={linkedSupervisor}
+      software={software}
+    />
   ) : (
     <Box
       w="70vw"
@@ -84,7 +96,6 @@ const Internship = ({ sbeCode, targetCode }) => {
           actions={actions}
           subHeaderAttributes={subHeaderAttributes}
         />
-
         <HStack w="65vw" align="start" pt="5" spacing="5">
           <LeftHandDetails
             videoData={videoData}
