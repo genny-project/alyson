@@ -1,56 +1,24 @@
-import { VStack, Text } from '@chakra-ui/react'
-import ThemeToggler from '../../app/layouts/navigation/ColorToggler'
+import { Box } from '@chakra-ui/react'
+import Navigation from 'app/layouts/navigation'
+import FormBuilder from './builder/FormBuilder'
 
 const Sandbox = () => {
   return (
-    <VStack m={8} spacing={8}>
-      <ThemeToggler></ThemeToggler>
-      <Text textStyle="head.1">
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-      </Text>
-      <Text textStyle="head.2">
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-      </Text>
-      <Text textStyle="head.3">
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-      </Text>
-      <Text textStyle="head.success">
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-      </Text>
-      <Text textStyle="head.error">
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-      </Text>
-      <Text textStyle="body.1">
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-      </Text>
-      <Text textStyle="body.2">
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-      </Text>
-      <Text textStyle="body.3">
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-      </Text>
-      <Text textStyle="body.success">
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-      </Text>
-      <Text textStyle="body.error">
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-      </Text>
-      <Text textStyle="tail.1">
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-      </Text>
-      <Text textStyle="tail.2">
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-      </Text>
-      <Text textStyle="tail.3">
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-      </Text>
-      <Text textStyle="tail.success">
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-      </Text>
-      <Text textStyle="tail.error">
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-      </Text>
-    </VStack>
+    <Box
+      backgroundColor={'white'}
+      id="main-display"
+      position="fixed"
+      left="0"
+      right="0"
+      top="0"
+      bottom="0"
+      overflow="scroll"
+    >
+      <Navigation />
+      <Box mt="6rem">
+        <FormBuilder />
+      </Box>
+    </Box>
   )
 }
 
