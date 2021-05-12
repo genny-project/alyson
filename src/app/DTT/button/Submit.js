@@ -5,7 +5,7 @@ import { onSendMessage } from 'vertx'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectAttributes, selectCode } from 'redux/db/selectors'
-import { compose, equals, filter, identity, includes, map, prop } from 'ramda'
+import { compose, filter, identity, includes, map, prop } from 'ramda'
 import { highlightQuestion } from 'redux/app'
 
 const Submit = ({ askData, onFinish, parentCode }) => {
