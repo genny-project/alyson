@@ -48,29 +48,21 @@ const AvailableInternCard = ({ parentCode, actions = [], code }) => {
               parentCode={parentCode}
             />
             <VStack alignItems="baseline" w="30">
-              {title?.value ? (
-                <Text.Read
-                  data={title}
-                  textProps={{
-                    textStyle: 'body.1',
-                    maxW: '16rem',
-                  }}
-                />
-              ) : (
-                <CText textStyle="body.3">Not yet set</CText>
-              )}
-              {subTitle?.value ? (
-                <Text.Read
-                  config={{
-                    as: 'span',
-                    textStyle: 'body.3',
-                    maxW: '16rem',
-                  }}
-                  data={subTitle}
-                />
-              ) : (
-                <CText textStyle="body.3">Not yet set</CText>
-              )}
+              <Text.Read
+                data={title}
+                textProps={{
+                  textStyle: 'body.1',
+                  maxW: '16rem',
+                }}
+              />
+              <Text.Read
+                config={{
+                  as: 'span',
+                  textStyle: 'body.3',
+                  maxW: '16rem',
+                }}
+                data={subTitle}
+              />
             </VStack>
           </HStack>
           <Spacer minW="1rem" />
