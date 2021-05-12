@@ -77,7 +77,7 @@ const Attribute = ({
   ) : component === 'dropdown' ? (
     <Select.Read dataType={dttData} data={data} />
   ) : component === 'video' ? (
-    <Video.Read mini={mini} dataType={dttData} data={data} styles={styles} />
+    <Video.Read mini={mini} dataType={dttData} data={data} styles={styles} config={config} />
   ) : component === 'address' ? (
     <Address.Read data={data} config={config} />
   ) : component === 'abn_number' ? (

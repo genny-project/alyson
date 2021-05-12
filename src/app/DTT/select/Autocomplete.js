@@ -14,7 +14,7 @@ import { onlyValue } from './get-value'
 import { useMobileValue } from 'utils/hooks'
 import Card from 'app/layouts/components/card'
 
-const Autocomplete = ({ questionCode, defaultValue, options, onChange, placeholder }) => {
+const Autocomplete = ({ questionCode, defaultValue, options, onChange, placeholder, ddEvent }) => {
   const selected = onlyValue(defaultValue || [])
   const [input, setInput] = useState('')
   const [open, setOpen] = useState(false)
@@ -25,6 +25,7 @@ const Autocomplete = ({ questionCode, defaultValue, options, onChange, placehold
 
   const toggleOpen = () => setOpen(not)
   const onInputChange = ({ target: { value } }) => {
+    ddEvent(value)
     setOpen(!!value)
     setInput(value)
   }

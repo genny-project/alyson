@@ -8,11 +8,18 @@ import { faPlus, faBolt } from '@fortawesome/free-solid-svg-icons'
 import { onSendMessage } from 'vertx'
 import Drafts from '../drafts/Drafts'
 import Views from './Views'
+import { useSelector } from 'react-redux'
+import { selectCode } from 'redux/db/selectors'
+import getUserType from 'utils/helpers/get-user-type'
+import { caps, hideQuickAdd } from 'config/caps'
 
 const DesktopNav = ({ logoSrc }) => {
   const theme = useTheme()
   const bg = useColorModeValue(theme.colors.background.light, theme.colors.primary[900])
   const color = useColorModeValue(theme.colors.text.light, theme.colors.text.dark)
+
+  const userCode = useSelector(selectCode('USER'))
+  const userType = getUserType(useSelector(selectCode(userCode)))
 
   const btnRef = useRef()
 
@@ -41,7 +48,7 @@ const DesktopNav = ({ logoSrc }) => {
                 }
                 ref={btnRef}
                 src={logoSrc}
-                htmlWidth="80px"
+                htmlWidth="40px"
               />
             )}
           </Box>
@@ -49,10 +56,12 @@ const DesktopNav = ({ logoSrc }) => {
           <Spacer />
           <HStack spacing={10}>
             <AskMenu questionCode={'QUE_ADD_ITEMS_GRP'} icon={<FontAwesomeIcon icon={faPlus} />} />
-            <AskMenu
-              questionCode={'QUE_QUICK_ADD_ITEMS_GRP'}
-              icon={<FontAwesomeIcon icon={faBolt} />}
-            />
+            {!caps(userType)(hideQuickAdd) && (
+              <AskMenu
+                questionCode={'QUE_QUICK_ADD_ITEMS_GRP'}
+                icon={<FontAwesomeIcon icon={faBolt} />}
+              />
+            )}
             <Drafts />
             <Box mr="4">
               <Avatar />

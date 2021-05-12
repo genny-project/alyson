@@ -127,7 +127,7 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
   )
 }
 
-const Read = ({ data, mini, styles }) => {
+const Read = ({ data, mini, styles, config = {} }) => {
   const api = useApi()
 
   if (!data?.value) return null
@@ -144,7 +144,7 @@ const Read = ({ data, mini, styles }) => {
       </PopoverContent>
     </Popover>
   ) : (
-    <Player src={src} styles={styles} />
+    <Player src={src} inline={config.inline} styles={styles} />
   )
 }
 

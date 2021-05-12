@@ -11,7 +11,7 @@ const Dialog = () => {
   const onClose = () => dispatch(closeDialog())
 
   return (
-    <Modal size="xl" isOpen={dialog !== 'NONE'} onClose={onClose}>
+    <Modal size="xl" isOpen={dialog !== 'NONE'} onClose={onClose} closeOnOverlayClick={false}>
       <ModalOverlay />
       <ModalContent>
         <ModalCloseButton />

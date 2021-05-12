@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import HeroIconButton from 'app/layouts/components/hero_icon_button'
 import { useMobileValue } from 'utils/hooks'
-// import Duplicates from './Duplicates'
+import Duplicates from './Duplicates'
 
 const Write = ({ questionCode, data, onSendAnswer }) => {
   return (
@@ -16,7 +16,7 @@ const Write = ({ questionCode, data, onSendAnswer }) => {
         onBlur={e => onSendAnswer(e.target.value)}
         w={useMobileValue(['100%', '25vw'])}
       />
-      {/* <Duplicates email={data?.value} sourceCode={data.baseEntityCode} /> */}
+      <Duplicates email={data?.value} sourceCode={data.baseEntityCode} />
     </Box>
   )
 }
