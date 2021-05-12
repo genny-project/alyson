@@ -11,6 +11,7 @@ import Views from './Views'
 import { useSelector } from 'react-redux'
 import getUserType from 'utils/helpers/get-user-type'
 import { selectCode } from 'redux/db/selectors'
+import { includes } from 'ramda'
 
 const DesktopNav = ({ logoSrc }) => {
   const theme = useTheme()
@@ -21,6 +22,8 @@ const DesktopNav = ({ logoSrc }) => {
 
   const userCode = useSelector(selectCode('USER'))
   const userType = getUserType(useSelector(selectCode(userCode)))
+
+  const hideQuickAdd = ['HOST_CPY_REP']
 
   return (
     <header
@@ -55,7 +58,7 @@ const DesktopNav = ({ logoSrc }) => {
           <Spacer />
           <HStack spacing={10}>
             <AskMenu questionCode={'QUE_ADD_ITEMS_GRP'} icon={<FontAwesomeIcon icon={faPlus} />} />
-            {userType !== 'HOST_CPY_REP' && (
+            {!includes(userType)(hideQuickAdd) && (
               <AskMenu
                 questionCode={'QUE_QUICK_ADD_ITEMS_GRP'}
                 icon={<FontAwesomeIcon icon={faBolt} />}
