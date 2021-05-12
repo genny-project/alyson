@@ -13,16 +13,14 @@ import Process from 'app/layouts/process'
 import Attribute from 'app/BE/attribute'
 import { useEffect } from 'react'
 import Card from 'app/layouts/components/card'
+import { useIsMobile } from 'utils/hooks'
 
 const Intern = ({ userCode }) => {
   const [name, occ] = useSelector(selectAttributes(userCode, ['PRI_NAME', 'PRI_ASSOC_OCCUPATION']))
   const dashboardSbes = useSelector(selectDashboard)
 
   const internSbe = find(includes('_INTERN_'), dashboardSbes || [])
-
-  // const serviceAgreement = find(includes('_SERVICE_AGREEMENT_DOC_'))(dashboardSbes)
-  // const ohsDeclaration = find(includes('_OHNS_'))(dashboardSbes)
-  // const termsAndConditions = find(includes('_TERMS_AND_CONDITIONS_'))(dashboardSbes)
+  const isMobile = useIsMobile()
 
   useEffect(() => {
     callBucketView()
@@ -96,7 +94,7 @@ const Intern = ({ userCode }) => {
           </VStack>
         </Card> */}
       </Stack>
-      <Process dashboard />
+      {!isMobile && <Process dashboard />}
       <Recommendations />
     </VStack>
   )

@@ -104,7 +104,7 @@ const Internship = ({ sbeCode, targetCode }) => {
             software={software}
           />
           <RightHandDetails
-            beCode={beCode}
+            code={beCode}
             sbeCode={linkedHostCpy}
             attributes={responsibilitiesAndOutcomes}
           />

@@ -10,6 +10,7 @@ import Recommendations from './intern/recommendations'
 import Agent from './agent'
 import Process from '../process'
 import EduProRep from './edu_pro_rep'
+import Progress from './intern/progress'
 
 const Dashboard = () => {
   const dashboardSbes = useSelector(selectDashboard)
@@ -39,6 +40,8 @@ const Dashboard = () => {
             ))}
           </HStack>
         </Center>
+
+        <Progress />
         <Recommendations />
         <Process dashboard />
       </Stack>
