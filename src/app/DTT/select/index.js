@@ -1,12 +1,13 @@
 import { includes, pathOr } from 'ramda'
 import { useSelector } from 'react-redux'
 import { Select as CSelect, Text } from '@chakra-ui/react'
-
+import debounce from 'lodash.debounce'
 import { selectCode, selectRows } from 'redux/db/selectors'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { Multiple } from './Multiple'
 import { getValue } from './get-value'
 import { useMobileValue } from 'utils/hooks'
+import { onSendMessage } from 'vertx'
 
 const Write = ({
   questionCode,
@@ -17,7 +18,9 @@ const Write = ({
   component,
   dataType,
   data,
+  targetCode,
 }) => {
+  const sourceCode = useSelector(selectCode('USER'))
   const options = useSelector(selectCode(groupCode)) || []
 
   const defaultValue = safelyParseJson(data?.value).toString()
@@ -25,9 +28,24 @@ const Write = ({
   const multiple = includes('multiple', typeName || '') || component === 'tag'
   const width = useMobileValue(['100%', '25vw'])
 
+  const ddEvent = debounce(
+    value =>
+      onSendMessage(
+        {
+          sourceCode,
+          targetCode,
+          code: questionCode,
+          value,
+        },
+        { event_type: 'DD', redirect: false },
+      ),
+    500,
+  )
+
   if (multiple)
     return (
       <Multiple
+        ddEvent={ddEvent}
         questionCode={questionCode}
         data={data}
         onSendAnswer={onSendAnswer}
@@ -44,6 +62,7 @@ const Write = ({
     </Text>
   ) : (
     <CSelect
+      onFocus={() => ddEvent('')}
       placeholder={placeholder || 'Select'}
       test-id={groupCode}
       rootProps={{
