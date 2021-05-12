@@ -1,17 +1,18 @@
 import { useRef } from 'react'
-import AskMenu from 'app/ASKS/menu'
+import { includes } from 'ramda'
 import { Flex, Spacer, Image, HStack, useColorModeValue, useTheme, Box } from '@chakra-ui/react'
-import { apiConfig } from 'config/get-api-config'
-import Avatar from '../Avatar'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faBolt } from '@fortawesome/free-solid-svg-icons'
+import { useSelector } from 'react-redux'
+
+import AskMenu from 'app/ASKS/menu'
+import { apiConfig } from 'config/get-api-config'
+import Avatar from '../Avatar'
 import { onSendMessage } from 'vertx'
 import Drafts from '../drafts/Drafts'
 import Views from './Views'
-import { useSelector } from 'react-redux'
 import getUserType from 'utils/helpers/get-user-type'
 import { selectCode } from 'redux/db/selectors'
-import { includes } from 'ramda'
 
 const DesktopNav = ({ logoSrc }) => {
   const theme = useTheme()
