@@ -29,7 +29,7 @@ const FormMobileView = ({ title, childAsks, onFinish, questionCode, config }) =>
 
   if (!groups) return null
   return (
-    <VStack width="full" mx="2vw" spacing="4">
+    <VStack width="96%" mx="2vw" spacing="4">
       <Header title={title} subHeader={subHeader} config={config} />
       <FormBody groups={groups} onFinish={onFinish} questionCode={questionCode} />
     </VStack>

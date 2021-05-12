@@ -5,7 +5,7 @@ import { onSendMessage } from 'vertx'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectAttributes, selectCode } from 'redux/db/selectors'
-import { compose, filter, identity, map, prop } from 'ramda'
+import { compose, filter, identity, includes, map, prop } from 'ramda'
 import { highlightQuestion } from 'redux/app'
 
 const Submit = ({ askData, onFinish, parentCode }) => {
@@ -23,7 +23,14 @@ const Submit = ({ askData, onFinish, parentCode }) => {
     identity,
     useSelector(selectAttributes(targetCode, mandatoryAttributes)),
   )
-  const mandatoryAttributesNoValue = filter(attr => !attr.value, attributeData)
+  const mandatoryAttributesNoValue = compose(
+    map(prop('attributeCode')),
+    filter(attr => !attr.value),
+  )(attributeData)
+
+  const mandatoryQuestionsNoValue = filter(
+    q => q.questionCode !== 'QUE_SUBMIT' && !includes(mandatoryAttributesNoValue, q.attributeCode),
+  )(mandatoryQuestions)
 
   const [loading, setLoading] = useState(false)
 
@@ -47,22 +54,22 @@ const Submit = ({ askData, onFinish, parentCode }) => {
         <Text textStyle="body.error">Please complete all questions marked as mandatory with *</Text>
         <Text>These questions still need to be answered, click to scroll.</Text>
         <Wrap align="start">
-          {mandatoryAttributesNoValue.map(attr => (
-            <WrapItem key={attr.attributeCode}>
+          {mandatoryQuestionsNoValue.map(question => (
+            <WrapItem key={question.attributeCode}>
               <Tag
                 opacity="0.7"
                 _hover={{ opacity: '1' }}
                 colorScheme="red"
                 cursor="pointer"
                 onClick={() => {
-                  const el = document.getElementById(attr.attributeCode)
+                  const el = document.getElementById(question.attributeCode)
                   if (!el) return
-                  onHighlightQuestion(attr.attributeCode)
+                  onHighlightQuestion(question.attributeCode)
                   el.scrollIntoView({ behavior: 'smooth', block: 'center' })
                 }}
                 transition="all 0.2s"
               >
-                {attr.attributeName}
+                {question.name}
               </Tag>
             </WrapItem>
           ))}

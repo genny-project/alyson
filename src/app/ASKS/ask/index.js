@@ -132,6 +132,7 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
       )}
       {(component === 'dropdown' || component === 'tag') && (
         <Select.Write
+          targetCode={targetCode}
           questionCode={questionCode}
           groupCode={groupCode}
           attributeCode={attributeCode}

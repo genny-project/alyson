@@ -5,9 +5,9 @@ import { faPlayCircle } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
 
 const Player = ({
-  videoHeight,
   src,
   styles = { width: '20rem', height: '15rem', borderRadius: '1rem' },
+  inline,
 }) => {
   const videoRef = useRef(null)
 
@@ -47,6 +47,29 @@ const Player = ({
       <Center w="100%" color="lightgrey">
         <Text as="samp"> Error retrieving video</Text>
       </Center>
+    )
+
+  if (inline)
+    return (
+      <Box onClick={togglePlay} style={{ ...styles }}>
+        <video style={{ width: '100%', height: '100%' }} src={src} ref={videoRef} />
+        <IconButton
+          onClick={togglePlay}
+          opacity={paused ? '0.8' : '0'}
+          transition="opacity 0.5s"
+          variant="unstyled"
+          color="white"
+          mt="-70%"
+          ml="48%"
+          icon={
+            <FontAwesomeIcon
+              style={{ backgroundColor: 'black', borderRadius: '50%', padding: '1px' }}
+              size="3x"
+              icon={faPlayCircle}
+            />
+          }
+        />
+      </Box>
     )
   return (
     <Box

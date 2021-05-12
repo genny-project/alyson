@@ -22,7 +22,7 @@ const Map = ({ parentCode }) => {
             lng: position.coords.longitude,
           }
 
-          gMap.setCenter(geolocation)
+          if (gMap && gMap.setCenter) gMap.setCenter(geolocation)
         })
       }
     }

@@ -1,7 +1,7 @@
 import {
   Box,
   // Center,
-  HStack,
+  Stack,
   Text,
   VStack,
 } from '@chakra-ui/layout'
@@ -35,11 +35,17 @@ const Group = ({
         {video && <ReactPlayer url={video.url} />}
         {questions.map((type, idx) =>
           Array.isArray(type) ? (
-            <HStack align="start" w="full" justify="space-between" key={idx}>
+            <Stack
+              direction={['column', 'column', 'row']}
+              align="start"
+              w="full"
+              justify="space-between"
+              key={idx}
+            >
               {type.map(code => (
                 <Ask onFinish={onFinish} key={code} parentCode={questionCode} questionCode={code} />
               ))}
-            </HStack>
+            </Stack>
           ) : (
             <Ask onFinish={onFinish} key={type} parentCode={questionCode} questionCode={type} />
           ),
