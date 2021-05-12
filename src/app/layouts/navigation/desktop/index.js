@@ -8,6 +8,9 @@ import { faPlus, faBolt } from '@fortawesome/free-solid-svg-icons'
 import { onSendMessage } from 'vertx'
 import Drafts from '../drafts/Drafts'
 import Views from './Views'
+import { useSelector } from 'react-redux'
+import getUserType from 'utils/helpers/get-user-type'
+import { selectCode } from 'redux/db/selectors'
 
 const DesktopNav = ({ logoSrc }) => {
   const theme = useTheme()
@@ -15,6 +18,9 @@ const DesktopNav = ({ logoSrc }) => {
   const color = useColorModeValue(theme.colors.text.light, theme.colors.text.dark)
 
   const btnRef = useRef()
+
+  const userCode = useSelector(selectCode('USER'))
+  const userType = getUserType(useSelector(selectCode(userCode)))
 
   return (
     <header
@@ -49,10 +55,12 @@ const DesktopNav = ({ logoSrc }) => {
           <Spacer />
           <HStack spacing={10}>
             <AskMenu questionCode={'QUE_ADD_ITEMS_GRP'} icon={<FontAwesomeIcon icon={faPlus} />} />
-            <AskMenu
-              questionCode={'QUE_QUICK_ADD_ITEMS_GRP'}
-              icon={<FontAwesomeIcon icon={faBolt} />}
-            />
+            {userType !== 'HOST_CPY_REP' && (
+              <AskMenu
+                questionCode={'QUE_QUICK_ADD_ITEMS_GRP'}
+                icon={<FontAwesomeIcon icon={faBolt} />}
+              />
+            )}
             <Drafts />
             <Box mr="4">
               <Avatar />
