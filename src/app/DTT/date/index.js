@@ -5,6 +5,7 @@ import timeBasedOnTimeZone from 'utils/helpers/timezone_magic/time-based-on-time
 import DateChip from './DateChip'
 import getDate from 'utils/helpers/timezone_magic/get-date'
 import { useMobileValue } from 'utils/hooks'
+import Year from './Year'
 
 const Read = ({ data, typeName, config }) => {
   const includeTime = includes('LocalDateTime', typeName)
@@ -39,7 +40,7 @@ const Write = ({ questionCode, data, onSendAnswer, typeName }) => {
       date={getDate(data?.value)}
     />
   ) : onlyYear ? (
-    <Input type="number" placeholder="e.g. 2012" onBlur={handleChange} w={width} />
+    <Year questionCode={questionCode} handleChange={handleChange} width={width} />
   ) : (
     <Input
       test-id={questionCode}

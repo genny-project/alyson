@@ -74,6 +74,7 @@ const Autocomplete = ({ questionCode, defaultValue, options, onChange, placehold
           </Wrap>
         </Box>
       ) : null}
+
       <InputGroup w={width}>
         <Input
           onClick={toggleOpen}
@@ -93,7 +94,14 @@ const Autocomplete = ({ questionCode, defaultValue, options, onChange, placehold
         </InputRightElement>
       </InputGroup>
       {open && (
-        <Card variant="card3" maxH="20rem" overflowY="scroll" w={width}>
+        <Card
+          zIndex="modal"
+          position="absolute"
+          variant="card3"
+          maxH="20rem"
+          overflowY="scroll"
+          w={width}
+        >
           <VStack align="stretch">
             {filteredOptions.length ? (
               filteredOptions.map(option => (
