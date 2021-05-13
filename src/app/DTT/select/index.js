@@ -34,7 +34,7 @@ const Write = ({
         {
           sourceCode,
           targetCode,
-          code: questionCode,
+          code: data.attributeCode,
           value,
         },
         { event_type: 'DD', redirect: false },

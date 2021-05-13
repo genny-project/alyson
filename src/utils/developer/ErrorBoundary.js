@@ -23,7 +23,7 @@ class ErrorBoundary extends React.Component {
       return (
         <Center h="100vh">
           <VStack>
-            <Text>{`Sorry, something went wrong, our team has been notified and will chek on the issue!`}</Text>
+            <Text>{`Sorry, something went wrong, our team has been notified and will check on the issue!`}</Text>
             <Text>{`Thank you for your patience.`}</Text>
           </VStack>
         </Center>
