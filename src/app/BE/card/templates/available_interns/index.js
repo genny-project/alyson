@@ -1,14 +1,5 @@
 import { useSelector } from 'react-redux'
-import {
-  Box,
-  HStack,
-  VStack,
-  IconButton,
-  Flex,
-  Spacer,
-  Text as CText,
-  useColorModeValue,
-} from '@chakra-ui/react'
+import { Box, HStack, VStack, IconButton, Flex, Spacer, useColorModeValue } from '@chakra-ui/react'
 import { selectCode } from 'redux/db/selectors'
 import Text from 'app/DTT/text'
 import Image from 'app/DTT/upload/Image'
