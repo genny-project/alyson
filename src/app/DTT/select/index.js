@@ -1,6 +1,6 @@
-import { includes, pathOr } from 'ramda'
+import { filter, identity, includes, map, pathOr } from 'ramda'
 import { useSelector } from 'react-redux'
-import { Select as CSelect, Text } from '@chakra-ui/react'
+import { Text } from '@chakra-ui/react'
 import debounce from 'lodash.debounce'
 import { selectCode, selectRows } from 'redux/db/selectors'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
@@ -8,6 +8,7 @@ import { Multiple } from './Multiple'
 import { getValue } from './get-value'
 import { useMobileValue } from 'utils/hooks'
 import { onSendMessage } from 'vertx'
+import Autocomplete from './Autocomplete'
 
 const Write = ({
   questionCode,
@@ -21,12 +22,12 @@ const Write = ({
   targetCode,
 }) => {
   const sourceCode = useSelector(selectCode('USER'))
-  const options = useSelector(selectCode(groupCode)) || []
 
-  const defaultValue = safelyParseJson(data?.value).toString()
   const { typeName } = dataType
   const multiple = includes('multiple', typeName || '') || component === 'tag'
   const width = useMobileValue(['100%', '25vw'])
+  const optionData = useSelector(selectCode(groupCode)) || []
+  const options = map(({ code, name }) => ({ label: name, value: code }))(optionData)
 
   const ddEvent = debounce(
     value =>
@@ -42,46 +43,27 @@ const Write = ({
     500,
   )
 
-  if (multiple)
-    return (
-      <Multiple
-        ddEvent={ddEvent}
-        questionCode={questionCode}
-        data={data}
-        onSendAnswer={onSendAnswer}
-        placeholder={placeholder}
-        optionData={options}
-        label={label}
-        w={width}
-      />
-    )
+  const defaultValue = safelyParseJson(data?.value, [])
 
   return !options.length ? (
     <Text fontStyle="tail.1" color="grey">
       {`Waiting on another answer`}
     </Text>
   ) : (
-    <CSelect
+    <Autocomplete
       onFocus={() => ddEvent('')}
       placeholder={placeholder || 'Select'}
       test-id={groupCode}
       rootProps={{
         'test-id': questionCode,
       }}
-      onChange={e => onSendAnswer([e.target.value])}
+      options={options}
+      onChange={onSendAnswer}
       defaultValue={defaultValue}
       w={width}
-    >
-      {options &&
-        options.map(
-          option =>
-            option && (
-              <option test-id={option.code} key={option.code} value={option.code}>
-                {option.name}
-              </option>
-            ),
-        )}
-    </CSelect>
+      multiple={multiple}
+      ddEvent={ddEvent}
+    />
   )
 }
 

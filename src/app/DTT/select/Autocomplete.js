@@ -10,12 +10,19 @@ import { useSelector } from 'react-redux'
 
 import { selectCode } from 'redux/db/selectors'
 import getUserType from 'utils/helpers/get-user-type'
-import { onlyValue } from './get-value'
 import { useMobileValue } from 'utils/hooks'
 import Card from 'app/layouts/components/card'
 
-const Autocomplete = ({ questionCode, defaultValue, options, onChange, placeholder, ddEvent }) => {
-  const selected = onlyValue(defaultValue || [])
+const Autocomplete = ({
+  multiple,
+  questionCode,
+  defaultValue,
+  options,
+  onChange,
+  placeholder,
+  ddEvent,
+}) => {
+  const selected = defaultValue
   const [input, setInput] = useState('')
   const [open, setOpen] = useState(false)
   const ref = useRef()
@@ -35,6 +42,8 @@ const Autocomplete = ({ questionCode, defaultValue, options, onChange, placehold
       : append(option, selected)
 
     onChange(newSelected)
+
+    if (!multiple) setOpen(false)
   }
 
   const onBlur = () => {
@@ -74,25 +83,27 @@ const Autocomplete = ({ questionCode, defaultValue, options, onChange, placehold
           </Wrap>
         </Box>
       ) : null}
+      {!multiple && selected.length ? null : (
+        <InputGroup w={width}>
+          <Input
+            onClick={toggleOpen}
+            onChange={onInputChange}
+            value={input}
+            placeholder={placeholder}
+          />
+          <InputRightElement>
+            <Box
+              cursor="pointer"
+              _hover={{ color: 'teal' }}
+              transform={open ? 'rotate(180deg)' : 'rotate(0deg)'}
+              transition="all 0.3s ease"
+            >
+              <FontAwesomeIcon icon={faAngleDown} onClick={toggleOpen} />
+            </Box>
+          </InputRightElement>
+        </InputGroup>
+      )}
 
-      <InputGroup w={width}>
-        <Input
-          onClick={toggleOpen}
-          onChange={onInputChange}
-          value={input}
-          placeholder={placeholder}
-        />
-        <InputRightElement>
-          <Box
-            cursor="pointer"
-            _hover={{ color: 'teal' }}
-            transform={open ? 'rotate(180deg)' : 'rotate(0deg)'}
-            transition="all 0.3s ease"
-          >
-            <FontAwesomeIcon icon={faAngleDown} onClick={toggleOpen} />
-          </Box>
-        </InputRightElement>
-      </InputGroup>
       {open && (
         <Card
           zIndex="modal"
