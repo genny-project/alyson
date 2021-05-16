@@ -1,8 +1,7 @@
 import axios from 'axios'
 import { API_VERSION_URL, HOST } from 'config/genny'
 import { version } from '../../package.json'
-import { map, mergeAll, head, compose, keys, addIndex, values, uniq, includes, always } from 'ramda'
-import { isDev } from './developer'
+import { map, mergeAll, head, compose, keys, addIndex, values, uniq, includes } from 'ramda'
 
 const initLog = async () => {
   const apiResponse = await axios.get(API_VERSION_URL)
@@ -45,59 +44,52 @@ const initLog = async () => {
   )
 }
 
-const prettyLog = !isDev
-  ? always(false)
-  : (msg, data, style) => {
-      const title = data.items
-        ? data.items.length === 1
-          ? data.items[0].name
-          : data.parentCode
-          ? `Rows - ${data.parentCode}`
-          : msg
-        : msg
+const prettyLog = (msg, data, style) => {
+  const title = data.items
+    ? data.items.length === 1
+      ? data.items[0].name
+      : data.parentCode
+      ? `Rows - ${data.parentCode}`
+      : msg
+    : msg
 
-      if (title === 'QBulkMessage') return
+  if (title === 'QBulkMessage') return
 
-      if (data.cmd_type) {
-        console.info(
-          `%c${data.cmd_type}: ${data.code}`,
-          style || 'padding: 1rem; font-size: 1rem; color: salmon;',
-          '\n',
-          data,
-        )
+  if (data.cmd_type) {
+    console.info(
+      `%c${data.cmd_type}: ${data.code}`,
+      style || 'padding: 1rem; font-size: 1rem; color: salmon;',
+      '\n',
+      data,
+    )
 
-        return
-      }
+    return
+  }
 
-      if (data?.data_type === 'Ask') {
-        console.info(
-          `%c${title}`,
-          style || 'padding: 1rem; font-size: 1rem; color: teal;',
-          '\n',
-          data,
-        )
+  if (data?.data_type === 'Ask') {
+    console.info(`%c${title}`, style || 'padding: 1rem; font-size: 1rem; color: teal;', '\n', data)
 
-        return
-      }
+    return
+  }
 
-      if (includes('Rows -', title || '')) {
-        console.info(
-          `%c${title}`,
-          style || 'padding: 1rem; font-size: 1rem; color: lightgreen;',
-          '\n',
-          data,
-        )
+  if (includes('Rows -', title || '')) {
+    console.info(
+      `%c${title}`,
+      style || 'padding: 1rem; font-size: 1rem; color: lightgreen;',
+      '\n',
+      data,
+    )
 
-        return
-      }
+    return
+  }
 
-      console.info(
-        `%c${title}`,
-        style || 'padding: 1rem; font-size: 1rem; color: darkgreen',
-        '\n',
-        data,
-      )
-    }
+  console.info(
+    `%c${title}`,
+    style || 'padding: 1rem; font-size: 1rem; color: darkgreen',
+    '\n',
+    data,
+  )
+}
 
 export default prettyLog
 export { initLog }

@@ -14,10 +14,12 @@ const ADMIN = 'ADMIN'
 
 export const hideQuickAdd = 'hideQuickAdd'
 export const placeholder = 'placeholder'
+export const seeAgent = 'seeAgent'
 
 const capMap = {
   [hideQuickAdd]: [HOST_CPY_REP],
   [placeholder]: [AGENT, INTERN, EDU_PRO_REP, ADMIN, HOST_CPY_REP],
+  [seeAgent]: [AGENT],
 } as CapMap
 
 export const caps = (userType: UserType) =>

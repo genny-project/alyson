@@ -5,19 +5,27 @@ import { faAngleDown, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Chip from 'app/layouts/components/chip'
 import { append, compose, filter, find, includes, not, prop, propEq, replace, toLower } from 'ramda'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 
 import { selectCode } from 'redux/db/selectors'
 import getUserType from 'utils/helpers/get-user-type'
-import { onlyValue } from './get-value'
 import { useMobileValue } from 'utils/hooks'
 import Card from 'app/layouts/components/card'
 
-const Autocomplete = ({ questionCode, defaultValue, options, onChange, placeholder, ddEvent }) => {
-  const selected = onlyValue(defaultValue || [])
+const Autocomplete = ({
+  multiple,
+  questionCode,
+  defaultValue,
+  options,
+  onChange,
+  placeholder,
+  ddEvent,
+}) => {
+  const selected = defaultValue
   const [input, setInput] = useState('')
   const [open, setOpen] = useState(false)
+  const [searching, setSearching] = useState(false)
   const ref = useRef()
 
   const user = useSelector(selectCode('USER'))
@@ -25,6 +33,7 @@ const Autocomplete = ({ questionCode, defaultValue, options, onChange, placehold
 
   const toggleOpen = () => setOpen(not)
   const onInputChange = ({ target: { value } }) => {
+    setSearching(true)
     ddEvent(value)
     setOpen(!!value)
     setInput(value)
@@ -35,6 +44,8 @@ const Autocomplete = ({ questionCode, defaultValue, options, onChange, placehold
       : append(option, selected)
 
     onChange(newSelected)
+
+    if (!multiple) setOpen(false)
   }
 
   const onBlur = () => {
@@ -59,8 +70,12 @@ const Autocomplete = ({ questionCode, defaultValue, options, onChange, placehold
     handler: onBlur,
   })
 
+  useEffect(() => {
+    setSearching(false)
+  }, [options])
+
   return (
-    <Box ref={ref} test-id={questionCode}>
+    <Box onFocus={() => !options.length && ddEvent('')} ref={ref} test-id={questionCode}>
       {selected.length ? (
         <Box pb="2">
           <Wrap maxW="50vw">
@@ -74,25 +89,26 @@ const Autocomplete = ({ questionCode, defaultValue, options, onChange, placehold
           </Wrap>
         </Box>
       ) : null}
-
-      <InputGroup w={width}>
-        <Input
-          onClick={toggleOpen}
-          onChange={onInputChange}
-          value={input}
-          placeholder={placeholder}
-        />
-        <InputRightElement>
-          <Box
-            cursor="pointer"
-            _hover={{ color: 'teal' }}
-            transform={open ? 'rotate(180deg)' : 'rotate(0deg)'}
-            transition="all 0.3s ease"
-          >
-            <FontAwesomeIcon icon={faAngleDown} onClick={toggleOpen} />
-          </Box>
-        </InputRightElement>
-      </InputGroup>
+      {!multiple && selected.length ? null : (
+        <InputGroup w={width}>
+          <Input
+            onClick={toggleOpen}
+            onChange={onInputChange}
+            value={input}
+            placeholder={placeholder}
+          />
+          <InputRightElement>
+            <Box
+              cursor="pointer"
+              _hover={{ color: 'teal' }}
+              transform={open ? 'rotate(180deg)' : 'rotate(0deg)'}
+              transition="all 0.3s ease"
+            >
+              <FontAwesomeIcon icon={faAngleDown} onClick={toggleOpen} />
+            </Box>
+          </InputRightElement>
+        </InputGroup>
+      )}
       {open && (
         <Card
           zIndex="modal"
@@ -103,7 +119,9 @@ const Autocomplete = ({ questionCode, defaultValue, options, onChange, placehold
           w={width}
         >
           <VStack align="stretch">
-            {filteredOptions.length ? (
+            {searching ? (
+              <Text>{`Searching ${input}`}</Text>
+            ) : filteredOptions.length ? (
               filteredOptions.map(option => (
                 <HStack
                   _hover={{ color: 'teal' }}
