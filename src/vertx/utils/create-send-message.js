@@ -1,9 +1,8 @@
 import { eventBus } from 'vertx'
 import log from 'utils/log'
 
-const createSendMessage = (token, onSendMsg) => (data, options) => {
-  const { msg_type = 'EVT_MSG', event_type = 'BTN_CLICK', data_type, redirect = true } =
-    options || {}
+const createSendMessage = (token, onSendMsg) => (data, options = {}) => {
+  const { msg_type = 'EVT_MSG', event_type = 'BTN_CLICK', redirect = true, ...rest } = options
 
   const message = {
     data: {
@@ -11,8 +10,8 @@ const createSendMessage = (token, onSendMsg) => (data, options) => {
       token,
       msg_type,
       event_type,
-      data_type,
       redirect,
+      ...rest,
     },
   }
 

@@ -1,6 +1,6 @@
 import { filter, identity, includes, map, pathOr } from 'ramda'
 import { useSelector } from 'react-redux'
-import { Text } from '@chakra-ui/react'
+import { Box, Text } from '@chakra-ui/react'
 import debounce from 'lodash.debounce'
 import { selectCode, selectRows } from 'redux/db/selectors'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
@@ -12,7 +12,6 @@ import Autocomplete from './Autocomplete'
 
 const Write = ({
   questionCode,
-  label,
   placeholder,
   onSendAnswer,
   groupCode,
@@ -29,30 +28,27 @@ const Write = ({
   const optionData = useSelector(selectCode(groupCode)) || []
   const options = map(({ code, name }) => ({ label: name, value: code }))(optionData)
 
+  const { attributeCode } = data || {}
+
   const ddEvent = debounce(
     value =>
       onSendMessage(
         {
           sourceCode,
           targetCode,
-          code: data.attributeCode,
           value,
+          parentCode: questionCode,
         },
-        { event_type: 'DD', redirect: false },
+        { event_type: 'DD', redirect: false, attributeCode },
       ),
     500,
   )
 
   const defaultValue = safelyParseJson(data?.value, [])
 
-  return !options.length ? (
-    <Text fontStyle="tail.1" color="grey">
-      {`Waiting on another answer`}
-    </Text>
-  ) : (
+  return (
     <Autocomplete
-      onFocus={() => ddEvent('')}
-      placeholder={placeholder || 'Select'}
+      placeholder={!options.length ? 'Start typing to search' : placeholder || 'Select'}
       test-id={groupCode}
       rootProps={{
         'test-id': questionCode,

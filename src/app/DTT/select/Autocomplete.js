@@ -5,7 +5,7 @@ import { faAngleDown, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Chip from 'app/layouts/components/chip'
 import { append, compose, filter, find, includes, not, prop, propEq, replace, toLower } from 'ramda'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 
 import { selectCode } from 'redux/db/selectors'
@@ -25,6 +25,7 @@ const Autocomplete = ({
   const selected = defaultValue
   const [input, setInput] = useState('')
   const [open, setOpen] = useState(false)
+  const [searching, setSearching] = useState(false)
   const ref = useRef()
 
   const user = useSelector(selectCode('USER'))
@@ -32,6 +33,7 @@ const Autocomplete = ({
 
   const toggleOpen = () => setOpen(not)
   const onInputChange = ({ target: { value } }) => {
+    setSearching(true)
     ddEvent(value)
     setOpen(!!value)
     setInput(value)
@@ -68,8 +70,12 @@ const Autocomplete = ({
     handler: onBlur,
   })
 
+  useEffect(() => {
+    setSearching(false)
+  }, [options])
+
   return (
-    <Box ref={ref} test-id={questionCode}>
+    <Box onFocus={() => !options.length && ddEvent('')} ref={ref} test-id={questionCode}>
       {selected.length ? (
         <Box pb="2">
           <Wrap maxW="50vw">
@@ -103,7 +109,6 @@ const Autocomplete = ({
           </InputRightElement>
         </InputGroup>
       )}
-
       {open && (
         <Card
           zIndex="modal"
@@ -114,7 +119,9 @@ const Autocomplete = ({
           w={width}
         >
           <VStack align="stretch">
-            {filteredOptions.length ? (
+            {searching ? (
+              <Text>{`Searching ${input}`}</Text>
+            ) : filteredOptions.length ? (
               filteredOptions.map(option => (
                 <HStack
                   _hover={{ color: 'teal' }}
