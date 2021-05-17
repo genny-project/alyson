@@ -1,4 +1,4 @@
-const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/
+const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/
 
 const getYtThumbnail = (url, size = 'hqdefault') => {
   const match = url.match(regExp)
