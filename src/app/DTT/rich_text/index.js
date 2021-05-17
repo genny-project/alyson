@@ -55,44 +55,46 @@ const Write = ({ questionCode, data, onSendAnswer, description, html }) => {
     }
   }
 
-  return <Box
-  test-id={questionCode}
-  w="100%"
-  border="1px solid #E2E8F0"
-  borderRadius="0.375rem"
-  p="1rem"
->
-  {minCharacterCount ? (
-    <HStack>
-      <Text>{`Please use between`}</Text>
-      <Text color={curLength < minCharacterCount ? 'red' : 'green'}>{minCharacterCount}</Text>
-      <Text>{`and`}</Text>
-      <Text color={curLength > maxCharacterCount ? 'red' : 'green'}>{maxCharacterCount}</Text>
-      <Text>{`characters`}</Text>
-    </HStack>
-  ) : null}
-  {minCharacterCount ? (
-    <Text>
-      {minCharacterCount > curLength
-        ? `Keep typing please`
-        : curLength > maxCharacterCount
-        ? `Too much text`
-        : `That's perfect, thanks!`}
-    </Text>
-  ) : null}
+  return (
+    <Box
+      test-id={questionCode}
+      w="full"
+      border="1px solid #E2E8F0"
+      borderRadius="0.375rem"
+      p="1rem"
+    >
+      {minCharacterCount ? (
+        <HStack>
+          <Text>{`Please use between`}</Text>
+          <Text color={curLength < minCharacterCount ? 'red' : 'green'}>{minCharacterCount}</Text>
+          <Text>{`and`}</Text>
+          <Text color={curLength > maxCharacterCount ? 'red' : 'green'}>{maxCharacterCount}</Text>
+          <Text>{`characters`}</Text>
+        </HStack>
+      ) : null}
+      {minCharacterCount ? (
+        <Text>
+          {minCharacterCount > curLength
+            ? `Keep typing please`
+            : curLength > maxCharacterCount
+            ? `Too much text`
+            : `That's perfect, thanks!`}
+        </Text>
+      ) : null}
 
-  <Editor
-    toolbar={{
-      options: ['list', 'textAlign'],
-    }}
-    editorState={editor}
-    onEditorStateChange={setEditor}
-    placeholder={description}
-    onBlur={handleSave}
-    spellCheck={true}
-    lang="en"
-  />
-</Box>
+      <Editor
+        toolbar={{
+          options: ['list', 'textAlign'],
+        }}
+        editorState={editor}
+        onEditorStateChange={setEditor}
+        placeholder={description}
+        onBlur={handleSave}
+        spellCheck={true}
+        lang="en"
+      />
+    </Box>
+  )
 }
 const Read = ({ data, mini }) => {
   if (!data?.value) return null

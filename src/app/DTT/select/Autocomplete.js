@@ -11,7 +11,6 @@ import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import getUserType from 'utils/helpers/get-user-type'
 import { onlyValue } from './get-value'
-import { useMobileValue } from 'utils/hooks'
 import Card from 'app/layouts/components/card'
 
 const Autocomplete = ({ questionCode, defaultValue, options, onChange, placeholder, ddEvent }) => {
@@ -52,8 +51,6 @@ const Autocomplete = ({ questionCode, defaultValue, options, onChange, placehold
     includes(toLower(input), toLower(option.label || '')),
   )
 
-  const width = useMobileValue(['100%', '25vw'])
-
   useOutsideClick({
     ref,
     handler: onBlur,
@@ -63,7 +60,7 @@ const Autocomplete = ({ questionCode, defaultValue, options, onChange, placehold
     <Box ref={ref} test-id={questionCode}>
       {selected.length ? (
         <Box pb="2">
-          <Wrap maxW="50vw">
+          <Wrap maxW="25vw">
             {selected.map(item => (
               <WrapItem key={item}>
                 <Chip onClick={() => onSelectChange(item)} p="2">
@@ -75,7 +72,7 @@ const Autocomplete = ({ questionCode, defaultValue, options, onChange, placehold
         </Box>
       ) : null}
 
-      <InputGroup w={width}>
+      <InputGroup w={'100%'} maxW="25vw">
         <Input
           onClick={toggleOpen}
           onChange={onInputChange}
@@ -100,7 +97,8 @@ const Autocomplete = ({ questionCode, defaultValue, options, onChange, placehold
           variant="card3"
           maxH="20rem"
           overflowY="scroll"
-          w={width}
+          w={'100%'}
+          maxW="25vw"
         >
           <VStack align="stretch">
             {filteredOptions.length ? (

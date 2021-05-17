@@ -26,7 +26,6 @@ const Write = ({
   const defaultValue = safelyParseJson(data?.value).toString()
   const { typeName } = dataType
   const multiple = includes('multiple', typeName || '') || component === 'tag'
-  const width = useMobileValue(['100%', '25vw'])
 
   const ddEvent = debounce(
     value =>
@@ -52,7 +51,6 @@ const Write = ({
         placeholder={placeholder}
         optionData={options}
         label={label}
-        w={width}
       />
     )
 
@@ -70,7 +68,8 @@ const Write = ({
       }}
       onChange={e => onSendAnswer([e.target.value])}
       defaultValue={defaultValue}
-      w={width}
+      w={'100%'}
+      maxW="25vw"
     >
       {options &&
         options.map(
