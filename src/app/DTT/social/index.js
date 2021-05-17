@@ -4,8 +4,6 @@ import { faCoffee } from '@fortawesome/free-solid-svg-icons'
 import { faLinkedin } from '@fortawesome/free-brands-svg-icons'
 import { IconButton, InputGroup, InputLeftAddon, Input } from '@chakra-ui/react'
 
-import { useMobileValue } from 'utils/hooks'
-
 const Read = ({ data }) => {
   const attributeName = data?.attributeName
   const icon = attributeName === 'LinkedIn URL' ? faLinkedin : faCoffee
@@ -25,7 +23,7 @@ const Read = ({ data }) => {
 
 const Write = ({ questionCode, onSendAnswer, data }) => {
   return (
-    <InputGroup w={useMobileValue(['100%', '25vw'])}>
+    <InputGroup w="full" maxW="25vw">
       <InputLeftAddon>
         <FontAwesomeIcon size="lg" icon={faLinkedin} />
       </InputLeftAddon>
