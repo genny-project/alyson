@@ -1,24 +1,15 @@
-import { Box } from '@chakra-ui/react'
-import Navigation from 'app/layouts/navigation'
-import FormBuilder from './builder/FormBuilder'
+import { VStack, Image } from '@chakra-ui/react'
+import getYtThumbnail from 'utils/helpers/get-yt-thumbnail'
 
 const Sandbox = () => {
   return (
-    <Box
-      backgroundColor={'white'}
-      id="main-display"
-      position="fixed"
-      left="0"
-      right="0"
-      top="0"
-      bottom="0"
-      overflow="scroll"
-    >
-      <Navigation />
-      <Box mt="6rem">
-        <FormBuilder />
-      </Box>
-    </Box>
+    <VStack>
+      <Image src={getYtThumbnail('https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'default')} />
+      <Image src={getYtThumbnail('https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'mqdefault')} />
+      <Image src={getYtThumbnail('https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'hqdefault')} />
+      <Image src={getYtThumbnail('https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'sddefault')} />
+      <Image src={getYtThumbnail('https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'maxresdefault')} />
+    </VStack>
   )
 }
 
