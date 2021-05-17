@@ -10,6 +10,7 @@ const LinkedApp = ({ code }) => {
   const userCode = useSelector(selectCode('USER'))
   const [mentorName] = useSelector(selectAttributes(code, ['PRI_MENTOR_NAME']))
 
+  if (!mentorName) return null
   const onSelect = option => {
     onSendMessage({
       targetCode: code,
