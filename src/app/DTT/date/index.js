@@ -4,7 +4,6 @@ import { Text, Input } from '@chakra-ui/react'
 import timeBasedOnTimeZone from 'utils/helpers/timezone_magic/time-based-on-timezone.ts'
 import DateChip from './DateChip'
 import getDate from 'utils/helpers/timezone_magic/get-date'
-import { useMobileValue } from 'utils/hooks'
 import Year from './Year'
 
 const Read = ({ data, typeName, config }) => {
@@ -30,7 +29,6 @@ const Write = ({ questionCode, data, onSendAnswer, typeName }) => {
   const onlyYear = typeName === 'year'
 
   const handleChange = e => e.target.value && onSendAnswer(new Date(e.target.value).toISOString())
-  const width = useMobileValue(['100%', '25vw'])
 
   return data?.value ? (
     <DateChip
@@ -40,13 +38,14 @@ const Write = ({ questionCode, data, onSendAnswer, typeName }) => {
       date={getDate(data?.value)}
     />
   ) : onlyYear ? (
-    <Year questionCode={questionCode} handleChange={handleChange} width={width} />
+    <Year questionCode={questionCode} handleChange={handleChange} />
   ) : (
     <Input
       test-id={questionCode}
       type={includeTime ? 'datetime-local' : 'date'}
       onBlur={handleChange}
-      w={width}
+      w="full"
+      maxW="25vw"
     />
   )
 }

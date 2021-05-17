@@ -10,7 +10,6 @@ import { useSelector } from 'react-redux'
 
 import { selectCode } from 'redux/db/selectors'
 import getUserType from 'utils/helpers/get-user-type'
-import { useMobileValue } from 'utils/hooks'
 import Card from 'app/layouts/components/card'
 
 const Autocomplete = ({
@@ -63,8 +62,6 @@ const Autocomplete = ({
     includes(toLower(input), toLower(option.label || '')),
   )
 
-  const width = useMobileValue(['100%', '25vw'])
-
   useOutsideClick({
     ref,
     handler: onBlur,
@@ -78,7 +75,7 @@ const Autocomplete = ({
     <Box onFocus={() => !options.length && ddEvent('')} ref={ref} test-id={questionCode}>
       {selected.length ? (
         <Box pb="2">
-          <Wrap maxW="50vw">
+          <Wrap w="full" maxW="25vw">
             {selected.map(item => (
               <WrapItem key={item}>
                 <Chip onClick={() => onSelectChange(item)} p="2">
@@ -90,7 +87,7 @@ const Autocomplete = ({
         </Box>
       ) : null}
       {!multiple && selected.length ? null : (
-        <InputGroup w={width}>
+        <InputGroup w="full" maxW="25vw">
           <Input
             onClick={toggleOpen}
             onChange={onInputChange}
@@ -116,7 +113,8 @@ const Autocomplete = ({
           variant="card3"
           maxH="20rem"
           overflowY="scroll"
-          w={width}
+          w={'100%'}
+          maxW="25vw"
         >
           <VStack align="stretch">
             {searching ? (

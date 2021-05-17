@@ -43,7 +43,8 @@ const AddressPicker = ({ onSendAnswer, data, questionCode }) => {
       test-id={questionCode}
       defaultValue={data?.value}
       ref={autoCompleteRef}
-      w={useMobileValue(['100%', '25vw'])}
+      w="full"
+      maxW="25vw"
     />
   )
 }
