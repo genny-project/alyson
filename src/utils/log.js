@@ -2,6 +2,8 @@ import axios from 'axios'
 import { API_VERSION_URL, HOST } from 'config/genny'
 import { version } from '../../package.json'
 import { map, mergeAll, head, compose, keys, addIndex, values, uniq, includes } from 'ramda'
+import GitInfo from 'react-git-info/macro'
+const gitInfo = GitInfo()
 
 const initLog = async () => {
   const apiResponse = await axios.get(API_VERSION_URL)
@@ -37,8 +39,10 @@ const initLog = async () => {
     ╚╗╔╝├┤ ├┬┘└─┐││ ││││└─┐ 
      ╚╝ └─┘┴└─└─┘┴└─┘┘└┘└─┘                                   
      
-     frontend  ${version}
-     api       ${apiUniq}
+     frontend  
+       - branch ${gitInfo.branch}
+       - hash   ${gitInfo.commit.hash}
+     api        ${apiUniq}
      `,
     'color: lightGreen;',
   )
