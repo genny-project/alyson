@@ -3,7 +3,7 @@ import { Avatar } from '@chakra-ui/react'
 const ProfilePicture = ({ src }) => {
   return (
     <Avatar
-      mt="-4.75rem"
+      mt="-5rem"
       left="calc(35vw - 4.75rem)"
       bg="white"
       p="4px"
