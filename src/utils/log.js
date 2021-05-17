@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { API_VERSION_URL, HOST } from 'config/genny'
-import { version } from '../../package.json'
 import { map, mergeAll, head, compose, keys, addIndex, values, uniq, includes } from 'ramda'
 import GitInfo from 'react-git-info/macro'
 const gitInfo = GitInfo()
