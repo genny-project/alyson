@@ -51,12 +51,13 @@ const Submit = ({ askData, onFinish, parentCode }) => {
   return (
     <Box>
       <VStack pb="1rem" align="start" display={disabled ? 'block' : 'none'}>
-        <Text textStyle="body.error">Please complete all questions marked as mandatory with *</Text>
-        <Text>These questions still need to be answered, click to scroll.</Text>
+        <Text textStyle="tail.error">Please complete all questions marked as mandatory with *</Text>
+        <Text textStyle="tail.3">These questions still need to be answered, click to scroll.</Text>
         <Wrap align="start">
           {mandatoryQuestionsNoValue.map(question => (
             <WrapItem key={question.attributeCode}>
               <Tag
+                size="sm"
                 opacity="0.7"
                 _hover={{ opacity: '1' }}
                 colorScheme="red"
