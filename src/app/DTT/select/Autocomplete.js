@@ -10,8 +10,10 @@ import { useSelector } from 'react-redux'
 
 import { selectCode } from 'redux/db/selectors'
 import getUserType from 'utils/helpers/get-user-type'
-import { useMobileValue } from 'utils/hooks'
 import Card from 'app/layouts/components/card'
+import { CircularProgress } from '@chakra-ui/progress'
+import ItemsForAutocomplete from './Items'
+import { useHotkeys } from 'react-hotkeys-hook'
 
 const Autocomplete = ({
   multiple,
@@ -27,10 +29,14 @@ const Autocomplete = ({
   const [open, setOpen] = useState(false)
   const [searching, setSearching] = useState(false)
   const ref = useRef()
+  const inputRef = useRef()
 
   const user = useSelector(selectCode('USER'))
   const userType = getUserType(useSelector(selectCode(user)))
 
+  const focusInput = () => {
+    if (inputRef?.current?.focus) inputRef.current.focus()
+  }
   const toggleOpen = () => setOpen(not)
   const onInputChange = ({ target: { value } }) => {
     setSearching(true)
@@ -63,8 +69,6 @@ const Autocomplete = ({
     includes(toLower(input), toLower(option.label || '')),
   )
 
-  const width = useMobileValue(['100%', '25vw'])
-
   useOutsideClick({
     ref,
     handler: onBlur,
@@ -78,7 +82,7 @@ const Autocomplete = ({
     <Box onFocus={() => !options.length && ddEvent('')} ref={ref} test-id={questionCode}>
       {selected.length ? (
         <Box pb="2">
-          <Wrap maxW="50vw">
+          <Wrap w="full" maxW="25vw">
             {selected.map(item => (
               <WrapItem key={item}>
                 <Chip onClick={() => onSelectChange(item)} p="2">
@@ -90,8 +94,12 @@ const Autocomplete = ({
         </Box>
       ) : null}
       {!multiple && selected.length ? null : (
-        <InputGroup w={width}>
+        <InputGroup w="full" maxW="25vw">
           <Input
+            onKeyDown={e => {
+              if (e.key === 'ArrowDown') setOpen(true)
+            }}
+            ref={inputRef}
             onClick={toggleOpen}
             onChange={onInputChange}
             value={input}
@@ -110,42 +118,18 @@ const Autocomplete = ({
         </InputGroup>
       )}
       {open && (
-        <Card
-          zIndex="modal"
-          position="absolute"
-          variant="card3"
-          maxH="20rem"
-          overflowY="scroll"
-          w={width}
-        >
-          <VStack align="stretch">
-            {searching ? (
-              <Text>{`Searching ${input}`}</Text>
-            ) : filteredOptions.length ? (
-              filteredOptions.map(option => (
-                <HStack
-                  _hover={{ color: 'teal' }}
-                  onClick={() => onSelectChange(option.value)}
-                  cursor="pointer"
-                  key={option.value}
-                >
-                  {includes(option.value, selected) ? (
-                    <FontAwesomeIcon icon={faCheckCircle} color="green" />
-                  ) : null}
-                  <Text textStyle="body.2">{option.label}</Text>
-                </HStack>
-              ))
-            ) : userType === 'AGENT' || userType === 'ADMIN' ? (
-              <Text
-                cursor="pointer"
-                _hover={{ color: 'teal' }}
-                onClick={createNew}
-              >{`Not found, create "${input}"?`}</Text>
-            ) : (
-              <Text>No options found!</Text>
-            )}
-          </VStack>
-        </Card>
+        <ItemsForAutocomplete
+          {...{
+            focusInput,
+            onSelectChange,
+            userType,
+            selected,
+            createNew,
+            input,
+            searching,
+            filteredOptions,
+          }}
+        />
       )}
     </Box>
   )

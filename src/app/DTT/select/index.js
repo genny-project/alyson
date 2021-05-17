@@ -5,7 +5,6 @@ import debounce from 'lodash.debounce'
 import { selectCode, selectRows } from 'redux/db/selectors'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { getValue } from './get-value'
-import { useMobileValue } from 'utils/hooks'
 import { onSendMessage } from 'vertx'
 import Autocomplete from './Autocomplete'
 
@@ -23,7 +22,6 @@ const Write = ({
 
   const { typeName } = dataType
   const multiple = includes('multiple', typeName || '') || component === 'tag'
-  const width = useMobileValue(['100%', '25vw'])
   const optionData = useSelector(selectCode(groupCode)) || []
   const options = map(({ code, name }) => ({ label: name, value: code }))(optionData)
 
@@ -55,7 +53,6 @@ const Write = ({
       options={options}
       onChange={onSendAnswer}
       defaultValue={defaultValue}
-      w={width}
       multiple={multiple}
       ddEvent={ddEvent}
     />

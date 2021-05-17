@@ -58,7 +58,7 @@ const Write = ({ questionCode, data, onSendAnswer, description, html }) => {
   return (
     <Box
       test-id={questionCode}
-      w="100%"
+      w="full"
       border="1px solid #E2E8F0"
       borderRadius="0.375rem"
       p="1rem"

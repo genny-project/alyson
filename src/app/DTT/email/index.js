@@ -3,7 +3,6 @@ import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import HeroIconButton from 'app/layouts/components/hero_icon_button'
-import { useMobileValue } from 'utils/hooks'
 import Duplicates from './Duplicates'
 
 const Write = ({ questionCode, data, onSendAnswer }) => {
@@ -14,7 +13,8 @@ const Write = ({ questionCode, data, onSendAnswer }) => {
         defaultValue={data?.value}
         type="email"
         onBlur={e => onSendAnswer(e.target.value)}
-        w={useMobileValue(['100%', '25vw'])}
+        w="full"
+        maxW="25vw"
       />
       <Duplicates email={data?.value} sourceCode={data.baseEntityCode} />
     </Box>
