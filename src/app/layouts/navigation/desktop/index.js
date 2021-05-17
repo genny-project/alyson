@@ -48,7 +48,7 @@ const DesktopNav = ({ logoSrc }) => {
                 }
                 ref={btnRef}
                 src={logoSrc}
-                htmlWidth="40px"
+                htmlWidth="240px"
               />
             )}
           </Box>
