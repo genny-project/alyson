@@ -10,6 +10,7 @@ import { useIsMobile } from 'utils/hooks'
 import DetailActions from './Actions'
 import DetailHeader from './Header'
 import Tile from './Tile'
+import 'app/layouts/components/css/hide-scroll.css'
 
 const pt = { true: '8rem', false: '25rem' }
 
@@ -38,7 +39,7 @@ const DetailLayout = ({ sbeCode, targetCode, details = [[], []] }) => {
   const tileWidth = isMobile ? '80vw' : '32rem'
 
   return (
-    <Box h="100vh" overflowY="scroll" onScroll={onScroll} onWheel={onWheel}>
+    <Box className="nobar" h="100vh" overflowY="scroll" onScroll={onScroll} onWheel={onWheel}>
       <DetailHeader beCode={beCode} mini={mini} />
       <DetailActions />
       <Center w="full" pt={pt[mini || isMobile]} pb="3rem">

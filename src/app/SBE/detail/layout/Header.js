@@ -69,15 +69,13 @@ const DetailHeader = ({ beCode, mini }) => {
 
       <Box
         display={!mini ? 'block' : 'none'}
-        pt="5"
         w="full"
         position="absolute"
         zIndex="modal"
-        borderBottomRadius="md"
         overflow="hidden"
       >
         <Center w="full">
-          <Card p={0} w="80%" bg="gradient.900" h="full">
+          <Card p={0} w="full" bg="gradient.900" h="full" borderBottomRadius={0}>
             <Center w="full">
               <Box w="40%">
                 <Attribute code={beCode} attribute="PRI_VIDEO_URL" />
