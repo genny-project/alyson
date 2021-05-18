@@ -19,7 +19,7 @@ const BaseEntityDetail = ({ targetCode, defaultView }) => {
 
   if (defaultView) return <DefaultView sbeCode={code} targetCode={targetCode} />
   if (displayType === 'CV') {
-    return <DetailLayout sbeCode={code} targetCode={targetCode} />
+    return <Intern sbeCode={code} targetCode={targetCode} />
   }
 
   if (displayType === 'COMPANY') {

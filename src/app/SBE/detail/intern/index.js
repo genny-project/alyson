@@ -1,144 +1,80 @@
-import { useSelector, useDispatch } from 'react-redux'
-import { selectCode, selectRows } from 'redux/db/selectors'
-import { Box, HStack, VStack, Text, Link, Button } from '@chakra-ui/react'
-import useApi from 'api'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFileDownload } from '@fortawesome/free-solid-svg-icons'
+import {
+  faBriefcase,
+  faCalendarAlt,
+  faCog,
+  faFile,
+  faGraduationCap,
+  faUser,
+} from '@fortawesome/free-solid-svg-icons'
 
-import getActions from 'app/SBE/utils/get-actions'
-import { closeDrawer } from 'redux/app'
-import { useIsMobile } from 'utils/hooks'
-import InternsMobileView from './mobile_view'
-import ProfilePicture from 'app/layouts/components/profile_picture'
-import DetailSubHeader from 'app/layouts/components/subheader'
-import DetailHeader from './template/Header'
-import LeftHandDetails from './template/LeftHandDetails'
-import RightHandDetails from './template/RightHandDetails'
-import fixLnk from 'app/BE/attribute/fix-lnk.ts'
-import { isNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
-
-const subHeaderAttributes = ['PRI_PREFERRED_NAME']
+import DetailLayout from '../layout'
 
 const contactDetails = {
-  title: 'Contact Details',
-  attributes: ['PRI_MOBILE', 'PRI_EMAIL', 'PRI_ADDRESS_FULL', 'PRI_LINKEDIN_URL'],
+  header: 'Contact Details',
+  icon: <FontAwesomeIcon size="lg" icon={faUser} />,
+  attributes: [
+    { attr: 'PRI_NAME', label: 'Full Name' },
+    { attr: 'PRI_MOBILE', label: 'Phone Number', color: 'blue.500' },
+    { attr: 'PRI_EMAIL', label: 'Email', color: 'blue.500' },
+    { attr: 'PRI_ADDRESS_FULL', label: 'Address', color: 'blue.500' },
+  ],
 }
 
-const horizontalLayoutDetails = {
-  attributes: ['PRI_STUDENT_ID', 'PRI_ASSOC_EP'],
+const media = {
+  header: 'Media & Uploads',
+  icon: <FontAwesomeIcon size="lg" icon={faFile} />,
+  attributes: [{ attr: 'PRI_CV' }, { attr: '' }],
 }
 
 const internshipDetails = {
-  title: 'Internship Details',
-  attributes: ['PRI_START_DATE', 'PRI_ASSOC_DURATION', 'PRI_TRANSPORT'],
+  header: 'Internship Specifications',
+  icon: <FontAwesomeIcon size="lg" icon={faCalendarAlt} />,
+  attributes: [
+    { attr: 'PRI_START_DATE', label: 'Internship Start Date' },
+    { attr: 'PRI_ASSOC_DURATION', label: 'Internship Duration' },
+    { attr: 'PRI_ASSOC_DAYS_PER_WEEK', label: 'Days Per Week' },
+    { attr: 'PRI_ASSOC_DAYS_OF_WEEK', label: 'Days Of Week' },
+  ],
 }
 
 const recentEmployment = {
-  title: 'Recent Employment',
-  attributes: ['PRI_PREV_EMPLOYER', 'PRI_PREV_JOB_TITLE'],
+  header: 'Experience',
+  icon: <FontAwesomeIcon size="lg" icon={faBriefcase} />,
+  attributes: [
+    { attr: 'PRI_PREV_JOB_TITLE', label: 'Job Title' },
+    { attr: 'PRI_PREV_DURATION', label: 'Tenure' },
+    { attr: 'PRI_PREV_EMPLOYER', label: 'Company Name' },
+    { attr: 'PRI_ASSOC_OCCUPATION', label: 'Industry' },
+    { attr: '', label: 'Description' },
+  ],
 }
 
+const prefs = {
+  header: 'Internship Preferences',
+  icon: <FontAwesomeIcon size="lg" icon={faCog} />,
+  attributes: [
+    { attr: 'PRI_ASSOC_INDUSTRY', label: 'Industry' },
+    { attr: 'PRI_ASSOC_OCCUPATION', label: 'Specialisation' },
+    { attr: 'PRI_CAREER_OBJECTIVES', label: 'Career Objectives' },
+    { attr: 'PRI_ASSOC_CURRENT_SOFTWARE', label: 'Proficient Software' },
+    { attr: 'PRI_ASSOC_FUTURE_SOFTWARE', label: 'Software would like experience in' },
+  ],
+}
+
+const edu = {
+  header: 'Education Details',
+  icon: <FontAwesomeIcon size="lg" icon={faGraduationCap} />,
+  attributes: [{ attr: 'PRI_ASSOC_EP', label: 'Education Provider' }],
+}
+
+const details = [
+  [contactDetails, internshipDetails, recentEmployment],
+  [media, prefs, edu],
+]
+
 const Intern = ({ sbeCode, targetCode }) => {
-  const isMobile = useIsMobile()
-  const dispatch = useDispatch()
-  const onClose = () => dispatch(closeDrawer())
-  const sbe = useSelector(selectCode(sbeCode))
-  const rows = useSelector(selectRows(sbeCode))
-  const beCode = targetCode ? targetCode : rows?.length ? rows[0] : null
-
-  const image = useSelector(selectCode(beCode, 'PRI_IMAGE_URL'))
-  const internsName = useSelector(selectCode(beCode, 'PRI_NAME'))
-  const video = useSelector(selectCode(beCode, 'PRI_VIDEO_URL'))
-  const careerObj = useSelector(selectCode(beCode, 'PRI_CAREER_OBJ'))
-  const software = useSelector(selectCode(beCode, 'PRI_ASSOC_CURRENT_SOFTWARE'))
-
-  const { getImageSrc, getSrc } = useApi()
-  const videoSrc = getSrc(video?.value)
-  const src = getImageSrc(image?.value)
-
-  const actions = getActions(sbe)
-
-  const api = useApi()
-  const cvData = useSelector(selectCode(beCode, fixLnk('PRI_CV')))
-
-  const careerObjText = careerObj?.value
-  const topHeight =
-    isNullOrUndefinedOrEmpty(videoSrc) && isNullOrUndefinedOrEmpty(careerObjText) ? '10vh' : '35vh'
-
-  if (!beCode) return null
-
-  return isMobile ? (
-    <InternsMobileView
-      onClose={onClose}
-      careerObj={careerObj}
-      videoSrc={videoSrc}
-      internsName={internsName}
-      beCode={beCode}
-      actions={actions}
-      src={src}
-      sbeCode={sbeCode}
-    />
-  ) : (
-    <Box
-      w="70vw"
-      h="100vh"
-      style={{
-        borderTopLeftRadius: '0.5rem',
-        borderTopRightRadius: '0.5rem',
-      }}
-    >
-      <DetailHeader
-        videoSrc={videoSrc}
-        careerObjText={careerObjText}
-        video={video}
-        topHeight={topHeight}
-      />
-      <ProfilePicture src={src} />
-      <Box overflow="scroll" h={`calc(100vh - ${topHeight})`}>
-        <VStack pt="5rem" overflowX="hidden">
-          <DetailSubHeader
-            name={internsName}
-            beCode={beCode}
-            sbeCode={sbeCode}
-            actions={actions}
-            subHeaderAttributes={subHeaderAttributes}
-          />
-          {cvData?.value && (
-            <Link
-              isExternal
-              p="2"
-              color="primary"
-              href={api.getSrc(cvData?.value)}
-              style={{ textDecoration: 'none' }}
-            >
-              <Button
-                colorScheme="blue"
-                variant="solid"
-                leftIcon={<FontAwesomeIcon size="lg" icon={faFileDownload} />}
-              >
-                <Text>{`Download CV`}</Text>
-              </Button>
-            </Link>
-          )}
-
-          <HStack w="65vw" align="start" pt="5" spacing="5">
-            <LeftHandDetails
-              beCode={beCode}
-              contactDetails={contactDetails}
-              horizontalLayoutDetails={horizontalLayoutDetails}
-              internshipDetails={internshipDetails}
-            />
-            <RightHandDetails
-              beCode={beCode}
-              software={software}
-              recentEmployment={recentEmployment}
-              careerObj={careerObj}
-            />
-          </HStack>
-        </VStack>
-      </Box>
-    </Box>
-  )
+  return <DetailLayout sbeCode={sbeCode} targetCode={targetCode} details={details} />
 }
 
 export default Intern
