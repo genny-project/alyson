@@ -101,6 +101,7 @@ const Autocomplete = ({
             onChange={onInputChange}
             value={input}
             placeholder={placeholder}
+            autoComplete="off"
           />
           <InputRightElement>
             <Box

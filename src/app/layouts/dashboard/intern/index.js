@@ -9,18 +9,16 @@ import { selectAttributes } from 'redux/db/selectors'
 import { selectDashboard } from 'redux/app/selectors'
 import { callBucketView, onSendMessage } from 'vertx'
 import Recommendations from './recommendations'
-import Process from 'app/layouts/process'
 import Attribute from 'app/BE/attribute'
 import { useEffect } from 'react'
 import Card from 'app/layouts/components/card'
-import { useIsMobile } from 'utils/hooks'
+import Progress from './progress'
 
 const Intern = ({ userCode }) => {
   const [name, occ] = useSelector(selectAttributes(userCode, ['PRI_NAME', 'PRI_ASSOC_OCCUPATION']))
   const dashboardSbes = useSelector(selectDashboard)
 
   const internSbe = find(includes('_INTERN_'), dashboardSbes || [])
-  const isMobile = useIsMobile()
 
   useEffect(() => {
     callBucketView()
@@ -80,21 +78,13 @@ const Intern = ({ userCode }) => {
                 colorScheme="primary"
                 variant="outline"
               >
-                {` Edit Your Profile`}
+                {`Edit Your Profile`}
               </Button>
             </VStack>
           </VStack>
         </Card>
-        {/* <Card>
-          <VStack align="start">
-            <Text textStyle="body.1">{`Documents`}</Text>
-            <DisplaySbe sbeCode={serviceAgreement} />
-            <DisplaySbe sbeCode={ohsDeclaration} />
-            <DisplaySbe sbeCode={termsAndConditions} />
-          </VStack>
-        </Card> */}
       </Stack>
-      {!isMobile && <Process dashboard />}
+      <Progress userCode={userCode} />
       <Recommendations />
     </VStack>
   )
