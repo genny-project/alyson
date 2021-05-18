@@ -1,5 +1,5 @@
 import { ReactChildren } from 'react'
-import { Button as ChakraButton } from '@chakra-ui/react'
+import { Button as ChakraButton, ButtonProps } from '@chakra-ui/react'
 import { Keyable } from 'utils/types'
 
 const styles = {
@@ -30,14 +30,14 @@ const styles = {
   },
 } as Styles
 
-type ButtonProps = {
+type CustomButtonProps = ButtonProps & {
   onClick: any
   variant?: variant
   rest: []
   children: ReactChildren
 }
 
-const Button = ({ onClick, variant = 'primary', children, ...rest }: ButtonProps) => {
+const Button = ({ onClick, variant = 'primary', children, ...rest }: CustomButtonProps) => {
   const stylesConfig = styles[variant]
   return (
     <ChakraButton onClick={onClick} {...stylesConfig} {...rest}>
@@ -52,6 +52,7 @@ interface Styles {
   special: Keyable
   positive: Keyable
   negative: Keyable
+  [key: string]: any
 }
 type variant = 'primary' | 'secondary' | 'special' | 'positive' | 'negative'
 

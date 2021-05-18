@@ -69,19 +69,17 @@ const Player = ({ src, inline }) => {
     )
   return (
     <Box onClick={togglePlay}>
-      <video
-        style={{ width: '100%', height: '100%', borderRadius: '0.5rem' }}
-        src={src}
-        ref={videoRef}
-      />
+      <video style={{ width: '100%', height: '100%' }} src={src} ref={videoRef} />
       <IconButton
         onClick={togglePlay}
         opacity={paused ? '1' : '0'}
         transition="opacity 0.5s"
         variant="unstyled"
         color="white"
-        mt="calc(-288px + 16px)"
-        ml="calc(50% - 16px)"
+        position="fixed"
+        left="50%"
+        top="13%"
+        zIndex="modal"
         icon={<FontAwesomeIcon size="2x" icon={faPlayCircle} />}
       />
     </Box>
