@@ -1,6 +1,7 @@
 import { IconButton } from '@chakra-ui/button'
 import { Image } from '@chakra-ui/image'
 import { Box, Center, HStack, Text, VStack, Wrap, WrapItem } from '@chakra-ui/layout'
+import { Progress } from '@chakra-ui/progress'
 import { faArrowAltCircleLeft, faArrowCircleRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Button from 'app/layouts/components/button'
@@ -85,26 +86,36 @@ const VideoModules = ({ questionCode }) => {
   ) : (
     <Center>
       <HStack align="start">
-        <Card>
-          <VStack>
-            <Text color="primary.500" textStyle="head.1">
-              {title}
-            </Text>
-            {groups.map(({ label, video: { url } }, idx) => (
-              <Box w="20rem">
-                <Card
-                  onClick={() => setGroup(idx)}
-                  variant={group === idx ? 'card0' : 'card1'}
-                  _hover={group === idx ? {} : { shadow: 'base', bg: 'hover' }}
-                  cursor="pointer"
-                >
-                  <Image borderRadius="md" w="full" src={getYtThumbnail(url)} />
-                  <Text textStyle="body.2">{label}</Text>
-                </Card>
+        <VStack>
+          <Card p={0} overflow="hidden">
+            <VStack>
+              <Text m="6" color="primary.500" textStyle="head.1">
+                {title}
+              </Text>
+              <Box h="69.69vh" nice="true" overflowY="scroll">
+                {groups.map(({ label, video: { url } }, idx) => (
+                  <Box w="20rem">
+                    <Card
+                      onClick={() => setGroup(idx)}
+                      variant={group === idx ? 'card0' : 'card1'}
+                      _hover={group === idx ? {} : { shadow: 'base', bg: 'hover' }}
+                      cursor="pointer"
+                    >
+                      <Image borderRadius="md" w="full" src={getYtThumbnail(url)} />
+                      <Text textStyle="body.2">{label}</Text>
+                    </Card>
+                  </Box>
+                ))}
               </Box>
-            ))}
-          </VStack>
-        </Card>
+            </VStack>
+          </Card>
+          <Box position="fixed" left="5vw" bottom="5vh">
+            <Card variant="card2" p={0} overflow="hidden">
+              <Progress size="lg" w="45vw" value={((group + 1) / groups.length) * 100} />
+            </Card>
+          </Box>
+        </VStack>
+
         <VStack>
           <Card>
             <VStack>
@@ -129,8 +140,14 @@ const VideoModules = ({ questionCode }) => {
               icon={<FontAwesomeIcon icon={faArrowCircleRight} />}
               onClick={() => setGroup(inc)}
             />
+            <Button
+              visibility={group === groups.length - 1 ? 'visible' : 'hidden'}
+              size="lg"
+              onClick={onSubmit}
+            >
+              All Done!
+            </Button>
           </HStack>
-          {group === groups.length - 1 && <Button onClick={onSubmit}>All Done!</Button>}
         </VStack>
       </HStack>
     </Center>
