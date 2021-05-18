@@ -1,7 +1,7 @@
 import { useOutsideClick } from '@chakra-ui/hooks'
 import { Input, InputGroup, InputRightElement } from '@chakra-ui/input'
-import { Box, HStack, Text, VStack, Wrap, WrapItem } from '@chakra-ui/layout'
-import { faAngleDown, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import { Box, Wrap, WrapItem } from '@chakra-ui/layout'
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Chip from 'app/layouts/components/chip'
 import { append, compose, filter, find, includes, not, prop, propEq, replace, toLower } from 'ramda'
@@ -10,10 +10,7 @@ import { useSelector } from 'react-redux'
 
 import { selectCode } from 'redux/db/selectors'
 import getUserType from 'utils/helpers/get-user-type'
-import Card from 'app/layouts/components/card'
-import { CircularProgress } from '@chakra-ui/progress'
 import ItemsForAutocomplete from './Items'
-import { useHotkeys } from 'react-hotkeys-hook'
 
 const Autocomplete = ({
   multiple,
@@ -104,6 +101,7 @@ const Autocomplete = ({
             onChange={onInputChange}
             value={input}
             placeholder={placeholder}
+            autoComplete="off"
           />
           <InputRightElement>
             <Box
