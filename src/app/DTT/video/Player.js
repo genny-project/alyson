@@ -78,7 +78,7 @@ const Player = ({ src, inline }) => {
         color="white"
         position="fixed"
         left="50%"
-        top="13%"
+        top="calc(13%)"
         zIndex="modal"
         icon={<FontAwesomeIcon size="2x" icon={faPlayCircle} />}
       />

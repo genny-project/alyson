@@ -1,21 +1,24 @@
 import { useBoolean } from '@chakra-ui/hooks'
 import { Box, Center, Stack, VStack } from '@chakra-ui/layout'
+import Attribute from 'app/BE/attribute'
+import Card from 'app/layouts/components/card'
 import { add } from 'ramda'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { selectRows } from 'redux/db/selectors'
+import { useIsMobile } from 'utils/hooks'
 import DetailActions from './Actions'
 import DetailHeader from './Header'
 import Tile from './Tile'
 
-const pt = { true: '10rem', false: '25rem' }
+const pt = { true: '8rem', false: '25rem' }
 
 const DetailLayout = ({ sbeCode, targetCode, details = [[], []] }) => {
   const rows = useSelector(selectRows(sbeCode))
   const beCode = targetCode ? targetCode : rows?.length ? rows[0] : null
 
-  const tileWidth = '32rem'
-  const [mini, setMini] = useBoolean()
+  const isMobile = useIsMobile()
+  const [mini, setMini] = useBoolean(isMobile)
   const [delta, setDelta] = useState(0)
 
   const onScroll = e => {
@@ -32,12 +35,21 @@ const DetailLayout = ({ sbeCode, targetCode, details = [[], []] }) => {
     }
   }, [delta, setMini])
 
+  const tileWidth = isMobile ? '80vw' : '32rem'
+
   return (
     <Box h="100vh" overflowY="scroll" onScroll={onScroll} onWheel={onWheel}>
       <DetailHeader beCode={beCode} mini={mini} />
       <DetailActions />
-      <Center w="full" pt={pt[mini]} pb="3rem">
-        <Stack direction={['column', 'row']}>
+      <Center w="full" pt={pt[mini || isMobile]} pb="3rem">
+        <Stack direction={isMobile ? 'column' : 'row'}>
+          {isMobile && (
+            <Center w="full">
+              <Card maxW="30rem" variant="card3" p={0} w={tileWidth} overflow="hidden">
+                <Attribute code={beCode} attribute="PRI_VIDEO_URL" />
+              </Card>
+            </Center>
+          )}
           {details.map((col, colIdx) => (
             <VStack key={colIdx}>
               {col.map(({ attributes, header, icon }, idx) => (
