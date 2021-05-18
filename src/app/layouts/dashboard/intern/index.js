@@ -9,11 +9,9 @@ import { selectAttributes } from 'redux/db/selectors'
 import { selectDashboard } from 'redux/app/selectors'
 import { callBucketView, onSendMessage } from 'vertx'
 import Recommendations from './recommendations'
-import Process from 'app/layouts/process'
 import Attribute from 'app/BE/attribute'
 import { useEffect } from 'react'
 import Card from 'app/layouts/components/card'
-import { useIsMobile } from 'utils/hooks'
 import Progress from './progress'
 
 const Intern = ({ userCode }) => {
