@@ -47,9 +47,6 @@ const Write = ({
     <Autocomplete
       placeholder={!options.length ? 'Start typing to search' : placeholder || 'Select'}
       test-id={groupCode}
-      rootProps={{
-        'test-id': questionCode,
-      }}
       options={options}
       onChange={onSendAnswer}
       defaultValue={defaultValue}
