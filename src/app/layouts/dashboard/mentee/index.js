@@ -1,5 +1,5 @@
 import { Box, HStack, Stack, Text, VStack } from '@chakra-ui/layout'
-import { faArrowRight, faBookmark, faBookOpen } from '@fortawesome/free-solid-svg-icons'
+import { faArrowRight, faBookOpen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Attribute from 'app/BE/attribute'
 import Button from 'app/layouts/components/button'
