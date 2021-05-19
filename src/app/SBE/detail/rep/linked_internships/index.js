@@ -11,7 +11,7 @@ const LinkedInternships = ({ sbeCode }) => {
   const total = useSelector(selectCode(sbeCode, 'PRI_TOTAL_RESULTS'))
 
   return (
-    <Card variant="card0" w="33vw">
+    <Card variant="card0" w="33vw" minW="25rem">
       <VStack>
         <HStack w="full" p="2">
           <Text fontSize="xl" fontWeight="normal" color="primary">

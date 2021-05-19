@@ -48,7 +48,14 @@ const DetailHeader = ({ sbeCode, beCode, mini }) => {
     )
   return (
     <Box>
-      <Card display={mini ? 'block' : 'none'} p="5" w="full" position="absolute" zIndex="modal">
+      <Card
+        px="8"
+        display={mini ? 'block' : 'none'}
+        p="5"
+        w="full"
+        position="absolute"
+        zIndex="modal"
+      >
         <Flex>
           <HStack>
             <Avatar src={src} />

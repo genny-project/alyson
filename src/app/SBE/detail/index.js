@@ -10,7 +10,6 @@ import EduProDetail from './edu_pro'
 import DefaultView from './default-view'
 import getDetailType from './helpers/get-detail-type'
 import Application from './application'
-import DetailLayout from './layout'
 
 const BaseEntityDetail = ({ targetCode, defaultView }) => {
   const code = useSelector(selectDetail)
