@@ -3,7 +3,7 @@ import { Box, Center, Stack, VStack } from '@chakra-ui/layout'
 import Attribute from 'app/BE/attribute'
 import Card from 'app/layouts/components/card'
 import { add } from 'ramda'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { selectRows } from 'redux/db/selectors'
 import { useIsMobile } from 'utils/hooks'
@@ -12,7 +12,7 @@ import DetailHeader from './Header'
 import Tile from './Tile'
 import 'app/layouts/components/css/hide-scroll.css'
 
-const pt = { true: '8rem', false: '25rem' }
+const pt = { true: '8rem', false: '28rem' }
 
 const DetailLayout = ({ sbeCode, targetCode, details = [[], []] }) => {
   const rows = useSelector(selectRows(sbeCode))
@@ -36,11 +36,11 @@ const DetailLayout = ({ sbeCode, targetCode, details = [[], []] }) => {
     }
   }, [delta, setMini])
 
-  const tileWidth = isMobile ? '80vw' : '32rem'
+  const tileWidth = isMobile ? '80vw' : '33vw'
 
   return (
     <Box className="nobar" h="100vh" overflowY="scroll" onScroll={onScroll} onWheel={onWheel}>
-      <DetailHeader beCode={beCode} mini={mini} />
+      <DetailHeader sbeCode={sbeCode} beCode={beCode} mini={mini} />
       <DetailActions />
       <Center w="full" pt={pt[mini || isMobile]} pb="3rem">
         <Stack direction={isMobile ? 'column' : 'row'}>
@@ -53,16 +53,20 @@ const DetailLayout = ({ sbeCode, targetCode, details = [[], []] }) => {
           )}
           {details.map((col, colIdx) => (
             <VStack key={colIdx}>
-              {col.map(({ attributes, header, icon }, idx) => (
-                <Tile
-                  key={`${colIdx} - ${idx}`}
-                  beCode={beCode}
-                  w={tileWidth}
-                  attributes={attributes}
-                  header={header}
-                  icon={icon}
-                />
-              ))}
+              {col.map((item, idx) =>
+                React.isValidElement(item) ? (
+                  <Box>{item}</Box>
+                ) : (
+                  <Tile
+                    key={`${colIdx} - ${idx}`}
+                    beCode={beCode}
+                    w={tileWidth}
+                    attributes={item.attributes}
+                    header={item.header}
+                    icon={item.icon}
+                  />
+                ),
+              )}
             </VStack>
           ))}
         </Stack>

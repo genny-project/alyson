@@ -11,8 +11,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { closeDrawer } from 'redux/app'
 import { selectCode } from 'redux/db/selectors'
 import { useIsMobile } from 'utils/hooks'
+import DetailActions from './Actions'
 
-const DetailHeader = ({ beCode, mini }) => {
+const DetailHeader = ({ sbeCode, beCode, mini }) => {
   const dispatch = useDispatch()
   const onClose = () => dispatch(closeDrawer())
   const isMobile = useIsMobile()
@@ -55,8 +56,7 @@ const DetailHeader = ({ beCode, mini }) => {
           </HStack>
           <Spacer />
           <HStack>
-            <Button leftIcon={<FontAwesomeIcon icon={faPlus} />}>Apply</Button>
-            <IconButton icon={<FontAwesomeIcon icon={faEllipsisH} />} />
+            <DetailActions beCode={beCode} sbeCode={sbeCode} />
             <IconButton
               onClick={onClose}
               size="sm"
@@ -73,34 +73,53 @@ const DetailHeader = ({ beCode, mini }) => {
         position="absolute"
         zIndex="modal"
         overflow="hidden"
+        p="5"
       >
+        <Box
+          p="0"
+          overflow="hidden"
+          borderRadius="50%"
+          position="absolute"
+          zIndex="modal"
+          right="10"
+          top="10"
+        >
+          <IconButton
+            onClick={onClose}
+            size="sm"
+            variant="unstyled"
+            color="white"
+            icon={<FontAwesomeIcon opacity={50} icon={faTimes} />}
+          />
+        </Box>
         <Center w="full">
-          <Card p={0} w="full" bg="gradient.900" h="full" borderBottomRadius={0}>
-            <Center w="full">
-              <Box w="40%">
-                <Attribute code={beCode} attribute="PRI_VIDEO_URL" />
-              </Box>
+          <Card h="20rem" p={0} w="full" bg="gradient.900">
+            <Center w="full" h="20rem" overflow="hidden">
+              <Attribute code={beCode} attribute="PRI_VIDEO_URL" />
             </Center>
           </Card>
         </Center>
 
-        <Box>
-          <Avatar
-            ml="10rem"
-            mt="-4rem"
-            bg="white"
-            p="4px"
-            src={src}
-            w="8rem"
-            h="8rem"
-            zIndex="modal"
-          />
-        </Box>
-        <VStack spacing={0}>
-          {/* <Box>
-          <Attribute config={{ textStyle: 'head.1' }} code={beCode} attribute="PRI_NAME" />
-        </Box> */}
-        </VStack>
+        <Flex w="full">
+          <Box>
+            <Avatar
+              bg="white"
+              ml="2vw"
+              mt="-2rem"
+              p="4px"
+              src={src}
+              w="8rem"
+              h="8rem"
+              zIndex="modal"
+            />
+          </Box>
+          <HStack ml="5">
+            <Attribute config={{ textStyle: 'head.1' }} code={beCode} attribute="PRI_NAME" />
+          </HStack>
+
+          <Spacer />
+          <DetailActions beCode={beCode} sbeCode={sbeCode} />
+        </Flex>
       </Box>
     </Box>
   )

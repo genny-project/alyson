@@ -45,31 +45,9 @@ const Player = ({ src, inline }) => {
       </Center>
     )
 
-  if (inline)
-    return (
-      <Box onClick={togglePlay}>
-        <video style={{ width: '100%', height: '100%' }} src={src} ref={videoRef} />
-        <IconButton
-          onClick={togglePlay}
-          opacity={paused ? '0.8' : '0'}
-          transition="opacity 0.5s"
-          variant="unstyled"
-          color="white"
-          mt="-70%"
-          ml="48%"
-          icon={
-            <FontAwesomeIcon
-              style={{ backgroundColor: 'black', borderRadius: '50%', padding: '1px' }}
-              size="3x"
-              icon={faPlayCircle}
-            />
-          }
-        />
-      </Box>
-    )
   return (
     <Box onClick={togglePlay}>
-      <video style={{ width: '100%', height: '100%' }} src={src} ref={videoRef} />
+      <video src={src} ref={videoRef} />
       <IconButton
         onClick={togglePlay}
         opacity={paused ? '1' : '0'}

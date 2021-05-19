@@ -1,6 +1,14 @@
 import { useState, useEffect } from 'react'
 import ImageType from './Image'
-import { CircularProgress, Button, Tooltip, Link, HStack, CloseButton } from '@chakra-ui/react'
+import {
+  CircularProgress,
+  Button,
+  Tooltip,
+  Link,
+  HStack,
+  CloseButton,
+  Text,
+} from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faFileDownload, faUpload } from '@fortawesome/free-solid-svg-icons'
 import useApi from 'api'
@@ -34,11 +42,11 @@ const Read = ({ code, data, dttData, parentCode, variant, config }) => {
   if (!data?.value) return null
 
   return (
-    <Tooltip label={fileName}>
-      <Link p="2" color="primary" href={api.getSrc(data?.value)}>
-        <FontAwesomeIcon size="lg" icon={faFileDownload} />
-      </Link>
-    </Tooltip>
+    <Link style={{ textDecoration: 'none' }} href={api.getSrc(data.value)}>
+      <Button colorScheme="primary" leftIcon={<FontAwesomeIcon size="lg" icon={faFileDownload} />}>
+        {fileName || data.attributeName}
+      </Button>
+    </Link>
   )
 }
 
