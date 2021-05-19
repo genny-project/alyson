@@ -50,6 +50,7 @@ const ItemsForAutocomplete = ({
         {filteredOptions.length ? (
           filteredOptions.map((option, idx) => (
             <HStack
+              test-id={option.value}
               id={idx + 'item'}
               tabIndex={idx + 1}
               onKeyPress={e => {
