@@ -20,6 +20,7 @@ import Rating from 'app/DTT/rating'
 import TimeZonePicker from 'app/DTT/time_zone'
 import CheckBox from 'app/DTT/check_box'
 import ImageType from 'app/DTT/upload/Image'
+import Flag from 'app/DTT/flag'
 import fixLnk from './fix-lnk'
 
 const Attribute = ({
@@ -90,6 +91,8 @@ const Attribute = ({
     <TimeZonePicker.Read data={data} />
   ) : component === 'checkbox' ? (
     <CheckBox.Read data={data} />
+  ) : component === 'flag' ? (
+    <Flag.Read data={data} />
   ) : (
     <CText>{data?.value}</CText>
   )
