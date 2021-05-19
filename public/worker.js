@@ -1,5 +1,5 @@
-var CACHE_NAME = 'pwa-task-manager'
-var urlsToCache = ['/', '/home', '/home/UVVFX0RBU0hCT0FSRF9WSUVX/UVVFX0RBU0hCT0FSRF9WSUVX']
+var CACHE_NAME = 'pwa-alyson-v1'
+var urlsToCache = ['/']
 
 // Install a service worker
 window.addEventListener('install', event => {
@@ -35,7 +35,6 @@ window.addEventListener('activate', event => {
           if (cacheWhitelist.indexOf(cacheName) === -1) {
             return caches.delete(cacheName)
           }
-          return ''
         }),
       )
     }),

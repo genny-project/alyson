@@ -1,5 +1,5 @@
 import { HStack, Text, VStack } from '@chakra-ui/layout'
-import { CircularProgress } from '@chakra-ui/progress'
+// import { CircularProgress } from '@chakra-ui/progress'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Card from 'app/layouts/components/card'
@@ -84,12 +84,12 @@ const ItemsForAutocomplete = ({
           </Text>
         )}
 
-        {searching && (
+        {/* {searching && (
           <HStack p="3">
             <CircularProgress size={4} isIndeterminate />
             <Text textStyle="tail.3">{`Searching ${input}`}</Text>
           </HStack>
-        )}
+        )} */}
       </VStack>
     </Card>
   )
