@@ -13,7 +13,7 @@ const Lane = ({ sbeCode, dashboard, width }) => {
   if (dashboard && !rows.length) return null
 
   return (
-    <Card variant="card0" p={5} width={width}>
+    <Card variant="card0" p={4} width={width}>
       <VStack>
         <Title sbeCode={sbeCode} />
         <VStack

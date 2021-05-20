@@ -25,14 +25,15 @@ const AvailableInternCard = ({ parentCode, actions = [], code }) => {
   return (
     <MotionBox w="full" whileHover={{ scale: 1.02 }} transition={{ duration: 0.1 }}>
       <Card
-        p={5}
+        w="20rem"
+        p="5"
         variant="card1"
         {...(statusColor?.value !== 'default' && !includes('#', statusColor?.value || '')
           ? { bg: color }
           : {})}
       >
-        <Flex spacing="3" w="20rem">
-          <HStack>
+        <Flex>
+          <HStack align="start">
             <Image.Read
               config={{ size: 'xl' }}
               data={image || { baseEntityCode: code }}

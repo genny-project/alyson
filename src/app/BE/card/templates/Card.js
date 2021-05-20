@@ -31,7 +31,8 @@ const DefaultCard = ({ parentCode, actions = [], code, columns }) => {
   return (
     <MotionBox w="full" whileHover={{ scale: 1.02 }} transition={{ duration: 0.1 }}>
       <Card
-        p={5}
+        maxW="25rem"
+        p="5"
         variant="card1"
         {...(statusColor?.value &&
         statusColor?.value !== 'default' &&
@@ -39,28 +40,25 @@ const DefaultCard = ({ parentCode, actions = [], code, columns }) => {
           ? { bg: color }
           : {})}
       >
-        <Flex spacing="3">
-          <HStack>
+        <Flex>
+          <HStack align="start">
             <Image.Read
               config={{ size: 'xl' }}
               data={image || { baseEntityCode: code }}
               parentCode={parentCode}
             />
-            <VStack alignItems="baseline" w="30">
+            <VStack alignItems="start" minW="10rem">
               <Text.Read
                 data={title}
                 textProps={{
                   textStyle: 'body.1',
                   isTruncated: true,
-                  maxW: '14rem',
                 }}
               />
               <Text.Read
                 config={{
                   as: 'span',
                   textStyle: 'body.3',
-                  isTruncated: true,
-                  maxW: '14rem',
                 }}
                 data={subTitle}
               />
