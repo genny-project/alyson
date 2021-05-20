@@ -1,4 +1,4 @@
-import { Text, VStack, HStack } from '@chakra-ui/layout'
+import { Text, VStack } from '@chakra-ui/layout'
 import Attribute from 'app/BE/attribute'
 import Card from 'app/layouts/components/card'
 import { useSelector } from 'react-redux'
@@ -9,7 +9,7 @@ const NoteCard = ({ id }) => {
 
   if (!note) return null
 
-  const { content, created, targetCode, sourceCode } = note
+  const { content, created, sourceCode } = note
 
   return (
     <Card w="full" p="3">
