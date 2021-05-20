@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux'
 import { selectNotes } from 'redux/app/selectors'
 import { selectCode } from 'redux/db/selectors'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
+import { useIsMobile } from 'utils/hooks'
 import App from './App'
 
 const Selection = () => {
@@ -14,26 +15,38 @@ const Selection = () => {
   const code = head(notes)
   const linkedApps = useSelector(selectCode(code, 'linkedApps'))
 
-  console.log(code)
+  const isMobile = useIsMobile()
+
   if (!linkedApps) return null
 
-  return (
-    <VStack m="5">
-      <HStack align="stretch">
-        <Card variant="card0" w="8rem">
-          <Center h="100%">
-            <Text textStyle="body.3" textAlign="center">{`has these applications`}</Text>
-          </Center>
-        </Card>
-        <Wrap h="full">
+  if (isMobile)
+    return (
+      <VStack>
+        <Text textStyle="tail.1" textAlign="center">{`Applications`}</Text>
+        <Wrap h="full" justify="center">
           {linkedApps.map(code => (
             <WrapItem key={code}>
               <App code={code} />
             </WrapItem>
           ))}
         </Wrap>
-      </HStack>
-    </VStack>
+      </VStack>
+    )
+  return (
+    <HStack align="stretch" spacing="5">
+      <Card variant="card0" w="9vw">
+        <Center h="100%">
+          <Text textStyle="body.3" textAlign="center">{`has these applications`}</Text>
+        </Center>
+      </Card>
+      <Wrap h="full">
+        {linkedApps.map(code => (
+          <WrapItem key={code}>
+            <App code={code} />
+          </WrapItem>
+        ))}
+      </Wrap>
+    </HStack>
   )
 }
 

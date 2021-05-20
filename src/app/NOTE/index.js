@@ -16,8 +16,8 @@ const Notes = () => {
 
   if (isMobile) return <MobileNotes />
   return (
-    <Box w="90vw" m="3" overflowX="hidden">
-      <HStack align="start" mt="5" spacing="1">
+    <Box w="95vw" overflowX="hidden" mx="5">
+      <HStack overflowX="hidden" align="start" mt="5" spacing="5" w="full">
         {tabs.map((code, idx) => (
           <NotePanel key={code} idx={idx} code={code} length={tabs.length} />
         ))}

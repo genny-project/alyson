@@ -1,9 +1,36 @@
 import { HStack, Text, VStack } from '@chakra-ui/layout'
 import Attribute from 'app/BE/attribute'
 import Card from 'app/layouts/components/card'
+import { useIsMobile } from 'utils/hooks'
 import { onSendMessage } from 'vertx'
 
 const App = ({ code }) => {
+  const isMobile = useIsMobile()
+
+  if (isMobile)
+    return (
+      <Card
+        p="3"
+        h="full"
+        cursor="pointer"
+        _hover={{ bg: '#fafafa' }}
+        onClick={() =>
+          onSendMessage({ code: 'ACT_PRI_EVENT_ACCESS_NOTES_APPLICATION', targetCode: code })
+        }
+        w="9rem"
+      >
+        <VStack align="start" justify="space-between" h="full">
+          <Text textStyle="tail.1">
+            <Attribute code={code} attribute={'PRI_ASSOC_HC'} />
+          </Text>
+          <Text textStyle="tail.2">
+            <Attribute code={code} attribute={'PRI_TITLE'} />
+          </Text>
+          <Attribute code={code} attribute={'PRI_STATUS'} />
+          <Attribute config={{ textStyle: 'tail.3' }} code={code} attribute={'PRI_START_DATE'} />
+        </VStack>
+      </Card>
+    )
   return (
     <Card
       h="full"

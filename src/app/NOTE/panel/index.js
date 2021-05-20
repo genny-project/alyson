@@ -7,13 +7,21 @@ import bestTitleAttribute from 'utils/helpers/best-title-attribute'
 import AddNote from '../add_note'
 import nameOfColumn from '../helpers/name-of-column'
 import NoteCard from '../note_card'
-
+import 'app/layouts/components/css/hide-scroll.css'
+import { useIsMobile } from 'utils/hooks'
 const NotePanel = ({ code, idx, length }) => {
   const notes = useSelector(selectCode(code, 'NOTES')) || []
 
+  const isMobile = useIsMobile()
+
   return (
-    <Card w="18vw" p="0" variant="card0" overflow="hidden">
-      <VStack p="3" align="start" maxH="80vh" overflow="scroll" overflowX="hidden">
+    <Card
+      w={isMobile ? '90vw' : length === 1 ? '40vw' : '18vw'}
+      p="3"
+      variant="card0"
+      overflow="hidden"
+    >
+      <VStack className="nobar" align="start" maxH="80vh" overflow="scroll" overflowX="hidden">
         {length > 1 && <Text textStyle="head.3">{nameOfColumn(idx)}</Text>}
 
         <HStack>

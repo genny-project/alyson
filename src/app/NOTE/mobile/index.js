@@ -1,4 +1,4 @@
-import { Box, HStack, Text, VStack, Wrap, WrapItem } from '@chakra-ui/layout'
+import { Box, Center, HStack, Text, VStack, Wrap, WrapItem } from '@chakra-ui/layout'
 import Attribute from 'app/BE/attribute'
 import Card from 'app/layouts/components/card'
 import Chip from 'app/layouts/components/chip'
@@ -8,6 +8,7 @@ import { selectNotes } from 'redux/app/selectors'
 import bestTitleAttribute from 'utils/helpers/best-title-attribute'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import NotePanel from '../panel'
+import Selection from '../selection'
 
 const MobileNotes = () => {
   const tabs = safelyParseJson(useSelector(selectNotes), [])
@@ -15,8 +16,8 @@ const MobileNotes = () => {
   const [tab, setTab] = useState(0)
 
   return (
-    <VStack m="5">
-      <Card w="full">
+    <VStack>
+      {tabs.length > 1 ? (
         <VStack align="start" w="full">
           <Text textStyle="tail2">See notes on</Text>
           <Wrap w="full">
@@ -29,11 +30,15 @@ const MobileNotes = () => {
             ))}
           </Wrap>
         </VStack>
-      </Card>
+      ) : (
+        <Selection />
+      )}
       {tabs.map((code, idx) => (
-        <Box w="full" display={tab === idx ? 'block' : 'none'}>
-          <NotePanel code={code} />
-        </Box>
+        <Center display={tab === idx ? 'block' : 'none'}>
+          <Box>
+            <NotePanel code={code} />
+          </Box>
+        </Center>
       ))}
     </VStack>
   )
