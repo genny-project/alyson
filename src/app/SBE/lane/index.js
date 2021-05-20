@@ -7,13 +7,13 @@ import Footer from './Footer'
 import './lane.css'
 import Card from 'app/layouts/components/card'
 
-const Lane = ({ sbeCode, dashboard }) => {
+const Lane = ({ sbeCode, dashboard, width }) => {
   const rows = useSelector(selectRows(sbeCode), (prev, next) => prev.length === next.length)
 
   if (dashboard && !rows.length) return null
 
   return (
-    <Card variant="card0" p={5}>
+    <Card variant="card0" p={5} width={width}>
       <VStack>
         <Title sbeCode={sbeCode} />
         <VStack
