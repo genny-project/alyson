@@ -59,7 +59,7 @@ const Card = ({ variant = 'card2', children, ...rest }: CardProps) => {
   const currentStyle = useColorModeValue(lightStyles, darkStyles)
   const stylesConfig = currentStyle[variant]
   return (
-    <Box p={8} {...stylesConfig} {...rest}>
+    <Box p={[3, 3, 8]} {...stylesConfig} {...rest}>
       {children}
     </Box>
   )
