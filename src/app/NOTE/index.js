@@ -16,12 +16,12 @@ const Notes = () => {
 
   if (isMobile) return <MobileNotes />
   return (
-    <Box w="full" m="3">
-      <Selection />
+    <Box w="90vw" m="3" overflowX="hidden">
       <HStack align="start" mt="5" spacing="1">
-        {tabs.map(code => (
-          <NotePanel code={code} />
+        {tabs.map((code, idx) => (
+          <NotePanel key={code} idx={idx} code={code} length={tabs.length} />
         ))}
+        <Selection />
       </HStack>
     </Box>
   )

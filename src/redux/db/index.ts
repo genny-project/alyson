@@ -1,4 +1,4 @@
-import { forEach, includes } from 'ramda'
+import { forEach, includes, split } from 'ramda'
 import { createSlice } from '@reduxjs/toolkit'
 import { newMsg, newCmd } from '../app'
 import {
@@ -11,6 +11,7 @@ import {
 import { DBState, Note } from './types'
 import { MsgPayload, CmdPayload } from 'redux/types'
 import { addKey, removeKey } from './utils/update-keys'
+import safelyParseJson from 'utils/helpers/safely-parse-json'
 
 export const initialState = {
   NOTES: {},
@@ -22,7 +23,7 @@ const db = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder.addCase(newMsg, (state: DBState, { payload }: { payload: MsgPayload }) => {
-      const { items, data_type, aliasCode, parentCode, replace } = payload
+      const { items, data_type, aliasCode, parentCode, replace, linkedApps, code } = payload
 
       if (replace && parentCode) {
         state[`${parentCode}@rows`] = []
@@ -34,7 +35,10 @@ const db = createSlice({
         forEach(formatBaseEntity(state, aliasCode, parentCode), items)
       if (data_type === 'Ask') forEach(formatAsk(state, replace), items)
       if (data_type === 'Attribute') forEach(formatAttribute(state), items)
-      if (data_type === 'Note') forEach(formatNotes(state), items as Array<Note>)
+      if (data_type === 'Note') {
+        if (linkedApps) state[`${code}@linkedApps`] = split(',', linkedApps)
+        forEach(formatNotes(state), items as Array<Note>)
+      }
     })
     builder.addCase(newCmd, (state: DBState, { payload }: { payload: CmdPayload }) => {
       const { cmd_type, code, sourceCode, targetCode } = payload

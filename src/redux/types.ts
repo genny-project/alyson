@@ -12,7 +12,9 @@ export interface MsgPayload {
   aliasCode?: string
   parentCode?: string
   replace: boolean
-  targetCodes: Array<TargetCode>
+  targetCodes?: Array<TargetCode>
+  linkedApps?: string
+  code?: string
 }
 
 export interface CmdPayload {

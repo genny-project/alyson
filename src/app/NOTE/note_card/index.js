@@ -9,7 +9,7 @@ const NoteCard = ({ id }) => {
 
   if (!note) return null
 
-  const { content, created, targetCode } = note
+  const { content, created, targetCode, sourceCode } = note
 
   return (
     <Card w="full" p="3">
@@ -28,13 +28,13 @@ const NoteCard = ({ id }) => {
           )}
         </HStack> */}
 
-        <Text>{content}</Text>
-        <HStack>
+        <Text textStyle="tail.2">{content}</Text>
+        <VStack spacing={0}>
           <Text textStyle="tail.3">{new Date(created).toLocaleDateString()}</Text>
           <Text textStyle="tail.3">
-            <Attribute code={targetCode} attribute="PRI_NAME" />
+            <Attribute code={sourceCode} attribute="PRI_NAME" />
           </Text>
-        </HStack>
+        </VStack>
       </VStack>
     </Card>
   )
