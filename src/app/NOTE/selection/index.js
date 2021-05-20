@@ -3,14 +3,13 @@ import ImageType from 'app/DTT/upload/Image'
 import Card from 'app/layouts/components/card'
 import { useSelector } from 'react-redux'
 import { selectNotes } from 'redux/app/selectors'
-import { getApps } from '../helpers/get-data'
 import App from './App'
 
 const Selection = () => {
   const notes = useSelector(selectNotes)
 
   if (!notes?.linkedApps) return null
-  const apps = getApps(notes)
+  const apps = []
 
   return (
     <VStack align="start" m="5">
