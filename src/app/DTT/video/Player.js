@@ -4,11 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlayCircle } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
 
-const Player = ({
-  src,
-  styles = { width: '20rem', height: '15rem', borderRadius: '1rem' },
-  inline,
-}) => {
+const Player = ({ src, inline }) => {
   const videoRef = useRef(null)
 
   const [paused, setPaused] = useState(true)
@@ -49,54 +45,20 @@ const Player = ({
       </Center>
     )
 
-  if (inline)
-    return (
-      <Box onClick={togglePlay} style={{ ...styles }}>
-        <video style={{ width: '100%', height: '100%' }} src={src} ref={videoRef} />
-        <IconButton
-          onClick={togglePlay}
-          opacity={paused ? '0.8' : '0'}
-          transition="opacity 0.5s"
-          variant="unstyled"
-          color="white"
-          mt="-70%"
-          ml="48%"
-          icon={
-            <FontAwesomeIcon
-              style={{ backgroundColor: 'black', borderRadius: '50%', padding: '1px' }}
-              size="3x"
-              icon={faPlayCircle}
-            />
-          }
-        />
-      </Box>
-    )
   return (
-    <Box
-      onClick={togglePlay}
-      style={{ position: 'absolute', width: '40rem', overflow: 'hidden', ...styles }}
-    >
-      <video
-        style={{ position: 'absolute', width: '100%', height: '100%' }}
-        src={src}
-        ref={videoRef}
-      />
+    <Box onClick={togglePlay}>
+      <video src={src} ref={videoRef} />
       <IconButton
         onClick={togglePlay}
-        opacity={paused ? '0.8' : '0'}
+        opacity={paused ? '1' : '0'}
         transition="opacity 0.5s"
-        position="relative"
-        left="calc(50% - 24px)"
-        top="calc(50% - 24px)"
         variant="unstyled"
         color="white"
-        icon={
-          <FontAwesomeIcon
-            style={{ backgroundColor: 'black', borderRadius: '50%', padding: '1px' }}
-            size="3x"
-            icon={faPlayCircle}
-          />
-        }
+        position="fixed"
+        left="50%"
+        top="calc(13%)"
+        zIndex="modal"
+        icon={<FontAwesomeIcon size="2x" icon={faPlayCircle} />}
       />
     </Box>
   )

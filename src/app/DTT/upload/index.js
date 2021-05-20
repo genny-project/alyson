@@ -34,11 +34,11 @@ const Read = ({ code, data, dttData, parentCode, variant, config }) => {
   if (!data?.value) return null
 
   return (
-    <Tooltip label={fileName}>
-      <Link p="2" color="primary" href={api.getSrc(data?.value)}>
-        <FontAwesomeIcon size="lg" icon={faFileDownload} />
-      </Link>
-    </Tooltip>
+    <Link style={{ textDecoration: 'none' }} href={api.getSrc(data.value)}>
+      <Button colorScheme="primary" leftIcon={<FontAwesomeIcon size="lg" icon={faFileDownload} />}>
+        {fileName || data.attributeName}
+      </Button>
+    </Link>
   )
 }
 

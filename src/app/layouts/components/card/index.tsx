@@ -1,5 +1,5 @@
 import { ReactChildren } from 'react'
-import { Box } from '@chakra-ui/layout'
+import { Box, BoxProps } from '@chakra-ui/layout'
 import { useColorModeValue } from '@chakra-ui/react'
 import { Keyable } from 'utils/types'
 
@@ -49,7 +49,7 @@ const darkStyles = {
   },
 } as Styles
 
-type CardProps = {
+type CardProps = BoxProps & {
   variant?: variant
   rest: []
   children: ReactChildren

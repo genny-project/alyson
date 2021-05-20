@@ -1,10 +1,11 @@
 import { MenuItem } from '@chakra-ui/react'
+import Button from 'app/layouts/components/button'
 
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import { onSendMessage } from 'vertx'
 
-const Action = ({ parentCode, code, targetCode }) => {
+const Action = ({ parentCode, code, targetCode, noMenu }) => {
   const needsToBeConfirmed = useSelector(selectCode(parentCode, code))?.confirmationFlag
   const data = useSelector(selectCode(parentCode, code))
 
@@ -24,6 +25,13 @@ const Action = ({ parentCode, code, targetCode }) => {
           targetCode,
         })
   }
+
+  if (noMenu)
+    return (
+      <Button test-id={code} onClick={() => handleClick(code, data)}>
+        {data.attributeName}
+      </Button>
+    )
 
   return (
     <div>

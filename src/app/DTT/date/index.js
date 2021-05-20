@@ -18,11 +18,7 @@ const Read = ({ data, typeName, config }) => {
   )
 
   if (date === 'Invalid Date') return null
-  return (
-    <Text textStyle="tail.2" {...config}>
-      {date}
-    </Text>
-  )
+  return <Text {...config}>{date}</Text>
 }
 const Write = ({ questionCode, data, onSendAnswer, typeName }) => {
   const includeTime = includes('LocalDateTime', typeName)
