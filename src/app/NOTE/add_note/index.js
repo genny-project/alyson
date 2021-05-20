@@ -1,25 +1,25 @@
 import { useState } from 'react'
-import { Input, InputGroup, InputLeftElement, InputRightElement } from '@chakra-ui/input'
+import { Input, InputGroup, InputRightElement } from '@chakra-ui/input'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import { IconButton } from '@chakra-ui/button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import { onSendMessage } from 'vertx'
-import Card from 'app/layouts/components/card'
+import { selectNotes } from 'redux/app/selectors'
 
-const AddNote = ({ targetCode, image, title, parentCode, rootCode }) => {
+const AddNote = ({ code }) => {
   const sourceCode = useSelector(selectCode('USER'))
+  const parentCode = useSelector(selectNotes)
 
   const [noteContent, setNoteContent] = useState('')
 
   const handleSave = e => {
     e.preventDefault()
     onSendMessage({
-      code: 'ACT_PRI_EVENT_SAVE_NOTE',
-      targetCode,
+      code: `ACT_PRI_EVENT_SAVE_NOTE`,
+      targetCode: code,
       sourceCode,
-      rootCode,
       tags: [],
       content: noteContent,
       parentCode,
@@ -28,27 +28,23 @@ const AddNote = ({ targetCode, image, title, parentCode, rootCode }) => {
   }
 
   return (
-    <Card>
-      <form onSubmit={handleSave} style={{ width: '100%' }}>
-        <InputGroup>
-          <InputLeftElement>{image}</InputLeftElement>
-          <Input
-            value={noteContent}
-            placeholder={`Take a note on ${title}`}
-            onChange={e => setNoteContent(e.target.value)}
+    <form onSubmit={handleSave} style={{ width: '100%' }}>
+      <InputGroup bg="whiteAlpha.500">
+        <Input
+          value={noteContent}
+          placeholder={`Take a note`}
+          onChange={e => setNoteContent(e.target.value)}
+        />
+        <InputRightElement>
+          <IconButton
+            variant="unstyled"
+            onClick={handleSave}
+            color="blue.500"
+            icon={<FontAwesomeIcon icon={faPlusCircle} />}
           />
-          <InputRightElement>
-            <IconButton
-              variant="unstyled"
-              borderLeftRadius="0px"
-              h="100%"
-              onClick={handleSave}
-              icon={<FontAwesomeIcon icon={faPlusCircle} />}
-            />
-          </InputRightElement>
-        </InputGroup>
-      </form>
-    </Card>
+        </InputRightElement>
+      </InputGroup>
+    </form>
   )
 }
 

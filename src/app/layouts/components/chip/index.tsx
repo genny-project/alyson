@@ -38,21 +38,31 @@ const styles = {
 } as Styles
 
 type ChipProps = {
-  onClick: any
+  onClick?: any
   variant?: variant
   rest: []
   children: ReactChildren
+  leftIcon?: any
 }
 
-const Chip = ({ onClick, variant = 'default', children, ...rest }: ChipProps) => {
+const Chip = ({
+  onClick,
+  leftIcon = <FontAwesomeIcon icon={faTimesCircle} />,
+  variant = 'default',
+  children,
+  ...rest
+}: ChipProps) => {
   const stylesConfig = styles[variant]
+
+  if (typeof onClick === 'function')
+    return (
+      <ChakraButton leftIcon={leftIcon} onClick={onClick} {...stylesConfig} {...rest}>
+        {children}
+      </ChakraButton>
+    )
+
   return (
-    <ChakraButton
-      leftIcon={<FontAwesomeIcon icon={faTimesCircle} />}
-      onClick={onClick}
-      {...stylesConfig}
-      {...rest}
-    >
+    <ChakraButton {...stylesConfig} {...rest}>
       {children}
     </ChakraButton>
   )

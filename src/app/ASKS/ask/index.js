@@ -31,6 +31,7 @@ import LogRocketSession from 'app/DTT/log_rocket_session'
 import Attribute from 'app/BE/attribute'
 import { useMobileValue } from 'utils/hooks'
 import { selectHighlightedQuestion } from 'redux/app/selectors'
+import Flag from 'app/DTT/flag'
 
 const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCode }) => {
   const askData = useSelector(selectCode(parentCode, questionCode)) || passedAskData
@@ -247,6 +248,9 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
         <CheckBox.Write data={data} questionCode={questionCode} onSendAnswer={onSendAnswer} />
       )}
       {component === 'log_rocket_session' && <LogRocketSession.Write onSendAnswer={onSendAnswer} />}
+      {component === 'flag' && (
+        <Flag.Write data={data} questionCode={questionCode} onSendAnswer={onSendAnswer} />
+      )}
       <FormErrorMessage>{feedback}</FormErrorMessage>
     </FormControl>
   )

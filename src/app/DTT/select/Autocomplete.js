@@ -93,6 +93,7 @@ const Autocomplete = ({
       {!multiple && selected.length ? null : (
         <InputGroup w="full" maxW="25vw">
           <Input
+            test-id={questionCode}
             onKeyDown={e => {
               if (e.key === 'ArrowDown') setOpen(true)
             }}
