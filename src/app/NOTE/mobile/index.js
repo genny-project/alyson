@@ -1,6 +1,5 @@
-import { Box, Center, HStack, Text, VStack, Wrap, WrapItem } from '@chakra-ui/layout'
+import { Box, Center, Text, VStack, Wrap, WrapItem } from '@chakra-ui/layout'
 import Attribute from 'app/BE/attribute'
-import Card from 'app/layouts/components/card'
 import Chip from 'app/layouts/components/chip'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
