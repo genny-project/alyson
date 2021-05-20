@@ -1,6 +1,6 @@
 import { IconButton } from '@chakra-ui/button'
 import { HStack } from '@chakra-ui/layout'
-import { Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/menu'
+import { Menu, MenuButton, MenuList } from '@chakra-ui/menu'
 import { faEllipsisH } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Action from 'app/BE/context/Action'

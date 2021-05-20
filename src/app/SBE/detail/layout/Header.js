@@ -1,6 +1,6 @@
 import { Avatar } from '@chakra-ui/avatar'
 import { IconButton } from '@chakra-ui/button'
-import { Box, Center, Flex, HStack, Spacer, VStack } from '@chakra-ui/layout'
+import { Box, Center, Flex, HStack, Spacer } from '@chakra-ui/layout'
 import { faEllipsisH, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useApi from 'api'

@@ -2,8 +2,6 @@ import { useSelector } from 'react-redux'
 import { selectCode, selectRows } from 'redux/db/selectors'
 import { Box, HStack, VStack } from '@chakra-ui/react'
 
-import Header from './templates/header'
-import getActions from 'app/SBE/utils/get-actions'
 import getColumns, { getAttribute } from 'app/SBE/utils/get-columns'
 import Label from 'app/BE/attribute/Label'
 import Attribute from 'app/BE/attribute'
