@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHandshake, faMapPin, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faHandshake, faUser } from '@fortawesome/free-solid-svg-icons'
 
 import DetailLayout from '../layout'
 import { replace } from 'ramda'

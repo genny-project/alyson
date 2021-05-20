@@ -11,7 +11,6 @@ import {
 import { DBState, Note } from './types'
 import { MsgPayload, CmdPayload } from 'redux/types'
 import { addKey, removeKey } from './utils/update-keys'
-import safelyParseJson from 'utils/helpers/safely-parse-json'
 
 export const initialState = {
   NOTES: {},
