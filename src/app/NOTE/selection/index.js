@@ -1,43 +1,52 @@
 import { Center, HStack, Text, VStack, Wrap, WrapItem } from '@chakra-ui/layout'
+import Attribute from 'app/BE/attribute'
 import ImageType from 'app/DTT/upload/Image'
 import Card from 'app/layouts/components/card'
+import { head, includes } from 'ramda'
 import { useSelector } from 'react-redux'
 import { selectNotes } from 'redux/app/selectors'
-import { getApps } from '../helpers/get-data'
+import { selectCode } from 'redux/db/selectors'
+import safelyParseJson from 'utils/helpers/safely-parse-json'
+import { useIsMobile } from 'utils/hooks'
 import App from './App'
 
 const Selection = () => {
-  const notes = useSelector(selectNotes)
+  const notes = safelyParseJson(useSelector(selectNotes), [])
+  const code = head(notes)
+  const linkedApps = useSelector(selectCode(code, 'linkedApps'))
 
-  if (!notes?.linkedApps) return null
-  const apps = getApps(notes)
+  const isMobile = useIsMobile()
 
-  return (
-    <VStack align="start" m="5">
-      <Text textStyle="head.3">Please narrow down selection</Text>
-      <HStack align="stretch">
-        <Card>
-          <Center h="100%">
-            <VStack>
-              <ImageType.Read data={{ value: notes?.Tab_Intern?.image }} config={{ size: 'lg' }} />
-              <Text>{`${notes?.Tab_Intern?.title}`}</Text>
-            </VStack>
-          </Center>
-        </Card>
-        <Card variant="card0" w="8rem">
-          <Center h="100%">
-            <Text textStyle="body.3" textAlign="center">{`has these applications`}</Text>
-          </Center>
-        </Card>
-        <Wrap>
-          {apps.map(code => (
+  if (!linkedApps) return null
+
+  if (isMobile)
+    return (
+      <VStack>
+        <Text textStyle="tail.1" textAlign="center">{`Applications`}</Text>
+        <Wrap h="full" justify="center">
+          {linkedApps.map(code => (
             <WrapItem key={code}>
               <App code={code} />
             </WrapItem>
           ))}
         </Wrap>
-      </HStack>
-    </VStack>
+      </VStack>
+    )
+  return (
+    <HStack align="stretch" spacing="5">
+      <Card variant="card0" w="9vw">
+        <Center h="100%">
+          <Text textStyle="body.3" textAlign="center">{`has these applications`}</Text>
+        </Center>
+      </Card>
+      <Wrap h="full">
+        {linkedApps.map(code => (
+          <WrapItem key={code}>
+            <App code={code} />
+          </WrapItem>
+        ))}
+      </Wrap>
+    </HStack>
   )
 }
 

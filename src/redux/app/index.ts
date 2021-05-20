@@ -40,7 +40,7 @@ const appSlice = createSlice({
       state.lastReceivedMessage = { time: new Date(), ...payload }
       state.lastEvent = new Date()
       if (data_type === 'BaseEntity') setDisplayCode(state)(items)
-      if (data_type === 'Note') state.NOTES = payload
+      // if (data_type === 'Note') state.NOTES = payload
 
       if (isAsk(data_type)) {
         const questionCode: string = getQuestionCode(items)

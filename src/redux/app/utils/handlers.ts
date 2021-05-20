@@ -10,6 +10,10 @@ const displayMachine: {
 } = {
   'DRAWER:DETAIL': (state: AppState) => (state['DRAWER'] = 'DETAIL'),
   DIALOG_FORM: (state: AppState) => (state['DIALOG'] = 'FORM'),
+  NOTES: (state: AppState) => {
+    state['NOTES'] = null
+    state['DISPLAY'] = 'NOTES'
+  },
   NONE: (state: AppState) => {
     state.DIALOG = 'NONE'
     state.DRAWER = 'NONE'

@@ -1,8 +1,5 @@
-import { Box, HStack, Input, Text, useClipboard, useToast } from '@chakra-ui/react'
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Box, Input, Text, useClipboard, useToast } from '@chakra-ui/react'
 
-import HeroIconButton from 'app/layouts/components/hero_icon_button'
 import Duplicates from './Duplicates'
 
 const Write = ({ questionCode, data, onSendAnswer }) => {
@@ -36,10 +33,9 @@ const Read = ({ data }) => {
     })
   }
   return (
-    <HStack spacing="2">
-      <HeroIconButton onClick={onClick} icon={<FontAwesomeIcon size="sm" icon={faEnvelope} />} />
-      <Text w="16rem">{data?.value}</Text>
-    </HStack>
+    <Text cursor="pointer" onClick={onClick} w="16rem">
+      {data?.value}
+    </Text>
   )
 }
 

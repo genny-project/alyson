@@ -1,48 +1,28 @@
-import { Box } from '@chakra-ui/layout'
-import { TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/tabs'
+import { Box, HStack } from '@chakra-ui/layout'
 import { useSelector } from 'react-redux'
 import { selectNotes } from 'redux/app/selectors'
-import { getTabs, getTitle } from './helpers/get-data'
+import safelyParseJson from 'utils/helpers/safely-parse-json'
+import { useIsMobile } from 'utils/hooks'
+import MobileNotes from './mobile'
 import NotePanel from './panel'
 import Selection from './selection'
-import TabTop from './tab_top'
 
 const Notes = () => {
-  const notes = useSelector(selectNotes)
+  const tabs = safelyParseJson(useSelector(selectNotes), [])
 
-  if (!notes) return null
+  const isMobile = useIsMobile()
 
-  const rootCode = notes.Tab_Application?.code
+  if (!tabs.length) return null
 
-  const tabs = getTabs(notes)
+  if (isMobile) return <MobileNotes />
   return (
-    <Box w="full">
-      <Selection />
-      <Tabs mt="5">
-        <TabList>
-          {tabs.map(key => (
-            <TabTop
-              key={key}
-              rootCode={key}
-              sourceCode={rootCode}
-              tab={notes[key]}
-              title={getTitle(key)}
-            />
-          ))}
-        </TabList>
-        <TabPanels>
-          {tabs.map(key => (
-            <TabPanel key={key}>
-              <NotePanel
-                rootCode={rootCode}
-                parentCode={key}
-                tab={notes[key]}
-                title={getTitle(key)}
-              />
-            </TabPanel>
-          ))}
-        </TabPanels>
-      </Tabs>
+    <Box w="95vw" overflowX="hidden" mx="5">
+      <HStack overflowX="hidden" align="start" mt="5" spacing="5" w="full">
+        {tabs.map((code, idx) => (
+          <NotePanel key={code} idx={idx} code={code} length={tabs.length} />
+        ))}
+        <Selection />
+      </HStack>
     </Box>
   )
 }
