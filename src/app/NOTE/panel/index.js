@@ -9,10 +9,13 @@ import nameOfColumn from '../helpers/name-of-column'
 import NoteCard from '../note_card'
 import 'app/layouts/components/css/hide-scroll.css'
 import { useIsMobile } from 'utils/hooks'
+import { reverse } from 'ramda'
 const NotePanel = ({ code, idx, length }) => {
   const notes = useSelector(selectCode(code, 'NOTES')) || []
 
   const isMobile = useIsMobile()
+
+  console.log(notes)
 
   return (
     <Card
@@ -25,7 +28,7 @@ const NotePanel = ({ code, idx, length }) => {
         {length > 1 && <Text textStyle="head.3">{nameOfColumn(idx)}</Text>}
 
         <HStack>
-          <Attribute code={code} attribute="PRI_IMAGE_URL" />
+          <Attribute code={code} attribute="PRI_IMAGE_URL" parentCode="NOTES" />
           <VStack align="start">
             <Attribute code={code} attribute={bestTitleAttribute(code)} />
           </VStack>
@@ -33,8 +36,8 @@ const NotePanel = ({ code, idx, length }) => {
 
         <AddNote code={code} />
 
-        {notes.map(id => (
-          <NoteCard key={id} id={id} />
+        {reverse(notes).map((id, idx) => (
+          <NoteCard key={idx + id} id={id} idx={idx} notes={notes} />
         ))}
       </VStack>
     </Card>
