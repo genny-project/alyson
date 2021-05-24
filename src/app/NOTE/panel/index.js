@@ -15,8 +15,6 @@ const NotePanel = ({ code, idx, length }) => {
 
   const isMobile = useIsMobile()
 
-  console.log(notes)
-
   return (
     <Card
       w={isMobile ? '90vw' : length === 1 ? '40vw' : '18vw'}
