@@ -32,6 +32,7 @@ const labels = {
   QUE_PERSON_MENU: 'Person',
   QUE_DRAFTS_GRP: 'Notifications',
   QUE_ADMIN_MENU: 'Admin',
+  QUE_QA_ADMIN_MENU: 'Admin',
   QUE_MENTEE_MENU: 'Mentee',
   QUE_MENTOR_MENU: 'Mentor',
   QUE_QA_MENTEE_MENU: 'Mentee',
