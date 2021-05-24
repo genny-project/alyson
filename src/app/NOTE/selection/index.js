@@ -1,4 +1,4 @@
-import { Center, HStack, Text, VStack, Wrap, WrapItem } from '@chakra-ui/layout'
+import { Wrap, WrapItem } from '@chakra-ui/layout'
 import Card from 'app/layouts/components/card'
 import { head } from 'ramda'
 import { useSelector } from 'react-redux'
