@@ -100,9 +100,11 @@ const DetailHeader = ({ sbeCode, beCode, mini }) => {
           />
         </Box>
         <Center w="full">
-          <Card h="20rem" p={0} w="full" bg="gradient.900">
-            <Center w="full" h="20rem" overflow="hidden">
-              <Attribute code={beCode} attribute="PRI_VIDEO_URL" />
+          <Card minH="15rem" p={0} w="full" bg="gradient.900" overflow="hidden">
+            <Center w="full">
+              <Box maxW="30vw">
+                <Attribute code={beCode} attribute="PRI_VIDEO_URL" />
+              </Box>
             </Center>
           </Card>
         </Center>

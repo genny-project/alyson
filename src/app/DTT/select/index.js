@@ -34,7 +34,7 @@ const Write = ({
           sourceCode,
           targetCode,
           value,
-          parentCode: questionCode,
+          parentCode: groupCode,
         },
         { event_type: 'DD', redirect: false, attributeCode },
       ),

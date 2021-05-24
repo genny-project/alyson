@@ -1,4 +1,4 @@
-import { Center, HStack, Text, VStack, Wrap, WrapItem } from '@chakra-ui/layout'
+import { Wrap, WrapItem } from '@chakra-ui/layout'
 import Card from 'app/layouts/components/card'
 import { head } from 'ramda'
 import { useSelector } from 'react-redux'
@@ -19,8 +19,7 @@ const Selection = () => {
 
   if (isMobile)
     return (
-      <VStack>
-        <Text textStyle="tail.1" textAlign="center">{`Applications`}</Text>
+      <Card p="3" variant="card0" w="90vw" maxH="26vh" overflowY="scroll" overflowX="hidden">
         <Wrap h="full" justify="center">
           {linkedApps.map(code => (
             <WrapItem key={code}>
@@ -28,23 +27,18 @@ const Selection = () => {
             </WrapItem>
           ))}
         </Wrap>
-      </VStack>
+      </Card>
     )
   return (
-    <HStack align="stretch" spacing="5">
-      <Card variant="card0" w="9vw">
-        <Center h="100%">
-          <Text textStyle="body.3" textAlign="center">{`has these applications`}</Text>
-        </Center>
-      </Card>
-      <Wrap h="full">
+    <Card variant="card0" p="3">
+      <Wrap maxW="85vw" maxH="80vh" overflowY="scroll" overflowX="hidden">
         {linkedApps.map(code => (
           <WrapItem key={code}>
             <App code={code} />
           </WrapItem>
         ))}
       </Wrap>
-    </HStack>
+    </Card>
   )
 }
 
