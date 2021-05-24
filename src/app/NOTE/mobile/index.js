@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux'
 import { selectNotes } from 'redux/app/selectors'
 import bestTitleAttribute from 'utils/helpers/best-title-attribute'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
+import nameOfColumn from '../helpers/name-of-column'
 import NotePanel from '../panel'
 import Selection from '../selection'
 
@@ -17,18 +18,18 @@ const MobileNotes = () => {
   return (
     <VStack>
       {tabs.length > 1 ? (
-        <VStack align="start" w="full">
-          <Text textStyle="tail2">See notes on</Text>
-          <Wrap w="full">
-            {tabs.map((code, idx) => (
-              <WrapItem key={code}>
-                <Chip leftIcon={null} onClick={() => setTab(idx)}>
-                  <Attribute code={code} attribute={bestTitleAttribute(code)} />
-                </Chip>
-              </WrapItem>
-            ))}
-          </Wrap>
-        </VStack>
+        <Wrap mx="5" justify="center">
+          {tabs.map((code, idx) => (
+            <WrapItem key={code}>
+              <Chip colorScheme="primary" size="sm" leftIcon={null} onClick={() => setTab(idx)}>
+                <Text textStyle="tail.3" mr="0.5rem">
+                  {nameOfColumn(idx)}
+                </Text>
+                <Attribute code={code} attribute={bestTitleAttribute(code)} />
+              </Chip>
+            </WrapItem>
+          ))}
+        </Wrap>
       ) : (
         <Selection />
       )}
