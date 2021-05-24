@@ -24,6 +24,7 @@ const db = createSlice({
     builder.addCase(newMsg, (state: DBState, { payload }: { payload: MsgPayload }) => {
       const { items, data_type, aliasCode, parentCode, replace, linkedApps, code } = payload
 
+      console.time('re')
       if (replace && parentCode) {
         state[`${parentCode}@rows`] = []
       }
@@ -38,6 +39,8 @@ const db = createSlice({
         if (linkedApps) state[`${code}@linkedApps`] = split(',', linkedApps)
         forEach(formatNotes(state), items as Array<Note>)
       }
+
+      console.timeEnd('re')
     })
     builder.addCase(newCmd, (state: DBState, { payload }: { payload: CmdPayload }) => {
       const { cmd_type, code, sourceCode, targetCode } = payload
