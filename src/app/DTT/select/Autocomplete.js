@@ -54,6 +54,7 @@ const Autocomplete = ({
   const onBlur = () => {
     setOpen(false)
     setInput('')
+    ddEvent('')
   }
 
   const createNew = () => {
@@ -76,7 +77,16 @@ const Autocomplete = ({
   }, [options])
 
   return (
-    <Box onFocus={() => !options.length && ddEvent('')} ref={ref} test-id={questionCode}>
+    <Box
+      onFocus={() => {
+        if (!options.length) {
+          ddEvent('')
+          setSearching('')
+        }
+      }}
+      ref={ref}
+      test-id={questionCode}
+    >
       {selected.length ? (
         <Box pb="2">
           <Wrap w="full" maxW="25vw">
