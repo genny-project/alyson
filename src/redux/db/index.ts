@@ -23,24 +23,33 @@ const db = createSlice({
   extraReducers: builder => {
     builder.addCase(newMsg, (state: DBState, { payload }: { payload: MsgPayload }) => {
       const { items, data_type, aliasCode, parentCode, replace, linkedApps, code } = payload
-
-      console.time('re')
       if (replace && parentCode) {
         state[`${parentCode}@rows`] = []
       }
 
-      if (parentCode && includes('GRP_', parentCode as string))
+      if (parentCode && includes('GRP_', parentCode as string)) {
         formatGroupData(state, parentCode, items, replace)
-      if (data_type === 'BaseEntity' && !includes('GRP_', (parentCode as string) || ''))
+        return
+      }
+
+      if (data_type === 'BaseEntity') {
         forEach(formatBaseEntity(state, aliasCode, parentCode), items)
-      if (data_type === 'Ask') forEach(formatAsk(state, replace), items)
-      if (data_type === 'Attribute') forEach(formatAttribute(state), items)
+        return
+      }
+
+      if (data_type === 'Ask') {
+        forEach(formatAsk(state, replace), items)
+        return
+      }
+      if (data_type === 'Attribute') {
+        forEach(formatAttribute(state), items)
+        return
+      }
       if (data_type === 'Note') {
         if (linkedApps) state[`${code}@linkedApps`] = split(',', linkedApps)
         forEach(formatNotes(state), items as Array<Note>)
+        return
       }
-
-      console.timeEnd('re')
     })
     builder.addCase(newCmd, (state: DBState, { payload }: { payload: CmdPayload }) => {
       const { cmd_type, code, sourceCode, targetCode } = payload

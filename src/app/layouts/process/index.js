@@ -11,7 +11,7 @@ const Process = ({ dashboard }) => {
   return (
     <VStack align="start" spacing={0} px="5">
       {!dashboard && <Search sbeCode={JSON.stringify(processCodes)} />}
-      <Stack direction={'row'} spacing={5}>
+      <Stack direction={dashboard ? 'column-reverse' : 'row'} spacing={5}>
         {processCodes.map(sbeCode => (
           <Lane key={sbeCode} sbeCode={sbeCode} dashboard={dashboard} />
         ))}
