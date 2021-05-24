@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-globals */
-let CACHE_NAME = 'your-app-name'
-let urlsToCache = ['/', '/completed']
+let CACHE_NAME = 'internmatch'
+let urlsToCache = ['/', '/home']
 
 // Install a service worker
 self.addEventListener('install', event => {
