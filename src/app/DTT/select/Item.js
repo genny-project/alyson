@@ -1,4 +1,4 @@
-import { Flex, HStack, Spacer, Text } from '@chakra-ui/layout'
+import { Flex, Spacer, Text } from '@chakra-ui/layout'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { includes } from 'ramda'

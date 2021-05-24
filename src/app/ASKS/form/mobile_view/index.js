@@ -7,7 +7,7 @@ import FormBody from '../template/Body'
 const FormMobileView = ({ title, childAsks, onFinish, questionCode, config }) => {
   if (!config.groups)
     return (
-      <Center mx="8">
+      <Center>
         <VStack spacing={8} align="start" width="full" mb={6}>
           <Text textStyle="head.2" my="6">
             {title}

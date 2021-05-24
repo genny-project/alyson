@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCoffee } from '@fortawesome/free-solid-svg-icons'
 import { faLinkedin } from '@fortawesome/free-brands-svg-icons'
 import { IconButton, InputGroup, InputLeftAddon, Input } from '@chakra-ui/react'
+import { useMobileValue } from 'utils/hooks'
 
 const Read = ({ data }) => {
   const attributeName = data?.attributeName
@@ -22,8 +23,9 @@ const Read = ({ data }) => {
 }
 
 const Write = ({ questionCode, onSendAnswer, data }) => {
+  const maxW = useMobileValue('', '25vw')
   return (
-    <InputGroup w="full" maxW="25vw">
+    <InputGroup w="full" maxW={maxW}>
       <InputLeftAddon>
         <FontAwesomeIcon size="lg" icon={faLinkedin} />
       </InputLeftAddon>

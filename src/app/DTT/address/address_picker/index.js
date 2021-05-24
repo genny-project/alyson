@@ -2,6 +2,7 @@ import { useRef, useEffect } from 'react'
 import { Input } from '@chakra-ui/react'
 
 import makeAddressData from './make-address-data'
+import { useMobileValue } from 'utils/hooks'
 
 let autocomplete
 
@@ -37,13 +38,15 @@ const AddressPicker = ({ onSendAnswer, data, questionCode }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const maxW = useMobileValue(['', '25vw'])
+
   return (
     <Input
       test-id={questionCode}
       defaultValue={data?.value}
       ref={autoCompleteRef}
       w="full"
-      maxW="25vw"
+      maxW={maxW}
     />
   )
 }
