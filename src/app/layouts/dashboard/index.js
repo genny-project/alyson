@@ -6,6 +6,7 @@ import Process from '../process'
 import { selectCode } from 'redux/db/selectors'
 import getUserType from 'utils/helpers/get-user-type'
 import MenteeDashboard from './mentee'
+import AgentDashboard from './agent'
 
 const Dashboard = () => {
   const dashboardSbes = useSelector(selectDashboard)
@@ -14,6 +15,7 @@ const Dashboard = () => {
   const userType = getUserType(useSelector(selectCode(userCode)))
 
   if (userType === 'MENTEE') return <MenteeDashboard />
+  if (userType === 'AGENT' || userType === 'ADMIN') return <AgentDashboard />
 
   if (!dashboardSbes) return <div />
 
