@@ -15,7 +15,9 @@ import Card from 'app/layouts/components/card'
 import Progress from './progress'
 
 const Intern = ({ userCode }) => {
-  const [name, occ] = useSelector(selectAttributes(userCode, ['PRI_NAME', 'PRI_ASSOC_OCCUPATION']))
+  const [name, occ, status] = useSelector(
+    selectAttributes(userCode, ['PRI_NAME', 'PRI_ASSOC_OCCUPATION', 'PRI_STATUS']),
+  )
   const dashboardSbes = useSelector(selectDashboard)
 
   const internSbe = find(includes('_INTERN_'), dashboardSbes || [])
@@ -55,6 +57,7 @@ const Intern = ({ userCode }) => {
             <Text textStyle="body.1">{`Actions`}</Text>
             <VStack align="stretch" height="inherit" justifyContent="space-evenly">
               <Button
+                hidden={status?.value === 'PROGRESS'}
                 onClick={() =>
                   onSendMessage({
                     code: 'QUE_TREE_ITEM_INTERNSHIPS',

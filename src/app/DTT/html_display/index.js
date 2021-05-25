@@ -1,4 +1,4 @@
-import { Box, Center } from '@chakra-ui/layout'
+import { Center } from '@chakra-ui/layout'
 import Card from 'app/layouts/components/card'
 import { useMobileValue } from 'utils/hooks'
 
