@@ -24,10 +24,27 @@ const timeBasedOnTimeZone = (
       : month
       ? `${months[date.getMonth()]}, ${date.getFullYear()}`
       : includeTime
-      ? date.toLocaleString(locale, { timeZone, hour12: true }).replace(':00', '')
-      : date.toLocaleDateString(locale, { timeZone })
+      ? date
+          .toLocaleString(locale, {
+            timeZone,
+            hour12: true,
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          })
+          .replace(':00', '')
+      : date.toLocaleDateString(locale, {
+          timeZone,
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        })
   } catch (_) {
-    return new Intl.DateTimeFormat('en', { year: 'numeric' }).format(new Date())
+    return new Intl.DateTimeFormat('en', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    }).format(new Date())
   }
 }
 
