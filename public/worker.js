@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-globals */
 let CACHE_NAME = 'internmatch'
-let urlsToCache = ['/', '/home']
+let urlsToCache = ['/']
 
 // Install a service worker
 self.addEventListener('install', event => {
@@ -40,4 +40,9 @@ self.addEventListener('activate', event => {
       )
     }),
   )
+})
+
+self.addEventListener('error', e => {
+  console.error(e)
+  alert('We have made some changes, can you please clear local storage and reload the page.')
 })
