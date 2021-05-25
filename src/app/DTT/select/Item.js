@@ -9,6 +9,7 @@ const Item = ({ option, idx, onSelectChange, focus, selected }) => {
   return (
     <Flex
       direction="row"
+      align="center"
       test-id={option.value}
       id={idx + 'item'}
       tabIndex={idx + 1}
@@ -18,7 +19,6 @@ const Item = ({ option, idx, onSelectChange, focus, selected }) => {
       onClick={() => onSelectChange(option.value)}
       cursor="pointer"
       key={option.value}
-      py="1.5"
       px="3"
       bg={idx % 2 ? 'blackAlpha.50' : ''}
       fontWeight={focused ? 'semibold' : 'normal'}
@@ -27,7 +27,7 @@ const Item = ({ option, idx, onSelectChange, focus, selected }) => {
       {includes(option.value, selected) ? (
         <FontAwesomeIcon icon={faCheckCircle} color="green" />
       ) : null}
-      <Text>{option.label}</Text>
+      <Text my="1">{option.label}</Text>
       <Spacer />
       {focus === idx && <Text>⏎</Text>}
     </Flex>

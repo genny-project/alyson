@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 import { selectDashboard } from 'redux/app/selectors'
 import DisplaySbe from 'app/SBE'
-import { Button, VStack } from '@chakra-ui/react'
+import { VStack } from '@chakra-ui/react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBolt, faColumns } from '@fortawesome/free-solid-svg-icons'
@@ -13,6 +13,7 @@ import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { head } from 'ramda'
 import Attribute from 'app/BE/attribute'
 import Search from 'app/layouts/navigation/Search'
+import Button from 'app/layouts/components/button'
 
 const Agent = () => {
   const dashboardSbes = useSelector(selectDashboard) || []
@@ -25,7 +26,7 @@ const Agent = () => {
       <Card>
         <VStack spacing={10} w={['xs', 'md']}>
           <Button
-            colorScheme="gradient"
+            variant="special"
             onClick={() =>
               onSendMessage({
                 code: 'QUE_TAB_BUCKET_VIEW',

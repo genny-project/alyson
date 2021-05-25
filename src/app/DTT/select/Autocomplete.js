@@ -92,45 +92,41 @@ const Autocomplete = ({
       w="full"
       maxW={maxW}
     >
-      {selected.length ? (
-        <Box pb="2">
-          <Wrap w="full" maxW={maxW}>
-            {selected.map(item => (
-              <WrapItem key={item}>
-                <Chip onClick={() => onSelectChange(item)} p="2">
-                  {renderLabel(item)}
-                </Chip>
-              </WrapItem>
-            ))}
-          </Wrap>
-        </Box>
-      ) : null}
-      {!multiple && selected.length ? null : (
-        <InputGroup w="full">
-          <Input
-            test-id={questionCode}
-            onKeyDown={e => {
-              if (e.key === 'ArrowDown') setOpen(true)
-            }}
-            ref={inputRef}
-            onClick={toggleOpen}
-            onChange={onInputChange}
-            value={input}
-            placeholder={placeholder}
-            autoComplete="off"
-          />
-          <InputRightElement>
-            <Box
-              cursor="pointer"
-              _hover={{ color: 'teal' }}
-              transform={open ? 'rotate(180deg)' : 'rotate(0deg)'}
-              transition="all 0.3s ease"
-            >
-              <FontAwesomeIcon icon={faAngleDown} onClick={toggleOpen} />
-            </Box>
-          </InputRightElement>
-        </InputGroup>
-      )}
+      <Box pb="2" display={selected.length ? 'block' : 'none'}>
+        <Wrap w="full" maxW={maxW}>
+          {selected.map(item => (
+            <WrapItem key={item}>
+              <Chip onClick={() => onSelectChange(item)} p="2">
+                {renderLabel(item)}
+              </Chip>
+            </WrapItem>
+          ))}
+        </Wrap>
+      </Box>
+      <InputGroup display={!multiple && selected.length ? 'none' : 'block'} w="full">
+        <Input
+          test-id={questionCode}
+          onKeyDown={e => {
+            if (e.key === 'ArrowDown') setOpen(true)
+          }}
+          ref={inputRef}
+          onClick={toggleOpen}
+          onChange={onInputChange}
+          value={input}
+          placeholder={placeholder}
+          autoComplete="off"
+        />
+        <InputRightElement>
+          <Box
+            cursor="pointer"
+            _hover={{ color: 'teal' }}
+            transform={open ? 'rotate(180deg)' : 'rotate(0deg)'}
+            transition="all 0.3s ease"
+          >
+            <FontAwesomeIcon icon={faAngleDown} onClick={toggleOpen} />
+          </Box>
+        </InputRightElement>
+      </InputGroup>
       {open && (
         <ItemsForAutocomplete
           {...{
