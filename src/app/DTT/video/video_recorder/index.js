@@ -69,7 +69,7 @@ const VideoRecorder = ({ setData, config, setStartVideo }) => {
   if (error)
     return (
       <VStack>
-        <Text style={{ maxWidth: '60rem' }} mb="5">
+        <Text style={{ maxWidth: '60rem' }} textAlign="center" mb="5">
           {`Hi, either we were not granted permission to acccess your camera or we could 
   not find it. If you see a camera in the right hand side of 
   the address bar, click it to enable access. Try disconnecting 
