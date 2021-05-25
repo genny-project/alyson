@@ -4,6 +4,7 @@ import Card from 'app/layouts/components/card'
 import { dec, inc } from 'ramda'
 import { useEffect, useState } from 'react'
 import { useHotkeys } from 'react-hotkeys-hook'
+import { useMobileValue } from 'utils/hooks'
 import Item from './Item'
 
 const ItemsForAutocomplete = ({
@@ -35,6 +36,7 @@ const ItemsForAutocomplete = ({
     }
   }, [filteredOptions.length, focus])
 
+  const maxW = useMobileValue(['', '25vw'])
   return (
     <Card
       overflow="hidden"
@@ -42,7 +44,7 @@ const ItemsForAutocomplete = ({
       position="absolute"
       variant="card3"
       w={'100%'}
-      maxW="25vw"
+      maxW={maxW}
       p={0}
       onMouseEnter={() => setFocus(null)}
       onMouseLeave={() => setFocus(0)}

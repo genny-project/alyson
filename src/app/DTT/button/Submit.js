@@ -29,7 +29,7 @@ const Submit = ({ askData, onFinish, parentCode }) => {
   )(attributeData)
 
   const mandatoryQuestionsNoValue = filter(
-    q => q.questionCode !== 'QUE_SUBMIT' && !includes(mandatoryAttributesNoValue, q.attributeCode),
+    q => q.questionCode !== 'QUE_SUBMIT' && includes(q.attributeCode, mandatoryAttributesNoValue),
   )(mandatoryQuestions)
 
   const [loading, setLoading] = useState(false)

@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux'
 
 import { selectCode } from 'redux/db/selectors'
 import getUserType from 'utils/helpers/get-user-type'
+import { useMobileValue } from 'utils/hooks'
 import ItemsForAutocomplete from './Items'
 
 const Autocomplete = ({
@@ -54,6 +55,7 @@ const Autocomplete = ({
   const onBlur = () => {
     setOpen(false)
     setInput('')
+    ddEvent('')
   }
 
   const createNew = () => {
@@ -75,11 +77,24 @@ const Autocomplete = ({
     setSearching(false)
   }, [options])
 
+  const maxW = useMobileValue(['', '25vw'])
+
   return (
-    <Box onFocus={() => !options.length && ddEvent('')} ref={ref} test-id={questionCode}>
+    <Box
+      onFocus={() => {
+        if (!options.length) {
+          ddEvent('')
+          setSearching('')
+        }
+      }}
+      ref={ref}
+      test-id={questionCode}
+      w="full"
+      maxW={maxW}
+    >
       {selected.length ? (
         <Box pb="2">
-          <Wrap w="full" maxW="25vw">
+          <Wrap w="full" maxW={maxW}>
             {selected.map(item => (
               <WrapItem key={item}>
                 <Chip onClick={() => onSelectChange(item)} p="2">
@@ -91,7 +106,7 @@ const Autocomplete = ({
         </Box>
       ) : null}
       {!multiple && selected.length ? null : (
-        <InputGroup w="full" maxW="25vw">
+        <InputGroup w="full">
           <Input
             test-id={questionCode}
             onKeyDown={e => {

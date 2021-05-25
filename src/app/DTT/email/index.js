@@ -1,8 +1,10 @@
 import { Box, Input, Text, useClipboard, useToast } from '@chakra-ui/react'
+import { useMobileValue } from 'utils/hooks'
 
 import Duplicates from './Duplicates'
 
 const Write = ({ questionCode, data, onSendAnswer }) => {
+  const maxW = useMobileValue(['', '25vw'])
   return (
     <Box>
       <Input
@@ -11,7 +13,7 @@ const Write = ({ questionCode, data, onSendAnswer }) => {
         type="email"
         onBlur={e => onSendAnswer(e.target.value)}
         w="full"
-        maxW="25vw"
+        maxW={maxW}
       />
       <Duplicates email={data?.value} sourceCode={data.baseEntityCode} />
     </Box>

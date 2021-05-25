@@ -5,6 +5,8 @@ import timeBasedOnTimeZone from 'utils/helpers/timezone_magic/time-based-on-time
 import DateChip from './DateChip'
 import getDate from 'utils/helpers/timezone_magic/get-date'
 import Year from './Year'
+import { useMobileValue } from 'utils/hooks'
+import safelyParseDate from 'utils/helpers/safely-parse-date'
 
 const Read = ({ data, typeName, config }) => {
   const includeTime = includes('LocalDateTime', typeName)
@@ -24,7 +26,9 @@ const Write = ({ questionCode, data, onSendAnswer, typeName }) => {
   const includeTime = includes('LocalDateTime', typeName)
   const onlyYear = typeName === 'year'
 
-  const handleChange = e => e.target.value && onSendAnswer(new Date(e.target.value).toISOString())
+  const handleChange = e => onSendAnswer(safelyParseDate(e.target.value).toISOString())
+
+  const maxW = useMobileValue(['', '25vw'])
 
   return data?.value ? (
     <DateChip
@@ -41,7 +45,7 @@ const Write = ({ questionCode, data, onSendAnswer, typeName }) => {
       type={includeTime ? 'datetime-local' : 'date'}
       onBlur={handleChange}
       w="full"
-      maxW="25vw"
+      maxW={maxW}
     />
   )
 }
