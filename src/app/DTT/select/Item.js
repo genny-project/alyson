@@ -1,11 +1,14 @@
-import { HStack, Text } from '@chakra-ui/layout'
+import { Flex, Spacer, Text } from '@chakra-ui/layout'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { includes } from 'ramda'
 
 const Item = ({ option, idx, onSelectChange, focus, selected }) => {
+  const focused = focus === idx
+
   return (
-    <HStack
+    <Flex
+      direction="row"
       test-id={option.value}
       id={idx + 'item'}
       tabIndex={idx + 1}
@@ -18,15 +21,16 @@ const Item = ({ option, idx, onSelectChange, focus, selected }) => {
       py="1.5"
       px="3"
       bg={idx % 2 ? 'blackAlpha.50' : ''}
-      color={focus === idx ? 'teal' : ''}
-      _hover={{ color: 'teal' }}
+      fontWeight={focused ? 'semibold' : 'normal'}
+      _hover={{ fontWeight: 'semibold' }}
     >
       {includes(option.value, selected) ? (
         <FontAwesomeIcon icon={faCheckCircle} color="green" />
       ) : null}
-      <Text textStyle="body.2">{option.label}</Text>
-      {focus === idx && <div>⏎</div>}
-    </HStack>
+      <Text>{option.label}</Text>
+      <Spacer />
+      {focus === idx && <Text>⏎</Text>}
+    </Flex>
   )
 }
 

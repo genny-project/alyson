@@ -1,4 +1,4 @@
-import { Input, HStack, VStack, Text } from '@chakra-ui/react'
+import { Input, VStack, Text, Stack } from '@chakra-ui/react'
 import DateChip from 'app/DTT/date/DateChip'
 
 import { currentMonthInIsoFormat } from 'utils/helpers/date-info-in-iso-format'
@@ -11,11 +11,15 @@ const DateInMonth = ({
   handleDateChange,
 }) => {
   return (
-    <HStack spacing={5}>
+    <Stack direction={['column', 'row']} spacing={5}>
       <VStack align="left" spacing={2}>
         <Text>{`Start Date`}</Text>
         {dates.startDate ? (
-          <DateChip date={dates.startDate} onClick={() => handleDateChange(null, 'startDate')} />
+          <DateChip
+            month
+            date={dates.startDate}
+            onClick={() => handleDateChange(null, 'startDate')}
+          />
         ) : (
           <Input
             test-id={questionCode}
@@ -29,7 +33,7 @@ const DateInMonth = ({
       <VStack align="left" spacing={2}>
         <Text>{`End Date`}</Text>
         {dates.endDate ? (
-          <DateChip date={dates.endDate} onClick={() => handleDateChange(null, 'endDate')} />
+          <DateChip month date={dates.endDate} onClick={() => handleDateChange(null, 'endDate')} />
         ) : (
           <Input
             test-id={questionCode}
@@ -40,7 +44,7 @@ const DateInMonth = ({
           />
         )}
       </VStack>
-    </HStack>
+    </Stack>
   )
 }
 

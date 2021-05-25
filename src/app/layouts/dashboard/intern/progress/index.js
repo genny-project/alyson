@@ -25,6 +25,7 @@ const Progress = () => {
       targetCode: appBe,
       code: 'ACT_PRI_EVENT_JOURNAL_VIEW',
     })
+
   return (
     <Card>
       <VStack>

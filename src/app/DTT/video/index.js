@@ -12,6 +12,7 @@ import {
   Box,
   Image,
   useBoolean,
+  Stack,
 } from '@chakra-ui/react'
 import VideoRecorder from './video_recorder'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
@@ -101,7 +102,7 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
           <Box mb="8" w="100%">
             <Image src={process.env.PUBLIC_URL + '/video-intro.png'} alt="video-intro" m="auto" />
           </Box>
-          <HStack justify="flex-end" w="100%" pr="10">
+          <Stack direction={['column', 'row']} justify="flex-end" w="100%" pr="10">
             <Box>
               <a href={config.explanation_video} target="_blank" rel="noreferrer">
                 <Button colorScheme="green" variant="outline">{`View Instructions`}</Button>
@@ -120,7 +121,7 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
             >
               I have one I want to upload!
             </Button>
-          </HStack>
+          </Stack>
         </VStack>
       )}
     </VStack>

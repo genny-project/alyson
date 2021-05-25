@@ -1,23 +1,22 @@
-import { Box } from '@chakra-ui/layout'
+import { Center } from '@chakra-ui/layout'
+import Card from 'app/layouts/components/card'
+import { useMobileValue } from 'utils/hooks'
 
 const Read = ({ data }) => {
+  const w = useMobileValue(['95vw', '70vw'])
+
   if (!data?.value) return null
 
   return (
-    <Box
-      style={{
-        borderRadius: '10px',
-        border: '1px solid grey',
-        height: '70vh',
-      }}
-      w="70vw"
-    >
-      <iframe
-        style={{ borderRadius: '10px', width: '100%', height: '100%' }}
-        title={data?.attributeName}
-        srcDoc={data?.value}
-      />
-    </Box>
+    <Center>
+      <Card variant="card3" p={0} h="70vh" w={w} overflow="none">
+        <iframe
+          style={{ width: '100%', height: '100%' }}
+          title={data?.attributeName}
+          srcDoc={data?.value}
+        />
+      </Card>
+    </Center>
   )
 }
 
