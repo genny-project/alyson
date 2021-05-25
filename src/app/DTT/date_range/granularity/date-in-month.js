@@ -1,4 +1,4 @@
-import { Input, HStack, VStack, Text, Stack } from '@chakra-ui/react'
+import { Input, VStack, Text, Stack } from '@chakra-ui/react'
 import DateChip from 'app/DTT/date/DateChip'
 
 import { currentMonthInIsoFormat } from 'utils/helpers/date-info-in-iso-format'
