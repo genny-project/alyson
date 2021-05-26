@@ -1,8 +1,9 @@
-import { Button, HStack, VStack, Box, Text, Flex } from '@chakra-ui/react'
-import Card from 'app/layouts/components/card'
+import { HStack, VStack, Box, Text } from '@chakra-ui/react'
+import { map } from 'ramda'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle, faVideo, faCalendar } from '@fortawesome/free-solid-svg-icons'
-import { map } from 'ramda'
+
+import Card from 'app/layouts/components/card'
 
 const allMeetings = [
   {
