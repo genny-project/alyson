@@ -41,7 +41,7 @@ const DefaultCard = ({ parentCode, actions = [], code, columns }) => {
           : {})}
       >
         <Flex>
-          <HStack align="start">
+          <HStack>
             <Image.Read
               config={{ size: 'xl' }}
               data={image || { baseEntityCode: code }}
@@ -50,7 +50,7 @@ const DefaultCard = ({ parentCode, actions = [], code, columns }) => {
             <VStack alignItems="start" minW="10rem">
               <Text.Read
                 data={title}
-                textProps={{
+                config={{
                   textStyle: 'body.1',
                   isTruncated: true,
                 }}

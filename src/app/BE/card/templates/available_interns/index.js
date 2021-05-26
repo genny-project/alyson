@@ -33,25 +33,25 @@ const AvailableInternCard = ({ parentCode, actions = [], code }) => {
           : {})}
       >
         <Flex>
-          <HStack align="start">
+          <HStack>
             <Image.Read
               config={{ size: 'xl' }}
               data={image || { baseEntityCode: code }}
               parentCode={parentCode}
             />
-            <VStack alignItems="baseline" w="30">
+            <VStack align="start" w="30">
               <Text.Read
                 data={title}
-                textProps={{
+                config={{
                   textStyle: 'body.1',
                   maxW: '16rem',
                 }}
               />
               <Text.Read
                 config={{
-                  as: 'span',
                   textStyle: 'body.3',
                   maxW: '16rem',
+                  defaultValue: 'Unverified',
                 }}
                 data={subTitle}
               />
