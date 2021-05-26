@@ -2,6 +2,8 @@ import { Button, HStack, VStack, Box, Text, Flex } from '@chakra-ui/react'
 import Card from 'app/layouts/components/card'
 import { onSendMessage } from 'vertx'
 import { map } from 'ramda'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheck } from '@fortawesome/free-solid-svg-icons'
 
 const description =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse venenatis placerat arcu, tempor rutrum tortor porta quis. Donec aliquam urna ac varius ultrices. Morbi vel dapibus nunc, dictum pretium justo. Nulla non blandit leo. Proin non imperdiet ex. Etiam cursus dignissim sem, nec interdum massa pellentesque eu. Proin condimentum mauris at diam porttitor, a rhoncus nisi semper. Sed sed tincidunt felis, at bibendum sapien. Etiam odio libero, pretium ac condimentum ac, congue ac mi. Aenean efficitur malesuada arcu mattis tempus.'
@@ -10,21 +12,25 @@ const items = [
   {
     title: 'Title 1',
     description: description,
+    buttonText: 'Button 1',
     completed: true,
   },
   {
     title: 'Title 2',
     description: description,
+    buttonText: 'Button 2',
     completed: true,
   },
   {
     title: 'Title 3',
     description: 'description',
+    buttonText: 'Button 3',
     completed: false,
   },
   {
     title: 'Title 4',
     description: description,
+    buttonText: 'Button 4',
     completed: false,
   },
 ]
@@ -45,15 +51,23 @@ const Timeline = () => {
           position="absolute"
           ml="-3.5"
         >
-          <Box h="8" w="8" background="green" borderRadius="50%" />
-          <Box h="8" w="8" background="green" borderRadius="50%" />
-          <Box h="8" w="8" background="silver" borderRadius="50%" />
-          <Box h="8" w="8" background="silver" borderRadius="50%" />
+          {map(({ completed }) => (
+            <Box
+              h="8"
+              w="8"
+              background={completed ? 'green' : 'silver'}
+              borderRadius="50%"
+              display="flex"
+              justifyContent="center"
+            >
+              {completed ? <FontAwesomeIcon opacity="0.5" icon={faCheck} color="#fff" /> : null}
+            </Box>
+          ))(items)}
         </Flex>
         <Box h={`${progressBarHeight}%`} w="100%" background="green" />
       </Box>
       <VStack h="100%" justifyContent="space-around" display="flex" position="absolute">
-        {map(({ title, description }) => (
+        {map(({ title, description, buttonText }) => (
           <Card>
             <VStack spacing={4} w={['xs', 'md']}>
               <Text textStyle="head.2" alignSelf="flex-start">
@@ -73,7 +87,7 @@ const Timeline = () => {
                 size="md"
                 alignSelf="flex-end"
               >
-                {`Button Placeholder`}
+                {buttonText}
               </Button>
             </VStack>
           </Card>
