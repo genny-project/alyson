@@ -1,4 +1,3 @@
-import { useOutsideClick } from '@chakra-ui/hooks'
 import { Input, InputGroup, InputRightElement } from '@chakra-ui/input'
 import { Box, Wrap, WrapItem } from '@chakra-ui/layout'
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
@@ -52,12 +51,6 @@ const Autocomplete = ({
     if (!multiple) setOpen(false)
   }
 
-  const onBlur = () => {
-    setOpen(false)
-    setInput('')
-    ddEvent('')
-  }
-
   const createNew = () => {
     onSelectChange(`NEW_${replace(' ', '_', input)}`)
   }
@@ -68,11 +61,6 @@ const Autocomplete = ({
     includes(toLower(input), toLower(option.label || '')),
   )
 
-  useOutsideClick({
-    ref,
-    handler: onBlur,
-  })
-
   useEffect(() => {
     if (searching) setSearching(false)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -82,6 +70,11 @@ const Autocomplete = ({
 
   return (
     <Box
+      onBlur={() => {
+        setOpen(false)
+        setInput('')
+        ddEvent('')
+      }}
       onFocus={() => {
         if (!options.length) {
           ddEvent('')
