@@ -10,27 +10,30 @@ const description =
 
 const items = [
   {
-    title: 'Title 1',
-    description: description,
-    buttonText: 'Button 1',
+    title: 'Complete Profile',
+    description: 'Please complete your profile before you can proceed!',
+    buttonText: 'Go to Profile',
     completed: true,
+    code: 'QUE_AVATAR_PROFILE_GRP',
+    parentCode: 'QUE_AVATAR_GRP',
   },
   {
-    title: 'Title 2',
-    description: description,
-    buttonText: 'Button 2',
+    title: 'Complete Training',
+    description: 'Access different training modules under this section.',
+    buttonText: 'Go to Training',
     completed: true,
+    code: 'ACT_PRI_EVENT_START_MENTEE_TRAINING',
   },
   {
-    title: 'Title 3',
-    description: 'description',
-    buttonText: 'Button 3',
+    title: 'Select Mentor',
+    description: 'Choose the Mentor that suits you the most!',
+    buttonText: 'Go to Mentor Selection',
     completed: false,
   },
   {
-    title: 'Title 4',
+    title: 'First Meeting',
     description: description,
-    buttonText: 'Button 4',
+    buttonText: 'Select First Meeting',
     completed: false,
   },
 ]
@@ -39,10 +42,10 @@ const Timeline = () => {
   let totalItems = items.length
   let numberOfCompletedItems = items.filter(item => item.completed).length
   let progressBarHeight = (numberOfCompletedItems / totalItems) * 100
-  let timelineHeight = totalItems * 20
+  let timelineHeight = totalItems * 22.5
 
   return (
-    <HStack h={`${timelineHeight}vh`} position="relative" spacing={8} mb="4" background="red">
+    <HStack h={`${timelineHeight}vh`} w="50%" position="relative" spacing={8}>
       <Box h="100%" w="1" background="silver">
         <Flex
           direction="column"
@@ -69,7 +72,7 @@ const Timeline = () => {
         <Box h={`${progressBarHeight}%`} w="100%" background="green" />
       </Box>
       <VStack h="100%" justifyContent="space-around" display="flex" position="absolute">
-        {map(({ title, description, buttonText }) => (
+        {map(({ title, description, buttonText, code, parentCode }) => (
           <Card>
             <VStack spacing={4} w={['xs', 'md']}>
               <Text textStyle="head.2" alignSelf="flex-start">
@@ -82,8 +85,8 @@ const Timeline = () => {
                 colorScheme="blue"
                 onClick={() =>
                   onSendMessage({
-                    code: 'QUE_TAB_BUCKET_VIEW',
-                    parentCode: 'QUE_TAB_BUCKET_VIEW',
+                    code: code,
+                    parentCode: parentCode ? parentCode : code,
                   })
                 }
                 size="md"

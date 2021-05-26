@@ -1,13 +1,14 @@
 import { useSelector } from 'react-redux'
 import { selectDashboard, selectDashboardCounts } from 'redux/app/selectors'
 import DisplaySbe from 'app/SBE'
-import { Box, HStack, Stack } from '@chakra-ui/react'
+import { Flex, HStack, Stack } from '@chakra-ui/react'
 import Process from '../process'
 import { selectCode } from 'redux/db/selectors'
 import getUserType from 'utils/helpers/get-user-type'
 import MenteeDashboard from './mentee'
 import AgentDashboard from './agent'
 import Timeline from './timeline/timeline'
+import Meetings from './timeline/meetings'
 
 const Dashboard = () => {
   const dashboardSbes = useSelector(selectDashboard)
@@ -21,9 +22,10 @@ const Dashboard = () => {
   // if (!dashboardSbes) return <div />
 
   return (
-    <Box paddingLeft="10">
+    <Flex paddingX="10">
       <Timeline />
-    </Box>
+      <Meetings />
+    </Flex>
   )
 }
 
