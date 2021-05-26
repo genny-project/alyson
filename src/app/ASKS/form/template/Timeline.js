@@ -4,12 +4,12 @@ import { faArrowAltCircleLeft, faArrowAltCircleRight } from '@fortawesome/free-s
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconButton } from '@chakra-ui/button'
 
-const Timeline = ({ groups, group, setGroup }) => {
-  const textStyle = idx => (idx === group ? 'body.1' : 'body.3')
+const Timeline = ({ groups, group: curGroup, setGroup, disableNext }) => {
+  const textStyle = idx => (idx === curGroup ? 'body.1' : 'body.3')
   return (
     <HStack my="4" w="full">
       <IconButton
-        visibility={group === 0 ? 'hidden' : 'visible'}
+        visibility={curGroup === 0 ? 'hidden' : 'visible'}
         variant="ghost"
         size="lg"
         color="blue.600"
@@ -21,12 +21,20 @@ const Timeline = ({ groups, group, setGroup }) => {
           {groups.map((group, idx) => (
             <WrapItem key={idx}>
               {idx === groups.length - 1 ? (
-                <Text cursor="pointer" onClick={() => setGroup(idx)} textStyle={textStyle(idx)}>
+                <Text
+                  cursor={idx > curGroup && disableNext ? '' : 'pointer'}
+                  onClick={() => (idx > curGroup && disableNext ? null : setGroup(idx))}
+                  textStyle={textStyle(idx)}
+                >
                   {group.label}
                 </Text>
               ) : (
                 <HStack>
-                  <Text cursor="pointer" onClick={() => setGroup(idx)} textStyle={textStyle(idx)}>
+                  <Text
+                    cursor={idx > curGroup && disableNext ? '' : 'pointer'}
+                    onClick={() => (idx > curGroup && disableNext ? null : setGroup(idx))}
+                    textStyle={textStyle(idx)}
+                  >
                     {group.label}
                   </Text>
                   <Divider orientation="horizontal" w="2rem" />
@@ -38,7 +46,8 @@ const Timeline = ({ groups, group, setGroup }) => {
       </Center>
 
       <IconButton
-        visibility={group === groups.length - 1 ? 'hidden' : 'visible'}
+        disabled={disableNext}
+        visibility={curGroup === groups.length - 1 ? 'hidden' : 'visible'}
         variant="ghost"
         size="lg"
         color="blue.600"

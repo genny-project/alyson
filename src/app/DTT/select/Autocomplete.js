@@ -74,7 +74,8 @@ const Autocomplete = ({
   })
 
   useEffect(() => {
-    setSearching(false)
+    if (searching) setSearching(false)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [options])
 
   const maxW = useMobileValue(['', '25vw'])
@@ -107,7 +108,7 @@ const Autocomplete = ({
         <Input
           test-id={questionCode}
           onKeyDown={e => {
-            if (e.key === 'ArrowDown') setOpen(true)
+            if (e.key === 'ArrowDown' && !open) setOpen(true)
           }}
           ref={inputRef}
           onClick={toggleOpen}
