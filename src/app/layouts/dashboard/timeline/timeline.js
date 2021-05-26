@@ -36,12 +36,13 @@ const items = [
 ]
 
 const Timeline = () => {
-  const totalItems = items.length
-  const numberOfCompletedItems = items.filter(item => item.completed).length
+  let totalItems = items.length
+  let numberOfCompletedItems = items.filter(item => item.completed).length
   let progressBarHeight = (numberOfCompletedItems / totalItems) * 100
+  let timelineHeight = totalItems * 20
 
   return (
-    <HStack h="90vh" position="relative" spacing={8} background="yellow">
+    <HStack h={`${timelineHeight}vh`} position="relative" spacing={8} mb="4" background="red">
       <Box h="100%" w="1" background="silver">
         <Flex
           direction="column"
@@ -57,10 +58,11 @@ const Timeline = () => {
               w="8"
               background={completed ? 'green' : 'silver'}
               borderRadius="50%"
-              display="flex"
-              justifyContent="center"
+              textAlign="center"
             >
-              {completed ? <FontAwesomeIcon opacity="0.5" icon={faCheck} color="#fff" /> : null}
+              <Box h="100%" marginTop="1">
+                {completed ? <FontAwesomeIcon opacity="0.5" icon={faCheck} color="#fff" /> : null}
+              </Box>
             </Box>
           ))(items)}
         </Flex>

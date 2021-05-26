@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 import { selectDashboard, selectDashboardCounts } from 'redux/app/selectors'
 import DisplaySbe from 'app/SBE'
-import { Center, HStack, Stack } from '@chakra-ui/react'
+import { Box, HStack, Stack } from '@chakra-ui/react'
 import Process from '../process'
 import { selectCode } from 'redux/db/selectors'
 import getUserType from 'utils/helpers/get-user-type'
@@ -21,9 +21,9 @@ const Dashboard = () => {
   // if (!dashboardSbes) return <div />
 
   return (
-    <Center>
+    <Box paddingLeft="10">
       <Timeline />
-    </Center>
+    </Box>
   )
 }
 
