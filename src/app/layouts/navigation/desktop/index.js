@@ -42,14 +42,14 @@ const DesktopNav = ({ logoSrc }) => {
         <Flex pr={8} py={2}>
           <Box cursor="pointer" px={8}>
             {apiConfig && (
-              <Image
+              <Box
+                w="55px"
                 onClick={() =>
                   onSendMessage({ code: 'QUE_DASHBOARD_VIEW', parentCode: 'QUE_DASHBOARD_VIEW' })
                 }
-                ref={btnRef}
-                src={logoSrc}
-                htmlWidth="80px"
-              />
+              >
+                <Image ref={btnRef} src={'/favicon.png'} />
+              </Box>
             )}
           </Box>
           <Views />
