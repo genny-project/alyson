@@ -37,6 +37,12 @@ const items = [
     buttonText: 'Select First Meeting',
     completed: false,
   },
+  {
+    title: 'Meet and Greet',
+    description: 'Meet and Greet witht the mentors',
+    buttonText: 'Meet & Greet',
+    completed: false,
+  },
 ]
 
 const Timeline = () => {
