@@ -71,7 +71,6 @@ const Autocomplete = ({
   return (
     <Box
       onBlur={() => {
-        setOpen(false)
         setInput('')
         ddEvent('')
       }}
