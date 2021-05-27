@@ -5,53 +5,13 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons'
 
 import Card from 'app/layouts/components/card'
 import { onSendMessage } from 'vertx'
+import getMenteeTimelineItems from 'app/layouts/dashboard/timeline/helpers/get-timeline-items'
 
-const description =
-  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse venenatis placerat arcu, tempor rutrum tortor porta quis. Donec aliquam urna ac varius ultrices. Morbi vel dapibus nunc, dictum pretium justo. Nulla non blandit leo. Proin non imperdiet ex. Etiam cursus dignissim sem, nec interdum massa pellentesque eu. Proin condimentum mauris at diam porttitor, a rhoncus nisi semper. Sed sed tincidunt felis, at bibendum sapien. Etiam odio libero, pretium ac condimentum ac, congue ac mi. Aenean efficitur malesuada arcu mattis tempus.'
-
-const Timeline = props => {
-  const { menteeProps } = props
-  const { trainingStatus } = menteeProps
-  const items = [
-    {
-      title: 'Complete Profile',
-      description: 'Please complete your profile before you can proceed!',
-      buttonText: 'Go to Profile',
-      completed: 'COMPLETE',
-      code: 'QUE_AVATAR_PROFILE_GRP',
-      parentCode: 'QUE_AVATAR_GRP',
-    },
-    {
-      title: 'Complete Training',
-      description: 'Access different training modules under this section.',
-      buttonText: 'Go to Training',
-      completed: trainingStatus,
-      code: 'ACT_PRI_EVENT_START_MENTEE_TRAINING',
-    },
-    {
-      title: 'Select Mentor',
-      description: 'Choose the Mentor that suits you the most!',
-      buttonText: 'Go to Mentor Selection',
-      completed: false,
-      isDisabled: trainingStatus === 'COMPLETE' ? false : true,
-      code: 'ACT_PRI_EVENT_SELECT_MENTOR',
-    },
-    {
-      title: 'First Meeting',
-      description: description,
-      buttonText: 'Select First Meeting',
-      completed: false,
-    },
-    {
-      title: 'Meet and Greet',
-      description: 'Meet and Greet witht the mentors',
-      buttonText: 'Meet & Greet',
-      completed: false,
-    },
-  ]
+const Timeline = () => {
+  const { items } = getMenteeTimelineItems()
 
   let totalItems = items.length
-  let numberOfCompletedItems = items.filter(item => item.completed === 'COMPLETE').length
+  let numberOfCompletedItems = items.filter(item => item.completed === 'COMPLETED').length
   let progressBarHeight = (numberOfCompletedItems / totalItems) * 100
   let timelineHeight = totalItems * 22.5
 
@@ -70,13 +30,13 @@ const Timeline = props => {
             <Box
               h="8"
               w="8"
-              background={completed === 'COMPLETE' ? 'green' : 'silver'}
+              background={completed === 'COMPLETED' ? 'green' : 'silver'}
               borderRadius="50%"
               textAlign="center"
               key={title}
             >
               <Box h="100%" marginTop="1">
-                {completed === 'COMPLETE' ? (
+                {completed === 'COMPLETED' ? (
                   <FontAwesomeIcon opacity="0.5" icon={faCheck} color="#fff" />
                 ) : null}
               </Box>
@@ -100,7 +60,7 @@ const Timeline = props => {
                 onClick={() =>
                   onSendMessage({
                     code: code,
-                    parentCode: parentCode ? parentCode : code,
+                    parentCode: parentCode,
                   })
                 }
                 size="md"
