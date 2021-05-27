@@ -58,25 +58,31 @@ const Timeline = () => {
               <Tooltip
                 placement="right"
                 isDisabled={isDisabled ? false : true}
-                label="Please complete the previous steps"
+                label={
+                  buttonText === 'Register'
+                    ? 'You have already registered!'
+                    : 'Please complete the previous steps'
+                }
                 aria-label="Please complete the previous steps"
                 bg="red.400"
                 color="#ffffff"
               >
                 <Box alignSelf="flex-end">
-                  <Button
-                    colorScheme="blue"
-                    onClick={() =>
-                      onSendMessage({
-                        code: code,
-                        parentCode: parentCode,
-                      })
-                    }
-                    size="md"
-                    isDisabled={isDisabled}
-                  >
-                    {buttonText}
-                  </Button>
+                  {buttonText && (
+                    <Button
+                      colorScheme="blue"
+                      onClick={() =>
+                        onSendMessage({
+                          code: code,
+                          parentCode: parentCode,
+                        })
+                      }
+                      size="md"
+                      isDisabled={isDisabled}
+                    >
+                      {buttonText}
+                    </Button>
+                  )}
                 </Box>
               </Tooltip>
             </VStack>
