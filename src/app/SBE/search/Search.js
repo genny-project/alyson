@@ -6,7 +6,6 @@ import {
   Button,
   InputLeftElement,
   VStack,
-  Text,
   InputRightElement,
   IconButton,
 } from '@chakra-ui/react'
@@ -20,19 +19,12 @@ import { selectCode } from 'redux/db/selectors'
 const ProcessSearch = ({ sbeCode, process }) => {
   const [searchValue, setSearchValue] = useState('')
   const [focused, setFocused] = useState(false)
-  const [timer, setTimer] = useState(null)
   const inputRef = useRef(null)
   const clearRef = useRef(null)
 
   const search = useSelector(selectCode(process || sbeCode, 'SCH_WILDCARD'))
-  const total = useSelector(selectCode(sbeCode, 'PRI_TOTAL_RESULTS'))
-
-  useEffect(() => {
-    if (search?.value) setTimer(cur => new Date() - cur)
-  }, [search?.value])
 
   const handleSubmit = () => {
-    setTimer(new Date())
     onSendSearch({ searchValue, sbeCode, searchType: '!' })
     inputRef.current.blur()
   }
@@ -51,10 +43,9 @@ const ProcessSearch = ({ sbeCode, process }) => {
     enableOnTags: ['INPUT'],
   })
 
-  console.log(search)
   return (
     <VStack align="start" pb="5">
-      <HStack spacing="5">
+      <HStack>
         <InputGroup w="xs">
           <InputLeftElement>
             <FontAwesomeIcon color="lightgrey" icon={faSearch} />
@@ -86,7 +77,15 @@ const ProcessSearch = ({ sbeCode, process }) => {
         >
           Search
         </Button>
-        {search && <Button colorScheme="lightred">Clear Search</Button>}
+        {search && (
+          <Button
+            onClick={handleClear}
+            leftIcon={<FontAwesomeIcon icon={faTimes} />}
+            colorScheme="secondary"
+          >
+            Clear Search
+          </Button>
+        )}
       </HStack>
     </VStack>
   )
