@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react'
+import { useRef, useState } from 'react'
 import {
   HStack,
   Input,
@@ -18,13 +18,13 @@ import { selectCode } from 'redux/db/selectors'
 
 const ProcessSearch = ({ sbeCode, process }) => {
   const [searchValue, setSearchValue] = useState('')
-  const [focused, setFocused] = useState(false)
   const inputRef = useRef(null)
   const clearRef = useRef(null)
 
   const search = useSelector(selectCode(process || sbeCode, 'SCH_WILDCARD'))
 
-  const handleSubmit = () => {
+  const handleSubmit = e => {
+    e.preventDefault()
     onSendSearch({ searchValue, sbeCode, searchType: '!' })
     inputRef.current.blur()
   }
@@ -39,37 +39,32 @@ const ProcessSearch = ({ sbeCode, process }) => {
     inputRef?.current?.focus()
   })
 
-  useHotkeys('enter', () => focused && handleSubmit(), {
-    enableOnTags: ['INPUT'],
-  })
-
   return (
     <VStack align="start" pb="5">
       <HStack>
-        <InputGroup w="xs">
-          <InputLeftElement>
-            <FontAwesomeIcon color="lightgrey" icon={faSearch} />
-          </InputLeftElement>
-          <Input
-            defaultValue={search?.value || ''}
-            onFocus={() => setFocused(true)}
-            onBlur={() => {
-              setFocused(false)
-            }}
-            ref={inputRef}
-            value={searchValue}
-            onChange={e => setSearchValue(e.currentTarget.value)}
-          />
-          <InputRightElement>
-            <IconButton
-              variant="ghost"
-              colorScheme="primary"
-              ref={clearRef}
-              icon={<FontAwesomeIcon color="lightgrey" icon={faTimes} />}
-              onClick={handleClear}
+        <form onSubmit={handleSubmit}>
+          <InputGroup w="xs">
+            <InputLeftElement>
+              <FontAwesomeIcon color="lightgrey" icon={faSearch} />
+            </InputLeftElement>
+            <Input
+              defaultValue={search?.value || ''}
+              ref={inputRef}
+              value={searchValue}
+              onChange={e => setSearchValue(e.currentTarget.value)}
             />
-          </InputRightElement>
-        </InputGroup>
+            <InputRightElement>
+              <IconButton
+                variant="ghost"
+                colorScheme="primary"
+                ref={clearRef}
+                icon={<FontAwesomeIcon color="lightgrey" icon={faTimes} />}
+                onClick={handleClear}
+              />
+            </InputRightElement>
+          </InputGroup>
+        </form>
+
         <Button
           onClick={handleSubmit}
           leftIcon={<FontAwesomeIcon icon={faSearch} />}

@@ -70,10 +70,6 @@ const Autocomplete = ({
 
   return (
     <Box
-      onBlur={() => {
-        setInput('')
-        ddEvent('')
-      }}
       onFocus={() => {
         if (!options.length) {
           ddEvent('')
