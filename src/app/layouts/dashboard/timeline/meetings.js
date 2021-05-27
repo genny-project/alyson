@@ -76,7 +76,13 @@ const Meetings = () => {
           <Text alignSelf="flex-start" textStyle="head.2">{`Meeting List`}</Text>
           <VStack spacing={5} alignSelf="flex-start">
             {map(({ text, link, completed }) => (
-              <HStack spacing={7} alignSelf="flex-start" w="100%" justifyContent="space-between">
+              <HStack
+                spacing={7}
+                alignSelf="flex-start"
+                w="100%"
+                justifyContent="space-between"
+                key={text}
+              >
                 {completed ? (
                   <FontAwesomeIcon icon={faCheckCircle} color="green" />
                 ) : (

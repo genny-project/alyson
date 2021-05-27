@@ -10,7 +10,8 @@ const description =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse venenatis placerat arcu, tempor rutrum tortor porta quis. Donec aliquam urna ac varius ultrices. Morbi vel dapibus nunc, dictum pretium justo. Nulla non blandit leo. Proin non imperdiet ex. Etiam cursus dignissim sem, nec interdum massa pellentesque eu. Proin condimentum mauris at diam porttitor, a rhoncus nisi semper. Sed sed tincidunt felis, at bibendum sapien. Etiam odio libero, pretium ac condimentum ac, congue ac mi. Aenean efficitur malesuada arcu mattis tempus.'
 
 const Timeline = props => {
-  const { trainingStatus } = props
+  const { menteeProps } = props
+  const { trainingStatus } = menteeProps
   const items = [
     {
       title: 'Complete Profile',
@@ -33,6 +34,7 @@ const Timeline = props => {
       buttonText: 'Go to Mentor Selection',
       completed: false,
       isDisabled: trainingStatus === 'COMPLETE' ? false : true,
+      code: 'ACT_PRI_EVENT_SELECT_MENTOR',
     },
     {
       title: 'First Meeting',
@@ -64,13 +66,14 @@ const Timeline = props => {
           position="absolute"
           ml="-3.5"
         >
-          {map(({ completed }) => (
+          {map(({ title, completed }) => (
             <Box
               h="8"
               w="8"
               background={completed === 'COMPLETE' ? 'green' : 'silver'}
               borderRadius="50%"
               textAlign="center"
+              key={title}
             >
               <Box h="100%" marginTop="1">
                 {completed === 'COMPLETE' ? (
@@ -84,7 +87,7 @@ const Timeline = props => {
       </Box>
       <VStack h="100%" justifyContent="space-around" display="flex" position="absolute">
         {map(({ title, description, buttonText, code, parentCode, isDisabled }) => (
-          <Card>
+          <Card key={title}>
             <VStack spacing={4} w={['xs', 'md']}>
               <Text textStyle="head.2" alignSelf="flex-start">
                 {title}
