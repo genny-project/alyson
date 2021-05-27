@@ -20,13 +20,12 @@ const FormDesktopView = ({ title, onFinish, questionCode, childAsks, config }) =
       </Center>
     )
 
-  const { subHeader, groups } = config
+  const { subHeader, groups = [], paginated } = config
 
-  if (!groups) return null
   return (
     <VStack mx="20vw" spacing="4">
       <Header title={title} subHeader={subHeader} config={config} />
-      <Body groups={groups} onFinish={onFinish} questionCode={questionCode} />
+      <Body paginated={paginated} groups={groups} onFinish={onFinish} questionCode={questionCode} />
     </VStack>
   )
 }

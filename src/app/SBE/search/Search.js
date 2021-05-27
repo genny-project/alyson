@@ -17,14 +17,14 @@ import { onSendSearch } from 'vertx'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 
-const ProcessSearch = ({ sbeCode }) => {
+const ProcessSearch = ({ sbeCode, process }) => {
   const [searchValue, setSearchValue] = useState('')
   const [focused, setFocused] = useState(false)
   const [timer, setTimer] = useState(null)
   const inputRef = useRef(null)
   const clearRef = useRef(null)
 
-  const search = useSelector(selectCode(sbeCode, 'SCH_WILDCARD'))
+  const search = useSelector(selectCode(process || sbeCode, 'SCH_WILDCARD'))
   const total = useSelector(selectCode(sbeCode, 'PRI_TOTAL_RESULTS'))
 
   useEffect(() => {
@@ -51,8 +51,9 @@ const ProcessSearch = ({ sbeCode }) => {
     enableOnTags: ['INPUT'],
   })
 
+  console.log(search)
   return (
-    <VStack align="start">
+    <VStack align="start" pb="5">
       <HStack spacing="5">
         <InputGroup w="xs">
           <InputLeftElement>
@@ -63,7 +64,6 @@ const ProcessSearch = ({ sbeCode }) => {
             onFocus={() => setFocused(true)}
             onBlur={() => {
               setFocused(false)
-              handleSubmit()
             }}
             ref={inputRef}
             value={searchValue}
@@ -79,14 +79,15 @@ const ProcessSearch = ({ sbeCode }) => {
             />
           </InputRightElement>
         </InputGroup>
-        <Button leftIcon={<FontAwesomeIcon icon={faSearch} />} colorScheme="primary">
+        <Button
+          onClick={handleSubmit}
+          leftIcon={<FontAwesomeIcon icon={faSearch} />}
+          colorScheme="primary"
+        >
           Search
         </Button>
+        {search && <Button colorScheme="lightred">Clear Search</Button>}
       </HStack>
-      <Text
-        visibility={search?.value && typeof timer === 'number' ? 'visible' : 'hidden'}
-        textStyle="tail.3"
-      >{`Found ${total?.value}`}</Text>
     </VStack>
   )
 }

@@ -7,8 +7,8 @@ const Tile = ({ w, h, icon, header, attributes, beCode, ...rest }) => {
     <Card variant="card0" {...{ w, h }} {...rest}>
       <VStack align="start">
         <HStack>
-          <Box m="1">{icon}</Box>
-          <Text textStyle="body.1">{header}</Text>
+          {icon && <Box m="1">{icon}</Box>}
+          {header && <Text textStyle="body.1">{header}</Text>}
         </HStack>
         {attributes.map(({ label, attr, color }) => (
           <VStack align="start" key={attr}>

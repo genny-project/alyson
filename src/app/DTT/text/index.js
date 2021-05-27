@@ -16,9 +16,9 @@ export const Write = ({ questionCode, data, onSendAnswer }) => {
     />
   )
 }
-export const Read = ({ data, config }) => (
+export const Read = ({ data, config = {} }) => (
   <ChakraText noOfLines={3} {...config}>
-    {data?.value}
+    {data?.value || config.defaultValue}
   </ChakraText>
 )
 
