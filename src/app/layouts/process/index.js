@@ -10,7 +10,7 @@ const Process = ({ dashboard }) => {
   if (!processCodes) return null
   return (
     <VStack align="start" spacing={0} px="5">
-      {!dashboard && <Search sbeCode={JSON.stringify(processCodes)} />}
+      {!dashboard && <Search process={processCodes[0]} sbeCode={JSON.stringify(processCodes)} />}
       <Stack direction={dashboard ? 'column-reverse' : 'row'} spacing={5}>
         {processCodes.map(sbeCode => (
           <Lane key={sbeCode} sbeCode={sbeCode} dashboard={dashboard} />
