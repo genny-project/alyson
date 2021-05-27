@@ -17,7 +17,23 @@ const createSendMessage = (token, onSendMsg) => (data, options = {}) => {
 
   if (eventBus.state) {
     try {
-      log(`⬆️ SENDING ${msg_type}`, message, 'color: darkSalmon;padding: 60px;')
+      console.groupEnd()
+      if (options.data_type === 'Answer') {
+        console.group(`⬆️ SENDING Answer - ${data[0]?.attributeCode} - ${data[0]?.value}`)
+        log(
+          `⬆️ SENDING Answer - ${data[0]?.attributeCode} - ${data[0]?.value}`,
+          message,
+          'color: lightBlue;padding: 60px;font-size: 1rem;',
+        )
+      } else {
+        console.group(`⬆️ SENDING ${msg_type} - ${event_type} - ${data.code || data.value || ''}`)
+        log(
+          `⬆️ SENDING ${msg_type} - ${event_type} - ${data.code || data.value || ''}`,
+          message,
+          'color: darkSalmon;padding: 60px;',
+        )
+      }
+
       eventBus.send('address.inbound', message)
       onSendMsg(message)
     } catch (error) {

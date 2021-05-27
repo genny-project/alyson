@@ -47,7 +47,7 @@ const initLog = async () => {
   )
 }
 
-const prettyLog = (msg, data, style) => {
+const prettyLog = (msg, data = {}, style) => {
   const title = data.items
     ? data.items.length === 1
       ? data.items[0].name
@@ -63,35 +63,26 @@ const prettyLog = (msg, data, style) => {
       `%c${data.cmd_type}: ${data.code}`,
       style || 'padding: 1rem; font-size: 1rem; color: salmon;',
       '\n',
-      data,
     )
+    console.dir(data)
 
     return
   }
 
   if (data?.data_type === 'Ask') {
-    console.info(`%c${title}`, style || 'padding: 1rem; font-size: 1rem; color: teal;', '\n', data)
-
+    console.info(`%c${title}`, style || 'padding: 1rem; font-size: 1rem; color: teal;', '\n')
+    console.dir(data)
     return
   }
 
   if (includes('Rows -', title || '')) {
-    console.info(
-      `%c${title}`,
-      style || 'padding: 1rem; font-size: 1rem; color: lightgreen;',
-      '\n',
-      data,
-    )
-
+    console.info(`%c${title}`, style || 'padding: 1rem; font-size: 1rem; color: lightgreen;', '\n')
+    console.dir(data)
     return
   }
 
-  console.info(
-    `%c${title}`,
-    style || 'padding: 1rem; font-size: 1rem; color: darkgreen',
-    '\n',
-    data,
-  )
+  console.info(`%c${title}`, style || 'padding: 1rem; font-size: 1rem; color: darkgreen', '\n')
+  console.dir(data)
 }
 
 export default prettyLog
