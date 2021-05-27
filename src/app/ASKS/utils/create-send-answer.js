@@ -2,9 +2,10 @@ import { onSendMessage } from 'vertx'
 
 const getFormattedValue = value => (typeof value === 'object' ? JSON.stringify(value) : value)
 
-const createSendAnswer = (fieldData, { passedTargetCode } = {}) => value => {
+const createSendAnswer = (fieldData, { passedTargetCode, setSaving } = {}) => value => {
   const { id: askId, attributeCode, sourceCode, targetCode, weight, questionCode } = fieldData
 
+  setSaving.on()
   onSendMessage(
     [
       {
