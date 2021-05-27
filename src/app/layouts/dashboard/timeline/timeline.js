@@ -1,4 +1,4 @@
-import { Button, HStack, VStack, Box, Text, Flex } from '@chakra-ui/react'
+import { Button, HStack, VStack, Box, Text, Flex, Tooltip } from '@chakra-ui/react'
 import { map } from 'ramda'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
@@ -16,7 +16,7 @@ const Timeline = () => {
   let timelineHeight = totalItems * 22.5
 
   return (
-    <HStack h={`${timelineHeight}vh`} w="50%" position="relative" spacing={8}>
+    <HStack h={`${timelineHeight}vh`} w="50%" position="relative" spacing={8} mb={5}>
       <Box h="100%" w="1" background="silver">
         <Flex
           direction="column"
@@ -55,20 +55,30 @@ const Timeline = () => {
               <Text textStyle="body.2" noOfLines={[1, 2, 3]} w="inherit">
                 {description}
               </Text>
-              <Button
-                colorScheme="blue"
-                onClick={() =>
-                  onSendMessage({
-                    code: code,
-                    parentCode: parentCode,
-                  })
-                }
-                size="md"
-                alignSelf="flex-end"
-                isDisabled={isDisabled}
+              <Tooltip
+                placement="right"
+                isDisabled={isDisabled ? false : true}
+                label="Please complete the previous steps"
+                aria-label="Please complete the previous steps"
+                bg="red.400"
+                color="#ffffff"
               >
-                {buttonText}
-              </Button>
+                <Box alignSelf="flex-end">
+                  <Button
+                    colorScheme="blue"
+                    onClick={() =>
+                      onSendMessage({
+                        code: code,
+                        parentCode: parentCode,
+                      })
+                    }
+                    size="md"
+                    isDisabled={isDisabled}
+                  >
+                    {buttonText}
+                  </Button>
+                </Box>
+              </Tooltip>
             </VStack>
           </Card>
         ))(items)}
