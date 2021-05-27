@@ -1,7 +1,14 @@
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import createSendAnswer from 'app/ASKS/utils/create-send-answer'
-import { FormControl, FormLabel, FormErrorMessage, HStack, Text as CText } from '@chakra-ui/react'
+import {
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  HStack,
+  Text as CText,
+  useBoolean,
+} from '@chakra-ui/react'
 import getGroupCode from 'app/ASKS/utils/get-group-code'
 import Text from 'app/DTT/text'
 import Button from 'app/DTT/button'
@@ -26,12 +33,13 @@ import ThirdPartyVideo from 'app/DTT/third_party_video'
 import TimeZonePicker from 'app/DTT/time_zone'
 import CheckBox from 'app/DTT/check_box'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import { faCheckCircle, faCircle } from '@fortawesome/free-solid-svg-icons'
 import LogRocketSession from 'app/DTT/log_rocket_session'
 import Attribute from 'app/BE/attribute'
 import { useMobileValue } from 'utils/hooks'
 import { selectHighlightedQuestion } from 'redux/app/selectors'
 import Flag from 'app/DTT/flag'
+import { useEffect } from 'react'
 
 const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCode }) => {
   const askData = useSelector(selectCode(parentCode, questionCode)) || passedAskData
@@ -45,6 +53,13 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
 
   const groupCode = getGroupCode(question)
 
+  const [saving, setSaving] = useBoolean()
+
+  useEffect(() => {
+    setSaving.off()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data?.value])
+
   if (!question?.attribute) return null
 
   const {
@@ -57,7 +72,7 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
   } = question
 
   const feedback = data?.feedback
-  const onSendAnswer = createSendAnswer(askData, { passedTargetCode })
+  const onSendAnswer = createSendAnswer(askData, { passedTargetCode, setSaving })
 
   if (readonly) {
     return (
@@ -107,14 +122,18 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
       isInvalid={!!feedback}
       border={highlightedQuestion === attributeCode ? '1px solid red' : ''}
       borderRadius="md"
-      p={highlightedQuestion === attributeCode ? '5' : ''}
+      p={highlightedQuestion === attributeCode ? '3' : ''}
       transition="all 0.5s"
     >
       <HStack mb="4" w={labelWidth} justify="space-between">
         <FormLabel id={attributeCode} textStyle="body.1">
           {name}
         </FormLabel>
-        {data?.value ? <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} /> : null}
+        {saving ? (
+          <FontAwesomeIcon icon={faCircle} color="gold" />
+        ) : data?.value ? (
+          <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
+        ) : null}
       </HStack>
 
       {component === 'email' && (
