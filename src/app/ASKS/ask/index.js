@@ -122,7 +122,7 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
       isInvalid={!!feedback}
       border={highlightedQuestion === attributeCode ? '1px solid red' : ''}
       borderRadius="md"
-      p={highlightedQuestion === attributeCode ? '5' : ''}
+      p={highlightedQuestion === attributeCode ? '3' : ''}
       transition="all 0.5s"
     >
       <HStack mb="4" w={labelWidth} justify="space-between">
