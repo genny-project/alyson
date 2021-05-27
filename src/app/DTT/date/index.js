@@ -1,7 +1,7 @@
 import { includes } from 'ramda'
 import { Text, Input } from '@chakra-ui/react'
 
-import timeBasedOnTimeZone from 'utils/helpers/timezone_magic/time-based-on-timezone.ts'
+import timeBasedOnTimeZone from 'utils/helpers/timezone_magic/time-based-on-timezone'
 import DateChip from './DateChip'
 import getDate from 'utils/helpers/timezone_magic/get-date'
 import Year from './Year'
@@ -20,7 +20,11 @@ const Read = ({ data, typeName, config }) => {
   )
 
   if (date === 'Invalid Date') return null
-  return <Text {...config}>{date}</Text>
+  return (
+    <Text minW="4rem" {...config}>
+      {date}
+    </Text>
+  )
 }
 const Write = ({ questionCode, data, onSendAnswer, typeName }) => {
   const includeTime = includes('LocalDateTime', typeName)

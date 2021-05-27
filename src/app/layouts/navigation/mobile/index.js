@@ -63,16 +63,14 @@ const MobileNav = () => {
             <IconButton color="gray.600" onClick={onOpen} variant="ghost">
               <FontAwesomeIcon icon={faBars} />
             </IconButton>
-            <Box mx={5} style={{ cursor: 'pointer' }}>
+            <Box mx={5} w="45px">
               {apiConfig && (
                 <Image
-                  opacity="0.8"
                   onClick={() =>
                     onSendMessage({ code: 'QUE_DASHBOARD_VIEW', parentCode: 'QUE_DASHBOARD_VIEW' })
                   }
                   ref={btnRef}
                   src={'/favicon.png'}
-                  htmlWidth="45px"
                 />
               )}
             </Box>

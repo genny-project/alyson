@@ -11,7 +11,8 @@ const Write = ({ questionCode, onSendAnswer, data }) => {
     if (!data?.value) {
       onSendAnswer(timeZone)
     }
-  }, [data.value, onSendAnswer])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return confirm === null ? (
     <VStack align="start">
