@@ -93,8 +93,11 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
         />
       ) : (
         <VStack align="start" pl="8" pb="8" w="100%">
-          <Text textStyle="head.1" mt="8" mb="2">{`Add Introduction video?`}</Text>
-          <Text textStyle="body.2">{`Would you like to record a short introduction about yourself?`}</Text>
+          <Text textStyle="head.1" mt="8" mb="2">
+            {config.question}
+          </Text>
+          <Text textStyle="body.2">{config.description}</Text>
+          <Text textStyle="body.3">{config.explanation}</Text>
           <Text
             textStyle="body.2"
             mb="2"
@@ -105,7 +108,9 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
           <Stack direction={['column', 'row']} justify="flex-end" w="100%" pr="10">
             <Box>
               <a href={config.explanation_video} target="_blank" rel="noreferrer">
-                <Button colorScheme="green" variant="outline">{`View Instructions`}</Button>
+                <Button colorScheme="green" variant="outline">
+                  {config.explanation_video_title || `View Instructions`}
+                </Button>
               </a>
             </Box>
             <Button
