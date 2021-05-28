@@ -1,6 +1,6 @@
 import { useColorModeValue } from '@chakra-ui/color-mode'
 import { Image } from '@chakra-ui/image'
-import { Box, Spacer, Text, VStack } from '@chakra-ui/layout'
+import { Spacer, Text, VStack } from '@chakra-ui/layout'
 import useApi from 'api'
 import Card from 'app/layouts/components/card'
 import { useSelector } from 'react-redux'
