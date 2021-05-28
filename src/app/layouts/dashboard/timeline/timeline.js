@@ -11,7 +11,7 @@ const Timeline = () => {
   const { items } = getMenteeTimelineItems()
 
   let totalItems = items.length
-  let numberOfCompletedItems = items.filter(item => item.completed === 'COMPLETED').length
+  let numberOfCompletedItems = items.filter(item => item.completed === 'COMPLETE').length
   let progressBarHeight = (numberOfCompletedItems / totalItems) * 100
   let timelineHeight = totalItems * 22.5
 
@@ -30,13 +30,13 @@ const Timeline = () => {
             <Box
               h="8"
               w="8"
-              background={completed === 'COMPLETED' ? 'green' : 'silver'}
+              background={completed === 'COMPLETE' ? 'green' : 'silver'}
               borderRadius="50%"
               textAlign="center"
               key={title}
             >
               <Box h="100%" marginTop="1">
-                {completed === 'COMPLETED' ? (
+                {completed === 'COMPLETE' ? (
                   <FontAwesomeIcon opacity="0.5" icon={faCheck} color="#fff" />
                 ) : null}
               </Box>

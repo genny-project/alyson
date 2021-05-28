@@ -2,23 +2,23 @@ import useGetMenteeInformation from './get-mentee-information'
 
 const useGetMenteeTimelineItems = () => {
   const {
-    profileStatus = 'COMPLETED',
+    profileStatus = 'COMPLETE',
     trainingStatus,
     selectMentorStatus,
     meetingsWithMentorsStatus,
   } = useGetMenteeInformation()
   const description =
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse venenatis placerat arcu, tempor rutrum tortor porta quis. Donec aliquam urna ac varius ultrices. Morbi vel dapibus nunc, dictum pretium justo. Nulla non blandit leo. Proin non imperdiet ex. Etiam cursus dignissim sem, nec interdum massa pellentesque eu. Proin condimentum mauris at diam porttitor, a rhoncus nisi semper. Sed sed tincidunt felis, at bibendum sapien. Etiam odio libero, pretium ac condimentum ac, congue ac mi. Aenean efficitur malesuada arcu mattis tempus.'
-  const isProfileCompleted = profileStatus === 'COMPLETED'
-  const isTrainingCompleted = trainingStatus === 'COMPLETED'
-  const isMentorSelected = selectMentorStatus === 'COMPLETED'
-  const isFirstMeetingCompleted = meetingsWithMentorsStatus === 'COMPLETED'
+  const isProfileCompleted = profileStatus === 'COMPLETE'
+  const isTrainingCompleted = trainingStatus === 'COMPLETE'
+  const isMentorSelected = selectMentorStatus === 'COMPLETE'
+  const isFirstMeetingCompleted = meetingsWithMentorsStatus === 'COMPLETE'
   const items = [
     {
       title: 'Register',
       description: 'Register to the platform.',
       buttonText: 'Register',
-      completed: 'COMPLETED',
+      completed: 'COMPLETE',
       isDisabled: true,
     },
     {
@@ -56,14 +56,14 @@ const useGetMenteeTimelineItems = () => {
       title: '12 Meetings with Mentors',
       description: 'Meet and Greet witht the mentors',
       buttonText: 'Meet & Greet',
-      completed: 'NOT COMPLETED',
+      completed: 'INCOMPLETE',
       isDisabled: !isFirstMeetingCompleted,
     },
     {
       title: 'MentorMatch Alumni',
       description: 'Welcome to Alumni',
       buttonText: 'Meet & Greet',
-      completed: 'NOT COMPLETED',
+      completed: 'INCOMPLETE',
       isDisabled: !isFirstMeetingCompleted,
     },
   ]
