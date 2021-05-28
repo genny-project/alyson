@@ -9,8 +9,6 @@ const Mentors = ({ sbeCode }) => {
   const total = useSelector(selectCode(sbeCode, 'PRI_TOTAL_RESULTS'))
   const tableActions = getTableActions(sbe)
 
-  console.log('%c tableActions', 'background: darkblue; color: tomato', tableActions)
-
   return (
     <VStack>
       <HStack>
