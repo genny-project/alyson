@@ -51,6 +51,7 @@ const useGetMenteeTimelineItems = () => {
       buttonText: 'Select First Meeting',
       completed: meetingsWithMentorsStatus,
       isDisabled: !isMentorSelected,
+      code: 'ACT_PRI_EVENT_MENTORING_APPLICATION',
     },
     {
       title: '12 Meetings with Mentors',
