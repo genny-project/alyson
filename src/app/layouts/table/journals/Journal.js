@@ -11,7 +11,7 @@ const Journal = ({ code, actions, parentCode }) => {
   const tasks = useSelector(selectCode(code, 'PRI_JOURNAL_TASKS'))
 
   return (
-    <Box p="3">
+    <Box p="3" w="90vw">
       <VStack align="start">
         <HStack>
           <Text textStyle="body.1">{`${date?.value}`}</Text>
@@ -26,13 +26,17 @@ const Journal = ({ code, actions, parentCode }) => {
           <Text w="15rem" textStyle="body.3">
             Tasks
           </Text>
-          <Text dangerouslySetInnerHTML={{ __html: tasks?.value }} w="40rem" />
+          <Text dangerouslySetInnerHTML={{ __html: tasks?.value }} w="40rem" maxW="85vw" />
         </VStack>
         <VStack align="start" justify="start">
           <Text w="15rem" textStyle="body.3">
             Learning Outcomes
           </Text>
-          <Text dangerouslySetInnerHTML={{ __html: learningOutcomes?.value }} w="40rem" />
+          <Text
+            dangerouslySetInnerHTML={{ __html: learningOutcomes?.value }}
+            w="40rem"
+            maxW="85vw"
+          />
         </VStack>
       </VStack>
     </Box>

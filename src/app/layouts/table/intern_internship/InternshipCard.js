@@ -2,8 +2,10 @@ import { useColorModeValue } from '@chakra-ui/color-mode'
 import { Image } from '@chakra-ui/image'
 import { Box, Spacer, Text, VStack } from '@chakra-ui/layout'
 import useApi from 'api'
+import Card from 'app/layouts/components/card'
 import { useSelector } from 'react-redux'
 import { selectAttributes } from 'redux/db/selectors'
+import { useIsMobile } from 'utils/hooks'
 import { onSendMessage } from 'vertx'
 
 const InternshipCard = ({ code, parentCode }) => {
@@ -15,26 +17,26 @@ const InternshipCard = ({ code, parentCode }) => {
   const src = getImageSrc(img?.value)
   const bgColor = useColorModeValue('white', '')
 
+  const isMobile = useIsMobile()
+
   return (
-    <Box
-      shadow="md"
+    <Card
       _hover={{ boxShadow: '2xl' }}
       cursor="pointer"
-      borderRadius="lg"
-      w="17rem"
+      w={isMobile ? '40vw' : '17rem'}
       p="3"
-      h="18rem"
+      h={'17rem'}
       background={bgColor}
       onClick={() => onSendMessage({ code: 'ACT_PRI_EVENT_VIEW', targetCode: code, parentCode })}
     >
       <VStack h="full">
         <Spacer />
-        <Image src={src} maxW="10rem" maxH="10rem" />
+        <Image src={src} maxW={isMobile ? '5rem' : '10rem'} maxH={isMobile ? '5rem' : '10rem'} />
         <Spacer />
         <Text fontWeight="semibold">{hostCpy?.value}</Text>
-        <Text>{name?.value}</Text>
+        <Text textOverflow="ellipsis">{name?.value}</Text>
       </VStack>
-    </Box>
+    </Card>
   )
 }
 

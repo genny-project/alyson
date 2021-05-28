@@ -28,6 +28,7 @@ const Intern = ({ userCode }) => {
 
   return (
     <VStack>
+      <Progress userCode={userCode} />
       <Stack maxW="90vw" direction={['column', 'row']} align="stretch">
         <Card>
           <HStack spacing="5">
@@ -87,7 +88,7 @@ const Intern = ({ userCode }) => {
           </VStack>
         </Card>
       </Stack>
-      <Progress userCode={userCode} />
+
       <Recommendations />
     </VStack>
   )

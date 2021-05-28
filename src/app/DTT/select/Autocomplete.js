@@ -77,7 +77,6 @@ const Autocomplete = ({
         }
       }}
       ref={ref}
-      test-id={questionCode}
       w="full"
       maxW={maxW}
     >

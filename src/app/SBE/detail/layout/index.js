@@ -35,13 +35,15 @@ const DetailLayout = ({ sbeCode, targetCode, details = [[], []] }) => {
 
   const tileWidth = isMobile ? '80vw' : '33vw'
 
-  const pt = videoData?.value
+  const pt = isMobile
+    ? { true: '12rem', false: '12rem' }
+    : videoData?.value
     ? { true: '20rem', false: '30rem' }
     : { true: '16rem', false: '18rem' }
 
   return (
     <Box className="nobar" h="100vh" overflowY="scroll" onScroll={onScroll} onWheel={onWheel}>
-      <DetailHeader sbeCode={sbeCode} beCode={beCode} mini={mini} />
+      <DetailHeader sbeCode={sbeCode} beCode={beCode} mini={mini || isMobile} />
       <DetailActions />
       <Center w="full" pt={`calc(${pt[mini || isMobile]} + 1vw)`} pb="3rem">
         <Stack direction={isMobile ? 'column' : 'row'}>
