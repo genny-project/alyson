@@ -43,7 +43,7 @@ const ProcessSearch = ({ sbeCode, process }) => {
     <VStack align="start" pb="5">
       <HStack>
         <form onSubmit={handleSubmit}>
-          <InputGroup w="xs">
+          <InputGroup w="xs" maxW="50vw">
             <InputLeftElement>
               <FontAwesomeIcon color="lightgrey" icon={faSearch} />
             </InputLeftElement>

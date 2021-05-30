@@ -77,7 +77,6 @@ const Autocomplete = ({
         }
       }}
       ref={ref}
-      test-id={questionCode}
       w="full"
       maxW={maxW}
     >
@@ -116,7 +115,7 @@ const Autocomplete = ({
           </Box>
         </InputRightElement>
       </InputGroup>
-      {open && (
+      <Box display={open ? 'block' : 'none'}>
         <ItemsForAutocomplete
           {...{
             focusInput,
@@ -127,9 +126,10 @@ const Autocomplete = ({
             input,
             searching,
             filteredOptions,
+            setOpen,
           }}
         />
-      )}
+      </Box>
     </Box>
   )
 }
