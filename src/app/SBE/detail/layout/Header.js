@@ -1,14 +1,17 @@
 import { Avatar } from '@chakra-ui/avatar'
 import { IconButton } from '@chakra-ui/button'
-import { Box, Center, Flex, HStack, Spacer } from '@chakra-ui/layout'
+import { useDisclosure } from '@chakra-ui/hooks'
+import { Box, Center, Fade, Flex, HStack, Spacer, VStack } from '@chakra-ui/react'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useApi from 'api'
 import Attribute from 'app/BE/attribute'
 import Card from 'app/layouts/components/card'
+import { identity } from 'ramda'
 import { useDispatch, useSelector } from 'react-redux'
 import { closeDrawer } from 'redux/app'
 import { selectCode } from 'redux/db/selectors'
+import { useIsMobile } from 'utils/hooks'
 import DetailActions from './Actions'
 
 const DetailHeader = ({ sbeCode, beCode, mini }) => {
@@ -17,7 +20,12 @@ const DetailHeader = ({ sbeCode, beCode, mini }) => {
 
   const { value } = useSelector(selectCode(beCode, 'PRI_IMAGE_URL')) || {}
 
+  const isMobile = useIsMobile()
   const src = useApi().getImageSrc(value)
+
+  const { isOpen, onOpen, onClose: onCloseModal } = useDisclosure()
+
+  const hasVideo = !!useSelector(selectCode(beCode, 'PRI_VIDEO_URL'))?.value
 
   return (
     <Box>
@@ -29,22 +37,30 @@ const DetailHeader = ({ sbeCode, beCode, mini }) => {
         position="absolute"
         zIndex="modal"
       >
-        <Flex>
-          <HStack>
-            <Avatar src={src} />
-            <Attribute config={{ textStyle: 'head.1' }} code={beCode} attribute="PRI_NAME" />
-          </HStack>
-          <Spacer />
-          <HStack>
+        <VStack align="start" w="full">
+          <Flex w="full">
+            <HStack>
+              <Box bg={hasVideo ? 'gradient.200' : ''} p="1" borderRadius="50%">
+                <Avatar onClick={hasVideo ? onOpen : identity} size="lg" src={src} />
+              </Box>
+
+              <Attribute config={{ textStyle: 'head.1' }} code={beCode} attribute="PRI_NAME" />
+            </HStack>
+            <Spacer />
+            <HStack>
+              {!isMobile && <DetailActions beCode={beCode} sbeCode={sbeCode} />}
+              <IconButton
+                onClick={onClose}
+                size="sm"
+                variant="ghost"
+                icon={<FontAwesomeIcon icon={faTimes} />}
+              />
+            </HStack>
+          </Flex>
+          <HStack display={isMobile ? 'block' : 'none'} w="full">
             <DetailActions beCode={beCode} sbeCode={sbeCode} />
-            <IconButton
-              onClick={onClose}
-              size="sm"
-              variant="ghost"
-              icon={<FontAwesomeIcon icon={faTimes} />}
-            />
           </HStack>
-        </Flex>
+        </VStack>
       </Card>
 
       <Box
@@ -102,6 +118,31 @@ const DetailHeader = ({ sbeCode, beCode, mini }) => {
           <Spacer />
           <DetailActions beCode={beCode} sbeCode={sbeCode} />
         </Flex>
+      </Box>
+      <Box
+        position="absolute"
+        zIndex="modal"
+        w="100vw"
+        h="100vh"
+        display={isOpen ? 'block' : 'none'}
+        bg="blackAlpha.800"
+      >
+        <Fade in={isOpen}>
+          <VStack w="full">
+            <Flex w="full">
+              <Spacer />
+              <IconButton
+                m="3"
+                colorScheme="primary"
+                onClick={onCloseModal}
+                icon={<FontAwesomeIcon icon={faTimes} />}
+              />
+            </Flex>
+            <Box w="full">
+              <Attribute code={beCode} attribute="PRI_VIDEO_URL" />
+            </Box>
+          </VStack>
+        </Fade>
       </Box>
     </Box>
   )
