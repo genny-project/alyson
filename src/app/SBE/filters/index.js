@@ -34,8 +34,9 @@ const Filters = ({ sbeCode }) => {
   return (
     <HStack>
       <Popover isLazy>
-        <PopoverTrigger test-id={'filters'}>
+        <PopoverTrigger>
           <Button
+            test-id={'filters'}
             ref={triggerRef}
             leftIcon={<FontAwesomeIcon icon={faFilter} />}
             colorScheme="primary"
@@ -54,6 +55,7 @@ const Filters = ({ sbeCode }) => {
                   key={childAskObject.attributeCode}
                   passedAskData={childAskObject}
                   onFinish={onToggle}
+                  config={{ simpleSelect: true }}
                 />
               ))}
             </VStack>
