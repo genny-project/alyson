@@ -40,9 +40,9 @@ const useGetMenteeTimelineItems = () => {
     {
       title: 'Select Mentor',
       description: 'Choose the Mentor that suits you the most!',
-      buttonText: 'Go to Mentor Selection',
+      buttonText: isMentorSelected ? 'Mentor Selected' : 'Go to Mentor Selection',
       completed: selectMentorStatus,
-      isDisabled: !isTrainingCompleted,
+      isDisabled: !isTrainingCompleted || isMentorSelected,
       code: 'ACT_PRI_EVENT_SELECT_MENTOR',
     },
     {
@@ -63,7 +63,7 @@ const useGetMenteeTimelineItems = () => {
     {
       title: 'MentorMatch Alumni',
       description: 'Welcome to Alumni',
-      buttonText: 'Meet & Greet',
+      buttonText: 'Alumni',
       completed: 'INCOMPLETE',
       isDisabled: !isFirstMeetingCompleted,
     },
