@@ -49,8 +49,7 @@ const Write = ({
 
   if (simpleSelect)
     return (
-      <CSelect onChange={e => onSendAnswer(e.target.value)} placeholder={placeholder}>
-        <option>{placeholder}</option>
+      <CSelect onChange={e => onSendAnswer(e.target.value)} placeholder={placeholder || 'Select'}>
         {options.map(({ value, label }) => (
           <option value={value} key={value}>
             {label}
