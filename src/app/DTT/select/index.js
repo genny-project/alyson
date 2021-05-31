@@ -1,6 +1,6 @@
 import { includes, map, pathOr } from 'ramda'
 import { useSelector } from 'react-redux'
-import { Text } from '@chakra-ui/react'
+import { Text, Select as CSelect } from '@chakra-ui/react'
 import debounce from 'lodash.debounce'
 import { selectCode, selectRows } from 'redux/db/selectors'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
@@ -17,6 +17,7 @@ const Write = ({
   dataType,
   data,
   targetCode,
+  config,
 }) => {
   const sourceCode = useSelector(selectCode('USER'))
 
@@ -43,6 +44,19 @@ const Write = ({
   )
 
   const defaultValue = safelyParseJson(data?.value, [])
+
+  const { simpleSelect } = config || {}
+
+  if (simpleSelect)
+    return (
+      <CSelect onChange={e => onSendAnswer(e.target.value)} placeholder={placeholder || 'Select'}>
+        {options.map(({ value, label }) => (
+          <option value={value} key={value}>
+            {label}
+          </option>
+        ))}
+      </CSelect>
+    )
 
   return (
     <Autocomplete
