@@ -41,7 +41,7 @@ import { selectHighlightedQuestion } from 'redux/app/selectors'
 import Flag from 'app/DTT/flag'
 import { useEffect } from 'react'
 
-const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCode }) => {
+const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCode, config }) => {
   const askData = useSelector(selectCode(parentCode, questionCode)) || passedAskData
 
   const { attributeCode, targetCode, name, question, mandatory, hidden, disabled, readonly } =
@@ -152,6 +152,7 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
       )}
       {(component === 'dropdown' || component === 'tag') && (
         <Select.Write
+          config={config}
           targetCode={targetCode}
           questionCode={questionCode}
           groupCode={groupCode}
