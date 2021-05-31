@@ -59,6 +59,8 @@ const Timeline = () => {
                 label={
                   buttonText === 'Register'
                     ? 'You have already registered!'
+                    : buttonText === 'Mentor Selected'
+                    ? 'You have already selected a Mentor!'
                     : 'Please complete the previous steps'
                 }
                 aria-label="Please complete the previous steps"
