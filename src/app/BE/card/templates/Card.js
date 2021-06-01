@@ -47,12 +47,13 @@ const DefaultCard = ({ parentCode, actions = [], code, columns }) => {
               data={image || { baseEntityCode: code }}
               parentCode={parentCode}
             />
-            <VStack alignItems="start" minW="10rem">
+            <VStack alignItems="start" minW="10rem" maxW="16rem" overflow="hidden">
               <Text.Read
                 data={title}
                 config={{
                   textStyle: 'body.1',
                   isTruncated: true,
+                  maxW: '14rem',
                 }}
               />
               <Text.Read
