@@ -1,6 +1,8 @@
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 
+const isComplete = status => status === 'COMPLETE'
+
 const useGetMenteeInformation = () => {
   const userCode = useSelector(selectCode('USER'))
   const profileStatus = useSelector(selectCode(userCode, 'PRI_PROFILE'))?.valueString
@@ -9,12 +11,20 @@ const useGetMenteeInformation = () => {
     ?.valueString
   const meetingsWithMentorsStatus = useSelector(selectCode(userCode, 'PRI_MEETING_WITH_MENTOR'))
     ?.valueString
+  const isProfileCompleted = isComplete(profileStatus)
+  const isTrainingCompleted = isComplete(trainingStatus)
+  const isMentorSelected = isComplete(selectMentorStatus)
+  const isFirstMeetingCompleted = isComplete(meetingsWithMentorsStatus)
 
   return {
     profileStatus,
     trainingStatus,
     selectMentorStatus,
     meetingsWithMentorsStatus,
+    isProfileCompleted,
+    isTrainingCompleted,
+    isMentorSelected,
+    isFirstMeetingCompleted,
   }
 }
 

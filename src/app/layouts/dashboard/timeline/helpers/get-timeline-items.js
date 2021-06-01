@@ -2,17 +2,16 @@ import useGetMenteeInformation from './get-mentee-information'
 
 const useGetMenteeTimelineItems = () => {
   const {
-    profileStatus = 'COMPLETE',
+    profileStatus,
     trainingStatus,
     selectMentorStatus,
     meetingsWithMentorsStatus,
+    isProfileCompleted,
+    isTrainingCompleted,
+    isMentorSelected,
+    isFirstMeetingCompleted,
   } = useGetMenteeInformation()
-  const description =
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse venenatis placerat arcu, tempor rutrum tortor porta quis. Donec aliquam urna ac varius ultrices. Morbi vel dapibus nunc, dictum pretium justo. Nulla non blandit leo. Proin non imperdiet ex. Etiam cursus dignissim sem, nec interdum massa pellentesque eu. Proin condimentum mauris at diam porttitor, a rhoncus nisi semper. Sed sed tincidunt felis, at bibendum sapien. Etiam odio libero, pretium ac condimentum ac, congue ac mi. Aenean efficitur malesuada arcu mattis tempus.'
-  const isProfileCompleted = profileStatus === 'COMPLETE'
-  const isTrainingCompleted = trainingStatus === 'COMPLETE'
-  const isMentorSelected = selectMentorStatus === 'COMPLETE'
-  const isFirstMeetingCompleted = meetingsWithMentorsStatus === 'COMPLETE'
+
   const items = [
     {
       title: 'Register',
@@ -47,7 +46,7 @@ const useGetMenteeTimelineItems = () => {
     },
     {
       title: 'First Meeting',
-      description: description,
+      description: 'description',
       buttonText: 'Select First Meeting',
       completed: meetingsWithMentorsStatus,
       isDisabled: !isMentorSelected,
