@@ -8,7 +8,7 @@ import DetailView from 'app/layouts/dashboard/timeline/detailView'
 import useGetMenteeInformation from 'app/layouts/dashboard/timeline/helpers/get-mentee-information'
 
 const MenteeDashboard = () => {
-  const { isMentorSelected } = useGetMenteeInformation()
+  const { isMentorSelected, isTrainingCompleted } = useGetMenteeInformation()
 
   const [showDetailView, setShowDetailView] = useState(false)
 
@@ -21,10 +21,12 @@ const MenteeDashboard = () => {
       <Timeline menteeProps={menteeProps} />
       {isMentorSelected ? (
         <Meetings />
-      ) : showDetailView ? (
+      ) : showDetailView && isTrainingCompleted ? (
         <DetailView setShowDetailView={setShowDetailView} />
-      ) : (
+      ) : isTrainingCompleted && !isMentorSelected ? (
         <Recommendation setShowDetailView={setShowDetailView} />
+      ) : (
+        <div />
       )}
     </Flex>
   )
