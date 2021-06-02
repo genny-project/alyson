@@ -1,14 +1,14 @@
-import { VStack, Image } from '@chakra-ui/react'
-import getYtThumbnail from 'utils/helpers/get-yt-thumbnail'
+import { IconButton, VStack } from '@chakra-ui/react'
+import { IconHostCpyRep, IconEduProRep, IconIntern } from 'app/layouts/components/im_icons'
+import ThemeToggler from 'app/layouts/navigation/ColorToggler'
 
 const Sandbox = () => {
   return (
     <VStack>
-      <Image src={getYtThumbnail('https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'default')} />
-      <Image src={getYtThumbnail('https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'mqdefault')} />
-      <Image src={getYtThumbnail('https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'hqdefault')} />
-      <Image src={getYtThumbnail('https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'sddefault')} />
-      <Image src={getYtThumbnail('https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'maxresdefault')} />
+      <ThemeToggler />
+      <IconButton size="lg" icon={<IconHostCpyRep />} />
+      <IconButton size="lg" icon={<IconEduProRep />} />
+      <IconButton size="lg" icon={<IconIntern />} />
     </VStack>
   )
 }
