@@ -11,8 +11,6 @@ const NoteCard = ({ id }) => {
 
   const { content, created, sourceCode } = note
 
-  console.log(note)
-
   return (
     <Card w="full" p="3">
       <VStack align="start">
@@ -29,7 +27,6 @@ const NoteCard = ({ id }) => {
             ),
           )}
         </HStack> */}
-
         <Text textStyle="tail.2">{content}</Text>
         <VStack align="start" spacing={0}>
           <Text textStyle="tail.3">{new Date(created).toLocaleDateString()}</Text>

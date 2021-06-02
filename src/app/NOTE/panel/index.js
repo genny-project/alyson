@@ -17,12 +17,14 @@ const NotePanel = ({ code, idx, length }) => {
 
   return (
     <Card
-      w={isMobile ? '90vw' : length === 1 ? '40vw' : '18vw'}
+      w={isMobile || length > 1 ? '60vw' : length === 1 ? '40vw' : '18vw'}
       p="3"
       variant="card0"
-      overflow="hidden"
+      overflow="scroll"
+      h="88vh"
+      overflowX="hidden"
     >
-      <VStack className="nobar" align="start" maxH="80vh" overflow="scroll" overflowX="hidden">
+      <VStack className="nobar" align="start">
         {length > 1 && <Text textStyle="head.3">{nameOfColumn(idx)}</Text>}
 
         <HStack>

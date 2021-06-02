@@ -7,7 +7,7 @@ export interface AppState {
   DIALOG: string
   TOAST: Keyable | null
   DASHBOARD_COUNTS: Array<String> | null
-  NOTES: null | Keyable
+  NOTES: string
   DUPLICATE_EMAILS: string
   lastSentMessage: any
   lastReceivedMessage: any

@@ -10,12 +10,14 @@ const App = ({ code }) => {
   if (isMobile)
     return (
       <Card
-        p="3"
         h="full"
         cursor="pointer"
         _hover={{ bg: '#fafafa' }}
         onClick={() =>
-          onSendMessage({ code: 'ACT_PRI_EVENT_ACCESS_NOTES_APPLICATION', targetCode: code })
+          onSendMessage(
+            { code: 'ACT_PRI_EVENT_ACCESS_NOTES_APPLICATION', targetCode: code },
+            { redirect: false },
+          )
         }
         w="9rem"
       >
@@ -39,7 +41,10 @@ const App = ({ code }) => {
       variant="card2"
       _hover={{ bg: '#fafafa' }}
       onClick={() =>
-        onSendMessage({ code: 'ACT_PRI_EVENT_ACCESS_NOTES_APPLICATION', targetCode: code })
+        onSendMessage(
+          { code: 'ACT_PRI_EVENT_ACCESS_NOTES_APPLICATION', targetCode: code },
+          { redirect: false },
+        )
       }
     >
       <HStack align="start">
