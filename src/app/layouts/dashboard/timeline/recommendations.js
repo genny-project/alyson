@@ -1,9 +1,22 @@
 import { Grid, Box, VStack, Text, Spacer, Image, HStack } from '@chakra-ui/react'
-import { map } from 'ramda'
+import { map, filter, flatten } from 'ramda'
+import { selectCurrentBes } from 'redux/app/selectors.ts'
+import { useSelector } from 'react-redux'
 
 const items = ['one', 'two', 'three', 'four', 'five', 'six', 'seven']
 
 const Recommendation = ({ setShowDetailView }) => {
+  const currentBes = useSelector(selectCurrentBes)
+  const filteredMentors = flatten(
+    map(({ baseEntityAttributes }) =>
+      filter(
+        ({ attributeCode, valueBoolean }) =>
+          attributeCode === 'PRI_IS_MENTOR' && valueBoolean === true,
+      )(baseEntityAttributes),
+    )(currentBes),
+  )
+  const mentors = map(({ baseEntityCode }) => baseEntityCode)(filteredMentors)
+
   return (
     <Box
       w="50%"
