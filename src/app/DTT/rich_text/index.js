@@ -63,22 +63,32 @@ const Write = ({ questionCode, data, onSendAnswer, description, html }) => {
       borderRadius="0.375rem"
       p="1rem"
     >
-      {minCharacterCount ? (
-        <HStack>
-          <Text>{`Please use between`}</Text>
-          <Text color={curLength < minCharacterCount ? 'red' : 'green'}>{minCharacterCount}</Text>
-          <Text>{`and`}</Text>
-          <Text color={curLength > maxCharacterCount ? 'red' : 'green'}>{maxCharacterCount}</Text>
-          <Text>{`characters`}</Text>
-        </HStack>
+      {minCharacterCount || maxCharacterCount ? (
+        !minCharacterCount ? (
+          <HStack>
+            <Text>{`Please use less than`}</Text>
+            <Text color={curLength > maxCharacterCount ? 'red' : 'green'}>{maxCharacterCount}</Text>
+            <Text>{`characters`}</Text>
+          </HStack>
+        ) : (
+          <HStack>
+            <Text>{`Please use between`}</Text>
+            <Text color={curLength < minCharacterCount ? 'red' : 'green'}>{minCharacterCount}</Text>
+            <Text>{`and`}</Text>
+            <Text color={curLength > maxCharacterCount ? 'red' : 'green'}>{maxCharacterCount}</Text>
+            <Text>{`characters`}</Text>
+          </HStack>
+        )
       ) : null}
-      {minCharacterCount ? (
-        <Text>
+      {minCharacterCount || maxCharacterCount ? (
+        <Text mb="3">
           {minCharacterCount > curLength
             ? `Keep typing please`
             : curLength > maxCharacterCount
             ? `Too much text`
-            : `That's perfect, thanks!`}
+            : curLength
+            ? `That's perfect, thanks!`
+            : ''}
         </Text>
       ) : null}
 
