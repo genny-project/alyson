@@ -16,7 +16,7 @@ const MobileNotes = () => {
   const [tab, setTab] = useState(0)
 
   return (
-    <VStack>
+    <VStack m="3">
       {tabs.length > 1 ? (
         <Wrap mx="5" justify="center">
           {tabs.map((code, idx) => (
@@ -36,7 +36,7 @@ const MobileNotes = () => {
       {tabs.map((code, idx) => (
         <Center display={tab === idx ? 'block' : 'none'}>
           <Box>
-            <NotePanel code={code} />
+            <NotePanel code={code} length={tabs.length} />
           </Box>
         </Center>
       ))}
