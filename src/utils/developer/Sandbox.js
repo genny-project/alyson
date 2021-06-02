@@ -1,13 +1,14 @@
-import { VStack } from '@chakra-ui/react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCamera } from '@fortawesome/free-solid-svg-icons'
+import { Button, IconButton, VStack } from '@chakra-ui/react'
 import { HostCpyRepIcon } from './HostCpyRepIcon'
 
 const Sandbox = () => {
   return (
     <VStack>
-      <FontAwesomeIcon icon={faCamera} />
-      <HostCpyRepIcon />
+      <Button leftIcon={<HostCpyRepIcon />} colorScheme="teal" variant="solid">
+        HostCpyRepIcon
+      </Button>
+      <IconButton colorScheme="teal" size="lg" icon={<HostCpyRepIcon />} />
+      <IconButton variant="outline" colorScheme="teal" size="lg" icon={<HostCpyRepIcon />} />
     </VStack>
   )
 }
