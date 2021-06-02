@@ -25,8 +25,8 @@ const useGetMenteeTimelineItems = () => {
       description: 'Please complete your profile before you can proceed!',
       buttonText: 'Go to Profile',
       completed: profileStatus,
-      code: 'QUE_AVATAR_PROFILE_GRP',
-      parentCode: 'QUE_AVATAR_GRP',
+      code: 'ACT_GO_TO_PROFILE',
+      parentCode: 'BTN_CLICK',
     },
     {
       title: 'Complete Training',

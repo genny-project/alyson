@@ -17,7 +17,7 @@ const MenteeDashboard = () => {
   }
 
   return (
-    <Flex paddingX="20">
+    <Flex paddingX="10">
       <Timeline menteeProps={menteeProps} />
       {isMentorSelected ? (
         <Meetings />

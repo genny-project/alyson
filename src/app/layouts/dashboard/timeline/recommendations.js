@@ -21,7 +21,7 @@ const Recommendation = ({ setShowDetailView }) => {
           <Box
             h="20vh"
             bg="gray.50"
-            _hover={{ boxShadow: 'dark-lg', rounded: 'md', color: 'blue.500' }}
+            _hover={{ boxShadow: 'dark-lg', rounded: 'md', color: 'white', bg: 'teal.300' }}
             cursor="pointer"
             w={'70%'}
             p="3"
