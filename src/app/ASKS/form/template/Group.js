@@ -58,13 +58,7 @@ const Group = ({
           {video && <ReactPlayer url={video.url} />}
           {questions.map((type, idx) =>
             Array.isArray(type) ? (
-              <Stack
-                direction={['column', 'column', 'row']}
-                align="start"
-                w="full"
-                justify="space-between"
-                key={idx}
-              >
+              <Stack direction={'column'} align="start" w="full" justify="space-between" key={idx}>
                 {type.map(code => (
                   <Ask
                     onFinish={onFinish}

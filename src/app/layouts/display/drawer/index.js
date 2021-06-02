@@ -4,6 +4,7 @@ import { closeDrawer } from 'redux/app'
 import { selectDrawer } from 'redux/app/selectors'
 import Detail from 'app/SBE/detail'
 import { useMobileValue } from 'utils/hooks'
+import Notes from 'app/NOTE'
 
 const DisplayDrawer = () => {
   const drawer = useSelector(selectDrawer)
@@ -20,6 +21,7 @@ const DisplayDrawer = () => {
       <DrawerOverlay>
         <DrawerContent w={w} ml={ml} borderTopRadius="lg">
           {drawer === 'DETAIL' && <Detail />}
+          {drawer === 'NOTES' && <Notes />}
         </DrawerContent>
       </DrawerOverlay>
     </Drawer>
