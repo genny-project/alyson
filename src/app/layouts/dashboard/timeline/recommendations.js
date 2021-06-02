@@ -2,8 +2,7 @@ import { Grid, Box, VStack, Text, Spacer, Image, HStack } from '@chakra-ui/react
 import { map, filter, flatten } from 'ramda'
 import { selectCurrentBes } from 'redux/app/selectors.ts'
 import { useSelector } from 'react-redux'
-
-const items = ['one', 'two', 'three', 'four', 'five', 'six', 'seven']
+import Attribute from 'app/BE/attribute'
 
 const Recommendation = ({ setShowDetailView }) => {
   const currentBes = useSelector(selectCurrentBes)
@@ -30,7 +29,7 @@ const Recommendation = ({ setShowDetailView }) => {
     >
       <Text textStyle="head.2">{`Please select a Mentor from the suggestions below!`}</Text>
       <Grid gap={10} mt={10}>
-        {map(item => (
+        {map(mentor => (
           <Box
             h="20vh"
             bg="gray.50"
@@ -51,14 +50,14 @@ const Recommendation = ({ setShowDetailView }) => {
                 boxSize="150px"
               />
               <Spacer />
-              <Text textStyle="body.1">{`Mr. Henry Cavil ${item}`}</Text>
+              <Attribute config={{ textStyle: 'head.2' }} code={mentor} attribute="PRI_NAME" />
               <HStack>
-                <Text>{`Speciality:`}</Text>
-                <Text textStyle="body.2">{'Sports, Fitness'}</Text>
+                <Text>{`STATUS:`}</Text>
+                <Attribute config={{ textStyle: 'body.2' }} code={mentor} attribute="PRI_STATUS" />
               </HStack>
             </VStack>
           </Box>
-        ))(items)}
+        ))(mentors)}
       </Grid>
     </Box>
   )
