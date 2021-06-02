@@ -1,11 +1,12 @@
 import { Box, Text, HStack, VStack, Spacer, Image, Button } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons'
+import Attribute from 'app/BE/attribute'
 
 const placeholderText =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis convallis vestibulum quam, ac scelerisque quam feugiat sit amet. Proin semper eros et odio aliquam vulputate. Duis vitae justo arcu. Vivamus id felis id tellus eleifend porttitor. Suspendisse ac dolor massa. Etiam ullamcorper finibus quam nec consectetur. Nulla dui risus, porttitor a nunc et, feugiat posuere ex. Cras a tincidunt ex. Morbi laoreet, mauris hendrerit luctus commodo, lectus dolor consectetur urna, at ultricies magna risus quis augue Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis convallis vestibulum quam, ac scelerisque quam feugiat sit amet. Proin semper eros et odio aliquam vulputate. Duis vitae justo arcu. Vivamus id felis id tellus eleifend porttitor. Suspendisse ac dolor massa. Etiam ullamcorper finibus quam nec consectetur. Nulla dui risus, porttitor a nunc et, feugiat posuere ex. Cras a tincidunt ex. Morbi laoreet, mauris hendrerit luctus commodo, lectus dolor consectetur urna, at ultricies magna risus quis augue Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis convallis vestibulum quam, ac scelerisque quam feugiat sit amet. Proin semper eros et odio aliquam vulputate. Duis vitae justo arcu. Vivamus id felis id tellus eleifend porttitor. Suspendisse ac dolor massa. Etiam ullamcorper finibus quam nec consectetur. Nulla dui risus, porttitor a nunc et, feugiat posuere ex. Cras a tincidunt ex. Morbi laoreet, mauris hendrerit luctus commodo, lectus dolor consectetur urna, at ultricies magna risus quis augue'
 
-const DetailView = ({ setShowDetailView }) => {
+const DetailView = ({ setShowDetailView, currentMentor }) => {
   return (
     <VStack w="50%" bg="gray.100" h="80vh" spacing={10} m={10} p="5" overflowY="scroll">
       <Box w="100%">
@@ -23,7 +24,7 @@ const DetailView = ({ setShowDetailView }) => {
           boxSize="150px"
         />
         <Spacer />
-        <Text textStyle="head.2">{`Henry Cavill `}</Text>
+        <Attribute config={{ textStyle: 'head.2' }} code={currentMentor} attribute="PRI_NAME" />
       </VStack>
       <VStack boxShadow="base" rounded="md" p="5" w="80%" alignItems="flex-start" bg="gray.50">
         <Text textStyle="head.2">{`Personal Informartion`}</Text>

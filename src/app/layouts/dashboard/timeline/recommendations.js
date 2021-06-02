@@ -4,7 +4,7 @@ import { selectCurrentBes } from 'redux/app/selectors.ts'
 import { useSelector } from 'react-redux'
 import Attribute from 'app/BE/attribute'
 
-const Recommendation = ({ setShowDetailView }) => {
+const Recommendation = ({ setShowDetailView, setCurrentMentor }) => {
   const currentBes = useSelector(selectCurrentBes)
   const filteredMentors = flatten(
     map(({ baseEntityAttributes }) =>
@@ -37,7 +37,10 @@ const Recommendation = ({ setShowDetailView }) => {
             cursor="pointer"
             w={'70%'}
             p="3"
-            onClick={() => setShowDetailView(true)}
+            onClick={() => {
+              setShowDetailView(true)
+              setCurrentMentor(mentor)
+            }}
             m="auto"
             boxShadow="base"
             rounded="md"
