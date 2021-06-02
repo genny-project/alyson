@@ -1,7 +1,7 @@
 import { createIcon } from '@chakra-ui/react'
 
-export const HostCpyRepIcon = createIcon({
-  displayName: 'HostCpyRepIcon',
+const IconHostCpyRep = createIcon({
+  displayName: 'IconHostCpyRep',
   viewBox: '0 0 512 512',
   path: [
     <path
@@ -20,3 +20,5 @@ export const HostCpyRepIcon = createIcon({
     />,
   ],
 })
+
+export default IconHostCpyRep
