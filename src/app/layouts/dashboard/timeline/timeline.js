@@ -44,7 +44,7 @@ const Timeline = () => {
         <Box h={`${progressBarHeight}%`} w="100%" background="green" />
       </Box>
       <VStack h="100%" justifyContent="space-around" display="flex" position="absolute">
-        {map(({ title, description, buttonText, code, parentCode, isDisabled }) => (
+        {map(({ title, description, buttonText, code, parentCode, isDisabled, targetCode }) => (
           <Card key={title}>
             <VStack spacing={3} w={['xs', 'md']}>
               <Text textStyle="head.2" alignSelf="flex-start">
@@ -75,6 +75,7 @@ const Timeline = () => {
                         onSendMessage({
                           code: code,
                           parentCode: parentCode,
+                          targetCode: targetCode,
                         })
                       }
                       size="md"
