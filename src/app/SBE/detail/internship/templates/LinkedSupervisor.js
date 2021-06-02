@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 import { selectRows, selectCode } from 'redux/db/selectors'
 import getColumns from 'app/SBE/utils/get-columns'
-import { Box, Text, VStack } from '@chakra-ui/layout'
+import { Text, VStack } from '@chakra-ui/layout'
 import Attribute from 'app/BE/attribute'
 import { getAttribute } from 'app/SBE/utils/get-columns'
 import Card from 'app/layouts/components/card'
