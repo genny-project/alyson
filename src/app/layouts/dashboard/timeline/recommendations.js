@@ -38,10 +38,10 @@ const Recommendation = ({ setShowDetailView }) => {
                 boxSize="150px"
               />
               <Spacer />
-              <Text textStyle="body.1">{`Mr. Kitten the Kitty Cat ${item}`}</Text>
+              <Text textStyle="body.1">{`Mr. Henry Cavil ${item}`}</Text>
               <HStack>
                 <Text>{`Speciality:`}</Text>
-                <Text textStyle="body.2">{'Meowing, Cuteness'}</Text>
+                <Text textStyle="body.2">{'Sports, Fitness'}</Text>
               </HStack>
             </VStack>
           </Box>
