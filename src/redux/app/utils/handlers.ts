@@ -10,10 +10,6 @@ const displayMachine: {
 } = {
   'DRAWER:DETAIL': (state: AppState) => (state['DRAWER'] = 'DETAIL'),
   DIALOG_FORM: (state: AppState) => (state['DIALOG'] = 'FORM'),
-  NOTES: (state: AppState) => {
-    state['NOTES'] = null
-    state['DISPLAY'] = 'NOTES'
-  },
   NONE: (state: AppState) => {
     state.DIALOG = 'NONE'
     state.DRAWER = 'NONE'
@@ -56,6 +52,10 @@ const cmdMachine: {
   DOWNLOAD_FILE: (state: AppState, { code, exec }: CmdPayload) => {
     if (exec) window.open(code)
     state.DOWNLOAD_FILE = code
+  },
+  NOTES: (state: AppState, { code }: CmdPayload) => {
+    state['DRAWER'] = 'NOTES'
+    state['NOTES'] = code
   },
   DEFAULT: (state: AppState, { targetCodes, code, cmd_type }: CmdPayload) => {
     if (targetCodes) {

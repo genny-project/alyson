@@ -12,7 +12,7 @@ export const initialState = {
   DIALOG: 'NONE',
   TOAST: null,
   DASHBOARD_COUNTS: null,
-  NOTES: null,
+  NOTES: '',
   DUPLICATE_EMAILS: '',
   lastSentMessage: { time: '', data: { data: { code: 'QUE_DASHBOARD_VIEW' } } },
   lastReceivedMessage: {},
@@ -62,7 +62,7 @@ const appSlice = createSlice({
       state.DIALOG = 'NONE'
     },
     closeNotes: state => {
-      state.NOTES = null
+      state.DRAWER = 'NONE'
     },
     highlightQuestion: (state, { payload }) => {
       state.highlightedQuestion = payload
