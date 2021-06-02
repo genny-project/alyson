@@ -128,7 +128,7 @@ const Read = ({ data, mini }) => {
       </PopoverContent>
     </Popover>
   ) : (
-    <div dangerouslySetInnerHTML={{ __html: cleanHtml }} />
+    <Box px="5" dangerouslySetInnerHTML={{ __html: cleanHtml }} />
   )
 }
 

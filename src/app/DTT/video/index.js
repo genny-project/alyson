@@ -21,9 +21,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faVideo, faExpand, faBan, faSave } from '@fortawesome/free-solid-svg-icons'
 import Player from './Player'
 import Upload from '../upload'
+import configs from './configs'
 
 const Write = ({ questionCode, onSendAnswer, html, data }) => {
-  const config = safelyParseJson(html, {})
+  const config = configs[questionCode] || safelyParseJson(html, {})
 
   const { postMediaFile, getSrc } = useApi()
   const [startVideo, setStartVideo] = useState(false)
@@ -83,16 +84,11 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
       </VStack>
     )
   return (
-    <VStack>
-      {startVideo ? (
-        <VideoRecorder
-          test-id={questionCode}
-          setStartVideo={setStartVideo}
-          setData={handleSave}
-          config={config}
-        />
+    <VStack align="start" pl="8" pb="8" w="100%">
+      {config.detail ? (
+        config.detail
       ) : (
-        <VStack align="start" pl="8" pb="8" w="100%">
+        <>
           <Text textStyle="head.1" mt="8" mb="2">
             {config.question}
           </Text>
@@ -102,6 +98,18 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
             textStyle="body.2"
             mb="2"
           >{`Don't worry, we'll give you time to prepare and let you record!`}</Text>
+        </>
+      )}
+
+      {startVideo ? (
+        <VideoRecorder
+          test-id={questionCode}
+          setStartVideo={setStartVideo}
+          setData={handleSave}
+          config={config}
+        />
+      ) : (
+        <>
           <Box mb="8" w="100%">
             <Image src={process.env.PUBLIC_URL + '/video-intro.png'} alt="video-intro" m="auto" />
           </Box>
@@ -127,7 +135,7 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
               I have one I want to upload!
             </Button>
           </Stack>
-        </VStack>
+        </>
       )}
     </VStack>
   )

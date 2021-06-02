@@ -2,6 +2,9 @@ import { faBriefcase, faCompactDisc, faInfo } from '@fortawesome/free-solid-svg-
 
 import DetailLayout from '../layout'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import LinkedHostCpy from './templates/LinkedHostCpy'
+import { replace } from 'ramda'
+import LinkedSupervisor from './templates/LinkedSupervisor'
 
 const internshipDetail = {
   icon: <FontAwesomeIcon size="lg" icon={faBriefcase} />,
@@ -39,12 +42,21 @@ const software = {
   attributes: [{ attr: 'PRI_SOFTWARE' }],
 }
 
-const details = [
-  [internshipDetail, resp],
-  [software, baseOutcomes, specOutcomes],
-]
-
 const Internship = ({ sbeCode, targetCode }) => {
+  const hostCpy = (
+    <LinkedHostCpy sbeCode={replace('SBE_INTERNSHIP_', 'SBE_LINKED_HOST_CPY_', sbeCode)} />
+  )
+
+  const supervisor = (
+    <LinkedSupervisor
+      sbeCode={replace('SBE_INTERNSHIP_', 'SBE_LINKED_INTERN_SUPERVISOR_', sbeCode)}
+    />
+  )
+
+  const details = [
+    [internshipDetail, resp, hostCpy],
+    [software, supervisor, baseOutcomes, specOutcomes],
+  ]
   return <DetailLayout sbeCode={sbeCode} targetCode={targetCode} details={details} />
 }
 

@@ -4,6 +4,8 @@ import getColumns from 'app/SBE/utils/get-columns'
 import { Box, Text, VStack } from '@chakra-ui/layout'
 import Attribute from 'app/BE/attribute'
 import { getAttribute } from 'app/SBE/utils/get-columns'
+import Card from 'app/layouts/components/card'
+import { useIsMobile } from 'utils/hooks'
 
 const LinkedSupervisor = ({ sbeCode }) => {
   const table = useSelector(selectCode(sbeCode))
@@ -11,12 +13,14 @@ const LinkedSupervisor = ({ sbeCode }) => {
 
   const supervisor = rows[0]
 
+  const width = useIsMobile() ? '90vw' : '33vw'
+
   if (!table) return null
 
   const columns = getColumns(table)
 
   return (
-    <Box>
+    <Card variant="card0" w={width}>
       <VStack align="start">
         <Text textStyle="body.1">Supervisor</Text>
         {columns.map(col => (
@@ -29,7 +33,7 @@ const LinkedSupervisor = ({ sbeCode }) => {
           />
         ))}
       </VStack>
-    </Box>
+    </Card>
   )
 }
 
