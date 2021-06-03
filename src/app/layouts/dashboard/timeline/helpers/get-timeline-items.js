@@ -12,7 +12,6 @@ const useGetMenteeTimelineItems = () => {
     isProfileCompleted,
     isTrainingCompleted,
     isMentorSelected,
-    isFirstMeetingCompleted,
   } = useGetMenteeInformation()
 
   const items = [
@@ -61,14 +60,14 @@ const useGetMenteeTimelineItems = () => {
       description: 'Meet and Greet witht the mentors',
       buttonText: 'Meet & Greet',
       completed: 'INCOMPLETE',
-      isDisabled: !isFirstMeetingCompleted,
+      isDisabled: !isMentorSelected,
     },
     {
       title: 'MentorMatch Alumni',
       description: 'Welcome to Alumni',
       buttonText: 'Alumni',
       completed: 'INCOMPLETE',
-      isDisabled: !isFirstMeetingCompleted,
+      isDisabled: !isMentorSelected,
     },
   ]
 

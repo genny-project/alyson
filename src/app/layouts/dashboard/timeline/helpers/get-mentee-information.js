@@ -14,7 +14,6 @@ const useGetMenteeInformation = () => {
   const isProfileCompleted = isComplete(profileStatus)
   const isTrainingCompleted = isComplete(trainingStatus)
   const isMentorSelected = isComplete(selectMentorStatus)
-  const isFirstMeetingCompleted = isComplete(meetingsWithMentorsStatus)
 
   return {
     profileStatus,
@@ -24,7 +23,6 @@ const useGetMenteeInformation = () => {
     isProfileCompleted,
     isTrainingCompleted,
     isMentorSelected,
-    isFirstMeetingCompleted,
   }
 }
 
