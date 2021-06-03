@@ -44,7 +44,11 @@ const DetailHeader = ({ sbeCode, beCode, mini }) => {
                 <Avatar onClick={hasVideo ? onOpen : identity} size="lg" src={src} />
               </Box>
 
-              <Attribute config={{ textStyle: 'head.1' }} code={beCode} attribute="PRI_NAME" />
+              <Attribute
+                config={{ textStyle: isMobile ? 'body.1' : 'head.1' }}
+                code={beCode}
+                attribute="PRI_NAME"
+              />
             </HStack>
             <Spacer />
             <HStack>

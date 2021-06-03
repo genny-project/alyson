@@ -16,14 +16,17 @@ const AddNote = ({ code }) => {
 
   const handleSave = e => {
     e.preventDefault()
-    onSendMessage({
-      code: `ACT_PRI_EVENT_SAVE_NOTE`,
-      targetCode: code,
-      sourceCode,
-      tags: [],
-      content: noteContent,
-      parentCode,
-    })
+    onSendMessage(
+      {
+        code: `ACT_PRI_EVENT_SAVE_NOTE`,
+        targetCode: code,
+        sourceCode,
+        tags: [],
+        content: noteContent,
+        parentCode,
+      },
+      { redirect: false },
+    )
     setNoteContent('')
   }
 

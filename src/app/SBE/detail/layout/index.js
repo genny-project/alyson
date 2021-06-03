@@ -33,7 +33,7 @@ const DetailLayout = ({ sbeCode, targetCode, details = [[], []] }) => {
     }
   }, [delta, setMini])
 
-  const tileWidth = isMobile ? '80vw' : '33vw'
+  const tileWidth = isMobile ? '90vw' : '33vw'
 
   const pt = isMobile
     ? { true: '12rem', false: '12rem' }
