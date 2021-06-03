@@ -13,16 +13,19 @@ const Lane = ({ sbeCode, dashboard, width }) => {
   if (dashboard && !rows.length) return null
 
   return (
-    <Card variant="card0" p={4} width={width}>
+    <Card
+      variant="card0"
+      p={[2, 2, 2, 3]}
+      width={width}
+      maxH="78vh"
+      className="nobar"
+      h="full"
+      overflowY="scroll"
+      minW="15vw"
+    >
       <VStack>
         <Title sbeCode={sbeCode} />
-        <VStack
-          className="nobar"
-          maxH="100vh"
-          overflowY="scroll"
-          p="3"
-          borderTop="1px solid lightgrey"
-        >
+        <VStack p={2}>
           {rows.map(row => (
             <BECard key={row} code={row} parentCode={sbeCode} />
           ))}
