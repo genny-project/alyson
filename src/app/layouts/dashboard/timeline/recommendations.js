@@ -14,8 +14,7 @@ const Recommendation = ({ setShowDetailView, setCurrentMentor }) => {
       <Text textStyle="head.2">{`Please select a Mentor from the suggestions below!`}</Text>
       <Grid gap={10} mt={10}>
         {map(mentor => (
-          <Box
-            h="20vh"
+          <VStack
             bg={cardsbg}
             _hover={{ boxShadow: 'dark-lg', rounded: 'md', color: 'white', bg: hoverbg }}
             cursor="pointer"
@@ -43,7 +42,7 @@ const Recommendation = ({ setShowDetailView, setCurrentMentor }) => {
                 />
               </HStack>
             </VStack>
-          </Box>
+          </VStack>
         ))(mentors)}
       </Grid>
     </Box>
