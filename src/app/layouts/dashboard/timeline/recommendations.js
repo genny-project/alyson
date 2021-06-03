@@ -55,8 +55,12 @@ const Recommendation = ({ setShowDetailView, setCurrentMentor }) => {
               <Spacer />
               <Attribute config={{ textStyle: 'head.2' }} code={mentor} attribute="PRI_NAME" />
               <HStack>
-                <Text>{`STATUS:`}</Text>
-                <Attribute config={{ textStyle: 'body.2' }} code={mentor} attribute="PRI_STATUS" />
+                <Text>{`Expertise:`}</Text>
+                <Attribute
+                  config={{ textStyle: 'body.2' }}
+                  code={mentor}
+                  attribute="PRI_AREA_EXPERTISE"
+                />
               </HStack>
             </VStack>
           </Box>
