@@ -8,7 +8,6 @@ const useGetMenteeTimelineItems = () => {
     profileStatus,
     trainingStatus,
     selectMentorStatus,
-    meetingsWithMentorsStatus,
     isProfileCompleted,
     isTrainingCompleted,
     isMentorSelected,
@@ -46,14 +45,6 @@ const useGetMenteeTimelineItems = () => {
       isDisabled: !isTrainingCompleted || isMentorSelected,
       code: 'ACT_PRI_EVENT_SELECT_MENTOR',
       targetCode: userCode,
-    },
-    {
-      title: 'First Meeting',
-      description: 'description',
-      buttonText: 'Select First Meeting',
-      completed: meetingsWithMentorsStatus,
-      isDisabled: !isMentorSelected,
-      code: 'ACT_PRI_EVENT_MENTORING_APPLICATION',
     },
     {
       title: '12 Meetings with Mentors',
