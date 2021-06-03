@@ -1,4 +1,4 @@
-import { faBriefcase, faCompactDisc, faInfo } from '@fortawesome/free-solid-svg-icons'
+import { faBriefcase, faCompactDisc, faInfo, faItalic } from '@fortawesome/free-solid-svg-icons'
 
 import DetailLayout from '../layout'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -18,6 +18,12 @@ const internshipDetail = {
     { attr: 'PRI_DRESS_CODE', label: 'Dress Code' },
     { attr: 'PRI_ASSOC_NUM_INTERNS', label: 'Available Spots' },
   ],
+}
+
+const shortDetail = {
+  icon: <FontAwesomeIcon size="lg" icon={faItalic} />,
+  header: 'Short Internship Summary',
+  attributes: [{ attr: 'PRI_INTERNSHIP_DETAILS' }],
 }
 
 const resp = {
@@ -54,8 +60,8 @@ const Internship = ({ sbeCode, targetCode }) => {
   )
 
   const details = [
-    [internshipDetail, resp, hostCpy],
-    [software, supervisor, baseOutcomes, specOutcomes],
+    [internshipDetail, resp, hostCpy, specOutcomes],
+    [shortDetail, software, supervisor, baseOutcomes],
   ]
   return <DetailLayout sbeCode={sbeCode} targetCode={targetCode} details={details} />
 }

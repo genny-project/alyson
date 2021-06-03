@@ -1,6 +1,12 @@
 import DetailLayout from '../layout'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBriefcase, faInfo, faPaperclip, faUserCheck } from '@fortawesome/free-solid-svg-icons'
+import {
+  faBriefcase,
+  faInfo,
+  faPaperclip,
+  faUserCheck,
+  faItalic,
+} from '@fortawesome/free-solid-svg-icons'
 
 const appDetails = {
   icon: <FontAwesomeIcon size="lg" icon={faPaperclip} />,
@@ -26,6 +32,12 @@ const supervisor = {
     { attr: 'PRI_SUPER_JOB_EMAIL', label: 'Email' },
     { attr: 'PRI_SUPER_JOB_MOBILE', label: 'Mobile' },
   ],
+}
+
+const shortDetail = {
+  icon: <FontAwesomeIcon size="lg" icon={faItalic} />,
+  header: 'Short Internship Summary',
+  attributes: [{ attr: 'PRI_INTERNSHIP_DETAILS' }],
 }
 
 const internshipDetail = {
@@ -60,7 +72,7 @@ const specOutcomes = {
 
 const details = [
   [appDetails, internshipDetail, resp],
-  [supervisor, baseOutcomes, specOutcomes],
+  [supervisor, shortDetail, baseOutcomes, specOutcomes],
 ]
 
 const Application = ({ sbeCode, targetCode }) => {
