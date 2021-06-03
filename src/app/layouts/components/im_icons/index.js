@@ -3,4 +3,5 @@ import IconEduProRep from './IconEduProRep'
 import IconHostCpyRep from './IconHostCpyRep'
 import IconIntern from './IconIntern'
 
-export { IconAgent, IconEduProRep, IconHostCpyRep, IconIntern }
+const icons = { IconAgent, IconEduProRep, IconHostCpyRep, IconIntern }
+export default icons
