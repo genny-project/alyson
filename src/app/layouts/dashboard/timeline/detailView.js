@@ -1,4 +1,4 @@
-import { Box, VStack, Spacer, Button } from '@chakra-ui/react'
+import { Box, VStack, Spacer, Button, useColorModeValue } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons'
 import DetailCards from 'app/layouts/dashboard/timeline/templates/DetailCards'
@@ -14,8 +14,9 @@ import { onSendMessage } from 'vertx'
 
 const DetailView = ({ setShowDetailView, currentMentor }) => {
   const name = useSelector(selectCode(currentMentor, 'PRI_NAME'))?.value
+  const bg = useColorModeValue('gray.100', 'gray.700')
   return (
-    <VStack w="50%" bg="gray.100" h="80vh" spacing={10} m={10} p="5" overflowY="scroll">
+    <VStack w="50%" bg={bg} h="80vh" spacing={10} m={10} p="5" overflowY="scroll">
       <Box w="100%">
         <Button
           onClick={() => setShowDetailView(false)}
