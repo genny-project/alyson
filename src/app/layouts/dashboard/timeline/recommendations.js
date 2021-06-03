@@ -1,20 +1,10 @@
-import { Grid, Box, VStack, Text, Spacer, Image, HStack } from '@chakra-ui/react'
-import { map, filter, flatten } from 'ramda'
-import { selectCurrentBes } from 'redux/app/selectors.ts'
-import { useSelector } from 'react-redux'
+import { Grid, Box, VStack, Text, Spacer, HStack } from '@chakra-ui/react'
+import { map } from 'ramda'
 import Attribute from 'app/BE/attribute'
+import useGetMentorsList from 'app/layouts/dashboard/timeline/helpers/get-mentors-list'
 
 const Recommendation = ({ setShowDetailView, setCurrentMentor }) => {
-  const currentBes = useSelector(selectCurrentBes)
-  const filteredMentors = flatten(
-    map(({ baseEntityAttributes }) =>
-      filter(
-        ({ attributeCode, valueBoolean }) =>
-          attributeCode === 'PRI_IS_MENTOR' && valueBoolean === true,
-      )(baseEntityAttributes),
-    )(currentBes),
-  )
-  const mentors = map(({ baseEntityCode }) => baseEntityCode)(filteredMentors)
+  const mentors = useGetMentorsList()
 
   return (
     <Box
@@ -47,11 +37,7 @@ const Recommendation = ({ setShowDetailView, setCurrentMentor }) => {
           >
             <VStack h="full">
               <Spacer />
-              <Image
-                src={'https://cdn.pixabay.com/photo/2014/05/07/06/44/cat-339400_1280.jpg'}
-                borderRadius="full"
-                boxSize="150px"
-              />
+              <Attribute config={{ size: '2xl' }} code={mentor} attribute="PRI_IMAGE_URL" />
               <Spacer />
               <Attribute config={{ textStyle: 'head.2' }} code={mentor} attribute="PRI_NAME" />
               <HStack>

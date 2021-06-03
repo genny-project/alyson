@@ -1,4 +1,4 @@
-import { Box, VStack, Spacer, Image, Button } from '@chakra-ui/react'
+import { Box, VStack, Spacer, Button } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons'
 import DetailCards from 'app/layouts/dashboard/timeline/templates/DetailCards'
@@ -8,8 +8,11 @@ import {
   professionalDetails,
   preference,
 } from 'app/layouts/dashboard/timeline/templates/CardContent'
+import { useSelector } from 'react-redux'
+import { selectCode } from 'redux/db/selectors'
 
 const DetailView = ({ setShowDetailView, currentMentor }) => {
+  const name = useSelector(selectCode(currentMentor, 'PRI_NAME'))?.value
   return (
     <VStack w="50%" bg="gray.100" h="80vh" spacing={10} m={10} p="5" overflowY="scroll">
       <Box w="100%">
@@ -21,7 +24,11 @@ const DetailView = ({ setShowDetailView, currentMentor }) => {
         >{`Mentor Selection`}</Button>
       </Box>
       <VStack>
-        <Image src={'PRI_IMAGE_URL'} boxSize="150px" />
+        <Attribute
+          config={{ size: '2xl', name: name }}
+          code={currentMentor}
+          attribute="PRI_IMAGE_URL"
+        />
         <Spacer />
         <Attribute config={{ textStyle: 'head.2' }} code={currentMentor} attribute="PRI_NAME" />
       </VStack>
