@@ -47,7 +47,7 @@ const Player = ({ src, inline }) => {
 
   return (
     <Box onClick={togglePlay}>
-      <video src={src} ref={videoRef} />
+      <video src={src} ref={videoRef} controls />
       <IconButton
         onClick={togglePlay}
         opacity={paused ? '1' : '0'}
