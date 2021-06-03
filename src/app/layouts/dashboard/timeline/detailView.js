@@ -10,6 +10,7 @@ import {
 } from 'app/layouts/dashboard/timeline/templates/CardContent'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
+import { onSendMessage } from 'vertx'
 
 const DetailView = ({ setShowDetailView, currentMentor }) => {
   const name = useSelector(selectCode(currentMentor, 'PRI_NAME'))?.value
@@ -37,7 +38,14 @@ const DetailView = ({ setShowDetailView, currentMentor }) => {
       <DetailCards detailsection={preference} currentMentor={currentMentor} />
 
       <Box w="80%">
-        <Button w="full" colorScheme="teal">{`Invite`}</Button>
+        <Button
+          w="full"
+          colorScheme="blue"
+          onClick={() => {
+            onSendMessage({ code: 'ACT_INVITE_MENTOR', targetCode: currentMentor })
+            setShowDetailView(false)
+          }}
+        >{`Invite`}</Button>
       </Box>
     </VStack>
   )
