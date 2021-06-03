@@ -11,7 +11,7 @@ const MenteeDashboard = () => {
   const { isMentorSelected, isTrainingCompleted } = useGetMenteeInformation()
 
   const [showDetailView, setShowDetailView] = useState(false)
-
+  const [currentMentor, setCurrentMentor] = useState(null)
   const menteeProps = {
     isMentorSelected,
   }
@@ -21,10 +21,10 @@ const MenteeDashboard = () => {
       <Timeline menteeProps={menteeProps} />
       {isMentorSelected ? (
         <Meetings />
-      ) : showDetailView && isTrainingCompleted ? (
-        <DetailView setShowDetailView={setShowDetailView} />
+      ) : showDetailView && isTrainingCompleted && currentMentor ? (
+        <DetailView setShowDetailView={setShowDetailView} currentMentor={currentMentor} />
       ) : isTrainingCompleted && !isMentorSelected ? (
-        <Recommendation setShowDetailView={setShowDetailView} />
+        <Recommendation setShowDetailView={setShowDetailView} setCurrentMentor={setCurrentMentor} />
       ) : (
         <div />
       )}

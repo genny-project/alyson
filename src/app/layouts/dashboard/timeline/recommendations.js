@@ -1,9 +1,11 @@
-import { Grid, Box, VStack, Text, Spacer, Image, HStack } from '@chakra-ui/react'
+import { Grid, Box, VStack, Text, Spacer, HStack } from '@chakra-ui/react'
 import { map } from 'ramda'
+import Attribute from 'app/BE/attribute'
+import useGetMentorsList from 'app/layouts/dashboard/timeline/helpers/get-mentors-list'
 
-const items = ['one', 'two', 'three', 'four', 'five', 'six', 'seven']
+const Recommendation = ({ setShowDetailView, setCurrentMentor }) => {
+  const mentors = useGetMentorsList()
 
-const Recommendation = ({ setShowDetailView }) => {
   return (
     <Box
       w="50%"
@@ -17,7 +19,7 @@ const Recommendation = ({ setShowDetailView }) => {
     >
       <Text textStyle="head.2">{`Please select a Mentor from the suggestions below!`}</Text>
       <Grid gap={10} mt={10}>
-        {map(item => (
+        {map(mentor => (
           <Box
             h="20vh"
             bg="gray.50"
@@ -25,27 +27,30 @@ const Recommendation = ({ setShowDetailView }) => {
             cursor="pointer"
             w={'70%'}
             p="3"
-            onClick={() => setShowDetailView(true)}
+            onClick={() => {
+              setShowDetailView(true)
+              setCurrentMentor(mentor)
+            }}
             m="auto"
             boxShadow="base"
             rounded="md"
           >
             <VStack h="full">
               <Spacer />
-              <Image
-                src={'https://cdn.pixabay.com/photo/2014/05/07/06/44/cat-339400_1280.jpg'}
-                borderRadius="full"
-                boxSize="150px"
-              />
+              <Attribute config={{ size: '2xl' }} code={mentor} attribute="PRI_IMAGE_URL" />
               <Spacer />
-              <Text textStyle="body.1">{`Mr. Henry Cavil ${item}`}</Text>
+              <Attribute config={{ textStyle: 'head.2' }} code={mentor} attribute="PRI_NAME" />
               <HStack>
-                <Text>{`Speciality:`}</Text>
-                <Text textStyle="body.2">{'Sports, Fitness'}</Text>
+                <Text>{`Expertise:`}</Text>
+                <Attribute
+                  config={{ textStyle: 'body.2' }}
+                  code={mentor}
+                  attribute="PRI_AREA_EXPERTISE"
+                />
               </HStack>
             </VStack>
           </Box>
-        ))(items)}
+        ))(mentors)}
       </Grid>
     </Box>
   )

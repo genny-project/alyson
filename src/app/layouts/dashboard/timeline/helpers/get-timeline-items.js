@@ -1,6 +1,9 @@
+import { useSelector } from 'react-redux'
+import { selectCode } from 'redux/db/selectors'
 import useGetMenteeInformation from './get-mentee-information'
 
 const useGetMenteeTimelineItems = () => {
+  const userCode = useSelector(selectCode('USER'))
   const {
     profileStatus,
     trainingStatus,
@@ -43,6 +46,7 @@ const useGetMenteeTimelineItems = () => {
       completed: selectMentorStatus,
       isDisabled: !isTrainingCompleted || isMentorSelected,
       code: 'ACT_PRI_EVENT_SELECT_MENTOR',
+      targetCode: userCode,
     },
     {
       title: 'First Meeting',
