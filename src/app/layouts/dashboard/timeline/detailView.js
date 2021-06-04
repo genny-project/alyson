@@ -1,4 +1,4 @@
-import { Box, VStack, Spacer, Button, useColorModeValue } from '@chakra-ui/react'
+import { Box, VStack, Spacer, Button, useColorModeValue, useToast } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons'
 import DetailCards from 'app/layouts/dashboard/timeline/templates/DetailCards'
@@ -15,6 +15,17 @@ import { onSendMessage } from 'vertx'
 const DetailView = ({ setShowDetailView, currentMentor }) => {
   const name = useSelector(selectCode(currentMentor, 'PRI_NAME'))?.value
   const bg = useColorModeValue('gray.100', 'gray.700')
+  const toast = useToast()
+  const sendToast = () =>
+    toast({
+      title: 'Invitation Sent!',
+      description: 'We will notify you once the Mentor has accepted your invitation.',
+      status: 'success',
+      duration: 9000,
+      isClosable: true,
+      position: 'top-right',
+    })
+
   return (
     <VStack w="50%" bg={bg} h="80vh" spacing={10} m={10} p="5" overflowY="scroll">
       <Box w="100%">
@@ -45,6 +56,7 @@ const DetailView = ({ setShowDetailView, currentMentor }) => {
           onClick={() => {
             onSendMessage({ code: 'ACT_INVITE_MENTOR', targetCode: currentMentor })
             setShowDetailView(false)
+            sendToast()
           }}
         >{`Invite`}</Button>
       </Box>
