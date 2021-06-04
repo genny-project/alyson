@@ -5,7 +5,7 @@ const isComplete = status => status === 'COMPLETE'
 
 const useGetMenteeInformation = () => {
   const userCode = useSelector(selectCode('USER'))
-  const profileStatus = useSelector(selectCode(userCode, 'PRI_PROFILE'))?.valueString
+  const profileStatus = useSelector(selectCode(userCode, 'PRI_USER_PROFILE'))?.valueString
   const trainingStatus = useSelector(selectCode(userCode, 'PRI_TRAINING_STATUS'))?.valueString
   const selectMentorStatus = useSelector(selectCode(userCode, 'PRI_MATCHED_WITH_MENTOR'))
     ?.valueString
