@@ -5,7 +5,7 @@ const getFormattedValue = value => (typeof value === 'object' ? JSON.stringify(v
 const createSendAnswer = (fieldData, { passedTargetCode, setSaving } = {}) => value => {
   const { id: askId, attributeCode, sourceCode, targetCode, weight, questionCode } = fieldData
 
-  setSaving.on()
+  if (setSaving) setSaving.on()
   onSendMessage(
     [
       {
