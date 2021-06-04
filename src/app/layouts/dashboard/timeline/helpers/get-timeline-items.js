@@ -52,6 +52,8 @@ const useGetMenteeTimelineItems = () => {
       buttonText: 'Meet & Greet',
       completed: 'INCOMPLETE',
       isDisabled: !isMentorSelected,
+      code: ' ACT_PRI_EVENT_SCHEDULE_MENTORING',
+      targetCode: userCode,
     },
     {
       title: 'MentorMatch Alumni',
