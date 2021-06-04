@@ -10,7 +10,7 @@ const createSendAnswer = (fieldData, { passedTargetCode, setSaving } = {}) => va
     targetCode,
     weight,
     questionCode,
-    inferred,
+    inferred = false,
   } = fieldData
 
   onSendMessage(
