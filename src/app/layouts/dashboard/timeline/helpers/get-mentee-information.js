@@ -9,17 +9,22 @@ const useGetMenteeInformation = () => {
   const trainingStatus = useSelector(selectCode(userCode, 'PRI_TRAINING_STATUS'))?.valueString
   const selectMentorStatus = useSelector(selectCode(userCode, 'PRI_MATCHED_WITH_MENTOR'))
     ?.valueString
+  const meetingWithMentorStatus = useSelector(selectCode(userCode, 'PRI_MEETING_WITH_MENTOR'))
+    ?.valueString
   const isProfileCompleted = isComplete(profileStatus)
   const isTrainingCompleted = isComplete(trainingStatus)
   const isMentorSelected = isComplete(selectMentorStatus)
+  const isMeetingCompleted = isComplete(meetingWithMentorStatus)
 
   return {
     profileStatus,
     trainingStatus,
     selectMentorStatus,
+    meetingWithMentorStatus,
     isProfileCompleted,
     isTrainingCompleted,
     isMentorSelected,
+    isMeetingCompleted,
   }
 }
 

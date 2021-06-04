@@ -8,9 +8,11 @@ const useGetMenteeTimelineItems = () => {
     profileStatus,
     trainingStatus,
     selectMentorStatus,
+    meetingWithMentorStatus,
     isProfileCompleted,
     isTrainingCompleted,
     isMentorSelected,
+    isMeetingCompleted,
   } = useGetMenteeInformation()
 
   const items = [
@@ -50,7 +52,7 @@ const useGetMenteeTimelineItems = () => {
       title: '12 Meetings with Mentors',
       description: 'Meet and Greet witht the mentors',
       buttonText: 'Meet & Greet',
-      completed: 'INCOMPLETE',
+      completed: meetingWithMentorStatus,
       isDisabled: !isMentorSelected,
       code: ' ACT_PRI_EVENT_SCHEDULE_MENTORING',
       targetCode: userCode,
@@ -60,7 +62,7 @@ const useGetMenteeTimelineItems = () => {
       description: 'Welcome to Alumni',
       buttonText: 'Alumni',
       completed: 'INCOMPLETE',
-      isDisabled: !isMentorSelected,
+      isDisabled: !isMeetingCompleted,
     },
   ]
 
