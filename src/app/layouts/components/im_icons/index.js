@@ -5,7 +5,7 @@ import IconHostCpyRep from './IconHostCpyRep'
 import IconIntern from './IconIntern'
 import IconProcessView from './IconProcessView'
 
-const icons = {
+export default {
   IconAgent,
   IconDashboard,
   IconEduProRep,
@@ -13,4 +13,3 @@ const icons = {
   IconIntern,
   IconProcessView,
 }
-export default icons
