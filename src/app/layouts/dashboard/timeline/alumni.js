@@ -1,4 +1,4 @@
-import { VStack, Text, useColorModeValue, Spacer, HStack } from '@chakra-ui/react'
+import { VStack, Text, useColorModeValue, Spacer } from '@chakra-ui/react'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 
