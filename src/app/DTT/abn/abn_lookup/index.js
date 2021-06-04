@@ -32,6 +32,7 @@ const ABNLookup = ({ isOpen, questionCode, close, onSendAnswer, targetCode }) =>
   }
 
   const onSendLegalName = createSendAnswer({
+    inferred: true,
     id: 201369,
     attributeCode: 'PRI_LEGAL_NAME',
     sourceCode,
@@ -42,6 +43,7 @@ const ABNLookup = ({ isOpen, questionCode, close, onSendAnswer, targetCode }) =>
   })
 
   const onSendName = createSendAnswer({
+    inferred: true,
     id: 201368,
     attributeCode: 'PRI_NAME',
     sourceCode,
