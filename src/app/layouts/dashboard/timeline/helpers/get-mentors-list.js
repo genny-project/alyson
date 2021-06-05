@@ -1,6 +1,7 @@
-import { map, filter, flatten } from 'ramda'
-import { selectCurrentBes } from 'redux/app/selectors.ts'
+import { map, filter, flatten, equals } from 'ramda'
 import { useSelector } from 'react-redux'
+
+import { selectCurrentBes } from 'redux/app/selectors.ts'
 
 const useGetMentorsList = () => {
   const currentBes = useSelector(selectCurrentBes)
@@ -8,7 +9,7 @@ const useGetMentorsList = () => {
     map(({ baseEntityAttributes }) =>
       filter(
         ({ attributeCode, valueBoolean }) =>
-          attributeCode === 'PRI_IS_MENTOR' && valueBoolean === true,
+          attributeCode === 'PRI_IS_MENTOR' && equals(valueBoolean, true),
       )(baseEntityAttributes),
     )(currentBes),
   )

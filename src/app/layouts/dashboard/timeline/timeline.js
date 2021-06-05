@@ -1,17 +1,18 @@
+import { map, equals } from 'ramda'
 import { Button, HStack, VStack, Box, Text, Flex, Tooltip } from '@chakra-ui/react'
-import { map } from 'ramda'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 
 import Card from 'app/layouts/components/card'
 import { onSendMessage } from 'vertx'
 import getMenteeTimelineItems from 'app/layouts/dashboard/timeline/helpers/get-timeline-items'
+import { complete } from 'utils/constants'
 
 const Timeline = () => {
   const { items } = getMenteeTimelineItems()
 
   let totalItems = items.length
-  let numberOfCompletedItems = items.filter(item => item.completed === 'COMPLETE').length
+  let numberOfCompletedItems = items.filter(item => equals(item.completed, complete)).length
   let progressBarHeight = (numberOfCompletedItems / totalItems) * 100
   let timelineHeight = totalItems * 20
 
@@ -30,13 +31,15 @@ const Timeline = () => {
             <Box
               h="8"
               w="8"
-              background={completed === 'COMPLETE' ? 'green' : 'silver'}
+              background={equals(completed, complete) ? 'green' : 'silver'}
               borderRadius="50%"
               textAlign="center"
               key={title}
             >
               <Box h="100%" marginTop="1">
-                {completed === 'COMPLETE' ? <FontAwesomeIcon icon={faCheck} color="#fff" /> : null}
+                {equals(completed, complete) ? (
+                  <FontAwesomeIcon icon={faCheck} color="#fff" />
+                ) : null}
               </Box>
             </Box>
           ))(items)}
@@ -57,9 +60,9 @@ const Timeline = () => {
                 placement="right"
                 isDisabled={isDisabled ? false : true}
                 label={
-                  buttonText === 'Register'
+                  equals(buttonText, 'Register')
                     ? 'You have already registered!'
-                    : buttonText === 'Mentor Selected'
+                    : equals(buttonText, 'Mentor Selected')
                     ? 'You have already selected a Mentor!'
                     : 'Please complete the previous steps'
                 }

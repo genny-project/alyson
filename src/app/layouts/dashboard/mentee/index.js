@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Flex } from '@chakra-ui/layout'
+
 import Timeline from 'app/layouts/dashboard/timeline/timeline'
 import Meetings from 'app/layouts/dashboard/timeline/meetings'
 import Recommendation from 'app/layouts/dashboard/timeline/recommendations'
