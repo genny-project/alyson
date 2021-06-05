@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 
 import { selectCurrentBes } from 'redux/app/selectors.ts'
 
+//refactor this with composition, use find inside of filter method
 const useGetMentorsList = () => {
   const currentBes = useSelector(selectCurrentBes)
   const filteredMentors = flatten(

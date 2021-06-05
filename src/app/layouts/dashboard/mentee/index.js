@@ -11,7 +11,6 @@ import useGetMenteeInformation from 'app/layouts/dashboard/timeline/helpers/get-
 
 const MenteeDashboard = () => {
   const { isMentorSelected, isTrainingCompleted, isMeetingCompleted } = useGetMenteeInformation()
-
   const [showDetailView, setShowDetailView] = useState(false)
   const [currentMentor, setCurrentMentor] = useState(null)
   const menteeProps = {

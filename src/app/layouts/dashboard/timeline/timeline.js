@@ -1,4 +1,4 @@
-import { map, equals } from 'ramda'
+import { map, equals, path, filter, length, divide, multiply, compose } from 'ramda'
 import { Button, HStack, VStack, Box, Text, Flex, Tooltip } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
@@ -11,10 +11,12 @@ import { complete } from 'utils/constants'
 const Timeline = () => {
   const { items } = getMenteeTimelineItems()
 
-  let totalItems = items.length
-  let numberOfCompletedItems = items.filter(item => equals(item.completed, complete)).length
-  let progressBarHeight = (numberOfCompletedItems / totalItems) * 100
-  let timelineHeight = totalItems * 20
+  let totalItems = length(items)
+  let numberOfCompletedItems = filter(item => equals(path(['completed'])(item), complete))(items)
+  let lengthOfNumberOfCompletedItems = length(numberOfCompletedItems)
+  let progressBarHeight = compose(multiply(100), divide)(lengthOfNumberOfCompletedItems, totalItems)
+
+  let timelineHeight = multiply(totalItems, 20)
 
   return (
     <HStack h={`${timelineHeight}vh`} w="50%" position="relative" spacing={8} mb={5}>
