@@ -1,6 +1,8 @@
+import { useSelector } from 'react-redux'
 import { Box, VStack, Spacer, Button, useColorModeValue, useToast } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons'
+
 import DetailCards from 'app/layouts/dashboard/timeline/templates/DetailCards'
 import Attribute from 'app/BE/attribute'
 import {
@@ -8,7 +10,6 @@ import {
   professionalDetails,
   preference,
 } from 'app/layouts/dashboard/timeline/templates/CardContent'
-import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import { onSendMessage } from 'vertx'
 

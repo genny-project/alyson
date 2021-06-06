@@ -1,5 +1,6 @@
 import { Grid, Box, VStack, Text, Spacer, HStack, useColorModeValue } from '@chakra-ui/react'
 import { map } from 'ramda'
+
 import Attribute from 'app/BE/attribute'
 import useGetMentorsList from 'app/layouts/dashboard/timeline/helpers/get-mentors-list'
 

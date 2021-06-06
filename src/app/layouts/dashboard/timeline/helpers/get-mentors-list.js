@@ -1,14 +1,16 @@
-import { map, filter, flatten } from 'ramda'
-import { selectCurrentBes } from 'redux/app/selectors.ts'
+import { map, filter, flatten, equals } from 'ramda'
 import { useSelector } from 'react-redux'
 
+import { selectCurrentBes } from 'redux/app/selectors.ts'
+
+//refactor this with composition, use find inside of filter method
 const useGetMentorsList = () => {
   const currentBes = useSelector(selectCurrentBes)
   const filteredMentors = flatten(
     map(({ baseEntityAttributes }) =>
       filter(
         ({ attributeCode, valueBoolean }) =>
-          attributeCode === 'PRI_IS_MENTOR' && valueBoolean === true,
+          attributeCode === 'PRI_IS_MENTOR' && equals(valueBoolean, true),
       )(baseEntityAttributes),
     )(currentBes),
   )

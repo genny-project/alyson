@@ -1,7 +1,10 @@
+import { equals, __ } from 'ramda'
 import { useSelector } from 'react-redux'
-import { selectCode } from 'redux/db/selectors'
 
-const isComplete = status => status === 'COMPLETE'
+import { selectCode } from 'redux/db/selectors'
+import { complete } from 'utils/constants'
+
+const isComplete = equals(__, complete)
 
 const useGetMenteeInformation = () => {
   const userCode = useSelector(selectCode('USER'))

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Flex } from '@chakra-ui/layout'
+
 import Timeline from 'app/layouts/dashboard/timeline/timeline'
 import Meetings from 'app/layouts/dashboard/timeline/meetings'
 import Recommendation from 'app/layouts/dashboard/timeline/recommendations'
@@ -10,7 +11,6 @@ import useGetMenteeInformation from 'app/layouts/dashboard/timeline/helpers/get-
 
 const MenteeDashboard = () => {
   const { isMentorSelected, isTrainingCompleted, isMeetingCompleted } = useGetMenteeInformation()
-
   const [showDetailView, setShowDetailView] = useState(false)
   const [currentMentor, setCurrentMentor] = useState(null)
   const menteeProps = {
