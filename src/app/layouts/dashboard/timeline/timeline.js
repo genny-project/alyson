@@ -16,10 +16,10 @@ const Timeline = () => {
   let lengthOfNumberOfCompletedItems = length(numberOfCompletedItems)
   let progressBarHeight = compose(multiply(100), divide)(lengthOfNumberOfCompletedItems, totalItems)
 
-  let timelineHeight = multiply(totalItems, 20)
+  let timelineHeight = multiply(totalItems, 25)
 
   return (
-    <HStack h={`${timelineHeight}vh`} w="50%" position="relative" spacing={8} mb={5}>
+    <HStack h={`${timelineHeight}vh`} w="50vw" position="relative" spacing={8} mb={5}>
       <Box h="100%" w="1" background="silver">
         <Flex
           direction="column"
@@ -50,12 +50,12 @@ const Timeline = () => {
       </Box>
       <VStack h="100%" justifyContent="space-around" display="flex" position="absolute">
         {map(({ title, description, buttonText, code, parentCode, isDisabled, targetCode }) => (
-          <Card key={title}>
-            <VStack spacing={3} w={['xs', 'md']}>
+          <Card key={title} p={4} px={5}>
+            <VStack spacing={3} w="30vw" maxW={500}>
               <Text textStyle="head.2" alignSelf="flex-start">
                 {title}
               </Text>
-              <Text textStyle="body.3" noOfLines={[1]} w="inherit">
+              <Text textStyle="body.3" noOfLines={[1]} w="inherit" alignSelf="flex-start">
                 {description}
               </Text>
               <Tooltip
