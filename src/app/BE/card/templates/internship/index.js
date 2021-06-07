@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux'
-import { Box, VStack, Flex, Spacer, useColorModeValue, useTheme } from '@chakra-ui/react'
+import { VStack, Flex, Spacer, useColorModeValue, useTheme } from '@chakra-ui/react'
 import { selectCode } from 'redux/db/selectors'
 import Text from 'app/DTT/text'
 import Action from 'app/BE/action'
