@@ -28,7 +28,16 @@ const DetailView = ({ setShowDetailView, currentMentor }) => {
     })
 
   return (
-    <VStack w="50%" bg={bg} h="80vh" spacing={10} m={10} p="5" overflowY="scroll">
+    <VStack
+      w="50vw"
+      bg={bg}
+      h="80vh"
+      spacing={10}
+      p="5"
+      overflowY="scroll"
+      position="sticky"
+      top="10vh"
+    >
       <Box w="100%">
         <Button
           onClick={() => setShowDetailView(false)}
