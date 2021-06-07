@@ -35,11 +35,9 @@ const DetailLayout = ({ sbeCode, targetCode, details = [[], []] }) => {
 
   const tileWidth = isMobile ? '90vw' : '33vw'
 
-  const pt = isMobile
-    ? { true: '12rem', false: '12rem' }
-    : videoData?.value
-    ? { true: '20rem', false: '30rem' }
-    : { true: '16rem', false: '18rem' }
+  const pt = videoData?.value
+    ? { true: '12rem', false: '24rem' }
+    : { true: '12rem', false: '18rem' }
 
   return (
     <Box className="nobar" h="100vh" overflowY="scroll" onScroll={onScroll} onWheel={onWheel}>

@@ -142,9 +142,9 @@ const DetailHeader = ({ sbeCode, beCode, mini }) => {
                 icon={<FontAwesomeIcon icon={faTimes} />}
               />
             </Flex>
-            <Box w="full">
+            <Center>
               <Attribute code={beCode} attribute="PRI_VIDEO_URL" />
-            </Box>
+            </Center>
           </VStack>
         </Fade>
       </Box>
