@@ -50,7 +50,11 @@ const Submit = ({ askData, onFinish, parentCode }) => {
 
   return (
     <Box>
-      <VStack pb="1rem" align="start" display={disabled ? 'block' : 'none'}>
+      <VStack
+        pb="1rem"
+        align="start"
+        display={disabled && mandatoryQuestionsNoValue.length ? 'block' : 'none'}
+      >
         <Text textStyle="tail.error">Please complete all questions marked as mandatory with *</Text>
         <Text textStyle="tail.3">These questions still need to be answered, click to scroll.</Text>
         <Wrap align="start">

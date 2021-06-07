@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from 'react'
-import { HStack, Center, CircularProgress } from '@chakra-ui/react'
+import { Center, CircularProgress, Stack } from '@chakra-ui/react'
 
 let map = {}
 let pano = {}
@@ -38,7 +38,7 @@ const StreetView = ({ address, style = { width: '40rem', height: '30rem' } }) =>
   }, [geo])
 
   return (
-    <HStack style={style}>
+    <Stack direction={['column', 'column', 'row']} style={style}>
       {!geo && (
         <Center w="40rem">
           <CircularProgress isIndeterminate />
@@ -46,7 +46,7 @@ const StreetView = ({ address, style = { width: '40rem', height: '30rem' } }) =>
       )}
       <div ref={panoRef} style={{ borderRadius: '0.5rem', width: '50%', height: '100%' }} />
       <div ref={mapRef} style={{ borderRadius: '0.5rem', width: '50%', height: '100%' }} />
-    </HStack>
+    </Stack>
   )
 }
 

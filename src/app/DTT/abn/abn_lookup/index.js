@@ -20,6 +20,9 @@ import { selectCode } from 'redux/db/selectors'
 const ABNLookup = ({ isOpen, questionCode, close, onSendAnswer, targetCode }) => {
   const { callAbnLookup } = useApi()
   const sourceCode = useSelector(selectCode('USER'))
+  const QUE_LEGAL_NAME = useSelector(selectCode('QUE_HOST_CPY_GRP', 'QUE_LEGAL_NAME'))
+  const QUE_TRADING_NAME = useSelector(selectCode('QUE_HOST_CPY_GRP', 'QUE_TRADING_NAME'))
+
   const [options, setOptions] = useState([])
   const [loading, setLoading] = useState(false)
 
@@ -32,7 +35,8 @@ const ABNLookup = ({ isOpen, questionCode, close, onSendAnswer, targetCode }) =>
   }
 
   const onSendLegalName = createSendAnswer({
-    id: 201369,
+    inferred: true,
+    id: QUE_LEGAL_NAME?.id,
     attributeCode: 'PRI_LEGAL_NAME',
     sourceCode,
     targetCode,
@@ -42,7 +46,8 @@ const ABNLookup = ({ isOpen, questionCode, close, onSendAnswer, targetCode }) =>
   })
 
   const onSendName = createSendAnswer({
-    id: 201368,
+    inferred: true,
+    id: QUE_TRADING_NAME?.id,
     attributeCode: 'PRI_NAME',
     sourceCode,
     targetCode,
