@@ -36,7 +36,7 @@ const Recommendation = ({ setShowDetailView, setCurrentMentor }) => {
           >
             <VStack h="full">
               <Spacer />
-              <Attribute config={{ size: '2xl' }} code={mentor} attribute="PRI_IMAGE_URL" />
+              <Attribute config={{ size: 'xl' }} code={mentor} attribute="PRI_IMAGE_URL" />
               <Spacer />
               <Attribute config={{ textStyle: 'head.2' }} code={mentor} attribute="PRI_NAME" />
               <HStack>
