@@ -13,7 +13,7 @@ const contactDetails = {
     { attr: 'PRI_LEGAL_NAME', label: 'Legal Name' },
     { attr: 'PRI_MOBILE', label: 'Phone Number', color: 'blue.500' },
     { attr: 'PRI_EMAIL', label: 'Email', color: 'blue.500' },
-    { attr: 'PRI_ADDRESS_FULL', label: 'Address', color: 'blue.500' },
+    { attr: 'PRI_ADDRESS_FULL', label: 'Address', color: 'blue.500', config: { collapse: true } },
     { attr: 'PRI_WEBSITE', label: 'Website' },
   ],
 }
