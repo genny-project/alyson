@@ -47,7 +47,7 @@ const internshipDetail = {
     { attr: 'PRI_STATUS' },
     { attr: 'PRI_ASSOC_INDUSTRY', label: 'Industry' },
     { attr: 'PRI_WORKSITE', label: 'Onsite/Remote' },
-    { attr: 'PRI_INTERNSHIP_START_DATE', label: 'Start Date' },
+    { attr: 'PRI_START_DATE', label: 'Start Date' },
     { attr: 'PRI_WHICH_DAYS_STRIPPED', label: 'Days of Week' },
     { attr: 'PRI_DRESS_CODE', label: 'Dress Code' },
     { attr: 'PRI_ASSOC_NUM_INTERNS', label: 'Available Spots' },
