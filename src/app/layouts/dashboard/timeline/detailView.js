@@ -1,8 +1,7 @@
 import { useSelector } from 'react-redux'
-import { Box, VStack, Spacer, Button, useColorModeValue, useToast } from '@chakra-ui/react'
+import { Box, VStack, HStack, Spacer, Button, useColorModeValue, useToast } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons'
-
 import DetailCards from 'app/layouts/dashboard/timeline/templates/DetailCards'
 import Attribute from 'app/BE/attribute'
 import {
@@ -12,7 +11,6 @@ import {
 } from 'app/layouts/dashboard/timeline/templates/CardContent'
 import { selectCode } from 'redux/db/selectors'
 import { onSendMessage } from 'vertx'
-
 const DetailView = ({ setShowDetailView, currentMentor }) => {
   const name = useSelector(selectCode(currentMentor, 'PRI_NAME'))?.value
   const bg = useColorModeValue('gray.100', 'gray.700')
@@ -26,13 +24,12 @@ const DetailView = ({ setShowDetailView, currentMentor }) => {
       isClosable: true,
       position: 'top-right',
     })
-
   return (
     <VStack
       w="50vw"
       bg={bg}
       h="80vh"
-      spacing={10}
+      spacing={8}
       p="5"
       overflowY="scroll"
       position="sticky"
@@ -48,18 +45,19 @@ const DetailView = ({ setShowDetailView, currentMentor }) => {
       </Box>
       <VStack>
         <Attribute
-          config={{ size: '2xl', name: name }}
+          config={{ size: 'lg', name: name }}
           code={currentMentor}
           attribute="PRI_IMAGE_URL"
         />
         <Spacer />
         <Attribute config={{ textStyle: 'head.2' }} code={currentMentor} attribute="PRI_NAME" />
       </VStack>
-      <DetailCards detailsection={personalDetails} currentMentor={currentMentor} />
-      <DetailCards detailsection={professionalDetails} currentMentor={currentMentor} />
+      <HStack w="90%" justifyContent="space-between">
+        <DetailCards detailsection={personalDetails} currentMentor={currentMentor} miniCard />
+        <DetailCards detailsection={professionalDetails} currentMentor={currentMentor} miniCard />
+      </HStack>
       <DetailCards detailsection={preference} currentMentor={currentMentor} />
-
-      <Box w="80%">
+      <Box w="90%">
         <Button
           w="full"
           colorScheme="blue"
@@ -73,5 +71,4 @@ const DetailView = ({ setShowDetailView, currentMentor }) => {
     </VStack>
   )
 }
-
 export default DetailView
