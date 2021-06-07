@@ -28,9 +28,9 @@ const DetailView = ({ setShowDetailView, currentMentor }) => {
     <VStack
       w="50vw"
       bg={bg}
-      h="80vh"
-      spacing={8}
-      p="5"
+      h="85vh"
+      spacing={4}
+      p="3"
       overflowY="scroll"
       position="sticky"
       top="10vh"
@@ -45,14 +45,14 @@ const DetailView = ({ setShowDetailView, currentMentor }) => {
       </Box>
       <VStack>
         <Attribute
-          config={{ size: 'lg', name: name }}
+          config={{ size: 'xl', name: name }}
           code={currentMentor}
           attribute="PRI_IMAGE_URL"
         />
         <Spacer />
-        <Attribute config={{ textStyle: 'head.2' }} code={currentMentor} attribute="PRI_NAME" />
+        <Attribute config={{ textStyle: 'head.3' }} code={currentMentor} attribute="PRI_NAME" />
       </VStack>
-      <HStack w="90%" justifyContent="space-between">
+      <HStack w="90%">
         <DetailCards detailsection={personalDetails} currentMentor={currentMentor} miniCard />
         <DetailCards detailsection={professionalDetails} currentMentor={currentMentor} miniCard />
       </HStack>
