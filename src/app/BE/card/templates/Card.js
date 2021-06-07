@@ -13,7 +13,6 @@ import { includes } from 'ramda'
 import AgentDetail from './AgentDetail'
 import sameValue from 'redux/utils/same-value'
 import Card from 'app/layouts/components/card'
-import { useIsMobile } from 'utils/hooks'
 
 const MotionBox = makeMotion(Box)
 
@@ -22,8 +21,6 @@ const DefaultCard = ({ parentCode, actions = [], code, columns }) => {
   const subTitle = useSelector(selectCode(code, getAttribute(columns[1] || '')), sameValue)
   const image = useSelector(selectCode(code, 'PRI_IMAGE_URL'), sameValue)
   const statusColor = useSelector(selectCode(code, 'PRI_STATUS_COLOR'), sameValue)
-
-  const isMobile = useIsMobile()
   const color = useColorModeValue(`${statusColor?.value}.50`, `${statusColor?.value}.900`)
 
   return (
