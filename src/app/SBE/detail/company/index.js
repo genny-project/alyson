@@ -25,7 +25,7 @@ const about = {
 }
 
 const Rep = ({ sbeCode, targetCode }) => {
-  const tileWidth = useIsMobile() ? '80vw' : '33vw'
+  const tileWidth = useIsMobile() ? '90vw' : '33vw'
 
   const internships = (
     <Lane

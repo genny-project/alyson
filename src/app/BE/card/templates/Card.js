@@ -26,7 +26,7 @@ const DefaultCard = ({ parentCode, actions = [], code, columns }) => {
   return (
     <MotionBox w="full" whileHover={{ scale: 1.02 }} transition={{ duration: 0.1 }}>
       <Card
-        maxW="20rem"
+        maxW={['80vw', '80vw', '20rem']}
         p={[2, 2, 2, 4]}
         variant="card1"
         {...(statusColor?.value &&
