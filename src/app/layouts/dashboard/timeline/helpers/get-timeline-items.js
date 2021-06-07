@@ -55,6 +55,7 @@ const useGetMenteeTimelineItems = () => {
       completed: meetingWithMentorStatus,
       isDisabled: !isMentorSelected,
       code: 'ACT_PRI_EVENT_SCHEDULE_MENTORING',
+      parentCode: 'SBE_APPLICATIONS_MEETING',
       targetCode: userCode,
     },
     {
