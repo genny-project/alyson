@@ -1,5 +1,14 @@
 import { useSelector } from 'react-redux'
-import { Box, VStack, HStack, Spacer, Button, useColorModeValue, useToast } from '@chakra-ui/react'
+import {
+  Box,
+  VStack,
+  HStack,
+  Spacer,
+  Button,
+  useColorModeValue,
+  useToast,
+  Flex,
+} from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons'
 import DetailCards from 'app/layouts/dashboard/timeline/templates/DetailCards'
@@ -25,7 +34,7 @@ const DetailView = ({ setShowDetailView, currentMentor }) => {
       position: 'top-right',
     })
   return (
-    <VStack
+    <Flex
       w="50vw"
       bg={bg}
       h="85vh"
@@ -34,8 +43,11 @@ const DetailView = ({ setShowDetailView, currentMentor }) => {
       overflowY="scroll"
       position="sticky"
       top="10vh"
+      flexDirection="column"
+      justifyContent="space-around"
+      alignItems="center"
     >
-      <Box w="100%">
+      <Box w="95%">
         <Button
           onClick={() => setShowDetailView(false)}
           colorScheme="blue"
@@ -68,7 +80,7 @@ const DetailView = ({ setShowDetailView, currentMentor }) => {
           }}
         >{`Invite`}</Button>
       </Box>
-    </VStack>
+    </Flex>
   )
 }
 export default DetailView
