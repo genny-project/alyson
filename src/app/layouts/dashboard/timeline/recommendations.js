@@ -11,9 +11,14 @@ const Recommendation = ({ setShowDetailView, setCurrentMentor }) => {
   const hoverbg = useColorModeValue('teal.300', 'teal.500')
 
   return (
-    <Box w="50%" bg={bg} h="80vh" spacing={10} m={10} textAlign="center" p="5" overflowY="scroll">
-      <Text textStyle="head.2">{`Please select a Mentor from the suggestions below!`}</Text>
-      <Grid gap={10} mt={10}>
+    <Box w="50vw" h="80vh" spacing={10} textAlign="center" p="5" position="sticky" top="10vh">
+      <Text
+        textStyle="head.2"
+        bg={bg}
+        py={5}
+      >{`Please select a Mentor from the suggestions below!`}</Text>
+      <Spacer />
+      <Grid gap={10} bg={bg} overflowY="scroll" h="70vh" mt={5} paddingY={5}>
         {map(mentor => (
           <VStack
             bg={cardsbg}
@@ -31,7 +36,7 @@ const Recommendation = ({ setShowDetailView, setCurrentMentor }) => {
           >
             <VStack h="full">
               <Spacer />
-              <Attribute config={{ size: '2xl' }} code={mentor} attribute="PRI_IMAGE_URL" />
+              <Attribute config={{ size: 'xl' }} code={mentor} attribute="PRI_IMAGE_URL" />
               <Spacer />
               <Attribute config={{ textStyle: 'head.2' }} code={mentor} attribute="PRI_NAME" />
               <HStack>
