@@ -71,7 +71,7 @@ const allMeetings = [
 const Meetings = () => {
   return (
     <Box h="inherit" minW="30%" ml={2}>
-      <Card>
+      <Card position="sticky" top="10vh">
         <VStack spacing={7} paddingRight={10}>
           <Text alignSelf="flex-start" textStyle="head.2">{`Meeting List`}</Text>
           <VStack spacing={5} alignSelf="flex-start">
