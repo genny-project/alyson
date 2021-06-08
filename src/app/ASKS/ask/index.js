@@ -8,6 +8,7 @@ import {
   HStack,
   Text as CText,
   useBoolean,
+  FormHelperText,
 } from '@chakra-ui/react'
 import getGroupCode from 'app/ASKS/utils/get-group-code'
 import Text from 'app/DTT/text'
@@ -69,6 +70,7 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
       dataType,
     },
     html,
+    helper,
   } = question
 
   const feedback = data?.feedback
@@ -88,10 +90,11 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
   if (!!disabled && component !== 'button')
     return (
       <FormControl isDisabled isRequired={mandatory}>
-        <HStack mb="4" w={labelWidth} justify="space-between">
+        <HStack w={labelWidth} justify="space-between">
           <FormLabel id={attributeCode} textStyle="body.1">
             {name}
           </FormLabel>
+          <FormHelperText>{helper}</FormHelperText>
         </HStack>
       </FormControl>
     )
@@ -125,7 +128,7 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
       p={highlightedQuestion === attributeCode ? '3' : ''}
       transition="all 0.5s"
     >
-      <HStack mb="4" w={labelWidth} justify="space-between">
+      <HStack w={labelWidth} justify="space-between">
         <FormLabel id={attributeCode} textStyle="body.1">
           {name}
         </FormLabel>
@@ -135,7 +138,9 @@ const Ask = ({ parentCode, questionCode, onFinish, passedAskData, passedTargetCo
           <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
         ) : null}
       </HStack>
-
+      <FormHelperText mt="-1" mb="2" display={helper ? 'block' : 'none'} textStyle="body.3">
+        {helper}
+      </FormHelperText>
       {component === 'email' && (
         <Email.Write
           questionCode={questionCode}

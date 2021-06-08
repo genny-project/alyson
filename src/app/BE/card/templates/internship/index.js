@@ -1,8 +1,9 @@
 import { useSelector } from 'react-redux'
-import { Box, VStack, Flex, Spacer, useColorModeValue, useTheme } from '@chakra-ui/react'
+import { VStack, Flex, Spacer, useColorModeValue, useTheme } from '@chakra-ui/react'
 import { selectCode } from 'redux/db/selectors'
 import Text from 'app/DTT/text'
 import Action from 'app/BE/action'
+import Card from 'app/layouts/components/card'
 
 const InternshipCard = ({ parentCode, actions = [], code }) => {
   const theme = useTheme()
@@ -15,9 +16,9 @@ const InternshipCard = ({ parentCode, actions = [], code }) => {
   )
 
   return (
-    <Box bg={defaultColor} p="4" w="full" borderWidth="1px" borderRadius="lg">
-      <Flex spacing="3">
-        <VStack alignItems="baseline" w="20rem">
+    <Card bg={defaultColor} w="full" maxW={['80vw', '20rem']}>
+      <Flex>
+        <VStack alignItems="baseline">
           <Text.Read
             data={title}
             config={{
@@ -52,7 +53,7 @@ const InternshipCard = ({ parentCode, actions = [], code }) => {
           ))}
         </VStack>
       </Flex>
-    </Box>
+    </Card>
   )
 }
 

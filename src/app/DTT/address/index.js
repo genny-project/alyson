@@ -16,6 +16,7 @@ import {
 } from '@chakra-ui/react'
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Card from 'app/layouts/components/card'
 import HeroIconButton from 'app/layouts/components/hero_icon_button'
 import AddressPicker from './address_picker'
 import StreetView from './street_view'
@@ -30,14 +31,16 @@ const Read = ({ data, config }) => {
   if (!data?.value) return null
 
   return config?.collapse ? (
-    <VStack alignItems="start">
-      <HStack>
-        <IconButton onClick={onToggle} icon={<FontAwesomeIcon icon={faMapMarkerAlt} />} />
+    <VStack align="start">
+      <HStack onClick={onToggle} cursor="pointer">
+        <IconButton icon={<FontAwesomeIcon icon={faMapMarkerAlt} />} />
         <Text minW="8rem">{data.value}</Text>
       </HStack>
-      <Collapse in={isOpen}>
-        <StreetView address={data.value} />
-      </Collapse>
+      <Card bg="transparent" variant="card3" p="0">
+        <Collapse in={isOpen}>
+          <StreetView address={data.value} />
+        </Collapse>
+      </Card>
     </VStack>
   ) : (
     <HStack>

@@ -10,7 +10,6 @@ import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 import MainDetails from './MainDetails'
 import makeMotion from 'utils/motion'
 import { includes } from 'ramda'
-import AvailableInternCard from './available_interns'
 import AgentDetail from './AgentDetail'
 import sameValue from 'redux/utils/same-value'
 import Card from 'app/layouts/components/card'
@@ -22,17 +21,13 @@ const DefaultCard = ({ parentCode, actions = [], code, columns }) => {
   const subTitle = useSelector(selectCode(code, getAttribute(columns[1] || '')), sameValue)
   const image = useSelector(selectCode(code, 'PRI_IMAGE_URL'), sameValue)
   const statusColor = useSelector(selectCode(code, 'PRI_STATUS_COLOR'), sameValue)
-
   const color = useColorModeValue(`${statusColor?.value}.50`, `${statusColor?.value}.900`)
-
-  if (includes('SBE_AVAILABLE_INTERNS', parentCode || ''))
-    return <AvailableInternCard parentCode={parentCode} actions={actions} code={code} />
 
   return (
     <MotionBox w="full" whileHover={{ scale: 1.02 }} transition={{ duration: 0.1 }}>
       <Card
-        maxW="25rem"
-        p="5"
+        maxW={['80vw', '80vw', '20rem']}
+        p={[2, 2, 2, 4]}
         variant="card1"
         {...(statusColor?.value &&
         statusColor?.value !== 'default' &&
@@ -43,23 +38,24 @@ const DefaultCard = ({ parentCode, actions = [], code, columns }) => {
         <Flex>
           <HStack>
             <Image.Read
-              config={{ size: 'xl' }}
+              config={{ size: 'lg' }}
               data={image || { baseEntityCode: code }}
               parentCode={parentCode}
             />
-            <VStack alignItems="start" minW="10rem" maxW="16rem" overflow="hidden">
+            <VStack alignItems="start" minW="10rem" maxW="16rem" overflow="hidden" spacing={1}>
               <Text.Read
                 data={title}
                 config={{
                   textStyle: 'body.1',
                   isTruncated: true,
-                  maxW: '14rem',
+                  maxW: '10rem',
                 }}
               />
               <Text.Read
                 config={{
                   as: 'span',
                   textStyle: 'body.3',
+                  defaultValue: 'Unverified',
                 }}
                 data={subTitle}
               />

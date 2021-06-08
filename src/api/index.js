@@ -11,6 +11,7 @@ const useApi = () => {
   const IMAGE_URL = `${apiConfig.api_url}/imageproxy`
   const ABN_URL = `${apiConfig.api_url}/json`
   const MEDIA_URL = apiConfig.ENV_MEDIA_PROXY_URL
+  const VIDEO_URL = `${MEDIA_URL}/video`
 
   const { token: tokenFromKeycloak } = keycloak
 
@@ -58,6 +59,8 @@ const useApi = () => {
       : null
   const getSrc = uuid => (uuid ? `${MEDIA_URL}/${uuid}` : null)
 
+  const getVideoSrc = uuid => (uuid ? `${VIDEO_URL}/${uuid}` : null)
+
   const callABN = async value =>
     await axios({
       method: 'GET',
@@ -80,6 +83,7 @@ const useApi = () => {
     getImageSrc,
     postMediaFile,
     getSrc,
+    getVideoSrc,
     getMediaFileName,
     callAbnLookup,
   }

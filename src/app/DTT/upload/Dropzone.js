@@ -29,7 +29,7 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 1 }) => {
   const { getRootProps, getInputProps } = useDropzone({
     accept: video
       ? 'video/*'
-      : 'image/*, application/pdf, .doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      : 'image/*, application/pdf, .doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.dot,.rtf,.odt',
     maxFiles: maxFiles,
     onDrop: (acceptedFiles, rejectedFiles) => {
       setFiles(
