@@ -1,74 +1,13 @@
-import { HStack, VStack, Box, Text } from '@chakra-ui/react'
 import { map } from 'ramda'
+import { HStack, VStack, Box, Text } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle, faVideo, faCalendar } from '@fortawesome/free-solid-svg-icons'
 
 import Card from 'app/layouts/components/card'
-
-const allMeetings = [
-  {
-    text: 'Wednesday 26th May 2021 at 12:15 PM',
-    link: 'https://www.google.com',
-    completed: true,
-  },
-  {
-    text: 'Thursday 27th May 2021 at 12:00 PM',
-    link: 'https://www.google.com',
-    completed: true,
-  },
-  {
-    text: 'Monday 30th May 2021 at 09:00 AM',
-    link: 'https://www.google.com',
-    completed: true,
-  },
-  {
-    text: 'Sunday 26th May 2021 at 02:15 PM',
-    link: 'https://www.google.com',
-    completed: true,
-  },
-  {
-    text: 'Monday 6th June 2021 at 01:15 PM',
-    link: 'https://www.google.com',
-    completed: true,
-  },
-  {
-    text: 'Wednesday 17th June 2021 at 12:15 PM',
-    link: 'https://www.google.com',
-    completed: false,
-  },
-  {
-    text: 'Wednesday 23rd June 2021 at 12:15 PM',
-    link: 'https://catcafemelbourne.com/',
-    completed: false,
-  },
-  {
-    text: 'Thursday 24th June 2021 at 22:15 PM',
-    link: 'https://www.google.com',
-    completed: false,
-  },
-  {
-    text: 'Friday 20th August 2021 at 23:15 PM',
-    link: 'https://www.google.com',
-    completed: false,
-  },
-  {
-    text: 'Sunday 22nd August 2021 at 10:15 AM',
-    link: 'https://www.google.com',
-    completed: false,
-  },
-  {
-    text: 'Tuesday 26th August 2021 at 11:15 AM',
-    link: 'https://www.google.com',
-    completed: false,
-  },
-  {
-    text: 'Thursday 29th August 2021 at 12:15 PM',
-    link: 'https://www.google.com',
-    completed: false,
-  },
-]
+import getMeetingsList from 'app/layouts/dashboard/timeline/helpers/get-meetings-list'
 
 const Meetings = () => {
+  const { allMeetings } = getMeetingsList()
   return (
     <Box h="inherit" minW="30%" ml={2}>
       <Card position="sticky" top="10vh">
