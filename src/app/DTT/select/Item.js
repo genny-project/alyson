@@ -23,6 +23,7 @@ const Item = ({ option, idx, onSelectChange, focus, selected }) => {
       bg={idx % 2 ? 'blackAlpha.50' : ''}
       fontWeight={focused ? 'semibold' : 'normal'}
       _hover={{ fontWeight: 'semibold' }}
+      h="2rem"
     >
       {includes(option.value, selected) ? (
         <FontAwesomeIcon icon={faCheckCircle} color="green" />

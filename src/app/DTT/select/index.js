@@ -7,6 +7,7 @@ import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { getValue } from './get-value'
 import { onSendMessage } from 'vertx'
 import Autocomplete from './Autocomplete'
+import { useIsMobile } from 'utils/hooks'
 
 const Write = ({
   questionCode,
