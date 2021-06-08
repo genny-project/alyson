@@ -43,6 +43,12 @@ export const formatBaseEntity = (
     }
     attribute.created = ''
 
+    if (attributeCode === 'PRI_IS_MENTOR' && attribute.value) {
+      initialiseKey(state, 'MENTORS', [])
+      if ((state.MENTORS as Array<string>).indexOf(code) === -1)
+        (state.MENTORS as Array<string>).push(code)
+    }
+
     if ((state[code] as Array<string>).indexOf(attributeCode) === -1)
       (state[code] as Array<string>).push(attributeCode)
 

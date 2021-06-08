@@ -14,5 +14,7 @@ export const selectAttributes = (parentCode: string, attributes: Array<string> =
 ) => map(attr => selectCode(parentCode, attr)(state), attributes)
 export const selectNote = (id: string) => (state: RootState) => state.db.NOTES[id]
 
+export const selectMentors = (state: RootState) => state.db.MENTORS
+
 // Developer selectors
 export const selectKeys = (state: RootState) => keys(state.db)
