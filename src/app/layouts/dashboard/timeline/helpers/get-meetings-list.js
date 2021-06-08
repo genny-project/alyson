@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux'
-import { includes, find } from 'ramda'
+import { includes, find, pathOr } from 'ramda'
 
 import { selectDashboard } from 'redux/app/selectors'
 import { selectCode, selectRows } from 'redux/db/selectors'
@@ -8,7 +8,7 @@ const useGetMeetingList = () => {
   const dashboardSbes = useSelector(selectDashboard)
   const meetingsSbe = dashboardSbes && find(includes('_APPLICATIONS_MEETING_'))(dashboardSbes)
   const meetingRows = useSelector(selectRows(meetingsSbe))
-  const applicationCode = meetingRows[0]
+  const applicationCode = pathOr([], [0])(meetingRows)
 
   const meetingOne = useSelector(selectCode(applicationCode, 'PRI_MENTORING_MEETING_1'))?.value
   const meetingTwo = useSelector(selectCode(applicationCode, 'PRI_MENTORING_MEETING_2'))?.value

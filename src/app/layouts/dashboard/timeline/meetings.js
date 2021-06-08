@@ -27,7 +27,7 @@ const Meetings = () => {
                 ) : (
                   <FontAwesomeIcon icon={faCalendar} color="darkGrey" />
                 )}
-                <Text w="80%" alignSelf="flex-start">
+                <Text w="80%" minW="10vw" alignSelf="flex-start">
                   {text}
                 </Text>
                 <a target="_blank" rel="noopener noreferrer" href={link}>
