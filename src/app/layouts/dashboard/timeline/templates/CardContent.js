@@ -21,5 +21,5 @@ export const professionalDetails = {
 
 export const preference = {
   header: 'What I Enjoy',
-  attributes: [{ attr: 'PRI_TEXT' }],
+  attributes: [{ attr: 'LNK_HOBBIES_INTEREST' }],
 }
