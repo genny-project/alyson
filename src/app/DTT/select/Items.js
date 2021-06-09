@@ -5,7 +5,7 @@ import Card from 'app/layouts/components/card'
 import { dec, inc } from 'ramda'
 import { useEffect, useRef, useState } from 'react'
 import { useHotkeys } from 'react-hotkeys-hook'
-import { useMobileValue } from 'utils/hooks'
+import { useIsMobile, useMobileValue } from 'utils/hooks'
 import Item from './Item'
 
 const ItemsForAutocomplete = ({
@@ -21,6 +21,8 @@ const ItemsForAutocomplete = ({
   const [focus, setFocus] = useState(0)
 
   const ref = useRef()
+
+  const isMobile = useIsMobile()
 
   useHotkeys('down', () => setFocus(inc), { enableOnTags: ['INPUT'] })
   useHotkeys('up', () => setFocus(dec), { enableOnTags: ['INPUT'] })
@@ -42,7 +44,7 @@ const ItemsForAutocomplete = ({
 
   useOutsideClick({
     ref,
-    handler: () => setOpen(false),
+    handler: () => !isMobile && setOpen(false),
   })
   const maxW = useMobileValue(['', '25vw'])
   return (
@@ -58,7 +60,7 @@ const ItemsForAutocomplete = ({
       onMouseEnter={() => setFocus(null)}
       onMouseLeave={() => setFocus(0)}
       onBlur={() => {
-        setOpen(false)
+        !isMobile && setOpen(false)
       }}
     >
       <VStack borderRadius="md" spacing={0} align="stretch" overflowY="scroll" maxH="20rem">

@@ -146,7 +146,7 @@ const Read = ({ data, mini, styles, config = {} }) => {
 
   if (!data?.value) return null
 
-  const src = api.getSrc(data?.value)
+  const src = api.getVideoSrc(data?.value)
 
   return mini ? (
     <Popover>
