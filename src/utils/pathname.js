@@ -32,4 +32,6 @@ const readParams = compose(
   })),
 )
 
-export { makePathname, readParams }
+const pathNameLinkedApplication = `/home/${btoa('QUE_FAKE_PARENT')}/${btoa('ACT_CONFIRM_MEETING')}`
+
+export { makePathname, readParams, pathNameLinkedApplication }

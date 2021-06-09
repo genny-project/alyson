@@ -5,6 +5,8 @@ import store from 'redux/store'
 import { CSSReset } from '@chakra-ui/react'
 import Vertx from 'vertx'
 import { isDev } from 'utils/developer'
+import LinkedApp from 'app/layouts/dashboard/mentee/linked_app'
+import { pathNameLinkedApplication } from 'utils/pathname'
 
 const Display = lazy(() => import('app/layouts/display'))
 const Sandbox = lazy(() => import('utils/developer/Sandbox'))
@@ -17,6 +19,7 @@ const App = () => {
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={() => <Redirect to={{ pathname: '/home' }} />} />
+          <Route exact path={pathNameLinkedApplication} component={() => <LinkedApp />} />
           <Route
             path="/home"
             component={() => (
@@ -44,5 +47,4 @@ const App = () => {
     </Provider>
   )
 }
-
 export default App
