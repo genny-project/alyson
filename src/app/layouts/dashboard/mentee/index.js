@@ -25,12 +25,7 @@ const MenteeDashboard = () => {
     isMentorSelected,
   }
 
-  const primaryAvailability = useSelector(selectCode(linkedApp, 'PRI_PRIMARY_AVAILABILITY'))
-  const secondaryAvailability = useSelector(selectCode(linkedApp, 'PRI_SECONDARY_AVAILABILITY'))
-  const tertiaryAvailability = useSelector(selectCode(linkedApp, 'PRI_TERTIARY_AVAILABILITY'))
-  const availability = primaryAvailability && secondaryAvailability && tertiaryAvailability
-
-  if (linkedApp?.value && showLinkedpplication && availability)
+  if (linkedApp?.value && showLinkedpplication)
     return <LinkedApp code={linkedApp.value} setShowLinkedApplication={setShowLinkedApplication} />
 
   return (
