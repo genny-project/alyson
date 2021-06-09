@@ -10,7 +10,7 @@ const LinkedApp = ({ code }) => {
   const userCode = useSelector(selectCode('USER'))
   const [mentorName] = useSelector(selectAttributes(code, ['PRI_MENTOR_NAME']))
 
-  if (!mentorName) return null
+  // if (!mentorName) return null
   const onSelect = option => {
     onSendMessage({
       targetCode: code,
@@ -22,9 +22,9 @@ const LinkedApp = ({ code }) => {
     <Center>
       <Card>
         <VStack>
-          <Text textStyle="head.2" maxW="40rem" textAlign="center">
+          {/* <Text textStyle="head.2" maxW="40rem" textAlign="center">
             {`${mentorName?.value}, your mentor, has asked to pick from these three times for your first meeting!`}
-          </Text>
+          </Text> */}
 
           <VStack>
             <Text textStyle="body.1">Primary Availability</Text>
