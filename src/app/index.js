@@ -3,6 +3,7 @@ import { lazy, Suspense } from 'react'
 import { Provider } from 'react-redux'
 import store from 'redux/store'
 import { CSSReset } from '@chakra-ui/react'
+
 import Vertx from 'vertx'
 import { isDev } from 'utils/developer'
 import LinkedApp from 'app/layouts/dashboard/mentee/linked_app'

@@ -1,11 +1,13 @@
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { Center, HStack, Text, VStack } from '@chakra-ui/layout'
-import { selectCode } from 'redux/db/selectors'
+
 import { onSendMessage } from 'vertx'
+import { selectCode } from 'redux/db/selectors'
 import Attribute from 'app/BE/attribute'
 import Button from 'app/layouts/components/button'
 import Card from 'app/layouts/components/card'
-import { Link } from 'react-router-dom'
+
 const LinkedApp = () => {
   const userCode = useSelector(selectCode('USER'))
   const linkedApp = useSelector(selectCode(userCode, 'PRI_APP_LNK_CODE'))
