@@ -26,7 +26,7 @@ const Write = ({ questionCode, onSendAnswer, data }) => {
 }
 
 const Read = ({ data, config }) => {
-  const { isOpen, onToggle } = useDisclosure({ defaultIsOpen: true })
+  const { isOpen, onToggle } = useDisclosure({ defaultIsOpen: false })
 
   if (!data?.value) return null
 
