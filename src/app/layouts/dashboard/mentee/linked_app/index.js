@@ -1,16 +1,17 @@
 import { Center, HStack, Text, VStack } from '@chakra-ui/layout'
+import { useSelector } from 'react-redux'
+
+import { selectCode } from 'redux/db/selectors'
+import { onSendMessage } from 'vertx'
 import Attribute from 'app/BE/attribute'
 import Button from 'app/layouts/components/button'
 import Card from 'app/layouts/components/card'
-import { useSelector } from 'react-redux'
-import { selectAttributes, selectCode } from 'redux/db/selectors'
-import { onSendMessage } from 'vertx'
 
 const LinkedApp = ({ code }) => {
   const userCode = useSelector(selectCode('USER'))
-  const [mentorName] = useSelector(selectAttributes(code, ['PRI_MENTOR_NAME']))
+  const menteeName = useSelector(selectCode(userCode, 'PRI_NAME'))?.value
 
-  // if (!mentorName) return null
+  if (!menteeName) return null
   const onSelect = option => {
     onSendMessage({
       targetCode: code,
@@ -21,11 +22,10 @@ const LinkedApp = ({ code }) => {
   return (
     <Center>
       <Card>
-        <VStack>
-          {/* <Text textStyle="head.2" maxW="40rem" textAlign="center">
-            {`${mentorName?.value}, your mentor, has asked to pick from these three times for your first meeting!`}
-          </Text> */}
-
+        <VStack spacing={10}>
+          <Text textStyle="head.2" maxW="40rem" textAlign="center">
+            {`${menteeName}, your mentor, has asked to pick from these three times for your first meeting!`}
+          </Text>
           <VStack>
             <Text textStyle="body.1">Primary Availability</Text>
             <Button onClick={() => onSelect('PRI_PRIMARY_AVAILABILITY')} variant="special">
@@ -33,7 +33,7 @@ const LinkedApp = ({ code }) => {
             </Button>
           </VStack>
 
-          <HStack>
+          <HStack spacing={5}>
             <VStack>
               <Text textStyle="body.3">Secondary Availability</Text>
               <Button onClick={() => onSelect('PRI_SECONDARY_AVAILABILITY')} variant="secondary">
