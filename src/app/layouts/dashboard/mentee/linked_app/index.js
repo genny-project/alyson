@@ -1,14 +1,17 @@
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { Center, HStack, Text, VStack } from '@chakra-ui/layout'
 
-import { selectCode } from 'redux/db/selectors'
 import { onSendMessage } from 'vertx'
+import { selectCode } from 'redux/db/selectors'
 import Attribute from 'app/BE/attribute'
 import Button from 'app/layouts/components/button'
 import Card from 'app/layouts/components/card'
 
-const LinkedApp = ({ code, setShowLinkedApplication }) => {
+const LinkedApp = () => {
   const userCode = useSelector(selectCode('USER'))
+  const linkedApp = useSelector(selectCode(userCode, 'PRI_APP_LNK_CODE'))
+  const code = linkedApp?.value
   const menteeName = useSelector(selectCode(userCode, 'PRI_NAME'))?.value
 
   if (!menteeName) return null
@@ -20,7 +23,7 @@ const LinkedApp = ({ code, setShowLinkedApplication }) => {
     })
   }
   return (
-    <Center>
+    <Center marginTop={10}>
       <Card>
         <VStack spacing={10}>
           <Text textStyle="head.2" maxW="40rem" textAlign="center">
@@ -32,7 +35,6 @@ const LinkedApp = ({ code, setShowLinkedApplication }) => {
               <Attribute code={code} attribute={'PRI_PRIMARY_AVAILABILITY'} />
             </Button>
           </VStack>
-
           <HStack spacing={5}>
             <VStack>
               <Text textStyle="body.3">Secondary Availability</Text>
@@ -47,11 +49,13 @@ const LinkedApp = ({ code, setShowLinkedApplication }) => {
               </Button>
             </VStack>
           </HStack>
-          <Button onClick={() => setShowLinkedApplication(false)} w="80%">{`CLOSE`}</Button>
+
+          <Link to="/home" style={{ width: '100%', textAlign: 'center' }}>
+            <Button w="80%">{`Close`}</Button>
+          </Link>
         </VStack>
       </Card>
     </Center>
   )
 }
-
 export default LinkedApp
