@@ -36,9 +36,9 @@ const Read = ({ data, config }) => {
         <IconButton icon={<FontAwesomeIcon icon={faMapMarkerAlt} />} />
         <Text minW="8rem">{data.value}</Text>
       </HStack>
-      <Card bg="transparent" variant="card3" p="0">
-        <Collapse in={isOpen}>
-          <StreetView address={data.value} />
+      <Card zIndex="banner" bg="transparent" variant="card3" p="0">
+        <Collapse in={isOpen} unmountOnExit>
+          <StreetView address={data.value} style={{ width: '60vw', height: '30rem' }} />
         </Collapse>
       </Card>
     </VStack>
