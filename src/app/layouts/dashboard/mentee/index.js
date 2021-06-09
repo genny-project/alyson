@@ -13,6 +13,8 @@ import { selectCode } from 'redux/db/selectors'
 import useGetMenteeInformation from 'app/layouts/dashboard/timeline/helpers/get-mentee-information'
 
 const MenteeDashboard = () => {
+  const [showLinkedpplication, setShowLinkedApplication] = useState(true)
+
   const userCode = useSelector(selectCode('USER'))
   const linkedApp = useSelector(selectCode(userCode, 'PRI_APP_LNK_CODE'))
 
@@ -23,7 +25,8 @@ const MenteeDashboard = () => {
     isMentorSelected,
   }
 
-  if (linkedApp?.value) return <LinkedApp code={linkedApp.value} />
+  if (linkedApp?.value && showLinkedpplication)
+    return <LinkedApp code={linkedApp.value} setShowLinkedApplication={setShowLinkedApplication} />
 
   return (
     <Flex paddingX="10">

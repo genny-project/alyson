@@ -1,5 +1,5 @@
-import { Center, HStack, Text, VStack } from '@chakra-ui/layout'
 import { useSelector } from 'react-redux'
+import { Center, HStack, Text, VStack } from '@chakra-ui/layout'
 
 import { selectCode } from 'redux/db/selectors'
 import { onSendMessage } from 'vertx'
@@ -7,7 +7,7 @@ import Attribute from 'app/BE/attribute'
 import Button from 'app/layouts/components/button'
 import Card from 'app/layouts/components/card'
 
-const LinkedApp = ({ code }) => {
+const LinkedApp = ({ code, setShowLinkedApplication }) => {
   const userCode = useSelector(selectCode('USER'))
   const menteeName = useSelector(selectCode(userCode, 'PRI_NAME'))?.value
 
@@ -47,6 +47,7 @@ const LinkedApp = ({ code }) => {
               </Button>
             </VStack>
           </HStack>
+          <Button onClick={() => setShowLinkedApplication(false)} w="100%">{`CLOSE`}</Button>
         </VStack>
       </Card>
     </Center>
