@@ -47,7 +47,7 @@ const LinkedApp = ({ code, setShowLinkedApplication }) => {
               </Button>
             </VStack>
           </HStack>
-          <Button onClick={() => setShowLinkedApplication(false)} w="100%">{`CLOSE`}</Button>
+          <Button onClick={() => setShowLinkedApplication(false)} w="80%">{`CLOSE`}</Button>
         </VStack>
       </Card>
     </Center>
