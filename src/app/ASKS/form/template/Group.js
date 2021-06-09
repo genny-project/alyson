@@ -56,9 +56,9 @@ const Group = ({
           <Text textStyle="head.1">{label}</Text>
           {subHeader && <Text textStyle="head.3">{subHeader}</Text>}
           {video && <ReactPlayer url={video.url} />}
-          {questions.map((type, idx) =>
+          {flatten(questions).map((type, idx) =>
             Array.isArray(type) ? (
-              <Stack direction={'column'} align="start" w="full" justify="space-between" key={idx}>
+              <Stack direction={'column'} align="start" w="full" key={idx}>
                 {type.map(code => (
                   <Ask
                     onFinish={onFinish}

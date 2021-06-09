@@ -1,5 +1,5 @@
 import { replace } from 'ramda'
-import { IconButton, Th } from '@chakra-ui/react'
+import { HStack, IconButton, Text, Th } from '@chakra-ui/react'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import { onSendAnswer } from 'vertx'
@@ -8,13 +8,14 @@ import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons'
 
 const Cell = ({ attribute, parentCode }) => {
   const data = useSelector(selectCode(parentCode, attribute))
-  const sort = useSelector(selectCode(parentCode, replace('COL_', 'SRT_', attribute)))
+  const sort = useSelector(selectCode(parentCode, replace('COL_', 'SRT_', attribute))) || {}
 
   return (
     <Th>
-      {data?.attributeName}
-      {sort && (
+      <HStack>
+        <Text>{data?.attributeName}</Text>
         <IconButton
+          hidden={!sort}
           variant="ghost"
           cursor={'pointer'}
           onClick={() =>
@@ -26,7 +27,7 @@ const Cell = ({ attribute, parentCode }) => {
           }
           icon={<FontAwesomeIcon icon={sort.value === 'ASC' ? faAngleUp : faAngleDown} />}
         />
-      )}
+      </HStack>
     </Th>
   )
 }
