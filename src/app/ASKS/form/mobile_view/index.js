@@ -1,5 +1,5 @@
 import Ask from 'app/ASKS/ask'
-import { VStack, Center, Text } from '@chakra-ui/react'
+import { VStack, Text } from '@chakra-ui/react'
 import { map } from 'ramda'
 import Header from '../template/Header'
 import FormBody from '../template/Body'
