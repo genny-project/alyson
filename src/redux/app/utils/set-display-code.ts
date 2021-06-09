@@ -24,6 +24,5 @@ const setDisplayCode = (state: AppState) => (items: Items) => {
       }
     }
   }
-  state.CURRENTBES = items
 }
 export default setDisplayCode
