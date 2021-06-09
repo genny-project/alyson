@@ -3,15 +3,16 @@ import { VStack, Center, Text } from '@chakra-ui/react'
 import { map } from 'ramda'
 import Header from '../template/Header'
 import FormBody from '../template/Body'
+import Card from 'app/layouts/components/card'
 
 const FormMobileView = ({ title, childAsks, onFinish, questionCode, config }) => {
   if (!config.groups)
     return (
-      <Center>
+      <Card mx="2">
+        <Text w="full" textAlign="center" textStyle="head.1" my="3">
+          {title}
+        </Text>
         <VStack spacing={8} align="start" width="full" mb={6}>
-          <Text textStyle="head.2" my="6">
-            {title}
-          </Text>
           {config?.subHeader && <Text textStyle="head.3">{config.subHeader}</Text>}
           {map(childAsk => (
             <Ask
@@ -22,7 +23,7 @@ const FormMobileView = ({ title, childAsks, onFinish, questionCode, config }) =>
             />
           ))(childAsks)}
         </VStack>
-      </Center>
+      </Card>
     )
 
   const { subHeader, groups } = config
