@@ -14,7 +14,6 @@ const TableWrapper = ({ mapSearch }) => {
   const userType = getUserType(useSelector(selectCode(userCode)))
 
   if (!table) return null
-  if (mapSearch) return <MapSearch parentCode={table} />
 
   if (includes('_INTERNSHIPS_', table) && userType === 'INTERN')
     return <InternInternshipSearch sbeCode={table} />

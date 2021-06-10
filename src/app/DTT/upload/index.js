@@ -1,6 +1,15 @@
 import { useState, useEffect } from 'react'
 import ImageType from './Image'
-import { CircularProgress, Button, Tooltip, Link, HStack, CloseButton } from '@chakra-ui/react'
+import {
+  Button,
+  Tooltip,
+  Link,
+  HStack,
+  CloseButton,
+  Progress,
+  VStack,
+  Text,
+} from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faFileDownload, faUpload } from '@fortawesome/free-solid-svg-icons'
 import useApi from 'api'
@@ -49,6 +58,7 @@ const Write = ({ questionCode, data, dttData, onSendAnswer, video }) => {
   const [fileName, setFileName] = useState('')
   const [dropzone, setDropzone] = useState(!!video)
   const [loading, setLoading] = useState(false)
+  const [progress, setProgress] = useState(null)
   const openDropzone = () => setDropzone(true)
   const closeDropzone = () => setDropzone(false)
 
@@ -71,7 +81,7 @@ const Write = ({ questionCode, data, dttData, onSendAnswer, video }) => {
     data.append('file', files[0])
 
     try {
-      const resp = await api.postMediaFile({ data })
+      const resp = await api.postMediaFile({ data, onUploadProgress: setProgress })
       onSendAnswer(resp?.uuid)
     } catch (err) {
       console.error(err)
@@ -80,6 +90,7 @@ const Write = ({ questionCode, data, dttData, onSendAnswer, video }) => {
     setLoading(false)
   }
 
+  console.log(progress ? Math.floor((progress.loaded / progress.total) * 100) : 'none')
   return (
     <div>
       <div hidden={loading}>
@@ -116,7 +127,21 @@ const Write = ({ questionCode, data, dttData, onSendAnswer, video }) => {
         )}
       </div>
       <div hidden={!loading}>
-        <CircularProgress isIndeterminate />
+        <VStack align="start">
+          {progress && progress.loaded !== progress.total ? (
+            <Text> Thanks! Uploading, sit tight... </Text>
+          ) : (
+            <Text>Finishing up!</Text>
+          )}
+
+          <Progress
+            w="30rem"
+            h="1rem"
+            hasStripe
+            borderRadius="md"
+            value={progress ? Math.floor((progress.loaded / progress.total) * 100) : 0}
+          />
+        </VStack>
       </div>
     </div>
   )

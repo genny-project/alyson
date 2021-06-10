@@ -11,10 +11,11 @@ import Title from './Title'
 import Filters from '../filters'
 import Download from '../download'
 import Action from 'app/BE/action'
+import Card from 'app/layouts/components/card'
 
 const DataTable = ({ parentCode }) => {
   const tableData = useSelector(selectCode(parentCode))
-  const bgColor = useColorModeValue('white', '')
+  const bgColor = useColorModeValue('white', 'gray.700')
 
   if (!tableData) return null
 
@@ -23,35 +24,36 @@ const DataTable = ({ parentCode }) => {
   const tableActions = getTableActions(tableData)
 
   return (
-    <Box overflowX="scroll" ml="5" shadow="lg" borderRadius="md" bg={bgColor} p="5">
-      <VStack align="start">
-        <HStack pl="10" align="start" spacing="5">
-          <Title sbeCode={parentCode} />
-          <Search sbeCode={parentCode} />
-          <Filters sbeCode={parentCode} />
-          <Download sbeCode={parentCode} />
-        </HStack>
-        {tableActions && (
-          <HStack pl="5">
-            {tableActions.map(action => (
-              <Action
-                key={action}
-                size="md"
-                colorScheme="purple"
-                parentCode={parentCode}
-                code={action}
-              />
-            ))}
+    <Box mx="5">
+      <Card>
+        <VStack align="start">
+          <HStack pl="10" align="end" spacing="5">
+            <Title sbeCode={parentCode} />
+            <Search sbeCode={parentCode} />
+            <Filters sbeCode={parentCode} />
+            <Download sbeCode={parentCode} />
           </HStack>
-        )}
-        <Box borderRadius="md" borderWidth="1px" borderColor="gray.200">
-          <Table>
-            <Header columns={columns} parentCode={parentCode} actions={actions} />
-            <Body columns={columns} parentCode={parentCode} actions={actions} />
-            <Footer sbeCode={parentCode} />
-          </Table>
-        </Box>
-      </VStack>
+          {tableActions && (
+            <HStack pl="5">
+              {tableActions.map(action => (
+                <Action
+                  key={action}
+                  size="md"
+                  colorScheme="purple"
+                  parentCode={parentCode}
+                  code={action}
+                />
+              ))}
+            </HStack>
+          )}
+        </VStack>
+      </Card>
+
+      <Table variant="simple" bg={bgColor} borderRadius="md" shadow="xs">
+        <Header columns={columns} parentCode={parentCode} actions={actions} />
+        <Body columns={columns} parentCode={parentCode} actions={actions} />
+        <Footer sbeCode={parentCode} />
+      </Table>
     </Box>
   )
 }
