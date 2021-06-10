@@ -9,8 +9,11 @@ import {
   preference,
 } from 'app/layouts/dashboard/timeline/templates/CardContent'
 import { selectCode } from 'redux/db/selectors'
+import { selectMentee } from 'redux/db/selectors'
 
 const DetailView = () => {
+  const menteeCodes = useSelector(selectMentee)
+  const menteee = menteeCodes[0]
   const mentee = useSelector(selectCode('USER'))
   const name = useSelector(selectCode(mentee, 'PRI_NAME'))?.value
   const bg = useColorModeValue('gray.100', 'gray.700')
