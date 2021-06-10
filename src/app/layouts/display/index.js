@@ -17,6 +17,7 @@ import ErrorBoundary from 'utils/developer/ErrorBoundary'
 import Notes from 'app/NOTE'
 import { onSendMessage } from 'vertx'
 // import Timeout from './timeout'
+import DisplayForm from 'app/layouts/detail-and-form'
 
 const Display = () => {
   const display = useSelector(selectDisplay)
@@ -47,7 +48,8 @@ const Display = () => {
           {display === 'DASHBOARD' && <Dashboard />}
           {display === 'TABLE' && <Table />}
           {display === 'PROCESS' && <Process />}
-          {includes('FORM', display || '') && <Form />}
+          {display === 'VIEW:ASK' && <DisplayForm />}
+          {includes('FORM', display || '') && <DisplayForm />}
           {display === 'DETAIL' && <Detail />}
           {display === 'MAP' && <Table mapSearch />}
           {display === 'NOTES' && <Notes />}
