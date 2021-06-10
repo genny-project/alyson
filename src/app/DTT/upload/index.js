@@ -90,7 +90,6 @@ const Write = ({ questionCode, data, dttData, onSendAnswer, video }) => {
     setLoading(false)
   }
 
-  console.log(progress ? Math.floor((progress.loaded / progress.total) * 100) : 'none')
   return (
     <div>
       <div hidden={loading}>
