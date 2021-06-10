@@ -28,7 +28,7 @@ const Write = ({ questionCode, data, openDropzone, onSendAnswer, handleSave, set
       <HStack>
         <Avatar size="xl" src={src} />
         <Tooltip label="Click to remove">
-          <CloseButton cursor="pointer" onClick={() => onSendAnswer()} />
+          <CloseButton cursor="pointer" onClick={() => onSendAnswer('')} />
         </Tooltip>
       </HStack>
     )
