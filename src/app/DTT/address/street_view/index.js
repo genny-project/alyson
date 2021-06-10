@@ -1,49 +1,41 @@
-import { useRef, useEffect, useState } from 'react'
-import { Center, CircularProgress, Stack } from '@chakra-ui/react'
-
-let map = {}
-let pano = {}
-let geocoder = {}
+import { useRef, useEffect } from 'react'
+import { Stack } from '@chakra-ui/react'
 
 const StreetView = ({ address, style = { width: '40rem', height: '30rem' } }) => {
-  geocoder = new window.google.maps.Geocoder()
-  const [geo, setGeo] = useState(null)
-
   const panoRef = useRef(null)
   const mapRef = useRef(null)
 
   useEffect(() => {
-    geocoder.geocode({ address }, res => {
-      setGeo(res[0]?.geometry.location)
-    })
-  }, [address])
+    const geocoder = new window.google.maps.Geocoder()
 
-  useEffect(() => {
-    if (geo && panoRef?.current && mapRef?.current) {
-      map = new window.google.maps.Map(mapRef.current, {
+    geocoder.geocode({ address }, res => {
+      const geo = res[0]?.geometry.location
+
+      const map = new window.google.maps.Map(mapRef.current, {
         center: geo,
         zoom: 14,
       })
 
-      pano = new window.google.maps.StreetViewPanorama(panoRef.current, {
-        position: geo,
-        pov: {
-          heading: 34,
-          pitch: 10,
-        },
-      })
+      const svService = new window.google.maps.StreetViewService()
+      const panoRequest = {
+        location: geo,
+        preference: window.google.maps.StreetViewPreference.BEST,
+        radius: 100,
+        source: window.google.maps.StreetViewSource.OUTDOOR,
+      }
 
-      map.setStreetView(pano)
-    }
-  }, [geo])
+      svService.getPanorama(panoRequest, panoData => {
+        map.setStreetView(
+          new window.google.maps.StreetViewPanorama(panoRef.current, {
+            pano: panoData?.location?.pano,
+          }),
+        )
+      })
+    })
+  }, [address])
 
   return (
     <Stack direction={['column', 'column', 'row']} style={style}>
-      {!geo && (
-        <Center w="40rem">
-          <CircularProgress isIndeterminate />
-        </Center>
-      )}
       <div ref={panoRef} style={{ borderRadius: '0.5rem', width: '50%', height: '100%' }} />
       <div ref={mapRef} style={{ borderRadius: '0.5rem', width: '50%', height: '100%' }} />
     </Stack>
