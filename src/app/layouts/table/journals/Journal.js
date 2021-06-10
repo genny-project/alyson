@@ -1,4 +1,4 @@
-import { Box, VStack, Text, HStack } from '@chakra-ui/layout'
+import { VStack, Text, HStack } from '@chakra-ui/layout'
 import Action from 'app/BE/action'
 import Attribute from 'app/BE/attribute'
 import Card from 'app/layouts/components/card'

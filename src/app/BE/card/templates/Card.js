@@ -8,13 +8,13 @@ import ContextMenu from 'app/BE/context'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 import MainDetails from './MainDetails'
-import makeMotion from 'utils/motion'
 import { includes } from 'ramda'
 import AgentDetail from './AgentDetail'
 import sameValue from 'redux/utils/same-value'
 import Card from 'app/layouts/components/card'
+import { motion } from 'framer-motion'
 
-const MotionBox = makeMotion(Box)
+const MotionBox = motion(Box)
 
 const DefaultCard = ({ parentCode, actions = [], code, columns }) => {
   const title = useSelector(selectCode(code, getAttribute(columns[0] || '')), sameValue)
