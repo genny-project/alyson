@@ -1,12 +1,13 @@
 import { useSelector } from 'react-redux'
 import { selectCode, selectRows } from 'redux/db/selectors'
 import getActions, { getTableActions } from 'app/SBE/utils/get-actions'
-import { Box, Divider, HStack, Text, VStack } from '@chakra-ui/layout'
+import { Box, HStack, Text, VStack } from '@chakra-ui/layout'
 import Journal from './Journal'
 import Download from 'app/SBE/download'
 import TableFooter from 'app/SBE/table/Footer'
 import { Table } from '@chakra-ui/table'
 import Action from 'app/BE/action'
+import Card from 'app/layouts/components/card'
 
 const Journals = ({ sbeCode }) => {
   const tableData = useSelector(selectCode(sbeCode))
@@ -23,26 +24,26 @@ const Journals = ({ sbeCode }) => {
       </Table>
 
       <VStack>
-        <VStack m="3">
-          <Text fontWeight="semibold" fontSize="lg">{`${title?.value} - Journals`}</Text>
-          <Download sbeCode={sbeCode} />
-        </VStack>
-        <HStack>
-          {tableActions.map(action => (
-            <Action
-              colorScheme="primary"
-              size="md"
-              key={action}
-              code={action}
-              parentCode={sbeCode}
-            />
-          ))}
-        </HStack>
-        {rows.map(code => (
-          <VStack key={code}>
-            <Journal code={code} actions={actions} parentCode={sbeCode} />
-            <Divider w="50%" />
+        <Card w="44rem" maxW="89vw">
+          <VStack>
+            <Text fontWeight="semibold" fontSize="lg">{`${title?.value} - Journals`}</Text>
+            <Download sbeCode={sbeCode} />
+            <HStack>
+              {tableActions.map(action => (
+                <Action
+                  colorScheme="primary"
+                  size="md"
+                  key={action}
+                  code={action}
+                  parentCode={sbeCode}
+                />
+              ))}
+            </HStack>
           </VStack>
+        </Card>
+
+        {rows.map(code => (
+          <Journal key={code} code={code} actions={actions} parentCode={sbeCode} />
         ))}
       </VStack>
     </Box>

@@ -4,6 +4,7 @@ import { useKeycloak } from '@react-keycloak/web'
 import debounce from 'lodash.debounce'
 import { tokenFromUrl, guestKeycloak } from 'config/get-api-config'
 import selectToken from 'keycloak/utils/select-token'
+import { identity } from 'ramda'
 
 const useApi = () => {
   const { keycloak } = useKeycloak()
@@ -12,6 +13,7 @@ const useApi = () => {
   const ABN_URL = `${apiConfig.api_url}/json`
   const MEDIA_URL = apiConfig.ENV_MEDIA_PROXY_URL
   const VIDEO_URL = `${MEDIA_URL}/video`
+  // const VIDEO_URL = MEDIA_URL
 
   const { token: tokenFromKeycloak } = keycloak
 
@@ -21,16 +23,17 @@ const useApi = () => {
     url: MEDIA_URL,
     method: 'POST',
     responseType: 'json',
-    timeout: 30000,
+    timeout: 0,
     headers: {
       'Content-Type': 'multipart/form-data',
       Authorization: `bearer ${token}`,
     },
   }
 
-  const postMediaFile = async ({ data }) => {
+  const postMediaFile = async ({ data, onUploadProgress = identity }) => {
     const response = await axios({
       ...mediaSettings,
+      onUploadProgress,
       data,
     })
     if (response.data.files)

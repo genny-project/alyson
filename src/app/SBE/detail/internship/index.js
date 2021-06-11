@@ -17,6 +17,7 @@ const internshipDetail = {
     { attr: 'PRI_WHICH_DAYS_STRIPPED', label: 'Days of Week' },
     { attr: 'PRI_DRESS_CODE', label: 'Dress Code' },
     { attr: 'PRI_ASSOC_NUM_INTERNS', label: 'Available Spots' },
+    { attr: 'PRI_ADDRESS_FULL', label: 'Address', color: 'blue.500', config: { collapse: true } },
   ],
 }
 

@@ -21,7 +21,7 @@ import '../../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.cs
 import DOMPurify from 'dompurify'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 
-const Write = ({ questionCode, data, onSendAnswer, description, html }) => {
+const Write = ({ questionCode, data, onSendAnswer, html }) => {
   const { minCharacterCount = 0, maxCharacterCount } = safelyParseJson(html, {})
   const blocksFromHTML = convertFromHTML(data?.value || '')
   const state = ContentState.createFromBlockArray(
@@ -98,7 +98,6 @@ const Write = ({ questionCode, data, onSendAnswer, description, html }) => {
         }}
         editorState={editor}
         onEditorStateChange={setEditor}
-        placeholder={description}
         onBlur={handleSave}
         spellCheck={true}
         lang="en"

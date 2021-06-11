@@ -1,6 +1,7 @@
-import { Box, VStack, Text, HStack } from '@chakra-ui/layout'
+import { VStack, Text, HStack } from '@chakra-ui/layout'
 import Action from 'app/BE/action'
 import Attribute from 'app/BE/attribute'
+import Card from 'app/layouts/components/card'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 
@@ -11,7 +12,7 @@ const Journal = ({ code, actions, parentCode }) => {
   const tasks = useSelector(selectCode(code, 'PRI_JOURNAL_TASKS'))
 
   return (
-    <Box p="3" w="90vw">
+    <Card>
       <VStack align="start">
         <HStack>
           <Text textStyle="body.1">{`${date?.value}`}</Text>
@@ -39,7 +40,7 @@ const Journal = ({ code, actions, parentCode }) => {
           />
         </VStack>
       </VStack>
-    </Box>
+    </Card>
   )
 }
 
