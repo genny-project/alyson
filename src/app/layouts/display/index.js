@@ -49,7 +49,7 @@ const Display = () => {
           {display === 'TABLE' && <Table />}
           {display === 'PROCESS' && <Process />}
           {display === 'VIEW:ASK' && <DisplayForm />}
-          {includes('FORM', display || '') && <DisplayForm />}
+          {includes('FORM', display || '') && <Form />}
           {display === 'DETAIL' && <Detail />}
           {display === 'MAP' && <Table mapSearch />}
           {display === 'NOTES' && <Notes />}
