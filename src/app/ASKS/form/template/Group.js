@@ -45,6 +45,8 @@ const Group = ({
 
   const disableNext = !!mandatoryQuestionsNoValue.length
 
+  if (!questionDatas.length) return null
+
   return (
     <Box display={!paginated || idx === group ? 'block' : 'none'} w="full" key={label}>
       <Card>
