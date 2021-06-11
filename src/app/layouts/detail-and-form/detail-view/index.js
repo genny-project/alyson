@@ -21,7 +21,6 @@ const DetailView = () => {
     <Flex
       w="50vw"
       bg={bg}
-      h="50vh"
       spacing={4}
       p="3"
       overflowY="scroll"
@@ -30,12 +29,12 @@ const DetailView = () => {
       justifyContent="space-around"
       alignItems="center"
     >
-      <VStack>
+      <VStack mb={5}>
         <Attribute config={{ size: 'xl', name: name }} code={mentee} attribute="PRI_IMAGE_URL" />
         <Spacer />
         <Attribute config={{ textStyle: 'head.3' }} code={mentee} attribute="PRI_NAME" />
       </VStack>
-      <HStack w="90%">
+      <HStack w="90%" mb={5}>
         <DetailCards detailsection={personalDetails} currentMentor={mentee} miniCard />
         <DetailCards detailsection={professionalDetails} currentMentor={mentee} miniCard />
       </HStack>
