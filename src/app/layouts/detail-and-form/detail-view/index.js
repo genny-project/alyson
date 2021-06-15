@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux'
-import { VStack, HStack, Spacer, useColorModeValue, Flex } from '@chakra-ui/react'
+import { VStack, HStack, useColorModeValue, Flex } from '@chakra-ui/react'
 
 import DetailCards from 'app/layouts/dashboard/timeline/templates/DetailCards'
 import Attribute from 'app/BE/attribute'
@@ -16,7 +16,6 @@ const DetailView = () => {
   const mentee = menteeCodes?.[0]
   const name = useSelector(selectCode(mentee, 'PRI_NAME'))?.value
   const bg = useColorModeValue('gray.100', 'gray.700')
-  const cardsbg = useColorModeValue('#ffffff', 'gray.600')
 
   return (
     <Flex
@@ -30,14 +29,21 @@ const DetailView = () => {
       justifyContent="space-around"
       alignItems="center"
     >
-      <VStack mb={5}>
-        <Attribute config={{ size: 'xl', name: name }} code={mentee} attribute="PRI_IMAGE_URL" />
-        <Spacer />
-        <Attribute config={{ textStyle: 'head.3' }} code={mentee} attribute="PRI_NAME" />
-      </VStack>
-      <VStack bg={cardsbg} mb={5}>
-        <Attribute code={mentee} attribute="PRI_VIDEO_URL" config={{ background: 'red' }} />
-      </VStack>
+      <Flex
+        w="90%"
+        justifyContent="space-between"
+        bgGradient="linear(to-r, teal.500,green.500)"
+        mb={5}
+      >
+        <VStack justifyContent="center" spacing={5} m="auto">
+          <Attribute config={{ size: 'xl', name: name }} code={mentee} attribute="PRI_IMAGE_URL" />
+          <Attribute config={{ textStyle: 'head.3' }} code={mentee} attribute="PRI_NAME" />
+        </VStack>
+        <VStack>
+          <Attribute code={mentee} attribute="PRI_VIDEO_URL" />
+        </VStack>
+      </Flex>
+
       <HStack w="90%">
         <DetailCards detailsection={personalDetails} currentMentor={mentee} miniCard />
         <DetailCards detailsection={professionalDetails} currentMentor={mentee} miniCard />
