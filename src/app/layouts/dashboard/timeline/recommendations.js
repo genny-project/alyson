@@ -13,7 +13,6 @@ const Recommendation = ({ setShowDetailView, setCurrentMentor }) => {
 
   const dashboardSbes = useSelector(selectDashboard)
   const allMentorsCode = dashboardSbes && find(includes('_SUMMARY_MENTORS_'))(dashboardSbes)
-  // const matchedMentorsCode = dashboardSbes && find(includes('_MATCHED_MENTORS_'))(dashboardSbes)
   const allMentors = useSelector(selectRows(allMentorsCode))
 
   return (
