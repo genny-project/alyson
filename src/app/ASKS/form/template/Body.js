@@ -6,7 +6,7 @@ const FormBody = ({ groups, onFinish, questionCode, paginated }) => {
   const [adjGroups, setAdjGroups] = useState(groups)
 
   return adjGroups.map(({ label, questions, subHeader, video }, idx) =>
-    idx === group ? (
+    idx === group || !paginated ? (
       <Group
         {...{
           paginated,
