@@ -1,5 +1,5 @@
-import { Center, Divider, HStack, Text, Wrap, WrapItem } from '@chakra-ui/layout'
-import { add, filter, flatten, identity, remove } from 'ramda'
+import { Divider, HStack, Text, WrapItem } from '@chakra-ui/layout'
+import { filter, flatten, identity, remove } from 'ramda'
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { selectAttributes } from 'redux/db/selectors'

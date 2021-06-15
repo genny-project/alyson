@@ -1,4 +1,4 @@
-import { Center, Divider, HStack, Text, Wrap, WrapItem } from '@chakra-ui/layout'
+import { Center, HStack, Wrap } from '@chakra-ui/layout'
 import { dec, inc } from 'ramda'
 import { faArrowAltCircleLeft, faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
