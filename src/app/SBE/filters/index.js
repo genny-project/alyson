@@ -36,7 +36,7 @@ const Filters = ({ sbeCode }) => {
       <Popover isLazy>
         <PopoverTrigger>
           <Button
-            test-id={'filters'}
+            test-id={sbeCode + '-FILTERS'}
             ref={triggerRef}
             leftIcon={<FontAwesomeIcon icon={faFilter} />}
             colorScheme="primary"

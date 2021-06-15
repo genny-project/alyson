@@ -8,7 +8,7 @@ import defaultTimeZones from 'utils/helpers/time-zone.json'
 
 let places
 
-const PlacesAutocomplete = ({ onSelect }) => {
+const PlacesAutocomplete = ({ onSelect, questionCode }) => {
   const inputRef = useRef(null)
   const [input, setInput] = useState('')
 
@@ -34,13 +34,22 @@ const PlacesAutocomplete = ({ onSelect }) => {
     <div>
       <Text m="1">What is a city inside your preferred timezone?</Text>
       <InputGroup>
-        <Input ref={inputRef} value={input} onChange={e => setInput(e.target.value)} />
+        <Input
+          test-id={questionCode}
+          ref={inputRef}
+          value={input}
+          onChange={e => setInput(e.target.value)}
+        />
         <InputRightAddon>
           <Menu>
             <MenuButton>Select From A List</MenuButton>
             <MenuList maxH="20rem" overflowY="scroll">
               {Object.entries(defaultTimeZones).map(([key, value]) => (
-                <MenuItem key={key} onClick={() => onSelect(value)}>{`${key}: ${value}`}</MenuItem>
+                <MenuItem
+                  test-id={value}
+                  key={key}
+                  onClick={() => onSelect(value)}
+                >{`${key}: ${value}`}</MenuItem>
               ))}
             </MenuList>
           </Menu>

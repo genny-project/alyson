@@ -1,10 +1,18 @@
-import { Center, Divider, HStack, Text, Wrap, WrapItem } from '@chakra-ui/layout'
+import { Center, HStack, Wrap } from '@chakra-ui/layout'
 import { dec, inc } from 'ramda'
 import { faArrowAltCircleLeft, faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconButton } from '@chakra-ui/button'
+import TimelineItem from './TimelineItem'
 
-const Timeline = ({ groups, group: curGroup, setGroup, disableNext }) => {
+const Timeline = ({
+  groups,
+  group: curGroup,
+  setGroup,
+  disableNext,
+  questionCode,
+  setAdjGroups,
+}) => {
   const textStyle = idx => (idx === curGroup ? 'body.1' : 'body.3')
   return (
     <HStack my="4" w="full">
@@ -19,28 +27,19 @@ const Timeline = ({ groups, group: curGroup, setGroup, disableNext }) => {
       <Center w="full">
         <Wrap w="80%" align="center" justify="center">
           {groups.map((group, idx) => (
-            <WrapItem key={idx}>
-              {idx === groups.length - 1 ? (
-                <Text
-                  cursor={idx > curGroup && disableNext ? '' : 'pointer'}
-                  onClick={() => (idx > curGroup && disableNext ? null : setGroup(idx))}
-                  textStyle={textStyle(idx)}
-                >
-                  {group.label}
-                </Text>
-              ) : (
-                <HStack>
-                  <Text
-                    cursor={idx > curGroup && disableNext ? '' : 'pointer'}
-                    onClick={() => (idx > curGroup && disableNext ? null : setGroup(idx))}
-                    textStyle={textStyle(idx)}
-                  >
-                    {group.label}
-                  </Text>
-                  <Divider orientation="horizontal" w="2rem" />
-                </HStack>
-              )}
-            </WrapItem>
+            <TimelineItem
+              {...{
+                setAdjGroups,
+                questionCode,
+                idx,
+                groups,
+                curGroup,
+                disableNext,
+                setGroup,
+                textStyle,
+                group,
+              }}
+            />
           ))}
         </Wrap>
       </Center>

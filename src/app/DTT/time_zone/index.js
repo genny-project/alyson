@@ -22,13 +22,15 @@ const Write = ({ questionCode, onSendAnswer, data }) => {
           {data?.value || timeZone}
         </Text>
       </HStack>
-      <Button onClick={() => setConfirm(false)}>Not right?</Button>
+      <Button test-id={questionCode} onClick={() => setConfirm(false)}>
+        Not right?
+      </Button>
     </VStack>
   ) : confirm ? (
     <Text>{`Thanks, your timezone is ${data?.value}`}</Text>
   ) : (
     <PlacesAutocomplete
-      test-id={questionCode}
+      questionCode={questionCode}
       onSelect={selection => {
         onSendAnswer(selection)
         setConfirm(true)

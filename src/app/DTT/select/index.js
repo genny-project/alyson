@@ -51,7 +51,7 @@ const Write = ({
     return (
       <CSelect onChange={e => onSendAnswer(e.target.value)} placeholder={placeholder || 'Select'}>
         {options.map(({ value, label }) => (
-          <option value={value} key={value}>
+          <option test-id={value} value={value} key={value}>
             {label}
           </option>
         ))}
@@ -61,12 +61,13 @@ const Write = ({
   return (
     <Autocomplete
       placeholder={!options.length ? 'Start typing to search' : placeholder || 'Select'}
-      test-id={groupCode}
       options={options}
       onChange={onSendAnswer}
       defaultValue={defaultValue}
       multiple={multiple}
       ddEvent={ddEvent}
+      questionCode={questionCode}
+      groupCode={groupCode}
     />
   )
 }

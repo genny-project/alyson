@@ -116,18 +116,19 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
           <Stack direction={['column', 'row']} justify="flex-end" w="100%" pr="10">
             <Box>
               <a href={config.explanation_video} target="_blank" rel="noreferrer">
-                <Button colorScheme="green" variant="outline">
+                <Button test-id={`${questionCode}-example`} colorScheme="green" variant="outline">
                   {config.explanation_video_title || `View Instructions`}
                 </Button>
               </a>
             </Box>
             <Button
-              test-id={questionCode + '-start'}
+              test-id={`${questionCode}-start`}
               leftIcon={<FontAwesomeIcon icon={faVideo} />}
               onClick={() => setStartVideo(true)}
               colorScheme="primary"
             >{`Get Started!`}</Button>
             <Button
+              test-id={`${questionCode}-upload`}
               onClick={setUpload.on}
               colorScheme="green"
               leftIcon={<FontAwesomeIcon icon={faSave} />}
