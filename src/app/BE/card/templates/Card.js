@@ -8,11 +8,13 @@ import ContextMenu from 'app/BE/context'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 import MainDetails from './MainDetails'
-import { includes } from 'ramda'
+import { equals, includes } from 'ramda'
 import AgentDetail from './AgentDetail'
 import sameValue from 'redux/utils/same-value'
 import Card from 'app/layouts/components/card'
 import { motion } from 'framer-motion'
+import getUserType from 'utils/helpers/get-user-type'
+import sameLength from 'redux/utils/same-length'
 
 const MotionBox = motion(Box)
 
@@ -22,6 +24,9 @@ const DefaultCard = ({ parentCode, actions = [], code, columns }) => {
   const image = useSelector(selectCode(code, 'PRI_IMAGE_URL'), sameValue)
   const statusColor = useSelector(selectCode(code, 'PRI_STATUS_COLOR'), sameValue)
   const color = useColorModeValue(`${statusColor?.value}.50`, `${statusColor?.value}.900`)
+
+  const userCode = useSelector(selectCode('USER'), equals)
+  const userType = getUserType(useSelector(selectCode(userCode), sameLength))
 
   return (
     <MotionBox w="full" whileHover={{ scale: 1.02 }} transition={{ duration: 0.1 }}>
@@ -76,7 +81,9 @@ const DefaultCard = ({ parentCode, actions = [], code, columns }) => {
             }
           />
         </Flex>
-        <AgentDetail code={code} parentCode={parentCode} />
+        {(userType === 'AGENT' || userType === 'ADMIN') && (
+          <AgentDetail code={code} parentCode={parentCode} />
+        )}
       </Card>
     </MotionBox>
   )

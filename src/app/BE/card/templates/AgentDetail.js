@@ -1,41 +1,21 @@
-import { Flex, HStack, Spacer, Text } from '@chakra-ui/layout'
-import ImageType from 'app/DTT/upload/Image'
-import { always, equals, includes } from 'ramda'
+import { HStack } from '@chakra-ui/react'
+import Attribute from 'app/BE/attribute'
+import { always, includes } from 'ramda'
 import { useSelector } from 'react-redux'
-import { selectAttributes, selectCode } from 'redux/db/selectors'
-import sameLength from 'redux/utils/same-length'
-import getUserType from 'utils/helpers/get-user-type'
+import { selectCode } from 'redux/db/selectors'
+import SigDetails from './SigDetails'
 
 const AgentDetail = ({ code, parentCode }) => {
-  const userCode = useSelector(selectCode('USER'), equals)
-
-  const userType = getUserType(useSelector(selectCode(userCode), sameLength))
-
-  const [agentName, agentImage, agentCode] = useSelector(
-    selectAttributes(code, [
-      includes('APP_', parentCode || '') ? 'PRI_AGENT_NAME' : 'PRI_LNK_AGENT__PRI_NAME',
-      includes('APP_', parentCode || '') ? 'PRI_AGENT_IMAGE' : 'PRI_LNK_AGENT__PRI_IMAGE_URL',
-      'LNK_AGENT',
-    ]),
-    always(true),
-  )
+  const agentCode = useSelector(selectCode(code, 'LNK_AGENT'), always(true))
 
   const agentPerCode = agentCode?.value
 
-  return (userType === 'AGENT' || userType === 'ADMIN') && agentPerCode ? (
-    <Flex w="full">
-      <Spacer />
-      <HStack>
-        <Text textStyle="tail.2">{agentName?.value}</Text>
-        <ImageType.Read
-          code={agentPerCode}
-          config={{ size: 'sm' }}
-          data={agentImage}
-          parentCode={parentCode}
-        />
-      </HStack>
-    </Flex>
-  ) : null
+  return (
+    <HStack mt="3" w="full" justify="flex-end">
+      {includes('SBE_OFFERED_', parentCode) && <SigDetails code={code} />}
+      <Attribute code={agentPerCode} config={{ size: 'xs' }} attribute="PRI_IMAGE_URL" />
+    </HStack>
+  )
 }
 
 export default AgentDetail
