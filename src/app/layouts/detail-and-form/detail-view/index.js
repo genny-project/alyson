@@ -34,11 +34,12 @@ const DetailView = () => {
         <Spacer />
         <Attribute config={{ textStyle: 'head.3' }} code={mentee} attribute="PRI_NAME" />
       </VStack>
-      <HStack w="90%" mb={5}>
+      <HStack w="90%">
         <DetailCards detailsection={personalDetails} currentMentor={mentee} miniCard />
         <DetailCards detailsection={professionalDetails} currentMentor={mentee} miniCard />
       </HStack>
       <DetailCards detailsection={preference} currentMentor={mentee} />
+      <Attribute code={mentee} attribute="PRI_VIDEO_URL" />
     </Flex>
   )
 }

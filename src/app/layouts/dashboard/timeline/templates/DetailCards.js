@@ -13,6 +13,7 @@ const DetailCards = ({ detailsection, currentMentor, miniCard }) => {
       alignItems="flex-start"
       bg={cardsbg}
       minH={miniCard ? '17rem' : 'inherit'}
+      mb={5}
     >
       <Text textStyle="head.2" mb={5}>
         {header}
