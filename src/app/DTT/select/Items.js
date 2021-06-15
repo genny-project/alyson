@@ -49,7 +49,6 @@ const ItemsForAutocomplete = ({
   const maxW = useMobileValue(['', '25vw'])
   return (
     <Card
-      ref={ref}
       overflow="hidden"
       zIndex="modal"
       position="absolute"
@@ -59,11 +58,15 @@ const ItemsForAutocomplete = ({
       p={0}
       onMouseEnter={() => setFocus(null)}
       onMouseLeave={() => setFocus(0)}
-      onBlur={() => {
-        !isMobile && setOpen(false)
-      }}
     >
-      <VStack borderRadius="md" spacing={0} align="stretch" overflowY="scroll" maxH="20rem">
+      <VStack
+        ref={ref}
+        borderRadius="md"
+        spacing={0}
+        align="stretch"
+        overflowY="scroll"
+        maxH="20rem"
+      >
         {filteredOptions.length ? (
           filteredOptions.map((option, idx) => (
             <Item
