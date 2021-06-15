@@ -16,6 +16,7 @@ const DetailView = () => {
   const mentee = menteeCodes?.[0]
   const name = useSelector(selectCode(mentee, 'PRI_NAME'))?.value
   const bg = useColorModeValue('gray.100', 'gray.700')
+  const cardsbg = useColorModeValue('#ffffff', 'gray.600')
 
   return (
     <Flex
@@ -34,12 +35,14 @@ const DetailView = () => {
         <Spacer />
         <Attribute config={{ textStyle: 'head.3' }} code={mentee} attribute="PRI_NAME" />
       </VStack>
+      <VStack bg={cardsbg} mb={5}>
+        <Attribute code={mentee} attribute="PRI_VIDEO_URL" config={{ background: 'red' }} />
+      </VStack>
       <HStack w="90%">
         <DetailCards detailsection={personalDetails} currentMentor={mentee} miniCard />
         <DetailCards detailsection={professionalDetails} currentMentor={mentee} miniCard />
       </HStack>
       <DetailCards detailsection={preference} currentMentor={mentee} />
-      <Attribute code={mentee} attribute="PRI_VIDEO_URL" />
     </Flex>
   )
 }
