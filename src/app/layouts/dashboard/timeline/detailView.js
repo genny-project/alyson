@@ -20,6 +20,7 @@ import {
 } from 'app/layouts/dashboard/timeline/templates/CardContent'
 import { selectCode } from 'redux/db/selectors'
 import { onSendMessage } from 'vertx'
+
 const DetailView = ({ setShowDetailView, currentMentor }) => {
   const name = useSelector(selectCode(currentMentor, 'PRI_NAME'))?.value
   const bg = useColorModeValue('gray.100', 'gray.700')
