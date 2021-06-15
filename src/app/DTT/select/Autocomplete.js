@@ -118,19 +118,21 @@ const Autocomplete = ({
         </InputRightElement>
       </InputGroup>
       <Box test-id={groupCode} display={open ? 'block' : 'none'}>
-        <ItemsForAutocomplete
-          {...{
-            focusInput,
-            onSelectChange,
-            userType,
-            selected,
-            createNew,
-            input,
-            searching,
-            filteredOptions,
-            setOpen,
-          }}
-        />
+        {open && (
+          <ItemsForAutocomplete
+            {...{
+              focusInput,
+              onSelectChange,
+              userType,
+              selected,
+              createNew,
+              input,
+              searching,
+              filteredOptions,
+              setOpen,
+            }}
+          />
+        )}
       </Box>
     </Box>
   )
