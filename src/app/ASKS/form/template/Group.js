@@ -23,6 +23,7 @@ const Group = ({
   questionCode,
   setGroup,
   paginated,
+  setAdjGroups,
 }) => {
   const asks = flatten(questions)
 
@@ -45,11 +46,22 @@ const Group = ({
 
   const disableNext = !!mandatoryQuestionsNoValue.length
 
+  if (!paginated && !questionDatas.length) return null
+
   return (
     <Box display={!paginated || idx === group ? 'block' : 'none'} w="full" key={label}>
       <Card>
-        <Center display={!!paginated ? 'block' : 'none'} w="full">
-          <Timeline groups={groups} group={group} setGroup={setGroup} disableNext={disableNext} />
+        <Center w="full">
+          {paginated && (
+            <Timeline
+              setAdjGroups={setAdjGroups}
+              questionCode={questionCode}
+              groups={groups}
+              group={group}
+              setGroup={setGroup}
+              disableNext={disableNext}
+            />
+          )}
         </Center>
 
         <VStack align="start" spacing={8}>

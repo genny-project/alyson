@@ -20,6 +20,7 @@ const Autocomplete = ({
   onChange,
   placeholder,
   ddEvent,
+  groupCode,
 }) => {
   const selected = defaultValue
   const [input, setInput] = useState('')
@@ -79,12 +80,13 @@ const Autocomplete = ({
       ref={ref}
       w="full"
       maxW={maxW}
+      test-id={questionCode}
     >
       <Box pb="2" display={selected.length ? 'block' : 'none'}>
         <Wrap w="full" maxW={maxW}>
           {selected.map(item => (
             <WrapItem key={item}>
-              <Chip onClick={() => onSelectChange(item)} p="2">
+              <Chip test-id={item} onClick={() => onSelectChange(item)} p="2">
                 {renderLabel(item)}
               </Chip>
             </WrapItem>
@@ -115,20 +117,22 @@ const Autocomplete = ({
           </Box>
         </InputRightElement>
       </InputGroup>
-      <Box display={open ? 'block' : 'none'}>
-        <ItemsForAutocomplete
-          {...{
-            focusInput,
-            onSelectChange,
-            userType,
-            selected,
-            createNew,
-            input,
-            searching,
-            filteredOptions,
-            setOpen,
-          }}
-        />
+      <Box test-id={groupCode} display={open ? 'block' : 'none'}>
+        {open && (
+          <ItemsForAutocomplete
+            {...{
+              focusInput,
+              onSelectChange,
+              userType,
+              selected,
+              createNew,
+              input,
+              searching,
+              filteredOptions,
+              setOpen,
+            }}
+          />
+        )}
       </Box>
     </Box>
   )

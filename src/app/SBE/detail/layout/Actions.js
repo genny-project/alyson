@@ -22,6 +22,7 @@ const DetailActions = ({ sbeCode, beCode }) => {
         <Menu>
           <MenuButton>
             <IconButton
+              test-id={'detail-view-actions'}
               colorScheme="primary"
               variant="outline"
               icon={<FontAwesomeIcon icon={faEllipsisH} />}

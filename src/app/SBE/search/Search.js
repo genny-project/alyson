@@ -48,6 +48,7 @@ const ProcessSearch = ({ sbeCode, process }) => {
               <FontAwesomeIcon color="lightgrey" icon={faSearch} />
             </InputLeftElement>
             <Input
+              test-id={`${sbeCode}-SCH_WILDCARD`}
               defaultValue={search?.value || ''}
               ref={inputRef}
               value={searchValue}
