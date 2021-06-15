@@ -30,7 +30,7 @@ const DetailActions = ({ sbeCode, beCode }) => {
           </MenuButton>
           <MenuList>
             {tail(actions).map(action => (
-              <Action parentCode={sbeCode} code={action} targetCode={beCode} />
+              <Action key={action} parentCode={sbeCode} code={action} targetCode={beCode} />
             ))}
           </MenuList>
         </Menu>
