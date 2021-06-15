@@ -3,8 +3,9 @@ import Group from './Group'
 
 const FormBody = ({ groups, onFinish, questionCode, paginated }) => {
   const [group, setGroup] = useState(0)
+  const [adjGroups, setAdjGroups] = useState(groups)
 
-  return groups.map(({ label, questions, subHeader, video }, idx) => (
+  return adjGroups.map(({ label, questions, subHeader, video }, idx) => (
     <Group
       {...{
         paginated,
@@ -13,11 +14,12 @@ const FormBody = ({ groups, onFinish, questionCode, paginated }) => {
         video,
         idx,
         group,
-        groups,
+        groups: adjGroups,
         questions,
         onFinish,
         questionCode,
         setGroup,
+        setAdjGroups,
       }}
     />
   ))

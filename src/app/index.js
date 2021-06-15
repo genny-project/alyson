@@ -4,10 +4,8 @@ import { Provider } from 'react-redux'
 import store from 'redux/store'
 import { CSSReset } from '@chakra-ui/react'
 import Vertx from 'vertx'
-import { isDev } from 'utils/developer'
 
 const Display = lazy(() => import('app/layouts/display'))
-const Sandbox = lazy(() => import('utils/developer/Sandbox'))
 
 const App = () => {
   return (
@@ -26,19 +24,7 @@ const App = () => {
             )}
           />
           <Route path={`/public`} exact component={() => <Redirect to={{ pathname: '/home' }} />} />
-          <Route
-            path={`/sandbox`}
-            exact
-            component={() =>
-              isDev ? (
-                <Suspense fallback={<div />}>
-                  <Sandbox />
-                </Suspense>
-              ) : (
-                <Redirect to={{ pathname: '/home' }} />
-              )
-            }
-          />
+          <Route path={'/*'} component={() => <Redirect to={{ pathname: '/home' }} />} />
         </Switch>
       </BrowserRouter>
     </Provider>

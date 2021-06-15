@@ -92,6 +92,7 @@ const VideoRecorder = ({ setData, config, setStartVideo }) => {
         />
         <Box pt="5">
           <Button
+            test-id={`toggle-recording`}
             colorScheme="primary"
             leftIcon={<FontAwesomeIcon color={capturing ? 'red' : 'grey'} icon={faRecordVinyl} />}
             onClick={capturing ? onStopCapture : onStartCapture}

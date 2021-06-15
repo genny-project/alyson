@@ -5,7 +5,9 @@ import Ask from 'app/ASKS/ask'
 import Card from 'app/layouts/components/card'
 
 const FormDesktopView = ({ title, onFinish, questionCode, childAsks, config }) => {
-  if (!config?.groups)
+  const { subHeader, groups = [], pagination } = config
+
+  if (!groups.length)
     return (
       <Center>
         <Card mx="25vw" w="full">
@@ -19,8 +21,6 @@ const FormDesktopView = ({ title, onFinish, questionCode, childAsks, config }) =
         </Card>
       </Center>
     )
-
-  const { subHeader, groups = [], pagination } = config
 
   return (
     <VStack mx="20vw" spacing="4">
