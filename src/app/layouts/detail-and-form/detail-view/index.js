@@ -19,22 +19,17 @@ const DetailView = () => {
 
   return (
     <Flex
-      w="50vw"
+      w="60vw"
       bg={bg}
       spacing={4}
-      p="3"
+      py="5"
       overflowY="scroll"
       top="10vh"
       flexDirection="column"
       justifyContent="space-around"
       alignItems="center"
     >
-      <Flex
-        w="90%"
-        justifyContent="space-between"
-        bgGradient="linear(to-r, teal.500,green.500)"
-        mb={5}
-      >
+      <Flex w="90%" justifyContent="space-between" bg="gradient.900" mb={5}>
         <VStack justifyContent="center" spacing={5} m="auto">
           <Attribute config={{ size: 'xl', name: name }} code={mentee} attribute="PRI_IMAGE_URL" />
           <Attribute config={{ textStyle: 'head.3' }} code={mentee} attribute="PRI_NAME" />

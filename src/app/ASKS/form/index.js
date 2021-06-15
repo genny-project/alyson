@@ -6,7 +6,7 @@ import FormMobileView from 'app/ASKS/form/mobile_view'
 import FormDesktopView from 'app/ASKS/form/desktop_view'
 import VideoModules from './variations/video_modules'
 
-const AsksForm = ({ questionCode, onFinish, dialog }) => {
+const AsksForm = ({ questionCode, onFinish, dialog, adjacent }) => {
   const childAsks = useSelector(selectCode(questionCode)) || []
   const title = useSelector(selectCode(questionCode, 'title'))
   const config = useSelector(selectCode(questionCode, 'config'))
@@ -30,6 +30,7 @@ const AsksForm = ({ questionCode, onFinish, dialog }) => {
       onFinish={onFinish}
       questionCode={questionCode}
       config={config}
+      adjacent={adjacent}
     />
   )
 }
