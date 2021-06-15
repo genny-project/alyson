@@ -4,13 +4,13 @@ import Body from '../template/Body'
 import Ask from 'app/ASKS/ask'
 import Card from 'app/layouts/components/card'
 
-const FormDesktopView = ({ title, onFinish, questionCode, childAsks, config }) => {
+const FormDesktopView = ({ title, onFinish, questionCode, childAsks, config, adjacent }) => {
   const { subHeader, groups = [], pagination } = config
 
   if (!groups.length)
     return (
       <Center>
-        <Card mx="25vw" w="full">
+        <Card mx={adjacent ? '5w' : '25vw'} w="full">
           <VStack align="start" spacing={8}>
             <Text textStyle="head.2">{title}</Text>
             {config?.subHeader && <Text textStyle="body.3">{config.subHeader}</Text>}
