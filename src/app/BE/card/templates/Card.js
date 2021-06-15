@@ -41,12 +41,13 @@ const DefaultCard = ({ parentCode, actions = [], code, columns }) => {
           : {})}
       >
         <Flex>
-          <HStack>
+          <HStack align="start">
             <Image.Read
               config={{ size: 'lg' }}
               data={image || { baseEntityCode: code }}
               parentCode={parentCode}
             />
+
             <VStack alignItems="start" minW="10rem" maxW="16rem" overflow="hidden" spacing={1}>
               <Text.Read
                 data={title}
@@ -67,6 +68,7 @@ const DefaultCard = ({ parentCode, actions = [], code, columns }) => {
               <MainDetails code={code} columns={columns} parentCode={parentCode} />
             </VStack>
           </HStack>
+
           <Spacer minW="1rem" />
           <ContextMenu
             actions={actions}
