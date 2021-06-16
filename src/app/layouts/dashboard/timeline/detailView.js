@@ -1,28 +1,17 @@
-import { useSelector } from 'react-redux'
-import {
-  Box,
-  VStack,
-  HStack,
-  Spacer,
-  Button,
-  useColorModeValue,
-  useToast,
-  Flex,
-} from '@chakra-ui/react'
+import { Box, HStack, Button, useColorModeValue, useToast, Flex } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons'
-import DetailCards from 'app/layouts/dashboard/timeline/templates/DetailCards'
-import Attribute from 'app/BE/attribute'
+
+import DetailCards from 'app/layouts/components/detail_card'
+import DetailHeader from 'app/layouts/components/detail_header'
 import {
   personalDetails,
   professionalDetails,
   preference,
 } from 'app/layouts/dashboard/timeline/templates/CardContent'
-import { selectCode } from 'redux/db/selectors'
 import { onSendMessage } from 'vertx'
 
 const DetailView = ({ setShowDetailView, currentMentor }) => {
-  const name = useSelector(selectCode(currentMentor, 'PRI_NAME'))?.value
   const bg = useColorModeValue('gray.100', 'gray.700')
   const toast = useToast()
   const sendToast = () =>
@@ -56,15 +45,7 @@ const DetailView = ({ setShowDetailView, currentMentor }) => {
           leftIcon={<FontAwesomeIcon icon={faLongArrowAltLeft} />}
         >{`Mentor Selection`}</Button>
       </Box>
-      <VStack>
-        <Attribute
-          config={{ size: 'xl', name: name }}
-          code={currentMentor}
-          attribute="PRI_IMAGE_URL"
-        />
-        <Spacer />
-        <Attribute config={{ textStyle: 'head.3' }} code={currentMentor} attribute="PRI_NAME" />
-      </VStack>
+      <DetailHeader beCode={currentMentor} />
       <HStack w="90%">
         <DetailCards detailsection={personalDetails} currentMentor={currentMentor} miniCard />
         <DetailCards detailsection={professionalDetails} currentMentor={currentMentor} miniCard />
