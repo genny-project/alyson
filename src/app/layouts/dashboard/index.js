@@ -8,6 +8,7 @@ import { selectCode } from 'redux/db/selectors'
 import getUserType from 'utils/helpers/get-user-type'
 import MenteeDashboard from './mentee'
 import AgentDashboard from './agent'
+import MentorDashboard from './mentor'
 
 const Dashboard = () => {
   const dashboardSbes = useSelector(selectDashboard)
@@ -15,6 +16,7 @@ const Dashboard = () => {
   const userCode = useSelector(selectCode('USER'))
   const userType = getUserType(useSelector(selectCode(userCode)))
 
+  if (userType === 'MENTOR') return <MentorDashboard />
   if (userType === 'MENTEE') return <MenteeDashboard />
   if (userType === 'AGENT' || userType === 'ADMIN') return <AgentDashboard />
 

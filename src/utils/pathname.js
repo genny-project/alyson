@@ -37,9 +37,4 @@ const pathNameLinkedApplication = makePathname({
   code: 'ACT_CONFIRM_MEETING',
 })
 
-const commentsAndRatings = makePathname({
-  parentCode: 'QUE_COMMENTS_GRP',
-  code: 'ACT_SUBMIT_RATINGS',
-})
-
-export { makePathname, readParams, pathNameLinkedApplication, commentsAndRatings }
+export { makePathname, readParams, pathNameLinkedApplication }
