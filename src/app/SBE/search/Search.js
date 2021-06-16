@@ -5,7 +5,6 @@ import {
   InputGroup,
   Button,
   InputLeftElement,
-  VStack,
   InputRightElement,
   IconButton,
 } from '@chakra-ui/react'
@@ -41,50 +40,48 @@ const ProcessSearch = ({ sbeCode, process }) => {
   })
 
   return (
-    <VStack align="start" pb="5">
-      <Stack direction={useIsMobile() ? 'column' : 'row'}>
-        <form onSubmit={handleSubmit}>
-          <InputGroup w="xs" maxW="50vw">
-            <InputLeftElement>
-              <FontAwesomeIcon color="lightgrey" icon={faSearch} />
-            </InputLeftElement>
-            <Input
-              test-id={`${sbeCode}-SCH_WILDCARD`}
-              defaultValue={search?.value || ''}
-              ref={inputRef}
-              value={searchValue}
-              onChange={e => setSearchValue(e.currentTarget.value)}
+    <Stack direction={useIsMobile() ? 'column' : 'row'}>
+      <form onSubmit={handleSubmit}>
+        <InputGroup w="xs" maxW="50vw">
+          <InputLeftElement>
+            <FontAwesomeIcon color="lightgrey" icon={faSearch} />
+          </InputLeftElement>
+          <Input
+            test-id={`${sbeCode}-SCH_WILDCARD`}
+            defaultValue={search?.value || ''}
+            ref={inputRef}
+            value={searchValue}
+            onChange={e => setSearchValue(e.currentTarget.value)}
+          />
+          <InputRightElement>
+            <IconButton
+              variant="ghost"
+              colorScheme="primary"
+              ref={clearRef}
+              icon={<FontAwesomeIcon color="lightgrey" icon={faTimes} />}
+              onClick={handleClear}
             />
-            <InputRightElement>
-              <IconButton
-                variant="ghost"
-                colorScheme="primary"
-                ref={clearRef}
-                icon={<FontAwesomeIcon color="lightgrey" icon={faTimes} />}
-                onClick={handleClear}
-              />
-            </InputRightElement>
-          </InputGroup>
-        </form>
+          </InputRightElement>
+        </InputGroup>
+      </form>
 
+      <Button
+        onClick={handleSubmit}
+        leftIcon={<FontAwesomeIcon icon={faSearch} />}
+        colorScheme="primary"
+      >
+        Search
+      </Button>
+      {search && (
         <Button
-          onClick={handleSubmit}
-          leftIcon={<FontAwesomeIcon icon={faSearch} />}
-          colorScheme="primary"
+          onClick={handleClear}
+          leftIcon={<FontAwesomeIcon icon={faTimes} />}
+          colorScheme="secondary"
         >
-          Search
+          Clear Search
         </Button>
-        {search && (
-          <Button
-            onClick={handleClear}
-            leftIcon={<FontAwesomeIcon icon={faTimes} />}
-            colorScheme="secondary"
-          >
-            Clear Search
-          </Button>
-        )}
-      </Stack>
-    </VStack>
+      )}
+    </Stack>
   )
 }
 export default ProcessSearch
