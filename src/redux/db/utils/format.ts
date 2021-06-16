@@ -64,6 +64,10 @@ export const formatAsk = (state: DBState, replace: Boolean) => (item: Item) => {
 
   if (replace) state[questionCode] = []
 
+  if (!childAsks.length) {
+    initialiseKey(state, `${questionCode}@raw`, item)
+  }
+
   forEach((childAsk: Keyable) => {
     const childAskCode = childAsk.questionCode
 
