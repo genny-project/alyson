@@ -9,12 +9,9 @@ import {
   preference,
 } from 'app/layouts/dashboard/timeline/templates/CardContent'
 import { selectCode } from 'redux/db/selectors'
-import { selectMentee } from 'redux/db/selectors'
 
-const DetailView = () => {
-  const menteeCodes = useSelector(selectMentee)
-  const mentee = menteeCodes?.[0]
-  const name = useSelector(selectCode(mentee, 'PRI_NAME'))?.value
+const DetailView = ({ beCode }) => {
+  const name = useSelector(selectCode(beCode, 'PRI_NAME'))?.value
   const bg = useColorModeValue('gray.100', 'gray.700')
 
   return (
@@ -31,19 +28,19 @@ const DetailView = () => {
     >
       <Flex w="90%" justifyContent="space-between" bg="gradient.900" mb={5}>
         <VStack justifyContent="center" spacing={5} m="auto">
-          <Attribute config={{ size: 'xl', name: name }} code={mentee} attribute="PRI_IMAGE_URL" />
-          <Attribute config={{ textStyle: 'head.3' }} code={mentee} attribute="PRI_NAME" />
+          <Attribute config={{ size: 'xl', name: name }} code={beCode} attribute="PRI_IMAGE_URL" />
+          <Attribute config={{ textStyle: 'head.3' }} code={beCode} attribute="PRI_NAME" />
         </VStack>
         <VStack>
-          <Attribute code={mentee} attribute="PRI_VIDEO_URL" />
+          <Attribute code={beCode} attribute="PRI_VIDEO_URL" />
         </VStack>
       </Flex>
 
       <HStack w="90%">
-        <DetailCards detailsection={personalDetails} currentMentor={mentee} miniCard />
-        <DetailCards detailsection={professionalDetails} currentMentor={mentee} miniCard />
+        <DetailCards detailsection={personalDetails} currentMentor={beCode} miniCard />
+        <DetailCards detailsection={professionalDetails} currentMentor={beCode} miniCard />
       </HStack>
-      <DetailCards detailsection={preference} currentMentor={mentee} />
+      <DetailCards detailsection={preference} currentMentor={beCode} />
     </Flex>
   )
 }
