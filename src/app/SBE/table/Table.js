@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux'
-import { Table, HStack, VStack, useColorModeValue, Box } from '@chakra-ui/react'
+import { Table, HStack, VStack, useColorModeValue, Box, Stack } from '@chakra-ui/react'
 import Header from './Header'
 import getColumns from '../utils/get-columns'
 import getActions, { getTableActions } from '../utils/get-actions'
@@ -12,10 +12,13 @@ import Filters from '../filters'
 import Download from '../download'
 import Action from 'app/BE/action'
 import Card from 'app/layouts/components/card'
+import { useIsMobile } from 'utils/hooks'
 
 const DataTable = ({ parentCode }) => {
   const tableData = useSelector(selectCode(parentCode))
   const bgColor = useColorModeValue('white', 'gray.700')
+
+  const isMobile = useIsMobile()
 
   if (!tableData) return null
 
@@ -27,12 +30,12 @@ const DataTable = ({ parentCode }) => {
     <Box mx="5">
       <Card>
         <VStack align="start">
-          <HStack pl="10" align="end" spacing="5">
+          <Stack pl="10" align="end" spacing="3" direction={isMobile ? 'column' : 'row'}>
             <Title sbeCode={parentCode} />
             <Search sbeCode={parentCode} />
             <Filters sbeCode={parentCode} />
             <Download sbeCode={parentCode} />
-          </HStack>
+          </Stack>
           {tableActions && (
             <HStack pl="5">
               {tableActions.map(action => (

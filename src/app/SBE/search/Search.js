@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import {
-  HStack,
+  Stack,
   Input,
   InputGroup,
   Button,
@@ -15,6 +15,7 @@ import { useHotkeys } from 'react-hotkeys-hook'
 import { onSendSearch } from 'vertx'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
+import { useIsMobile } from 'utils/hooks'
 
 const ProcessSearch = ({ sbeCode, process }) => {
   const [searchValue, setSearchValue] = useState('')
@@ -41,7 +42,7 @@ const ProcessSearch = ({ sbeCode, process }) => {
 
   return (
     <VStack align="start" pb="5">
-      <HStack>
+      <Stack direction={useIsMobile() ? 'column' : 'row'}>
         <form onSubmit={handleSubmit}>
           <InputGroup w="xs" maxW="50vw">
             <InputLeftElement>
@@ -82,7 +83,7 @@ const ProcessSearch = ({ sbeCode, process }) => {
             Clear Search
           </Button>
         )}
-      </HStack>
+      </Stack>
     </VStack>
   )
 }
