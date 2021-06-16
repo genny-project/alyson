@@ -7,7 +7,6 @@ import {
   PopoverTrigger,
   PopoverContent,
   IconButton,
-  Badge,
   HStack,
   Box,
   Image,
@@ -48,9 +47,7 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
     return (
       <VStack>
         <video style={{ width: '60rem', borderRadius: '1rem' }} src={src} controls />
-        <Badge variant="subtle" colorScheme="green" mt="2">
-          {`Saved!`}
-        </Badge>
+        <Text textStyle="head.2">{`Congratulations your video has been saved!`}</Text>
         <HStack style={{ marginTop: '40px' }}>
           <Button
             test-id={questionCode + '-clear'}

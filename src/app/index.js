@@ -6,9 +6,15 @@ import { CSSReset } from '@chakra-ui/react'
 
 import Vertx from 'vertx'
 import LinkedApp from 'app/layouts/dashboard/mentee/linked_app'
-import { pathNameLinkedApplication } from 'utils/pathname'
+import { pathNameLinkedApplication, commentsAndRatings } from 'utils/pathname'
 
 const Display = lazy(() => import('app/layouts/display'))
+
+const Rating = () => {
+  return <div>{`Comments and Ratings`}</div>
+}
+
+console.warn('path', pathNameLinkedApplication)
 
 const App = () => {
   return (
@@ -19,6 +25,7 @@ const App = () => {
         <Switch>
           <Route exact path="/" component={() => <Redirect to={{ pathname: '/home' }} />} />
           <Route exact path={pathNameLinkedApplication} component={() => <LinkedApp />} />
+          <Route exact path={commentsAndRatings} component={() => <Rating />} />
           <Route
             path="/home"
             component={() => (
