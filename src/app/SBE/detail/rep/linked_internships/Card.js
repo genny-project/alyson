@@ -1,24 +1,19 @@
 import { useSelector } from 'react-redux'
-import { Box, VStack, Flex, Spacer, useColorModeValue, useTheme, Button } from '@chakra-ui/react'
+import { VStack, Flex, Button } from '@chakra-ui/react'
 import { selectCode } from 'redux/db/selectors'
 import Text from 'app/DTT/text'
 import Attribute from 'app/BE/attribute'
 import { onSendMessage } from 'vertx'
+import Card from 'app/layouts/components/card'
 
-const Card = ({ code, parentCode }) => {
-  const theme = useTheme()
+const InternshipCard = ({ code, parentCode }) => {
   const title = useSelector(selectCode(code, 'PRI_ASSOC_INDUSTRY'))
   const subTitle = useSelector(selectCode(code, 'PRI_NAME'))
 
-  const defaultColor = useColorModeValue(
-    theme.colors.background.light,
-    theme.colors.background.dark,
-  )
-
   return (
-    <Box bg={defaultColor} p="5" w="full" borderWidth="1px" borderRadius="lg">
-      <Flex spacing="3">
-        <VStack alignItems="baseline" w="30rem">
+    <Card>
+      <Flex>
+        <VStack alignItems="baseline">
           <Text.Read
             data={title}
             config={{
@@ -35,9 +30,6 @@ const Card = ({ code, parentCode }) => {
             }}
             data={subTitle}
           />
-        </VStack>
-        <Spacer />
-        <VStack>
           <Attribute code={code} attribute={'PRI_STATUS'} />
           <Button
             size="sm"
@@ -50,8 +42,8 @@ const Card = ({ code, parentCode }) => {
           </Button>
         </VStack>
       </Flex>
-    </Box>
+    </Card>
   )
 }
 
-export default Card
+export default InternshipCard

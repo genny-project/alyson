@@ -10,42 +10,45 @@ import EduProDetail from './edu_pro'
 import DefaultView from './default-view'
 import getDetailType from './helpers/get-detail-type'
 import Application from './application'
+import { head } from 'ramda'
 
 const BaseEntityDetail = ({ targetCode, defaultView }) => {
   const code = useSelector(selectDetail)
   const displayMode = useSelector(selectCode(code, 'SCH_DISPLAY_MODE'))
   const displayType = getDetailType(displayMode?.value)
 
-  if (defaultView) return <DefaultView sbeCode={code} targetCode={targetCode} />
+  const beCode = head(useSelector(selectCode(code, 'rows')) || [targetCode])
+
+  if (defaultView) return <DefaultView sbeCode={code} targetCode={beCode} />
   if (displayType === 'CV') {
-    return <Intern sbeCode={code} targetCode={targetCode} />
+    return <Intern sbeCode={code} targetCode={beCode} />
   }
 
   if (displayType === 'COMPANY') {
-    return <Company sbeCode={code} targetCode={targetCode} />
+    return <Company sbeCode={code} targetCode={beCode} />
   }
 
   if (displayType === 'INTERNSHIP') {
-    return <Internship sbeCode={code} targetCode={targetCode} />
+    return <Internship sbeCode={code} targetCode={beCode} />
   }
 
   if (displayType === 'APPLICATION') {
-    return <Application sbeCode={code} targetCode={targetCode} />
+    return <Application sbeCode={code} targetCode={beCode} />
   }
 
   if (displayType === 'REP') {
-    return <Rep sbeCode={code} targetCode={targetCode} />
+    return <Rep sbeCode={code} targetCode={beCode} />
   }
 
   if (displayType === 'AGENT') {
-    return <Agent sbeCode={code} targetCode={targetCode} />
+    return <Agent sbeCode={code} targetCode={beCode} />
   }
 
   if (displayType === 'EDU_PRO') {
-    return <EduProDetail sbeCode={code} targetCode={targetCode} />
+    return <EduProDetail sbeCode={code} targetCode={beCode} />
   }
 
-  return <DefaultView sbeCode={code} targetCode={targetCode} />
+  return <DefaultView sbeCode={code} targetCode={beCode} />
 }
 
 export default BaseEntityDetail

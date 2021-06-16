@@ -1,7 +1,8 @@
 import { useRef, useEffect } from 'react'
 import { Stack } from '@chakra-ui/react'
+import { useIsMobile } from 'utils/hooks'
 
-const StreetView = ({ address, style = { width: '40rem', height: '30rem' } }) => {
+const StreetView = ({ address, style = { width: '45rem', height: '35rem' } }) => {
   const panoRef = useRef(null)
   const mapRef = useRef(null)
 
@@ -34,10 +35,18 @@ const StreetView = ({ address, style = { width: '40rem', height: '30rem' } }) =>
     })
   }, [address])
 
+  const isMobile = useIsMobile()
+
   return (
     <Stack direction={['column', 'column', 'row']} style={style}>
-      <div ref={panoRef} style={{ borderRadius: '0.5rem', width: '50%', height: '100%' }} />
-      <div ref={mapRef} style={{ borderRadius: '0.5rem', width: '50%', height: '100%' }} />
+      <div
+        ref={panoRef}
+        style={{ borderRadius: '0.5rem', width: isMobile ? '100%' : '50%', height: '100%' }}
+      />
+      <div
+        ref={mapRef}
+        style={{ borderRadius: '0.5rem', width: isMobile ? '100%' : '50%', height: '100%' }}
+      />
     </Stack>
   )
 }

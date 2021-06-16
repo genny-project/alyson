@@ -3,13 +3,13 @@ import { selectProcess } from 'redux/app/selectors'
 import Lane from 'app/SBE/lane'
 import { Stack, VStack, HStack } from '@chakra-ui/react'
 import Search from 'app/SBE/search/Search'
-import Form from '../form'
-import { selectCode } from 'redux/db/selectors'
+// import Form from '../form'
+// import { selectCode } from 'redux/db/selectors'
 
 const Process = ({ dashboard }) => {
   const processCodes = useSelector(selectProcess)
 
-  const processSearch = useSelector(selectCode('QUE_BUCKET_INTERNS_GRP', 'QUE_SELECT_INTERN'))
+  // const processSearch = useSelector(selectCode('QUE_BUCKET_INTERNS_GRP', 'QUE_SELECT_INTERN'))
   if (!processCodes) return null
   return (
     <VStack align="start" spacing={0} px="5">
