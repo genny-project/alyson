@@ -129,5 +129,9 @@ export const formatDropdownLinks = (
 
   initialiseKey(state, key, [])
 
-  state[key] = (state[key] as Array<Keyable>).concat(items)
+  if (replace) {
+    state[key] = items
+  } else {
+    state[key] = (state[key] as Array<Keyable>).concat(items)
+  }
 }
