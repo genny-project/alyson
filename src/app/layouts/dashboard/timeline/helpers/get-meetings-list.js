@@ -6,7 +6,7 @@ import { selectCode, selectRows } from 'redux/db/selectors'
 
 const useGetMeetingList = () => {
   const dashboardSbes = useSelector(selectDashboard)
-  const meetingsSbe = dashboardSbes && find(includes('_APPLICATIONS_MEETING_'))(dashboardSbes)
+  const meetingsSbe = dashboardSbes && find(includes('_APPLICATION_'))(dashboardSbes)
   const meetingRows = useSelector(selectRows(meetingsSbe))
   const applicationCode = pathOr([], [0])(meetingRows)
 
