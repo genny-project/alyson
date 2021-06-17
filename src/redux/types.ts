@@ -15,6 +15,8 @@ export interface MsgPayload {
   targetCodes?: Array<TargetCode>
   linkedApps?: string
   code?: string
+  questionCode?: string
+  linkCode?: 'LNK_CORE'
 }
 
 export interface CmdPayload {

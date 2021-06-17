@@ -42,9 +42,9 @@ const appSlice = createSlice({
       if (data_type === 'BaseEntity') setDisplayCode(state)(items)
       // if (data_type === 'Note') state.NOTES = payload
 
-      if (isAsk(data_type)) {
+      if (isAsk(data_type || '')) {
         const questionCode: string = getQuestionCode(items)
-        if (isForm(questionCode)) state.FORM = questionCode
+        if (isForm(questionCode || '')) state.FORM = questionCode
       }
     },
     sendMessage: (state, { payload }) => {

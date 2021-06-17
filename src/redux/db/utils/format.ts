@@ -64,6 +64,10 @@ export const formatAsk = (state: DBState, replace: Boolean) => (item: Item) => {
 
   if (replace) state[questionCode] = []
 
+  if (!childAsks.length) {
+    initialiseKey(state, `${questionCode}@raw`, item)
+  }
+
   forEach((childAsk: Keyable) => {
     const childAskCode = childAsk.questionCode
 
@@ -111,5 +115,23 @@ export const formatGroupData = (
     state[parentCode] = (state[parentCode] as Array<Keyable>).concat(formatted)
   } else {
     state[parentCode] = filter(({ code }) => !includes('GRP_', code), formatted)
+  }
+}
+
+export const formatDropdownLinks = (
+  state: DBState,
+  parentCode: string,
+  questionCode: string,
+  items: Array<Item>,
+  replace: Boolean,
+) => {
+  const key = `${parentCode}-${questionCode}-dropdowns`
+
+  initialiseKey(state, key, [])
+
+  if (replace) {
+    state[key] = items
+  } else {
+    state[key] = (state[key] as Array<Keyable>).concat(items)
   }
 }
