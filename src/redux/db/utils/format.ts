@@ -117,3 +117,17 @@ export const formatGroupData = (
     state[parentCode] = filter(({ code }) => !includes('GRP_', code), formatted)
   }
 }
+
+export const formatDropdownLinks = (
+  state: DBState,
+  parentCode: string,
+  questionCode: string,
+  items: Array<Item>,
+  replace: Boolean,
+) => {
+  const key = `${parentCode}-${questionCode}-dropdowns`
+
+  initialiseKey(state, key, [])
+
+  state[key] = (state[key] as Array<Keyable>).concat(items)
+}

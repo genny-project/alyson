@@ -5,6 +5,7 @@ import {
   formatAsk,
   formatAttribute,
   formatBaseEntity,
+  formatDropdownLinks,
   formatGroupData,
   formatNotes,
 } from './utils/format'
@@ -22,9 +23,24 @@ const db = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder.addCase(newMsg, (state: DBState, { payload }: { payload: MsgPayload }) => {
-      const { items, data_type, aliasCode, parentCode, replace, linkedApps, code } = payload
+      const {
+        items,
+        data_type,
+        aliasCode,
+        parentCode,
+        replace,
+        linkedApps,
+        code,
+        questionCode,
+        linkCode,
+      } = payload
       if (replace && parentCode) {
         state[`${parentCode}@rows`] = []
+      }
+
+      if (parentCode && linkCode && questionCode) {
+        formatDropdownLinks(state, parentCode, questionCode, items, replace)
+        return
       }
 
       if (parentCode && includes('GRP_', parentCode as string)) {
