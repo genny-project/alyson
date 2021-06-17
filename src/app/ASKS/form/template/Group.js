@@ -28,7 +28,7 @@ const Group = ({
   const asks = flatten(questions)
 
   const { targetCode } = useSelector(selectCode(questionCode, 'QUE_SUBMIT'))
-  const questionDatas = useSelector(selectAttributes(questionCode, asks))
+  const questionDatas = filter(identity, useSelector(selectAttributes(questionCode, asks)))
   const mandatoryQuestions = filter(prop('mandatory'), questionDatas)
   const mandatoryAttributes = map(prop('attributeCode'))(mandatoryQuestions)
   const attributeData = filter(

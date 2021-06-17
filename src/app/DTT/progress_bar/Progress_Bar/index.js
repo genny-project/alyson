@@ -18,7 +18,7 @@ const ProgressBar = props => {
   })()
 
   return (
-    <VStack alignItems="start" w="48">
+    <VStack alignItems="start" w="40">
       <Text mb={1}>{`Internship progress`}</Text>
       <Progress w="full" colorScheme="primary" size="sm" value={completedPercentage} />
       <Text mb={1}>{`Journal progress ${completedJournals || ''}`}</Text>

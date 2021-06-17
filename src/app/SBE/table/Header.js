@@ -1,7 +1,7 @@
 import { Thead, Tr, Th } from '@chakra-ui/react'
 import Cell from './HeaderCell'
 
-const Header = ({ columns, parentCode, actions, tableActions }) => {
+const Header = ({ columns, parentCode, actions }) => {
   return (
     <Thead>
       <Tr>

@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
-import { Button, MenuItem } from '@chakra-ui/react'
+import { Button, IconButton, MenuItem } from '@chakra-ui/react'
 import { onSendMessage } from 'vertx'
 
 const Action = ({
@@ -11,6 +11,7 @@ const Action = ({
   mobile,
   colorScheme,
   isFullWidth,
+  icon,
 }) => {
   const data = useSelector(selectCode(parentCode, code))
 
@@ -22,6 +23,17 @@ const Action = ({
       code,
       targetCode,
     })
+
+  if (icon)
+    return (
+      <IconButton
+        size={size}
+        colorScheme={colorScheme}
+        onClick={handleClick}
+        test-id={code}
+        icon={icon}
+      />
+    )
 
   return mobile ? (
     <MenuItem onClick={handleClick} test-id={code}>

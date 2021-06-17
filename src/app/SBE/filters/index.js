@@ -7,7 +7,7 @@ import {
   PopoverBody,
   PopoverArrow,
   Button,
-  HStack,
+  Stack,
   VStack,
 } from '@chakra-ui/react'
 import Ask from 'app/ASKS/ask'
@@ -15,6 +15,7 @@ import ExistingFilters from './existing_filters'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFilter } from '@fortawesome/free-solid-svg-icons'
 import { useRef } from 'react'
+import { useIsMobile } from 'utils/hooks'
 
 const Filters = ({ sbeCode }) => {
   const triggerRef = useRef()
@@ -29,10 +30,12 @@ const Filters = ({ sbeCode }) => {
     }
   }
 
+  const isMobile = useIsMobile()
+
   if (!addFilters) return null
 
   return (
-    <HStack>
+    <Stack direction={isMobile ? 'column' : 'row'}>
       <Popover isLazy>
         <PopoverTrigger>
           <Button
@@ -41,11 +44,12 @@ const Filters = ({ sbeCode }) => {
             leftIcon={<FontAwesomeIcon icon={faFilter} />}
             colorScheme="primary"
             variant="outline"
+            w="full"
           >
             Filters
           </Button>
         </PopoverTrigger>
-        <PopoverContent w="30vw">
+        <PopoverContent w={isMobile ? '90vw' : '30vw'}>
           <PopoverArrow />
           <PopoverBody>
             <VStack m="5" spacing="5">
@@ -63,7 +67,7 @@ const Filters = ({ sbeCode }) => {
         </PopoverContent>
       </Popover>
       <ExistingFilters existingFilters={existingFilters} />
-    </HStack>
+    </Stack>
   )
 }
 

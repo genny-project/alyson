@@ -8,7 +8,6 @@ import ContextMenu from 'app/BE/context'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 import MainDetails from './MainDetails'
-import AgentDetail from './AgentDetail'
 import sameValue from 'redux/utils/same-value'
 import Card from 'app/layouts/components/card'
 import { motion } from 'framer-motion'
@@ -65,7 +64,6 @@ const DefaultCard = ({ parentCode, actions = [], code, columns }) => {
             }
           />
         </Flex>
-        <AgentDetail code={code} parentCode={parentCode} />
       </Card>
     </MotionBox>
   )
