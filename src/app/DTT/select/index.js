@@ -1,4 +1,4 @@
-import { includes, map, pathOr } from 'ramda'
+import { compose, drop, filter, includes, map, pathOr } from 'ramda'
 import { useSelector } from 'react-redux'
 import { Text, Select as CSelect } from '@chakra-ui/react'
 import debounce from 'lodash.debounce'
@@ -18,13 +18,18 @@ const Write = ({
   data,
   targetCode,
   config,
+  parentCode,
 }) => {
   const sourceCode = useSelector(selectCode('USER'))
 
   const { typeName } = dataType
   const multiple = includes('multiple', typeName || '') || component === 'tag'
   const optionData = useSelector(selectCode(groupCode)) || []
-  const options = map(({ code, name }) => ({ label: name, value: code }))(optionData)
+  const dropdownData = useSelector(selectCode(`${groupCode}-${questionCode}-dropdowns`)) || []
+
+  const options = compose(map(({ code, name }) => ({ label: name, value: code })))(
+    dropdownData.length ? dropdownData : optionData,
+  )
 
   const { attributeCode } = data || {}
 

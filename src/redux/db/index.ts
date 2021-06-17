@@ -39,11 +39,13 @@ const db = createSlice({
       }
 
       if (parentCode && linkCode && questionCode) {
+        // new rule
         formatDropdownLinks(state, parentCode, questionCode, items, replace)
         return
       }
 
       if (parentCode && includes('GRP_', parentCode as string)) {
+        // old rule
         formatGroupData(state, parentCode, items, replace)
         return
       }
