@@ -22,7 +22,7 @@ const MentorDashboard = () => {
               colorScheme="red"
               onClick={() =>
                 onSendMessage({
-                  code: 'ACT_GO_TO_PROFILE',
+                  code: 'ACT_GO_TO_MENTOR_PROFILE',
                   parentCode: 'BTN_CLICK',
                 })
               }
