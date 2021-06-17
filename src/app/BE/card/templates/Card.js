@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux'
-import { Box, HStack, VStack, IconButton, Flex, Spacer, useColorModeValue } from '@chakra-ui/react'
+import { Box, HStack, VStack, IconButton, Flex, Spacer } from '@chakra-ui/react'
 import { selectCode } from 'redux/db/selectors'
 import { getAttribute } from 'app/SBE/utils/get-columns'
 import Text from 'app/DTT/text'
@@ -8,12 +8,9 @@ import ContextMenu from 'app/BE/context'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 import MainDetails from './MainDetails'
-import AgentDetail from './AgentDetail'
 import sameValue from 'redux/utils/same-value'
 import Card from 'app/layouts/components/card'
 import { motion } from 'framer-motion'
-import getUserType from 'utils/helpers/get-user-type'
-import sameLength from 'redux/utils/same-length'
 
 const MotionBox = motion(Box)
 
@@ -24,36 +21,33 @@ const DefaultCard = ({ parentCode, actions = [], code, columns }) => {
 
   return (
     <MotionBox w="full" whileHover={{ scale: 1.02 }} transition={{ duration: 0.1 }}>
-      <Card maxW={['80vw', '80vw', '22rem']} p={[2, 2, 2, 4]} variant="card1">
-        <Flex>
-          <HStack align="start">
+      <Card p={5} variant="card1">
+        <Flex spacing="3">
+          <HStack>
             <Image.Read
-              config={{ size: 'lg' }}
+              config={{ size: 'xl' }}
               data={image || { baseEntityCode: code }}
               parentCode={parentCode}
             />
-
-            <VStack alignItems="start" minW="10rem" maxW="16rem" overflow="hidden" spacing={1}>
+            <VStack alignItems="start" minW="10rem" maxW="16rem" overflow="hidden">
               <Text.Read
                 data={title}
-                config={{
+                textProps={{
                   textStyle: 'body.1',
                   isTruncated: true,
-                  maxW: '10rem',
+                  maxW: '14rem',
                 }}
               />
               <Text.Read
                 config={{
                   as: 'span',
                   textStyle: 'body.3',
-                  defaultValue: 'Unverified',
                 }}
                 data={subTitle}
               />
               <MainDetails code={code} columns={columns} parentCode={parentCode} />
             </VStack>
           </HStack>
-
           <Spacer minW="1rem" />
           <ContextMenu
             actions={actions}
@@ -68,9 +62,6 @@ const DefaultCard = ({ parentCode, actions = [], code, columns }) => {
             }
           />
         </Flex>
-        {(userType === 'AGENT' || userType === 'ADMIN') && (
-          <AgentDetail code={code} parentCode={parentCode} />
-        )}
       </Card>
     </MotionBox>
   )
