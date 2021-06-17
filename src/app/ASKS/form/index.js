@@ -12,7 +12,10 @@ const AsksForm = ({ questionCode, onFinish, dialog, adjacent }) => {
   const config = useSelector(selectCode(questionCode, 'config'))
   const isMobile = useIsMobile()
 
-  if (questionCode === 'QUE_MENTEE_TRAINING_MODULE_ONE_GRP')
+  if (
+    questionCode === 'QUE_MENTEE_TRAINING_MODULE_ONE_GRP' ||
+    questionCode === 'QUE_MENTOR_TRAINING_MODULE_ONE_GRP'
+  )
     return <VideoModules questionCode={questionCode} />
 
   return isMobile || dialog ? (
