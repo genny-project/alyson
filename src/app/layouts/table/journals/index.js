@@ -26,7 +26,8 @@ const Journals = ({ sbeCode }) => {
       <VStack>
         <Card w="44rem" maxW="89vw">
           <VStack>
-            <Text fontWeight="semibold" fontSize="lg">{`${title?.value} - Journals`}</Text>
+            <Text textStyle="head.1">{`${title?.value}`}</Text>
+            <Text textStyle="body.2">{`${rows?.length} Journals`}</Text>
             <Download sbeCode={sbeCode} />
             <HStack>
               {tableActions.map(action => (
