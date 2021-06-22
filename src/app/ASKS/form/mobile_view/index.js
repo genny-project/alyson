@@ -1,14 +1,13 @@
 import Ask from 'app/ASKS/ask'
-import { VStack, Text } from '@chakra-ui/react'
+import { VStack, Text, Box } from '@chakra-ui/react'
 import { map } from 'ramda'
 import Header from '../template/Header'
 import FormBody from '../template/Body'
-import Card from 'app/layouts/components/card'
 
 const FormMobileView = ({ title, childAsks, onFinish, questionCode, config }) => {
   if (!config.groups)
     return (
-      <Card mx="2">
+      <Box>
         <Text w="full" textAlign="center" textStyle="head.1" my="3">
           {title}
         </Text>
@@ -23,7 +22,7 @@ const FormMobileView = ({ title, childAsks, onFinish, questionCode, config }) =>
             />
           ))(childAsks)}
         </VStack>
-      </Card>
+      </Box>
     )
 
   const { subHeader, groups } = config
