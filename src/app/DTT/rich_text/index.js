@@ -120,7 +120,7 @@ const Read = ({ data, mini }) => {
         <PopoverCloseButton />
         <PopoverHeader>{data.attributeName}</PopoverHeader>
         <PopoverBody>
-          <Box pl="4">
+          <Box pl="4" maxH="20rem" overflowY="scroll">
             <div dangerouslySetInnerHTML={{ __html: cleanHtml }} />
           </Box>
         </PopoverBody>
