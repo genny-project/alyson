@@ -11,7 +11,6 @@ import Title from './Title'
 import Filters from '../filters'
 import Download from '../download'
 import Action from 'app/BE/action'
-import Card from 'app/layouts/components/card'
 import { useIsMobile } from 'utils/hooks'
 
 const DataTable = ({ parentCode }) => {
