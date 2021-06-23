@@ -1,9 +1,9 @@
-import { Flex, Spacer, Text } from '@chakra-ui/layout'
+import { Flex, Spacer, Text, Box } from '@chakra-ui/layout'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { includes } from 'ramda'
 
-const Item = ({ option, idx, onSelectChange, focus, selected }) => {
+const Item = ({ option, idx, onSelectChange, focus, selected, maxW }) => {
   const focused = focus === idx
 
   return (
@@ -24,11 +24,17 @@ const Item = ({ option, idx, onSelectChange, focus, selected }) => {
       fontWeight={focused ? 'semibold' : 'normal'}
       _hover={{ fontWeight: 'semibold' }}
       h="2rem"
+      maxW={maxW}
     >
       {includes(option.value, selected) ? (
         <FontAwesomeIcon icon={faCheckCircle} color="green" />
       ) : null}
-      <Text my="1">{option.label}</Text>
+      <Box maxW={`calc(${maxW} - 2rem)`}>
+        <Text textOverflow="clip" noOfLines="1" my="1">
+          {option.label}
+        </Text>
+      </Box>
+
       <Spacer />
       {focus === idx && <Text>⏎</Text>}
     </Flex>

@@ -44,10 +44,10 @@ const Rep = ({ sbeCode, targetCode }) => {
     validation?.value === 'OHS' || validation?.value === 'Ready' ? (
       <Button
         colorScheme="green"
-        onClick={() => onSendMessage({ targetCode, parentCode: sbeCode, code: 'ACT_HCS_DOC' })}
+        onClick={() => onSendMessage({ targetCode, parentCode: sbeCode, code: 'ACT_OHS_DOC' })}
         leftIcon={<FontAwesomeIcon icon={faDownload} />}
       >
-        Host Company Service Agreement
+        {`OH&S Declaration`}
       </Button>
     ) : (
       <Button
@@ -55,7 +55,7 @@ const Rep = ({ sbeCode, targetCode }) => {
         onClick={() => onSendMessage({ targetCode, parentCode: sbeCode, code: 'ACT_OHS_DOC' })}
         leftIcon={<FontAwesomeIcon icon={faEdit} />}
       >
-        OHS Document
+        {`OH&S Declaration`}
       </Button>
     )
 
