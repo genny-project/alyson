@@ -28,9 +28,9 @@ const supervisor = {
       attr: 'PRI_SUPER_NAME',
       label: 'Supervisor',
     },
-    { attr: 'PRI_SUPER_JOB_TITLE', label: 'Role' },
-    { attr: 'PRI_SUPER_JOB_EMAIL', label: 'Email' },
-    { attr: 'PRI_SUPER_JOB_MOBILE', label: 'Mobile' },
+    { attr: 'PRI_SUPER_TITLE', label: 'Role' },
+    { attr: 'PRI_SUPER_EMAIL', label: 'Email' },
+    { attr: 'PRI_SUPER_MOBILE', label: 'Mobile' },
   ],
 }
 
