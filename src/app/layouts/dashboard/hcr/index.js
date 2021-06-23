@@ -1,28 +1,74 @@
 import { Box, HStack, Stack, Text, VStack } from '@chakra-ui/layout'
 import { Button } from '@chakra-ui/button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBriefcase } from '@fortawesome/free-solid-svg-icons'
-import { includes, find } from 'ramda'
+import { faBriefcase, faDownload, faEdit } from '@fortawesome/free-solid-svg-icons'
 import { useSelector } from 'react-redux'
 import { useColorModeValue } from '@chakra-ui/color-mode'
 
-import { selectAttributes } from 'redux/db/selectors'
-import { selectDashboard } from 'redux/app/selectors'
-import DisplaySbe from 'app/SBE'
+import { selectAttributes, selectCode } from 'redux/db/selectors'
 import { callBucketView, onSendMessage } from 'vertx'
-// import Process from 'app/layouts/process'
 import Attribute from 'app/BE/attribute'
 import { useEffect } from 'react'
+import Card from 'app/layouts/components/card'
 
 const HostCompanyRep = ({ userCode }) => {
   const [name, hc, jobTitle] = useSelector(
     selectAttributes(userCode, ['PRI_NAME', 'PRI_ASSOC_HC', 'PRI_JOB_TITLE']),
   )
-  const dashboardSbes = useSelector(selectDashboard)
+  const companyCode = useSelector(selectCode('COMPANY'))
+  const validation = useSelector(selectCode(companyCode, 'PRI_VALIDATION'))
 
-  const serviceAgreement = find(includes('_SERVICE_AGREEMENT_DOC_'))(dashboardSbes)
-  const ohsDeclaration = find(includes('_OHNS_'))(dashboardSbes)
-  const termsAndConditions = find(includes('_TERMS_AND_CONDITIONS_'))(dashboardSbes)
+  const ohs =
+    validation?.value === 'OHS' || validation?.value === 'Ready' ? (
+      <Button
+        colorScheme="green"
+        onClick={() => onSendMessage({ targetCode: companyCode, code: 'ACT_OHS_DOC' })}
+        leftIcon={<FontAwesomeIcon icon={faDownload} />}
+      >
+        {`OH&S Declaration`}
+      </Button>
+    ) : (
+      <Button
+        colorScheme="red"
+        onClick={() => onSendMessage({ targetCode: companyCode, code: 'ACT_OHS_DOC' })}
+        leftIcon={<FontAwesomeIcon icon={faEdit} />}
+      >
+        {`OH&S Declaration`}
+      </Button>
+    )
+
+  const hcs =
+    validation?.value === 'HCS' || validation?.value === 'Ready' ? (
+      <Button
+        colorScheme="green"
+        leftIcon={<FontAwesomeIcon icon={faDownload} />}
+        onClick={() => onSendMessage({ targetCode: companyCode, code: 'ACT_HCS_DOC' })}
+      >
+        Host Company Service Agreement
+      </Button>
+    ) : (
+      <Button
+        colorScheme="red"
+        leftIcon={<FontAwesomeIcon icon={faEdit} />}
+        onClick={() => onSendMessage({ targetCode: companyCode, code: 'ACT_HCS_DOC' })}
+      >
+        Host Company Service Agreement
+      </Button>
+    )
+
+  const documents = (
+    <Card variant="card0" w={'25rem'}>
+      <VStack align="start">
+        <Text textStyle="body.1">
+          {!validation?.value || validation?.value === 'Incomplete'
+            ? 'Please complete documents'
+            : 'Documents'}
+        </Text>
+        {ohs}
+        {hcs}
+      </VStack>
+    </Card>
+  )
 
   const cardBg = useColorModeValue('white', '')
 
@@ -57,10 +103,7 @@ const HostCompanyRep = ({ userCode }) => {
             </HStack>
           </Box>
           <VStack align="stretch" padding="5" bg={cardBg} borderRadius="md" shadow="md">
-            <Text textStyle="body.1">Documents</Text>
-            <DisplaySbe sbeCode={serviceAgreement} />
-            <DisplaySbe sbeCode={ohsDeclaration} />
-            <DisplaySbe sbeCode={termsAndConditions} />
+            {documents}
           </VStack>
         </VStack>
 
