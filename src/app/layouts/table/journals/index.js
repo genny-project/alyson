@@ -27,7 +27,15 @@ const Journals = ({ sbeCode }) => {
         <Card w="44rem" maxW="89vw">
           <VStack>
             <Text textStyle="head.1">{`${title?.value}`}</Text>
-            <Text textStyle="body.2">{`${rows?.length} Journals`}</Text>
+            {rows?.length < 1 ? (
+              <Text textStyle="body.error">{`No Journals`}</Text>
+            ) : rows?.length === 1 ? (
+              <Text textStyle="body.2">{`1 Journal`}</Text>
+            ) : rows?.length > 39 ? (
+              <Text textStyle="body.success">{`${rows?.length} Journals!`}</Text>
+            ) : (
+              <Text textStyle="body.2">{`${rows?.length} Journals`}</Text>
+            )}
             <Download sbeCode={sbeCode} />
             <HStack>
               {tableActions.map(action => (
