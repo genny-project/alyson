@@ -28,29 +28,27 @@ const DataTable = ({ parentCode }) => {
 
   return (
     <Box mx="5">
-      <Card>
-        <VStack align="start">
-          <Stack pl="10" align="end" spacing="3" direction={isMobile ? 'column' : 'row'}>
-            <Title sbeCode={parentCode} />
-            <Search sbeCode={parentCode} />
-            <Filters sbeCode={parentCode} />
-            <Download sbeCode={parentCode} />
-          </Stack>
-          {tableActions && (
-            <HStack pl="5">
-              {tableActions.map(action => (
-                <Action
-                  key={action}
-                  size="md"
-                  colorScheme="purple"
-                  parentCode={parentCode}
-                  code={action}
-                />
-              ))}
-            </HStack>
-          )}
-        </VStack>
-      </Card>
+      <VStack align="start" mb="3">
+        <Stack align="end" spacing="3" direction={isMobile ? 'column' : 'row'}>
+          <Title sbeCode={parentCode} />
+          <Search sbeCode={parentCode} />
+          <Filters sbeCode={parentCode} />
+          <Download sbeCode={parentCode} />
+        </Stack>
+        {tableActions && (
+          <HStack>
+            {tableActions.map(action => (
+              <Action
+                key={action}
+                size="md"
+                colorScheme="purple"
+                parentCode={parentCode}
+                code={action}
+              />
+            ))}
+          </HStack>
+        )}
+      </VStack>
 
       <Table variant="simple" bg={bgColor} borderRadius="md" shadow="xs">
         <Header columns={columns} parentCode={parentCode} actions={actions} />
