@@ -1,6 +1,15 @@
 import { map, includes, find } from 'ramda'
 import { useSelector } from 'react-redux'
-import { Grid, Box, VStack, Text, Spacer, HStack, useColorModeValue } from '@chakra-ui/react'
+import {
+  Grid,
+  Box,
+  VStack,
+  Text,
+  Spacer,
+  HStack,
+  useColorModeValue,
+  Button,
+} from '@chakra-ui/react'
 
 import { selectDashboard } from 'redux/app/selectors'
 import Attribute from 'app/BE/attribute'
@@ -22,7 +31,7 @@ const Recommendation = ({ setShowDetailView, setCurrentMentor }) => {
         textStyle="head.2"
         bg={bg}
         py={5}
-      >{`Please select a Mentor from the suggestions below!`}</Text>
+      >{`Click on the cards below to view the Mentor Profile`}</Text>
       <Spacer />
       <Grid gap={10} bg={bg} overflowY="scroll" h="70vh" mt={5} paddingY={5}>
         {allMentors &&
@@ -52,7 +61,8 @@ const Recommendation = ({ setShowDetailView, setCurrentMentor }) => {
                   attribute="PRI_USER_PROFILE_PICTURE"
                 />
                 <Spacer />
-                <Attribute config={{ textStyle: 'head.2' }} code={mentor} attribute="PRI_NAME" />
+                <Attribute config={{ textStyle: 'body.2' }} code={mentor} attribute="PRI_NAME" />
+                <Button w="full" colorScheme="primary">{`View Profile`}</Button>
               </VStack>
 
               <VStack display="inline">
