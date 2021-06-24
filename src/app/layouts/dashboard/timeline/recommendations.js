@@ -26,12 +26,12 @@ const Recommendation = ({ setShowDetailView, setCurrentMentor }) => {
       <Grid gap={10} bg={bg} overflowY="scroll" h="70vh" mt={5} paddingY={5}>
         {allMentors &&
           map(mentor => (
-            <VStack
+            <HStack
               bg={cardsbg}
               _hover={{ boxShadow: 'dark-lg', rounded: 'md', color: 'white', bg: hoverbg }}
               cursor="pointer"
               w={'70%'}
-              p="3"
+              p="5"
               onClick={() => {
                 setShowDetailView(true)
                 setCurrentMentor(mentor)
@@ -39,22 +39,43 @@ const Recommendation = ({ setShowDetailView, setCurrentMentor }) => {
               m="auto"
               boxShadow="base"
               rounded="md"
+              textAlign="left"
+              spacing={10}
+              justifyContent="space-around"
             >
-              <VStack h="full">
-                <Spacer />
+              <VStack textAlign="center">
                 <Attribute config={{ size: 'xl' }} code={mentor} attribute="PRI_IMAGE_URL" />
                 <Spacer />
                 <Attribute config={{ textStyle: 'head.2' }} code={mentor} attribute="PRI_NAME" />
-                <HStack>
+              </VStack>
+
+              <VStack display="inline">
+                <HStack justifyContent="space-between">
+                  <Text>{`Location:`}</Text>
+                  <Attribute config={{ textStyle: 'body.2' }} code={mentor} attribute="PRI_NAME" />
+                </HStack>
+                <HStack justifyContent="space-between">
+                  <Text>{`Gender:`}</Text>
+                  <Attribute config={{ textStyle: 'body.2' }} code={mentor} attribute="PRI_NAME" />
+                </HStack>
+                <HStack justifyContent="space-between">
+                  <Text>{`Age:`}</Text>
+                  <Attribute config={{ textStyle: 'body.2' }} code={mentor} attribute="PRI_NAME" />
+                </HStack>
+                <HStack justifyContent="space-between">
                   <Text>{`Expertise:`}</Text>
-                  <Attribute
-                    config={{ textStyle: 'body.2' }}
-                    code={mentor}
-                    attribute="PRI_AREA_EXPERTISE"
-                  />
+                  <Attribute config={{ textStyle: 'body.2' }} code={mentor} attribute="PRI_NAME" />
+                </HStack>
+                <HStack justifyContent="space-between">
+                  <Text>{`Industry:`}</Text>
+                  <Attribute config={{ textStyle: 'body.2' }} code={mentor} attribute="PRI_NAME" />
+                </HStack>
+                <HStack justifyContent="space-between">
+                  <Text>{`Rotary Member?`}</Text>
+                  <Attribute config={{ textStyle: 'body.2' }} code={mentor} attribute="PRI_NAME" />
                 </HStack>
               </VStack>
-            </VStack>
+            </HStack>
           ))(allMentors)}
       </Grid>
     </Box>
