@@ -1,6 +1,6 @@
 {
   "name": "alyson-v9",
-  "version": "7.28.0",
+  "version": "9.2.0",
   "private": true,
   "dependencies": {
     "@chakra-ui/react": "^1.6.3",
