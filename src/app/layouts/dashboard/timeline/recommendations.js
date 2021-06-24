@@ -5,6 +5,7 @@ import { Grid, Box, VStack, Text, Spacer, HStack, useColorModeValue } from '@cha
 import { selectDashboard } from 'redux/app/selectors'
 import Attribute from 'app/BE/attribute'
 import { selectRows } from 'redux/db/selectors'
+import { recommendationDetails } from 'app/layouts/dashboard/timeline/templates/CardContent'
 
 const Recommendation = ({ setShowDetailView, setCurrentMentor }) => {
   const bg = useColorModeValue('gray.100', 'gray.700')
@@ -42,38 +43,29 @@ const Recommendation = ({ setShowDetailView, setCurrentMentor }) => {
               textAlign="left"
               spacing={10}
               justifyContent="space-around"
+              key={mentor}
             >
               <VStack textAlign="center">
-                <Attribute config={{ size: 'xl' }} code={mentor} attribute="PRI_IMAGE_URL" />
+                <Attribute
+                  config={{ size: 'xl' }}
+                  code={mentor}
+                  attribute="PRI_USER_PROFILE_PICTURE"
+                />
                 <Spacer />
                 <Attribute config={{ textStyle: 'head.2' }} code={mentor} attribute="PRI_NAME" />
               </VStack>
 
               <VStack display="inline">
-                <HStack justifyContent="space-between">
-                  <Text>{`Location:`}</Text>
-                  <Attribute config={{ textStyle: 'body.2' }} code={mentor} attribute="PRI_NAME" />
-                </HStack>
-                <HStack justifyContent="space-between">
-                  <Text>{`Gender:`}</Text>
-                  <Attribute config={{ textStyle: 'body.2' }} code={mentor} attribute="PRI_NAME" />
-                </HStack>
-                <HStack justifyContent="space-between">
-                  <Text>{`Age:`}</Text>
-                  <Attribute config={{ textStyle: 'body.2' }} code={mentor} attribute="PRI_NAME" />
-                </HStack>
-                <HStack justifyContent="space-between">
-                  <Text>{`Expertise:`}</Text>
-                  <Attribute config={{ textStyle: 'body.2' }} code={mentor} attribute="PRI_NAME" />
-                </HStack>
-                <HStack justifyContent="space-between">
-                  <Text>{`Industry:`}</Text>
-                  <Attribute config={{ textStyle: 'body.2' }} code={mentor} attribute="PRI_NAME" />
-                </HStack>
-                <HStack justifyContent="space-between">
-                  <Text>{`Rotary Member?`}</Text>
-                  <Attribute config={{ textStyle: 'body.2' }} code={mentor} attribute="PRI_NAME" />
-                </HStack>
+                {map(({ label, attribute }) => (
+                  <HStack justifyContent="space-between" key={`${label}-${attribute}`}>
+                    <Text>{label}</Text>
+                    <Attribute
+                      config={{ textStyle: 'body.2' }}
+                      code={mentor}
+                      attribute={attribute}
+                    />
+                  </HStack>
+                ))(recommendationDetails)}
               </VStack>
             </HStack>
           ))(allMentors)}

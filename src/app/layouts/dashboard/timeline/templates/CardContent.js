@@ -1,21 +1,21 @@
 export const personalDetails = {
   header: 'Personal Details',
   attributes: [
-    { attr: 'PRI_FIRSTNAME', label: 'First Name:' },
-    { attr: 'PRI_LASTNAME', label: 'Last Name:' },
-    { attr: 'PRI_EMAIL', label: 'Email:' },
-    { attr: 'PRI_MOBILE', label: 'Mobile:' },
-    { attr: 'PRI_ETH_BACK', label: 'Ethnicity Background:' },
+    { label: 'First Name:', attr: 'PRI_FIRSTNAME' },
+    { label: 'Last Name:', attr: 'PRI_LASTNAME' },
+    { label: 'Email:', attr: 'PRI_EMAIL' },
+    { label: 'Mobile:', attr: 'PRI_MOBILE' },
+    { label: 'Ethnicity Background:', attr: 'PRI_ETH_BACK' },
   ],
 }
 
 export const professionalDetails = {
   header: 'Professional Details',
   attributes: [
-    { attr: 'PRI_AREA_EXPERTISE', label: 'Area of Expertise:' },
-    { attr: 'PRI_STATUS', label: 'Status:' },
-    { attr: 'PRI_TRAINING_STATUS', label: 'Training Status:' },
-    { attr: 'PRI_LINKEDIN_PROFILE_URL', label: 'LinkedIn:' },
+    { label: 'Area of Expertise:', attr: 'PRI_AREA_EXPERTISE' },
+    { label: 'Status:', attr: 'PRI_STATUS' },
+    { label: 'Training Status:', attr: 'PRI_TRAINING_STATUS' },
+    { label: 'LinkedIn:', attr: 'PRI_LINKEDIN_PROFILE_URL' },
   ],
 }
 
@@ -23,3 +23,30 @@ export const preference = {
   header: 'What I Enjoy',
   attributes: [{ attr: 'LNK_HOBBIES_INTEREST' }],
 }
+
+export const recommendationDetails = [
+  {
+    label: 'Location:',
+    attribute: 'PRI_MENTOR_LOC_PREF',
+  },
+  {
+    label: 'Gender:',
+    attribute: 'PRI_GENDER_SELECT',
+  },
+  {
+    label: 'Age:',
+    attribute: 'PRI_AGE',
+  },
+  {
+    label: 'Expertise:',
+    attribute: 'PRI_EXPERTISE',
+  },
+  {
+    label: 'Industry:',
+    attribute: 'PRI_INDUSTRY',
+  },
+  {
+    label: 'Rotary Member?',
+    attribute: 'PRI_NAME',
+  },
+]

@@ -21,7 +21,7 @@ const DetailCards = ({ detailsection, currentMentor, miniCard }) => {
         {header}
       </Text>
       {map(({ attr, label }) => (
-        <HStack>
+        <HStack key={`${label}-${attr}`}>
           <Text>{label}</Text>
           <Attribute config={{ textStyle: 'body.3' }} code={currentMentor} attribute={attr} />
         </HStack>
