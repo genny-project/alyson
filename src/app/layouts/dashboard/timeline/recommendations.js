@@ -31,7 +31,7 @@ const Recommendation = ({ setShowDetailView, setCurrentMentor }) => {
         textStyle="head.2"
         bg={bg}
         py={5}
-      >{`Click on the cards below to view the Mentor Profile`}</Text>
+      >{`Please select a Mentor from the suggestions below!`}</Text>
       <Spacer />
       <Grid gap={10} bg={bg} overflowY="scroll" h="70vh" mt={5} paddingY={5}>
         {allMentors &&
@@ -54,13 +54,12 @@ const Recommendation = ({ setShowDetailView, setCurrentMentor }) => {
               justifyContent="space-around"
               key={mentor}
             >
-              <VStack textAlign="center">
+              <VStack textAlign="center" spacing={5}>
                 <Attribute
                   config={{ size: 'xl' }}
                   code={mentor}
                   attribute="PRI_USER_PROFILE_PICTURE"
                 />
-                <Spacer />
                 <Attribute config={{ textStyle: 'body.2' }} code={mentor} attribute="PRI_NAME" />
                 <Button w="full" colorScheme="primary">{`View Profile`}</Button>
               </VStack>
