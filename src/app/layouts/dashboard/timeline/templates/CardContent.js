@@ -31,15 +31,15 @@ export const recommendationDetails = [
   },
   {
     label: 'Gender:',
-    attribute: 'PRI_GENDER_SELECT',
+    attribute: 'PRI_MENTOR_GENDER',
   },
   {
-    label: 'Age:',
-    attribute: 'PRI_AGE',
+    label: 'Country:',
+    attribute: 'PRI_SELECT_COUNTRY',
   },
   {
     label: 'Expertise:',
-    attribute: 'PRI_EXPERTISE',
+    attribute: 'PRI_OUTPUTS_OF_MENTORING_PROGRAM',
   },
   {
     label: 'Industry:',

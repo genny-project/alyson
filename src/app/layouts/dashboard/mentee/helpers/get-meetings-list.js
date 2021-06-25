@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux'
-import { includes, find, pathOr } from 'ramda'
+import { includes, find, pathOr, map } from 'ramda'
 
 import { selectDashboard } from 'redux/app/selectors'
 import { selectCode, selectRows } from 'redux/db/selectors'
@@ -86,7 +86,10 @@ const useGetMeetingList = () => {
     },
   ]
 
-  return { allMeetings }
+  const checkForUndefinedMeeting = map(({ text }) => text)(allMeetings)
+  const hasUndefinedMeetings = includes(undefined)(checkForUndefinedMeeting)
+
+  return { allMeetings, hasUndefinedMeetings }
 }
 
 export default useGetMeetingList
