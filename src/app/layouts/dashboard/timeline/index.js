@@ -5,12 +5,9 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons'
 
 import Card from 'app/layouts/components/card'
 import { onSendMessage } from 'vertx'
-import getMenteeTimelineItems from 'app/layouts/dashboard/timeline/helpers/get-timeline-items'
 import { complete } from 'utils/constants'
 
-const Timeline = () => {
-  const { items } = getMenteeTimelineItems()
-
+const Timeline = ({ items }) => {
   let totalItems = length(items)
   let numberOfCompletedItems = filter(item => equals(path(['completed'])(item), complete))(items)
   let lengthOfNumberOfCompletedItems = length(numberOfCompletedItems)

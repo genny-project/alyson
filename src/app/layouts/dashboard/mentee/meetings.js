@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle, faVideo, faCalendar } from '@fortawesome/free-solid-svg-icons'
 
 import Card from 'app/layouts/components/card'
-import getMeetingsList from 'app/layouts/dashboard/timeline/helpers/get-meetings-list'
+import getMeetingsList from 'app/layouts/dashboard/mentee/helpers/get-meetings-list'
 
 const Meetings = () => {
   const { allMeetings } = getMeetingsList()

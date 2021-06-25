@@ -1,10 +1,20 @@
 import { map, includes, find } from 'ramda'
 import { useSelector } from 'react-redux'
-import { Grid, Box, VStack, Text, Spacer, HStack, useColorModeValue } from '@chakra-ui/react'
+import {
+  Grid,
+  Box,
+  VStack,
+  Text,
+  Spacer,
+  HStack,
+  useColorModeValue,
+  Button,
+} from '@chakra-ui/react'
 
 import { selectDashboard } from 'redux/app/selectors'
 import Attribute from 'app/BE/attribute'
 import { selectRows } from 'redux/db/selectors'
+import { recommendationDetails } from 'app/layouts/dashboard/timeline/templates/CardContent'
 
 const Recommendation = ({ setShowDetailView, setCurrentMentor }) => {
   const bg = useColorModeValue('gray.100', 'gray.700')
@@ -26,12 +36,12 @@ const Recommendation = ({ setShowDetailView, setCurrentMentor }) => {
       <Grid gap={10} bg={bg} overflowY="scroll" h="70vh" mt={5} paddingY={5}>
         {allMentors &&
           map(mentor => (
-            <VStack
+            <HStack
               bg={cardsbg}
               _hover={{ boxShadow: 'dark-lg', rounded: 'md', color: 'white', bg: hoverbg }}
               cursor="pointer"
               w={'70%'}
-              p="3"
+              p="5"
               onClick={() => {
                 setShowDetailView(true)
                 setCurrentMentor(mentor)
@@ -39,22 +49,34 @@ const Recommendation = ({ setShowDetailView, setCurrentMentor }) => {
               m="auto"
               boxShadow="base"
               rounded="md"
+              textAlign="left"
+              spacing={10}
+              justifyContent="space-around"
+              key={mentor}
             >
-              <VStack h="full">
-                <Spacer />
-                <Attribute config={{ size: 'xl' }} code={mentor} attribute="PRI_IMAGE_URL" />
-                <Spacer />
-                <Attribute config={{ textStyle: 'head.2' }} code={mentor} attribute="PRI_NAME" />
-                <HStack>
-                  <Text>{`Expertise:`}</Text>
-                  <Attribute
-                    config={{ textStyle: 'body.2' }}
-                    code={mentor}
-                    attribute="PRI_AREA_EXPERTISE"
-                  />
-                </HStack>
+              <VStack textAlign="center" spacing={5}>
+                <Attribute
+                  config={{ size: 'xl' }}
+                  code={mentor}
+                  attribute="PRI_USER_PROFILE_PICTURE"
+                />
+                <Attribute config={{ textStyle: 'body.2' }} code={mentor} attribute="PRI_NAME" />
+                <Button w="full" colorScheme="primary">{`View Profile`}</Button>
               </VStack>
-            </VStack>
+
+              <VStack display="inline">
+                {map(({ label, attribute }) => (
+                  <HStack justifyContent="space-between" key={`${label}-${attribute}`}>
+                    <Text>{label}</Text>
+                    <Attribute
+                      config={{ textStyle: 'body.2' }}
+                      code={mentor}
+                      attribute={attribute}
+                    />
+                  </HStack>
+                ))(recommendationDetails)}
+              </VStack>
+            </HStack>
           ))(allMentors)}
       </Grid>
     </Box>

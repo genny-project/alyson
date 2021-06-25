@@ -15,7 +15,7 @@ const DetailHeader = ({ beCode }) => {
             <Attribute
               config={{ size: 'xl', name: name }}
               code={beCode}
-              attribute="PRI_IMAGE_URL"
+              attribute="PRI_USER_PROFILE_PICTURE"
             />
             <Attribute config={{ textStyle: 'head.3' }} code={beCode} attribute="PRI_NAME" />
           </VStack>
@@ -25,7 +25,11 @@ const DetailHeader = ({ beCode }) => {
         </Flex>
       ) : (
         <VStack mb={5}>
-          <Attribute config={{ size: 'xl', name: name }} code={beCode} attribute="PRI_IMAGE_URL" />
+          <Attribute
+            config={{ size: 'xl', name: name }}
+            code={beCode}
+            attribute="PRI_USER_PROFILE_PICTURE"
+          />
           <Spacer />
           <Attribute config={{ textStyle: 'head.3' }} code={beCode} attribute="PRI_NAME" />
         </VStack>
