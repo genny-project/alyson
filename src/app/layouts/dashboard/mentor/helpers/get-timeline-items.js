@@ -2,7 +2,6 @@ import useGetMentorInformation from './get-mentor-information'
 
 const useGetMentorTimelineItems = () => {
   const { profileStatus, trainingStatus, isProfileCompleted } = useGetMentorInformation()
-  console.warn('mentor', { profileStatus, trainingStatus, isProfileCompleted })
 
   const items = [
     {
