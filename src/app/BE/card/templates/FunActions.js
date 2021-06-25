@@ -6,9 +6,9 @@ import { includes } from 'ramda'
 
 const FunActions = ({ code: targetCode, parentCode }) => {
   return (
-    <Box opacity="0.8">
+    <Box opacity="0.6">
       <Action
-        colorScheme="gradient"
+        colorScheme="primary"
         code={
           includes('APP_', targetCode)
             ? 'ACT_PRI_EVENT_ACCESS_NOTES_APPLICATION'
