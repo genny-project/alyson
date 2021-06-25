@@ -1,19 +1,8 @@
-import { useSelector } from 'react-redux'
-import { selectCode } from 'redux/db/selectors'
-import useGetMenteeInformation from './get-mentee-information'
+import useGetMentorInformation from './get-mentor-information'
 
-const useGetMenteeTimelineItems = () => {
-  const userCode = useSelector(selectCode('USER'))
-  const {
-    profileStatus,
-    trainingStatus,
-    selectMentorStatus,
-    meetingWithMentorStatus,
-    isProfileCompleted,
-    isTrainingCompleted,
-    isMentorSelected,
-    isMeetingCompleted,
-  } = useGetMenteeInformation()
+const useGetMentorTimelineItems = () => {
+  const { profileStatus, trainingStatus, isProfileCompleted } = useGetMentorInformation()
+  console.warn('mentor', { profileStatus, trainingStatus, isProfileCompleted })
 
   const items = [
     {
@@ -28,7 +17,7 @@ const useGetMenteeTimelineItems = () => {
       description: 'Please complete your profile before you can proceed!',
       buttonText: 'Go to Profile',
       completed: profileStatus,
-      code: 'ACT_GO_TO_PROFILE',
+      code: 'ACT_GO_TO_MENTOR_PROFILE',
       parentCode: 'BTN_CLICK',
     },
     {
@@ -37,33 +26,7 @@ const useGetMenteeTimelineItems = () => {
       buttonText: 'Go to Training',
       completed: trainingStatus,
       isDisabled: !isProfileCompleted,
-      code: 'ACT_PRI_EVENT_START_MENTEE_TRAINING',
-    },
-    {
-      title: 'Select Mentor',
-      description: 'Choose the Mentor that suits you the most!',
-      buttonText: isMentorSelected ? 'Mentor Selected' : 'Go to Mentor Selection',
-      completed: selectMentorStatus,
-      isDisabled: !isTrainingCompleted || isMentorSelected,
-      code: 'ACT_PRI_EVENT_SELECT_MENTOR',
-      targetCode: userCode,
-    },
-    {
-      title: '12 Meetings with Mentors',
-      description: 'Meet and Greet witht the mentors',
-      buttonText: 'Meet & Greet',
-      completed: meetingWithMentorStatus,
-      isDisabled: !isMentorSelected,
-      code: 'ACT_PRI_EVENT_SCHEDULE_MENTORING',
-      parentCode: 'SBE_APPLICATIONS_MEETING',
-      targetCode: userCode,
-    },
-    {
-      title: 'MentorMatch Alumni',
-      description: 'Welcome to Alumni',
-      buttonText: 'Alumni',
-      completed: 'INCOMPLETE',
-      isDisabled: !isMeetingCompleted,
+      code: 'ACT_PRI_EVENT_START_MENTOR_TRAINING',
     },
   ]
 
@@ -72,4 +35,4 @@ const useGetMenteeTimelineItems = () => {
   }
 }
 
-export default useGetMenteeTimelineItems
+export default useGetMentorTimelineItems
