@@ -28,7 +28,6 @@ const Intern = ({ userCode }) => {
 
   return (
     <VStack>
-      <Progress userCode={userCode} />
       <Stack maxW="90vw" direction={['column', 'row']} align="stretch">
         <Card>
           <HStack spacing="5">
