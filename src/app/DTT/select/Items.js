@@ -76,6 +76,7 @@ const ItemsForAutocomplete = ({
               onSelectChange={onSelectChange}
               focus={focus}
               selected={selected}
+              maxW={maxW}
             />
           ))
         ) : searching ? null : userType === 'AGENT' || userType === 'ADMIN' ? (

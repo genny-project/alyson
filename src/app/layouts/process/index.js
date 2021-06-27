@@ -9,18 +9,19 @@ import Ask from 'app/ASKS/ask'
 const Process = ({ dashboard }) => {
   const processCodes = useSelector(selectProcess)
 
-  const bucketSearch = useSelector(selectCode('QUE_BUCKET_INTERNS_GRP'))
+  const bucketSearch = useSelector(selectCode('QUE_BUCKET_INTERNS_GRP')) || []
 
   if (!processCodes) return null
   return (
     <VStack align="start" spacing={0} px="5">
       {!dashboard && (
-        <HStack>
-          {bucketSearch.map(childAsk => (
-            <Box mb="8">
-              <Ask questionCode={childAsk} parentCode={'QUE_BUCKET_INTERNS_GRP'} />
-            </Box>
-          ))}
+        <HStack mb="5">
+          {bucketSearch &&
+            bucketSearch.map(childAsk => (
+              <Box>
+                <Ask questionCode={childAsk} parentCode={'QUE_BUCKET_INTERNS_GRP'} />
+              </Box>
+            ))}
           <Search process={processCodes[0]} sbeCode={JSON.stringify(processCodes)} />
         </HStack>
       )}
