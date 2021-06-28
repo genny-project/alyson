@@ -21,7 +21,7 @@ const Lane = ({ sbeCode, dashboard, width }) => {
       className="nobar"
       h="full"
       overflowY="scroll"
-      minW="15vw"
+      minW="14vw"
     >
       <VStack>
         <Title sbeCode={sbeCode} />
