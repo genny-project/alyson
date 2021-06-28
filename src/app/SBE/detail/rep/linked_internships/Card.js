@@ -11,7 +11,7 @@ const InternshipCard = ({ code, parentCode }) => {
   const subTitle = useSelector(selectCode(code, 'PRI_NAME'))
 
   return (
-    <Card>
+    <Card w="full">
       <Flex>
         <VStack alignItems="baseline">
           <Text.Read
