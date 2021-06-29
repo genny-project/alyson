@@ -80,7 +80,7 @@ const Autocomplete = ({
       ref={ref}
       w="full"
       maxW={maxW}
-      test-id={questionCode}
+      test-id={`${questionCode}-div`}
     >
       <Box pb="2" display={selected.length ? 'block' : 'none'}>
         <Wrap w="full" maxW={maxW}>
