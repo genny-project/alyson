@@ -18,11 +18,15 @@ const Process = ({ dashboard }) => {
         <HStack mb="5">
           {bucketSearch &&
             bucketSearch.map(childAsk => (
-              <Box>
-                <Ask questionCode={childAsk} parentCode={'QUE_BUCKET_INTERNS_GRP'} />
+              <Box width={'20rem'}>
+                <Ask noLabel questionCode={childAsk} parentCode={'QUE_BUCKET_INTERNS_GRP'} />
               </Box>
             ))}
-          <Search process={processCodes[0]} sbeCode={JSON.stringify(processCodes)} />
+          <Search
+            placeholder={'Search all attributes'}
+            process={processCodes[0]}
+            sbeCode={JSON.stringify(processCodes)}
+          />
         </HStack>
       )}
 

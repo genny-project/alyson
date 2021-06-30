@@ -7,6 +7,7 @@ import {
   InputLeftElement,
   InputRightElement,
   IconButton,
+  Text,
 } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons'
@@ -16,7 +17,7 @@ import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import { useIsMobile } from 'utils/hooks'
 
-const ProcessSearch = ({ sbeCode, process }) => {
+const ProcessSearch = ({ sbeCode, process, placeholder }) => {
   const [searchValue, setSearchValue] = useState('')
   const inputRef = useRef(null)
   const clearRef = useRef(null)
@@ -47,6 +48,7 @@ const ProcessSearch = ({ sbeCode, process }) => {
             <FontAwesomeIcon color="lightgrey" icon={faSearch} />
           </InputLeftElement>
           <Input
+            placeholder={placeholder}
             test-id={`${sbeCode}-SCH_WILDCARD`}
             defaultValue={search?.value || ''}
             ref={inputRef}
