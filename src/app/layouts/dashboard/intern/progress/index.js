@@ -14,7 +14,7 @@ const Progress = () => {
   const progressSbe = replace(
     '@rows',
     '',
-    find(includes('SBE_INPROGRESS_APPLICATIONS_'), keys) || '',
+    find(includes('SBE_SUMMARY_INPROGRESS_APPLICATION'), keys) || '',
   )
   const appBe = head(useSelector(selectCode(progressSbe, 'rows')) || [])
 
