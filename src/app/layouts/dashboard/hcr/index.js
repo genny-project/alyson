@@ -30,9 +30,7 @@ const HostCompanyRep = ({ userCode }) => {
     ) : (
       <Button
         colorScheme="red"
-        onClick={() =>
-          onSendMessage({ targetCode: companyCode, code: 'ACT_PRI_EVENT_OHS_UNVALIDATED' })
-        }
+        onClick={() => onSendMessage({ targetCode: companyCode, code: 'ACT_OHS_DOC' })}
         leftIcon={<FontAwesomeIcon icon={faEdit} />}
       >
         {`OH&S Declaration`}
