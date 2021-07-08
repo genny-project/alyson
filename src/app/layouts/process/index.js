@@ -7,7 +7,7 @@ import { selectCode } from 'redux/db/selectors'
 import Ask from 'app/ASKS/ask'
 
 const Process = ({ dashboard }) => {
-  const processCodes = useSelector(selectProcess)
+  const processCodes = useSelector(selectProcess, (prev, next) => prev.length === next.length)
 
   const bucketSearch = useSelector(selectCode('QUE_BUCKET_INTERNS_GRP')) || []
 

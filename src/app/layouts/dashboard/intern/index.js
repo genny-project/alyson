@@ -12,6 +12,7 @@ import Recommendations from './recommendations'
 import Attribute from 'app/BE/attribute'
 import { useEffect } from 'react'
 import Card from 'app/layouts/components/card'
+import Progress from './progress'
 
 const Intern = ({ userCode }) => {
   const [name, occ, status] = useSelector(
@@ -86,7 +87,7 @@ const Intern = ({ userCode }) => {
           </VStack>
         </Card>
       </Stack>
-
+      <Progress />
       <Recommendations />
     </VStack>
   )
