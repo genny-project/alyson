@@ -7,7 +7,6 @@ import {
   InputLeftElement,
   InputRightElement,
   IconButton,
-  Text,
 } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons'
@@ -41,7 +40,7 @@ const ProcessSearch = ({ sbeCode, process, placeholder }) => {
   })
 
   return (
-    <Stack direction={useIsMobile() ? 'column' : 'row'}>
+    <Stack direction="row">
       <form onSubmit={handleSubmit}>
         <InputGroup w="xs" maxW="50vw">
           <InputLeftElement>

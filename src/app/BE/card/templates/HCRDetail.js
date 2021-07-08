@@ -6,7 +6,7 @@ const HCRDetail = ({ code, parentCode }) => {
   return (
     <HStack mt="3" justify="flex-end">
       {includes('SBE_OFFERED_', parentCode) && (
-        <SigDetails parentCode={parentCode} code={code} hcr />
+        <SigDetails parentCode={parentCode} code={code} viewer="hcr" />
       )}
     </HStack>
   )

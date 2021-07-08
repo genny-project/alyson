@@ -13,12 +13,12 @@ const CODES = [
   'PRI_AGR_DOC_HC_SIGNATURE',
   'PRI_AGR_DOC_INT_SIGNATURE',
 ]
-const SigDetails = ({ code, parentCode, hcr }) => {
+const SigDetails = ({ code, parentCode, viewer }) => {
   const [agent, hc, intern] = useSelector(selectAttributes(code, CODES))
 
   return (
     <HStack>
-      {hcr && !hc?.value ? (
+      {(viewer === 'hcr' && !hc?.value) || (viewer === 'agent' && !agent?.value) ? (
         <Button
           onClick={() =>
             onSendMessage({ code: 'ACT_PRI_EVENT_VIEW_AGREEMENT', parentCode, targetCode: code })

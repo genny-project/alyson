@@ -30,7 +30,7 @@ const Process = ({ dashboard }) => {
         </HStack>
       )}
 
-      <Stack direction={dashboard ? 'column-reverse' : 'row'} spacing={5}>
+      <Stack direction={'row'} spacing={5}>
         {processCodes.map(sbeCode => (
           <Lane key={sbeCode} sbeCode={sbeCode} dashboard={dashboard} />
         ))}

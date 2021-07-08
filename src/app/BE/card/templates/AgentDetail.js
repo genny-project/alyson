@@ -14,9 +14,9 @@ const AgentDetail = ({ code, parentCode }) => {
   return (
     <Flex mt="3" w="full" justify="flex-end">
       <FunActions code={code} parentCode={parentCode} />
-      <Spacer />
+      <Spacer minW="1" />
       <HStack>
-        {includes('SBE_OFFERED_', parentCode) && <SigDetails code={code} />}
+        {includes('SBE_OFFERED_', parentCode) && <SigDetails viewer="agent" code={code} />}
         <Attribute code={agentPerCode} config={{ size: 'xs' }} attribute="PRI_IMAGE_URL" />
       </HStack>
     </Flex>
