@@ -70,6 +70,7 @@ const ProcessSearch = ({ sbeCode, process, placeholder }) => {
         onClick={handleSubmit}
         leftIcon={<FontAwesomeIcon icon={faSearch} />}
         colorScheme="primary"
+        test-id={`process-view-search`}
       >
         Search
       </Button>
