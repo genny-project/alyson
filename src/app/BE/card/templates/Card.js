@@ -15,6 +15,7 @@ import Card from 'app/layouts/components/card'
 import { motion } from 'framer-motion'
 import getUserType from 'utils/helpers/get-user-type'
 import sameLength from 'redux/utils/same-length'
+import HCRDetail from './HCRDetail'
 
 const MotionBox = motion(Box)
 
@@ -86,6 +87,7 @@ const DefaultCard = ({ parentCode, actions = [], code, columns }) => {
         {(userType === 'AGENT' || userType === 'ADMIN') && (
           <AgentDetail code={code} parentCode={parentCode} />
         )}
+        {userType === 'HOST_CPY_REP' && <HCRDetail code={code} parentCode={parentCode} />}
       </Card>
     </MotionBox>
   )

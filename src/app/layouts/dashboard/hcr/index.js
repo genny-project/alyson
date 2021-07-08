@@ -1,7 +1,7 @@
 import { Box, HStack, Stack, Text, VStack } from '@chakra-ui/layout'
 import { Button } from '@chakra-ui/button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBriefcase, faDownload, faEdit } from '@fortawesome/free-solid-svg-icons'
+import { faBriefcase, faCheckCircle, faDownload, faEdit } from '@fortawesome/free-solid-svg-icons'
 import { useSelector } from 'react-redux'
 import { useColorModeValue } from '@chakra-ui/color-mode'
 
@@ -10,6 +10,7 @@ import { callBucketView, onSendMessage } from 'vertx'
 import Attribute from 'app/BE/attribute'
 import { useEffect } from 'react'
 import Card from 'app/layouts/components/card'
+import Process from 'app/layouts/process'
 
 const HostCompanyRep = ({ userCode }) => {
   const [name, hc, jobTitle] = useSelector(
@@ -19,9 +20,11 @@ const HostCompanyRep = ({ userCode }) => {
   const validation = useSelector(selectCode(companyCode, 'PRI_VALIDATION'))
 
   const ohs =
-    validation?.value === 'OHS' || validation?.value === 'Ready' ? (
+    validation?.value === 'OHS' ||
+    validation?.value === 'Ready' ||
+    validation?.value === 'Validated' ? (
       <Button
-        colorScheme="green"
+        size="sm"
         onClick={() => onSendMessage({ targetCode: companyCode, code: 'ACT_OHS_DOC' })}
         leftIcon={<FontAwesomeIcon icon={faDownload} />}
       >
@@ -29,6 +32,7 @@ const HostCompanyRep = ({ userCode }) => {
       </Button>
     ) : (
       <Button
+        size="sm"
         colorScheme="red"
         onClick={() => onSendMessage({ targetCode: companyCode, code: 'ACT_OHS_DOC' })}
         leftIcon={<FontAwesomeIcon icon={faEdit} />}
@@ -38,9 +42,11 @@ const HostCompanyRep = ({ userCode }) => {
     )
 
   const hcs =
-    validation?.value === 'HCS' || validation?.value === 'Ready' ? (
+    validation?.value === 'HCS' ||
+    validation?.value === 'Ready' ||
+    validation?.value === 'Validated' ? (
       <Button
-        colorScheme="green"
+        size="sm"
         leftIcon={<FontAwesomeIcon icon={faDownload} />}
         onClick={() => onSendMessage({ targetCode: companyCode, code: 'ACT_HCS_DOC' })}
       >
@@ -48,6 +54,7 @@ const HostCompanyRep = ({ userCode }) => {
       </Button>
     ) : (
       <Button
+        size="sm"
         colorScheme="red"
         leftIcon={<FontAwesomeIcon icon={faEdit} />}
         onClick={() => onSendMessage({ targetCode: companyCode, code: 'ACT_HCS_DOC' })}
@@ -59,11 +66,16 @@ const HostCompanyRep = ({ userCode }) => {
   const documents = (
     <Card variant="card0" w={'25rem'}>
       <VStack align="start">
-        <Text textStyle="body.1">
-          {!validation?.value || validation?.value === 'Incomplete'
-            ? 'Please complete documents'
-            : 'Documents'}
-        </Text>
+        <HStack>
+          <Text textStyle="body.1">
+            {!validation?.value || validation?.value === 'Incomplete'
+              ? 'Please complete documents'
+              : 'Documents'}
+          </Text>
+          {validation?.value === 'Validated' && (
+            <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
+          )}
+        </HStack>
         {ohs}
         {hcs}
       </VStack>
@@ -160,7 +172,7 @@ const HostCompanyRep = ({ userCode }) => {
           </VStack>
         </Box>
       </Stack>
-      {/* <Process dashboard /> */}
+      <Process dashboard />
     </VStack>
   )
 }
