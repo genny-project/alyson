@@ -1,10 +1,10 @@
-import { includes } from 'ramda'
+import { parseISO } from 'date-fns'
 
-const getDate = (valueFromBackend: string | undefined) =>
-  valueFromBackend
-    ? includes('Z', valueFromBackend)
-      ? new Date(`${valueFromBackend}`)
-      : new Date(`${valueFromBackend}z`)
-    : new Date()
+const getDate = (valueFromBackend: string | undefined) => {
+  if (valueFromBackend) {
+    return parseISO(valueFromBackend)
+  }
 
+  return null
+}
 export default getDate

@@ -7,7 +7,6 @@ import {
   InputLeftElement,
   InputRightElement,
   IconButton,
-  Text,
 } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons'
@@ -15,7 +14,6 @@ import { useHotkeys } from 'react-hotkeys-hook'
 import { onSendSearch } from 'vertx'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
-import { useIsMobile } from 'utils/hooks'
 
 const ProcessSearch = ({ sbeCode, process, placeholder }) => {
   const [searchValue, setSearchValue] = useState('')
@@ -41,7 +39,7 @@ const ProcessSearch = ({ sbeCode, process, placeholder }) => {
   })
 
   return (
-    <Stack direction={useIsMobile() ? 'column' : 'row'}>
+    <Stack direction="row">
       <form onSubmit={handleSubmit}>
         <InputGroup w="xs" maxW="50vw">
           <InputLeftElement>
@@ -49,7 +47,7 @@ const ProcessSearch = ({ sbeCode, process, placeholder }) => {
           </InputLeftElement>
           <Input
             placeholder={placeholder}
-            test-id={`${sbeCode}-SCH_WILDCARD`}
+            test-id={`SEARCH-ALL-ATTRIBUTES`}
             defaultValue={search?.value || ''}
             ref={inputRef}
             value={searchValue}
@@ -71,6 +69,7 @@ const ProcessSearch = ({ sbeCode, process, placeholder }) => {
         onClick={handleSubmit}
         leftIcon={<FontAwesomeIcon icon={faSearch} />}
         colorScheme="primary"
+        test-id={`process-view-search`}
       >
         Search
       </Button>

@@ -22,6 +22,7 @@ import CheckBox from 'app/DTT/check_box'
 import ImageType from 'app/DTT/upload/Image'
 import Flag from 'app/DTT/flag'
 import fixLnk from './fix-lnk'
+import { includes } from 'ramda'
 
 const Attribute = ({
   code,
@@ -34,8 +35,8 @@ const Attribute = ({
   fallback = null,
   styles,
 }) => {
-  const data = useSelector(selectCode(code, fixLnk(attribute)))
-  const dtt = useSelector(selectCode(data?.attributeCode))
+  const data = useSelector(selectCode(code, attribute))
+  const dtt = useSelector(selectCode(fixLnk(data?.attributeCode)))
   const dttData = useSelector(selectCode(dtt))
   const component = dttData?.component
 

@@ -14,8 +14,14 @@ const Progress = () => {
   const progressSbe = replace(
     '@rows',
     '',
-    find(includes('SBE_INPROGRESS_APPLICATIONS_'), keys) || '',
+    find(
+      aKey => !includes('PRM_', aKey) && includes('SBE_SUMMARY_INPROGRESS_APPLICATION', aKey),
+      keys,
+    ) || '',
   )
+
+  console.log(progressSbe)
+
   const appBe = head(useSelector(selectCode(progressSbe, 'rows')) || [])
 
   const isMobile = useIsMobile()

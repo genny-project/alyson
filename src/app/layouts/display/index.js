@@ -1,6 +1,3 @@
-import { includes } from 'ramda'
-import { useSelector } from 'react-redux'
-import { selectDisplay } from 'redux/app/selectors'
 import { Box, useColorModeValue } from '@chakra-ui/react'
 import Table from 'app/layouts/table'
 import Process from 'app/layouts/process'
@@ -16,10 +13,13 @@ import LogrocketIdentifier from '../components/logrocket_identifier'
 import ErrorBoundary from 'utils/developer/ErrorBoundary'
 import Notes from 'app/NOTE'
 import { onSendMessage } from 'vertx'
-// import Timeout from './timeout'
+import { useSelector } from 'react-redux'
+import { selectDisplay } from 'redux/app/selectors'
+import { includes } from 'ramda'
 
 const Display = () => {
   const display = useSelector(selectDisplay)
+
   const backgroundColor = useColorModeValue('gray.50', '')
   window.onpopstate = event => {
     try {
@@ -51,6 +51,7 @@ const Display = () => {
           {display === 'DETAIL' && <Detail />}
           {display === 'MAP' && <Table mapSearch />}
           {display === 'NOTES' && <Notes />}
+
           <DisplayDrawer />
           <Dialog />
           <Toast />

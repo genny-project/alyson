@@ -7,7 +7,7 @@ import { selectCode } from 'redux/db/selectors'
 import Ask from 'app/ASKS/ask'
 
 const Process = ({ dashboard }) => {
-  const processCodes = useSelector(selectProcess)
+  const processCodes = useSelector(selectProcess, (prev, next) => prev.length === next.length)
 
   const bucketSearch = useSelector(selectCode('QUE_BUCKET_INTERNS_GRP')) || []
 
@@ -30,7 +30,7 @@ const Process = ({ dashboard }) => {
         </HStack>
       )}
 
-      <Stack direction={dashboard ? 'column-reverse' : 'row'} spacing={5}>
+      <Stack direction={'row'} spacing={5}>
         {processCodes.map(sbeCode => (
           <Lane key={sbeCode} sbeCode={sbeCode} dashboard={dashboard} />
         ))}
