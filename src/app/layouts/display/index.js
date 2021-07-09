@@ -13,9 +13,13 @@ import LogrocketIdentifier from '../components/logrocket_identifier'
 import ErrorBoundary from 'utils/developer/ErrorBoundary'
 import Notes from 'app/NOTE'
 import { onSendMessage } from 'vertx'
-import DisplayHandler from './DisplayHandler'
+import { useSelector } from 'react-redux'
+import { selectDisplay } from 'redux/app/selectors'
+import { includes } from 'ramda'
 
 const Display = () => {
+  const display = useSelector(selectDisplay)
+
   const backgroundColor = useColorModeValue('gray.50', '')
   window.onpopstate = event => {
     try {
@@ -39,33 +43,14 @@ const Display = () => {
       >
         <Navigation />
         <Box paddingTop="6rem">
-          <DisplayHandler displayCode="DASHBOARD">
-            <Dashboard />
-          </DisplayHandler>
-
-          <DisplayHandler displayCode="PROCESS">
-            <Process />
-          </DisplayHandler>
-
-          <DisplayHandler displayCode="TABLE">
-            <Table />
-          </DisplayHandler>
-
-          <DisplayHandler displayCode="DETAIL">
-            <Detail />
-          </DisplayHandler>
-
-          <DisplayHandler displayCode="FORM">
-            <Form />
-          </DisplayHandler>
-
-          <DisplayHandler displayCode="MAP">
-            <Table mapSearch />
-          </DisplayHandler>
-
-          <DisplayHandler displayCode="NOTES">
-            <Notes />
-          </DisplayHandler>
+          {/* <Timeout /> */}
+          {display === 'DASHBOARD' && <Dashboard />}
+          {display === 'TABLE' && <Table />}
+          {display === 'PROCESS' && <Process />}
+          {includes('FORM', display || '') && <Form />}
+          {display === 'DETAIL' && <Detail />}
+          {display === 'MAP' && <Table mapSearch />}
+          {display === 'NOTES' && <Notes />}
 
           <DisplayDrawer />
           <Dialog />
