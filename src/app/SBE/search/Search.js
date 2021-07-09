@@ -14,7 +14,6 @@ import { useHotkeys } from 'react-hotkeys-hook'
 import { onSendSearch } from 'vertx'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
-import { useIsMobile } from 'utils/hooks'
 
 const ProcessSearch = ({ sbeCode, process, placeholder }) => {
   const [searchValue, setSearchValue] = useState('')
@@ -48,7 +47,7 @@ const ProcessSearch = ({ sbeCode, process, placeholder }) => {
           </InputLeftElement>
           <Input
             placeholder={placeholder}
-            test-id={`${sbeCode}-SCH_WILDCARD`}
+            test-id={`SEARCH-ALL-ATTRIBUTES`}
             defaultValue={search?.value || ''}
             ref={inputRef}
             value={searchValue}
