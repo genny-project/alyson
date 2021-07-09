@@ -1,4 +1,4 @@
-import { Flex, HStack, Spacer } from '@chakra-ui/react'
+import { Flex, HStack, Spacer, Box } from '@chakra-ui/react'
 import Attribute from 'app/BE/attribute'
 import { always, includes } from 'ramda'
 import { useSelector } from 'react-redux'
@@ -12,14 +12,19 @@ const AgentDetail = ({ code, parentCode }) => {
   const agentPerCode = agentCode?.value
 
   return (
-    <Flex mt="3" w="full" justify="flex-end">
-      <FunActions code={code} parentCode={parentCode} />
-      <Spacer minW="1" />
-      <HStack>
+    <Box>
+      <Flex mt="3" w="full" justify="flex-end">
         {includes('SBE_OFFERED_', parentCode) && <SigDetails viewer="agent" code={code} />}
-        <Attribute code={agentPerCode} config={{ size: 'xs' }} attribute="PRI_IMAGE_URL" />
-      </HStack>
-    </Flex>
+      </Flex>
+
+      <Flex mt="3" w="full" justify="flex-end">
+        <FunActions code={code} parentCode={parentCode} />
+        <Spacer minW="1" />
+        <HStack>
+          <Attribute code={agentPerCode} config={{ size: 'xs' }} attribute="PRI_IMAGE_URL" />
+        </HStack>
+      </Flex>
+    </Box>
   )
 }
 

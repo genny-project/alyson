@@ -17,7 +17,7 @@ const SigDetails = ({ code, parentCode, viewer }) => {
   const [agent, hc, intern] = useSelector(selectAttributes(code, CODES))
 
   return (
-    <HStack>
+    <HStack justify="space-between" w="full">
       {(viewer === 'hcr' && !hc?.value) || (viewer === 'agent' && !agent?.value) ? (
         <Button
           onClick={() =>
@@ -25,20 +25,24 @@ const SigDetails = ({ code, parentCode, viewer }) => {
           }
           size="xs"
           colorScheme="green"
-          leftIcon={<FontAwesomeIcon icon={faPenAlt} />}
+          leftIcon={<FontAwesomeIcon size="xs" icon={faPenAlt} />}
         >
           Sign Agreement Document
         </Button>
-      ) : null}
-      <Tooltip shouldWrapChildren label="Agent Signature">
-        <IconAgent color={agent?.value ? 'green.300' : 'red.300'} />
-      </Tooltip>
-      <Tooltip shouldWrapChildren label="Host Company Signature">
-        <IconHostCpyRep color={hc?.value ? 'green.300' : 'red.300'} />
-      </Tooltip>
-      <Tooltip shouldWrapChildren label="Intern Signature">
-        <IconIntern color={intern?.value ? 'green.300' : 'red.300'} />
-      </Tooltip>
+      ) : (
+        <div />
+      )}
+      <HStack>
+        <Tooltip shouldWrapChildren label="Agent Signature">
+          <IconAgent color={agent?.value ? 'green.300' : 'red.300'} />
+        </Tooltip>
+        <Tooltip shouldWrapChildren label="Host Company Signature">
+          <IconHostCpyRep color={hc?.value ? 'green.300' : 'red.300'} />
+        </Tooltip>
+        <Tooltip shouldWrapChildren label="Intern Signature">
+          <IconIntern color={intern?.value ? 'green.300' : 'red.300'} />
+        </Tooltip>
+      </HStack>
     </HStack>
   )
 }
