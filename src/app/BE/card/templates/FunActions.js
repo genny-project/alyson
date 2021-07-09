@@ -5,12 +5,14 @@ import Action from 'app/BE/action'
 import { includes } from 'ramda'
 
 const FunActions = ({ code: targetCode, parentCode }) => {
+  if (!targetCode) return null
+
   return (
     <Box opacity="0.6">
       <Action
         colorScheme="primary"
         code={
-          includes('APP_', targetCode)
+          includes('APP_', targetCode || '')
             ? 'ACT_PRI_EVENT_ACCESS_NOTES_APPLICATION'
             : 'ACT_PRI_EVENT_ACCESS_NOTES_INTERN'
         }
