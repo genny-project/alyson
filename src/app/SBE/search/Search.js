@@ -60,6 +60,7 @@ const ProcessSearch = ({ sbeCode, process, placeholder }) => {
               ref={clearRef}
               icon={<FontAwesomeIcon color="lightgrey" icon={faTimes} />}
               onClick={handleClear}
+              test-id={`process-view-clear-search`}
             />
           </InputRightElement>
         </InputGroup>
