@@ -5,18 +5,33 @@ import { faLinkedin } from '@fortawesome/free-brands-svg-icons'
 import { IconButton, InputGroup, InputLeftAddon, Input } from '@chakra-ui/react'
 import { useMobileValue } from 'utils/hooks'
 
-const Read = ({ data }) => {
+const Read = ({ data, config = {} }) => {
   const attributeName = data?.attributeName
-  const icon = attributeName === 'LinkedIn URL' ? faLinkedin : faCoffee
+
+  console.warn('attributeName', attributeName)
 
   if (!data?.value) return null
 
   const href = includes('http', data.value) ? data.value : `https://${data.value}`
 
+  if (attributeName === 'LinkedIn URL') {
+    return (
+      <a href={href}>
+        <FontAwesomeIcon
+          size="lg"
+          icon={faLinkedin}
+          test-id={data?.baseEntityCode}
+          {...config}
+          isDisabled={!data?.value}
+        />
+      </a>
+    )
+  }
+
   return (
     <a href={href}>
       <IconButton test-id={data?.baseEntityCode} colorScheme="linkedin" isDisabled={!data?.value}>
-        <FontAwesomeIcon size="lg" icon={icon} />
+        <FontAwesomeIcon size="lg" icon={faCoffee} />
       </IconButton>
     </a>
   )

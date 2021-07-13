@@ -64,7 +64,7 @@ const Attribute = ({
       config={config}
     />
   ) : component === 'social' ? (
-    <Social.Read data={data} dttData={dttData} size={size} />
+    <Social.Read data={data} dttData={dttData} size={size} config={config} />
   ) : component === 'status' ? (
     <Status.Read data={data} size={size} />
   ) : component === 'date' ? (
