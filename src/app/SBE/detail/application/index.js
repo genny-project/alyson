@@ -13,10 +13,10 @@ const appDetails = {
   header: 'Application Details',
   attributes: [
     {
-      attr: 'PRI_INTERN_NAME',
+      attr: '_PRI_INTERN_CODE__PRI_NAME',
       label: 'Intern Applying',
     },
-    { attr: 'PRI_ASSOC_HC', label: 'Host Company' },
+    { attr: '_LNK_INTERNSHIP__LNK_HOST_COMPANY__PRI_NAME', label: 'Host Company' },
   ],
 }
 
@@ -25,19 +25,19 @@ const supervisor = {
   header: 'Supervisor',
   attributes: [
     {
-      attr: 'PRI_SUPER_NAME',
+      attr: '_LNK_INTERN_SUPERVISOR__PRI_NAME',
       label: 'Supervisor',
     },
-    { attr: 'PRI_SUPER_JOB_TITLE', label: 'Role' },
-    { attr: 'PRI_SUPER_EMAIL', label: 'Email' },
-    { attr: 'PRI_SUPER_MOBILE', label: 'Mobile' },
+    { attr: '_LNK_INTERN_SUPERVISOR__PRI_JOB_TITLE', label: 'Role' },
+    { attr: '_LNK_INTERN_SUPERVISOR__PRI_EMAIL', label: 'Email' },
+    { attr: '_LNK_INTERN_SUPERVISOR__PRI_MOBILE', label: 'Mobile' },
   ],
 }
 
 const shortDetail = {
   icon: <FontAwesomeIcon size="lg" icon={faItalic} />,
   header: 'Short Internship Summary',
-  attributes: [{ attr: 'PRI_INTERNSHIP_DETAILS' }],
+  attributes: [{ attr: '_LNK_INTERNSHIP__PRI_INTERNSHIP_DETAILS' }],
 }
 
 const internshipDetail = {
@@ -45,29 +45,29 @@ const internshipDetail = {
   header: 'Internship Details',
   attributes: [
     { attr: 'PRI_STATUS' },
-    { attr: 'PRI_ASSOC_INDUSTRY', label: 'Industry' },
-    { attr: 'PRI_WORKSITE', label: 'Onsite/Remote' },
-    { attr: 'PRI_START_DATE', label: 'Start Date' },
-    { attr: 'PRI_WHICH_DAYS_STRIPPED', label: 'Days of Week' },
-    { attr: 'PRI_DRESS_CODE', label: 'Dress Code' },
-    { attr: 'PRI_ASSOC_NUM_INTERNS', label: 'Available Spots' },
+    { attr: '_LNK_INTERNSHIP__LNK_OCCUPATION__PRI_NAME', label: 'Industry' },
+    { attr: '_LNK_INTERNSHIP__LNK_WORKSITE_SELECT__PRI_NAME', label: 'Onsite/Remote' },
+    { attr: '_LNK_INTERNSHIP__PRI_INTERNSHIP_START_DATE', label: 'Start Date' },
+    { attr: '_LNK_INTERNSHIP__PRI_WHICH_DAYS_STRIPPED', label: 'Days of Week' },
+    { attr: '_LNK_INTERNSHIP__PRI_DRESS_CODE', label: 'Dress Code' },
+    { attr: '_LNK_INTERNSHIP__PRI_NO_OF_INTERNS', label: 'Available Spots' },
   ],
 }
 
 const resp = {
   icon: <FontAwesomeIcon size="lg" icon={faInfo} />,
   header: 'Roles and Responsibilities',
-  attributes: [{ attr: 'PRI_ROLES_AND_RESPONSIBILITIES' }],
+  attributes: [{ attr: '_LNK_INTERNSHIP__PRI_ROLES_AND_RESPONSIBILITIES' }],
 }
 const baseOutcomes = {
   icon: <FontAwesomeIcon size="lg" icon={faInfo} />,
   header: 'Learning Outcomes',
-  attributes: [{ attr: 'PRI_BASE_LEARNING_OUTCOMES' }],
+  attributes: [{ attr: '_LNK_INTERNSHIP__PRI_BASE_LEARNING_OUTCOMES' }],
 }
 const specOutcomes = {
   icon: <FontAwesomeIcon size="lg" icon={faInfo} />,
   header: 'Specific Learning Outcomes',
-  attributes: [{ attr: 'PRI_SPECIFIC_LEARNING_OUTCOMES' }],
+  attributes: [{ attr: '_LNK_INTERNSHIP__PRI_SPECIFIC_LEARNING_OUTCOMES' }],
 }
 
 const details = [
