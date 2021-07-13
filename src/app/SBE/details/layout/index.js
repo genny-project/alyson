@@ -53,7 +53,7 @@ const DetailLayout = ({ sbeCode, targetCode, details = [[], []] }) => {
 
   return (
     <Box className="nobar" minH="90vh" overflowY="scroll" onScroll={onScroll} onWheel={onWheel}>
-      <HStack w="100%" h="100%" alignItems="start">
+      <Box w="100%" alignItems="start" display="flex">
         <LeftDetail beCode={beCode} sbeCode={sbeCode} />
         <VStack bg="yellow" flex="1">
           <div>{`cyrus`}</div>
@@ -117,7 +117,7 @@ const DetailLayout = ({ sbeCode, targetCode, details = [[], []] }) => {
           <div>{`cyrus`}</div>
           <div>{`shrestha`}</div>
         </VStack>
-      </HStack>
+      </Box>
     </Box>
   )
 }
