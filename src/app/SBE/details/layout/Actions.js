@@ -5,9 +5,10 @@ import { faEllipsisH } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Action from 'app/BE/context/Action'
 import getActions from 'app/SBE/utils/get-actions'
-import { tail } from 'ramda'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
+import Attribute from 'app/BE/attribute'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 const DetailActions = ({ sbeCode, beCode }) => {
   const sbe = useSelector(selectCode(sbeCode))
@@ -16,8 +17,21 @@ const DetailActions = ({ sbeCode, beCode }) => {
   if (!actions.length) return null
 
   return (
-    <HStack spacing={5}>
-      <Action parentCode={sbeCode} code={actions[0]} targetCode={beCode} noMenu />
+    <HStack spacing={3}>
+      <Action
+        parentCode={sbeCode}
+        code={'ACT_PRI_EVENT_APPLY'}
+        targetCode={beCode}
+        noMenu
+        icon={faPlus}
+        name={'Apply'}
+        customAction
+      />
+      <Attribute
+        code={beCode}
+        attribute="PRI_CV"
+        config={{ customButton: true, name: 'Download CV' }}
+      />
       {actions.length > 1 && (
         <Menu>
           <MenuButton>
@@ -29,7 +43,7 @@ const DetailActions = ({ sbeCode, beCode }) => {
             />
           </MenuButton>
           <MenuList>
-            {tail(actions).map(action => (
+            {actions.map(action => (
               <Action key={action} parentCode={sbeCode} code={action} targetCode={beCode} />
             ))}
           </MenuList>

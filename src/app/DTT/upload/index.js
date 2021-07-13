@@ -15,11 +15,13 @@ import { faCheck, faFileDownload, faUpload } from '@fortawesome/free-solid-svg-i
 import useApi from 'api'
 import DropZone from './Dropzone'
 
-const Read = ({ code, data, dttData, parentCode, variant, config }) => {
+const Read = ({ code, data, dttData, parentCode, variant, config = {} }) => {
   const typeName = dttData?.typeName
   const api = useApi()
 
   const [fileName, setFileName] = useState('')
+
+  const { customButton, name } = config
 
   useEffect(() => {
     const getFileName = async uuid => {
@@ -41,6 +43,20 @@ const Read = ({ code, data, dttData, parentCode, variant, config }) => {
       />
     )
   if (!data?.value) return null
+
+  if (customButton && name) {
+    return (
+      <Link style={{ textDecoration: 'none' }} href={api.getSrc(data.value)}>
+        <Button
+          colorScheme="primary"
+          leftIcon={<FontAwesomeIcon size="lg" icon={faFileDownload} />}
+          borderRadius="2rem"
+        >
+          {name}
+        </Button>
+      </Link>
+    )
+  }
 
   return (
     <Link style={{ textDecoration: 'none' }} href={api.getSrc(data.value)}>

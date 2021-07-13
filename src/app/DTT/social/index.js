@@ -8,8 +8,6 @@ import { useMobileValue } from 'utils/hooks'
 const Read = ({ data, config = {} }) => {
   const attributeName = data?.attributeName
 
-  console.warn('attributeName', attributeName)
-
   if (!data?.value) return null
 
   const href = includes('http', data.value) ? data.value : `https://${data.value}`
