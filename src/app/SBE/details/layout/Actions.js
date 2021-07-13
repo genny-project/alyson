@@ -40,6 +40,8 @@ const DetailActions = ({ sbeCode, beCode }) => {
               colorScheme="primary"
               variant="outline"
               icon={<FontAwesomeIcon icon={faEllipsisH} />}
+              borderRadius="2rem"
+              p="1rem"
             />
           </MenuButton>
           <MenuList>

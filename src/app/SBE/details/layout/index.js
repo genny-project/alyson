@@ -20,6 +20,7 @@ import {
   faGraduationCap,
 } from '@fortawesome/free-solid-svg-icons'
 import { IconButton } from '@chakra-ui/react'
+import LeftDetail from 'app/SBE/details/template/LeftDetail.js'
 
 const DetailLayout = ({ sbeCode, targetCode, details = [[], []] }) => {
   const rows = useSelector(selectRows(sbeCode))
@@ -53,40 +54,7 @@ const DetailLayout = ({ sbeCode, targetCode, details = [[], []] }) => {
   return (
     <Box className="nobar" minH="90vh" overflowY="scroll" onScroll={onScroll} onWheel={onWheel}>
       <HStack w="100%" h="100%" alignItems="start">
-        <VStack mx="10" my="8" align="start" spacing={8} maxW="30vw">
-          <Attribute code={beCode} config={{ h: '15rem', w: '15rem' }} attribute="PRI_IMAGE_URL" />
-          <VStack align="start" spacing={4}>
-            <HStack spacing={5}>
-              <Attribute config={{ textStyle: 'head.1' }} code={beCode} attribute="PRI_FIRSTNAME" />
-              <Attribute config={{ color: '#3182CE' }} code={beCode} attribute="PRI_LINKEDIN_URL" />
-            </HStack>
-            <Attribute code={beCode} attribute="PRI_STAR_RATING" />
-            <DetailActions beCode={beCode} sbeCode={sbeCode} />
-            <VStack align="start" spacing={4}>
-              <HStack spacing={4}>
-                <FontAwesomeIcon icon={faUser} />
-                <Attribute code={beCode} attribute="PRI_FIRSTNAME" />
-              </HStack>
-              <HStack spacing={4}>
-                <FontAwesomeIcon icon={faPhoneAlt} />
-                <Attribute code={beCode} attribute="PRI_MOBILE" />
-              </HStack>
-              <HStack spacing={4}>
-                <FontAwesomeIcon icon={faEnvelope} />
-                <Attribute code={beCode} attribute="PRI_EMAIL" />
-              </HStack>
-              <HStack spacing={4}>
-                <FontAwesomeIcon icon={faMapMarkerAlt} />
-                <Attribute code={beCode} config={{ hideIcon: true }} attribute="PRI_ADDRESS_FULL" />
-              </HStack>
-              <HStack spacing={4}>
-                <FontAwesomeIcon icon={faGraduationCap} />
-                <Attribute code={beCode} attribute="PRI_ASSOC_EP" />
-              </HStack>
-            </VStack>
-          </VStack>
-        </VStack>
-
+        <LeftDetail beCode={beCode} sbeCode={sbeCode} />
         <VStack bg="yellow" flex="1">
           <div>{`cyrus`}</div>
           <div>{`shrestha`}</div>

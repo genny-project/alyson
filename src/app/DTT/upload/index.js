@@ -11,7 +11,7 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faFileDownload, faUpload } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faFileDownload, faUpload, faArrowDown } from '@fortawesome/free-solid-svg-icons'
 import useApi from 'api'
 import DropZone from './Dropzone'
 
@@ -49,7 +49,7 @@ const Read = ({ code, data, dttData, parentCode, variant, config = {} }) => {
       <Link style={{ textDecoration: 'none' }} href={api.getSrc(data.value)}>
         <Button
           colorScheme="primary"
-          leftIcon={<FontAwesomeIcon size="lg" icon={faFileDownload} />}
+          leftIcon={<FontAwesomeIcon icon={faArrowDown} />}
           borderRadius="2rem"
         >
           {name}
