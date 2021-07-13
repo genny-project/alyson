@@ -10,6 +10,9 @@ import DetailHeader from './Header'
 import Tile from './Tile'
 import 'app/layouts/components/css/hide-scroll.css'
 import Attribute from 'app/BE/attribute'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faLinkedin } from '@fortawesome/free-brands-svg-icons'
+import { IconButton } from '@chakra-ui/react'
 
 const DetailLayout = ({ sbeCode, targetCode, details = [[], []] }) => {
   const rows = useSelector(selectRows(sbeCode))
@@ -42,22 +45,41 @@ const DetailLayout = ({ sbeCode, targetCode, details = [[], []] }) => {
 
   return (
     <Box className="nobar" minH="90vh" overflowY="scroll" onScroll={onScroll} onWheel={onWheel}>
-      <HStack w="100%" h="100%" bg="blue" alignItems="start">
-        <Box bg="red" h="100%">
-          <VStack bg="tomato" mx="10" my="8" align="start">
-            <Box>
-              <Attribute
-                code={beCode}
-                config={{ h: '15rem', w: '15rem' }}
-                attribute="PRI_IMAGE_URL"
-              />
-            </Box>
+      <HStack w="100%" h="100%" alignItems="start">
+        <VStack mx="10" my="8" align="start" spacing={8}>
+          <Attribute code={beCode} config={{ h: '15rem', w: '15rem' }} attribute="PRI_IMAGE_URL" />
+          <VStack align="start" spacing={4}>
             <HStack spacing={5}>
               <Attribute config={{ textStyle: 'head.1' }} code={beCode} attribute="PRI_FIRSTNAME" />
               <Attribute config={{ color: '#3182CE' }} code={beCode} attribute="PRI_LINKEDIN_URL" />
             </HStack>
+            <Attribute code={beCode} attribute="PRI_STAR_RATING" />
+            <DetailActions beCode={beCode} sbeCode={sbeCode} />
+            <VStack align="start" spacing={4}>
+              <HStack spacing={4}>
+                <FontAwesomeIcon size="lg" icon={faLinkedin} />
+                <Attribute code={beCode} attribute="PRI_FIRSTNAME" />
+              </HStack>
+              <HStack spacing={4}>
+                <FontAwesomeIcon size="lg" icon={faLinkedin} />
+                <Attribute code={beCode} attribute="PRI_MOBILE" />
+              </HStack>
+              <HStack spacing={4}>
+                <FontAwesomeIcon size="lg" icon={faLinkedin} />
+                <Attribute code={beCode} attribute="PRI_EMAIL" />
+              </HStack>
+              <HStack spacing={4}>
+                <FontAwesomeIcon size="lg" icon={faLinkedin} />
+                <Attribute code={beCode} attribute="PRI_ADDRESS_FULL" />
+              </HStack>
+              <HStack spacing={4}>
+                <FontAwesomeIcon size="lg" icon={faLinkedin} />
+                <Attribute code={beCode} attribute="PRI_ASSOC_EP" />
+              </HStack>
+            </VStack>
           </VStack>
-        </Box>
+        </VStack>
+
         <VStack bg="yellow" flex="1">
           <div>{`cyrus`}</div>
           <div>{`shrestha`}</div>
