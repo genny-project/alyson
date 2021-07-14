@@ -1,4 +1,4 @@
-import { Input, Text as ChakraText, HStack, Tag } from '@chakra-ui/react'
+import { Input, Text as ChakraText, HStack, Tag, Wrap, WrapItem } from '@chakra-ui/react'
 import debounce from 'lodash.debounce'
 import { useMobileValue } from 'utils/hooks'
 import { map, splitAt, head, last, length } from 'ramda'
@@ -30,17 +30,28 @@ export const Read = ({ data, config = {} }) => {
     const splittedTagsToShowAsMore = last(splittedTags)
 
     return (
-      <HStack>
-        {map(value => <Tag borderRadius={15}>{value}</Tag>)(splittedTagsToDisplay)}
+      <Wrap align="start">
+        {map(value => (
+          <Tag borderRadius={15} align="center">
+            <ChakraText textStyle="body.2" isTruncated width="5rem">
+              {value}
+            </ChakraText>
+          </Tag>
+        ))(splittedTagsToDisplay)}
         {length(splittedTagsToShowAsMore) >= 1 && (
           <Tag
+            w="5rem"
             borderRadius={15}
             cursor="pointer"
             _hover={{ color: 'red' }}
             onClick={() => console.log('tag clicked')}
-          >{`+ ${length(splittedTagsToShowAsMore)} more`}</Tag>
+          >
+            <ChakraText textStyle="body.2">
+              {`+ ${length(splittedTagsToShowAsMore)} more`}
+            </ChakraText>
+          </Tag>
         )}
-      </HStack>
+      </Wrap>
     )
   }
   return (
