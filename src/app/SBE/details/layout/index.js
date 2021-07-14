@@ -2,7 +2,7 @@ import { useBoolean } from '@chakra-ui/hooks'
 import { Box, Center, Stack, VStack, Flex, HStack, Text } from '@chakra-ui/layout'
 import { add } from 'ramda'
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { selectCode, selectRows } from 'redux/db/selectors'
 import { useIsMobile } from 'utils/hooks'
 import DetailActions from './Actions'
@@ -18,9 +18,12 @@ import {
   faEnvelope,
   faMapMarkerAlt,
   faGraduationCap,
+  faTimes,
 } from '@fortawesome/free-solid-svg-icons'
 import { IconButton } from '@chakra-ui/react'
 import LeftDetail from 'app/SBE/details/template/LeftDetail.js'
+import Card from 'app/layouts/components/card'
+import { closeDrawer } from 'redux/app'
 
 const DetailLayout = ({ sbeCode, targetCode, details = [[], []] }) => {
   const rows = useSelector(selectRows(sbeCode))
@@ -30,6 +33,9 @@ const DetailLayout = ({ sbeCode, targetCode, details = [[], []] }) => {
   const isMobile = useIsMobile()
   const [mini, setMini] = useBoolean(isMobile)
   const [delta, setDelta] = useState(0)
+
+  const dispatch = useDispatch()
+  const onClose = () => dispatch(closeDrawer())
 
   const onScroll = e => {
     setMini.on()
@@ -55,8 +61,33 @@ const DetailLayout = ({ sbeCode, targetCode, details = [[], []] }) => {
     <Box className="nobar" minH="90vh" overflowY="scroll" onScroll={onScroll} onWheel={onWheel}>
       <Box w="100%" alignItems="start" display="flex">
         <LeftDetail beCode={beCode} sbeCode={sbeCode} />
-        <VStack bg="yellow" flex="1">
-          <div>{`cyrus`}</div>
+        <VStack bg="yellow" flex="1" m={3}>
+          <Center w="full">
+            <Card minH="10rem" p={0} w="full" bg="#1A365D" overflow="hidden" borderRadius="2rem">
+              <Center w="full">
+                <Box maxW="30vw">
+                  <Attribute code={beCode} attribute="PRI_VIDEO_URL" />
+                </Box>
+              </Center>
+            </Card>
+          </Center>
+          <Box
+            overflow="hidden"
+            borderRadius="50%"
+            position="absolute"
+            zIndex="modal"
+            right="12"
+            top="10"
+          >
+            <IconButton
+              onClick={onClose}
+              size="sm"
+              color="#1A365D"
+              bg="white"
+              icon={<FontAwesomeIcon opacity={50} icon={faTimes} />}
+            />
+          </Box>
+
           <div>{`shrestha`}</div>
           <div>{`cyrus`}</div>
           <div>{`shrestha`}</div>
