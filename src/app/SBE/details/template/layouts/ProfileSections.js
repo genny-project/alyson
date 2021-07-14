@@ -20,11 +20,11 @@ export const InternshipPreferenceSection = ({ beCode }) => {
             <Text textStyle="body.1">{prefs?.header}</Text>
           </HStack>
           <Grid
-            h="15rem"
+            h="15.5rem"
             w="100%"
             templateRows="repeat(3, 1fr)"
             templateColumns="repeat(4, 1fr)"
-            gap={4}
+            gap={6}
           >
             <GridItem rowSpan={1} colSpan={1}>
               <VStack align="start">

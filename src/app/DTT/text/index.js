@@ -1,4 +1,4 @@
-import { Input, Text as ChakraText, HStack, Tag, Wrap, WrapItem } from '@chakra-ui/react'
+import { Input, Text as ChakraText, Tag, Wrap } from '@chakra-ui/react'
 import debounce from 'lodash.debounce'
 import { useMobileValue } from 'utils/hooks'
 import { map, splitAt, head, last, length } from 'ramda'
