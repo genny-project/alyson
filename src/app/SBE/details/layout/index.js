@@ -19,116 +19,121 @@ import {
   faMapMarkerAlt,
   faGraduationCap,
   faTimes,
+  faCog,
+  faCalendarAlt,
+  faBriefcase,
 } from '@fortawesome/free-solid-svg-icons'
 import { IconButton } from '@chakra-ui/react'
 import LeftDetail from 'app/SBE/details/template/LeftDetail.js'
 import Card from 'app/layouts/components/card'
 import { closeDrawer } from 'redux/app'
 import Header from 'app/SBE/details/template/layouts/Header.js'
-
+import { map } from 'ramda'
 const DetailLayout = ({ sbeCode, targetCode, details = [[], []] }) => {
   const rows = useSelector(selectRows(sbeCode))
   const beCode = targetCode ? targetCode : rows?.length ? rows[0] : null
-
   const videoData = useSelector(selectCode(beCode, 'PRI_VIDEO_URL'))
   const isMobile = useIsMobile()
   const [mini, setMini] = useBoolean(isMobile)
   const [delta, setDelta] = useState(0)
-
   const dispatch = useDispatch()
   const onClose = () => dispatch(closeDrawer())
-
   const onScroll = e => {
     setMini.on()
     setDelta(0)
   }
-
   const onWheel = e => setDelta(add(e.deltaY))
-
   useEffect(() => {
     if (delta < -300) {
       setMini.off()
       setDelta(0)
     }
   }, [delta, setMini])
-
   const tileWidth = isMobile ? '90vw' : '33vw'
-
   const pt = videoData?.value
     ? { true: '12rem', false: '24rem' }
     : { true: '12rem', false: '18rem' }
-
+  const prefs = {
+    header: 'Internship Preferences',
+    icon: <FontAwesomeIcon size="lg" icon={faCog} />,
+    attributes: [
+      { attr: 'PRI_ASSOC_INDUSTRY', label: 'Industry' },
+      { attr: 'PRI_ASSOC_OCCUPATION', label: 'Specialisation' },
+      { attr: 'PRI_CAREER_OBJECTIVES', label: 'Career Objectives' },
+      { attr: 'PRI_ASSOC_CURRENT_SOFTWARE', label: 'Proficient Software' },
+      { attr: 'PRI_ASSOC_FUTURE_SOFTWARE', label: 'Software would like experience in' },
+    ],
+  }
+  const internshipDetails = {
+    header: 'Internship Specifications',
+    icon: <FontAwesomeIcon size="lg" icon={faCalendarAlt} />,
+    attributes: [
+      { attr: 'PRI_START_DATE', label: 'Internship Start Date' },
+      { attr: 'PRI_ASSOC_DURATION', label: 'Internship Duration' },
+      { attr: 'PRI_ASSOC_DAYS_PER_WEEK', label: 'Days Per Week' },
+      { attr: 'PRI_ASSOC_DAYS_OF_WEEK', label: 'Days Of Week' },
+    ],
+  }
+  const recentEmployment = {
+    header: 'Experience',
+    icon: <FontAwesomeIcon size="lg" icon={faBriefcase} />,
+    attributes: [
+      { attr: 'PRI_PREV_JOB_TITLE', label: 'Job Title' },
+      { attr: 'PRI_PREV_DURATION', label: 'Tenure' },
+      { attr: 'PRI_PREV_EMPLOYER', label: 'Company Name' },
+      { attr: 'PRI_ASSOC_OCCUPATION', label: 'Industry' },
+      { attr: '', label: 'Description' },
+    ],
+  }
   return (
     <Box className="nobar" minH="90vh" overflowY="scroll" onScroll={onScroll} onWheel={onWheel}>
       <Box w="100%" alignItems="start" display="flex">
         <LeftDetail beCode={beCode} sbeCode={sbeCode} />
         <VStack bg="yellow" flex="1" m={3} spacing={6}>
           <Header beCode={beCode} />
-          <Header beCode={beCode} />
-          <div>{`shrestha`}</div>
-          <Header beCode={beCode} />
-          <div>{`cyrus`}</div>
-          <div>{`shrestha`}</div>
-          <div>{`cyrus`}</div>
-          <div>{`shrestha`}</div>
-
-          <div>{`cyrus`}</div>
-          <div>{`shrestha`}</div>
-
-          <div>{`cyrus`}</div>
-          <div>{`shrestha`}</div>
-          <div>{`cyrus`}</div>
-          <div>{`shrestha`}</div>
-          <div>{`cyrus`}</div>
-          <div>{`shrestha`}</div>
-          <div>{`cyrus`}</div>
-          <div>{`shrestha`}</div>
-
-          <div>{`cyrus`}</div>
-          <div>{`shrestha`}</div>
-
-          <div>{`cyrus`}</div>
-          <div>{`shrestha`}</div>
-          <div>{`cyrus`}</div>
-          <div>{`shrestha`}</div>
-          <div>{`cyrus`}</div>
-          <div>{`shrestha`}</div>
-          <div>{`cyrus`}</div>
-          <div>{`shrestha`}</div>
-
-          <div>{`cyrus`}</div>
-          <div>{`shrestha`}</div>
-
-          <div>{`cyrus`}</div>
-          <div>{`shrestha`}</div>
-          <div>{`cyrus`}</div>
-          <div>{`shrestha`}</div>
-          <div>{`cyrus`}</div>
-          <div>{`shrestha`}</div>
-          <div>{`cyrus`}</div>
-          <div>{`shrestha`}</div>
-
-          <div>{`cyrus`}</div>
-          <div>{`shrestha`}</div>
-
-          <div>{`cyrus`}</div>
-          <div>{`shrestha`}</div>
-          <div>{`cyrus`}</div>
-          <div>{`shrestha`}</div>
-          <div>{`cyrus`}</div>
-          <div>{`shrestha`}</div>
-          <div>{`cyrus`}</div>
-          <div>{`shrestha`}</div>
-
-          <div>{`cyrus`}</div>
-          <div>{`shrestha`}</div>
-
-          <div>{`cyrus`}</div>
-          <div>{`shrestha`}</div>
+          <Center w="full">
+            <Card minH="17rem" p={6} w="full" bg="#F7FAFC" overflow="hidden" borderRadius="2rem">
+              <VStack align="start" spacing={7}>
+                <HStack spacing={5} w="full">
+                  <FontAwesomeIcon size="lg" icon={faCog} />
+                  <Text textStyle="body.1">{`Internship Preferences`}</Text>
+                </HStack>
+              </VStack>
+            </Card>
+          </Center>
+          <Center w="full">
+            <Card minH="9rem" p={6} w="full" bg="#F7FAFC" overflow="hidden" borderRadius="2rem">
+              <VStack align="start" spacing={7}>
+                <HStack spacing={5} w="full">
+                  {internshipDetails?.icon}
+                  <Text textStyle="body.1">{internshipDetails?.header}</Text>
+                </HStack>
+                <HStack w="full" justifyContent="space-between">
+                  {map(({ label, attr }) => {
+                    return (
+                      <VStack align="start" justify="start">
+                        <Text textStyle="tail.2">{label}</Text>
+                        <Attribute code={beCode} attribute={attr} />
+                      </VStack>
+                    )
+                  })(internshipDetails.attributes)}
+                </HStack>
+              </VStack>
+            </Card>
+          </Center>
+          <Center w="full">
+            <Card minH="17rem" p={6} w="full" bg="#F7FAFC" overflow="hidden" borderRadius="2rem">
+              <VStack align="start" spacing={7}>
+                <HStack spacing={5} w="full">
+                  <FontAwesomeIcon size="lg" icon={faCog} />
+                  <Text textStyle="body.1">{`Internship Preferences`}</Text>
+                </HStack>
+              </VStack>
+            </Card>
+          </Center>
         </VStack>
       </Box>
     </Box>
   )
 }
-
 export default DetailLayout
