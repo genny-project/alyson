@@ -1,6 +1,8 @@
-import { Input, Text as ChakraText } from '@chakra-ui/react'
+import { Input, Text as ChakraText, HStack, Tag } from '@chakra-ui/react'
 import debounce from 'lodash.debounce'
 import { useMobileValue } from 'utils/hooks'
+import { map } from 'ramda'
+import getArrayFromStringValue from 'utils/helpers/get-array-from-string.js'
 
 export const Write = ({ questionCode, data, onSendAnswer }) => {
   const debouncedSendAnswer = debounce(onSendAnswer, 500)
@@ -16,11 +18,23 @@ export const Write = ({ questionCode, data, onSendAnswer }) => {
     />
   )
 }
-export const Read = ({ data, config = {} }) => (
-  <ChakraText noOfLines={3} {...config}>
-    {data?.value || config.defaultValue}
-  </ChakraText>
-)
+
+export const Read = ({ data, config = {} }) => {
+  const { detilViewTags } = config
+
+  if (detilViewTags) {
+    const allValues = getArrayFromStringValue(data?.value)
+
+    return (
+      <HStack width="min">{map(value => <Tag borderRadius={15}>{value}</Tag>)(allValues)}</HStack>
+    )
+  }
+  return (
+    <ChakraText noOfLines={3} {...config}>
+      {data?.value || config.defaultValue}
+    </ChakraText>
+  )
+}
 
 const Text = {
   Write,

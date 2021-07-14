@@ -48,7 +48,7 @@ export const InternshipPreferenceSection = ({ beCode }) => {
                 <Attribute
                   code={beCode}
                   attribute={`PRI_ASSOC_OCCUPATION`}
-                  config={{ noOfLines: 1 }}
+                  config={{ noOfLines: 1, detilViewTags: true }}
                 />
               </VStack>
             </GridItem>
@@ -56,13 +56,21 @@ export const InternshipPreferenceSection = ({ beCode }) => {
             <GridItem rowSpan={1} colSpan={1}>
               <VStack align="start">
                 <Text textStyle="tail.2">{`Proficient Software`}</Text>
-                <Attribute code={beCode} attribute={`PRI_ASSOC_CURRENT_SOFTWARE`} />
+                <Attribute
+                  code={beCode}
+                  attribute={`PRI_ASSOC_CURRENT_SOFTWARE`}
+                  config={{ detilViewTags: true }}
+                />
               </VStack>
             </GridItem>
             <GridItem rowSpan={1} colSpan={1}>
               <VStack align="start">
                 <Text textStyle="tail.2">{`Software would like experience in`}</Text>
-                <Attribute code={beCode} attribute={`PRI_ASSOC_FUTURE_SOFTWARE`} />
+                <Attribute
+                  code={beCode}
+                  attribute={`PRI_ASSOC_FUTURE_SOFTWARE`}
+                  config={{ detilViewTags: true }}
+                />
               </VStack>
             </GridItem>
             <GridItem rowSpan={1} colSpan={1} />
@@ -83,11 +91,15 @@ export const InternshipSection = ({ beCode }) => {
             <Text textStyle="body.1">{internshipDetails?.header}</Text>
           </HStack>
           <HStack w="full" justifyContent="space-between">
-            {map(({ label, attr }) => {
+            {map(({ label, attr, detilViewTags }) => {
               return (
                 <VStack align="start" justify="start">
                   <Text textStyle="tail.2">{label}</Text>
-                  <Attribute code={beCode} attribute={attr} />
+                  <Attribute
+                    code={beCode}
+                    attribute={attr}
+                    config={{ detilViewTags: detilViewTags }}
+                  />
                 </VStack>
               )
             })(internshipDetails.attributes)}

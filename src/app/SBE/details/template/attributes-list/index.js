@@ -28,7 +28,7 @@ export const internshipDetails = {
     { attr: 'PRI_START_DATE', label: 'Internship Start Date' },
     { attr: 'PRI_ASSOC_DURATION', label: 'Internship Duration' },
     { attr: 'PRI_DAYS_PER_WEEK', label: 'Days Per Week' },
-    { attr: 'PRI_WHICH_DAYS_STRIPPED', label: 'Days Of Week' },
+    { attr: 'PRI_WHICH_DAYS_STRIPPED', label: 'Days Of Week', detilViewTags: true },
   ],
 }
 export const recentEmployment = {
