@@ -9,11 +9,13 @@ import {
   internshipDetails,
   recentEmployment,
 } from 'app/SBE/details/template/attributes-list/index.js'
+import { useColorModeValue } from '@chakra-ui/color-mode'
 
 export const InternshipPreferenceSection = ({ beCode }) => {
+  const cardBg = useColorModeValue('#F7FAFC', 'gray.600')
   return (
     <Center w="full">
-      <Card minH="17rem" p={6} w="full" bg="#F7FAFC" overflow="hidden" borderRadius="2rem">
+      <Card minH="17rem" p={6} w="full" bg={cardBg} overflow="hidden" borderRadius="2rem">
         <VStack align="start" spacing={7}>
           <HStack spacing={5} w="full">
             {prefs?.icon}
@@ -82,9 +84,10 @@ export const InternshipPreferenceSection = ({ beCode }) => {
 }
 
 export const InternshipSection = ({ beCode }) => {
+  const cardBg = useColorModeValue('#F7FAFC', 'gray.600')
   return (
     <Center w="full">
-      <Card minH="9rem" p={6} w="full" bg="#F7FAFC" overflow="hidden" borderRadius="2rem">
+      <Card minH="9rem" p={6} w="full" bg={cardBg} overflow="hidden" borderRadius="2rem">
         <VStack align="start" spacing={7}>
           <HStack spacing={5} w="full">
             {internshipDetails?.icon}
@@ -111,9 +114,10 @@ export const InternshipSection = ({ beCode }) => {
 }
 
 export const ExperienceSection = ({ beCode }) => {
+  const cardBg = useColorModeValue('#F7FAFC', 'gray.600')
   return (
     <Center w="full">
-      <Card minH="13rem" p={6} w="full" bg="#F7FAFC" overflow="hidden" borderRadius="2rem">
+      <Card minH="13rem" p={6} w="full" bg={cardBg} overflow="hidden" borderRadius="2rem">
         <VStack align="start" spacing={7}>
           <HStack spacing={5} w="full">
             {recentEmployment?.icon}

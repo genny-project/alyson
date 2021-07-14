@@ -6,10 +6,13 @@ import Attribute from 'app/BE/attribute'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { map } from 'ramda'
 import { LeftDetailAttributes } from 'app/SBE/details/template/attributes-list/index.js'
+import { useColorModeValue } from '@chakra-ui/color-mode'
 
 const LeftDetail = ({ beCode, sbeCode }) => {
+  const cardBg = useColorModeValue('#F7FAFC', 'gray.600')
+
   return (
-    <Box bg="#F7FAFC" borderRadius="2rem 2rem 0rem 0rem" h="100vh" position="sticky" top="0rem">
+    <Box bg={cardBg} borderRadius="2rem 2rem 0rem 0rem" h="100vh" position="sticky" top="0rem">
       <VStack ml="10" mr="4" my="8" align="start" spacing={8} maxW="30vw">
         <Box w="full">
           <Attribute code={beCode} config={{ h: '15rem', w: '15rem' }} attribute="PRI_IMAGE_URL" />
