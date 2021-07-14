@@ -1,7 +1,7 @@
 import { Input, Text as ChakraText, HStack, Tag } from '@chakra-ui/react'
 import debounce from 'lodash.debounce'
 import { useMobileValue } from 'utils/hooks'
-import { map } from 'ramda'
+import { map, splitAt, head, last, length } from 'ramda'
 import getArrayFromStringValue from 'utils/helpers/get-array-from-string.js'
 
 export const Write = ({ questionCode, data, onSendAnswer }) => {
@@ -25,8 +25,22 @@ export const Read = ({ data, config = {} }) => {
   if (detilViewTags) {
     const allValues = getArrayFromStringValue(data?.value)
 
+    const splittedTags = splitAt(2)(allValues)
+    const splittedTagsToDisplay = head(splittedTags)
+    const splittedTagsToShowAsMore = last(splittedTags)
+
     return (
-      <HStack width="min">{map(value => <Tag borderRadius={15}>{value}</Tag>)(allValues)}</HStack>
+      <HStack>
+        {map(value => <Tag borderRadius={15}>{value}</Tag>)(splittedTagsToDisplay)}
+        {length(splittedTagsToShowAsMore) >= 1 && (
+          <Tag
+            borderRadius={15}
+            cursor="pointer"
+            _hover={{ color: 'red' }}
+            onClick={() => console.log('tag clicked')}
+          >{`+ ${length(splittedTagsToShowAsMore)} more`}</Tag>
+        )}
+      </HStack>
     )
   }
   return (
