@@ -29,7 +29,7 @@ const Header = ({ beCode }) => {
         position="absolute"
         zIndex="modal"
         right="12"
-        top="10"
+        top="6"
       >
         <IconButton
           onClick={onClose}

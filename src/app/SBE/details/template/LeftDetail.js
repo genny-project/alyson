@@ -13,7 +13,7 @@ import {
 import { map } from 'ramda'
 
 const LeftDetailAttributes = [
-  { icon: faUser, attr: 'PRI_FIRSTNAME' },
+  { icon: faUser, attr: 'PRI_NAME' },
   { icon: faPhoneAlt, attr: 'PRI_MOBILE' },
   { icon: faEnvelope, attr: 'PRI_EMAIL' },
   { icon: faMapMarkerAlt, attr: 'PRI_ADDRESS_FULL', config: { hideIcon: true } },
@@ -27,7 +27,7 @@ const LeftDetail = ({ beCode, sbeCode }) => {
         <Attribute code={beCode} config={{ h: '15rem', w: '15rem' }} attribute="PRI_IMAGE_URL" />
         <VStack align="start" spacing={4}>
           <HStack spacing={5}>
-            <Attribute config={{ textStyle: 'head.1' }} code={beCode} attribute="PRI_FIRSTNAME" />
+            <Attribute config={{ textStyle: 'head.1' }} code={beCode} attribute="PRI_NAME" />
             <Attribute config={{ color: '#3182CE' }} code={beCode} attribute="PRI_LINKEDIN_URL" />
           </HStack>
           <Attribute code={beCode} attribute="PRI_STAR_RATING" />

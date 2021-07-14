@@ -28,6 +28,8 @@ import LeftDetail from 'app/SBE/details/template/LeftDetail.js'
 import Card from 'app/layouts/components/card'
 import { closeDrawer } from 'redux/app'
 import Header from 'app/SBE/details/template/layouts/Header.js'
+import { Grid, GridItem } from '@chakra-ui/react'
+
 import { map } from 'ramda'
 const DetailLayout = ({ sbeCode, targetCode, details = [[], []] }) => {
   const rows = useSelector(selectRows(sbeCode))
@@ -70,8 +72,8 @@ const DetailLayout = ({ sbeCode, targetCode, details = [[], []] }) => {
     attributes: [
       { attr: 'PRI_START_DATE', label: 'Internship Start Date' },
       { attr: 'PRI_ASSOC_DURATION', label: 'Internship Duration' },
-      { attr: 'PRI_ASSOC_DAYS_PER_WEEK', label: 'Days Per Week' },
-      { attr: 'PRI_ASSOC_DAYS_OF_WEEK', label: 'Days Of Week' },
+      { attr: 'PRI_DAYS_PER_WEEK', label: 'Days Per Week' },
+      { attr: 'PRI_WHICH_DAYS_STRIPPED', label: 'Days Of Week' },
     ],
   }
   const recentEmployment = {
@@ -82,14 +84,14 @@ const DetailLayout = ({ sbeCode, targetCode, details = [[], []] }) => {
       { attr: 'PRI_PREV_DURATION', label: 'Tenure' },
       { attr: 'PRI_PREV_EMPLOYER', label: 'Company Name' },
       { attr: 'PRI_ASSOC_OCCUPATION', label: 'Industry' },
-      { attr: '', label: 'Description' },
+      { attr: 'PRI_PREV_DESCRIPTION', label: 'Description' },
     ],
   }
   return (
     <Box className="nobar" minH="90vh" overflowY="scroll" onScroll={onScroll} onWheel={onWheel}>
       <Box w="100%" alignItems="start" display="flex">
         <LeftDetail beCode={beCode} sbeCode={sbeCode} />
-        <VStack bg="yellow" flex="1" m={3} spacing={6}>
+        <VStack flex="1" m={3} mb={8} spacing={6}>
           <Header beCode={beCode} />
           <Center w="full">
             <Card minH="17rem" p={6} w="full" bg="#F7FAFC" overflow="hidden" borderRadius="2rem">
@@ -101,6 +103,7 @@ const DetailLayout = ({ sbeCode, targetCode, details = [[], []] }) => {
               </VStack>
             </Card>
           </Center>
+
           <Center w="full">
             <Card minH="9rem" p={6} w="full" bg="#F7FAFC" overflow="hidden" borderRadius="2rem">
               <VStack align="start" spacing={7}>
@@ -121,13 +124,52 @@ const DetailLayout = ({ sbeCode, targetCode, details = [[], []] }) => {
               </VStack>
             </Card>
           </Center>
+
           <Center w="full">
-            <Card minH="17rem" p={6} w="full" bg="#F7FAFC" overflow="hidden" borderRadius="2rem">
+            <Card minH="13rem" p={6} w="full" bg="#F7FAFC" overflow="hidden" borderRadius="2rem">
               <VStack align="start" spacing={7}>
                 <HStack spacing={5} w="full">
-                  <FontAwesomeIcon size="lg" icon={faCog} />
-                  <Text textStyle="body.1">{`Internship Preferences`}</Text>
+                  {recentEmployment?.icon}
+                  <Text textStyle="body.1">{recentEmployment?.header}</Text>
                 </HStack>
+                <Grid
+                  h="11rem"
+                  w="100%"
+                  templateRows="repeat(2, 1fr)"
+                  templateColumns="repeat(4, 1fr)"
+                  gap={4}
+                >
+                  <GridItem rowSpan={1} colSpan={1}>
+                    <VStack align="start">
+                      <Text textStyle="tail.2">{`Job Title`}</Text>
+                      <Attribute code={beCode} attribute={`PRI_PREV_JOB_TITLE`} />
+                    </VStack>
+                  </GridItem>
+                  <GridItem rowSpan={1} colSpan={1}>
+                    <VStack align="start">
+                      <Text textStyle="tail.2">{`Tenure`}</Text>
+                      <Attribute code={beCode} attribute={`PRI_PREV_DURATION`} />
+                    </VStack>
+                  </GridItem>
+                  <GridItem rowSpan={2} colSpan={2}>
+                    <VStack align="start">
+                      <Text textStyle="tail.2">{`Description`}</Text>
+                      <Attribute code={beCode} attribute={`PRI_PREV_DESCRIPTION`} />
+                    </VStack>
+                  </GridItem>
+                  <GridItem rowSpan={1} colSpan={1}>
+                    <VStack align="start">
+                      <Text textStyle="tail.2">{`Company Name`}</Text>
+                      <Attribute code={beCode} attribute={`PRI_PREV_EMPLOYER`} />
+                    </VStack>
+                  </GridItem>
+                  <GridItem rowSpan={1} colSpan={1}>
+                    <VStack align="start">
+                      <Text textStyle="tail.2">{`Industry`}</Text>
+                      <Attribute code={beCode} attribute={`PRI_ASSOC_OCCUPATION`} />
+                    </VStack>
+                  </GridItem>
+                </Grid>
               </VStack>
             </Card>
           </Center>
