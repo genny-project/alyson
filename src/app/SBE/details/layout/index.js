@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectCode, selectRows } from 'redux/db/selectors'
 import { useIsMobile } from 'utils/hooks'
-import DetailActions from './Actions'
+import DetailActions from 'app/SBE/details/template/layouts/Actions.js'
 import DetailHeader from './Header'
 import Tile from './Tile'
 import 'app/layouts/components/css/hide-scroll.css'
@@ -24,6 +24,7 @@ import { IconButton } from '@chakra-ui/react'
 import LeftDetail from 'app/SBE/details/template/LeftDetail.js'
 import Card from 'app/layouts/components/card'
 import { closeDrawer } from 'redux/app'
+import Header from 'app/SBE/details/template/layouts/Header.js'
 
 const DetailLayout = ({ sbeCode, targetCode, details = [[], []] }) => {
   const rows = useSelector(selectRows(sbeCode))
@@ -61,34 +62,11 @@ const DetailLayout = ({ sbeCode, targetCode, details = [[], []] }) => {
     <Box className="nobar" minH="90vh" overflowY="scroll" onScroll={onScroll} onWheel={onWheel}>
       <Box w="100%" alignItems="start" display="flex">
         <LeftDetail beCode={beCode} sbeCode={sbeCode} />
-        <VStack bg="yellow" flex="1" m={3}>
-          <Center w="full">
-            <Card minH="10rem" p={0} w="full" bg="#1A365D" overflow="hidden" borderRadius="2rem">
-              <Center w="full">
-                <Box maxW="30vw">
-                  <Attribute code={beCode} attribute="PRI_VIDEO_URL" />
-                </Box>
-              </Center>
-            </Card>
-          </Center>
-          <Box
-            overflow="hidden"
-            borderRadius="50%"
-            position="absolute"
-            zIndex="modal"
-            right="12"
-            top="10"
-          >
-            <IconButton
-              onClick={onClose}
-              size="sm"
-              color="#1A365D"
-              bg="white"
-              icon={<FontAwesomeIcon opacity={50} icon={faTimes} />}
-            />
-          </Box>
-
+        <VStack bg="yellow" flex="1" m={3} spacing={6}>
+          <Header beCode={beCode} />
+          <Header beCode={beCode} />
           <div>{`shrestha`}</div>
+          <Header beCode={beCode} />
           <div>{`cyrus`}</div>
           <div>{`shrestha`}</div>
           <div>{`cyrus`}</div>

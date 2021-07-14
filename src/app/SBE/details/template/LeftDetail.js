@@ -1,5 +1,5 @@
 import { VStack, HStack, Box } from '@chakra-ui/layout'
-import DetailActions from 'app/SBE/details/layout/Actions.js'
+import DetailActions from 'app/SBE/details/template/layouts/Actions.js'
 import 'app/layouts/components/css/hide-scroll.css'
 import Attribute from 'app/BE/attribute'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

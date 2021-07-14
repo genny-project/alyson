@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { closeDrawer } from 'redux/app'
 import { selectCode } from 'redux/db/selectors'
 import { useIsMobile } from 'utils/hooks'
-import DetailActions from './Actions'
+import DetailActions from 'app/SBE/details/template/layouts/Actions.js'
 
 const DetailHeader = ({ sbeCode, beCode, mini }) => {
   const dispatch = useDispatch()
