@@ -74,7 +74,7 @@ const Attribute = ({
   ) : component === 'html_display' ? (
     <HtmlDisplay.Read data={data} />
   ) : component === 'richtext_editor' ? (
-    <RichText.Read data={data} mini={mini} styles={styles} />
+    <RichText.Read data={data} mini={mini} styles={styles} config={config} />
   ) : component === 'dropdown' ? (
     <Select.Read dataType={dttData} data={data} />
   ) : component === 'video' ? (

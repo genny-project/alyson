@@ -154,7 +154,11 @@ const DetailLayout = ({ sbeCode, targetCode, details = [[], []] }) => {
                   <GridItem rowSpan={2} colSpan={2}>
                     <VStack align="start">
                       <Text textStyle="tail.2">{`Description`}</Text>
-                      <Attribute code={beCode} attribute={`PRI_PREV_DESCRIPTION`} />
+                      <Attribute
+                        code={beCode}
+                        attribute={`PRI_PREV_DESCRIPTION`}
+                        config={{ px: '0px', noOfLines: 6 }}
+                      />
                     </VStack>
                   </GridItem>
                   <GridItem rowSpan={1} colSpan={1}>
@@ -166,7 +170,11 @@ const DetailLayout = ({ sbeCode, targetCode, details = [[], []] }) => {
                   <GridItem rowSpan={1} colSpan={1}>
                     <VStack align="start">
                       <Text textStyle="tail.2">{`Industry`}</Text>
-                      <Attribute code={beCode} attribute={`PRI_ASSOC_OCCUPATION`} />
+                      <Attribute
+                        code={beCode}
+                        attribute={`PRI_ASSOC_OCCUPATION`}
+                        config={{ noOfLines: 2 }}
+                      />
                     </VStack>
                   </GridItem>
                 </Grid>
