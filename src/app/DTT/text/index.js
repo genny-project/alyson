@@ -1,8 +1,16 @@
-import { Input, Text as ChakraText, Tag, Wrap } from '@chakra-ui/react'
+import { Input, Text as ChakraText, Tag, Wrap, useDisclosure, VStack } from '@chakra-ui/react'
 import debounce from 'lodash.debounce'
 import { useMobileValue } from 'utils/hooks'
 import { map, splitAt, head, last, length } from 'ramda'
 import getArrayFromStringValue from 'utils/helpers/get-array-from-string.js'
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalCloseButton,
+} from '@chakra-ui/react'
 
 export const Write = ({ questionCode, data, onSendAnswer }) => {
   const debouncedSendAnswer = debounce(onSendAnswer, 500)
@@ -20,6 +28,7 @@ export const Write = ({ questionCode, data, onSendAnswer }) => {
 }
 
 export const Read = ({ data, config = {} }) => {
+  const { isOpen, onOpen, onClose } = useDisclosure()
   const { detilViewTags } = config
 
   if (detilViewTags) {
@@ -29,28 +38,48 @@ export const Read = ({ data, config = {} }) => {
     const splittedTagsToShowAsMore = last(splittedTags)
 
     return (
-      <Wrap align="start">
-        {map(value => (
-          <Tag borderRadius={15} align="center">
-            <ChakraText textStyle="body.2" isTruncated maxWidth="5rem" px="1">
-              {value}
-            </ChakraText>
-          </Tag>
-        ))(splittedTagsToDisplay)}
-        {length(splittedTagsToShowAsMore) >= 1 && (
-          <Tag
-            w="5rem"
-            borderRadius={15}
-            cursor="pointer"
-            _hover={{ color: 'red' }}
-            onClick={() => console.log('tag clicked')}
-          >
-            <ChakraText textStyle="body.2">
-              {`+ ${length(splittedTagsToShowAsMore)} more`}
-            </ChakraText>
-          </Tag>
-        )}
-      </Wrap>
+      <>
+        <Wrap align="start">
+          {map(value => (
+            <Tag borderRadius={15} align="center">
+              <ChakraText textStyle="body.2" isTruncated maxWidth="5rem" px="1">
+                {value}
+              </ChakraText>
+            </Tag>
+          ))(splittedTagsToDisplay)}
+          {length(splittedTagsToShowAsMore) >= 1 && (
+            <Tag
+              w="5rem"
+              borderRadius={15}
+              cursor="pointer"
+              _hover={{ color: 'red' }}
+              onClick={onOpen}
+            >
+              <ChakraText textStyle="body.2">
+                {`+ ${length(splittedTagsToShowAsMore)} more`}
+              </ChakraText>
+            </Tag>
+          )}
+        </Wrap>
+        <Modal isOpen={isOpen} onClose={onClose} isCentered size="lg">
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>{`All Tags`}</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <VStack spacing={4} mb="4" align="start">
+                {map(value => (
+                  <Tag borderRadius={15} align="center">
+                    <ChakraText textStyle="body.2" w="full" px="1">
+                      {value}
+                    </ChakraText>
+                  </Tag>
+                ))(allValues)}
+              </VStack>
+            </ModalBody>
+          </ModalContent>
+        </Modal>
+      </>
     )
   }
   return (
