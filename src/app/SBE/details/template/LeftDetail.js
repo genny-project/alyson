@@ -3,22 +3,8 @@ import DetailActions from 'app/SBE/details/template/layouts/Actions.js'
 import 'app/layouts/components/css/hide-scroll.css'
 import Attribute from 'app/BE/attribute'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faUser,
-  faPhoneAlt,
-  faEnvelope,
-  faMapMarkerAlt,
-  faGraduationCap,
-} from '@fortawesome/free-solid-svg-icons'
 import { map } from 'ramda'
-
-const LeftDetailAttributes = [
-  { icon: faUser, attr: 'PRI_NAME' },
-  { icon: faPhoneAlt, attr: 'PRI_MOBILE' },
-  { icon: faEnvelope, attr: 'PRI_EMAIL' },
-  { icon: faMapMarkerAlt, attr: 'PRI_ADDRESS_FULL', config: { hideIcon: true } },
-  { icon: faGraduationCap, attr: 'PRI_ASSOC_EP' },
-]
+import { LeftDetailAttributes } from 'app/SBE/details/template/attributes-list/index.js'
 
 const LeftDetail = ({ beCode, sbeCode }) => {
   return (
