@@ -24,7 +24,6 @@ export const Read = ({ data, config = {} }) => {
 
   if (detilViewTags) {
     const allValues = getArrayFromStringValue(data?.value)
-
     const splittedTags = splitAt(2)(allValues)
     const splittedTagsToDisplay = head(splittedTags)
     const splittedTagsToShowAsMore = last(splittedTags)
@@ -33,7 +32,7 @@ export const Read = ({ data, config = {} }) => {
       <Wrap align="start">
         {map(value => (
           <Tag borderRadius={15} align="center">
-            <ChakraText textStyle="body.2" isTruncated width="5rem">
+            <ChakraText textStyle="body.2" isTruncated maxWidth="5rem" px="1">
               {value}
             </ChakraText>
           </Tag>

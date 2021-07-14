@@ -8,7 +8,7 @@ import { LeftDetailAttributes } from 'app/SBE/details/template/attributes-list/i
 
 const LeftDetail = ({ beCode, sbeCode }) => {
   return (
-    <Box bg="#F7FAFC" borderRadius="2rem 2rem 0rem 0rem">
+    <Box bg="#F7FAFC" borderRadius="2rem 2rem 0rem 0rem" h="100vh" position="sticky" top="0rem">
       <VStack mx="10" my="8" align="start" spacing={8} maxW="30vw">
         <Attribute code={beCode} config={{ h: '15rem', w: '15rem' }} attribute="PRI_IMAGE_URL" />
         <VStack align="start" spacing={4}>
