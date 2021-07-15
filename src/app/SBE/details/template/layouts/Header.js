@@ -30,7 +30,7 @@ const Header = ({ beCode }) => {
             ) : (
               <Center minH="10rem" w="100%">
                 <Text textStyle="head.2" color="#ffffff">
-                  {`The Intern has not uploaded any video yet!  ☹️`}
+                  {`The Intern has not uploaded any video yet!`}
                 </Text>
               </Center>
             )}

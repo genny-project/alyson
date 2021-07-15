@@ -12,7 +12,7 @@ import {
 import { useColorModeValue } from '@chakra-ui/color-mode'
 
 export const InternshipPreferenceSection = ({ beCode }) => {
-  const cardBg = useColorModeValue('blue.200', 'gray.600')
+  const cardBg = useColorModeValue('gray.200', 'gray.600')
   return (
     <Center w="full">
       <Card p={6} w="full" bg={cardBg} overflow="hidden" borderRadius="2rem">
@@ -86,7 +86,7 @@ export const InternshipPreferenceSection = ({ beCode }) => {
 }
 
 export const InternshipSection = ({ beCode }) => {
-  const cardBg = useColorModeValue('blue.200', 'gray.600')
+  const cardBg = useColorModeValue('gray.200', 'gray.600')
   return (
     <Center w="full">
       <Card minH="9rem" p={6} w="full" bg={cardBg} overflow="hidden" borderRadius="2rem">
@@ -116,7 +116,7 @@ export const InternshipSection = ({ beCode }) => {
 }
 
 export const ExperienceSection = ({ beCode }) => {
-  const cardBg = useColorModeValue('blue.200', 'gray.600')
+  const cardBg = useColorModeValue('gray.200', 'gray.600')
   return (
     <Center w="full">
       <Card minH="13rem" p={6} w="full" bg={cardBg} overflow="hidden" borderRadius="2rem">
