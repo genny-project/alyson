@@ -12,29 +12,33 @@ import {
 import { useColorModeValue } from '@chakra-ui/color-mode'
 
 export const InternshipPreferenceSection = ({ beCode }) => {
-  const cardBg = useColorModeValue('#F7FAFC', 'gray.600')
+  const cardBg = useColorModeValue('blue.200', 'gray.600')
   return (
     <Center w="full">
-      <Card minH="17rem" p={6} w="full" bg={cardBg} overflow="hidden" borderRadius="2rem">
+      <Card p={6} w="full" bg={cardBg} overflow="hidden" borderRadius="2rem">
         <VStack align="start" spacing={7}>
           <HStack spacing={5} w="full">
             {prefs?.icon}
             <Text textStyle="body.1">{prefs?.header}</Text>
           </HStack>
           <Grid
-            h="15.5rem"
+            h="15rem"
             w="100%"
             templateRows="repeat(3, 1fr)"
-            templateColumns="repeat(4, 1fr)"
+            templateColumns="repeat(5, 1fr)"
             gap={6}
           >
             <GridItem rowSpan={1} colSpan={1}>
               <VStack align="start">
                 <Text textStyle="tail.2">{`Industry`}</Text>
-                <Attribute code={beCode} attribute={`PRI_ASSOC_INDUSTRY`} />
+                <Attribute
+                  code={beCode}
+                  attribute={`PRI_ASSOC_INDUSTRY`}
+                  config={{ detilViewTags: true }}
+                />
               </VStack>
             </GridItem>
-            <GridItem rowSpan={2} colSpan={3}>
+            <GridItem rowSpan={2} colSpan={4}>
               <VStack align="start">
                 <Text textStyle="tail.2">{`Career Objectives`}</Text>
                 <Attribute
@@ -44,7 +48,7 @@ export const InternshipPreferenceSection = ({ beCode }) => {
                 />
               </VStack>
             </GridItem>
-            <GridItem rowSpan={1} colSpan={1}>
+            <GridItem rowSpan={2} colSpan={1}>
               <VStack align="start">
                 <Text textStyle="tail.2">{`Specialisation`}</Text>
                 <Attribute
@@ -54,8 +58,7 @@ export const InternshipPreferenceSection = ({ beCode }) => {
                 />
               </VStack>
             </GridItem>
-            <GridItem rowSpan={1} colSpan={1} />
-            <GridItem rowSpan={1} colSpan={1}>
+            <GridItem rowSpan={1} colSpan={2}>
               <VStack align="start">
                 <Text textStyle="tail.2">{`Proficient Software`}</Text>
                 <Attribute
@@ -65,7 +68,7 @@ export const InternshipPreferenceSection = ({ beCode }) => {
                 />
               </VStack>
             </GridItem>
-            <GridItem rowSpan={1} colSpan={1}>
+            <GridItem rowSpan={1} colSpan={2}>
               <VStack align="start">
                 <Text textStyle="tail.2">{`Software would like experience in`}</Text>
                 <Attribute
@@ -75,7 +78,6 @@ export const InternshipPreferenceSection = ({ beCode }) => {
                 />
               </VStack>
             </GridItem>
-            <GridItem rowSpan={1} colSpan={1} />
           </Grid>
         </VStack>
       </Card>
@@ -84,7 +86,7 @@ export const InternshipPreferenceSection = ({ beCode }) => {
 }
 
 export const InternshipSection = ({ beCode }) => {
-  const cardBg = useColorModeValue('#F7FAFC', 'gray.600')
+  const cardBg = useColorModeValue('blue.200', 'gray.600')
   return (
     <Center w="full">
       <Card minH="9rem" p={6} w="full" bg={cardBg} overflow="hidden" borderRadius="2rem">
@@ -114,7 +116,7 @@ export const InternshipSection = ({ beCode }) => {
 }
 
 export const ExperienceSection = ({ beCode }) => {
-  const cardBg = useColorModeValue('#F7FAFC', 'gray.600')
+  const cardBg = useColorModeValue('blue.200', 'gray.600')
   return (
     <Center w="full">
       <Card minH="13rem" p={6} w="full" bg={cardBg} overflow="hidden" borderRadius="2rem">

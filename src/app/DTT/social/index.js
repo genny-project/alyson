@@ -16,7 +16,7 @@ const Read = ({ data, config = {} }) => {
     return (
       <a href={href}>
         <FontAwesomeIcon
-          size="2x"
+          size="lg"
           icon={faLinkedin}
           test-id={data?.baseEntityCode}
           {...config}
