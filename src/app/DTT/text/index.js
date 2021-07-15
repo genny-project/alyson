@@ -41,7 +41,7 @@ export const Read = ({ data, config = {} }) => {
       <>
         <Wrap align="start">
           {map(value => (
-            <Tag borderRadius={15} align="center" colorScheme="cyan">
+            <Tag borderRadius={15} align="center" colorScheme="green">
               <ChakraText textStyle="body.2" isTruncated px="1">
                 {value}
               </ChakraText>
@@ -54,7 +54,7 @@ export const Read = ({ data, config = {} }) => {
               cursor="pointer"
               _hover={{ color: 'red' }}
               onClick={onOpen}
-              colorScheme="cyan"
+              colorScheme="yellow"
             >
               <ChakraText textStyle="body.2">
                 {`+ ${length(splittedTagsToShowAsMore)} more`}
