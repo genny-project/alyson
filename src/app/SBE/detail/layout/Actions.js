@@ -20,9 +20,8 @@ const DetailActions = ({ sbeCode, beCode }) => {
       <Action parentCode={sbeCode} code={actions[0]} targetCode={beCode} noMenu />
       {actions.length > 1 && (
         <Menu>
-          <MenuButton>
+          <MenuButton test-id={'detail-view-actions'}>
             <IconButton
-              test-id={'detail-view-actions'}
               colorScheme="primary"
               variant="outline"
               icon={<FontAwesomeIcon icon={faEllipsisH} />}

@@ -22,7 +22,6 @@ import CheckBox from 'app/DTT/check_box'
 import ImageType from 'app/DTT/upload/Image'
 import Flag from 'app/DTT/flag'
 import fixLnk from './fix-lnk'
-import { includes } from 'ramda'
 
 const Attribute = ({
   code,

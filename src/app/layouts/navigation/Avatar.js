@@ -1,4 +1,3 @@
-// import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import useApi from 'api'
@@ -12,15 +11,14 @@ import {
   MenuGroup,
   Flex,
   Spacer,
-  useDisclosure,
   HStack,
 } from '@chakra-ui/react'
 import ChildMenuItem from 'app/ASKS/menu/ChildMenuItem'
 import ColorToggler from './ColorToggler'
 import { onSendMessage } from 'vertx'
-import SettingsModal from './SettingsModal'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
+import { apiConfig } from 'config/get-api-config'
 
 const QUE_AVATAR_GRP = 'QUE_AVATAR_GRP'
 
@@ -32,8 +30,6 @@ const AvatarMenu = () => {
   const associatedEntitiy = useSelector(selectCode(userCode, 'PRI_ASSOC_ENTITY_NAME'))
   const avatarAsks = useSelector(selectCode(QUE_AVATAR_GRP))
   const { keycloak } = useKeycloak()
-
-  const { isOpen, onOpen, onClose } = useDisclosure()
   const { getImageSrc } = useApi()
 
   const title = `${name?.value || userName?.value}${
@@ -108,9 +104,14 @@ const AvatarMenu = () => {
               />
             ))}
 
-          <MenuItem test-id={'QUE_AVATAR_SETTINGS'} onClick={onOpen}>
-            Account
-          </MenuItem>
+          <a
+            href={`https://keycloak.gada.io/auth/realms/${apiConfig?.realm}/account/`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <MenuItem test-id={'QUE_AVATAR_SETTINGS'}>Account</MenuItem>
+          </a>
+
           <MenuItem test-id={'HELP'} onClick={onOpenHelp}>
             {`Help & Support`}
           </MenuItem>
@@ -135,7 +136,6 @@ const AvatarMenu = () => {
           <ColorToggler />
         </Flex>
       </MenuList>
-      <SettingsModal isOpen={isOpen} onClose={onClose} />
     </Menu>
   )
 }
