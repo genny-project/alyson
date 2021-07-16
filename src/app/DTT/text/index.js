@@ -21,8 +21,9 @@ export const Read = ({ data, config = {} }) => {
   const { detilViewTags } = config
 
   if (detilViewTags) {
-    ;<DetailViewTags data={data} />
+    return <DetailViewTags data={data} />
   }
+
   return (
     <ChakraText noOfLines={3} {...config}>
       {data?.value || config.defaultValue}
