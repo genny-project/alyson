@@ -1,15 +1,15 @@
+import { isEmpty } from 'ramda'
+import { useSelector, useDispatch } from 'react-redux'
 import { Box, Center, Text } from '@chakra-ui/layout'
-import { useDispatch } from 'react-redux'
-import 'app/layouts/components/css/hide-scroll.css'
-import Attribute from 'app/BE/attribute'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { IconButton } from '@chakra-ui/react'
+
+import 'app/layouts/components/css/hide-scroll.css'
+import Attribute from 'app/BE/attribute'
 import Card from 'app/layouts/components/card'
 import { closeDrawer } from 'redux/app'
 import { selectCode } from 'redux/db/selectors'
-import { useSelector } from 'react-redux'
-import { isEmpty } from 'ramda'
 
 const Header = ({ beCode }) => {
   const dispatch = useDispatch()

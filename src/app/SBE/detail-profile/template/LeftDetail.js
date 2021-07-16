@@ -1,18 +1,18 @@
+import { map, equals } from 'ramda'
+import { useSelector } from 'react-redux'
 import { VStack, HStack, Box } from '@chakra-ui/layout'
 import { Avatar } from '@chakra-ui/avatar'
-import DetailActions from 'app/SBE/details/template/layouts/Actions.js'
+import { useColorModeValue } from '@chakra-ui/color-mode'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import useApi from 'api'
+
+import DetailActions from 'app/SBE/detail-profile/template/layouts/Actions.js'
 import 'app/layouts/components/css/hide-scroll.css'
 import Attribute from 'app/BE/attribute'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { map } from 'ramda'
-import { LeftDetailAttributes } from 'app/SBE/details/template/attributes-list/index.js'
-import { useColorModeValue } from '@chakra-ui/color-mode'
-import { useSelector } from 'react-redux'
+import { LeftDetailAttributes } from 'app/SBE/detail-profile/template/attributes-list'
 import { selectCode } from 'redux/db/selectors'
-import { equals } from 'ramda'
-import getUserType from 'utils/helpers/get-user-type'
 import sameLength from 'redux/utils/same-length'
-import useApi from 'api'
+import getUserType from 'utils/helpers/get-user-type'
 
 const LeftDetail = ({ beCode, sbeCode }) => {
   const cardBg = useColorModeValue('gray.200', 'gray.600')

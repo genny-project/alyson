@@ -1,4 +1,5 @@
 import { Box, HStack, Text, VStack } from '@chakra-ui/layout'
+
 import Attribute from 'app/BE/attribute'
 import Card from 'app/layouts/components/card'
 

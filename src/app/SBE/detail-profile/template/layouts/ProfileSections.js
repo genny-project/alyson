@@ -1,15 +1,16 @@
+import { map } from 'ramda'
+import { Grid, GridItem } from '@chakra-ui/react'
 import { Center, VStack, HStack, Text } from '@chakra-ui/layout'
+import { useColorModeValue } from '@chakra-ui/color-mode'
+
 import 'app/layouts/components/css/hide-scroll.css'
 import Attribute from 'app/BE/attribute'
 import Card from 'app/layouts/components/card'
-import { Grid, GridItem } from '@chakra-ui/react'
-import { map } from 'ramda'
 import {
   prefs,
   internshipDetails,
   recentEmployment,
-} from 'app/SBE/details/template/attributes-list/index.js'
-import { useColorModeValue } from '@chakra-ui/color-mode'
+} from 'app/SBE/detail-profile/template/attributes-list/index.js'
 
 export const InternshipPreferenceSection = ({ beCode }) => {
   const cardBg = useColorModeValue('blue.200', 'gray.600')

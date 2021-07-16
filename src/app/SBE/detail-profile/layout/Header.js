@@ -1,3 +1,5 @@
+import { identity } from 'ramda'
+import { useDispatch, useSelector } from 'react-redux'
 import { Avatar } from '@chakra-ui/avatar'
 import { IconButton } from '@chakra-ui/button'
 import { useDisclosure } from '@chakra-ui/hooks'
@@ -5,14 +7,13 @@ import { Box, Center, Fade, Flex, HStack, Spacer, VStack } from '@chakra-ui/reac
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useApi from 'api'
+
 import Attribute from 'app/BE/attribute'
 import Card from 'app/layouts/components/card'
-import { identity } from 'ramda'
-import { useDispatch, useSelector } from 'react-redux'
 import { closeDrawer } from 'redux/app'
 import { selectCode } from 'redux/db/selectors'
 import { useIsMobile } from 'utils/hooks'
-import DetailActions from 'app/SBE/details/template/layouts/Actions.js'
+import DetailActions from 'app/SBE/detail-profile/template/layouts/Actions.js'
 
 const DetailHeader = ({ sbeCode, beCode, mini }) => {
   const dispatch = useDispatch()

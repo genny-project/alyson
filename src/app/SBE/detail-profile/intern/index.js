@@ -8,7 +8,7 @@ import {
   faUser,
 } from '@fortawesome/free-solid-svg-icons'
 
-import DetailLayout from '../layout'
+import DetailLayout from 'app/SBE/detail-profile/layout'
 
 const contactDetails = {
   header: 'Contact Details',

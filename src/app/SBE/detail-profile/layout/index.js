@@ -1,13 +1,14 @@
-import { useBoolean } from '@chakra-ui/hooks'
-import { Box } from '@chakra-ui/layout'
-import { add } from 'ramda'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { add } from 'ramda'
+import { useBoolean } from '@chakra-ui/hooks'
+import { Box } from '@chakra-ui/layout'
+
 import { selectRows } from 'redux/db/selectors'
 import { useIsMobile } from 'utils/hooks'
 import 'app/layouts/components/css/hide-scroll.css'
-import LeftDetail from 'app/SBE/details/template/LeftDetail.js'
-import RightDetail from 'app/SBE/details/template/RightDetail.js'
+import LeftDetail from 'app/SBE/detail-profile/template/LeftDetail.js'
+import RightDetail from 'app/SBE/detail-profile/template/RightDetail.js'
 
 const DetailLayout = ({ sbeCode, targetCode, details = [[], []] }) => {
   const rows = useSelector(selectRows(sbeCode))

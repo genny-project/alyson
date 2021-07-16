@@ -1,14 +1,15 @@
+import { useSelector } from 'react-redux'
 import { IconButton } from '@chakra-ui/button'
 import { HStack } from '@chakra-ui/layout'
 import { Menu, MenuButton, MenuList } from '@chakra-ui/menu'
 import { faEllipsisH } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
+
 import Action from 'app/BE/context/Action'
 import getActions from 'app/SBE/utils/get-actions'
-import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import Attribute from 'app/BE/attribute'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 const DetailActions = ({ sbeCode, beCode }) => {
   const sbe = useSelector(selectCode(sbeCode))
