@@ -12,11 +12,17 @@ import { selectCode } from 'redux/db/selectors'
 import { equals } from 'ramda'
 import getUserType from 'utils/helpers/get-user-type'
 import sameLength from 'redux/utils/same-length'
+import useApi from 'api'
 
 const LeftDetail = ({ beCode, sbeCode }) => {
   const cardBg = useColorModeValue('gray.200', 'gray.600')
   const userCode = useSelector(selectCode('USER'), equals)
   const userType = getUserType(useSelector(selectCode(userCode), sameLength))
+
+  const eduProviderImage = useSelector(selectCode(beCode, '_LNK_EDU_PROVIDER__PRI_IMAGE_URL')) || {}
+  const associatedAgentImage = useSelector(selectCode(beCode, '_LNK_AGENT__PRI_IMAGE_URL')) || {}
+  const eduProviderImageSrc = eduProviderImage?.value
+  const associatedAgentImageSrc = useApi().getImageSrc(associatedAgentImage?.value)
 
   return (
     <Box bg={cardBg} borderRadius="2rem 2rem 0rem 0rem" h="100vh" position="sticky" top="0rem">
@@ -33,7 +39,7 @@ const LeftDetail = ({ beCode, sbeCode }) => {
               mt="10.5rem"
               ml="-7.5rem"
               p="4px"
-              src={`https://cdn.pixabay.com/photo/2017/11/09/21/41/cat-2934720_1280.jpg`}
+              src={associatedAgentImageSrc}
               w="4.5rem"
               h="4.5rem"
               zIndex="modal"
@@ -51,7 +57,7 @@ const LeftDetail = ({ beCode, sbeCode }) => {
               mt="10.5rem"
               ml="-8rem"
               p="4px"
-              src={`https://cdn.pixabay.com/photo/2017/11/09/21/41/cat-2934720_1280.jpg`}
+              src={eduProviderImageSrc}
               w="4.5rem"
               h="4.5rem"
               zIndex="modal"
@@ -61,7 +67,7 @@ const LeftDetail = ({ beCode, sbeCode }) => {
               mt="10.5rem"
               ml="-1rem"
               p="4px"
-              src={`https://cdn.pixabay.com/photo/2014/05/07/06/44/cat-339400_1280.jpg`}
+              src={associatedAgentImageSrc}
               w="4.5rem"
               h="4.5rem"
               zIndex="modal"

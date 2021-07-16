@@ -41,7 +41,7 @@ export const Read = ({ data, config = {} }) => {
       <>
         <Wrap align="start">
           {map(value => (
-            <Tag borderRadius={15} align="center" colorScheme="telegram">
+            <Tag borderRadius={15} align="center" colorScheme="green">
               <ChakraText textStyle="body.2" isTruncated px="1">
                 {value}
               </ChakraText>
