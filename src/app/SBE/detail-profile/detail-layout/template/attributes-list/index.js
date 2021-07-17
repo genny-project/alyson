@@ -14,11 +14,19 @@ export const prefs = {
   header: 'Internship Preferences',
   icon: <FontAwesomeIcon size="lg" icon={faCog} />,
   attributes: [
-    { attr: 'PRI_ASSOC_INDUSTRY', label: 'Industry' },
-    { attr: 'PRI_ASSOC_OCCUPATION', label: 'Specialisation' },
-    { attr: 'PRI_CAREER_OBJ', label: 'Career Objectives' },
-    { attr: 'PRI_ASSOC_CURRENT_SOFTWARE', label: 'Proficient Software' },
-    { attr: 'PRI_ASSOC_FUTURE_SOFTWARE', label: 'Software would like experience in' },
+    { attr: 'PRI_ASSOC_INDUSTRY', label: 'Industry', config: { detilViewTags: true } },
+    { attr: 'PRI_ASSOC_OCCUPATION', label: 'Specialisation', config: { detilViewTags: true } },
+    { attr: 'PRI_CAREER_OBJ', label: 'Career Objectives', config: { px: '0px', noOfLines: 5 } },
+    {
+      attr: 'PRI_ASSOC_CURRENT_SOFTWARE',
+      label: 'Proficient Software',
+      config: { detilViewTags: true },
+    },
+    {
+      attr: 'PRI_ASSOC_FUTURE_SOFTWARE',
+      label: 'Software would like experience in',
+      config: { detilViewTags: true },
+    },
   ],
 }
 export const internshipDetails = {

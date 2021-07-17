@@ -23,8 +23,8 @@ const Header = ({ beCode, sbeCode }) => {
   const hasVideo = !isEmpty(videoSrc)
 
   return (
-    <Box bg={cardBg} borderRadius="2rem 2rem 0rem 0rem" h="100vh" position="sticky" top="0rem">
-      <VStack spacing={2} ml="5" mr="5" my="8" align="start">
+    <Box bg={cardBg} borderRadius="2rem 2rem 0rem 0rem">
+      <VStack spacing={2} align="start">
         <Box overflow="hidden" borderRadius="50%" position="absolute" zIndex="modal" right="6">
           <IconButton
             onClick={onClose}
