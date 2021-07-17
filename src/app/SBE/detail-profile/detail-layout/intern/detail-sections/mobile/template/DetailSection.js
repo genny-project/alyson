@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/layout'
+import { VStack } from '@chakra-ui/react'
 
 import {
   prefs,
@@ -9,9 +10,11 @@ import DetailCard from 'app/SBE/detail-profile/detail-layout/template/layouts/De
 
 const DetailSection = ({ beCode, sbeCode }) => {
   return (
-    <Box mt={4}>
+    <VStack spacing={6} mt={6}>
       <DetailCard beCode={beCode} detailSectionType={prefs} />
-    </Box>
+      <DetailCard beCode={beCode} detailSectionType={internshipDetails} />
+      <DetailCard beCode={beCode} detailSectionType={recentEmployment} />
+    </VStack>
   )
 }
 
