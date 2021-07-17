@@ -1,12 +1,12 @@
 import { VStack } from '@chakra-ui/layout'
 
 import 'app/layouts/components/css/hide-scroll.css'
-import Header from 'app/SBE/detail-profile/detail-layout/template/layouts/Header.js'
+import Header from 'app/SBE/detail-profile/detail-layout/intern/detail-sections/desktop/template/Header.js'
 import {
   InternshipPreferenceSection,
   InternshipSection,
   ExperienceSection,
-} from 'app/SBE/detail-profile/detail-layout/template/layouts/ProfileSections.js'
+} from 'app/SBE/detail-profile/detail-layout/intern/detail-sections/desktop/template/ProfileSections.js'
 
 const RightDetail = ({ beCode }) => {
   return (

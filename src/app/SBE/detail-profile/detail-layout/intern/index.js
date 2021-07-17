@@ -7,8 +7,9 @@ import { Box } from '@chakra-ui/layout'
 import { selectRows } from 'redux/db/selectors'
 import { useIsMobile } from 'utils/hooks'
 import 'app/layouts/components/css/hide-scroll.css'
-import LeftDetail from 'app/SBE/detail-profile/detail-layout/intern/detail-sections/desktop/LeftDetailSection.js'
-import RightDetail from 'app/SBE/detail-profile/detail-layout/intern/detail-sections/desktop/RightDetailSection.js'
+import LeftDetailSection from 'app/SBE/detail-profile/detail-layout/intern/detail-sections/desktop/LeftDetailSection.js'
+import RightDetailSection from 'app/SBE/detail-profile/detail-layout/intern/detail-sections/desktop/RightDetailSection.js'
+import Header from 'app/SBE/detail-profile/detail-layout/intern/detail-sections/mobile/template/Header.js'
 
 const DetailLayoutIntern = ({ sbeCode, targetCode }) => {
   const rows = useSelector(selectRows(sbeCode))
@@ -33,15 +34,19 @@ const DetailLayoutIntern = ({ sbeCode, targetCode }) => {
     return (
       <Box className="nobar" minH="90vh" overflowY="scroll" onScroll={onScroll} onWheel={onWheel}>
         <Box w="100%" alignItems="start" display="flex">
-          <LeftDetail beCode={beCode} sbeCode={sbeCode} />
-          <RightDetail beCode={beCode} />
+          <LeftDetailSection beCode={beCode} sbeCode={sbeCode} />
+          <RightDetailSection beCode={beCode} />
         </Box>
       </Box>
     )
   }
 
   const MobileView = () => {
-    return <div>{`Mobile View`}</div>
+    return (
+      <Box className="nobar" overflowY="scroll" onScroll={onScroll} onWheel={onWheel}>
+        <Header beCode={beCode} sbeCode={sbeCode} />
+      </Box>
+    )
   }
 
   return <>{isMobile ? <MobileView /> : <DesktopView />}</>
