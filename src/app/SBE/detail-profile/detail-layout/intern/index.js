@@ -7,10 +7,10 @@ import { Box } from '@chakra-ui/layout'
 import { selectRows } from 'redux/db/selectors'
 import { useIsMobile } from 'utils/hooks'
 import 'app/layouts/components/css/hide-scroll.css'
-import LeftDetail from 'app/SBE/detail-profile/template/LeftDetail.js'
-import RightDetail from 'app/SBE/detail-profile/template/RightDetail.js'
+import LeftDetail from 'app/SBE/detail-profile/detail-layout/intern/detail-sections/desktop/LeftDetailSection.js'
+import RightDetail from 'app/SBE/detail-profile/detail-layout/intern/detail-sections/desktop/RightDetailSection.js'
 
-const DetailLayout = ({ sbeCode, targetCode, details = [[], []] }) => {
+const DetailLayoutIntern = ({ sbeCode, targetCode }) => {
   const rows = useSelector(selectRows(sbeCode))
   const beCode = targetCode ? targetCode : rows?.length ? rows[0] : null
   const isMobile = useIsMobile()
@@ -21,6 +21,7 @@ const DetailLayout = ({ sbeCode, targetCode, details = [[], []] }) => {
     setDelta(0)
   }
   const onWheel = e => setDelta(add(e.deltaY))
+
   useEffect(() => {
     if (delta < -300) {
       setMini.off()
@@ -28,13 +29,21 @@ const DetailLayout = ({ sbeCode, targetCode, details = [[], []] }) => {
     }
   }, [delta, setMini])
 
-  return (
-    <Box className="nobar" minH="90vh" overflowY="scroll" onScroll={onScroll} onWheel={onWheel}>
-      <Box w="100%" alignItems="start" display="flex">
-        <LeftDetail beCode={beCode} sbeCode={sbeCode} />
-        <RightDetail beCode={beCode} />
+  const DesktopView = () => {
+    return (
+      <Box className="nobar" minH="90vh" overflowY="scroll" onScroll={onScroll} onWheel={onWheel}>
+        <Box w="100%" alignItems="start" display="flex">
+          <LeftDetail beCode={beCode} sbeCode={sbeCode} />
+          <RightDetail beCode={beCode} />
+        </Box>
       </Box>
-    </Box>
-  )
+    )
+  }
+
+  const MobileView = () => {
+    return <div>{`Mobile View`}</div>
+  }
+
+  return <>{isMobile ? <MobileView /> : <DesktopView />}</>
 }
-export default DetailLayout
+export default DetailLayoutIntern

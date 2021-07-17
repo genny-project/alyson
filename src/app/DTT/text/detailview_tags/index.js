@@ -22,7 +22,7 @@ const DetailViewTags = ({ data }) => {
     <>
       <Wrap align="start">
         {map(value => (
-          <Tag borderRadius={15} align="center" colorScheme="green">
+          <Tag borderRadius={15} align="center" colorScheme="telegram">
             <ChakraText textStyle="body.2" isTruncated px="1">
               {value}
             </ChakraText>
