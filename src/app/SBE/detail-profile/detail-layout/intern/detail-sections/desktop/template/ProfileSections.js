@@ -97,15 +97,11 @@ export const InternshipSection = ({ beCode }) => {
             <Text textStyle="body.1">{internshipDetails?.header}</Text>
           </HStack>
           <HStack w="full" justifyContent="space-between">
-            {map(({ label, attr, detilViewTags }) => {
+            {map(({ label, attr, config }) => {
               return (
                 <VStack align="start" justify="start">
                   <Text textStyle="tail.2">{label}</Text>
-                  <Attribute
-                    code={beCode}
-                    attribute={attr}
-                    config={{ detilViewTags: detilViewTags }}
-                  />
+                  <Attribute code={beCode} attribute={attr} config={config} />
                 </VStack>
               )
             })(internshipDetails.attributes)}
