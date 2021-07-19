@@ -50,7 +50,7 @@ const initLog = async () => {
 const prettyLog = (msg, data = {}, style) => {
   const title = data.items
     ? data.items.length === 1
-      ? data.items[0].name
+      ? data.items[0]?.name
       : data.parentCode
       ? `Rows - ${data.parentCode}`
       : msg
