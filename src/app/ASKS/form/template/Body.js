@@ -8,6 +8,7 @@ const FormBody = ({ groups, onFinish, questionCode, paginated }) => {
   return adjGroups.map(({ label, questions, subHeader, video }, idx) =>
     idx === group || !paginated ? (
       <Group
+        key={idx}
         {...{
           paginated,
           label,
