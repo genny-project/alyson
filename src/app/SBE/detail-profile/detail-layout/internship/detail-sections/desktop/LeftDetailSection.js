@@ -6,10 +6,10 @@ import { useColorModeValue } from '@chakra-ui/color-mode'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useApi from 'api'
 
-import DetailActions from 'app/SBE/detail-profile/detail-layout/template/layouts/Actions.js'
+import DetailActions from 'app/SBE/detail-profile/detail-layout/internship/templates/Actions.js'
+import { LeftDetailAttributesInternship } from 'app/SBE/detail-profile/detail-layout/internship/templates/AttributesList.js'
 import 'app/layouts/components/css/hide-scroll.css'
 import Attribute from 'app/BE/attribute'
-import { LeftDetailAttributesInternship } from 'app/SBE/detail-profile/detail-layout/template/attributes-list'
 import { selectCode } from 'redux/db/selectors'
 
 const LeftDetail = ({ beCode, sbeCode }) => {

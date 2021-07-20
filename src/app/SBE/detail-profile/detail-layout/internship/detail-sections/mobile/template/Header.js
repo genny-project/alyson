@@ -6,10 +6,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { IconButton } from '@chakra-ui/react'
 
-import DetailActions from 'app/SBE/detail-profile/detail-layout/template/layouts/Actions.js'
+import DetailActions from 'app/SBE/detail-profile/detail-layout/internship/templates/Actions.js'
+import { LeftDetailAttributesInternship } from 'app/SBE/detail-profile/detail-layout/internship/templates/AttributesList.js'
 import 'app/layouts/components/css/hide-scroll.css'
 import Attribute from 'app/BE/attribute'
-import { LeftDetailAttributes } from 'app/SBE/detail-profile/detail-layout/template/attributes-list'
 import { closeDrawer } from 'redux/app'
 import 'app/layouts/components/css/hide-scroll.css'
 import Card from 'app/layouts/components/card'
@@ -50,7 +50,7 @@ const Header = ({ beCode, sbeCode }) => {
                   <Attribute code={beCode} attribute={attr} config={config} />
                 </HStack>
               )
-            })(LeftDetailAttributes)}
+            })(LeftDetailAttributesInternship)}
           </VStack>
         </VStack>
         <Center w="full">
