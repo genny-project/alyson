@@ -21,58 +21,122 @@ export const InternshipDetailsSection = ({ beCode }) => {
             <Text textStyle="body.1">{internshipDetails?.header}</Text>
           </HStack>
           <Grid
-            h="16rem"
+            h="45rem"
             w="100%"
-            templateRows="repeat(3, 1fr)"
-            templateColumns="repeat(5, 1fr)"
-            gap={6}
+            templateRows="repeat(9, 1fr)"
+            templateColumns="repeat(3, 1fr)"
+            gap={4}
           >
+            <GridItem rowSpan={1} colSpan={1}>
+              <VStack align="start">
+                <Text textStyle="tail.2">{`Internship Specialisation`}</Text>
+                <Attribute
+                  code={beCode}
+                  attribute={`PRI_ASSOC_OCCUPATION`}
+                  config={{ detailViewTags: true }}
+                />
+              </VStack>
+            </GridItem>
+            <GridItem rowSpan={2} colSpan={2}>
+              <VStack align="start">
+                <Text textStyle="tail.2">{`Internship Overview`}</Text>
+                <Attribute
+                  code={beCode}
+                  attribute={`PRI_INTERNSHIP_DETAILS`}
+                  config={{ px: '0px', noOfLines: 5 }}
+                />
+              </VStack>
+            </GridItem>
             <GridItem rowSpan={1} colSpan={1}>
               <VStack align="start">
                 <Text textStyle="tail.2">{`Industry`}</Text>
                 <Attribute
                   code={beCode}
                   attribute={`PRI_ASSOC_INDUSTRY`}
-                  config={{ detailViewTags: true }}
-                />
-              </VStack>
-            </GridItem>
-            <GridItem rowSpan={2} colSpan={4}>
-              <VStack align="start">
-                <Text textStyle="tail.2">{`Career Objectives`}</Text>
-                <Attribute
-                  code={beCode}
-                  attribute={`PRI_CAREER_OBJ`}
-                  config={{ px: '0px', noOfLines: 5 }}
-                />
-              </VStack>
-            </GridItem>
-            <GridItem rowSpan={2} colSpan={1}>
-              <VStack align="start">
-                <Text textStyle="tail.2">{`Specialisation`}</Text>
-                <Attribute
-                  code={beCode}
-                  attribute={`PRI_ASSOC_OCCUPATION`}
                   config={{ noOfLines: 1, detailViewTags: true }}
                 />
               </VStack>
             </GridItem>
-            <GridItem rowSpan={1} colSpan={2}>
+            <GridItem rowSpan={1} colSpan={1}>
               <VStack align="start">
-                <Text textStyle="tail.2">{`Proficient Software`}</Text>
+                <Text textStyle="tail.2">{`Internship Type`}</Text>
+                <Attribute code={beCode} attribute={`PRI_WORKSITE`} />
+              </VStack>
+            </GridItem>
+            <GridItem rowSpan={2} colSpan={2}>
+              <VStack align="start">
+                <Text textStyle="tail.2">{`Roles & Responsibilities`}</Text>
                 <Attribute
                   code={beCode}
-                  attribute={`PRI_ASSOC_CURRENT_SOFTWARE`}
+                  attribute={`PRI_ROLES_AND_RESPONSIBILITIES`}
+                  config={{ px: '0px', noOfLines: 5 }}
+                />
+              </VStack>
+            </GridItem>
+            <GridItem rowSpan={1} colSpan={1}>
+              <VStack align="start">
+                <Text textStyle="tail.2">{`Internship Active from`}</Text>
+                <Attribute
+                  code={beCode}
+                  attribute={`PRI_INTERNSHIP_START_DATE`}
+                  config={{ noOfLines: 1, detailViewTags: true }}
+                />
+              </VStack>
+            </GridItem>
+            <GridItem rowSpan={1} colSpan={1}>
+              <VStack align="start">
+                <Text textStyle="tail.2">{`Days available to Intern`}</Text>
+                <Attribute
+                  code={beCode}
+                  attribute={`PRI_WHICH_DAYS_STRIPPED`}
                   config={{ detailViewTags: true }}
                 />
               </VStack>
             </GridItem>
-            <GridItem rowSpan={1} colSpan={2}>
+            <GridItem rowSpan={2} colSpan={2}>
               <VStack align="start">
-                <Text textStyle="tail.2">{`Software would like experience in`}</Text>
+                <Text textStyle="tail.2">{`Expected Interpersonal Learning Outcomes`}</Text>
                 <Attribute
                   code={beCode}
-                  attribute={`PRI_ASSOC_FUTURE_SOFTWARE`}
+                  attribute={`PRI_SPECIFIC_LEARNING_OUTCOMES`}
+                  config={{ px: '0px', noOfLines: 5 }}
+                />
+              </VStack>
+            </GridItem>
+            <GridItem rowSpan={1} colSpan={1}>
+              <VStack align="start">
+                <Text textStyle="tail.2">{`Company Business Hours`}</Text>
+                <Attribute code={beCode} attribute={`LNK_BUSINESS_HOURS`} />
+              </VStack>
+            </GridItem>
+            <GridItem rowSpan={1} colSpan={1}>
+              <VStack align="start">
+                <Text textStyle="tail.2">{`Dress Code`}</Text>
+                <Attribute code={beCode} attribute={`PRI_DRESS_CODE`} />
+              </VStack>
+            </GridItem>
+            <GridItem rowSpan={2} colSpan={2}>
+              <VStack align="start">
+                <Text textStyle="tail.2">{`Expected Technical & Industry Specefic Learning Outcomes`}</Text>
+                <Attribute
+                  code={beCode}
+                  attribute={`PRI_BASE_LEARNING_OUTCOMES`}
+                  config={{ px: '0px', noOfLines: 8 }}
+                />
+              </VStack>
+            </GridItem>
+            <GridItem rowSpan={1} colSpan={1}>
+              <VStack align="start">
+                <Text textStyle="tail.2">{`Available Positions`}</Text>
+                <Attribute code={beCode} attribute={`PRI_ASSOC_NUM_INTERNS`} />
+              </VStack>
+            </GridItem>
+            <GridItem rowSpan={1} colSpan={1}>
+              <VStack align="start">
+                <Text textStyle="tail.2">{`Software used during the internship`}</Text>
+                <Attribute
+                  code={beCode}
+                  attribute={`PRI_SOFTWARE`}
                   config={{ detailViewTags: true }}
                 />
               </VStack>

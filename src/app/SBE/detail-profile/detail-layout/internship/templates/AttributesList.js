@@ -29,19 +29,40 @@ export const internshipDetails = {
   header: 'Internship Details',
   icon: <FontAwesomeIcon size="lg" icon={faBriefcase} />,
   attributes: [
-    { attr: 'PRI_ASSOC_INDUSTRY', label: 'Industry', config: { detailViewTags: true } },
-    { attr: 'PRI_ASSOC_OCCUPATION', label: 'Specialisation', config: { detailViewTags: true } },
-    { attr: 'PRI_CAREER_OBJ', label: 'Career Objectives', config: { px: '0px', noOfLines: 5 } },
+    { attr: 'PRI_NAME', label: 'Internship Name', config: { detailViewTags: true } },
     {
-      attr: 'PRI_ASSOC_CURRENT_SOFTWARE',
-      label: 'Proficient Software',
+      attr: 'PRI_ASSOC_OCCUPATION',
+      label: 'Internship Specialisation',
       config: { detailViewTags: true },
     },
+    { attr: 'PRI_ASSOC_INDUSTRY', label: 'Industry', config: { px: '0px', noOfLines: 5 } },
+    { attr: 'PRI_WORKSITE', label: 'Internship Type' },
+    { attr: 'PRI_INTERNSHIP_START_DATE', label: 'Internship Active from' },
+    { attr: 'PRI_WHICH_DAYS_STRIPPED', label: 'Days Available to Intern' },
+    { attr: 'LNK_BUSINESS_HOURS', label: 'Company Business Hours' },
+    { attr: 'PRI_DRESS_CODE', label: 'Dress Code' },
+    { attr: 'PRI_ASSOC_NUM_INTERNS', label: 'Available Positions' },
     {
-      attr: 'PRI_ASSOC_FUTURE_SOFTWARE',
-      label: 'Software would like experience in',
-      config: { detailViewTags: true },
+      attr: 'PRI_INTERNSHIP_DETAILS',
+      label: 'Internship Overview',
+      config: { px: '0px', noOfLines: 5 },
     },
+    {
+      attr: 'PRI_ROLES_AND_RESPONSIBILITIES',
+      label: 'Roles & Responsibilities',
+      config: { px: '0px', noOfLines: 5 },
+    },
+    {
+      attr: 'PRI_SPECIFIC_LEARNING_OUTCOMES',
+      label: 'Expected Interpersonal Learning Outcomes',
+      config: { px: '0px', noOfLines: 5 },
+    },
+    {
+      attr: 'PRI_BASE_LEARNING_OUTCOMES',
+      label: 'Expected Technical & Industry Specific Learning Outcomes',
+      config: { px: '0px', noOfLines: 5 },
+    },
+    { attr: 'PRI_SOFTWARE', label: 'Software used during the internship' },
   ],
 }
 
