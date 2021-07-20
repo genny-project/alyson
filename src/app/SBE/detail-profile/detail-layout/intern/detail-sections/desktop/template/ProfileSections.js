@@ -35,7 +35,7 @@ export const InternshipPreferenceSection = ({ beCode }) => {
                 <Attribute
                   code={beCode}
                   attribute={`PRI_ASSOC_INDUSTRY`}
-                  config={{ detilViewTags: true }}
+                  config={{ detailViewTags: true }}
                 />
               </VStack>
             </GridItem>
@@ -55,7 +55,7 @@ export const InternshipPreferenceSection = ({ beCode }) => {
                 <Attribute
                   code={beCode}
                   attribute={`PRI_ASSOC_OCCUPATION`}
-                  config={{ noOfLines: 1, detilViewTags: true }}
+                  config={{ noOfLines: 1, detailViewTags: true }}
                 />
               </VStack>
             </GridItem>
@@ -65,7 +65,7 @@ export const InternshipPreferenceSection = ({ beCode }) => {
                 <Attribute
                   code={beCode}
                   attribute={`PRI_ASSOC_CURRENT_SOFTWARE`}
-                  config={{ detilViewTags: true }}
+                  config={{ detailViewTags: true }}
                 />
               </VStack>
             </GridItem>
@@ -75,7 +75,7 @@ export const InternshipPreferenceSection = ({ beCode }) => {
                 <Attribute
                   code={beCode}
                   attribute={`PRI_ASSOC_FUTURE_SOFTWARE`}
-                  config={{ detilViewTags: true }}
+                  config={{ detailViewTags: true }}
                 />
               </VStack>
             </GridItem>

@@ -18,9 +18,9 @@ export const Write = ({ questionCode, data, onSendAnswer }) => {
 }
 
 export const Read = ({ data, config = {} }) => {
-  const { detilViewTags } = config
+  const { detailViewTags } = config
 
-  if (detilViewTags) {
+  if (detailViewTags) {
     return <DetailViewTags data={data} />
   }
 

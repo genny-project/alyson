@@ -26,7 +26,7 @@ const DetailCard = ({ beCode, detailSectionType }) => {
         </HStack>
         <Collapse in={isOpen} animateOpacity>
           <VStack align="start" spacing={6}>
-            {map(({ label, attr, detilViewTags, config = {} }) => (
+            {map(({ label, attr, config = {} }) => (
               <VStack align="start" key={attr}>
                 <Text textStyle="tail.3">{label}</Text>
                 <Text minH="1rem">
