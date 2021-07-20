@@ -29,7 +29,6 @@ export const internshipDetails = {
   header: 'Internship Details',
   icon: <FontAwesomeIcon size="lg" icon={faBriefcase} />,
   attributes: [
-    { attr: 'PRI_NAME', label: 'Internship Name', config: { detailViewTags: true } },
     {
       attr: 'PRI_ASSOC_OCCUPATION',
       label: 'Internship Specialisation',

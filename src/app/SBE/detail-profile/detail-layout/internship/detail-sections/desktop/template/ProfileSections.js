@@ -21,11 +21,11 @@ export const InternshipDetailsSection = ({ beCode }) => {
             <Text textStyle="body.1">{internshipDetails?.header}</Text>
           </HStack>
           <Grid
-            h="45rem"
+            maxH="40rem"
             w="100%"
             templateRows="repeat(9, 1fr)"
             templateColumns="repeat(3, 1fr)"
-            gap={4}
+            gap={6}
           >
             <GridItem rowSpan={1} colSpan={1}>
               <VStack align="start">
@@ -43,7 +43,7 @@ export const InternshipDetailsSection = ({ beCode }) => {
                 <Attribute
                   code={beCode}
                   attribute={`PRI_INTERNSHIP_DETAILS`}
-                  config={{ px: '0px', noOfLines: 5 }}
+                  config={{ px: '0px', noOfLines: 4 }}
                 />
               </VStack>
             </GridItem>
@@ -69,7 +69,7 @@ export const InternshipDetailsSection = ({ beCode }) => {
                 <Attribute
                   code={beCode}
                   attribute={`PRI_ROLES_AND_RESPONSIBILITIES`}
-                  config={{ px: '0px', noOfLines: 5 }}
+                  config={{ px: '0px', noOfLines: 4 }}
                 />
               </VStack>
             </GridItem>
@@ -99,7 +99,7 @@ export const InternshipDetailsSection = ({ beCode }) => {
                 <Attribute
                   code={beCode}
                   attribute={`PRI_SPECIFIC_LEARNING_OUTCOMES`}
-                  config={{ px: '0px', noOfLines: 5 }}
+                  config={{ px: '0px', noOfLines: 4 }}
                 />
               </VStack>
             </GridItem>
@@ -121,7 +121,7 @@ export const InternshipDetailsSection = ({ beCode }) => {
                 <Attribute
                   code={beCode}
                   attribute={`PRI_BASE_LEARNING_OUTCOMES`}
-                  config={{ px: '0px', noOfLines: 8 }}
+                  config={{ px: '0px', noOfLines: 4 }}
                 />
               </VStack>
             </GridItem>
@@ -131,7 +131,7 @@ export const InternshipDetailsSection = ({ beCode }) => {
                 <Attribute code={beCode} attribute={`PRI_ASSOC_NUM_INTERNS`} />
               </VStack>
             </GridItem>
-            <GridItem rowSpan={1} colSpan={1}>
+            <GridItem rowSpan={1} colSpan={3}>
               <VStack align="start">
                 <Text textStyle="tail.2">{`Software used during the internship`}</Text>
                 <Attribute

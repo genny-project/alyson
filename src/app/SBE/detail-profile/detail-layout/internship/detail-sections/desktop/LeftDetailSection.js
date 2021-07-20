@@ -28,7 +28,8 @@ const LeftDetail = ({ beCode, sbeCode }) => {
       h="100vh"
       position="sticky"
       top="0rem"
-      w="25vw"
+      minW="25vw"
+      maxW="30vw"
     >
       <VStack ml="10" mr="4" my="8" align="start" spacing={8} maxW="30vw">
         <Box w="full">
@@ -45,6 +46,7 @@ const LeftDetail = ({ beCode, sbeCode }) => {
           />
         </Box>
         <VStack align="start" spacing={4}>
+          <Attribute code={beCode} attribute="PRI_NAME" config={{ textStyle: 'head.1' }} />
           <HStack spacing={5}>
             <Attribute
               config={{ textStyle: 'body.2' }}
