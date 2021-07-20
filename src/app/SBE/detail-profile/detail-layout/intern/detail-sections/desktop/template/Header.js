@@ -1,6 +1,6 @@
 import { isEmpty } from 'ramda'
 import { useSelector, useDispatch } from 'react-redux'
-import { Box, Center, Text } from '@chakra-ui/layout'
+import { Box, Center, Text, VStack } from '@chakra-ui/layout'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { IconButton } from '@chakra-ui/react'
@@ -29,9 +29,14 @@ const Header = ({ beCode }) => {
               </Box>
             ) : (
               <Center minH="10rem" w="100%">
-                <Text textStyle="head.2" color="#ffffff">
-                  {`The Intern has not uploaded any video yet!`}
-                </Text>
+                <VStack>
+                  <Text textStyle="head.2" color="#ffffff">
+                    {`The Intern has not uploaded any video yet`}
+                  </Text>
+                  <Text textStyle="head.2" color="#ffffff">
+                    {`Once they do, it will appear here!`}
+                  </Text>
+                </VStack>
               </Center>
             )}
           </Center>

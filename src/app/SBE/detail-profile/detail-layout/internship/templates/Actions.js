@@ -4,12 +4,12 @@ import { HStack } from '@chakra-ui/layout'
 import { Menu, MenuButton, MenuList } from '@chakra-ui/menu'
 import { faEllipsisH } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faPencilAlt } from '@fortawesome/free-solid-svg-icons'
+import { map } from 'ramda'
 
 import Action from 'app/BE/context/Action'
 import getActions from 'app/SBE/utils/get-actions'
 import { selectCode } from 'redux/db/selectors'
-import Attribute from 'app/BE/attribute'
 
 const DetailActions = ({ sbeCode, beCode }) => {
   const sbe = useSelector(selectCode(sbeCode))
@@ -18,22 +18,17 @@ const DetailActions = ({ sbeCode, beCode }) => {
   if (!actions.length) return null
 
   return (
-    <HStack spacing={3}>
+    <HStack spacing={6}>
       <Action
         parentCode={sbeCode}
-        code={'ACT_PRI_EVENT_APPLY'}
+        code={actions[0]}
         targetCode={beCode}
         noMenu
-        icon={faPlus}
-        name={'Apply'}
+        icon={faPencilAlt}
+        name={`Edit`}
         customAction
       />
-      <Attribute
-        code={beCode}
-        attribute="PRI_CV"
-        config={{ customButton: true, name: 'Download CV' }}
-      />
-      {actions.length > 1 && (
+      {actions.length > 0 && (
         <Menu>
           <MenuButton>
             <IconButton
@@ -46,9 +41,9 @@ const DetailActions = ({ sbeCode, beCode }) => {
             />
           </MenuButton>
           <MenuList>
-            {actions.map(action => (
+            {map(action => (
               <Action key={action} parentCode={sbeCode} code={action} targetCode={beCode} />
-            ))}
+            ))(actions)}
           </MenuList>
         </Menu>
       )}

@@ -28,7 +28,7 @@ const LeftDetail = ({ beCode, sbeCode }) => {
       h="100vh"
       position="sticky"
       top="0rem"
-      minW="25vw"
+      w="25vw"
     >
       <VStack ml="10" mr="4" my="8" align="start" spacing={8} maxW="30vw">
         <Box w="full">
@@ -47,14 +47,14 @@ const LeftDetail = ({ beCode, sbeCode }) => {
         <VStack align="start" spacing={4}>
           <HStack spacing={5}>
             <Attribute
-              config={{ textStyle: 'head.1' }}
+              config={{ textStyle: 'body.2' }}
               code={beCode}
-              attribute="LNK_HOST_COMPANY_PRI_NAME"
+              attribute="_LNK_HOST_COMPANY__PRI_NAME"
             />
             <Attribute
               config={{ color: '#3182CE' }}
               code={beCode}
-              attribute="LNK_HOST_COMPANY_PRI_LINKEDIN_URL"
+              attribute="_LNK_HOST_COMPANY__PRI_LINKEDIN_URL"
             />
           </HStack>
           <Attribute code={beCode} attribute="PRI_STAR_RATING" />
@@ -62,7 +62,7 @@ const LeftDetail = ({ beCode, sbeCode }) => {
           <VStack align="start" spacing={4}>
             {map(({ icon, attr, attrSecond, config }) => {
               return (
-                <HStack spacing={4}>
+                <HStack spacing={4} alignItems="start">
                   <FontAwesomeIcon icon={icon} opacity="0.6" />
                   <Attribute code={beCode} attribute={attr} config={config} />
                   {attrSecond && <Attribute code={beCode} attribute={attrSecond} config={config} />}

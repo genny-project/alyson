@@ -4,7 +4,7 @@ import {
   prefs,
   internshipDetails,
   recentEmployment,
-} from 'app/SBE/detail-profile/detail-layout/template/attributes-list/index.js'
+} from 'app/SBE/detail-profile/detail-layout/intern/templates/AttributesList.js'
 import DetailCard from 'app/SBE/detail-profile/detail-layout/template/layouts/DetailCard.js'
 
 const DetailSection = ({ beCode, sbeCode }) => {
