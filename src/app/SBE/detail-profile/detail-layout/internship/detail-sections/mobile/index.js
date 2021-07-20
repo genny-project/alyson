@@ -1,8 +1,8 @@
 import { Box } from '@chakra-ui/layout'
 
 import 'app/layouts/components/css/hide-scroll.css'
-import Header from 'app/SBE/detail-profile/detail-layout/intern/detail-sections/mobile/template/Header.js'
-import DetailSection from 'app/SBE/detail-profile/detail-layout/intern/detail-sections/mobile/template/DetailSection.js'
+import Header from 'app/SBE/detail-profile/detail-layout/internship/detail-sections/mobile/template/Header.js'
+import DetailSection from 'app/SBE/detail-profile/detail-layout/internship/detail-sections/mobile/template/DetailSection.js'
 
 const MobileView = ({ beCode, sbeCode, onScroll, onWheel }) => {
   return (

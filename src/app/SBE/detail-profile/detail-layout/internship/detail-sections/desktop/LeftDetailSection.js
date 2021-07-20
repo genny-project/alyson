@@ -59,7 +59,6 @@ const LeftDetail = ({ beCode, sbeCode }) => {
               attribute="_LNK_HOST_COMPANY__PRI_LINKEDIN_URL"
             />
           </HStack>
-          <Attribute code={beCode} attribute="PRI_STAR_RATING" />
           <DetailActions beCode={beCode} sbeCode={sbeCode} />
           <VStack align="start" spacing={4}>
             {map(({ icon, attr, attrSecond, config }) => {

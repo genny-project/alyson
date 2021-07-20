@@ -1,6 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faCog,
   faBriefcase,
   faPhoneAlt,
   faEnvelope,
@@ -34,10 +33,14 @@ export const internshipDetails = {
       label: 'Internship Specialisation',
       config: { detailViewTags: true },
     },
-    { attr: 'PRI_ASSOC_INDUSTRY', label: 'Industry', config: { px: '0px', noOfLines: 5 } },
+    { attr: 'PRI_ASSOC_INDUSTRY', label: 'Industry', config: { detailViewTags: true } },
     { attr: 'PRI_WORKSITE', label: 'Internship Type' },
     { attr: 'PRI_INTERNSHIP_START_DATE', label: 'Internship Active from' },
-    { attr: 'PRI_WHICH_DAYS_STRIPPED', label: 'Days Available to Intern' },
+    {
+      attr: 'PRI_WHICH_DAYS_STRIPPED',
+      label: 'Days Available to Intern',
+      config: { detailViewTags: true },
+    },
     { attr: 'LNK_BUSINESS_HOURS', label: 'Company Business Hours' },
     { attr: 'PRI_DRESS_CODE', label: 'Dress Code' },
     { attr: 'PRI_ASSOC_NUM_INTERNS', label: 'Available Positions' },
@@ -61,7 +64,11 @@ export const internshipDetails = {
       label: 'Expected Technical & Industry Specific Learning Outcomes',
       config: { px: '0px', noOfLines: 5 },
     },
-    { attr: 'PRI_SOFTWARE', label: 'Software used during the internship' },
+    {
+      attr: 'PRI_SOFTWARE',
+      label: 'Software used during the internship',
+      config: { detailViewTags: true },
+    },
   ],
 }
 
@@ -72,6 +79,10 @@ export const companyDetails = {
     { attr: '_LNK_HOST_COMPANY__PRI_NAME', label: 'Company Name' },
     { attr: 'PRI_ASSOC_INDUSTRY', label: 'Industry' },
     { attr: 'PRI_ADDRESS_FULL', label: 'Location' },
-    { attr: '_LNK_HOST_COMPANY__PRI_COMPANY_DESCRIPTION', label: 'About the Company' },
+    {
+      attr: '_LNK_HOST_COMPANY__PRI_COMPANY_DESCRIPTION',
+      label: 'About the Company',
+      config: { px: '0px', noOfLines: 5 },
+    },
   ],
 }
