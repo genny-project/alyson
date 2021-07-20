@@ -31,9 +31,21 @@ const DetailLayoutIntern = ({ sbeCode, targetCode }) => {
   return (
     <>
       {isMobile ? (
-        <MobileView beCode={beCode} sbeCode={sbeCode} onScroll={onScroll} onWheel={onWheel} />
+        <MobileView
+          beCode={beCode}
+          sbeCode={sbeCode}
+          onScroll={onScroll}
+          onWheel={onWheel}
+          mini={mini}
+        />
       ) : (
-        <DesktopView beCode={beCode} sbeCode={sbeCode} onScroll={onScroll} onWheel={onWheel} />
+        <DesktopView
+          beCode={beCode}
+          sbeCode={sbeCode}
+          onScroll={onScroll}
+          onWheel={onWheel}
+          mini={mini}
+        />
       )}
     </>
   )
