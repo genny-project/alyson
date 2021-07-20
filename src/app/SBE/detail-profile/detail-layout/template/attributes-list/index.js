@@ -8,6 +8,8 @@ import {
   faEnvelope,
   faMapMarkerAlt,
   faGraduationCap,
+  faUserFriends,
+  faAlignLeft,
 } from '@fortawesome/free-solid-svg-icons'
 
 export const prefs = {
@@ -57,4 +59,16 @@ export const LeftDetailAttributesIntern = [
   { icon: faEnvelope, attr: 'PRI_EMAIL' },
   { icon: faMapMarkerAlt, attr: 'PRI_ADDRESS_FULL', config: { hideIcon: true } },
   { icon: faGraduationCap, attr: 'PRI_ASSOC_EP' },
+]
+
+export const LeftDetailAttributesInternship = [
+  {
+    icon: faUserFriends,
+    attr: 'PRI_ASSOC_SUPERVISOR',
+    attrSecond: '_LNK_INTERN_SUPERVISOR__PRI_LINKEDIN_URL',
+  },
+  { icon: faBriefcase, attr: '_LNK_INTERN_SUPERVISOR__PRI_JOB_TITLE' },
+  { icon: faEnvelope, attr: '_LNK_INTERN_SUPERVISOR__PRI_EMAIL' },
+  { icon: faPhoneAlt, attr: '_LNK_INTERN_SUPERVISOR__PRI_MOBILE' },
+  { icon: faAlignLeft, attr: '_LNK_INTERN_SUPERVISOR__PRI_BIO' },
 ]
