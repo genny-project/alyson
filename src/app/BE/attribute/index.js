@@ -64,7 +64,7 @@ const Attribute = ({
       config={config}
     />
   ) : component === 'social' ? (
-    <Social.Read data={data} dttData={dttData} size={size} />
+    <Social.Read data={data} dttData={dttData} size={size} config={config} />
   ) : component === 'status' ? (
     <Status.Read data={data} size={size} />
   ) : component === 'date' ? (
@@ -74,7 +74,7 @@ const Attribute = ({
   ) : component === 'html_display' ? (
     <HtmlDisplay.Read data={data} />
   ) : component === 'richtext_editor' ? (
-    <RichText.Read data={data} mini={mini} styles={styles} />
+    <RichText.Read data={data} mini={mini} styles={styles} config={config} />
   ) : component === 'dropdown' ? (
     <Select.Read dataType={dttData} data={data} />
   ) : component === 'video' ? (

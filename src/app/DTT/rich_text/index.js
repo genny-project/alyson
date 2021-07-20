@@ -105,7 +105,7 @@ const Write = ({ questionCode, data, onSendAnswer, html }) => {
     </Box>
   )
 }
-const Read = ({ data, mini }) => {
+const Read = ({ data, mini, config }) => {
   if (!data?.value) return null
 
   const cleanHtml = DOMPurify.sanitize(data.value)
@@ -127,7 +127,7 @@ const Read = ({ data, mini }) => {
       </PopoverContent>
     </Popover>
   ) : (
-    <Box px="5" dangerouslySetInnerHTML={{ __html: cleanHtml }} />
+    <Box px="5" dangerouslySetInnerHTML={{ __html: cleanHtml }} {...config} />
   )
 }
 
