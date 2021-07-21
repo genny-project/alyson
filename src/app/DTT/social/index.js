@@ -19,6 +19,7 @@ const Read = ({ data, config = {} }) => {
           size="lg"
           icon={faLinkedin}
           test-id={data?.baseEntityCode}
+          {...config}
           isDisabled={!data?.value}
           color="#3182CE"
         />
