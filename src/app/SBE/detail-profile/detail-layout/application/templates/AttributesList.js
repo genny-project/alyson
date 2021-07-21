@@ -1,60 +1,92 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faCog,
-  faCalendarAlt,
   faBriefcase,
-  faUser,
   faPhoneAlt,
   faEnvelope,
-  faMapMarkerAlt,
-  faGraduationCap,
+  faUserFriends,
+  faAlignLeft,
+  faBuilding,
 } from '@fortawesome/free-solid-svg-icons'
 
-export const prefs = {
-  header: 'Internship Preferences',
-  icon: <FontAwesomeIcon size="lg" icon={faCog} />,
-  attributes: [
-    { attr: 'PRI_ASSOC_INDUSTRY', label: 'Industry', config: { detailViewTags: true } },
-    { attr: 'PRI_ASSOC_OCCUPATION', label: 'Specialisation', config: { detailViewTags: true } },
-    { attr: 'PRI_CAREER_OBJ', label: 'Career Objectives', config: { px: '0px', noOfLines: 5 } },
-    {
-      attr: 'PRI_ASSOC_CURRENT_SOFTWARE',
-      label: 'Proficient Software',
-      config: { detailViewTags: true },
-    },
-    {
-      attr: 'PRI_ASSOC_FUTURE_SOFTWARE',
-      label: 'Software would like experience in',
-      config: { detailViewTags: true },
-    },
-  ],
-}
+export const LeftDetailAttributesApplication = [
+  {
+    icon: faUserFriends,
+    attr: '_LNK_INTERN_SUPERVISOR__PRI_NAME',
+    attrSecond: '_LNK_INTERN_SUPERVISOR__PRI_LINKEDIN_URL',
+  },
+  { icon: faBriefcase, attr: '_LNK_INTERN_SUPERVISOR__PRI_JOB_TITLE' },
+  { icon: faEnvelope, attr: '_LNK_INTERN_SUPERVISOR__PRI_EMAIL' },
+  { icon: faPhoneAlt, attr: '_LNK_INTERN_SUPERVISOR__PRI_MOBILE' },
+  {
+    icon: faAlignLeft,
+    attr: '_LNK_INTERN_SUPERVISOR__PRI_BIO',
+    config: { px: '0px', noOfLines: 5 },
+  },
+]
+
 export const internshipDetails = {
-  header: 'Internship Specifications',
-  icon: <FontAwesomeIcon size="lg" icon={faCalendarAlt} />,
-  attributes: [
-    { attr: 'PRI_START_DATE', label: 'Internship Start Date' },
-    { attr: 'PRI_ASSOC_DURATION', label: 'Internship Duration' },
-    { attr: 'PRI_DAYS_PER_WEEK', label: 'Days Per Week' },
-    { attr: 'PRI_WHICH_DAYS_STRIPPED', label: 'Days Of Week', config: { detailViewTags: true } },
-  ],
-}
-export const recentEmployment = {
-  header: 'Experience',
+  header: 'Internship Details',
   icon: <FontAwesomeIcon size="lg" icon={faBriefcase} />,
   attributes: [
-    { attr: 'PRI_PREV_JOB_TITLE', label: 'Job Title' },
-    { attr: 'PRI_PREV_DURATION', label: 'Tenure' },
-    { attr: 'PRI_PREV_EMPLOYER', label: 'Company Name' },
-    { attr: 'PRI_ASSOC_INTERN_PREV_INDUSTRY', label: 'Industry' },
-    { attr: 'PRI_PREV_DESCRIPTION', label: 'Description', config: { px: '0px', noOfLines: 5 } },
+    {
+      attr: '_LNK_INTERNSHIP__PRI_ASSOC_OCCUPATION',
+      label: 'Internship Specialisation',
+      config: { detailViewTags: true },
+    },
+    {
+      attr: '_LNK_INTERNSHIP__PRI_ASSOC_INDUSTRY',
+      label: 'Industry',
+      config: { detailViewTags: true },
+    },
+    { attr: '_LNK_INTERNSHIP__PRI_WORKSITE', label: 'Internship Type' },
+    { attr: '_LNK_INTERNSHIP__PRI_INTERNSHIP_START_DATE', label: 'Internship Active from' },
+    {
+      attr: '_LNK_INTERNSHIP__PRI_WHICH_DAYS_STRIPPED',
+      label: 'Days Available to Intern',
+      config: { detailViewTags: true },
+    },
+    { attr: '_LNK_INTERNSHIP__PRI_BUSINESS_HOURS', label: 'Company Business Hours' },
+    { attr: '_LNK_INTERNSHIP__PRI_DRESS_CODE', label: 'Dress Code' },
+    { attr: '_LNK_INTERNSHIP__PRI_ASSOC_NO_OF_INTERNS', label: 'Available Positions' },
+    {
+      attr: '_LNK_INTERNSHIP__PRI_INTERNSHIP_DETAILS',
+      label: 'Internship Overview',
+      config: { px: '0px', noOfLines: 5 },
+    },
+    {
+      attr: '_LNK_INTERNSHIP__PRI_ROLES_AND_RESPONSIBILITIES',
+      label: 'Roles & Responsibilities',
+      config: { px: '0px', noOfLines: 5 },
+    },
+    {
+      attr: '_LNK_INTERNSHIP__PRI_BASE_LEARNING_OUTCOMES',
+      label: 'Expected Interpersonal Learning Outcomes',
+      config: { px: '0px', noOfLines: 5 },
+    },
+    {
+      attr: '_LNK_INTERNSHIP__PRI_SPECIFIC_LEARNING_OUTCOMES',
+      label: 'Expected Technical & Industry Specific Learning Outcomes',
+      config: { px: '0px', noOfLines: 5 },
+    },
+    {
+      attr: '_LNK_INTERNSHIP__PRI_SOFTWARE',
+      label: 'Software used during the internship',
+      config: { detailViewTags: true },
+    },
   ],
 }
 
-export const LeftDetailAttributesIntern = [
-  { icon: faUser, attr: 'PRI_NAME' },
-  { icon: faPhoneAlt, attr: 'PRI_MOBILE' },
-  { icon: faEnvelope, attr: 'PRI_EMAIL' },
-  { icon: faMapMarkerAlt, attr: 'PRI_ADDRESS_FULL', config: { hideIcon: true } },
-  { icon: faGraduationCap, attr: 'PRI_ASSOC_EP' },
-]
+export const companyDetails = {
+  header: 'Company Details',
+  icon: <FontAwesomeIcon size="lg" icon={faBuilding} />,
+  attributes: [
+    { attr: '_LNK_INTERNSHIP__LNK_HOST_COMPANY__PRI_NAME', label: 'Company Name' },
+    { attr: '_LNK_INTERNSHIP__LNK_HOST_COMPANY__LNK_INDUSTRY__PRI_NAME', label: 'Industry' },
+    { attr: '_LNK_INTERNSHIP__PRI_ADDRESS_FULL', label: 'Location' },
+    {
+      attr: '_LNK_INTERNSHIP__LNK_HOST_COMPANY_PRI_COMPANY_DESCRIPTION',
+      label: 'About the Company',
+      config: { px: '0px', noOfLines: 5 },
+    },
+  ],
+}

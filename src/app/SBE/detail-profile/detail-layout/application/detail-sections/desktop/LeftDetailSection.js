@@ -6,8 +6,8 @@ import { useColorModeValue } from '@chakra-ui/color-mode'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useApi from 'api'
 
-import DetailActions from 'app/SBE/detail-profile/detail-layout/internship/templates/Actions.js'
-import { LeftDetailAttributesInternship } from 'app/SBE/detail-profile/detail-layout/internship/templates/AttributesList.js'
+import DetailActions from 'app/SBE/detail-profile/detail-layout/application/templates/Actions.js'
+import { LeftDetailAttributesApplication } from 'app/SBE/detail-profile/detail-layout/application/templates/AttributesList.js'
 import 'app/layouts/components/css/hide-scroll.css'
 import Attribute from 'app/BE/attribute'
 import { selectCode } from 'redux/db/selectors'
@@ -97,7 +97,7 @@ const LeftDetail = ({ beCode, sbeCode }) => {
                   {attrSecond && <Attribute code={beCode} attribute={attrSecond} config={config} />}
                 </HStack>
               )
-            })(LeftDetailAttributesInternship)}
+            })(LeftDetailAttributesApplication)}
           </VStack>
         </VStack>
       </VStack>

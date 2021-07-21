@@ -9,6 +9,7 @@ const DesktopView = ({ beCode, sbeCode, onScroll, onWheel }) => {
     <Box className="nobar" overflowY="scroll" onScroll={onScroll} onWheel={onWheel}>
       <Box w="100%" alignItems="start" display="flex">
         <LeftDetailSection beCode={beCode} sbeCode={sbeCode} />
+        <RightDetailSection beCode={beCode} />
       </Box>
     </Box>
   )

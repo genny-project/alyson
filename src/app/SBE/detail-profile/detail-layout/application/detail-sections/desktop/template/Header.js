@@ -15,7 +15,7 @@ const Header = ({ beCode }) => {
   const dispatch = useDispatch()
   const onClose = () => dispatch(closeDrawer())
 
-  const videoSrc = useSelector(selectCode(beCode, 'PRI_VIDEO_URL'))?.value
+  const videoSrc = useSelector(selectCode(beCode, '_PRI_INTERN_CODE__PRI_VIDEO_URL'))?.value
   const hasVideo = !isEmpty(videoSrc)
 
   return (
@@ -31,10 +31,10 @@ const Header = ({ beCode }) => {
               <Center minH="10rem" w="100%">
                 <VStack>
                   <Text textStyle="head.2" color="#ffffff">
-                    {`The Intern has not uploaded any video yet`}
+                    {`Intertnship video has not been uploaded`}
                   </Text>
                   <Text textStyle="head.2" color="#ffffff">
-                    {`Once they do, it will appear here!`}
+                    {`Once it is, it will appear here!`}
                   </Text>
                 </VStack>
               </Center>
