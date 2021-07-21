@@ -31,10 +31,10 @@ const Header = ({ beCode }) => {
               <Center minH="10rem" w="100%">
                 <VStack>
                   <Text textStyle="head.2" color="#ffffff">
-                    {`The Intern has not uploaded any video yet`}
+                    {`Internship Video has not been uploaded for this internship`}
                   </Text>
                   <Text textStyle="head.2" color="#ffffff">
-                    {`Once they do, it will appear here!`}
+                    {`Once it is, it will appear here!`}
                   </Text>
                 </VStack>
               </Center>

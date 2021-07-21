@@ -6,10 +6,10 @@ import { useColorModeValue } from '@chakra-ui/color-mode'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useApi from 'api'
 
-import DetailActions from 'app/SBE/detail-profile/detail-layout/template/layouts/Actions.js'
+import DetailActions from 'app/SBE/detail-profile/detail-layout/intern/templates/Actions.js'
 import 'app/layouts/components/css/hide-scroll.css'
 import Attribute from 'app/BE/attribute'
-import { LeftDetailAttributes } from 'app/SBE/detail-profile/detail-layout/template/attributes-list'
+import { LeftDetailAttributesIntern } from 'app/SBE/detail-profile/detail-layout/intern/templates/AttributesList.js'
 import { selectCode } from 'redux/db/selectors'
 import sameLength from 'redux/utils/same-length'
 import getUserType from 'utils/helpers/get-user-type'
@@ -89,7 +89,7 @@ const LeftDetail = ({ beCode, sbeCode }) => {
                   <Attribute code={beCode} attribute={attr} config={config} />
                 </HStack>
               )
-            })(LeftDetailAttributes)}
+            })(LeftDetailAttributesIntern)}
           </VStack>
         </VStack>
       </VStack>

@@ -51,7 +51,7 @@ export const recentEmployment = {
   ],
 }
 
-export const LeftDetailAttributes = [
+export const LeftDetailAttributesIntern = [
   { icon: faUser, attr: 'PRI_NAME' },
   { icon: faPhoneAlt, attr: 'PRI_MOBILE' },
   { icon: faEnvelope, attr: 'PRI_EMAIL' },

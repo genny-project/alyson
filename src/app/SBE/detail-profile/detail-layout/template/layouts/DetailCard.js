@@ -1,7 +1,7 @@
 import { map } from 'ramda'
 import { Box, HStack, Text, VStack, Collapse, useDisclosure, Spacer } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronUp } from '@fortawesome/free-solid-svg-icons'
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 
 import Attribute from 'app/BE/attribute'
 import Card from 'app/layouts/components/card'
@@ -21,7 +21,7 @@ const DetailCard = ({ beCode, detailSectionType }) => {
             transform={isOpen ? 'rotate(180deg)' : 'rotate(0deg)'}
             transition="all 0.2s ease"
           >
-            <FontAwesomeIcon icon={faChevronUp} onClick={onToggle} />
+            <FontAwesomeIcon icon={faChevronDown} onClick={onToggle} />
           </Box>
         </HStack>
         <Collapse in={isOpen} animateOpacity>

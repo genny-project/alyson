@@ -10,7 +10,7 @@ import {
   prefs,
   internshipDetails,
   recentEmployment,
-} from 'app/SBE/detail-profile/detail-layout/template/attributes-list/index.js'
+} from 'app/SBE/detail-profile/detail-layout/intern/templates/AttributesList.js'
 
 export const InternshipPreferenceSection = ({ beCode }) => {
   const cardBg = useColorModeValue('gray.200', 'gray.600')

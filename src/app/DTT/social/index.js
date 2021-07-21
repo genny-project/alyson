@@ -21,6 +21,7 @@ const Read = ({ data, config = {} }) => {
           test-id={data?.baseEntityCode}
           {...config}
           isDisabled={!data?.value}
+          color="#3182CE"
         />
       </a>
     )

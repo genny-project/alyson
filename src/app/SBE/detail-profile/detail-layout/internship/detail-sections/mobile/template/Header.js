@@ -6,10 +6,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { IconButton } from '@chakra-ui/react'
 
-import DetailActions from 'app/SBE/detail-profile/detail-layout/intern/templates/Actions.js'
+import DetailActions from 'app/SBE/detail-profile/detail-layout/internship/templates/Actions.js'
+import { LeftDetailAttributesInternship } from 'app/SBE/detail-profile/detail-layout/internship/templates/AttributesList.js'
 import 'app/layouts/components/css/hide-scroll.css'
 import Attribute from 'app/BE/attribute'
-import { LeftDetailAttributesIntern } from 'app/SBE/detail-profile/detail-layout/intern/templates/AttributesList.js'
 import { closeDrawer } from 'redux/app'
 import 'app/layouts/components/css/hide-scroll.css'
 import Card from 'app/layouts/components/card'
@@ -36,21 +36,31 @@ const Header = ({ beCode, sbeCode }) => {
         </Box>
         <Attribute code={beCode} config={{ h: '5rem', w: '5rem' }} attribute="PRI_IMAGE_URL" />
         <VStack align="start" spacing={2}>
+          <Attribute code={beCode} attribute="PRI_NAME" config={{ textStyle: 'head.1' }} />
           <HStack spacing={5}>
-            <Attribute config={{ textStyle: 'head.1' }} code={beCode} attribute="PRI_NAME" />
-            <Attribute config={{ color: '#3182CE' }} code={beCode} attribute="PRI_LINKEDIN_URL" />
+            <Attribute
+              config={{ textStyle: 'body.2' }}
+              code={beCode}
+              attribute="_LNK_HOST_COMPANY__PRI_NAME"
+            />
+            <Attribute
+              config={{ color: '#3182CE' }}
+              code={beCode}
+              attribute="_LNK_HOST_COMPANY__PRI_LINKEDIN_URL"
+            />
           </HStack>
           <Attribute code={beCode} attribute="PRI_STAR_RATING" />
           <DetailActions beCode={beCode} sbeCode={sbeCode} />
           <VStack align="start" spacing={4} py={4}>
-            {map(({ icon, attr, config }) => {
+            {map(({ icon, attr, attrSecond, config }) => {
               return (
-                <HStack spacing={4}>
+                <HStack align="start" spacing={4}>
                   <FontAwesomeIcon icon={icon} opacity="0.6" />
                   <Attribute code={beCode} attribute={attr} config={config} />
+                  {attrSecond && <Attribute code={beCode} attribute={attrSecond} config={config} />}
                 </HStack>
               )
-            })(LeftDetailAttributesIntern)}
+            })(LeftDetailAttributesInternship)}
           </VStack>
         </VStack>
         <Center w="full">
@@ -61,8 +71,10 @@ const Header = ({ beCode, sbeCode }) => {
               ) : (
                 <Center minH="7rem" w="100%">
                   <VStack>
-                    <Text color="#ffffff">{`The Intern has not uploaded any video yet.`}</Text>
-                    <Text color="#ffffff">{`Once they do, it will appear here!`}</Text>
+                    <Text color="#ffffff">
+                      {`Internship Video has not been uploaded for this internship`}
+                    </Text>
+                    <Text color="#ffffff">{`Once it is, it will appear here!`}</Text>
                   </VStack>
                 </Center>
               )}
