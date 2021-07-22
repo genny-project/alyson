@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux'
 import { VStack, HStack, Box } from '@chakra-ui/layout'
 import { Avatar } from '@chakra-ui/avatar'
 import { useColorModeValue } from '@chakra-ui/color-mode'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useApi from 'api'
 
 import DetailActions from 'app/SBE/detail-profile/detail-layout/internship/templates/Actions.js'
@@ -11,6 +10,7 @@ import { LeftDetailAttributesInternship } from 'app/SBE/detail-profile/detail-la
 import 'app/layouts/components/css/hide-scroll.css'
 import Attribute from 'app/BE/attribute'
 import { selectCode } from 'redux/db/selectors'
+import ShowIconIfNotEmpty from 'app/SBE/detail-profile/ShowIconIfNotEmpty.js'
 
 const LeftDetail = ({ beCode, sbeCode }) => {
   const cardBg = useColorModeValue('gray.200', 'gray.600')
@@ -61,15 +61,15 @@ const LeftDetail = ({ beCode, sbeCode }) => {
           </HStack>
           <DetailActions beCode={beCode} sbeCode={sbeCode} />
           <VStack align="start" spacing={4}>
-            {map(({ icon, attr, attrSecond, config }) => {
-              return (
-                <HStack spacing={4} alignItems="start">
-                  <FontAwesomeIcon icon={icon} opacity="0.6" fixedWidth />
-                  <Attribute code={beCode} attribute={attr} config={config} />
-                  {attrSecond && <Attribute code={beCode} attribute={attrSecond} config={config} />}
-                </HStack>
-              )
-            })(LeftDetailAttributesInternship)}
+            {map(({ icon, attr, attrSecond, config }) => (
+              <ShowIconIfNotEmpty
+                icon={icon}
+                attr={attr}
+                attrSecond={attrSecond}
+                config={config}
+                beCode={beCode}
+              />
+            ))(LeftDetailAttributesInternship)}
           </VStack>
         </VStack>
       </VStack>
