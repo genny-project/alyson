@@ -15,6 +15,7 @@ interface ApiConfig {
   api_url?: string
   url?: string
   clientId?: string
+  projectTheme: any
   ENV_GENNY_HOST?: string
   ENV_GENNY_INITURL?: string
   ENV_GENNY_BRIDGE_PORT?: string
