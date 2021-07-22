@@ -8,8 +8,9 @@ import LogRocket from 'logrocket'
 import getTokenFromURL from 'keycloak/get-token-from-url'
 import getTheme from 'config/theme'
 import setupGoogleApi from './setup-google-api'
+import ApiConfig from './api-config'
 
-let apiConfig = { api_url: '', ENV_GOOGLE_MAPS_APIKEY: '' }
+let apiConfig = { api_url: '', ENV_GOOGLE_MAPS_APIKEY: '' } as ApiConfig
 let keycloak = {}
 let guestKeycloak = null
 let tokenFromUrl = null
@@ -23,7 +24,7 @@ const getApiConfig = async () => {
     url: INIT_URL,
   })
 
-  apiConfig = response.data
+  apiConfig = response.data as ApiConfig
 
   /* Log Rocket */
   if (process.env.NODE_ENV !== 'development') {
@@ -32,11 +33,11 @@ const getApiConfig = async () => {
   }
 
   /* Keycloak */
-  keycloak = new Keycloak({
+  keycloak = Keycloak({
     realm: apiConfig.realm,
     url: apiConfig.ENV_KEYCLOAK_REDIRECTURI,
     clientId: 'alyson',
-  })
+  }) as Keycloak.KeycloakConfig
 
   if (includes('public', window.location.pathname)) {
     guestKeycloak = await loginAsGuest()
