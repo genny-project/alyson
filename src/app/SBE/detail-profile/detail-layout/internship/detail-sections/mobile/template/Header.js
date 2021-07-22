@@ -52,7 +52,7 @@ const Header = ({ beCode, sbeCode }) => {
           </HStack>
           <Attribute code={beCode} attribute="PRI_STAR_RATING" />
           <DetailActions beCode={beCode} sbeCode={sbeCode} />
-          <VStack align="start" spacing={4}>
+          <VStack align="start" spacing={4} py={4}>
             {map(({ icon, attr, attrSecond, config }) => (
               <ShowIconIfNotEmpty
                 icon={icon}
