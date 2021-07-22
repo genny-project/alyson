@@ -14,6 +14,7 @@ import { closeDrawer } from 'redux/app'
 import 'app/layouts/components/css/hide-scroll.css'
 import Card from 'app/layouts/components/card'
 import { selectCode } from 'redux/db/selectors'
+import ShowIconIfNotEmpty from 'app/SBE/detail-profile/ShowIconIfNotEmpty.js'
 
 const Header = ({ beCode, sbeCode }) => {
   const cardBg = useColorModeValue('#ffffff', 'gray.600')
@@ -55,14 +56,15 @@ const Header = ({ beCode, sbeCode }) => {
           </HStack>
           <DetailActions beCode={beCode} sbeCode={sbeCode} />
           <VStack align="start" spacing={4} py={4}>
-            {map(({ icon, attr, config }) => {
-              return (
-                <HStack spacing={4}>
-                  <FontAwesomeIcon icon={icon} opacity="0.6" />
-                  <Attribute code={beCode} attribute={attr} config={config} />
-                </HStack>
-              )
-            })(LeftDetailAttributesApplication)}
+            {map(({ icon, attr, attrSecond, config }) => (
+              <ShowIconIfNotEmpty
+                icon={icon}
+                attr={attr}
+                attrSecond={attrSecond}
+                config={config}
+                beCode={beCode}
+              />
+            ))(LeftDetailAttributesApplication)}
           </VStack>
         </VStack>
         <Center w="full">

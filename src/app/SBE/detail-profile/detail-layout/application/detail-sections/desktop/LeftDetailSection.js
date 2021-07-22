@@ -3,8 +3,8 @@ import { useSelector } from 'react-redux'
 import { VStack, HStack, Box, Text } from '@chakra-ui/layout'
 import { Avatar } from '@chakra-ui/avatar'
 import { useColorModeValue } from '@chakra-ui/color-mode'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useApi from 'api'
+import ShowIconIfNotEmpty from 'app/SBE/detail-profile/ShowIconIfNotEmpty.js'
 
 import DetailActions from 'app/SBE/detail-profile/detail-layout/application/templates/Actions.js'
 import { LeftDetailAttributesApplication } from 'app/SBE/detail-profile/detail-layout/application/templates/AttributesList.js'
@@ -82,16 +82,16 @@ const LeftDetail = ({ beCode, sbeCode }) => {
         </VStack>
         <VStack align="start" spacing={4}>
           <DetailActions beCode={beCode} sbeCode={sbeCode} />
-          <VStack align="start" spacing={4}>
-            {map(({ icon, attr, attrSecond, config }) => {
-              return (
-                <HStack spacing={4} alignItems="start">
-                  <FontAwesomeIcon icon={icon} opacity="0.6" />
-                  <Attribute code={beCode} attribute={attr} config={config} />
-                  {attrSecond && <Attribute code={beCode} attribute={attrSecond} config={config} />}
-                </HStack>
-              )
-            })(LeftDetailAttributesApplication)}
+          <VStack align="start" spacing={4} py={4}>
+            {map(({ icon, attr, attrSecond, config }) => (
+              <ShowIconIfNotEmpty
+                icon={icon}
+                attr={attr}
+                attrSecond={attrSecond}
+                config={config}
+                beCode={beCode}
+              />
+            ))(LeftDetailAttributesApplication)}
           </VStack>
         </VStack>
       </VStack>
