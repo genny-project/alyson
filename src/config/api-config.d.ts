@@ -5,7 +5,7 @@ interface Credentials {
 interface PolicyEnforcer {}
 
 interface ApiConfig {
-  realm?: string
+  realm: string
   'auth-server-url'?: string
   'ssl-required'?: string
   resource?: string
