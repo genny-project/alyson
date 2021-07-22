@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux'
 import { VStack, HStack, Box } from '@chakra-ui/layout'
 import { Avatar } from '@chakra-ui/avatar'
 import { useColorModeValue } from '@chakra-ui/color-mode'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useApi from 'api'
 
 import DetailActions from 'app/SBE/detail-profile/detail-layout/intern/templates/Actions.js'
@@ -13,6 +12,7 @@ import { LeftDetailAttributesIntern } from 'app/SBE/detail-profile/detail-layout
 import { selectCode } from 'redux/db/selectors'
 import sameLength from 'redux/utils/same-length'
 import getUserType from 'utils/helpers/get-user-type'
+import ShowIconIfNotEmpty from 'app/SBE/detail-profile/ShowIconIfNotEmpty.js'
 
 const LeftDetail = ({ beCode, sbeCode }) => {
   const cardBg = useColorModeValue('gray.200', 'gray.600')
@@ -79,17 +79,20 @@ const LeftDetail = ({ beCode, sbeCode }) => {
             <Attribute config={{ textStyle: 'head.1' }} code={beCode} attribute="PRI_NAME" />
             <Attribute config={{ color: '#3182CE' }} code={beCode} attribute="PRI_LINKEDIN_URL" />
           </HStack>
-          <Attribute code={beCode} attribute="PRI_STAR_RATING" />
+          {(userType === 'AGENT' || userType === 'ADMIN') && (
+            <Attribute code={beCode} attribute="PRI_STAR_RATING" />
+          )}
           <DetailActions beCode={beCode} sbeCode={sbeCode} />
-          <VStack align="start" spacing={4}>
-            {map(({ icon, attr, config }) => {
-              return (
-                <HStack spacing={4}>
-                  <FontAwesomeIcon icon={icon} opacity="0.6" />
-                  <Attribute code={beCode} attribute={attr} config={config} />
-                </HStack>
-              )
-            })(LeftDetailAttributesIntern)}
+          <VStack align="start" spacing={4} py={4}>
+            {map(({ icon, attr, attrSecond, config }) => (
+              <ShowIconIfNotEmpty
+                icon={icon}
+                attr={attr}
+                attrSecond={attrSecond}
+                config={config}
+                beCode={beCode}
+              />
+            ))(LeftDetailAttributesIntern)}
           </VStack>
         </VStack>
       </VStack>

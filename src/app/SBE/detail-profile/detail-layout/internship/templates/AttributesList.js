@@ -20,7 +20,7 @@ export const LeftDetailAttributesInternship = [
   {
     icon: faAlignLeft,
     attr: '_LNK_INTERN_SUPERVISOR__PRI_BIO',
-    config: { px: '0px', noOfLines: 5 },
+    config: { px: '0px', noOfLines: 5, w: 'full' },
   },
 ]
 
