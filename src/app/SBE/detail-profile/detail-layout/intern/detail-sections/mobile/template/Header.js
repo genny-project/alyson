@@ -1,4 +1,4 @@
-import { map, isEmpty } from 'ramda'
+import { map, isEmpty, equals } from 'ramda'
 import { useSelector, useDispatch } from 'react-redux'
 import { VStack, HStack, Box, Center, Text } from '@chakra-ui/layout'
 import { useColorModeValue } from '@chakra-ui/color-mode'
@@ -15,8 +15,13 @@ import 'app/layouts/components/css/hide-scroll.css'
 import Card from 'app/layouts/components/card'
 import { selectCode } from 'redux/db/selectors'
 import ShowIconIfNotEmpty from 'app/SBE/detail-profile/ShowIconIfNotEmpty.js'
+import getUserType from 'utils/helpers/get-user-type'
+import sameLength from 'redux/utils/same-length'
 
 const Header = ({ beCode, sbeCode }) => {
+  const userCode = useSelector(selectCode('USER'), equals)
+  const userType = getUserType(useSelector(selectCode(userCode), sameLength))
+
   const cardBg = useColorModeValue('#ffffff', 'gray.600')
   const dispatch = useDispatch()
   const onClose = () => dispatch(closeDrawer())
@@ -41,7 +46,9 @@ const Header = ({ beCode, sbeCode }) => {
             <Attribute config={{ textStyle: 'head.1' }} code={beCode} attribute="PRI_NAME" />
             <Attribute config={{ color: '#3182CE' }} code={beCode} attribute="PRI_LINKEDIN_URL" />
           </HStack>
-          <Attribute code={beCode} attribute="PRI_STAR_RATING" />
+          {(userType === 'AGENT' || userType === 'ADMIN') && (
+            <Attribute code={beCode} attribute="PRI_STAR_RATING" />
+          )}{' '}
           <DetailActions beCode={beCode} sbeCode={sbeCode} />
           <VStack align="start" spacing={4} py={4}>
             {map(({ icon, attr, attrSecond, config }) => (

@@ -79,7 +79,9 @@ const LeftDetail = ({ beCode, sbeCode }) => {
             <Attribute config={{ textStyle: 'head.1' }} code={beCode} attribute="PRI_NAME" />
             <Attribute config={{ color: '#3182CE' }} code={beCode} attribute="PRI_LINKEDIN_URL" />
           </HStack>
-          <Attribute code={beCode} attribute="PRI_STAR_RATING" />
+          {(userType === 'AGENT' || userType === 'ADMIN') && (
+            <Attribute code={beCode} attribute="PRI_STAR_RATING" />
+          )}
           <DetailActions beCode={beCode} sbeCode={sbeCode} />
           <VStack align="start" spacing={4} py={4}>
             {map(({ icon, attr, attrSecond, config }) => (
