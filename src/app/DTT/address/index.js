@@ -43,17 +43,18 @@ const Read = ({ data, config = {} }) => {
         </Collapse>
       </Card>
     </VStack>
+  ) : hideIcon ? (
+    <Text minW="8rem">{data.value}</Text>
   ) : (
     <HStack>
       <Popover isLazy>
-        {!hideIcon && (
-          <PopoverTrigger>
-            <IconButton
-              variant="unstyled"
-              icon={<HeroIconButton icon={<FontAwesomeIcon icon={faMapMarkerAlt} />} />}
-            />
-          </PopoverTrigger>
-        )}
+        <PopoverTrigger>
+          <IconButton
+            variant="unstyled"
+            icon={<HeroIconButton icon={<FontAwesomeIcon icon={faMapMarkerAlt} />} />}
+          />
+        </PopoverTrigger>
+
         {config?.portal ? (
           <Portal>
             <PopoverContent style={{ width: '42rem', height: '34rem' }}>

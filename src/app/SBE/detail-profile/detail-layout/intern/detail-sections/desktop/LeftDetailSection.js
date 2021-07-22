@@ -85,7 +85,7 @@ const LeftDetail = ({ beCode, sbeCode }) => {
             {map(({ icon, attr, config }) => {
               return (
                 <HStack spacing={4}>
-                  <FontAwesomeIcon icon={icon} opacity="0.6" />
+                  <FontAwesomeIcon icon={icon} opacity="0.6" fixedWidth />
                   <Attribute code={beCode} attribute={attr} config={config} />
                 </HStack>
               )

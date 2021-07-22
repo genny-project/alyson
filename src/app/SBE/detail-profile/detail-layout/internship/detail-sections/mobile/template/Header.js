@@ -55,7 +55,7 @@ const Header = ({ beCode, sbeCode }) => {
             {map(({ icon, attr, attrSecond, config }) => {
               return (
                 <HStack align="start" spacing={4}>
-                  <FontAwesomeIcon icon={icon} opacity="0.6" />
+                  <FontAwesomeIcon icon={icon} opacity="0.6" fixedWidth />
                   <Attribute code={beCode} attribute={attr} config={config} />
                   {attrSecond && <Attribute code={beCode} attribute={attrSecond} config={config} />}
                 </HStack>
@@ -71,9 +71,7 @@ const Header = ({ beCode, sbeCode }) => {
               ) : (
                 <Center minH="7rem" w="100%">
                   <VStack>
-                    <Text color="#ffffff">
-                      {`Internship Video has not been uploaded for this internship`}
-                    </Text>
+                    <Text color="#ffffff">{`Internship Video has not been uploaded`}</Text>
                     <Text color="#ffffff">{`Once it is, it will appear here!`}</Text>
                   </VStack>
                 </Center>
