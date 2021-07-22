@@ -32,7 +32,7 @@ export const InternshipDetailsSection = ({ beCode }) => {
                 <Text textStyle="tail.2">{`Internship Specialisation`}</Text>
                 <Attribute
                   code={beCode}
-                  attribute={`_LNK_INTERNSHIP__PRI_ASSOC_OCCUPATION`}
+                  attribute={`_LNK_INTERNSHIP__LNK_OCCUPATION__PRI_NAME`}
                   config={{ detailViewTags: true }}
                 />
               </VStack>
@@ -52,7 +52,7 @@ export const InternshipDetailsSection = ({ beCode }) => {
                 <Text textStyle="tail.2">{`Industry`}</Text>
                 <Attribute
                   code={beCode}
-                  attribute={`_LNK_INTERNSHIP__PRI_ASSOC_INDUSTRY`}
+                  attribute={`_LNK_INTERNSHIP__LNK_INDUSTRY__PRI_NAME`}
                   config={{ noOfLines: 1, detailViewTags: true }}
                 />
               </VStack>
@@ -60,7 +60,10 @@ export const InternshipDetailsSection = ({ beCode }) => {
             <GridItem rowSpan={1} colSpan={1}>
               <VStack align="start">
                 <Text textStyle="tail.2">{`Internship Type`}</Text>
-                <Attribute code={beCode} attribute={`_LNK_INTERNSHIP__PRI_WORKSITE`} />
+                <Attribute
+                  code={beCode}
+                  attribute={`_LNK_INTERNSHIP__LNK_WORKSITE_SELECT_PRI_NAME`}
+                />
               </VStack>
             </GridItem>
             <GridItem rowSpan={2} colSpan={2}>
@@ -128,7 +131,7 @@ export const InternshipDetailsSection = ({ beCode }) => {
             <GridItem rowSpan={1} colSpan={1}>
               <VStack align="start">
                 <Text textStyle="tail.2">{`Available Positions`}</Text>
-                <Attribute code={beCode} attribute={`_LNK_INTERNSHIP__PRI_ASSOC_NO_OF_INTERNS`} />
+                <Attribute code={beCode} attribute={`_LNK_INTERNSHIP__PRI_NO_OF_INTERNS`} />
               </VStack>
             </GridItem>
             <GridItem rowSpan={1} colSpan={3}>
@@ -173,7 +176,7 @@ export const CompanyDetailsSection = ({ beCode }) => {
                 <Text textStyle="tail.2">{`About the Company`}</Text>
                 <Attribute
                   code={beCode}
-                  attribute={`_LNK_INTERNSHIP__LNK_HOST_COMPANY_PRI_COMPANY_DESCRIPTION`}
+                  attribute={`_LNK_INTERNSHIP__LNK_HOST_COMPANY__PRI_COMPANY_DESCRIPTION`}
                   config={{ px: '0px', noOfLines: 8 }}
                 />
               </VStack>
@@ -183,7 +186,7 @@ export const CompanyDetailsSection = ({ beCode }) => {
                 <Text textStyle="tail.2">{`Industry`}</Text>
                 <Attribute
                   code={beCode}
-                  attribute={`_LNK_INTERNSHIP__LNK_HOST_COMPANY__LNK_INDUSTRY__PRI_NAME`}
+                  attribute={`_LNK_INTERNSHIP__LNK_HOST_COMPANY__LNK_COMPANY_INDUSTRY__PRI_NAME`}
                 />
               </VStack>
             </GridItem>

@@ -29,16 +29,16 @@ export const internshipDetails = {
   icon: <FontAwesomeIcon size="lg" icon={faBriefcase} />,
   attributes: [
     {
-      attr: '_LNK_INTERNSHIP__PRI_ASSOC_OCCUPATION',
+      attr: '_LNK_INTERNSHIP__LNK_OCCUPATION__PRI_NAME',
       label: 'Internship Specialisation',
       config: { detailViewTags: true },
     },
     {
-      attr: '_LNK_INTERNSHIP__PRI_ASSOC_INDUSTRY',
+      attr: '_LNK_INTERNSHIP__LNK_INDUSTRY__PRI_NAME',
       label: 'Industry',
       config: { detailViewTags: true },
     },
-    { attr: '_LNK_INTERNSHIP__PRI_WORKSITE', label: 'Internship Type' },
+    { attr: '_LNK_INTERNSHIP__LNK_WORKSITE_SELECT_PRI_NAME', label: 'Internship Type' },
     { attr: '_LNK_INTERNSHIP__PRI_INTERNSHIP_START_DATE', label: 'Internship Active from' },
     {
       attr: '_LNK_INTERNSHIP__PRI_WHICH_DAYS_STRIPPED',
@@ -47,7 +47,7 @@ export const internshipDetails = {
     },
     { attr: '_LNK_INTERNSHIP__PRI_BUSINESS_HOURS', label: 'Company Business Hours' },
     { attr: '_LNK_INTERNSHIP__PRI_DRESS_CODE', label: 'Dress Code' },
-    { attr: '_LNK_INTERNSHIP__PRI_ASSOC_NO_OF_INTERNS', label: 'Available Positions' },
+    { attr: '_LNK_INTERNSHIP__PRI_NO_OF_INTERNS', label: 'Available Positions' },
     {
       attr: '_LNK_INTERNSHIP__PRI_INTERNSHIP_DETAILS',
       label: 'Internship Overview',
@@ -81,10 +81,14 @@ export const companyDetails = {
   icon: <FontAwesomeIcon size="lg" icon={faBuilding} />,
   attributes: [
     { attr: '_LNK_INTERNSHIP__LNK_HOST_COMPANY__PRI_NAME', label: 'Company Name' },
-    { attr: '_LNK_INTERNSHIP__LNK_HOST_COMPANY__LNK_INDUSTRY__PRI_NAME', label: 'Industry' },
+    {
+      attr: '_LNK_INTERNSHIP__LNK_HOST_COMPANY__LNK_COMPANY_INDUSTRY__PRI_NAME',
+      label: 'Industry',
+      config: { detailViewTags: true },
+    },
     { attr: '_LNK_INTERNSHIP__PRI_ADDRESS_FULL', label: 'Location' },
     {
-      attr: '_LNK_INTERNSHIP__LNK_HOST_COMPANY_PRI_COMPANY_DESCRIPTION',
+      attr: '_LNK_INTERNSHIP__LNK_HOST_COMPANY__PRI_COMPANY_DESCRIPTION',
       label: 'About the Company',
       config: { px: '0px', noOfLines: 5 },
     },
