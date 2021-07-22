@@ -25,7 +25,7 @@ const Header = ({ beCode }) => {
           <Center w="full">
             {hasVideo ? (
               <Box maxW="30vw">
-                <Attribute code={beCode} attribute="PRI_VIDEO_URL" />
+                <Attribute code={beCode} attribute="_PRI_INTERN_CODE__PRI_VIDEO_URL" />
               </Box>
             ) : (
               <Center minH="10rem" w="100%">

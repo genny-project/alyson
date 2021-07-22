@@ -42,51 +42,45 @@ const LeftDetail = ({ beCode, sbeCode }) => {
       <VStack ml="10" mr="4" my="8" align="start" spacing={8} maxW="30vw">
         <VStack align="start">
           <Box w="full">
-            <Avatar src={internsImageSrc} w="8rem" h="8rem" zIndex="modal" />
+            <Avatar src={internsImageSrc} w="7rem" h="7rem" zIndex="modal" />
             <Avatar
               ml="-1rem"
               bg="#ffffff"
               p="1"
               src={linkedAgentImageSrc}
-              w="8rem"
-              h="8rem"
+              w="7rem"
+              h="7rem"
               zIndex="modal"
             />
           </Box>
-          <Attribute config={{ textStyle: 'head.2' }} code={beCode} attribute="PRI_INTERN_NAME" />
+          <HStack spacing={4}>
+            <Attribute config={{ textStyle: 'body.1' }} code={beCode} attribute="PRI_INTERN_NAME" />
+            <Attribute code={beCode} attribute="_PRI_INTERN_CODE__PRI_LINKEDIN_URL" />
+          </HStack>
           <Text>{`is applying at`}</Text>
-          <Attribute
-            config={{ textStyle: 'head.2' }}
-            code={beCode}
-            attribute="_LNK_INTERNSHIP__LNK_HOST_COMPANY__PRI_NAME"
-          />
+          <HStack spacing={4}>
+            <Attribute
+              config={{ textStyle: 'body.1' }}
+              code={beCode}
+              attribute="_LNK_INTERNSHIP__LNK_HOST_COMPANY__PRI_NAME"
+            />
+            <Attribute code={beCode} attribute="_LNK_HOST_COMPANY__PRI_LINKEDIN_URL" />
+          </HStack>
+
           <Box w="full">
-            <Avatar src={linkedInternshipImageSrc} w="8rem" h="8rem" zIndex="modal" />
+            <Avatar src={linkedInternshipImageSrc} w="7rem" h="7rem" zIndex="modal" />
             <Avatar
               ml="-1rem"
               bg="#ffffff"
               p="1"
               src={linkedSupervisorSrc}
-              w="8rem"
-              h="8rem"
+              w="7rem"
+              h="7rem"
               zIndex="modal"
             />
           </Box>
         </VStack>
         <VStack align="start" spacing={4}>
-          <Attribute code={beCode} attribute="PRI_NAME" config={{ textStyle: 'head.1' }} />
-          <HStack spacing={5}>
-            <Attribute
-              config={{ textStyle: 'body.2' }}
-              code={beCode}
-              attribute="_LNK_HOST_COMPANY__PRI_NAME"
-            />
-            <Attribute
-              config={{ color: '#3182CE' }}
-              code={beCode}
-              attribute="_LNK_HOST_COMPANY__PRI_LINKEDIN_URL"
-            />
-          </HStack>
           <DetailActions beCode={beCode} sbeCode={sbeCode} />
           <VStack align="start" spacing={4}>
             {map(({ icon, attr, attrSecond, config }) => {

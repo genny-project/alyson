@@ -40,8 +40,18 @@ const Header = ({ beCode, sbeCode }) => {
           attribute="_PRI_INTERN_CODE__PRI_IMAGE_URL_"
         />
         <VStack align="start" spacing={2}>
-          <HStack spacing={5}>
-            <Attribute config={{ textStyle: 'head.1' }} code={beCode} attribute="PRI_INTERN_NAME" />
+          <HStack spacing={4}>
+            <Attribute config={{ textStyle: 'body.1' }} code={beCode} attribute="PRI_INTERN_NAME" />
+            <Attribute code={beCode} attribute="_PRI_INTERN_CODE__PRI_LINKEDIN_URL" />
+          </HStack>
+          <Text>{`is applying at`}</Text>
+          <HStack spacing={4}>
+            <Attribute
+              config={{ textStyle: 'body.1' }}
+              code={beCode}
+              attribute="_LNK_INTERNSHIP__LNK_HOST_COMPANY__PRI_NAME"
+            />
+            <Attribute code={beCode} attribute="_LNK_HOST_COMPANY__PRI_LINKEDIN_URL" />
           </HStack>
           <DetailActions beCode={beCode} sbeCode={sbeCode} />
           <VStack align="start" spacing={4} py={4}>
