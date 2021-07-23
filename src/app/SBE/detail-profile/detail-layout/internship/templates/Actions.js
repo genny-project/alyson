@@ -5,7 +5,7 @@ import { Menu, MenuButton, MenuList } from '@chakra-ui/menu'
 import { faEllipsisH } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons'
-import { map } from 'ramda'
+import { map, tail } from 'ramda'
 
 import Action from 'app/BE/context/Action'
 import getActions from 'app/SBE/utils/get-actions'
@@ -28,7 +28,7 @@ const DetailActions = ({ sbeCode, beCode }) => {
         name={`Edit`}
         customAction
       />
-      {actions.length > 0 && (
+      {actions.length > 1 && (
         <Menu>
           <MenuButton>
             <IconButton
@@ -43,7 +43,7 @@ const DetailActions = ({ sbeCode, beCode }) => {
           <MenuList>
             {map(action => (
               <Action key={action} parentCode={sbeCode} code={action} targetCode={beCode} />
-            ))(actions)}
+            ))(tail(actions))}
           </MenuList>
         </Menu>
       )}

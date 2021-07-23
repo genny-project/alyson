@@ -100,7 +100,7 @@ export const InternshipDetailsSection = ({ beCode }) => {
             <GridItem rowSpan={1} colSpan={1}>
               <VStack align="start">
                 <Text textStyle="tail.2">{`Company Business Hours`}</Text>
-                <Attribute code={beCode} attribute={`LNK_BUSINESS_HOURS`} />
+                <Attribute code={beCode} attribute={`PRI_BUSINESS_HOURS`} />
               </VStack>
             </GridItem>
             <GridItem rowSpan={1} colSpan={1}>
