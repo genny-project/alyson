@@ -90,7 +90,7 @@ export const InternshipSection = ({ beCode }) => {
             {internshipDetails?.icon}
             <Text textStyle="body.1">{internshipDetails?.header}</Text>
           </HStack>
-          <HStack w="full" justifyContent="space-between">
+          <HStack w="full" justifyContent="space-between" align="start">
             {map(({ label, attr, config }) => {
               return (
                 <VStack align="start" justify="start">
