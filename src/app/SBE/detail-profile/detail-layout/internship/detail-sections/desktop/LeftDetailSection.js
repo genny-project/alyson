@@ -51,7 +51,7 @@ const LeftDetail = ({ beCode, sbeCode }) => {
             <Attribute
               config={{ textStyle: 'body.2' }}
               code={beCode}
-              attribute="_LNK_HOST_COMPANY__PRI_NAME"
+              attribute="PRI_ASSOC_SUPERVISOR"
             />
             <Attribute
               config={{ color: '#3182CE' }}
