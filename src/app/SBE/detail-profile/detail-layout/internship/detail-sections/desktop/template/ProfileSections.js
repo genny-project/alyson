@@ -21,7 +21,7 @@ export const InternshipDetailsSection = ({ beCode }) => {
             <Text textStyle="body.1">{internshipDetails?.header}</Text>
           </HStack>
           <Grid
-            maxH="40rem"
+            h="45rem"
             w="100%"
             templateRows="repeat(9, 1fr)"
             templateColumns="repeat(3, 1fr)"

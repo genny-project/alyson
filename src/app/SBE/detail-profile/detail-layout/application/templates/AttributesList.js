@@ -11,15 +11,15 @@ import {
 export const LeftDetailAttributesApplication = [
   {
     icon: faUserFriends,
-    attr: '_LNK_INTERN_SUPERVISOR__PRI_NAME',
-    attrSecond: '_LNK_INTERN_SUPERVISOR__PRI_LINKEDIN_URL',
+    attr: '_LNK_INTERNSHIP__LNK_INTERN_SUPERVISOR__PRI_NAME',
+    attrSecond: '_LNK_INTERNSHIP__LNK_INTERN_SUPERVISOR__PRI_LINKEDIN_URL',
   },
-  { icon: faBriefcase, attr: '_LNK_INTERN_SUPERVISOR__PRI_JOB_TITLE' },
-  { icon: faEnvelope, attr: '_LNK_INTERN_SUPERVISOR__PRI_EMAIL' },
-  { icon: faPhoneAlt, attr: '_LNK_INTERN_SUPERVISOR__PRI_MOBILE' },
+  { icon: faBriefcase, attr: '_LNK_INTERNSHIP__LNK_INTERN_SUPERVISOR__PRI_JOB_TITLE' },
+  { icon: faEnvelope, attr: '_LNK_INTERNSHIP__LNK_INTERN_SUPERVISOR__PRI_EMAIL' },
+  { icon: faPhoneAlt, attr: '_LNK_INTERNSHIP__LNK_INTERN_SUPERVISOR__PRI_MOBILE' },
   {
     icon: faAlignLeft,
-    attr: '_LNK_INTERN_SUPERVISOR__PRI_BIO',
+    attr: '_LNK_INTERNSHIP__LNK_INTERN_SUPERVISOR__PRI_BIO',
     config: { px: '0px', noOfLines: 5, w: 'full' },
   },
 ]

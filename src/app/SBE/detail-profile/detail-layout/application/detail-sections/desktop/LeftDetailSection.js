@@ -18,7 +18,8 @@ const LeftDetail = ({ beCode, sbeCode }) => {
   const internsImage = useSelector(selectCode(beCode, '_PRI_INTERN_CODE__PRI_IMAGE_URL')) || {}
   const internsImageSrc = useApi().getImageSrc(internsImage?.value)
 
-  const linkedAgentImage = useSelector(selectCode(beCode, '_LNK_AGENT__PRI_IMAGE_URL')) || {}
+  const linkedAgentImage =
+    useSelector(selectCode(beCode, '_PRI_INTERN_CODE__LNK_AGENT__PRI_IMAGE_URL')) || {}
   const linkedAgentImageSrc = useApi().getImageSrc(linkedAgentImage?.value)
 
   const linkedInternshipImage =
@@ -26,7 +27,7 @@ const LeftDetail = ({ beCode, sbeCode }) => {
   const linkedInternshipImageSrc = useApi().getImageSrc(linkedInternshipImage?.value)
 
   const linkedSupervisorImage =
-    useSelector(selectCode(beCode, '_LNK_INTERN_SUPERVISOR__PRI_IMAGE_URL')) || {}
+    useSelector(selectCode(beCode, '_LNK_INTERNSHIP__LNK_INTERN_SUPERVISOR__PRI_IMAGE_URL')) || {}
   const linkedSupervisorSrc = useApi().getImageSrc(linkedSupervisorImage?.value)
 
   return (
@@ -53,12 +54,16 @@ const LeftDetail = ({ beCode, sbeCode }) => {
               zIndex="modal"
             />
           </Box>
-          <HStack spacing={4}>
-            <Attribute config={{ textStyle: 'body.1' }} code={beCode} attribute="PRI_INTERN_NAME" />
+          <HStack spacing={4} pt={2}>
+            <Attribute
+              config={{ textStyle: 'body.1' }}
+              code={beCode}
+              attribute="_PRI_INTERN_CODE__PRI_NAME"
+            />
             <Attribute code={beCode} attribute="_PRI_INTERN_CODE__PRI_LINKEDIN_URL" />
           </HStack>
           <Text>{`is applying at`}</Text>
-          <HStack spacing={4}>
+          <HStack spacing={4} pb={2}>
             <Attribute
               config={{ textStyle: 'body.1' }}
               code={beCode}
