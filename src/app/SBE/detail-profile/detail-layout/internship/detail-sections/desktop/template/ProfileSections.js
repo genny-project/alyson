@@ -20,13 +20,7 @@ export const InternshipDetailsSection = ({ beCode }) => {
             {internshipDetails?.icon}
             <Text textStyle="body.1">{internshipDetails?.header}</Text>
           </HStack>
-          <Grid
-            h="45rem"
-            w="100%"
-            templateRows="repeat(9, 1fr)"
-            templateColumns="repeat(3, 1fr)"
-            gap={6}
-          >
+          <Grid w="100%" templateRows="repeat(9, 1fr)" templateColumns="repeat(3, 1fr)" gap={6}>
             <GridItem rowSpan={1} colSpan={1}>
               <VStack align="start">
                 <Text textStyle="tail.2">{`Internship Specialisation`}</Text>
@@ -158,7 +152,7 @@ export const CompanyDetailsSection = ({ beCode }) => {
             {companyDetails?.icon}
             <Text textStyle="body.1">{companyDetails?.header}</Text>
           </HStack>
-          <Grid h="15rem" w="100%" templateRows="repeat(3, 1fr)" templateColumns="repeat(3, 1fr)">
+          <Grid w="100%" templateRows="repeat(3, 1fr)" templateColumns="repeat(3, 1fr)" gap={6}>
             <GridItem rowSpan={1} colSpan={1}>
               <VStack align="start">
                 <Text textStyle="tail.2">{`Company Name`}</Text>

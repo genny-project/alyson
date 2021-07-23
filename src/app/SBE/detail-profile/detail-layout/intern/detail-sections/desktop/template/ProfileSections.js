@@ -22,13 +22,7 @@ export const InternshipPreferenceSection = ({ beCode }) => {
             {prefs?.icon}
             <Text textStyle="body.1">{prefs?.header}</Text>
           </HStack>
-          <Grid
-            h="16rem"
-            w="100%"
-            templateRows="repeat(3, 1fr)"
-            templateColumns="repeat(5, 1fr)"
-            gap={6}
-          >
+          <Grid w="100%" templateRows="repeat(3, 1fr)" templateColumns="repeat(5, 1fr)" gap={6}>
             <GridItem rowSpan={1} colSpan={1}>
               <VStack align="start">
                 <Text textStyle="tail.2">{`Industry`}</Text>
@@ -122,13 +116,7 @@ export const ExperienceSection = ({ beCode }) => {
             {recentEmployment?.icon}
             <Text textStyle="body.1">{recentEmployment?.header}</Text>
           </HStack>
-          <Grid
-            h="11rem"
-            w="100%"
-            templateRows="repeat(2, 1fr)"
-            templateColumns="repeat(4, 1fr)"
-            gap={4}
-          >
+          <Grid w="100%" templateRows="repeat(2, 1fr)" templateColumns="repeat(4, 1fr)" gap={6}>
             <GridItem rowSpan={1} colSpan={1}>
               <VStack align="start">
                 <Text textStyle="tail.2">{`Job Title`}</Text>
