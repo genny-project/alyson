@@ -9,7 +9,7 @@ import Agent from './agent'
 import EduProDetail from './edu_pro'
 import DefaultView from './default-view'
 import getDetailType from './helpers/get-detail-type'
-import Application from 'app/SBE/detail-profile/application'
+import Application from './application'
 import { head } from 'ramda'
 
 const BaseEntityDetail = ({ targetCode, defaultView }) => {
