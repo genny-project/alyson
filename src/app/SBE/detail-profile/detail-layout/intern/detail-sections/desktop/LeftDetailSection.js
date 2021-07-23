@@ -25,7 +25,14 @@ const LeftDetail = ({ beCode, sbeCode }) => {
   const associatedAgentImageSrc = useApi().getImageSrc(associatedAgentImage?.value)
 
   return (
-    <Box bg={cardBg} borderRadius="2rem 2rem 0rem 0rem" h="100vh" position="sticky" top="0rem">
+    <Box
+      bg={cardBg}
+      borderRadius="2rem 2rem 0rem 0rem"
+      h="100vh"
+      position="sticky"
+      top="0rem"
+      minW="20vw"
+    >
       <VStack ml="10" mr="4" my="8" align="start" spacing={8} maxW="30vw">
         {userType === 'HOST_CPY_REP' ? (
           <Box w="full">
