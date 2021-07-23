@@ -9,7 +9,7 @@ import { selectCode } from 'redux/db/selectors'
 const ShowIconIfNotEmpty = ({ icon, attr, attrSecond, config, beCode }) => {
   const hasValue = useSelector(selectCode(beCode, attr))?.value
   return !!hasValue ? (
-    <HStack spacing={4} alignItems="start">
+    <HStack spacing={4}>
       <FontAwesomeIcon icon={icon} opacity="0.6" fixedWidth />
       <Attribute code={beCode} attribute={attr} config={config} />
       {attrSecond && <Attribute code={beCode} attribute={attrSecond} config={config} />}

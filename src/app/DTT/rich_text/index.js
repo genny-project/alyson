@@ -11,6 +11,13 @@ import {
   PopoverHeader,
   Text,
   HStack,
+  VStack,
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalFooter,
+  ModalBody,
 } from '@chakra-ui/react'
 import { EditorState, convertFromHTML, ContentState } from 'draft-js'
 import { Editor } from 'react-draft-wysiwyg'
@@ -20,7 +27,6 @@ import { faExpand } from '@fortawesome/free-solid-svg-icons'
 import '../../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import DOMPurify from 'dompurify'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
-
 const Write = ({ questionCode, data, onSendAnswer, html }) => {
   const { minCharacterCount = 0, maxCharacterCount } = safelyParseJson(html, {})
   const blocksFromHTML = convertFromHTML(data?.value || '')
@@ -28,23 +34,19 @@ const Write = ({ questionCode, data, onSendAnswer, html }) => {
     blocksFromHTML.contentBlocks,
     blocksFromHTML.entityMap,
   )
-
   const [dataValue, setDataValue] = useState(data?.value)
   const [editor, setEditor] = useState(
     !data?.value ? EditorState.createEmpty() : EditorState.createWithContent(state),
   )
-
   useEffect(() => {
     if (data?.value !== dataValue) {
       setDataValue(data?.value)
       setEditor(EditorState.createWithContent(state))
     }
   }, [data?.value, dataValue, state])
-
   const curLength = (stateToHTML(editor.getCurrentContent()) || '')
     .replace(/(<([^>]+)>)/gi, '')
     .replace(/&nbsp;/g, ' ').length
-
   const handleSave = () => {
     if (minCharacterCount || maxCharacterCount) {
       if (minCharacterCount < curLength && curLength < maxCharacterCount) {
@@ -54,7 +56,6 @@ const Write = ({ questionCode, data, onSendAnswer, html }) => {
       onSendAnswer(stateToHTML(editor.getCurrentContent()))
     }
   }
-
   return (
     <Box
       test-id={questionCode}
@@ -91,7 +92,6 @@ const Write = ({ questionCode, data, onSendAnswer, html }) => {
             : ''}
         </Text>
       ) : null}
-
       <Editor
         toolbar={{
           options: ['list', 'textAlign'],
@@ -105,11 +105,11 @@ const Write = ({ questionCode, data, onSendAnswer, html }) => {
     </Box>
   )
 }
-const Read = ({ data, mini, config }) => {
+const Read = ({ data, mini, config = {} }) => {
+  const { noOfLines } = config
+  const { isOpen, onOpen, onClose } = useDisclosure()
   if (!data?.value) return null
-
   const cleanHtml = DOMPurify.sanitize(data.value)
-
   return mini ? (
     <Popover>
       <PopoverTrigger>
@@ -126,14 +126,29 @@ const Read = ({ data, mini, config }) => {
         </PopoverBody>
       </PopoverContent>
     </Popover>
+  ) : noOfLines ? (
+    <VStack onClick={onOpen}>
+      <Box p="0px" dangerouslySetInnerHTML={{ __html: cleanHtml }} {...config} />
+      <Modal isOpen={isOpen} onClose={onClose} isCentered size="xl">
+        <ModalOverlay />
+        <ModalContent>
+          <ModalBody>
+            <Box m={7} dangerouslySetInnerHTML={{ __html: cleanHtml }} />
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme="primary" w="full" onClick={onClose}>
+              {`Close`}
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </VStack>
   ) : (
-    <Box px="5" dangerouslySetInnerHTML={{ __html: cleanHtml }} {...config} />
+    <Box p="0px" dangerouslySetInnerHTML={{ __html: cleanHtml }} {...config} />
   )
 }
-
 const RichText = {
   Write,
   Read,
 }
-
 export default RichText

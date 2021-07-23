@@ -34,7 +34,7 @@ const DetailActions = ({ sbeCode, beCode }) => {
         config={{ customButton: true, name: 'Download CV' }}
       />
       {actions.length > 1 && (
-        <Menu>
+        <Menu placement="bottom-end">
           <MenuButton>
             <IconButton
               test-id={'detail-view-actions'}
