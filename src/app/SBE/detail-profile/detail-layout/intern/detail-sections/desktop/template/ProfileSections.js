@@ -150,8 +150,8 @@ export const ExperienceSection = ({ beCode }) => {
                 <Text textStyle="tail.2">{`Industry`}</Text>
                 <Attribute
                   code={beCode}
-                  attribute={`PRI_ASSOC_INTERN_PREV_INDUSTRY`}
-                  config={{ noOfLines: 2 }}
+                  attribute={`_LNK_INTERN_PREV_INDUSTRY__PRI_NAME`}
+                  config={{ noOfLines: 2, detailViewTags: true }}
                 />
               </VStack>
             </GridItem>

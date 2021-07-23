@@ -86,7 +86,7 @@ export const companyDetails = {
       label: 'Industry',
       config: { detailViewTags: true },
     },
-    { attr: '_LNK_INTERNSHIP__PRI_ADDRESS_FULL', label: 'Location' },
+    { attr: '_LNK_INTERNSHIP__LNK_HOST_COMPANY__PRI_ADDRESS_FULL', label: 'Location' },
     {
       attr: '_LNK_INTERNSHIP__LNK_HOST_COMPANY__PRI_COMPANY_DESCRIPTION',
       label: 'About the Company',

@@ -187,7 +187,10 @@ export const CompanyDetailsSection = ({ beCode }) => {
             <GridItem rowSpan={1} colSpan={1}>
               <VStack align="start">
                 <Text textStyle="tail.2">{`Location`}</Text>
-                <Attribute code={beCode} attribute={`_LNK_INTERNSHIP__PRI_ADDRESS_FULL`} />
+                <Attribute
+                  code={beCode}
+                  attribute={`_LNK_INTERNSHIP__LNK_HOST_COMPANY__PRI_ADDRESS_FULL`}
+                />
               </VStack>
             </GridItem>
           </Grid>

@@ -18,7 +18,6 @@ import {
   ModalContent,
   ModalFooter,
   ModalBody,
-  Wrap,
 } from '@chakra-ui/react'
 import { EditorState, convertFromHTML, ContentState } from 'draft-js'
 import { Editor } from 'react-draft-wysiwyg'
