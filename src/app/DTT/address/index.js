@@ -25,8 +25,9 @@ const Write = ({ questionCode, onSendAnswer, data }) => {
   return <AddressPicker questionCode={questionCode} onSendAnswer={onSendAnswer} data={data} />
 }
 
-const Read = ({ data, config }) => {
+const Read = ({ data, config = {} }) => {
   const { isOpen, onToggle } = useDisclosure({ defaultIsOpen: false })
+  const { hideIcon } = config
 
   if (!data?.value) return null
 
@@ -42,6 +43,8 @@ const Read = ({ data, config }) => {
         </Collapse>
       </Card>
     </VStack>
+  ) : hideIcon ? (
+    <Text minW="8rem">{data.value}</Text>
   ) : (
     <HStack>
       <Popover isLazy>
@@ -51,6 +54,7 @@ const Read = ({ data, config }) => {
             icon={<HeroIconButton icon={<FontAwesomeIcon icon={faMapMarkerAlt} />} />}
           />
         </PopoverTrigger>
+
         {config?.portal ? (
           <Portal>
             <PopoverContent style={{ width: '42rem', height: '34rem' }}>
