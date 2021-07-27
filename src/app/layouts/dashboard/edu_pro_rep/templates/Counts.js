@@ -12,9 +12,8 @@ const Counts = ({ sbeCodes }) => {
   )(selectCodes(sbeCodes, 'PRI_TOTAL_RESULTS'))
 
   if (!titles) return null
-  const zipper = zip(titles, counts)
-  const total = reduce((prev, cur) => prev + cur[1], 0, zipper)
   const zipped = zipObj(titles, counts)
+  const total = zipped['Total Students']
 
   if (total <= 0)
     return (
