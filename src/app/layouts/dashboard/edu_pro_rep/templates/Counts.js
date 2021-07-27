@@ -1,6 +1,6 @@
 import { Stack, Text, VStack } from '@chakra-ui/layout'
 import Card from 'app/layouts/components/card'
-import { zip, compose, map, prop, reduce, zipObj } from 'ramda'
+import { compose, map, prop, zipObj } from 'ramda'
 import { useSelector } from 'react-redux'
 import { selectCodes } from 'redux/db/selectors'
 
