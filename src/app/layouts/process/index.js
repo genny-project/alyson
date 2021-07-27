@@ -18,7 +18,7 @@ const Process = ({ dashboard }) => {
         <HStack mb="5">
           {bucketSearch &&
             bucketSearch.map(childAsk => (
-              <Box width={'20rem'}>
+              <Box key={childAsk} width={'20rem'}>
                 <Ask noLabel questionCode={childAsk} parentCode={'QUE_BUCKET_INTERNS_GRP'} />
               </Box>
             ))}

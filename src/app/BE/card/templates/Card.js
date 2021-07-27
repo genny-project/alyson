@@ -20,16 +20,16 @@ const DefaultCard = ({ parentCode, actions = [], code, columns }) => {
   const image = useSelector(selectCode(code, 'PRI_IMAGE_URL'), sameValue)
 
   return (
-    <MotionBox w="full" whileHover={{ scale: 1.02 }} transition={{ duration: 0.1 }}>
+    <MotionBox w="20rem" whileHover={{ scale: 1.02 }} transition={{ duration: 0.1 }}>
       <Card p={5} variant="card1">
         <Flex spacing="3">
           <HStack>
             <Image.Read
-              config={{ size: 'xl' }}
+              config={{ size: 'lg' }}
               data={image || { baseEntityCode: code }}
               parentCode={parentCode}
             />
-            <VStack alignItems="start" minW="10rem" maxW="16rem" overflow="hidden">
+            <VStack alignItems="start" minW="10rem" maxW="14rem" overflow="hidden">
               <Text.Read
                 data={title}
                 textProps={{
