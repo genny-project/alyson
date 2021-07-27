@@ -4,7 +4,7 @@ import Body from '../template/Body'
 import Ask from 'app/ASKS/ask'
 import Card from 'app/layouts/components/card'
 
-const FormDesktopView = ({ title, onFinish, questionCode, childAsks, config }) => {
+const FormDesktopView = ({ title, onFinish, questionCode, childAsks, config = {} }) => {
   const { subHeader, groups = [], pagination } = config
 
   if (!groups.length)

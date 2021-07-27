@@ -44,7 +44,7 @@ const Write = ({
           questionCode,
           code: questionCode,
         },
-        { event_type: 'DD', redirect: false, attributeCode },
+        { event_type: 'DD', redirect: false, attributeCode, questionCode, code: questionCode },
       ),
     500,
   )

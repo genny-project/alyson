@@ -11,7 +11,6 @@ import Agent from './agent'
 import Process from '../process'
 import EduProRep from './edu_pro_rep'
 import Progress from './intern/progress'
-
 const Dashboard = () => {
   const dashboardSbes = useSelector(selectDashboard)
   const dashboardCounts = useSelector(selectDashboardCounts)
