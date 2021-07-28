@@ -13,6 +13,7 @@ export const LeftDetailAttributesApplication = [
     icon: faUserFriends,
     attr: '_LNK_INTERNSHIP__LNK_INTERN_SUPERVISOR__PRI_NAME',
     attrSecond: '_LNK_INTERNSHIP__LNK_INTERN_SUPERVISOR__PRI_LINKEDIN_URL',
+    attrOptional: '_LNK_INTERNSHIP__LNK_INTERN_SUPERVISOR__PRI_IMAGE_URL',
   },
   { icon: faBriefcase, attr: '_LNK_INTERNSHIP__LNK_INTERN_SUPERVISOR__PRI_JOB_TITLE' },
   { icon: faEnvelope, attr: '_LNK_INTERNSHIP__LNK_INTERN_SUPERVISOR__PRI_EMAIL' },
