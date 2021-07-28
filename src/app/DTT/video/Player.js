@@ -1,6 +1,6 @@
 const Player = ({ src }) => (
   <video
-    style={{ maxHeight: '280px', minWidth: '340px' }}
+    style={{ maxHeight: '340px', minWidth: '340px' }}
     controls
     autoPlay
     muted

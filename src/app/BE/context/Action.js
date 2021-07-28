@@ -4,8 +4,9 @@ import Button from 'app/layouts/components/button'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import { onSendMessage } from 'vertx'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-const Action = ({ parentCode, code, targetCode, noMenu, icon }) => {
+const Action = ({ parentCode, code, targetCode, noMenu, icon, customAction, name }) => {
   const needsToBeConfirmed = useSelector(selectCode(parentCode, code))?.confirmationFlag
   const data = useSelector(selectCode(parentCode, code))
 
@@ -26,6 +27,19 @@ const Action = ({ parentCode, code, targetCode, noMenu, icon }) => {
         })
   }
 
+  if (customAction) {
+    return (
+      <Button
+        colorScheme="primary"
+        leftIcon={<FontAwesomeIcon icon={icon} />}
+        test-id={code}
+        onClick={() => handleClick(code, data)}
+        borderRadius="2rem"
+      >
+        {name}
+      </Button>
+    )
+  }
   if (icon) return <IconButton test-id={code} onClick={() => handleClick(code, data)} icon={icon} />
   if (noMenu)
     return (

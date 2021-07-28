@@ -12,8 +12,8 @@ const DisplayDrawer = () => {
 
   const isOpen = drawer !== 'NONE'
 
-  const w = useMobileValue(['100vw', '70vw'])
-  const ml = useMobileValue(['0vw', '15vw'])
+  const w = useMobileValue(['100vw', '96vw'])
+  const ml = useMobileValue(['0vw', '2vw'])
   const size = useMobileValue(['full'])
 
   return (
