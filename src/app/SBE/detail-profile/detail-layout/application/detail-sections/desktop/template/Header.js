@@ -1,4 +1,4 @@
-import { isEmpty, equals } from 'ramda'
+import { isEmpty } from 'ramda'
 import { useSelector, useDispatch } from 'react-redux'
 import { Box, Center, Text, VStack } from '@chakra-ui/layout'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -10,16 +10,12 @@ import Attribute from 'app/BE/attribute'
 import Card from 'app/layouts/components/card'
 import { closeDrawer } from 'redux/app'
 import { selectCode } from 'redux/db/selectors'
-import getUserType from 'utils/helpers/get-user-type'
-import sameLength from 'redux/utils/same-length'
 
 const Header = ({ beCode }) => {
   const dispatch = useDispatch()
   const onClose = () => dispatch(closeDrawer())
 
-  const userCode = useSelector(selectCode('USER'), equals)
-  const userType = getUserType(useSelector(selectCode(userCode), sameLength))
-  const videoSrc = useSelector(selectCode(beCode, 'PRI_VIDEO_URL'))?.value
+  const videoSrc = useSelector(selectCode(beCode, '_PRI_INTERN_CODE__PRI_VIDEO_URL'))?.value
   const hasVideo = !isEmpty(videoSrc)
 
   return (
@@ -29,29 +25,18 @@ const Header = ({ beCode }) => {
           <Center w="full">
             {hasVideo ? (
               <Box maxW="30vw">
-                <Attribute code={beCode} attribute="PRI_VIDEO_URL" />
+                <Attribute code={beCode} attribute="_PRI_INTERN_CODE__PRI_VIDEO_URL" />
               </Box>
             ) : (
               <Center minH="10rem" w="100%">
-                {userType === 'INTERN' ? (
-                  <VStack>
-                    <Text textStyle="head.2" color="#ffffff">
-                      {`Profile with videos have higher chances of landing an internship.`}
-                    </Text>
-                    <Text textStyle="head.2" color="#ffffff">
-                      {`Please upload your video!`}
-                    </Text>
-                  </VStack>
-                ) : (
-                  <VStack>
-                    <Text textStyle="head.2" color="#ffffff">
-                      {`The Intern has not uploaded any video yet`}
-                    </Text>
-                    <Text textStyle="head.2" color="#ffffff">
-                      {`Once they do, it will appear here!`}
-                    </Text>
-                  </VStack>
-                )}
+                <VStack>
+                  <Text textStyle="head.2" color="#ffffff">
+                    {`Intertnship video has not been uploaded`}
+                  </Text>
+                  <Text textStyle="head.2" color="#ffffff">
+                    {`Once it is, it will appear here!`}
+                  </Text>
+                </VStack>
               </Center>
             )}
           </Center>

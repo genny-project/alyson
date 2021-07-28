@@ -4,25 +4,18 @@ import { HStack } from '@chakra-ui/layout'
 import { Menu, MenuButton, MenuList } from '@chakra-ui/menu'
 import { faEllipsisH } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPencilAlt, faPlus } from '@fortawesome/free-solid-svg-icons'
-import { map, tail, equals } from 'ramda'
+import { faPencilAlt } from '@fortawesome/free-solid-svg-icons'
+import { map, tail } from 'ramda'
 
 import Action from 'app/BE/context/Action'
 import getActions from 'app/SBE/utils/get-actions'
 import { selectCode } from 'redux/db/selectors'
-import getUserType from 'utils/helpers/get-user-type'
-import sameLength from 'redux/utils/same-length'
 
 const DetailActions = ({ sbeCode, beCode }) => {
   const sbe = useSelector(selectCode(sbeCode))
   const actions = getActions(sbe) || []
 
-  const userCode = useSelector(selectCode('USER'), equals)
-  const userType = getUserType(useSelector(selectCode(userCode), sameLength))
-
   if (!actions.length) return null
-
-  console.warn('actions', actions)
 
   return (
     <HStack spacing={6}>
@@ -31,8 +24,8 @@ const DetailActions = ({ sbeCode, beCode }) => {
         code={actions[0]}
         targetCode={beCode}
         noMenu
-        icon={userType === 'INTERN' ? faPlus : faPencilAlt}
-        name={userType === 'INTERN' ? `Apply` : `Edit`}
+        icon={faPencilAlt}
+        name={`Edit`}
         customAction
       />
       {actions.length > 1 && (

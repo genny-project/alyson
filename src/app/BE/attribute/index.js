@@ -21,7 +21,7 @@ import TimeZonePicker from 'app/DTT/time_zone'
 import CheckBox from 'app/DTT/check_box'
 import ImageType from 'app/DTT/upload/Image'
 import Flag from 'app/DTT/flag'
-import fixLnk from './fix-lnk'
+import fixLnkAndPri from './fix-lnk-and-pri'
 
 const Attribute = ({
   code,
@@ -35,7 +35,7 @@ const Attribute = ({
   styles,
 }) => {
   const data = useSelector(selectCode(code, attribute))
-  const dtt = useSelector(selectCode(fixLnk(data?.attributeCode)))
+  const dtt = useSelector(selectCode(fixLnkAndPri(data?.attributeCode)))
   const dttData = useSelector(selectCode(dtt))
   const component = dttData?.component
 

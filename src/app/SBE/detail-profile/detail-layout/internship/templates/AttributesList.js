@@ -41,7 +41,7 @@ export const internshipDetails = {
       label: 'Days Available to Intern',
       config: { detailViewTags: true },
     },
-    { attr: 'LNK_BUSINESS_HOURS', label: 'Company Business Hours' },
+    { attr: 'PRI_BUSINESS_HOURS', label: 'Company Business Hours' },
     { attr: 'PRI_DRESS_CODE', label: 'Dress Code' },
     { attr: 'PRI_ASSOC_NUM_INTERNS', label: 'Available Positions' },
     {
