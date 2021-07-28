@@ -11,9 +11,11 @@ import {
   faPlusCircle,
   faThLarge,
   faUserFriends,
+  faRobot,
 } from '@fortawesome/free-solid-svg-icons'
 
 const icons = {
+  QUE_DEV_PORTAL_ACCESS_GRP: faRobot,
   QUE_DRAFTS_GRP: faBell,
   QUE_QUICK_ADD_ITEMS_GRP: faRocket,
   QUE_ADD_ITEMS_GRP: faPlusCircle,

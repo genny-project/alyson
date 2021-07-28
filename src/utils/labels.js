@@ -1,4 +1,5 @@
 const labels = {
+  QUE_DEV_PORTAL_ACCESS: 'DEV PORTAL',
   QUE_QUICK_ADD_ITEMS_GRP: 'Quick Add',
   QUE_ADD_ITEMS_GRP: 'Add',
   QUE_DASHBOARD_VIEW: 'Dashboard',
