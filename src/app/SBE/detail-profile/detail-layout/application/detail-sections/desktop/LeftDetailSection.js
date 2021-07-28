@@ -77,11 +77,14 @@ const LeftDetail = ({ beCode, sbeCode }) => {
         </VStack>
         <VStack align="start">
           <Text textStyle="body.1">{`Agent associated with the Intern:`}</Text>
-          <Attribute
-            code={beCode}
-            attribute={`_PRI_INTERN_CODE__LNK_AGENT__PRI_IMAGE_URL`}
-            config={{ h: '5rem', w: '5rem', ml: '-1rem' }}
-          />
+          <HStack>
+            <Attribute
+              code={beCode}
+              attribute={`_PRI_INTERN_CODE__LNK_AGENT__PRI_IMAGE_URL`}
+              config={{ h: '5rem', w: '5rem', ml: '-1rem' }}
+            />
+            <Attribute code={beCode} attribute={`_PRI_INTERN_CODE__LNK_AGENT__PRI_NAME`} />
+          </HStack>
         </VStack>
       </VStack>
     </Box>
