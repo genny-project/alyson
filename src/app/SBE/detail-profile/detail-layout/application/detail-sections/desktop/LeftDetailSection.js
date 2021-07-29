@@ -88,7 +88,7 @@ const LeftDetail = ({ beCode, sbeCode }) => {
             <Attribute
               code={beCode}
               attribute={`_PRI_INTERN_CODE__LNK_AGENT__PRI_IMAGE_URL`}
-              config={{ h: '5rem', w: '5rem', ml: '-1rem' }}
+              config={{ h: '3rem', w: '3rem', ml: '-1rem' }}
             />
             <Attribute code={beCode} attribute={`_PRI_INTERN_CODE__LNK_AGENT__PRI_NAME`} />
           </HStack>

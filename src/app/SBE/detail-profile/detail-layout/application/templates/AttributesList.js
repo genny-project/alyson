@@ -21,7 +21,7 @@ export const LeftDetailAttributesApplication = [
   {
     icon: faAlignLeft,
     attr: '_LNK_INTERNSHIP__LNK_INTERN_SUPERVISOR__PRI_BIO',
-    config: { px: '0px', noOfLines: 5, w: 'full' },
+    config: { px: '0px', noOfLines: 4, w: 'full' },
   },
 ]
 
