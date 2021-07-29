@@ -1,5 +1,5 @@
 import { Text as ChakraText, Tag, Wrap, VStack, useDisclosure } from '@chakra-ui/react'
-import { map, splitAt, head, last, length } from 'ramda'
+import { map, splitAt, head, last, length, isEmpty } from 'ramda'
 import getArrayFromStringValue from 'utils/helpers/get-array-from-string.js'
 import {
   Modal,
@@ -25,13 +25,16 @@ const DetailViewTags = ({ data }) => {
     return (
       <>
         <Wrap align="start">
-          {map(value => (
-            <Tag borderRadius={15} align="center" colorScheme="telegram">
-              <ChakraText textStyle="body.2" isTruncated px="1">
-                {value}
-              </ChakraText>
-            </Tag>
-          ))(allValues)}
+          {map(
+            value =>
+              !isEmpty(value) && (
+                <Tag borderRadius={15} align="center" colorScheme="telegram">
+                  <ChakraText textStyle="body.2" isTruncated px="1">
+                    {value}
+                  </ChakraText>
+                </Tag>
+              ),
+          )(allValues)}
         </Wrap>
       </>
     )
@@ -40,13 +43,16 @@ const DetailViewTags = ({ data }) => {
   return (
     <>
       <Wrap align="start">
-        {map(value => (
-          <Tag borderRadius={15} align="center" colorScheme="telegram">
-            <ChakraText textStyle="body.2" isTruncated px="1">
-              {value}
-            </ChakraText>
-          </Tag>
-        ))(splittedTagsToDisplay)}
+        {map(
+          value =>
+            !isEmpty(value) && (
+              <Tag borderRadius={15} align="center" colorScheme="telegram">
+                <ChakraText textStyle="body.2" isTruncated px="1">
+                  {value}
+                </ChakraText>
+              </Tag>
+            ),
+        )(splittedTagsToDisplay)}
         {length(splittedTagsToShowAsMore) >= 1 && (
           <Tag
             w="5rem"
@@ -62,9 +68,9 @@ const DetailViewTags = ({ data }) => {
           </Tag>
         )}
       </Wrap>
-      <Modal isOpen={isOpen} onClose={onClose} isCentered size="lg">
+      <Modal isOpen={isOpen} onClose={onClose} scrollBehavior={'inside'} isCentered size="lg">
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent overflow="scroll">
           <ModalHeader>{`All Tags`}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>

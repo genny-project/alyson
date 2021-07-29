@@ -22,8 +22,6 @@ const DetailActions = ({ sbeCode, beCode }) => {
 
   if (!actions.length) return null
 
-  console.warn('actions', actions)
-
   return (
     <HStack spacing={6}>
       <Action
