@@ -21,7 +21,6 @@ const Header = ({ beCode, sbeCode }) => {
   const dispatch = useDispatch()
   const onClose = () => dispatch(closeDrawer())
   const videoSrc = useSelector(selectCode(beCode, '_PRI_INTERN_CODE__PRI_VIDEO_URL'))?.value
-  const hasVideo = !isEmpty(videoSrc)
 
   return (
     <Box bg={cardBg} borderRadius="2rem 2rem 0rem 0rem">
@@ -41,8 +40,12 @@ const Header = ({ beCode, sbeCode }) => {
           attribute="_PRI_INTERN_CODE__PRI_IMAGE_URL_"
         />
         <VStack align="start" spacing={2}>
-          <HStack spacing={4}>
-            <Attribute config={{ textStyle: 'body.1' }} code={beCode} attribute="PRI_INTERN_NAME" />
+          <HStack spacing={4} pt={2}>
+            <Attribute
+              config={{ textStyle: 'body.1' }}
+              code={beCode}
+              attribute="_PRI_INTERN_CODE__PRI_NAME"
+            />
             <Attribute code={beCode} attribute="_PRI_INTERN_CODE__PRI_LINKEDIN_URL" />
           </HStack>
           <Text>{`is applying at`}</Text>
@@ -70,7 +73,7 @@ const Header = ({ beCode, sbeCode }) => {
         <Center w="full">
           <Card p={0} w="full" bg="#1A365D" overflow="hidden" maxH="15rem">
             <Center>
-              {hasVideo ? (
+              {!!videoSrc ? (
                 <Attribute code={beCode} attribute="_PRI_INTERN_CODE__PRI_VIDEO_URL" />
               ) : (
                 <Center minH="7rem" w="100%">
