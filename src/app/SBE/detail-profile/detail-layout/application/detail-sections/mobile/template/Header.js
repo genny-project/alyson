@@ -1,4 +1,4 @@
-import { map, isEmpty } from 'ramda'
+import { map } from 'ramda'
 import { useSelector, useDispatch } from 'react-redux'
 import { VStack, HStack, Box, Center, Text } from '@chakra-ui/layout'
 import { useColorModeValue } from '@chakra-ui/color-mode'
@@ -20,7 +20,7 @@ const Header = ({ beCode, sbeCode }) => {
   const cardBg = useColorModeValue('#ffffff', 'gray.600')
   const dispatch = useDispatch()
   const onClose = () => dispatch(closeDrawer())
-  const videoSrc = useSelector(selectCode(beCode, '_PRI_INTERN_CODE__PRI_VIDEO_URL'))?.value
+  const videoSrc = useSelector(selectCode(beCode, '_LNK_INTERNSHIP__PRI_VIDEO_URL'))?.value
 
   return (
     <Box bg={cardBg} borderRadius="2rem 2rem 0rem 0rem">
@@ -74,7 +74,7 @@ const Header = ({ beCode, sbeCode }) => {
           <Card p={0} w="full" bg="#1A365D" overflow="hidden" maxH="15rem">
             <Center>
               {!!videoSrc ? (
-                <Attribute code={beCode} attribute="_PRI_INTERN_CODE__PRI_VIDEO_URL" />
+                <Attribute code={beCode} attribute="_LNK_INTERNSHIP__PRI_VIDEO_URL" />
               ) : (
                 <Center minH="7rem" w="100%">
                   <VStack>
