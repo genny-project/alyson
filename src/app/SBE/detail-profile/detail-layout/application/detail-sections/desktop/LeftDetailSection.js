@@ -49,13 +49,14 @@ const LeftDetail = ({ beCode, sbeCode }) => {
             />
             <Attribute code={beCode} attribute="_PRI_INTERN_CODE__PRI_LINKEDIN_URL" />
           </HStack>
-          <Text>{`is applying at`}</Text>
+          <Text>{`has applied for`}</Text>
           <Attribute
             code={beCode}
             attribute={`_LNK_INTERNSHIP__LNK_OCCUPATION__PRI_NAME`}
             config={{ detailViewTags: true }}
           />
-          <HStack spacing={4}>
+          <HStack spacing={2}>
+            <Text>{`with`}</Text>
             <Attribute
               config={{ textStyle: 'body.1' }}
               code={beCode}
