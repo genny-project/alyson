@@ -14,7 +14,7 @@ const Header = ({ beCode }) => {
   const dispatch = useDispatch()
   const onClose = () => dispatch(closeDrawer())
 
-  const videoSrc = useSelector(selectCode(beCode, '_PRI_INTERN_CODE__PRI_VIDEO_URL'))?.value
+  const videoSrc = useSelector(selectCode(beCode, '_LNK_INTERNSHIP__PRI_VIDEO_URL'))?.value
 
   return (
     <>
@@ -23,7 +23,7 @@ const Header = ({ beCode }) => {
           <Center w="full">
             {!!videoSrc ? (
               <Box maxW="30vw">
-                <Attribute code={beCode} attribute="_PRI_INTERN_CODE__PRI_VIDEO_URL" />
+                <Attribute code={beCode} attribute="_LNK_INTERNSHIP__PRI_VIDEO_URL" />
               </Box>
             ) : (
               <Center minH="10rem" w="100%">
