@@ -27,7 +27,7 @@ const LeftDetail = ({ beCode, sbeCode }) => {
       minW="25vw"
       maxW="27vw"
     >
-      <VStack ml="10" mr="6" my="8" align="start" spacing={8} maxW="30vw">
+      <VStack ml="10" mr="6" mt="6" align="start" spacing={6} maxW="30vw">
         <VStack align="start">
           <Box w="full">
             <Attribute
