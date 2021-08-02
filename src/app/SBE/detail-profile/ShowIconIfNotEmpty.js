@@ -8,7 +8,7 @@ import { selectCode } from 'redux/db/selectors'
 
 const ShowIconIfNotEmpty = ({ icon, attr, attrSecond, attrOptional, config, beCode }) => {
   const hasValue = useSelector(selectCode(beCode, attr))?.value
-  const hasValueOptional = useSelector(selectCode(beCode, attrSecond))?.value
+  const hasValueOptional = useSelector(selectCode(beCode, attrOptional))?.value
   return !!hasValue ? (
     <HStack spacing={4} w="100%">
       {hasValueOptional ? (
