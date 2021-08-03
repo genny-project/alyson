@@ -24,6 +24,22 @@ export const LeftDetailAttributesInternship = [
   },
 ]
 
+export const LeftDetailAttributesInternshipInternView = [
+  {
+    icon: faUserFriends,
+    attr: '_LNK_INTERN_SUPERVISOR__PRI_FIRSTNAME',
+    attrSecond: '_LNK_INTERN_SUPERVISOR__PRI_LINKEDIN_URL',
+  },
+  { icon: faBriefcase, attr: '_LNK_INTERN_SUPERVISOR__PRI_JOB_TITLE' },
+  { icon: faEnvelope, attr: '_LNK_INTERN_SUPERVISOR__PRI_EMAIL' },
+  { icon: faPhoneAlt, attr: '_LNK_INTERN_SUPERVISOR__PRI_MOBILE' },
+  {
+    icon: faAlignLeft,
+    attr: '_LNK_INTERN_SUPERVISOR__PRI_BIO',
+    config: { px: '0px', noOfLines: 5, w: 'full' },
+  },
+]
+
 export const internshipDetails = {
   header: 'Internship Details',
   icon: <FontAwesomeIcon size="lg" icon={faBriefcase} />,
@@ -79,6 +95,21 @@ export const companyDetails = {
     { attr: '_LNK_HOST_COMPANY__PRI_NAME', label: 'Company Name' },
     { attr: 'PRI_ASSOC_INDUSTRY', label: 'Industry' },
     { attr: 'PRI_ADDRESS_FULL', label: 'Location' },
+    {
+      attr: '_LNK_HOST_COMPANY__PRI_COMPANY_DESCRIPTION',
+      label: 'About the Company',
+      config: { px: '0px', noOfLines: 5 },
+    },
+  ],
+}
+
+export const companyDetailsInternView = {
+  header: 'Company Details',
+  icon: <FontAwesomeIcon size="lg" icon={faBuilding} />,
+  attributes: [
+    { attr: '_LNK_HOST_COMPANY__PRI_NAME', label: 'Company Name' },
+    { attr: 'PRI_ASSOC_INDUSTRY', label: 'Industry' },
+    { attr: '_LNK_HOST_COMPANY__PRI_ADDRESS_STATE', label: 'Location' },
     {
       attr: '_LNK_HOST_COMPANY__PRI_COMPANY_DESCRIPTION',
       label: 'About the Company',

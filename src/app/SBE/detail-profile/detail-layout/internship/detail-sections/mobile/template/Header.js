@@ -7,7 +7,10 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { IconButton } from '@chakra-ui/react'
 
 import DetailActions from 'app/SBE/detail-profile/detail-layout/internship/templates/Actions.js'
-import { LeftDetailAttributesInternship } from 'app/SBE/detail-profile/detail-layout/internship/templates/AttributesList.js'
+import {
+  LeftDetailAttributesInternship,
+  LeftDetailAttributesInternshipInternView,
+} from 'app/SBE/detail-profile/detail-layout/internship/templates/AttributesList.js'
 import 'app/layouts/components/css/hide-scroll.css'
 import Attribute from 'app/BE/attribute'
 import { closeDrawer } from 'redux/app'
@@ -15,6 +18,7 @@ import 'app/layouts/components/css/hide-scroll.css'
 import Card from 'app/layouts/components/card'
 import { selectCode } from 'redux/db/selectors'
 import ShowIconIfNotEmpty from 'app/SBE/detail-profile/ShowIconIfNotEmpty.js'
+import getUserType from 'utils/helpers/get-user-type'
 
 const Header = ({ beCode, sbeCode }) => {
   const cardBg = useColorModeValue('#ffffff', 'gray.600')
@@ -22,6 +26,9 @@ const Header = ({ beCode, sbeCode }) => {
   const onClose = () => dispatch(closeDrawer())
   const videoSrc = useSelector(selectCode(beCode, 'PRI_VIDEO_URL'))?.value
   const hasVideo = !isEmpty(videoSrc)
+
+  const userCode = useSelector(selectCode('USER'))
+  const userType = getUserType(useSelector(selectCode(userCode)))
 
   return (
     <Box bg={cardBg} borderRadius="2rem 2rem 0rem 0rem">
@@ -53,15 +60,25 @@ const Header = ({ beCode, sbeCode }) => {
           <Attribute code={beCode} attribute="PRI_STAR_RATING" />
           <DetailActions beCode={beCode} sbeCode={sbeCode} />
           <VStack align="start" spacing={4} py={4}>
-            {map(({ icon, attr, attrSecond, config }) => (
-              <ShowIconIfNotEmpty
-                icon={icon}
-                attr={attr}
-                attrSecond={attrSecond}
-                config={config}
-                beCode={beCode}
-              />
-            ))(LeftDetailAttributesInternship)}
+            {userType === 'INTERN'
+              ? map(({ icon, attr, attrSecond, config }) => (
+                  <ShowIconIfNotEmpty
+                    icon={icon}
+                    attr={attr}
+                    attrSecond={attrSecond}
+                    config={config}
+                    beCode={beCode}
+                  />
+                ))(LeftDetailAttributesInternshipInternView)
+              : map(({ icon, attr, attrSecond, config }) => (
+                  <ShowIconIfNotEmpty
+                    icon={icon}
+                    attr={attr}
+                    attrSecond={attrSecond}
+                    config={config}
+                    beCode={beCode}
+                  />
+                ))(LeftDetailAttributesInternship)}
           </VStack>
         </VStack>
         <Center w="full">

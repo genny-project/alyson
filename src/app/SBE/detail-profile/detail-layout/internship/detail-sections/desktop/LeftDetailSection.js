@@ -6,11 +6,15 @@ import { useColorModeValue } from '@chakra-ui/color-mode'
 import useApi from 'api'
 
 import DetailActions from 'app/SBE/detail-profile/detail-layout/internship/templates/Actions.js'
-import { LeftDetailAttributesInternship } from 'app/SBE/detail-profile/detail-layout/internship/templates/AttributesList.js'
+import {
+  LeftDetailAttributesInternship,
+  LeftDetailAttributesInternshipInternView,
+} from 'app/SBE/detail-profile/detail-layout/internship/templates/AttributesList.js'
 import 'app/layouts/components/css/hide-scroll.css'
 import Attribute from 'app/BE/attribute'
 import { selectCode } from 'redux/db/selectors'
 import ShowIconIfNotEmpty from 'app/SBE/detail-profile/ShowIconIfNotEmpty.js'
+import getUserType from 'utils/helpers/get-user-type'
 
 const LeftDetail = ({ beCode, sbeCode }) => {
   const cardBg = useColorModeValue('gray.200', 'gray.600')
@@ -20,6 +24,9 @@ const LeftDetail = ({ beCode, sbeCode }) => {
   const linkedInternshipSupervisorImageSrc = useApi().getImageSrc(
     linkedInternshipSupervisorImage?.value,
   )
+
+  const userCode = useSelector(selectCode('USER'))
+  const userType = getUserType(useSelector(selectCode(userCode)))
 
   return (
     <Box
@@ -61,15 +68,25 @@ const LeftDetail = ({ beCode, sbeCode }) => {
           </HStack>
           <DetailActions beCode={beCode} sbeCode={sbeCode} />
           <VStack align="start" spacing={4} py={4}>
-            {map(({ icon, attr, attrSecond, config }) => (
-              <ShowIconIfNotEmpty
-                icon={icon}
-                attr={attr}
-                attrSecond={attrSecond}
-                config={config}
-                beCode={beCode}
-              />
-            ))(LeftDetailAttributesInternship)}
+            {userType === 'INTERN'
+              ? map(({ icon, attr, attrSecond, config }) => (
+                  <ShowIconIfNotEmpty
+                    icon={icon}
+                    attr={attr}
+                    attrSecond={attrSecond}
+                    config={config}
+                    beCode={beCode}
+                  />
+                ))(LeftDetailAttributesInternshipInternView)
+              : map(({ icon, attr, attrSecond, config }) => (
+                  <ShowIconIfNotEmpty
+                    icon={icon}
+                    attr={attr}
+                    attrSecond={attrSecond}
+                    config={config}
+                    beCode={beCode}
+                  />
+                ))(LeftDetailAttributesInternship)}
           </VStack>
         </VStack>
       </VStack>

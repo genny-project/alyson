@@ -1,6 +1,7 @@
 import { Grid, GridItem } from '@chakra-ui/react'
 import { Center, VStack, HStack, Text } from '@chakra-ui/layout'
 import { useColorModeValue } from '@chakra-ui/color-mode'
+import { useSelector } from 'react-redux'
 
 import 'app/layouts/components/css/hide-scroll.css'
 import Attribute from 'app/BE/attribute'
@@ -9,6 +10,8 @@ import {
   internshipDetails,
   companyDetails,
 } from 'app/SBE/detail-profile/detail-layout/internship/templates/AttributesList.js'
+import getUserType from 'utils/helpers/get-user-type'
+import { selectCode } from 'redux/db/selectors'
 
 export const InternshipDetailsSection = ({ beCode }) => {
   const cardBg = useColorModeValue('gray.200', 'gray.600')
@@ -144,6 +147,8 @@ export const InternshipDetailsSection = ({ beCode }) => {
 
 export const CompanyDetailsSection = ({ beCode }) => {
   const cardBg = useColorModeValue('blue.200', 'gray.600')
+  const userCode = useSelector(selectCode('USER'))
+  const userType = getUserType(useSelector(selectCode(userCode)))
   return (
     <Center w="full">
       <Card minH="13rem" p={6} w="full" bg={cardBg} overflow="hidden" borderRadius="2rem">
@@ -178,7 +183,11 @@ export const CompanyDetailsSection = ({ beCode }) => {
             <GridItem rowSpan={1} colSpan={1}>
               <VStack align="start">
                 <Text textStyle="tail.2">{`Location`}</Text>
-                <Attribute code={beCode} attribute={`PRI_ADDRESS_FULL`} />
+                {userType === 'INTERN' ? (
+                  <Attribute code={beCode} attribute={`_LNK_HOST_COMPANY__PRI_ADDRESS_STATE`} />
+                ) : (
+                  <Attribute code={beCode} attribute={`PRI_ADDRESS_FULL`} />
+                )}
               </VStack>
             </GridItem>
           </Grid>
