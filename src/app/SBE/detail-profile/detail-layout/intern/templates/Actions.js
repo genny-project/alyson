@@ -15,8 +15,6 @@ const DetailActions = ({ sbeCode, beCode }) => {
   const sbe = useSelector(selectCode(sbeCode))
   const actions = getActions(sbe) || []
 
-  if (!actions.length) return null
-
   return (
     <HStack spacing={3}>
       <Action
@@ -33,7 +31,7 @@ const DetailActions = ({ sbeCode, beCode }) => {
         attribute="PRI_CV"
         config={{ customButton: true, name: 'Download CV' }}
       />
-      {actions.length > 1 && (
+      {actions.length > 0 ? (
         <Menu placement="bottom-end">
           <MenuButton>
             <IconButton
@@ -51,7 +49,7 @@ const DetailActions = ({ sbeCode, beCode }) => {
             ))}
           </MenuList>
         </Menu>
-      )}
+      ) : null}
     </HStack>
   )
 }
