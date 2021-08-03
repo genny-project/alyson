@@ -1,4 +1,3 @@
-import { isEmpty } from 'ramda'
 import { useSelector, useDispatch } from 'react-redux'
 import { Box, Center, Text, VStack } from '@chakra-ui/layout'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -15,17 +14,16 @@ const Header = ({ beCode }) => {
   const dispatch = useDispatch()
   const onClose = () => dispatch(closeDrawer())
 
-  const videoSrc = useSelector(selectCode(beCode, '_PRI_INTERN_CODE__PRI_VIDEO_URL'))?.value
-  const hasVideo = !isEmpty(videoSrc)
+  const videoSrc = useSelector(selectCode(beCode, '_LNK_INTERNSHIP__PRI_VIDEO_URL'))?.value
 
   return (
     <>
       <Center w="full">
         <Card minH="10rem" p={0} w="full" bg="#1A365D" overflow="hidden" borderRadius="2rem">
           <Center w="full">
-            {hasVideo ? (
+            {!!videoSrc ? (
               <Box maxW="30vw">
-                <Attribute code={beCode} attribute="_PRI_INTERN_CODE__PRI_VIDEO_URL" />
+                <Attribute code={beCode} attribute="_LNK_INTERNSHIP__PRI_VIDEO_URL" />
               </Box>
             ) : (
               <Center minH="10rem" w="100%">

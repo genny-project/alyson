@@ -21,7 +21,7 @@ export const LeftDetailAttributesApplication = [
   {
     icon: faAlignLeft,
     attr: '_LNK_INTERNSHIP__LNK_INTERN_SUPERVISOR__PRI_BIO',
-    config: { px: '0px', noOfLines: 5, w: 'full' },
+    config: { px: '0px', noOfLines: 3, w: 'full' },
   },
 ]
 
@@ -39,7 +39,7 @@ export const internshipDetails = {
       label: 'Industry',
       config: { detailViewTags: true },
     },
-    { attr: '_LNK_INTERNSHIP__LNK_WORKSITE_SELECT_PRI_NAME', label: 'Internship Type' },
+    { attr: '_LNK_INTERNSHIP__LNK_WORKSITE_SELECT__PRI_NAME', label: 'Internship Type' },
     { attr: '_LNK_INTERNSHIP__PRI_INTERNSHIP_START_DATE', label: 'Internship Active from' },
     {
       attr: '_LNK_INTERNSHIP__PRI_WHICH_DAYS_STRIPPED',

@@ -56,7 +56,7 @@ export const InternshipDetailsSection = ({ beCode }) => {
                 <Text textStyle="tail.2">{`Internship Type`}</Text>
                 <Attribute
                   code={beCode}
-                  attribute={`_LNK_INTERNSHIP__LNK_WORKSITE_SELECT_PRI_NAME`}
+                  attribute={`_LNK_INTERNSHIP__LNK_WORKSITE_SELECT__PRI_NAME`}
                 />
               </VStack>
             </GridItem>

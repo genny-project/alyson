@@ -27,7 +27,7 @@ const LeftDetail = ({ beCode, sbeCode }) => {
       minW="25vw"
       maxW="27vw"
     >
-      <VStack ml="10" mr="6" my="8" align="start" spacing={8} maxW="30vw">
+      <VStack ml="10" mr="6" mt="6" align="start" spacing={6} maxW="30vw">
         <VStack align="start">
           <Box w="full">
             <Attribute
@@ -49,13 +49,14 @@ const LeftDetail = ({ beCode, sbeCode }) => {
             />
             <Attribute code={beCode} attribute="_PRI_INTERN_CODE__PRI_LINKEDIN_URL" />
           </HStack>
-          <Text>{`is applying at`}</Text>
+          <Text>{`has applied for`}</Text>
           <Attribute
             code={beCode}
             attribute={`_LNK_INTERNSHIP__LNK_OCCUPATION__PRI_NAME`}
             config={{ detailViewTags: true }}
           />
-          <HStack spacing={4}>
+          <HStack spacing={2}>
+            <Text>{`with`}</Text>
             <Attribute
               config={{ textStyle: 'body.1' }}
               code={beCode}
@@ -88,7 +89,7 @@ const LeftDetail = ({ beCode, sbeCode }) => {
             <Attribute
               code={beCode}
               attribute={`_PRI_INTERN_CODE__LNK_AGENT__PRI_IMAGE_URL`}
-              config={{ h: '5rem', w: '5rem', ml: '-1rem' }}
+              config={{ h: '3rem', w: '3rem', ml: '-1rem' }}
             />
             <Attribute code={beCode} attribute={`_PRI_INTERN_CODE__LNK_AGENT__PRI_NAME`} />
           </HStack>
