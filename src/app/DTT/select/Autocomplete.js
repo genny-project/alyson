@@ -69,11 +69,13 @@ const Autocomplete = ({
 
   const maxW = useMobileValue(['', '25vw'])
 
+  console.log({ options })
+
   return (
     <Box
       onFocus={() => {
+        ddEvent('')
         if (!options.length) {
-          ddEvent('')
           setSearching('')
         }
       }}
