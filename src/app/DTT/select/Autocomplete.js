@@ -69,8 +69,6 @@ const Autocomplete = ({
 
   const maxW = useMobileValue(['', '25vw'])
 
-  console.log({ options })
-
   return (
     <Box
       onFocus={() => {
