@@ -34,13 +34,17 @@ const SigDetails = ({ code, parentCode, viewer }) => {
       )}
       <HStack>
         <Tooltip shouldWrapChildren label="Agent Signature">
-          <IconAgent color={agent?.value ? 'green.300' : 'red.300'} />
+          <IconAgent color={agent?.value !== 'https://bit.ly/3A2xdjI' ? 'green.300' : 'red.300'} />
         </Tooltip>
         <Tooltip shouldWrapChildren label="Host Company Signature">
-          <IconHostCpyRep color={hc?.value ? 'green.300' : 'red.300'} />
+          <IconHostCpyRep
+            color={hc?.value !== 'https://bit.ly/3A2xdjI' ? 'green.300' : 'red.300'}
+          />
         </Tooltip>
         <Tooltip shouldWrapChildren label="Intern Signature">
-          <IconIntern color={intern?.value ? 'green.300' : 'red.300'} />
+          <IconIntern
+            color={intern?.value !== 'https://bit.ly/3A2xdjI' ? 'green.300' : 'red.300'}
+          />
         </Tooltip>
       </HStack>
     </HStack>
