@@ -4,7 +4,7 @@ import { map } from 'ramda'
 import Header from '../template/Header'
 import FormBody from '../template/Body'
 
-const FormMobileView = ({ title, childAsks, onFinish, questionCode, config }) => {
+const FormMobileView = ({ title, childAsks, onFinish, questionCode, config = {} }) => {
   if (!config.groups)
     return (
       <Box>

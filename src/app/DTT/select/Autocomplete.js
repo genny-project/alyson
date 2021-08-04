@@ -72,8 +72,8 @@ const Autocomplete = ({
   return (
     <Box
       onFocus={() => {
+        ddEvent('')
         if (!options.length) {
-          ddEvent('')
           setSearching('')
         }
       }}
