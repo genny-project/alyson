@@ -1,4 +1,3 @@
-import { useEffect, useRef } from 'react'
 import { compose, includes, map, pathOr } from 'ramda'
 import { useSelector } from 'react-redux'
 import { Text, Select as CSelect } from '@chakra-ui/react'
