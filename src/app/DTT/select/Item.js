@@ -1,11 +1,17 @@
 import { Flex, Spacer, Text, Box } from '@chakra-ui/layout'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { includes } from 'ramda'
+import { compose, includes } from 'ramda'
+import { dropdownOption } from 'redux/app'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectDropdownOptions } from 'redux/app/selectors'
 
 const Item = ({ option, idx, onSelectChange, focus, selected, maxW }) => {
   const focused = focus === idx
+  const dispatch = useDispatch()
+  const setDropdownOption = compose(dispatch, dropdownOption)
 
+  const getDropdownOptions = useSelector(selectDropdownOptions)
   return (
     <Flex
       direction="row"
@@ -16,7 +22,10 @@ const Item = ({ option, idx, onSelectChange, focus, selected, maxW }) => {
       onKeyPress={e => {
         if (e.key === 'Enter') onSelectChange(option.value)
       }}
-      onClick={() => onSelectChange(option.value)}
+      onClick={() => {
+        setDropdownOption([...getDropdownOptions, option])
+        onSelectChange(option.value)
+      }}
       cursor="pointer"
       key={option.value}
       px="3"

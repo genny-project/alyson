@@ -34,12 +34,6 @@ const Write = ({
 
   const { attributeCode } = data || {}
 
-  const allOptions = useRef([])
-
-  useEffect(() => {
-    allOptions.current = [...options, ...allOptions.current]
-  })
-
   const ddEvent = debounce(
     value =>
       onSendMessage(
@@ -75,7 +69,6 @@ const Write = ({
     <Autocomplete
       placeholder={!options.length ? 'Start typing to search' : placeholder || 'Select'}
       options={options}
-      allOptions={allOptions.current}
       onChange={onSendAnswer}
       defaultValue={defaultValue}
       multiple={multiple}
