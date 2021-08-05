@@ -17,6 +17,7 @@ const Autocomplete = ({
   questionCode,
   defaultValue,
   options,
+  allOptions,
   onChange,
   placeholder,
   ddEvent,
@@ -56,7 +57,9 @@ const Autocomplete = ({
     onSelectChange(`NEW_${replace(' ', '_', input)}`)
   }
 
-  const renderLabel = item => compose(prop('label'), find(propEq('value', item)))(options)
+  const renderLabel = item => {
+    return compose(prop('label'), find(propEq('value', item)))(allOptions)
+  }
 
   const filteredOptions = options.filter(option =>
     includes(toLower(input), toLower(option.label || '')),
