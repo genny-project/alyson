@@ -11,7 +11,7 @@ import { selectCode } from 'redux/db/selectors'
 import getUserType from 'utils/helpers/get-user-type'
 import { useMobileValue } from 'utils/hooks'
 import ItemsForAutocomplete from './Items'
-import { selectDropdownOptions } from 'redux/app/selectors'
+import { selectBufferDropdownOptions } from 'redux/app/selectors'
 
 const Autocomplete = ({
   multiple,
@@ -30,7 +30,7 @@ const Autocomplete = ({
   const ref = useRef()
   const inputRef = useRef()
 
-  const getDropdownOptions = useSelector(selectDropdownOptions)
+  const getDropdownOptions = useSelector(selectBufferDropdownOptions)
 
   const user = useSelector(selectCode('USER'))
   const userType = getUserType(useSelector(selectCode(user)))

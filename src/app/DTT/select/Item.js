@@ -4,14 +4,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { compose, includes } from 'ramda'
 import { dropdownOption } from 'redux/app'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectDropdownOptions } from 'redux/app/selectors'
+import { selectBufferDropdownOptions } from 'redux/app/selectors'
 
 const Item = ({ option, idx, onSelectChange, focus, selected, maxW }) => {
   const focused = focus === idx
   const dispatch = useDispatch()
   const setDropdownOption = compose(dispatch, dropdownOption)
 
-  const getDropdownOptions = useSelector(selectDropdownOptions)
+  const getDropdownOptions = useSelector(selectBufferDropdownOptions)
   return (
     <Flex
       direction="row"
