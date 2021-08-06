@@ -17,6 +17,7 @@ export const initialState = {
   lastSentMessage: { time: '', data: { data: { code: 'QUE_DASHBOARD_VIEW' } } },
   lastReceivedMessage: {},
   highlightedQuestion: '',
+  bufferDropdownOptions: [],
 }
 
 const appSlice = createSlice({
@@ -67,6 +68,9 @@ const appSlice = createSlice({
     highlightQuestion: (state, { payload }) => {
       state.highlightedQuestion = payload
     },
+    bufferDropdownOption: (state, { payload }) => {
+      state.bufferDropdownOptions = payload
+    },
   },
 })
 
@@ -78,5 +82,6 @@ export const {
   sendMessage,
   closeNotes,
   highlightQuestion,
+  bufferDropdownOption,
 } = appSlice.actions
 export default appSlice.reducer

@@ -1,4 +1,3 @@
-import { useEffect, useRef } from 'react'
 import { compose, includes, map, pathOr } from 'ramda'
 import { useSelector } from 'react-redux'
 import { Text, Select as CSelect } from '@chakra-ui/react'
@@ -33,12 +32,6 @@ const Write = ({
   )
 
   const { attributeCode } = data || {}
-
-  const allOptions = useRef([])
-
-  useEffect(() => {
-    allOptions.current = [...options, ...allOptions.current]
-  })
 
   const ddEvent = debounce(
     value =>
@@ -75,7 +68,6 @@ const Write = ({
     <Autocomplete
       placeholder={!options.length ? 'Start typing to search' : placeholder || 'Select'}
       options={options}
-      allOptions={allOptions.current}
       onChange={onSendAnswer}
       defaultValue={defaultValue}
       multiple={multiple}

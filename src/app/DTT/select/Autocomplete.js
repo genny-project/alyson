@@ -11,13 +11,13 @@ import { selectCode } from 'redux/db/selectors'
 import getUserType from 'utils/helpers/get-user-type'
 import { useMobileValue } from 'utils/hooks'
 import ItemsForAutocomplete from './Items'
+import { selectBufferDropdownOptions } from 'redux/app/selectors'
 
 const Autocomplete = ({
   multiple,
   questionCode,
   defaultValue,
   options,
-  allOptions,
   onChange,
   placeholder,
   ddEvent,
@@ -29,6 +29,8 @@ const Autocomplete = ({
   const [searching, setSearching] = useState(false)
   const ref = useRef()
   const inputRef = useRef()
+
+  const getBufferedDropdownOptions = useSelector(selectBufferDropdownOptions)
 
   const user = useSelector(selectCode('USER'))
   const userType = getUserType(useSelector(selectCode(user)))
@@ -57,8 +59,10 @@ const Autocomplete = ({
     onSelectChange(`NEW_${replace(' ', '_', input)}`)
   }
 
+  const optionsIncludingBufferedOptions = [...getBufferedDropdownOptions, ...options]
+
   const renderLabel = item => {
-    return compose(prop('label'), find(propEq('value', item)))(allOptions)
+    return compose(prop('label'), find(propEq('value', item)))(optionsIncludingBufferedOptions)
   }
 
   const filteredOptions = options.filter(option =>
