@@ -68,7 +68,7 @@ const appSlice = createSlice({
     highlightQuestion: (state, { payload }) => {
       state.highlightedQuestion = payload
     },
-    dropdownOption: (state, { payload }) => {
+    bufferDropdownOption: (state, { payload }) => {
       state.bufferDropdownOptions = payload
     },
   },
@@ -82,6 +82,6 @@ export const {
   sendMessage,
   closeNotes,
   highlightQuestion,
-  dropdownOption,
+  bufferDropdownOption,
 } = appSlice.actions
 export default appSlice.reducer

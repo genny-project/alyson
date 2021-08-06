@@ -30,7 +30,7 @@ const Autocomplete = ({
   const ref = useRef()
   const inputRef = useRef()
 
-  const getDropdownOptions = useSelector(selectBufferDropdownOptions)
+  const getBufferedDropdownOptions = useSelector(selectBufferDropdownOptions)
 
   const user = useSelector(selectCode('USER'))
   const userType = getUserType(useSelector(selectCode(user)))
@@ -59,8 +59,10 @@ const Autocomplete = ({
     onSelectChange(`NEW_${replace(' ', '_', input)}`)
   }
 
+  const optionsIncludingBufferedOptions = [...getBufferedDropdownOptions, ...options]
+
   const renderLabel = item => {
-    return compose(prop('label'), find(propEq('value', item)))([...getDropdownOptions, ...options])
+    return compose(prop('label'), find(propEq('value', item)))(optionsIncludingBufferedOptions)
   }
 
   const filteredOptions = options.filter(option =>
