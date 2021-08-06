@@ -60,7 +60,7 @@ const Autocomplete = ({
   }
 
   const renderLabel = item => {
-    return compose(prop('label'), find(propEq('value', item)))(getDropdownOptions)
+    return compose(prop('label'), find(propEq('value', item)))([...getDropdownOptions, ...options])
   }
 
   const filteredOptions = options.filter(option =>
