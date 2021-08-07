@@ -184,6 +184,7 @@ const Ask = ({
           dataType={dataType}
           data={data}
           label={name}
+          parentCode={parentCode}
         />
       )}
       {component === 'radio' && (

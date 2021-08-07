@@ -48,7 +48,7 @@ const Write = ({
           sourceCode,
           targetCode,
           value,
-          parentCode: groupCode,
+          parentCode,
           questionCode,
           code: questionCode,
         },
