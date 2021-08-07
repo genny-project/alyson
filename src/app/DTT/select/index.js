@@ -1,4 +1,4 @@
-import { compose, includes, map, pathOr } from 'ramda'
+import { compose, includes, map, pathOr, reduce } from 'ramda'
 import { useSelector } from 'react-redux'
 import { Text, Select as CSelect } from '@chakra-ui/react'
 import debounce from 'lodash.debounce'
@@ -27,7 +27,13 @@ const Write = ({
   const optionData = useSelector(selectCode(groupCode)) || []
   const dropdownData = useSelector(selectCode(`${groupCode}-${questionCode}-dropdowns`)) || []
 
-  const allDropDownOptions = [...optionData, ...dropdownData]
+  const getUniqueValuesFromTwoArrays = firstArray => secondArray =>
+    reduce(
+      (acc, value) => (!includes(value)(acc) ? acc.concat(value) : acc),
+      secondArray,
+    )(firstArray)
+
+  const allDropDownOptions = getUniqueValuesFromTwoArrays(optionData)(dropdownData)
 
   const options = compose(map(({ code, name }) => ({ label: name, value: code })))(
     allDropDownOptions,
