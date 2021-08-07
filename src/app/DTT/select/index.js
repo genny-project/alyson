@@ -27,8 +27,10 @@ const Write = ({
   const optionData = useSelector(selectCode(groupCode)) || []
   const dropdownData = useSelector(selectCode(`${groupCode}-${questionCode}-dropdowns`)) || []
 
+  const allDropDownOptions = [...optionData, ...dropdownData]
+
   const options = compose(map(({ code, name }) => ({ label: name, value: code })))(
-    dropdownData.length ? dropdownData : optionData,
+    allDropDownOptions,
   )
 
   const { attributeCode } = data || {}
