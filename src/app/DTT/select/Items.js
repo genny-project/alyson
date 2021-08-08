@@ -1,11 +1,10 @@
-import { useOutsideClick } from '@chakra-ui/hooks'
 import { HStack, Text, VStack } from '@chakra-ui/layout'
 import { CircularProgress } from '@chakra-ui/progress'
 import Card from 'app/layouts/components/card'
 import { dec, inc } from 'ramda'
 import { useEffect, useRef, useState } from 'react'
 import { useHotkeys } from 'react-hotkeys-hook'
-import { useIsMobile, useMobileValue } from 'utils/hooks'
+import { useMobileValue } from 'utils/hooks'
 import Item from './Item'
 
 const ItemsForAutocomplete = ({
@@ -17,12 +16,11 @@ const ItemsForAutocomplete = ({
   input,
   searching,
   setOpen,
+  setInput,
 }) => {
   const [focus, setFocus] = useState(0)
 
   const ref = useRef()
-
-  const isMobile = useIsMobile()
 
   useHotkeys('down', () => setFocus(inc), { enableOnTags: ['INPUT'] })
   useHotkeys('up', () => setFocus(dec), { enableOnTags: ['INPUT'] })
@@ -42,10 +40,6 @@ const ItemsForAutocomplete = ({
     }
   }, [filteredOptions.length, focus])
 
-  useOutsideClick({
-    ref,
-    handler: () => !isMobile && setOpen(false),
-  })
   const maxW = useMobileValue(['', '25vw'])
   return (
     <Card
@@ -77,6 +71,7 @@ const ItemsForAutocomplete = ({
               focus={focus}
               selected={selected}
               maxW={maxW}
+              setInput={setInput}
             />
           ))
         ) : searching ? null : userType === 'AGENT' || userType === 'ADMIN' ? (
