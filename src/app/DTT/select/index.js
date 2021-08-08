@@ -1,4 +1,4 @@
-import { compose, includes, map, pathOr, reduce } from 'ramda'
+import { compose, includes, map, pathOr } from 'ramda'
 import { useSelector } from 'react-redux'
 import { Text, Select as CSelect } from '@chakra-ui/react'
 import debounce from 'lodash.debounce'
