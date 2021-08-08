@@ -17,6 +17,7 @@ const ItemsForAutocomplete = ({
   input,
   searching,
   setOpen,
+  setInput,
 }) => {
   const [focus, setFocus] = useState(0)
 
@@ -77,6 +78,7 @@ const ItemsForAutocomplete = ({
               focus={focus}
               selected={selected}
               maxW={maxW}
+              setInput={setInput}
             />
           ))
         ) : searching ? null : userType === 'AGENT' || userType === 'ADMIN' ? (

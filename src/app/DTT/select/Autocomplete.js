@@ -137,6 +137,7 @@ const Autocomplete = ({
               searching,
               filteredOptions,
               setOpen,
+              setInput,
             }}
           />
         )}
