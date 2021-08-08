@@ -24,20 +24,9 @@ const Write = ({
 
   const { typeName } = dataType
   const multiple = includes('multiple', typeName || '') || component === 'tag'
-  const optionData = useSelector(selectCode(groupCode)) || []
   const dropdownData = useSelector(selectCode(`${parentCode}-${questionCode}-dropdowns`)) || []
 
-  const getUniqueValuesFromTwoArrays = firstArray => secondArray =>
-    reduce(
-      (acc, value) => (!includes(value)(acc) ? acc.concat(value) : acc),
-      secondArray,
-    )(firstArray)
-
-  const allDropDownOptions = getUniqueValuesFromTwoArrays(optionData)(dropdownData)
-
-  const options = compose(map(({ code, name }) => ({ label: name, value: code })))(
-    allDropDownOptions,
-  )
+  const options = compose(map(({ code, name }) => ({ label: name, value: code })))(dropdownData)
 
   const { attributeCode } = data || {}
 
