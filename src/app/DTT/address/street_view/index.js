@@ -29,6 +29,7 @@ const StreetView = ({ address, style = { width: '45rem', height: '35rem' } }) =>
         map.setStreetView(
           new window.google.maps.StreetViewPanorama(panoRef.current, {
             pano: panoData?.location?.pano,
+            addressControl: false,
           }),
         )
       })
