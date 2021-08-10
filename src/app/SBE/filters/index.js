@@ -60,6 +60,7 @@ const Filters = ({ sbeCode }) => {
                   passedAskData={childAskObject}
                   onFinish={onToggle}
                   config={{ simpleSelect: true }}
+                  parentCode={`QUE_ADD_FILTER_GRP`}
                 />
               ))}
             </VStack>
