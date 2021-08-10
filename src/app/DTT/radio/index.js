@@ -15,11 +15,12 @@ const Write = ({ questionCode, data, onSendAnswer, groupCode }) => {
         {options &&
           map(
             option =>
-              option &&
-              (<CRadio key={option.code} test-id={option.code} value={option.code}>
-                {option.name}
-              </CRadio>)(options),
-          )}
+              option && (
+                <CRadio key={option.code} test-id={option.code} value={option.code}>
+                  {option.name}
+                </CRadio>
+              ),
+          )(options)}
       </Stack>
     </RadioGroup>
   )
