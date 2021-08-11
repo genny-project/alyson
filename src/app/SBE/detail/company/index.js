@@ -33,6 +33,9 @@ const about = {
 const Rep = ({ sbeCode, targetCode }) => {
   const tileWidth = useIsMobile() ? '90vw' : '33vw'
   const validation = useSelector(selectCode(targetCode, 'PRI_VALIDATION'))
+  const hcValidation = useSelector(selectCode(targetCode, 'PRI_HC_VALIDATION_DOC_URL')) || ''
+  const hcValidationUrl = hcValidation?.value
+
   const internships = (
     <Lane
       width={tileWidth}
@@ -78,6 +81,17 @@ const Rep = ({ sbeCode, targetCode }) => {
       </Button>
     )
 
+  const hcValidationButton = !!hcValidationUrl && (
+    <Button
+      variant="secondary"
+      colorScheme="green"
+      onClick={() => window.open(hcValidationUrl)}
+      leftIcon={<FontAwesomeIcon icon={faDownload} />}
+    >
+      {`Host Company Validation`}
+    </Button>
+  )
+
   const documents = (
     <Card variant="card0" w={tileWidth}>
       <VStack align="start">
@@ -88,6 +102,7 @@ const Rep = ({ sbeCode, targetCode }) => {
         </Text>
         {ohs}
         {hcs}
+        {hcValidationButton}
       </VStack>
     </Card>
   )
