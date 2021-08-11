@@ -47,7 +47,7 @@ export const internshipDetails = {
       config: { detailViewTags: true },
     },
     { attr: '_LNK_INTERNSHIP__PRI_BUSINESS_HOURS', label: 'Company Business Hours' },
-    { attr: '_LNK_INTERNSHIP__PRI_DRESS_CODE', label: 'Dress Code' },
+    { attr: '_LNK_INTERNSHIP__LNK_DRESS_CODE__PRI_NAME', label: 'Dress Code' },
     { attr: '_LNK_INTERNSHIP__PRI_NO_OF_INTERNS', label: 'Available Positions' },
     {
       attr: '_LNK_INTERNSHIP__PRI_INTERNSHIP_DETAILS',
@@ -70,7 +70,7 @@ export const internshipDetails = {
       config: { px: '0px', noOfLines: 5 },
     },
     {
-      attr: '_LNK_INTERNSHIP__PRI_SOFTWARE',
+      attr: '_LNK_INTERNSHIP__LNK_SOFTWARE__PRI_NAME',
       label: 'Software used during the internship',
       config: { detailViewTags: true },
     },
