@@ -5,27 +5,35 @@ import { Menu, MenuButton, MenuList } from '@chakra-ui/menu'
 import { faEllipsisH } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { equals } from 'ramda'
 
 import Action from 'app/BE/context/Action'
 import getActions from 'app/SBE/utils/get-actions'
 import { selectCode } from 'redux/db/selectors'
 import Attribute from 'app/BE/attribute'
+import getUserType from 'utils/helpers/get-user-type'
+import sameLength from 'redux/utils/same-length'
 
 const DetailActions = ({ sbeCode, beCode }) => {
   const sbe = useSelector(selectCode(sbeCode))
   const actions = getActions(sbe) || []
 
+  const userCode = useSelector(selectCode('USER'), equals)
+  const userType = getUserType(useSelector(selectCode(userCode), sameLength))
+
   return (
     <HStack spacing={3}>
-      <Action
-        parentCode={sbeCode}
-        code={'ACT_PRI_EVENT_APPLY'}
-        targetCode={beCode}
-        noMenu
-        icon={faPlus}
-        name={'Apply'}
-        customAction
-      />
+      {userType !== 'INTERN' && (
+        <Action
+          parentCode={sbeCode}
+          code={'ACT_PRI_EVENT_APPLY'}
+          targetCode={beCode}
+          noMenu
+          icon={faPlus}
+          name={'Apply'}
+          customAction
+        />
+      )}
       <Attribute
         code={beCode}
         attribute="PRI_CV"
