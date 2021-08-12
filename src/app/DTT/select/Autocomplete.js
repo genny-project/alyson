@@ -3,15 +3,28 @@ import { Box, Wrap, WrapItem } from '@chakra-ui/layout'
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Chip from 'app/layouts/components/chip'
-import { append, compose, filter, find, includes, not, prop, propEq, replace, toLower } from 'ramda'
+import {
+  append,
+  compose,
+  filter,
+  find,
+  includes,
+  not,
+  prop,
+  propEq,
+  replace,
+  toLower,
+  reduce,
+} from 'ramda'
 import { useEffect, useRef, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import { selectCode } from 'redux/db/selectors'
 import getUserType from 'utils/helpers/get-user-type'
 import { useMobileValue } from 'utils/hooks'
 import ItemsForAutocomplete from './Items'
 import { selectBufferDropdownOptions } from 'redux/app/selectors'
+import { bufferDropdownOption } from 'redux/app'
 
 const Autocomplete = ({
   multiple,
@@ -29,6 +42,14 @@ const Autocomplete = ({
   const [searching, setSearching] = useState(false)
   const ref = useRef()
   const inputRef = useRef()
+  const dispatch = useDispatch()
+  const setBufferDropdownOption = compose(dispatch, bufferDropdownOption)
+
+  const getUniqueValuesFromTwoArrays = firstArray => secondArray =>
+    reduce(
+      (acc, value) => (!includes(value)(acc) ? acc.concat(value) : acc),
+      secondArray,
+    )(firstArray)
 
   const getBufferedDropdownOptions = useSelector(selectBufferDropdownOptions)
 
@@ -38,7 +59,10 @@ const Autocomplete = ({
   const focusInput = () => {
     if (inputRef?.current?.focus) inputRef.current.focus()
   }
-  const toggleOpen = () => setOpen(not)
+  const toggleOpen = () => {
+    setBufferDropdownOption(getUniqueValuesFromTwoArrays(getBufferedDropdownOptions)(options))
+    setOpen(not)
+  }
   const onInputChange = ({ target: { value } }) => {
     setSearching(true)
     ddEvent(value)

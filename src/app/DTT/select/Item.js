@@ -6,7 +6,7 @@ import { bufferDropdownOption } from 'redux/app'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectBufferDropdownOptions } from 'redux/app/selectors'
 
-const Item = ({ option, idx, onSelectChange, focus, selected, maxW, setInput }) => {
+const Item = ({ option, idx, onSelectChange, focus, selected, maxW, setInput, setOpen }) => {
   const focused = focus === idx
   const dispatch = useDispatch()
   const setBufferDropdownOption = compose(dispatch, bufferDropdownOption)
@@ -16,6 +16,7 @@ const Item = ({ option, idx, onSelectChange, focus, selected, maxW, setInput }) 
     setBufferDropdownOption([...getBufferedDropdownOptions, option])
     onSelectChange(option.value)
     setInput('')
+    setOpen(false)
   }
 
   return (

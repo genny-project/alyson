@@ -79,6 +79,7 @@ const ItemsForAutocomplete = ({
               selected={selected}
               maxW={maxW}
               setInput={setInput}
+              setOpen={setOpen}
             />
           ))
         ) : searching ? null : userType === 'AGENT' || userType === 'ADMIN' ? (
