@@ -9,7 +9,7 @@ export const Write = ({ questionCode, data, onSendAnswer }) => {
   return (
     <Input
       test-id={questionCode}
-      onChange={e => debouncedSendAnswer(e.target.value)}
+      onBlur={e => debouncedSendAnswer(e.target.value)}
       defaultValue={data?.value}
       w="full"
       maxW={maxW}
