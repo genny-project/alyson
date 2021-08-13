@@ -2,49 +2,16 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico?v=mentormatch" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#3182CE" />
-    <meta name="description" content="Internmatch - The worlds number 1 internship platform" />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/internmatch_logo_light.png?v=4" />
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json?v=4" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.png?v=4" />
-    <title>Internmatch</title>
-    <style>
-      ::-webkit-scrollbar {
-        width: 8px;
-        border-radius: 8px;
-        background-color: rgba(0, 0, 0, 0);
-        height: 12px;
-      }
-      ::-webkit-scrollbar-thumb {
-        background-color: rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-      }
-    </style>
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="The worlds #1 Mentor Matching Platform" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <title>MentorMatch</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function () {
-          navigator.serviceWorker
-            .register('/worker.js')
-            .then(
-              function (registration) {
-                console.log('Worker registration successful', registration.scope)
-              },
-              function (err) {
-                console.log('Worker registration failed', err)
-              },
-            )
-            .catch(function (err) {
-              console.log(err)
-            })
-        })
-      } else {
-        console.log('Service Worker is not supported by browser.')
-      }
-    </script>
   </body>
 </html>

@@ -1,4 +1,4 @@
-import { Center, Link, Text, VStack } from '@chakra-ui/react'
+import { Center, Text, VStack } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCogs } from '@fortawesome/free-solid-svg-icons'
 
@@ -8,10 +8,7 @@ const Error = () => (
       <Text>
         <FontAwesomeIcon color="grey" size="2x" icon={faCogs} />
       </Text>
-      <Text color="grey">Sorry, Internmatch is just down for maintenance.</Text>
-      <Text color="grey">
-        Check <Link href={'https://internmatch.io/'}>https://internmatch.io/</Link> for updates.
-      </Text>
+      <Text color="grey">Sorry, server is just down for maintenance.</Text>
     </VStack>
   </Center>
 )

@@ -1,5 +1,5 @@
 # Builder pattern
-FROM node:14.5.0-alpine AS builder
+FROM node:14.16-alpine3.10 AS builder
 WORKDIR /app
 ADD package.json package.json
 ADD . .
