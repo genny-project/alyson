@@ -1,15 +1,34 @@
+import { useEffect, useRef } from 'react'
 import { Input, Text as ChakraText } from '@chakra-ui/react'
 import debounce from 'lodash.debounce'
 import { useMobileValue } from 'utils/hooks'
 import DetailViewTags from 'app/DTT/text/detailview_tags'
+
 export const Write = ({ questionCode, data, onSendAnswer }) => {
+  const inputRef = useRef()
+
+  useEffect(() => {
+    const listener = event => {
+      if (event.code === 'Enter') {
+        event.preventDefault()
+        inputRef.current.blur()
+      }
+    }
+    document.addEventListener('keydown', listener)
+    return () => {
+      document.removeEventListener('keydown', listener)
+    }
+  }, [])
+
   const debouncedSendAnswer = debounce(onSendAnswer, 500)
+
   const maxW = useMobileValue(['', '25vw'])
 
   return (
     <Input
       test-id={questionCode}
-      onChange={e => debouncedSendAnswer(e.target.value)}
+      ref={inputRef}
+      onBlur={e => debouncedSendAnswer(e.target.value)}
       defaultValue={data?.value}
       w="full"
       maxW={maxW}
