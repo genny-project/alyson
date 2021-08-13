@@ -21,6 +21,20 @@ const getApiConfig = async () => {
 
   apiConfig = response.data
 
+  if (apiConfig.PRI_FAVICON) {
+    let link = document.querySelector("link[rel~='icon']")
+    if (!link) {
+      link = document.createElement('link')
+      link.rel = 'icon'
+      document.getElementsByTagName('head')[0].appendChild(link)
+    }
+    link.href = apiConfig.PRI_FAVICON
+  }
+
+  if (apiConfig.PRI_NAME) {
+    document.title = apiConfig.PRI_NAME
+  }
+
   /* Log Rocket */
   // if (process.env.NODE_ENV !== 'development') {
   //   LogRocket.init('ur logrocket key', { release: apiConfig.realm })
