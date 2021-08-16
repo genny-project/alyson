@@ -5,7 +5,7 @@ import { Menu, MenuButton, MenuList } from '@chakra-ui/menu'
 import { faEllipsisH } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import { equals } from 'ramda'
+import { equals, reduce, includes } from 'ramda'
 
 import Action from 'app/BE/context/Action'
 import getActions from 'app/SBE/utils/get-actions'
@@ -17,6 +17,11 @@ import sameLength from 'redux/utils/same-length'
 const DetailActions = ({ sbeCode, beCode }) => {
   const sbe = useSelector(selectCode(sbeCode))
   const actions = getActions(sbe) || []
+
+  const getReducedActions = action =>
+    reduce((acc, value) => (acc = !includes('_APPLY')(value) ? acc.concat(value) : acc), [])(action)
+
+  const reducedActions = getReducedActions(actions)
 
   const userCode = useSelector(selectCode('USER'), equals)
   const userType = getUserType(useSelector(selectCode(userCode), sameLength))
@@ -52,7 +57,7 @@ const DetailActions = ({ sbeCode, beCode }) => {
             />
           </MenuButton>
           <MenuList>
-            {actions.map(action => (
+            {reducedActions.map(action => (
               <Action key={action} parentCode={sbeCode} code={action} targetCode={beCode} />
             ))}
           </MenuList>
