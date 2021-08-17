@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { compose, includes, isEmpty, map, pathOr, reduce } from 'ramda'
+import { compose, includes, isEmpty, map, pathOr, reduce, uniq } from 'ramda'
 import { useSelector } from 'react-redux'
 import { Text, Select as CSelect } from '@chakra-ui/react'
 import debounce from 'lodash.debounce'
@@ -46,6 +46,8 @@ const Write = ({
       : previousDropDownRef.current
   })
 
+  const uniqueOptions = uniq([...options])
+
   const ddEvent = debounce(
     value =>
       onSendMessage(
@@ -80,7 +82,7 @@ const Write = ({
   return (
     <Autocomplete
       placeholder={!options.length ? 'Start typing to search' : placeholder || 'Select'}
-      options={options}
+      options={uniqueOptions}
       onChange={onSendAnswer}
       defaultValue={defaultValue}
       multiple={multiple}
