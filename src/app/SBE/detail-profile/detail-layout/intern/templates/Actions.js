@@ -44,7 +44,7 @@ const DetailActions = ({ sbeCode, beCode }) => {
         attribute="PRI_CV"
         config={{ customButton: true, name: 'Download CV' }}
       />
-      {actions.length > 0 ? (
+      {reducedActions.length > 0 ? (
         <Menu placement="bottom-end">
           <MenuButton>
             <IconButton
