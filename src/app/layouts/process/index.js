@@ -5,12 +5,17 @@ import { Stack, VStack, HStack, Box } from '@chakra-ui/react'
 import Search from 'app/SBE/search/Search'
 import { selectCode } from 'redux/db/selectors'
 import Ask from 'app/ASKS/ask'
+import { useIsMobile } from 'utils/hooks'
+import MobileView from './MobileView'
 
 const Process = ({ dashboard }) => {
   const processCodes = useSelector(selectProcess, (prev, next) => prev.length === next.length)
 
   const bucketSearch = useSelector(selectCode('QUE_BUCKET_INTERNS_GRP')) || []
 
+  const mobileView = useIsMobile()
+
+  if (mobileView) return <MobileView />
   if (!processCodes) return null
   return (
     <VStack align="start" spacing={0} px="5">
