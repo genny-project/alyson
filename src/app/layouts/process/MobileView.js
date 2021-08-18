@@ -1,13 +1,11 @@
-import { Box, HStack, VStack } from '@chakra-ui/react'
+import { Box, VStack } from '@chakra-ui/react'
 import Ask from 'app/ASKS/ask'
 import Lane from 'app/SBE/lane'
-import { Stack } from 'immutable'
 import { useSelector } from 'react-redux'
 import { selectProcess } from 'redux/app/selectors'
 import { selectCode } from 'redux/db/selectors'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/swiper.min.css'
-import Search from '../navigation/Search'
 
 const MobileView = () => {
   const processCodes = useSelector(selectProcess, (prev, next) => prev.length === next.length)
