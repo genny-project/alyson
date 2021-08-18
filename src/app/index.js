@@ -7,6 +7,7 @@ import { CSSReset } from '@chakra-ui/react'
 import Vertx from 'vertx'
 import LinkedApp from 'app/layouts/dashboard/mentee/linked_app'
 import { pathNameLinkedApplication } from 'utils/pathname'
+import GitVersionInfo from 'utils/helpers/git_version'
 
 const Display = lazy(() => import('app/layouts/display'))
 
@@ -27,6 +28,7 @@ const App = () => {
               </Suspense>
             )}
           />
+          <Route path="/version" component={() => <GitVersionInfo />} />
           <Route path={`/public`} exact component={() => <Redirect to={{ pathname: '/home' }} />} />
           <Route path={'/*'} component={() => <Redirect to={{ pathname: '/home' }} />} />
         </Switch>

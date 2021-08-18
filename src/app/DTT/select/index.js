@@ -1,4 +1,5 @@
-import { compose, includes, map, pathOr } from 'ramda'
+import { useEffect, useRef } from 'react'
+import { compose, includes, isEmpty, map, pathOr, reduce, uniq } from 'ramda'
 import { useSelector } from 'react-redux'
 import { Text, Select as CSelect } from '@chakra-ui/react'
 import debounce from 'lodash.debounce'
@@ -20,15 +21,32 @@ const Write = ({
   config,
   parentCode,
 }) => {
-  const sourceCode = useSelector(selectCode('USER'))
+  const previousDropDownRef = useRef([])
+  const previousDropDownDataValue = previousDropDownRef.current
 
+  const getUniqueValuesFromTwoArrays = firstArray => secondArray =>
+    reduce(
+      (acc, value) => (!includes(value)(acc) ? acc.concat(value) : acc),
+      secondArray,
+    )(firstArray)
+
+  const sourceCode = useSelector(selectCode('USER'))
   const { typeName } = dataType
   const multiple = includes('multiple', typeName || '') || component === 'tag'
   const dropdownData = useSelector(selectCode(`${parentCode}-${questionCode}-dropdowns`)) || []
+  const allDropDownData = getUniqueValuesFromTwoArrays(dropdownData)(previousDropDownDataValue)
 
-  const options = compose(map(({ code, name }) => ({ label: name, value: code })))(dropdownData)
+  const options = compose(map(({ code, name }) => ({ label: name, value: code })))(allDropDownData)
 
   const { attributeCode } = data || {}
+
+  useEffect(() => {
+    previousDropDownRef.current = !isEmpty(dropdownData)
+      ? dropdownData
+      : previousDropDownRef.current
+  })
+
+  const uniqueOptions = uniq([...options])
 
   const ddEvent = debounce(
     value =>
@@ -64,7 +82,7 @@ const Write = ({
   return (
     <Autocomplete
       placeholder={!options.length ? 'Start typing to search' : placeholder || 'Select'}
-      options={options}
+      options={uniqueOptions}
       onChange={onSendAnswer}
       defaultValue={defaultValue}
       multiple={multiple}

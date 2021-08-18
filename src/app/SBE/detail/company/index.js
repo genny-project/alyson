@@ -44,7 +44,9 @@ const Rep = ({ sbeCode, targetCode }) => {
   )
 
   const ohs =
-    validation?.value === 'OHS' || validation?.value === 'Ready' ? (
+    validation?.value === 'OHS' ||
+    validation?.value === 'Ready' ||
+    validation?.value === 'Validated' ? (
       <Button
         colorScheme="green"
         onClick={() => onSendMessage({ targetCode, parentCode: sbeCode, code: 'ACT_OHS_DOC' })}
@@ -63,7 +65,9 @@ const Rep = ({ sbeCode, targetCode }) => {
     )
 
   const hcs =
-    validation?.value === 'HCS' || validation?.value === 'Ready' ? (
+    validation?.value === 'HCS' ||
+    validation?.value === 'Ready' ||
+    validation?.value === 'Validated' ? (
       <Button
         colorScheme="green"
         leftIcon={<FontAwesomeIcon icon={faDownload} />}

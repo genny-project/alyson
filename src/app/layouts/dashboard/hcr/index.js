@@ -18,6 +18,8 @@ const HostCompanyRep = ({ userCode }) => {
   )
   const companyCode = useSelector(selectCode('COMPANY'))
   const validation = useSelector(selectCode(companyCode, 'PRI_VALIDATION'))
+  const hcValidation = useSelector(selectCode(companyCode, 'PRI_HC_VALIDATION_DOC_URL')) || ''
+  const hcValidationUrl = hcValidation?.value
 
   const ohs =
     validation?.value === 'OHS' ||
@@ -63,6 +65,16 @@ const HostCompanyRep = ({ userCode }) => {
       </Button>
     )
 
+  const hcValidationButton = !!hcValidationUrl && (
+    <Button
+      size="sm"
+      onClick={() => window.open(hcValidationUrl)}
+      leftIcon={<FontAwesomeIcon icon={faDownload} />}
+    >
+      {`Host Company Validation`}
+    </Button>
+  )
+
   const documents = (
     <Card variant="card0" w={'25rem'}>
       <VStack align="start">
@@ -78,6 +90,7 @@ const HostCompanyRep = ({ userCode }) => {
         </HStack>
         {ohs}
         {hcs}
+        {hcValidationButton}
       </VStack>
     </Card>
   )
