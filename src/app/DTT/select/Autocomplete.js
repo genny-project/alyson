@@ -144,7 +144,13 @@ const Autocomplete = ({
             transform={open ? 'rotate(180deg)' : 'rotate(0deg)'}
             transition="all 0.3s ease"
           >
-            <FontAwesomeIcon icon={faAngleDown} onClick={toggleOpen} />
+            <FontAwesomeIcon
+              icon={faAngleDown}
+              onClick={() => {
+                toggleOpen()
+                !open && ddEvent('')
+              }}
+            />
           </Box>
         </InputRightElement>
       </InputGroup>
