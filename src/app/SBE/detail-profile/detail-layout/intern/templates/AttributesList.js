@@ -14,16 +14,20 @@ export const prefs = {
   header: 'Internship Preferences',
   icon: <FontAwesomeIcon size="lg" icon={faCog} />,
   attributes: [
-    { attr: 'PRI_ASSOC_INDUSTRY', label: 'Industry', config: { detailViewTags: true } },
-    { attr: 'PRI_ASSOC_OCCUPATION', label: 'Specialisation', config: { detailViewTags: true } },
+    { attr: '_LNK_INDUSTRY__PRI_NAME', label: 'Industry', config: { detailViewTags: true } },
+    {
+      attr: '_LNK_OCCUPATION__PRI_NAME',
+      label: 'Specialisation',
+      config: { detailViewTags: true },
+    },
     { attr: 'PRI_CAREER_OBJ', label: 'Career Objectives', config: { px: '0px', noOfLines: 5 } },
     {
-      attr: 'PRI_ASSOC_CURRENT_SOFTWARE',
+      attr: '_LNK_CURRENT_SOFTWARE__PRI_NAME',
       label: 'Proficient Software',
       config: { detailViewTags: true },
     },
     {
-      attr: 'PRI_ASSOC_FUTURE_SOFTWARE',
+      attr: '_LNK_FUTURE_SOFTWARE__PRI_NAME',
       label: 'Software would like experience in',
       config: { detailViewTags: true },
     },
@@ -35,8 +39,8 @@ export const internshipDetails = {
   attributes: [
     { attr: 'PRI_START_DATE', label: 'Internship Start Date' },
     { attr: 'PRI_ASSOC_DURATION', label: 'Internship Duration' },
-    { attr: 'PRI_DAYS_PER_WEEK', label: 'Days Per Week' },
-    { attr: 'PRI_WHICH_DAYS_STRIPPED', label: 'Days Of Week', config: { detailViewTags: true } },
+    { attr: '_LNK_DAYS_PER_WEEK__PRI_NAME', label: 'Days Per Week' },
+    { attr: '_LNK_WHICH_DAYS__PRI_NAME', label: 'Days Of Week', config: { detailViewTags: true } },
   ],
 }
 export const recentEmployment = {
@@ -56,5 +60,5 @@ export const LeftDetailAttributesIntern = [
   { icon: faPhoneAlt, attr: 'PRI_MOBILE' },
   { icon: faEnvelope, attr: 'PRI_EMAIL' },
   { icon: faMapMarkerAlt, attr: 'PRI_ADDRESS_FULL', config: { hideIcon: true } },
-  { icon: faGraduationCap, attr: 'PRI_ASSOC_EP' },
+  { icon: faGraduationCap, attr: '_LNK_EDU_PROVIDER__PRI_NAME' },
 ]

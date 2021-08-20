@@ -28,7 +28,7 @@ export const InternshipPreferenceSection = ({ beCode }) => {
                 <Text textStyle="tail.2">{`Industry`}</Text>
                 <Attribute
                   code={beCode}
-                  attribute={`PRI_ASSOC_INDUSTRY`}
+                  attribute={`_LNK_INTERN_PREV_INDUSTRY__PRI_NAME`}
                   config={{ detailViewTags: true }}
                 />
               </VStack>
@@ -48,7 +48,7 @@ export const InternshipPreferenceSection = ({ beCode }) => {
                 <Text textStyle="tail.2">{`Specialisation`}</Text>
                 <Attribute
                   code={beCode}
-                  attribute={`PRI_ASSOC_OCCUPATION`}
+                  attribute={`_LNK_OCCUPATION__PRI_NAME`}
                   config={{ noOfLines: 1, detailViewTags: true }}
                 />
               </VStack>
@@ -58,7 +58,7 @@ export const InternshipPreferenceSection = ({ beCode }) => {
                 <Text textStyle="tail.2">{`Proficient Software`}</Text>
                 <Attribute
                   code={beCode}
-                  attribute={`PRI_ASSOC_CURRENT_SOFTWARE`}
+                  attribute={`_LNK_CURRENT_SOFTWARE__PRI_NAME`}
                   config={{ detailViewTags: true }}
                 />
               </VStack>
@@ -68,7 +68,7 @@ export const InternshipPreferenceSection = ({ beCode }) => {
                 <Text textStyle="tail.2">{`Software would like experience in`}</Text>
                 <Attribute
                   code={beCode}
-                  attribute={`PRI_ASSOC_FUTURE_SOFTWARE`}
+                  attribute={`_LNK_FUTURE_SOFTWARE__PRI_NAME`}
                   config={{ detailViewTags: true }}
                 />
               </VStack>
