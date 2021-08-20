@@ -175,7 +175,7 @@ const HostCompanyRep = ({ userCode }) => {
               variant="outline"
               onClick={() =>
                 onSendMessage({
-                  code: 'QUE_HOST_CPY_REP_MENU',
+                  code: 'QUE_QA_HOST_CPY_REP_MENU',
                   parentCode: 'QUE_ADD_ITEMS_GRP',
                 })
               }
