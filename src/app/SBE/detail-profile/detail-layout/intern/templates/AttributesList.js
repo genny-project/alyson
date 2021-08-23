@@ -48,7 +48,7 @@ export const recentEmployment = {
   icon: <FontAwesomeIcon size="lg" icon={faBriefcase} />,
   attributes: [
     { attr: 'PRI_PREV_JOB_TITLE', label: 'Job Title' },
-    { attr: 'PRI_PREV_DURATION', label: 'Tenure' },
+    { attr: 'PRI_PREV_PERIOD', label: 'Tenure' },
     { attr: 'PRI_PREV_EMPLOYER', label: 'Company Name' },
     { attr: '_LNK_INTERN_PREV_INDUSTRY__PRI_NAME', label: 'Industry' },
     { attr: 'PRI_PREV_DESCRIPTION', label: 'Description', config: { px: '0px', noOfLines: 5 } },

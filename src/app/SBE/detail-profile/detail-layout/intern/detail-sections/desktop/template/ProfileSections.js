@@ -126,7 +126,7 @@ export const ExperienceSection = ({ beCode }) => {
             <GridItem rowSpan={1} colSpan={1}>
               <VStack align="start">
                 <Text textStyle="tail.2">{`Tenure`}</Text>
-                <Attribute code={beCode} attribute={`PRI_PREV_DURATION`} />
+                <Attribute code={beCode} attribute={`PRI_PREV_PERIOD`} />
               </VStack>
             </GridItem>
             <GridItem rowSpan={2} colSpan={2}>
