@@ -2,12 +2,15 @@ import { Radio as CRadio, RadioGroup, Stack } from '@chakra-ui/react'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import { Read } from 'app/DTT/text'
-import { map } from 'ramda'
+import { map, compose } from 'ramda'
 
-const Write = ({ questionCode, data, onSendAnswer, groupCode }) => {
-  const options = useSelector(selectCode(groupCode))
+const Write = ({ questionCode, data, onSendAnswer, groupCode, parentCode }) => {
+  const radioData = useSelector(selectCode(`${parentCode}-${questionCode}-options`)) || []
+  const options = compose(map(({ code, name }) => ({ label: name, value: code })))(radioData)
 
   const value = data?.value
+
+  console.warn('value', value)
 
   return (
     <RadioGroup test-id={questionCode} value={value} onChange={onSendAnswer}>
@@ -17,7 +20,7 @@ const Write = ({ questionCode, data, onSendAnswer, groupCode }) => {
             option =>
               option && (
                 <CRadio key={option.code} test-id={option.code} value={option.code}>
-                  {option.name}
+                  {option.label}
                 </CRadio>
               ),
           )(options)}

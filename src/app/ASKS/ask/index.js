@@ -195,6 +195,7 @@ const Ask = ({
           onSendAnswer={onSendAnswer}
           data={data}
           mandatory={mandatory}
+          parentCode={parentCode}
         />
       )}
       {component === 'text' && (
