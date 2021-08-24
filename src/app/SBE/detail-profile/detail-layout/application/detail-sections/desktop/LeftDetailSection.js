@@ -1,5 +1,4 @@
-import { map, equals } from 'ramda'
-import { useSelector } from 'react-redux'
+import { map } from 'ramda'
 import { VStack, HStack, Box, Text } from '@chakra-ui/layout'
 import { useColorModeValue } from '@chakra-ui/color-mode'
 import ShowIconIfNotEmpty from 'app/SBE/detail-profile/ShowIconIfNotEmpty.js'
@@ -8,13 +7,8 @@ import DetailActions from 'app/SBE/detail-profile/detail-layout/application/temp
 import { LeftDetailAttributesApplication } from 'app/SBE/detail-profile/detail-layout/application/templates/AttributesList.js'
 import 'app/layouts/components/css/hide-scroll.css'
 import Attribute from 'app/BE/attribute'
-import getUserType from 'utils/helpers/get-user-type'
-import sameLength from 'redux/utils/same-length'
-import { selectCode } from 'redux/db/selectors'
 
 const LeftDetail = ({ beCode, sbeCode }) => {
-  const userCode = useSelector(selectCode('USER'), equals)
-  const userType = getUserType(useSelector(selectCode(userCode), sameLength))
   const cardBg = useColorModeValue('gray.200', 'gray.600')
 
   return (
@@ -65,9 +59,7 @@ const LeftDetail = ({ beCode, sbeCode }) => {
             <Attribute code={beCode} attribute="_LNK_HOST_COMPANY__PRI_LINKEDIN_URL" />
           </HStack>
         </VStack>
-        {(userType === 'AGENT' || userType === 'ADMIN') && (
-          <DetailActions beCode={beCode} sbeCode={sbeCode} />
-        )}
+        <DetailActions beCode={beCode} sbeCode={sbeCode} />
         <VStack align="start" spacing={4}>
           <Text textStyle="body.1">{`Supervisor Details:`}</Text>
           <VStack align="start" spacing={2}>
