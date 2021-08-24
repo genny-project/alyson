@@ -10,8 +10,6 @@ const Write = ({ questionCode, data, onSendAnswer, groupCode, parentCode }) => {
 
   const value = data?.value
 
-  console.warn('value', value)
-
   return (
     <RadioGroup test-id={questionCode} value={value} onChange={onSendAnswer}>
       <Stack test-id={groupCode} direction="row">
