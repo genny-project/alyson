@@ -8,7 +8,7 @@ const Write = ({ questionCode, data, onSendAnswer, groupCode, parentCode }) => {
   const radioData = useSelector(selectCode(`${parentCode}-${questionCode}-options`)) || []
   const options = compose(map(({ code, name }) => ({ label: name, value: code })))(radioData)
 
-  const value = data?.value
+  const value = data?.value ? data.value : null
 
   return (
     <RadioGroup test-id={questionCode} value={value} onChange={onSendAnswer}>
@@ -17,7 +17,7 @@ const Write = ({ questionCode, data, onSendAnswer, groupCode, parentCode }) => {
           map(
             option =>
               option && (
-                <CRadio key={option.code} test-id={option.code} value={option.code}>
+                <CRadio key={option.value} test-id={option.value} value={option.value}>
                   {option.label}
                 </CRadio>
               ),
