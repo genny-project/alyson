@@ -28,7 +28,7 @@ export const InternshipPreferenceSection = ({ beCode }) => {
                 <Text textStyle="tail.2">{`Industry`}</Text>
                 <Attribute
                   code={beCode}
-                  attribute={`_LNK_INTERN_PREV_INDUSTRY__PRI_NAME`}
+                  attribute={`_LNK_INDUSTRY__PRI_NAME`}
                   config={{ detailViewTags: true }}
                 />
               </VStack>
