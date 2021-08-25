@@ -3,12 +3,14 @@ import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import { Read } from 'app/DTT/text'
 import { map, compose } from 'ramda'
+import safelyParseJson from 'utils/helpers/safely-parse-json'
 
 const Write = ({ questionCode, data, onSendAnswer, groupCode, parentCode }) => {
   const radioData = useSelector(selectCode(`${parentCode}-${questionCode}-options`)) || []
   const options = compose(map(({ code, name }) => ({ label: name, value: code })))(radioData)
 
-  const value = data?.value ? data.value : null
+  const arrayValue = safelyParseJson(data?.value, [])
+  const value = arrayValue.length ? arrayValue[0] : data?.value || null
 
   return (
     <RadioGroup test-id={questionCode} value={value} onChange={onSendAnswer}>
