@@ -14,7 +14,7 @@ const Write = ({ questionCode, data, onSendAnswer, groupCode, parentCode }) => {
   const value = arrayValue.length ? arrayValue[0] : data?.value || null
 
   return (
-    <RadioGroup test-id={questionCode} value={value} onChange={onSendAnswer}>
+    <RadioGroup test-id={questionCode} value={value} onChange={value => onSendAnswer([value])}>
       <Stack test-id={groupCode} direction="row">
         {options &&
           map(
