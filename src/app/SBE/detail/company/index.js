@@ -65,9 +65,9 @@ const Rep = ({ sbeCode, targetCode }) => {
     )
 
   const hcs =
-    validation?.value === 'HCS' ||
-    validation?.value === 'Ready' ||
-    validation?.value === 'Validated' ? (
+    !!hcValidationUrl === 'HCS' ||
+    !!hcValidationUrl === 'Ready' ||
+    !!hcValidationUrl === 'Validated' ? (
       <Button
         colorScheme="green"
         leftIcon={<FontAwesomeIcon icon={faDownload} />}

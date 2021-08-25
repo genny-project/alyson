@@ -33,7 +33,7 @@ const Write = ({
   const sourceCode = useSelector(selectCode('USER'))
   const { typeName } = dataType
   const multiple = includes('multiple', typeName || '') || component === 'tag'
-  const dropdownData = useSelector(selectCode(`${parentCode}-${questionCode}-dropdowns`)) || []
+  const dropdownData = useSelector(selectCode(`${parentCode}-${questionCode}-options`)) || []
   const allDropDownData = getUniqueValuesFromTwoArrays(dropdownData)(previousDropDownDataValue)
 
   const options = compose(map(({ code, name }) => ({ label: name, value: code })))(allDropDownData)
