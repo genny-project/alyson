@@ -50,7 +50,7 @@ export const internshipDetails = {
       config: { detailViewTags: true },
     },
     { attr: 'PRI_ASSOC_INDUSTRY', label: 'Industry', config: { detailViewTags: true } },
-    { attr: 'PRI_WORKSITE', label: 'Internship Type' },
+    { attr: '_LNK_WORKSITE_SELECT__PRI_NAME', label: 'Internship Type' },
     { attr: 'PRI_INTERNSHIP_START_DATE', label: 'Internship Active from' },
     {
       attr: 'PRI_WHICH_DAYS_STRIPPED',
@@ -58,7 +58,7 @@ export const internshipDetails = {
       config: { detailViewTags: true },
     },
     { attr: 'PRI_BUSINESS_HOURS', label: 'Company Business Hours' },
-    { attr: 'PRI_DRESS_CODE', label: 'Dress Code' },
+    { attr: '_LNK_DRESS_CODE__PRI_NAME', label: 'Dress Code' },
     { attr: 'PRI_ASSOC_NUM_INTERNS', label: 'Available Positions' },
     {
       attr: 'PRI_INTERNSHIP_DETAILS',
@@ -81,7 +81,7 @@ export const internshipDetails = {
       config: { px: '0px', noOfLines: 5 },
     },
     {
-      attr: 'PRI_SOFTWARE',
+      attr: '_LNK_SOFTWARE__PRI_NAME',
       label: 'Software used during the internship',
       config: { detailViewTags: true },
     },

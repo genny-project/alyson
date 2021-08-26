@@ -57,7 +57,7 @@ export const InternshipDetailsSection = ({ beCode }) => {
             <GridItem rowSpan={1} colSpan={1}>
               <VStack align="start">
                 <Text textStyle="tail.2">{`Internship Type`}</Text>
-                <Attribute code={beCode} attribute={`PRI_WORKSITE`} />
+                <Attribute code={beCode} attribute={`_LNK_WORKSITE_SELECT__PRI_NAME`} />
               </VStack>
             </GridItem>
             <GridItem rowSpan={2} colSpan={2}>
@@ -109,7 +109,7 @@ export const InternshipDetailsSection = ({ beCode }) => {
             <GridItem rowSpan={1} colSpan={1}>
               <VStack align="start">
                 <Text textStyle="tail.2">{`Dress Code`}</Text>
-                <Attribute code={beCode} attribute={`PRI_DRESS_CODE`} />
+                <Attribute code={beCode} attribute={`_LNK_DRESS_CODE__PRI_NAME`} />
               </VStack>
             </GridItem>
             <GridItem rowSpan={2} colSpan={2}>
@@ -133,7 +133,7 @@ export const InternshipDetailsSection = ({ beCode }) => {
                 <Text textStyle="tail.2">{`Software used during the internship`}</Text>
                 <Attribute
                   code={beCode}
-                  attribute={`PRI_SOFTWARE`}
+                  attribute={`_LNK_SOFTWARE__PRI_NAME`}
                   config={{ detailViewTags: true }}
                 />
               </VStack>
