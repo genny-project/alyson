@@ -108,7 +108,7 @@ export const companyDetailsInternView = {
   icon: <FontAwesomeIcon size="lg" icon={faBuilding} />,
   attributes: [
     { attr: '_LNK_HOST_COMPANY__PRI_NAME', label: 'Company Name' },
-    { attr: 'PRI_ASSOC_INDUSTRY', label: 'Industry' },
+    { attr: '_LNK_HOST_COMPANY__LNK_COMPANY_INDUSTRY__PRI_NAME', label: 'Industry' },
     { attr: '_LNK_HOST_COMPANY__PRI_ADDRESS_STATE', label: 'Location' },
     {
       attr: '_LNK_HOST_COMPANY__PRI_COMPANY_DESCRIPTION',
