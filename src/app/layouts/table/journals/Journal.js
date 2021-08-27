@@ -14,11 +14,9 @@ const Journal = ({ code, actions, parentCode }) => {
   const learningOutcomes = useSelector(selectCode(code, 'PRI_JOURNAL_LEARNING_OUTCOMES'))
   const tasks = useSelector(selectCode(code, 'PRI_JOURNAL_TASKS'))
 
-  const getInternActions = allActions => {
-    const init = []
-    reduce((acc, value) => !includes('_EDIT')(value) && acc.push(value), init)(allActions)
-    return init
-  }
+  const getInternActions = allActions =>
+    reduce((acc, value) => !includes('_EDIT')(value) && acc.concat(value), [])(allActions)
+
   const internsAction = getInternActions(actions)
   const user = useSelector(selectCode('USER'))
   const userType = getUserType(useSelector(selectCode(user)))
