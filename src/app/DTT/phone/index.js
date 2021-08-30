@@ -27,9 +27,12 @@ const Read = ({ data, config }) => {
 }
 
 export const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
+  // eslint-disable-next-line no-useless-escape
+  const phoneRegex = RegExp(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im)
+
   const inputRef = useRef()
   const value = data?.value
-  const isInvalid = getIsInvalid(value)(regexPattern)
+  const isInvalid = getIsInvalid(value)(phoneRegex)
 
   useEffect(() => {
     const listener = event => {

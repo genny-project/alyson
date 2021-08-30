@@ -6,10 +6,10 @@ import Duplicates from './Duplicates'
 
 const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
   // eslint-disable-next-line no-useless-escape
-  const emailPattern = RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
+  const emailRegex = RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
 
   const value = data?.value
-  const isInvalid = getIsInvalid(value)(emailPattern)
+  const isInvalid = getIsInvalid(value)(emailRegex)
   const maxW = useMobileValue(['', '25vw'])
 
   return (
