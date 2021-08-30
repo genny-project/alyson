@@ -62,3 +62,5 @@ export const useMobileValue = ([mobile, base]) => {
 
   return isMobile ? mobile : base
 }
+
+export const useIsValid = value => pattern => pattern.test(value)
