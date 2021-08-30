@@ -4,13 +4,10 @@ import { useMobileValue } from 'utils/hooks'
 import Duplicates from './Duplicates'
 import { useIsValid } from 'utils/hooks.js'
 
-// eslint-disable-next-line no-useless-escape
-const emailPattern = RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
-
-const Write = ({ questionCode, data, onSendAnswer }) => {
+const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
   const value = data?.value
 
-  const isValid = useIsValid(value)(emailPattern)
+  const isValid = useIsValid(value)(regexPattern)
 
   const maxW = useMobileValue(['', '25vw'])
   return (
