@@ -1,12 +1,15 @@
 import { Box, Input, Text, useClipboard, useToast } from '@chakra-ui/react'
 import { useMobileValue } from 'utils/hooks'
+import { getIsInvalid } from 'utils/functions'
 
 import Duplicates from './Duplicates'
-import { useIsInvalid } from 'utils/hooks.js'
 
 const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
+  // eslint-disable-next-line no-useless-escape
+  const emailPattern = RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
+
   const value = data?.value
-  const isInvalid = useIsInvalid(value)(regexPattern)
+  const isInvalid = getIsInvalid(value)(emailPattern)
   const maxW = useMobileValue(['', '25vw'])
 
   return (

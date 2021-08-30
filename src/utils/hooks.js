@@ -1,5 +1,5 @@
 import { useBreakpointValue } from '@chakra-ui/media-query'
-import { identity, not } from 'ramda'
+import { identity } from 'ramda'
 import { useEffect, useRef, useState } from 'react'
 
 export const useInterval = (cb, delay) => {
@@ -62,5 +62,3 @@ export const useMobileValue = ([mobile, base]) => {
 
   return isMobile ? mobile : base
 }
-
-export const useIsInvalid = value => pattern => not(RegExp(pattern).test(value))
