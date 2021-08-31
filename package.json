@@ -1,6 +1,6 @@
 {
   "name": "alyson",
-  "version": "9.4.0",
+  "version": "9.6.0",
   "private": true,
   "dependencies": {
     "@chakra-ui/react": "^1.6.3",
