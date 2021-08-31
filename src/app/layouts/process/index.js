@@ -1,14 +1,17 @@
 import { useSelector } from 'react-redux'
 import { selectProcess } from 'redux/app/selectors'
-import Lane from 'app/SBE/lane'
 import { Stack, VStack, HStack, Box } from '@chakra-ui/react'
+
+import Lane from 'app/SBE/lane'
 import Search from 'app/SBE/search/Search'
 import { selectCode } from 'redux/db/selectors'
 import Ask from 'app/ASKS/ask'
 import { useIsMobile } from 'utils/hooks'
 import MobileView from './MobileView'
+import getUserType from 'utils/helpers/get-user'
 
 const Process = ({ dashboard }) => {
+  const userType = getUserType()
   const processCodes = useSelector(selectProcess, (prev, next) => prev.length === next.length)
 
   const bucketSearch = useSelector(selectCode('QUE_BUCKET_INTERNS_GRP')) || []
@@ -19,7 +22,7 @@ const Process = ({ dashboard }) => {
   if (!processCodes) return null
   return (
     <VStack align="start" spacing={0} px="5">
-      {!dashboard && (
+      {!dashboard && userType !== 'INTERN' && (
         <HStack mb="5">
           {bucketSearch &&
             bucketSearch.map(childAsk => (
