@@ -1,7 +1,8 @@
+import { useState, useEffect, useRef } from 'react'
 import { Text, useClipboard, useToast, Input } from '@chakra-ui/react'
-import phoneNumberFormatter from 'utils/formatters/phone-number'
-import { useEffect, useRef } from 'react'
 import debounce from 'lodash.debounce'
+
+import phoneNumberFormatter from 'utils/formatters/phone-number'
 import { useMobileValue } from 'utils/hooks'
 import { getIsInvalid } from 'utils/functions'
 
@@ -32,9 +33,11 @@ export const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
     /^(?:\+?(61))? ?(?:\((?=.*\)))?(0?[2-57-8])\)? ?(\d\d(?:[- ](?=\d{3})|(?!\d\d[- ]?\d[- ]))\d\d[- ]?\d[- ]?\d{3})$/,
   )
 
+  const [errorStatus, setErrorStatus] = useState(false)
+  const [userInput, setuserInput] = useState(data?.value)
+
   const inputRef = useRef()
-  const value = data?.value
-  const isInvalid = getIsInvalid(value)(phoneRegex)
+  const isInvalid = getIsInvalid(userInput)(phoneRegex)
 
   useEffect(() => {
     const listener = event => {
@@ -49,6 +52,10 @@ export const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
     }
   }, [])
 
+  useEffect(() => {
+    isInvalid === true ? setErrorStatus(true) : setErrorStatus(false)
+  }, [isInvalid])
+
   const debouncedSendAnswer = debounce(onSendAnswer, 500)
 
   const maxW = useMobileValue(['', '25vw'])
@@ -58,13 +65,14 @@ export const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
       <Input
         test-id={questionCode}
         ref={inputRef}
-        onBlur={e => debouncedSendAnswer(e.target.value)}
+        onBlur={e => !errorStatus && debouncedSendAnswer(e.target.value)}
+        onChange={e => setuserInput(e.target.value)}
         defaultValue={data?.value}
         w="full"
         maxW={maxW}
         isInvalid={isInvalid}
       />
-      {isInvalid && (
+      {errorStatus && (
         <Text textStyle="tail.error" mt={2}>{`Please enter a valid phone number. `}</Text>
       )}
     </>
