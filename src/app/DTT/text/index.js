@@ -5,15 +5,14 @@ import debounce from 'lodash.debounce'
 import { useMobileValue } from 'utils/hooks'
 import DetailViewTags from 'app/DTT/text/detailview_tags'
 import { getIsInvalid } from 'utils/functions'
-import useErrorReducer from 'utils/reducers/ErrorReducer.js'
-import { ACTIONS } from 'utils/reducers/action.js'
+import { useError } from 'utils/contexts/ErrorContext'
+import { ACTIONS } from 'utils/contexts/action'
 
 export const Write = ({ questionCode, data, onSendAnswer }) => {
   // eslint-disable-next-line no-useless-escape
   const textRegex = RegExp(/^[a-zA-Z]*$/)
 
-  const { dispatch } = useErrorReducer()
-
+  const { dispatch } = useError()
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value)
 

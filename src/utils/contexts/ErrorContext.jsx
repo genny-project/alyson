@@ -1,20 +1,34 @@
-import { useState, createContext, useContext } from 'react'
+import { createContext, useContext, useReducer } from 'react'
+
+import { ACTIONS } from 'utils/contexts/action'
+
+const initialState = {
+  text: null,
+  email: null,
+  phone: null,
+}
+
+const errorReducer = (errorState, action) => {
+  switch (action.type) {
+    case ACTIONS.SET_TO_TRUE:
+      return { ...errorState, [action.payload]: true }
+    case ACTIONS.SET_TO_FALSE:
+      return { ...errorState, [action.payload]: false }
+    default:
+      return errorState
+  }
+}
 
 const ErrorContext = createContext()
 
-export const useError = () => useContext(ErrorContext)
-
 const ErrorContextProvider = ({ children }) => {
-  const [textError, setTextError] = useState(false)
-  const [error, setError] = useState({
-    text: false,
-    phone: false,
-    email: false,
-  })
+  const [errorState, dispatch] = useReducer(errorReducer, initialState)
 
-  const value = { error, setError, textError, setTextError }
+  const value = { errorState, dispatch }
 
   return <ErrorContext.Provider value={value}>{children}</ErrorContext.Provider>
 }
 
 export default ErrorContextProvider
+
+export const useError = () => useContext(ErrorContext)

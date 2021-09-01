@@ -4,8 +4,8 @@ import { Box, Input, Text, useClipboard, useToast } from '@chakra-ui/react'
 import { useMobileValue } from 'utils/hooks'
 import { getIsInvalid } from 'utils/functions'
 import Duplicates from './Duplicates'
-import useErrorReducer from 'utils/reducers/ErrorReducer.js'
-import { ACTIONS } from 'utils/reducers/action.js'
+import { useError } from 'utils/contexts/ErrorContext'
+import { ACTIONS } from 'utils/contexts/action'
 
 const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
   // eslint-disable-next-line no-useless-escape
@@ -13,7 +13,8 @@ const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
 
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value)
-  const { dispatch } = useErrorReducer()
+  const { errorState, dispatch } = useError()
+  console.log('email', errorState)
   const isInvalid = getIsInvalid(userInput)(emailRegex)
   const maxW = useMobileValue(['', '25vw'])
 
