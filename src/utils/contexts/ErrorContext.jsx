@@ -5,9 +5,14 @@ const ErrorContext = createContext()
 export const useError = () => useContext(ErrorContext)
 
 const ErrorContextProvider = ({ children }) => {
-  const [error, setError] = useState(false)
+  const [textError, setTextError] = useState(false)
+  const [error, setError] = useState({
+    text: false,
+    phone: false,
+    email: false,
+  })
 
-  const value = { error, setError }
+  const value = { error, setError, textError, setTextError }
 
   return <ErrorContext.Provider value={value}>{children}</ErrorContext.Provider>
 }

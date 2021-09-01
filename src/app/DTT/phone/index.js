@@ -5,6 +5,8 @@ import debounce from 'lodash.debounce'
 import phoneNumberFormatter from 'utils/formatters/phone-number'
 import { useMobileValue } from 'utils/hooks'
 import { getIsInvalid } from 'utils/functions'
+import useErrorReducer from 'utils/reducers/ErrorReducer.js'
+import { ACTIONS } from 'utils/reducers/action.js'
 
 const Read = ({ data, config }) => {
   const { onCopy } = useClipboard(data.value)
@@ -32,10 +34,10 @@ export const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
   const phoneRegex = RegExp(
     /^(?:\+?(61))? ?(?:\((?=.*\)))?(0?[2-57-8])\)? ?(\d\d(?:[- ](?=\d{3})|(?!\d\d[- ]?\d[- ]))\d\d[- ]?\d[- ]?\d{3})$/,
   )
-
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value)
 
+  const { dispatch } = useErrorReducer()
   const inputRef = useRef()
   const isInvalid = getIsInvalid(userInput)(phoneRegex)
 
@@ -55,6 +57,12 @@ export const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
   useEffect(() => {
     isInvalid === true ? setErrorStatus(true) : setErrorStatus(false)
   }, [isInvalid])
+
+  useEffect(() => {
+    isInvalid === true
+      ? dispatch({ type: ACTIONS.SET_TO_TRUE, payload: 'phone' })
+      : dispatch({ type: ACTIONS.SET_TO_FALSE, payload: 'phone' })
+  }, [dispatch, isInvalid])
 
   const debouncedSendAnswer = debounce(onSendAnswer, 500)
 

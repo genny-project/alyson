@@ -11,9 +11,9 @@ import { highlightQuestion } from 'redux/app'
 import { useError } from 'utils/contexts/ErrorContext'
 
 const Submit = ({ askData, onFinish, parentCode }) => {
-  const { questionCode, targetCode, name, disabled: disabledFromBackEnd } = askData
-  const { error } = useError()
-  const disabled = error || disabledFromBackEnd ? true : false
+  const { questionCode, targetCode, name, disabled } = askData
+  // const { error } = useError()
+  // const disabledFinal = error || disabledFromBackEnd ? true : false
 
   const dispatch = useDispatch()
 
