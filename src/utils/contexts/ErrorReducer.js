@@ -4,9 +4,9 @@ export const ACTIONS = {
 }
 
 export const initialState = {
-  text: null,
-  email: null,
-  phone: null,
+  text: false,
+  email: false,
+  phone: false,
 }
 
 export const errorReducer = (errorState, action) => {
