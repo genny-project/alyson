@@ -137,7 +137,7 @@ export const formatDropdownLinks = (
   items: Array<Item>,
   replace: Boolean,
 ) => {
-  const key = `${parentCode}-${questionCode}-dropdowns`
+  const key = `${parentCode}-${questionCode}-options`
 
   initialiseKey(state, key, [])
 

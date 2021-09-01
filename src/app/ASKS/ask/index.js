@@ -212,6 +212,7 @@ const Ask = ({
           data={data}
           mandatory={mandatory}
           regexPattern={regexPattern}
+          parentCode={parentCode}
         />
       )}
       {component === 'text' && (
