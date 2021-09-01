@@ -5,7 +5,7 @@ import { useMobileValue } from 'utils/hooks'
 import { getIsInvalid } from 'utils/functions'
 import Duplicates from './Duplicates'
 import { useError } from 'utils/contexts/ErrorContext'
-import { ACTIONS } from 'utils/contexts/action'
+import { ACTIONS } from 'utils/contexts/ErrorReducer'
 
 const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
   // eslint-disable-next-line no-useless-escape
@@ -13,8 +13,7 @@ const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
 
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value)
-  const { errorState, dispatch } = useError()
-  console.log('email', errorState)
+  const { dispatch } = useError()
   const isInvalid = getIsInvalid(userInput)(emailRegex)
   const maxW = useMobileValue(['', '25vw'])
 

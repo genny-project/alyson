@@ -6,7 +6,7 @@ import phoneNumberFormatter from 'utils/formatters/phone-number'
 import { useMobileValue } from 'utils/hooks'
 import { getIsInvalid } from 'utils/functions'
 import { useError } from 'utils/contexts/ErrorContext'
-import { ACTIONS } from 'utils/contexts/action'
+import { ACTIONS } from 'utils/contexts/ErrorReducer'
 
 const Read = ({ data, config }) => {
   const { onCopy } = useClipboard(data.value)

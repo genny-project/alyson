@@ -6,7 +6,7 @@ import { useMobileValue } from 'utils/hooks'
 import DetailViewTags from 'app/DTT/text/detailview_tags'
 import { getIsInvalid } from 'utils/functions'
 import { useError } from 'utils/contexts/ErrorContext'
-import { ACTIONS } from 'utils/contexts/action'
+import { ACTIONS } from 'utils/contexts/ErrorReducer'
 
 export const Write = ({ questionCode, data, onSendAnswer }) => {
   // eslint-disable-next-line no-useless-escape
