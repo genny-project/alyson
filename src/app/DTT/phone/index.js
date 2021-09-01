@@ -54,15 +54,20 @@ export const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
   const maxW = useMobileValue(['', '25vw'])
 
   return (
-    <Input
-      test-id={questionCode}
-      ref={inputRef}
-      onBlur={e => debouncedSendAnswer(e.target.value)}
-      defaultValue={data?.value}
-      w="full"
-      maxW={maxW}
-      isInvalid={isInvalid}
-    />
+    <>
+      <Input
+        test-id={questionCode}
+        ref={inputRef}
+        onBlur={e => debouncedSendAnswer(e.target.value)}
+        defaultValue={data?.value}
+        w="full"
+        maxW={maxW}
+        isInvalid={isInvalid}
+      />
+      {isInvalid && (
+        <Text textStyle="tail.error" mt={2}>{`Please enter a valid phone number. `}</Text>
+      )}
+    </>
   )
 }
 

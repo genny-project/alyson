@@ -14,16 +14,21 @@ const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
 
   return (
     <Box>
-      <Input
-        test-id={questionCode}
-        defaultValue={data?.value}
-        type="email"
-        onBlur={e => onSendAnswer(e.target.value)}
-        w="full"
-        maxW={maxW}
-        isInvalid={isInvalid}
-      />
-      <Duplicates email={data?.value} sourceCode={data.baseEntityCode} />
+      <>
+        <Input
+          test-id={questionCode}
+          defaultValue={data?.value}
+          type="email"
+          onBlur={e => onSendAnswer(e.target.value)}
+          w="full"
+          maxW={maxW}
+          isInvalid={isInvalid}
+        />
+        {isInvalid && (
+          <Text textStyle="tail.error" mt={2}>{`Please enter a valid email address. `}</Text>
+        )}
+        <Duplicates email={data?.value} sourceCode={data.baseEntityCode} />
+      </>
     </Box>
   )
 }
