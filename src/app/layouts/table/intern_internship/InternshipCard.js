@@ -23,8 +23,8 @@ const InternshipCard = ({ code, parentCode }) => {
     <Card
       _hover={{ boxShadow: '2xl' }}
       cursor="pointer"
-      w={isMobile ? '40vw' : '17rem'}
-      p="3"
+      w={isMobile ? '40vw' : '19rem'}
+      p="4"
       h={'17rem'}
       background={bgColor}
       onClick={() => onSendMessage({ code: 'ACT_PRI_EVENT_VIEW', targetCode: code, parentCode })}
