@@ -10,11 +10,11 @@ export const Write = ({ questionCode, data, onSendAnswer }) => {
   // eslint-disable-next-line no-useless-escape
   const textRegex = RegExp(/^[a-zA-Z]*$/)
 
-  const [showErrorMessage, setShowErrorMessage] = useState(false)
+  const [errorStatus, setErrorStatus] = useState(false)
+  const [userInput, setuserInput] = useState(data?.value)
 
   const inputRef = useRef()
-  const value = data?.value
-  const isInvalid = getIsInvalid(value)(textRegex)
+  const isInvalid = getIsInvalid(userInput)(textRegex)
 
   useEffect(() => {
     const listener = event => {
@@ -30,7 +30,7 @@ export const Write = ({ questionCode, data, onSendAnswer }) => {
   }, [])
 
   useEffect(() => {
-    isInvalid === true ? setShowErrorMessage(true) : setShowErrorMessage(false)
+    isInvalid === true ? setErrorStatus(true) : setErrorStatus(false)
   }, [isInvalid])
 
   const debouncedSendAnswer = debounce(onSendAnswer, 500)
@@ -42,13 +42,14 @@ export const Write = ({ questionCode, data, onSendAnswer }) => {
       <Input
         test-id={questionCode}
         ref={inputRef}
-        onBlur={e => debouncedSendAnswer(e.target.value)}
+        onBlur={e => !errorStatus && debouncedSendAnswer(e.target.value)}
+        onChange={e => setuserInput(e.target.value)}
         defaultValue={data?.value}
         w="full"
         maxW={maxW}
         isInvalid={isInvalid}
       />
-      {showErrorMessage && (
+      {errorStatus && (
         <ChakraText textStyle="tail.error" mt={2}>{`You can only enter alphabets.`}</ChakraText>
       )}
     </>
