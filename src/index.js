@@ -9,6 +9,7 @@ import { Fonts } from 'config/fonts'
 import Loading from 'keycloak/loading'
 // import LogRocket from 'logrocket'
 import Error from 'error'
+import ErrorContext from 'utils/contexts/ErrorContext'
 
 // LogRocket.init('put your logrocket identifier to use')
 
@@ -23,7 +24,9 @@ const initialiseApp = async () => {
           <Fonts />
           <ColorModeScript initialColorMode={theme.config.initialColorMode} />
           <ReactKeycloakProvider authClient={keycloak} LoadingComponent={<Loading />}>
-            <App />
+            <ErrorContext>
+              <App />
+            </ErrorContext>
           </ReactKeycloakProvider>
         </ChakraProvider>
       </React.StrictMode>,

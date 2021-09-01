@@ -5,6 +5,7 @@ import debounce from 'lodash.debounce'
 import { useMobileValue } from 'utils/hooks'
 import DetailViewTags from 'app/DTT/text/detailview_tags'
 import { getIsInvalid } from 'utils/functions'
+import { useError } from 'utils/contexts/ErrorContext'
 
 export const Write = ({ questionCode, data, onSendAnswer }) => {
   // eslint-disable-next-line no-useless-escape
@@ -12,6 +13,8 @@ export const Write = ({ questionCode, data, onSendAnswer }) => {
 
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value)
+
+  const { setError } = useError()
 
   const inputRef = useRef()
   const isInvalid = getIsInvalid(userInput)(textRegex)
@@ -32,6 +35,10 @@ export const Write = ({ questionCode, data, onSendAnswer }) => {
   useEffect(() => {
     isInvalid === true ? setErrorStatus(true) : setErrorStatus(false)
   }, [isInvalid])
+
+  useEffect(() => {
+    isInvalid === true ? setError(true) : setError(false)
+  }, [isInvalid, setError])
 
   const debouncedSendAnswer = debounce(onSendAnswer, 500)
 
