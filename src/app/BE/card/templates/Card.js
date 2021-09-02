@@ -62,6 +62,7 @@ const DefaultCard = ({ parentCode, actions = [], code, columns }) => {
                 config={{
                   as: 'span',
                   textStyle: 'body.3',
+                  maxW: '10rem',
                 }}
                 data={subTitle}
               />
