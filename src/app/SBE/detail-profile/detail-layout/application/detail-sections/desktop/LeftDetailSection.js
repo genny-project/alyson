@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux'
 import { map } from 'ramda'
 import { VStack, HStack, Box, Text } from '@chakra-ui/layout'
 import { useColorModeValue } from '@chakra-ui/color-mode'
@@ -8,7 +9,6 @@ import { LeftDetailAttributesApplication } from 'app/SBE/detail-profile/detail-l
 import 'app/layouts/components/css/hide-scroll.css'
 import Attribute from 'app/BE/attribute'
 import { selectCode } from 'redux/db/selectors'
-import { useSelector } from 'react-redux'
 
 const LeftDetail = ({ beCode, sbeCode }) => {
   const cardBg = useColorModeValue('gray.200', 'gray.600')
@@ -16,7 +16,6 @@ const LeftDetail = ({ beCode, sbeCode }) => {
   const supervisorName = useSelector(
     selectCode(beCode, '_LNK_INTERNSHIP__LNK_INTERN_SUPERVISOR__PRI_NAME'),
   )?.value
-  console.log('internName====>', supervisorName)
 
   return (
     <Box
