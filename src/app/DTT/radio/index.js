@@ -20,7 +20,11 @@ const Write = ({ questionCode, data, onSendAnswer, groupCode, parentCode }) => {
           map(
             option =>
               option && (
-                <CRadio key={option.value} test-id={option.value} value={option.value}>
+                <CRadio
+                  key={option.value}
+                  test-id={`${option.value}-${parentCode}`}
+                  value={option.value}
+                >
                   {option.label}
                 </CRadio>
               ),

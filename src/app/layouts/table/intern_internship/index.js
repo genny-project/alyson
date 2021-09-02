@@ -31,7 +31,7 @@ const InternInternshipSearch = ({ sbeCode }) => {
           </Stack>
         </VStack>
       </Center>
-      <Grid templateColumns={isMobile ? 'repeat(2, 1fr)' : 'repeat(5, 1fr)'} gap={6}>
+      <Grid templateColumns={isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)'} gap={8}>
         {rows.map(code => (
           <WrapItem key={code}>
             <InternshipCard code={code} parentCode={sbeCode} />

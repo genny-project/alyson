@@ -2,7 +2,7 @@ import timeZone from 'utils/helpers/timezone_magic/time-zone-from-browser'
 
 const userLocale = navigator.language || navigator.languages[0]
 
-const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Nov', 'Dec']
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
 const timeBasedOnTimeZone = (
   date: Date,
