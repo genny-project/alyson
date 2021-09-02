@@ -7,9 +7,16 @@ import DetailActions from 'app/SBE/detail-profile/detail-layout/application/temp
 import { LeftDetailAttributesApplication } from 'app/SBE/detail-profile/detail-layout/application/templates/AttributesList.js'
 import 'app/layouts/components/css/hide-scroll.css'
 import Attribute from 'app/BE/attribute'
+import { selectCode } from 'redux/db/selectors'
+import { useSelector } from 'react-redux'
 
 const LeftDetail = ({ beCode, sbeCode }) => {
   const cardBg = useColorModeValue('gray.200', 'gray.600')
+
+  const supervisorName = useSelector(
+    selectCode(beCode, '_LNK_INTERNSHIP__LNK_INTERN_SUPERVISOR__PRI_NAME'),
+  )?.value
+  console.log('internName====>', supervisorName)
 
   return (
     <Box
@@ -60,21 +67,23 @@ const LeftDetail = ({ beCode, sbeCode }) => {
           </HStack>
         </VStack>
         <DetailActions beCode={beCode} sbeCode={sbeCode} />
-        <VStack align="start" spacing={4}>
-          <Text textStyle="body.1">{`Supervisor Details:`}</Text>
-          <VStack align="start" spacing={2}>
-            {map(({ icon, attr, attrSecond, attrOptional, config }) => (
-              <ShowIconIfNotEmpty
-                icon={icon}
-                attr={attr}
-                attrOptional={attrOptional}
-                attrSecond={attrSecond}
-                config={config}
-                beCode={beCode}
-              />
-            ))(LeftDetailAttributesApplication)}
+        {!!supervisorName && (
+          <VStack align="start" spacing={4}>
+            <Text textStyle="body.1">{`Supervisor Details:`}</Text>
+            <VStack align="start" spacing={2}>
+              {map(({ icon, attr, attrSecond, attrOptional, config }) => (
+                <ShowIconIfNotEmpty
+                  icon={icon}
+                  attr={attr}
+                  attrOptional={attrOptional}
+                  attrSecond={attrSecond}
+                  config={config}
+                  beCode={beCode}
+                />
+              ))(LeftDetailAttributesApplication)}
+            </VStack>
           </VStack>
-        </VStack>
+        )}
         <VStack align="start">
           <Text textStyle="body.1">{`Agent associated with the Intern:`}</Text>
           <HStack>
