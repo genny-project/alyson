@@ -55,7 +55,7 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
           <Button
             test-id={questionCode + '-clear'}
             onClick={() => {
-              setStartVideo(false)
+              setStartVideo(true)
               onSendAnswer()
             }}
           >
