@@ -7,6 +7,7 @@ import { useMobileValue } from 'utils/hooks'
 import { getIsInvalid } from 'utils/functions'
 import { useError } from 'utils/contexts/ErrorContext'
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
+import InputMask from 'react-input-mask'
 
 const Read = ({ data, config }) => {
   const { onCopy } = useClipboard(data.value)
@@ -72,6 +73,8 @@ export const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
     <>
       <Input
         test-id={questionCode}
+        as={InputMask}
+        mask="9999999999"
         ref={inputRef}
         onBlur={e => !errorStatus && debouncedSendAnswer(e.target.value)}
         onChange={e => setuserInput(e.target.value)}
