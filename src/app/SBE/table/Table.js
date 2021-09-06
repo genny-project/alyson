@@ -27,8 +27,8 @@ const DataTable = ({ parentCode }) => {
 
   return (
     <Box mx="5">
-      <VStack align="start">
-        <Stack align="end" spacing="3" direction={isMobile ? 'column' : 'row'}>
+      <HStack align="start" mb="4">
+        <Stack align="end" spacing="7" direction={isMobile ? 'column' : 'row'}>
           <Title sbeCode={parentCode} />
           <Search sbeCode={parentCode} />
           <Filters sbeCode={parentCode} />
@@ -48,9 +48,9 @@ const DataTable = ({ parentCode }) => {
             ))}
           </HStack>
         )}
-      </VStack>
+      </HStack>
 
-      <Table variant="simple" bg={bgColor} borderRadius="md" shadow="xs">
+      <Table variant="simple" bg={bgColor} borderRadius="md" shadow="xs" size="sm">
         <Header columns={columns} parentCode={parentCode} actions={actions} />
         <Body columns={columns} parentCode={parentCode} actions={actions} />
       </Table>

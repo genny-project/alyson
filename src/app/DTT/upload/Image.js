@@ -85,6 +85,7 @@ const Read = ({ code, data, parentCode, variant, config }) => {
         bg={bg}
         color="white"
         icon={<FontAwesomeIcon icon={faUserAlt} />}
+        size="sm"
       />
     )
   return (
@@ -94,6 +95,7 @@ const Read = ({ code, data, parentCode, variant, config }) => {
       cursor="pointer"
       onClick={viewDetail}
       src={src}
+      size="sm"
     />
   )
 }
