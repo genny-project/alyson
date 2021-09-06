@@ -5,7 +5,7 @@ import getColumns from '../utils/get-columns'
 import getActions, { getTableActions } from '../utils/get-actions'
 import { selectCode } from 'redux/db/selectors'
 import Search from 'app/SBE/search/Search'
-import Footer from './Footer'
+import Pagination from './Pagination'
 import Body from './Body'
 import Title from './Title'
 import Filters from '../filters'
@@ -34,6 +34,8 @@ const DataTable = ({ parentCode }) => {
           <Filters sbeCode={parentCode} />
           <Download sbeCode={parentCode} />
         </Stack>
+        <Pagination sbeCode={parentCode} />
+
         {tableActions && (
           <HStack>
             {tableActions.map(action => (
@@ -52,7 +54,6 @@ const DataTable = ({ parentCode }) => {
       <Table variant="simple" bg={bgColor} borderRadius="md" shadow="xs">
         <Header columns={columns} parentCode={parentCode} actions={actions} />
         <Body columns={columns} parentCode={parentCode} actions={actions} />
-        <Footer sbeCode={parentCode} />
       </Table>
     </Box>
   )
