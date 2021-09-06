@@ -31,7 +31,7 @@ const labels = {
   QUE_AGENCY_MENU: 'Agency',
   QUE_AGENT_MENU: 'Agent',
   QUE_PERSON_MENU: 'Person',
-  QUE_DRAFTS_GRP: 'Notifications',
+  QUE_DRAFTS_GRP: 'Drafts',
 }
 
 export default labels
