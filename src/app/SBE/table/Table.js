@@ -27,7 +27,7 @@ const DataTable = ({ parentCode }) => {
 
   return (
     <Box mx="5">
-      <VStack align="start" mb="3">
+      <VStack align="start">
         <Stack align="end" spacing="3" direction={isMobile ? 'column' : 'row'}>
           <Title sbeCode={parentCode} />
           <Search sbeCode={parentCode} />
@@ -35,7 +35,6 @@ const DataTable = ({ parentCode }) => {
           <Download sbeCode={parentCode} />
         </Stack>
         <Pagination sbeCode={parentCode} />
-
         {tableActions && (
           <HStack>
             {tableActions.map(action => (
