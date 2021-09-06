@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux'
-import { Table, HStack, VStack, useColorModeValue, Box, Stack } from '@chakra-ui/react'
+import { Table, HStack, useColorModeValue, Box, Stack } from '@chakra-ui/react'
 import Header from './Header'
 import getColumns from '../utils/get-columns'
 import getActions, { getTableActions } from '../utils/get-actions'
