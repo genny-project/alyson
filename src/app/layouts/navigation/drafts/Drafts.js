@@ -8,8 +8,8 @@ import { selectCode } from 'redux/db/selectors'
 import getUserType from 'utils/helpers/get-user-type'
 import { useIsMobile } from 'utils/hooks'
 import icons from 'utils/icons'
-import labels from 'utils/labels'
 import Draft from './Draft'
+import { useGetLabel } from 'utils/hooks'
 
 const DRAFT_GROUP = 'QUE_DRAFTS_GRP'
 
@@ -19,6 +19,8 @@ const Drafts = () => {
   const drafts = (useSelector(selectCode(DRAFT_GROUP)) || []).filter(
     code => code.indexOf('TASK') !== -1,
   )
+
+  const label = useGetLabel(DRAFT_GROUP)
 
   const isMobile = useIsMobile()
 
@@ -47,7 +49,7 @@ const Drafts = () => {
           {!isMobile && (
             <HStack spacing={1}>
               <Text fontSize="xs" textStyle="tail.2">
-                {labels[DRAFT_GROUP]}
+                {label}
               </Text>
               <FontAwesomeIcon icon={faCaretDown} />
             </HStack>
