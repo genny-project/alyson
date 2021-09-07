@@ -34,7 +34,6 @@ export const internshipDetails = {
       config: { detailViewTags: true },
     },
     { attr: 'PRI_ASSOC_INDUSTRY', label: 'Industry', config: { detailViewTags: true } },
-    { attr: 'PRI_WORKSITE', label: 'Internship Type' },
     { attr: 'PRI_INTERNSHIP_START_DATE', label: 'Internship Active from' },
     {
       attr: 'PRI_WHICH_DAYS_STRIPPED',
@@ -63,11 +62,6 @@ export const internshipDetails = {
       attr: 'PRI_BASE_LEARNING_OUTCOMES',
       label: 'Expected Technical & Industry Specific Learning Outcomes',
       config: { px: '0px', noOfLines: 5 },
-    },
-    {
-      attr: 'PRI_SOFTWARE',
-      label: 'Software used during the internship',
-      config: { detailViewTags: true },
     },
   ],
 }

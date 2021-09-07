@@ -51,12 +51,6 @@ export const InternshipDetailsSection = ({ beCode }) => {
                 />
               </VStack>
             </GridItem>
-            <GridItem rowSpan={1} colSpan={1}>
-              <VStack align="start">
-                <Text textStyle="tail.2">{`Internship Type`}</Text>
-                <Attribute code={beCode} attribute={`PRI_WORKSITE`} />
-              </VStack>
-            </GridItem>
             <GridItem rowSpan={2} colSpan={2}>
               <VStack align="start">
                 <Text textStyle="tail.2">{`Roles & Responsibilities`}</Text>
@@ -123,16 +117,6 @@ export const InternshipDetailsSection = ({ beCode }) => {
               <VStack align="start">
                 <Text textStyle="tail.2">{`Available Positions`}</Text>
                 <Attribute code={beCode} attribute={`PRI_ASSOC_NUM_INTERNS`} />
-              </VStack>
-            </GridItem>
-            <GridItem rowSpan={1} colSpan={3}>
-              <VStack align="start">
-                <Text textStyle="tail.2">{`Software used during the internship`}</Text>
-                <Attribute
-                  code={beCode}
-                  attribute={`PRI_SOFTWARE`}
-                  config={{ detailViewTags: true }}
-                />
               </VStack>
             </GridItem>
           </Grid>
