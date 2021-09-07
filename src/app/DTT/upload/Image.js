@@ -58,7 +58,7 @@ const Write = ({ questionCode, data, openDropzone, onSendAnswer, handleSave, set
 
 const Read = ({ code, data, parentCode, variant, config }) => {
   const { getImageSrc } = useApi()
-  const src = getImageSrc(data?.value)
+  const src = getImageSrc(data?.value, { height: '500', width: '500' })
 
   const name = useSelector(selectCode(data?.baseEntityCode, 'PRI_NAME'))
   const assocName = useSelector(selectCode(data?.baseEntityCode, 'PRI_INTERN_NAME'))

@@ -2,7 +2,7 @@ import { useOutsideClick } from '@chakra-ui/hooks'
 import { HStack, Text, VStack } from '@chakra-ui/layout'
 import { CircularProgress } from '@chakra-ui/progress'
 import Card from 'app/layouts/components/card'
-import { dec, inc } from 'ramda'
+import { dec, inc, isEmpty } from 'ramda'
 import { useEffect, useRef, useState } from 'react'
 import { useHotkeys } from 'react-hotkeys-hook'
 import { useIsMobile, useMobileValue } from 'utils/hooks'
@@ -82,7 +82,7 @@ const ItemsForAutocomplete = ({
               setOpen={setOpen}
             />
           ))
-        ) : searching ? null : userType === 'AGENT' || userType === 'ADMIN' ? (
+        ) : searching ? null : (userType === 'AGENT' || userType === 'ADMIN') && isEmpty(input) ? (
           <Text
             p="3"
             cursor="pointer"

@@ -42,7 +42,7 @@ const Display = () => {
         overflow="scroll"
       >
         <Navigation />
-        <Box paddingTop="6rem">
+        <Box paddingTop="5.5rem">
           {/* <Timeout /> */}
           {display === 'DASHBOARD' && <Dashboard />}
           {display === 'TABLE' && <Table />}
