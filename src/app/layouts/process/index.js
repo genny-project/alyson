@@ -23,7 +23,7 @@ const Process = ({ dashboard }) => {
               </Box>
             ))}
           <Search
-            placeholder={'Search all attributes'}
+            placeholder={'Global Search'}
             process={processCodes[0]}
             sbeCode={JSON.stringify(processCodes)}
           />

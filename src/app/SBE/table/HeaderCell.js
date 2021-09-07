@@ -13,7 +13,7 @@ const Cell = ({ attribute, parentCode }) => {
   return (
     <Th>
       <HStack>
-        <Text>{data?.attributeName}</Text>
+        <Text textStyle="tail.1">{data?.attributeName}</Text>
         <IconButton
           hidden={!sort}
           variant="ghost"
