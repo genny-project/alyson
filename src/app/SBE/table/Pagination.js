@@ -14,6 +14,9 @@ const TableFooter = ({ sbeCode }) => {
   const totalResults = useSelector(selectCode(sbeCode, 'PRI_TOTAL_RESULTS'))
   const pageNumber = useSelector(selectCode(sbeCode, 'PRI_INDEX'))
 
+  const intitalItemIndex = pageSize.value * pageStart.value + 1
+  const fintalItemIndex = intitalItemIndex + pageSize.value - 1
+
   useHotkeys('shift+left', paginationActions().previous)
   useHotkeys('shift+right', paginationActions().next)
 
@@ -25,7 +28,7 @@ const TableFooter = ({ sbeCode }) => {
 
   return totalPages > 1 ? (
     <HStack w="100%" justify="flex-end">
-      <Text textStyle="body.2">{`page ${pageNumber.value} of ${totalPages}`}</Text>
+      <Text textStyle="body.2">{`${intitalItemIndex} - ${fintalItemIndex} of ${totalResults.value}`}</Text>
       <IconButton
         onClick={paginationActions().previous}
         isDisabled={!hasPrevPage}
