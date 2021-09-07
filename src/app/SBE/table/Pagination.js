@@ -37,7 +37,6 @@ const TableFooter = ({ sbeCode }) => {
       />
       <IconButton
         onClick={paginationActions().next}
-        //onClick={console.log(pageSize)}
         isDisabled={!hasNextPage}
         icon={<FontAwesomeIcon icon={faChevronRight} />}
         size="sm"
