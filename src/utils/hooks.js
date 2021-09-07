@@ -1,6 +1,8 @@
 import { useBreakpointValue } from '@chakra-ui/media-query'
 import { identity } from 'ramda'
 import { useEffect, useRef, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { selectCode } from 'redux/db/selectors'
 
 export const useInterval = (cb, delay) => {
   const savedCb = useRef()
@@ -62,3 +64,5 @@ export const useMobileValue = ([mobile, base]) => {
 
   return isMobile ? mobile : base
 }
+
+export const useGetLabel = questionGroup => useSelector(selectCode(`${questionGroup}@title`))
