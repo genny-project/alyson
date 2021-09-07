@@ -58,8 +58,9 @@ const useApi = () => {
 
   const getImageSrc = (uuid, dim) =>
     uuid
-      ? `${IMAGE_URL}/50/${dim ? `${dim.width}x${dim.height || ''},fit/` : ''}${MEDIA_URL}/${uuid}`
+      ? `${IMAGE_URL}/${dim ? `${dim.width}x${dim.height || ''},fit/` : ''}${MEDIA_URL}/${uuid}`
       : null
+
   const getSrc = uuid => (uuid ? `${MEDIA_URL}/${uuid}` : null)
 
   const getVideoSrc = uuid => (uuid ? `${VIDEO_URL}/${uuid}` : null)
