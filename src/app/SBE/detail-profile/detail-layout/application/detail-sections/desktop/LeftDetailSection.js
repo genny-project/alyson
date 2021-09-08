@@ -52,7 +52,7 @@ const LeftDetail = ({ beCode, sbeCode }) => {
           <Text>{`has applied for`}</Text>
           <Attribute
             code={beCode}
-            attribute={`_LNK_INTERNSHIP__LNK_OCCUPATION__PRI_NAME`}
+            attribute={`_LNK_INTERNSHIP__PRI_NAME`}
             config={{ detailViewTags: true }}
           />
           <HStack spacing={2}>
