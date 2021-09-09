@@ -24,7 +24,7 @@ const TableFooter = ({ sbeCode }) => {
   const totalPages = Math.ceil(totalResults.value / pageSize.value)
 
   return totalPages > 1 ? (
-    <HStack w="100%" justify="flex-end">
+    <HStack>
       <Text textStyle="body.2">{`${pageStart.value + 1} - ${pageStart.value + pageSize.value} of ${
         totalResults.value
       }`}</Text>
