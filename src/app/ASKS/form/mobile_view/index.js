@@ -7,7 +7,7 @@ import FormBody from '../template/Body'
 const FormMobileView = ({ title, childAsks, onFinish, questionCode, config }) => {
   if (!config.groups)
     return (
-      <Box>
+      <Box mx="4vw">
         <Text w="full" textAlign="center" textStyle="head.1" my="3">
           {title}
         </Text>
