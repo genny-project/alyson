@@ -27,7 +27,7 @@ const DataTable = ({ parentCode }) => {
 
   return (
     <Box mx="5">
-      <HStack align="start" mb="3" justify="space-between">
+      <HStack align="flex-end" mb="3" justify="space-between">
         <Stack align="end" spacing="7" direction={isMobile ? 'column' : 'row'}>
           <Title sbeCode={parentCode} />
           <Search sbeCode={parentCode} />
