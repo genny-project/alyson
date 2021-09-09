@@ -25,9 +25,9 @@ const Pagination = ({ sbeCode }) => {
 
   return totalPages > 1 ? (
     <HStack justify="flex-end" align="flex-end">
-      <Text textStyle="body.2">{`${pageStart.value + 1} - ${pageStart.value + pageSize.value} of ${
-        totalResults.value
-      }`}</Text>
+      <Text textStyle="body.2" w="max-content">{`${pageStart.value + 1} - ${
+        pageStart.value + pageSize.value
+      } of ${totalResults.value}`}</Text>
       <IconButton
         onClick={paginationActions().previous}
         isDisabled={!hasPrevPage}

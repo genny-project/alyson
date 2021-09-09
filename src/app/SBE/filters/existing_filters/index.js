@@ -10,7 +10,7 @@ const ExistingFilters = ({ existingFilters }) => {
 
   return (
     <HStack align="flex-start">
-      <Wrap w="30vw">
+      <Wrap w="25vw">
         {existingFilters.childAsks.map(
           ({ sourceCode, targetCode, question: { name, attributeCode, code } }) => (
             <WrapItem>
