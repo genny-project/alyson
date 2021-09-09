@@ -25,6 +25,23 @@ export const LeftDetailAttributesApplication = [
   },
 ]
 
+export const LeftDetailAttributesApplicationIntern = [
+  {
+    icon: faUserFriends,
+    attr: '_LNK_INTERNSHIP__LNK_INTERN_SUPERVISOR__PRI_FIRSTNAME',
+    attrSecond: '_LNK_INTERNSHIP__LNK_INTERN_SUPERVISOR__PRI_LINKEDIN_URL',
+    attrOptional: '_LNK_INTERNSHIP__LNK_INTERN_SUPERVISOR__PRI_IMAGE_URL',
+  },
+  { icon: faBriefcase, attr: '_LNK_INTERNSHIP__LNK_INTERN_SUPERVISOR__PRI_JOB_TITLE' },
+  { icon: faEnvelope, attr: '_LNK_INTERNSHIP__LNK_INTERN_SUPERVISOR__PRI_EMAIL' },
+  { icon: faPhoneAlt, attr: '_LNK_INTERNSHIP__LNK_INTERN_SUPERVISOR__PRI_MOBILE' },
+  {
+    icon: faAlignLeft,
+    attr: '_LNK_INTERNSHIP__LNK_INTERN_SUPERVISOR__PRI_BIO',
+    config: { px: '0px', noOfLines: 3, w: 'full' },
+  },
+]
+
 export const internshipDetails = {
   header: 'Internship Details',
   icon: <FontAwesomeIcon size="lg" icon={faBriefcase} />,

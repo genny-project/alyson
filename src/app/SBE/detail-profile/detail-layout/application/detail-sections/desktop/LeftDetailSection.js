@@ -5,17 +5,22 @@ import { useColorModeValue } from '@chakra-ui/color-mode'
 import ShowIconIfNotEmpty from 'app/SBE/detail-profile/ShowIconIfNotEmpty.js'
 
 import DetailActions from 'app/SBE/detail-profile/detail-layout/application/templates/Actions.js'
-import { LeftDetailAttributesApplication } from 'app/SBE/detail-profile/detail-layout/application/templates/AttributesList.js'
+import {
+  LeftDetailAttributesApplication,
+  LeftDetailAttributesApplicationIntern,
+} from 'app/SBE/detail-profile/detail-layout/application/templates/AttributesList.js'
 import 'app/layouts/components/css/hide-scroll.css'
 import Attribute from 'app/BE/attribute'
 import { selectCode } from 'redux/db/selectors'
+import getUserType from 'utils/helpers/get-user-type'
 
 const LeftDetail = ({ beCode, sbeCode }) => {
   const cardBg = useColorModeValue('gray.200', 'gray.600')
 
-  const supervisorName = useSelector(
-    selectCode(beCode, '_LNK_INTERNSHIP__LNK_INTERN_SUPERVISOR__PRI_NAME'),
-  )?.value
+  const userCode = useSelector(selectCode('USER'))
+  const userType = getUserType(useSelector(selectCode(userCode)))
+
+  console.log('userTypes', { userType })
 
   return (
     <Box
@@ -52,7 +57,7 @@ const LeftDetail = ({ beCode, sbeCode }) => {
           <Text>{`has applied for`}</Text>
           <Attribute
             code={beCode}
-            attribute={`_LNK_INTERNSHIP__LNK_OCCUPATION__PRI_NAME`}
+            attribute={`_LNK_INTERNSHIP__PRI_NAME`}
             config={{ detailViewTags: true }}
           />
           <HStack spacing={2}>
@@ -66,23 +71,26 @@ const LeftDetail = ({ beCode, sbeCode }) => {
           </HStack>
         </VStack>
         <DetailActions beCode={beCode} sbeCode={sbeCode} />
-        {!!supervisorName && (
-          <VStack align="start" spacing={4}>
-            <Text textStyle="body.1">{`Supervisor Details:`}</Text>
-            <VStack align="start" spacing={2}>
-              {map(({ icon, attr, attrSecond, attrOptional, config }) => (
-                <ShowIconIfNotEmpty
-                  icon={icon}
-                  attr={attr}
-                  attrOptional={attrOptional}
-                  attrSecond={attrSecond}
-                  config={config}
-                  beCode={beCode}
-                />
-              ))(LeftDetailAttributesApplication)}
-            </VStack>
+        <VStack align="start" spacing={4}>
+          <Text textStyle="body.1">{`Supervisor Details:`}</Text>
+          <VStack align="start" spacing={2}>
+            {map(({ icon, attr, attrSecond, attrOptional, config }) => (
+              <ShowIconIfNotEmpty
+                icon={icon}
+                attr={attr}
+                attrOptional={attrOptional}
+                attrSecond={attrSecond}
+                config={config}
+                beCode={beCode}
+              />
+            ))(
+              userType === 'INTERN'
+                ? LeftDetailAttributesApplicationIntern
+                : LeftDetailAttributesApplication,
+            )}
           </VStack>
-        )}
+        </VStack>
+        )
         <VStack align="start">
           <Text textStyle="body.1">{`Agent associated with the Intern:`}</Text>
           <HStack>
