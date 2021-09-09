@@ -138,7 +138,12 @@ const Write = ({ questionCode, data, dttData, onSendAnswer, video }) => {
           </Button>
         )}
         {dropzone && (
-          <DropZone video={video} handleSave={handleSave} closeDropzone={closeDropzone} />
+          <DropZone
+            video={video}
+            handleSave={handleSave}
+            closeDropzone={closeDropzone}
+            questionCode={questionCode}
+          />
         )}
       </div>
       <div hidden={!loading}>
