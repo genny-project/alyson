@@ -3,7 +3,7 @@ import { useDropzone } from 'react-dropzone'
 import { Box, Flex, Text, Input, Button, Center, Image, useToast } from '@chakra-ui/react'
 import { isEmpty, map, pathOr, compose, includes, split } from 'ramda'
 
-const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 1 }) => {
+const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 1, questionCode }) => {
   const [files, setFiles] = useState([])
   const toast = useToast()
   const checkIfImage = compose(includes('image'), split('/'))
@@ -73,17 +73,23 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 1 }) => {
         <Center>
           <Text>{`Drag 'n' drop some files here, or click to select files`}</Text>
         </Center>
-        <Input {...getInputProps()} />
+        <Input {...getInputProps()} test-id={questionCode} />
       </Box>
       <Flex direction="row" mt="1">
         {preview}
       </Flex>
       <Flex justify="flex-end">
-        <Button mr="2" variant="ghost" onClick={closeDropzone}>{`Cancel`}</Button>
+        <Button
+          mr="2"
+          variant="ghost"
+          onClick={closeDropzone}
+          test-id={`${questionCode}-CANCEL`}
+        >{`Cancel`}</Button>
         <Button
           variant="solid"
           isDisabled={!!isEmpty(files)}
           onClick={() => handleSave(files)}
+          test-id={`${questionCode}-SUBMIT`}
         >{`Submit`}</Button>
       </Flex>
     </Flex>

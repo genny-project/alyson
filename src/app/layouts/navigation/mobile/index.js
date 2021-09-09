@@ -76,6 +76,11 @@ const MobileNav = () => {
             </Box>
             <Spacer />
             <HStack spacing={5}>
+              <AskMenu
+                onClose={onClose}
+                questionCode={'QUE_ADD_ITEMS_GRP'}
+                icon={<Button leftIcon={<FontAwesomeIcon icon={faPlus} />}>Add</Button>}
+              />
               <Drafts />
               <Avatar />
             </HStack>
@@ -94,11 +99,6 @@ const MobileNav = () => {
             <DrawerCloseButton />
             <DrawerHeader>
               <HStack spacing="5">
-                <AskMenu
-                  onClose={onClose}
-                  questionCode={'QUE_ADD_ITEMS_GRP'}
-                  icon={<Button leftIcon={<FontAwesomeIcon icon={faPlus} />}>Add</Button>}
-                />
                 {!caps(userType)(hideQuickAdd) && (
                   <AskMenu
                     onClose={onClose}

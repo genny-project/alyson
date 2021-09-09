@@ -6,9 +6,11 @@ import icons from 'utils/icons'
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
 import sendAskClick from '../utils/send-ask-click'
 import labels from 'utils/labels'
+import { useIsMobile } from 'utils/hooks'
 
 const AsksMenu = ({ questionCode }) => {
   const data = useSelector(selectCode(questionCode))
+  const isMobile = useIsMobile()
 
   if (!data?.length) return null
 
@@ -17,10 +19,12 @@ const AsksMenu = ({ questionCode }) => {
       <MenuButton opacity={0.8} _hover={{ opacity: 1 }} test-id={questionCode}>
         <VStack color="grey" test-id={questionCode}>
           <FontAwesomeIcon size="lg" icon={icons[questionCode]} />
-          <HStack spacing={1}>
-            <Text fontSize="xs">{labels[questionCode]}</Text>
-            <FontAwesomeIcon icon={faCaretDown} />
-          </HStack>
+          {!isMobile && (
+            <HStack spacing={1}>
+              <Text fontSize="xs">{labels[questionCode]}</Text>
+              <FontAwesomeIcon icon={faCaretDown} />
+            </HStack>
+          )}
         </VStack>
       </MenuButton>
       <MenuList>
