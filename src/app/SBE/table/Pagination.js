@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { useHotkeys } from 'react-hotkeys-hook'
 
-const TableFooter = ({ sbeCode }) => {
+const Pagination = ({ sbeCode }) => {
   const paginationActions = useCallback(() => getPaginationActions(sbeCode), [sbeCode])
   const pageSize = useSelector(selectCode(sbeCode, 'SCH_PAGE_SIZE'))
   const pageStart = useSelector(selectCode(sbeCode, 'SCH_PAGE_START'))
@@ -24,7 +24,7 @@ const TableFooter = ({ sbeCode }) => {
   const totalPages = Math.ceil(totalResults.value / pageSize.value)
 
   return totalPages > 1 ? (
-    <HStack>
+    <HStack justify="flex-end">
       <Text textStyle="body.2">{`${pageStart.value + 1} - ${pageStart.value + pageSize.value} of ${
         totalResults.value
       }`}</Text>
@@ -46,4 +46,4 @@ const TableFooter = ({ sbeCode }) => {
   ) : null
 }
 
-export default TableFooter
+export default Pagination

@@ -34,7 +34,7 @@ const DataTable = ({ parentCode }) => {
           <Filters sbeCode={parentCode} />
           <Download sbeCode={parentCode} />
         </Stack>
-        {tableActions ? (
+        {tableActions && (
           <HStack>
             {tableActions.map(action => (
               <Action
@@ -46,8 +46,6 @@ const DataTable = ({ parentCode }) => {
               />
             ))}
           </HStack>
-        ) : (
-          <div hidden />
         )}
         <Pagination sbeCode={parentCode} />
       </HStack>
