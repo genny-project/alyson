@@ -144,6 +144,7 @@ const Ask = ({
       borderRadius="md"
       p={highlightedQuestion === attributeCode ? '3' : ''}
       transition="all 0.5s"
+      minH="82px"
     >
       <HStack justify="space-between" display={noLabel ? 'none' : 'flex'} w={labelWidth}>
         <FormLabel id={attributeCode}>{name}</FormLabel>
