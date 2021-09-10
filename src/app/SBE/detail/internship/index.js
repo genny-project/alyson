@@ -12,7 +12,7 @@ const internshipDetail = {
   attributes: [
     { attr: 'PRI_STATUS' },
     { attr: 'PRI_ASSOC_INDUSTRY', label: 'Industry' },
-    { attr: 'PRI_WORKSITE', label: 'Onsite/Remote' },
+    { attr: '_LNK_WORKSITE_SELECT__PRI_NAME', label: 'Onsite/Remote' },
     { attr: 'PRI_INTERNSHIP_START_DATE', label: 'Start Date' },
     { attr: 'PRI_WHICH_DAYS_STRIPPED', label: 'Days of Week' },
     { attr: 'PRI_DRESS_CODE', label: 'Dress Code' },
@@ -46,7 +46,7 @@ const specOutcomes = {
 const software = {
   icon: <FontAwesomeIcon size="lg" icon={faCompactDisc} />,
   header: 'Software',
-  attributes: [{ attr: 'PRI_SOFTWARE' }],
+  attributes: [{ attr: '_LNK_SOFTWARE__PRI_NAME' }],
 }
 
 const Internship = ({ sbeCode, targetCode }) => {
