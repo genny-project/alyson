@@ -3,19 +3,19 @@ export const ACTIONS = {
   SET_TO_FALSE: 'setFalse',
 }
 
-export const initialState = {
-  text: false,
-  email: false,
-  phone: false,
-}
+export const initialState = {}
 
-export const errorReducer = (errorState, action) => {
-  switch (action.type) {
-    case ACTIONS.SET_TO_TRUE:
-      return { ...errorState, [action.payload]: true }
-    case ACTIONS.SET_TO_FALSE:
-      return { ...errorState, [action.payload]: false }
-    default:
-      return errorState
+export const errorReducer = (errorState, { type, payload }) => {
+  if (!errorState[payload]) {
+    errorState[payload] = false
   }
+
+  if (type === ACTIONS.SET_TO_TRUE) {
+    return { ...errorState, [payload]: true }
+  }
+  if (type === ACTIONS.SET_TO_FALSE) {
+    return { ...errorState, [payload]: false }
+  }
+
+  return errorState
 }

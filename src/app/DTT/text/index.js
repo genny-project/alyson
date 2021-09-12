@@ -38,9 +38,9 @@ export const Write = ({ questionCode, data, onSendAnswer }) => {
 
   useEffect(() => {
     isInvalid === true
-      ? dispatch({ type: ACTIONS.SET_TO_TRUE, payload: 'text' })
-      : dispatch({ type: ACTIONS.SET_TO_FALSE, payload: 'text' })
-  }, [dispatch, isInvalid])
+      ? dispatch({ type: ACTIONS.SET_TO_TRUE, payload: questionCode })
+      : dispatch({ type: ACTIONS.SET_TO_FALSE, payload: questionCode })
+  }, [dispatch, isInvalid, questionCode])
 
   const debouncedSendAnswer = debounce(onSendAnswer, 500)
 

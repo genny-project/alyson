@@ -23,9 +23,9 @@ const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
 
   useEffect(() => {
     isInvalid === true
-      ? dispatch({ type: ACTIONS.SET_TO_TRUE, payload: 'email' })
-      : dispatch({ type: ACTIONS.SET_TO_FALSE, payload: 'email' })
-  }, [dispatch, isInvalid])
+      ? dispatch({ type: ACTIONS.SET_TO_TRUE, payload: questionCode })
+      : dispatch({ type: ACTIONS.SET_TO_FALSE, payload: questionCode })
+  }, [dispatch, isInvalid, questionCode])
 
   return (
     <Box>
