@@ -25,6 +25,7 @@ import { useMobileValue } from 'utils/hooks'
 import ItemsForAutocomplete from './Items'
 import { selectBufferDropdownOptions } from 'redux/app/selectors'
 import { bufferDropdownOption } from 'redux/app'
+import { render } from '@testing-library/react'
 
 const Autocomplete = ({
   multiple,
@@ -63,12 +64,16 @@ const Autocomplete = ({
     setBufferDropdownOption(getUniqueValuesFromTwoArrays(getBufferedDropdownOptions)(options))
     setOpen(not)
   }
+
+  var [items, setItems] = useState([])
+
   const onInputChange = ({ target: { value } }) => {
     setSearching(true)
     ddEvent(value)
     setOpen(!!value)
     setInput(value)
   }
+
   const onSelectChange = option => {
     const newSelected = includes(option, selected)
       ? filter(item => item !== option, selected)
@@ -77,6 +82,11 @@ const Autocomplete = ({
     onChange(newSelected)
 
     if (!multiple) setOpen(false)
+    var i = renderLabel(option)
+
+    if (i) {
+      setItems([...items, i])
+    }
   }
 
   const createNew = () => {
@@ -100,6 +110,36 @@ const Autocomplete = ({
 
   const maxW = useMobileValue(['', '25vw'])
 
+  var renderOptions = items.map(item => (
+    <WrapItem key={item}>
+      <Chip test-id={item} onClick={() => onSelectChange(item)} p="2">
+        {item}
+      </Chip>
+    </WrapItem>
+  ))
+
+  if (selected.length > 0 && items.length != 0) {
+    setItems([])
+    renderOptions = items.map(item => (
+      <WrapItem key={item}>
+        <Chip test-id={item} onClick={() => onSelectChange(item)} p="2">
+          {renderLabel(item)}
+        </Chip>
+      </WrapItem>
+    ))
+  } else {
+    if (items.length == 0) {
+      renderOptions = selected.map(item => (
+        <WrapItem key={item}>
+          <Chip test-id={item} onClick={() => onSelectChange(item)} p="2">
+            {renderLabel(item)}
+          </Chip>
+        </WrapItem>
+      ))
+    }
+  }
+
+  //display={selected.length ? 'block' : 'none'}
   return (
     <Box
       onFocus={() => {
@@ -113,15 +153,9 @@ const Autocomplete = ({
       maxW={maxW}
       test-id={`${questionCode}-div`}
     >
-      <Box pb="2" display={selected.length ? 'block' : 'none'}>
+      <Box pb="2">
         <Wrap w="full" maxW={maxW}>
-          {selected.map(item => (
-            <WrapItem key={item}>
-              <Chip test-id={item} onClick={() => onSelectChange(item)} p="2">
-                {renderLabel(item)}
-              </Chip>
-            </WrapItem>
-          ))}
+          {renderOptions}
         </Wrap>
       </Box>
       <InputGroup display={!multiple && selected.length ? 'none' : 'block'} w="full">
