@@ -25,7 +25,6 @@ import { useMobileValue } from 'utils/hooks'
 import ItemsForAutocomplete from './Items'
 import { selectBufferDropdownOptions } from 'redux/app/selectors'
 import { bufferDropdownOption } from 'redux/app'
-import { render } from '@testing-library/react'
 
 const Autocomplete = ({
   multiple,
@@ -118,7 +117,7 @@ const Autocomplete = ({
     </WrapItem>
   ))
 
-  if (selected.length > 0 && items.length != 0) {
+  if (selected.length > 0 && items.length !== 0) {
     setItems([])
     renderOptions = items.map(item => (
       <WrapItem key={item}>
@@ -128,7 +127,7 @@ const Autocomplete = ({
       </WrapItem>
     ))
   } else {
-    if (items.length == 0) {
+    if (items.length === 0) {
       renderOptions = selected.map(item => (
         <WrapItem key={item}>
           <Chip test-id={item} onClick={() => onSelectChange(item)} p="2">
