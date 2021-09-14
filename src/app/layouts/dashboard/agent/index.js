@@ -12,7 +12,7 @@ import { selectCode } from 'redux/db/selectors'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { head } from 'ramda'
 import Attribute from 'app/BE/attribute'
-import Search from 'app/layouts/navigation/Search'
+import Search from 'app/SBE/search/Search'
 import Button from 'app/layouts/components/button'
 
 const Agent = () => {
@@ -45,7 +45,7 @@ const Agent = () => {
           {dashboardSbes.slice(1, Infinity).map(sbeCode => (
             <DisplaySbe key={sbeCode} sbeCode={sbeCode} />
           ))}
-          <Search />
+          <Search sbeCode={dashboardSbes} />
         </VStack>
       </Card>
       <AgentDashboardSummary />

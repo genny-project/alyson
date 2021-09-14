@@ -15,8 +15,9 @@ import { onSendSearch } from 'vertx'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 
-const ProcessSearch = ({ sbeCode, process, placeholder }) => {
+const ProcessSearch = ({ sbeCode, process, placeholder = 'Global Search' }) => {
   const [searchValue, setSearchValue] = useState('')
+  const [clear, setClear] = useState(false)
   const inputRef = useRef(null)
   const clearRef = useRef(null)
 
@@ -26,11 +27,13 @@ const ProcessSearch = ({ sbeCode, process, placeholder }) => {
     e.preventDefault()
     onSendSearch({ searchValue, sbeCode, searchType: '!' })
     inputRef.current.blur()
+    setClear(true)
   }
 
   const handleClear = () => {
     onSendSearch({ searchType: '!', searchValue: '', sbeCode })
     setSearchValue('')
+    setClear(false)
   }
 
   useHotkeys('ctrl+k, cmd+k', () => {
@@ -74,7 +77,7 @@ const ProcessSearch = ({ sbeCode, process, placeholder }) => {
       >
         Search
       </Button>
-      {search && (
+      {clear && (
         <Button
           onClick={handleClear}
           leftIcon={<FontAwesomeIcon icon={faTimes} />}
