@@ -20,8 +20,6 @@ const LeftDetail = ({ beCode, sbeCode }) => {
   const userCode = useSelector(selectCode('USER'))
   const userType = getUserType(useSelector(selectCode(userCode)))
 
-  console.log('userTypes', { userType })
-
   return (
     <Box
       bg={cardBg}
