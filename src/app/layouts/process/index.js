@@ -26,11 +26,7 @@ const Process = ({ dashboard }) => {
                 <Ask noLabel questionCode={childAsk} parentCode={'QUE_BUCKET_INTERNS_GRP'} />
               </Box>
             ))}
-          <Search
-            placeholder={'Global Search'}
-            process={processCodes[0]}
-            sbeCode={JSON.stringify(processCodes)}
-          />
+          <Search process={processCodes[0]} sbeCode={JSON.stringify(processCodes)} />
         </HStack>
       )}
 
