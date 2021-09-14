@@ -15,7 +15,6 @@ const Player = ({ src }) => {
       poster="/video-intro.png"
     >
       <source src={finalSrc} />
-      {/* <source src="https://mdn.github.io/learning-area/html/multimedia-and-embedding/video-and-audio-content/rabbit320.mp4" /> */}
     </video>
   )
 }
