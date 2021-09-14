@@ -1,11 +1,9 @@
-import { split } from 'ramda'
+import { compose, split, reduce } from 'ramda'
 
 const Player = ({ src }) => {
-  const splittedSource = split('/video')(src)
-  const headSrc = splittedSource[0]
-  const tailSrc = splittedSource[1]
-  const finalSrc = `${headSrc}${tailSrc}`
-  console.log('finalsrc', { finalSrc })
+  const getValue = reduce((acc, value) => acc + value, '')
+  const final = compose(getValue, split('/video'))(src)
+
   return (
     <video
       style={{ maxHeight: '340px', minWidth: '340px' }}
@@ -14,7 +12,7 @@ const Player = ({ src }) => {
       muted
       poster="/video-intro.png"
     >
-      <source src={finalSrc} />
+      <source src={final} />
     </video>
   )
 }
