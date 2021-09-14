@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 import { selectTable } from 'redux/app/selectors'
 import Table from 'app/SBE/table/Table'
-import MapSearch from 'app/SBE/display_modes/map_search'
+import MapSearch from 'app/SBE/display_modes/map_view'
 import { selectCode } from 'redux/db/selectors'
 import getUserType from 'utils/helpers/get-user-type'
 import { includes } from 'ramda'
