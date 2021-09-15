@@ -48,10 +48,16 @@ const onSendFilter = ({ value, attributeCode, targetCode, sourceCode, type, weig
     sourceCode,
   })
 
-const onSendSearch = ({ searchValue, searchType = '', sbeCode, code = 'QUE_SEARCH' }) =>
+const onSendSearch = ({
+  searchValue,
+  searchType = '',
+  sbeCode,
+  code = 'QUE_SEARCH',
+  attributeCode = 'PRI_SEARCH_TEXT',
+}) =>
   onSendAnswer({
     askId: 272,
-    attributeCode: 'PRI_SEARCH_TEXT',
+    attributeCode: attributeCode,
     code: code,
     identifier: 'QUE_SEARCH',
     weight: 1,

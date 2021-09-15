@@ -25,7 +25,12 @@ const ProcessSearch = ({ sbeCode, process, placeholder = 'Dashboard Search' }) =
 
   const handleSubmit = e => {
     e.preventDefault()
-    onSendSearch({ searchValue, searchType: '!', code: 'ACT_SEARCH_DASHBOARD' })
+    onSendSearch({
+      searchValue,
+      searchType: '!',
+      code: 'ACT_SEARCH_DASHBOARD',
+      attributeCode: 'PRI_DASHBOARD_SEARCH_TEXT',
+    })
     inputRef.current.blur()
     setClear(true)
   }
