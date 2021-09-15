@@ -12,6 +12,7 @@ import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import getUserType from 'utils/helpers/get-user-type'
 import { caps, hideQuickAdd } from 'config/caps'
+import { useGetRealm } from 'utils/hooks'
 
 const DesktopNav = ({ logoSrc }) => {
   const theme = useTheme()
@@ -22,6 +23,9 @@ const DesktopNav = ({ logoSrc }) => {
   const userType = getUserType(useSelector(selectCode(userCode)))
 
   const btnRef = useRef()
+  const realm = useGetRealm()
+
+  const logoWidth = realm === 'mentormatch' ? '240px' : realm === 'internmatch' ? '55px' : '55px'
 
   return (
     <header
@@ -43,12 +47,11 @@ const DesktopNav = ({ logoSrc }) => {
           <Box cursor="pointer" px={8}>
             {apiConfig && (
               <Box
-                w="55px"
                 onClick={() =>
                   onSendMessage({ code: 'QUE_DASHBOARD_VIEW', parentCode: 'QUE_DASHBOARD_VIEW' })
                 }
               >
-                <Image ref={btnRef} src={'/favicon.png'} />
+                <Image ref={btnRef} src={logoSrc} htmlWidth={logoWidth} />
               </Box>
             )}
           </Box>

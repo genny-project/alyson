@@ -30,8 +30,9 @@ import { caps, hideQuickAdd } from 'config/caps'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import getUserType from 'utils/helpers/get-user-type'
+import { useGetRealm } from 'utils/hooks'
 
-const MobileNav = () => {
+const MobileNav = ({ logoSrc }) => {
   const theme = useTheme()
   const bg = useColorModeValue(theme.colors.background.light, theme.colors.primary[900])
   const color = useColorModeValue(theme.colors.text.light, theme.colors.text.dark)
@@ -41,6 +42,9 @@ const MobileNav = () => {
 
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = useRef()
+  const realm = useGetRealm()
+
+  const logoWidth = realm === 'mentormatch' ? '180px' : realm === 'internmatch' ? '45px' : '45px'
 
   return (
     <>
@@ -63,14 +67,15 @@ const MobileNav = () => {
             <IconButton color="gray.600" onClick={onOpen} variant="ghost">
               <FontAwesomeIcon icon={faBars} />
             </IconButton>
-            <Box mx={5} w="45px">
+            <Box mx={5} alignItems="center" m="auto">
               {apiConfig && (
                 <Image
                   onClick={() =>
                     onSendMessage({ code: 'QUE_DASHBOARD_VIEW', parentCode: 'QUE_DASHBOARD_VIEW' })
                   }
                   ref={btnRef}
-                  src={'/favicon.png'}
+                  src={logoSrc}
+                  htmlWidth={logoWidth}
                 />
               )}
             </Box>
