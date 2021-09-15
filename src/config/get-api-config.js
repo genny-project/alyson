@@ -24,6 +24,7 @@ const getApiConfig = async () => {
   })
 
   apiConfig = response.data
+  console.log('%c API CONFIG', 'color: tomato font-size: 25px', apiConfig)
 
   /* Log Rocket */
   if (process.env.NODE_ENV !== 'development') {

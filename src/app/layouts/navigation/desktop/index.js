@@ -48,7 +48,7 @@ const DesktopNav = ({ logoSrc }) => {
                   onSendMessage({ code: 'QUE_DASHBOARD_VIEW', parentCode: 'QUE_DASHBOARD_VIEW' })
                 }
               >
-                <Image ref={btnRef} src={'/favicon.png'} />
+                <Image ref={btnRef} src={logoSrc} />
               </Box>
             )}
           </Box>

@@ -31,7 +31,7 @@ import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import getUserType from 'utils/helpers/get-user-type'
 
-const MobileNav = () => {
+const MobileNav = ({ logoSrc }) => {
   const theme = useTheme()
   const bg = useColorModeValue(theme.colors.background.light, theme.colors.primary[900])
   const color = useColorModeValue(theme.colors.text.light, theme.colors.text.dark)
@@ -70,7 +70,7 @@ const MobileNav = () => {
                     onSendMessage({ code: 'QUE_DASHBOARD_VIEW', parentCode: 'QUE_DASHBOARD_VIEW' })
                   }
                   ref={btnRef}
-                  src={'/favicon.png'}
+                  src={logoSrc}
                 />
               )}
             </Box>

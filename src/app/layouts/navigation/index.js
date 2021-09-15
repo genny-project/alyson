@@ -1,13 +1,16 @@
-import { useColorModeValue } from '@chakra-ui/react'
 import { useIsMobile } from 'utils/hooks'
+import { apiConfig } from 'config/get-api-config'
 
 import MobileNav from './mobile'
 import DesktopNav from './desktop'
 
-const getLogo = lightMode => (lightMode ? '/logo512.png' : '/internmatch_logo_dark.png')
-
 const Navigation = () => {
-  const logoSrc = useColorModeValue(getLogo(true), getLogo())
+  const logoSrc =
+    apiConfig.realm === 'internmatch'
+      ? '/favicon.png'
+      : apiConfig.realm === 'mentormatch'
+      ? '/logo.png'
+      : ''
   const isMobile = useIsMobile()
 
   return isMobile ? <MobileNav logoSrc={logoSrc} /> : <DesktopNav logoSrc={logoSrc} />
