@@ -11,6 +11,10 @@ import Agent from './agent'
 import Process from '../process'
 import EduProRep from './edu_pro_rep'
 import Progress from './intern/progress'
+import MenteeDashboard from './mentee'
+import AgentDashboard from './agent'
+import MentorDashboard from './mentor'
+
 const Dashboard = () => {
   const dashboardSbes = useSelector(selectDashboard)
   const dashboardCounts = useSelector(selectDashboardCounts)
@@ -23,6 +27,10 @@ const Dashboard = () => {
   if (userType === 'INTERN') return <Intern userCode={userCode} />
   if (userType === 'AGENT' || userType === 'ADMIN') return <Agent userCode={userCode} />
   if (userType === 'EDU_PRO_REP') return <EduProRep userCode={userCode} />
+  if (userType === 'MENTOR') return <MentorDashboard />
+  if (userType === 'MENTEE') return <MenteeDashboard />
+  if (userType === 'AGENT' || userType === 'MENTORADMIN') return <AgentDashboard />
+
   return (
     <Center>
       <Stack direction="column" spacing="10" h="84vh">
