@@ -10,6 +10,7 @@ import { useIsMobile } from 'utils/hooks'
 
 const AsksMenu = ({ questionCode }) => {
   const data = useSelector(selectCode(questionCode))
+
   const isMobile = useIsMobile()
 
   if (!data?.length) return null
@@ -28,7 +29,7 @@ const AsksMenu = ({ questionCode }) => {
         </VStack>
       </MenuButton>
       <MenuList>
-        {data.map(childAsk => (
+        {data?.map(childAsk => (
           <MenuItem
             onClick={() => {
               sendAskClick(questionCode, childAsk)
