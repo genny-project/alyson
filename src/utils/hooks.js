@@ -3,6 +3,7 @@ import { identity } from 'ramda'
 import { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
+import { apiConfig } from 'config/get-api-config'
 
 export const useInterval = (cb, delay) => {
   const savedCb = useRef()
@@ -66,3 +67,5 @@ export const useMobileValue = ([mobile, base]) => {
 }
 
 export const useGetLabel = questionGroup => useSelector(selectCode(`${questionGroup}@title`))
+
+export const useGetRealm = () => apiConfig.realm
