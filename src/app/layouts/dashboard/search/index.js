@@ -28,7 +28,6 @@ const ProcessSearch = ({ sbeCode, process, placeholder = 'Dashboard Search' }) =
     onSendSearch({
       searchValue,
       searchType: '!',
-      code: 'ACT_SEARCH_DASHBOARD',
       attributeCode: 'PRI_DASHBOARD_SEARCH_TEXT',
     })
     inputRef.current.blur()
