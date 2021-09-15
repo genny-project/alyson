@@ -3,15 +3,19 @@ import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 
 const Title = ({ sbeCode }) => {
-  const title = useSelector(selectCode(sbeCode, 'SCH_TITLE'))
-  const total = useSelector(selectCode(sbeCode, 'PRI_TOTAL_RESULTS'))
+  const title = useSelector(selectCode(sbeCode, 'SCH_TITLE'))?.value
+  const total = useSelector(selectCode(sbeCode, 'PRI_TOTAL_RESULTS'))?.value
 
   return (
     <Flex w="full">
       <Spacer />
-      <Text textStyle="head.2">{title?.value}</Text>
+      <Text textStyle="head.2" test-id={`Process-${title}`}>
+        {title}
+      </Text>
       <Spacer />
-      <Text textStyle="head.3">{total?.value}</Text>
+      <Text textStyle="head.3" test-id={`Process-${title}-Count`}>
+        {total}
+      </Text>
       <Spacer />
     </Flex>
   )
