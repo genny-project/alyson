@@ -14,6 +14,7 @@ import { useHotkeys } from 'react-hotkeys-hook'
 import { onSendSearch } from 'vertx'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
+import { onSendMessage } from 'vertx'
 
 const ProcessSearch = ({ sbeCode, process, placeholder = 'Dashboard Search' }) => {
   const [searchValue, setSearchValue] = useState('')
@@ -25,11 +26,7 @@ const ProcessSearch = ({ sbeCode, process, placeholder = 'Dashboard Search' }) =
 
   const handleSubmit = e => {
     e.preventDefault()
-    onSendSearch({
-      searchValue,
-      searchType: '!',
-      attributeCode: 'PRI_DASHBOARD_SEARCH_TEXT',
-    })
+    onSendMessage({ code: 'ACT_SEARCH_DASHBOARD', value: searchValue })
     inputRef.current.blur()
     setClear(true)
   }
