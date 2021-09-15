@@ -10,10 +10,15 @@ import MyInternship from './display_modes/my_internship'
 import MyEducationProvider from './display_modes/my_education_provider'
 import OurEduProReps from './display_modes/edu_pro_reps'
 import Agents from './display_modes/agents'
+import MentorAgent from './display_modes/agents'
+import Mentors from './display_modes/mentors'
+import Mentees from './display_modes/mentees'
+import { useGetRealm } from 'utils/hooks'
 
 const DisplaySbe = ({ sbeCode }) => {
   const displayMode = useSelector(selectCode(sbeCode, 'SCH_DISPLAY_MODE'))
   const rows = useSelector(selectRows(sbeCode))
+  const realm = useGetRealm()
 
   if (!rows || !displayMode) return null
 
@@ -35,7 +40,14 @@ const DisplaySbe = ({ sbeCode }) => {
       {displayMode.value === 'edu_pro_summary_count' && (
         <DashboardSearch sbeCode={sbeCode} rows={rows} />
       )}
-      {displayMode.value === 'agents' && <Agents sbeCode={sbeCode} rows={rows} />}
+      {displayMode.value === 'agents' && realm === 'mentormatch' && (
+        <MentorAgent sbeCode={sbeCode} rows={rows} />
+      )}
+      {displayMode.value === 'agents' && realm !== 'mentormatch' && (
+        <Agents sbeCode={sbeCode} rows={rows} />
+      )}
+      {displayMode.value === 'our_mentees' && <Mentees sbeCode={sbeCode} rows={rows} />}
+      {displayMode.value === 'our_mentors' && <Mentors sbeCode={sbeCode} />}
     </div>
   )
 }
