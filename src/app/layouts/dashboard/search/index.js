@@ -15,8 +15,9 @@ import { onSendSearch } from 'vertx'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 
-const ProcessSearch = ({ sbeCode, process, placeholder }) => {
+const ProcessSearch = ({ sbeCode, process, placeholder = 'Dashboard Search' }) => {
   const [searchValue, setSearchValue] = useState('')
+  const [clear, setClear] = useState(false)
   const inputRef = useRef(null)
   const clearRef = useRef(null)
 
@@ -24,13 +25,15 @@ const ProcessSearch = ({ sbeCode, process, placeholder }) => {
 
   const handleSubmit = e => {
     e.preventDefault()
-    onSendSearch({ searchValue, sbeCode, searchType: '!' })
+    onSendSearch({ searchValue, searchType: '!', code: 'ACT_SEARCH_DASHBOARD' })
     inputRef.current.blur()
+    setClear(true)
   }
 
   const handleClear = () => {
     onSendSearch({ searchType: '!', searchValue: '', sbeCode })
     setSearchValue('')
+    setClear(false)
   }
 
   useHotkeys('ctrl+k, cmd+k', () => {
@@ -72,15 +75,15 @@ const ProcessSearch = ({ sbeCode, process, placeholder }) => {
         colorScheme="primary"
         test-id={`process-view-search`}
       >
-        Search
+        {`Search`}
       </Button>
-      {search && (
+      {clear && (
         <Button
           onClick={handleClear}
           leftIcon={<FontAwesomeIcon icon={faTimes} />}
           colorScheme="secondary"
         >
-          Clear Search
+          {`Clear Search`}
         </Button>
       )}
     </Stack>
