@@ -12,7 +12,7 @@ import { selectCode } from 'redux/db/selectors'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { head } from 'ramda'
 import Attribute from 'app/BE/attribute'
-import Search from 'app/SBE/search/Search'
+import Search from 'app/layouts/dashboard/search'
 import Button from 'app/layouts/components/button'
 
 const Agent = () => {
