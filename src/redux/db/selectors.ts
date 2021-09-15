@@ -1,7 +1,7 @@
 import { RootState } from 'redux/types'
 import { map, keys } from 'ramda'
 
-export const selectCode = (code: string, childCode: string) => (state: RootState) =>
+export const selectCode = (code: string, childCode: string) => (state: RootState): any =>
   state.db[childCode ? `${code}@${childCode}` : code]
 
 export const selectRows = (code: string) => (state: RootState) => state.db[`${code}@rows`] || []
