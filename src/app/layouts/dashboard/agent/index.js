@@ -14,12 +14,15 @@ import { head } from 'ramda'
 import Attribute from 'app/BE/attribute'
 import Search from 'app/layouts/dashboard/search'
 import Button from 'app/layouts/components/button'
+import getFilteredDashboardSbes from 'app/layouts/dashboard/helpers/get-filtered-sbes.ts'
 
 const Agent = () => {
   const dashboardSbes = useSelector(selectDashboard) || []
 
   const userCode = useSelector(selectCode('USER'))
   const agency = head(safelyParseJson(useSelector(selectCode(userCode, 'LNK_AGENCY'))?.value, ['']))
+
+  const filteredDashboardSbes = getFilteredDashboardSbes(dashboardSbes)
 
   return (
     <VStack spacing={4}>
@@ -42,7 +45,7 @@ const Agent = () => {
           </Button>
           <Attribute config={{ size: 'xl' }} code={agency} attribute="PRI_IMAGE_URL" />
           <DisplaySbe sbeCode={dashboardSbes[0]} />
-          {dashboardSbes.slice(1, Infinity).map(sbeCode => (
+          {filteredDashboardSbes.slice(1, Infinity).map(sbeCode => (
             <DisplaySbe key={sbeCode} sbeCode={sbeCode} />
           ))}
           <Search sbeCode={dashboardSbes} />
