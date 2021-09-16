@@ -1,10 +1,13 @@
 import { useRef, useEffect, useState } from 'react'
 import { Box } from '@chakra-ui/react'
 import Pins from './Pins'
+import { useIsMobile } from 'utils/hooks'
 
 const Map = ({ parentCode }) => {
   const mapRef = useRef(null)
   const [gMap, setGMap] = useState(null)
+
+  const isMobile = useIsMobile()
 
   useEffect(() => {
     if (!gMap) {
@@ -29,7 +32,14 @@ const Map = ({ parentCode }) => {
   }, [gMap, parentCode])
 
   return (
-    <Box zIndex="base" position="absolute" left="14vh" right="0" top="0" bottom="0">
+    <Box
+      zIndex="base"
+      position="absolute"
+      left={isMobile ? '1vw' : '30vw'}
+      right="0"
+      top="0"
+      bottom="0"
+    >
       <div style={{ borderRadius: '1rem', width: '100%', height: '100%' }} ref={mapRef} id="map" />
       <Pins gMap={gMap} parentCode={parentCode} />
     </Box>
