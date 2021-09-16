@@ -14,7 +14,7 @@ const Title = ({ sbeCode }: { sbeCode: string }): ReactElement => {
         {title}
       </Text>
       <Spacer />
-      <Text textStyle="head.3" test-id={`Process-${total}-Count`}>
+      <Text textStyle="head.3" test-id={`Process-${title}-Count`}>
         {total}
       </Text>
       <Spacer />
