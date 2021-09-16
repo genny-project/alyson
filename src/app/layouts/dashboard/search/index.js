@@ -18,7 +18,6 @@ import { onSendMessage } from 'vertx'
 
 const ProcessSearch = ({ sbeCode, process, placeholder = 'Dashboard Search' }) => {
   const [searchValue, setSearchValue] = useState('')
-  const [clear, setClear] = useState(false)
   const inputRef = useRef(null)
   const clearRef = useRef(null)
 
@@ -28,13 +27,11 @@ const ProcessSearch = ({ sbeCode, process, placeholder = 'Dashboard Search' }) =
     e.preventDefault()
     onSendMessage({ code: 'ACT_SEARCH_DASHBOARD', value: searchValue })
     inputRef.current.blur()
-    setClear(true)
   }
 
   const handleClear = () => {
     onSendSearch({ searchType: '!', searchValue: '', sbeCode })
     setSearchValue('')
-    setClear(false)
   }
 
   useHotkeys('ctrl+k, cmd+k', () => {
@@ -78,15 +75,6 @@ const ProcessSearch = ({ sbeCode, process, placeholder = 'Dashboard Search' }) =
       >
         {`Search`}
       </Button>
-      {clear && (
-        <Button
-          onClick={handleClear}
-          leftIcon={<FontAwesomeIcon icon={faTimes} />}
-          colorScheme="secondary"
-        >
-          {`Clear Search`}
-        </Button>
-      )}
     </Stack>
   )
 }

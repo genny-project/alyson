@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux'
 import { selectDashboard } from 'redux/app/selectors'
 import DisplaySbe from 'app/SBE'
 import { VStack } from '@chakra-ui/react'
+import { includes, reduce } from 'ramda'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBolt, faColumns } from '@fortawesome/free-solid-svg-icons'
@@ -20,6 +21,11 @@ const Agent = () => {
 
   const userCode = useSelector(selectCode('USER'))
   const agency = head(safelyParseJson(useSelector(selectCode(userCode, 'LNK_AGENCY'))?.value, ['']))
+
+  const filteredDashboardSbes = reduce(
+    (acc, value) => (acc = includes('APPLICATION')(value) ? acc : acc?.concat(value)),
+    [],
+  )(dashboardSbes)
 
   return (
     <VStack spacing={4}>
@@ -42,7 +48,7 @@ const Agent = () => {
           </Button>
           <Attribute config={{ size: 'xl' }} code={agency} attribute="PRI_IMAGE_URL" />
           <DisplaySbe sbeCode={dashboardSbes[0]} />
-          {dashboardSbes.slice(1, Infinity).map(sbeCode => (
+          {filteredDashboardSbes.slice(1, Infinity).map(sbeCode => (
             <DisplaySbe key={sbeCode} sbeCode={sbeCode} />
           ))}
           <Search sbeCode={dashboardSbes} />
