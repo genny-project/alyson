@@ -27,7 +27,7 @@ const Agent = () => {
   return (
     <VStack spacing={4}>
       <Card>
-        <VStack spacing={10} w={['xs', 'md']}>
+        <VStack spacing={5} w={['xs', 'md']}>
           <Button
             variant="special"
             onClick={() =>
@@ -41,10 +41,9 @@ const Agent = () => {
             size="lg"
             w="full"
           >
-            Process View
+            {`Process View`}
           </Button>
           <Attribute config={{ size: 'xl' }} code={agency} attribute="PRI_IMAGE_URL" />
-          <DisplaySbe sbeCode={dashboardSbes[0]} />
           {filteredDashboardSbes.slice(1, Infinity).map(sbeCode => (
             <DisplaySbe key={sbeCode} sbeCode={sbeCode} />
           ))}
