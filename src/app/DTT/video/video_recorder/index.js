@@ -29,20 +29,35 @@ const VideoRecorder = ({ setData, config, setStartVideo }) => {
   const onCanPlay = () => videoRef.current.play()
 
   const onStartCapture = useCallback(() => {
+    alert(' start of onStartCapture')
+
     setCapturing(true)
     setRecordedChunks([])
     recorderRef.current = new MediaRecorder(stream, { mimeType: 'video/webm' })
 
     recorderRef.current.ondataavailable = ({ data }) => {
+      alert(' start of recordref')
+
       if (data.size > 0) {
+        alert(' inside data one')
+
         setRecordedChunks(prev => [...prev, data])
+
+        alert(' inside data two')
       }
     }
+    alert(' record ref previous')
+
     recorderRef.current.onerror = setError
+
+    alert(' record ref after')
+
     try {
-      alert('start capture')
+      alert(' success start')
       recorderRef.current.start()
     } catch (err) {
+      alert(' error start')
+
       setError(err)
     }
   }, [stream])
