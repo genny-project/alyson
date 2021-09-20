@@ -30,6 +30,7 @@ const VideoRecorder = ({ setData, config, setStartVideo }) => {
     setCapturing(true)
     setRecordedChunks([])
     recorderRef.current = new MediaRecorder(stream, { mimeType: 'video/webm' })
+
     recorderRef.current.ondataavailable = ({ data }) => {
       if (data.size > 0) {
         setRecordedChunks(prev => [...prev, data])
@@ -37,16 +38,26 @@ const VideoRecorder = ({ setData, config, setStartVideo }) => {
     }
     recorderRef.current.onerror = setError
     try {
+      alert('start capture')
       recorderRef.current.start()
     } catch (err) {
       setError(err)
     }
   }, [stream])
 
+  console.log('%c Previous', 'font-size: 25px; color:tomato', {
+    capturing,
+    videoRef,
+    recorderRef,
+    recordedChunks,
+  })
+
   const onStopCapture = useCallback(() => {
     try {
       recorderRef.current.stop()
       setCapturing(false)
+      console.log('%c TRIGGERED HERE', 'font-size: 25px; color:yellow')
+      alert('stop capture')
     } catch (err) {
       setCapturing(false)
     }
