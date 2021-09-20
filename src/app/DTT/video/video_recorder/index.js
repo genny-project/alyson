@@ -70,6 +70,8 @@ const VideoRecorder = ({ setData, config, setStartVideo }) => {
     recordedChunks,
   })
 
+  alert('outside')
+
   const onStopCapture = useCallback(() => {
     try {
       recorderRef.current.stop()
