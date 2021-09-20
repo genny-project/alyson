@@ -9,7 +9,7 @@ const Player = ({ src }: { src: string }): ReactElement => {
       muted
       poster="/video-intro.png"
     >
-      <source src={src} />
+      <source src={src} type="video/mp4" />
     </video>
   )
 }
