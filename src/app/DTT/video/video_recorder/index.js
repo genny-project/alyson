@@ -11,8 +11,6 @@ const CAPTURE_OPTIONS = {
 }
 
 const VideoRecorder = ({ setData, config, setStartVideo }) => {
-  alert('start of the file')
-
   const videoRef = useRef()
   const recorderRef = useRef()
 
@@ -29,55 +27,26 @@ const VideoRecorder = ({ setData, config, setStartVideo }) => {
   const onCanPlay = () => videoRef.current.play()
 
   const onStartCapture = useCallback(() => {
-    alert(' start of onStartCapture')
-
     setCapturing(true)
     setRecordedChunks([])
-    recorderRef.current = new MediaRecorder(stream, { mimeType: 'video/webm;codecs=h264' })
-    alert(' start of onStartCapture 2')
-
+    recorderRef.current = new MediaRecorder(stream, { mimeType: 'video/mp4' })
     recorderRef.current.ondataavailable = ({ data }) => {
-      alert(' start of recordref')
-
       if (data.size > 0) {
-        alert(' inside data one')
-
         setRecordedChunks(prev => [...prev, data])
-
-        alert(' inside data two')
       }
     }
-    alert(' record ref previous')
-
     recorderRef.current.onerror = setError
-
-    alert(' record ref after')
-
     try {
-      alert(' success start')
       recorderRef.current.start()
     } catch (err) {
-      alert(' error start')
-
       setError(err)
     }
   }, [stream])
-
-  console.log('%c Previous', 'font-size: 25px; color:tomato', {
-    capturing,
-    videoRef,
-    recorderRef,
-    recordedChunks,
-  })
-
-  alert('outside')
 
   const onStopCapture = useCallback(() => {
     try {
       recorderRef.current.stop()
       setCapturing(false)
-      console.log('%c TRIGGERED HERE', 'font-size: 25px; color:yellow')
-      alert('stop capture')
     } catch (err) {
       setCapturing(false)
     }
