@@ -11,6 +11,8 @@ const CAPTURE_OPTIONS = {
 }
 
 const VideoRecorder = ({ setData, config, setStartVideo }) => {
+  alert('start of the file')
+
   const videoRef = useRef()
   const recorderRef = useRef()
 
