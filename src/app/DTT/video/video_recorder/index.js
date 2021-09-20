@@ -54,11 +54,7 @@ const VideoRecorder = ({ setData, config, setStartVideo }) => {
 
   useEffect(() => {
     if (length(recordedChunks) && !capturing) {
-      setData(
-        new Blob(recordedChunks, {
-          type: 'video/webm',
-        }),
-      )
+      setData(new Blob(recordedChunks))
     }
   }, [capturing, recordedChunks, setData])
 
