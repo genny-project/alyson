@@ -33,7 +33,7 @@ const VideoRecorder = ({ setData, config, setStartVideo }) => {
 
     setCapturing(true)
     setRecordedChunks([])
-    recorderRef.current = new MediaRecorder(stream, { mimeType: 'video/webm' })
+    recorderRef.current = new MediaRecorder(stream, { mimeType: 'video/webm;codecs=h264' })
     alert(' start of onStartCapture 2')
 
     recorderRef.current.ondataavailable = ({ data }) => {
