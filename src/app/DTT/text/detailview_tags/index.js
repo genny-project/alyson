@@ -13,6 +13,8 @@ import {
 import { useIsMobile } from 'utils/hooks'
 
 const DetailViewTags = ({ data }) => {
+  console.log('%c Data', 'color: tomato; font-size:25px', data?.attributeName)
+
   const { isOpen, onOpen, onClose } = useDisclosure()
   const isMobile = useIsMobile()
 
@@ -71,7 +73,7 @@ const DetailViewTags = ({ data }) => {
       <Modal isOpen={isOpen} onClose={onClose} scrollBehavior={'inside'} isCentered size="lg">
         <ModalOverlay />
         <ModalContent overflow="scroll">
-          <ModalHeader>{`All Tags`}</ModalHeader>
+          <ModalHeader>{data?.attributeName}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <VStack spacing={4} mb="4">
