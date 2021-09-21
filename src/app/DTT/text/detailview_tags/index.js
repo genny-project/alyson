@@ -13,8 +13,6 @@ import {
 import { useIsMobile } from 'utils/hooks'
 
 const DetailViewTags = ({ data }) => {
-  console.log('%c Data', 'color: tomato; font-size:25px', data?.attributeName)
-
   const { isOpen, onOpen, onClose } = useDisclosure()
   const isMobile = useIsMobile()
 
