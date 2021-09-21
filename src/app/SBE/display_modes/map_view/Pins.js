@@ -31,7 +31,7 @@ const Pins = ({ parentCode, gMap }) => {
           })
         })
 
-        if (idx === 0) gMap.setCenter(position)
+        if (idx === 0) gMap?.setCenter(position)
       }
     })
   }, [assocs, gMap, lats, lngs, names, parentCode])
