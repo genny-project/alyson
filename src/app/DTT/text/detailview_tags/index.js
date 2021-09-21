@@ -71,7 +71,7 @@ const DetailViewTags = ({ data }) => {
       <Modal isOpen={isOpen} onClose={onClose} scrollBehavior={'inside'} isCentered size="lg">
         <ModalOverlay />
         <ModalContent overflow="scroll">
-          <ModalHeader>{`All Tags`}</ModalHeader>
+          <ModalHeader>{data?.attributeName}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <VStack spacing={4} mb="4">
