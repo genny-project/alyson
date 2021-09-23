@@ -41,6 +41,7 @@ const Pins = ({ parentCode, gMap }) => {
           parentCode,
         })
       })
+      gMap?.setCenter(position)
     })
     markerRef.current = currentMarkers
   }, [assocs, gMap, lats, lngs, names, parentCode, pins])
