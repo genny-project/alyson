@@ -15,6 +15,8 @@ const Pins = ({ parentCode, gMap }) => {
 
   const markerRef = useRef([])
   let markers = markerRef?.current
+  console.log('%c ROWS PIN', 'color: purple; font-size: 25px', pins)
+  console.log('%c ROWS MARKERS', 'color: yellow; font-size: 25px', markers)
 
   useEffect(() => {
     if (markers) {
@@ -23,6 +25,7 @@ const Pins = ({ parentCode, gMap }) => {
   }, [markers])
 
   useEffect(() => {
+    let currentMarkers = []
     pins?.forEach(({ lat, lng, targetCode }) => {
       const position = { lat, lng }
 
@@ -31,7 +34,7 @@ const Pins = ({ parentCode, gMap }) => {
         map: gMap,
       })
 
-      markerRef.current = [...markerRef.current, marker]
+      currentMarkers.push(marker)
 
       marker.addListener('click', () => {
         onSendMessage({
@@ -41,6 +44,7 @@ const Pins = ({ parentCode, gMap }) => {
         })
       })
     })
+    markerRef.current = currentMarkers
   }, [assocs, gMap, lats, lngs, names, parentCode, pins])
 
   return null
