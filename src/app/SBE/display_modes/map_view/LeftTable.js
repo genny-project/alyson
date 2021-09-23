@@ -5,12 +5,13 @@ import getColumns from 'app/SBE/utils/get-columns'
 import getActions from 'app/SBE/utils/get-actions'
 import { selectCode } from 'redux/db/selectors'
 import Card from './Card'
+import './styles.css'
 
 const LeftTable = ({ parentCode }) => {
   const tableData = useSelector(selectCode(parentCode))
   const rows = useSelector(selectRows(parentCode))
 
-  const backgroundColor = useColorModeValue('gray.600', '')
+  const backgroundColor = useColorModeValue('gray.500', '')
 
   if (!tableData) return null
 
@@ -18,9 +19,9 @@ const LeftTable = ({ parentCode }) => {
   const actions = getActions(tableData)
 
   return (
-    <VStack bg={backgroundColor} w="25vw" alignItems="left" zIndex="overlay" shadow="2xl">
+    <VStack bg={backgroundColor} maxW="30vw" alignItems="left" zIndex="overlay" shadow="2xl">
       <Text textStyle="head.2" color="white" textAlign="center" mt="4">{`Internships`}</Text>
-      <VStack overflowY="scroll">
+      <VStack overflowY="scroll" className="scrollBar">
         {rows.map(code => (
           <Card
             key={code}
@@ -28,7 +29,7 @@ const LeftTable = ({ parentCode }) => {
             parentCode={parentCode}
             actions={actions}
             columns={columns}
-            borderRadius="md"
+            borderRadius="sm"
           />
         ))}
       </VStack>
