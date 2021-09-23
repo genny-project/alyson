@@ -29,7 +29,7 @@
     "history": "^4.10.1",
     "immutable": "^3.8.2",
     "jwt-decode": "^3.1.2",
-    "keycloak-js": "^13.0.0",
+    "keycloak-js": "^15.0.2",
     "lodash.debounce": "^4.0.8",
     "lodash.throttle": "^4.1.1",
     "logrocket": "^1.0.14",
