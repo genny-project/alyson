@@ -10,7 +10,7 @@ const LeftTable = ({ parentCode }) => {
   const tableData = useSelector(selectCode(parentCode))
   const rows = useSelector(selectRows(parentCode))
 
-  const backgroundColor = useColorModeValue('gray.400', '')
+  const backgroundColor = useColorModeValue('gray.600', '')
 
   if (!tableData) return null
 
@@ -28,6 +28,7 @@ const LeftTable = ({ parentCode }) => {
             parentCode={parentCode}
             actions={actions}
             columns={columns}
+            borderRadius="md"
           />
         ))}
       </VStack>
