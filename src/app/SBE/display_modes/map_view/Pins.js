@@ -15,8 +15,6 @@ const Pins = ({ parentCode, gMap }) => {
 
   const markerRef = useRef([])
   let markers = markerRef?.current
-  console.log('%c ROWS PIN', 'color: purple; font-size: 25px', pins)
-  console.log('%c ROWS MARKERS', 'color: yellow; font-size: 25px', markers)
 
   useEffect(() => {
     if (markers) {
