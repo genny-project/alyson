@@ -1,7 +1,8 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { selectCodes, selectRows } from 'redux/db/selectors'
 import { onSendMessage } from 'vertx'
+import useGetMarkers from 'app/SBE/display_modes/map_view/useGetMarkers'
 
 const Pins = ({ parentCode, gMap }) => {
   const rows = useSelector(selectRows(parentCode))
@@ -10,31 +11,37 @@ const Pins = ({ parentCode, gMap }) => {
   const assocs = useSelector(selectCodes(rows, 'PRI_ASSOC_HC'))
   const names = useSelector(selectCodes(rows, 'PRI_NAME'))
 
+  const pins = useGetMarkers(parentCode)
+
+  const markerRef = useRef([])
+  let markers = markerRef?.current
+
   useEffect(() => {
-    lats.forEach((lat, idx) => {
-      if (lat?.value) {
-        const lng = lngs[idx]
-        const targetCode = lat.baseEntityCode
+    if (markers) {
+      markers.forEach(marker => marker.setMap(null))
+    }
+  }, [markers])
 
-        const position = { lat: lat.value, lng: lng.value }
+  useEffect(() => {
+    pins?.forEach(({ lat, lng, targetCode }) => {
+      const position = { lat, lng }
 
-        const marker = new window.google.maps.Marker({
-          position,
-          map: gMap,
+      const marker = new window.google.maps.Marker({
+        position,
+        map: gMap,
+      })
+
+      markerRef.current = [...markerRef.current, marker]
+
+      marker.addListener('click', () => {
+        onSendMessage({
+          code: 'ACT_PRI_EVENT_VIEW',
+          targetCode,
+          parentCode,
         })
-
-        marker.addListener('click', () => {
-          onSendMessage({
-            code: 'ACT_PRI_EVENT_VIEW',
-            targetCode,
-            parentCode,
-          })
-        })
-
-        if (idx === 0) gMap?.setCenter(position)
-      }
+      })
     })
-  }, [assocs, gMap, lats, lngs, names, parentCode])
+  }, [assocs, gMap, lats, lngs, names, parentCode, pins])
 
   return null
 }
