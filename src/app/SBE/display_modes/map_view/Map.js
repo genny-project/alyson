@@ -32,8 +32,16 @@ const Map = ({ parentCode }) => {
   }, [gMap, parentCode])
 
   return (
-    <Box zIndex="base" position="absolute" left={isMobile ? '1vw' : '30vw'} bottom="1">
-      <div style={{ borderRadius: '1rem', width: '70vw', height: '80vh' }} ref={mapRef} id="map" />
+    <Box>
+      <div
+        style={{
+          borderRadius: '1rem',
+          width: '97vw',
+          height: '100vh',
+        }}
+        ref={mapRef}
+        id="map"
+      />
       <Pins gMap={gMap} parentCode={parentCode} />
     </Box>
   )
