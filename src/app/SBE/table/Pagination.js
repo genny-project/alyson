@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { Text, IconButton, HStack } from '@chakra-ui/react'
 import getPaginationActions from 'app/SBE/utils/get-pagination-actions'
-import { selectCode } from 'redux/db/selectors'
+import { selectCode, selectRows } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
@@ -14,6 +14,9 @@ const Pagination = ({ sbeCode }) => {
   const totalResults = useSelector(selectCode(sbeCode, 'PRI_TOTAL_RESULTS'))
   const pageNumber = useSelector(selectCode(sbeCode, 'PRI_INDEX'))
 
+  let allItemsInTable = useSelector(selectRows(sbeCode))
+  let allItemsInTableLength = allItemsInTable.length
+
   useHotkeys('shift+left', paginationActions().previous)
   useHotkeys('shift+right', paginationActions().next)
 
@@ -21,12 +24,11 @@ const Pagination = ({ sbeCode }) => {
 
   const hasNextPage = pageSize.value + pageStart.value < totalResults.value
   const hasPrevPage = pageNumber.value > 1
-  const totalPages = Math.ceil(totalResults.value / pageSize.value)
 
-  return totalPages > 1 ? (
+  return (
     <HStack justify="flex-end" align="flex-end">
       <Text textStyle="body.2" w="max-content">{`${pageStart.value + 1} - ${
-        pageStart.value + pageSize.value
+        pageStart.value + allItemsInTableLength
       } of ${totalResults.value}`}</Text>
       <IconButton
         onClick={paginationActions().previous}
@@ -43,7 +45,7 @@ const Pagination = ({ sbeCode }) => {
         variant="ghost"
       />
     </HStack>
-  ) : null
+  )
 }
 
 export default Pagination
