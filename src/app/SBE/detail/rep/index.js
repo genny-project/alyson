@@ -2,8 +2,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHandshake, faUser } from '@fortawesome/free-solid-svg-icons'
 
 import DetailLayout from '../layout'
-import LinkedInternships from './linked_internships'
-import { replace } from 'ramda'
 
 const contactDetails = {
   header: 'Contact Details',
@@ -23,13 +21,7 @@ const about = {
 }
 
 const Rep = ({ sbeCode, targetCode }) => {
-  const internships = (
-    <LinkedInternships
-      sbeCode={replace('SBE_HOST_CPY_REP_', 'SBE_LINKED_INTERNSHIP_OF_SUPERVISOR_', sbeCode)}
-    />
-  )
-
-  const details = [[contactDetails, about], [internships]]
+  const details = [[contactDetails, about]]
 
   return <DetailLayout sbeCode={sbeCode} targetCode={targetCode} details={details} />
 }
