@@ -138,7 +138,6 @@ const Autocomplete = ({
     }
   }
 
-  //display={selected.length ? 'block' : 'none'}
   return (
     <Box
       onFocus={() => {
@@ -152,7 +151,7 @@ const Autocomplete = ({
       maxW={maxW}
       test-id={`${questionCode}-div`}
     >
-      <Box pb="2">
+      <Box pb="1">
         <Wrap w="full" maxW={maxW}>
           {renderOptions}
         </Wrap>

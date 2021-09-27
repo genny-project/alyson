@@ -17,7 +17,7 @@ import ContextMenu from 'app/BE/context'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 
-const Card = ({ parentCode, actions = [], code, columns }) => {
+const Card = ({ parentCode, actions = [], code, columns, ...rest }) => {
   const theme = useTheme()
   const title = useSelector(selectCode(code, 'PRI_ASSOC_HC'))
   const subTitle = useSelector(selectCode(code, getAttribute(columns[1])))
@@ -30,7 +30,7 @@ const Card = ({ parentCode, actions = [], code, columns }) => {
   )
 
   return (
-    <Box bg={defaultColor} p="4" w="95%" h="10rem" borderWidth="1px" borderRadius="lg">
+    <Box bg={defaultColor} p="4" w="95%" h="10rem" borderWidth="1px" borderRadius="lg" {...rest}>
       <Flex spacing="3">
         <HStack w="28rem">
           <Image.Read data={image} config={{ size: 'xl' }} />

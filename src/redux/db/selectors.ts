@@ -4,7 +4,8 @@ import { map, keys } from 'ramda'
 export const selectCode = (code: string, childCode: string) => (state: RootState): any =>
   state.db[childCode ? `${code}@${childCode}` : code]
 
-export const selectRows = (code: string) => (state: RootState) => state.db[`${code}@rows`] || []
+export const selectRows = (code: string) => (state: RootState): any =>
+  state.db[`${code}@rows`] || []
 
 export const selectCodes = (codes: Array<string> = [], attribute: string) => (state: RootState) =>
   map(code => selectCode(code, attribute)(state), codes || [])

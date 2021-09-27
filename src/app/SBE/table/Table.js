@@ -12,8 +12,9 @@ import Filters from '../filters'
 import Download from '../download'
 import Action from 'app/BE/action'
 import { useIsMobile } from 'utils/hooks'
+import MapSearch from 'app/SBE/display_modes/map_view'
 
-const DataTable = ({ parentCode }) => {
+const DataTable = ({ parentCode, mapSearch }) => {
   const tableData = useSelector(selectCode(parentCode))
   const bgColor = useColorModeValue('white', 'gray.700')
 
@@ -37,7 +38,7 @@ const DataTable = ({ parentCode }) => {
         <Pagination sbeCode={parentCode} />
       </HStack>
 
-      {tableActions && (
+      {!mapSearch && tableActions && (
         <HStack mb="3">
           {tableActions.map(action => (
             <Action
@@ -50,11 +51,14 @@ const DataTable = ({ parentCode }) => {
           ))}
         </HStack>
       )}
-
-      <Table variant="simple" bg={bgColor} borderRadius="md" shadow="xs" size="sm">
-        <Header columns={columns} parentCode={parentCode} actions={actions} />
-        <Body columns={columns} parentCode={parentCode} actions={actions} />
-      </Table>
+      {mapSearch ? (
+        <MapSearch parentCode={parentCode} />
+      ) : (
+        <Table variant="simple" bg={bgColor} borderRadius="md" shadow="xs" size="sm">
+          <Header columns={columns} parentCode={parentCode} actions={actions} />
+          <Body columns={columns} parentCode={parentCode} actions={actions} />
+        </Table>
+      )}
     </Box>
   )
 }
