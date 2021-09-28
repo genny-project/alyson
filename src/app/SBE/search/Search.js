@@ -79,8 +79,9 @@ const ProcessSearch = ({ sbeCode, process, placeholder }) => {
           onClick={handleClear}
           leftIcon={<FontAwesomeIcon icon={faTimes} />}
           colorScheme="secondary"
+          test-id={`clear-search`}
         >
-          Clear Search
+          {`Clear Search`}
         </Button>
       )}
     </Stack>
