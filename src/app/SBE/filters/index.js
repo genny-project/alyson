@@ -46,7 +46,7 @@ const Filters = ({ sbeCode }) => {
             variant="outline"
             w="full"
           >
-            Filters
+            {`Filters`}
           </Button>
         </PopoverTrigger>
         <PopoverContent w={isMobile ? '90vw' : '30vw'}>

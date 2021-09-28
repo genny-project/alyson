@@ -70,7 +70,11 @@ const Write = ({
 
   if (simpleSelect)
     return (
-      <CSelect onChange={e => onSendAnswer(e.target.value)} placeholder={placeholder || 'Select'}>
+      <CSelect
+        onChange={e => onSendAnswer(e.target.value)}
+        placeholder={placeholder || 'Select'}
+        test-id={`simpleSelect-${questionCode}`}
+      >
         {options.map(({ value, label }) => (
           <option test-id={value} value={value} key={value}>
             {label}
