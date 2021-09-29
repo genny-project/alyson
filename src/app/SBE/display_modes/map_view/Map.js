@@ -30,7 +30,7 @@ const Map = ({ parentCode }) => {
 
   return (
     <Box width="inherit">
-      <div style={{ width: 'auto', height: '100vh' }} ref={mapRef} id="map" />
+      <div style={{ width: 'auto', height: '80vh' }} ref={mapRef} id="map" />
       <Pins gMap={gMap} parentCode={parentCode} />
     </Box>
   )
