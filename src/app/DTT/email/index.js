@@ -1,21 +1,50 @@
+import { useState, useEffect } from 'react'
+
 import { Box, Input, Text, useClipboard, useToast } from '@chakra-ui/react'
 import { useMobileValue } from 'utils/hooks'
-
+import { getIsInvalid } from 'utils/functions'
 import Duplicates from './Duplicates'
+import { useError } from 'utils/contexts/ErrorContext'
+import { ACTIONS } from 'utils/contexts/ErrorReducer'
 
-const Write = ({ questionCode, data, onSendAnswer }) => {
+const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
+  // eslint-disable-next-line no-useless-escape
+  const emailRegex = RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
+
+  const [errorStatus, setErrorStatus] = useState(false)
+  const [userInput, setuserInput] = useState(data?.value)
+  const { dispatch } = useError()
+  const isInvalid = getIsInvalid(userInput)(emailRegex)
   const maxW = useMobileValue(['', '25vw'])
+
+  useEffect(() => {
+    isInvalid === true ? setErrorStatus(true) : setErrorStatus(false)
+  }, [isInvalid])
+
+  useEffect(() => {
+    isInvalid === true
+      ? dispatch({ type: ACTIONS.SET_TO_TRUE, payload: questionCode })
+      : dispatch({ type: ACTIONS.SET_TO_FALSE, payload: questionCode })
+  }, [dispatch, isInvalid, questionCode])
+
   return (
     <Box>
-      <Input
-        test-id={questionCode}
-        defaultValue={data?.value}
-        type="email"
-        onBlur={e => onSendAnswer(e.target.value)}
-        w="full"
-        maxW={maxW}
-      />
-      <Duplicates email={data?.value} sourceCode={data.baseEntityCode} />
+      <>
+        <Input
+          test-id={questionCode}
+          defaultValue={data?.value}
+          type="email"
+          onBlur={e => !errorStatus && onSendAnswer(e.target.value)}
+          onChange={e => setuserInput(e.target.value)}
+          w="full"
+          maxW={maxW}
+          isInvalid={isInvalid}
+        />
+        {errorStatus && (
+          <Text textStyle="tail.error" mt={2}>{`Please enter a valid email address. `}</Text>
+        )}
+        <Duplicates email={data?.value} sourceCode={data.baseEntityCode} />
+      </>
     </Box>
   )
 }
