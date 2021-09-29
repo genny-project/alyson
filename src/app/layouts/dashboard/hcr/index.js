@@ -167,7 +167,7 @@ const HostCompanyRep = ({ userCode }) => {
               }
               mr="-px"
             >
-              Manage Reps
+              {`View all Supervisors`}
             </Button>
 
             <Button
@@ -180,7 +180,7 @@ const HostCompanyRep = ({ userCode }) => {
                 })
               }
             >
-              Add Rep
+              {`Add Supervisors`}
             </Button>
           </VStack>
         </Box>
