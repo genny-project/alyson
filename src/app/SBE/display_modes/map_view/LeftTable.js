@@ -19,7 +19,14 @@ const LeftTable = ({ parentCode }) => {
   const actions = getActions(tableData)
 
   return (
-    <VStack bg={backgroundColor} maxW="30vw" alignItems="left" zIndex="overlay" shadow="2xl">
+    <VStack
+      bg={backgroundColor}
+      maxW="30vw"
+      h="inherit"
+      alignItems="left"
+      zIndex="overlay"
+      shadow="2xl"
+    >
       <Text textStyle="head.2" color="white" textAlign="center" mt="4">{`Internships`}</Text>
       <VStack overflowY="scroll" className="scrollBar">
         {rows.map(code => (

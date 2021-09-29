@@ -9,7 +9,7 @@ const MapSearch = ({ parentCode }: { parentCode: string }): ReactElement => {
   const isMobile = useIsMobile()
 
   return (
-    <Flex h="80vh" w="98vw" border="1px gray solid" position="fixed" mt="4" overflow="scroll">
+    <Flex h="80vh" w="98vw" border="1px gray solid" position="fixed" mt="2">
       {!isMobile && <LeftTable parentCode={parentCode} />}
       <Map parentCode={parentCode} />
     </Flex>
