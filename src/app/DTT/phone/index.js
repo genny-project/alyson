@@ -30,7 +30,7 @@ const Read = ({ data, config }) => {
 
 export const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
   // eslint-disable-next-line no-useless-escape
-  const phoneRegex = RegExp(/^[0-9]*$/)
+  const phoneRegex = RegExp(/^[+0-9]*$/)
   const inputRef = useRef()
 
   const { dispatch } = useError()
