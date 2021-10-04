@@ -80,7 +80,9 @@ export const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
         maxW={maxW}
         isInvalid={isInvalid}
       />
-      {errorStatus && <Text textStyle="tail.error" mt={2}>{`You can only enter numbers.`}</Text>}
+      {errorStatus && (
+        <Text textStyle="tail.error" mt={2}>{`Please enter a valid phone number.`}</Text>
+      )}
     </>
   )
 }
