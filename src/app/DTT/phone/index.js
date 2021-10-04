@@ -1,6 +1,11 @@
-import { Text, useClipboard, useToast } from '@chakra-ui/react'
+import { useState, useEffect, useRef } from 'react'
+import { Text, useClipboard, useToast, Input } from '@chakra-ui/react'
 import phoneNumberFormatter from 'utils/formatters/phone-number'
-import { Write } from 'app/DTT/text'
+import { getIsInvalid } from 'utils/functions'
+import { useError } from 'utils/contexts/ErrorContext'
+import { ACTIONS } from 'utils/contexts/ErrorReducer'
+import debounce from 'lodash.debounce'
+import { useMobileValue } from 'utils/hooks'
 
 const Read = ({ data, config }) => {
   const { onCopy } = useClipboard(data.value)
@@ -20,6 +25,61 @@ const Read = ({ data, config }) => {
     <Text cursor="pointer" w="10rem" onClick={onClick} {...config}>
       {phoneNumberFormatter(data.value)}
     </Text>
+  )
+}
+
+export const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
+  // eslint-disable-next-line no-useless-escape
+  const phoneRegex = RegExp(/^[0-9]*$/)
+  const inputRef = useRef()
+
+  const { dispatch } = useError()
+  const [errorStatus, setErrorStatus] = useState(false)
+  const [userInput, setuserInput] = useState(data?.value)
+
+  const isInvalid = getIsInvalid(userInput)(phoneRegex)
+
+  useEffect(() => {
+    const listener = event => {
+      if (event.code === 'Enter') {
+        event.preventDefault()
+        inputRef.current.blur()
+      }
+    }
+    document.addEventListener('keydown', listener)
+    return () => {
+      document.removeEventListener('keydown', listener)
+    }
+  }, [])
+
+  useEffect(() => {
+    isInvalid === true ? setErrorStatus(true) : setErrorStatus(false)
+  }, [isInvalid])
+
+  useEffect(() => {
+    isInvalid === true
+      ? dispatch({ type: ACTIONS.SET_TO_TRUE, payload: questionCode })
+      : dispatch({ type: ACTIONS.SET_TO_FALSE, payload: questionCode })
+  }, [dispatch, isInvalid, questionCode])
+
+  const debouncedSendAnswer = debounce(onSendAnswer, 500)
+
+  const maxW = useMobileValue(['', '25vw'])
+
+  return (
+    <>
+      <Input
+        test-id={questionCode}
+        ref={inputRef}
+        onBlur={e => !errorStatus && debouncedSendAnswer(e.target.value)}
+        onChange={e => setuserInput(e.target.value)}
+        defaultValue={data?.value}
+        w="full"
+        maxW={maxW}
+        isInvalid={isInvalid}
+      />
+      {errorStatus && <Text textStyle="tail.error" mt={2}>{`You can only enter numbers.`}</Text>}
+    </>
   )
 }
 

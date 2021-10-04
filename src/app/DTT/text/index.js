@@ -8,7 +8,7 @@ import { getIsInvalid } from 'utils/functions'
 import { useError } from 'utils/contexts/ErrorContext'
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 
-export const Write = ({ questionCode, data, onSendAnswer }) => {
+export const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
   // eslint-disable-next-line no-useless-escape
   const textRegex = RegExp(/^[a-zA-Z]*$/)
 
