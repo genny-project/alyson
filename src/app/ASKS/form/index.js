@@ -18,7 +18,7 @@ const AsksForm = ({ questionCode, onFinish, dialog }) => {
   )
     return <VideoModules questionCode={questionCode} />
 
-  return isMobile() || dialog ? (
+  return isMobile || dialog ? (
     <FormMobileView
       title={title}
       childAsks={childAsks}
