@@ -1,10 +1,11 @@
-import { useState, useEffect, useRef } from 'react'
-import { Text, useClipboard, useToast, Input } from '@chakra-ui/react'
-import phoneNumberFormatter from 'utils/formatters/phone-number'
-import { getIsInvalid } from 'utils/functions'
-import { useError } from 'utils/contexts/ErrorContext'
+import { Input, Text, useClipboard, useToast } from '@chakra-ui/react'
+import { useEffect, useRef, useState } from 'react'
+
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import debounce from 'lodash.debounce'
+import { getIsInvalid } from 'utils/functions'
+import phoneNumberFormatter from 'utils/formatters/phone-number'
+import { useError } from 'utils/contexts/ErrorContext'
 import { useMobileValue } from 'utils/hooks'
 
 const Read = ({ data, config }) => {
