@@ -1,7 +1,10 @@
-import axios from 'axios'
 import { API_VERSION_URL, HOST } from 'config/genny'
-import { map, mergeAll, head, compose, keys, addIndex, values, uniq, includes } from 'ramda'
+import { addIndex, compose, head, includes, keys, map, mergeAll, uniq, values } from 'ramda'
+
 import GitInfo from 'react-git-info/macro'
+import axios from 'axios'
+import showLogs from './helpers/show-logs'
+
 const gitInfo = GitInfo()
 
 const initLog = async () => {
@@ -48,6 +51,8 @@ const initLog = async () => {
 }
 
 const prettyLog = (msg, data = {}, style) => {
+  const showConsoleLogs = showLogs()
+
   const title = data.items
     ? data.items.length === 1
       ? data.items[0]?.name
@@ -58,7 +63,7 @@ const prettyLog = (msg, data = {}, style) => {
       : msg
     : msg
 
-  if (process.env.NODE_ENV !== 'production') {
+  if (showConsoleLogs) {
     if (title === 'QBulkMessage') return
 
     if (data.cmd_type) {
