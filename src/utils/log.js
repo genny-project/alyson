@@ -58,33 +58,39 @@ const prettyLog = (msg, data = {}, style) => {
       : msg
     : msg
 
-  if (title === 'QBulkMessage') return
+  if (process.env.NODE_ENV !== 'production') {
+    if (title === 'QBulkMessage') return
 
-  if (data.cmd_type) {
-    console.info(
-      `%c${data.cmd_type}: ${data.code}`,
-      style || 'padding: 1rem; font-size: 1rem; color: salmon;',
-      '\n',
-    )
+    if (data.cmd_type) {
+      console.info(
+        `%c${data.cmd_type}: ${data.code}`,
+        style || 'padding: 1rem; font-size: 1rem; color: salmon;',
+        '\n',
+      )
+      console.dir(data)
+
+      return
+    }
+
+    if (data?.data_type === 'Ask') {
+      console.info(`%c${title}`, style || 'padding: 1rem; font-size: 1rem; color: teal;', '\n')
+      console.dir(data)
+      return
+    }
+
+    if (includes('Rows -', title || '')) {
+      console.info(
+        `%c${title}`,
+        style || 'padding: 1rem; font-size: 1rem; color: lightgreen;',
+        '\n',
+      )
+      console.dir(data)
+      return
+    }
+
+    console.info(`%c${title}`, style || 'padding: 1rem; font-size: 1rem; color: darkgreen', '\n')
     console.dir(data)
-
-    return
   }
-
-  if (data?.data_type === 'Ask') {
-    console.info(`%c${title}`, style || 'padding: 1rem; font-size: 1rem; color: teal;', '\n')
-    console.dir(data)
-    return
-  }
-
-  if (includes('Rows -', title || '')) {
-    console.info(`%c${title}`, style || 'padding: 1rem; font-size: 1rem; color: lightgreen;', '\n')
-    console.dir(data)
-    return
-  }
-
-  console.info(`%c${title}`, style || 'padding: 1rem; font-size: 1rem; color: darkgreen', '\n')
-  console.dir(data)
 }
 
 export default prettyLog

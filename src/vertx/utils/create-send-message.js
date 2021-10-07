@@ -26,7 +26,9 @@ const createSendMessage = (token, onSendMsg) => (data, options = {}) => {
           'color: lightBlue;padding: 60px;font-size: 1rem;',
         )
       } else {
-        console.group(`⬆️ SENDING ${msg_type} - ${event_type} - ${data.code || data.value || ''}`)
+        if (process.env.NODE_ENV !== 'production') {
+          console.group(`⬆️ SENDING ${msg_type} - ${event_type} - ${data.code || data.value || ''}`)
+        }
         log(
           `⬆️ SENDING ${msg_type} - ${event_type} - ${data.code || data.value || ''}`,
           message,

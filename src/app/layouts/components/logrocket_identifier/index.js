@@ -14,7 +14,9 @@ const LogrocketIdentifier = () => {
     if (code) {
       const name = nameData?.value
       const email = emailData?.value
-      console.log('logrocket identified')
+      if (process.env.NODE_ENV !== 'production') {
+        console.log('logrocket identified')
+      }
       LogRocket.identify(email, { code, name, email, type, isDev })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
