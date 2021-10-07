@@ -1,14 +1,15 @@
-import { useState, useEffect, useRef } from 'react'
-import { Input, Text as ChakraText } from '@chakra-ui/react'
-import debounce from 'lodash.debounce'
+import { Text as ChakraText, Input } from '@chakra-ui/react'
+import { useEffect, useRef, useState } from 'react'
 
-import { useMobileValue } from 'utils/hooks'
+import { ACTIONS } from 'utils/contexts/ErrorReducer'
+import CommonWriteComponent from '../../../utils/useRegexCheck'
 import DetailViewTags from 'app/DTT/text/detailview_tags'
+import debounce from 'lodash.debounce'
 import { getIsInvalid } from 'utils/functions'
 import { useError } from 'utils/contexts/ErrorContext'
-import { ACTIONS } from 'utils/contexts/ErrorReducer'
+import { useMobileValue } from 'utils/hooks'
 
-export const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
+/*export const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
   // eslint-disable-next-line no-useless-escape
   const textRegex = RegExp(/^[a-zA-Z]*$/)
 
@@ -62,6 +63,22 @@ export const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
         <ChakraText textStyle="tail.error" mt={2}>{`You can only enter alphabets.`}</ChakraText>
       )}
     </>
+  )
+}*/
+
+export const Write = ({ questionCode, onSendAnswer, data }) => {
+  const regexPattern = /^[a-zA-Z]*$/
+  const errorMsg = 'You can enter alphabets only.'
+
+  return (
+    <CommonWriteComponent
+      questionCode={questionCode}
+      onSendAnswer={onSendAnswer}
+      data={data}
+      regexPattern={regexPattern}
+      errorMsg={errorMsg}
+      mask=""
+    />
   )
 }
 

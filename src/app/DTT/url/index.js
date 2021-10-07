@@ -1,13 +1,6 @@
-import { Text as ChakraText, Input, Link } from '@chakra-ui/react'
-// import { Write } from '../text'
-import { useEffect, useRef, useState } from 'react'
-
-import { ACTIONS } from 'utils/contexts/ErrorReducer'
-import { getIsInvalid } from 'utils/functions'
+import CommonWriteComponent from '../../../utils/useRegexCheck'
+import { Link } from '@chakra-ui/react'
 import { includes } from 'ramda'
-import { useError } from 'utils/contexts/ErrorContext'
-import { useMobileValue } from 'utils/hooks'
-import useRegexCheck from '../../../utils/useRegexCheck'
 
 export const Read = ({ data, size }) => {
   if (!data?.value) return null
@@ -21,49 +14,19 @@ export const Read = ({ data, size }) => {
   )
 }
 
-export const Write = ({ questionCode, data, createOnTrigger }) => {
-  const [userInput, setuserInput] = useState(data?.value)
-  const [errorStatus, setErrorStatus] = useState(false)
-
-  const urlRegex = RegExp(
-    /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/,
-  )
-
-  const inputRef = useRef()
-  const maxW = useMobileValue(['', '25vw'])
-
-  const { dispatch } = useError()
-  const isInvalid = getIsInvalid(userInput)(urlRegex)
-
-  console.log('DataType', createOnTrigger)
-
-  useEffect(() => {
-    isInvalid ? setErrorStatus(true) : setErrorStatus(false)
-  }, [isInvalid])
-
-  useEffect(() => {
-    isInvalid === true
-      ? dispatch({ type: ACTIONS.SET_TO_TRUE, payload: questionCode })
-      : dispatch({ type: ACTIONS.SET_TO_FALSE, payload: questionCode })
-  }, [dispatch, isInvalid, questionCode])
+export const Write = ({ questionCode, onSendAnswer, data }) => {
+  const regexPattern = /[(a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/
+  const errorMsg = 'Website must be in format: yourcompany.com'
 
   return (
-    <>
-      <Input
-        test-id={questionCode}
-        defaultValue={data?.value}
-        w="full"
-        maxW={maxW}
-        ref={inputRef}
-        onChange={e => setuserInput(e.target.value)}
-      />
-      {errorStatus && (
-        <ChakraText
-          textStyle="tail.error"
-          mt={2}
-        >{`Website address must be in https://yourwebsite.com`}</ChakraText>
-      )}
-    </>
+    <CommonWriteComponent
+      questionCode={questionCode}
+      onSendAnswer={onSendAnswer}
+      data={data}
+      regexPattern={regexPattern}
+      errorMsg={errorMsg}
+      mask=""
+    />
   )
 }
 

@@ -1,13 +1,14 @@
-import { useState, useEffect } from 'react'
-
 import { Box, Input, Text, useClipboard, useToast } from '@chakra-ui/react'
-import { useMobileValue } from 'utils/hooks'
-import { getIsInvalid } from 'utils/functions'
-import Duplicates from './Duplicates'
-import { useError } from 'utils/contexts/ErrorContext'
-import { ACTIONS } from 'utils/contexts/ErrorReducer'
+import { useEffect, useState } from 'react'
 
-const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
+import { ACTIONS } from 'utils/contexts/ErrorReducer'
+import CommonWriteComponent from '../../../utils/useRegexCheck'
+import Duplicates from './Duplicates'
+import { getIsInvalid } from 'utils/functions'
+import { useError } from 'utils/contexts/ErrorContext'
+import { useMobileValue } from 'utils/hooks'
+
+/*const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
   // eslint-disable-next-line no-useless-escape
   const emailRegex = RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
 
@@ -46,6 +47,22 @@ const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
         <Duplicates email={data?.value} sourceCode={data.baseEntityCode} />
       </>
     </Box>
+  )
+}*/
+
+const Write = ({ questionCode, onSendAnswer, data }) => {
+  const regexPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+  const errorMsg = 'Please enter a valid email address. E.g: yourname@domain.com'
+
+  return (
+    <CommonWriteComponent
+      questionCode={questionCode}
+      onSendAnswer={onSendAnswer}
+      data={data}
+      regexPattern={regexPattern}
+      errorMsg={errorMsg}
+      mask="99999999999"
+    />
   )
 }
 
