@@ -66,11 +66,9 @@ const Ask = ({
     readonly,
   } = askData || {}
 
-  const regexPattern = pathOr(null, ['attribute', 'dataType', 'validationList', 0, 'rege'])(
+  const regexPattern = pathOr(null, ['attribute', 'dataType', 'validationList', 0, 'regex'])(
     question,
   )
-
-  console.log('%c regexPattern----->', 'color:pink; font-size: 25px', regexPattern)
 
   const data = useSelector(selectCode(targetCode, attributeCode)) || {}
   const highlightedQuestion = useSelector(selectHighlightedQuestion)
