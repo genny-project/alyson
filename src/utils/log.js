@@ -1,7 +1,10 @@
-import axios from 'axios'
 import { API_VERSION_URL, HOST } from 'config/genny'
-import { map, mergeAll, head, compose, keys, addIndex, values, uniq, includes } from 'ramda'
+import { addIndex, compose, head, includes, keys, map, mergeAll, uniq, values } from 'ramda'
+
 import GitInfo from 'react-git-info/macro'
+import axios from 'axios'
+import showLogs from './helpers/show-logs'
+
 const gitInfo = GitInfo()
 
 const initLog = async () => {
@@ -48,6 +51,8 @@ const initLog = async () => {
 }
 
 const prettyLog = (msg, data = {}, style) => {
+  const showConsoleLogs = showLogs()
+
   const title = data.items
     ? data.items.length === 1
       ? data.items[0]?.name
@@ -58,33 +63,39 @@ const prettyLog = (msg, data = {}, style) => {
       : msg
     : msg
 
-  if (title === 'QBulkMessage') return
+  if (showConsoleLogs) {
+    if (title === 'QBulkMessage') return
 
-  if (data.cmd_type) {
-    console.info(
-      `%c${data.cmd_type}: ${data.code}`,
-      style || 'padding: 1rem; font-size: 1rem; color: salmon;',
-      '\n',
-    )
+    if (data.cmd_type) {
+      console.info(
+        `%c${data.cmd_type}: ${data.code}`,
+        style || 'padding: 1rem; font-size: 1rem; color: salmon;',
+        '\n',
+      )
+      console.dir(data)
+
+      return
+    }
+
+    if (data?.data_type === 'Ask') {
+      console.info(`%c${title}`, style || 'padding: 1rem; font-size: 1rem; color: teal;', '\n')
+      console.dir(data)
+      return
+    }
+
+    if (includes('Rows -', title || '')) {
+      console.info(
+        `%c${title}`,
+        style || 'padding: 1rem; font-size: 1rem; color: lightgreen;',
+        '\n',
+      )
+      console.dir(data)
+      return
+    }
+
+    console.info(`%c${title}`, style || 'padding: 1rem; font-size: 1rem; color: darkgreen', '\n')
     console.dir(data)
-
-    return
   }
-
-  if (data?.data_type === 'Ask') {
-    console.info(`%c${title}`, style || 'padding: 1rem; font-size: 1rem; color: teal;', '\n')
-    console.dir(data)
-    return
-  }
-
-  if (includes('Rows -', title || '')) {
-    console.info(`%c${title}`, style || 'padding: 1rem; font-size: 1rem; color: lightgreen;', '\n')
-    console.dir(data)
-    return
-  }
-
-  console.info(`%c${title}`, style || 'padding: 1rem; font-size: 1rem; color: darkgreen', '\n')
-  console.dir(data)
 }
 
 export default prettyLog
