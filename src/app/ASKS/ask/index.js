@@ -253,6 +253,7 @@ const Ask = ({
           description={description}
           html={html}
           regex={regex}
+          dtType={dtType}
         />
       )}
       {component === 'date_range' && (

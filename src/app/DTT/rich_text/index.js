@@ -34,7 +34,7 @@ import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { stateToHTML } from 'draft-js-export-html'
 import { useError } from 'utils/contexts/ErrorContext'
 
-const Write = ({ questionCode, data, onSendAnswer, html, regex }) => {
+const Write = ({ dtType, questionCode, data, onSendAnswer, html, regex }) => {
   const regexPattern = /[\pL\pN_\-]+/
   const errorMsg = 'Please provide valid description.'
 
@@ -43,7 +43,10 @@ const Write = ({ questionCode, data, onSendAnswer, html, regex }) => {
 
   const testRegex = RegExp(regexPattern)
 
-  const { minCharacterCount = 0, maxCharacterCount } = safelyParseJson(html, {})
+  const {
+    minCharacterCount = dtType === 'DTT_HTMLAREA' ? 150 : 0,
+    maxCharacterCount,
+  } = safelyParseJson(html, {})
   const blocksFromHTML = convertFromHTML(data?.value || '')
   const state = ContentState.createFromBlockArray(
     blocksFromHTML.contentBlocks,
@@ -53,12 +56,6 @@ const Write = ({ questionCode, data, onSendAnswer, html, regex }) => {
   const [editor, setEditor] = useState(
     !data?.value ? EditorState.createEmpty() : EditorState.createWithContent(state),
   )
-
-  const isInvalid = getIsInvalid(
-    (stateToHTML(editor.getCurrentContent()) || '')
-      .replace(/(<([^>]+)>)/gi, '')
-      .replace(/&nbsp;/g, ' '),
-  )(testRegex)
 
   useEffect(() => {
     if (data?.value !== dataValue) {
@@ -79,6 +76,14 @@ const Write = ({ questionCode, data, onSendAnswer, html, regex }) => {
       onSendAnswer(stateToHTML(editor.getCurrentContent()))
     }
   }
+
+  const stripHtmlTags = stateToHTML(editor.getCurrentContent())
+    .replace(/(<([^>]+)>)/gi, '')
+    .replace(/&nbsp;/g, ' ')
+
+  // console.log(stripHtmlTags)
+
+  const isInvalid = getIsInvalid(dataValue)(testRegex)
 
   useEffect(() => {
     isInvalid === true ? setErrorStatus(true) : setErrorStatus(false)

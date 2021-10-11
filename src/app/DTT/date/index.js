@@ -7,6 +7,7 @@ import Year from './Year'
 import getDate from 'utils/helpers/timezone_magic/get-date'
 import { getIsInvalid } from 'utils/functions'
 import { includes } from 'ramda'
+import { isBefore } from 'date-fns'
 import safelyParseDate from 'utils/helpers/safely-parse-date'
 import timeBasedOnTimeZone from 'utils/helpers/timezone_magic/time-based-on-timezone'
 import { useError } from 'utils/contexts/ErrorContext'
@@ -32,8 +33,9 @@ const Read = ({ data, typeName, config }) => {
 }
 const Write = ({ questionCode, data, onSendAnswer, typeName, regex }) => {
   const regexPattern = /^(\d{2})\.(\d{2})\.(\d{4}) (\d{2}):(\d{2}):(\d{2})$/
-  const errorMsg = 'Please select a valid date.'
+
   const [errorStatus, setErrorStatus] = useState(false)
+  const [errorMsg, setErrorMsg] = useState('Please select a valid date.')
 
   const includeTime = includes('LocalDateTime', typeName)
   const onlyYear = typeName === 'year'
@@ -45,17 +47,29 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regex }) => {
   const isInvalid = getIsInvalid(data?.value)(regexPattern)
   const { dispatch } = useError()
 
-  useEffect(() => {
-    isInvalid ? setErrorStatus(true) : setErrorStatus(false)
-  }, [isInvalid])
+  const today = new Date()
+  const inputDate = new Date(data?.value)
+  const isDateBefore = isBefore(inputDate, today)
 
   useEffect(() => {
-    isInvalid
-      ? dispatch({ type: ACTIONS.SET_TO_TRUE, payload: questionCode })
-      : dispatch({ ttype: ACTIONS.SET_TO_FALSE, payload: questionCode })
-  }, [dispatch, isInvalid, questionCode])
+    if (!isDateBefore) {
+      setErrorStatus(true)
+      setErrorMsg('Logbook for current date cannot be added.')
+    }
+  }, [inputDate, errorStatus, today, isDateBefore])
 
-  return data?.value ? (
+  useEffect(() => {
+    isDateBefore && (isInvalid ? setErrorStatus(true) : setErrorStatus(false))
+  }, [isDateBefore, isInvalid])
+
+  useEffect(() => {
+    isDateBefore &&
+      (isInvalid
+        ? dispatch({ type: ACTIONS.SET_TO_TRUE, payload: questionCode })
+        : dispatch({ ttype: ACTIONS.SET_TO_FALSE, payload: questionCode }))
+  }, [isDateBefore, dispatch, isInvalid, questionCode])
+
+  return isDateBefore && data?.value ? (
     <DateChip
       onlyYear={onlyYear}
       includeTime={includeTime}

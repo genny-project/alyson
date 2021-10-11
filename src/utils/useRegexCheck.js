@@ -21,6 +21,11 @@ const CommonWriteComponent = ({ questionCode, data, onSendAnswer, regex, errorMs
     regex = RegExp(/^[a-zA-Z]*$/)
   }
 
+  if (dtType === 'DTT_DOUBLE') {
+    regex = RegExp(/^(2[0-4]|1[0-9]|[1-9])$/)
+    errorMsg = 'Log hours cannot exceed than 24.'
+  }
+
   const testRegex = RegExp(regex)
   const inputRef = useRef()
   const isInvalid = getIsInvalid(userInput)(testRegex)
