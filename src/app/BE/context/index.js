@@ -1,10 +1,12 @@
-import { useSelector } from 'react-redux'
-import { Menu, MenuList, MenuButton, MenuGroup, Portal } from '@chakra-ui/react'
-import { selectCode } from 'redux/db/selectors'
+import { Menu, MenuButton, MenuGroup, MenuList, Portal } from '@chakra-ui/react'
+
 import Action from './Action'
+import { selectCode } from 'redux/db/selectors'
+import { useSelector } from 'react-redux'
 
 const ContextMenu = ({ button, parentCode, code, actions = [] }) => {
   const baseEntityName = useSelector(selectCode(code, 'PRI_NAME'))
+
   return (
     <Menu isLazy>
       <MenuButton test-id={`${code}-actions`}>{button}</MenuButton>

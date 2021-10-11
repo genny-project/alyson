@@ -1,13 +1,7 @@
-import { Input, Text, useClipboard, useToast } from '@chakra-ui/react'
-import { useEffect, useRef, useState } from 'react'
+import { Text, useClipboard, useToast } from '@chakra-ui/react'
 
-import { ACTIONS } from 'utils/contexts/ErrorReducer'
-import CommonWriteComponent from '../../../utils/useRegexCheck'
-import debounce from 'lodash.debounce'
-import { getIsInvalid } from 'utils/functions'
+import CommonWriteComponent from 'utils/useRegexCheck'
 import phoneNumberFormatter from 'utils/formatters/phone-number'
-import { useError } from 'utils/contexts/ErrorContext'
-import { useMobileValue } from 'utils/hooks'
 
 const Read = ({ data, config }) => {
   const { onCopy } = useClipboard(data.value)
@@ -30,7 +24,7 @@ const Read = ({ data, config }) => {
   )
 }
 
-/*export const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
+/* export const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
   // eslint-disable-next-line no-useless-escape
   const phoneRegex = RegExp(
     /^\+((?:9[679]|8[035789]|6[789]|5[90]|42|3[578]|2[1-689])|9[0-58]|8[1246]|6[0-6]|5[1-8]|4[013-9]|3[0-469]|2[70]|7|1)(?:\W*\d){0,13}\d$/,
@@ -89,8 +83,9 @@ const Read = ({ data, config }) => {
   )
 }*/
 
-export const Write = ({ questionCode, onSendAnswer, data }) => {
-  const regexPattern = /^(?:\+?(61))? ?(?:\((?=.*\)))?(0?[2-57-8])\)? ?(\d\d(?:[- ](?=\d{3})|(?!\d\d[- ]?\d[- ]))\d\d[- ]?\d[- ]?\d{3})$/
+export const Write = ({ questionCode, onSendAnswer, data, regex }) => {
+  const regexPattern = /^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?$/
+
   const errorMsg = 'Please enter a valid phone number.'
 
   return (
@@ -98,9 +93,8 @@ export const Write = ({ questionCode, onSendAnswer, data }) => {
       questionCode={questionCode}
       onSendAnswer={onSendAnswer}
       data={data}
-      regexPattern={regexPattern}
+      regex={regexPattern}
       errorMsg={errorMsg}
-      mask="99999999999"
     />
   )
 }

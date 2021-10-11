@@ -1,12 +1,6 @@
-import { Box, Input, Text, useClipboard, useToast } from '@chakra-ui/react'
-import { useEffect, useState } from 'react'
+import { Text, useClipboard, useToast } from '@chakra-ui/react'
 
-import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import CommonWriteComponent from '../../../utils/useRegexCheck'
-import Duplicates from './Duplicates'
-import { getIsInvalid } from 'utils/functions'
-import { useError } from 'utils/contexts/ErrorContext'
-import { useMobileValue } from 'utils/hooks'
 
 /*const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
   // eslint-disable-next-line no-useless-escape
@@ -50,7 +44,7 @@ import { useMobileValue } from 'utils/hooks'
   )
 }*/
 
-const Write = ({ questionCode, onSendAnswer, data }) => {
+const Write = ({ questionCode, onSendAnswer, data, regex }) => {
   const regexPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
   const errorMsg = 'Please enter a valid email address. E.g: yourname@domain.com'
 
@@ -59,9 +53,8 @@ const Write = ({ questionCode, onSendAnswer, data }) => {
       questionCode={questionCode}
       onSendAnswer={onSendAnswer}
       data={data}
-      regexPattern={regexPattern}
+      regex={regexPattern}
       errorMsg={errorMsg}
-      mask="99999999999"
     />
   )
 }

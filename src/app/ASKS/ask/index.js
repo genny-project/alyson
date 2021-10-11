@@ -1,46 +1,47 @@
-import { useSelector } from 'react-redux'
-import { selectCode } from 'redux/db/selectors'
-import createSendAnswer from 'app/ASKS/utils/create-send-answer'
 import {
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  HStack,
   Text as CText,
-  useBoolean,
+  FormControl,
+  FormErrorMessage,
   FormHelperText,
+  FormLabel,
+  HStack,
+  useBoolean,
 } from '@chakra-ui/react'
-import getGroupCode from 'app/ASKS/utils/get-group-code'
-import Text from 'app/DTT/text'
-import Button from 'app/DTT/button'
-import Radio from 'app/DTT/radio'
-import Select from 'app/DTT/select'
-import Social from 'app/DTT/social'
-import Email from 'app/DTT/email'
-import Phone from 'app/DTT/phone'
-import Address from 'app/DTT/address'
-import Upload from 'app/DTT/upload'
-import Date from 'app/DTT/date'
-import RichText from 'app/DTT/rich_text'
-import DateRange from 'app/DTT/date_range'
-import Video from 'app/DTT/video'
-import TimeRange from 'app/DTT/time_range'
-import HtmlDisplay from 'app/DTT/html_display'
-import Signature from 'app/DTT/signature'
-import URL from 'app/DTT/url'
-import ABN from 'app/DTT/abn'
-import Rating from 'app/DTT/rating'
-import ThirdPartyVideo from 'app/DTT/third_party_video'
-import TimeZonePicker from 'app/DTT/time_zone'
-import CheckBox from 'app/DTT/check_box'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle, faCircle } from '@fortawesome/free-solid-svg-icons'
-import LogRocketSession from 'app/DTT/log_rocket_session'
+
+import ABN from 'app/DTT/abn'
+import Address from 'app/DTT/address'
 import Attribute from 'app/BE/attribute'
-import { useMobileValue } from 'utils/hooks'
-import { selectHighlightedQuestion } from 'redux/app/selectors'
+import Button from 'app/DTT/button'
+import CheckBox from 'app/DTT/check_box'
+import Date from 'app/DTT/date'
+import DateRange from 'app/DTT/date_range'
+import Email from 'app/DTT/email'
 import Flag from 'app/DTT/flag'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import HtmlDisplay from 'app/DTT/html_display'
+import LogRocketSession from 'app/DTT/log_rocket_session'
+import Phone from 'app/DTT/phone'
+import Radio from 'app/DTT/radio'
+import Rating from 'app/DTT/rating'
+import RichText from 'app/DTT/rich_text'
+import Select from 'app/DTT/select'
+import Signature from 'app/DTT/signature'
+import Social from 'app/DTT/social'
+import Text from 'app/DTT/text'
+import ThirdPartyVideo from 'app/DTT/third_party_video'
+import TimeRange from 'app/DTT/time_range'
+import TimeZonePicker from 'app/DTT/time_zone'
+import URL from 'app/DTT/url'
+import Upload from 'app/DTT/upload'
+import Video from 'app/DTT/video'
+import createSendAnswer from 'app/ASKS/utils/create-send-answer'
+import getGroupCode from 'app/ASKS/utils/get-group-code'
+import { selectCode } from 'redux/db/selectors'
+import { selectHighlightedQuestion } from 'redux/app/selectors'
 import { useEffect } from 'react'
+import { useMobileValue } from 'utils/hooks'
+import { useSelector } from 'react-redux'
 
 const Ask = ({
   parentCode,
@@ -72,6 +73,9 @@ const Ask = ({
   const groupCode = getGroupCode(question) || parentCode
 
   const [saving, setSaving] = useBoolean()
+
+  const regex = question?.attribute?.dataType?.validationList[0]?.regex
+  const dtType = question?.attribute?.dataType?.dttCode
 
   useEffect(() => {
     setSaving.off()
@@ -163,10 +167,16 @@ const Ask = ({
           data={data}
           onSendAnswer={onSendAnswer}
           askData={askData}
+          regex={regex}
         />
       )}
       {component === 'phone' && (
-        <Phone.Write questionCode={questionCode} onSendAnswer={onSendAnswer} data={data} />
+        <Phone.Write
+          questionCode={questionCode}
+          onSendAnswer={onSendAnswer}
+          data={data}
+          regex={regex}
+        />
       )}
       {component === 'address' && (
         <Address.Write questionCode={questionCode} onSendAnswer={onSendAnswer} data={data} />
@@ -205,6 +215,8 @@ const Ask = ({
           mandatory={mandatory}
           data={data}
           onSendAnswer={onSendAnswer}
+          regex={regex}
+          dtType={dtType}
         />
       )}
       {component === 'social' && (
@@ -213,6 +225,7 @@ const Ask = ({
           mandatory={mandatory}
           data={data}
           onSendAnswer={onSendAnswer}
+          regex={regex}
         />
       )}
       {component === 'upload' && (
@@ -229,6 +242,7 @@ const Ask = ({
           typeName={typeName}
           data={data}
           onSendAnswer={onSendAnswer}
+          regex={regex}
         />
       )}
       {component === 'richtext_editor' && (
@@ -238,6 +252,7 @@ const Ask = ({
           onSendAnswer={onSendAnswer}
           description={description}
           html={html}
+          regex={regex}
         />
       )}
       {component === 'date_range' && (

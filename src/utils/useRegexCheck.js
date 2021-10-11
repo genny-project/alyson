@@ -2,28 +2,28 @@ import { Text as ChakraText, Input } from '@chakra-ui/react'
 import { useEffect, useRef, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
-import InputMask from 'react-input-mask'
 import debounce from 'lodash.debounce'
 import { getIsInvalid } from 'utils/functions'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useMobileValue } from 'utils/hooks'
 
-const CommonWriteComponent = ({
-  questionCode,
-  data,
-  onSendAnswer,
-  regexPattern,
-  errorMsg,
-  mask,
-}) => {
+const CommonWriteComponent = ({ questionCode, data, onSendAnswer, regex, errorMsg, dtType }) => {
   const { dispatch } = useError()
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value)
 
-  const regex = RegExp(regexPattern)
+  if (dtType === 'DTT_TEXT') {
+    regex = RegExp(/^[\w\d\s]{1,20}$/)
+    errorMsg = 'Please enter a valid name.'
+  }
 
+  if (dtType === 'DTT_NAME') {
+    regex = RegExp(/^[a-zA-Z]*$/)
+  }
+
+  const testRegex = RegExp(regex)
   const inputRef = useRef()
-  const isInvalid = getIsInvalid(userInput)(regex)
+  const isInvalid = getIsInvalid(userInput)(testRegex)
 
   useEffect(() => {
     const listener = event => {
@@ -54,9 +54,7 @@ const CommonWriteComponent = ({
 
   return (
     <>
-      <InputMask
-        mask={mask}
-        alwaysShowMask
+      <Input
         onBlur={e => !errorStatus && debouncedSendAnswer(e.target.value)}
         onChange={e => setuserInput(e.target.value)}
         defaultValue={data?.value}
@@ -65,9 +63,7 @@ const CommonWriteComponent = ({
         w="full"
         maxW={maxW}
         isInvalid={isInvalid}
-      >
-        {inputProps => <Input {...inputProps} />}
-      </InputMask>
+      />
       {errorStatus && (
         <ChakraText textStyle="tail.error" mt={2}>
           {errorMsg}

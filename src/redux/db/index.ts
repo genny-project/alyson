@@ -1,6 +1,7 @@
+import { CmdPayload, MsgPayload } from 'redux/types'
+import { DBState, Note } from './types'
+import { addKey, removeKey } from './utils/update-keys'
 import { forEach, includes, split } from 'ramda'
-import { createSlice } from '@reduxjs/toolkit'
-import { newMsg, newCmd } from '../app'
 import {
   formatAsk,
   formatAttribute,
@@ -9,9 +10,9 @@ import {
   formatGroupData,
   formatNotes,
 } from './utils/format'
-import { DBState, Note } from './types'
-import { MsgPayload, CmdPayload } from 'redux/types'
-import { addKey, removeKey } from './utils/update-keys'
+import { newCmd, newMsg } from '../app'
+
+import { createSlice } from '@reduxjs/toolkit'
 
 export const initialState = {
   NOTES: {},
@@ -23,6 +24,7 @@ const db = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder.addCase(newMsg, (state: DBState, { payload }: { payload: MsgPayload }) => {
+      // console.log('PAYLOAD => ', payload)
       const {
         items,
         data_type,
@@ -34,6 +36,9 @@ const db = createSlice({
         questionCode,
         linkCode,
       } = payload
+
+      // console.log('DATATYPE', data_type)
+
       if (replace && parentCode) {
         state[`${parentCode}@rows`] = []
       }
@@ -51,6 +56,7 @@ const db = createSlice({
       }
 
       if (data_type === 'BaseEntity') {
+        // console.log('DATA_BASE', state, aliasCode, parentCode)
         forEach(formatBaseEntity(state, aliasCode, parentCode), items)
         return
       }

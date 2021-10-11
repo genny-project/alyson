@@ -93,8 +93,8 @@ const prettyLog = (msg, data = {}, style) => {
       return
     }
 
-    console.info(`%c${title}`, style || 'padding: 1rem; font-size: 1rem; color: darkgreen', '\n')
-    console.dir(data)
+    // console.info(`%c${title}`, style || 'padding: 1rem; font-size: 1rem; color: darkgreen', '\n')
+    // console.dir(data)
   }
 }
 

@@ -27,8 +27,6 @@ const DataTable = ({ parentCode, mapSearch }) => {
   const actions = getActions(tableData)
   const tableActions = getTableActions(tableData)
 
-  console.log('Actions => ', actions)
-
   return (
     <Box mx="5">
       <HStack align="flex-end" mb="3" justify="space-between">
@@ -47,7 +45,7 @@ const DataTable = ({ parentCode, mapSearch }) => {
             <Action
               key={action}
               size="md"
-              colorScheme="purple"
+              colorscheme="purple"
               parentCode={parentCode}
               code={action}
             />
