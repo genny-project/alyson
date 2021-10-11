@@ -36,6 +36,7 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regex }) => {
 
   const [errorStatus, setErrorStatus] = useState(false)
   const [errorMsg, setErrorMsg] = useState('Please select a valid date.')
+  const [isCurrentDay, setIsCurrentDay] = useState(true)
 
   const includeTime = includes('LocalDateTime', typeName)
   const onlyYear = typeName === 'year'
@@ -49,27 +50,31 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regex }) => {
 
   const today = new Date()
   const inputDate = new Date(data?.value)
-  const isDateBefore = isBefore(inputDate, today)
 
   useEffect(() => {
-    if (!isDateBefore) {
+    if (questionCode === 'QUE_JOURNAL_DATE') {
+      const isDateBefore = isBefore(inputDate, today)
+      setIsCurrentDay(isDateBefore)
+    }
+
+    if (!isCurrentDay) {
       setErrorStatus(true)
       setErrorMsg('Logbook for current date cannot be added.')
     }
-  }, [inputDate, errorStatus, today, isDateBefore])
+  }, [inputDate, errorStatus, today, questionCode])
 
   useEffect(() => {
-    isDateBefore && (isInvalid ? setErrorStatus(true) : setErrorStatus(false))
-  }, [isDateBefore, isInvalid])
+    console.log(isCurrentDay)
+    isInvalid ? setErrorStatus(true) : setErrorStatus(false)
+  }, [isInvalid])
 
   useEffect(() => {
-    isDateBefore &&
-      (isInvalid
-        ? dispatch({ type: ACTIONS.SET_TO_TRUE, payload: questionCode })
-        : dispatch({ ttype: ACTIONS.SET_TO_FALSE, payload: questionCode }))
-  }, [isDateBefore, dispatch, isInvalid, questionCode])
+    isInvalid
+      ? dispatch({ type: ACTIONS.SET_TO_TRUE, payload: questionCode })
+      : dispatch({ ttype: ACTIONS.SET_TO_FALSE, payload: questionCode })
+  }, [dispatch, isInvalid, questionCode])
 
-  return isDateBefore && data?.value ? (
+  return isCurrentDay && data?.value ? (
     <DateChip
       onlyYear={onlyYear}
       includeTime={includeTime}
