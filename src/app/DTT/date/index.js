@@ -31,7 +31,7 @@ const Read = ({ data, typeName, config }) => {
     </Text>
   )
 }
-const Write = ({ questionCode, data, onSendAnswer, typeName, regex }) => {
+const Write = ({ questionCode, data, onSendAnswer, typeName, regex, dtType }) => {
   const regexPattern = /^(\d{2})\.(\d{2})\.(\d{4}) (\d{2}):(\d{2}):(\d{2})$/
 
   const [errorStatus, setErrorStatus] = useState(false)
@@ -52,7 +52,7 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regex }) => {
   const inputDate = new Date(data?.value)
 
   useEffect(() => {
-    if (questionCode === 'QUE_JOURNAL_DATE') {
+    if (dtType === 'DTT_PAST_DATE') {
       const isDateBefore = isBefore(inputDate, today)
       setIsCurrentDay(isDateBefore)
     }
@@ -64,7 +64,6 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regex }) => {
   }, [inputDate, errorStatus, today, questionCode])
 
   useEffect(() => {
-    console.log(isCurrentDay)
     isInvalid ? setErrorStatus(true) : setErrorStatus(false)
   }, [isInvalid])
 

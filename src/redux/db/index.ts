@@ -24,7 +24,6 @@ const db = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder.addCase(newMsg, (state: DBState, { payload }: { payload: MsgPayload }) => {
-      // console.log('PAYLOAD => ', payload)
       const {
         items,
         data_type,
@@ -36,8 +35,6 @@ const db = createSlice({
         questionCode,
         linkCode,
       } = payload
-
-      // console.log('DATATYPE', data_type)
 
       if (replace && parentCode) {
         state[`${parentCode}@rows`] = []
@@ -56,7 +53,6 @@ const db = createSlice({
       }
 
       if (data_type === 'BaseEntity') {
-        // console.log('DATA_BASE', state, aliasCode, parentCode)
         forEach(formatBaseEntity(state, aliasCode, parentCode), items)
         return
       }

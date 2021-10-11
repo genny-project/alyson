@@ -243,6 +243,7 @@ const Ask = ({
           data={data}
           onSendAnswer={onSendAnswer}
           regex={regex}
+          dtType={dtType}
         />
       )}
       {component === 'richtext_editor' && (

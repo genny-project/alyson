@@ -1,13 +1,14 @@
 import { HStack, Stack, Text, VStack } from '@chakra-ui/layout'
+import { find, head, includes, replace } from 'ramda'
+import { selectCode, selectKeys } from 'redux/db/selectors'
+
 import Attribute from 'app/BE/attribute'
 import Button from 'app/layouts/components/button'
 import Card from 'app/layouts/components/card'
 import Process from 'app/layouts/process'
-import { find, head, includes, replace } from 'ramda'
-import { useSelector } from 'react-redux'
-import { selectCode, selectKeys } from 'redux/db/selectors'
-import { useIsMobile } from 'utils/hooks'
 import { onSendMessage } from 'vertx'
+import { useIsMobile } from 'utils/hooks'
+import { useSelector } from 'react-redux'
 
 const Progress = () => {
   const keys = useSelector(selectKeys)
@@ -19,8 +20,6 @@ const Progress = () => {
       keys,
     ) || '',
   )
-
-  console.log(progressSbe)
 
   const appBe = head(useSelector(selectCode(progressSbe, 'rows')) || [])
 
