@@ -6,6 +6,7 @@ import { callBucketView, onSendMessage } from 'vertx'
 import { useColorModeValue } from '@chakra-ui/color-mode'
 import Attribute from 'app/BE/attribute'
 import { useEffect } from 'react'
+import Process from 'app/layouts/process'
 
 const EduProRep = ({ userCode }) => {
   const [name, eduPro, jobTitle] = useSelector(
@@ -87,6 +88,7 @@ const EduProRep = ({ userCode }) => {
           </VStack>
         </Box>
       </Stack>
+      <Process dashboard />
     </VStack>
   )
 }

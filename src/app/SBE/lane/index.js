@@ -14,7 +14,6 @@ const Lane = ({ sbeCode, dashboard, width }) => {
   const rows = useSelector(selectRows(sbeCode), (prev, next) => prev.length === next.length)
 
   const isMobile = useIsMobile()
-  if (dashboard && !rows.length) return null
 
   return (
     <Box>
