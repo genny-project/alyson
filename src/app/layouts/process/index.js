@@ -30,11 +30,11 @@ const Process = ({ dashboard }) => {
         </HStack>
       )}
 
-      <Stack direction={'row'} spacing={5}>
+      <HStack spacing={5} mt="5" m="auto" w="90vw" bg="yellow" align="flex-start">
         {processCodes.map(sbeCode => (
           <Lane key={sbeCode} sbeCode={sbeCode} dashboard={dashboard} />
         ))}
-      </Stack>
+      </HStack>
     </VStack>
   )
 }
