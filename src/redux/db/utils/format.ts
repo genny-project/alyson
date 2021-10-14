@@ -27,6 +27,12 @@ export const formatBaseEntity = (
       (state[rowKey] as Array<string>).push(code)
   }
 
+  if (includes('SBE_', code)) {
+    forEach(action => {
+      delete state[action as string]
+    }, filter(includes(`${code}@ACT_`), keys(state as object)))
+  }
+
   forEach((attribute: Keyable) => {
     const attributeCode = attribute.attributeCode
 
