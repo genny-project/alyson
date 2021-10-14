@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import { selectProcess } from 'redux/app/selectors'
-import { VStack, HStack, Box } from '@chakra-ui/react'
+import { VStack, HStack, Box, Center } from '@chakra-ui/react'
 
 import Lane from 'app/SBE/lane'
 import Search from 'app/SBE/search/Search'
@@ -30,7 +30,7 @@ const Process = ({ dashboard }) => {
         </HStack>
       )}
 
-      <HStack spacing={5} mt="5" w="95vw" align="flex-start">
+      <HStack spacing={5} mt="5" w="95vw" align="flex-start" justify="space-between">
         {processCodes.map(sbeCode => (
           <Lane key={sbeCode} sbeCode={sbeCode} dashboard={dashboard} />
         ))}
