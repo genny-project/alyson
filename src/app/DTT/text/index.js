@@ -10,14 +10,13 @@ import { ACTIONS } from 'utils/contexts/ErrorReducer'
 
 export const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
   // eslint-disable-next-line no-useless-escape
-  const textRegex = RegExp(/^[a-zA-Z]*$/)
 
   const { dispatch } = useError()
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value)
 
   const inputRef = useRef()
-  const isInvalid = getIsInvalid(userInput)(textRegex)
+  const isInvalid = getIsInvalid(userInput)(RegExp(regexPattern))
 
   useEffect(() => {
     const listener = event => {
