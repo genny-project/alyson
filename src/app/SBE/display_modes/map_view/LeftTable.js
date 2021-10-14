@@ -17,7 +17,6 @@ const LeftTable = ({ parentCode }) => {
   if (!tableData) return null
 
   const columns = getColumns(tableData)
-  console.log('rows----->', rows)
   const actions = getActions(tableData)
 
   return (
