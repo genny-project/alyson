@@ -39,7 +39,7 @@ const createSendMessage = (token, onSendMsg) => (data, options = {}) => {
         }
       }
 
-      eventBus.send('address.inbound', message)
+      eventBus.send('address.inbound', message, { Authorization: `Bearer ${token}` })
       onSendMsg(message)
     } catch (error) {
       window.location.reload()
