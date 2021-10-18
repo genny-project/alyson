@@ -11,7 +11,7 @@ const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value)
   const { dispatch } = useError()
-  const isInvalid = getIsInvalid(userInput)(regexPattern)
+  const isInvalid = getIsInvalid(userInput)(RegExp(regexPattern))
   const maxW = useMobileValue(['', '25vw'])
 
   useEffect(() => {
