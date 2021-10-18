@@ -25,16 +25,15 @@ const InternshipCard = ({ code, parentCode }) => {
       cursor="pointer"
       w={isMobile ? '40vw' : '19rem'}
       p="4"
-      h={'17rem'}
+      h={'20rem'}
       background={bgColor}
       onClick={() => onSendMessage({ code: 'ACT_PRI_EVENT_VIEW', targetCode: code, parentCode })}
     >
       <VStack h="full">
-        <Spacer />
         <Image src={src} maxW={isMobile ? '5rem' : '10rem'} maxH={isMobile ? '5rem' : '10rem'} />
         <Spacer />
         <Text fontWeight="semibold">{hostCpy?.value}</Text>
-        <Text textOverflow="ellipsis">{name?.value}</Text>
+        <Text noOfLines={2}>{name?.value}</Text>
       </VStack>
     </Card>
   )

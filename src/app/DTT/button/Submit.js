@@ -1,19 +1,24 @@
+import { useState } from 'react'
 import { Box, Button, Tag, Text, VStack, Wrap, WrapItem } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
-import { onSendMessage } from 'vertx'
-import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectAttributes, selectCode } from 'redux/db/selectors'
 import { compose, filter, identity, includes, map, prop } from 'ramda'
+
+import { onSendMessage } from 'vertx'
+import { selectAttributes, selectCode } from 'redux/db/selectors'
 import { highlightQuestion } from 'redux/app'
+import { useError } from 'utils/contexts/ErrorContext'
 
 const Submit = ({ askData, onFinish, parentCode }) => {
-  const { questionCode, targetCode, name, disabled } = askData
-
+  const { questionCode, targetCode, name, disabled: disabledFromBackEnd } = askData
+  const { errorState } = useError()
   const dispatch = useDispatch()
-
   const onHighlightQuestion = compose(dispatch, highlightQuestion)
+
+  const errorStateValues = Object.values(errorState)
+  const hasError = includes(true)(errorStateValues)
+  const isDisabled = hasError || disabledFromBackEnd ? true : false
 
   const questions = useSelector(selectCode(parentCode))
   const questionDatas = useSelector(selectAttributes(parentCode, questions))
@@ -53,7 +58,7 @@ const Submit = ({ askData, onFinish, parentCode }) => {
       <VStack
         pb="1rem"
         align="start"
-        display={disabled && mandatoryQuestionsNoValue.length ? 'block' : 'none'}
+        display={disabledFromBackEnd && mandatoryQuestionsNoValue.length ? 'block' : 'none'}
       >
         <Text textStyle="tail.error">Please complete all questions marked as mandatory with *</Text>
         <Text textStyle="tail.3">These questions still need to be answered, click to scroll.</Text>
@@ -83,7 +88,7 @@ const Submit = ({ askData, onFinish, parentCode }) => {
       <Button
         isLoading={loading}
         test-id={questionCode}
-        isDisabled={disabled}
+        isDisabled={isDisabled}
         onClick={onClick}
         leftIcon={
           questionCode === 'QUE_SUBMIT_NO' ? (
