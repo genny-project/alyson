@@ -9,6 +9,7 @@ import { Fonts } from 'config/fonts'
 import Loading from 'keycloak/loading'
 import LogRocket from 'logrocket'
 import Error from 'error'
+import ErrorContextProvider from 'utils/contexts/ErrorContext'
 
 LogRocket.init('geop13/internmatch')
 
@@ -23,7 +24,9 @@ const initialiseApp = async () => {
           <Fonts />
           <ColorModeScript initialColorMode={theme.config.initialColorMode} />
           <ReactKeycloakProvider authClient={keycloak} LoadingComponent={<Loading />}>
-            <App />
+            <ErrorContextProvider>
+              <App />
+            </ErrorContextProvider>
           </ReactKeycloakProvider>
         </ChakraProvider>
       </React.StrictMode>,

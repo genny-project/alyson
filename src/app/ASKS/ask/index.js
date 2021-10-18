@@ -41,6 +41,7 @@ import { useMobileValue } from 'utils/hooks'
 import { selectHighlightedQuestion } from 'redux/app/selectors'
 import Flag from 'app/DTT/flag'
 import { useEffect } from 'react'
+import { pathOr } from 'ramda'
 
 const Ask = ({
   parentCode,
@@ -64,6 +65,10 @@ const Ask = ({
     disabled,
     readonly,
   } = askData || {}
+
+  const regexPattern = pathOr(null, ['attribute', 'dataType', 'validationList', 0, 'regex'])(
+    question,
+  )
 
   const data = useSelector(selectCode(targetCode, attributeCode)) || {}
   const highlightedQuestion = useSelector(selectHighlightedQuestion)
@@ -124,6 +129,7 @@ const Ask = ({
         label={name}
         isRequired={mandatory}
         id={attributeCode}
+        regexPattern={regexPattern}
       />
     )
   return component === 'button' ? (
@@ -133,6 +139,7 @@ const Ask = ({
       askData={askData}
       onFinish={onFinish}
       id={attributeCode}
+      regexPattern={regexPattern}
     />
   ) : (
     <FormControl
@@ -163,13 +170,24 @@ const Ask = ({
           data={data}
           onSendAnswer={onSendAnswer}
           askData={askData}
+          regexPattern={regexPattern}
         />
       )}
       {component === 'phone' && (
-        <Phone.Write questionCode={questionCode} onSendAnswer={onSendAnswer} data={data} />
+        <Phone.Write
+          questionCode={questionCode}
+          onSendAnswer={onSendAnswer}
+          data={data}
+          regexPattern={regexPattern}
+        />
       )}
       {component === 'address' && (
-        <Address.Write questionCode={questionCode} onSendAnswer={onSendAnswer} data={data} />
+        <Address.Write
+          questionCode={questionCode}
+          onSendAnswer={onSendAnswer}
+          data={data}
+          regexPattern={regexPattern}
+        />
       )}
       {(component === 'dropdown' || component === 'tag') && (
         <Select.Write
@@ -186,6 +204,7 @@ const Ask = ({
           data={data}
           label={name}
           parentCode={parentCode}
+          regexPattern={regexPattern}
         />
       )}
       {component === 'radio' && (
@@ -197,6 +216,7 @@ const Ask = ({
           data={data}
           mandatory={mandatory}
           parentCode={parentCode}
+          regexPattern={regexPattern}
         />
       )}
       {component === 'text' && (
@@ -205,6 +225,7 @@ const Ask = ({
           mandatory={mandatory}
           data={data}
           onSendAnswer={onSendAnswer}
+          regexPattern={regexPattern}
         />
       )}
       {component === 'social' && (
@@ -213,6 +234,7 @@ const Ask = ({
           mandatory={mandatory}
           data={data}
           onSendAnswer={onSendAnswer}
+          regexPattern={regexPattern}
         />
       )}
       {component === 'upload' && (
@@ -221,6 +243,7 @@ const Ask = ({
           dttData={dataType}
           data={data}
           onSendAnswer={onSendAnswer}
+          regexPattern={regexPattern}
         />
       )}
       {(component === 'date' || component === 'year') && (
@@ -229,6 +252,7 @@ const Ask = ({
           typeName={typeName}
           data={data}
           onSendAnswer={onSendAnswer}
+          regexPattern={regexPattern}
         />
       )}
       {component === 'richtext_editor' && (
@@ -238,6 +262,7 @@ const Ask = ({
           onSendAnswer={onSendAnswer}
           description={description}
           html={html}
+          regexPattern={regexPattern}
         />
       )}
       {component === 'date_range' && (
@@ -246,6 +271,7 @@ const Ask = ({
           data={data}
           onSendAnswer={onSendAnswer}
           html={html}
+          regexPattern={regexPattern}
         />
       )}
       {component === 'video' && (
@@ -254,17 +280,35 @@ const Ask = ({
           data={data}
           onSendAnswer={onSendAnswer}
           html={html}
+          regexPattern={regexPattern}
         />
       )}
       {component === 'time_range' && (
-        <TimeRange.Write questionCode={questionCode} data={data} onSendAnswer={onSendAnswer} />
+        <TimeRange.Write
+          questionCode={questionCode}
+          data={data}
+          onSendAnswer={onSendAnswer}
+          regexPattern={regexPattern}
+        />
       )}
-      {component === 'html_display' && <HtmlDisplay.Read questionCode={questionCode} data={data} />}
+      {component === 'html_display' && (
+        <HtmlDisplay.Read questionCode={questionCode} data={data} regexPattern={regexPattern} />
+      )}
       {component === 'signature' && (
-        <Signature.Write questionCode={questionCode} data={data} onSendAnswer={onSendAnswer} />
+        <Signature.Write
+          questionCode={questionCode}
+          data={data}
+          onSendAnswer={onSendAnswer}
+          regexPattern={regexPattern}
+        />
       )}
       {component === 'link' && (
-        <URL.Write questionCode={questionCode} data={data} onSendAnswer={onSendAnswer} />
+        <URL.Write
+          questionCode={questionCode}
+          data={data}
+          onSendAnswer={onSendAnswer}
+          regexPattern={regexPattern}
+        />
       )}
       {component === 'abn_number' && (
         <ABN.Write
@@ -272,27 +316,51 @@ const Ask = ({
           questionCode={questionCode}
           data={data}
           onSendAnswer={onSendAnswer}
+          regexPattern={regexPattern}
         />
       )}
       {component === 'rating' && (
-        <Rating.Write data={data} questionCode={questionCode} onSendAnswer={onSendAnswer} />
+        <Rating.Write
+          data={data}
+          questionCode={questionCode}
+          onSendAnswer={onSendAnswer}
+          regexPattern={regexPattern}
+        />
       )}
       {component === 'youtube' && (
         <ThirdPartyVideo.Write
           data={data}
           questionCode={questionCode}
           onSendAnswer={onSendAnswer}
+          regexPattern={regexPattern}
         />
       )}
       {component === 'time_zone' && (
-        <TimeZonePicker.Write data={data} questionCode={questionCode} onSendAnswer={onSendAnswer} />
+        <TimeZonePicker.Write
+          data={data}
+          questionCode={questionCode}
+          onSendAnswer={onSendAnswer}
+          regexPattern={regexPattern}
+        />
       )}
       {component === 'checkbox' && (
-        <CheckBox.Write data={data} questionCode={questionCode} onSendAnswer={onSendAnswer} />
+        <CheckBox.Write
+          data={data}
+          questionCode={questionCode}
+          onSendAnswer={onSendAnswer}
+          regexPattern={regexPattern}
+        />
       )}
-      {component === 'log_rocket_session' && <LogRocketSession.Write onSendAnswer={onSendAnswer} />}
+      {component === 'log_rocket_session' && (
+        <LogRocketSession.Write onSendAnswer={onSendAnswer} regexPattern={regexPattern} />
+      )}
       {component === 'flag' && (
-        <Flag.Write data={data} questionCode={questionCode} onSendAnswer={onSendAnswer} />
+        <Flag.Write
+          data={data}
+          questionCode={questionCode}
+          onSendAnswer={onSendAnswer}
+          regexPattern={regexPattern}
+        />
       )}
       <FormErrorMessage>{feedback}</FormErrorMessage>
     </FormControl>
