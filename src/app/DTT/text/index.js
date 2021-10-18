@@ -9,12 +9,20 @@ import { useError } from 'utils/contexts/ErrorContext'
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 
 export const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
+  let regex
   const { dispatch } = useError()
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value)
 
+  try {
+    regex = RegExp(regexPattern)
+  } catch (err) {
+    console.error('There is an error with the regex', questionCode, err)
+    regex = undefined
+  }
+
   const inputRef = useRef()
-  const isInvalid = getIsInvalid(userInput)(RegExp(regexPattern))
+  const isInvalid = getIsInvalid(userInput)(regex)
 
   useEffect(() => {
     const listener = event => {
