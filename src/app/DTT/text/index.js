@@ -9,8 +9,6 @@ import { useError } from 'utils/contexts/ErrorContext'
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 
 export const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
-  // eslint-disable-next-line no-useless-escape
-
   const { dispatch } = useError()
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value)

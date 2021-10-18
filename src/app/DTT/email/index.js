@@ -8,13 +8,10 @@ import { useError } from 'utils/contexts/ErrorContext'
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 
 const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
-  // eslint-disable-next-line no-useless-escape
-  const emailRegex = RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
-
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value)
   const { dispatch } = useError()
-  const isInvalid = getIsInvalid(userInput)(emailRegex)
+  const isInvalid = getIsInvalid(userInput)(regexPattern)
   const maxW = useMobileValue(['', '25vw'])
 
   useEffect(() => {
