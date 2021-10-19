@@ -1,17 +1,19 @@
-import { useState, useEffect } from 'react'
-
 import { Box, Input, Text, useClipboard, useToast } from '@chakra-ui/react'
-import { useMobileValue } from 'utils/hooks'
-import { getIsInvalid } from 'utils/functions'
-import Duplicates from './Duplicates'
-import { useError } from 'utils/contexts/ErrorContext'
+import { useEffect, useState } from 'react'
+
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
+import Duplicates from './Duplicates'
+import { getIsInvalid } from 'utils/functions'
+import { useError } from 'utils/contexts/ErrorContext'
+import { useMobileValue } from 'utils/hooks'
 
 const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
+  console.log(regexPattern)
+  const regex = /^\w+([\.-\\+]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value)
   const { dispatch } = useError()
-  const isInvalid = getIsInvalid(userInput)(RegExp(regexPattern))
+  const isInvalid = getIsInvalid(userInput)(RegExp(regex))
   const maxW = useMobileValue(['', '25vw'])
 
   useEffect(() => {

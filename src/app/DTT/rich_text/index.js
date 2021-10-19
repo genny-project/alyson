@@ -1,52 +1,81 @@
-import { useState, useEffect } from 'react'
+import '../../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
+
 import {
   Box,
   Button,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverBody,
-  PopoverArrow,
-  PopoverCloseButton,
-  PopoverHeader,
-  Text,
   HStack,
-  VStack,
-  useDisclosure,
   Modal,
-  ModalOverlay,
+  ModalBody,
   ModalContent,
   ModalFooter,
-  ModalBody,
+  ModalOverlay,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverHeader,
+  PopoverTrigger,
+  Text,
+  VStack,
+  useDisclosure,
 } from '@chakra-ui/react'
-import { EditorState, convertFromHTML, ContentState } from 'draft-js'
+import { ContentState, EditorState, convertFromHTML } from 'draft-js'
+import { useEffect, useState } from 'react'
+
+import { ACTIONS } from 'utils/contexts/ErrorReducer'
+import DOMPurify from 'dompurify'
 import { Editor } from 'react-draft-wysiwyg'
-import { stateToHTML } from 'draft-js-export-html'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faExpand } from '@fortawesome/free-solid-svg-icons'
-import '../../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
-import DOMPurify from 'dompurify'
+import { getIsInvalid } from 'utils/functions'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
-const Write = ({ questionCode, data, onSendAnswer, html }) => {
+import { stateToHTML } from 'draft-js-export-html'
+import { useError } from 'utils/contexts/ErrorContext'
+
+const Write = ({ questionCode, data, onSendAnswer, html, regexPattern }) => {
   const { minCharacterCount = 0, maxCharacterCount } = safelyParseJson(html, {})
   const blocksFromHTML = convertFromHTML(data?.value || '')
   const state = ContentState.createFromBlockArray(
     blocksFromHTML.contentBlocks,
     blocksFromHTML.entityMap,
   )
+  const [userInput, setUserInput] = useState(data?.value)
   const [dataValue, setDataValue] = useState(data?.value)
   const [editor, setEditor] = useState(
     !data?.value ? EditorState.createEmpty() : EditorState.createWithContent(state),
   )
+
+  const [errorStatus, setErrorStatus] = useState(false)
+
+  const { dispatch } = useError()
+  const isInvalid = getIsInvalid(userInput)(RegExp(regexPattern))
+
+  const handleEditorChange = e => {
+    setUserInput(e.blocks[0].text)
+  }
+
+  useEffect(() => {
+    isInvalid === true ? setErrorStatus(true) : setErrorStatus(false)
+  }, [isInvalid])
+
+  useEffect(() => {
+    isInvalid === true
+      ? dispatch({ type: ACTIONS.SET_TO_TRUE, payload: questionCode })
+      : dispatch({ type: ACTIONS.SET_TO_FALSE, payload: questionCode })
+  }, [dispatch, isInvalid, questionCode])
+
   useEffect(() => {
     if (data?.value !== dataValue) {
       setDataValue(data?.value)
       setEditor(EditorState.createWithContent(state))
     }
   }, [data?.value, dataValue, state])
+
   const curLength = (stateToHTML(editor.getCurrentContent()) || '')
     .replace(/(<([^>]+)>)/gi, '')
     .replace(/&nbsp;/g, ' ').length
+
   const handleSave = () => {
     if (minCharacterCount || maxCharacterCount) {
       if (minCharacterCount < curLength && curLength < maxCharacterCount) {
@@ -56,53 +85,64 @@ const Write = ({ questionCode, data, onSendAnswer, html }) => {
       onSendAnswer(stateToHTML(editor.getCurrentContent()))
     }
   }
+
   return (
-    <Box
-      test-id={questionCode}
-      w="full"
-      border="1px solid #E2E8F0"
-      borderRadius="0.375rem"
-      p="1rem"
-    >
-      {minCharacterCount || maxCharacterCount ? (
-        !minCharacterCount ? (
-          <HStack>
-            <Text>{`Please use less than`}</Text>
-            <Text color={curLength > maxCharacterCount ? 'red' : 'green'}>{maxCharacterCount}</Text>
-            <Text>{`characters`}</Text>
-          </HStack>
-        ) : (
-          <HStack>
-            <Text>{`Please use between`}</Text>
-            <Text color={curLength < minCharacterCount ? 'red' : 'green'}>{minCharacterCount}</Text>
-            <Text>{`and`}</Text>
-            <Text color={curLength > maxCharacterCount ? 'red' : 'green'}>{maxCharacterCount}</Text>
-            <Text>{`characters`}</Text>
-          </HStack>
-        )
-      ) : null}
-      {minCharacterCount || maxCharacterCount ? (
-        <Text mb="3">
-          {minCharacterCount > curLength
-            ? `Keep typing please`
-            : curLength > maxCharacterCount
-            ? `Too much text`
-            : curLength
-            ? `That's perfect, thanks!`
-            : ''}
-        </Text>
-      ) : null}
-      <Editor
-        toolbar={{
-          options: ['list', 'textAlign'],
-        }}
-        editorState={editor}
-        onEditorStateChange={setEditor}
-        onBlur={handleSave}
-        spellCheck={true}
-        lang="en"
-      />
-    </Box>
+    <>
+      <Box
+        test-id={questionCode}
+        w="full"
+        border="1px solid #E2E8F0"
+        borderRadius="0.375rem"
+        p="1rem"
+      >
+        {minCharacterCount || maxCharacterCount ? (
+          !minCharacterCount ? (
+            <HStack>
+              <Text>{`Please use less than`}</Text>
+              <Text color={curLength > maxCharacterCount ? 'red' : 'green'}>
+                {maxCharacterCount}
+              </Text>
+              <Text>{`characters`}</Text>
+            </HStack>
+          ) : (
+            <HStack>
+              <Text>{`Please use between`}</Text>
+              <Text color={curLength < minCharacterCount ? 'red' : 'green'}>
+                {minCharacterCount}
+              </Text>
+              <Text>{`and`}</Text>
+              <Text color={curLength > maxCharacterCount ? 'red' : 'green'}>
+                {maxCharacterCount}
+              </Text>
+              <Text>{`characters`}</Text>
+            </HStack>
+          )
+        ) : null}
+        {minCharacterCount || maxCharacterCount ? (
+          <Text mb="3">
+            {minCharacterCount > curLength
+              ? `Keep typing please`
+              : curLength > maxCharacterCount
+              ? `Too much text`
+              : curLength
+              ? `That's perfect, thanks!`
+              : ''}
+          </Text>
+        ) : null}
+        <Editor
+          toolbar={{
+            options: ['list', 'textAlign'],
+          }}
+          editorState={editor}
+          onEditorStateChange={setEditor}
+          onBlur={handleSave}
+          onChange={handleEditorChange}
+          spellCheck={true}
+          lang="en"
+        />
+      </Box>
+      {errorStatus && <Text textStyle="tail.error" mt={2}>{`Please enter a valid text. `}</Text>}
+    </>
   )
 }
 const Read = ({ data, mini, config = {} }) => {

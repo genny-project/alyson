@@ -1,12 +1,12 @@
-import { useState, useEffect, useRef } from 'react'
-import { Input, Text as ChakraText } from '@chakra-ui/react'
-import debounce from 'lodash.debounce'
+import { Text as ChakraText, Input } from '@chakra-ui/react'
+import { useEffect, useRef, useState } from 'react'
 
-import { useMobileValue } from 'utils/hooks'
+import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import DetailViewTags from 'app/DTT/text/detailview_tags'
+import debounce from 'lodash.debounce'
 import { getIsInvalid } from 'utils/functions'
 import { useError } from 'utils/contexts/ErrorContext'
-import { ACTIONS } from 'utils/contexts/ErrorReducer'
+import { useMobileValue } from 'utils/hooks'
 
 export const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
   let regex
