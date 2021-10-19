@@ -93,9 +93,13 @@ const VertxContainer = () => {
 
     sendAuthInit({ token })
 
-    eventBus.send('address.inbound', {
-      data: makeAuthInitData({ sessionId, token }),
-    })
+    eventBus.send(
+      'address.inbound',
+      {
+        data: makeAuthInitData({ sessionId, token }),
+      },
+      { Authorization: `Bearer ${token}` },
+    )
 
     onSendMessage = createSendMessage(token, onSendMsg)
 
