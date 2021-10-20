@@ -1,12 +1,14 @@
-import { useSelector } from 'react-redux'
-import { selectRows } from 'redux/db/selectors'
-import { VStack, Box, useColorModeValue } from '@chakra-ui/react'
-import BECard from 'app/BE/card'
-import Title from './Title'
-import Footer from './Footer'
 import './lane.css'
+
+import { Box, VStack, useColorModeValue } from '@chakra-ui/react'
+
+import BECard from 'app/BE/card'
 import Card from 'app/layouts/components/card'
+import Footer from './Footer'
+import Title from './Title'
+import { selectRows } from 'redux/db/selectors'
 import { useIsMobile } from 'utils/hooks'
+import { useSelector } from 'react-redux'
 
 const Lane = ({ sbeCode, dashboard, width }) => {
   const bg = useColorModeValue('gray.100', 'gray.700')
@@ -31,8 +33,8 @@ const Lane = ({ sbeCode, dashboard, width }) => {
         minW="14vw"
       >
         <VStack p={2}>
-          {rows.map(row => (
-            <BECard key={row} code={row} parentCode={sbeCode} />
+          {rows.map((row, index) => (
+            <BECard key={`${index}-${row}`} code={row} parentCode={sbeCode} />
           ))}
         </VStack>
 

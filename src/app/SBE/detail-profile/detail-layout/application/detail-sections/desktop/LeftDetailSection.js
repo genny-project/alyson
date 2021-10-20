@@ -1,18 +1,19 @@
-import { useSelector } from 'react-redux'
-import { map } from 'ramda'
-import { VStack, HStack, Box, Text } from '@chakra-ui/layout'
-import { useColorModeValue } from '@chakra-ui/color-mode'
-import ShowIconIfNotEmpty from 'app/SBE/detail-profile/ShowIconIfNotEmpty.js'
+import 'app/layouts/components/css/hide-scroll.css'
 
-import DetailActions from 'app/SBE/detail-profile/detail-layout/application/templates/Actions.js'
+import { Box, HStack, Text, VStack } from '@chakra-ui/layout'
 import {
   LeftDetailAttributesApplication,
   LeftDetailAttributesApplicationIntern,
 } from 'app/SBE/detail-profile/detail-layout/application/templates/AttributesList.js'
-import 'app/layouts/components/css/hide-scroll.css'
+
 import Attribute from 'app/BE/attribute'
-import { selectCode } from 'redux/db/selectors'
+import DetailActions from 'app/SBE/detail-profile/detail-layout/application/templates/Actions.js'
+import ShowIconIfNotEmpty from 'app/SBE/detail-profile/ShowIconIfNotEmpty.js'
 import getUserType from 'utils/helpers/get-user-type'
+import { map } from 'ramda'
+import { selectCode } from 'redux/db/selectors'
+import { useColorModeValue } from '@chakra-ui/color-mode'
+import { useSelector } from 'react-redux'
 
 const LeftDetail = ({ beCode, sbeCode }) => {
   const cardBg = useColorModeValue('gray.200', 'gray.600')
@@ -80,6 +81,7 @@ const LeftDetail = ({ beCode, sbeCode }) => {
                 attrSecond={attrSecond}
                 config={config}
                 beCode={beCode}
+                key={`${beCode}_${attr}`}
               />
             ))(
               userType === 'INTERN'

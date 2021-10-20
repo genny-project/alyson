@@ -1,13 +1,12 @@
-import { useSelector } from 'react-redux'
-import { selectProcess } from 'redux/app/selectors'
-import { VStack, HStack, Box } from '@chakra-ui/react'
+import { Box, HStack, VStack } from '@chakra-ui/react'
 
+import Ask from 'app/ASKS/ask'
 import Lane from 'app/SBE/lane'
 import Search from 'app/SBE/search/Search'
-import { selectCode } from 'redux/db/selectors'
-import Ask from 'app/ASKS/ask'
-
 import getUserType from 'utils/helpers/get-user'
+import { selectCode } from 'redux/db/selectors'
+import { selectProcess } from 'redux/app/selectors'
+import { useSelector } from 'react-redux'
 
 const Process = ({ dashboard }) => {
   const userType = getUserType()
@@ -21,8 +20,8 @@ const Process = ({ dashboard }) => {
       {!dashboard && userType !== 'INTERN' && (
         <HStack align="start">
           {bucketSearch &&
-            bucketSearch.map(childAsk => (
-              <Box width={'20rem'}>
+            bucketSearch.map((childAsk, index) => (
+              <Box key={index} width={'20rem'}>
                 <Ask noLabel questionCode={childAsk} parentCode={'QUE_BUCKET_INTERNS_GRP'} />
               </Box>
             ))}
@@ -31,8 +30,8 @@ const Process = ({ dashboard }) => {
       )}
 
       <HStack spacing={5} mt="5" w="95vw" align="flex-start" justify="space-between">
-        {processCodes.map(sbeCode => (
-          <Lane key={sbeCode} sbeCode={sbeCode} dashboard={dashboard} />
+        {processCodes.map((sbeCode, index) => (
+          <Lane key={index} sbeCode={sbeCode} dashboard={dashboard} />
         ))}
       </HStack>
     </VStack>

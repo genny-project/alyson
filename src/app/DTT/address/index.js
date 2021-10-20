@@ -1,25 +1,26 @@
 import {
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverBody,
-  PopoverArrow,
-  PopoverCloseButton,
-  PopoverHeader,
+  Collapse,
   HStack,
   IconButton,
-  Text,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverHeader,
+  PopoverTrigger,
   Portal,
-  Collapse,
-  useDisclosure,
+  Text,
   VStack,
+  useDisclosure,
 } from '@chakra-ui/react'
-import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Card from 'app/layouts/components/card'
-import HeroIconButton from 'app/layouts/components/hero_icon_button'
+
 import AddressPicker from './address_picker'
+import Card from 'app/layouts/components/card'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import HeroIconButton from 'app/layouts/components/hero_icon_button'
 import StreetView from './street_view'
+import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
 
 const Write = ({ questionCode, onSendAnswer, data }) => {
   return <AddressPicker questionCode={questionCode} onSendAnswer={onSendAnswer} data={data} />
@@ -49,10 +50,15 @@ const Read = ({ data, config = {} }) => {
     <HStack>
       <Popover isLazy>
         <PopoverTrigger>
-          <IconButton
-            variant="unstyled"
-            icon={<HeroIconButton icon={<FontAwesomeIcon icon={faMapMarkerAlt} />} />}
-          />
+          <>
+            {/* <IconButton
+              variant="unstyled"
+              icon={<HeroIconButton icon={<FontAwesomeIcon icon={faMapMarkerAlt} />} />}
+            /> */}
+            <Text>
+              <HeroIconButton icon={<FontAwesomeIcon icon={faMapMarkerAlt} />} />
+            </Text>
+          </>
         </PopoverTrigger>
 
         {config?.portal ? (

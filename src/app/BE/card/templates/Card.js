@@ -1,21 +1,30 @@
-import { useSelector } from 'react-redux'
-import { Box, HStack, VStack, IconButton, Flex, Spacer, useColorModeValue } from '@chakra-ui/react'
-import { selectCode } from 'redux/db/selectors'
-import { getAttribute } from 'app/SBE/utils/get-columns'
-import Text from 'app/DTT/text'
-import Image from 'app/DTT/upload/Image'
+import {
+  Box,
+  Text as ChakraText,
+  Flex,
+  HStack,
+  Spacer,
+  VStack,
+  useColorModeValue,
+} from '@chakra-ui/react'
+import { equals, includes } from 'ramda'
+
+import AgentDetail from './AgentDetail'
+import Card from 'app/layouts/components/card'
 import ContextMenu from 'app/BE/context'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
-import MainDetails from './MainDetails'
-import { equals, includes } from 'ramda'
-import AgentDetail from './AgentDetail'
-import sameValue from 'redux/utils/same-value'
-import Card from 'app/layouts/components/card'
-import { motion } from 'framer-motion'
-import getUserType from 'utils/helpers/get-user-type'
-import sameLength from 'redux/utils/same-length'
 import HCRDetail from './HCRDetail'
+import Image from 'app/DTT/upload/Image'
+import MainDetails from './MainDetails'
+import Text from 'app/DTT/text'
+import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
+import { getAttribute } from 'app/SBE/utils/get-columns'
+import getUserType from 'utils/helpers/get-user-type'
+import { motion } from 'framer-motion'
+import sameLength from 'redux/utils/same-length'
+import sameValue from 'redux/utils/same-value'
+import { selectCode } from 'redux/db/selectors'
+import { useSelector } from 'react-redux'
 
 const MotionBox = motion(Box)
 
@@ -42,7 +51,7 @@ const DefaultCard = ({ parentCode, actions = [], code, columns }) => {
           ? { bg: color }
           : {})}
       >
-        <Flex>
+        <Flex align="start">
           <HStack align="start">
             <Image.Read
               config={{ size: 'lg' }}
@@ -77,12 +86,18 @@ const DefaultCard = ({ parentCode, actions = [], code, columns }) => {
             code={code}
             parentCode={parentCode}
             button={
-              <IconButton
-                size="xs"
-                variant="outline"
-                bg={moreVertIconColor}
-                icon={<FontAwesomeIcon icon={faEllipsisV} />}
-              />
+              <ChakraText
+                align="start"
+                border="1px"
+                borderColor="gray.200"
+                borderRadius="6px"
+                px="2"
+                _hover={{
+                  background: 'gray.200',
+                }}
+              >
+                <FontAwesomeIcon icon={faEllipsisV} size="xs" />
+              </ChakraText>
             }
           />
         </Flex>

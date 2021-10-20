@@ -1,18 +1,16 @@
-import { useSelector } from 'react-redux'
-import { IconButton } from '@chakra-ui/button'
-import { HStack } from '@chakra-ui/layout'
+import { HStack, Text } from '@chakra-ui/layout'
 import { Menu, MenuButton, MenuList } from '@chakra-ui/menu'
-import { faEllipsisH } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import { equals, reduce, includes } from 'ramda'
+import { equals, includes, reduce } from 'ramda'
+import { faEllipsisH, faPlus } from '@fortawesome/free-solid-svg-icons'
 
 import Action from 'app/BE/context/Action'
-import getActions from 'app/SBE/utils/get-actions'
-import { selectCode } from 'redux/db/selectors'
 import Attribute from 'app/BE/attribute'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import getActions from 'app/SBE/utils/get-actions'
 import getUserType from 'utils/helpers/get-user-type'
 import sameLength from 'redux/utils/same-length'
+import { selectCode } from 'redux/db/selectors'
+import { useSelector } from 'react-redux'
 
 const DetailActions = ({ sbeCode, beCode }) => {
   const sbe = useSelector(selectCode(sbeCode))
@@ -47,18 +45,36 @@ const DetailActions = ({ sbeCode, beCode }) => {
       {reducedActions.length > 0 ? (
         <Menu placement="bottom-end">
           <MenuButton>
-            <IconButton
-              test-id={'detail-view-actions'}
-              colorScheme="primary"
-              variant="outline"
-              icon={<FontAwesomeIcon icon={faEllipsisH} />}
-              borderRadius="2rem"
-              p="1rem"
-            />
+            <>
+              {/* <IconButton
+                test-id={'detail-view-actions'}
+                colorScheme="primary"
+                variant="outline"
+                icon={<FontAwesomeIcon icon={faEllipsisH} />}
+                borderRadius="2rem"
+                p="1rem"
+              /> */}
+              <Text
+                test-id={'detail-view-actions'}
+                border="1px"
+                borderColor="#2B6CB0"
+                borderRadius="2rem"
+                py="2"
+                px="4"
+                lineHeight="1.35"
+              >
+                <FontAwesomeIcon color="#2B6CB0" icon={faEllipsisH} />
+              </Text>
+            </>
           </MenuButton>
           <MenuList>
-            {reducedActions.map(action => (
-              <Action key={action} parentCode={sbeCode} code={action} targetCode={beCode} />
+            {reducedActions.map((action, index) => (
+              <Action
+                key={`${action}-${index}`}
+                parentCode={sbeCode}
+                code={action}
+                targetCode={beCode}
+              />
             ))}
           </MenuList>
         </Menu>

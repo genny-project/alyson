@@ -1,18 +1,19 @@
-import { map, equals } from 'ramda'
-import { useSelector } from 'react-redux'
-import { VStack, HStack, Box } from '@chakra-ui/layout'
-import { Avatar } from '@chakra-ui/avatar'
-import { useColorModeValue } from '@chakra-ui/color-mode'
-import useApi from 'api'
-
-import DetailActions from 'app/SBE/detail-profile/detail-layout/intern/templates/Actions.js'
 import 'app/layouts/components/css/hide-scroll.css'
+
+import { Box, HStack, VStack } from '@chakra-ui/layout'
+import { equals, map } from 'ramda'
+
 import Attribute from 'app/BE/attribute'
+import { Avatar } from '@chakra-ui/avatar'
+import DetailActions from 'app/SBE/detail-profile/detail-layout/intern/templates/Actions.js'
 import { LeftDetailAttributesIntern } from 'app/SBE/detail-profile/detail-layout/intern/templates/AttributesList.js'
-import { selectCode } from 'redux/db/selectors'
-import sameLength from 'redux/utils/same-length'
-import getUserType from 'utils/helpers/get-user-type'
 import ShowIconIfNotEmpty from 'app/SBE/detail-profile/ShowIconIfNotEmpty.js'
+import getUserType from 'utils/helpers/get-user-type'
+import sameLength from 'redux/utils/same-length'
+import { selectCode } from 'redux/db/selectors'
+import useApi from 'api'
+import { useColorModeValue } from '@chakra-ui/color-mode'
+import { useSelector } from 'react-redux'
 
 const LeftDetail = ({ beCode, sbeCode }) => {
   const cardBg = useColorModeValue('gray.200', 'gray.600')
@@ -98,6 +99,7 @@ const LeftDetail = ({ beCode, sbeCode }) => {
                 attrSecond={attrSecond}
                 config={config}
                 beCode={beCode}
+                key={`${beCode}_${attr}`}
               />
             ))(LeftDetailAttributesIntern)}
           </VStack>

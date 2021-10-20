@@ -1,20 +1,20 @@
-import { useRef, useState } from 'react'
 import {
-  Stack,
+  Button,
+  IconButton,
   Input,
   InputGroup,
-  Button,
   InputLeftElement,
   InputRightElement,
-  IconButton,
+  Stack,
 } from '@chakra-ui/react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons'
-import { useHotkeys } from 'react-hotkeys-hook'
-import { onSendSearch } from 'vertx'
-import { useSelector } from 'react-redux'
+import { onSendMessage, onSendSearch } from 'vertx'
+import { useRef, useState } from 'react'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { selectCode } from 'redux/db/selectors'
-import { onSendMessage } from 'vertx'
+import { useHotkeys } from 'react-hotkeys-hook'
+import { useSelector } from 'react-redux'
 
 const ProcessSearch = ({ sbeCode, process, placeholder = 'Dashboard Search' }) => {
   const [searchValue, setSearchValue] = useState('')
@@ -51,7 +51,7 @@ const ProcessSearch = ({ sbeCode, process, placeholder = 'Dashboard Search' }) =
             test-id={`SEARCH-ALL-ATTRIBUTES`}
             defaultValue={search?.value || ''}
             ref={inputRef}
-            value={searchValue}
+            // value={searchValue}
             onChange={e => setSearchValue(e.currentTarget.value)}
           />
           <InputRightElement>

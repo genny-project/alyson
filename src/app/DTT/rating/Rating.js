@@ -1,12 +1,12 @@
-import Star from './Star'
 import { HStack } from '@chakra-ui/react'
+import Star from './Star'
 
 const Rating = ({ value, hover, setHover, onChange, questionCode }) => {
   if (!setHover)
     return (
       <HStack spacing="0">
         {[1, 2, 3, 4, 5].map(idx => (
-          <div style={{ width: '2rem', height: '2rem', padding: '0.5rem' }}>
+          <div key={idx} style={{ width: '2rem', height: '2rem', padding: '0.5rem' }}>
             <Star fill={value >= idx ? 'gold' : 'white'} />
           </div>
         ))}
@@ -17,6 +17,7 @@ const Rating = ({ value, hover, setHover, onChange, questionCode }) => {
     <HStack cursor="pointer" spacing="0" test-id={questionCode}>
       {[1, 2, 3, 4, 5].map(idx => (
         <div
+          key={idx}
           style={{ width: '3rem', height: '3rem', padding: '0.5rem' }}
           onClick={() => onChange(idx)}
           onMouseEnter={() => setHover(idx)}

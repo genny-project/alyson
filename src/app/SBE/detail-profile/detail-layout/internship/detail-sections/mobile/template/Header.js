@@ -1,24 +1,24 @@
-import { map, isEmpty } from 'ramda'
-import { useSelector, useDispatch } from 'react-redux'
-import { VStack, HStack, Box, Center, Text } from '@chakra-ui/layout'
-import { useColorModeValue } from '@chakra-ui/color-mode'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimes } from '@fortawesome/free-solid-svg-icons'
-import { IconButton } from '@chakra-ui/react'
+import 'app/layouts/components/css/hide-scroll.css'
 
-import DetailActions from 'app/SBE/detail-profile/detail-layout/internship/templates/Actions.js'
+import { Box, Center, HStack, Text, VStack } from '@chakra-ui/layout'
 import {
   LeftDetailAttributesInternship,
   LeftDetailAttributesInternshipInternView,
 } from 'app/SBE/detail-profile/detail-layout/internship/templates/AttributesList.js'
-import 'app/layouts/components/css/hide-scroll.css'
+import { isEmpty, map } from 'ramda'
+import { useDispatch, useSelector } from 'react-redux'
+
 import Attribute from 'app/BE/attribute'
-import { closeDrawer } from 'redux/app'
-import 'app/layouts/components/css/hide-scroll.css'
 import Card from 'app/layouts/components/card'
-import { selectCode } from 'redux/db/selectors'
+import DetailActions from 'app/SBE/detail-profile/detail-layout/internship/templates/Actions.js'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { IconButton } from '@chakra-ui/react'
 import ShowIconIfNotEmpty from 'app/SBE/detail-profile/ShowIconIfNotEmpty.js'
+import { closeDrawer } from 'redux/app'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import getUserType from 'utils/helpers/get-user-type'
+import { selectCode } from 'redux/db/selectors'
+import { useColorModeValue } from '@chakra-ui/color-mode'
 
 const Header = ({ beCode, sbeCode }) => {
   const cardBg = useColorModeValue('#ffffff', 'gray.600')
@@ -68,6 +68,7 @@ const Header = ({ beCode, sbeCode }) => {
                     attrSecond={attrSecond}
                     config={config}
                     beCode={beCode}
+                    key={`${beCode}_${attr}`}
                   />
                 ))(LeftDetailAttributesInternshipInternView)
               : map(({ icon, attr, attrSecond, config }) => (
@@ -77,6 +78,7 @@ const Header = ({ beCode, sbeCode }) => {
                     attrSecond={attrSecond}
                     config={config}
                     beCode={beCode}
+                    key={`${beCode}_${attr}`}
                   />
                 ))(LeftDetailAttributesInternship)}
           </VStack>

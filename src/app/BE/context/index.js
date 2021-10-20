@@ -1,7 +1,8 @@
-import { useSelector } from 'react-redux'
-import { Menu, MenuList, MenuButton, MenuGroup, Portal } from '@chakra-ui/react'
-import { selectCode } from 'redux/db/selectors'
+import { Menu, MenuButton, MenuGroup, MenuList, Portal } from '@chakra-ui/react'
+
 import Action from './Action'
+import { selectCode } from 'redux/db/selectors'
+import { useSelector } from 'react-redux'
 
 const ContextMenu = ({ button, parentCode, code, actions = [] }) => {
   const baseEntityName = useSelector(selectCode(code, 'PRI_NAME'))
@@ -11,8 +12,13 @@ const ContextMenu = ({ button, parentCode, code, actions = [] }) => {
       <Portal>
         <MenuList>
           <MenuGroup title={baseEntityName?.value}>
-            {actions.map(action => (
-              <Action key={action} targetCode={code} code={action} parentCode={parentCode} />
+            {actions.map((action, index) => (
+              <Action
+                key={`${action}-${index}`}
+                targetCode={code}
+                code={action}
+                parentCode={parentCode}
+              />
             ))}
           </MenuGroup>
         </MenuList>

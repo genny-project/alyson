@@ -8,7 +8,7 @@ import { useError } from 'utils/contexts/ErrorContext'
 import { useMobileValue } from 'utils/hooks'
 
 const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
-  console.log(regexPattern)
+  // console.log(regexPattern)
   const regex = /^\w+([\.-\\+]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value)
