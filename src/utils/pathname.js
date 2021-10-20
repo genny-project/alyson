@@ -32,4 +32,9 @@ const readParams = compose(
   })),
 )
 
-export { makePathname, readParams }
+const pathNameLinkedApplication = makePathname({
+  parentCode: 'QUE_FAKE_PARENT',
+  code: 'ACT_CONFIRM_MEETING',
+})
+
+export { makePathname, readParams, pathNameLinkedApplication }
