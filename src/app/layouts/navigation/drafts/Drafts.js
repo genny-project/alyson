@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
+import getUserType from 'utils/helpers/get-user-type'
 import { useIsMobile } from 'utils/hooks'
 import icons from 'utils/icons'
 import Draft from './Draft'
@@ -13,6 +14,8 @@ import { useGetLabel } from 'utils/hooks'
 const DRAFT_GROUP = 'QUE_DRAFTS_GRP'
 
 const Drafts = () => {
+  const userCode = useSelector(selectCode('USER'))
+  const userType = getUserType(useSelector(selectCode(userCode)))
   const drafts = (useSelector(selectCode(DRAFT_GROUP)) || []).filter(
     code => code.indexOf('TASK') !== -1,
   )
@@ -20,6 +23,8 @@ const Drafts = () => {
   const label = useGetLabel(DRAFT_GROUP)
 
   const isMobile = useIsMobile()
+
+  if (userType === 'INTERN') return null
 
   return (
     <Menu>
