@@ -8,12 +8,10 @@ import { useError } from 'utils/contexts/ErrorContext'
 import { useMobileValue } from 'utils/hooks'
 
 const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
-  // console.log(regexPattern)
-  const regex = /^\w+([\.-\\+]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value)
   const { dispatch } = useError()
-  const isInvalid = getIsInvalid(userInput)(RegExp(regex))
+  const isInvalid = getIsInvalid(userInput)(RegExp(regexPattern))
   const maxW = useMobileValue(['', '25vw'])
 
   useEffect(() => {

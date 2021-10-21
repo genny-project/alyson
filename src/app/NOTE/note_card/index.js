@@ -1,8 +1,9 @@
-import { Text, VStack } from '@chakra-ui/layout'
+import { Box, Text, VStack } from '@chakra-ui/layout'
+
 import Attribute from 'app/BE/attribute'
 import Card from 'app/layouts/components/card'
-import { useSelector } from 'react-redux'
 import { selectNote } from 'redux/db/selectors'
+import { useSelector } from 'react-redux'
 
 const NoteCard = ({ id }) => {
   const note = useSelector(selectNote(id))
@@ -30,7 +31,7 @@ const NoteCard = ({ id }) => {
         <Text textStyle="tail.2">{content}</Text>
         <VStack align="start" spacing={0}>
           <Text textStyle="tail.3">{new Date(created).toLocaleDateString()}</Text>
-          <Text textStyle="tail.3">
+          <Box textStyle="tail.3">
             {sourceCode === 'PER_SERVICE' ? (
               <Text textStyle="tail.3" fontStyle="italic">
                 System
@@ -38,7 +39,7 @@ const NoteCard = ({ id }) => {
             ) : (
               <Attribute code={sourceCode} attribute="PRI_NAME" />
             )}
-          </Text>
+          </Box>
         </VStack>
       </VStack>
     </Card>

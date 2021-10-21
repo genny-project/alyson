@@ -1,4 +1,5 @@
 import {
+  Box,
   Collapse,
   HStack,
   IconButton,
@@ -55,9 +56,9 @@ const Read = ({ data, config = {} }) => {
               variant="unstyled"
               icon={<HeroIconButton icon={<FontAwesomeIcon icon={faMapMarkerAlt} />} />}
             /> */}
-            <Text>
+            <Box>
               <HeroIconButton icon={<FontAwesomeIcon icon={faMapMarkerAlt} />} />
-            </Text>
+            </Box>
           </>
         </PopoverTrigger>
 

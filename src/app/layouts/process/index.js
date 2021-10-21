@@ -21,7 +21,7 @@ const Process = ({ dashboard }) => {
         <HStack align="start">
           {bucketSearch &&
             bucketSearch.map((childAsk, index) => (
-              <Box key={index} width={'20rem'}>
+              <Box key={`${index}-${childAsk}`} width={'20rem'}>
                 <Ask noLabel questionCode={childAsk} parentCode={'QUE_BUCKET_INTERNS_GRP'} />
               </Box>
             ))}
@@ -31,7 +31,7 @@ const Process = ({ dashboard }) => {
 
       <HStack spacing={5} mt="5" w="95vw" align="flex-start" justify="space-between">
         {processCodes.map((sbeCode, index) => (
-          <Lane key={index} sbeCode={sbeCode} dashboard={dashboard} />
+          <Lane key={`${index}-${sbeCode}`} sbeCode={sbeCode} dashboard={dashboard} />
         ))}
       </HStack>
     </VStack>

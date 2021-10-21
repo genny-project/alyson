@@ -12,13 +12,8 @@ const ContextMenu = ({ button, parentCode, code, actions = [] }) => {
       <Portal>
         <MenuList>
           <MenuGroup title={baseEntityName?.value}>
-            {actions.map((action, index) => (
-              <Action
-                key={`${action}-${index}`}
-                targetCode={code}
-                code={action}
-                parentCode={parentCode}
-              />
+            {actions.map(action => (
+              <Action key={action} targetCode={code} code={action} parentCode={parentCode} />
             ))}
           </MenuGroup>
         </MenuList>

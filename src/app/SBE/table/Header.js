@@ -8,7 +8,7 @@ const Header = ({ columns, parentCode, actions }) => {
       <Tr>
         {actions?.length ? <Th /> : null}
         {columns.map((col, index) => (
-          <Cell key={`${parentCode}-${col}-${index}`} parentCode={parentCode} attribute={col} />
+          <Cell key={`${parentCode}-${index}-${col}`} parentCode={parentCode} attribute={col} />
         ))}
       </Tr>
     </Thead>

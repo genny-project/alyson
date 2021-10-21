@@ -1,12 +1,4 @@
-import {
-  Box,
-  Text as ChakraText,
-  Flex,
-  HStack,
-  Spacer,
-  VStack,
-  useColorModeValue,
-} from '@chakra-ui/react'
+import { Box, Flex, HStack, Spacer, VStack, useColorModeValue } from '@chakra-ui/react'
 import { equals, includes } from 'ramda'
 
 import AgentDetail from './AgentDetail'
@@ -37,7 +29,7 @@ const DefaultCard = ({ parentCode, actions = [], code, columns }) => {
 
   const userCode = useSelector(selectCode('USER'), equals)
   const userType = getUserType(useSelector(selectCode(userCode), sameLength))
-  const moreVertIconColor = useSelector(selectCode(code, '_LNK_COMP_INTERNSHIP__PRI_COLOUR'))?.value
+  // const moreVertIconColor = useSelector(selectCode(code, '_LNK_COMP_INTERNSHIP__PRI_COLOUR'))?.value
 
   return (
     <MotionBox w="full" whileHover={{ scale: 1.02 }} transition={{ duration: 0.1 }}>
@@ -86,7 +78,7 @@ const DefaultCard = ({ parentCode, actions = [], code, columns }) => {
             code={code}
             parentCode={parentCode}
             button={
-              <ChakraText
+              <Box
                 align="start"
                 border="1px"
                 borderColor="gray.200"
@@ -97,7 +89,7 @@ const DefaultCard = ({ parentCode, actions = [], code, columns }) => {
                 }}
               >
                 <FontAwesomeIcon icon={faEllipsisV} size="xs" />
-              </ChakraText>
+              </Box>
             }
           />
         </Flex>

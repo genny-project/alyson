@@ -34,9 +34,9 @@ const InternshipCard = ({ parentCode, actions = [], code }) => {
           data={subTitle}
         />
         <HStack>
-          {actions.map((action, index) => (
+          {actions.map(action => (
             <Action
-              key={`${action}-${index}`}
+              key={action}
               colorScheme="primary"
               targetCode={code}
               code={action}

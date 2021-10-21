@@ -22,6 +22,7 @@ const Lane = ({ sbeCode, dashboard, width }) => {
       <Box width={width} bg={bg} mb="2" p="1">
         <Title sbeCode={sbeCode} />
       </Box>
+
       <Card
         variant="card0"
         p={[2, 2, 2, 3]}
