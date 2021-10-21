@@ -1,16 +1,17 @@
-import { map } from 'ramda'
-import { Grid, GridItem } from '@chakra-ui/react'
-import { Center, VStack, HStack, Text } from '@chakra-ui/layout'
-import { useColorModeValue } from '@chakra-ui/color-mode'
-
 import 'app/layouts/components/css/hide-scroll.css'
-import Attribute from 'app/BE/attribute'
-import Card from 'app/layouts/components/card'
+
+import { Center, HStack, Text, VStack } from '@chakra-ui/layout'
+import { Grid, GridItem } from '@chakra-ui/react'
 import {
-  prefs,
   internshipDetails,
+  prefs,
   recentEmployment,
 } from 'app/SBE/detail-profile/detail-layout/intern/templates/AttributesList.js'
+
+import Attribute from 'app/BE/attribute'
+import Card from 'app/layouts/components/card'
+import { map } from 'ramda'
+import { useColorModeValue } from '@chakra-ui/color-mode'
 
 export const InternshipPreferenceSection = ({ beCode }) => {
   const cardBg = useColorModeValue('gray.200', 'gray.600')
@@ -93,7 +94,7 @@ export const InternshipSection = ({ beCode }) => {
           <HStack w="full" justifyContent="space-between" align="start">
             {map(({ label, attr, config }) => {
               return (
-                <VStack align="start" justify="start">
+                <VStack key={`${beCode}-${attr}`} align="start" justify="start">
                   <Text textStyle="tail.2">{label}</Text>
                   <Attribute code={beCode} attribute={attr} config={config} />
                 </VStack>

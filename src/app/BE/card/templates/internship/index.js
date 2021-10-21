@@ -1,9 +1,10 @@
-import { useSelector } from 'react-redux'
-import { VStack, HStack } from '@chakra-ui/react'
-import { selectCode } from 'redux/db/selectors'
-import Text from 'app/DTT/text'
+import { HStack, VStack } from '@chakra-ui/react'
+
 import Action from 'app/BE/action'
 import Card from 'app/layouts/components/card'
+import Text from 'app/DTT/text'
+import { selectCode } from 'redux/db/selectors'
+import { useSelector } from 'react-redux'
 
 const InternshipCard = ({ parentCode, actions = [], code }) => {
   const title = useSelector(selectCode(code, 'PRI_NAME'))

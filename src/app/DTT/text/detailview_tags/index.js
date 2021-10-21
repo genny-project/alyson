@@ -1,15 +1,19 @@
-import { Text as ChakraText, Tag, Wrap, VStack, useDisclosure } from '@chakra-ui/react'
-import { map, splitAt, head, last, length, isEmpty } from 'ramda'
-import getArrayFromStringValue from 'utils/helpers/get-array-from-string.js'
 import {
+  Text as ChakraText,
   Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
   ModalBody,
   ModalCloseButton,
+  ModalContent,
+  ModalHeader,
+  ModalOverlay,
+  Tag,
+  VStack,
+  Wrap,
+  useDisclosure,
 } from '@chakra-ui/react'
+import { head, isEmpty, last, length, map, splitAt } from 'ramda'
 
+import getArrayFromStringValue from 'utils/helpers/get-array-from-string.js'
 import { useIsMobile } from 'utils/hooks'
 
 const DetailViewTags = ({ data }) => {
@@ -28,7 +32,7 @@ const DetailViewTags = ({ data }) => {
           {map(
             value =>
               !isEmpty(value) && (
-                <Tag borderRadius={15} align="center" colorScheme="telegram">
+                <Tag key={value} borderRadius={15} align="center" colorScheme="telegram">
                   <ChakraText textStyle="body.2" isTruncated px="1">
                     {value}
                   </ChakraText>
@@ -46,7 +50,7 @@ const DetailViewTags = ({ data }) => {
         {map(
           value =>
             !isEmpty(value) && (
-              <Tag borderRadius={15} align="center" colorScheme="telegram">
+              <Tag key={value} borderRadius={15} align="center" colorScheme="telegram">
                 <ChakraText textStyle="body.2" isTruncated px="1">
                   {value}
                 </ChakraText>
@@ -76,7 +80,7 @@ const DetailViewTags = ({ data }) => {
           <ModalBody>
             <VStack spacing={4} mb="4">
               {map(value => (
-                <Tag borderRadius={15} align="center" colorScheme="green">
+                <Tag key={value} borderRadius={15} align="center" colorScheme="green">
                   <ChakraText textStyle="body.2" w="full" px="1">
                     {value}
                   </ChakraText>

@@ -1,11 +1,14 @@
-import { useState } from 'react'
-
-import { Read } from '../text'
-import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { DateInDay, DateInMonth, DateInYear } from './granularity'
-import safelyParseDate from 'utils/helpers/safely-parse-date'
+import { useEffect, useState } from 'react'
 
-const Write = ({ questionCode, onSendAnswer, data, html }) => {
+import { ACTIONS } from 'utils/contexts/ErrorReducer'
+import { Read } from '../text'
+import { getIsInvalid } from 'utils/functions'
+import safelyParseDate from 'utils/helpers/safely-parse-date'
+import safelyParseJson from 'utils/helpers/safely-parse-json'
+import { useError } from 'utils/contexts/ErrorContext'
+
+const Write = ({ questionCode, onSendAnswer, data, html, regexPattern }) => {
   const config = safelyParseJson(html, {})
   const { maxDate, granularity = 'date' } = config
   const { startDate, endDate } = data?.value ? safelyParseJson(data.value, {}) : {}
@@ -14,6 +17,11 @@ const Write = ({ questionCode, onSendAnswer, data, html }) => {
     startDate: startDate ? safelyParseDate(startDate) : '',
     endDate: endDate ? safelyParseDate(endDate) : '',
   })
+
+  const [errorStatus, setErrorStatus] = useState(false)
+
+  const { dispatch } = useError()
+  const isInvalid = getIsInvalid(dates)(RegExp(regexPattern))
 
   const handleDateChange = (e, date) => {
     if (!e) {
@@ -25,6 +33,16 @@ const Write = ({ questionCode, onSendAnswer, data, html }) => {
     }
   }
 
+  useEffect(() => {
+    isInvalid === true ? setErrorStatus(true) : setErrorStatus(false)
+  }, [isInvalid])
+
+  useEffect(() => {
+    isInvalid === true
+      ? dispatch({ type: ACTIONS.SET_TO_TRUE, payload: questionCode })
+      : dispatch({ type: ACTIONS.SET_TO_FALSE, payload: questionCode })
+  }, [dispatch, isInvalid, questionCode])
+
   if (granularity === 'month') {
     return (
       <DateInMonth
@@ -32,6 +50,7 @@ const Write = ({ questionCode, onSendAnswer, data, html }) => {
         dates={dates}
         maxDate={maxDate}
         handleDateChange={handleDateChange}
+        errorStatus={errorStatus}
       />
     )
   }
@@ -43,6 +62,7 @@ const Write = ({ questionCode, onSendAnswer, data, html }) => {
         dates={dates}
         maxDate={maxDate}
         handleDateChange={handleDateChange}
+        errorStatus={errorStatus}
       />
     )
   }
@@ -53,6 +73,7 @@ const Write = ({ questionCode, onSendAnswer, data, html }) => {
       dates={dates}
       maxDate={maxDate}
       handleDateChange={handleDateChange}
+      errorStatus={errorStatus}
     />
   )
 }

@@ -1,22 +1,22 @@
-import { map, isEmpty, equals } from 'ramda'
-import { useSelector, useDispatch } from 'react-redux'
-import { VStack, HStack, Box, Center, Text } from '@chakra-ui/layout'
-import { useColorModeValue } from '@chakra-ui/color-mode'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimes } from '@fortawesome/free-solid-svg-icons'
-import { IconButton } from '@chakra-ui/react'
+import 'app/layouts/components/css/hide-scroll.css'
 
-import DetailActions from 'app/SBE/detail-profile/detail-layout/intern/templates/Actions.js'
-import 'app/layouts/components/css/hide-scroll.css'
+import { Box, Center, HStack, Text, VStack } from '@chakra-ui/layout'
+import { equals, isEmpty, map } from 'ramda'
+import { useDispatch, useSelector } from 'react-redux'
+
 import Attribute from 'app/BE/attribute'
-import { LeftDetailAttributesIntern } from 'app/SBE/detail-profile/detail-layout/intern/templates/AttributesList.js'
-import { closeDrawer } from 'redux/app'
-import 'app/layouts/components/css/hide-scroll.css'
 import Card from 'app/layouts/components/card'
-import { selectCode } from 'redux/db/selectors'
+import DetailActions from 'app/SBE/detail-profile/detail-layout/intern/templates/Actions.js'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { IconButton } from '@chakra-ui/react'
+import { LeftDetailAttributesIntern } from 'app/SBE/detail-profile/detail-layout/intern/templates/AttributesList.js'
 import ShowIconIfNotEmpty from 'app/SBE/detail-profile/ShowIconIfNotEmpty.js'
+import { closeDrawer } from 'redux/app'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import getUserType from 'utils/helpers/get-user-type'
 import sameLength from 'redux/utils/same-length'
+import { selectCode } from 'redux/db/selectors'
+import { useColorModeValue } from '@chakra-ui/color-mode'
 
 const Header = ({ beCode, sbeCode }) => {
   const userCode = useSelector(selectCode('USER'), equals)
@@ -58,6 +58,7 @@ const Header = ({ beCode, sbeCode }) => {
                 attrSecond={attrSecond}
                 config={config}
                 beCode={beCode}
+                key={`${beCode}_${attr}`}
               />
             ))(LeftDetailAttributesIntern)}
           </VStack>

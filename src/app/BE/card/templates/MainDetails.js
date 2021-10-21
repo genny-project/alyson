@@ -1,8 +1,9 @@
-import { compose, split, last, __, slice } from 'ramda'
+import { __, compose, last, slice, split } from 'ramda'
+
+import PickedAttribute from 'app/SBE/lane/PickedAttribute'
+import { VStack } from '@chakra-ui/react'
 import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
-import { VStack } from '@chakra-ui/react'
-import PickedAttribute from 'app/SBE/lane/PickedAttribute'
 
 const MainDetails = ({ columns, parentCode, code }) => {
   const displayMode = useSelector(selectCode(parentCode, 'SCH_DISPLAY_MODE'))
@@ -19,8 +20,8 @@ const MainDetails = ({ columns, parentCode, code }) => {
 
   return (
     <VStack align="start" spacing={1}>
-      {details.map(col => (
-        <PickedAttribute key={col} col={col} code={code} parentCode={parentCode} />
+      {details.map((col, index) => (
+        <PickedAttribute key={`${col}-${index}`} col={col} code={code} parentCode={parentCode} />
       ))}
     </VStack>
   )

@@ -1,20 +1,21 @@
-import { map } from 'ramda'
-import { useSelector } from 'react-redux'
-import { VStack, HStack, Box } from '@chakra-ui/layout'
-import { Avatar } from '@chakra-ui/avatar'
-import { useColorModeValue } from '@chakra-ui/color-mode'
-import useApi from 'api'
+import 'app/layouts/components/css/hide-scroll.css'
 
-import DetailActions from 'app/SBE/detail-profile/detail-layout/internship/templates/Actions.js'
+import { Box, HStack, VStack } from '@chakra-ui/layout'
 import {
   LeftDetailAttributesInternship,
   LeftDetailAttributesInternshipInternView,
 } from 'app/SBE/detail-profile/detail-layout/internship/templates/AttributesList.js'
-import 'app/layouts/components/css/hide-scroll.css'
+
 import Attribute from 'app/BE/attribute'
-import { selectCode } from 'redux/db/selectors'
+import { Avatar } from '@chakra-ui/avatar'
+import DetailActions from 'app/SBE/detail-profile/detail-layout/internship/templates/Actions.js'
 import ShowIconIfNotEmpty from 'app/SBE/detail-profile/ShowIconIfNotEmpty.js'
 import getUserType from 'utils/helpers/get-user-type'
+import { map } from 'ramda'
+import { selectCode } from 'redux/db/selectors'
+import useApi from 'api'
+import { useColorModeValue } from '@chakra-ui/color-mode'
+import { useSelector } from 'react-redux'
 
 const LeftDetail = ({ beCode, sbeCode }) => {
   const cardBg = useColorModeValue('gray.200', 'gray.600')
@@ -76,6 +77,7 @@ const LeftDetail = ({ beCode, sbeCode }) => {
                     attrSecond={attrSecond}
                     config={config}
                     beCode={beCode}
+                    key={`${beCode}_${attr}`}
                   />
                 ))(LeftDetailAttributesInternshipInternView)
               : map(({ icon, attr, attrSecond, config }) => (
@@ -85,6 +87,7 @@ const LeftDetail = ({ beCode, sbeCode }) => {
                     attrSecond={attrSecond}
                     config={config}
                     beCode={beCode}
+                    key={`${beCode}_${attr}`}
                   />
                 ))(LeftDetailAttributesInternship)}
           </VStack>

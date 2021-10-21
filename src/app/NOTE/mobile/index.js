@@ -1,14 +1,15 @@
 import { Box, Center, Text, VStack, Wrap, WrapItem } from '@chakra-ui/layout'
+
 import Attribute from 'app/BE/attribute'
 import Chip from 'app/layouts/components/chip'
-import { useState } from 'react'
-import { useSelector } from 'react-redux'
-import { selectNotes } from 'redux/app/selectors'
-import bestTitleAttribute from 'utils/helpers/best-title-attribute'
-import safelyParseJson from 'utils/helpers/safely-parse-json'
-import nameOfColumn from '../helpers/name-of-column'
 import NotePanel from '../panel'
 import Selection from '../selection'
+import bestTitleAttribute from 'utils/helpers/best-title-attribute'
+import nameOfColumn from '../helpers/name-of-column'
+import safelyParseJson from 'utils/helpers/safely-parse-json'
+import { selectNotes } from 'redux/app/selectors'
+import { useSelector } from 'react-redux'
+import { useState } from 'react'
 
 const MobileNotes = () => {
   const tabs = safelyParseJson(useSelector(selectNotes), [])
@@ -34,7 +35,7 @@ const MobileNotes = () => {
         <Selection />
       )}
       {tabs.map((code, idx) => (
-        <Center display={tab === idx ? 'block' : 'none'}>
+        <Center key={code} display={tab === idx ? 'block' : 'none'}>
           <Box>
             <NotePanel code={code} length={tabs.length} />
           </Box>

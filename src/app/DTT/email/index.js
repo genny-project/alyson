@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react'
-
 import { Box, Input, Text, useClipboard, useToast } from '@chakra-ui/react'
-import { useMobileValue } from 'utils/hooks'
-import { getIsInvalid } from 'utils/functions'
-import Duplicates from './Duplicates'
-import { useError } from 'utils/contexts/ErrorContext'
+import { useEffect, useState } from 'react'
+
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
+import Duplicates from './Duplicates'
+import { getIsInvalid } from 'utils/functions'
+import { useError } from 'utils/contexts/ErrorContext'
+import { useMobileValue } from 'utils/hooks'
 
 const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
   const [errorStatus, setErrorStatus] = useState(false)

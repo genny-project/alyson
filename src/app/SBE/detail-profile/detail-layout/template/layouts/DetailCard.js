@@ -1,10 +1,10 @@
-import { map } from 'ramda'
-import { Box, HStack, Text, VStack, Collapse, useDisclosure, Spacer } from '@chakra-ui/react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
+import { Box, Collapse, HStack, Spacer, Text, VStack, useDisclosure } from '@chakra-ui/react'
 
 import Attribute from 'app/BE/attribute'
 import Card from 'app/layouts/components/card'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
+import { map } from 'ramda'
 
 const DetailCard = ({ beCode, detailSectionType }) => {
   const { isOpen, onToggle } = useDisclosure()
@@ -27,11 +27,11 @@ const DetailCard = ({ beCode, detailSectionType }) => {
         <Collapse in={isOpen} animateOpacity>
           <VStack align="start" spacing={6}>
             {map(({ label, attr, config = {} }) => (
-              <VStack align="start" key={attr}>
+              <VStack align="start" key={`${beCode}_${attr}`}>
                 <Text textStyle="tail.3">{label}</Text>
-                <Text minH="1rem">
+                <Box minH="1rem">
                   <Attribute code={beCode} attribute={attr} config={config} />
-                </Text>
+                </Box>
               </VStack>
             ))(attributes)}
           </VStack>

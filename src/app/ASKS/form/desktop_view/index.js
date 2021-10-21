@@ -1,8 +1,9 @@
 import { Center, Text, VStack } from '@chakra-ui/react'
-import Header from '../template/Header'
-import Body from '../template/Body'
+
 import Ask from 'app/ASKS/ask'
+import Body from '../template/Body'
 import Card from 'app/layouts/components/card'
+import Header from '../template/Header'
 
 const FormDesktopView = ({ title, onFinish, questionCode, childAsks, config = {} }) => {
   const { subHeader, groups = [], pagination } = config
@@ -15,7 +16,7 @@ const FormDesktopView = ({ title, onFinish, questionCode, childAsks, config = {}
             <Text textStyle="head.2">{title}</Text>
             {config?.subHeader && <Text textStyle="body.3">{config.subHeader}</Text>}
             {childAsks.map(code => (
-              <Ask questionCode={code} parentCode={questionCode} key={code} />
+              <Ask questionCode={code} parentCode={questionCode} key={`${code}-${questionCode}`} />
             ))}
           </VStack>
         </Card>

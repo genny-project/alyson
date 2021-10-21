@@ -1,7 +1,7 @@
-import { map } from 'ramda'
-import { Text, HStack, VStack, useColorModeValue } from '@chakra-ui/react'
+import { HStack, Text, VStack, useColorModeValue } from '@chakra-ui/react'
 
 import Attribute from 'app/BE/attribute'
+import { map } from 'ramda'
 
 const DetailCards = ({ detailsection, currentMentor, miniCard }) => {
   const { header, attributes } = detailsection
