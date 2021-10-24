@@ -35,7 +35,6 @@ const Autocomplete = ({
   placeholder,
   ddEvent,
   groupCode,
-  labelOptions,
 }) => {
   const selected = defaultValue
   const [input, setInput] = useState('')
@@ -99,7 +98,7 @@ const Autocomplete = ({
     return compose(prop('label'), find(propEq('value', item)))(optionsIncludingBufferedOptions)
   }
 
-  const filteredOptions = labelOptions.filter(option =>
+  const filteredOptions = options.filter(option =>
     includes(toLower(input), toLower(option.label || '')),
   )
 
