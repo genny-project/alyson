@@ -37,6 +37,18 @@ const Write = ({
   const allDropDownData = getUniqueValuesFromTwoArrays(dropdownData)(previousDropDownDataValue)
 
   const options = compose(map(({ code, name }) => ({ label: name, value: code })))(allDropDownData)
+  const labelOptions = compose(map(({ code, name }) => ({ label: name, value: code })))(
+    dropdownData,
+  )
+  const uniqueOptions = uniq([...options])
+
+  console.log(
+    '%c OPTIONS ------>',
+    'color: crimson; font-size: 20px',
+    options,
+    uniqueOptions,
+    labelOptions,
+  )
 
   const { attributeCode } = data || {}
 
@@ -45,8 +57,6 @@ const Write = ({
       ? dropdownData
       : previousDropDownRef.current
   })
-
-  const uniqueOptions = uniq([...options])
 
   const ddEvent = debounce(
     value =>
@@ -87,6 +97,7 @@ const Write = ({
     <Autocomplete
       placeholder={!options.length ? 'Start typing to search' : placeholder || 'Select'}
       options={uniqueOptions}
+      labelOptions={labelOptions}
       onChange={onSendAnswer}
       defaultValue={defaultValue}
       multiple={multiple}
