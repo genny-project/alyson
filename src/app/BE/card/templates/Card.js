@@ -29,7 +29,7 @@ const DefaultCard = ({ parentCode, actions = [], code, columns }) => {
 
   const userCode = useSelector(selectCode('USER'), equals)
   const userType = getUserType(useSelector(selectCode(userCode), sameLength))
-  // const moreVertIconColor = useSelector(selectCode(code, '_LNK_COMP_INTERNSHIP__PRI_COLOUR'))?.value
+  const moreVertIconColor = useSelector(selectCode(code, '_LNK_COMP_INTERNSHIP__PRI_COLOUR'))?.value
 
   return (
     <MotionBox w="full" whileHover={{ scale: 1.02 }} transition={{ duration: 0.1 }}>
@@ -84,9 +84,7 @@ const DefaultCard = ({ parentCode, actions = [], code, columns }) => {
                 borderColor="gray.200"
                 borderRadius="6px"
                 px="2"
-                _hover={{
-                  background: 'gray.200',
-                }}
+                bg={moreVertIconColor}
               >
                 <FontAwesomeIcon icon={faEllipsisV} size="xs" />
               </Box>
