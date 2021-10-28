@@ -1,4 +1,5 @@
 import { Input, Text } from '@chakra-ui/react'
+import { format, isBefore } from 'date-fns'
 import { useEffect, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
@@ -30,10 +31,13 @@ const Read = ({ data, typeName, config }) => {
     </Text>
   )
 }
-const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern }) => {
+const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, question }) => {
+  let initialErrorMsg = 'You can only valid date.'
   const { dispatch } = useError()
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value)
+  const [isPreviousDate, setIsPreviousDate] = useState(true)
+  const [errorMsg, setErrorMsg] = useState(initialErrorMsg)
 
   const includeTime = includes('LocalDateTime', typeName)
   const onlyYear = typeName === 'year'
@@ -43,6 +47,11 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern }) => 
   const maxW = useMobileValue(['', '25vw'])
 
   const isInvalid = getIsInvalid(userInput)(RegExp(regexPattern))
+
+  const today = new Date()
+  const inputDate = new Date(userInput)
+
+  const allowedDate = format(new Date(question?.attribute?.created), 'yyyy-MM-dd')
 
   useEffect(() => {
     isInvalid === true ? setErrorStatus(true) : setErrorStatus(false)
@@ -54,7 +63,21 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern }) => 
       : dispatch({ type: ACTIONS.SET_TO_FALSE, payload: questionCode })
   }, [dispatch, isInvalid, questionCode])
 
-  return data?.value ? (
+  useEffect(() => {
+    if (questionCode === 'QUE_JOURNAL_DATE' && userInput) {
+      const isDateBefore = isBefore(inputDate, today)
+      isDateBefore === true ? setIsPreviousDate(true) : setIsPreviousDate(false)
+    }
+  }, [inputDate, today, questionCode, userInput])
+
+  useEffect(() => {
+    if (!isPreviousDate) {
+      setErrorStatus(true)
+      setErrorMsg('You cannot choose future date.')
+    }
+  }, [isPreviousDate])
+
+  return isPreviousDate && data?.value ? (
     <DateChip
       onlyYear={onlyYear}
       includeTime={includeTime}
@@ -72,8 +95,13 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern }) => 
         onChange={e => setuserInput(e.target.value)}
         w="full"
         maxW={maxW}
+        max={questionCode === 'QUE_JOURNAL_DATE' ? allowedDate : ''}
       />
-      {errorStatus && <Text textStyle="tail.error" mt={2}>{`You can only valid date.`}</Text>}
+      {errorStatus && (
+        <Text textStyle="tail.error" mt={2}>
+          {errorMsg}
+        </Text>
+      )}
     </>
   )
 }
