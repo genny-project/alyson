@@ -48,9 +48,6 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
 
   const isInvalid = getIsInvalid(userInput)(RegExp(regexPattern))
 
-  const today = new Date()
-  const inputDate = new Date(userInput)
-
   const allowedDate = format(new Date(question?.attribute?.created), 'yyyy-MM-dd')
 
   useEffect(() => {
@@ -64,11 +61,13 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
   }, [dispatch, isInvalid, questionCode])
 
   useEffect(() => {
+    const today = new Date()
+    const inputDate = new Date(userInput)
     if (questionCode === 'QUE_JOURNAL_DATE' && userInput) {
       const isDateBefore = isBefore(inputDate, today)
       isDateBefore === true ? setIsPreviousDate(true) : setIsPreviousDate(false)
     }
-  }, [inputDate, today, questionCode, userInput])
+  }, [questionCode, userInput])
 
   useEffect(() => {
     if (!isPreviousDate) {
