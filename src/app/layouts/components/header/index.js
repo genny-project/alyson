@@ -1,11 +1,11 @@
-import { Flex, Spacer } from '@chakra-ui/react'
-import { useState, useRef, useEffect } from 'react'
-import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
-import { Box, IconButton } from '@chakra-ui/react'
+import { Box, Flex, IconButton, Spacer } from '@chakra-ui/react'
+import { useEffect, useRef, useState } from 'react'
+
+import Attribute from 'app/BE/attribute'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { closeDrawer } from 'redux/app'
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch } from 'react-redux'
-import Attribute from 'app/BE/attribute'
 
 const topHeight = '40vh'
 
@@ -59,8 +59,6 @@ const DetailHeader = ({ address, videoData, beCode }) => {
       map.setStreetView(pano)
     }
   }, [geo])
-
-  console.log(address)
 
   return (
     <Box bg="gradient.500">

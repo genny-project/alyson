@@ -254,6 +254,7 @@ const Ask = ({
           data={data}
           onSendAnswer={onSendAnswer}
           regexPattern={regexPattern}
+          question={question}
         />
       )}
       {component === 'richtext_editor' && (
