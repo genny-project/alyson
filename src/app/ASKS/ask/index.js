@@ -75,6 +75,9 @@ const Ask = ({
   const highlightedQuestion = useSelector(selectHighlightedQuestion)
   const labelWidth = useMobileValue(['full', '25vw'])
 
+  const dataTypeFromReduxStore = useSelector(selectCode(attributeCode)) || ''
+  const dataType = useSelector(selectCode(dataTypeFromReduxStore)) || ''
+  const description = useSelector(selectCode(`${attributeCode}@description`)) || ''
   const groupCode = getGroupCode(question) || parentCode
 
   const [saving, setSaving] = useBoolean()
@@ -86,15 +89,9 @@ const Ask = ({
 
   if (!question?.attribute) return null
 
-  const {
-    attribute: {
-      description,
-      dataType: { component = 'dropdown', typeName },
-      dataType,
-    },
-    html,
-    helper,
-  } = question
+  const { html, helper } = question
+
+  const { component = 'text', typeName } = dataType
 
   const feedback = data?.feedback
   const onSendAnswer = createSendAnswer(askData, { passedTargetCode, setSaving })
