@@ -51,8 +51,6 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
   const today = new Date()
   const allowedDate = format(today.setDate(today.getDate() - 1), 'yyyy-MM-dd')
 
-  console.log(allowedDate)
-
   useEffect(() => {
     isInvalid === true ? setErrorStatus(true) : setErrorStatus(false)
   }, [isInvalid])
@@ -69,7 +67,7 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
       const isDateBefore = isBefore(inputDate, today)
       isDateBefore === true ? setIsPreviousDate(true) : setIsPreviousDate(false)
     }
-  }, [questionCode, userInput])
+  }, [questionCode, userInput, today])
 
   useEffect(() => {
     if (!isPreviousDate) {
