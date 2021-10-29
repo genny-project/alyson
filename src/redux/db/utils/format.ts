@@ -94,7 +94,7 @@ export const formatAttribute = (state: DBState) => (item: Item) => {
 
   state[code] = dttCode
   state[dttCode] = dataType
-  state[descriptionKey] = 'description'
+  state[descriptionKey] = description
 }
 
 export const formatNotes = (state: DBState) => (item: Note) => {
