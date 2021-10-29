@@ -48,7 +48,10 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
 
   const isInvalid = getIsInvalid(userInput)(RegExp(regexPattern))
 
-  const allowedDate = format(new Date(question?.attribute?.created), 'yyyy-MM-dd')
+  const today = new Date()
+  const allowedDate = format(today.setDate(today.getDate() - 1), 'yyyy-MM-dd')
+
+  console.log(allowedDate)
 
   useEffect(() => {
     isInvalid === true ? setErrorStatus(true) : setErrorStatus(false)
@@ -61,7 +64,6 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
   }, [dispatch, isInvalid, questionCode])
 
   useEffect(() => {
-    const today = new Date()
     const inputDate = new Date(userInput)
     if (questionCode === 'QUE_JOURNAL_DATE' && userInput) {
       const isDateBefore = isBefore(inputDate, today)
