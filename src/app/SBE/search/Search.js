@@ -49,9 +49,9 @@ const ProcessSearch = ({ sbeCode, process, placeholder }) => {
           <Input
             placeholder={placeholder}
             test-id={`SEARCH-ALL-ATTRIBUTES`}
-            defaultValue={search?.value || ''}
+            // defaultValue={search?.value || ''}
             ref={inputRef}
-            // value={searchValue}
+            value={searchValue}
             onChange={e => setSearchValue(e.currentTarget.value)}
           />
           <InputRightElement>
@@ -73,7 +73,7 @@ const ProcessSearch = ({ sbeCode, process, placeholder }) => {
         colorScheme="primary"
         test-id={`process-view-search`}
       >
-        Search
+        {`Search`}
       </Button>
       {search && (
         <Button
