@@ -15,11 +15,11 @@ const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
   const maxW = useMobileValue(['', '25vw'])
 
   useEffect(() => {
-    isInvalid === true ? setErrorStatus(true) : setErrorStatus(false)
+    isInvalid ? setErrorStatus(true) : setErrorStatus(false)
   }, [isInvalid])
 
   useEffect(() => {
-    isInvalid === true
+    isInvalid
       ? dispatch({ type: ACTIONS.SET_TO_TRUE, payload: questionCode })
       : dispatch({ type: ACTIONS.SET_TO_FALSE, payload: questionCode })
   }, [dispatch, isInvalid, questionCode])

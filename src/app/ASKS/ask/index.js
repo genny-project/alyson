@@ -67,16 +67,15 @@ const Ask = ({
     readonly,
   } = askData || {}
 
-  const regexPattern = pathOr(null, ['attribute', 'dataType', 'validationList', 0, 'regex'])(
-    question,
-  )
-
   const data = useSelector(selectCode(targetCode, attributeCode)) || {}
   const highlightedQuestion = useSelector(selectHighlightedQuestion)
   const labelWidth = useMobileValue(['full', '25vw'])
 
+  const dataTypeFromReduxStore = useSelector(selectCode(attributeCode)) || ''
+  const dataType = useSelector(selectCode(dataTypeFromReduxStore)) || ''
+  const description = useSelector(selectCode(`${attributeCode}@description`)) || ''
   const groupCode = getGroupCode(question) || parentCode
-
+  const regexPattern = pathOr(null, ['validationList', 0, 'regex'])(dataType)
   const [saving, setSaving] = useBoolean()
 
   useEffect(() => {
@@ -86,15 +85,8 @@ const Ask = ({
 
   if (!question?.attribute) return null
 
-  const {
-    attribute: {
-      description,
-      dataType: { component = 'dropdown', typeName },
-      dataType,
-    },
-    html,
-    helper,
-  } = question
+  const { html, helper } = question
+  const { component = 'text', typeName } = dataType
 
   const feedback = data?.feedback
   const onSendAnswer = createSendAnswer(askData, { passedTargetCode, setSaving })

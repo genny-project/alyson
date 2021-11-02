@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoffee } from '@fortawesome/free-solid-svg-icons'
 import { faLinkedin } from '@fortawesome/free-brands-svg-icons'
 import { getIsInvalid } from 'utils/functions'
 import { includes } from 'ramda'
@@ -35,7 +34,7 @@ const Read = ({ data, config = {} }) => {
   return (
     <a href={href}>
       <IconButton test-id={data?.baseEntityCode} colorScheme="linkedin" isDisabled={!data?.value}>
-        <FontAwesomeIcon size="lg" icon={faCoffee} />
+        <FontAwesomeIcon size="lg" icon={faLinkedin} />
       </IconButton>
     </a>
   )
@@ -51,11 +50,11 @@ const Write = ({ questionCode, onSendAnswer, data, regexPattern }) => {
   const isInvalid = getIsInvalid(userInput)(RegExp(regexPattern))
 
   useEffect(() => {
-    isInvalid === true ? setErrorStatus(true) : setErrorStatus(false)
+    isInvalid ? setErrorStatus(true) : setErrorStatus(false)
   }, [isInvalid])
 
   useEffect(() => {
-    isInvalid === true
+    isInvalid
       ? dispatch({ type: ACTIONS.SET_TO_TRUE, payload: questionCode })
       : dispatch({ type: ACTIONS.SET_TO_FALSE, payload: questionCode })
   }, [dispatch, isInvalid, questionCode])

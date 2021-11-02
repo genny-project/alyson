@@ -1,8 +1,5 @@
-import { Input, InputGroup, InputRightElement } from '@chakra-ui/input'
 import { Box, Wrap, WrapItem } from '@chakra-ui/layout'
-import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Chip from 'app/layouts/components/chip'
+import { Input, InputGroup, InputRightElement } from '@chakra-ui/input'
 import {
   append,
   compose,
@@ -12,19 +9,22 @@ import {
   not,
   prop,
   propEq,
+  reduce,
   replace,
   toLower,
-  reduce,
 } from 'ramda'
+import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useRef, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 
-import { selectCode } from 'redux/db/selectors'
-import getUserType from 'utils/helpers/get-user-type'
-import { useMobileValue } from 'utils/hooks'
+import Chip from 'app/layouts/components/chip'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ItemsForAutocomplete from './Items'
-import { selectBufferDropdownOptions } from 'redux/app/selectors'
 import { bufferDropdownOption } from 'redux/app'
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
+import getUserType from 'utils/helpers/get-user-type'
+import { selectBufferDropdownOptions } from 'redux/app/selectors'
+import { selectCode } from 'redux/db/selectors'
+import { useMobileValue } from 'utils/hooks'
 
 const Autocomplete = ({
   multiple,
@@ -109,6 +109,22 @@ const Autocomplete = ({
 
   const maxW = useMobileValue(['', '25vw'])
 
+  const dropDownRef = useRef()
+
+  const checkDropdownOpen = e => {
+    if (dropDownRef.current.contains(e.target)) {
+      return
+    }
+    setOpen(false)
+  }
+
+  useEffect(() => {
+    document.addEventListener('mousedown', checkDropdownOpen)
+    return () => {
+      document.removeEventListener('mousedown', checkDropdownOpen)
+    }
+  }, [])
+
   var renderOptions = items.map(item => (
     <WrapItem key={item}>
       <Chip test-id={item} onClick={() => onSelectChange(item)} p="2">
@@ -156,53 +172,55 @@ const Autocomplete = ({
           {renderOptions}
         </Wrap>
       </Box>
-      <InputGroup display={!multiple && selected.length ? 'none' : 'block'} w="full">
-        <Input
-          test-id={questionCode}
-          onKeyDown={e => {
-            if (e.key === 'ArrowDown' && !open) setOpen(true)
-          }}
-          ref={inputRef}
-          onClick={toggleOpen}
-          onChange={onInputChange}
-          value={input}
-          placeholder={placeholder}
-          autoComplete="off"
-        />
-        <InputRightElement>
-          <Box
-            cursor="pointer"
-            _hover={{ color: 'teal' }}
-            transform={open ? 'rotate(180deg)' : 'rotate(0deg)'}
-            transition="all 0.3s ease"
-          >
-            <FontAwesomeIcon
-              icon={faAngleDown}
-              onClick={() => {
-                toggleOpen()
-                !open && ddEvent('')
+      <Box ref={dropDownRef}>
+        <InputGroup display={!multiple && selected.length ? 'none' : 'block'} w="full">
+          <Input
+            test-id={questionCode}
+            onKeyDown={e => {
+              if (e.key === 'ArrowDown' && !open) setOpen(true)
+            }}
+            ref={inputRef}
+            onClick={toggleOpen}
+            onChange={onInputChange}
+            value={input}
+            placeholder={placeholder}
+            autoComplete="off"
+          />
+          <InputRightElement>
+            <Box
+              cursor="pointer"
+              _hover={{ color: 'teal' }}
+              transform={open ? 'rotate(180deg)' : 'rotate(0deg)'}
+              transition="all 0.3s ease"
+            >
+              <FontAwesomeIcon
+                icon={faAngleDown}
+                onClick={() => {
+                  toggleOpen()
+                  !open && ddEvent('')
+                }}
+              />
+            </Box>
+          </InputRightElement>
+        </InputGroup>
+        <Box test-id={groupCode} display={open ? 'block' : 'none'}>
+          {open && (
+            <ItemsForAutocomplete
+              {...{
+                focusInput,
+                onSelectChange,
+                userType,
+                selected,
+                createNew,
+                input,
+                searching,
+                filteredOptions,
+                setOpen,
+                setInput,
               }}
             />
-          </Box>
-        </InputRightElement>
-      </InputGroup>
-      <Box test-id={groupCode} display={open ? 'block' : 'none'}>
-        {open && (
-          <ItemsForAutocomplete
-            {...{
-              focusInput,
-              onSelectChange,
-              userType,
-              selected,
-              createNew,
-              input,
-              searching,
-              filteredOptions,
-              setOpen,
-              setInput,
-            }}
-          />
-        )}
+          )}
+        </Box>
       </Box>
     </Box>
   )
