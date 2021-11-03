@@ -86,7 +86,7 @@ const Ask = ({
   if (!question?.attribute) return null
 
   const { html, helper } = question
-  const { component = 'text', typeName } = dataType
+  const { component = 'dropdown', typeName } = dataType
 
   const feedback = data?.feedback
   const onSendAnswer = createSendAnswer(askData, { passedTargetCode, setSaving })

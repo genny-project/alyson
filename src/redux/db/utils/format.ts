@@ -87,8 +87,8 @@ export const formatAsk = (state: DBState, replace: Boolean) => (item: Item) => {
 }
 
 export const formatAttribute = (state: DBState) => (item: Item) => {
-  const { code, dataType, description } = item
-  const { dttCode } = dataType
+  const { code, dataType, description } = item || {}
+  const { dttCode } = dataType || {}
 
   const descriptionKey = `${code}@description`
 
