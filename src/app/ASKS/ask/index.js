@@ -52,6 +52,7 @@ const Ask = ({
   passedTargetCode,
   config,
   noLabel,
+  forcedComponent,
 }) => {
   const askData = useSelector(selectCode(parentCode, passedQuestionCode)) || passedAskData
 
@@ -86,7 +87,7 @@ const Ask = ({
   if (!question?.attribute) return null
 
   const { html, helper } = question
-  const { component = 'dropdown', typeName } = dataType
+  const { component = forcedComponent || 'text', typeName } = dataType
 
   const feedback = data?.feedback
   const onSendAnswer = createSendAnswer(askData, { passedTargetCode, setSaving })

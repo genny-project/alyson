@@ -14,6 +14,8 @@ const Process = ({ dashboard }) => {
 
   const bucketSearch = useSelector(selectCode('QUE_BUCKET_INTERNS_GRP')) || []
 
+  console.log('bucketSearch----->', bucketSearch)
+
   if (!processCodes) return null
   return (
     <VStack align="start" spacing={0} px="5">
@@ -22,7 +24,12 @@ const Process = ({ dashboard }) => {
           {bucketSearch &&
             bucketSearch.map((childAsk, index) => (
               <Box key={`${index}-${childAsk}`} width={'20rem'}>
-                <Ask noLabel questionCode={childAsk} parentCode={'QUE_BUCKET_INTERNS_GRP'} />
+                <Ask
+                  noLabel
+                  questionCode={childAsk}
+                  parentCode={'QUE_BUCKET_INTERNS_GRP'}
+                  forcedComponent="dropdown"
+                />
               </Box>
             ))}
           <Search process={processCodes[0]} sbeCode={JSON.stringify(processCodes)} />
