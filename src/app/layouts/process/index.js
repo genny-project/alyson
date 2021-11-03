@@ -14,8 +14,6 @@ const Process = ({ dashboard }) => {
 
   const bucketSearch = useSelector(selectCode('QUE_BUCKET_INTERNS_GRP')) || []
 
-  console.log('bucketSearch----->', bucketSearch)
-
   if (!processCodes) return null
   return (
     <VStack align="start" spacing={0} px="5">
