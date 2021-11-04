@@ -8,7 +8,7 @@ import { getIsInvalid } from 'utils/functions'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useMobileValue } from 'utils/hooks'
 
-export const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
+export const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMessage }) => {
   let regex
   const { dispatch } = useError()
   const [errorStatus, setErrorStatus] = useState(false)
@@ -64,7 +64,9 @@ export const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
         isInvalid={isInvalid}
       />
       {errorStatus && (
-        <ChakraText textStyle="tail.error" mt={2}>{`You can only enter alphabets.`}</ChakraText>
+        <ChakraText textStyle="tail.error" mt={2}>
+          {errorMessage}
+        </ChakraText>
       )}
     </>
   )
