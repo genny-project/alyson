@@ -7,7 +7,7 @@ import { getIsInvalid } from 'utils/functions'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useMobileValue } from 'utils/hooks'
 
-const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
+const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMessage }) => {
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value)
   const { dispatch } = useError()
@@ -38,7 +38,9 @@ const Write = ({ questionCode, data, onSendAnswer, regexPattern }) => {
           isInvalid={isInvalid}
         />
         {errorStatus && (
-          <Text textStyle="tail.error" mt={2}>{`Please enter a valid email address. `}</Text>
+          <Text textStyle="tail.error" mt={2}>
+            {errorMessage}
+          </Text>
         )}
         <Duplicates email={data?.value} sourceCode={data.baseEntityCode} />
       </>

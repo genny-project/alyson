@@ -24,6 +24,7 @@ const getApiConfig = async () => {
   })
 
   apiConfig = response.data
+  console.log(apiConfig)
 
   /* Log Rocket */
   if (process.env.NODE_ENV !== 'development') {
@@ -49,7 +50,7 @@ const getApiConfig = async () => {
   /* Theme */
   const { projectTheme } = apiConfig
   const theme = getTheme(projectTheme)
-  const appTitle = apiConfig.PRI_NAME
+  const appTitle = apiConfig.realm.charAt(0).toUpperCase() + apiConfig.realm.toLowerCase().slice(1)
   const appIcon = apiConfig.PRI_FAVICON
 
   return { keycloak, theme, appTitle, appIcon }
