@@ -1,13 +1,13 @@
-import { includes } from 'ramda'
-import axios from 'axios'
-import Keycloak from 'keycloak-js'
 import { INIT_URL } from './genny'
-import loginAsGuest from '../keycloak/login-as-guest'
-import setupLogRocketReact from 'logrocket-react'
+import Keycloak from 'keycloak-js'
 import LogRocket from 'logrocket'
-import getTokenFromURL from 'keycloak/get-token-from-url'
+import axios from 'axios'
 import getTheme from 'config/theme'
+import getTokenFromURL from 'keycloak/get-token-from-url'
+import { includes } from 'ramda'
+import loginAsGuest from '../keycloak/login-as-guest'
 import setupGoogleApi from './setup-google-api'
+import setupLogRocketReact from 'logrocket-react'
 
 let apiConfig = { api_url: '', ENV_GOOGLE_MAPS_APIKEY: '' }
 let keycloak = {}
@@ -49,8 +49,10 @@ const getApiConfig = async () => {
   /* Theme */
   const { projectTheme } = apiConfig
   const theme = getTheme(projectTheme)
+  const appTitle = apiConfig.PRI_NAME
+  const appIcon = apiConfig.PRI_FAVICON
 
-  return { keycloak, theme }
+  return { keycloak, theme, appTitle, appIcon }
 }
 
 export { apiConfig, keycloak, guestKeycloak, tokenFromUrl }

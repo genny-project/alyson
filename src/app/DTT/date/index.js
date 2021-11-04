@@ -48,7 +48,7 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
 
   const isInvalid = getIsInvalid(userInput)(RegExp(regexPattern))
 
-  const allowedDate = format(new Date(question?.attribute?.created), 'yyyy-MM-dd')
+  const today = format(new Date(), 'yyyy-MM-dd')
 
   useEffect(() => {
     isInvalid ? setErrorStatus(true) : setErrorStatus(false)
@@ -61,13 +61,12 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
   }, [dispatch, isInvalid, questionCode])
 
   useEffect(() => {
-    const today = new Date()
     const inputDate = new Date(userInput)
     if (questionCode === 'QUE_JOURNAL_DATE' && userInput) {
       const isDateBefore = isBefore(inputDate, today)
       isDateBefore ? setIsPreviousDate(true) : setIsPreviousDate(false)
     }
-  }, [questionCode, userInput])
+  }, [questionCode, userInput, today])
 
   useEffect(() => {
     if (!isPreviousDate) {
@@ -94,7 +93,7 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
         onChange={e => setuserInput(e.target.value)}
         w="full"
         maxW={maxW}
-        max={questionCode === 'QUE_JOURNAL_DATE' ? allowedDate : ''}
+        max={questionCode === 'QUE_JOURNAL_DATE' ? today : ''}
       />
       {errorStatus && (
         <Text textStyle="tail.error" mt={2}>

@@ -79,7 +79,8 @@
     "husky": "^6.0.0",
     "lint-staged": "^10.5.4",
     "prettier": "2.2.1",
-    "react-git-info": "^2.0.0"
+    "react-git-info": "^2.0.0",
+    "react-meta-tags": "^1.0.1"
   },
   "lint-staged": {
     "*.{js,ts,tsx,css,md}": [

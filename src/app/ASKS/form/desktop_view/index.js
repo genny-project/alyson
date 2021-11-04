@@ -8,6 +8,8 @@ import Header from '../template/Header'
 const FormDesktopView = ({ title, onFinish, questionCode, childAsks, config = {} }) => {
   const { subHeader, groups = [], pagination } = config
 
+  console.log('TITLE =>', title)
+
   if (!groups.length)
     return (
       <Center>
