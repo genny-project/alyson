@@ -22,7 +22,12 @@ const Process = ({ dashboard }) => {
           {bucketSearch &&
             bucketSearch.map((childAsk, index) => (
               <Box key={`${index}-${childAsk}`} width={'20rem'}>
-                <Ask noLabel questionCode={childAsk} parentCode={'QUE_BUCKET_INTERNS_GRP'} />
+                <Ask
+                  noLabel
+                  questionCode={childAsk}
+                  parentCode={'QUE_BUCKET_INTERNS_GRP'}
+                  forcedComponent="dropdown"
+                />
               </Box>
             ))}
           <Search process={processCodes[0]} sbeCode={JSON.stringify(processCodes)} />
