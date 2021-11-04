@@ -33,7 +33,7 @@ import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { stateToHTML } from 'draft-js-export-html'
 import { useError } from 'utils/contexts/ErrorContext'
 
-const Write = ({ questionCode, data, onSendAnswer, html, regexPattern }) => {
+const Write = ({ questionCode, data, onSendAnswer, html, regexPattern, errorMessage }) => {
   const { minCharacterCount = 0, maxCharacterCount } = safelyParseJson(html, {})
   const blocksFromHTML = convertFromHTML(data?.value || '')
   const state = ContentState.createFromBlockArray(
@@ -141,7 +141,11 @@ const Write = ({ questionCode, data, onSendAnswer, html, regexPattern }) => {
           lang="en"
         />
       </Box>
-      {errorStatus && <Text textStyle="tail.error" mt={2}>{`Please enter a valid text. `}</Text>}
+      {errorStatus && (
+        <Text textStyle="tail.error" mt={2}>
+          {errorMessage}
+        </Text>
+      )}
     </>
   )
 }

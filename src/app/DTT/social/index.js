@@ -40,7 +40,7 @@ const Read = ({ data, config = {} }) => {
   )
 }
 
-const Write = ({ questionCode, onSendAnswer, data, regexPattern }) => {
+const Write = ({ questionCode, onSendAnswer, data, regexPattern, errorMessage }) => {
   const { dispatch } = useError()
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value)
@@ -73,10 +73,9 @@ const Write = ({ questionCode, onSendAnswer, data, regexPattern }) => {
         />
       </InputGroup>
       {errorStatus && (
-        <ChakraText
-          textStyle="tail.error"
-          mt={2}
-        >{`You can only valid social address.`}</ChakraText>
+        <ChakraText textStyle="tail.error" mt={2}>
+          {errorMessage}
+        </ChakraText>
       )}
     </>
   )
