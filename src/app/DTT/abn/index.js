@@ -1,42 +1,16 @@
 import { useState, useEffect } from 'react'
-import { Button, Input, InputGroup, InputLeftElement, Text } from '@chakra-ui/react'
-import { useError } from 'utils/contexts/ErrorContext'
-import { getIsInvalid } from 'utils/functions'
-import { ACTIONS } from 'utils/contexts/ErrorReducer'
+import { Button, Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
 
 import { Read } from '../text'
 import ABNLookup from './abn_lookup'
 
-const Write = ({ questionCode, data, onSendAnswer, disabled, regexPattern, errorMessage }) => {
-  console.log('%c REGEX ---->', 'color: tomato; font-size: 20px', regexPattern, errorMessage)
-  let regex
-  const { dispatch } = useError()
-  const [errorStatus, setErrorStatus] = useState(false)
+const Write = ({ questionCode, data, onSendAnswer, disabled }) => {
   const [value, setValue] = useState(data?.value)
   const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
     setValue(data?.value)
   }, [data])
-
-  try {
-    regex = RegExp(regexPattern)
-  } catch (err) {
-    console.error('There is an error with the regex', questionCode, err)
-    regex = undefined
-  }
-
-  const isInvalid = getIsInvalid(value)(regex)
-
-  useEffect(() => {
-    isInvalid ? setErrorStatus(true) : setErrorStatus(false)
-  }, [isInvalid])
-
-  useEffect(() => {
-    isInvalid
-      ? dispatch({ type: ACTIONS.SET_TO_TRUE, payload: questionCode })
-      : dispatch({ type: ACTIONS.SET_TO_FALSE, payload: questionCode })
-  }, [dispatch, isInvalid, questionCode])
 
   const open = () => setIsOpen(true)
   const close = () => setIsOpen(false)
@@ -70,11 +44,6 @@ const Write = ({ questionCode, data, onSendAnswer, disabled, regexPattern, error
           onBlur={e => onSendAnswer(e.target.value)}
         />
       </InputGroup>
-      {errorStatus && (
-        <Text textStyle="tail.error" mt={2}>
-          {errorMessage}
-        </Text>
-      )}
     </>
   )
 }
