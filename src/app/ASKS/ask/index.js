@@ -43,6 +43,7 @@ import { selectHighlightedQuestion } from 'redux/app/selectors'
 import { useEffect } from 'react'
 import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
+import { useError } from 'utils/contexts/ErrorContext'
 
 const Ask = ({
   parentCode,
@@ -54,6 +55,9 @@ const Ask = ({
   noLabel,
   forcedComponent,
 }) => {
+  const { errorState } = useError()
+  const failedValidation = errorState[passedQuestionCode]
+
   const askData = useSelector(selectCode(parentCode, passedQuestionCode)) || passedAskData
 
   const {
@@ -156,7 +160,7 @@ const Ask = ({
         <FormLabel id={attributeCode}>{name}</FormLabel>
         {saving ? (
           <FontAwesomeIcon icon={faCircle} color="gold" />
-        ) : data?.value ? (
+        ) : data?.value && !failedValidation ? (
           <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
         ) : null}
       </HStack>
