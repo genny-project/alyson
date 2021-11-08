@@ -48,8 +48,7 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
 
   const isInvalid = getIsInvalid(userInput)(RegExp(regexPattern))
 
-  const today = new Date()
-  const allowedDate = format(today.setDate(today.getDate() - 1), 'yyyy-MM-dd')
+  const today = format(new Date(), 'yyyy-MM-dd')
 
   useEffect(() => {
     isInvalid ? setErrorStatus(true) : setErrorStatus(false)
@@ -94,7 +93,7 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
         onChange={e => setuserInput(e.target.value)}
         w="full"
         maxW={maxW}
-        max={questionCode === 'QUE_JOURNAL_DATE' ? allowedDate : ''}
+        max={questionCode === 'QUE_JOURNAL_DATE' ? today : ''}
       />
       {errorStatus && (
         <Text textStyle="tail.error" mt={2}>
