@@ -32,6 +32,7 @@ import { getIsInvalid } from 'utils/functions'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { stateToHTML } from 'draft-js-export-html'
 import { useError } from 'utils/contexts/ErrorContext'
+import removeHtmlTags from 'utils/helpers/remove-html-tags'
 
 const Write = ({ questionCode, data, onSendAnswer, html, regexPattern, errorMessage }) => {
   const { minCharacterCount = 0, maxCharacterCount } = safelyParseJson(html, {})
@@ -45,11 +46,11 @@ const Write = ({ questionCode, data, onSendAnswer, html, regexPattern, errorMess
   const [editor, setEditor] = useState(
     !data?.value ? EditorState.createEmpty() : EditorState.createWithContent(state),
   )
-
   const [errorStatus, setErrorStatus] = useState(false)
-
   const { dispatch } = useError()
-  const isInvalid = getIsInvalid(userInput)(RegExp(regexPattern))
+
+  const userInputWithoutHtmlTags = removeHtmlTags(userInput)
+  const isInvalid = getIsInvalid(userInputWithoutHtmlTags)(RegExp(regexPattern))
 
   const handleEditorChange = e => {
     setUserInput(e.blocks[0].text)
@@ -149,6 +150,7 @@ const Write = ({ questionCode, data, onSendAnswer, html, regexPattern, errorMess
     </>
   )
 }
+
 const Read = ({ data, mini, config = {} }) => {
   const { noOfLines } = config
   const { isOpen, onOpen, onClose } = useDisclosure()
