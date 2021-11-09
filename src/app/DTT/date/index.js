@@ -63,7 +63,18 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
   useEffect(() => {
     const inputDate = new Date(userInput)
     if (questionCode === 'QUE_JOURNAL_DATE' && userInput) {
-      const isDateBefore = isBefore(inputDate, today)
+      const todaysDateInISOFormat = new Date(today)
+      const isDateBefore = isBefore(inputDate, todaysDateInISOFormat)
+      const isDateBeforePrevious = isBefore(inputDate, today)
+
+      console.log('today====>', {
+        isDateBeforePrevious,
+        isDateBefore,
+        today,
+        todaysDateInISOFormat,
+        inputDate,
+      })
+
       isDateBefore ? setIsPreviousDate(true) : setIsPreviousDate(false)
     }
   }, [questionCode, userInput, today])
