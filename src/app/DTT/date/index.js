@@ -49,6 +49,8 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
   const isInvalid = getIsInvalid(userInput)(RegExp(regexPattern))
 
   const today = format(new Date(), 'yyyy-MM-dd')
+  const todaysDateInISOFormat = new Date(today)
+  const inputDate = new Date(userInput)
 
   useEffect(() => {
     isInvalid ? setErrorStatus(true) : setErrorStatus(false)
@@ -61,11 +63,12 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
   }, [dispatch, isInvalid, questionCode])
 
   useEffect(() => {
-    const inputDate = new Date(userInput)
     if (questionCode === 'QUE_JOURNAL_DATE' && userInput) {
-      const isDateBefore = isBefore(inputDate, today)
+      const isDateBefore = isBefore(inputDate, todaysDateInISOFormat)
+
       isDateBefore ? setIsPreviousDate(true) : setIsPreviousDate(false)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [questionCode, userInput, today])
 
   useEffect(() => {
