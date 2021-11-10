@@ -44,7 +44,11 @@ const Header = ({ beCode, sbeCode }) => {
         </Box>
         <Attribute code={beCode} config={{ h: '5rem', w: '5rem' }} attribute="PRI_IMAGE_URL" />
         <VStack align="start" spacing={2}>
-          <Attribute code={beCode} attribute="PRI_NAME" config={{ textStyle: 'head.1' }} />
+          <Attribute
+            code={beCode}
+            attribute="PRI_INTERNSHIP_TITLE"
+            config={{ textStyle: 'head.1' }}
+          />
           <HStack spacing={5}>
             <Attribute
               config={{ textStyle: 'body.2' }}

@@ -1,5 +1,5 @@
 import { Input, Text } from '@chakra-ui/react'
-import { format, isBefore } from 'date-fns'
+import { format, isBefore, startOfTomorrow } from 'date-fns'
 import { useEffect, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
@@ -49,7 +49,8 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
   const isInvalid = getIsInvalid(userInput)(RegExp(regexPattern))
 
   const today = format(new Date(), 'yyyy-MM-dd')
-  const todaysDateInISOFormat = new Date(today)
+  const tomorrowsDateInISOFormat = startOfTomorrow(today)
+
   const inputDate = new Date(userInput)
 
   useEffect(() => {
@@ -64,7 +65,7 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
 
   useEffect(() => {
     if (questionCode === 'QUE_JOURNAL_DATE' && userInput) {
-      const isDateBefore = isBefore(inputDate, todaysDateInISOFormat)
+      const isDateBefore = isBefore(inputDate, tomorrowsDateInISOFormat)
 
       isDateBefore ? setIsPreviousDate(true) : setIsPreviousDate(false)
     }
