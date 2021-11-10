@@ -1,15 +1,15 @@
 import { Box, Center, Stack, Text, VStack } from '@chakra-ui/layout'
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { add, compose, filter, flatten, identity, includes, map, prop } from 'ramda'
+import { selectAttributes, selectCode } from 'redux/db/selectors'
 
 import Ask from 'app/ASKS/ask'
 import Button from 'app/layouts/components/button'
 import Card from 'app/layouts/components/card'
-import { add, compose, filter, flatten, identity, includes, map, prop } from 'ramda'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ReactPlayer from 'react-player'
-import { useSelector } from 'react-redux'
-import { selectAttributes, selectCode } from 'redux/db/selectors'
 import Timeline from './Timeline'
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import { useSelector } from 'react-redux'
 
 const Group = ({
   label,
