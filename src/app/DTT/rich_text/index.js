@@ -29,10 +29,10 @@ import { Editor } from 'react-draft-wysiwyg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faExpand } from '@fortawesome/free-solid-svg-icons'
 import { getIsInvalid } from 'utils/functions'
+import removeHtmlTags from 'utils/helpers/remove-html-tags'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { stateToHTML } from 'draft-js-export-html'
 import { useError } from 'utils/contexts/ErrorContext'
-import removeHtmlTags from 'utils/helpers/remove-html-tags'
 
 const Write = ({ questionCode, data, onSendAnswer, html, regexPattern, errorMessage }) => {
   const { minCharacterCount = 0, maxCharacterCount } = safelyParseJson(html, {})
@@ -50,7 +50,9 @@ const Write = ({ questionCode, data, onSendAnswer, html, regexPattern, errorMess
   const { dispatch } = useError()
 
   const userInputWithoutHtmlTags = removeHtmlTags(userInput)
-  const isInvalid = getIsInvalid(userInputWithoutHtmlTags)(RegExp(regexPattern))
+  const userInputWithoutLineBreaks = userInputWithoutHtmlTags.replace(/(\r\n|\n|\r|\xA0)/gm, ' ')
+
+  const isInvalid = getIsInvalid(userInputWithoutLineBreaks)(RegExp(regexPattern))
 
   const handleEditorChange = e => {
     setUserInput(e.blocks[0].text)
@@ -154,8 +156,10 @@ const Write = ({ questionCode, data, onSendAnswer, html, regexPattern, errorMess
 const Read = ({ data, mini, config = {} }) => {
   const { noOfLines } = config
   const { isOpen, onOpen, onClose } = useDisclosure()
+
   if (!data?.value) return null
   const cleanHtml = DOMPurify.sanitize(data.value)
+
   return mini ? (
     <Popover>
       <PopoverTrigger>

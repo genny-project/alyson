@@ -1,6 +1,7 @@
 import { Center, HStack, Wrap } from '@chakra-ui/layout'
 import { dec, inc } from 'ramda'
 import { faArrowAltCircleLeft, faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconButton } from '@chakra-ui/button'
 import TimelineItem from './TimelineItem'
@@ -28,6 +29,7 @@ const Timeline = ({
         <Wrap w="80%" align="center" justify="center">
           {groups.map((group, idx) => (
             <TimelineItem
+              key={idx}
               {...{
                 setAdjGroups,
                 questionCode,
