@@ -20,7 +20,7 @@ import {
   VStack,
   useDisclosure,
 } from '@chakra-ui/react'
-import { ContentState, EditorState, convertFromHTML } from 'draft-js'
+import { ContentState, EditorState, convertFromHTML, convertToRaw } from 'draft-js'
 import { useEffect, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
@@ -54,8 +54,10 @@ const Write = ({ questionCode, data, onSendAnswer, html, regexPattern, errorMess
 
   const isInvalid = getIsInvalid(userInputWithoutLineBreaks)(RegExp(regexPattern))
 
-  const handleEditorChange = e => {
-    setUserInput(e.blocks[0].text)
+  const handleEditorChange = () => {
+    const blocks = convertToRaw(editor.getCurrentContent()).blocks
+    const value = blocks.map(block => (!block.text.trim() && '\n') || block.text).join('')
+    setUserInput(value)
   }
 
   useEffect(() => {
