@@ -1,36 +1,37 @@
-import { useRef } from 'react'
-import AskMenu from 'app/ASKS/menu'
 import {
-  Drawer,
-  Flex,
-  Spacer,
-  Image,
-  HStack,
-  DrawerOverlay,
-  DrawerContent,
-  useColorModeValue,
-  useTheme,
-  useDisclosure,
-  DrawerHeader,
-  DrawerCloseButton,
-  DrawerBody,
-  IconButton,
-  Text,
-  Button,
   Box,
+  Button,
+  Drawer,
+  DrawerBody,
+  DrawerCloseButton,
+  DrawerContent,
+  DrawerHeader,
+  DrawerOverlay,
+  Flex,
+  HStack,
+  IconButton,
+  Image,
+  Spacer,
+  Text,
+  useColorModeValue,
+  useDisclosure,
+  useTheme,
 } from '@chakra-ui/react'
-import { apiConfig } from 'config/get-api-config'
-import Avatar from '../Avatar'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus, faBolt, faBars } from '@fortawesome/free-solid-svg-icons'
-import Buttons from 'app/ASKS/buttons'
-import { onSendMessage } from 'vertx'
-import Drafts from '../drafts/Drafts'
 import { caps, hideQuickAdd } from 'config/caps'
-import { useSelector } from 'react-redux'
-import { selectCode } from 'redux/db/selectors'
+import { faBars, faBolt, faPlus } from '@fortawesome/free-solid-svg-icons'
+
+import AskMenu from 'app/ASKS/menu'
+import Avatar from '../Avatar'
+import Buttons from 'app/ASKS/buttons'
+import Drafts from '../drafts/Drafts'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { apiConfig } from 'config/get-api-config'
 import getUserType from 'utils/helpers/get-user-type'
+import { onSendMessage } from 'vertx'
+import { selectCode } from 'redux/db/selectors'
 import { useGetRealm } from 'utils/hooks'
+import { useRef } from 'react'
+import { useSelector } from 'react-redux'
 
 const MobileNav = ({ logoSrc }) => {
   const theme = useTheme()
@@ -63,7 +64,7 @@ const MobileNav = ({ logoSrc }) => {
         }}
       >
         <nav>
-          <Flex p="3">
+          <Flex align="center" p="3">
             <IconButton color="gray.600" onClick={onOpen} variant="ghost">
               <FontAwesomeIcon icon={faBars} />
             </IconButton>

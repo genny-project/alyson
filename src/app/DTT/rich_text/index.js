@@ -50,7 +50,9 @@ const Write = ({ questionCode, data, onSendAnswer, html, regexPattern, errorMess
   const { dispatch } = useError()
 
   const userInputWithoutHtmlTags = removeHtmlTags(userInput)
-  const userInputWithoutLineBreaks = userInputWithoutHtmlTags.replace(/(\r\n|\n|\r|\xA0)/gm, ' ')
+  const userInputWithoutLineBreaks = userInputWithoutHtmlTags
+    .replace(/(\r\n|\n|\r|-|\xA0)/g, '')
+    .replace(/(<([^>]+)>)/gi, '')
 
   const isInvalid = getIsInvalid(userInputWithoutLineBreaks)(RegExp(regexPattern))
 
@@ -77,9 +79,11 @@ const Write = ({ questionCode, data, onSendAnswer, html, regexPattern, errorMess
     }
   }, [data?.value, dataValue, state])
 
-  const curLength = (stateToHTML(editor.getCurrentContent()) || '')
-    .replace(/(<([^>]+)>)/gi, '')
-    .replace(/&nbsp;/g, ' ').length
+  // const curLength = (stateToHTML(editor.getCurrentContent()) || '')
+  //   .replace(/(<([^>]+)>)/gi, '')
+  //   .replace(/&nbsp;/g, ' ').length
+
+  const curLength = userInputWithoutLineBreaks.length
 
   const handleSave = () => {
     if (minCharacterCount || maxCharacterCount) {
