@@ -1,14 +1,14 @@
-import { equals, __ } from 'ramda'
-import { useSelector } from 'react-redux'
+import { __, equals } from 'ramda'
 
-import { selectCode } from 'redux/db/selectors'
 import { complete } from 'utils/constants'
+import { selectCode } from 'redux/db/selectors'
+import { useSelector } from 'react-redux'
 
 const isComplete = equals(__, complete)
 
 const useGetMenteeInformation = () => {
   const userCode = useSelector(selectCode('USER'))
-  const profileStatus = useSelector(selectCode(userCode, 'PRI_USER_PROFILE'))?.valueString
+  const profileStatus = useSelector(selectCode(userCode, 'PRI_PROFILE'))?.valueString
   const trainingStatus = useSelector(selectCode(userCode, 'PRI_TRAINING_STATUS'))?.valueString
   const selectMentorStatus = useSelector(selectCode(userCode, 'PRI_MATCHED_WITH_MENTOR'))
     ?.valueString
