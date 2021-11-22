@@ -49,7 +49,6 @@ export const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMes
         onBlur={e => !errorStatus && debouncedSendAnswer(e.target.value)}
         onChange={e => setuserInput(e.target.value)}
         defaultValue={data?.value}
-        w="full"
         maxW={maxW}
         isInvalid={isInvalid}
       />

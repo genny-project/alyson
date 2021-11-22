@@ -26,7 +26,7 @@ export const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMes
 
   useEffect(() => {
     const listener = event => {
-      if (event.code === 'Enter') {
+      if (event.code === 'Enter' && !event.shiftKey) {
         event.preventDefault()
         inputRef.current.blur()
       }
