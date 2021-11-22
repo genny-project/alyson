@@ -62,7 +62,7 @@ const DeveloperConsole = () => {
             <DrawerBody>
               <HStack alignItems="start">
                 <VStack alignItems="left" w="40rem">
-                  {suggestions.map((sug, index) => (
+                  {suggestions.map(sug => (
                     <Text
                       fontFamily="mono"
                       borderRadius="lg"
@@ -70,7 +70,7 @@ const DeveloperConsole = () => {
                       _hover={{ bg: 'grey' }}
                       cursor="pointer"
                       onClick={() => setCode(sug)}
-                      key={index}
+                      key={sug}
                     >
                       {sug}
                     </Text>
@@ -83,14 +83,14 @@ const DeveloperConsole = () => {
                         <Text size="lg">Has Keys</Text>
                         {selection.map((key, index) =>
                           typeof key === 'object' ? (
-                            Object.keys(key).map((key_2, index) => (
+                            Object.keys(key).map(key_2 => (
                               <Text
                                 borderRadius="lg"
                                 p="1"
                                 _hover={{ bg: 'grey' }}
                                 cursor="pointer"
                                 onClick={() => setCode(key)}
-                                key={index}
+                                key={key[key_2]}
                               >
                                 {`${key[key_2]}`}
                               </Text>
@@ -114,8 +114,8 @@ const DeveloperConsole = () => {
                         <Text size="lg">Has VALUE</Text>
 
                         {typeof selection === 'object' ? (
-                          Object.keys(selection).map((key, index) => (
-                            <HStack key={index}>
+                          Object.keys(selection).map(key => (
+                            <HStack key={key}>
                               <Text w="15rem">{key}</Text>
                               <Text>{`${selection[key]}`}</Text>
                             </HStack>
