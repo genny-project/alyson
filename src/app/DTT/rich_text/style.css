@@ -1,0 +1,3 @@
+.public-DraftEditorPlaceholder-root + .DraftEditor-editorContainer > div > div {
+  display: none;
+}

@@ -41,9 +41,9 @@ import { pathOr } from 'ramda'
 import { selectCode } from 'redux/db/selectors'
 import { selectHighlightedQuestion } from 'redux/app/selectors'
 import { useEffect } from 'react'
+import { useError } from 'utils/contexts/ErrorContext'
 import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
-import { useError } from 'utils/contexts/ErrorContext'
 
 const Ask = ({
   parentCode,
@@ -70,6 +70,7 @@ const Ask = ({
     hidden,
     disabled,
     readonly,
+    placeholder,
   } = askData || {}
 
   const data = useSelector(selectCode(targetCode, attributeCode)) || {}
@@ -277,6 +278,7 @@ const Ask = ({
           html={html}
           regexPattern={regexPattern}
           errorMessage={errorMessage}
+          placeholder={placeholder}
         />
       )}
       {component === 'date_range' && (
