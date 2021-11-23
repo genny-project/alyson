@@ -1,12 +1,15 @@
-import { Text as ChakraText, Input } from '@chakra-ui/react'
+import { Text, Textarea } from '@chakra-ui/react'
 import { useEffect, useRef, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
-import DetailViewTags from 'app/DTT/text/detailview_tags'
 import debounce from 'lodash.debounce'
 import { getIsInvalid } from 'utils/functions'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useMobileValue } from 'utils/hooks'
+
+export const Read = ({ data, config = {} }) => {
+  return <Textarea {...config}>{data?.value || config.defaultValue}</Textarea>
+}
 
 export const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMessage }) => {
   let regex
@@ -25,19 +28,6 @@ export const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMes
   const isInvalid = getIsInvalid(userInput)(regex)
 
   useEffect(() => {
-    const listener = event => {
-      if (event.code === 'Enter' && !event.shiftKey) {
-        event.preventDefault()
-        inputRef.current.blur()
-      }
-    }
-    document.addEventListener('keydown', listener)
-    return () => {
-      document.removeEventListener('keydown', listener)
-    }
-  }, [])
-
-  useEffect(() => {
     isInvalid ? setErrorStatus(true) : setErrorStatus(false)
   }, [isInvalid])
 
@@ -53,42 +43,27 @@ export const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMes
 
   return (
     <>
-      <Input
+      <Textarea
         test-id={questionCode}
         ref={inputRef}
         onBlur={e => !errorStatus && debouncedSendAnswer(e.target.value)}
         onChange={e => setuserInput(e.target.value)}
         defaultValue={data?.value}
-        w="full"
         maxW={maxW}
         isInvalid={isInvalid}
       />
       {errorStatus && (
-        <ChakraText textStyle="tail.error" mt={2}>
+        <Text textStyle="tail.error" mt={2}>
           {errorMessage}
-        </ChakraText>
+        </Text>
       )}
     </>
   )
 }
 
-export const Read = ({ data, config = {} }) => {
-  const { detailViewTags } = config
-
-  if (detailViewTags) {
-    return <DetailViewTags data={data} />
-  }
-
-  return (
-    <ChakraText noOfLines={3} {...config}>
-      {data?.value || config.defaultValue}
-    </ChakraText>
-  )
-}
-
-const Text = {
+const TextArea = {
   Write,
   Read,
 }
 
-export default Text
+export default TextArea

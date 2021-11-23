@@ -29,6 +29,7 @@ import Select from 'app/DTT/select'
 import Signature from 'app/DTT/signature'
 import Social from 'app/DTT/social'
 import Text from 'app/DTT/text'
+import TextArea from 'app/DTT/text_area'
 import ThirdPartyVideo from 'app/DTT/third_party_video'
 import TimeRange from 'app/DTT/time_range'
 import TimeZonePicker from 'app/DTT/time_zone'
@@ -229,6 +230,16 @@ const Ask = ({
       )}
       {component === 'text' && (
         <Text.Write
+          questionCode={questionCode}
+          mandatory={mandatory}
+          data={data}
+          onSendAnswer={onSendAnswer}
+          regexPattern={regexPattern}
+          errorMessage={errorMessage}
+        />
+      )}
+      {component === 'textarea' && (
+        <TextArea.Write
           questionCode={questionCode}
           mandatory={mandatory}
           data={data}
