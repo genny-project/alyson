@@ -1,4 +1,5 @@
 import '../../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
+import './style.css'
 
 import {
   Box,
@@ -34,7 +35,15 @@ import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { stateToHTML } from 'draft-js-export-html'
 import { useError } from 'utils/contexts/ErrorContext'
 
-const Write = ({ questionCode, data, onSendAnswer, html, regexPattern, errorMessage }) => {
+const Write = ({
+  questionCode,
+  data,
+  onSendAnswer,
+  html,
+  regexPattern,
+  errorMessage,
+  placeholder,
+}) => {
   const { minCharacterCount = 0, maxCharacterCount } = safelyParseJson(html, {})
   const blocksFromHTML = convertFromHTML(data?.value || '')
   const state = ContentState.createFromBlockArray(
@@ -51,8 +60,9 @@ const Write = ({ questionCode, data, onSendAnswer, html, regexPattern, errorMess
 
   const userInputWithoutHtmlTags = removeHtmlTags(userInput)
   const userInputWithoutLineBreaks = userInputWithoutHtmlTags
-    .replace(/(\r\n|\n|\r|-|\xA0)/g, '')
+    .replace(/(\r\n|\n|\r|-|\xA0)/gi, '')
     .replace(/(<([^>]+)>)/gi, '')
+    .replace(/^.*\s{2,}.*$/, '')
 
   const isInvalid = getIsInvalid(userInputWithoutLineBreaks)(RegExp(regexPattern))
 
@@ -148,6 +158,7 @@ const Write = ({ questionCode, data, onSendAnswer, html, regexPattern, errorMess
           onChange={handleEditorChange}
           spellCheck={true}
           lang="en"
+          placeholder={placeholder || ' '}
         />
       </Box>
       {errorStatus && (
