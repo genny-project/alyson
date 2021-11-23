@@ -1,6 +1,6 @@
-import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import useGetMenteeInformation from './get-mentee-information'
+import { useSelector } from 'react-redux'
 
 const useGetMenteeTimelineItems = () => {
   const userCode = useSelector(selectCode('USER'))
@@ -20,7 +20,7 @@ const useGetMenteeTimelineItems = () => {
       title: 'Register',
       description: 'Register to the platform.',
       buttonText: 'Register',
-      completed: 'COMPLETE',
+      completed: 'Complete',
       isDisabled: true,
     },
     {

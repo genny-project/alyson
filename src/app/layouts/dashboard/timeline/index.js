@@ -1,11 +1,11 @@
-import { map, equals, path, filter, length, divide, multiply, compose } from 'ramda'
-import { Button, HStack, VStack, Box, Text, Flex, Tooltip } from '@chakra-ui/react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck } from '@fortawesome/free-solid-svg-icons'
+import { Box, Button, Flex, HStack, Text, Tooltip, VStack } from '@chakra-ui/react'
+import { compose, divide, equals, filter, length, map, multiply, path } from 'ramda'
 
 import Card from 'app/layouts/components/card'
-import { onSendMessage } from 'vertx'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { complete } from 'utils/constants'
+import { faCheck } from '@fortawesome/free-solid-svg-icons'
+import { onSendMessage } from 'vertx'
 
 const Timeline = ({ items }) => {
   let totalItems = length(items)
