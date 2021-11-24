@@ -22,6 +22,7 @@ import CheckBox from 'app/DTT/check_box'
 import ImageType from 'app/DTT/upload/Image'
 import Flag from 'app/DTT/flag'
 import fixLnkAndPri from './fix-lnk-and-pri'
+import TextArea from 'app/DTT/text_area'
 
 const Attribute = ({
   code,
@@ -53,6 +54,8 @@ const Attribute = ({
     <Phone.Read data={data} size={size} />
   ) : component === 'text' ? (
     <Text.Read size={size} data={data} config={config} />
+  ) : component === 'textarea' ? (
+    <TextArea.Read size={size} data={data} config={config} />
   ) : component === 'upload' ? (
     <Upload.Read
       code={code}
