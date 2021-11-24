@@ -1,26 +1,24 @@
-import { includes, slice, compose, filter, length, sortBy, toUpper } from 'ramda'
-import { useState, useRef } from 'react'
-import { useSelector } from 'react-redux'
-import { selectCode, selectKeys } from 'redux/db/selectors'
 import {
   Button,
-  Text,
-  Input,
-  HStack,
-  VStack,
-  FormControl,
-  FormLabel,
-  useDisclosure,
-} from '@chakra-ui/react'
-
-import {
   Drawer,
   DrawerBody,
-  DrawerOverlay,
-  DrawerContent,
   DrawerCloseButton,
+  DrawerContent,
   DrawerHeader,
+  DrawerOverlay,
+  FormControl,
+  FormLabel,
+  HStack,
+  Input,
+  Text,
+  VStack,
+  useDisclosure,
 } from '@chakra-ui/react'
+import { compose, filter, includes, length, slice, sortBy, toUpper } from 'ramda'
+import { selectCode, selectKeys } from 'redux/db/selectors'
+import { useRef, useState } from 'react'
+
+import { useSelector } from 'react-redux'
 
 const DeveloperConsole = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -72,6 +70,7 @@ const DeveloperConsole = () => {
                       _hover={{ bg: 'grey' }}
                       cursor="pointer"
                       onClick={() => setCode(sug)}
+                      key={sug}
                     >
                       {sug}
                     </Text>
@@ -82,7 +81,7 @@ const DeveloperConsole = () => {
                     selection.map ? (
                       <>
                         <Text size="lg">Has Keys</Text>
-                        {selection.map(key =>
+                        {selection.map((key, index) =>
                           typeof key === 'object' ? (
                             Object.keys(key).map(key_2 => (
                               <Text
@@ -91,6 +90,7 @@ const DeveloperConsole = () => {
                                 _hover={{ bg: 'grey' }}
                                 cursor="pointer"
                                 onClick={() => setCode(key)}
+                                key={key[key_2]}
                               >
                                 {`${key[key_2]}`}
                               </Text>
@@ -102,6 +102,7 @@ const DeveloperConsole = () => {
                               _hover={{ bg: 'grey' }}
                               cursor="pointer"
                               onClick={() => setCode(key)}
+                              key={index}
                             >
                               {`${key}`}
                             </Text>
@@ -114,7 +115,7 @@ const DeveloperConsole = () => {
 
                         {typeof selection === 'object' ? (
                           Object.keys(selection).map(key => (
-                            <HStack>
+                            <HStack key={key}>
                               <Text w="15rem">{key}</Text>
                               <Text>{`${selection[key]}`}</Text>
                             </HStack>
