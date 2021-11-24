@@ -1,5 +1,7 @@
 const convertToUppercase = str => {
-  return str ? str.toUpperCase : ''
+  if (str) {
+    return str.toUpperCase()
+  }
 }
 
 export default convertToUppercase
