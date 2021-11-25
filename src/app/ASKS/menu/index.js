@@ -1,12 +1,13 @@
-import { useSelector } from 'react-redux'
-import { selectCode } from 'redux/db/selectors'
-import { Menu, MenuButton, MenuList, VStack, HStack, Text, MenuItem } from '@chakra-ui/react'
+import { HStack, Menu, MenuButton, MenuItem, MenuList, Text, VStack } from '@chakra-ui/react'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import icons from 'utils/icons'
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
-import sendAskClick from '../utils/send-ask-click'
+import icons from 'utils/icons'
 import labels from 'utils/labels'
+import { selectCode } from 'redux/db/selectors'
+import sendAskClick from '../utils/send-ask-click'
 import { useIsMobile } from 'utils/hooks'
+import { useSelector } from 'react-redux'
 
 const AsksMenu = ({ questionCode }) => {
   const data = useSelector(selectCode(questionCode))

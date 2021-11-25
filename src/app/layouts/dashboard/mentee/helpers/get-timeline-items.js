@@ -20,7 +20,7 @@ const useGetMenteeTimelineItems = () => {
       title: 'Register',
       description: 'Register to the platform.',
       buttonText: 'Register',
-      completed: 'Complete',
+      completed: 'COMPLETE',
       isDisabled: true,
     },
     {

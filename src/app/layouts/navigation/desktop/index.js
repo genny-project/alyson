@@ -1,18 +1,20 @@
-import { useRef } from 'react'
-import AskMenu from 'app/ASKS/menu'
-import { Flex, Spacer, Image, HStack, useColorModeValue, useTheme, Box } from '@chakra-ui/react'
-import { apiConfig } from 'config/get-api-config'
-import Avatar from '../Avatar'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus, faBolt } from '@fortawesome/free-solid-svg-icons'
-import { onSendMessage } from 'vertx'
-import Drafts from '../drafts/Drafts'
-import Views from './Views'
-import { useSelector } from 'react-redux'
-import { selectCode } from 'redux/db/selectors'
-import getUserType from 'utils/helpers/get-user-type'
+import { Box, Flex, HStack, Image, Spacer, useColorModeValue, useTheme } from '@chakra-ui/react'
+import { addItemsQuestionCode, quickAddItemsQuestionCode } from 'utils/constants'
 import { caps, hideQuickAdd } from 'config/caps'
+import { faBolt, faPlus } from '@fortawesome/free-solid-svg-icons'
+
+import AskMenu from 'app/ASKS/menu'
+import Avatar from '../Avatar'
+import Drafts from '../drafts/Drafts'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Views from './Views'
+import { apiConfig } from 'config/get-api-config'
+import getUserType from 'utils/helpers/get-user-type'
+import { onSendMessage } from 'vertx'
+import { selectCode } from 'redux/db/selectors'
 import { useGetRealm } from 'utils/hooks'
+import { useRef } from 'react'
+import { useSelector } from 'react-redux'
 
 const DesktopNav = ({ logoSrc }) => {
   const theme = useTheme()
@@ -58,10 +60,10 @@ const DesktopNav = ({ logoSrc }) => {
           <Views />
           <Spacer />
           <HStack spacing={10}>
-            <AskMenu questionCode={'QUE_ADD_ITEMS_GRP'} icon={<FontAwesomeIcon icon={faPlus} />} />
+            <AskMenu questionCode={addItemsQuestionCode} icon={<FontAwesomeIcon icon={faPlus} />} />
             {!caps(userType)(hideQuickAdd) && (
               <AskMenu
-                questionCode={'QUE_QUICK_ADD_ITEMS_GRP'}
+                questionCode={quickAddItemsQuestionCode}
                 icon={<FontAwesomeIcon icon={faBolt} />}
               />
             )}
