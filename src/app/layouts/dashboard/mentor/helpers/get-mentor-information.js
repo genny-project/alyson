@@ -11,10 +11,11 @@ const useGetMentorInformation = () => {
   const userCode = useSelector(selectCode('USER'))
   let profileStatus = useSelector(selectCode(userCode, 'PRI_PROFILE'))?.valueString
   let trainingStatus = useSelector(selectCode(userCode, 'PRI_TRAINING_STATUS'))?.valueString
-  const isProfileCompleted = isComplete(profileStatus)
 
   profileStatus = convertToUppercase(profileStatus)
   trainingStatus = convertToUppercase(trainingStatus)
+
+  const isProfileCompleted = isComplete(profileStatus)
 
   return {
     profileStatus,
