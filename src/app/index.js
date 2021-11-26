@@ -1,16 +1,17 @@
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
-import { lazy, Suspense } from 'react'
-import { Provider } from 'react-redux'
-import store from 'redux/store'
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
+import { Suspense, lazy } from 'react'
+
 import { CSSReset } from '@chakra-ui/react'
-import Vertx from 'vertx'
-import LinkedApp from 'app/layouts/dashboard/mentee/linked_app'
-import { pathNameLinkedApplication } from 'utils/pathname'
 import GitVersionInfo from 'utils/helpers/git_version'
+import LinkedApp from 'app/layouts/dashboard/mentee/linked_app'
+import { Provider } from 'react-redux'
+import Vertx from 'vertx'
+import { pathNameLinkedApplication } from 'utils/pathname'
+import store from 'redux/store'
 
 const Display = lazy(() => import('app/layouts/display'))
 
-const App = () => {
+const App = ({ title }) => {
   return (
     <Provider store={store}>
       <CSSReset />
@@ -23,7 +24,7 @@ const App = () => {
             path="/home"
             component={() => (
               <Suspense fallback={<div />}>
-                <Display />
+                <Display title={title} />
               </Suspense>
             )}
           />

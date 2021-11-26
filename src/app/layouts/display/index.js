@@ -1,24 +1,28 @@
 import { Box, useColorModeValue } from '@chakra-ui/react'
-import Table from 'app/layouts/table'
-import Process from 'app/layouts/process'
-import Form from 'app/layouts/form'
-import Dashboard from 'app/layouts/dashboard'
-import DisplayDrawer from './drawer'
-import Dialog from 'app/layouts/display/dialog'
-import Toast from './toast'
-import Detail from 'app/SBE/detail'
-import Navigation from '../navigation'
 import DeveloperConsole, { isDev } from 'utils/developer'
-import LogrocketIdentifier from '../components/logrocket_identifier'
-import ErrorBoundary from 'utils/developer/ErrorBoundary'
-import Notes from 'app/NOTE'
-import { onSendMessage } from 'vertx'
-import DisplayForm from 'app/layouts/detail-and-form'
-import { useSelector } from 'react-redux'
-import { selectDisplay } from 'redux/app/selectors'
-import { includes } from 'ramda'
 
-const Display = () => {
+import Dashboard from 'app/layouts/dashboard'
+import Detail from 'app/SBE/detail'
+import Dialog from 'app/layouts/display/dialog'
+import DisplayDrawer from './drawer'
+import DisplayForm from 'app/layouts/detail-and-form'
+import ErrorBoundary from 'utils/developer/ErrorBoundary'
+import Form from 'app/layouts/form'
+import LogrocketIdentifier from '../components/logrocket_identifier'
+import { MetaTags } from 'react-meta-tags'
+import Navigation from '../navigation'
+import Notes from 'app/NOTE'
+import Process from 'app/layouts/process'
+import Table from 'app/layouts/table'
+import Toast from './toast'
+import convertToUppercase from 'utils/formatters/uppercase-convert'
+import { includes } from 'ramda'
+import { onSendMessage } from 'vertx'
+import { selectCode } from 'redux/db/selectors'
+import { selectDisplay } from 'redux/app/selectors'
+import { useSelector } from 'react-redux'
+
+const Display = ({ title }) => {
   const display = useSelector(selectDisplay)
 
   const backgroundColor = useColorModeValue('gray.50', '')
@@ -30,8 +34,17 @@ const Display = () => {
     }
   }
 
+  const appName = convertToUppercase(title)
+
+  const projectTitle = useSelector(selectCode('PRJ_' + appName, 'PRI_NAME'))?.valueString
+  const projectIcon = useSelector(selectCode('PRJ_' + appName, 'PRI_FAVICON'))?.valueString
+
   return (
     <ErrorBoundary>
+      <MetaTags>
+        <title>{projectTitle}</title>
+        <link rel="icon" href={projectIcon} type="image/x-icon"></link>
+      </MetaTags>
       <Box
         backgroundColor={backgroundColor}
         id="main-display"

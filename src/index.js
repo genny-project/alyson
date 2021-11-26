@@ -6,7 +6,6 @@ import ErrorContextProvider from 'utils/contexts/ErrorContext'
 import { Fonts } from 'config/fonts'
 import Loading from 'keycloak/loading'
 import LogRocket from 'logrocket'
-import MetaTags from 'react-meta-tags'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { ReactKeycloakProvider } from '@react-keycloak/web'
@@ -18,7 +17,7 @@ LogRocket.init('geop13/internmatch')
 const initialiseApp = async () => {
   try {
     initLog()
-    const { keycloak, theme, appTitle, appIcon } = await getApiConfig()
+    const { keycloak, theme, title } = await getApiConfig()
 
     ReactDOM.render(
       <React.StrictMode>
@@ -27,11 +26,7 @@ const initialiseApp = async () => {
           <ColorModeScript initialColorMode={theme.config.initialColorMode} />
           <ReactKeycloakProvider authClient={keycloak} LoadingComponent={<Loading />}>
             <ErrorContextProvider>
-              <MetaTags>
-                <title>{appTitle}</title>
-                <link rel="icon" href={appIcon} type="image/x-icon"></link>
-              </MetaTags>
-              <App />
+              <App title={title} />
             </ErrorContextProvider>
           </ReactKeycloakProvider>
         </ChakraProvider>
