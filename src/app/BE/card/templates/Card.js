@@ -78,14 +78,7 @@ const DefaultCard = ({ parentCode, actions = [], code, columns }) => {
             code={code}
             parentCode={parentCode}
             button={
-              <Box
-                align="start"
-                border="1px"
-                borderColor="gray.200"
-                borderRadius="6px"
-                px="2"
-                bg={moreVertIconColor}
-              >
+              <Box align="start" border="1px" borderColor="gray.200" borderRadius="6px" px="2">
                 <FontAwesomeIcon icon={faEllipsisV} size="xs" />
               </Box>
             }
