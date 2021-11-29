@@ -1,4 +1,4 @@
-import { not, isEmpty, any, compose, reduce } from 'ramda'
+import { any, compose, includes, isEmpty, not, reduce } from 'ramda'
 
 export const getIsInvalid = inputValue => pattern => {
   if (isEmpty(inputValue)) return false
@@ -14,3 +14,5 @@ export const getIsInvalid = inputValue => pattern => {
   }
   return not(RegExp(pattern).test(inputValue))
 }
+
+export const isImageField = includes('IMAGE')

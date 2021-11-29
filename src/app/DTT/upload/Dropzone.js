@@ -2,7 +2,7 @@ import { Box, Button, Center, Flex, Image, Input, Text, useToast } from '@chakra
 import { compose, includes, isEmpty, map, pathOr, split } from 'ramda'
 import { useEffect, useState } from 'react'
 
-import { isImageField } from 'utils/constants'
+import { isImageField } from 'utils/functions'
 import { useDropzone } from 'react-dropzone'
 
 const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 1, questionCode }) => {
@@ -31,7 +31,7 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 1, questionCode
   const { getRootProps, getInputProps } = useDropzone({
     accept: video
       ? 'video/*'
-      : questionCode === isImageField
+      : isImageField(questionCode)
       ? 'image/*,'
       : 'application/pdf, .doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.dot,.rtf,.odt',
     maxFiles: maxFiles,
