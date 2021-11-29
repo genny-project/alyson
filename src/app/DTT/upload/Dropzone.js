@@ -1,7 +1,9 @@
-import { useState, useEffect } from 'react'
+import { Box, Button, Center, Flex, Image, Input, Text, useToast } from '@chakra-ui/react'
+import { compose, includes, isEmpty, map, pathOr, split } from 'ramda'
+import { useEffect, useState } from 'react'
+
+import { isImageField } from 'utils/functions'
 import { useDropzone } from 'react-dropzone'
-import { Box, Flex, Text, Input, Button, Center, Image, useToast } from '@chakra-ui/react'
-import { isEmpty, map, pathOr, compose, includes, split } from 'ramda'
 
 const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 1, questionCode }) => {
   const [files, setFiles] = useState([])
@@ -29,7 +31,9 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 1, questionCode
   const { getRootProps, getInputProps } = useDropzone({
     accept: video
       ? 'video/*'
-      : 'image/*, application/pdf, .doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.dot,.rtf,.odt',
+      : isImageField(questionCode)
+      ? 'image/*,'
+      : 'application/pdf, .doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.dot,.rtf,.odt',
     maxFiles: maxFiles,
     onDrop: (acceptedFiles, rejectedFiles) => {
       setFiles(
