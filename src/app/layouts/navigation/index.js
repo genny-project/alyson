@@ -9,7 +9,7 @@ const Navigation = () => {
     apiConfig.realm === 'internmatch'
       ? '/favicon.png'
       : apiConfig.realm === 'mentormatch'
-      ? '/logo.png'
+      ? '/MM_Primary_Fullcolour-1.png'
       : ''
   const isMobile = useIsMobile()
 
