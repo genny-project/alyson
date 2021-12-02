@@ -37,6 +37,7 @@ const labels = {
   QUE_QA_MENTOR_MENU: 'Mentor',
   QUE_ADMIN_MENU: 'Admin',
   QUE_QA_ADMIN_MENU: 'Admin',
+  QUE_QA_CLUB_PRESIDENT_MENU: 'Club President',
 }
 
 export default labels
