@@ -40,6 +40,8 @@ export const formatBaseEntity = (
       const valueKey = compose(find(includes('value')), keys)(attribute) as string
 
       attribute = { value: attribute[valueKey], ...attribute }
+    } else {
+      attribute = { ...attribute }
     }
     attribute.created = ''
 
