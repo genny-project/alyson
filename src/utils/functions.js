@@ -1,8 +1,10 @@
 import { any, compose, includes, not, reduce } from 'ramda'
 
 export const getIsInvalid = inputValue => pattern => {
-  // if (isEmpty(inputValue)) return false
+  //if (isEmpty(inputValue)) return false
+
   if (!inputValue) return false
+
   if (Array.isArray(pattern)) {
     const result = reduce((acc, individualPattern) => {
       return (acc = acc.concat(not(RegExp(individualPattern).test(inputValue))))
