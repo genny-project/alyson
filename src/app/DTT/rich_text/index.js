@@ -59,12 +59,13 @@ const Write = ({
   const { dispatch } = useError()
 
   const userInputWithoutHtmlTags = removeHtmlTags(userInput)
-  const userInputWithoutLineBreaks = userInputWithoutHtmlTags
-    .replace(/(\r\n|\n|\r|-|\xA0)/gi, '')
-    .replace(/(<([^>]+)>)/gi, '')
-    .replace(/^.*\s{2,}.*$/, '')
 
-  const isInvalid = getIsInvalid(userInputWithoutLineBreaks)(RegExp(regexPattern))
+  const userInputWithoutLineBreaks = userInputWithoutHtmlTags
+    ?.replace(/(\r\n|\n|\r|-|\xA0)/gi, '')
+    ?.replace(/(<([^>]+)>)/gi, '')
+    ?.replace(/^.*\s{2,}.*$/, '')
+
+  const isInvalid = getIsInvalid(userInputWithoutLineBreaks, questionCode)(RegExp(regexPattern))
 
   const handleEditorChange = () => {
     const blocks = convertToRaw(editor.getCurrentContent()).blocks
@@ -93,7 +94,7 @@ const Write = ({
   //   .replace(/(<([^>]+)>)/gi, '')
   //   .replace(/&nbsp;/g, ' ').length
 
-  const curLength = userInputWithoutLineBreaks.length
+  const curLength = userInputWithoutLineBreaks?.length
 
   const handleSave = () => {
     if (minCharacterCount || maxCharacterCount) {
