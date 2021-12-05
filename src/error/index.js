@@ -14,7 +14,7 @@ const Error = () => {
         <Text>
           <FontAwesomeIcon color="grey" size="2x" icon={faCogs} />
         </Text>
-        <Text color="grey">Sorry, {realm} is just down for maintenance.</Text>
+        <Text color="grey">{`Sorry! The site is down for maintenance.`}</Text>
         {showRedirectUrl(realm) && (
           <Text color="grey">
             Check <Link href={'https://internmatch.io/'}>https://internmatch.io/</Link> for updates.
