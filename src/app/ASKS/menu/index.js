@@ -14,9 +14,10 @@ import { useIsMobile } from 'utils/hooks'
 const AsksMenu = ({ questionCode }) => {
   const data = useSelector(selectCode(questionCode))
   const wholeData = useSelector(selectCode(questionCode, 'wholeData'))
-  const labelsAndQuestionCode = compose(
-    map(({ questionCode, name }) => ({ label: name, code: questionCode })),
-  )(wholeData)
+  const labelsAndQuestionCode = map(({ questionCode, name }) => ({
+    label: name,
+    code: questionCode,
+  }))(wholeData || [])
 
   const isMobile = useIsMobile()
 
