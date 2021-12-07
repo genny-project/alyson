@@ -1,7 +1,6 @@
 import { HStack, Menu, MenuButton, MenuItem, MenuList, Text, VStack } from '@chakra-ui/react'
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { compose, map } from 'ramda'
+import { map } from 'ramda'
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
 import { useSelector } from 'react-redux'
 
