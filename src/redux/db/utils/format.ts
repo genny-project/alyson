@@ -70,6 +70,10 @@ export const formatAsk = (state: DBState, replace: Boolean) => (item: Item) => {
     initialiseKey(state, `${questionCode}@raw`, item)
   }
 
+  if (childAsks.length) {
+    initialiseKey(state, `${questionCode}@wholeData`, childAsks)
+  }
+
   forEach((childAsk: Keyable) => {
     const childAskCode = childAsk.questionCode
 
