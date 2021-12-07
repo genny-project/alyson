@@ -45,7 +45,14 @@ const MobileNav = ({ logoSrc }) => {
   const btnRef = useRef()
   const realm = useGetRealm()
 
-  const logoWidth = realm === 'mentormatch' ? '120px' : realm === 'internmatch' ? '45px' : '45px'
+  const logoWidth =
+    realm === 'mentormatch'
+      ? '120px'
+      : realm === 'internmatch'
+      ? '45px'
+      : realm === 'credmatch'
+      ? '120px'
+      : '45px'
 
   return (
     <>

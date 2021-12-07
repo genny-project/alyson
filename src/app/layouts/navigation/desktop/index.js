@@ -27,7 +27,14 @@ const DesktopNav = ({ logoSrc }) => {
   const btnRef = useRef()
   const realm = useGetRealm()
 
-  const logoWidth = realm === 'mentormatch' ? '140px' : realm === 'internmatch' ? '55px' : '55px'
+  const logoWidth =
+    realm === 'mentormatch'
+      ? '140px'
+      : realm === 'internmatch'
+      ? '55px'
+      : realm === 'credmatch'
+      ? '140px'
+      : '55px'
 
   return (
     <header
