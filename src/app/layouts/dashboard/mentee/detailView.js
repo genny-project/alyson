@@ -1,14 +1,14 @@
-import { Box, HStack, Button, useColorModeValue, useToast, Flex } from '@chakra-ui/react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons'
+import { Box, Button, Flex, HStack, useColorModeValue, useToast } from '@chakra-ui/react'
+import {
+  personalDetails,
+  preference,
+  professionalDetails,
+} from 'app/layouts/dashboard/timeline/templates/CardContent'
 
 import DetailCards from 'app/layouts/components/detail_card'
 import DetailHeader from 'app/layouts/components/detail_header'
-import {
-  personalDetails,
-  professionalDetails,
-  preference,
-} from 'app/layouts/dashboard/timeline/templates/CardContent'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons'
 import { onSendMessage } from 'vertx'
 
 const DetailView = ({ setShowDetailView, currentMentor }) => {
@@ -34,10 +34,10 @@ const DetailView = ({ setShowDetailView, currentMentor }) => {
       position="sticky"
       top="10vh"
       flexDirection="column"
-      justifyContent="space-around"
+      // justifyContent="space-around"
       alignItems="center"
     >
-      <Box w="95%">
+      <Box ml={4} mb={4} w="95%">
         <Button
           onClick={() => setShowDetailView(false)}
           colorScheme="blue"
