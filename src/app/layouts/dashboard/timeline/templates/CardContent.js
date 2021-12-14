@@ -5,14 +5,15 @@ export const personalDetails = {
     { label: 'Last Name:', attr: 'PRI_LASTNAME' },
     { label: 'Email:', attr: 'PRI_EMAIL' },
     { label: 'Mobile:', attr: 'PRI_MOBILE' },
-    { label: 'Ethnicity Background:', attr: 'PRI_ETH_BACK' },
+    // { label: 'Ethnicity Background:', attr: 'PRI_ETH_BACK' },
   ],
 }
 
 export const professionalDetails = {
   header: 'Professional Details',
   attributes: [
-    { label: 'Area of Expertise:', attr: 'PRI_AREA_EXPERTISE' },
+    // { label: 'Area of Expertise:', attr: 'PRI_AREA_EXPERTISE' },
+    { label: 'Area of Expertise:', attr: 'PRI_INDUSTRY' },
     { label: 'Status:', attr: 'PRI_STATUS' },
     { label: 'Training Status:', attr: 'PRI_TRAINING_STATUS' },
     { label: 'LinkedIn:', attr: 'PRI_LINKEDIN_PROFILE_URL' },
@@ -21,17 +22,22 @@ export const professionalDetails = {
 
 export const preference = {
   header: 'What I Enjoy',
-  attributes: [{ attr: 'LNK_HOBBIES_INTEREST' }],
+  attributes: [
+    // { attr: 'LNK_HOBBIES_INTEREST' },
+    { attr: 'PRI_HOBBIES_INTEREST' },
+  ],
 }
 
 export const recommendationDetails = [
   {
     label: 'Location:',
-    attribute: 'PRI_MENTOR_LOC_PREF',
+    // attribute: 'PRI_MENTOR_LOC_PREF',
+    attribute: 'PRI_LOC_PREF',
   },
   {
     label: 'Gender:',
-    attribute: 'PRI_MENTOR_GENDER',
+    // attribute: 'PRI_MENTOR_GENDER',
+    attribute: 'PRI_GENDER',
   },
   {
     label: 'Country:',
@@ -39,14 +45,15 @@ export const recommendationDetails = [
   },
   {
     label: 'Expertise:',
-    attribute: 'PRI_OUTPUTS_OF_MENTORING_PROGRAM',
+    // attribute: 'PRI_OUTPUTS_OF_MENTORING_PROGRAM',
+    attribute: 'PRI_INDUSTRY',
   },
   {
     label: 'Industry:',
     attribute: 'PRI_INDUSTRY',
   },
   {
-    label: 'Rotary Member?',
-    attribute: 'PRI_NAME',
+    label: 'Rotary Member:',
+    attribute: 'PRI_ROTARY_CLUB',
   },
 ]
