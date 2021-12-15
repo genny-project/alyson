@@ -9,23 +9,17 @@ import Drafts from '../drafts/Drafts'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Views from './Views'
 import { apiConfig } from 'config/get-api-config'
-import getUserType from 'utils/helpers/get-user-type'
 import { onSendMessage } from 'vertx'
-import { selectCode } from 'redux/db/selectors'
 import { useGetRealm } from 'utils/hooks'
 import { useRef } from 'react'
-import { useSelector } from 'react-redux'
+import useUserType from 'utils/helpers/user-type'
 
-const DesktopNav = ({ logoSrc }) => {
+const TemplateOne = ({ logoSrc, userType, realm }) => {
   const theme = useTheme()
   const bg = useColorModeValue(theme.colors.background.light, theme.colors.primary[900])
   const color = useColorModeValue(theme.colors.text.light, theme.colors.text.dark)
 
-  const userCode = useSelector(selectCode('USER'))
-  const userType = getUserType(useSelector(selectCode(userCode)))
-
   const btnRef = useRef()
-  const realm = useGetRealm()
 
   const logoWidth =
     realm === 'mentormatch'
@@ -82,6 +76,20 @@ const DesktopNav = ({ logoSrc }) => {
         </Flex>
       </nav>
     </header>
+  )
+}
+
+const DesktopNav = ({ logoSrc }) => {
+  const userType = useUserType()
+
+  const realm = useGetRealm()
+
+  console.log('userType', userType)
+
+  return userType === !'AGENT' ? (
+    <div>cyrus</div>
+  ) : (
+    <TemplateOne logoSrc={logoSrc} userType={userType} realm={realm} />
   )
 }
 
