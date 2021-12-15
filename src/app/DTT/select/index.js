@@ -1,13 +1,14 @@
-import { useEffect, useRef } from 'react'
+import { Select as CSelect, Text } from '@chakra-ui/react'
 import { compose, includes, isEmpty, map, pathOr } from 'ramda'
-import { useSelector } from 'react-redux'
-import { Text, Select as CSelect } from '@chakra-ui/react'
-import debounce from 'lodash.debounce'
 import { selectCode, selectRows } from 'redux/db/selectors'
-import safelyParseJson from 'utils/helpers/safely-parse-json'
+import { useEffect, useRef } from 'react'
+
+import Autocomplete from './Autocomplete'
+import debounce from 'lodash.debounce'
 import { getValue } from './get-value'
 import { onSendMessage } from 'vertx'
-import Autocomplete from './Autocomplete'
+import safelyParseJson from 'utils/helpers/safely-parse-json'
+import { useSelector } from 'react-redux'
 
 const Write = ({
   questionCode,
@@ -20,6 +21,7 @@ const Write = ({
   targetCode,
   config,
   parentCode,
+  attributeCode,
 }) => {
   const previousDropDownRef = useRef([])
 
@@ -30,7 +32,7 @@ const Write = ({
 
   const options = compose(map(({ code, name }) => ({ label: name, value: code })))(dropdownData)
 
-  const { attributeCode } = data || {}
+  // const { attributeCode } = data || {}
 
   useEffect(() => {
     previousDropDownRef.current = !isEmpty(dropdownData)
