@@ -14,18 +14,22 @@ import { useGetRealm } from 'utils/hooks'
 import { useRef } from 'react'
 import useUserType from 'utils/helpers/user-type'
 
+//get the pcm type from the backend and replace the hardcoded value.
+const pcmType = 'TemplateOne'
+
+//get this mapped object from the backend and replace the hardcoded object.
+const mapped = {
+  LOCATION_ONE: 'QUE_DASHBOARD_VIEW',
+  LOCATION_TWO: 'QUE_ADD_ITEMS_GRP',
+  LOCATION_THREE: 'QUE_DRAFTS_GRP',
+  LOCATION_FOUR: 'QUE_AVATAR_GRP',
+}
+
 const TemplateOne = ({ logoSrc, userType, realm }) => {
   const theme = useTheme()
   const bg = useColorModeValue(theme.colors.background.light, theme.colors.primary[900])
   const color = useColorModeValue(theme.colors.text.light, theme.colors.text.dark)
   const btnRef = useRef()
-
-  const mapped = {
-    LOCATION_ONE: 'QUE_DASHBOARD_VIEW',
-    LOCATION_TWO: 'QUE_ADD_ITEMS_GRP',
-    LOCATION_THREE: 'QUE_DRAFTS_GRP',
-    LOCATION_FOUR: 'QUE_AVATAR_GRP',
-  }
 
   const { LOCATION_ONE, LOCATION_TWO, LOCATION_THREE, LOCATION_FOUR } = mapped
 
@@ -82,7 +86,7 @@ const TemplateOne = ({ logoSrc, userType, realm }) => {
   )
 }
 
-const TemplateTwo = ({ logoSrc, userType, realm }) => {
+const Default = ({ logoSrc, userType, realm }) => {
   const theme = useTheme()
   const bg = useColorModeValue(theme.colors.background.light, theme.colors.primary[900])
   const color = useColorModeValue(theme.colors.text.light, theme.colors.text.dark)
@@ -154,10 +158,10 @@ const DesktopNav = ({ logoSrc }) => {
 
   const realm = useGetRealm()
 
-  return userType === 'AGENT' ? (
+  return userType === 'AGENT' && pcmType === 'TemplateOne' ? (
     <TemplateOne logoSrc={logoSrc} userType={userType} realm={realm} />
   ) : (
-    <TemplateTwo logoSrc={logoSrc} userType={userType} realm={realm} />
+    <Default logoSrc={logoSrc} userType={userType} realm={realm} />
   )
 }
 
