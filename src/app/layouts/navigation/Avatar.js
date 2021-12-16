@@ -20,9 +20,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
 import { apiConfig } from 'config/get-api-config'
 
-const QUE_AVATAR_GRP = 'QUE_AVATAR_GRP'
-
-const AvatarMenu = () => {
+const AvatarMenu = ({ code: QUE_AVATAR_GRP }) => {
   const userCode = useSelector(selectCode('USER'))
   const userImage = useSelector(selectCode(userCode, 'PRI_IMAGE_URL'))
   const name = useSelector(selectCode(userCode, 'PRI_NAME'))

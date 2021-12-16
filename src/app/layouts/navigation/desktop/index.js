@@ -22,10 +22,12 @@ const TemplateOne = ({ logoSrc, userType, realm }) => {
 
   const mapped = {
     LOCATION_ONE: 'QUE_DASHBOARD_VIEW',
-    LOCATION_TWO: 'QUE_DRAFTS_GRP',
+    LOCATION_TWO: 'QUE_ADD_ITEMS_GRP',
+    LOCATION_THREE: 'QUE_DRAFTS_GRP',
+    LOCATION_FOUR: 'QUE_AVATAR_GRP',
   }
 
-  const { LOCATION_ONE, LOCATION_TWO } = mapped
+  const { LOCATION_ONE, LOCATION_TWO, LOCATION_THREE, LOCATION_FOUR } = mapped
 
   const logoWidth =
     realm === 'mentormatch'
@@ -62,16 +64,16 @@ const TemplateOne = ({ logoSrc, userType, realm }) => {
           </Box>
           <Spacer />
           <HStack spacing={10}>
-            <AskMenu questionCode={addItemsQuestionCode} icon={<FontAwesomeIcon icon={faPlus} />} />
+            <AskMenu questionCode={LOCATION_TWO} icon={<FontAwesomeIcon icon={faPlus} />} />
             {!caps(userType)(hideQuickAdd) && (
               <AskMenu
                 questionCode={quickAddItemsQuestionCode}
                 icon={<FontAwesomeIcon icon={faBolt} />}
               />
             )}
-            <Drafts code={LOCATION_TWO} />
+            <Drafts code={LOCATION_THREE} />
             <Box mr="4">
-              <Avatar />
+              <Avatar code={LOCATION_FOUR} />
             </Box>
           </HStack>
         </Flex>
