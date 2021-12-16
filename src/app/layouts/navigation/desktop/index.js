@@ -199,7 +199,7 @@ const Default = ({ logoSrc, userType, realm }) => {
                 icon={<FontAwesomeIcon icon={faBolt} />}
               />
             )}
-            <Drafts />
+            <Drafts code={`QUE_DRAFTS_GRP`} />
 
             <Box mr="4">
               <Avatar />
