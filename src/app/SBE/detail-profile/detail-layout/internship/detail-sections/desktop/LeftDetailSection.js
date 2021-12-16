@@ -54,11 +54,7 @@ const LeftDetail = ({ beCode, sbeCode }) => {
           />
         </Box>
         <VStack align="start" spacing={4}>
-          <Attribute
-            code={beCode}
-            attribute="PRI_INTERNSHIP_TITLE"
-            config={{ textStyle: 'head.1' }}
-          />
+          <Attribute code={beCode} attribute="PRI_NAME" config={{ textStyle: 'head.1' }} />
           <HStack spacing={5}>
             <Attribute
               config={{ textStyle: 'body.2' }}
