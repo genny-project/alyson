@@ -28,9 +28,7 @@ const TemplateOne = ({ logoSrc, userType, realm, mappedPcm }) => {
   const color = useColorModeValue(theme.colors.text.light, theme.colors.text.dark)
   const btnRef = useRef()
 
-  const { PRI_TEMPLATE_CODE, PRI_LOC1, PRI_LOC2, PRI_LOC3, PRI_LOC4 } = mappedPcm
-
-  console.log('hello====>', { mappedPcm })
+  const { PRI_LOC1, PRI_LOC2, PRI_LOC3, PRI_LOC4 } = mappedPcm
 
   const logoWidth =
     realm === 'mentormatch'
