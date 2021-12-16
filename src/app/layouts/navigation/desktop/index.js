@@ -18,8 +18,6 @@ import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 
 //get the pcm type from the backend and replace the hardcoded value.
-const pcmType = 'TemplateOne'
-
 const pcmCode = 'PCM_HEADER'
 
 //get this mapped object from the backend and replace the hardcoded object.
@@ -30,7 +28,9 @@ const TemplateOne = ({ logoSrc, userType, realm, mappedPcm }) => {
   const color = useColorModeValue(theme.colors.text.light, theme.colors.text.dark)
   const btnRef = useRef()
 
-  const { PRI_LOC1, PRI_LOC2, PRI_LOC3, PRI_LOC4 } = mappedPcm
+  const { PRI_TEMPLATE_CODE, PRI_LOC1, PRI_LOC2, PRI_LOC3, PRI_LOC4 } = mappedPcm
+
+  console.log('hello====>', { mappedPcm })
 
   const logoWidth =
     realm === 'mentormatch'
@@ -162,7 +162,9 @@ const DesktopNav = ({ logoSrc }) => {
     return acc
   }, {})(testPcm)
 
-  return userType === 'AGENT' && pcmType === 'TemplateOne' ? (
+  const { PRI_TEMPLATE_CODE: code } = mappedPcm
+
+  return userType === 'AGENT' && code === 'TPL_NORTH' ? (
     <TemplateOne logoSrc={logoSrc} userType={userType} realm={realm} mappedPcm={mappedPcm} />
   ) : (
     <Default logoSrc={logoSrc} userType={userType} realm={realm} />
