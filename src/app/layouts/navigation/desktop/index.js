@@ -23,20 +23,14 @@ const pcmType = 'TemplateOne'
 const pcmCode = 'PCM_HEADER'
 
 //get this mapped object from the backend and replace the hardcoded object.
-const mapped = {
-  LOCATION_ONE: 'QUE_DASHBOARD_VIEW',
-  LOCATION_TWO: 'QUE_ADD_ITEMS_GRP',
-  LOCATION_THREE: 'QUE_DRAFTS_GRP',
-  LOCATION_FOUR: 'QUE_AVATAR_GRP',
-}
 
-const TemplateOne = ({ logoSrc, userType, realm }) => {
+const TemplateOne = ({ logoSrc, userType, realm, mappedPcm }) => {
   const theme = useTheme()
   const bg = useColorModeValue(theme.colors.background.light, theme.colors.primary[900])
   const color = useColorModeValue(theme.colors.text.light, theme.colors.text.dark)
   const btnRef = useRef()
 
-  const { LOCATION_ONE, LOCATION_TWO, LOCATION_THREE, LOCATION_FOUR } = mapped
+  const { PRI_LOC1, PRI_LOC2, PRI_LOC3, PRI_LOC4 } = mappedPcm
 
   const logoWidth =
     realm === 'mentormatch'
@@ -66,23 +60,23 @@ const TemplateOne = ({ logoSrc, userType, realm }) => {
         <Flex pr={8} py={2}>
           <Box cursor="pointer" px={8}>
             {apiConfig && (
-              <Box onClick={() => onSendMessage({ code: LOCATION_ONE, parentCode: LOCATION_ONE })}>
+              <Box onClick={() => onSendMessage({ code: PRI_LOC1, parentCode: PRI_LOC1 })}>
                 <Image ref={btnRef} src={logoSrc} htmlWidth={logoWidth} />
               </Box>
             )}
           </Box>
           <Spacer />
           <HStack spacing={10}>
-            <AskMenu questionCode={LOCATION_TWO} icon={<FontAwesomeIcon icon={faPlus} />} />
+            <AskMenu questionCode={PRI_LOC2} icon={<FontAwesomeIcon icon={faPlus} />} />
             {!caps(userType)(hideQuickAdd) && (
               <AskMenu
                 questionCode={quickAddItemsQuestionCode}
                 icon={<FontAwesomeIcon icon={faBolt} />}
               />
             )}
-            <Drafts code={LOCATION_THREE} />
+            <Drafts code={PRI_LOC3} />
             <Box mr="4">
-              <Avatar code={LOCATION_FOUR} />
+              <Avatar code={PRI_LOC4} />
             </Box>
           </HStack>
         </Flex>
@@ -163,14 +157,13 @@ const DesktopNav = ({ logoSrc }) => {
   const realm = useGetRealm()
 
   const testPcm = useSelector(selectCode(pcmCode, 'allAttributes'))
-  console.log('testPcm====>', testPcm)
-  // const mappedPcm = reduce((acc, { attributeCode, valueString }) => {
-  //   acc = { ...acc, [attributeCode]: valueString }
-  //   return acc
-  // }, {})(testPcm)
+  const mappedPcm = reduce((acc, { attributeCode, valueString }) => {
+    acc = { ...acc, [attributeCode]: valueString }
+    return acc
+  }, {})(testPcm)
 
   return userType === 'AGENT' && pcmType === 'TemplateOne' ? (
-    <TemplateOne logoSrc={logoSrc} userType={userType} realm={realm} />
+    <TemplateOne logoSrc={logoSrc} userType={userType} realm={realm} mappedPcm={mappedPcm} />
   ) : (
     <Default logoSrc={logoSrc} userType={userType} realm={realm} />
   )
