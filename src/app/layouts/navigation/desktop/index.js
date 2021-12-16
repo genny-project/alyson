@@ -18,8 +18,13 @@ const TemplateOne = ({ logoSrc, userType, realm }) => {
   const theme = useTheme()
   const bg = useColorModeValue(theme.colors.background.light, theme.colors.primary[900])
   const color = useColorModeValue(theme.colors.text.light, theme.colors.text.dark)
-
   const btnRef = useRef()
+
+  const mapped = {
+    LOCATION_ONE: 'QUE_DASHBOARD_VIEW',
+  }
+
+  const { LOCATION_ONE } = mapped
 
   const logoWidth =
     realm === 'mentormatch'
@@ -49,16 +54,11 @@ const TemplateOne = ({ logoSrc, userType, realm }) => {
         <Flex pr={8} py={2}>
           <Box cursor="pointer" px={8}>
             {apiConfig && (
-              <Box
-                onClick={() =>
-                  onSendMessage({ code: 'QUE_DASHBOARD_VIEW', parentCode: 'QUE_DASHBOARD_VIEW' })
-                }
-              >
+              <Box onClick={() => onSendMessage({ code: LOCATION_ONE, parentCode: LOCATION_ONE })}>
                 <Image ref={btnRef} src={logoSrc} htmlWidth={logoWidth} />
               </Box>
             )}
           </Box>
-          <Views />
           <Spacer />
           <HStack spacing={10}>
             <AskMenu questionCode={addItemsQuestionCode} icon={<FontAwesomeIcon icon={faPlus} />} />
@@ -123,7 +123,7 @@ const TemplateTwo = ({ logoSrc, userType, realm }) => {
               </Box>
             )}
           </Box>
-          <Drafts />
+          <Views />
 
           <Spacer />
           <HStack spacing={10}>
@@ -134,6 +134,8 @@ const TemplateTwo = ({ logoSrc, userType, realm }) => {
                 icon={<FontAwesomeIcon icon={faBolt} />}
               />
             )}
+            <Drafts />
+
             <Box mr="4">
               <Avatar />
             </Box>
@@ -148,8 +150,6 @@ const DesktopNav = ({ logoSrc }) => {
   const userType = useUserType()
 
   const realm = useGetRealm()
-
-  console.log('userType', userType)
 
   return userType === 'AGENT' ? (
     <TemplateOne logoSrc={logoSrc} userType={userType} realm={realm} />
