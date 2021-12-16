@@ -22,9 +22,10 @@ const TemplateOne = ({ logoSrc, userType, realm }) => {
 
   const mapped = {
     LOCATION_ONE: 'QUE_DASHBOARD_VIEW',
+    LOCATION_TWO: 'QUE_DRAFTS_GRP',
   }
 
-  const { LOCATION_ONE } = mapped
+  const { LOCATION_ONE, LOCATION_TWO } = mapped
 
   const logoWidth =
     realm === 'mentormatch'
@@ -68,7 +69,7 @@ const TemplateOne = ({ logoSrc, userType, realm }) => {
                 icon={<FontAwesomeIcon icon={faBolt} />}
               />
             )}
-            <Drafts />
+            <Drafts code={LOCATION_TWO} />
             <Box mr="4">
               <Avatar />
             </Box>

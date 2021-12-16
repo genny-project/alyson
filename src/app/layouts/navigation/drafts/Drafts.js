@@ -11,9 +11,8 @@ import icons from 'utils/icons'
 import Draft from './Draft'
 import { useGetLabel } from 'utils/hooks'
 
-const DRAFT_GROUP = 'QUE_DRAFTS_GRP'
-
-const Drafts = () => {
+const Drafts = ({ code: DRAFT_GROUP }) => {
+  console.log('hello drafts', { DRAFT_GROUP })
   const userCode = useSelector(selectCode('USER'))
   const userType = getUserType(useSelector(selectCode(userCode)))
   const drafts = (useSelector(selectCode(DRAFT_GROUP)) || []).filter(
