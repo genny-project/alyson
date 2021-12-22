@@ -99,7 +99,7 @@ const VertxContainer = () => {
 
     sendAuthInit({ token })
 
-    setInterval(heartBeat, 600000)
+    setInterval(heartBeat, 300000)
     eventBus.send(
       'address.inbound',
       {
