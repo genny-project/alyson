@@ -17,6 +17,7 @@ import {
   useDisclosure,
   useTheme,
 } from '@chakra-ui/react'
+import { addItemsQuestionCode, dashboardViewQuestion } from 'utils/constants'
 import { caps, hideQuickAdd } from 'config/caps'
 import { faBars, faBolt, faPlus } from '@fortawesome/free-solid-svg-icons'
 
@@ -79,7 +80,10 @@ const MobileNav = ({ logoSrc }) => {
               {apiConfig && (
                 <Image
                   onClick={() =>
-                    onSendMessage({ code: 'QUE_DASHBOARD_VIEW', parentCode: 'QUE_DASHBOARD_VIEW' })
+                    onSendMessage({
+                      code: dashboardViewQuestion,
+                      parentCode: dashboardViewQuestion,
+                    })
                   }
                   ref={btnRef}
                   src={logoSrc}
@@ -91,7 +95,7 @@ const MobileNav = ({ logoSrc }) => {
             <HStack spacing={5}>
               <AskMenu
                 onClose={onClose}
-                questionCode={'QUE_ADD_ITEMS_GRP'}
+                questionCode={addItemsQuestionCode}
                 icon={<Button leftIcon={<FontAwesomeIcon icon={faPlus} />}>Add</Button>}
               />
               <Drafts />
