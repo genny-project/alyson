@@ -1,10 +1,10 @@
-import { useEffect, useState, useRef } from 'react'
 import { Input, InputGroup, InputRightAddon } from '@chakra-ui/input'
-import { Text } from '@chakra-ui/layout'
 import { Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/menu'
+import { useEffect, useRef, useState } from 'react'
 
-import { fromLatLng } from 'utils/helpers/timezone_magic/get-timezone-name'
+import { Text } from '@chakra-ui/layout'
 import defaultTimeZones from 'utils/helpers/time-zone.json'
+import { fromLatLng } from 'utils/helpers/timezone_magic/get-timezone-name'
 
 let places
 
@@ -42,7 +42,7 @@ const PlacesAutocomplete = ({ onSelect, questionCode }) => {
         />
         <InputRightAddon>
           <Menu>
-            <MenuButton>Select From A List</MenuButton>
+            <MenuButton test-id={questionCode}>Select From A List</MenuButton>
             <MenuList maxH="20rem" overflowY="scroll">
               {Object.entries(defaultTimeZones).map(([key, value]) => (
                 <MenuItem

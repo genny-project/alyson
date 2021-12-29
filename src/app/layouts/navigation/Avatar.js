@@ -1,24 +1,25 @@
-import { useSelector } from 'react-redux'
+import {
+  Avatar,
+  Flex,
+  HStack,
+  Menu,
+  MenuButton,
+  MenuGroup,
+  MenuItem,
+  MenuList,
+  Spacer,
+} from '@chakra-ui/react'
+
+import ChildMenuItem from 'app/ASKS/menu/ChildMenuItem'
+import ColorToggler from './ColorToggler'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { apiConfig } from 'config/get-api-config'
+import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
+import { onSendMessage } from 'vertx'
 import { selectCode } from 'redux/db/selectors'
 import useApi from 'api'
 import { useKeycloak } from '@react-keycloak/web'
-import {
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  Avatar,
-  MenuGroup,
-  Flex,
-  Spacer,
-  HStack,
-} from '@chakra-ui/react'
-import ChildMenuItem from 'app/ASKS/menu/ChildMenuItem'
-import ColorToggler from './ColorToggler'
-import { onSendMessage } from 'vertx'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
-import { apiConfig } from 'config/get-api-config'
+import { useSelector } from 'react-redux'
 
 const QUE_AVATAR_GRP = 'QUE_AVATAR_GRP'
 
@@ -42,7 +43,7 @@ const AvatarMenu = () => {
   if (!avatarAsks)
     return (
       <Menu>
-        <MenuButton>
+        <MenuButton test-id={'QUE_AVATAR_GRP'}>
           <HStack spacing={1} color="grey">
             <Avatar
               color="white"
@@ -77,7 +78,7 @@ const AvatarMenu = () => {
 
   return (
     <Menu>
-      <MenuButton>
+      <MenuButton test-id={'QUE_AVATAR_GRP'}>
         <HStack spacing={1} color="grey">
           <Avatar
             color="white"
