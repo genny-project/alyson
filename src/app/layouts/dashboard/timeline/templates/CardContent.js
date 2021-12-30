@@ -52,6 +52,10 @@ export const recommendationDetails = [
     label: 'Industry:',
     attribute: 'PRI_INDUSTRY',
   },
+  // {
+  //   label: 'Industry:',
+  //   attribute: 'PRI_INDUSTRY',
+  // },
   {
     label: 'Rotary Member:',
     attribute: 'PRI_ROTARY_CLUB',

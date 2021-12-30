@@ -44,7 +44,7 @@ const DetailActions = ({ sbeCode, beCode }) => {
       />
       {reducedActions.length > 0 ? (
         <Menu placement="bottom-end">
-          <MenuButton>
+          <MenuButton test-id={'detail-view-actions'}>
             <>
               {/* <IconButton
                 test-id={'detail-view-actions'}
@@ -55,7 +55,6 @@ const DetailActions = ({ sbeCode, beCode }) => {
                 p="1rem"
               /> */}
               <Text
-                test-id={'detail-view-actions'}
                 border="1px"
                 borderColor="#2B6CB0"
                 borderRadius="2rem"

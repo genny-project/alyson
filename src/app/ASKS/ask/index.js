@@ -7,6 +7,7 @@ import {
   HStack,
   useBoolean,
 } from '@chakra-ui/react'
+import { equals, isEmpty, not, pathOr } from 'ramda'
 import { faCheckCircle, faCircle } from '@fortawesome/free-solid-svg-icons'
 
 import ABN from 'app/DTT/abn'
@@ -38,7 +39,6 @@ import Upload from 'app/DTT/upload'
 import Video from 'app/DTT/video'
 import createSendAnswer from 'app/ASKS/utils/create-send-answer'
 import getGroupCode from 'app/ASKS/utils/get-group-code'
-import { pathOr } from 'ramda'
 import { selectCode } from 'redux/db/selectors'
 import { selectHighlightedQuestion } from 'redux/app/selectors'
 import { useEffect } from 'react'
@@ -100,6 +100,10 @@ const Ask = ({
 
   const feedback = data?.feedback
   const onSendAnswer = createSendAnswer(askData, { passedTargetCode, setSaving })
+  let dataValue
+  if (equals('[]', data?.value)) {
+    dataValue = JSON.parse(data?.value)
+  }
 
   if (readonly) {
     return (
@@ -162,7 +166,7 @@ const Ask = ({
         <FormLabel id={attributeCode}>{name}</FormLabel>
         {saving ? (
           <FontAwesomeIcon icon={faCircle} color="gold" />
-        ) : data?.value && !failedValidation ? (
+        ) : data?.value && !failedValidation && not(isEmpty(dataValue)) ? (
           <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
         ) : null}
       </HStack>
