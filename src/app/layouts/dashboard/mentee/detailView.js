@@ -46,7 +46,7 @@ const DetailView = ({ setShowDetailView, currentMentor }) => {
         >{`Mentor Selection`}</Button>
       </Box>
       <DetailHeader beCode={currentMentor} />
-      <HStack w="90%">
+      <HStack alignItems="flex-start" w="90%">
         <DetailCards detailsection={personalDetails} currentMentor={currentMentor} miniCard />
         <DetailCards detailsection={professionalDetails} currentMentor={currentMentor} miniCard />
       </HStack>

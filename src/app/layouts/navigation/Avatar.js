@@ -42,8 +42,8 @@ const AvatarMenu = () => {
 
   if (!avatarAsks)
     return (
-      <Menu>
-        <MenuButton test-id={'QUE_AVATAR_GRP'}>
+      <Menu test-id={'QUE_AVATAR_GRP'}>
+        <MenuButton>
           <HStack spacing={1} color="grey">
             <Avatar
               color="white"
