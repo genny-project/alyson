@@ -46,51 +46,66 @@ const Timeline = ({ items }) => {
         <Box h={`${progressBarHeight}%`} w="100%" background="green" />
       </Box>
       <VStack h="100%" justifyContent="space-around" display="flex" position="absolute">
-        {map(({ title, description, buttonText, code, parentCode, isDisabled, targetCode }) => (
-          <Card key={title} p={4} px={5}>
-            <VStack spacing={3} w="30vw" maxW={500}>
-              <Text textStyle="head.2" alignSelf="flex-start">
-                {title}
-              </Text>
-              <Text textStyle="body.3" noOfLines={[1]} w="inherit" alignSelf="flex-start">
-                {description}
-              </Text>
-              <Tooltip
-                placement="right"
-                isDisabled={isDisabled ? false : true}
-                label={
-                  equals(buttonText, 'Register')
-                    ? 'You have already registered!'
-                    : equals(buttonText, 'Mentor Selected')
-                    ? 'You have already selected a Mentor!'
-                    : 'Please complete the previous steps'
-                }
-                aria-label="Please complete the previous steps"
-                bg="red.400"
-                color="#ffffff"
-              >
-                <Box alignSelf="flex-end">
-                  {buttonText && (
-                    <Button
-                      colorScheme="blue"
-                      onClick={() =>
-                        onSendMessage({
-                          code: code,
-                          parentCode: parentCode,
-                          targetCode: targetCode,
-                        })
-                      }
-                      size="md"
-                      isDisabled={isDisabled}
-                    >
-                      {buttonText}
-                    </Button>
-                  )}
-                </Box>
-              </Tooltip>
-            </VStack>
-          </Card>
-        ))(items)}
+        {map(
+          ({
+            title,
+            description,
+            buttonText,
+            code,
+            parentCode,
+            isDisabled,
+            targetCode,
+            status,
+          }) => (
+            <Card key={title} p={4} px={5}>
+              <VStack spacing={3} w="30vw" maxW={500}>
+                <Text textStyle="head.2" alignSelf="flex-start">
+                  {title}
+                </Text>
+                <Text textStyle="body.3" noOfLines={[1]} w="inherit" alignSelf="flex-start">
+                  {description}
+                </Text>
+                <Tooltip
+                  placement="right"
+                  isDisabled={isDisabled ? false : true}
+                  label={
+                    equals(buttonText, 'Register')
+                      ? 'You have already registered!'
+                      : equals(buttonText, 'Mentor Selected')
+                      ? 'You have already selected a Mentor!'
+                      : equals(status, 'UNVERIFIED')
+                      ? 'Account verification is pending.'
+                      : equals(status, 'AVAILABLE')
+                      ? 'Training is already completed.'
+                      : 'Please complete the previous steps'
+                  }
+                  aria-label="Please complete the previous steps"
+                  bg="red.400"
+                  color="#ffffff"
+                >
+                  <Box alignSelf="flex-end">
+                    {buttonText && (
+                      <Button
+                        colorScheme="blue"
+                        onClick={() =>
+                          onSendMessage({
+                            code: code,
+                            parentCode: parentCode,
+                            targetCode: targetCode,
+                          })
+                        }
+                        size="md"
+                        isDisabled={isDisabled}
+                      >
+                        {buttonText}
+                      </Button>
+                    )}
+                  </Box>
+                </Tooltip>
+              </VStack>
+            </Card>
+          ),
+        )(items)}
       </VStack>
     </HStack>
   )
