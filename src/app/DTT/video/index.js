@@ -1,27 +1,28 @@
-import { useState } from 'react'
 import {
+  Badge,
+  Box,
   Button,
+  HStack,
+  IconButton,
+  Image,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  Stack,
   Text,
   VStack,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  IconButton,
-  Badge,
-  HStack,
-  Box,
-  Image,
   useBoolean,
-  Stack,
 } from '@chakra-ui/react'
-import VideoRecorder from './video_recorder'
-import safelyParseJson from 'utils/helpers/safely-parse-json'
-import useApi from 'api'
+import { faBan, faExpand, faSave, faVideo } from '@fortawesome/free-solid-svg-icons'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faVideo, faExpand, faBan, faSave } from '@fortawesome/free-solid-svg-icons'
 import Player from './Player'
 import Upload from '../upload'
+import VideoRecorder from './video_recorder'
 import configs from './configs'
+import safelyParseJson from 'utils/helpers/safely-parse-json'
+import useApi from 'api'
+import { useState } from 'react'
 
 const Write = ({ questionCode, onSendAnswer, html, data }) => {
   const config = configs[questionCode] || safelyParseJson(html, {})
@@ -62,6 +63,7 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
             {`Re-Record`}
           </Button>
           <Button
+            test-id={questionCode + '-delete'}
             leftIcon={<FontAwesomeIcon icon={faBan} />}
             onClick={() => {
               setStartVideo(false)
@@ -77,7 +79,7 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
   if (upload)
     return (
       <VStack align="start">
-        <Button colorScheme="green" onClick={setUpload.off}>
+        <Button test-id={`${questionCode}-recorder`} colorScheme="green" onClick={setUpload.off}>
           Go back to recorder
         </Button>
         <Upload.Write video questionCode={questionCode} data={data} onSendAnswer={onSendAnswer} />
