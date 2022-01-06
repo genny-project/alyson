@@ -4,6 +4,7 @@ import { compose, divide, equals, filter, length, map, multiply, path } from 'ra
 import Card from 'app/layouts/components/card'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { complete } from 'utils/constants'
+import convertToUppercase from 'utils/formatters/uppercase-convert'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { onSendMessage } from 'vertx'
 
@@ -96,6 +97,7 @@ const Timeline = ({ items }) => {
                         }
                         size="md"
                         isDisabled={isDisabled}
+                        test-id={convertToUppercase(buttonText).replace(/ /g, '_')}
                       >
                         {buttonText}
                       </Button>

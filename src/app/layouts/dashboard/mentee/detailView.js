@@ -43,6 +43,7 @@ const DetailView = ({ setShowDetailView, currentMentor }) => {
           colorScheme="blue"
           variant="solid"
           leftIcon={<FontAwesomeIcon icon={faLongArrowAltLeft} />}
+          test-id={`BACK_TO_MENTOR_SELECTION`}
         >{`Mentor Selection`}</Button>
       </Box>
       <DetailHeader beCode={currentMentor} />
@@ -60,6 +61,7 @@ const DetailView = ({ setShowDetailView, currentMentor }) => {
             setShowDetailView(false)
             sendToast()
           }}
+          test-id={`ACT_INVITE_MENTOR`}
         >{`Invite`}</Button>
       </Box>
     </Flex>

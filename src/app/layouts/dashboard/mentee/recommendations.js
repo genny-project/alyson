@@ -1,20 +1,20 @@
-import { map, includes, find } from 'ramda'
-import { useSelector } from 'react-redux'
 import {
-  Grid,
   Box,
-  VStack,
-  Text,
-  Spacer,
-  HStack,
-  useColorModeValue,
   Button,
+  Grid,
+  HStack,
+  Spacer,
+  Text,
+  VStack,
+  useColorModeValue,
 } from '@chakra-ui/react'
+import { find, includes, map } from 'ramda'
 
-import { selectDashboard } from 'redux/app/selectors'
 import Attribute from 'app/BE/attribute'
-import { selectRows } from 'redux/db/selectors'
 import { recommendationDetails } from 'app/layouts/dashboard/timeline/templates/CardContent'
+import { selectDashboard } from 'redux/app/selectors'
+import { selectRows } from 'redux/db/selectors'
+import { useSelector } from 'react-redux'
 
 const Recommendation = ({ setShowDetailView, setCurrentMentor }) => {
   const bg = useColorModeValue('gray.100', 'gray.700')
@@ -61,7 +61,11 @@ const Recommendation = ({ setShowDetailView, setCurrentMentor }) => {
                   attribute="PRI_USER_PROFILE_PICTURE"
                 />
                 <Attribute config={{ textStyle: 'body.2' }} code={mentor} attribute="PRI_NAME" />
-                <Button w="full" colorScheme="primary">{`View Profile`}</Button>
+                <Button
+                  w="full"
+                  colorScheme="primary"
+                  test-id={`VIEW_PROFILE_${mentor}`}
+                >{`View Profile`}</Button>
               </VStack>
 
               <VStack display="inline">
