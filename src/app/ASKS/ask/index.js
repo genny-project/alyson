@@ -7,8 +7,8 @@ import {
   HStack,
   useBoolean,
 } from '@chakra-ui/react'
-import { equals, isEmpty, not, pathOr } from 'ramda'
-import { faCheckCircle, faCircle } from '@fortawesome/free-solid-svg-icons'
+import { pathOr } from 'ramda'
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 
 import ABN from 'app/DTT/abn'
 import Address from 'app/DTT/address'
@@ -41,7 +41,6 @@ import createSendAnswer from 'app/ASKS/utils/create-send-answer'
 import getGroupCode from 'app/ASKS/utils/get-group-code'
 import { selectCode } from 'redux/db/selectors'
 import { selectHighlightedQuestion } from 'redux/app/selectors'
-import { useEffect } from 'react'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
@@ -88,22 +87,13 @@ const Ask = ({
   )
   const [saving, setSaving] = useBoolean()
 
-  useEffect(() => {
-    setSaving.off()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data?.value])
-
   if (!question?.attribute) return null
 
   const { html, helper } = question
   const { component = forcedComponent || 'text', typeName } = dataType
 
   const feedback = data?.feedback
-  const onSendAnswer = createSendAnswer(askData, { passedTargetCode, setSaving })
-  let dataValue
-  if (equals('[]', data?.value)) {
-    dataValue = JSON.parse(data?.value)
-  }
+  const onSendAnswer = createSendAnswer(askData, { passedTargetCode })
 
   if (readonly) {
     return (
@@ -137,7 +127,7 @@ const Ask = ({
         isRequired={mandatory}
         id={attributeCode}
         regexPattern={regexPattern}
-        errorMessage={errorMessage}
+        setSaving={setSaving}
       />
     )
   return component === 'button' ? (
@@ -164,9 +154,7 @@ const Ask = ({
     >
       <HStack justify="space-between" display={noLabel ? 'none' : 'flex'} w={labelWidth}>
         <FormLabel id={attributeCode}>{name}</FormLabel>
-        {saving ? (
-          <FontAwesomeIcon icon={faCircle} color="gold" />
-        ) : data?.value && !failedValidation && not(isEmpty(dataValue)) ? (
+        {!failedValidation && saving ? (
           <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
         ) : null}
       </HStack>
@@ -180,7 +168,7 @@ const Ask = ({
           onSendAnswer={onSendAnswer}
           askData={askData}
           regexPattern={regexPattern}
-          errorMessage={errorMessage}
+          setSaving={setSaving}
         />
       )}
       {component === 'phone' && (
@@ -189,7 +177,7 @@ const Ask = ({
           onSendAnswer={onSendAnswer}
           data={data}
           regexPattern={regexPattern}
-          errorMessage={errorMessage}
+          setSaving={setSaving}
         />
       )}
       {component === 'address' && (
@@ -198,7 +186,7 @@ const Ask = ({
           onSendAnswer={onSendAnswer}
           data={data}
           regexPattern={regexPattern}
-          errorMessage={errorMessage}
+          setSaving={setSaving}
         />
       )}
       {(component === 'dropdown' || component === 'tag') && (
@@ -217,7 +205,7 @@ const Ask = ({
           label={name}
           parentCode={parentCode}
           regexPattern={regexPattern}
-          errorMessage={errorMessage}
+          setSaving={setSaving}
         />
       )}
       {component === 'radio' && (
@@ -230,7 +218,7 @@ const Ask = ({
           mandatory={mandatory}
           parentCode={parentCode}
           regexPattern={regexPattern}
-          errorMessage={errorMessage}
+          setSaving={setSaving}
         />
       )}
       {component === 'text' && (
@@ -240,7 +228,7 @@ const Ask = ({
           data={data}
           onSendAnswer={onSendAnswer}
           regexPattern={regexPattern}
-          errorMessage={errorMessage}
+          setSaving={setSaving}
         />
       )}
       {component === 'textarea' && (
@@ -250,7 +238,7 @@ const Ask = ({
           data={data}
           onSendAnswer={onSendAnswer}
           regexPattern={regexPattern}
-          errorMessage={errorMessage}
+          setSaving={setSaving}
         />
       )}
       {component === 'social' && (
@@ -260,7 +248,7 @@ const Ask = ({
           data={data}
           onSendAnswer={onSendAnswer}
           regexPattern={regexPattern}
-          errorMessage={errorMessage}
+          setSaving={setSaving}
         />
       )}
       {component === 'upload' && (
@@ -270,7 +258,7 @@ const Ask = ({
           data={data}
           onSendAnswer={onSendAnswer}
           regexPattern={regexPattern}
-          errorMessage={errorMessage}
+          setSaving={setSaving}
         />
       )}
       {(component === 'date' || component === 'year') && (
@@ -280,7 +268,7 @@ const Ask = ({
           data={data}
           onSendAnswer={onSendAnswer}
           regexPattern={regexPattern}
-          errorMessage={errorMessage}
+          setSaving={setSaving}
           question={question}
         />
       )}
@@ -292,7 +280,7 @@ const Ask = ({
           description={description}
           html={html}
           regexPattern={regexPattern}
-          errorMessage={errorMessage}
+          setSaving={setSaving}
           placeholder={placeholder}
         />
       )}
@@ -303,7 +291,7 @@ const Ask = ({
           onSendAnswer={onSendAnswer}
           html={html}
           regexPattern={regexPattern}
-          errorMessage={errorMessage}
+          setSaving={setSaving}
         />
       )}
       {component === 'video' && (
@@ -313,7 +301,7 @@ const Ask = ({
           onSendAnswer={onSendAnswer}
           html={html}
           regexPattern={regexPattern}
-          errorMessage={errorMessage}
+          setSaving={setSaving}
         />
       )}
       {component === 'time_range' && (
@@ -322,7 +310,7 @@ const Ask = ({
           data={data}
           onSendAnswer={onSendAnswer}
           regexPattern={regexPattern}
-          errorMessage={errorMessage}
+          setSaving={setSaving}
         />
       )}
       {component === 'html_display' && (
@@ -330,7 +318,7 @@ const Ask = ({
           questionCode={questionCode}
           data={data}
           regexPattern={regexPattern}
-          errorMessage={errorMessage}
+          setSaving={setSaving}
         />
       )}
       {component === 'signature' && (
@@ -339,7 +327,7 @@ const Ask = ({
           data={data}
           onSendAnswer={onSendAnswer}
           regexPattern={regexPattern}
-          errorMessage={errorMessage}
+          setSaving={setSaving}
         />
       )}
       {component === 'link' && (
@@ -348,7 +336,7 @@ const Ask = ({
           data={data}
           onSendAnswer={onSendAnswer}
           regexPattern={regexPattern}
-          errorMessage={errorMessage}
+          setSaving={setSaving}
         />
       )}
       {component === 'abn_number' && (
@@ -358,7 +346,7 @@ const Ask = ({
           data={data}
           onSendAnswer={onSendAnswer}
           regexPattern={regexPattern}
-          errorMessage={errorMessage}
+          setSaving={setSaving}
         />
       )}
       {component === 'rating' && (
@@ -367,7 +355,7 @@ const Ask = ({
           questionCode={questionCode}
           onSendAnswer={onSendAnswer}
           regexPattern={regexPattern}
-          errorMessage={errorMessage}
+          setSaving={setSaving}
         />
       )}
       {component === 'youtube' && (
@@ -376,7 +364,7 @@ const Ask = ({
           questionCode={questionCode}
           onSendAnswer={onSendAnswer}
           regexPattern={regexPattern}
-          errorMessage={errorMessage}
+          setSaving={setSaving}
         />
       )}
       {component === 'time_zone' && (
@@ -385,7 +373,7 @@ const Ask = ({
           questionCode={questionCode}
           onSendAnswer={onSendAnswer}
           regexPattern={regexPattern}
-          errorMessage={errorMessage}
+          setSaving={setSaving}
         />
       )}
       {component === 'checkbox' && (
@@ -394,14 +382,14 @@ const Ask = ({
           questionCode={questionCode}
           onSendAnswer={onSendAnswer}
           regexPattern={regexPattern}
-          errorMessage={errorMessage}
+          setSaving={setSaving}
         />
       )}
       {component === 'log_rocket_session' && (
         <LogRocketSession.Write
           onSendAnswer={onSendAnswer}
           regexPattern={regexPattern}
-          errorMessage={errorMessage}
+          setSaving={setSaving}
         />
       )}
       {component === 'flag' && (
@@ -410,7 +398,7 @@ const Ask = ({
           questionCode={questionCode}
           onSendAnswer={onSendAnswer}
           regexPattern={regexPattern}
-          errorMessage={errorMessage}
+          setSaving={setSaving}
         />
       )}
       <FormErrorMessage>{feedback}</FormErrorMessage>

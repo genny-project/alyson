@@ -7,8 +7,16 @@ import debounce from 'lodash.debounce'
 import { getIsInvalid } from 'utils/functions'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useMobileValue } from 'utils/hooks'
+import { isEmpty } from 'ramda'
 
-export const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMessage }) => {
+export const Write = ({
+  questionCode,
+  data,
+  onSendAnswer,
+  regexPattern,
+  errorMessage,
+  setSaving,
+}) => {
   let regex
   const { dispatch } = useError()
   const [errorStatus, setErrorStatus] = useState(false)
@@ -50,13 +58,17 @@ export const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMes
   const debouncedSendAnswer = debounce(onSendAnswer, 500)
 
   const maxW = useMobileValue(['', '25vw'])
+  const onBlur = e => {
+    !errorStatus && debouncedSendAnswer(e.target.value)
+    isEmpty(e.target.value) ? setSaving.off() : setSaving.on()
+  }
 
   return (
     <>
       <Input
         test-id={questionCode}
         ref={inputRef}
-        onBlur={e => !errorStatus && debouncedSendAnswer(e.target.value)}
+        onBlur={onBlur}
         onChange={e => setuserInput(e.target.value)}
         defaultValue={data?.value}
         w="full"
