@@ -127,7 +127,7 @@ const Ask = ({
         isRequired={mandatory}
         id={attributeCode}
         regexPattern={regexPattern}
-        setSaving={setSaving}
+        errorMessage={errorMessage}
       />
     )
   return component === 'button' ? (
@@ -168,7 +168,7 @@ const Ask = ({
           onSendAnswer={onSendAnswer}
           askData={askData}
           regexPattern={regexPattern}
-          setSaving={setSaving}
+          errorMessage={errorMessage}
         />
       )}
       {component === 'phone' && (
@@ -177,7 +177,7 @@ const Ask = ({
           onSendAnswer={onSendAnswer}
           data={data}
           regexPattern={regexPattern}
-          setSaving={setSaving}
+          errorMessage={errorMessage}
         />
       )}
       {component === 'address' && (
@@ -186,7 +186,7 @@ const Ask = ({
           onSendAnswer={onSendAnswer}
           data={data}
           regexPattern={regexPattern}
-          setSaving={setSaving}
+          errorMessage={errorMessage}
         />
       )}
       {(component === 'dropdown' || component === 'tag') && (
@@ -205,7 +205,7 @@ const Ask = ({
           label={name}
           parentCode={parentCode}
           regexPattern={regexPattern}
-          setSaving={setSaving}
+          errorMessage={errorMessage}
         />
       )}
       {component === 'radio' && (
@@ -218,7 +218,7 @@ const Ask = ({
           mandatory={mandatory}
           parentCode={parentCode}
           regexPattern={regexPattern}
-          setSaving={setSaving}
+          errorMessage={errorMessage}
         />
       )}
       {component === 'text' && (
@@ -228,6 +228,7 @@ const Ask = ({
           data={data}
           onSendAnswer={onSendAnswer}
           regexPattern={regexPattern}
+          errorMessage={errorMessage}
           setSaving={setSaving}
         />
       )}
@@ -238,7 +239,7 @@ const Ask = ({
           data={data}
           onSendAnswer={onSendAnswer}
           regexPattern={regexPattern}
-          setSaving={setSaving}
+          errorMessage={errorMessage}
         />
       )}
       {component === 'social' && (
@@ -248,7 +249,7 @@ const Ask = ({
           data={data}
           onSendAnswer={onSendAnswer}
           regexPattern={regexPattern}
-          setSaving={setSaving}
+          errorMessage={errorMessage}
         />
       )}
       {component === 'upload' && (
@@ -258,7 +259,7 @@ const Ask = ({
           data={data}
           onSendAnswer={onSendAnswer}
           regexPattern={regexPattern}
-          setSaving={setSaving}
+          errorMessage={errorMessage}
         />
       )}
       {(component === 'date' || component === 'year') && (
@@ -268,7 +269,7 @@ const Ask = ({
           data={data}
           onSendAnswer={onSendAnswer}
           regexPattern={regexPattern}
-          setSaving={setSaving}
+          errorMessage={errorMessage}
           question={question}
         />
       )}
@@ -280,7 +281,7 @@ const Ask = ({
           description={description}
           html={html}
           regexPattern={regexPattern}
-          setSaving={setSaving}
+          errorMessage={errorMessage}
           placeholder={placeholder}
         />
       )}
@@ -291,7 +292,7 @@ const Ask = ({
           onSendAnswer={onSendAnswer}
           html={html}
           regexPattern={regexPattern}
-          setSaving={setSaving}
+          errorMessage={errorMessage}
         />
       )}
       {component === 'video' && (
@@ -301,7 +302,7 @@ const Ask = ({
           onSendAnswer={onSendAnswer}
           html={html}
           regexPattern={regexPattern}
-          setSaving={setSaving}
+          errorMessage={errorMessage}
         />
       )}
       {component === 'time_range' && (
@@ -310,7 +311,7 @@ const Ask = ({
           data={data}
           onSendAnswer={onSendAnswer}
           regexPattern={regexPattern}
-          setSaving={setSaving}
+          errorMessage={errorMessage}
         />
       )}
       {component === 'html_display' && (
@@ -318,7 +319,7 @@ const Ask = ({
           questionCode={questionCode}
           data={data}
           regexPattern={regexPattern}
-          setSaving={setSaving}
+          errorMessage={errorMessage}
         />
       )}
       {component === 'signature' && (
@@ -327,7 +328,7 @@ const Ask = ({
           data={data}
           onSendAnswer={onSendAnswer}
           regexPattern={regexPattern}
-          setSaving={setSaving}
+          errorMessage={errorMessage}
         />
       )}
       {component === 'link' && (
@@ -336,7 +337,7 @@ const Ask = ({
           data={data}
           onSendAnswer={onSendAnswer}
           regexPattern={regexPattern}
-          setSaving={setSaving}
+          errorMessage={errorMessage}
         />
       )}
       {component === 'abn_number' && (
@@ -346,7 +347,7 @@ const Ask = ({
           data={data}
           onSendAnswer={onSendAnswer}
           regexPattern={regexPattern}
-          setSaving={setSaving}
+          errorMessage={errorMessage}
         />
       )}
       {component === 'rating' && (
@@ -355,7 +356,7 @@ const Ask = ({
           questionCode={questionCode}
           onSendAnswer={onSendAnswer}
           regexPattern={regexPattern}
-          setSaving={setSaving}
+          errorMessage={errorMessage}
         />
       )}
       {component === 'youtube' && (
@@ -364,7 +365,7 @@ const Ask = ({
           questionCode={questionCode}
           onSendAnswer={onSendAnswer}
           regexPattern={regexPattern}
-          setSaving={setSaving}
+          errorMessage={errorMessage}
         />
       )}
       {component === 'time_zone' && (
@@ -373,7 +374,7 @@ const Ask = ({
           questionCode={questionCode}
           onSendAnswer={onSendAnswer}
           regexPattern={regexPattern}
-          setSaving={setSaving}
+          errorMessage={errorMessage}
         />
       )}
       {component === 'checkbox' && (
@@ -382,14 +383,14 @@ const Ask = ({
           questionCode={questionCode}
           onSendAnswer={onSendAnswer}
           regexPattern={regexPattern}
-          setSaving={setSaving}
+          errorMessage={errorMessage}
         />
       )}
       {component === 'log_rocket_session' && (
         <LogRocketSession.Write
           onSendAnswer={onSendAnswer}
           regexPattern={regexPattern}
-          setSaving={setSaving}
+          errorMessage={errorMessage}
         />
       )}
       {component === 'flag' && (
@@ -398,7 +399,7 @@ const Ask = ({
           questionCode={questionCode}
           onSendAnswer={onSendAnswer}
           regexPattern={regexPattern}
-          setSaving={setSaving}
+          errorMessage={errorMessage}
         />
       )}
       <FormErrorMessage>{feedback}</FormErrorMessage>
