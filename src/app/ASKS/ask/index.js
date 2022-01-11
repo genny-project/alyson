@@ -169,6 +169,7 @@ const Ask = ({
           askData={askData}
           regexPattern={regexPattern}
           errorMessage={errorMessage}
+          setSaving={setSaving}
         />
       )}
       {component === 'phone' && (
