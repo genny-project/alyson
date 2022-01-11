@@ -5,9 +5,9 @@ import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import DetailViewTags from 'app/DTT/text/detailview_tags'
 import debounce from 'lodash.debounce'
 import { getIsInvalid } from 'utils/functions'
+import { isEmpty } from 'ramda'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useMobileValue } from 'utils/hooks'
-import { isEmpty } from 'ramda'
 
 export const Write = ({
   questionCode,
@@ -58,6 +58,7 @@ export const Write = ({
   const debouncedSendAnswer = debounce(onSendAnswer, 500)
 
   const maxW = useMobileValue(['', '25vw'])
+
   const onBlur = e => {
     !errorStatus && debouncedSendAnswer(e.target.value)
     isEmpty(e.target.value) ? setSaving.off() : setSaving.on()

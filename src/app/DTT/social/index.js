@@ -1,11 +1,11 @@
 import { Text as ChakraText, IconButton, Input, InputGroup, InputLeftAddon } from '@chakra-ui/react'
+import { includes, isEmpty } from 'ramda'
 import { useEffect, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLinkedin } from '@fortawesome/free-brands-svg-icons'
 import { getIsInvalid } from 'utils/functions'
-import { includes } from 'ramda'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useMobileValue } from 'utils/hooks'
 
@@ -40,7 +40,7 @@ const Read = ({ data, config = {} }) => {
   )
 }
 
-const Write = ({ questionCode, onSendAnswer, data, regexPattern, errorMessage }) => {
+const Write = ({ questionCode, onSendAnswer, data, regexPattern, errorMessage, setSaving }) => {
   const { dispatch } = useError()
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value)
@@ -59,6 +59,11 @@ const Write = ({ questionCode, onSendAnswer, data, regexPattern, errorMessage })
       : dispatch({ type: ACTIONS.SET_TO_FALSE, payload: questionCode })
   }, [dispatch, isInvalid, questionCode])
 
+  const onBlur = e => {
+    !errorStatus && onSendAnswer(e.target.value)
+    isEmpty(e.target.value) ? setSaving.off() : setSaving.on()
+  }
+
   return (
     <>
       <InputGroup w="full" maxW={maxW}>
@@ -68,7 +73,7 @@ const Write = ({ questionCode, onSendAnswer, data, regexPattern, errorMessage })
         <Input
           test-id={questionCode}
           defaultValue={data?.value}
-          onBlur={e => onSendAnswer(e.target.value)}
+          onBlur={onBlur}
           onChange={e => setuserInput(e.target.value)}
         />
       </InputGroup>

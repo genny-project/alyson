@@ -22,6 +22,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import { ContentState, EditorState, convertFromHTML, convertToRaw } from 'draft-js'
+import { isEmpty, isNil } from 'ramda'
 import { useEffect, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
@@ -43,6 +44,7 @@ const Write = ({
   regexPattern,
   errorMessage,
   placeholder,
+  setSaving,
 }) => {
   const { minCharacterCount = 0, maxCharacterCount } = safelyParseJson(html, {})
   const blocksFromHTML = convertFromHTML(data?.value || '')
@@ -96,13 +98,15 @@ const Write = ({
 
   const curLength = userInputWithoutLineBreaks?.length
 
-  const handleSave = () => {
+  const handleSave = e => {
     if (minCharacterCount || maxCharacterCount) {
       if (minCharacterCount < curLength && curLength < maxCharacterCount) {
-        onSendAnswer(stateToHTML(editor.getCurrentContent()))
+        !errorStatus && onSendAnswer(stateToHTML(editor.getCurrentContent()))
+        isEmpty(data?.value) || isNil(data?.value) ? setSaving.off() : setSaving.on()
       }
     } else {
-      onSendAnswer(stateToHTML(editor.getCurrentContent()))
+      !errorStatus && onSendAnswer(stateToHTML(editor.getCurrentContent()))
+      isEmpty(data?.value) || isNil(data?.value) ? setSaving.off() : setSaving.on()
     }
   }
 

@@ -1,5 +1,6 @@
 import { Input, Text } from '@chakra-ui/react'
 import { format, isBefore, startOfTomorrow } from 'date-fns'
+import { includes, isEmpty } from 'ramda'
 import { useEffect, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
@@ -7,7 +8,6 @@ import DateChip from './DateChip'
 import Year from './Year'
 import getDate from 'utils/helpers/timezone_magic/get-date'
 import { getIsInvalid } from 'utils/functions'
-import { includes } from 'ramda'
 import safelyParseDate from 'utils/helpers/safely-parse-date'
 import timeBasedOnTimeZone from 'utils/helpers/timezone_magic/time-based-on-timezone'
 import { useError } from 'utils/contexts/ErrorContext'
@@ -31,7 +31,15 @@ const Read = ({ data, typeName, config }) => {
     </Text>
   )
 }
-const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, question }) => {
+const Write = ({
+  questionCode,
+  data,
+  onSendAnswer,
+  typeName,
+  regexPattern,
+  question,
+  setSaving,
+}) => {
   let initialErrorMsg = 'You can only valid date.'
   const { dispatch } = useError()
   const [errorStatus, setErrorStatus] = useState(false)
@@ -42,7 +50,10 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
   const includeTime = includes('LocalDateTime', typeName)
   const onlyYear = typeName === 'year'
 
-  const handleChange = e => onSendAnswer(safelyParseDate(e.target.value).toISOString())
+  const handleChange = e => {
+    !errorStatus && onSendAnswer(safelyParseDate(e.target.value).toISOString())
+    isEmpty(e.target.value) ? setSaving.off() : setSaving.on()
+  }
 
   const maxW = useMobileValue(['', '25vw'])
 

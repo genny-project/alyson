@@ -7,8 +7,6 @@ import {
   HStack,
   useBoolean,
 } from '@chakra-ui/react'
-import { pathOr } from 'ramda'
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 
 import ABN from 'app/DTT/abn'
 import Address from 'app/DTT/address'
@@ -38,7 +36,9 @@ import URL from 'app/DTT/url'
 import Upload from 'app/DTT/upload'
 import Video from 'app/DTT/video'
 import createSendAnswer from 'app/ASKS/utils/create-send-answer'
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import getGroupCode from 'app/ASKS/utils/get-group-code'
+import { pathOr } from 'ramda'
 import { selectCode } from 'redux/db/selectors'
 import { selectHighlightedQuestion } from 'redux/app/selectors'
 import { useError } from 'utils/contexts/ErrorContext'
@@ -179,6 +179,7 @@ const Ask = ({
           data={data}
           regexPattern={regexPattern}
           errorMessage={errorMessage}
+          setSaving={setSaving}
         />
       )}
       {component === 'address' && (
@@ -188,6 +189,7 @@ const Ask = ({
           data={data}
           regexPattern={regexPattern}
           errorMessage={errorMessage}
+          setSaving={setSaving}
         />
       )}
       {(component === 'dropdown' || component === 'tag') && (
@@ -207,6 +209,7 @@ const Ask = ({
           parentCode={parentCode}
           regexPattern={regexPattern}
           errorMessage={errorMessage}
+          setSaving={setSaving}
         />
       )}
       {component === 'radio' && (
@@ -241,6 +244,7 @@ const Ask = ({
           onSendAnswer={onSendAnswer}
           regexPattern={regexPattern}
           errorMessage={errorMessage}
+          setSaving={setSaving}
         />
       )}
       {component === 'social' && (
@@ -251,6 +255,7 @@ const Ask = ({
           onSendAnswer={onSendAnswer}
           regexPattern={regexPattern}
           errorMessage={errorMessage}
+          setSaving={setSaving}
         />
       )}
       {component === 'upload' && (
@@ -272,6 +277,7 @@ const Ask = ({
           regexPattern={regexPattern}
           errorMessage={errorMessage}
           question={question}
+          setSaving={setSaving}
         />
       )}
       {component === 'richtext_editor' && (
@@ -284,6 +290,7 @@ const Ask = ({
           regexPattern={regexPattern}
           errorMessage={errorMessage}
           placeholder={placeholder}
+          setSaving={setSaving}
         />
       )}
       {component === 'date_range' && (
@@ -294,6 +301,7 @@ const Ask = ({
           html={html}
           regexPattern={regexPattern}
           errorMessage={errorMessage}
+          setSaving={setSaving}
         />
       )}
       {component === 'video' && (
@@ -304,6 +312,7 @@ const Ask = ({
           html={html}
           regexPattern={regexPattern}
           errorMessage={errorMessage}
+          setSaving={setSaving}
         />
       )}
       {component === 'time_range' && (
@@ -313,6 +322,7 @@ const Ask = ({
           onSendAnswer={onSendAnswer}
           regexPattern={regexPattern}
           errorMessage={errorMessage}
+          setSaving={setSaving}
         />
       )}
       {component === 'html_display' && (
@@ -339,6 +349,7 @@ const Ask = ({
           onSendAnswer={onSendAnswer}
           regexPattern={regexPattern}
           errorMessage={errorMessage}
+          setSaving={setSaving}
         />
       )}
       {component === 'abn_number' && (
@@ -349,6 +360,7 @@ const Ask = ({
           onSendAnswer={onSendAnswer}
           regexPattern={regexPattern}
           errorMessage={errorMessage}
+          setSaving={setSaving}
         />
       )}
       {component === 'rating' && (
@@ -367,6 +379,7 @@ const Ask = ({
           onSendAnswer={onSendAnswer}
           regexPattern={regexPattern}
           errorMessage={errorMessage}
+          setSaving={setSaving}
         />
       )}
       {component === 'time_zone' && (
