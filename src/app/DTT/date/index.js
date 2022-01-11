@@ -1,4 +1,5 @@
 import { Input, Text } from '@chakra-ui/react'
+import { dateOfBirthQuestionCode, journalDateQuestionCode } from 'utils/constants'
 import { format, isBefore, startOfTomorrow } from 'date-fns'
 import { useEffect, useState } from 'react'
 
@@ -42,7 +43,9 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
   const includeTime = includes('LocalDateTime', typeName)
   const onlyYear = typeName === 'year'
 
-  const handleChange = e => onSendAnswer(safelyParseDate(e.target.value).toISOString())
+  const handleChange = e => {
+    if (e.target.value) onSendAnswer(safelyParseDate(e.target.value).toISOString())
+  }
 
   const maxW = useMobileValue(['', '25vw'])
 
@@ -97,7 +100,7 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
         onChange={e => setuserInput(e.target.value)}
         w="full"
         maxW={maxW}
-        max={questionCode === 'QUE_JOURNAL_DATE' ? today : ''}
+        max={questionCode === dateOfBirthQuestionCode || journalDateQuestionCode ? today : ''}
       />
       {errorStatus && (
         <Text textStyle="tail.error" mt={2}>
