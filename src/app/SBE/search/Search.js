@@ -8,6 +8,7 @@ import {
   Stack,
 } from '@chakra-ui/react'
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { isEmpty, not } from 'ramda'
 import { useRef, useState } from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -38,6 +39,8 @@ const ProcessSearch = ({ sbeCode, process, placeholder }) => {
     setSearchValue('')
     inputRef?.current?.focus()
   })
+
+  console.log(searchValue)
 
   return (
     <Stack direction="row">
@@ -75,7 +78,7 @@ const ProcessSearch = ({ sbeCode, process, placeholder }) => {
       >
         {`Search`}
       </Button>
-      {search && (
+      {not(isEmpty(searchValue)) && search && (
         <Button
           onClick={handleClear}
           leftIcon={<FontAwesomeIcon icon={faTimes} />}
