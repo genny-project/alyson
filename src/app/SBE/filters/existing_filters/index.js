@@ -1,8 +1,9 @@
+import { Wrap, WrapItem } from '@chakra-ui/react'
+
 import { Button } from '@chakra-ui/button'
-import { HStack } from '@chakra-ui/layout'
-import { WrapItem, Wrap } from '@chakra-ui/react'
-import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { HStack } from '@chakra-ui/layout'
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import { onSendMessage } from 'vertx'
 
 const ExistingFilters = ({ existingFilters }) => {
@@ -13,7 +14,7 @@ const ExistingFilters = ({ existingFilters }) => {
       <Wrap w="25vw">
         {existingFilters.childAsks.map(
           ({ sourceCode, targetCode, question: { name, attributeCode, code } }) => (
-            <WrapItem>
+            <WrapItem key={attributeCode}>
               <Button
                 variant="outline"
                 leftIcon={<FontAwesomeIcon icon={faTimesCircle} />}
