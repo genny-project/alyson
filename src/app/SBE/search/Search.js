@@ -7,6 +7,7 @@ import {
   InputRightElement,
   Stack,
 } from '@chakra-ui/react'
+import { compose, isEmpty, not } from 'ramda'
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { useRef, useState } from 'react'
 
@@ -75,7 +76,7 @@ const ProcessSearch = ({ sbeCode, process, placeholder }) => {
       >
         {`Search`}
       </Button>
-      {search && (
+      {compose(not, isEmpty)(searchValue) && search && (
         <Button
           onClick={handleClear}
           leftIcon={<FontAwesomeIcon icon={faTimes} />}

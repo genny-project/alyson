@@ -1,4 +1,5 @@
 import { Input, Text } from '@chakra-ui/react'
+import { dateOfBirthQuestionCode, journalDateQuestionCode } from 'utils/constants'
 import { format, isBefore, startOfTomorrow } from 'date-fns'
 import { includes, isEmpty } from 'ramda'
 import { useEffect, useState } from 'react'
@@ -51,7 +52,7 @@ const Write = ({
   const onlyYear = typeName === 'year'
 
   const handleChange = e => {
-    !errorStatus && onSendAnswer(safelyParseDate(e.target.value).toISOString())
+    e.target.value && !errorStatus && onSendAnswer(safelyParseDate(e.target.value).toISOString())
     isEmpty(e.target.value) ? setSaving.off() : setSaving.on()
   }
 
@@ -94,7 +95,10 @@ const Write = ({
     <DateChip
       onlyYear={onlyYear}
       includeTime={includeTime}
-      onClick={() => onSendAnswer('')}
+      onClick={() => {
+        onSendAnswer('')
+        setSaving.off()
+      }}
       date={getDate(data?.value)}
     />
   ) : onlyYear ? (
@@ -108,7 +112,7 @@ const Write = ({
         onChange={e => setuserInput(e.target.value)}
         w="full"
         maxW={maxW}
-        max={questionCode === 'QUE_JOURNAL_DATE' ? today : ''}
+        max={questionCode === dateOfBirthQuestionCode || journalDateQuestionCode ? today : ''}
       />
       {errorStatus && (
         <Text textStyle="tail.error" mt={2}>
