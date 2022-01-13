@@ -1,16 +1,16 @@
-import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
 import { Center, HStack, Text, VStack } from '@chakra-ui/layout'
 
-import { onSendMessage } from 'vertx'
-import { selectCode } from 'redux/db/selectors'
 import Attribute from 'app/BE/attribute'
 import Button from 'app/layouts/components/button'
 import Card from 'app/layouts/components/card'
+import { Link } from 'react-router-dom'
+import { onSendMessage } from 'vertx'
+import { selectCode } from 'redux/db/selectors'
+import { useSelector } from 'react-redux'
 
 const LinkedApp = () => {
   const userCode = useSelector(selectCode('USER'))
-  const linkedApp = useSelector(selectCode(userCode, 'PRI_APP_LNK_CODE'))
+  const linkedApp = useSelector(selectCode(userCode, 'LNK_APPLICATION'))
   const code = linkedApp?.value
   const menteeName = useSelector(selectCode(userCode, 'PRI_NAME'))?.value
 
@@ -31,6 +31,7 @@ const LinkedApp = () => {
           </Text>
           <VStack>
             <Text textStyle="body.1">Primary Availability</Text>
+
             <Button onClick={() => onSelect('PRI_PRIMARY_AVAILABILITY')} variant="special">
               <Attribute code={code} attribute={'PRI_PRIMARY_AVAILABILITY'} />
             </Button>
