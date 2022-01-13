@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import debounce from 'lodash.debounce'
 import { getIsInvalid } from 'utils/functions'
+import { isEmpty } from 'ramda'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useMobileValue } from 'utils/hooks'
 
@@ -11,7 +12,14 @@ export const Read = ({ data, config = {} }) => {
   return <Textarea {...config}>{data?.value || config.defaultValue}</Textarea>
 }
 
-export const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMessage }) => {
+export const Write = ({
+  questionCode,
+  data,
+  onSendAnswer,
+  regexPattern,
+  errorMessage,
+  setSaving,
+}) => {
   let regex
   const { dispatch } = useError()
   const [errorStatus, setErrorStatus] = useState(false)
@@ -41,12 +49,17 @@ export const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMes
 
   const maxW = useMobileValue(['', '25vw'])
 
+  const onBlur = e => {
+    !errorStatus && debouncedSendAnswer(e.target.value)
+    isEmpty(e.target.value) ? setSaving.off() : setSaving.on()
+  }
+
   return (
     <>
       <Textarea
         test-id={questionCode}
         ref={inputRef}
-        onBlur={e => !errorStatus && debouncedSendAnswer(e.target.value)}
+        onBlur={onBlur}
         onChange={e => setuserInput(e.target.value)}
         defaultValue={data?.value}
         maxW={maxW}

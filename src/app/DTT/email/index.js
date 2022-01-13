@@ -6,8 +6,9 @@ import Duplicates from './Duplicates'
 import { getIsInvalid } from 'utils/functions'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useMobileValue } from 'utils/hooks'
+import { isEmpty } from 'ramda'
 
-const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMessage }) => {
+const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMessage, setSaving }) => {
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value)
   const { dispatch } = useError()
@@ -24,6 +25,11 @@ const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMessage })
       : dispatch({ type: ACTIONS.SET_TO_FALSE, payload: questionCode })
   }, [dispatch, isInvalid, questionCode])
 
+  const onBlur = e => {
+    !errorStatus && onSendAnswer(e.target.value)
+    isEmpty(e.target.value) ? setSaving.off() : setSaving.on()
+  }
+
   return (
     <Box>
       <>
@@ -31,7 +37,7 @@ const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMessage })
           test-id={questionCode}
           defaultValue={data?.value}
           type="email"
-          onBlur={e => !errorStatus && onSendAnswer(e.target.value)}
+          onBlur={onBlur}
           onChange={e => setuserInput(e.target.value)}
           w="full"
           maxW={maxW}
