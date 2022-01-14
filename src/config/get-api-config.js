@@ -50,10 +50,7 @@ const getApiConfig = async () => {
   const { projectTheme } = apiConfig
   const theme = getTheme(projectTheme)
   const title = apiConfig.realm
-  // const appTitle = apiConfig.realm.charAt(0).toUpperCase() + apiConfig.realm.toLowerCase().slice(1)
   const appIcon = apiConfig.PRI_FAVICON
-
-  console.log('%c apiconfig', 'color: red; font-size: 20px', keycloak)
 
   return { keycloak, theme, title, appIcon }
 }

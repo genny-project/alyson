@@ -14,8 +14,6 @@ import {
   useBoolean,
 } from '@chakra-ui/react'
 import { faBan, faExpand, faSave, faVideo } from '@fortawesome/free-solid-svg-icons'
-import { useSelector } from 'react-redux'
-import { selectCode } from 'redux/db/selectors'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Player from './Player'
@@ -24,10 +22,11 @@ import VideoRecorder from './video_recorder'
 import configs from './configs'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import useApi from 'api'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Download from 'app/DTT/download_button'
 import getDownloadableLinkFromUrl from 'utils/helpers/get-downloadble-link'
-import getUserType from 'utils/helpers/get-user-type'
+import { useKeycloak } from '@react-keycloak/web'
+import { includes, pathOr } from 'ramda'
 
 const Write = ({ questionCode, onSendAnswer, html, data }) => {
   const config = configs[questionCode] || safelyParseJson(html, {})
@@ -151,8 +150,11 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
 
 const Read = ({ data, mini, styles, config = {} }) => {
   const api = useApi()
-  const userCode = useSelector(selectCode('USER'))
-  const userType = getUserType(useSelector(selectCode(userCode)))
+  const { keycloak } = useKeycloak()
+
+  const roles = pathOr('', ['realmAccess', 'roles'])(keycloak)
+
+  const hasDownloadableRole = includes('download')(roles)
 
   if (!data?.value) return null
 
@@ -172,7 +174,7 @@ const Read = ({ data, mini, styles, config = {} }) => {
   ) : (
     <Box>
       <Player src={src} inline={config.inline} styles={styles} />
-      {userType === 'AGENT' && <Download urlLink={downloadableLink} />}
+      {hasDownloadableRole && <Download urlLink={downloadableLink} />}
     </Box>
   )
 }
