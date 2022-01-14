@@ -23,6 +23,10 @@ import configs from './configs'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import useApi from 'api'
 import { useState } from 'react'
+import Download from 'app/DTT/download_button'
+import getDownloadableLinkFromUrl from 'utils/helpers/get-downloadble-link'
+import { useKeycloak } from '@react-keycloak/web'
+import { includes, pathOr } from 'ramda'
 
 const Write = ({ questionCode, onSendAnswer, html, data }) => {
   const config = configs[questionCode] || safelyParseJson(html, {})
@@ -146,10 +150,17 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
 
 const Read = ({ data, mini, styles, config = {} }) => {
   const api = useApi()
+  const { keycloak } = useKeycloak()
+
+  const roles = pathOr('', ['realmAccess', 'roles'])(keycloak)
+
+  const hasDownloadableRole = includes('download')(roles)
 
   if (!data?.value) return null
 
   const src = api.getVideoSrc(data?.value)
+
+  const downloadableLink = getDownloadableLinkFromUrl(src)
 
   return mini ? (
     <Popover>
@@ -161,7 +172,10 @@ const Read = ({ data, mini, styles, config = {} }) => {
       </PopoverContent>
     </Popover>
   ) : (
-    <Player src={src} inline={config.inline} styles={styles} />
+    <Box>
+      <Player src={src} inline={config.inline} styles={styles} />
+      {hasDownloadableRole && <Download urlLink={downloadableLink} />}
+    </Box>
   )
 }
 
