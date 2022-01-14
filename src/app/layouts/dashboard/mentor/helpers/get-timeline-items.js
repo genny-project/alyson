@@ -9,7 +9,7 @@ const useGetMentorTimelineItems = () => {
     verifiedStatus,
   } = useGetMentorInformation()
 
-  const isButtonEnabled = !isProfileCompleted && isStatusVerified
+  const isButtonEnabled = isProfileCompleted && isStatusVerified
 
   const items = [
     {
@@ -32,7 +32,7 @@ const useGetMentorTimelineItems = () => {
       description: 'Access different training modules under this section.',
       buttonText: 'Go to Training',
       completed: trainingStatus,
-      isDisabled: !isButtonEnabled,
+      isDisabled: !isButtonEnabled && !isProfileCompleted,
       code: 'ACT_PRI_EVENT_START_MENTOR_TRAINING',
       status: verifiedStatus,
     },
