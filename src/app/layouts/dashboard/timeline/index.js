@@ -57,7 +57,7 @@ const Timeline = ({ items }) => {
             isDisabled,
             targetCode,
             status,
-            trainingStatus,
+            completed,
           }) => (
             <Card key={title} p={4} px={5}>
               <VStack spacing={3} w="30vw" maxW={500}>
@@ -75,8 +75,8 @@ const Timeline = ({ items }) => {
                       ? 'You have already registered!'
                       : equals(buttonText, 'Mentor Selected')
                       ? 'You have already selected a Mentor!'
-                      : equals(trainingStatus, 'COMPLETE')
-                      ? 'Training is already completed.'
+                      : equals(completed, 'COMPLETE')
+                      ? 'Training has already been completed.'
                       : equals(status, 'UNVERIFIED')
                       ? 'Account verification is pending.'
                       : 'Please complete the previous steps'
