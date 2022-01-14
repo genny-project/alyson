@@ -1,27 +1,32 @@
-import { useState } from 'react'
 import {
+  Badge,
+  Box,
   Button,
+  HStack,
+  IconButton,
+  Image,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  Stack,
   Text,
   VStack,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  IconButton,
-  Badge,
-  HStack,
-  Box,
-  Image,
   useBoolean,
-  Stack,
 } from '@chakra-ui/react'
-import VideoRecorder from './video_recorder'
-import safelyParseJson from 'utils/helpers/safely-parse-json'
-import useApi from 'api'
+import { faBan, faExpand, faSave, faVideo } from '@fortawesome/free-solid-svg-icons'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faVideo, faExpand, faBan, faSave } from '@fortawesome/free-solid-svg-icons'
 import Player from './Player'
 import Upload from '../upload'
+import VideoRecorder from './video_recorder'
 import configs from './configs'
+import safelyParseJson from 'utils/helpers/safely-parse-json'
+import useApi from 'api'
+import { useState } from 'react'
+import Download from 'app/DTT/download_button'
+import getDownloadableLinkFromUrl from 'utils/helpers/get-downloadble-link'
+import { useKeycloak } from '@react-keycloak/web'
+import { includes, pathOr } from 'ramda'
 
 const Write = ({ questionCode, onSendAnswer, html, data }) => {
   const config = configs[questionCode] || safelyParseJson(html, {})
@@ -62,6 +67,7 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
             {`Re-Record`}
           </Button>
           <Button
+            test-id={questionCode + '-delete'}
             leftIcon={<FontAwesomeIcon icon={faBan} />}
             onClick={() => {
               setStartVideo(false)
@@ -77,7 +83,7 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
   if (upload)
     return (
       <VStack align="start">
-        <Button colorScheme="green" onClick={setUpload.off}>
+        <Button test-id={`${questionCode}-recorder`} colorScheme="green" onClick={setUpload.off}>
           Go back to recorder
         </Button>
         <Upload.Write video questionCode={questionCode} data={data} onSendAnswer={onSendAnswer} />
@@ -144,10 +150,17 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
 
 const Read = ({ data, mini, styles, config = {} }) => {
   const api = useApi()
+  const { keycloak } = useKeycloak()
+
+  const roles = pathOr('', ['realmAccess', 'roles'])(keycloak)
+
+  const hasDownloadableRole = includes('download')(roles)
 
   if (!data?.value) return null
 
   const src = api.getVideoSrc(data?.value)
+
+  const downloadableLink = getDownloadableLinkFromUrl(src)
 
   return mini ? (
     <Popover>
@@ -159,7 +172,10 @@ const Read = ({ data, mini, styles, config = {} }) => {
       </PopoverContent>
     </Popover>
   ) : (
-    <Player src={src} inline={config.inline} styles={styles} />
+    <Box>
+      <Player src={src} inline={config.inline} styles={styles} />
+      {hasDownloadableRole && <Download urlLink={downloadableLink} />}
+    </Box>
   )
 }
 
