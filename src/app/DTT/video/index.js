@@ -172,7 +172,7 @@ const Read = ({ data, mini, styles, config = {} }) => {
   ) : (
     <Box>
       <Player src={src} inline={config.inline} styles={styles} />
-      {userType === 'ADMIN' && <Download urlLink={downloadableLink} />}
+      {userType === 'AGENT' && <Download urlLink={downloadableLink} />}
     </Box>
   )
 }
