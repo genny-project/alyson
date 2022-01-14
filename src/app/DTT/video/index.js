@@ -14,6 +14,7 @@ import {
   useBoolean,
 } from '@chakra-ui/react'
 import { faBan, faExpand, faSave, faVideo } from '@fortawesome/free-solid-svg-icons'
+import { compose, join, split } from 'ramda'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Player from './Player'
@@ -23,6 +24,9 @@ import configs from './configs'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import useApi from 'api'
 import { useState } from 'react'
+import Download from 'app/DTT/download_button'
+
+const getDownloadableLinkFromUrl = compose(join(''), split('video/'))
 
 const Write = ({ questionCode, onSendAnswer, html, data }) => {
   const config = configs[questionCode] || safelyParseJson(html, {})
@@ -151,6 +155,10 @@ const Read = ({ data, mini, styles, config = {} }) => {
 
   const src = api.getVideoSrc(data?.value)
 
+  const downloadableLink = getDownloadableLinkFromUrl(src)
+
+  console.log('downloadableLink----->', downloadableLink)
+
   return mini ? (
     <Popover>
       <PopoverTrigger>
@@ -161,7 +169,10 @@ const Read = ({ data, mini, styles, config = {} }) => {
       </PopoverContent>
     </Popover>
   ) : (
-    <Player src={src} inline={config.inline} styles={styles} />
+    <Box>
+      <Player src={src} inline={config.inline} styles={styles} />
+      <Download urlLink={downloadableLink} />
+    </Box>
   )
 }
 

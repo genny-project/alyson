@@ -12,7 +12,6 @@ import { closeDrawer } from 'redux/app'
 import { selectCode } from 'redux/db/selectors'
 import getUserType from 'utils/helpers/get-user-type'
 import sameLength from 'redux/utils/same-length'
-import Download from 'app/DTT/download_button'
 
 const Header = ({ beCode }) => {
   const dispatch = useDispatch()
@@ -31,7 +30,6 @@ const Header = ({ beCode }) => {
             {hasVideo ? (
               <Box maxW="30vw">
                 <Attribute code={beCode} attribute="PRI_VIDEO_URL" />
-                <Download urlLink="https://www.apple.com" />
               </Box>
             ) : (
               <Center minH="10rem" w="100%">
