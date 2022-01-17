@@ -223,6 +223,7 @@ const Ask = ({
           parentCode={parentCode}
           regexPattern={regexPattern}
           errorMessage={errorMessage}
+          setSaving={setSaving}
         />
       )}
       {component === 'text' && (
@@ -266,6 +267,7 @@ const Ask = ({
           onSendAnswer={onSendAnswer}
           regexPattern={regexPattern}
           errorMessage={errorMessage}
+          setSaving={setSaving}
         />
       )}
       {(component === 'date' || component === 'year') && (

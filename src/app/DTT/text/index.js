@@ -64,6 +64,11 @@ export const Write = ({
     isEmpty(e.target.value) ? setSaving.off() : setSaving.on()
   }
 
+  useEffect(() => {
+    userInput ? setSaving.on() : setSaving.off()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <>
       <Input

@@ -91,6 +91,11 @@ const Write = ({
     }
   }, [isPreviousDate])
 
+  useEffect(() => {
+    userInput ? setSaving.on() : setSaving.off()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return isPreviousDate && data?.value ? (
     <DateChip
       onlyYear={onlyYear}

@@ -22,6 +22,7 @@ const Write = ({
   config,
   parentCode,
   attributeCode,
+  setSaving,
 }) => {
   const previousDropDownRef = useRef([])
 
@@ -85,6 +86,7 @@ const Write = ({
       ddEvent={ddEvent}
       questionCode={questionCode}
       groupCode={groupCode}
+      setSaving={setSaving}
     />
   )
 }

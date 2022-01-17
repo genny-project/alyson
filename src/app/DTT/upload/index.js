@@ -1,19 +1,21 @@
-import { useState, useEffect } from 'react'
-import ImageType from './Image'
 import {
   Button,
-  Tooltip,
-  Link,
-  HStack,
   CloseButton,
+  HStack,
+  Link,
   Progress,
-  VStack,
   Text,
+  Tooltip,
+  VStack,
 } from '@chakra-ui/react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faFileDownload, faUpload, faArrowDown } from '@fortawesome/free-solid-svg-icons'
-import useApi from 'api'
+import { compose, isEmpty, not } from 'ramda'
+import { faArrowDown, faCheck, faFileDownload, faUpload } from '@fortawesome/free-solid-svg-icons'
+import { useEffect, useState } from 'react'
+
 import DropZone from './Dropzone'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import ImageType from './Image'
+import useApi from 'api'
 
 const Read = ({ code, data, dttData, parentCode, variant, config = {} }) => {
   const typeName = dttData?.typeName
@@ -67,7 +69,7 @@ const Read = ({ code, data, dttData, parentCode, variant, config = {} }) => {
   )
 }
 
-const Write = ({ questionCode, data, dttData, onSendAnswer, video }) => {
+const Write = ({ questionCode, data, dttData, onSendAnswer, video, setSaving }) => {
   const api = useApi()
   const typeName = dttData?.typeName
 
@@ -104,7 +106,13 @@ const Write = ({ questionCode, data, dttData, onSendAnswer, video }) => {
     }
 
     setLoading(false)
+    setSaving.on()
   }
+
+  useEffect(() => {
+    compose(not, isEmpty)(data?.value) ? setSaving.on() : setSaving.off()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <div>
@@ -117,6 +125,7 @@ const Write = ({ questionCode, data, dttData, onSendAnswer, video }) => {
             onSendAnswer={onSendAnswer}
             setLoading={setLoading}
             questionCode={questionCode}
+            setSaving={setSaving}
           />
         ) : data?.value ? (
           <HStack>
