@@ -112,7 +112,7 @@ const Write = ({
         onChange={e => setuserInput(e.target.value)}
         w="full"
         maxW={maxW}
-        max={questionCode === dateOfBirthQuestionCode || journalDateQuestionCode ? today : ''}
+        max={questionCode === (dateOfBirthQuestionCode || journalDateQuestionCode) ? today : ''}
       />
       {errorStatus && (
         <Text textStyle="tail.error" mt={2}>
