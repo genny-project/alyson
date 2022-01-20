@@ -10,11 +10,9 @@ import Year from './Year'
 import getDate from 'utils/helpers/timezone_magic/get-date'
 import { getIsInvalid } from 'utils/functions'
 import safelyParseDate from 'utils/helpers/safely-parse-date'
-import { selectCode } from 'redux/db/selectors'
 import timeBasedOnTimeZone from 'utils/helpers/timezone_magic/time-based-on-timezone'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useMobileValue } from 'utils/hooks'
-import { useSelector } from 'react-redux'
 
 const Read = ({ data, typeName, config }) => {
   const includeTime = includes('LocalDateTime', typeName)
@@ -62,13 +60,8 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, setSa
 
   const eligibleAge = 18
 
-  const code = useSelector(selectCode('USER'))
-
-  const diffInYears = differenceInYears(parseISO(today), parseISO(format(inputDate, 'yyyy-MM-dd')))
-  console.log(diffInYears)
-
-  const userEligibility = useSelector(selectCode(code, ['PRI_ELIGIBLE']))?.value
-  console.log('userEligibility => ', userEligibility)
+  const formatInputDate = userInput ? format(new Date(userInput), 'yyyy-MM-dd') : today
+  const diffInYears = differenceInYears(parseISO(today), parseISO(formatInputDate))
 
   useEffect(() => {
     isInvalid ? setErrorStatus(true) : setErrorStatus(false)
@@ -96,11 +89,15 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, setSa
   }, [isPreviousDate])
 
   useEffect(() => {
-    if (!userEligibility) {
+    if (diffInYears < eligibleAge) {
       setErrorStatus(true)
       setErrorMsg(`Age cannot be less than ${eligibleAge} years.`)
+      setSaving.off()
+    } else {
+      setErrorStatus(false)
+      setSaving.on()
     }
-  }, [userEligibility])
+  }, [diffInYears, setSaving])
 
   return isPreviousDate && data?.value ? (
     <DateChip
