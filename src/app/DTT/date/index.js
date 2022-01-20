@@ -1,6 +1,6 @@
 import { Input, Text } from '@chakra-ui/react'
 import { dateOfBirthQuestionCode, journalDateQuestionCode } from 'utils/constants'
-import { format, isBefore, startOfTomorrow } from 'date-fns'
+import { differenceInYears, format, isBefore, parseISO, startOfTomorrow } from 'date-fns'
 import { includes, isEmpty } from 'ramda'
 import { useEffect, useState } from 'react'
 
@@ -10,9 +10,11 @@ import Year from './Year'
 import getDate from 'utils/helpers/timezone_magic/get-date'
 import { getIsInvalid } from 'utils/functions'
 import safelyParseDate from 'utils/helpers/safely-parse-date'
+import { selectCode } from 'redux/db/selectors'
 import timeBasedOnTimeZone from 'utils/helpers/timezone_magic/time-based-on-timezone'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useMobileValue } from 'utils/hooks'
+import { useSelector } from 'react-redux'
 
 const Read = ({ data, typeName, config }) => {
   const includeTime = includes('LocalDateTime', typeName)
@@ -32,16 +34,9 @@ const Read = ({ data, typeName, config }) => {
     </Text>
   )
 }
-const Write = ({
-  questionCode,
-  data,
-  onSendAnswer,
-  typeName,
-  regexPattern,
-  question,
-  setSaving,
-}) => {
+const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, setSaving }) => {
   let initialErrorMsg = 'You can only valid date.'
+
   const { dispatch } = useError()
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value)
@@ -65,6 +60,16 @@ const Write = ({
 
   const inputDate = new Date(userInput)
 
+  const eligibleAge = 18
+
+  const code = useSelector(selectCode('USER'))
+
+  const diffInYears = differenceInYears(parseISO(today), parseISO(format(inputDate, 'yyyy-MM-dd')))
+  console.log(diffInYears)
+
+  const userEligibility = useSelector(selectCode(code, ['PRI_ELIGIBLE']))?.value
+  console.log('userEligibility => ', userEligibility)
+
   useEffect(() => {
     isInvalid ? setErrorStatus(true) : setErrorStatus(false)
   }, [isInvalid])
@@ -78,7 +83,6 @@ const Write = ({
   useEffect(() => {
     if (questionCode === 'QUE_JOURNAL_DATE' && userInput) {
       const isDateBefore = isBefore(inputDate, tomorrowsDateInISOFormat)
-
       isDateBefore ? setIsPreviousDate(true) : setIsPreviousDate(false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -90,6 +94,13 @@ const Write = ({
       setErrorMsg('You cannot choose future date.')
     }
   }, [isPreviousDate])
+
+  useEffect(() => {
+    if (!userEligibility) {
+      setErrorStatus(true)
+      setErrorMsg(`Age cannot be less than ${eligibleAge} years.`)
+    }
+  }, [userEligibility])
 
   return isPreviousDate && data?.value ? (
     <DateChip
