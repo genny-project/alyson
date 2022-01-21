@@ -1,35 +1,30 @@
-import { HStack, useColorModeValue, Flex } from '@chakra-ui/react'
+import { Grid, useColorModeValue } from '@chakra-ui/react'
+import {
+  personalDetails,
+  preference,
+  professionalDetails,
+} from 'app/layouts/dashboard/timeline/templates/CardContent'
 
 import DetailCards from 'app/layouts/components/detail_card'
 import DetailHeader from 'app/layouts/components/detail_header'
-import {
-  personalDetails,
-  professionalDetails,
-  preference,
-} from 'app/layouts/dashboard/timeline/templates/CardContent'
 
 const DetailView = ({ beCode }) => {
   const bg = useColorModeValue('gray.100', 'gray.700')
 
   return (
-    <Flex
-      w="60vw"
-      bg={bg}
-      spacing={4}
-      py="5"
-      overflowY="scroll"
-      top="10vh"
-      flexDirection="column"
-      justifyContent="space-around"
-      alignItems="center"
-    >
+    <Grid w="60vw" bg={bg} spacing={4} p="5" overflowY="scroll" top="10vh" gap={'1em'}>
       <DetailHeader beCode={beCode} />
-      <HStack w="90%">
+      <Grid
+        w={'100%'}
+        alignItems="flex-start"
+        templateColumns={'repeat(auto-fit, minmax(10rem, 1fr))'}
+        gap={'1em'}
+      >
         <DetailCards detailsection={personalDetails} currentMentor={beCode} miniCard />
         <DetailCards detailsection={professionalDetails} currentMentor={beCode} miniCard />
-      </HStack>
+      </Grid>
       <DetailCards detailsection={preference} currentMentor={beCode} />
-    </Flex>
+    </Grid>
   )
 }
 

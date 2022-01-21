@@ -280,6 +280,7 @@ const Ask = ({
           errorMessage={errorMessage}
           question={question}
           setSaving={setSaving}
+          attributeCode={attributeCode}
         />
       )}
       {component === 'richtext_editor' && (

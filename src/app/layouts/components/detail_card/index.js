@@ -1,4 +1,4 @@
-import { HStack, Text, VStack, useColorModeValue } from '@chakra-ui/react'
+import { Grid, Text, VStack, useColorModeValue } from '@chakra-ui/react'
 
 import Attribute from 'app/BE/attribute'
 import { map } from 'ramda'
@@ -11,20 +11,25 @@ const DetailCards = ({ detailsection, currentMentor, miniCard }) => {
       boxShadow="base"
       rounded="md"
       p="5"
-      w={miniCard ? '50%' : '90%'}
+      w={'100%'}
       alignItems="flex-start"
       bg={cardsbg}
       minH={miniCard ? '17rem' : 'inherit'}
-      mb={5}
+      flex="1 1 10rem"
+      height={'100%'}
     >
       <Text textStyle="head.2" mb={5}>
         {header}
       </Text>
       {map(({ attr, label }) => (
-        <HStack key={`${label}-${attr}`}>
+        <Grid
+          templateColumns={'repeat(auto-fit, minmax(8rem, 1fr))'}
+          key={`${label}-${attr}`}
+          w={'100%'}
+        >
           <Text>{label}</Text>
           <Attribute config={{ textStyle: 'body.3' }} code={currentMentor} attribute={attr} />
-        </HStack>
+        </Grid>
       ))(attributes)}
     </VStack>
   )
