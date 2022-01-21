@@ -2,7 +2,7 @@ import { Box, Button } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDownload } from '@fortawesome/free-solid-svg-icons'
 
-const DownloadButton = ({ urlLink = 'https://www.google.com' }) => {
+const DownloadButton = ({ urlLink = 'https://internmatch.io/' }) => {
   const onClick = () => window.open(urlLink)
   return (
     <Box>
