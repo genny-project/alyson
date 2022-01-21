@@ -14,21 +14,21 @@ import {
   useBoolean,
 } from '@chakra-ui/react'
 import { faBan, faExpand, faSave, faVideo } from '@fortawesome/free-solid-svg-icons'
+import { includes, pathOr } from 'ramda'
+import { useEffect, useState } from 'react'
 
+import Download from 'app/DTT/download_button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Player from './Player'
 import Upload from '../upload'
 import VideoRecorder from './video_recorder'
 import configs from './configs'
+import getDownloadableLinkFromUrl from 'utils/helpers/get-downloadble-link'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import useApi from 'api'
-import { useState } from 'react'
-import Download from 'app/DTT/download_button'
-import getDownloadableLinkFromUrl from 'utils/helpers/get-downloadble-link'
 import { useKeycloak } from '@react-keycloak/web'
-import { includes, pathOr } from 'ramda'
 
-const Write = ({ questionCode, onSendAnswer, html, data }) => {
+const Write = ({ questionCode, onSendAnswer, html, data, setSaving }) => {
   const config = configs[questionCode] || safelyParseJson(html, {})
 
   const { postMediaFile, getSrc } = useApi()
@@ -45,9 +45,15 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
     })
 
     onSendAnswer(saveData.uuid)
+    setSaving.on()
   }
 
   const src = getSrc(data?.value)
+
+  useEffect(() => {
+    src ? setSaving.on() : setSaving.off()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   if (src)
     return (
@@ -72,6 +78,7 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
             onClick={() => {
               setStartVideo(false)
               onSendAnswer('')
+              setSaving.off()
             }}
           >
             {`Delete Video`}
@@ -86,7 +93,13 @@ const Write = ({ questionCode, onSendAnswer, html, data }) => {
         <Button test-id={`${questionCode}-recorder`} colorScheme="green" onClick={setUpload.off}>
           Go back to recorder
         </Button>
-        <Upload.Write video questionCode={questionCode} data={data} onSendAnswer={onSendAnswer} />
+        <Upload.Write
+          video
+          questionCode={questionCode}
+          data={data}
+          onSendAnswer={onSendAnswer}
+          setSaving={setSaving}
+        />
       </VStack>
     )
   return (

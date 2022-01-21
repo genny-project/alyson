@@ -4,9 +4,9 @@ import { useEffect, useState } from 'react'
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import Duplicates from './Duplicates'
 import { getIsInvalid } from 'utils/functions'
+import { isEmpty } from 'ramda'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useMobileValue } from 'utils/hooks'
-import { isEmpty } from 'ramda'
 
 const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMessage, setSaving }) => {
   const [errorStatus, setErrorStatus] = useState(false)
@@ -29,6 +29,10 @@ const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMessage, s
     !errorStatus && onSendAnswer(e.target.value)
     isEmpty(e.target.value) ? setSaving.off() : setSaving.on()
   }
+  useEffect(() => {
+    userInput ? setSaving.on() : setSaving.off()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <Box>

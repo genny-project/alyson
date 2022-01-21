@@ -110,6 +110,11 @@ const Write = ({
     }
   }
 
+  useEffect(() => {
+    userInput ? setSaving.on() : setSaving.off()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <>
       <Box

@@ -22,6 +22,7 @@ const Write = ({
   config,
   parentCode,
   attributeCode,
+  setSaving,
 }) => {
   const previousDropDownRef = useRef([])
 
@@ -63,7 +64,10 @@ const Write = ({
   if (simpleSelect)
     return (
       <CSelect
-        onChange={e => onSendAnswer(e.target.value)}
+        onChange={e => {
+          onSendAnswer(e.target.value)
+          setSaving.on()
+        }}
         placeholder={placeholder || 'Select'}
         test-id={`simpleSelect-${questionCode}`}
       >
@@ -85,6 +89,7 @@ const Write = ({
       ddEvent={ddEvent}
       questionCode={questionCode}
       groupCode={groupCode}
+      setSaving={setSaving}
     />
   )
 }

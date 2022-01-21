@@ -6,6 +6,7 @@ import {
   filter,
   find,
   includes,
+  isEmpty,
   not,
   prop,
   propEq,
@@ -35,6 +36,7 @@ const Autocomplete = ({
   placeholder,
   ddEvent,
   groupCode,
+  setSaving,
 }) => {
   const selected = defaultValue
   const [input, setInput] = useState('')
@@ -59,6 +61,7 @@ const Autocomplete = ({
   const focusInput = () => {
     if (inputRef?.current?.focus) inputRef.current.focus()
   }
+
   const toggleOpen = () => {
     setBufferDropdownOption(getUniqueValuesFromTwoArrays(getBufferedDropdownOptions)(options))
     setOpen(not)
@@ -79,6 +82,8 @@ const Autocomplete = ({
       : append(option, selected)
 
     onChange(newSelected)
+
+    compose(not, isEmpty)(newSelected) ? setSaving.on() : setSaving.off()
 
     if (!multiple) setOpen(false)
     var i = renderLabel(option)
@@ -123,6 +128,11 @@ const Autocomplete = ({
     return () => {
       document.removeEventListener('mousedown', checkDropdownOpen)
     }
+  }, [])
+
+  useEffect(() => {
+    compose(not, isEmpty)(selected) ? setSaving.on() : setSaving.off()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   var renderOptions = items.map(item => (

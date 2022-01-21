@@ -1,34 +1,47 @@
-import { useState } from 'react'
-import useApi from 'api'
 import {
   Avatar,
-  ButtonGroup,
   Button,
-  Tooltip,
-  Image,
+  ButtonGroup,
   CloseButton,
   HStack,
+  Image,
+  Tooltip,
   useColorModeValue,
 } from '@chakra-ui/react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCamera, faUpload, faUserAlt } from '@fortawesome/free-solid-svg-icons'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Snap from './Snap'
 import { onSendMessage } from 'vertx'
-import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
+import useApi from 'api'
+import { useSelector } from 'react-redux'
+import { useState } from 'react'
 
-const Write = ({ questionCode, data, openDropzone, onSendAnswer, handleSave, setLoading }) => {
+const Write = ({
+  questionCode,
+  data,
+  openDropzone,
+  onSendAnswer,
+  handleSave,
+  setLoading,
+  setSaving,
+}) => {
   const { getImageSrc } = useApi()
   const src = getImageSrc(data?.value)
 
   const [openSnap, setOpenSnap] = useState(false)
+  const onRemoveImage = () => {
+    onSendAnswer('')
+    setSaving.off()
+  }
 
   if (src)
     return (
       <HStack>
         <Avatar size="xl" src={src} />
         <Tooltip label="Click to remove">
-          <CloseButton cursor="pointer" onClick={() => onSendAnswer('')} />
+          <CloseButton cursor="pointer" onClick={onRemoveImage} />
         </Tooltip>
       </HStack>
     )

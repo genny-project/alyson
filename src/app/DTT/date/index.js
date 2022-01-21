@@ -82,6 +82,11 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, setSa
   }, [questionCode, userInput, today])
 
   useEffect(() => {
+    userInput ? setSaving.on() : setSaving.off()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
     if (!isPreviousDate) {
       setErrorStatus(true)
       setErrorMsg('You cannot choose future date.')
