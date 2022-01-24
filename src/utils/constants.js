@@ -7,3 +7,4 @@ export const quickAddItemsQuestionCode = 'QUE_QUICK_ADD_ITEMS_GRP'
 export const dashboardViewQuestion = 'QUE_DASHBOARD_VIEW'
 export const dateOfBirthQuestionCode = 'QUE_DATE_OF_BIRTH'
 export const journalDateQuestionCode = 'QUE_JOURNAL_DATE'
+export const eligibleAge = 18

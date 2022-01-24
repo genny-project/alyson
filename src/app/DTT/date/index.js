@@ -1,5 +1,5 @@
 import { Input, Text } from '@chakra-ui/react'
-import { dateOfBirthQuestionCode, journalDateQuestionCode } from 'utils/constants'
+import { dateOfBirthQuestionCode, eligibleAge, journalDateQuestionCode } from 'utils/constants'
 import { differenceInYears, format, isBefore, parseISO, startOfTomorrow } from 'date-fns'
 import { includes, isEmpty } from 'ramda'
 import { useEffect, useState } from 'react'
@@ -58,8 +58,6 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, setSa
 
   const inputDate = new Date(userInput)
 
-  const eligibleAge = 18
-
   const formatInputDate = userInput ? format(new Date(userInput), 'yyyy-MM-dd') : today
   const diffInYears = differenceInYears(parseISO(today), parseISO(formatInputDate))
 
@@ -94,14 +92,17 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, setSa
   }, [isPreviousDate])
 
   useEffect(() => {
-    if (diffInYears < eligibleAge) {
-      setErrorStatus(true)
-      setErrorMsg(`Age cannot be less than ${eligibleAge} years.`)
-      setSaving.off()
-    } else {
-      setErrorStatus(false)
-      setSaving.on()
+    if (questionCode === dateOfBirthQuestionCode) {
+      if (diffInYears < eligibleAge) {
+        setErrorStatus(true)
+        setErrorMsg(`Age cannot be less than ${eligibleAge} years.`)
+        setSaving.off()
+      } else {
+        setErrorStatus(false)
+        setSaving.on()
+      }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [diffInYears, setSaving])
 
   return isPreviousDate && data?.value ? (
@@ -125,7 +126,13 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, setSa
         onChange={e => setuserInput(e.target.value)}
         w="full"
         maxW={maxW}
-        max={questionCode === (dateOfBirthQuestionCode || journalDateQuestionCode) ? today : ''}
+        max={
+          questionCode === dateOfBirthQuestionCode
+            ? today
+            : questionCode === journalDateQuestionCode
+            ? today
+            : ''
+        }
       />
       {errorStatus && (
         <Text textStyle="tail.error" mt={2}>
