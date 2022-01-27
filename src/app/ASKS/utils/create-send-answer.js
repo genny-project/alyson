@@ -2,7 +2,7 @@ import { onSendMessage } from 'vertx'
 
 const getFormattedValue = value => (typeof value === 'object' ? JSON.stringify(value) : value)
 
-const createSendAnswer = (fieldData, { passedTargetCode, setSaving } = {}) => value => {
+const createSendAnswer = (fieldData, { passedTargetCode } = {}) => value => {
   const {
     id: askId,
     attributeCode,
@@ -29,7 +29,6 @@ const createSendAnswer = (fieldData, { passedTargetCode, setSaving } = {}) => va
     ],
     { msg_type: 'DATA_MSG', data_type: 'Answer', event_type: false, redirect: false },
   )
-  if (setSaving) setSaving.on()
 }
 
 export default createSendAnswer

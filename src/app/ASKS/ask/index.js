@@ -5,9 +5,8 @@ import {
   FormHelperText,
   FormLabel,
   HStack,
-  useBoolean,
 } from '@chakra-ui/react'
-import { faCheckCircle, faCircle } from '@fortawesome/free-solid-svg-icons'
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 
 import ABN from 'app/DTT/abn'
 import Address from 'app/DTT/address'
@@ -41,7 +40,6 @@ import getGroupCode from 'app/ASKS/utils/get-group-code'
 import { pathOr } from 'ramda'
 import { selectCode } from 'redux/db/selectors'
 import { selectHighlightedQuestion } from 'redux/app/selectors'
-import { useEffect } from 'react'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
@@ -86,12 +84,6 @@ const Ask = ({
   const errorMessage = pathOr('Please enter valid data', ['validationList', 0, 'errormsg'])(
     dataType,
   )
-  const [saving, setSaving] = useBoolean()
-
-  useEffect(() => {
-    setSaving.off()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data?.value])
 
   if (!question?.attribute) return null
 
@@ -99,7 +91,7 @@ const Ask = ({
   const { component = forcedComponent || 'text', typeName } = dataType
 
   const feedback = data?.feedback
-  const onSendAnswer = createSendAnswer(askData, { passedTargetCode, setSaving })
+  const onSendAnswer = createSendAnswer(askData, { passedTargetCode })
 
   if (readonly) {
     return (
