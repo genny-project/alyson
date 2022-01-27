@@ -15,7 +15,7 @@ import {
 } from '@chakra-ui/react'
 import { faBan, faExpand, faSave, faVideo } from '@fortawesome/free-solid-svg-icons'
 import { includes, pathOr } from 'ramda'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import Download from 'app/DTT/download_button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -49,11 +49,6 @@ const Write = ({ questionCode, onSendAnswer, html, data, setSaving }) => {
   }
 
   const src = getSrc(data?.value)
-
-  useEffect(() => {
-    src ? setSaving.on() : setSaving.off()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   if (src)
     return (
