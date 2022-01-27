@@ -1,7 +1,5 @@
 import { Input, Text } from '@chakra-ui/react'
-import { dateOfBirthQuestionCode, eligibleAge, journalDateQuestionCode } from 'utils/constants'
-import { differenceInYears, format, isBefore, parseISO, startOfTomorrow } from 'date-fns'
-import { includes, isEmpty } from 'ramda'
+import { format, isBefore, startOfTomorrow } from 'date-fns'
 import { useEffect, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
@@ -9,6 +7,7 @@ import DateChip from './DateChip'
 import Year from './Year'
 import getDate from 'utils/helpers/timezone_magic/get-date'
 import { getIsInvalid } from 'utils/functions'
+import { includes } from 'ramda'
 import safelyParseDate from 'utils/helpers/safely-parse-date'
 import timeBasedOnTimeZone from 'utils/helpers/timezone_magic/time-based-on-timezone'
 import { useError } from 'utils/contexts/ErrorContext'
@@ -32,9 +31,8 @@ const Read = ({ data, typeName, config }) => {
     </Text>
   )
 }
-const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, setSaving }) => {
+const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, question }) => {
   let initialErrorMsg = 'You can only valid date.'
-
   const { dispatch } = useError()
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value)
@@ -44,10 +42,7 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, setSa
   const includeTime = includes('LocalDateTime', typeName)
   const onlyYear = typeName === 'year'
 
-  const handleChange = e => {
-    e.target.value && !errorStatus && onSendAnswer(safelyParseDate(e.target.value).toISOString())
-    isEmpty(e.target.value) ? setSaving.off() : setSaving.on()
-  }
+  const handleChange = e => onSendAnswer(safelyParseDate(e.target.value).toISOString())
 
   const maxW = useMobileValue(['', '25vw'])
 
@@ -57,9 +52,6 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, setSa
   const tomorrowsDateInISOFormat = startOfTomorrow(today)
 
   const inputDate = new Date(userInput)
-
-  const formatInputDate = userInput ? format(new Date(userInput), 'yyyy-MM-dd') : today
-  const diffInYears = differenceInYears(parseISO(today), parseISO(formatInputDate))
 
   useEffect(() => {
     isInvalid ? setErrorStatus(true) : setErrorStatus(false)
@@ -74,15 +66,11 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, setSa
   useEffect(() => {
     if (questionCode === 'QUE_JOURNAL_DATE' && userInput) {
       const isDateBefore = isBefore(inputDate, tomorrowsDateInISOFormat)
+
       isDateBefore ? setIsPreviousDate(true) : setIsPreviousDate(false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [questionCode, userInput, today])
-
-  useEffect(() => {
-    userInput ? setSaving.on() : setSaving.off()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   useEffect(() => {
     if (!isPreviousDate) {
@@ -91,28 +79,11 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, setSa
     }
   }, [isPreviousDate])
 
-  useEffect(() => {
-    if (questionCode === dateOfBirthQuestionCode) {
-      if (diffInYears < eligibleAge) {
-        setErrorStatus(true)
-        setErrorMsg(`Age cannot be less than ${eligibleAge} years.`)
-        setSaving.off()
-      } else {
-        setErrorStatus(false)
-        setSaving.on()
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [diffInYears, setSaving])
-
   return isPreviousDate && data?.value ? (
     <DateChip
       onlyYear={onlyYear}
       includeTime={includeTime}
-      onClick={() => {
-        onSendAnswer('')
-        setSaving.off()
-      }}
+      onClick={() => onSendAnswer('')}
       date={getDate(data?.value)}
     />
   ) : onlyYear ? (
@@ -126,13 +97,7 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, setSa
         onChange={e => setuserInput(e.target.value)}
         w="full"
         maxW={maxW}
-        max={
-          questionCode === dateOfBirthQuestionCode
-            ? today
-            : questionCode === journalDateQuestionCode
-            ? today
-            : ''
-        }
+        max={questionCode === 'QUE_JOURNAL_DATE' ? today : ''}
       />
       {errorStatus && (
         <Text textStyle="tail.error" mt={2}>

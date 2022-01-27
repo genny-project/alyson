@@ -1,22 +1,13 @@
+import { useState, useEffect } from 'react'
 import { Button, Input, InputGroup, InputLeftElement, Text } from '@chakra-ui/react'
-import { useEffect, useState } from 'react'
-
-import ABNLookup from './abn_lookup'
-import { ACTIONS } from 'utils/contexts/ErrorReducer'
-import { Read } from '../text'
-import { getIsInvalid } from 'utils/functions'
-import { isEmpty } from 'ramda'
 import { useError } from 'utils/contexts/ErrorContext'
+import { getIsInvalid } from 'utils/functions'
+import { ACTIONS } from 'utils/contexts/ErrorReducer'
 
-const Write = ({
-  questionCode,
-  data,
-  onSendAnswer,
-  disabled,
-  regexPattern,
-  errorMessage,
-  setSaving,
-}) => {
+import { Read } from '../text'
+import ABNLookup from './abn_lookup'
+
+const Write = ({ questionCode, data, onSendAnswer, disabled, regexPattern, errorMessage }) => {
   let regex
   const { dispatch } = useError()
   const [errorStatus, setErrorStatus] = useState(false)
@@ -48,11 +39,6 @@ const Write = ({
   const open = () => setIsOpen(true)
   const close = () => setIsOpen(false)
 
-  const onBlur = e => {
-    !errorStatus && onSendAnswer(e.target.value)
-    isEmpty(e.target.value) ? setSaving.off() : setSaving.on()
-  }
-
   return (
     <>
       <ABNLookup
@@ -79,7 +65,7 @@ const Write = ({
           pl="10rem"
           value={value}
           onChange={e => setValue(e.target.value)}
-          onBlur={onBlur}
+          onBlur={e => onSendAnswer(e.target.value)}
         />
       </InputGroup>
       {errorStatus && (
