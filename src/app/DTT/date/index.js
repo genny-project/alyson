@@ -120,6 +120,9 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, setSa
   ) : (
     <>
       <Input
+        onKeyDown={e => {
+          e.preventDefault()
+        }}
         test-id={questionCode}
         type={includeTime ? 'datetime-local' : 'date'}
         onBlur={handleChange}
