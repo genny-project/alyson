@@ -73,7 +73,7 @@ const Rep = ({ sbeCode, targetCode }) => {
         leftIcon={<FontAwesomeIcon icon={faDownload} />}
         onClick={() => onSendMessage({ targetCode, parentCode: sbeCode, code: 'ACT_HCS_DOC' })}
       >
-        Host Company Service Agreement
+        {`Host Company Service Agreement`}
       </Button>
     ) : (
       <Button
@@ -81,7 +81,7 @@ const Rep = ({ sbeCode, targetCode }) => {
         leftIcon={<FontAwesomeIcon icon={faEdit} />}
         onClick={() => onSendMessage({ targetCode, parentCode: sbeCode, code: 'ACT_HCS_DOC' })}
       >
-        Host Company Service Agreement
+        {`Host Company Service Agreement`}
       </Button>
     )
 
