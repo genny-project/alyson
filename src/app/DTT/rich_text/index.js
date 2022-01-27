@@ -22,7 +22,6 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import { ContentState, EditorState, convertFromHTML, convertToRaw } from 'draft-js'
-import { isEmpty, isNil } from 'ramda'
 import { useEffect, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
@@ -44,7 +43,6 @@ const Write = ({
   regexPattern,
   errorMessage,
   placeholder,
-  setSaving,
 }) => {
   const { minCharacterCount = 0, maxCharacterCount } = safelyParseJson(html, {})
   const blocksFromHTML = convertFromHTML(data?.value || '')
@@ -98,22 +96,15 @@ const Write = ({
 
   const curLength = userInputWithoutLineBreaks?.length
 
-  const handleSave = e => {
+  const handleSave = () => {
     if (minCharacterCount || maxCharacterCount) {
       if (minCharacterCount < curLength && curLength < maxCharacterCount) {
-        !errorStatus && onSendAnswer(stateToHTML(editor.getCurrentContent()))
-        isEmpty(data?.value) || isNil(data?.value) ? setSaving.off() : setSaving.on()
+        onSendAnswer(stateToHTML(editor.getCurrentContent()))
       }
     } else {
-      !errorStatus && onSendAnswer(stateToHTML(editor.getCurrentContent()))
-      isEmpty(data?.value) || isNil(data?.value) ? setSaving.off() : setSaving.on()
+      onSendAnswer(stateToHTML(editor.getCurrentContent()))
     }
   }
-
-  useEffect(() => {
-    userInput ? setSaving.on() : setSaving.off()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   return (
     <>

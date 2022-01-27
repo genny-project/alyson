@@ -5,18 +5,10 @@ import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import DetailViewTags from 'app/DTT/text/detailview_tags'
 import debounce from 'lodash.debounce'
 import { getIsInvalid } from 'utils/functions'
-import { isEmpty } from 'ramda'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useMobileValue } from 'utils/hooks'
 
-export const Write = ({
-  questionCode,
-  data,
-  onSendAnswer,
-  regexPattern,
-  errorMessage,
-  setSaving,
-}) => {
+export const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMessage }) => {
   let regex
   const { dispatch } = useError()
   const [errorStatus, setErrorStatus] = useState(false)
@@ -59,22 +51,12 @@ export const Write = ({
 
   const maxW = useMobileValue(['', '25vw'])
 
-  const onBlur = e => {
-    !errorStatus && debouncedSendAnswer(e.target.value)
-    isEmpty(e.target.value) ? setSaving.off() : setSaving.on()
-  }
-
-  useEffect(() => {
-    userInput ? setSaving.on() : setSaving.off()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
   return (
     <>
       <Input
         test-id={questionCode}
         ref={inputRef}
-        onBlur={onBlur}
+        onBlur={e => !errorStatus && debouncedSendAnswer(e.target.value)}
         onChange={e => setuserInput(e.target.value)}
         defaultValue={data?.value}
         w="full"
