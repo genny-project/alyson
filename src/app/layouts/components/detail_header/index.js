@@ -1,8 +1,8 @@
-import { useSelector } from 'react-redux'
-import { VStack, Flex, Spacer } from '@chakra-ui/react'
+import { Grid, Spacer, VStack } from '@chakra-ui/react'
 
 import Attribute from 'app/BE/attribute'
 import { selectCode } from 'redux/db/selectors'
+import { useSelector } from 'react-redux'
 
 const DetailHeader = ({ beCode }) => {
   const name = useSelector(selectCode(beCode, 'PRI_NAME'))?.value
@@ -10,8 +10,15 @@ const DetailHeader = ({ beCode }) => {
   return (
     <>
       {video ? (
-        <Flex w="90%" justifyContent="space-between" bg="gradient.900" mb={5}>
-          <VStack justifyContent="center" spacing={5} m="auto">
+        <Grid
+          w="95%"
+          justifyContent="space-between"
+          bg="gradient.900"
+          mb={5}
+          templateColumns={'1fr 2fr'}
+          gap={'1rem'}
+        >
+          <VStack justifyContent="center" spacing={5} m="auto" paddingX={'0.5rem'}>
             <Attribute
               config={{ size: 'xl', name: name }}
               code={beCode}
@@ -22,7 +29,7 @@ const DetailHeader = ({ beCode }) => {
           <VStack>
             <Attribute code={beCode} attribute="PRI_VIDEO_URL" />
           </VStack>
-        </Flex>
+        </Grid>
       ) : (
         <VStack mb={5}>
           <Attribute

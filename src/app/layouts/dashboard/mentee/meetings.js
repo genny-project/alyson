@@ -1,5 +1,5 @@
 import { Box, HStack, Text, VStack } from '@chakra-ui/react'
-import { find, includes, map } from 'ramda'
+import { find, includes, isEmpty, map } from 'ramda'
 import { selectCode, selectRows } from 'redux/db/selectors'
 
 import Attribute from 'app/BE/attribute'
@@ -17,7 +17,7 @@ const Meetings = () => {
   const meetingsSbe = dashboardSbes && find(includes('_MENTORING_MEETINGS_'))(dashboardSbes)
   const meetings = useSelector(selectRows(meetingsSbe))
 
-  return meetings.length === 0 ? (
+  return Array.isArray(meetings) && isEmpty(meetings) ? (
     <Box h="inherit" w="40%" ml={2}>
       <Card position="sticky" top="10vh">
         <VStack spacing={5}>

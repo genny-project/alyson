@@ -1,19 +1,20 @@
-import { IconButton } from '@chakra-ui/button'
-import { Image } from '@chakra-ui/image'
 import { Box, Center, HStack, Text, VStack, Wrap, WrapItem } from '@chakra-ui/layout'
-import { Progress } from '@chakra-ui/progress'
+import { dec, inc } from 'ramda'
 import { faArrowAltCircleLeft, faArrowCircleRight } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 import Button from 'app/layouts/components/button'
 import Card from 'app/layouts/components/card'
-import { dec, inc } from 'ramda'
-import { useState } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { IconButton } from '@chakra-ui/button'
+import { Image } from '@chakra-ui/image'
+import { Progress } from '@chakra-ui/progress'
 import ReactPlayer from 'react-player'
-import { useSelector } from 'react-redux'
-import { selectCode } from 'redux/db/selectors'
 import getYtThumbnail from 'utils/helpers/get-yt-thumbnail'
-import { useIsMobile } from 'utils/hooks'
 import { onSendMessage } from 'vertx'
+import { selectCode } from 'redux/db/selectors'
+import { useIsMobile } from 'utils/hooks'
+import { useSelector } from 'react-redux'
+import { useState } from 'react'
 
 const VideoModules = ({ questionCode }) => {
   const title = useSelector(selectCode(questionCode, 'title'))
@@ -94,7 +95,7 @@ const VideoModules = ({ questionCode }) => {
               </Text>
               <Box h="69.69vh" nice="true" overflowY="scroll">
                 {groups.map(({ label, video: { url } }, idx) => (
-                  <Box w="20rem">
+                  <Box key={idx} w="20rem">
                     <Card
                       onClick={() => setGroup(idx)}
                       variant={group === idx ? 'card0' : 'card1'}
