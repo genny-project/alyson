@@ -55,6 +55,7 @@ export const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMes
     <>
       <Input
         test-id={questionCode}
+        id={questionCode}
         ref={inputRef}
         onBlur={e => !errorStatus && debouncedSendAnswer(e.target.value)}
         onChange={e => setuserInput(e.target.value)}

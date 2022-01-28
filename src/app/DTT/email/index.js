@@ -29,6 +29,7 @@ const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMessage })
       <>
         <Input
           test-id={questionCode}
+          id={questionCode}
           defaultValue={data?.value}
           type="email"
           onBlur={e => !errorStatus && onSendAnswer(e.target.value)}
