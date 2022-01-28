@@ -5,12 +5,14 @@ import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import Duplicates from './Duplicates'
 import { getIsInvalid } from 'utils/functions'
 import { useError } from 'utils/contexts/ErrorContext'
+import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
 
 const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMessage }) => {
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value)
   const { dispatch } = useError()
+  const { dispatchFieldMessage } = useIsFieldNotEmpty()
   const isInvalid = getIsInvalid(userInput)(RegExp(regexPattern))
   const maxW = useMobileValue(['', '25vw'])
 
@@ -32,7 +34,10 @@ const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMessage })
           id={questionCode}
           defaultValue={data?.value}
           type="email"
-          onBlur={e => !errorStatus && onSendAnswer(e.target.value)}
+          onBlur={e => {
+            !errorStatus && onSendAnswer(e.target.value)
+            dispatchFieldMessage({ payload: questionCode })
+          }}
           onChange={e => setuserInput(e.target.value)}
           w="full"
           maxW={maxW}
