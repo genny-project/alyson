@@ -13,4 +13,4 @@ const IsFieldEmptyProvider = ({ children }) => {
 
 export default IsFieldEmptyProvider
 
-export const useError = () => useContext(IsFieldEmpty)
+export const useIsFieldEmpty = () => useContext(IsFieldEmpty)
