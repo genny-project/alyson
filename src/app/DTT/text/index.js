@@ -6,20 +6,15 @@ import DetailViewTags from 'app/DTT/text/detailview_tags'
 import debounce from 'lodash.debounce'
 import { getIsInvalid } from 'utils/functions'
 import { useError } from 'utils/contexts/ErrorContext'
-import { useIsFieldEmpty } from 'utils/contexts/IsFieldEmptyContext'
+import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
 
 export const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMessage }) => {
   let regex
   const { dispatch } = useError()
-  const { fieldState, dispatchFieldMessage } = useIsFieldEmpty()
+  const { dispatchFieldMessage } = useIsFieldNotEmpty()
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value)
-
-  console.log('%c FieldState ====>', 'color: pink; font-size: 20px', {
-    fieldState,
-    dispatchFieldMessage,
-  })
 
   try {
     regex = RegExp(regexPattern)

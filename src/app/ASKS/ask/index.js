@@ -41,6 +41,7 @@ import { pathOr } from 'ramda'
 import { selectCode } from 'redux/db/selectors'
 import { selectHighlightedQuestion } from 'redux/app/selectors'
 import { useError } from 'utils/contexts/ErrorContext'
+import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 
@@ -55,8 +56,15 @@ const Ask = ({
   forcedComponent,
 }) => {
   const { errorState } = useError()
-  const failedValidation = errorState[passedQuestionCode]
+  const { fieldState } = useIsFieldNotEmpty()
 
+  const failedValidation = errorState[passedQuestionCode]
+  const fieldNotEmpty = fieldState[passedQuestionCode]
+  console.log('%c FieldState ====>', 'color: tomato; font-size: 20px', {
+    fieldState,
+    fieldNotEmpty,
+    passedQuestionCode,
+  })
   const askData = useSelector(selectCode(parentCode, passedQuestionCode)) || passedAskData
 
   const {
@@ -152,7 +160,7 @@ const Ask = ({
     >
       <HStack justify="space-between" display={noLabel ? 'none' : 'flex'} w={labelWidth}>
         <FormLabel id={attributeCode}>{name}</FormLabel>
-        {data?.value && !failedValidation ? (
+        {!failedValidation && fieldNotEmpty ? (
           <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
         ) : null}
       </HStack>

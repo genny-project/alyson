@@ -11,7 +11,7 @@ import { ReactKeycloakProvider } from '@react-keycloak/web'
 import getApiConfig from 'config/get-api-config'
 import { initLog } from 'utils/log'
 import ErrorContextProvider from 'utils/contexts/ErrorContext'
-import IsFieldEmptyProvider from 'utils/contexts/IsFieldEmptyContext'
+import IsFieldNotEmptyProvider from 'utils/contexts/IsFieldNotEmptyContext'
 
 LogRocket.init('geop13/internmatch')
 
@@ -27,9 +27,9 @@ const initialiseApp = async () => {
           <ColorModeScript initialColorMode={theme.config.initialColorMode} />
           <ReactKeycloakProvider authClient={keycloak} LoadingComponent={<Loading />}>
             <ErrorContextProvider>
-              <IsFieldEmptyProvider>
+              <IsFieldNotEmptyProvider>
                 <App title={title} />
-              </IsFieldEmptyProvider>
+              </IsFieldNotEmptyProvider>
             </ErrorContextProvider>
           </ReactKeycloakProvider>
         </ChakraProvider>
