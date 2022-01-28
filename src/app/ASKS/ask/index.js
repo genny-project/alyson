@@ -60,11 +60,7 @@ const Ask = ({
 
   const failedValidation = errorState[passedQuestionCode]
   const fieldNotEmpty = fieldState[passedQuestionCode]
-  console.log('%c FieldState ====>', 'color: tomato; font-size: 20px', {
-    fieldState,
-    fieldNotEmpty,
-    passedQuestionCode,
-  })
+
   const askData = useSelector(selectCode(parentCode, passedQuestionCode)) || passedAskData
 
   const {
