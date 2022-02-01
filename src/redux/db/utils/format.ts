@@ -19,6 +19,11 @@ export const formatBaseEntity = (
   if (aliasCode) state[aliasCode] = code
   if (!state[code]) state[code] = []
 
+  const allAttributesKey = `${code}@allAttributes`
+  if (!state[allAttributesKey]) {
+    state[allAttributesKey] = baseEntityAttributes
+  }
+
   if (parentCode) {
     const rowKey = `${parentCode}@rows`
     if (!state[rowKey]) state[rowKey] = []
