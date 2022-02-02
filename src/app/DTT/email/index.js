@@ -16,6 +16,11 @@ const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMessage })
   const isInvalid = getIsInvalid(userInput)(RegExp(regexPattern))
   const maxW = useMobileValue(['', '25vw'])
 
+  const onBlur = e => {
+    !errorStatus && onSendAnswer(e.target.value)
+    dispatchFieldMessage({ payload: questionCode })
+  }
+
   useEffect(() => {
     isInvalid ? setErrorStatus(true) : setErrorStatus(false)
   }, [isInvalid])
@@ -34,10 +39,7 @@ const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMessage })
           id={questionCode}
           defaultValue={data?.value}
           type="email"
-          onBlur={e => {
-            !errorStatus && onSendAnswer(e.target.value)
-            dispatchFieldMessage({ payload: questionCode })
-          }}
+          onBlur={onBlur}
           onChange={e => setuserInput(e.target.value)}
           w="full"
           maxW={maxW}

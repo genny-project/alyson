@@ -1,6 +1,6 @@
-import { useRef, useEffect } from 'react'
-import { Input } from '@chakra-ui/react'
+import { useEffect, useRef } from 'react'
 
+import { Input } from '@chakra-ui/react'
 import makeAddressData from './make-address-data'
 import { useMobileValue } from 'utils/hooks'
 
@@ -42,6 +42,7 @@ const AddressPicker = ({ onSendAnswer, data, questionCode }) => {
 
   return (
     <Input
+      id={questionCode}
       test-id={questionCode}
       defaultValue={data?.value}
       ref={autoCompleteRef}

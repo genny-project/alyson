@@ -1,5 +1,6 @@
 import { Input, Text } from '@chakra-ui/react'
-import { format, isBefore, startOfTomorrow } from 'date-fns'
+import { dateOfBirthQuestionCode, eligibleAge, journalDateQuestionCode } from 'utils/constants'
+import { differenceInYears, format, isBefore, parseISO, startOfTomorrow } from 'date-fns'
 import { useEffect, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
@@ -11,6 +12,7 @@ import { includes } from 'ramda'
 import safelyParseDate from 'utils/helpers/safely-parse-date'
 import timeBasedOnTimeZone from 'utils/helpers/timezone_magic/time-based-on-timezone'
 import { useError } from 'utils/contexts/ErrorContext'
+import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
 
 const Read = ({ data, typeName, config }) => {
@@ -34,6 +36,7 @@ const Read = ({ data, typeName, config }) => {
 const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, question }) => {
   let initialErrorMsg = 'You can only valid date.'
   const { dispatch } = useError()
+  const { dispatchFieldMessage } = useIsFieldNotEmpty()
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value)
   const [isPreviousDate, setIsPreviousDate] = useState(true)
@@ -42,7 +45,10 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
   const includeTime = includes('LocalDateTime', typeName)
   const onlyYear = typeName === 'year'
 
-  const handleChange = e => onSendAnswer(safelyParseDate(e.target.value).toISOString())
+  const handleChange = e => {
+    !errorStatus && onSendAnswer(safelyParseDate(e.target.value).toISOString())
+    dispatchFieldMessage({ payload: questionCode })
+  }
 
   const maxW = useMobileValue(['', '25vw'])
 
@@ -50,8 +56,9 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
 
   const today = format(new Date(), 'yyyy-MM-dd')
   const tomorrowsDateInISOFormat = startOfTomorrow(today)
-
   const inputDate = new Date(userInput)
+  const formatInputDate = userInput ? format(new Date(userInput), 'yyyy-MM-dd') : today
+  const diffInYears = differenceInYears(parseISO(today), parseISO(formatInputDate))
 
   useEffect(() => {
     isInvalid ? setErrorStatus(true) : setErrorStatus(false)
@@ -79,6 +86,17 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
     }
   }, [isPreviousDate])
 
+  useEffect(() => {
+    if (questionCode === dateOfBirthQuestionCode) {
+      if (diffInYears < eligibleAge) {
+        setErrorStatus(true)
+        setErrorMsg(`Age cannot be less than ${eligibleAge} years.`)
+      } else {
+        setErrorStatus(false)
+      }
+    }
+  }, [diffInYears, questionCode])
+
   return isPreviousDate && data?.value ? (
     <DateChip
       onlyYear={onlyYear}
@@ -91,13 +109,21 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
   ) : (
     <>
       <Input
+        id={questionCode}
+        onKeyDown={e => e.preventDefault()}
         test-id={questionCode}
         type={includeTime ? 'datetime-local' : 'date'}
         onBlur={handleChange}
         onChange={e => setuserInput(e.target.value)}
         w="full"
         maxW={maxW}
-        max={questionCode === 'QUE_JOURNAL_DATE' ? today : ''}
+        max={
+          questionCode === journalDateQuestionCode
+            ? today
+            : questionCode === dateOfBirthQuestionCode
+            ? today
+            : ''
+        }
       />
       {errorStatus && (
         <Text textStyle="tail.error" mt={2}>

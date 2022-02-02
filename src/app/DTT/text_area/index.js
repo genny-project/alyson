@@ -5,6 +5,7 @@ import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import debounce from 'lodash.debounce'
 import { getIsInvalid } from 'utils/functions'
 import { useError } from 'utils/contexts/ErrorContext'
+import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
 
 export const Read = ({ data, config = {} }) => {
@@ -16,6 +17,7 @@ export const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMes
   const { dispatch } = useError()
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value)
+  const { dispatchFieldMessage } = useIsFieldNotEmpty()
 
   try {
     regex = RegExp(regexPattern)
@@ -41,12 +43,18 @@ export const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMes
 
   const maxW = useMobileValue(['', '25vw'])
 
+  const onBlur = e => {
+    !errorStatus && debouncedSendAnswer(e.target.value)
+    dispatchFieldMessage({ payload: questionCode })
+  }
+
   return (
     <>
       <Textarea
+        id={questionCode}
         test-id={questionCode}
         ref={inputRef}
-        onBlur={e => !errorStatus && debouncedSendAnswer(e.target.value)}
+        onBlur={onBlur}
         onChange={e => setuserInput(e.target.value)}
         defaultValue={data?.value}
         maxW={maxW}

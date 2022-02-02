@@ -6,7 +6,6 @@ import {
   FormLabel,
   HStack,
 } from '@chakra-ui/react'
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 
 import ABN from 'app/DTT/abn'
 import Address from 'app/DTT/address'
@@ -36,6 +35,7 @@ import URL from 'app/DTT/url'
 import Upload from 'app/DTT/upload'
 import Video from 'app/DTT/video'
 import createSendAnswer from 'app/ASKS/utils/create-send-answer'
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import getGroupCode from 'app/ASKS/utils/get-group-code'
 import { pathOr } from 'ramda'
 import { selectCode } from 'redux/db/selectors'
