@@ -19,18 +19,17 @@ const Views = () => {
 
   console.log('sidebarPcm', mappedPcm)
 
-  const { PRI_LOC1, PRI_LOC2, PRI_LOC3, PRI_LOC4, PRI_LOC5, PRI_LOC6 } = mappedPcm
+  const {
+    PRI_LOC1,
+    PRI_LOC2,
+    PRI_LOC3,
+    PRI_LOC4,
+    PRI_LOC5,
+    PRI_LOC6,
+    PRI_TEMPLATE_CODE: code,
+  } = mappedPcm
 
-  const buttonsArray = [
-    'QUE_DASHBOARD_VIEW',
-    'QUE_TAB_BUCKET_VIEW',
-    'QUE_TREE_ITEM_CONTACTS_GRP',
-    'QUE_TREE_ITEM_INTERNSHIPS',
-    'QUE_TREE_ITEM_HOST_COMPANIES',
-    'QUE_TREE_ITEM_EDU_PROVIDERS',
-  ]
-
-  return (
+  const TemplateOne = () => (
     <HStack zIndex="toast" spacing={8}>
       <NavButton code={PRI_LOC1} questionCode={NAV_Q_CODE} />
       <NavButton code={PRI_LOC2} questionCode={NAV_Q_CODE} />
@@ -40,6 +39,36 @@ const Views = () => {
       <NavButton code={PRI_LOC6} questionCode={NAV_Q_CODE} />
     </HStack>
   )
+
+  const TemplateTwo = () => (
+    <HStack zIndex="toast" spacing={8}>
+      <NavButton code={PRI_LOC2} questionCode={NAV_Q_CODE} />
+      <NavButton code={PRI_LOC3} questionCode={NAV_Q_CODE} />
+      <NavButton code={PRI_LOC4} questionCode={NAV_Q_CODE} />
+      <NavButton code={PRI_LOC5} questionCode={NAV_Q_CODE} />
+      <NavButton code={PRI_LOC6} questionCode={NAV_Q_CODE} />
+      <NavButton code={PRI_LOC1} questionCode={NAV_Q_CODE} />
+    </HStack>
+  )
+
+  const DefaultTemplate = () => (
+    <HStack zIndex="toast" spacing={8}>
+      <NavButton code={PRI_LOC1} questionCode={NAV_Q_CODE} />
+      <NavButton code={PRI_LOC2} questionCode={NAV_Q_CODE} />
+      <NavButton code={PRI_LOC3} questionCode={NAV_Q_CODE} />
+      <NavButton code={PRI_LOC4} questionCode={NAV_Q_CODE} />
+      <NavButton code={PRI_LOC5} questionCode={NAV_Q_CODE} />
+      <NavButton code={PRI_LOC6} questionCode={NAV_Q_CODE} />
+    </HStack>
+  )
+
+  if (sidebarPcm) {
+    if (code === 'TPL_WEST') return <TemplateOne />
+
+    if (code === 'TPL_WEST_TWO') return <TemplateTwo />
+  }
+
+  return <DefaultTemplate />
 }
 
 export default Views
