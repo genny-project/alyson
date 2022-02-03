@@ -232,6 +232,11 @@ const DesktopNav = ({ logoSrc }) => {
       return (
         <TemplateTwo logoSrc={logoSrc} userType={userType} realm={realm} mappedPcm={mappedPcm} />
       )
+
+    if (code === 'TPL_NORTH_THREE')
+      return (
+        <TemplateOne logoSrc={logoSrc} userType={userType} realm={realm} mappedPcm={mappedPcm} />
+      )
   }
 
   return <Default logoSrc={logoSrc} userType={userType} realm={realm} />
