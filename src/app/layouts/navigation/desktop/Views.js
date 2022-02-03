@@ -1,5 +1,5 @@
 import { HStack } from '@chakra-ui/layout'
-import { find, includes } from 'ramda'
+import { find, includes, reduce } from 'ramda'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import NavButton from './NavButton'
@@ -9,9 +9,17 @@ const NAV_Q_CODE = 'QUE_PROJECT_SIDEBAR_GRP'
 const Views = () => {
   const allPcmCode = useSelector(selectCode(`PCMINFORMATION`)) || []
 
-  const sidebarPcm = find(includes('_SIDEBAR'))(allPcmCode)
+  const sidebarPcmCode = find(includes('_SIDEBAR'))(allPcmCode)
+  const sidebarPcm = useSelector(selectCode(sidebarPcmCode, 'allAttributes'))
 
-  console.log('sidebarPcm', sidebarPcm)
+  const mappedPcm = reduce((acc, { attributeCode, valueString }) => {
+    acc = { ...acc, [attributeCode]: valueString }
+    return acc
+  }, {})(sidebarPcm || [])
+
+  console.log('sidebarPcm', mappedPcm)
+
+  const { PRI_LOC1, PRI_LOC2, PRI_LOC3, PRI_LOC4, PRI_LOC5, PRI_LOC6 } = mappedPcm
 
   const buttonsArray = [
     'QUE_DASHBOARD_VIEW',
@@ -24,12 +32,12 @@ const Views = () => {
 
   return (
     <HStack zIndex="toast" spacing={8}>
-      <NavButton code={`QUE_DASHBOARD_VIEW`} questionCode={NAV_Q_CODE} />
-      <NavButton code={`QUE_TAB_BUCKET_VIEW`} questionCode={NAV_Q_CODE} />
-      <NavButton code={`QUE_TREE_ITEM_CONTACTS_GRP`} questionCode={NAV_Q_CODE} />
-      <NavButton code={`QUE_TREE_ITEM_INTERNSHIPS`} questionCode={NAV_Q_CODE} />
-      <NavButton code={`QUE_TREE_ITEM_HOST_COMPANIES`} questionCode={NAV_Q_CODE} />
-      <NavButton code={`QUE_TREE_ITEM_EDU_PROVIDERS`} questionCode={NAV_Q_CODE} />
+      <NavButton code={PRI_LOC1} questionCode={NAV_Q_CODE} />
+      <NavButton code={PRI_LOC2} questionCode={NAV_Q_CODE} />
+      <NavButton code={PRI_LOC3} questionCode={NAV_Q_CODE} />
+      <NavButton code={PRI_LOC4} questionCode={NAV_Q_CODE} />
+      <NavButton code={PRI_LOC5} questionCode={NAV_Q_CODE} />
+      <NavButton code={PRI_LOC6} questionCode={NAV_Q_CODE} />
     </HStack>
   )
 }

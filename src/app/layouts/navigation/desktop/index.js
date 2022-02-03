@@ -215,17 +215,17 @@ const DesktopNav = ({ logoSrc }) => {
 
   const allPcmCode = useSelector(selectCode(`PCMINFORMATION`)) || []
 
-  const headerPcm = find(includes('_HEADER'))(allPcmCode)
+  const headerPcmCode = find(includes('_HEADER'))(allPcmCode)
 
-  const testPcm = useSelector(selectCode(headerPcm, 'allAttributes'))
+  const headerPcm = useSelector(selectCode(headerPcmCode, 'allAttributes'))
   const mappedPcm = reduce((acc, { attributeCode, valueString }) => {
     acc = { ...acc, [attributeCode]: valueString }
     return acc
-  }, {})(testPcm || [])
+  }, {})(headerPcm || [])
 
   const { PRI_TEMPLATE_CODE: code } = mappedPcm
 
-  if (testPcm && userType === 'AGENT') {
+  if (headerPcm && userType === 'AGENT') {
     if (code === 'TPL_NORTH') return <Default logoSrc={logoSrc} userType={userType} realm={realm} />
 
     if (code === 'TPL_NORTH_TWO')
