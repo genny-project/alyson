@@ -224,10 +224,7 @@ const DesktopNav = ({ logoSrc }) => {
   const { PRI_TEMPLATE_CODE: code } = mappedPcm
 
   if (testPcm && userType === 'AGENT') {
-    if (code === 'TPL_NORTH')
-      return (
-        <TemplateOne logoSrc={logoSrc} userType={userType} realm={realm} mappedPcm={mappedPcm} />
-      )
+    if (code === 'TPL_NORTH') return <Default logoSrc={logoSrc} userType={userType} realm={realm} />
 
     if (code === 'TPL_NORTH_TWO')
       return (
