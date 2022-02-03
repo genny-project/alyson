@@ -16,9 +16,7 @@ import useUserType from 'utils/helpers/user-type'
 import { reduce } from 'ramda'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
-
-//get the pcm type from the backend and replace the hardcoded value.
-const pcmCode = 'PCM_HEADER'
+import { find, includes } from 'ramda'
 
 //get this mapped object from the backend and replace the hardcoded object.
 
@@ -215,7 +213,11 @@ const DesktopNav = ({ logoSrc }) => {
   const userType = useUserType()
   const realm = useGetRealm()
 
-  const testPcm = useSelector(selectCode(pcmCode, 'allAttributes'))
+  const allPcmCode = useSelector(selectCode(`PCMINFORMATION`)) || []
+
+  const headerPcm = find(includes('_HEADER'))(allPcmCode)
+
+  const testPcm = useSelector(selectCode(headerPcm, 'allAttributes'))
   const mappedPcm = reduce((acc, { attributeCode, valueString }) => {
     acc = { ...acc, [attributeCode]: valueString }
     return acc

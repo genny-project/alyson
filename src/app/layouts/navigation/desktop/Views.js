@@ -1,5 +1,5 @@
 import { HStack } from '@chakra-ui/layout'
-import { find, inc, includes } from 'ramda'
+import { find, includes } from 'ramda'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import NavButton from './NavButton'
@@ -7,9 +7,9 @@ import NavButton from './NavButton'
 const NAV_Q_CODE = 'QUE_PROJECT_SIDEBAR_GRP'
 
 const Views = () => {
-  const allPcms = useSelector(selectCode(`PCMINFORMATION`)) || []
+  const allPcmCode = useSelector(selectCode(`PCMINFORMATION`)) || []
 
-  const sidebarPcm = find(includes('_SIDEBAR'))(allPcms)
+  const sidebarPcm = find(includes('_SIDEBAR'))(allPcmCode)
 
   console.log('sidebarPcm', sidebarPcm)
 
