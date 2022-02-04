@@ -6,9 +6,16 @@ import {
   faFile,
   faGraduationCap,
   faUser,
+  faPlus,
+  faSearch,
+  faPhoneAlt,
+  faEnvelope,
+  faMapMarkerAlt,
 } from '@fortawesome/free-solid-svg-icons'
 
 import DetailLayout from '../layout'
+import { Avatar, Button, Box, Text, VStack, Center, HStack, Spacer } from '@chakra-ui/react'
+import Rating from 'app/DTT/rating'
 
 const contactDetails = {
   header: 'Contact Details',
@@ -74,7 +81,81 @@ const details = [
 ]
 
 const Intern = ({ sbeCode, targetCode }) => {
-  return <DetailLayout sbeCode={sbeCode} targetCode={targetCode} details={details} />
+  return (
+    <Box h="90vh" bg="tomato">
+      <Center>
+        <VStack w="1166px" bg="silver">
+          <HStack w="100%" h="227px" bg="white" p="2" spacing="5">
+            <Avatar
+              width="189px"
+              height="190px"
+              name="Dan Abrahmov"
+              src="https://bit.ly/dan-abramov"
+            />
+            <VStack spacing="1">
+              <Text alignSelf="start" fontSize="24px" fontWeight="700" fontStyle="normal">
+                {`Gerard (Yumi) Holland`}
+              </Text>
+              <Text alignSelf="start" fontSize="18px" fontWeight="400" fontStyle="normal">
+                {`Front End Developer`}
+              </Text>
+              <Text
+                alignSelf="start"
+                fontSize="16px"
+                fontWeight="normal"
+                fontStyle="normal"
+                opacity="0.5"
+              >
+                {`The University of Melbourne`}
+              </Text>
+              <Rating.Write />
+              <HStack>
+                <Button
+                  colorScheme="primary"
+                  leftIcon={<FontAwesomeIcon icon={faPlus} />}
+                  borderRadius="32px"
+                >
+                  {`Apply`}
+                </Button>
+                <Button borderRadius="32px" variant="outline" colorScheme="primary">
+                  {`Download CV`}
+                </Button>
+              </HStack>
+            </VStack>
+            <Spacer />
+            <VStack alignItems="start" background="red" spacing="5">
+              <HStack spacing="2">
+                <FontAwesomeIcon icon={faPhoneAlt} fixedWidth color="#1A3B64" />
+                <Text color="#3182CE" fontSize="16px">
+                  {`+61 0410 604 021`}
+                </Text>
+              </HStack>
+              <HStack>
+                <FontAwesomeIcon icon={faEnvelope} fixedWidth color="#1A3B64" />
+                <Text color="#3182CE" fontSize="16px">
+                  {`gerard@outcome.life`}
+                </Text>
+              </HStack>
+              <HStack>
+                <FontAwesomeIcon icon={faMapMarkerAlt} fixedWidth color="#1A3B64" />
+                <Text color="#3182CE" fontSize="16px">
+                  {`Melbourne, Australia`}
+                </Text>
+              </HStack>
+              <HStack>
+                <FontAwesomeIcon icon={faGraduationCap} fixedWidth color="#1A3B64" />
+                <Text color="#3182CE" fontSize="16px">
+                  {`Cental Queensland University`}
+                </Text>
+              </HStack>
+            </VStack>
+          </HStack>
+
+          <Text>{` 2nd paragraph `}</Text>
+        </VStack>
+      </Center>
+    </Box>
+  )
 }
 
 export default Intern
