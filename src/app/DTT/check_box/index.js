@@ -1,5 +1,7 @@
 import { Checkbox, FormControl, FormLabel, HStack } from '@chakra-ui/react'
 
+import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
+
 const Read = ({ data }) => {
   return (
     <HStack spacing={2}>
@@ -13,11 +15,16 @@ const Read = ({ data }) => {
 }
 
 const Write = ({ questionCode, data, onSendAnswer, isRequired, label }) => {
-  const toggle = () => onSendAnswer(data?.value === 'true' ? 'false' : 'true')
+  const { dispatchFieldMessage } = useIsFieldNotEmpty()
+  const toggle = () => {
+    onSendAnswer(data?.value === 'true' ? 'false' : 'true')
+    dispatchFieldMessage({ payload: questionCode })
+  }
   return (
     <HStack w="full" spacing={2} align="start">
       <Checkbox
         m="1"
+        id={questionCode}
         test-id={questionCode}
         colorScheme="green"
         isChecked={data?.value === 'true'}

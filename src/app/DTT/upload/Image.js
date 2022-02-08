@@ -18,22 +18,13 @@ import useApi from 'api'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
 
-const Write = ({
-  questionCode,
-  data,
-  openDropzone,
-  onSendAnswer,
-  handleSave,
-  setLoading,
-  setSaving,
-}) => {
+const Write = ({ questionCode, data, openDropzone, onSendAnswer, handleSave, setLoading }) => {
   const { getImageSrc } = useApi()
   const src = getImageSrc(data?.value)
 
   const [openSnap, setOpenSnap] = useState(false)
   const onRemoveImage = () => {
     onSendAnswer('')
-    setSaving.off()
   }
 
   if (src)
@@ -47,7 +38,7 @@ const Write = ({
     )
 
   return (
-    <div>
+    <div id={questionCode}>
       {openSnap && (
         <Snap handleSave={handleSave} setOpenSnap={setOpenSnap} setLoading={setLoading} />
       )}

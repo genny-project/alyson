@@ -7,6 +7,7 @@ import { faLinkedin } from '@fortawesome/free-brands-svg-icons'
 import { getIsInvalid } from 'utils/functions'
 import { includes } from 'ramda'
 import { useError } from 'utils/contexts/ErrorContext'
+import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
 
 const Read = ({ data, config = {} }) => {
@@ -44,10 +45,16 @@ const Write = ({ questionCode, onSendAnswer, data, regexPattern, errorMessage })
   const { dispatch } = useError()
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value)
+  const { dispatchFieldMessage } = useIsFieldNotEmpty()
 
   const maxW = useMobileValue('', '25vw')
 
   const isInvalid = getIsInvalid(userInput)(RegExp(regexPattern))
+
+  const onBlur = e => {
+    !errorStatus && onSendAnswer(e.target.value)
+    dispatchFieldMessage({ payload: questionCode })
+  }
 
   useEffect(() => {
     isInvalid ? setErrorStatus(true) : setErrorStatus(false)
@@ -66,9 +73,10 @@ const Write = ({ questionCode, onSendAnswer, data, regexPattern, errorMessage })
           <FontAwesomeIcon size="lg" icon={faLinkedin} />
         </InputLeftAddon>
         <Input
+          id={questionCode}
           test-id={questionCode}
           defaultValue={data?.value}
-          onBlur={e => onSendAnswer(e.target.value)}
+          onBlur={onBlur}
           onChange={e => setuserInput(e.target.value)}
         />
       </InputGroup>

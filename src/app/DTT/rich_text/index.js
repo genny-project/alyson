@@ -34,6 +34,7 @@ import removeHtmlTags from 'utils/helpers/remove-html-tags'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { stateToHTML } from 'draft-js-export-html'
 import { useError } from 'utils/contexts/ErrorContext'
+import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 
 const Write = ({
   questionCode,
@@ -57,6 +58,7 @@ const Write = ({
   )
   const [errorStatus, setErrorStatus] = useState(false)
   const { dispatch } = useError()
+  const { dispatchFieldMessage } = useIsFieldNotEmpty()
 
   const userInputWithoutHtmlTags = removeHtmlTags(userInput)
 
@@ -104,6 +106,7 @@ const Write = ({
     } else {
       onSendAnswer(stateToHTML(editor.getCurrentContent()))
     }
+    dispatchFieldMessage({ payload: questionCode })
   }
 
   return (
@@ -153,6 +156,7 @@ const Write = ({
           toolbar={{
             options: ['list', 'textAlign'],
           }}
+          id={questionCode}
           editorState={editor}
           onEditorStateChange={setEditor}
           onBlur={handleSave}
