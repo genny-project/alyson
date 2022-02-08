@@ -71,7 +71,7 @@ const Read = ({ data }) => {
     })
   }
   return (
-    <Text cursor="pointer" onClick={onClick} w="16rem">
+    <Text cursor="pointer" onClick={onClick}>
       {data?.value}
     </Text>
   )
