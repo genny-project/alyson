@@ -89,6 +89,7 @@ const mappedPcm = {
   PRI_LOC5: 'PRI_EMAIL',
   PRI_LOC6: 'PRI_ADDRESS_FULL',
   PRI_LOC7: '_LNK_EDU_PROVIDER__PRI_NAME',
+  PRI_LOC8: 'PRI_IMAGE_URL',
 }
 
 const Intern = ({ sbeCode, targetCode }) => {
@@ -100,6 +101,7 @@ const Intern = ({ sbeCode, targetCode }) => {
     PRI_LOC5,
     PRI_LOC6,
     PRI_LOC7,
+    PRI_LOC8,
     PRI_TEMPLATE_CODE: code,
   } = mappedPcm
   return (
@@ -107,13 +109,15 @@ const Intern = ({ sbeCode, targetCode }) => {
       <Center>
         <VStack w="1166px" bg="silver">
           <HStack w="100%" h="227px" bg="white" p="2" spacing="5">
-            <Avatar
-              width="189px"
-              height="190px"
-              name="Dan Abrahmov"
-              src="https://bit.ly/dan-abramov"
+            <Attribute
+              config={{
+                width: '189px',
+                height: '190px',
+              }}
+              code={targetCode}
+              attribute={PRI_LOC8}
             />
-            <VStack spacing="1">
+            <VStack spacing="1" alignItems="flex-start">
               <Attribute
                 config={{
                   alignSelf: 'start',
@@ -146,7 +150,6 @@ const Intern = ({ sbeCode, targetCode }) => {
                 code={targetCode}
                 attribute={PRI_LOC3}
               />
-
               <Rating.Write />
               <HStack>
                 <Button
