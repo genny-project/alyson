@@ -7,92 +7,20 @@ import {
   faGraduationCap,
   faUser,
   faPlus,
-  faSearch,
   faPhoneAlt,
   faEnvelope,
   faMapMarkerAlt,
 } from '@fortawesome/free-solid-svg-icons'
 
-import DetailLayout from '../layout'
-import { Avatar, Button, Box, Text, VStack, Center, HStack, Spacer } from '@chakra-ui/react'
+import { Button, Box, Text, VStack, Center, HStack, Spacer } from '@chakra-ui/react'
 import Rating from 'app/DTT/rating'
 import Attribute from 'app/BE/attribute'
+import { useSelector } from 'react-redux'
+import { selectCode } from 'redux/db/selectors'
+import { find, includes, reduce } from 'ramda'
+import Action from 'app/BE/context/Action'
 
-const contactDetails = {
-  header: 'Contact Details',
-  icon: <FontAwesomeIcon size="lg" icon={faUser} />,
-  attributes: [
-    { attr: 'PRI_NAME', label: 'Full Name' },
-    { attr: 'PRI_MOBILE', label: 'Phone Number', color: 'blue.500' },
-    { attr: 'PRI_EMAIL', label: 'Email', color: 'blue.500' },
-    { attr: 'PRI_ADDRESS_FULL', label: 'Address', color: 'blue.500', config: { collapse: true } },
-  ],
-}
-
-const media = {
-  header: 'Media & Uploads',
-  icon: <FontAwesomeIcon size="lg" icon={faFile} />,
-  attributes: [{ attr: 'PRI_CV' }, { attr: '' }],
-}
-
-const internshipDetails = {
-  header: 'Internship Specifications',
-  icon: <FontAwesomeIcon size="lg" icon={faCalendarAlt} />,
-  attributes: [
-    { attr: 'PRI_START_DATE', label: 'Internship Start Date' },
-    { attr: 'PRI_ASSOC_DURATION', label: 'Internship Duration' },
-    { attr: 'PRI_ASSOC_DAYS_PER_WEEK', label: 'Days Per Week' },
-    { attr: 'PRI_ASSOC_DAYS_OF_WEEK', label: 'Days Of Week' },
-  ],
-}
-
-const recentEmployment = {
-  header: 'Experience',
-  icon: <FontAwesomeIcon size="lg" icon={faBriefcase} />,
-  attributes: [
-    { attr: 'PRI_PREV_JOB_TITLE', label: 'Job Title' },
-    { attr: 'PRI_PREV_DURATION', label: 'Tenure' },
-    { attr: 'PRI_PREV_EMPLOYER', label: 'Company Name' },
-    { attr: 'PRI_ASSOC_OCCUPATION', label: 'Industry' },
-    { attr: '', label: 'Description' },
-  ],
-}
-
-const prefs = {
-  header: 'Internship Preferences',
-  icon: <FontAwesomeIcon size="lg" icon={faCog} />,
-  attributes: [
-    { attr: 'PRI_ASSOC_INDUSTRY', label: 'Industry' },
-    { attr: 'PRI_ASSOC_OCCUPATION', label: 'Specialisation' },
-    { attr: 'PRI_CAREER_OBJECTIVES', label: 'Career Objectives' },
-    { attr: 'PRI_ASSOC_CURRENT_SOFTWARE', label: 'Proficient Software' },
-    { attr: 'PRI_ASSOC_FUTURE_SOFTWARE', label: 'Software would like experience in' },
-  ],
-}
-
-const edu = {
-  header: 'Education Details',
-  icon: <FontAwesomeIcon size="lg" icon={faGraduationCap} />,
-  attributes: [{ attr: 'PRI_ASSOC_EP', label: 'Education Provider' }],
-}
-
-const details = [
-  [contactDetails, internshipDetails, recentEmployment],
-  [media, prefs, edu],
-]
-
-const mappedPcm = {
-  PRI_LOC1: 'PRI_NAME',
-  PRI_LOC2: '_LNK_INDUSTRY__PRI_NAME',
-  PRI_LOC3: '_LNK_EDU_PROVIDER__PRI_NAME',
-  PRI_LOC4: 'PRI_MOBILE',
-  PRI_LOC5: 'PRI_EMAIL',
-  PRI_LOC6: 'PRI_ADDRESS_FULL',
-  PRI_LOC7: '_LNK_EDU_PROVIDER__PRI_NAME',
-  PRI_LOC8: 'PRI_IMAGE_URL',
-}
-
-const Intern = ({ sbeCode, targetCode }) => {
+const DefaultTemplate = ({ sbeCode, targetCode, mappedPcm }) => {
   const {
     PRI_LOC1,
     PRI_LOC2,
@@ -102,7 +30,6 @@ const Intern = ({ sbeCode, targetCode }) => {
     PRI_LOC6,
     PRI_LOC7,
     PRI_LOC8,
-    PRI_TEMPLATE_CODE: code,
   } = mappedPcm
   return (
     <Box h="90vh" bg="tomato">
@@ -115,7 +42,7 @@ const Intern = ({ sbeCode, targetCode }) => {
                 height: '190px',
               }}
               code={targetCode}
-              attribute={PRI_LOC8}
+              attribute={PRI_LOC1}
             />
             <VStack spacing="1" alignItems="flex-start">
               <Attribute
@@ -126,7 +53,7 @@ const Intern = ({ sbeCode, targetCode }) => {
                   fontStyle: 'normal',
                 }}
                 code={targetCode}
-                attribute={PRI_LOC1}
+                attribute={PRI_LOC2}
               />
 
               <Attribute
@@ -137,7 +64,7 @@ const Intern = ({ sbeCode, targetCode }) => {
                   fontStyle: 'normal',
                 }}
                 code={targetCode}
-                attribute={PRI_LOC2}
+                attribute={PRI_LOC3}
               />
               <Attribute
                 config={{
@@ -152,13 +79,14 @@ const Intern = ({ sbeCode, targetCode }) => {
               />
               <Rating.Write />
               <HStack>
-                <Button
-                  colorScheme="primary"
-                  leftIcon={<FontAwesomeIcon icon={faPlus} />}
-                  borderRadius="32px"
-                >
-                  {`Apply`}
-                </Button>
+                <Action
+                  parentCode={sbeCode}
+                  code={PRI_LOC8}
+                  targetCode={targetCode}
+                  noMenu
+                  icon={faPlus}
+                  customAction
+                />
                 <Button borderRadius="32px" variant="outline" colorScheme="primary">
                   {`Download CV`}
                 </Button>
@@ -175,7 +103,7 @@ const Intern = ({ sbeCode, targetCode }) => {
                     color: '#3182CE',
                   }}
                   code={targetCode}
-                  attribute={PRI_LOC4}
+                  attribute={PRI_LOC5}
                 />
               </HStack>
               <HStack>
@@ -220,6 +148,30 @@ const Intern = ({ sbeCode, targetCode }) => {
       </Center>
     </Box>
   )
+}
+
+const Intern = ({ sbeCode, targetCode }) => {
+  const allPcmCode = useSelector(selectCode(`PCMINFORMATION`)) || []
+  const internProfile = find(includes('_INTERN_PROFILE'))(allPcmCode)
+  const internProfilePCM = useSelector(selectCode(internProfile, 'allAttributes'))
+  const mappedPcm = reduce((acc, { attributeCode, valueString }) => {
+    acc = { ...acc, [attributeCode]: valueString }
+    return acc
+  }, {})(internProfilePCM || [])
+
+  const { PRI_TEMPLATE_CODE: code } = mappedPcm
+
+  console.log('mappd pcm ====>', { sbeCode, targetCode, mappedPcm })
+
+  if (internProfilePCM) {
+    if (code === 'TPL_WEST')
+      return <DefaultTemplate targetCode={targetCode} mappedPcm={mappedPcm} />
+
+    if (code === 'TPL_WEST_TWO')
+      return <DefaultTemplate targetCode={targetCode} mappedPcm={mappedPcm} />
+  }
+
+  return <DefaultTemplate sbeCode={sbeCode} targetCode={targetCode} mappedPcm={mappedPcm} />
 }
 
 export default Intern

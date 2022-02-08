@@ -13,10 +13,9 @@ import { onSendMessage } from 'vertx'
 import { useGetRealm } from 'utils/hooks'
 import { useRef } from 'react'
 import useUserType from 'utils/helpers/user-type'
-import { reduce } from 'ramda'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
-import { find, includes } from 'ramda'
+import { find, includes, reduce } from 'ramda'
 
 //get this mapped object from the backend and replace the hardcoded object.
 
