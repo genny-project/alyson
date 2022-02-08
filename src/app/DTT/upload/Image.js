@@ -44,10 +44,11 @@ const Write = ({ questionCode, data, openDropzone, onSendAnswer, handleSave, set
         <Snap handleSave={handleSave} setOpenSnap={setOpenSnap} setLoading={setLoading} />
       )}
       <div hidden={openSnap}>
-        <Text fontSize="sm" mb={3} color="gray.500">
+        <Text fontSize="sm" mb={3} color="gray.500" as="sample">
           For the best display of your profile picture, please ensure that your face is clearly
           visible in the middle of the headshot.
         </Text>
+
         <ButtonGroup>
           <Button
             test-id={questionCode}
