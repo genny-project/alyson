@@ -2,7 +2,6 @@ import { ChakraProvider, ColorModeScript } from '@chakra-ui/react'
 
 import App from 'app'
 import Error from 'error'
-import ErrorContextProvider from 'utils/contexts/ErrorContext'
 import { Fonts } from 'config/fonts'
 import Loading from 'keycloak/loading'
 import LogRocket from 'logrocket'
@@ -11,6 +10,8 @@ import ReactDOM from 'react-dom'
 import { ReactKeycloakProvider } from '@react-keycloak/web'
 import getApiConfig from 'config/get-api-config'
 import { initLog } from 'utils/log'
+import ErrorContextProvider from 'utils/contexts/ErrorContext'
+import IsFieldNotEmptyProvider from 'utils/contexts/IsFieldNotEmptyContext'
 
 LogRocket.init('geop13/internmatch')
 
@@ -26,7 +27,9 @@ const initialiseApp = async () => {
           <ColorModeScript initialColorMode={theme.config.initialColorMode} />
           <ReactKeycloakProvider authClient={keycloak} LoadingComponent={<Loading />}>
             <ErrorContextProvider>
-              <App title={title} />
+              <IsFieldNotEmptyProvider>
+                <App title={title} />
+              </IsFieldNotEmptyProvider>
             </ErrorContextProvider>
           </ReactKeycloakProvider>
         </ChakraProvider>

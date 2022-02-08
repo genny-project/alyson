@@ -1,9 +1,11 @@
 import { Radio as CRadio, RadioGroup, Stack } from '@chakra-ui/react'
-import { useSelector } from 'react-redux'
-import { selectCode } from 'redux/db/selectors'
+import { compose, includes, map } from 'ramda'
+
 import { Read } from 'app/DTT/text'
-import { map, compose, includes } from 'ramda'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
+import { selectCode } from 'redux/db/selectors'
+import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
+import { useSelector } from 'react-redux'
 
 const Write = ({ questionCode, data, onSendAnswer, groupCode, parentCode }) => {
   const radioData = useSelector(selectCode(`${parentCode}-${questionCode}-options`)) || []
@@ -13,8 +15,15 @@ const Write = ({ questionCode, data, onSendAnswer, groupCode, parentCode }) => {
   const arrayValue = includes('[', data?.value || '') ? safelyParseJson(data?.value, []) : []
   const value = arrayValue.length ? arrayValue[0] : data?.value || null
 
+  const { dispatchFieldMessage } = useIsFieldNotEmpty()
+
+  const onChange = value => {
+    onSendAnswer([value])
+    dispatchFieldMessage({ payload: questionCode })
+  }
+
   return (
-    <RadioGroup test-id={questionCode} value={value} onChange={value => onSendAnswer([value])}>
+    <RadioGroup id={questionCode} test-id={questionCode} value={value} onChange={onChange}>
       <Stack test-id={groupCode} direction="row">
         {options &&
           map(

@@ -6,7 +6,6 @@ import {
   FormLabel,
   HStack,
 } from '@chakra-ui/react'
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 
 import ABN from 'app/DTT/abn'
 import Address from 'app/DTT/address'
@@ -36,11 +35,13 @@ import URL from 'app/DTT/url'
 import Upload from 'app/DTT/upload'
 import Video from 'app/DTT/video'
 import createSendAnswer from 'app/ASKS/utils/create-send-answer'
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import getGroupCode from 'app/ASKS/utils/get-group-code'
 import { pathOr } from 'ramda'
 import { selectCode } from 'redux/db/selectors'
 import { selectHighlightedQuestion } from 'redux/app/selectors'
 import { useError } from 'utils/contexts/ErrorContext'
+import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 
@@ -55,7 +56,10 @@ const Ask = ({
   forcedComponent,
 }) => {
   const { errorState } = useError()
+  const { fieldState } = useIsFieldNotEmpty()
+
   const failedValidation = errorState[passedQuestionCode]
+  const fieldNotEmpty = fieldState[passedQuestionCode]
 
   const askData = useSelector(selectCode(parentCode, passedQuestionCode)) || passedAskData
 
@@ -152,7 +156,7 @@ const Ask = ({
     >
       <HStack justify="space-between" display={noLabel ? 'none' : 'flex'} w={labelWidth}>
         <FormLabel id={attributeCode}>{name}</FormLabel>
-        {data?.value && !failedValidation ? (
+        {!failedValidation && fieldNotEmpty ? (
           <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
         ) : null}
       </HStack>

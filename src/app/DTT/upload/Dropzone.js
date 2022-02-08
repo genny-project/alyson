@@ -77,7 +77,7 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 1, questionCode
         <Center>
           <Text>{`Drag 'n' drop some files here, or click to select files`}</Text>
         </Center>
-        <Input {...getInputProps()} test-id={questionCode} />
+        <Input {...getInputProps()} id={questionCode} test-id={questionCode} />
       </Box>
       <Flex direction="row" mt="1">
         {preview}
