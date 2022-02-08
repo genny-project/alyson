@@ -1,11 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faBriefcase,
-  faCalendarAlt,
-  faCog,
-  faFile,
   faGraduationCap,
-  faUser,
   faPlus,
   faPhoneAlt,
   faEnvelope,
@@ -18,9 +13,9 @@ import Attribute from 'app/BE/attribute'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import { find, includes, reduce } from 'ramda'
-import Action from 'app/BE/context/Action'
+import IndividualAction from 'app/SBE/detail/helpers/individual-action.js'
 
-const DefaultTemplate = ({ sbeCode, targetCode, mappedPcm }) => {
+const DefaultTemplate = ({ parentCode, targetCode, mappedPcm }) => {
   const {
     PRI_LOC1,
     PRI_LOC2,
@@ -79,10 +74,10 @@ const DefaultTemplate = ({ sbeCode, targetCode, mappedPcm }) => {
               />
               <Rating.Write />
               <HStack>
-                <Action
-                  parentCode={sbeCode}
-                  code={PRI_LOC8}
+                <IndividualAction
+                  parentCode={parentCode}
                   targetCode={targetCode}
+                  code={PRI_LOC8}
                   noMenu
                   icon={faPlus}
                   customAction
@@ -114,7 +109,7 @@ const DefaultTemplate = ({ sbeCode, targetCode, mappedPcm }) => {
                     color: '#3182CE',
                   }}
                   code={targetCode}
-                  attribute={PRI_LOC5}
+                  attribute={PRI_LOC4}
                 />
               </HStack>
               <HStack>
@@ -164,14 +159,14 @@ const Intern = ({ sbeCode, targetCode }) => {
   console.log('mappd pcm ====>', { sbeCode, targetCode, mappedPcm })
 
   if (internProfilePCM) {
-    if (code === 'TPL_WEST')
-      return <DefaultTemplate targetCode={targetCode} mappedPcm={mappedPcm} />
+    if (code === 'TPL_INTERN')
+      return <DefaultTemplate parentCode={sbeCode} targetCode={targetCode} mappedPcm={mappedPcm} />
 
-    if (code === 'TPL_WEST_TWO')
-      return <DefaultTemplate targetCode={targetCode} mappedPcm={mappedPcm} />
+    if (code === 'TPL_INTERN_TWO')
+      return <DefaultTemplate parentCode={sbeCode} targetCode={targetCode} mappedPcm={mappedPcm} />
   }
 
-  return <DefaultTemplate sbeCode={sbeCode} targetCode={targetCode} mappedPcm={mappedPcm} />
+  return <DefaultTemplate parentCode={sbeCode} targetCode={targetCode} mappedPcm={mappedPcm} />
 }
 
 export default Intern

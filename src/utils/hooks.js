@@ -61,7 +61,7 @@ export const useIsMobile = () => {
 }
 
 export const useMobileValue = ([mobile, base]) => {
-  const isMobile = useBreakpointValue({ base: true, sm: true, md: true, lg: true, xl: false })
+  const isMobile = useBreakpointValue({ base: true, sm: true, md: true, lg: false, xl: false })
 
   return isMobile ? mobile : base
 }
