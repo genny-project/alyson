@@ -28,8 +28,10 @@ const Write = ({ questionCode, onSendAnswer, data, html, regexPattern }) => {
       setDates(dates => ({ ...dates, [date]: null }))
       onSendAnswer({ ...dates, [date]: null })
     } else {
-      setDates(dates => ({ ...dates, [date]: safelyParseDate(e.target.value) }))
-      onSendAnswer({ ...dates, [date]: safelyParseDate(e.target.value).toISOString() })
+      if (e.target.value) {
+        setDates(dates => ({ ...dates, [date]: safelyParseDate(e.target.value) }))
+        onSendAnswer({ ...dates, [date]: safelyParseDate(e.target.value).toISOString() })
+      }
     }
   }
 
