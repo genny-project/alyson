@@ -16,6 +16,7 @@ import {
 import DetailLayout from '../layout'
 import { Avatar, Button, Box, Text, VStack, Center, HStack, Spacer } from '@chakra-ui/react'
 import Rating from 'app/DTT/rating'
+import Attribute from 'app/BE/attribute'
 
 const contactDetails = {
   header: 'Contact Details',
@@ -80,7 +81,27 @@ const details = [
   [media, prefs, edu],
 ]
 
+const mappedPcm = {
+  PRI_LOC1: 'PRI_NAME',
+  PRI_LOC2: '_LNK_INDUSTRY__PRI_NAME',
+  PRI_LOC3: '_LNK_EDU_PROVIDER__PRI_NAME',
+  PRI_LOC4: 'PRI_MOBILE',
+  PRI_LOC5: 'PRI_EMAIL',
+  PRI_LOC6: 'PRI_ADDRESS_FULL',
+  PRI_LOC7: '_LNK_EDU_PROVIDER__PRI_NAME',
+}
+
 const Intern = ({ sbeCode, targetCode }) => {
+  const {
+    PRI_LOC1,
+    PRI_LOC2,
+    PRI_LOC3,
+    PRI_LOC4,
+    PRI_LOC5,
+    PRI_LOC6,
+    PRI_LOC7,
+    PRI_TEMPLATE_CODE: code,
+  } = mappedPcm
   return (
     <Box h="90vh" bg="tomato">
       <Center>
@@ -93,21 +114,39 @@ const Intern = ({ sbeCode, targetCode }) => {
               src="https://bit.ly/dan-abramov"
             />
             <VStack spacing="1">
-              <Text alignSelf="start" fontSize="24px" fontWeight="700" fontStyle="normal">
-                {`Gerard (Yumi) Holland`}
-              </Text>
-              <Text alignSelf="start" fontSize="18px" fontWeight="400" fontStyle="normal">
-                {`Front End Developer`}
-              </Text>
-              <Text
-                alignSelf="start"
-                fontSize="16px"
-                fontWeight="normal"
-                fontStyle="normal"
-                opacity="0.5"
-              >
-                {`The University of Melbourne`}
-              </Text>
+              <Attribute
+                config={{
+                  alignSelf: 'start',
+                  fontSize: '24px',
+                  fontWeight: '700',
+                  fontStyle: 'normal',
+                }}
+                code={targetCode}
+                attribute={PRI_LOC1}
+              />
+
+              <Attribute
+                config={{
+                  alignSelf: 'start',
+                  fontSize: '18px',
+                  fontWeight: 400,
+                  fontStyle: 'normal',
+                }}
+                code={targetCode}
+                attribute={PRI_LOC2}
+              />
+              <Attribute
+                config={{
+                  alignSelf: 'start',
+                  fontSize: '16px',
+                  fontWeight: 'normal',
+                  fontStyle: 'normal',
+                  opacity: '0.5',
+                }}
+                code={targetCode}
+                attribute={PRI_LOC3}
+              />
+
               <Rating.Write />
               <HStack>
                 <Button
@@ -126,27 +165,49 @@ const Intern = ({ sbeCode, targetCode }) => {
             <VStack alignItems="start" background="red" spacing="5">
               <HStack spacing="2">
                 <FontAwesomeIcon icon={faPhoneAlt} fixedWidth color="#1A3B64" />
-                <Text color="#3182CE" fontSize="16px">
-                  {`+61 0410 604 021`}
-                </Text>
+
+                <Attribute
+                  config={{
+                    fontSize: '16px',
+                    color: '#3182CE',
+                  }}
+                  code={targetCode}
+                  attribute={PRI_LOC4}
+                />
               </HStack>
               <HStack>
                 <FontAwesomeIcon icon={faEnvelope} fixedWidth color="#1A3B64" />
-                <Text color="#3182CE" fontSize="16px">
-                  {`gerard@outcome.life`}
-                </Text>
+                <Attribute
+                  config={{
+                    fontSize: '16px',
+                    color: '#3182CE',
+                  }}
+                  code={targetCode}
+                  attribute={PRI_LOC5}
+                />
               </HStack>
               <HStack>
                 <FontAwesomeIcon icon={faMapMarkerAlt} fixedWidth color="#1A3B64" />
-                <Text color="#3182CE" fontSize="16px">
-                  {`Melbourne, Australia`}
-                </Text>
+                <Attribute
+                  config={{
+                    fontSize: '16px',
+                    color: '#3182CE',
+                    hideIcon: true,
+                  }}
+                  code={targetCode}
+                  attribute={PRI_LOC6}
+                />
               </HStack>
               <HStack>
                 <FontAwesomeIcon icon={faGraduationCap} fixedWidth color="#1A3B64" />
-                <Text color="#3182CE" fontSize="16px">
-                  {`Cental Queensland University`}
-                </Text>
+                <Attribute
+                  config={{
+                    fontSize: '16px',
+                    color: '#3182CE',
+                  }}
+                  code={targetCode}
+                  attribute={PRI_LOC7}
+                />
               </HStack>
             </VStack>
           </HStack>

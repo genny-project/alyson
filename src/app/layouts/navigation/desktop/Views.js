@@ -17,8 +17,6 @@ const Views = () => {
     return acc
   }, {})(sidebarPcm || [])
 
-  console.log('sidebarPcm', mappedPcm)
-
   const {
     PRI_LOC1,
     PRI_LOC2,
