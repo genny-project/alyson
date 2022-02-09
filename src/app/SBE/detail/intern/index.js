@@ -1,6 +1,19 @@
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
-import { Button, Box, Text, VStack, Center, HStack, Spacer } from '@chakra-ui/react'
+import {
+  Button,
+  Box,
+  Text,
+  VStack,
+  Center,
+  HStack,
+  Spacer,
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
+} from '@chakra-ui/react'
 import Rating from 'app/DTT/rating'
 import Attribute from 'app/BE/attribute'
 import { useSelector } from 'react-redux'
@@ -407,7 +420,27 @@ const DefaultInternProfileTemplate = ({ parentCode, targetCode, mappedPcm }) => 
 }
 
 const DefaultTemplateTwo = () => {
-  return <Text>{`Default Template Two`}</Text>
+  return (
+    <Tabs alignSelf="flex-start" w="100%" variant="line">
+      <TabList>
+        <Tab>{`Profile`}</Tab>
+        <Tab>{`Applications`}</Tab>
+        <Tab>{`Notes`}</Tab>
+      </TabList>
+
+      <TabPanels>
+        <TabPanel>
+          <p>{`Profile`}</p>
+        </TabPanel>
+        <TabPanel>
+          <p>{`Applications`}</p>
+        </TabPanel>
+        <TabPanel>
+          <p>{`Notes`}</p>
+        </TabPanel>
+      </TabPanels>
+    </Tabs>
+  )
 }
 
 const Intern = ({ sbeCode, targetCode }) => {
