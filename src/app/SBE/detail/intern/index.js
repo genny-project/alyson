@@ -1,11 +1,4 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faGraduationCap,
-  faPlus,
-  faPhoneAlt,
-  faEnvelope,
-  faMapMarkerAlt,
-} from '@fortawesome/free-solid-svg-icons'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 import { Button, Box, Text, VStack, Center, HStack, Spacer } from '@chakra-ui/react'
 import Rating from 'app/DTT/rating'
@@ -80,7 +73,6 @@ const InternProfileTemplateOne = ({ parentCode, targetCode, mappedPcm }) => {
                 targetCode={targetCode}
                 code={PRI_LOC9}
                 noMenu
-                icon={faPlus}
                 customAction
               />
               <Button borderRadius="32px" variant="outline" colorScheme="primary">

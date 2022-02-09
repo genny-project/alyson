@@ -1,10 +1,9 @@
-import { IconButton, MenuItem } from '@chakra-ui/react'
 import Button from 'app/layouts/components/button'
 
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import { onSendMessage } from 'vertx'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { getIconsBasedOnAttributes } from 'app/SBE/detail/helpers/get-icons-based-on-attributes.js'
 
 const IndividualAction = ({ parentCode, targetCode, code, noMenu, icon, customAction, name }) => {
   const data = useSelector(selectCode(parentCode, code))
@@ -24,7 +23,7 @@ const IndividualAction = ({ parentCode, targetCode, code, noMenu, icon, customAc
   return (
     <Button
       colorScheme="primary"
-      leftIcon={<FontAwesomeIcon icon={icon} />}
+      leftIcon={getIconsBasedOnAttributes(code)}
       test-id={code}
       onClick={() => handleClick(code, data)}
       borderRadius="2rem"
