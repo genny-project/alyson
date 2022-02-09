@@ -48,7 +48,7 @@ const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMessage })
   )
 }
 
-const Read = ({ data }) => {
+const Read = ({ data, config = {} }) => {
   const { onCopy } = useClipboard(data.value)
   const toast = useToast()
 
@@ -63,7 +63,7 @@ const Read = ({ data }) => {
     })
   }
   return (
-    <Text cursor="pointer" onClick={onClick} w="16rem">
+    <Text cursor="pointer" onClick={onClick} w="16rem" {...config}>
       {data?.value}
     </Text>
   )

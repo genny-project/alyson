@@ -46,7 +46,9 @@ const Read = ({ data, config = {} }) => {
       </Card>
     </VStack>
   ) : hideIcon ? (
-    <Text minW="8rem">{data.value}</Text>
+    <Text minW="8rem" {...config}>
+      {data.value}
+    </Text>
   ) : (
     <HStack>
       <Popover isLazy>

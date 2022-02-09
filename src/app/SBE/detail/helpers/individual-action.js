@@ -9,8 +9,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 const IndividualAction = ({ parentCode, targetCode, code, noMenu, icon, customAction, name }) => {
   const data = useSelector(selectCode(parentCode, code))
 
-  console.log('datasss====>', { parentCode, targetCode, code, data })
-
   if (!data) return null
 
   const { attributeName } = data

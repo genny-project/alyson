@@ -14,6 +14,7 @@ import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import { find, includes, reduce } from 'ramda'
 import IndividualAction from 'app/SBE/detail/helpers/individual-action.js'
+import GetIconstBasedOnAttributes from 'app/SBE/detail/helpers/get-icons-based-on-attributes.js'
 
 const DefaultTemplate = ({ parentCode, targetCode, mappedPcm }) => {
   const {
@@ -25,12 +26,13 @@ const DefaultTemplate = ({ parentCode, targetCode, mappedPcm }) => {
     PRI_LOC6,
     PRI_LOC7,
     PRI_LOC8,
+    PRI_LOC9,
   } = mappedPcm
   return (
-    <Box h="90vh" bg="tomato">
+    <Box h="90vh">
       <Center>
-        <VStack w="1166px" bg="silver">
-          <HStack w="100%" h="227px" bg="white" p="2" spacing="5">
+        <VStack w="1166px">
+          <HStack w="100%" h="227px" bg="#F6F6F6" p="2" spacing="5">
             <Attribute
               config={{
                 width: '189px',
@@ -70,14 +72,14 @@ const DefaultTemplate = ({ parentCode, targetCode, mappedPcm }) => {
                   opacity: '0.5',
                 }}
                 code={targetCode}
-                attribute={PRI_LOC3}
+                attribute={PRI_LOC4}
               />
               <Rating.Write />
               <HStack>
                 <IndividualAction
                   parentCode={parentCode}
                   targetCode={targetCode}
-                  code={PRI_LOC8}
+                  code={PRI_LOC9}
                   noMenu
                   icon={faPlus}
                   customAction
@@ -88,10 +90,12 @@ const DefaultTemplate = ({ parentCode, targetCode, mappedPcm }) => {
               </HStack>
             </VStack>
             <Spacer />
-            <VStack alignItems="start" background="red" spacing="5">
+            <VStack alignItems="start" spacing="5">
               <HStack spacing="2">
-                <FontAwesomeIcon icon={faPhoneAlt} fixedWidth color="#1A3B64" />
-
+                <GetIconstBasedOnAttributes
+                  attributeCode={PRI_LOC5}
+                  config={{ color: '#1A3B64' }}
+                />
                 <Attribute
                   config={{
                     fontSize: '16px',
@@ -102,18 +106,24 @@ const DefaultTemplate = ({ parentCode, targetCode, mappedPcm }) => {
                 />
               </HStack>
               <HStack>
-                <FontAwesomeIcon icon={faEnvelope} fixedWidth color="#1A3B64" />
+                <GetIconstBasedOnAttributes
+                  attributeCode={PRI_LOC6}
+                  config={{ color: '#1A3B64' }}
+                />
                 <Attribute
                   config={{
                     fontSize: '16px',
                     color: '#3182CE',
                   }}
                   code={targetCode}
-                  attribute={PRI_LOC4}
+                  attribute={PRI_LOC6}
                 />
               </HStack>
               <HStack>
-                <FontAwesomeIcon icon={faMapMarkerAlt} fixedWidth color="#1A3B64" />
+                <GetIconstBasedOnAttributes
+                  attributeCode={PRI_LOC7}
+                  config={{ color: '#1A3B64' }}
+                />
                 <Attribute
                   config={{
                     fontSize: '16px',
@@ -121,24 +131,27 @@ const DefaultTemplate = ({ parentCode, targetCode, mappedPcm }) => {
                     hideIcon: true,
                   }}
                   code={targetCode}
-                  attribute={PRI_LOC6}
+                  attribute={PRI_LOC7}
                 />
               </HStack>
               <HStack>
-                <FontAwesomeIcon icon={faGraduationCap} fixedWidth color="#1A3B64" />
+                <GetIconstBasedOnAttributes
+                  attributeCode={PRI_LOC8}
+                  config={{ color: '#1A3B64' }}
+                />
                 <Attribute
                   config={{
                     fontSize: '16px',
                     color: '#3182CE',
                   }}
                   code={targetCode}
-                  attribute={PRI_LOC7}
+                  attribute={PRI_LOC8}
                 />
               </HStack>
             </VStack>
           </HStack>
 
-          <Text>{` 2nd paragraph `}</Text>
+          <Text>{`  `}</Text>
         </VStack>
       </Center>
     </Box>
@@ -155,8 +168,6 @@ const Intern = ({ sbeCode, targetCode }) => {
   }, {})(internProfilePCM || [])
 
   const { PRI_TEMPLATE_CODE: code } = mappedPcm
-
-  console.log('mappd pcm ====>', { sbeCode, targetCode, mappedPcm })
 
   if (internProfilePCM) {
     if (code === 'TPL_INTERN')

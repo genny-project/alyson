@@ -10,8 +10,6 @@ const Action = ({ parentCode, code, targetCode, noMenu, icon, customAction, name
   const needsToBeConfirmed = useSelector(selectCode(parentCode, code))?.confirmationFlag
   const data = useSelector(selectCode(parentCode, code))
 
-  console.log('data====>', { parentCode, targetCode, code, data })
-
   if (!data) return null
 
   const handleClick = (code, data) => {

@@ -49,9 +49,9 @@ const Attribute = ({
     return <ImageType.Read config={config} code={code} data={data} parentCode={parentCode} />
 
   return component === 'email' ? (
-    <Email.Read data={data} size={size} />
+    <Email.Read data={data} size={size} config={config} />
   ) : component === 'phone' ? (
-    <Phone.Read data={data} size={size} />
+    <Phone.Read data={data} size={size} config={config} />
   ) : component === 'text' ? (
     <Text.Read size={size} data={data} config={config} />
   ) : component === 'textarea' ? (
