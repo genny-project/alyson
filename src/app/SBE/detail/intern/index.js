@@ -96,7 +96,11 @@ const InternProfileTemplateOne = ({ parentCode, targetCode, mappedPcm }) => {
           <Spacer />
           <VStack alignItems="start" spacing="5">
             <HStack spacing="2">
-              <GetIconstBasedOnAttributes attributeCode={PRI_LOC5} config={{ color: '#1A3B64' }} />
+              <GetIconstBasedOnAttributes
+                code={targetCode}
+                attributeCode={PRI_LOC5}
+                config={{ color: '#1A3B64' }}
+              />
               <Attribute
                 config={{
                   fontSize: '16px',
@@ -107,7 +111,11 @@ const InternProfileTemplateOne = ({ parentCode, targetCode, mappedPcm }) => {
               />
             </HStack>
             <HStack>
-              <GetIconstBasedOnAttributes attributeCode={PRI_LOC6} config={{ color: '#1A3B64' }} />
+              <GetIconstBasedOnAttributes
+                code={targetCode}
+                attributeCode={PRI_LOC6}
+                config={{ color: '#1A3B64' }}
+              />
               <Attribute
                 config={{
                   fontSize: '16px',
@@ -118,7 +126,11 @@ const InternProfileTemplateOne = ({ parentCode, targetCode, mappedPcm }) => {
               />
             </HStack>
             <HStack>
-              <GetIconstBasedOnAttributes attributeCode={PRI_LOC7} config={{ color: '#1A3B64' }} />
+              <GetIconstBasedOnAttributes
+                code={targetCode}
+                attributeCode={PRI_LOC7}
+                config={{ color: '#1A3B64' }}
+              />
               <Attribute
                 config={{
                   fontSize: '16px',
@@ -130,7 +142,11 @@ const InternProfileTemplateOne = ({ parentCode, targetCode, mappedPcm }) => {
               />
             </HStack>
             <HStack>
-              <GetIconstBasedOnAttributes attributeCode={PRI_LOC8} config={{ color: '#1A3B64' }} />
+              <GetIconstBasedOnAttributes
+                code={targetCode}
+                attributeCode={PRI_LOC8}
+                config={{ color: '#1A3B64' }}
+              />
               <Attribute
                 config={{
                   fontSize: '16px',
@@ -142,8 +158,6 @@ const InternProfileTemplateOne = ({ parentCode, targetCode, mappedPcm }) => {
             </HStack>
           </VStack>
         </HStack>
-
-        <Text>{`  `}</Text>
       </VStack>
     </Center>
   )

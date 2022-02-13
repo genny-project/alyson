@@ -6,6 +6,8 @@ import {
   faEnvelope,
   faMapMarkerAlt,
 } from '@fortawesome/free-solid-svg-icons'
+import { useSelector } from 'react-redux'
+import { selectCode } from 'redux/db/selectors'
 
 const iconsBasedOnAttributes = {
   PRI_EMAIL: faEnvelope,
@@ -15,8 +17,10 @@ const iconsBasedOnAttributes = {
   ACT_PRI_EVENT_APPLY: faPlus,
 }
 
-const GetIconstBasedOnAttributes = ({ attributeCode, config = {} }) => {
-  return <FontAwesomeIcon icon={iconsBasedOnAttributes[attributeCode]} fixedWidth {...config} />
+const GetIconstBasedOnAttributes = ({ code, attributeCode, config = {} }) => {
+  const data = useSelector(selectCode(code, attributeCode))
+  const icon = data?.icon || iconsBasedOnAttributes[attributeCode]
+  return <FontAwesomeIcon icon={icon} fixedWidth {...config} />
 }
 export const getIconsBasedOnAttributes = attributeCode => (
   <FontAwesomeIcon icon={iconsBasedOnAttributes[attributeCode]} fixedWidth />
