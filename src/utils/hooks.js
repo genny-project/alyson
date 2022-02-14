@@ -1,9 +1,10 @@
-import { useBreakpointValue } from '@chakra-ui/media-query'
-import { identity } from 'ramda'
 import { useEffect, useRef, useState } from 'react'
-import { useSelector } from 'react-redux'
-import { selectCode } from 'redux/db/selectors'
+
 import { apiConfig } from 'config/get-api-config'
+import { identity } from 'ramda'
+import { selectCode } from 'redux/db/selectors'
+import { useBreakpointValue } from '@chakra-ui/media-query'
+import { useSelector } from 'react-redux'
 
 export const useInterval = (cb, delay) => {
   const savedCb = useRef()
@@ -55,13 +56,13 @@ export const useUserMedia = (requestedMedia, setError = identity) => {
 }
 
 export const useIsMobile = () => {
-  const isMobile = useBreakpointValue({ base: true, sm: true, md: true, lg: true, xl: false })
+  const isMobile = useBreakpointValue({ base: true, sm: true, md: true, lg: false, xl: false })
 
   return isMobile
 }
 
 export const useMobileValue = ([mobile, base]) => {
-  const isMobile = useBreakpointValue({ base: true, sm: true, md: true, lg: true, xl: false })
+  const isMobile = useBreakpointValue({ base: true, sm: true, md: true, lg: false, xl: false })
 
   return isMobile ? mobile : base
 }

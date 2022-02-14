@@ -55,7 +55,7 @@ const Write = ({ questionCode, onSendAnswer, html, data, setSaving }) => {
   if (src)
     return (
       <VStack>
-        <video style={{ width: '60rem', borderRadius: '1rem' }} src={src} controls />
+        <video style={{ width: '100%', borderRadius: '1rem' }} src={src} controls />
         <Badge variant="subtle" colorScheme="green" mt="2">
           {`Saved!`}
         </Badge>

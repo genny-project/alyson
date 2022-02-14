@@ -14,7 +14,7 @@ const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMessage })
   const { dispatch } = useError()
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
   const isInvalid = getIsInvalid(userInput)(RegExp(regexPattern))
-  const maxW = useMobileValue(['', '25vw'])
+  const maxW = useMobileValue(['full', '100%'])
 
   const onBlur = e => {
     !errorStatus && onSendAnswer(e.target.value)

@@ -89,7 +89,7 @@ const Autocomplete = ({
     if (i) {
       setItems([...items, i])
     }
-    console.log('HERERE', questionCode)
+
     dispatchFieldMessage({ payload: questionCode })
   }
 
@@ -112,7 +112,7 @@ const Autocomplete = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [options])
 
-  const maxW = useMobileValue(['', '25vw'])
+  const maxW = useMobileValue(['full', '100%'])
 
   const dropDownRef = useRef()
 
