@@ -24,7 +24,14 @@ import StreetView from './street_view'
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
 
 const Write = ({ questionCode, onSendAnswer, data }) => {
-  return <AddressPicker questionCode={questionCode} onSendAnswer={onSendAnswer} data={data} />
+  return (
+    <AddressPicker
+      id={questionCode}
+      questionCode={questionCode}
+      onSendAnswer={onSendAnswer}
+      data={data}
+    />
+  )
 }
 
 const Read = ({ data, config = {} }) => {

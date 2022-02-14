@@ -1,11 +1,12 @@
-import { useState, useEffect } from 'react'
 import { Button, Input, InputGroup, InputLeftElement, Text } from '@chakra-ui/react'
-import { useError } from 'utils/contexts/ErrorContext'
-import { getIsInvalid } from 'utils/functions'
-import { ACTIONS } from 'utils/contexts/ErrorReducer'
+import { useEffect, useState } from 'react'
 
-import { Read } from '../text'
 import ABNLookup from './abn_lookup'
+import { ACTIONS } from 'utils/contexts/ErrorReducer'
+import { Read } from '../text'
+import { getIsInvalid } from 'utils/functions'
+import { useError } from 'utils/contexts/ErrorContext'
+import { useMobileValue } from 'utils/hooks'
 
 const Write = ({ questionCode, data, onSendAnswer, disabled, regexPattern, errorMessage }) => {
   let regex
@@ -38,6 +39,7 @@ const Write = ({ questionCode, data, onSendAnswer, disabled, regexPattern, error
 
   const open = () => setIsOpen(true)
   const close = () => setIsOpen(false)
+  const maxW = useMobileValue(['', '25vw'])
 
   return (
     <>
@@ -48,7 +50,7 @@ const Write = ({ questionCode, data, onSendAnswer, disabled, regexPattern, error
         onSendAnswer={onSendAnswer}
         targetCode={data.baseEntityCode}
       />
-      <InputGroup w={'100%'} maxW="25vw">
+      <InputGroup w={'100%'} maxW={maxW}>
         <InputLeftElement w="8rem">
           <Button
             isDisabled={disabled}
@@ -61,11 +63,13 @@ const Write = ({ questionCode, data, onSendAnswer, disabled, regexPattern, error
           </Button>
         </InputLeftElement>
         <Input
+          id={questionCode}
           test-id={questionCode}
           pl="10rem"
           value={value}
           onChange={e => setValue(e.target.value)}
           onBlur={e => onSendAnswer(e.target.value)}
+          w={`100%`}
         />
       </InputGroup>
       {errorStatus && (

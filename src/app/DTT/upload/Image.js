@@ -5,7 +5,6 @@ import {
   CloseButton,
   HStack,
   Image,
-  Text,
   Tooltip,
   useColorModeValue,
 } from '@chakra-ui/react'
@@ -19,7 +18,15 @@ import useApi from 'api'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
 
-const Write = ({ questionCode, data, openDropzone, onSendAnswer, handleSave, setLoading }) => {
+const Write = ({
+  questionCode,
+  data,
+  openDropzone,
+  onSendAnswer,
+  handleSave,
+  setLoading,
+  name,
+}) => {
   const { getImageSrc } = useApi()
   const src = getImageSrc(data?.value)
 
@@ -50,7 +57,7 @@ const Write = ({ questionCode, data, openDropzone, onSendAnswer, handleSave, set
             onClick={openDropzone}
             leftIcon={<FontAwesomeIcon icon={faUpload} />}
           >
-            Upload Headshot
+            {name}
           </Button>
           <Button onClick={() => setOpenSnap(true)} leftIcon={<FontAwesomeIcon icon={faCamera} />}>
             Take Photo
