@@ -156,7 +156,7 @@ const Ask = ({
     >
       <HStack justify="space-between" display={noLabel ? 'none' : 'flex'} w={labelWidth}>
         <FormLabel id={attributeCode}>{name}</FormLabel>
-        {!failedValidation && (fieldNotEmpty || data?.value) ? (
+        {!failedValidation && (fieldNotEmpty || data?.value) && data?.value !== '[]' ? (
           <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
         ) : null}
       </HStack>
