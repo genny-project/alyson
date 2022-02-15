@@ -9,7 +9,7 @@ export const initialState = {}
 
 export const isFiledNotEmptyReducer = (fieldState, { payload }) => {
   const fieldValue = document.getElementById(payload)
-  const value = fieldValue.value
+  const value = fieldValue?.value
   const isValueEmpty = isEmpty(value)
   if (isValueEmpty) {
     return { ...fieldState, [payload]: false }
