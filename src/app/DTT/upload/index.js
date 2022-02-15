@@ -133,6 +133,7 @@ const Write = ({ questionCode, data, dttData, onSendAnswer, video }) => {
           </HStack>
         ) : (
           <Button
+            id={questionCode}
             hidden={!!dropzone}
             test-id={questionCode}
             onClick={openDropzone}
