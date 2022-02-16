@@ -1,16 +1,17 @@
-import { useRef, useState, useEffect, useCallback } from 'react'
-import { length } from 'ramda'
-import { useUserMedia } from 'utils/hooks'
-import { Button, Progress, Text, VStack, Box } from '@chakra-ui/react'
+import { Box, Button, Progress, Text, VStack } from '@chakra-ui/react'
+import { useCallback, useEffect, useRef, useState } from 'react'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRecordVinyl } from '@fortawesome/free-solid-svg-icons'
+import { length } from 'ramda'
+import { useUserMedia } from 'utils/hooks'
 
 const CAPTURE_OPTIONS = {
   audio: true,
   video: true,
 }
 
-const VideoRecorder = ({ setData, config, setStartVideo }) => {
+const VideoRecorder = ({ setData, config, setStartVideo, id }) => {
   const videoRef = useRef()
   const recorderRef = useRef()
 
@@ -75,11 +76,11 @@ const VideoRecorder = ({ setData, config, setStartVideo }) => {
       </VStack>
     )
   return (
-    <VStack spacing="8">
+    <VStack id={id} spacing="8">
       <VStack hidden={length(recordedChunks) && !capturing}>
         <video
           style={{ width: '60rem', borderRadius: '1rem' }}
-          id="preview"
+          id={id}
           ref={videoRef}
           onCanPlay={onCanPlay}
           autoPlay
