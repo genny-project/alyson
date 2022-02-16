@@ -165,7 +165,7 @@ const Ask = ({
         w={labelWidth}
       >
         <FormLabel id={attributeCode}>{name}</FormLabel>
-        {(!failedValidation && fieldNotEmpty) || (!failedValidation && dataValue) ? (
+        {!failedValidation && (fieldNotEmpty || data?.value) && data?.value !== '[]' ? (
           <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
         ) : null}
       </HStack>
@@ -276,6 +276,7 @@ const Ask = ({
           onSendAnswer={onSendAnswer}
           regexPattern={regexPattern}
           errorMessage={errorMessage}
+          name={name}
         />
       )}
       {(component === 'date' || component === 'year') && (

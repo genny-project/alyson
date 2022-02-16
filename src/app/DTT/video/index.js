@@ -55,10 +55,17 @@ const Write = ({ questionCode, onSendAnswer, html, data, setSaving }) => {
   if (src)
     return (
       <VStack>
-        <video style={{ width: '100%', borderRadius: '1rem' }} src={src} controls />
+        <video
+          id={questionCode}
+          style={{ width: '60rem', borderRadius: '1rem' }}
+          src={src}
+          controls
+        />
+
         <Badge variant="subtle" colorScheme="green" mt="2">
           {`Saved!`}
         </Badge>
+
         <HStack style={{ marginTop: '40px' }}>
           <Button
             test-id={questionCode + '-clear'}
@@ -69,13 +76,13 @@ const Write = ({ questionCode, onSendAnswer, html, data, setSaving }) => {
           >
             {`Re-Record`}
           </Button>
+
           <Button
             test-id={questionCode + '-delete'}
             leftIcon={<FontAwesomeIcon icon={faBan} />}
             onClick={() => {
               setStartVideo(false)
               onSendAnswer('')
-              // setSaving.off()
             }}
           >
             {`Delete Video`}
@@ -86,7 +93,7 @@ const Write = ({ questionCode, onSendAnswer, html, data, setSaving }) => {
 
   if (upload)
     return (
-      <VStack id={questionCode} align="start">
+      <VStack align="start">
         <Button test-id={`${questionCode}-recorder`} colorScheme="green" onClick={setUpload.off}>
           Go back to recorder
         </Button>
@@ -96,7 +103,6 @@ const Write = ({ questionCode, onSendAnswer, html, data, setSaving }) => {
           data={data}
           onSendAnswer={onSendAnswer}
           setSaving={setSaving}
-          id={questionCode}
         />
       </VStack>
     )
@@ -111,15 +117,15 @@ const Write = ({ questionCode, onSendAnswer, html, data, setSaving }) => {
           </Text>
           <Text textStyle="body.2">{config.description}</Text>
           <Text textStyle="body.3">{config.explanation}</Text>
-          <Text
-            textStyle="body.2"
-            mb="2"
-          >{`Don't worry, we'll give you time to prepare and let you record!`}</Text>
+          <Text textStyle="body.2" mb="2">
+            {`Don't worry, we'll give you time to prepare and let you record!`}
+          </Text>
         </>
       )}
 
       {startVideo ? (
         <VideoRecorder
+          id={questionCode}
           test-id={questionCode}
           setStartVideo={setStartVideo}
           setData={handleSave}
@@ -139,12 +145,16 @@ const Write = ({ questionCode, onSendAnswer, html, data, setSaving }) => {
               </a>
             </Box>
             <Button
+              id={questionCode}
               test-id={`${questionCode}-start`}
               leftIcon={<FontAwesomeIcon icon={faVideo} />}
               onClick={() => setStartVideo(true)}
               colorScheme="primary"
-            >{`Get Started!`}</Button>
+            >
+              {`Get Started!`}
+            </Button>
             <Button
+              id={questionCode}
               test-id={`${questionCode}-upload`}
               onClick={setUpload.on}
               colorScheme="green"
