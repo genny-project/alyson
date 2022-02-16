@@ -1,14 +1,14 @@
-import { useState } from 'react'
 import { Box, Button, Tag, Text, VStack, Wrap, WrapItem } from '@chakra-ui/react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
-import { useDispatch, useSelector } from 'react-redux'
 import { compose, filter, identity, includes, map, prop } from 'ramda'
-
-import { onSendMessage } from 'vertx'
+import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { selectAttributes, selectCode } from 'redux/db/selectors'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { highlightQuestion } from 'redux/app'
+import { onSendMessage } from 'vertx'
 import { useError } from 'utils/contexts/ErrorContext'
+import { useState } from 'react'
 
 const Submit = ({ askData, onFinish, parentCode }) => {
   const { questionCode, targetCode, name, disabled: disabledFromBackEnd } = askData

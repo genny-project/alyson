@@ -69,7 +69,7 @@ const Read = ({ code, data, dttData, parentCode, variant, config = {} }) => {
   )
 }
 
-const Write = ({ questionCode, data, dttData, onSendAnswer, video }) => {
+const Write = ({ questionCode, data, dttData, onSendAnswer, video, name }) => {
   const api = useApi()
   const typeName = dttData?.typeName
 
@@ -121,6 +121,7 @@ const Write = ({ questionCode, data, dttData, onSendAnswer, video }) => {
             onSendAnswer={onSendAnswer}
             setLoading={setLoading}
             questionCode={questionCode}
+            name={name}
           />
         ) : data?.value ? (
           <HStack>
