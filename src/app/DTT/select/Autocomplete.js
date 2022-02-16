@@ -89,7 +89,7 @@ const Autocomplete = ({
     if (i) {
       setItems([...items, i])
     }
-    console.log('HERERE', questionCode)
+
     dispatchFieldMessage({ payload: questionCode })
   }
 

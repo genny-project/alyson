@@ -1,21 +1,22 @@
-import { useState } from 'react'
-import useApi from 'api'
 import {
+  Button,
+  CircularProgress,
+  Input,
+  InputGroup,
   Popover,
-  PopoverContent,
-  PopoverHeader,
   PopoverBody,
   PopoverCloseButton,
-  Button,
-  Input,
+  PopoverContent,
+  PopoverHeader,
   Text,
   VStack,
-  CircularProgress,
-  InputGroup,
 } from '@chakra-ui/react'
+
 import createSendAnswer from 'app/ASKS/utils/create-send-answer'
-import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
+import useApi from 'api'
+import { useSelector } from 'react-redux'
+import { useState } from 'react'
 
 const ABNLookup = ({ isOpen, questionCode, close, onSendAnswer, targetCode }) => {
   const { callAbnLookup } = useApi()
@@ -70,7 +71,11 @@ const ABNLookup = ({ isOpen, questionCode, close, onSendAnswer, targetCode }) =>
         <PopoverHeader>Search For Name</PopoverHeader>
         <PopoverBody>
           <InputGroup>
-            <Input test-id={`${questionCode}-abn-lookup`} onChange={onChangeLookup} />
+            <Input
+              id={questionCode}
+              test-id={`${questionCode}-abn-lookup`}
+              onChange={onChangeLookup}
+            />
           </InputGroup>
           {loading ? (
             <CircularProgress mt="5" isIndeterminate />

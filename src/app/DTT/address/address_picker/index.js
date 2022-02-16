@@ -2,12 +2,14 @@ import { useEffect, useRef } from 'react'
 
 import { Input } from '@chakra-ui/react'
 import makeAddressData from './make-address-data'
+import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
 
 let autocomplete
 
 const AddressPicker = ({ onSendAnswer, data, questionCode }) => {
   const autoCompleteRef = useRef(null)
+  const { dispatchFieldMessage } = useIsFieldNotEmpty()
 
   useEffect(() => {
     if (autoCompleteRef?.current) {
@@ -18,6 +20,7 @@ const AddressPicker = ({ onSendAnswer, data, questionCode }) => {
       autocomplete.addListener('place_changed', () => {
         const place = autocomplete.getPlace()
         onSendAnswer(makeAddressData([place]))
+        dispatchFieldMessage({ payload: questionCode })
       })
 
       if (navigator.geolocation) {
@@ -38,6 +41,11 @@ const AddressPicker = ({ onSendAnswer, data, questionCode }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const onBlur = e => {
+    onSendAnswer(e.target.value)
+    dispatchFieldMessage({ payload: questionCode })
+  }
+
   const maxW = useMobileValue(['', '25vw'])
 
   return (
@@ -48,6 +56,7 @@ const AddressPicker = ({ onSendAnswer, data, questionCode }) => {
       ref={autoCompleteRef}
       w="full"
       maxW={maxW}
+      onBlur={onBlur}
     />
   )
 }

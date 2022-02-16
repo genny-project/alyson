@@ -23,13 +23,14 @@ const Write = ({ questionCode, data, onSendAnswer, groupCode, parentCode }) => {
   }
 
   return (
-    <RadioGroup id={questionCode} test-id={questionCode} value={value} onChange={onChange}>
+    <RadioGroup test-id={questionCode} value={value} onChange={onChange}>
       <Stack test-id={groupCode} direction="row">
         {options &&
           map(
             option =>
               option && (
                 <CRadio
+                  id={questionCode}
                   key={option.value}
                   test-id={`${option.value}-${parentCode}`}
                   value={option.value}
