@@ -18,7 +18,7 @@ const Process = ({ dashboard }) => {
   return (
     <VStack align="start" spacing={0} px="5">
       {!dashboard && userType !== 'INTERN' && (
-        <HStack align="start">
+        <HStack mb={`4`} align="start">
           {bucketSearch &&
             bucketSearch.map((childAsk, index) => (
               <Box key={`${index}-${childAsk}`} width={'20rem'}>
