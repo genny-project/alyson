@@ -13,6 +13,7 @@ import sameLength from 'redux/utils/same-length'
 import { selectCode } from 'redux/db/selectors'
 import useApi from 'api'
 import { useColorModeValue } from '@chakra-ui/color-mode'
+import { useGetRealm } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 
 const LeftDetail = ({ beCode, sbeCode }) => {
@@ -24,6 +25,10 @@ const LeftDetail = ({ beCode, sbeCode }) => {
   const associatedAgentImage = useSelector(selectCode(beCode, '_LNK_AGENT__PRI_IMAGE_URL')) || {}
   const eduProviderImageSrc = eduProviderImage?.value
   const associatedAgentImageSrc = useApi().getImageSrc(associatedAgentImage?.value)
+
+  const realm = useGetRealm()
+
+  const userImageCode = realm === 'mentormatch' ? 'PRI_USER_PROFILE_PICTURE' : 'PRI_IMAGE_URL'
 
   return (
     <Box
@@ -58,7 +63,7 @@ const LeftDetail = ({ beCode, sbeCode }) => {
             <Attribute
               code={beCode}
               config={{ h: '15rem', w: '15rem' }}
-              attribute="PRI_IMAGE_URL"
+              attribute={userImageCode}
             />
             <Avatar
               bg="gray.200"

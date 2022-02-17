@@ -16,14 +16,19 @@ import { motion } from 'framer-motion'
 import sameLength from 'redux/utils/same-length'
 import sameValue from 'redux/utils/same-value'
 import { selectCode } from 'redux/db/selectors'
+import { useGetRealm } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 
 const MotionBox = motion(Box)
 
 const DefaultCard = ({ parentCode, actions = [], code, columns }) => {
+  const realm = useGetRealm()
   const title = useSelector(selectCode(code, getAttribute(columns[0] || '')), sameValue)
   const subTitle = useSelector(selectCode(code, getAttribute(columns[1] || '')), sameValue)
-  const image = useSelector(selectCode(code, 'PRI_IMAGE_URL'), sameValue)
+  const image = useSelector(
+    selectCode(code, realm === 'mentormatch' ? 'PRI_USER_PROFILE_PICTURE' : 'PRI_IMAGE_URL'),
+    sameValue,
+  )
   const statusColor = useSelector(selectCode(code, 'PRI_STATUS_COLOR'), sameValue)
   const color = useColorModeValue(`${statusColor?.value}.50`, `${statusColor?.value}.900`)
 
