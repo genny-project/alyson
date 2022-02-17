@@ -24,6 +24,7 @@ import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import getUserType from 'utils/helpers/get-user-type'
 import { selectBufferDropdownOptions } from 'redux/app/selectors'
 import { selectCode } from 'redux/db/selectors'
+import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
 
 const Autocomplete = ({
@@ -44,6 +45,7 @@ const Autocomplete = ({
   const inputRef = useRef()
   const dispatch = useDispatch()
   const setBufferDropdownOption = compose(dispatch, bufferDropdownOption)
+  const { dispatchFieldMessage } = useIsFieldNotEmpty()
 
   const getUniqueValuesFromTwoArrays = firstArray => secondArray =>
     reduce(
@@ -71,6 +73,7 @@ const Autocomplete = ({
     ddEvent(value)
     setOpen(!!value)
     setInput(value)
+    dispatchFieldMessage({ payload: questionCode })
   }
 
   const onSelectChange = option => {
@@ -86,6 +89,8 @@ const Autocomplete = ({
     if (i) {
       setItems([...items, i])
     }
+
+    dispatchFieldMessage({ payload: questionCode })
   }
 
   const createNew = () => {
@@ -107,7 +112,7 @@ const Autocomplete = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [options])
 
-  const maxW = useMobileValue(['', '25vw'])
+  const maxW = useMobileValue(['full', '100%'])
 
   const dropDownRef = useRef()
 
@@ -127,7 +132,7 @@ const Autocomplete = ({
 
   var renderOptions = items.map(item => (
     <WrapItem key={item}>
-      <Chip test-id={item} onClick={() => onSelectChange(item)} p="2">
+      <Chip id={questionCode} test-id={item} onClick={() => onSelectChange(item)} p="2">
         {item}
       </Chip>
     </WrapItem>
@@ -137,7 +142,7 @@ const Autocomplete = ({
     setItems([])
     renderOptions = items.map(item => (
       <WrapItem key={item}>
-        <Chip test-id={item} onClick={() => onSelectChange(item)} p="2">
+        <Chip id={questionCode} test-id={item} onClick={() => onSelectChange(item)} p="2">
           {renderLabel(item)}
         </Chip>
       </WrapItem>
@@ -146,7 +151,7 @@ const Autocomplete = ({
     if (items.length === 0) {
       renderOptions = selected.map(item => (
         <WrapItem key={item}>
-          <Chip test-id={item} onClick={() => onSelectChange(item)} p="2">
+          <Chip id={questionCode} test-id={item} onClick={() => onSelectChange(item)} p="2">
             {renderLabel(item)}
           </Chip>
         </WrapItem>
@@ -172,9 +177,10 @@ const Autocomplete = ({
           {renderOptions}
         </Wrap>
       </Box>
-      <Box ref={dropDownRef}>
+      <Box id={questionCode} ref={dropDownRef}>
         <InputGroup display={!multiple && selected.length ? 'none' : 'block'} w="full">
           <Input
+            id={questionCode}
             test-id={questionCode}
             onKeyDown={e => {
               if (e.key === 'ArrowDown' && !open) setOpen(true)

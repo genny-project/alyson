@@ -79,7 +79,9 @@ const Timeline = ({ items }) => {
                       ? 'Training has already been completed.'
                       : equals(status, 'UNVERIFIED')
                       ? 'Account verification is pending.'
-                      : 'Please complete the previous steps'
+                      : equals(status, 'MENTORING')
+                      ? 'Meet & Greet is already in process.'
+                      : 'Please complete the previous steps.'
                   }
                   aria-label="Please complete the previous steps"
                   bg="red.400"

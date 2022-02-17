@@ -17,6 +17,7 @@ import getUserType from 'utils/helpers/get-user-type'
 import sameLength from 'redux/utils/same-length'
 import { selectCode } from 'redux/db/selectors'
 import { useColorModeValue } from '@chakra-ui/color-mode'
+import { useGetRealm } from 'utils/hooks'
 
 const Header = ({ beCode, sbeCode }) => {
   const userCode = useSelector(selectCode('USER'), equals)
@@ -27,6 +28,9 @@ const Header = ({ beCode, sbeCode }) => {
   const onClose = () => dispatch(closeDrawer())
   const videoSrc = useSelector(selectCode(beCode, 'PRI_VIDEO_URL'))?.value
   const hasVideo = !isEmpty(videoSrc)
+
+  const realm = useGetRealm()
+  const userImageCode = realm === 'mentormatch' ? 'PRI_USER_PROFILE_PICTURE' : 'PRI_IMAGE_URL'
 
   return (
     <Box bg={cardBg} borderRadius="2rem 2rem 0rem 0rem">
@@ -40,7 +44,7 @@ const Header = ({ beCode, sbeCode }) => {
             icon={<FontAwesomeIcon opacity={50} icon={faTimes} />}
           />
         </Box>
-        <Attribute code={beCode} config={{ h: '5rem', w: '5rem' }} attribute="PRI_IMAGE_URL" />
+        <Attribute code={beCode} config={{ h: '5rem', w: '5rem' }} attribute={userImageCode} />
         <VStack align="start" spacing={2}>
           <HStack spacing={5}>
             <Attribute config={{ textStyle: 'head.1' }} code={beCode} attribute="PRI_NAME" />

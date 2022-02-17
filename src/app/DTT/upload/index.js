@@ -15,6 +15,7 @@ import DropZone from './Dropzone'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ImageType from './Image'
 import useApi from 'api'
+import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 
 const Read = ({ code, data, dttData, parentCode, variant, config = {} }) => {
   const typeName = dttData?.typeName
@@ -68,7 +69,7 @@ const Read = ({ code, data, dttData, parentCode, variant, config = {} }) => {
   )
 }
 
-const Write = ({ questionCode, data, dttData, onSendAnswer, video, setSaving }) => {
+const Write = ({ questionCode, data, dttData, onSendAnswer, video, name }) => {
   const api = useApi()
   const typeName = dttData?.typeName
 
@@ -78,6 +79,7 @@ const Write = ({ questionCode, data, dttData, onSendAnswer, video, setSaving }) 
   const [progress, setProgress] = useState(null)
   const openDropzone = () => setDropzone(true)
   const closeDropzone = () => setDropzone(false)
+  const { dispatchFieldMessage } = useIsFieldNotEmpty()
 
   useEffect(() => {
     const getFileName = async uuid => {
@@ -105,7 +107,7 @@ const Write = ({ questionCode, data, dttData, onSendAnswer, video, setSaving }) 
     }
 
     setLoading(false)
-    setSaving.on()
+    dispatchFieldMessage({ payload: questionCode })
   }
 
   return (
@@ -119,7 +121,7 @@ const Write = ({ questionCode, data, dttData, onSendAnswer, video, setSaving }) 
             onSendAnswer={onSendAnswer}
             setLoading={setLoading}
             questionCode={questionCode}
-            setSaving={setSaving}
+            name={name}
           />
         ) : data?.value ? (
           <HStack>
@@ -132,6 +134,7 @@ const Write = ({ questionCode, data, dttData, onSendAnswer, video, setSaving }) 
           </HStack>
         ) : (
           <Button
+            id={questionCode}
             hidden={!!dropzone}
             test-id={questionCode}
             onClick={openDropzone}
@@ -146,6 +149,7 @@ const Write = ({ questionCode, data, dttData, onSendAnswer, video, setSaving }) 
             handleSave={handleSave}
             closeDropzone={closeDropzone}
             questionCode={questionCode}
+            id={questionCode}
           />
         )}
       </div>

@@ -14,11 +14,13 @@ const useGetMenteeInformation = () => {
   let selectMentorStatus = useSelector(selectCode(userCode, 'PRI_MATCHED_WITH_MENTOR'))?.valueString
   let meetingWithMentorStatus = useSelector(selectCode(userCode, 'PRI_MEETING_WITH_MENTOR'))
     ?.valueString
+  let menteeStatus = useSelector(selectCode(userCode, 'PRI_STATUS'))?.valueString
 
   profileStatus = convertToUppercase(profileStatus)
   trainingStatus = convertToUppercase(trainingStatus)
   selectMentorStatus = convertToUppercase(selectMentorStatus)
   meetingWithMentorStatus = convertToUppercase(meetingWithMentorStatus)
+  menteeStatus = convertToUppercase(menteeStatus)
 
   const isProfileCompleted = isComplete(profileStatus)
   const isTrainingCompleted = isComplete(trainingStatus)
@@ -34,6 +36,7 @@ const useGetMenteeInformation = () => {
     isTrainingCompleted,
     isMentorSelected,
     isMeetingCompleted,
+    menteeStatus,
   }
 }
 

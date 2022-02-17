@@ -25,7 +25,7 @@ const Write = ({
   onSendAnswer,
   handleSave,
   setLoading,
-  setSaving,
+  name,
 }) => {
   const { getImageSrc } = useApi()
   const src = getImageSrc(data?.value)
@@ -33,7 +33,6 @@ const Write = ({
   const [openSnap, setOpenSnap] = useState(false)
   const onRemoveImage = () => {
     onSendAnswer('')
-    setSaving.off()
   }
 
   if (src)
@@ -47,7 +46,7 @@ const Write = ({
     )
 
   return (
-    <div>
+    <div id={questionCode}>
       {openSnap && (
         <Snap handleSave={handleSave} setOpenSnap={setOpenSnap} setLoading={setLoading} />
       )}
@@ -58,10 +57,10 @@ const Write = ({
             onClick={openDropzone}
             leftIcon={<FontAwesomeIcon icon={faUpload} />}
           >
-            Upload photo
+            {name}
           </Button>
           <Button onClick={() => setOpenSnap(true)} leftIcon={<FontAwesomeIcon icon={faCamera} />}>
-            Take photo
+            Take Photo
           </Button>
         </ButtonGroup>
       </div>

@@ -15,7 +15,6 @@ import {
 } from '@chakra-ui/react'
 import { faBan, faExpand, faSave, faVideo } from '@fortawesome/free-solid-svg-icons'
 import { includes, pathOr } from 'ramda'
-import { useState } from 'react'
 
 import Download from 'app/DTT/download_button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -26,7 +25,9 @@ import configs from './configs'
 import getDownloadableLinkFromUrl from 'utils/helpers/get-downloadble-link'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import useApi from 'api'
+import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useKeycloak } from '@react-keycloak/web'
+import { useState } from 'react'
 
 const Write = ({ questionCode, onSendAnswer, html, data, setSaving }) => {
   const config = configs[questionCode] || safelyParseJson(html, {})
@@ -34,6 +35,7 @@ const Write = ({ questionCode, onSendAnswer, html, data, setSaving }) => {
   const { postMediaFile, getSrc } = useApi()
   const [startVideo, setStartVideo] = useState(false)
   const [upload, setUpload] = useBoolean()
+  const { dispatchFieldMessage } = useIsFieldNotEmpty()
 
   const handleSave = async file => {
     let data = new FormData()
@@ -45,7 +47,7 @@ const Write = ({ questionCode, onSendAnswer, html, data, setSaving }) => {
     })
 
     onSendAnswer(saveData.uuid)
-    setSaving.on()
+    dispatchFieldMessage({ payload: questionCode })
   }
 
   const src = getSrc(data?.value)
@@ -53,10 +55,17 @@ const Write = ({ questionCode, onSendAnswer, html, data, setSaving }) => {
   if (src)
     return (
       <VStack>
-        <video style={{ width: '60rem', borderRadius: '1rem' }} src={src} controls />
+        <video
+          id={questionCode}
+          style={{ width: '60rem', borderRadius: '1rem' }}
+          src={src}
+          controls
+        />
+
         <Badge variant="subtle" colorScheme="green" mt="2">
           {`Saved!`}
         </Badge>
+
         <HStack style={{ marginTop: '40px' }}>
           <Button
             test-id={questionCode + '-clear'}
@@ -67,13 +76,13 @@ const Write = ({ questionCode, onSendAnswer, html, data, setSaving }) => {
           >
             {`Re-Record`}
           </Button>
+
           <Button
             test-id={questionCode + '-delete'}
             leftIcon={<FontAwesomeIcon icon={faBan} />}
             onClick={() => {
               setStartVideo(false)
               onSendAnswer('')
-              setSaving.off()
             }}
           >
             {`Delete Video`}
@@ -108,15 +117,15 @@ const Write = ({ questionCode, onSendAnswer, html, data, setSaving }) => {
           </Text>
           <Text textStyle="body.2">{config.description}</Text>
           <Text textStyle="body.3">{config.explanation}</Text>
-          <Text
-            textStyle="body.2"
-            mb="2"
-          >{`Don't worry, we'll give you time to prepare and let you record!`}</Text>
+          <Text textStyle="body.2" mb="2">
+            {`Don't worry, we'll give you time to prepare and let you record!`}
+          </Text>
         </>
       )}
 
       {startVideo ? (
         <VideoRecorder
+          id={questionCode}
           test-id={questionCode}
           setStartVideo={setStartVideo}
           setData={handleSave}
@@ -136,12 +145,16 @@ const Write = ({ questionCode, onSendAnswer, html, data, setSaving }) => {
               </a>
             </Box>
             <Button
+              id={questionCode}
               test-id={`${questionCode}-start`}
               leftIcon={<FontAwesomeIcon icon={faVideo} />}
               onClick={() => setStartVideo(true)}
               colorScheme="primary"
-            >{`Get Started!`}</Button>
+            >
+              {`Get Started!`}
+            </Button>
             <Button
+              id={questionCode}
               test-id={`${questionCode}-upload`}
               onClick={setUpload.on}
               colorScheme="green"

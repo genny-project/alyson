@@ -1,4 +1,4 @@
-import { Box, Button, Flex, HStack, useColorModeValue, useToast } from '@chakra-ui/react'
+import { Box, Button, Flex, Grid, useColorModeValue, useToast } from '@chakra-ui/react'
 import {
   personalDetails,
   preference,
@@ -37,7 +37,7 @@ const DetailView = ({ setShowDetailView, currentMentor }) => {
       // justifyContent="space-around"
       alignItems="center"
     >
-      <Box ml={4} mb={4} w="95%">
+      <Box mb={4} w="95%">
         <Button
           onClick={() => setShowDetailView(false)}
           colorScheme="blue"
@@ -46,13 +46,23 @@ const DetailView = ({ setShowDetailView, currentMentor }) => {
           test-id={`BACK_TO_MENTOR_SELECTION`}
         >{`Mentor Selection`}</Button>
       </Box>
+
       <DetailHeader beCode={currentMentor} />
-      <HStack alignItems="flex-start" w="90%">
+
+      <Grid
+        width={'95%'}
+        templateColumns={'repeat(auto-fit, minmax(260px, 1fr))'}
+        gap={'1rem'}
+        mb={'1rem'}
+      >
         <DetailCards detailsection={personalDetails} currentMentor={currentMentor} miniCard />
         <DetailCards detailsection={professionalDetails} currentMentor={currentMentor} miniCard />
-      </HStack>
-      <DetailCards detailsection={preference} currentMentor={currentMentor} />
-      <Box w="90%">
+      </Grid>
+      <Box width="95%" mb={'1rem'}>
+        <DetailCards detailsection={preference} currentMentor={currentMentor} />
+      </Box>
+
+      <Box w="95%">
         <Button
           w="full"
           colorScheme="blue"
