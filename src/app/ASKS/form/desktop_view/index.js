@@ -11,7 +11,7 @@ const FormDesktopView = ({ title, onFinish, questionCode, childAsks, config = {}
   if (!groups.length)
     return (
       <Center>
-        <Card mx="25vw" w="full">
+        <Card maxW="50vw" w="full">
           <VStack align="start" spacing={8}>
             <Text textStyle="head.2">{title}</Text>
             {config?.subHeader && <Text textStyle="body.3">{config.subHeader}</Text>}
@@ -24,7 +24,7 @@ const FormDesktopView = ({ title, onFinish, questionCode, childAsks, config = {}
     )
 
   return (
-    <VStack mx="20vw" spacing="4">
+    <VStack maxW="50vw" spacing="4">
       <Header title={title} subHeader={subHeader} config={config} />
       <Body
         paginated={pagination}

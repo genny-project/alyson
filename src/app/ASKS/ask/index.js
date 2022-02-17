@@ -62,6 +62,7 @@ const Ask = ({
   const fieldNotEmpty = fieldState[passedQuestionCode]
 
   const askData = useSelector(selectCode(parentCode, passedQuestionCode)) || passedAskData
+  const maxW = useMobileValue(['full', '100%'])
 
   const {
     questionCode,
@@ -77,8 +78,9 @@ const Ask = ({
   } = askData || {}
 
   const data = useSelector(selectCode(targetCode, attributeCode)) || {}
+
   const highlightedQuestion = useSelector(selectHighlightedQuestion)
-  const labelWidth = useMobileValue(['full', '25vw'])
+  const labelWidth = useMobileValue(['full', '100%'])
 
   const dataTypeFromReduxStore = useSelector(selectCode(attributeCode)) || ''
   const dataType = useSelector(selectCode(dataTypeFromReduxStore)) || ''
@@ -88,6 +90,8 @@ const Ask = ({
   const errorMessage = pathOr('Please enter valid data', ['validationList', 0, 'errormsg'])(
     dataType,
   )
+
+  const dataValue = data?.value
 
   if (!question?.attribute) return null
 
@@ -110,7 +114,7 @@ const Ask = ({
 
   if (!!disabled && component !== 'button')
     return (
-      <FormControl isDisabled isRequired={mandatory}>
+      <FormControl maxW={maxW} isDisabled isRequired={mandatory}>
         <HStack display={noLabel ? 'none' : 'block'} w={labelWidth} justify="space-between">
           <FormLabel id={attributeCode} textStyle="body.1">
             {name}
@@ -154,13 +158,24 @@ const Ask = ({
       transition="all 0.5s"
       minH="82px"
     >
-      <HStack justify="space-between" display={noLabel ? 'none' : 'flex'} w={labelWidth}>
+      <HStack
+        alignItems={`flex-start`}
+        justify="space-between"
+        display={noLabel ? 'none' : 'flex'}
+        w={labelWidth}
+      >
         <FormLabel id={attributeCode}>{name}</FormLabel>
         {!failedValidation && (fieldNotEmpty || data?.value) && data?.value !== '[]' ? (
           <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
         ) : null}
       </HStack>
-      <FormHelperText mt="-1" mb="2" display={helper ? 'block' : 'none'} textStyle="body.3">
+      <FormHelperText
+        maxW={maxW}
+        mt="-1"
+        mb="2"
+        display={helper ? 'block' : 'none'}
+        textStyle="body.3"
+      >
         {helper}
       </FormHelperText>
       {component === 'email' && (
