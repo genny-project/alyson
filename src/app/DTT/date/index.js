@@ -46,8 +46,10 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
   const onlyYear = typeName === 'year'
 
   const handleChange = e => {
+    if(e.target.value){
     !errorStatus && onSendAnswer(safelyParseDate(e.target.value).toISOString())
     dispatchFieldMessage({ payload: questionCode })
+    }
   }
 
   const maxW = useMobileValue(['full', '100%'])
