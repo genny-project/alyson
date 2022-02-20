@@ -7,7 +7,7 @@ export const fromLatLng = async ({ lat, lng }) => {
     const response = await axios({
       method: 'GET',
       url: `https://maps.googleapis.com/maps/api/timezone/json?location=${lat},${lng}&key=${
-        apiConfig.ENV_GOOGLE_MAPS_APIKEY
+        apiConfig.ENV_GOOGLE_TIMEZONE_APIKEY
       }&timestamp=${Date.now() / 1000}`,
     })
     const { data } = response
