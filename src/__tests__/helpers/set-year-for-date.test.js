@@ -8,14 +8,14 @@ describe('Set Year For Date', () => {
   })
 
   it('should return a date string in ISO format with year set to the default year if the argument is a number', () => {
-    expect(setYearForDate(1700)).toEqual('1921-01-01')
+    expect(setYearForDate(1700)).toEqual('1922-01-01')
   })
 
   it('should return a date string in ISO format with year set to the default year if length of the string passed as argument doesnt equal to 4', () => {
-    expect(setYearForDate('900')).toEqual('1921-01-01')
+    expect(setYearForDate('900')).toEqual('1922-01-01')
   })
 
   it('should return a date string in ISO format with year set to the default year if no argument is passed', () => {
-    expect(setYearForDate()).toEqual('1921-01-01')
+    expect(setYearForDate()).toEqual('1922-01-01')
   })
 })
