@@ -5,6 +5,8 @@ on:
 
 jobs:
   nodeci:
+    env: 
+      CI: false
     runs-on: ubuntu-latest
     strategy:
       matrix:
