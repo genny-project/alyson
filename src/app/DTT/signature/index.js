@@ -1,8 +1,9 @@
-import { Box, VStack, Badge, Input, IconButton, Text } from '@chakra-ui/react'
-import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Badge, Box, IconButton, Input, Text, VStack } from '@chakra-ui/react'
 import { useEffect, useRef, useState } from 'react'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import SignatureCanvas from 'react-signature-canvas'
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 
 const Write = ({ questionCode, data, onSendAnswer }) => {
   const signatureRef = useRef(null)
@@ -33,9 +34,11 @@ const Write = ({ questionCode, data, onSendAnswer }) => {
     if (data?.value) {
       const sigCanvas = signatureRef.current.getCanvas()
       const img = new window.Image()
+
       img.addEventListener('load', function () {
         sigCanvas.getContext('2d').drawImage(img, 0, 0)
       })
+      img.setAttribute('crossOrigin', 'Anonymous')
       img.setAttribute('src', data.value)
     }
   }, [data.value])
@@ -71,6 +74,7 @@ const Write = ({ questionCode, data, onSendAnswer }) => {
           canvasProps={{
             width: '500',
             height: '200',
+            allowTain: true,
           }}
         />
       </Box>
