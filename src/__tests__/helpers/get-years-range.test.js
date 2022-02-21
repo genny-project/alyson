@@ -2,9 +2,10 @@ import yearRange from 'utils/helpers/get-years-range'
 
 describe('Get Years Array', () => {
   it('should create an array of the length equaling to the argument being passed which holds years recursively deducted from the current year', () => {
-    expect(yearRange(5)).toEqual([2021, 2020, 2019, 2018, 2017])
-    expect(yearRange(10)).toEqual([2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012])
+    expect(yearRange(5)).toEqual([2022, 2021, 2020, 2019, 2018])
+    expect(yearRange(10)).toEqual([2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013])
     expect(yearRange(15)).toEqual([
+      2022,
       2021,
       2020,
       2019,
@@ -19,7 +20,6 @@ describe('Get Years Array', () => {
       2010,
       2009,
       2008,
-      2007,
     ])
   })
 })
