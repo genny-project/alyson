@@ -21,6 +21,7 @@ import { onSendMessage } from 'vertx'
 import { selectCode } from 'redux/db/selectors'
 import { selectDisplay } from 'redux/app/selectors'
 import { useSelector } from 'react-redux'
+import { SIDEBAR_WIDTH } from 'utils/constants'
 
 const Display = ({ title }) => {
   const display = useSelector(selectDisplay)
@@ -39,8 +40,6 @@ const Display = ({ title }) => {
   const projectTitle = useSelector(selectCode('PRJ_' + appName, 'PRI_NAME'))?.valueString
   const projectIcon = useSelector(selectCode('PRJ_' + appName, 'PRI_FAVICON'))?.valueString
 
-  const sideBarWidth = '102px'
-
   return (
     <ErrorBoundary>
       <MetaTags>
@@ -48,7 +47,7 @@ const Display = ({ title }) => {
         <link rel="icon" href={projectIcon} type="image/x-icon"></link>
       </MetaTags>
       <HStack>
-        <VStack w={sideBarWidth} bg="blue" h="100vh">
+        <VStack w={SIDEBAR_WIDTH} bg="blue" h="100vh">
           <Text>{`one`}</Text>
           <Text>{`one`}</Text>
           <Text>{`one`}</Text>
@@ -61,7 +60,7 @@ const Display = ({ title }) => {
           backgroundColor={backgroundColor}
           id="main-display"
           position="fixed"
-          left={sideBarWidth}
+          left={SIDEBAR_WIDTH}
           right="0"
           top="0"
           bottom="0"

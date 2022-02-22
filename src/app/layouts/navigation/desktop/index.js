@@ -20,6 +20,7 @@ import {
 import { addItemsQuestionCode, dashboardViewQuestion } from 'utils/constants'
 import { caps, hideQuickAdd } from 'config/caps'
 import { faBars, faBolt, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { SIDEBAR_WIDTH } from 'utils/constants'
 
 import AskMenu from 'app/ASKS/menu'
 import Avatar from '../Avatar'
@@ -35,8 +36,6 @@ import { useRef } from 'react'
 import { useSelector } from 'react-redux'
 
 const DesktopNav = ({ logoSrc }) => {
-  const sideBarWidth = '102px'
-
   const theme = useTheme()
   const bg = useColorModeValue(theme.colors.background.light, theme.colors.primary[900])
   const color = useColorModeValue(theme.colors.text.light, theme.colors.text.dark)
@@ -66,7 +65,7 @@ const DesktopNav = ({ logoSrc }) => {
           top: 0,
           zIndex: 9999,
           maxWidth: '100vw',
-          left: sideBarWidth,
+          left: SIDEBAR_WIDTH,
           right: 0,
           backgroundColor: bg,
           boxShadow: 'rgb(0 0 0 / 10%) 0px 2px 0px 0px',
