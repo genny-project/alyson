@@ -91,8 +91,6 @@ const Ask = ({
     dataType,
   )
 
-  const dataValue = data?.value
-
   if (!question?.attribute) return null
 
   const { html, helper } = question
