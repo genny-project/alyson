@@ -47,7 +47,7 @@ const ItemsForAutocomplete = ({
     ref,
     handler: () => !isMobile && setOpen(false),
   })
-  const maxW = useMobileValue(['', '25vw'])
+  const maxW = '100%'; //useMobileValue(['', '25vw'])
   return (
     <Card
       overflow="hidden"
