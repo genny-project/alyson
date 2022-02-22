@@ -16,7 +16,6 @@ const ChildButton = ({ questionCode, childCode, onClick, sideBarButtons }) => {
 
   const handleClick = () => {
     sendAskClick(childCode, childCode)
-    onClick()
   }
 
   if (!childAsks)
@@ -74,7 +73,6 @@ const ChildButton = ({ questionCode, childCode, onClick, sideBarButtons }) => {
           <MenuItem
             onClick={() => {
               sendAskClick(childAsk.questionCode, childAsk.questionCode)
-              onClick()
             }}
             test-id={childAsk.questionCode}
             key={childAsk.questionCode}

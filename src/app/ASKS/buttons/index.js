@@ -9,7 +9,7 @@ const AskButtons = ({ questionCode, onClick, sideBarButtons }) => {
   if (!data) return null
 
   return (
-    <VStack alignItems="start" test-id={questionCode}>
+    <VStack test-id={questionCode} justifyContent="center" h="60%" bg="red">
       {data.map(childCode => (
         <ChildButton
           onClick={onClick}
