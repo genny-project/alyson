@@ -1,11 +1,14 @@
 import { Flex, Spacer, Text } from '@chakra-ui/react'
+
 import { ReactElement } from 'react'
-import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
+import { useSelector } from 'react-redux'
 
 const Title = ({ sbeCode }: { sbeCode: string }): ReactElement => {
   const title = useSelector(selectCode(sbeCode, 'SCH_TITLE'))?.value
   const total = useSelector(selectCode(sbeCode, 'PRI_TOTAL_RESULTS'))?.value
+
+  console.log('LANE TITLE => ', title)
 
   return (
     <Flex w="full">

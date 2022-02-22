@@ -69,7 +69,30 @@ export const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMes
         defaultValue={data?.value}
         w="full"
         maxW={maxW}
+        paddingBlock="14px"
+        paddingInline="24px"
         isInvalid={isInvalid}
+        h="46"
+        fontWeight={'medium'}
+        borderColor={'gray.700'}
+        background={'light'}
+        _hover={{
+          borderColor: 'primary.500',
+          boxShadow: 'lg',
+        }}
+        _focusVisible={{
+          borderColor: 'primary.500',
+          boxShadow: 'initial',
+        }}
+        _invalid={{
+          borderColor: 'error.500',
+          background: 'error.50',
+          color: 'error.500',
+        }}
+        _disabled={{
+          borderColor: 'gray.300',
+          background: 'gray.100',
+        }}
       />
       {errorStatus && (
         <ChakraText textStyle="tail.error" mt={2}>

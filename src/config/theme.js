@@ -35,7 +35,17 @@ const defaultProjectTheme = {
       800: '#702459',
       900: '#521B41',
     },
-    error: { 50: '#FFF5F5', 500: '#E53E3E', 900: '#700f0f' },
+    gray: {
+      100: '#EDEDED',
+      300: '#C4C4C4',
+      500: '#718096',
+      700: '#979797',
+    },
+    error: {
+      50: '#FEF4F4',
+      500: '#F11E1B',
+      900: '#700f0f',
+    },
     warning: { 50: '#FFFAF0', 500: '#DD6B20', 900: '#62300e' },
     success: { 50: '#F0FFF4', 500: '#38A169', 900: '#133523' },
     gradient: {
@@ -50,6 +60,9 @@ const defaultProjectTheme = {
       800: 'linear-gradient(135deg, #4FD1C5, #4299E1)',
       900: 'linear-gradient(135deg, #38B2AC, #3182CE)',
     },
+  },
+  shadows: {
+    lg: '0 4px 15px -3px rgba(49, 130, 206, 0.22)',
   },
   textStyles: {
     head: {
