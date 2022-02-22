@@ -1,4 +1,4 @@
-import { Box, HStack, Text, useColorModeValue, VStack } from '@chakra-ui/react'
+import { Box, HStack, useColorModeValue } from '@chakra-ui/react'
 import DeveloperConsole, { isDev } from 'utils/developer'
 
 import Dashboard from 'app/layouts/dashboard'
@@ -22,6 +22,7 @@ import { selectCode } from 'redux/db/selectors'
 import { selectDisplay } from 'redux/app/selectors'
 import { useSelector } from 'react-redux'
 import { SIDEBAR_WIDTH } from 'utils/constants'
+import SideBar from 'app/layouts/display/sidebar'
 
 const Display = ({ title }) => {
   const display = useSelector(selectDisplay)
@@ -47,15 +48,7 @@ const Display = ({ title }) => {
         <link rel="icon" href={projectIcon} type="image/x-icon"></link>
       </MetaTags>
       <HStack>
-        <VStack w={SIDEBAR_WIDTH} bg="blue" h="100vh">
-          <Text>{`one`}</Text>
-          <Text>{`one`}</Text>
-          <Text>{`one`}</Text>
-          <Text>{`one`}</Text>
-          <Text>{`one`}</Text>
-          <Text>{`one`}</Text>
-          <Text>{`one`}</Text>
-        </VStack>
+        <SideBar />
         <Box
           backgroundColor={backgroundColor}
           id="main-display"
