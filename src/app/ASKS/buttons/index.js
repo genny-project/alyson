@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import { VStack } from '@chakra-ui/react'
 
-const AskButtons = ({ questionCode, onClick }) => {
+const AskButtons = ({ questionCode, onClick, sideBarButtons }) => {
   const data = useSelector(selectCode(questionCode))
 
   if (!data) return null
@@ -16,6 +16,7 @@ const AskButtons = ({ questionCode, onClick }) => {
           key={childCode}
           questionCode={questionCode}
           childCode={childCode}
+          sideBarButtons={sideBarButtons}
         />
       ))}
     </VStack>

@@ -7,7 +7,7 @@ import { selectCode } from 'redux/db/selectors'
 import sendAskClick from 'app/ASKS/utils/send-ask-click'
 import { useSelector } from 'react-redux'
 
-const ChildButton = ({ questionCode, childCode, onClick }) => {
+const ChildButton = ({ questionCode, childCode, onClick, sideBarButtons }) => {
   const data = useSelector(selectCode(questionCode, childCode))
 
   if (!data) return null
@@ -36,9 +36,11 @@ const ChildButton = ({ questionCode, childCode, onClick }) => {
           <FontAwesomeIcon icon={icons[childCode]} />
         </Box>
 
-        <Text textStyle="body.1" _hover={{ opacity: 1.0 }} opacity="0.8">
-          {name}
-        </Text>
+        {!sideBarButtons && (
+          <Text textStyle="body.1" _hover={{ opacity: 1.0 }} opacity="0.8">
+            {name}
+          </Text>
+        )}
       </HStack>
     )
   return (
@@ -58,10 +60,12 @@ const ChildButton = ({ questionCode, childCode, onClick }) => {
           >
             <FontAwesomeIcon icon={icons[childCode]} />
           </Box>
-          <Text textStyle="body.1" _hover={{ opacity: 1.0 }} opacity="0.8">
-            {name}
-          </Text>
-          <FontAwesomeIcon icon={faAngleDown} />
+          {!sideBarButtons && (
+            <Text textStyle="body.1" _hover={{ opacity: 1.0 }} opacity="0.8">
+              {name}
+            </Text>
+          )}
+          {!sideBarButtons && <FontAwesomeIcon icon={faAngleDown} />}
         </HStack>
       </MenuButton>
 

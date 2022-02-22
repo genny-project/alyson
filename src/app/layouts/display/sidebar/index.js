@@ -1,17 +1,13 @@
-import { VStack, Text } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
+import Buttons from 'app/ASKS/buttons'
+
 import { SIDEBAR_WIDTH } from 'utils/constants'
 
 const SideBar = () => {
   return (
-    <VStack w={SIDEBAR_WIDTH} bg="blue" h="100vh">
-      <Text>{`one`}</Text>
-      <Text>{`one`}</Text>
-      <Text>{`one`}</Text>
-      <Text>{`one`}</Text>
-      <Text>{`one`}</Text>
-      <Text>{`one`}</Text>
-      <Text>{`one`}</Text>
-    </VStack>
+    <Box w={SIDEBAR_WIDTH} bg="blue" h="100vh">
+      <Buttons questionCode={'QUE_PROJECT_SIDEBAR_GRP'} sideBarButtons={true} />
+    </Box>
   )
 }
 
