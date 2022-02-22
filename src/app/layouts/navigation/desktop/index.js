@@ -1,13 +1,31 @@
-import { Box, Flex, HStack, Image, Spacer, useColorModeValue, useTheme } from '@chakra-ui/react'
-import { addItemsQuestionCode, quickAddItemsQuestionCode } from 'utils/constants'
+import {
+  Box,
+  Button,
+  Drawer,
+  DrawerBody,
+  DrawerCloseButton,
+  DrawerContent,
+  DrawerHeader,
+  DrawerOverlay,
+  Flex,
+  HStack,
+  IconButton,
+  Image,
+  Spacer,
+  Text,
+  useColorModeValue,
+  useDisclosure,
+  useTheme,
+} from '@chakra-ui/react'
+import { addItemsQuestionCode, dashboardViewQuestion } from 'utils/constants'
 import { caps, hideQuickAdd } from 'config/caps'
-import { faBolt, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faBolt, faPlus } from '@fortawesome/free-solid-svg-icons'
 
 import AskMenu from 'app/ASKS/menu'
 import Avatar from '../Avatar'
+import Buttons from 'app/ASKS/buttons'
 import Drafts from '../drafts/Drafts'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Views from './Views'
 import { apiConfig } from 'config/get-api-config'
 import getUserType from 'utils/helpers/get-user-type'
 import { onSendMessage } from 'vertx'
@@ -17,6 +35,8 @@ import { useRef } from 'react'
 import { useSelector } from 'react-redux'
 
 const DesktopNav = ({ logoSrc }) => {
+  const sideBarWidth = '102px'
+
   const theme = useTheme()
   const bg = useColorModeValue(theme.colors.background.light, theme.colors.primary[900])
   const color = useColorModeValue(theme.colors.text.light, theme.colors.text.dark)
@@ -24,64 +44,98 @@ const DesktopNav = ({ logoSrc }) => {
   const userCode = useSelector(selectCode('USER'))
   const userType = getUserType(useSelector(selectCode(userCode)))
 
+  const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = useRef()
   const realm = useGetRealm()
 
   const logoWidth =
     realm === 'mentormatch'
-      ? '140px'
+      ? '120px'
       : realm === 'internmatch'
-      ? '55px'
+      ? '45px'
       : realm === 'credmatch'
-      ? '140px'
-      : '55px'
+      ? '120px'
+      : '45px'
 
   return (
-    <header
-      style={{
-        color,
-        position: 'fixed',
-        top: 0,
-        zIndex: 3,
-        width: '100%',
-        maxWidth: '100vw',
-        left: 0,
-        right: 0,
-        backgroundColor: bg,
-        boxShadow: 'rgb(0 0 0 / 10%) 0px 2px 0px 0px',
-      }}
-    >
-      <nav>
-        <Flex pr={8} py={2}>
-          <Box cursor="pointer" px={8}>
-            {apiConfig && (
-              <Box
-                onClick={() =>
-                  onSendMessage({ code: 'QUE_DASHBOARD_VIEW', parentCode: 'QUE_DASHBOARD_VIEW' })
-                }
-              >
-                <Image ref={btnRef} src={logoSrc} htmlWidth={logoWidth} />
-              </Box>
-            )}
-          </Box>
-          <Views />
-          <Spacer />
-          <HStack spacing={10}>
-            <AskMenu questionCode={addItemsQuestionCode} icon={<FontAwesomeIcon icon={faPlus} />} />
-            {!caps(userType)(hideQuickAdd) && (
-              <AskMenu
-                questionCode={quickAddItemsQuestionCode}
-                icon={<FontAwesomeIcon icon={faBolt} />}
-              />
-            )}
-            <Drafts />
-            <Box mr="4">
-              <Avatar />
+    <>
+      <header
+        style={{
+          color,
+          position: 'fixed',
+          top: 0,
+          zIndex: 9999,
+          maxWidth: '100vw',
+          left: sideBarWidth,
+          right: 0,
+          backgroundColor: bg,
+          boxShadow: 'rgb(0 0 0 / 10%) 0px 2px 0px 0px',
+        }}
+      >
+        <nav>
+          <Flex align="center" p="3">
+            <IconButton color="gray.600" onClick={onOpen} variant="ghost">
+              <FontAwesomeIcon icon={faBars} />
+            </IconButton>
+            <Box mx={5} alignItems="center" m="auto">
+              {apiConfig && (
+                <Image
+                  onClick={() =>
+                    onSendMessage({
+                      code: dashboardViewQuestion,
+                      parentCode: dashboardViewQuestion,
+                    })
+                  }
+                  ref={btnRef}
+                  src={logoSrc}
+                  htmlWidth={logoWidth}
+                />
+              )}
             </Box>
-          </HStack>
-        </Flex>
-      </nav>
-    </header>
+            <Spacer />
+            <HStack spacing={5}>
+              <AskMenu
+                onClose={onClose}
+                questionCode={addItemsQuestionCode}
+                icon={<Button leftIcon={<FontAwesomeIcon icon={faPlus} />}>Add</Button>}
+              />
+              <Drafts />
+              <Avatar />
+            </HStack>
+          </Flex>
+        </nav>
+      </header>
+      <Drawer
+        preserveScrollBarGap
+        isOpen={isOpen}
+        placement="left"
+        onClose={onClose}
+        finalFocusRef={btnRef}
+      >
+        <DrawerOverlay>
+          <DrawerContent>
+            <DrawerCloseButton />
+            <DrawerHeader>
+              <HStack spacing="5">
+                {!caps(userType)(hideQuickAdd) && (
+                  <AskMenu
+                    onClose={onClose}
+                    questionCode={'QUE_QUICK_ADD_ITEMS_GRP'}
+                    icon={<Button leftIcon={<FontAwesomeIcon icon={faBolt} />}>Quick Add</Button>}
+                  />
+                )}
+              </HStack>
+            </DrawerHeader>
+            <DrawerBody mt="4">
+              <Buttons onClick={onClose} questionCode={'QUE_PROJECT_SIDEBAR_GRP'} />
+              <Text textStyle="tail.2" style={{ position: 'absolute', bottom: 5 }}>
+                Powered By GADA Technology
+              </Text>
+            </DrawerBody>
+          </DrawerContent>
+        </DrawerOverlay>
+      </Drawer>
+    </>
   )
 }
 

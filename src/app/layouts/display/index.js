@@ -1,4 +1,4 @@
-import { Box, useColorModeValue } from '@chakra-ui/react'
+import { Box, HStack, Text, useColorModeValue, VStack } from '@chakra-ui/react'
 import DeveloperConsole, { isDev } from 'utils/developer'
 
 import Dashboard from 'app/layouts/dashboard'
@@ -39,41 +39,54 @@ const Display = ({ title }) => {
   const projectTitle = useSelector(selectCode('PRJ_' + appName, 'PRI_NAME'))?.valueString
   const projectIcon = useSelector(selectCode('PRJ_' + appName, 'PRI_FAVICON'))?.valueString
 
+  const sideBarWidth = '102px'
+
   return (
     <ErrorBoundary>
       <MetaTags>
         <title>{projectTitle}</title>
         <link rel="icon" href={projectIcon} type="image/x-icon"></link>
       </MetaTags>
-      <Box
-        backgroundColor={backgroundColor}
-        id="main-display"
-        position="fixed"
-        left="0"
-        right="0"
-        top="0"
-        bottom="0"
-        overflow="scroll"
-      >
-        <Navigation />
-        <Box paddingTop="5.5rem">
-          {/* <Timeout /> */}
-          {display === 'DASHBOARD' && <Dashboard />}
-          {display === 'TABLE' && <Table />}
-          {display === 'PROCESS' && <Process />}
-          {display === 'VIEW:ASK' && <DisplayForm />}
-          {includes('FORM', display || '') && <Form />}
-          {display === 'DETAIL' && <Detail />}
-          {display === 'MAP' && <Table mapSearch />}
-          {display === 'NOTES' && <Notes />}
+      <HStack>
+        <VStack w={sideBarWidth} bg="blue" h="100vh">
+          <Text>{`one`}</Text>
+          <Text>{`one`}</Text>
+          <Text>{`one`}</Text>
+          <Text>{`one`}</Text>
+          <Text>{`one`}</Text>
+          <Text>{`one`}</Text>
+          <Text>{`one`}</Text>
+        </VStack>
+        <Box
+          backgroundColor={backgroundColor}
+          id="main-display"
+          position="fixed"
+          left={sideBarWidth}
+          right="0"
+          top="0"
+          bottom="0"
+          overflow="scroll"
+        >
+          <Navigation />
+          <Box paddingTop="5.5rem">
+            {/* <Timeout /> */}
+            {display === 'DASHBOARD' && <Dashboard />}
+            {display === 'TABLE' && <Table />}
+            {display === 'PROCESS' && <Process />}
+            {display === 'VIEW:ASK' && <DisplayForm />}
+            {includes('FORM', display || '') && <Form />}
+            {display === 'DETAIL' && <Detail />}
+            {display === 'MAP' && <Table mapSearch />}
+            {display === 'NOTES' && <Notes />}
 
-          <DisplayDrawer />
-          <Dialog />
-          <Toast />
+            <DisplayDrawer />
+            <Dialog />
+            <Toast />
+          </Box>
+          {isDev ? <DeveloperConsole /> : null}
+          <LogrocketIdentifier />
         </Box>
-        {isDev ? <DeveloperConsole /> : null}
-        <LogrocketIdentifier />
-      </Box>
+      </HStack>
     </ErrorBoundary>
   )
 }
