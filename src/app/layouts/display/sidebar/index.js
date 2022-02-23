@@ -1,5 +1,5 @@
 import { Box } from '@chakra-ui/react'
-import Buttons from 'app/ASKS/buttons'
+import Buttons from 'app/layouts/display/sidebar/buttons'
 
 import { SIDEBAR_WIDTH } from 'utils/constants'
 

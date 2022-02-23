@@ -1,9 +1,9 @@
-import ChildButton from './ChildButton'
+import ChildButton from 'app/layouts/display/sidebar/buttons/ChildButton'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import { VStack } from '@chakra-ui/react'
 
-const AskButtons = ({ questionCode, onClick }) => {
+const SidebarButtons = ({ questionCode, onClick, sideBarButtons }) => {
   const data = useSelector(selectCode(questionCode))
 
   if (!data) return null
@@ -16,10 +16,11 @@ const AskButtons = ({ questionCode, onClick }) => {
           key={childCode}
           questionCode={questionCode}
           childCode={childCode}
+          sideBarButtons={sideBarButtons}
         />
       ))}
     </VStack>
   )
 }
 
-export default AskButtons
+export default SidebarButtons
