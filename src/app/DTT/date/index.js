@@ -28,7 +28,7 @@ const Read = ({ data, typeName, config }) => {
 
   if (date === 'Invalid Date') return null
   return (
-    <Text minW="4rem" {...config}>
+    <Text minW="10rem" {...config}>
       {date}
     </Text>
   )
