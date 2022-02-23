@@ -24,15 +24,17 @@ const FormDesktopView = ({ title, onFinish, questionCode, childAsks, config = {}
     )
 
   return (
-    <VStack maxW="50vw" spacing="4">
-      <Header title={title} subHeader={subHeader} config={config} />
-      <Body
-        paginated={pagination}
-        groups={groups}
-        onFinish={onFinish}
-        questionCode={questionCode}
-      />
-    </VStack>
+    <Center>
+      <VStack maxW="50vw" spacing="4">
+        <Header title={title} subHeader={subHeader} config={config} />
+        <Body
+          paginated={pagination}
+          groups={groups}
+          onFinish={onFinish}
+          questionCode={questionCode}
+        />
+      </VStack>
+    </Center>
   )
 }
 export default FormDesktopView
