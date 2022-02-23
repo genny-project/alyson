@@ -10,7 +10,7 @@ import { onSendMessage } from 'vertx'
 
 const InternshipCard = ({ code, parentCode }) => {
   const [name, img, hostCpy] = useSelector(
-    selectAttributes(code, ['PRI_NAME', 'PRI_IMAGE_URL', 'PRI_ASSOC_HC']),
+    selectAttributes(code, ['PRI_NAME', 'PRI_IMAGE_URL', '_LNK_HOST_COMPANY__PRI_NAME']),
   )
 
   const { getImageSrc } = useApi()
