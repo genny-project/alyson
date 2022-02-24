@@ -1,49 +1,33 @@
 import {
   Box,
   Button,
-  Drawer,
-  DrawerBody,
-  DrawerCloseButton,
-  DrawerContent,
-  DrawerHeader,
-  DrawerOverlay,
   Flex,
   HStack,
-  IconButton,
   Image,
   Spacer,
-  Text,
   useColorModeValue,
   useDisclosure,
   useTheme,
 } from '@chakra-ui/react'
 import { addItemsQuestionCode, dashboardViewQuestion } from 'utils/constants'
-import { caps, hideQuickAdd } from 'config/caps'
-import { faBars, faBolt, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { SIDEBAR_WIDTH } from 'utils/constants'
 
 import AskMenu from 'app/ASKS/menu'
 import Avatar from '../Avatar'
-import Buttons from 'app/ASKS/buttons'
 import Drafts from '../drafts/Drafts'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { apiConfig } from 'config/get-api-config'
-import getUserType from 'utils/helpers/get-user-type'
 import { onSendMessage } from 'vertx'
-import { selectCode } from 'redux/db/selectors'
 import { useGetRealm } from 'utils/hooks'
 import { useRef } from 'react'
-import { useSelector } from 'react-redux'
 
 const DesktopNav = ({ logoSrc }) => {
   const theme = useTheme()
   const bg = useColorModeValue(theme.colors.background.light, theme.colors.primary[900])
   const color = useColorModeValue(theme.colors.text.light, theme.colors.text.dark)
 
-  const userCode = useSelector(selectCode('USER'))
-  const userType = getUserType(useSelector(selectCode(userCode)))
-
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { onClose } = useDisclosure()
   const btnRef = useRef()
   const realm = useGetRealm()
 
