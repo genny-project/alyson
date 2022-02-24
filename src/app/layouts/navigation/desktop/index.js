@@ -73,9 +73,6 @@ const DesktopNav = ({ logoSrc }) => {
       >
         <nav>
           <Flex align="center" p="3">
-            <IconButton color="gray.600" onClick={onOpen} variant="ghost">
-              <FontAwesomeIcon icon={faBars} />
-            </IconButton>
             <Box mx={5} alignItems="center" m="auto">
               {apiConfig && (
                 <Image
@@ -104,36 +101,6 @@ const DesktopNav = ({ logoSrc }) => {
           </Flex>
         </nav>
       </header>
-      <Drawer
-        preserveScrollBarGap
-        isOpen={isOpen}
-        placement="left"
-        onClose={onClose}
-        finalFocusRef={btnRef}
-      >
-        <DrawerOverlay>
-          <DrawerContent>
-            <DrawerCloseButton />
-            <DrawerHeader>
-              <HStack spacing="5">
-                {!caps(userType)(hideQuickAdd) && (
-                  <AskMenu
-                    onClose={onClose}
-                    questionCode={'QUE_QUICK_ADD_ITEMS_GRP'}
-                    icon={<Button leftIcon={<FontAwesomeIcon icon={faBolt} />}>Quick Add</Button>}
-                  />
-                )}
-              </HStack>
-            </DrawerHeader>
-            <DrawerBody mt="4">
-              <Buttons onClick={onClose} questionCode={'QUE_PROJECT_SIDEBAR_GRP'} />
-              <Text textStyle="tail.2" style={{ position: 'absolute', bottom: 5 }}>
-                Powered By GADA Technology
-              </Text>
-            </DrawerBody>
-          </DrawerContent>
-        </DrawerOverlay>
-      </Drawer>
     </>
   )
 }
