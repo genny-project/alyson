@@ -28,7 +28,7 @@ const Read = ({ data, typeName, config }) => {
 
   if (date === 'Invalid Date') return null
   return (
-    <Text minW="4rem" {...config}>
+    <Text minW="10rem" {...config}>
       {date}
     </Text>
   )
@@ -46,9 +46,9 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
   const onlyYear = typeName === 'year'
 
   const handleChange = e => {
-    if(e.target.value){
-    !errorStatus && onSendAnswer(safelyParseDate(e.target.value).toISOString())
-    dispatchFieldMessage({ payload: questionCode })
+    if (e.target.value) {
+      !errorStatus && onSendAnswer(safelyParseDate(e.target.value).toISOString())
+      dispatchFieldMessage({ payload: questionCode })
     }
   }
 
