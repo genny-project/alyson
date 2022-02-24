@@ -21,18 +21,9 @@ const ChildButton = ({ questionCode, childCode, onClick, sideBarButtons }) => {
   if (!childAsks)
     return (
       <VStack spacing="4" role="group" p="2" test-id={childCode} onClick={handleClick} as="button">
-        <Box
-          background="primary.500"
-          borderRadius="0.5rem"
-          color="white"
-          p={2}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
+        <Box display="flex" alignItems="center" justifyContent="center">
           <FontAwesomeIcon icon={icons[childCode]} size="2x" color="#AAE3E2" />
         </Box>
-
         <Text color="#BDC5CD" fontSize="12px" fontWeight="400">
           {name}
         </Text>
@@ -41,19 +32,9 @@ const ChildButton = ({ questionCode, childCode, onClick, sideBarButtons }) => {
   return (
     <Menu>
       <MenuButton test-id={childCode}>
-        <VStack spacing="4" role="group" p="2" test-id={childCode} onClick={onClick}>
-          <Box
-            background="primary.500"
-            borderRadius="0.5rem"
-            color="white"
-            p={2}
-            w="40px"
-            h="40px"
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-          >
-            <FontAwesomeIcon icon={icons[childCode]} />
+        <VStack spacing="4" role="group" test-id={childCode} onClick={onClick}>
+          <Box display="flex" alignItems="center" justifyContent="center">
+            <FontAwesomeIcon icon={icons[childCode]} size="2x" color="#AAE3E2" />
           </Box>
 
           <Text color="#BDC5CD" fontSize="12px" fontWeight="400">
