@@ -1,4 +1,4 @@
-import { Box, HStack, Menu, MenuButton, MenuItem, MenuList, Text } from '@chakra-ui/react'
+import { Box, HStack, Menu, MenuButton, MenuItem, MenuList, Text, VStack } from '@chakra-ui/react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
@@ -20,32 +20,28 @@ const ChildButton = ({ questionCode, childCode, onClick, sideBarButtons }) => {
 
   if (!childAsks)
     return (
-      <HStack spacing="4" role="group" p="2" test-id={childCode} onClick={handleClick} as="button">
+      <VStack spacing="4" role="group" p="2" test-id={childCode} onClick={handleClick} as="button">
         <Box
           background="primary.500"
           borderRadius="0.5rem"
           color="white"
           p={2}
-          w="40px"
-          h="40px"
           display="flex"
           alignItems="center"
           justifyContent="center"
         >
-          <FontAwesomeIcon icon={icons[childCode]} />
+          <FontAwesomeIcon icon={icons[childCode]} size="2x" color="#AAE3E2" />
         </Box>
 
-        {!sideBarButtons && (
-          <Text textStyle="body.1" _hover={{ opacity: 1.0 }} opacity="0.8">
-            {name}
-          </Text>
-        )}
-      </HStack>
+        <Text color="#BDC5CD" fontSize="12px" fontWeight="400">
+          {name}
+        </Text>
+      </VStack>
     )
   return (
     <Menu>
       <MenuButton test-id={childCode}>
-        <HStack spacing="4" role="group" p="2" test-id={childCode} onClick={onClick}>
+        <VStack spacing="4" role="group" p="2" test-id={childCode} onClick={onClick}>
           <Box
             background="primary.500"
             borderRadius="0.5rem"
@@ -59,13 +55,13 @@ const ChildButton = ({ questionCode, childCode, onClick, sideBarButtons }) => {
           >
             <FontAwesomeIcon icon={icons[childCode]} />
           </Box>
-          {!sideBarButtons && (
-            <Text textStyle="body.1" _hover={{ opacity: 1.0 }} opacity="0.8">
-              {name}
-            </Text>
-          )}
+
+          <Text color="#BDC5CD" fontSize="12px" fontWeight="400">
+            {name}
+          </Text>
+
           {!sideBarButtons && <FontAwesomeIcon icon={faAngleDown} />}
-        </HStack>
+        </VStack>
       </MenuButton>
 
       <MenuList>
