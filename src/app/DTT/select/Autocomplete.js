@@ -112,7 +112,7 @@ const Autocomplete = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [options])
 
-  const maxW = useMobileValue(['full', '100%'])
+  const maxW = useMobileValue(['', '25vw'])
 
   const dropDownRef = useRef()
 

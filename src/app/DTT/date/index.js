@@ -52,7 +52,7 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
     }
   }
 
-  const maxW = useMobileValue(['full', '100%'])
+  const maxW = useMobileValue(['', '25vw'])
 
   const isInvalid = getIsInvalid(userInput)(RegExp(regexPattern))
 
