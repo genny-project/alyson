@@ -11,7 +11,7 @@ const Title = ({ sbeCode }: { sbeCode: string }): ReactElement => {
     <Flex w="full">
       <Spacer />
       <Text textStyle="head.2" test-id={`Process-${title}`}>
-        {`title`}
+        {title}
       </Text>
       <Spacer />
       <Text textStyle="head.3" test-id={`Process-${title}-Count`}>
