@@ -21,7 +21,7 @@ const defaultProjectTheme = {
       600: '#2B6CB0',
       700: '#2C5282',
       800: '#2A4365',
-      900: '#1A365D',
+      900: '#1A3B64',
     },
     secondary: {
       50: '#FFF5F7',
@@ -63,6 +63,9 @@ const defaultProjectTheme = {
   },
   shadows: {
     lg: '0 4px 15px -3px rgba(49, 130, 206, 0.22)',
+  },
+  radii: {
+    full: '9999px',
   },
   textStyles: {
     head: {

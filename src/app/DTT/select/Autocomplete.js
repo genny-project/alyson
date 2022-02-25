@@ -132,7 +132,12 @@ const Autocomplete = ({
 
   var renderOptions = items.map(item => (
     <WrapItem key={item}>
-      <Chip id={questionCode} test-id={item} onClick={() => onSelectChange(item)} p="2">
+      <Chip
+        id={questionCode}
+        test-id={item}
+        onClick={() => onSelectChange(item)}
+        paddingInline="8px"
+      >
         {item}
       </Chip>
     </WrapItem>
@@ -142,7 +147,12 @@ const Autocomplete = ({
     setItems([])
     renderOptions = items.map(item => (
       <WrapItem key={item}>
-        <Chip id={questionCode} test-id={item} onClick={() => onSelectChange(item)} p="2">
+        <Chip
+          id={questionCode}
+          test-id={item}
+          onClick={() => onSelectChange(item)}
+          paddingInline="8px"
+        >
           {renderLabel(item)}
         </Chip>
       </WrapItem>
@@ -151,7 +161,12 @@ const Autocomplete = ({
     if (items.length === 0) {
       renderOptions = selected.map(item => (
         <WrapItem key={item}>
-          <Chip id={questionCode} test-id={item} onClick={() => onSelectChange(item)} p="2">
+          <Chip
+            id={questionCode}
+            test-id={item}
+            onClick={() => onSelectChange(item)}
+            paddingInline="8px"
+          >
             {renderLabel(item)}
           </Chip>
         </WrapItem>
