@@ -5,10 +5,10 @@ import { selectCode } from 'redux/db/selectors'
 import SidebarButtons from 'app/layouts/display/sidebar/buttons/SidebarButtons'
 
 import { SIDEBAR_WIDTH } from 'utils/constants'
-import { NAV_Q_CODE } from 'utils/constants'
+import { SIDEBAR_QUESTION_CODE } from 'utils/constants'
 
 const SideBar = () => {
-  const questionCode = NAV_Q_CODE
+  const questionCode = SIDEBAR_QUESTION_CODE
   const data = useSelector(selectCode(questionCode))
 
   const allPcmCode = useSelector(selectCode(`PCMINFORMATION`)) || []
