@@ -51,7 +51,7 @@ export const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMes
 
   const debouncedSendAnswer = debounce(onSendAnswer, 500)
 
-  const maxW = useMobileValue(['', '100%'])
+  const maxW = useMobileValue(['', '25vw'])
 
   const onBlur = e => {
     !errorStatus && debouncedSendAnswer(e.target.value)
