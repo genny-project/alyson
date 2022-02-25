@@ -53,7 +53,7 @@ const SidebarButtons = ({ questionCode, childCode, onClick, sideBarButtons }) =>
             }}
             test-id={childAsk.questionCode}
             key={childAsk.questionCode}
-            _hover={{ bg: '#3AB8B5', color: '#ffffff' }}
+            _focus={{ bg: '#3AB8B5', color: '#ffffff' }}
             fontSize="14px"
             fontWeight="400"
           >
