@@ -1,14 +1,17 @@
-import { Center } from '@chakra-ui/react'
-import Buttons from 'app/layouts/display/sidebar/buttons'
+import { Center, VStack } from '@chakra-ui/react'
 import { find, includes, reduce } from 'ramda'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
+import ChildButton from 'app/layouts/display/sidebar/buttons/SidebarButtons'
 
 import { SIDEBAR_WIDTH } from 'utils/constants'
+import { NAV_Q_CODE } from 'utils/constants'
 
 const SideBar = () => {
-  const allPcmCode = useSelector(selectCode(`PCMINFORMATION`)) || []
+  const questionCode = NAV_Q_CODE
+  const data = useSelector(selectCode(questionCode))
 
+  const allPcmCode = useSelector(selectCode(`PCMINFORMATION`)) || []
   const sidebarPcmCode = find(includes('_SIDEBAR'))(allPcmCode)
   const sidebarPcm = useSelector(selectCode(sidebarPcmCode, 'allAttributes'))
 
@@ -26,11 +29,20 @@ const SideBar = () => {
     PRI_TEMPLATE_CODE: code,
   } = mappedPcm
 
-  console.log('%c 🙀', 'background: tomato; color: silver; padding: 0.5rem', mappedPcm)
+  if (!data) return null
 
   return (
     <Center w={SIDEBAR_WIDTH} bg="#224371" h="100vh">
-      <Buttons questionCode={'QUE_PROJECT_SIDEBAR_GRP'} sideBarButtons={true} />
+      <VStack test-id={questionCode} justifyContent="center">
+        {data.map(childCode => (
+          <ChildButton
+            key={childCode}
+            questionCode={questionCode}
+            childCode={childCode}
+            sideBarButtons={true}
+          />
+        ))}
+      </VStack>
     </Center>
   )
 }

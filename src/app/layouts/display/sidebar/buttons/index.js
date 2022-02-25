@@ -1,4 +1,4 @@
-import ChildButton from 'app/layouts/display/sidebar/buttons/ChildButton'
+import ChildButton from 'app/layouts/display/sidebar/buttons/SidebarButtons'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import { VStack } from '@chakra-ui/react'
