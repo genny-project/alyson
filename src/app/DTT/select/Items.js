@@ -1,12 +1,13 @@
-import { useOutsideClick } from '@chakra-ui/hooks'
 import { HStack, Text, VStack } from '@chakra-ui/layout'
-import { CircularProgress } from '@chakra-ui/progress'
-import Card from 'app/layouts/components/card'
 import { dec, inc, isEmpty } from 'ramda'
 import { useEffect, useRef, useState } from 'react'
-import { useHotkeys } from 'react-hotkeys-hook'
-import { useIsMobile } from 'utils/hooks'
+import { useIsMobile, useMobileValue } from 'utils/hooks'
+
+import Card from 'app/layouts/components/card'
+import { CircularProgress } from '@chakra-ui/progress'
 import Item from './Item'
+import { useHotkeys } from 'react-hotkeys-hook'
+import { useOutsideClick } from '@chakra-ui/hooks'
 
 const ItemsForAutocomplete = ({
   filteredOptions = [],
@@ -47,7 +48,7 @@ const ItemsForAutocomplete = ({
     ref,
     handler: () => !isMobile && setOpen(false),
   })
-  const maxW = '100%' //useMobileValue(['', '25vw'])
+  const maxW = useMobileValue(['', '25vw'])
   return (
     <Card
       overflow="hidden"
