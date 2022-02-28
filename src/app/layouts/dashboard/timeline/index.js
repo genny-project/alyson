@@ -58,6 +58,7 @@ const Timeline = ({ items }) => {
             targetCode,
             status,
             completed,
+            invitationStatus,
           }) => (
             <Card key={title} p={4} px={5}>
               <VStack spacing={3} w="30vw" maxW={500}>
@@ -81,6 +82,8 @@ const Timeline = ({ items }) => {
                       ? 'Account verification is pending.'
                       : equals(status, 'MENTORING')
                       ? 'Meet & Greet is already in process.'
+                      : equals(invitationStatus, 'MATCHED')
+                      ? 'Mentor has already been invited.'
                       : 'Please complete the previous steps.'
                   }
                   aria-label="Please complete the previous steps"
