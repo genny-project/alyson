@@ -32,20 +32,41 @@ const LinkedApp = () => {
           <VStack>
             <Text textStyle="body.1">Primary Availability</Text>
 
-            <Button onClick={() => onSelect('PRI_PRIMARY_AVAILABILITY')} variant="special">
+            <Button
+              onClick={() => onSelect('PRI_PRIMARY_AVAILABILITY')}
+              variant="secondary"
+              _focus={{
+                background: 'gradient.500',
+                color: 'text.dark',
+              }}
+            >
               <Attribute code={code} attribute={'PRI_PRIMARY_AVAILABILITY'} />
             </Button>
           </VStack>
           <HStack spacing={5}>
             <VStack>
               <Text textStyle="body.3">Secondary Availability</Text>
-              <Button onClick={() => onSelect('PRI_SECONDARY_AVAILABILITY')} variant="secondary">
+              <Button
+                onClick={() => onSelect('PRI_SECONDARY_AVAILABILITY')}
+                variant="secondary"
+                _focus={{
+                  background: 'gradient.500',
+                  color: 'text.dark',
+                }}
+              >
                 <Attribute code={code} attribute={'PRI_SECONDARY_AVAILABILITY'} />
               </Button>
             </VStack>
             <VStack>
               <Text textStyle="body.3">Tertiary Availability</Text>
-              <Button onClick={() => onSelect('PRI_TERTIARY_AVAILABILITY')} variant="secondary">
+              <Button
+                onClick={() => onSelect('PRI_TERTIARY_AVAILABILITY')}
+                variant="secondary"
+                _focus={{
+                  background: 'gradient.500',
+                  color: 'text.dark',
+                }}
+              >
                 <Attribute code={code} attribute={'PRI_TERTIARY_AVAILABILITY'} />
               </Button>
             </VStack>
