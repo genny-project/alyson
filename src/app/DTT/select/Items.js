@@ -5,7 +5,7 @@ import Card from 'app/layouts/components/card'
 import { dec, inc, isEmpty } from 'ramda'
 import { useEffect, useRef, useState } from 'react'
 import { useHotkeys } from 'react-hotkeys-hook'
-import { useIsMobile, useMobileValue } from 'utils/hooks'
+import { useIsMobile } from 'utils/hooks'
 import Item from './Item'
 
 const ItemsForAutocomplete = ({

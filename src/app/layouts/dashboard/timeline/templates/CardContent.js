@@ -40,7 +40,7 @@ export const recommendationDetails = [
     attribute: '_LNK_MM_INDUSTRY__PRI_NAME',
   },
   {
-    label: 'Mentor Experience',
+    label: 'Mentor Experience:',
     attribute: '_LNK_MENTOR_PREV_EXP_PRI_NAME',
   },
 ]
