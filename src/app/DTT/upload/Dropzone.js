@@ -2,6 +2,8 @@ import { Box, Button, Center, Flex, Image, Input, Text, useToast } from '@chakra
 import { compose, includes, isEmpty, map, pathOr, split } from 'ramda'
 import { useEffect, useState } from 'react'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUpload } from '@fortawesome/free-solid-svg-icons'
 import { isImageField } from 'utils/functions'
 import { useDropzone } from 'react-dropzone'
 
@@ -65,38 +67,43 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 1, questionCode
   })(files)
 
   return (
-    <Flex w="100%" direction="column">
-      <Box
-        {...getRootProps()}
-        p="10"
-        my="4"
-        cursor="pointer"
-        border="1px dashed"
-        borderRadius="4px"
-      >
-        <Center>
-          <Text>{`Drag 'n' drop some files here, or click to select files`}</Text>
-        </Center>
-        <Input {...getInputProps()} id={questionCode} test-id={questionCode} />
-      </Box>
-      <Flex direction="row" mt="1">
-        {preview}
+    <Box borderWidth={'1px'} p={'1.5rem'} borderRadius={'1.25rem'} mt={'1rem'}>
+      <Flex w="100%" direction="column">
+        <Box
+          {...getRootProps()}
+          cursor="pointer"
+          border="1px dashed"
+          borderRadius="1.25rem"
+          borderColor={'blackAlpha.20'}
+        >
+          <Center>
+            <Text paddingBlock={'3.75rem'} maxW={'16rem'} textAlign={'center'}>
+              <FontAwesomeIcon icon={faUpload} />
+              <br />
+              {`Drag and drop images and videos OR browse files from your computer`}
+            </Text>
+          </Center>
+          <Input {...getInputProps()} id={questionCode} test-id={questionCode} />
+        </Box>
+        <Flex mt={'1rem'}>
+          <Flex direction="row">{preview}</Flex>
+          <Flex justify="flex-end">
+            <Button
+              mr="2"
+              variant="ghost"
+              onClick={closeDropzone}
+              test-id={`${questionCode}-CANCEL`}
+            >{`Cancel`}</Button>
+            <Button
+              variant="solid"
+              isDisabled={!!isEmpty(files)}
+              onClick={() => handleSave(files)}
+              test-id={`${questionCode}-SUBMIT`}
+            >{`Submit`}</Button>
+          </Flex>
+        </Flex>
       </Flex>
-      <Flex justify="flex-end">
-        <Button
-          mr="2"
-          variant="ghost"
-          onClick={closeDropzone}
-          test-id={`${questionCode}-CANCEL`}
-        >{`Cancel`}</Button>
-        <Button
-          variant="solid"
-          isDisabled={!!isEmpty(files)}
-          onClick={() => handleSave(files)}
-          test-id={`${questionCode}-SUBMIT`}
-        >{`Submit`}</Button>
-      </Flex>
-    </Flex>
+    </Box>
   )
 }
 
