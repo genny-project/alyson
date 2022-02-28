@@ -33,9 +33,9 @@ const Submit = ({ askData, onFinish, parentCode }) => {
     filter(attr => !attr.value),
   )(attributeData)
 
-  const mandatoryAttributesBlankValue = compose(map(prop('value')))(attributeData)
+  // const mandatoryAttributesBlankValue = compose(map(prop('value')))(attributeData)
 
-  console.log(mandatoryAttributesBlankValue)
+  // console.log(mandatoryAttributesBlankValue)
 
   const mandatoryQuestionsNoValue = filter(
     q => q.questionCode !== 'QUE_SUBMIT' && includes(q.attributeCode, mandatoryAttributesNoValue),

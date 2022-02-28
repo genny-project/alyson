@@ -70,8 +70,8 @@ const Recommendation = ({ setShowDetailView, setCurrentMentor }) => {
 
               <VStack display="inline">
                 {map(({ label, attribute }) => (
-                  <HStack justifyContent="space-between" key={`${label}-${attribute}`}>
-                    <Text>{label}</Text>
+                  <HStack justifyContent="" key={`${label}-${attribute}`}>
+                    <Text minW={'114px'}>{label}</Text>
                     <Attribute
                       config={{ textStyle: 'body.2' }}
                       code={mentor}
