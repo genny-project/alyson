@@ -7,8 +7,9 @@ import { selectCode } from 'redux/db/selectors'
 import sendAskClick from 'app/ASKS/utils/send-ask-click'
 import { useSelector } from 'react-redux'
 
-const SidebarButtons = ({ questionCode, childCode, onClick, sideBarButtons }) => {
+const SidebarButtons = ({ questionCode, childCode, onClick, iconId }) => {
   const data = useSelector(selectCode(questionCode, childCode))
+  console.log('---->ICON ID<-------', iconId)
 
   if (!data) return null
 
