@@ -17,7 +17,7 @@ const useApi = () => {
 
   const { token: tokenFromKeycloak } = keycloak
 
-  const token = selectToken({ guestKeycloak, tokenFromKeycloak, tokenFromUrl })
+  export const token = selectToken({ guestKeycloak, tokenFromKeycloak, tokenFromUrl })
 
   const mediaSettings = {
     url: MEDIA_URL,
