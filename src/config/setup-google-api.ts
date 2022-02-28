@@ -1,9 +1,7 @@
-import { apiConfig } from 'config/get-api-config'
-import {HOST} from "./genny";
+import { HOST } from './genny'
 import axios from 'axios'
-import useApi from 'api'
-const setupGoogleApi = async () => {
-  const { token } = useApi()
+
+const setupGoogleApi = async (token: string) => {
   const maps = document.createElement('script')
   const res = await axios.get(`${HOST}/googleapi/v1/map`, {
     headers: { Authorization: `bearer ${token}` },

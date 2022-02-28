@@ -1,12 +1,8 @@
 import axios from 'axios'
-import { apiConfig } from 'config/get-api-config'
 import timeZone from './time-zone-from-browser'
-import {HOST} from "../../../config/genny";
-import useApi from 'api'
+import { HOST } from '../../../config/genny'
 
-export const fromLatLng = async ({ lat, lng }) => {
-  const { token } = useApi()
-  console.log(token)
+export const fromLatLng = async ({ lat, lng, token }) => {
   try {
     const response = await axios({
       method: 'GET',
@@ -14,7 +10,7 @@ export const fromLatLng = async ({ lat, lng }) => {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `bearer ${token}`,
-      }
+      },
     })
     const { data } = response
     if (data.errorMessage) throw new Error(data.errorMessage)

@@ -44,7 +44,7 @@ const getApiConfig = async () => {
 
   tokenFromUrl = getTokenFromURL(keycloak)
 
-  setupGoogleApi()
+  setupGoogleApi(tokenFromUrl)
 
   /* Theme */
   const { projectTheme } = apiConfig
