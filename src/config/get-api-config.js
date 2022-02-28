@@ -9,7 +9,7 @@ import loginAsGuest from '../keycloak/login-as-guest'
 import setupGoogleApi from './setup-google-api'
 import setupLogRocketReact from 'logrocket-react'
 
-let apiConfig = { api_url: '', ENV_GOOGLE_MAPS_APIKEY: '', ENV_GOOGLE_TIMEZONE_APIKEY: '' }
+let apiConfig = { api_url: '' }
 let keycloak = {}
 let guestKeycloak = null
 let tokenFromUrl = null

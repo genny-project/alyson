@@ -1,4 +1,5 @@
 import { apiConfig } from 'config/get-api-config'
+import {HOST} from "./genny";
 // import axios from 'axios'
 const setupGoogleApi = async () => {
   const maps = document.createElement('script')
@@ -9,7 +10,7 @@ const setupGoogleApi = async () => {
   // maps.setAttribute('src', src)
   maps.setAttribute(
     'src',
-    `https://maps.googleapis.com/maps/api/js?key=${apiConfig.ENV_GOOGLE_MAPS_APIKEY}&libraries=places,drawing`,
+    `${HOST}/googleapi/v1/map`,
   )
   document.head.appendChild(maps)
 }
