@@ -79,7 +79,7 @@ const Ask = ({
   const data = useSelector(selectCode(targetCode, attributeCode)) || {}
 
   const highlightedQuestion = useSelector(selectHighlightedQuestion)
-  const labelWidth = useMobileValue(['full', '50vw'])
+  const labelWidth = useMobileValue(['full', '25vw'])
 
   const dataTypeFromReduxStore = useSelector(selectCode(attributeCode)) || ''
   const dataType = useSelector(selectCode(dataTypeFromReduxStore)) || ''
@@ -112,7 +112,7 @@ const Ask = ({
   if (!!disabled && component !== 'button')
     return (
       <FormControl isDisabled isRequired={mandatory}>
-        <HStack display={noLabel ? 'none' : 'block'} w={labelWidth} justify="space-between">
+        <HStack display={noLabel ? 'none' : 'block'} w={'17.5vw'} justify="space-between">
           <FormLabel id={attributeCode} textStyle="body.1">
             {name}
           </FormLabel>
