@@ -1,19 +1,11 @@
-import {
-  Box,
-  Button,
-  Grid,
-  HStack,
-  Spacer,
-  Text,
-  VStack,
-  useColorModeValue,
-} from '@chakra-ui/react'
+import { Box, Button, Grid, Spacer, Text, VStack, useColorModeValue } from '@chakra-ui/react'
 import { find, includes, map } from 'ramda'
 
 import Attribute from 'app/BE/attribute'
 import { recommendationDetails } from 'app/layouts/dashboard/timeline/templates/CardContent'
 import { selectDashboard } from 'redux/app/selectors'
 import { selectRows } from 'redux/db/selectors'
+import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 
 const Recommendation = ({ setShowDetailView, setCurrentMentor }) => {
@@ -25,6 +17,13 @@ const Recommendation = ({ setShowDetailView, setCurrentMentor }) => {
   const allMentorsCode = dashboardSbes && find(includes('_SUMMARY_MENTORS_'))(dashboardSbes)
   const allMentors = useSelector(selectRows(allMentorsCode))
 
+  const parentTemplateColumns = useMobileValue([
+    'repeat(auto-fit, minmax(100px, 1fr))',
+    '160px 1fr',
+  ])
+  const childTemplateColumns = useMobileValue(['repeat(auto-fit, minmax(100px, 1fr))', '160px 1fr'])
+  const maxW = useMobileValue(['', '75%'])
+
   return (
     <Box w="50vw" h="80vh" spacing={10} textAlign="center" p="5" position="sticky" top="10vh">
       <Text
@@ -33,14 +32,15 @@ const Recommendation = ({ setShowDetailView, setCurrentMentor }) => {
         py={5}
       >{`Please select a Mentor from the suggestions below!`}</Text>
       <Spacer />
-      <Grid gap={10} bg={bg} overflowY="scroll" h="70vh" mt={5} paddingY={5}>
+      <Grid gap={10} bg={bg} overflowY="scroll" h="70vh" mt={5} p={5}>
         {allMentors &&
           map(mentor => (
-            <HStack
+            <Grid
+              key={mentor}
               bg={cardsbg}
               _hover={{ boxShadow: 'dark-lg', rounded: 'md', color: 'white', bg: hoverbg }}
               cursor="pointer"
-              w={'70%'}
+              w={'100%'}
               p="5"
               onClick={() => {
                 setShowDetailView(true)
@@ -50,9 +50,9 @@ const Recommendation = ({ setShowDetailView, setCurrentMentor }) => {
               boxShadow="base"
               rounded="md"
               textAlign="left"
-              spacing={10}
-              justifyContent="space-around"
-              key={mentor}
+              gap={'1rem'}
+              templateColumns={parentTemplateColumns}
+              maxW={maxW}
             >
               <VStack textAlign="center" spacing={5}>
                 <Attribute
@@ -70,17 +70,17 @@ const Recommendation = ({ setShowDetailView, setCurrentMentor }) => {
 
               <VStack display="inline">
                 {map(({ label, attribute }) => (
-                  <HStack justifyContent="space-between" key={`${label}-${attribute}`}>
+                  <Grid key={`${label}-${attribute}`} templateColumns={childTemplateColumns}>
                     <Text>{label}</Text>
                     <Attribute
                       config={{ textStyle: 'body.2' }}
                       code={mentor}
                       attribute={attribute}
                     />
-                  </HStack>
+                  </Grid>
                 ))(recommendationDetails)}
               </VStack>
-            </HStack>
+            </Grid>
           ))(allMentors)}
       </Grid>
     </Box>

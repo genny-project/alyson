@@ -45,9 +45,10 @@ const useGetMenteeTimelineItems = () => {
       description: 'Choose the Mentor that suits you the most!',
       buttonText: isMentorSelected ? 'Mentor Selected' : 'Go to Mentor Selection',
       completed: selectMentorStatus,
-      isDisabled: !isTrainingCompleted || isMentorSelected,
+      isDisabled: !isTrainingCompleted || isMentorSelected || menteeStatus === 'MATCHED',
       code: 'ACT_PRI_EVENT_SELECT_MENTOR',
       targetCode: userCode,
+      invitationStatus: menteeStatus,
     },
     {
       title: '12 Meetings with Mentors',

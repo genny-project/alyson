@@ -57,7 +57,7 @@ export const recommendationDetails = [
   //   attribute: 'PRI_INDUSTRY',
   // },
   {
-    label: 'Rotary Member:',
-    attribute: 'PRI_ROTARY_CLUB',
+    label: 'Mentor Experience:',
+    attribute: '_LNK_MENTOR_PREV_EXP_PRI_NAME',
   },
 ]
