@@ -3,42 +3,27 @@ import {
   Button,
   Flex,
   HStack,
-  Image,
   Spacer,
   useColorModeValue,
   useDisclosure,
   useTheme,
 } from '@chakra-ui/react'
 import { addItemsQuestionCode, dashboardViewQuestion } from 'utils/constants'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus, faHome, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { SIDEBAR_WIDTH } from 'utils/constants'
 
 import AskMenu from 'app/ASKS/menu'
 import Avatar from '../Avatar'
 import Drafts from '../drafts/Drafts'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { apiConfig } from 'config/get-api-config'
 import { onSendMessage } from 'vertx'
-import { useGetRealm } from 'utils/hooks'
-import { useRef } from 'react'
 
-const DesktopNav = ({ logoSrc }) => {
+const DesktopNav = () => {
   const theme = useTheme()
   const bg = useColorModeValue('#F6F6F6', theme.colors.primary[900])
   const color = useColorModeValue(theme.colors.text.light, theme.colors.text.dark)
 
   const { onClose } = useDisclosure()
-  const btnRef = useRef()
-  const realm = useGetRealm()
-
-  const logoWidth =
-    realm === 'mentormatch'
-      ? '120px'
-      : realm === 'internmatch'
-      ? '45px'
-      : realm === 'credmatch'
-      ? '120px'
-      : '45px'
 
   return (
     <>
@@ -59,19 +44,19 @@ const DesktopNav = ({ logoSrc }) => {
         <nav>
           <Flex align="center" p="3">
             <Box mx={5} alignItems="center" m="auto">
-              {apiConfig && (
-                <Image
+              <HStack marginLeft="8" spacing="5">
+                <Box
                   onClick={() =>
                     onSendMessage({
                       code: dashboardViewQuestion,
                       parentCode: dashboardViewQuestion,
                     })
                   }
-                  ref={btnRef}
-                  src={logoSrc}
-                  htmlWidth={logoWidth}
-                />
-              )}
+                >
+                  <FontAwesomeIcon size="lg" icon={faHome} cursor="pointer" color="#234371" />
+                </Box>
+                <FontAwesomeIcon size="lg" icon={faSearch} cursor="pointer" color="#234371" />
+              </HStack>
             </Box>
             <Spacer />
             <HStack spacing={5}>
