@@ -66,7 +66,7 @@ const DetailActions = ({ sbeCode, beCode }) => {
               </Text>
             </>
           </MenuButton>
-          <MenuList>
+          <MenuList zIndex={'1500'}>
             {reducedActions.map((action, index) => (
               <Action
                 key={`${action}-${index}`}
