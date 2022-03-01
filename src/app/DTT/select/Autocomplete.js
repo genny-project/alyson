@@ -132,12 +132,7 @@ const Autocomplete = ({
 
   var renderOptions = items.map(item => (
     <WrapItem key={item}>
-      <Chip
-        id={questionCode}
-        test-id={item}
-        onClick={() => onSelectChange(item)}
-        paddingInline="8px"
-      >
+      <Chip id={questionCode} test-id={item} onClick={() => onSelectChange(item)}>
         {item}
       </Chip>
     </WrapItem>
@@ -147,12 +142,7 @@ const Autocomplete = ({
     setItems([])
     renderOptions = items.map(item => (
       <WrapItem key={item}>
-        <Chip
-          id={questionCode}
-          test-id={item}
-          onClick={() => onSelectChange(item)}
-          paddingInline="8px"
-        >
+        <Chip id={questionCode} test-id={item} onClick={() => onSelectChange(item)}>
           {renderLabel(item)}
         </Chip>
       </WrapItem>
@@ -161,12 +151,7 @@ const Autocomplete = ({
     if (items.length === 0) {
       renderOptions = selected.map(item => (
         <WrapItem key={item}>
-          <Chip
-            id={questionCode}
-            test-id={item}
-            onClick={() => onSelectChange(item)}
-            paddingInline="8px"
-          >
+          <Chip id={questionCode} test-id={item} onClick={() => onSelectChange(item)}>
             {renderLabel(item)}
           </Chip>
         </WrapItem>
@@ -206,6 +191,30 @@ const Autocomplete = ({
             value={input}
             placeholder={placeholder}
             autoComplete="off"
+            w="full"
+            maxW={maxW}
+            paddingBlock={3}
+            paddingInline={5}
+            fontWeight={'medium'}
+            borderColor={'gray.700'}
+            background={'light'}
+            _hover={{
+              borderColor: 'primary.500',
+              boxShadow: 'lg',
+            }}
+            _focusVisible={{
+              borderColor: 'primary.500',
+              boxShadow: 'initial',
+            }}
+            _invalid={{
+              borderColor: 'error.500',
+              background: 'error.50',
+              color: 'error.500',
+            }}
+            _disabled={{
+              borderColor: 'gray.300',
+              background: 'gray.100',
+            }}
           />
           <InputRightElement>
             <Box

@@ -69,15 +69,20 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 1, questionCode
   return (
     <Box borderWidth={'1px'} p={'1.5rem'} borderRadius={'1.25rem'} mt={'1rem'}>
       <Flex w="100%" direction="column">
-        <Box
-          {...getRootProps()}
-          cursor="pointer"
-          border="1px dashed"
-          borderRadius="1.25rem"
-          borderColor={'blackAlpha.20'}
-        >
-          <Center>
-            <Text paddingBlock={'3.75rem'} maxW={'16rem'} textAlign={'center'}>
+        <Box {...getRootProps()}>
+          <Center
+            cursor="pointer"
+            border="1px dashed"
+            borderRadius={`1.25rem`}
+            borderColor={'blackAlpha.20'}
+            _hover={{
+              background: 'primary.500',
+              color: 'text.dark',
+              borderColor: 'text.dark',
+              boxShadow: '0 4px 20px 5px rgba(49, 130, 206, 0.14)',
+            }}
+          >
+            <Text paddingBlock={'12'} maxW={'16rem'} textAlign={'center'}>
               <FontAwesomeIcon icon={faUpload} />
               <br />
               {`Drag and drop images and videos OR browse files from your computer`}
@@ -87,19 +92,27 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 1, questionCode
         </Box>
         <Flex mt={'1rem'}>
           <Flex direction="row">{preview}</Flex>
-          <Flex justify="flex-end">
+          <Flex justify="center" w={'full'}>
             <Button
               mr="2"
               variant="ghost"
               onClick={closeDropzone}
               test-id={`${questionCode}-CANCEL`}
-            >{`Cancel`}</Button>
+              borderRadius="full"
+              paddingInline={10}
+            >
+              {`Cancel`}
+            </Button>
             <Button
               variant="solid"
               isDisabled={!!isEmpty(files)}
               onClick={() => handleSave(files)}
               test-id={`${questionCode}-SUBMIT`}
-            >{`Submit`}</Button>
+              borderRadius="full"
+              paddingInline={10}
+            >
+              {`Submit`}
+            </Button>
           </Flex>
         </Flex>
       </Flex>

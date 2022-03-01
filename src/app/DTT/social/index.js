@@ -78,6 +78,30 @@ const Write = ({ questionCode, onSendAnswer, data, regexPattern, errorMessage })
           defaultValue={data?.value}
           onBlur={onBlur}
           onChange={e => setuserInput(e.target.value)}
+          w="full"
+          maxW={maxW}
+          paddingBlock={3}
+          paddingInline={5}
+          fontWeight={'medium'}
+          borderColor={'gray.700'}
+          background={'light'}
+          _hover={{
+            borderColor: 'primary.500',
+            boxShadow: 'lg',
+          }}
+          _focusVisible={{
+            borderColor: 'primary.500',
+            boxShadow: 'initial',
+          }}
+          _invalid={{
+            borderColor: 'error.500',
+            background: 'error.50',
+            color: 'error.500',
+          }}
+          _disabled={{
+            borderColor: 'gray.300',
+            background: 'gray.100',
+          }}
         />
       </InputGroup>
       {errorStatus && (

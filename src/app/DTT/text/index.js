@@ -67,12 +67,11 @@ export const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMes
         onBlur={onBlur}
         onChange={e => setuserInput(e.target.value)}
         defaultValue={data?.value}
+        isInvalid={isInvalid}
         w="full"
         maxW={maxW}
-        paddingBlock="14px"
-        paddingInline="24px"
-        isInvalid={isInvalid}
-        h="46"
+        paddingBlock={3}
+        paddingInline={5}
         fontWeight={'medium'}
         borderColor={'gray.700'}
         background={'light'}

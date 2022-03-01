@@ -57,6 +57,28 @@ const AddressPicker = ({ onSendAnswer, data, questionCode }) => {
       w="full"
       maxW={maxW}
       onBlur={onBlur}
+      paddingBlock={3}
+      paddingInline={5}
+      fontWeight={'medium'}
+      borderColor={'gray.700'}
+      background={'light'}
+      _hover={{
+        borderColor: 'primary.500',
+        boxShadow: 'lg',
+      }}
+      _focusVisible={{
+        borderColor: 'primary.500',
+        boxShadow: 'initial',
+      }}
+      _invalid={{
+        borderColor: 'error.500',
+        background: 'error.50',
+        color: 'error.500',
+      }}
+      _disabled={{
+        borderColor: 'gray.300',
+        background: 'gray.100',
+      }}
     />
   )
 }

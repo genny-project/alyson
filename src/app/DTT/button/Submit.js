@@ -99,7 +99,7 @@ const Submit = ({ askData, onFinish, parentCode }) => {
         }
         colorScheme={questionCode === 'QUE_SUBMIT_NO' ? 'red' : 'primary'}
         variant="solid"
-        borderRadius={`9999px`}
+        borderRadius={'full'}
         paddingBlock="6px"
         paddingInline="20px"
         background={'primary.900'}
