@@ -102,7 +102,7 @@ const TemplateOne = ({ bg, color }) => {
               </HStack>
             </Box>
             <Spacer />
-            <HStack spacing={5}>
+            <HStack spacing={8} marginRight="5">
               <AskMenu
                 questionCode={addItemsQuestionCode}
                 icon={<Button leftIcon={<FontAwesomeIcon icon={faPlus} />}>{`Add`}</Button>}
