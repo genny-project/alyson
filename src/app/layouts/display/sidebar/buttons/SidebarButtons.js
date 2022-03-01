@@ -22,7 +22,7 @@ const SidebarButtons = ({ questionCode, childCode, onClick, iconId }) => {
   const data = useSelector(selectCode(questionCode, childCode))
 
   const { getImageSrc } = useApi()
-  const src = getImageSrc(iconId, { height: '500', width: '500' })
+  const src = getImageSrc(iconId)
 
   if (!data) return null
 
@@ -37,7 +37,14 @@ const SidebarButtons = ({ questionCode, childCode, onClick, iconId }) => {
       <VStack spacing="4" role="group" p="2" test-id={childCode} onClick={handleClick} as="button">
         <Box display="flex" alignItems="center" justifyContent="center">
           {iconId ? (
-            <Avatar cursor="pointer" src={src} />
+            <Avatar
+              cursor="pointer"
+              src={src}
+              h="40px"
+              w="40px"
+              borderRadius="0"
+              objectFit="contain"
+            />
           ) : (
             <FontAwesomeIcon icon={icons[childCode]} size="2x" color="#AAE3E2" />
           )}
