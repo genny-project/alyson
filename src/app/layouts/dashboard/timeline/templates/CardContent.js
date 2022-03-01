@@ -19,13 +19,13 @@ export const professionalDetails = {
 
 export const preference = {
   header: 'What I Offer your frome the internship',
-  attributes: [{ attr: '_LNK_OUTPUTS_OF_MENTORING_PROGRAM_PRI_NAME' }],
+  attributes: [{ attr: '_LNK_OUTPUTS_OF_MENTORING_PROGRAM__PRI_NAME' }],
 }
 
 export const recommendationDetails = [
   {
     label: 'Location:',
-    attribute: 'LNK_SELECT_COUNTRY',
+    attribute: '_LNK_SELECT_COUNTRY__PRI_NAME',
   },
   {
     label: 'Gender:',
@@ -33,7 +33,7 @@ export const recommendationDetails = [
   },
   {
     label: 'Country of Origin:',
-    attribute: 'LNK_SELECT_ORIGIN_COUNTRY',
+    attribute: '_LNK_SELECT_ORIGIN_COUNTRY__PRI_NAME',
   },
   {
     label: 'Industry:',
@@ -41,6 +41,6 @@ export const recommendationDetails = [
   },
   {
     label: 'Mentor Experience:',
-    attribute: '_LNK_MENTOR_PREV_EXP_PRI_NAME',
+    attribute: '_LNK_MENTOR_PREV_EXP__PRI_NAME',
   },
 ]
