@@ -12,7 +12,7 @@ import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import { SIDEBAR_WIDTH } from 'utils/constants'
 
-const DefaultTemplate = ({ bg, color }) => {
+const DefaultTemplate = ({ bg, color, mappedPcm }) => {
   return (
     <>
       <header
@@ -67,7 +67,9 @@ const DefaultTemplate = ({ bg, color }) => {
   )
 }
 
-const TemplateOne = ({ bg, color }) => {
+const TemplateOne = ({ bg, color, mappedPcm }) => {
+  const { PRI_LOC1, PRI_LOC2, PRI_LOC3, PRI_LOC4 } = mappedPcm
+
   return (
     <>
       <header
@@ -91,8 +93,8 @@ const TemplateOne = ({ bg, color }) => {
                 <Box
                   onClick={() =>
                     onSendMessage({
-                      code: dashboardViewQuestion,
-                      parentCode: dashboardViewQuestion,
+                      code: PRI_LOC1,
+                      parentCode: PRI_LOC1,
                     })
                   }
                 >
@@ -104,12 +106,12 @@ const TemplateOne = ({ bg, color }) => {
             <Spacer />
             <HStack spacing={8} marginRight="5">
               <AskMenu
-                questionCode={addItemsQuestionCode}
+                questionCode={PRI_LOC2}
                 icon={<Button leftIcon={<FontAwesomeIcon icon={faPlus} />}>{`Add`}</Button>}
                 hideLabel={true}
               />
-              <Drafts />
-              <Avatar />
+              <Drafts code={PRI_LOC3} />
+              <Avatar code={PRI_LOC4} />
             </HStack>
           </Flex>
         </nav>
@@ -135,7 +137,7 @@ const DesktopNav = () => {
   const { PRI_TEMPLATE_CODE: code } = mappedPcm
 
   if (headerPcm) {
-    if (code === 'TPL_NORTH') return <TemplateOne bg={bg} color={color} />
+    if (code === 'TPL_NORTH') return <TemplateOne bg={bg} color={color} mappedPcm={mappedPcm} />
   }
 
   return <DefaultTemplate bg={bg} color={color} />
