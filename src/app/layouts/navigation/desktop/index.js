@@ -18,13 +18,7 @@ import Avatar from '../Avatar'
 import Drafts from '../drafts/Drafts'
 import { onSendMessage } from 'vertx'
 
-const DesktopNav = () => {
-  const theme = useTheme()
-  const bg = useColorModeValue('#F6F6F6', theme.colors.primary[900])
-  const color = useColorModeValue(theme.colors.text.light, theme.colors.text.dark)
-
-  const { onClose } = useDisclosure()
-
+const DefaultTemplate = ({ bg, color }) => {
   return (
     <>
       <header
@@ -61,7 +55,6 @@ const DesktopNav = () => {
             <Spacer />
             <HStack spacing={5}>
               <AskMenu
-                onClose={onClose}
                 questionCode={addItemsQuestionCode}
                 icon={<Button leftIcon={<FontAwesomeIcon icon={faPlus} />}>Add</Button>}
               />
@@ -73,6 +66,14 @@ const DesktopNav = () => {
       </header>
     </>
   )
+}
+
+const DesktopNav = () => {
+  const theme = useTheme()
+  const bg = useColorModeValue('#F6F6F6', theme.colors.primary[900])
+  const color = useColorModeValue(theme.colors.text.light, theme.colors.text.dark)
+
+  return <DefaultTemplate bg={bg} color={color} />
 }
 
 export default DesktopNav

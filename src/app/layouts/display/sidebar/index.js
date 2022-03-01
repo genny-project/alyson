@@ -53,6 +53,23 @@ const TemplateOne = ({ questionCode, mappedPcm, mappedIconAndQuestionCode }) => 
   )
 }
 
+const DefaultTemplate = ({ questionCode, listOfQuestionCode, mappedIconAndQuestionCode }) => {
+  return (
+    <Center w={SIDEBAR_WIDTH} bg="#224371" h="100vh">
+      <VStack test-id={questionCode} justifyContent="center">
+        {listOfQuestionCode.map(code => (
+          <SidebarButtons
+            key={code}
+            questionCode={questionCode}
+            childCode={code}
+            iconId={mappedIconAndQuestionCode[code]}
+          />
+        ))}
+      </VStack>
+    </Center>
+  )
+}
+
 const SideBar = () => {
   const questionCode = SIDEBAR_QUESTION_CODE
   const data = useSelector(selectCode(questionCode))
@@ -76,23 +93,6 @@ const SideBar = () => {
 
   const { PRI_TEMPLATE_CODE: code } = mappedPcm
 
-  const DefaultTemplate = () => {
-    return (
-      <Center w={SIDEBAR_WIDTH} bg="#224371" h="100vh">
-        <VStack test-id={questionCode} justifyContent="center">
-          {listOfQuestionCode.map(code => (
-            <SidebarButtons
-              key={code}
-              questionCode={questionCode}
-              childCode={code}
-              iconId={mappedIconAndQuestionCode[code]}
-            />
-          ))}
-        </VStack>
-      </Center>
-    )
-  }
-
   if (!data) return null
 
   if (sidebarPcm) {
@@ -106,7 +106,13 @@ const SideBar = () => {
       )
   }
 
-  return <DefaultTemplate />
+  return (
+    <DefaultTemplate
+      questionCode={questionCode}
+      listOfQuestionCode={listOfQuestionCode}
+      mappedIconAndQuestionCode={mappedIconAndQuestionCode}
+    />
+  )
 }
 
 export default SideBar
