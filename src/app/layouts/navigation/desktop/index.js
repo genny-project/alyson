@@ -47,7 +47,7 @@ const DefaultTemplate = ({ bg, color, mappedPcm }) => {
               </HStack>
             </Box>
             <Spacer />
-            <HStack spacing={5}>
+            <HStack spacing={8} marginRight="5">
               <AskMenu
                 questionCode={addItemsQuestionCode}
                 icon={
@@ -57,8 +57,8 @@ const DefaultTemplate = ({ bg, color, mappedPcm }) => {
                   >{`Add`}</Button>
                 }
               />
-              <Drafts />
-              <Avatar />
+              <Drafts code={'QUE_DRAFTS_GRP'} />
+              <Avatar code={'QUE_AVATAR_GRP'} />
             </HStack>
           </Flex>
         </nav>
