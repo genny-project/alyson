@@ -8,7 +8,7 @@ import {
   faRocket,
   faPaperclip,
   faPeopleArrows,
-  faPlusCircle,
+  faPlus,
   faThLarge,
   faUserFriends,
 } from '@fortawesome/free-solid-svg-icons'
@@ -16,7 +16,7 @@ import {
 const icons = {
   QUE_DRAFTS_GRP: faBell,
   QUE_QUICK_ADD_ITEMS_GRP: faRocket,
-  QUE_ADD_ITEMS_GRP: faPlusCircle,
+  QUE_ADD_ITEMS_GRP: faPlus,
   QUE_DASHBOARD_VIEW: faThLarge,
   QUE_TAB_BUCKET_VIEW: faColumns,
   QUE_TREE_ITEM_CONTACTS_GRP: faUserFriends,

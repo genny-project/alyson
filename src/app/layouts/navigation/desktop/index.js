@@ -50,7 +50,12 @@ const DefaultTemplate = ({ bg, color }) => {
             <HStack spacing={5}>
               <AskMenu
                 questionCode={addItemsQuestionCode}
-                icon={<Button leftIcon={<FontAwesomeIcon icon={faPlus} />}>Add</Button>}
+                icon={
+                  <Button
+                    bg="#234371"
+                    leftIcon={<FontAwesomeIcon icon={faPlus} color="#234371" />}
+                  >{`Add`}</Button>
+                }
               />
               <Drafts />
               <Avatar />
@@ -100,7 +105,8 @@ const TemplateOne = ({ bg, color }) => {
             <HStack spacing={5}>
               <AskMenu
                 questionCode={addItemsQuestionCode}
-                icon={<Button leftIcon={<FontAwesomeIcon icon={faPlus} />}>Add</Button>}
+                icon={<Button leftIcon={<FontAwesomeIcon icon={faPlus} />}>{`Add`}</Button>}
+                hideLabel={true}
               />
               <Drafts />
               <Avatar />
