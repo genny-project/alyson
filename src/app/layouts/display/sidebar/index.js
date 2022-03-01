@@ -7,6 +7,52 @@ import SidebarButtons from 'app/layouts/display/sidebar/buttons/SidebarButtons'
 import { SIDEBAR_WIDTH } from 'utils/constants'
 import { SIDEBAR_QUESTION_CODE } from 'utils/constants'
 
+const TemplateOne = ({ questionCode, mappedPcm, mappedIconAndQuestionCode }) => {
+  const { PRI_LOC1, PRI_LOC2, PRI_LOC3, PRI_LOC4, PRI_LOC5, PRI_LOC6 } = mappedPcm
+  return (
+    <Center w={SIDEBAR_WIDTH} bg="#224371" h="100vh">
+      <VStack test-id={questionCode} justifyContent="center">
+        <SidebarButtons
+          key={PRI_LOC1}
+          questionCode={questionCode}
+          childCode={PRI_LOC1}
+          iconId={mappedIconAndQuestionCode[PRI_LOC1]}
+        />
+        <SidebarButtons
+          key={PRI_LOC2}
+          questionCode={questionCode}
+          childCode={PRI_LOC2}
+          iconId={mappedIconAndQuestionCode[PRI_LOC2]}
+        />
+        <SidebarButtons
+          key={PRI_LOC3}
+          questionCode={questionCode}
+          childCode={PRI_LOC3}
+          iconId={mappedIconAndQuestionCode[PRI_LOC3]}
+        />
+        <SidebarButtons
+          key={PRI_LOC4}
+          questionCode={questionCode}
+          childCode={PRI_LOC4}
+          iconId={mappedIconAndQuestionCode[PRI_LOC4]}
+        />
+        <SidebarButtons
+          key={PRI_LOC5}
+          questionCode={questionCode}
+          childCode={PRI_LOC5}
+          iconId={mappedIconAndQuestionCode[PRI_LOC5]}
+        />
+        <SidebarButtons
+          key={PRI_LOC6}
+          questionCode={questionCode}
+          childCode={PRI_LOC6}
+          iconId={mappedIconAndQuestionCode[PRI_LOC6]}
+        />
+      </VStack>
+    </Center>
+  )
+}
+
 const SideBar = () => {
   const questionCode = SIDEBAR_QUESTION_CODE
   const data = useSelector(selectCode(questionCode))
@@ -28,60 +74,7 @@ const SideBar = () => {
     return acc
   }, {})(sidebarPcm || [])
 
-  const {
-    PRI_LOC1,
-    PRI_LOC2,
-    PRI_LOC3,
-    PRI_LOC4,
-    PRI_LOC5,
-    PRI_LOC6,
-    PRI_TEMPLATE_CODE: code,
-  } = mappedPcm
-
-  const TemplateOne = () => {
-    return (
-      <Center w={SIDEBAR_WIDTH} bg="#224371" h="100vh">
-        <VStack test-id={questionCode} justifyContent="center">
-          <SidebarButtons
-            key={PRI_LOC1}
-            questionCode={questionCode}
-            childCode={PRI_LOC1}
-            iconId={mappedIconAndQuestionCode[PRI_LOC1]}
-          />
-          <SidebarButtons
-            key={PRI_LOC2}
-            questionCode={questionCode}
-            childCode={PRI_LOC2}
-            iconId={mappedIconAndQuestionCode[PRI_LOC2]}
-          />
-          <SidebarButtons
-            key={PRI_LOC3}
-            questionCode={questionCode}
-            childCode={PRI_LOC3}
-            iconId={mappedIconAndQuestionCode[PRI_LOC3]}
-          />
-          <SidebarButtons
-            key={PRI_LOC4}
-            questionCode={questionCode}
-            childCode={PRI_LOC4}
-            iconId={mappedIconAndQuestionCode[PRI_LOC4]}
-          />
-          <SidebarButtons
-            key={PRI_LOC5}
-            questionCode={questionCode}
-            childCode={PRI_LOC5}
-            iconId={mappedIconAndQuestionCode[PRI_LOC5]}
-          />
-          <SidebarButtons
-            key={PRI_LOC6}
-            questionCode={questionCode}
-            childCode={PRI_LOC6}
-            iconId={mappedIconAndQuestionCode[PRI_LOC6]}
-          />
-        </VStack>
-      </Center>
-    )
-  }
+  const { PRI_TEMPLATE_CODE: code } = mappedPcm
 
   const DefaultTemplate = () => {
     return (
@@ -103,7 +96,14 @@ const SideBar = () => {
   if (!data) return null
 
   if (sidebarPcm) {
-    if (code === 'TPL_WEST') return <TemplateOne />
+    if (code === 'TPL_WEST')
+      return (
+        <TemplateOne
+          questionCode={questionCode}
+          mappedPcm={mappedPcm}
+          mappedIconAndQuestionCode={mappedIconAndQuestionCode}
+        />
+      )
   }
 
   return <DefaultTemplate />
