@@ -60,7 +60,14 @@ const SidebarButtons = ({ questionCode, childCode, onClick, iconId }) => {
         <VStack spacing="4" role="group" test-id={childCode} onClick={onClick}>
           <Box display="flex" alignItems="center" justifyContent="center">
             {iconId ? (
-              <Avatar cursor="pointer" src={src} />
+              <Avatar
+                cursor="pointer"
+                src={src}
+                h="40px"
+                w="40px"
+                borderRadius="0"
+                objectFit="contain"
+              />
             ) : (
               <FontAwesomeIcon icon={icons[childCode]} size="2x" color="#AAE3E2" />
             )}

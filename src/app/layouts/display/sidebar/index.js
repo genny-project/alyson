@@ -18,16 +18,16 @@ const SideBar = () => {
   }, {})(wholeData || [])
 
   const listOfQuestionCode = Object.keys(mappedIconAndQuestionCode)
-  console.log('mappedIconAndQuestionCode---->', typeof mappedIconAndQuestionCode)
 
   const allPcmCode = useSelector(selectCode(`PCMINFORMATION`)) || []
   const sidebarPcmCode = find(includes('_SIDEBAR'))(allPcmCode)
-  const sidebarPcm = useSelector(selectCode(sidebarPcmCode, 'allAttributes'))
 
+  const sidebarPcm = useSelector(selectCode(sidebarPcmCode, 'allAttributes'))
   const mappedPcm = reduce((acc, { attributeCode, valueString }) => {
     acc = { ...acc, [attributeCode]: valueString }
     return acc
   }, {})(sidebarPcm || [])
+
   const {
     PRI_LOC1,
     PRI_LOC2,
