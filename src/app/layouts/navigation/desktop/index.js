@@ -24,7 +24,7 @@ import { useRef } from 'react'
 
 const DesktopNav = ({ logoSrc }) => {
   const theme = useTheme()
-  const bg = useColorModeValue(theme.colors.background.light, theme.colors.primary[900])
+  const bg = useColorModeValue('#F6F6F6', theme.colors.primary[900])
   const color = useColorModeValue(theme.colors.text.light, theme.colors.text.dark)
 
   const { onClose } = useDisclosure()
@@ -52,6 +52,7 @@ const DesktopNav = ({ logoSrc }) => {
           left: SIDEBAR_WIDTH,
           right: 0,
           backgroundColor: bg,
+          h: 25,
           boxShadow: 'rgb(0 0 0 / 10%) 0px 2px 0px 0px',
         }}
       >
