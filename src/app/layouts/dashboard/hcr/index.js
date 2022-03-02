@@ -1,16 +1,16 @@
 import { Box, HStack, Stack, Text, VStack } from '@chakra-ui/layout'
-import { Button } from '@chakra-ui/button'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBriefcase, faCheckCircle, faDownload, faEdit } from '@fortawesome/free-solid-svg-icons'
-import { useSelector } from 'react-redux'
-import { useColorModeValue } from '@chakra-ui/color-mode'
-
-import { selectAttributes, selectCode } from 'redux/db/selectors'
 import { callBucketView, onSendMessage } from 'vertx'
+import { faBriefcase, faCheckCircle, faDownload, faEdit } from '@fortawesome/free-solid-svg-icons'
+import { selectAttributes, selectCode } from 'redux/db/selectors'
+
 import Attribute from 'app/BE/attribute'
-import { useEffect } from 'react'
+import { Button } from '@chakra-ui/button'
 import Card from 'app/layouts/components/card'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Process from 'app/layouts/process'
+import { useColorModeValue } from '@chakra-ui/color-mode'
+import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 
 const HostCompanyRep = ({ userCode }) => {
   const [name, hc, jobTitle] = useSelector(
@@ -52,7 +52,7 @@ const HostCompanyRep = ({ userCode }) => {
         leftIcon={<FontAwesomeIcon icon={faDownload} />}
         onClick={() => onSendMessage({ targetCode: companyCode, code: 'ACT_HCS_DOC' })}
       >
-        Host Company Service Agreement
+        Host Company Placement Agreement
       </Button>
     ) : (
       <Button
@@ -61,7 +61,7 @@ const HostCompanyRep = ({ userCode }) => {
         leftIcon={<FontAwesomeIcon icon={faEdit} />}
         onClick={() => onSendMessage({ targetCode: companyCode, code: 'ACT_HCS_DOC' })}
       >
-        Host Company Service Agreement
+        Host Company Placement Agreement
       </Button>
     )
 
