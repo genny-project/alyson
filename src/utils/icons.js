@@ -11,6 +11,10 @@ import {
   faPlusCircle,
   faThLarge,
   faUserFriends,
+  faSatellite,
+  faCalendar,
+  faFile,
+  faRobot,
 } from '@fortawesome/free-solid-svg-icons'
 
 const icons = {
@@ -28,6 +32,10 @@ const icons = {
   QUE_HOST_COMPANY_VIEW: faBuilding,
   QUE_TREE_ITEM_EPRS: faPeopleArrows,
   QUE_TREE_ITEM_INTERNS: faGraduationCap,
+  QUE_TREE_ITEM_COMMUNICATIONS: faSatellite,
+  QUE_TREE_ITEM_APPOINTMENTS: faCalendar,
+  QUE_TREE_ITEM_DOCUMENTS: faFile,
+  QUE_TREE_ITEM_DEV_UI: faRobot,
 }
 
 export default icons
