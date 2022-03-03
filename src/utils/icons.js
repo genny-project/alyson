@@ -36,6 +36,8 @@ const icons = {
   QUE_TREE_ITEM_APPOINTMENTS: faCalendar,
   QUE_TREE_ITEM_DOCUMENTS: faFile,
   QUE_TREE_ITEM_DEV_UI: faRobot,
+  // Lojing Temporary Icons
+  QUE_PROPERTY_VIEW: faBuilding
 }
 
 export default icons
