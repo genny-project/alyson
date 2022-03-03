@@ -49,8 +49,18 @@ const defaultProjectTheme = {
       500: '#F11E1B',
       900: '#700f0f',
     },
-    warning: { 50: '#FFFAF0', 500: '#DD6B20', 900: '#62300e' },
-    success: { 50: '#F0FFF4', 500: '#38A169', 900: '#133523' },
+    warning: {
+      50: '#FFFAF0',
+      500: '#DD6B20',
+      900: '#62300e',
+    },
+    success: {
+      50: '#F0FFF4',
+      100: '#DBFFFE',
+      500: '#3AB8B5',
+      800: '#00AFAB',
+      900: '#133523',
+    },
     gradient: {
       50: 'linear-gradient(135deg, #E6FFFA, #EBF8FF)',
       100: 'linear-gradient(135deg, #B2F5EA, #BEE3F8)',

@@ -1,8 +1,10 @@
-import { Box, Input, Text, useClipboard, useToast } from '@chakra-ui/react'
+import { Box, HStack, Input, Text, useClipboard, useToast } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import Duplicates from './Duplicates'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { getIsInvalid } from 'utils/functions'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
@@ -87,9 +89,21 @@ const Read = ({ data }) => {
   const onClick = () => {
     onCopy()
     toast({
-      title: `${data?.value} copied!`,
-      status: 'success',
       duration: 1000,
+      isClosable: true,
+      render: () => (
+        <HStack
+          paddingBlock={5}
+          paddingInline={6}
+          bg="success.100"
+          borderWidth={'1px'}
+          borderColor={'success.500'}
+          borderRadius={'lg'}
+        >
+          <FontAwesomeIcon color="#00AFAB" icon={faCheckCircle} size="lg" />
+          <Text color="text.light">{`${data?.value} copied!`}</Text>
+        </HStack>
+      ),
     })
   }
   return (

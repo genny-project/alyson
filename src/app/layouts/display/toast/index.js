@@ -1,8 +1,9 @@
-import { useToast } from '@chakra-ui/react'
+import { HStack, Text, useToast } from '@chakra-ui/react'
+
+import { selectToast } from 'redux/app/selectors'
 import { toLower } from 'ramda'
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { selectToast } from 'redux/app/selectors'
 
 const Toast = () => {
   const toast = useToast()
@@ -13,8 +14,12 @@ const Toast = () => {
       toast({
         isClosable: true,
         position: 'top-right',
-        description: newToast.message,
         status: toLower(newToast.code || 'info'),
+        render: (
+          <HStack paddingBlock={5} paddingInline={6} borderRadius={'lg'}>
+            <Text>{newToast.message}</Text>
+          </HStack>
+        ),
       })
   }, [newToast, toast])
   return null

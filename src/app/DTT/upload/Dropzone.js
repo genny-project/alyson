@@ -1,9 +1,9 @@
-import { Box, Button, Center, Flex, Image, Input, Text, useToast } from '@chakra-ui/react'
+import { Box, Button, Center, Flex, HStack, Image, Input, Text, useToast } from '@chakra-ui/react'
 import { compose, includes, isEmpty, map, pathOr, split } from 'ramda'
+import { faExclamationTriangle, faUpload } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useState } from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUpload } from '@fortawesome/free-solid-svg-icons'
 import { isImageField } from 'utils/functions'
 import { useDropzone } from 'react-dropzone'
 
@@ -23,10 +23,26 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 1, questionCode
     const errorMessage = pathOr('', ['errors', 0, 'message'])(file)
     return toast({
       position: 'bottom',
-      title: 'Oops something went wrong! Please try again! ☹️',
-      description: errorMessage,
-      status: 'error',
       duration: 3000,
+      isClosable: true,
+      render: () => (
+        <HStack
+          paddingBlock={5}
+          paddingInline={6}
+          bg="error.50"
+          borderWidth={'1px'}
+          borderColor={'error.900'}
+          borderRadius={'lg'}
+        >
+          <FontAwesomeIcon color="#700f0f" icon={faExclamationTriangle} size="lg" />
+          <Box>
+            <Text variant="head.3" color="text.light">
+              {`Oops something went wrong! Please try again! ☹️`}
+            </Text>
+            <Text>{errorMessage}</Text>
+          </Box>
+        </HStack>
+      ),
     })
   }
 
