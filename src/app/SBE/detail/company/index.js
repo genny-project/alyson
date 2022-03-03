@@ -1,16 +1,16 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Text, VStack } from '@chakra-ui/react'
 import { faDownload, faEdit, faHandshake, faUser } from '@fortawesome/free-solid-svg-icons'
 
+import Button from 'app/layouts/components/button'
+import Card from 'app/layouts/components/card'
 import DetailLayout from '../layout'
-import { replace } from 'ramda'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Lane from 'app/SBE/lane'
+import { onSendMessage } from 'vertx'
+import { replace } from 'ramda'
+import { selectCode } from 'redux/db/selectors'
 import { useIsMobile } from 'utils/hooks'
 import { useSelector } from 'react-redux'
-import { selectCode } from 'redux/db/selectors'
-import Card from 'app/layouts/components/card'
-import { VStack, Text } from '@chakra-ui/react'
-import Button from 'app/layouts/components/button'
-import { onSendMessage } from 'vertx'
 
 const contactDetails = {
   header: 'Contact Details',
@@ -73,7 +73,7 @@ const Rep = ({ sbeCode, targetCode }) => {
         leftIcon={<FontAwesomeIcon icon={faDownload} />}
         onClick={() => onSendMessage({ targetCode, parentCode: sbeCode, code: 'ACT_HCS_DOC' })}
       >
-        {`Host Company Service Agreement`}
+        {`Host Company Placement Agreement`}
       </Button>
     ) : (
       <Button
@@ -81,7 +81,7 @@ const Rep = ({ sbeCode, targetCode }) => {
         leftIcon={<FontAwesomeIcon icon={faEdit} />}
         onClick={() => onSendMessage({ targetCode, parentCode: sbeCode, code: 'ACT_HCS_DOC' })}
       >
-        {`Host Company Service Agreement`}
+        {`Host Company Placement Agreement`}
       </Button>
     )
 
