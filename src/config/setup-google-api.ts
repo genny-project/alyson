@@ -1,23 +1,19 @@
-import { HOST } from './genny'
+import { apiConfig } from 'config/get-api-config'
 import axios from 'axios'
-import { useKeycloak } from '@react-keycloak/web'
-import { pathOr } from 'ramda'
 
-const useSetupGoogleApi = async () => {
-  const { keycloak } = useKeycloak()
-  const token = pathOr('', ['token'])(keycloak)
-
+const setupGoogleApi = async (token: string) => {
   const maps = document.createElement('script')
-  const res = await axios.get(`${HOST}/googleapi/v1/map`, {
+
+  const res = await axios.get(`${apiConfig.api_url}/googleapi/v1/map`, {
     headers: { Authorization: `bearer ${token}` },
   })
   const src = URL.createObjectURL(new Blob([res.data], { type: 'text/javascript' }))
   maps.setAttribute('src', src)
   // maps.setAttribute(
   //   'src',
-  //   `${HOST}/googleapi/v1/map`,
+  //   `https://maps.googleapis.com/maps/api/js?key=${apiConfig.ENV_GOOGLE_MAPS_APIKEY}&libraries=places,drawing`,
   // )
   document.head.appendChild(maps)
 }
 
-export default useSetupGoogleApi
+export default setupGoogleApi
