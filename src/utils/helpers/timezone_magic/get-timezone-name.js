@@ -6,7 +6,7 @@ export const fromLatLng = async ({ lat, lng, token }) => {
   try {
     const response = await axios({
       method: 'GET',
-      url: `${HOST}/googleapi/v1/timezone?location=${lat},${lng}&timestamp=${Date.now() / 1000}`,
+      url: `${HOST}/googleapi/v1/timezone?location=${lat},${lng}&timestamp=${Math.round(Date.now() / 1000)}`,
       headers: {
         'Content-Type': 'application/json',
         Authorization: `bearer ${token}`,
