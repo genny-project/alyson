@@ -1,8 +1,10 @@
-import { useSelector } from 'react-redux'
-import { selectCode } from 'redux/db/selectors'
-import { Text, VStack, HStack } from '@chakra-ui/react'
-import { getTableActions } from 'app/SBE/utils/get-actions'
+import { HStack, Text, VStack } from '@chakra-ui/react'
+
 import Action from 'app/BE/action'
+import { getTableActions } from 'app/SBE/utils/get-actions'
+import { mentees } from 'utils/constants'
+import { selectCode } from 'redux/db/selectors'
+import { useSelector } from 'react-redux'
 
 const Mentees = ({ sbeCode }) => {
   const sbe = useSelector(selectCode(sbeCode))
@@ -11,8 +13,10 @@ const Mentees = ({ sbeCode }) => {
   return (
     <VStack>
       <HStack>
-        <Text mr="1" textStyle="body.2">{`Total number of Mentees: `}</Text>
         <Text textStyle="body.1">{total?.value}</Text>
+        <Text mr="1" textStyle="body.2">
+          {mentees}
+        </Text>
       </HStack>
       <HStack>
         {tableActions?.map(action => (
