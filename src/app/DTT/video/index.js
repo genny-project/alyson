@@ -52,6 +52,8 @@ const Write = ({ questionCode, onSendAnswer, html, data, setSaving }) => {
 
   const src = getSrc(data?.value)
 
+  console.log(config)
+
   if (src)
     return (
       <VStack>
@@ -106,6 +108,7 @@ const Write = ({ questionCode, onSendAnswer, html, data, setSaving }) => {
         />
       </VStack>
     )
+
   return (
     <VStack align="start" pl="8" pb="8" w="100%">
       {config.detail ? (
