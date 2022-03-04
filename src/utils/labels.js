@@ -11,7 +11,7 @@ const labels = {
   QUE_TREE_ITEM_APPLICATIONS_APPLIED: 'Applications',
   QUE_TREE_ITEM_COMMUNICATIONS: 'Communications',
   QUE_TREE_ITEM_APPOINTMENTS: 'Appointments',
-  QUE_TREE_ITEM_DOCUMENTS: 'Documents',
+  QUE_TREE_ITEM_DOCUMENTS_GRP: 'Documents',
   QUE_TREE_ITEM_DEV_UI: 'Dev UI',
   QUE_HOST_COMPANY_VIEW: 'Company',
   QUE_TREE_ITEM_EPRS: 'Edu Reps',

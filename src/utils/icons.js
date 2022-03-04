@@ -34,7 +34,7 @@ const icons = {
   QUE_TREE_ITEM_INTERNS: faGraduationCap,
   QUE_TREE_ITEM_COMMUNICATIONS: faSatellite,
   QUE_TREE_ITEM_APPOINTMENTS: faCalendar,
-  QUE_TREE_ITEM_DOCUMENTS: faFile,
+  QUE_TREE_ITEM_DOCUMENTS_GRP: faFile,
   QUE_TREE_ITEM_DEV_UI: faRobot,
   // Lojing Temporary Icons
   QUE_TREE_ITEM_PROPERTIES: faBuilding
