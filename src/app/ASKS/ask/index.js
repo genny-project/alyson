@@ -98,6 +98,14 @@ const Ask = ({
   const feedback = data?.feedback
   const onSendAnswer = createSendAnswer(askData, { passedTargetCode })
 
+  if (questionCode === 'QUE_SELECT_HOST_COMPANY') {
+    console.log('%c 🙀', 'background: tomato; color: silver; padding: 0.5rem', {
+      failedValidation,
+      fieldNotEmpty,
+      errorState,
+    })
+  }
+
   if (readonly) {
     return (
       <HStack>
@@ -157,8 +165,7 @@ const Ask = ({
     >
       <HStack justify="space-between" display={noLabel ? 'none' : 'flex'} w={labelWidth}>
         <FormLabel id={attributeCode}>{name}</FormLabel>
-        {(!failedValidation && fieldNotEmpty) ||
-        (!failedValidation && data?.value && data?.value !== '[]') ? (
+        {(!failedValidation && fieldNotEmpty) || data?.value ? (
           <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
         ) : null}
       </HStack>
