@@ -1,14 +1,16 @@
 import axios from 'axios'
-import { apiConfig } from 'config/get-api-config'
 import timeZone from './time-zone-from-browser'
+import { HOST } from '../../../config/genny'
 
-export const fromLatLng = async ({ lat, lng }) => {
+export const fromLatLng = async ({ lat, lng, token }) => {
   try {
     const response = await axios({
       method: 'GET',
-      url: `https://maps.googleapis.com/maps/api/timezone/json?location=${lat},${lng}&key=${
-        apiConfig.ENV_GOOGLE_TIMEZONE_APIKEY
-      }&timestamp=${Date.now() / 1000}`,
+      url: `${HOST}/googleapi/v1/timezone?location=${lat},${lng}&timestamp=${Math.round(Date.now() / 1000)}`,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `bearer ${token}`,
+      },
     })
     const { data } = response
     if (data.errorMessage) throw new Error(data.errorMessage)
