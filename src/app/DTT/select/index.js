@@ -28,12 +28,9 @@ const Write = ({
   regexPattern = '.*',
 }) => {
   let regex
+  // eslint-disable-next-line no-unused-vars
   const [errorStatus, setErrorStatus] = useState(false)
   const { dispatch } = useError()
-
-  console.log('%c 🙀', 'background: tomato; color: silver; padding: 0.5rem', {
-    errorStatus,
-  })
 
   const previousDropDownRef = useRef([])
 
@@ -59,11 +56,6 @@ const Write = ({
   }
 
   const isInvalid = getIsInvalid(data?.value)(regex)
-
-  console.log('%c 🙀', 'background: blue; color: silver; padding: 0.5rem', {
-    errorStatus,
-    isInvalid,
-  })
 
   useEffect(() => {
     isInvalid ? setErrorStatus(true) : setErrorStatus(false)

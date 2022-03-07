@@ -8,9 +8,10 @@ export const ACTIONS = {
 export const initialState = {}
 
 export const isFiledNotEmptyReducer = (fieldState, { payload }) => {
+  let isValueEmpty
   const fieldValue = document.getElementById(payload)
   const value = fieldValue?.value
-  const isValueEmpty = isEmpty(value)
+  isValueEmpty = value ? isEmpty(value) : true
 
   if (isValueEmpty) {
     return { ...fieldState, [payload]: false }
