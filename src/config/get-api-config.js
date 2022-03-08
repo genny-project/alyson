@@ -3,7 +3,6 @@ import Keycloak from 'keycloak-js'
 import LogRocket from 'logrocket'
 import axios from 'axios'
 import getTheme from 'config/theme'
-import getTokenFromURL from 'keycloak/get-token-from-url'
 import { includes } from 'ramda'
 import loginAsGuest from '../keycloak/login-as-guest'
 import setupGoogleApi from './setup-google-api'
@@ -42,14 +41,7 @@ const getApiConfig = async () => {
     guestKeycloak = await loginAsGuest()
   }
 
-  //need to make this call to get the token from the keycloak, you can only access the properties of the keycloak once you have successfully called the init method of keycloak
-  await keycloak.init({ onLoad: 'login-required' })
-  //now we have ran keycloak.init({}) method, we can get token property of keycloak object by doing keycloak.token, otherwise
-  const tokenFromKeycloak = keycloak.token
-
-  tokenFromUrl = getTokenFromURL(keycloak)
-
-  setupGoogleApi(tokenFromKeycloak)
+  setupGoogleApi()
 
   /* Theme */
   const { projectTheme } = apiConfig
