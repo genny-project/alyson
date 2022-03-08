@@ -52,8 +52,6 @@ const Write = ({ questionCode, onSendAnswer, html, data, setSaving }) => {
 
   const src = getSrc(data?.value)
 
-  console.log(config)
-
   if (src)
     return (
       <VStack>

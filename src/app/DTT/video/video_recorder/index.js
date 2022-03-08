@@ -98,7 +98,7 @@ const VideoRecorder = ({ setData, config, setStartVideo, id }) => {
           </Button>
         </Box>
       </VStack>
-      {/* <Text maxW="60rem">{config.description}</Text> */}
+
       <div hidden={!length(recordedChunks) || capturing}>
         <Text textStyle="body.3">Saving!</Text>
         <Progress borderRadius="md" w="20rem" isIndeterminate />
