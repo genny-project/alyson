@@ -42,9 +42,14 @@ const getApiConfig = async () => {
     guestKeycloak = await loginAsGuest()
   }
 
+  //need to make this call to get the token from the keycloak, you can only access the properties of the keycloak once you have successfully called the init method of keycloak
+  await keycloak.init({ onLoad: 'login-required' })
+  //now we have ran keycloak.init({}) method, we can get token property of keycloak object by doing keycloak.token, otherwise
+  const tokenFromKeycloak = keycloak.token
+
   tokenFromUrl = getTokenFromURL(keycloak)
 
-  setupGoogleApi()
+  setupGoogleApi(tokenFromKeycloak)
 
   /* Theme */
   const { projectTheme } = apiConfig

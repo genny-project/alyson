@@ -8,3 +8,7 @@ export const dashboardViewQuestion = 'QUE_DASHBOARD_VIEW'
 export const dateOfBirthQuestionCode = 'QUE_DATE_OF_BIRTH'
 export const journalDateQuestionCode = 'QUE_JOURNAL_DATE'
 export const eligibleAge = 18
+export const processView = 'Process View'
+export const mentees = 'Mentees'
+export const mentors = 'Mentors'
+export const agents = 'Agents'

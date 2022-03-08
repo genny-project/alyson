@@ -38,6 +38,7 @@ const LeftDetail = ({ beCode, sbeCode }) => {
       position="sticky"
       top="0rem"
       minW="20vw"
+      zIndex={`1`}
     >
       <VStack ml="10" mr="4" my="8" align="start" spacing={8} maxW="30vw">
         {userType === 'HOST_CPY_REP' ? (

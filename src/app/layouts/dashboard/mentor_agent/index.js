@@ -1,16 +1,17 @@
-import { useSelector } from 'react-redux'
-import { selectDashboard } from 'redux/app/selectors'
-import DisplaySbe from 'app/SBE'
 import { Button, VStack } from '@chakra-ui/react'
 
+import Attribute from 'app/BE/attribute'
+import Card from 'app/layouts/components/card'
+import DisplaySbe from 'app/SBE'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBolt } from '@fortawesome/free-solid-svg-icons'
-import { onSendMessage } from 'vertx'
-import Card from 'app/layouts/components/card'
-import { selectCode } from 'redux/db/selectors'
-import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { head } from 'ramda'
-import Attribute from 'app/BE/attribute'
+import { onSendMessage } from 'vertx'
+import { processView } from 'utils/constants'
+import safelyParseJson from 'utils/helpers/safely-parse-json'
+import { selectCode } from 'redux/db/selectors'
+import { selectDashboard } from 'redux/app/selectors'
+import { useSelector } from 'react-redux'
 
 const AgentDashboard = () => {
   const dashboardSbes = useSelector(selectDashboard) || []
@@ -33,7 +34,7 @@ const AgentDashboard = () => {
             size="lg"
             w="full"
           >
-            {`Take me to Bucket Page`}
+            {processView}
           </Button>
           <Attribute config={{ size: 'xl' }} code={agency} attribute="PRI_IMAGE_URL" />
           {dashboardSbes.slice(0, Infinity).map(sbeCode => (

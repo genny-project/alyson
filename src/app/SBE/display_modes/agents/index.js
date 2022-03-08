@@ -1,8 +1,10 @@
-import { useSelector } from 'react-redux'
-import { selectCode } from 'redux/db/selectors'
-import { Text, VStack, HStack } from '@chakra-ui/react'
-import { getTableActions } from 'app/SBE/utils/get-actions'
+import { HStack, Text, VStack } from '@chakra-ui/react'
+
 import Action from 'app/BE/action'
+import { agents } from 'utils/constants'
+import { getTableActions } from 'app/SBE/utils/get-actions'
+import { selectCode } from 'redux/db/selectors'
+import { useSelector } from 'react-redux'
 
 const Agents = ({ sbeCode }) => {
   const sbe = useSelector(selectCode(sbeCode))
@@ -11,7 +13,12 @@ const Agents = ({ sbeCode }) => {
 
   return (
     <VStack>
-      <Text textStyle="body.2">{total?.value} Agents</Text>
+      <HStack>
+        <Text textStyle="body.1">{total?.value}</Text>
+        <Text mr="1" textStyle="body.2">
+          {agents}
+        </Text>
+      </HStack>
       <HStack>
         {tableActions?.map(action => (
           <Action key={action} parentCode={sbeCode} code={action} />
