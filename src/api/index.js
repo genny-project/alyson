@@ -90,6 +90,7 @@ const useApi = () => {
     getVideoSrc,
     getMediaFileName,
     callAbnLookup,
+    token,
   }
 }
 

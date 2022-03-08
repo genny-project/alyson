@@ -3,6 +3,7 @@ import Keycloak from 'keycloak-js'
 import LogRocket from 'logrocket'
 import axios from 'axios'
 import getTheme from 'config/theme'
+import getTokenFromURL from 'keycloak/get-token-from-url'
 import { includes } from 'ramda'
 import loginAsGuest from '../keycloak/login-as-guest'
 import setupGoogleApi from './setup-google-api'
@@ -40,6 +41,8 @@ const getApiConfig = async () => {
   if (includes('public', window.location.pathname)) {
     guestKeycloak = await loginAsGuest()
   }
+
+  tokenFromUrl = getTokenFromURL(keycloak)
 
   setupGoogleApi()
 
