@@ -44,6 +44,7 @@ import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
+import { isNotStringifiedEmptyArray } from 'utils/functionals'
 
 const Ask = ({
   parentCode,
@@ -89,6 +90,7 @@ const Ask = ({
   const errorMessage = pathOr('Please enter valid data', ['validationList', 0, 'errormsg'])(
     dataType,
   )
+  const dataValue = data?.value
 
   if (!question?.attribute) return null
 
@@ -158,7 +160,7 @@ const Ask = ({
       <HStack justify="space-between" display={noLabel ? 'none' : 'flex'} w={labelWidth}>
         <FormLabel id={attributeCode}>{name}</FormLabel>
         {(!failedValidation && fieldNotEmpty) ||
-        (!failedValidation && data?.value && data?.value !== '[]') ? (
+        (!failedValidation && dataValue && isNotStringifiedEmptyArray(dataValue)) ? (
           <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
         ) : null}
       </HStack>

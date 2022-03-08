@@ -1,4 +1,4 @@
-import { compose, equals, head, split, any, ifElse, identity, of, always, type } from 'ramda'
+import { compose, equals, head, split, any, ifElse, identity, of, always, type, not } from 'ramda'
 
 export const isTypeOf = typeOf => compose(equals(typeOf), type)
 export const maybeThisOrType = fallback =>
@@ -8,3 +8,4 @@ export const maybeThisOrObject = maybeThisOrType({})
 export const arrayOrMakeArray = ifElse(Array.isArray, identity, of)
 export const getPrefixFromCode = compose(head, split('_'), maybeThisOrString)
 export const anyEquals = compose(any, equals)
+export const isNotStringifiedEmptyArray = compose(not, equals('[]'))
