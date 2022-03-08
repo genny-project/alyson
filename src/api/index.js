@@ -57,22 +57,22 @@ const useApi = () => {
   }
 
   const getImageSrc = (uuid, dim) =>
-      uuid
-          ? `${IMAGE_URL}/${dim ? `${dim.width}x${dim.height || ''},fit/` : ''}${MEDIA_URL}/${uuid}`
-          : null
+    uuid
+      ? `${IMAGE_URL}/${dim ? `${dim.width}x${dim.height || ''},fit/` : ''}${MEDIA_URL}/${uuid}`
+      : null
 
   const getSrc = uuid => (uuid ? `${MEDIA_URL}/${uuid}` : null)
 
   const getVideoSrc = uuid => (uuid ? `${VIDEO_URL}/${uuid}` : null)
 
   const callABN = async value =>
-      await axios({
-        method: 'GET',
-        url: `${ABN_URL}?name=${value}&size=${5}`,
-        headers: {
-          Authorization: `bearer ${token}`,
-        },
-      })
+    await axios({
+      method: 'GET',
+      url: `${ABN_URL}?name=${value}&size=${5}`,
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    })
 
   const callAbnLookup = debounce(async ({ value, onResult, setLoading }) => {
     setLoading(true)
@@ -90,7 +90,6 @@ const useApi = () => {
     getVideoSrc,
     getMediaFileName,
     callAbnLookup,
-    token
   }
 }
 
