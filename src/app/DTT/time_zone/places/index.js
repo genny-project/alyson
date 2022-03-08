@@ -5,15 +5,12 @@ import { useEffect, useRef, useState } from 'react'
 import { Text } from '@chakra-ui/layout'
 import defaultTimeZones from 'utils/helpers/time-zone.json'
 import { fromLatLng } from 'utils/helpers/timezone_magic/get-timezone-name'
-import useApi from 'api'
 
 let places
 
 const PlacesAutocomplete = ({ onSelect, questionCode }) => {
   const inputRef = useRef(null)
   const [input, setInput] = useState('')
-
-  const { token } = useApi()
 
   useEffect(() => {
     if (inputRef) {
@@ -27,12 +24,11 @@ const PlacesAutocomplete = ({ onSelect, questionCode }) => {
         const timezone = await fromLatLng({
           lat: location?.lat(),
           lng: location?.lng(),
-          token: token,
         })
         onSelect(timezone?.timeZoneId)
       })
     }
-  }, [onSelect, token])
+  }, [onSelect])
 
   return (
     <div>
