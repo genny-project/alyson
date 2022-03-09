@@ -1,7 +1,7 @@
 import { Select as CSelect, Text } from '@chakra-ui/react'
 import { compose, includes, isEmpty, map, pathOr } from 'ramda'
 import { selectCode, selectRows } from 'redux/db/selectors'
-import { useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 import Autocomplete from './Autocomplete'
 import debounce from 'lodash.debounce'
@@ -9,6 +9,9 @@ import { getValue } from './get-value'
 import { onSendMessage } from 'vertx'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { useSelector } from 'react-redux'
+import { getIsInvalid } from 'utils/functions'
+import { ACTIONS } from 'utils/contexts/ErrorReducer'
+import { useError } from 'utils/contexts/ErrorContext'
 
 const Write = ({
   questionCode,
@@ -22,7 +25,13 @@ const Write = ({
   config,
   parentCode,
   attributeCode,
+  regexPattern = '.*',
 }) => {
+  let regex
+  // eslint-disable-next-line no-unused-vars
+  const [errorStatus, setErrorStatus] = useState(false)
+  const { dispatch } = useError()
+
   const previousDropDownRef = useRef([])
 
   const sourceCode = useSelector(selectCode('USER'))
@@ -39,6 +48,24 @@ const Write = ({
       ? dropdownData
       : previousDropDownRef.current
   })
+  try {
+    regex = RegExp(regexPattern)
+  } catch (err) {
+    console.error('There is an error with the regex', questionCode, err)
+    regex = undefined
+  }
+
+  const isInvalid = getIsInvalid(data?.value)(regex)
+
+  useEffect(() => {
+    isInvalid ? setErrorStatus(true) : setErrorStatus(false)
+  }, [isInvalid])
+
+  useEffect(() => {
+    isInvalid
+      ? dispatch({ type: ACTIONS.SET_TO_TRUE, payload: questionCode })
+      : dispatch({ type: ACTIONS.SET_TO_FALSE, payload: questionCode })
+  }, [dispatch, isInvalid, questionCode])
 
   const ddEvent = debounce(
     value =>
