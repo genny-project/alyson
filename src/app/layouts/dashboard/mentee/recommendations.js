@@ -19,9 +19,9 @@ const Recommendation = ({ setShowDetailView, setCurrentMentor }) => {
 
   const parentTemplateColumns = useMobileValue([
     'repeat(auto-fit, minmax(100px, 1fr))',
-    '160px 1fr',
+    '100px 1fr',
   ])
-  const childTemplateColumns = useMobileValue(['repeat(auto-fit, minmax(100px, 1fr))', '160px 1fr'])
+  const childTemplateColumns = useMobileValue(['repeat(auto-fit, minmax(100px, 1fr))', '100px 1fr'])
   const maxW = useMobileValue(['', '75%'])
 
   return (

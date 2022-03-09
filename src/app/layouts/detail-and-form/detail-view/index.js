@@ -1,8 +1,8 @@
 import { Grid, useColorModeValue } from '@chakra-ui/react'
 import {
+  menteePreference,
+  menteeProfessionalDetails,
   personalDetails,
-  preference,
-  professionalDetails,
 } from 'app/layouts/dashboard/timeline/templates/CardContent'
 
 import DetailCards from 'app/layouts/components/detail_card'
@@ -21,9 +21,9 @@ const DetailView = ({ beCode }) => {
         gap={'1em'}
       >
         <DetailCards detailsection={personalDetails} currentMentor={beCode} miniCard />
-        <DetailCards detailsection={professionalDetails} currentMentor={beCode} miniCard />
+        <DetailCards detailsection={menteeProfessionalDetails} currentMentor={beCode} miniCard />
       </Grid>
-      <DetailCards detailsection={preference} currentMentor={beCode} />
+      <DetailCards detailsection={menteePreference} currentMentor={beCode} />
     </Grid>
   )
 }
