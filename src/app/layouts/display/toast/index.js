@@ -11,8 +11,6 @@ const Toast = () => {
   const toast = useToast()
   const newToast = useSelector(selectToast)
 
-  console.log(newToast)
-
   useEffect(() => {
     if (newToast)
       toast({
