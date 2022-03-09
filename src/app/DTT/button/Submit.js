@@ -99,6 +99,13 @@ const Submit = ({ askData, onFinish, parentCode }) => {
         }
         colorScheme={questionCode === 'QUE_SUBMIT_NO' ? 'red' : 'primary'}
         variant="solid"
+        borderRadius={'full'}
+        paddingBlock="6px"
+        paddingInline="20px"
+        background={'primary.900'}
+        _hover={{
+          background: 'primary.500',
+        }}
       >
         {name}
       </Button>

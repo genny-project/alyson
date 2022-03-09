@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   CloseButton,
   HStack,
@@ -111,7 +112,7 @@ const Write = ({ questionCode, data, dttData, onSendAnswer, video, name }) => {
   }
 
   return (
-    <div>
+    <Box width={'100%'}>
       <div hidden={loading}>
         {typeName === 'Image' ? (
           <ImageType.Write
@@ -164,13 +165,13 @@ const Write = ({ questionCode, data, dttData, onSendAnswer, video, name }) => {
           <Progress
             w="30rem"
             h="1rem"
-            hasStripe
+            colorScheme={'green'}
             borderRadius="md"
             value={progress ? Math.floor((progress.loaded / progress.total) * 100) : 0}
           />
         </VStack>
       </div>
-    </div>
+    </Box>
   )
 }
 

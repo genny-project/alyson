@@ -1,9 +1,10 @@
-import { Flex, Spacer, Text, Box } from '@chakra-ui/layout'
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Box, Flex, Spacer, Text } from '@chakra-ui/layout'
 import { compose, includes } from 'ramda'
-import { bufferDropdownOption } from 'redux/app'
 import { useDispatch, useSelector } from 'react-redux'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { bufferDropdownOption } from 'redux/app'
+import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { selectBufferDropdownOptions } from 'redux/app/selectors'
 
 const Item = ({ option, idx, onSelectChange, focus, selected, maxW, setInput, setOpen }) => {
@@ -21,8 +22,6 @@ const Item = ({ option, idx, onSelectChange, focus, selected, maxW, setInput, se
 
   return (
     <Flex
-      direction="row"
-      align="center"
       test-id={option.value}
       id={idx + 'item'}
       tabIndex={idx + 1}
@@ -32,24 +31,31 @@ const Item = ({ option, idx, onSelectChange, focus, selected, maxW, setInput, se
       onClick={onClick}
       cursor="pointer"
       key={option.value}
-      px="3"
       bg={idx % 2 ? 'blackAlpha.50' : ''}
       fontWeight={focused ? 'semibold' : 'normal'}
-      _hover={{ fontWeight: 'semibold' }}
+      direction="row"
+      align="center"
+      justifyContent={'space-between'}
       h="2rem"
       maxW={maxW}
+      px="3"
+      color={includes(option.value, selected) ? 'green.400' : 'text.light'}
+      _hover={{
+        background: 'green.400',
+        color: 'text.dark',
+      }}
+      _active={{
+        color: 'green.400',
+      }}
     >
-      {includes(option.value, selected) ? (
-        <FontAwesomeIcon icon={faCheckCircle} color="green" />
-      ) : null}
       <Box maxW={`calc(${maxW} - 2rem)`}>
         <Text textOverflow="clip" noOfLines="1" my="1">
           {option.label}
         </Text>
       </Box>
-
       <Spacer />
       {focus === idx && <Text>⏎</Text>}
+      {includes(option.value, selected) ? <FontAwesomeIcon icon={faCheck} color="teal" /> : null}
     </Flex>
   )
 }

@@ -1,4 +1,14 @@
-import { Box, Button, Flex, Grid, useColorModeValue, useToast } from '@chakra-ui/react'
+import {
+  Box,
+  Button,
+  Flex,
+  Grid,
+  HStack,
+  Text,
+  useColorModeValue,
+  useToast,
+} from '@chakra-ui/react'
+import { faCheckCircle, faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons'
 import {
   personalDetails,
   preference,
@@ -8,7 +18,6 @@ import {
 import DetailCards from 'app/layouts/components/detail_card'
 import DetailHeader from 'app/layouts/components/detail_header'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons'
 import { onSendMessage } from 'vertx'
 
 const DetailView = ({ setShowDetailView, currentMentor }) => {
@@ -16,12 +25,27 @@ const DetailView = ({ setShowDetailView, currentMentor }) => {
   const toast = useToast()
   const sendToast = () =>
     toast({
-      title: 'Invitation Sent!',
-      description: 'We will notify you once the Mentor has accepted your invitation.',
-      status: 'success',
       duration: 9000,
       isClosable: true,
       position: 'top-right',
+      render: () => (
+        <HStack
+          paddingBlock={5}
+          paddingInline={6}
+          bg="success.100"
+          borderWidth={'1px'}
+          borderColor={'success.500'}
+          borderRadius={'lg'}
+        >
+          <FontAwesomeIcon color="#00AFAB" icon={faCheckCircle} size="lg" />
+          <Box>
+            <Text variant="head.3" color="text.light">
+              {`Invitation Sent!`}
+            </Text>
+            <Text>{'We will notify you once the Mentor has accepted your invitation.'}</Text>
+          </Box>
+        </HStack>
+      ),
     })
   return (
     <Flex
