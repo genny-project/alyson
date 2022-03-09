@@ -54,21 +54,20 @@ const ProcessSearch = ({ sbeCode, process, placeholder = 'Dashboard Search' }) =
             // value={searchValue}
             onChange={e => setSearchValue(e.currentTarget.value)}
             paddingBlock={3}
-            paddingInline={9}
+            paddingInline={8}
             fontWeight={'medium'}
             borderColor={'gray.700'}
-            background={'light'}
             _hover={{
-              borderColor: 'primary.500',
+              borderColor: 'green.500',
               boxShadow: 'lg',
             }}
             _focusVisible={{
-              borderColor: 'primary.500',
+              borderColor: 'green.500',
               boxShadow: 'initial',
             }}
             _invalid={{
-              borderColor: 'error.500',
               background: 'error.50',
+              borderColor: 'error.500',
               color: 'error.500',
             }}
             _disabled={{
@@ -94,6 +93,10 @@ const ProcessSearch = ({ sbeCode, process, placeholder = 'Dashboard Search' }) =
         leftIcon={<FontAwesomeIcon icon={faSearch} />}
         colorScheme="primary"
         test-id={`process-view-search`}
+        background={'primary.900'}
+        _hover={{
+          background: 'primary.500',
+        }}
       >
         {`Search`}
       </Button>

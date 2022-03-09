@@ -83,7 +83,7 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 1, questionCode
   })(files)
 
   return (
-    <Box borderWidth={'1px'} p={'1.5rem'} borderRadius={'1.25rem'} mt={'1rem'}>
+    <Box w="100%" borderWidth={'1px'} p={'1.5rem'} borderRadius={'1.25rem'} mt={'1rem'}>
       <Flex w="100%" direction="column">
         <Box {...getRootProps()}>
           <Center

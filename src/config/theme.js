@@ -6,7 +6,10 @@ const defaultProjectTheme = {
     body: 'Roboto, sans-serif',
   },
   colors: {
-    background: { light: '#ffffff', dark: '#1A202C' },
+    background: {
+      light: '#ffffff',
+      dark: '#1A202C',
+    },
     text: {
       light: '#000000',
       dark: '#ffffff',
@@ -23,6 +26,9 @@ const defaultProjectTheme = {
       800: '#2A4365',
       900: '#1A3B64',
     },
+    primaryAlpha: {
+      20: 'rgba(49,130,206,0.2)',
+    },
     secondary: {
       50: '#FFF5F7',
       100: '#FED7E2',
@@ -36,10 +42,24 @@ const defaultProjectTheme = {
       900: '#521B41',
     },
     gray: {
-      100: '#EDEDED',
+      50: '#F6F6F6',
+      100: '#E5E5E5',
+      200: '#EDEDED',
       300: '#C4C4C4',
-      500: '#718096',
-      700: '#979797',
+      400: '#718096',
+      500: '#9F9F9F',
+      600: '#979797',
+      700: '#808080',
+      800: '#171923',
+    },
+    purple: {
+      400: '#5162FA',
+    },
+    green: {
+      50: '#AAE3E2',
+      200: '#03DAC5',
+      400: '#00AFAB',
+      900: '#004753',
     },
     blackAlpha: {
       20: 'rgba(0,0,0,0.2)',
@@ -82,25 +102,91 @@ const defaultProjectTheme = {
   },
   textStyles: {
     head: {
-      1: { fontSize: '2xl', fontWeight: 700, opacity: 0.9 },
-      2: { fontSize: '2xl', fontWeight: 400, opacity: 0.9 },
-      3: { fontSize: '2xl', fontWeight: 400, opacity: 0.6 },
-      error: { fontSize: '2xl', fontWeight: 400, color: 'red.500', opacity: 0.9 },
-      success: { fontSize: '2xl', fontWeight: 400, color: 'green.500', opacity: 0.9 },
+      1: {
+        fontSize: '2xl',
+        fontWeight: 700,
+        opacity: 0.9,
+      },
+      2: {
+        fontSize: '2xl',
+        fontWeight: 400,
+        opacity: 0.9,
+      },
+      3: {
+        fontSize: '2xl',
+        fontWeight: 400,
+        opacity: 0.6,
+      },
+      error: {
+        fontSize: '2xl',
+        fontWeight: 400,
+        color: 'red.500',
+        opacity: 0.9,
+      },
+      success: {
+        fontSize: '2xl',
+        fontWeight: 400,
+        color: 'green.500',
+        opacity: 0.9,
+      },
     },
     body: {
-      1: { fontSize: 'md', fontWeight: 700, opacity: 0.9 },
-      2: { fontSize: 'md', fontWeight: 400, opacity: 0.9 },
-      3: { fontSize: 'md', fontWeight: 400, opacity: 0.6 },
-      error: { fontSize: 'md', fontWeight: 400, color: 'red.500', opacity: 0.9 },
-      success: { fontSize: 'md', fontWeight: 400, color: 'green.500', opacity: 0.9 },
+      1: {
+        fontSize: 'md',
+        fontWeight: 700,
+        opacity: 0.9,
+      },
+      2: {
+        fontSize: 'md',
+        fontWeight: 400,
+        opacity: 0.9,
+      },
+      3: {
+        fontSize: 'md',
+        fontWeight: 400,
+        opacity: 0.6,
+      },
+      error: {
+        fontSize: 'md',
+        fontWeight: 400,
+        color: 'red.500',
+        opacity: 0.9,
+      },
+      success: {
+        fontSize: 'md',
+        fontWeight: 400,
+        color: 'green.500',
+        opacity: 0.9,
+      },
     },
     tail: {
-      1: { fontSize: 'xs', fontWeight: 700, opacity: 0.9 },
-      2: { fontSize: 'xs', fontWeight: 400, opacity: 0.9 },
-      3: { fontSize: 'xs', fontWeight: 400, opacity: 0.6 },
-      error: { fontSize: 'xs', fontWeight: 400, color: 'red.500', opacity: 0.9 },
-      success: { fontSize: 'xs', fontWeight: 400, color: 'green.500', opacity: 0.9 },
+      1: {
+        fontSize: 'xs',
+        fontWeight: 700,
+        opacity: 0.9,
+      },
+      2: {
+        fontSize: 'xs',
+        fontWeight: 400,
+        opacity: 0.9,
+      },
+      3: {
+        fontSize: 'xs',
+        fontWeight: 400,
+        opacity: 0.6,
+      },
+      error: {
+        fontSize: 'xs',
+        fontWeight: 400,
+        color: 'red.500',
+        opacity: 0.9,
+      },
+      success: {
+        fontSize: 'xs',
+        fontWeight: 400,
+        color: 'green.500',
+        opacity: 0.9,
+      },
     },
   },
 }
