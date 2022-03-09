@@ -1,7 +1,9 @@
-import { Box, Button, Center, Flex, Image, Input, Text, useToast } from '@chakra-ui/react'
+import { Box, Button, Center, Flex, HStack, Image, Input, Text, useToast } from '@chakra-ui/react'
 import { compose, includes, isEmpty, map, pathOr, split } from 'ramda'
+import { faExclamationTriangle, faUpload } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useState } from 'react'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { isImageField } from 'utils/functions'
 import { useDropzone } from 'react-dropzone'
 
@@ -21,10 +23,26 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 1, questionCode
     const errorMessage = pathOr('', ['errors', 0, 'message'])(file)
     return toast({
       position: 'bottom',
-      title: 'Oops something went wrong! Please try again! ☹️',
-      description: errorMessage,
-      status: 'error',
       duration: 3000,
+      isClosable: true,
+      render: () => (
+        <HStack
+          paddingBlock={5}
+          paddingInline={6}
+          bg="error.50"
+          borderWidth={'1px'}
+          borderColor={'error.900'}
+          borderRadius={'lg'}
+        >
+          <FontAwesomeIcon color="#700f0f" icon={faExclamationTriangle} size="lg" />
+          <Box>
+            <Text variant="head.3" color="text.light">
+              {`Oops something went wrong! Please try again! ☹️`}
+            </Text>
+            <Text>{errorMessage}</Text>
+          </Box>
+        </HStack>
+      ),
     })
   }
 
@@ -65,38 +83,56 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 1, questionCode
   })(files)
 
   return (
-    <Flex w="100%" direction="column">
-      <Box
-        {...getRootProps()}
-        p="10"
-        my="4"
-        cursor="pointer"
-        border="1px dashed"
-        borderRadius="4px"
-      >
-        <Center>
-          <Text>{`Drag 'n' drop some files here, or click to select files`}</Text>
-        </Center>
-        <Input {...getInputProps()} id={questionCode} test-id={questionCode} />
-      </Box>
-      <Flex direction="row" mt="1">
-        {preview}
+    <Box w="100%" borderWidth={'1px'} p={'1.5rem'} borderRadius={'1.25rem'} mt={'1rem'}>
+      <Flex w="100%" direction="column">
+        <Box {...getRootProps()}>
+          <Center
+            cursor="pointer"
+            border="1px dashed"
+            borderRadius={`1.25rem`}
+            borderColor={'blackAlpha.20'}
+            _hover={{
+              background: 'primary.500',
+              color: 'text.dark',
+              borderColor: 'text.dark',
+              boxShadow: '0 4px 20px 5px rgba(49, 130, 206, 0.14)',
+            }}
+          >
+            <Text paddingBlock={'12'} maxW={'16rem'} textAlign={'center'}>
+              <FontAwesomeIcon icon={faUpload} />
+              <br />
+              {`Drag and drop images and videos OR browse files from your computer`}
+            </Text>
+          </Center>
+          <Input {...getInputProps()} id={questionCode} test-id={questionCode} />
+        </Box>
+        <Flex mt={'1rem'}>
+          <Flex direction="row">{preview}</Flex>
+          <Flex justify="center" w={'full'}>
+            <Button
+              mr="2"
+              variant="ghost"
+              onClick={closeDropzone}
+              test-id={`${questionCode}-CANCEL`}
+              borderRadius="full"
+              paddingInline={10}
+            >
+              {`Cancel`}
+            </Button>
+            <Button
+              variant="solid"
+              isDisabled={!!isEmpty(files)}
+              onClick={() => handleSave(files)}
+              test-id={`${questionCode}-SUBMIT`}
+              borderRadius="full"
+              paddingInline={10}
+            >
+              {`Submit`}
+            </Button>
+          </Flex>
+        </Flex>
       </Flex>
-      <Flex justify="flex-end">
-        <Button
-          mr="2"
-          variant="ghost"
-          onClick={closeDropzone}
-          test-id={`${questionCode}-CANCEL`}
-        >{`Cancel`}</Button>
-        <Button
-          variant="solid"
-          isDisabled={!!isEmpty(files)}
-          onClick={() => handleSave(files)}
-          test-id={`${questionCode}-SUBMIT`}
-        >{`Submit`}</Button>
-      </Flex>
-    </Flex>
+    </Box>
   )
 }
 
