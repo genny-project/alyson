@@ -8,8 +8,6 @@ const Title = ({ sbeCode }: { sbeCode: string }): ReactElement => {
   const title = useSelector(selectCode(sbeCode, 'SCH_TITLE'))?.value
   const total = useSelector(selectCode(sbeCode, 'PRI_TOTAL_RESULTS'))?.value
 
-  console.log('LANE TITLE => ', title)
-
   return (
     <Flex w="full">
       <Spacer />
