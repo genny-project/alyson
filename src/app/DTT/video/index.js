@@ -106,6 +106,7 @@ const Write = ({ questionCode, onSendAnswer, html, data, setSaving }) => {
         />
       </VStack>
     )
+
   return (
     <VStack align="start" pl="8" pb="8" w="100%">
       {config.detail ? (
