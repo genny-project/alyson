@@ -165,7 +165,7 @@ const Write = ({ questionCode, data, dttData, onSendAnswer, video, name }) => {
           <Progress
             w="30rem"
             h="1rem"
-            hasStripe
+            colorScheme={'green'}
             borderRadius="md"
             value={progress ? Math.floor((progress.loaded / progress.total) * 100) : 0}
           />
