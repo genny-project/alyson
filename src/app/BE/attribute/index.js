@@ -23,6 +23,7 @@ import ImageType from 'app/DTT/upload/Image'
 import Flag from 'app/DTT/flag'
 import fixLnkAndPri from './fix-lnk-and-pri'
 import TextArea from 'app/DTT/text_area'
+import Switch from 'app/DTT/switch'
 
 const Attribute = ({
   code,
@@ -96,6 +97,8 @@ const Attribute = ({
     <CheckBox.Read data={data} />
   ) : component === 'flag' ? (
     <Flag.Read data={data} />
+  ) : component === 'switch' ? (
+    <Switch.Read data={data} />
   ) : (
     <CText>{data?.value}</CText>
   )
