@@ -18,7 +18,20 @@ export const professionalDetails = {
 }
 
 export const preference = {
-  header: 'What I Offer your frome the internship',
+  header: 'What I Offer your from the internship',
+  attributes: [{ attr: '_LNK_OUTPUTS_OF_MENTORING_PROGRAM__PRI_NAME' }],
+}
+
+export const menteeProfessionalDetails = {
+  header: 'Professional Details',
+  attributes: [
+    { label: 'LinkedIn:', attr: 'PRI_LINKEDIN_PROFILE_URL' },
+    { label: 'Hobbies', attr: '_LNK_HOBBIES_INTEREST__PRI_NAME' },
+  ],
+}
+
+export const menteePreference = {
+  header: 'What I am interested from the mentorship',
   attributes: [{ attr: '_LNK_OUTPUTS_OF_MENTORING_PROGRAM__PRI_NAME' }],
 }
 
