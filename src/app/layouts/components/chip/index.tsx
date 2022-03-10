@@ -1,7 +1,7 @@
-import { Button as ChakraButton } from '@chakra-ui/react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Keyable } from 'utils/types'
 import { ReactChildren } from 'react'
+import { Button as ChakraButton } from '@chakra-ui/react'
+import { Keyable } from 'utils/types'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 
 const styles = {

@@ -1,9 +1,8 @@
 import { Box, Button } from '@chakra-ui/react'
-import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Submit from './Submit'
+import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { onSendMessage } from 'vertx'
+import Submit from './Submit'
 
 const EventButton = ({ askData, onFinish, parentCode }) => {
   const { questionCode, targetCode, name, disabled } = askData
@@ -35,13 +34,6 @@ const EventButton = ({ askData, onFinish, parentCode }) => {
         }
         colorScheme={questionCode === 'QUE_SUBMIT_NO' ? 'red' : 'primary'}
         variant="solid"
-        borderRadius={`9999px`}
-        paddingBlock="6px"
-        paddingInline="20px"
-        background={'primary.900'}
-        _hover={{
-          background: 'primary.500',
-        }}
       >
         {name}
       </Button>
