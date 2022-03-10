@@ -19,6 +19,22 @@ export const formatBaseEntity = (
   if (aliasCode) state[aliasCode] = code
   if (!state[code]) state[code] = []
 
+  const allAttributesKey = `${code}@allAttributes`
+
+  //create a key to store pcm information
+  const pcmKey = `PCMINFORMATION`
+
+  if (!state[allAttributesKey]) {
+    state[allAttributesKey] = baseEntityAttributes
+  }
+
+  //store all the availalble PCM in the key
+  if (!state[pcmKey]) state[pcmKey] = []
+
+  if (code && includes('PCM_')(code)) {
+    if ((state[pcmKey] as Array<any>).indexOf(code) === -1) (state[pcmKey] as Array<any>).push(code)
+  }
+
   if (parentCode) {
     const rowKey = `${parentCode}@rows`
     if (!state[rowKey]) state[rowKey] = []
@@ -44,17 +60,6 @@ export const formatBaseEntity = (
       attribute = { ...attribute }
     }
     attribute.created = ''
-    if (attributeCode === 'PRI_IS_MENTOR' && attribute.value) {
-      initialiseKey(state, 'MENTORS', [])
-      if ((state.MENTORS as Array<string>).indexOf(code) === -1)
-        (state.MENTORS as Array<string>).push(code)
-    }
-
-    if (attributeCode === 'PRI_IS_MENTEE' && attribute.value) {
-      initialiseKey(state, 'MENTEE', [])
-      if ((state.MENTEE as Array<string>).indexOf(code) === -1)
-        (state.MENTEE as Array<string>).push(code)
-    }
 
     if ((state[code] as Array<string>).indexOf(attributeCode) === -1)
       (state[code] as Array<string>).push(attributeCode)
