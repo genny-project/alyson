@@ -93,7 +93,7 @@ const ItemsForAutocomplete = ({
           >{`Not found, create "${input}"?`}</Text>
         ) : (
           <Text p="3" textStyle="tail.3">
-            {`No options found!`}
+            {`Searching ...`}
           </Text>
         )}
 
