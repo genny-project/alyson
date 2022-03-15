@@ -28,14 +28,10 @@ const Journal = ({ code, actions, parentCode }) => {
         <HStack>
           <Text textStyle="body.1">{`${date?.value}`}</Text>
           <Text color="teal" textStyle="body.1">{`${hours?.value} hrs`}</Text>
-           {journalStatus === 'APPROVED' ? (
-            <Text color="success.500">
-              <Attribute code={code} attribute={'PRI_STATUS'} />
-            </Text>
+            {journalStatus === 'APPROVED' ? (
+              <Attribute code={code} attribute={'PRI_STATUS'} config={{color:'success.500'}}/>
           ) : (
-            <Text color="error.500">
-              <Attribute code={code} attribute={'PRI_STATUS'} />
-            </Text>
+              <Attribute code={code} attribute={'PRI_STATUS'} config={{color:'error.500'}}/>
           )}
           ;
           {userType === 'INTERN' && equals('APPROVED')(journalStatus)
