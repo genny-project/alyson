@@ -22,13 +22,14 @@ const Journal = ({ code, actions, parentCode }) => {
   const userType = getUserType(useSelector(selectCode(user)))
   const journalStatus = useSelector(selectCode(code, 'PRI_STATUS'))?.value
 
+  const textColor = equals('APPROVED')(journalStatus) ? 'success.500': 'error.500';
   return (
     <Card>
       <VStack align="start">
         <HStack>
           <Text textStyle="body.1">{`${date?.value}`}</Text>
           <Text color="teal" textStyle="body.1">{`${hours?.value} hrs`}</Text>
-          <Attribute code={code} attribute={'PRI_STATUS'} />
+              <Attribute code={code} attribute={'PRI_STATUS'} config={{color:textColor}}/>
           {userType === 'INTERN' && equals('APPROVED')(journalStatus)
             ? !isEmpty(internsAction) &&
               map(action => (
