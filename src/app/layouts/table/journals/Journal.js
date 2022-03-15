@@ -28,7 +28,16 @@ const Journal = ({ code, actions, parentCode }) => {
         <HStack>
           <Text textStyle="body.1">{`${date?.value}`}</Text>
           <Text color="teal" textStyle="body.1">{`${hours?.value} hrs`}</Text>
-          <Attribute code={code} attribute={'PRI_STATUS'} />
+          {journalStatus === 'APPROVED' ? (
+            <Text color="success.500">
+              <Attribute code={code} attribute={'PRI_STATUS'} />
+            </Text>
+          ) : (
+            <Text color="error.500">
+              <Attribute code={code} attribute={'PRI_STATUS'} />
+            </Text>
+          )}
+          ;
           {userType === 'INTERN' && equals('APPROVED')(journalStatus)
             ? !isEmpty(internsAction) &&
               map(action => (
