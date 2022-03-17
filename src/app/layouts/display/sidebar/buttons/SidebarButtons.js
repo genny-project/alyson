@@ -1,13 +1,13 @@
 import {
   Box,
   HStack,
+  Image,
   Menu,
   MenuButton,
   MenuItem,
   MenuList,
   Text,
   VStack,
-  Avatar,
 } from '@chakra-ui/react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -15,8 +15,8 @@ import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import icons from 'utils/icons'
 import { selectCode } from 'redux/db/selectors'
 import sendAskClick from 'app/ASKS/utils/send-ask-click'
-import { useSelector } from 'react-redux'
 import useApi from 'api'
+import { useSelector } from 'react-redux'
 
 const SidebarButtons = ({ questionCode, childCode, onClick, iconId }) => {
   const data = useSelector(selectCode(questionCode, childCode))
@@ -35,16 +35,9 @@ const SidebarButtons = ({ questionCode, childCode, onClick, iconId }) => {
   if (!childAsks)
     return (
       <VStack spacing="4" role="group" p="2" test-id={childCode} onClick={handleClick} as="button">
-        <Box display="flex" alignItems="center" justifyContent="center">
+        <Box display="flex" alignItems="center" justifyContent="center" cursor={'pointer'}>
           {iconId ? (
-            <Avatar
-              cursor="pointer"
-              src={src}
-              h="40px"
-              w="40px"
-              borderRadius="0"
-              objectFit="contain"
-            />
+            <Image boxSize="35px" objectFit={'contain'} src={src} alt="" />
           ) : (
             <FontAwesomeIcon icon={icons[childCode]} size="2x" color="#AAE3E2" />
           )}
@@ -58,16 +51,9 @@ const SidebarButtons = ({ questionCode, childCode, onClick, iconId }) => {
     <Menu placement="right-start">
       <MenuButton test-id={childCode}>
         <VStack spacing="4" role="group" test-id={childCode} onClick={onClick}>
-          <Box display="flex" alignItems="center" justifyContent="center">
+          <Box display="flex" alignItems="center" justifyContent="center" cursor={'pointer'}>
             {iconId ? (
-              <Avatar
-                cursor="pointer"
-                src={src}
-                h="40px"
-                w="40px"
-                borderRadius="0"
-                objectFit="contain"
-              />
+              <Image boxSize="35px" objectFit={'contain'} src={src} alt="" />
             ) : (
               <FontAwesomeIcon icon={icons[childCode]} size="2x" color="#AAE3E2" />
             )}

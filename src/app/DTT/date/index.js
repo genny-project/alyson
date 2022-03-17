@@ -117,8 +117,6 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
         type={includeTime ? 'datetime-local' : 'date'}
         onBlur={handleChange}
         onChange={e => setuserInput(e.target.value)}
-        w="full"
-        maxW={maxW}
         max={
           questionCode === journalDateQuestionCode
             ? today
@@ -126,6 +124,29 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
             ? today
             : ''
         }
+        w="full"
+        maxW={maxW}
+        paddingBlock={3}
+        paddingInline={5}
+        fontWeight={'medium'}
+        borderColor={'gray.700'}
+        _hover={{
+          borderColor: 'green.500',
+          boxShadow: 'lg',
+        }}
+        _focusVisible={{
+          borderColor: 'green.500',
+          boxShadow: 'initial',
+        }}
+        _invalid={{
+          background: 'error.50',
+          borderColor: 'error.500',
+          color: 'error.500',
+        }}
+        _disabled={{
+          borderColor: 'gray.300',
+          background: 'gray.100',
+        }}
       />
       {errorStatus && (
         <Text textStyle="tail.error" mt={2}>

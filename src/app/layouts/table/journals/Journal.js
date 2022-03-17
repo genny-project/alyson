@@ -1,12 +1,12 @@
-import { VStack, Text, HStack } from '@chakra-ui/layout'
-import { map, includes, reduce, isEmpty, equals } from 'ramda'
+import { HStack, Text, VStack } from '@chakra-ui/layout'
+import { equals, includes, isEmpty, map, reduce } from 'ramda'
 
 import Action from 'app/BE/action'
 import Attribute from 'app/BE/attribute'
 import Card from 'app/layouts/components/card'
-import { useSelector } from 'react-redux'
-import { selectCode } from 'redux/db/selectors'
 import getUserType from 'utils/helpers/get-user-type'
+import { selectCode } from 'redux/db/selectors'
+import { useSelector } from 'react-redux'
 
 const Journal = ({ code, actions, parentCode }) => {
   const hours = useSelector(selectCode(code, 'PRI_JOURNAL_HOURS'))
@@ -20,8 +20,8 @@ const Journal = ({ code, actions, parentCode }) => {
   const internsAction = getInternActions(actions)
   const user = useSelector(selectCode('USER'))
   const userType = getUserType(useSelector(selectCode(user)))
-  const journalStatus = useSelector(selectCode(code, 'PRI_STATUS'))?.value;
-  const textColor = equals('APPROVED')(journalStatus) ? 'success.500': 'error.500';
+  const journalStatus = useSelector(selectCode(code, 'PRI_STATUS'))?.value
+  const textColor = equals('APPROVED')(journalStatus) ? 'success.500' : 'error.500'
 
   return (
     <Card>
@@ -29,7 +29,7 @@ const Journal = ({ code, actions, parentCode }) => {
         <HStack>
           <Text textStyle="body.1">{`${date?.value}`}</Text>
           <Text color="teal" textStyle="body.1">{`${hours?.value} hrs`}</Text>
-              <Attribute code={code} attribute={'PRI_STATUS'} config={{color:textColor}} />
+          <Attribute code={code} attribute={'PRI_STATUS'} config={{ color: textColor }} />
           {userType === 'INTERN' && equals('APPROVED')(journalStatus)
             ? !isEmpty(internsAction) &&
               map(action => (
