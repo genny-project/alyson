@@ -29,6 +29,27 @@ const DateInMonth = ({
               onBlur={e => handleDateChange(e, 'startDate')}
               min={setYearForMonth('2000')}
               max={maxDate}
+              paddingBlock={3}
+              paddingInline={5}
+              fontWeight={'medium'}
+              borderColor={'gray.700'}
+              _hover={{
+                borderColor: 'green.500',
+                boxShadow: 'lg',
+              }}
+              _focusVisible={{
+                borderColor: 'green.500',
+                boxShadow: 'initial',
+              }}
+              _invalid={{
+                background: 'error.50',
+                borderColor: 'error.500',
+                color: 'error.500',
+              }}
+              _disabled={{
+                borderColor: 'gray.300',
+                background: 'gray.100',
+              }}
             />
           )}
         </VStack>
@@ -47,6 +68,27 @@ const DateInMonth = ({
               onBlur={e => handleDateChange(e, 'endDate')}
               min={setYearForMonth()}
               max={maxDate}
+              paddingBlock={3}
+              paddingInline={5}
+              fontWeight={'medium'}
+              borderColor={'gray.700'}
+              _hover={{
+                borderColor: 'green.500',
+                boxShadow: 'lg',
+              }}
+              _focusVisible={{
+                borderColor: 'green.500',
+                boxShadow: 'initial',
+              }}
+              _invalid={{
+                background: 'error.50',
+                borderColor: 'error.500',
+                color: 'error.500',
+              }}
+              _disabled={{
+                borderColor: 'gray.300',
+                background: 'gray.100',
+              }}
             />
           )}
         </VStack>
