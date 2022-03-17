@@ -1,15 +1,14 @@
 import { Box, Center, HStack, Text, VStack } from '@chakra-ui/layout'
 import { Menu, MenuButton, MenuList } from '@chakra-ui/menu'
-import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useGetLabel, useIsMobile } from 'utils/hooks'
 
-import { useSelector } from 'react-redux'
-import { selectCode } from 'redux/db/selectors'
-import getUserType from 'utils/helpers/get-user-type'
-import { useIsMobile } from 'utils/hooks'
-import icons from 'utils/icons'
 import Draft from './Draft'
-import { useGetLabel } from 'utils/hooks'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
+import getUserType from 'utils/helpers/get-user-type'
+import icons from 'utils/icons'
+import { selectCode } from 'redux/db/selectors'
+import { useSelector } from 'react-redux'
 
 const Drafts = ({ code: DRAFT_GROUP }) => {
   const userCode = useSelector(selectCode('USER'))
