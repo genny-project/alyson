@@ -25,6 +25,7 @@ const DefaultTemplate = ({ bg, color, mappedPcm }) => {
           right: 0,
           backgroundColor: bg,
           h: 25,
+          boxShadow: 'rgb(0 0 0 / 10%) 0px 2px 0px 0px',
         }}
       >
         <nav>
@@ -81,6 +82,7 @@ const TemplateOne = ({ bg, color, mappedPcm }) => {
           right: 0,
           backgroundColor: bg,
           h: 25,
+          boxShadow: 'rgb(0 0 0 / 10%) 0px 2px 0px 0px',
         }}
       >
         <nav>
