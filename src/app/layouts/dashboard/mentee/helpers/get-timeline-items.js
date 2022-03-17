@@ -1,3 +1,4 @@
+import { equals } from 'ramda'
 import { selectCode } from 'redux/db/selectors'
 import useGetMenteeInformation from './get-mentee-information'
 import { useSelector } from 'react-redux'
@@ -15,6 +16,11 @@ const useGetMenteeTimelineItems = () => {
     isMeetingCompleted,
     menteeStatus,
   } = useGetMenteeInformation()
+
+  const isSelectionCompleted =
+    equals(menteeStatus, 'MATCHED') || equals(selectMentorStatus, 'COMPLETE')
+      ? 'COMPLETE'
+      : 'INCOMPLETE'
 
   const items = [
     {
@@ -44,7 +50,7 @@ const useGetMenteeTimelineItems = () => {
       title: 'Select Mentor',
       description: 'Choose the Mentor that suits you the most!',
       buttonText: isMentorSelected ? 'Mentor Selected' : 'Go to Mentor Selection',
-      completed: selectMentorStatus,
+      completed: isSelectionCompleted,
       isDisabled: !isTrainingCompleted || isMentorSelected || menteeStatus === 'MATCHED',
       code: 'ACT_PRI_EVENT_SELECT_MENTOR',
       targetCode: userCode,

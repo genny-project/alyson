@@ -76,6 +76,8 @@ const Timeline = ({ items }) => {
                       ? 'You have already registered!'
                       : equals(buttonText, 'Mentor Selected')
                       ? 'You have already selected a Mentor!'
+                      : equals(buttonText, 'Go to Mentor Selection')
+                      ? 'Please select a mentor to proceed.'
                       : equals(completed, 'COMPLETE')
                       ? 'Training has already been completed.'
                       : equals(status, 'UNVERIFIED')

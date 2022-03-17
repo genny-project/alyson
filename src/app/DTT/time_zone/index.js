@@ -1,8 +1,9 @@
 import { Button, HStack, Text, VStack } from '@chakra-ui/react'
-import { Read } from 'app/DTT/text'
 import { useEffect, useState } from 'react'
-import timeZone from 'utils/helpers/timezone_magic/time-zone-from-browser'
+
 import PlacesAutocomplete from './places'
+import { Read } from 'app/DTT/text'
+import timeZone from 'utils/helpers/timezone_magic/time-zone-from-browser'
 
 const Write = ({ questionCode, onSendAnswer, data }) => {
   const [confirm, setConfirm] = useState(null)
@@ -27,7 +28,13 @@ const Write = ({ questionCode, onSendAnswer, data }) => {
       </Button>
     </VStack>
   ) : confirm ? (
-    <Text>{`Thanks, your timezone is ${data?.value}`}</Text>
+    data?.value ? (
+      <Text>{`Thanks, your timezone is ${data?.value}`}</Text>
+    ) : (
+      <Text textStyle="body.error">
+        {`Sorry, there is some issue we are working at the moment.`}
+      </Text>
+    )
   ) : (
     <PlacesAutocomplete
       questionCode={questionCode}
