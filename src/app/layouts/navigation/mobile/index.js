@@ -68,7 +68,6 @@ const MobileNav = ({ logoSrc }) => {
           left: 0,
           right: 0,
           backgroundColor: bg,
-          boxShadow: 'rgb(0 0 0 / 10%) 0px 2px 0px 0px',
         }}
       >
         <nav>

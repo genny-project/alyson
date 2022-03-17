@@ -1,16 +1,15 @@
 import { Box, Button, Flex, HStack, Spacer, useColorModeValue, useTheme } from '@chakra-ui/react'
-import { addItemsQuestionCode, dashboardViewQuestion } from 'utils/constants'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus, faHome, faSearch } from '@fortawesome/free-solid-svg-icons'
+import { SIDEBAR_WIDTH, addItemsQuestionCode, dashboardViewQuestion } from 'utils/constants'
+import { faHome, faPlus, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { find, includes, reduce } from 'ramda'
 
 import AskMenu from 'app/ASKS/menu'
 import Avatar from '../Avatar'
 import Drafts from '../drafts/Drafts'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { onSendMessage } from 'vertx'
-import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
-import { SIDEBAR_WIDTH } from 'utils/constants'
+import { useSelector } from 'react-redux'
 
 const DefaultTemplate = ({ bg, color, mappedPcm }) => {
   return (
@@ -26,7 +25,6 @@ const DefaultTemplate = ({ bg, color, mappedPcm }) => {
           right: 0,
           backgroundColor: bg,
           h: 25,
-          boxShadow: 'rgb(0 0 0 / 10%) 0px 2px 0px 0px',
         }}
       >
         <nav>
@@ -83,7 +81,6 @@ const TemplateOne = ({ bg, color, mappedPcm }) => {
           right: 0,
           backgroundColor: bg,
           h: 25,
-          boxShadow: 'rgb(0 0 0 / 10%) 0px 2px 0px 0px',
         }}
       >
         <nav>
