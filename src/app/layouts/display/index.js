@@ -27,7 +27,7 @@ import { useSelector } from 'react-redux'
 const Display = ({ title }) => {
   const display = useSelector(selectDisplay)
 
-  const backgroundColor = useColorModeValue('background.light', '')
+  const backgroundColor = useColorModeValue('gray.50', '')
   window.onpopstate = event => {
     try {
       onSendMessage(event.state.state.data)
