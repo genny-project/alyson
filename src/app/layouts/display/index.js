@@ -56,7 +56,7 @@ const Display = ({ title }) => {
           left={SIDEBAR_WIDTH}
           top="74px"
           width={`calc(100% - ${SIDEBAR_WIDTH})`}
-          maxH={'calc(100vh - 74px)'}
+          h={'calc(100vh - 74px)'}
           pb={1}
           overflow="scroll"
         >
