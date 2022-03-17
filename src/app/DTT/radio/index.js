@@ -23,7 +23,7 @@ const Write = ({ questionCode, data, onSendAnswer, groupCode, parentCode }) => {
   }
 
   return (
-    <RadioGroup colorScheme="green" test-id={questionCode} value={value} onChange={onChange}>
+    <RadioGroup test-id={questionCode} value={value} onChange={onChange}>
       <Stack test-id={groupCode} direction="row">
         {options &&
           map(

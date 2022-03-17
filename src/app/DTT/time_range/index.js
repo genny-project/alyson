@@ -1,8 +1,7 @@
-import { HStack, Select } from '@chakra-ui/react'
-
-import { Read } from '../text'
-import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { useState } from 'react'
+import safelyParseJson from 'utils/helpers/safely-parse-json'
+import { Read } from '../text'
+import { HStack, Select } from '@chakra-ui/react'
 
 const defaultTimeRange = [null, null]
 
@@ -35,36 +34,11 @@ const Write = ({ questionCode, onSendAnswer, data }) => {
         value={selectedRange[0]}
         onChange={e => handleChange(0, e.target.value)}
         placeholder="Start Time"
-        fontWeight={'medium'}
-        borderColor={'gray.700'}
-        _hover={{
-          borderColor: 'green.500',
-          boxShadow: 'lg',
-        }}
-        _focusVisible={{
-          borderColor: 'green.500',
-          boxShadow: 'initial',
-        }}
-        _invalid={{
-          background: 'error.50',
-          borderColor: 'error.500',
-          color: 'error.500',
-        }}
-        _disabled={{
-          borderColor: 'gray.300',
-          background: 'gray.100',
-        }}
       >
         {options
           .filter(v => !selectedRange[1] || v < selectedRange[1])
           .map(time => (
-            <option
-              key={time}
-              test-id={time}
-              value={time}
-              paddingBlock={3}
-              paddingInline={5}
-            >{`${getLabel(time)}`}</option>
+            <option key={time} test-id={time} value={time}>{`${getLabel(time)}`}</option>
           ))}
       </Select>
       <Select
@@ -72,36 +46,11 @@ const Write = ({ questionCode, onSendAnswer, data }) => {
         value={selectedRange[1]}
         onChange={e => handleChange(1, e.target.value)}
         placeholder="Finish Time"
-        fontWeight={'medium'}
-        borderColor={'gray.700'}
-        _hover={{
-          borderColor: 'green.500',
-          boxShadow: 'lg',
-        }}
-        _focusVisible={{
-          borderColor: 'green.500',
-          boxShadow: 'initial',
-        }}
-        _invalid={{
-          background: 'error.50',
-          borderColor: 'error.500',
-          color: 'error.500',
-        }}
-        _disabled={{
-          borderColor: 'gray.300',
-          background: 'gray.100',
-        }}
       >
         {options
           .filter(v => !selectedRange[0] || v > selectedRange[0])
           .map(time => (
-            <option
-              key={time}
-              test-id={time}
-              value={time}
-              paddingBlock={3}
-              paddingInline={5}
-            >{`${getLabel(time)}`}</option>
+            <option key={time} test-id={time} value={time}>{`${getLabel(time)}`}</option>
           ))}
       </Select>
     </HStack>

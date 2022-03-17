@@ -34,7 +34,6 @@ import TimeZonePicker from 'app/DTT/time_zone'
 import URL from 'app/DTT/url'
 import Upload from 'app/DTT/upload'
 import Video from 'app/DTT/video'
-import Switch from 'app/DTT/switch'
 import createSendAnswer from 'app/ASKS/utils/create-send-answer'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import getGroupCode from 'app/ASKS/utils/get-group-code'
@@ -402,15 +401,6 @@ const Ask = ({
       )}
       {component === 'flag' && (
         <Flag.Write
-          data={data}
-          questionCode={questionCode}
-          onSendAnswer={onSendAnswer}
-          regexPattern={regexPattern}
-          errorMessage={errorMessage}
-        />
-      )}
-      {component === 'switch' && (
-        <Switch.Write
           data={data}
           questionCode={questionCode}
           onSendAnswer={onSendAnswer}

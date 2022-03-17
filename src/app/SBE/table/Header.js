@@ -4,7 +4,7 @@ import Cell from './HeaderCell'
 
 const Header = ({ columns, parentCode, actions }) => {
   return (
-    <Thead background={'gray.100'}>
+    <Thead>
       <Tr>
         {actions?.length ? <Th /> : null}
         {columns.map((col, index) => (

@@ -54,30 +54,9 @@ const AddressPicker = ({ onSendAnswer, data, questionCode }) => {
       test-id={questionCode}
       defaultValue={data?.value}
       ref={autoCompleteRef}
-      onBlur={onBlur}
       w="full"
       maxW={maxW}
-      paddingBlock={3}
-      paddingInline={5}
-      fontWeight={'medium'}
-      borderColor={'gray.700'}
-      _hover={{
-        borderColor: 'green.500',
-        boxShadow: 'lg',
-      }}
-      _focusVisible={{
-        borderColor: 'green.500',
-        boxShadow: 'initial',
-      }}
-      _invalid={{
-        background: 'error.50',
-        borderColor: 'error.500',
-        color: 'error.500',
-      }}
-      _disabled={{
-        borderColor: 'gray.300',
-        background: 'gray.100',
-      }}
+      onBlur={onBlur}
     />
   )
 }
