@@ -87,7 +87,8 @@ const TemplateOne = ({ bg, color, mappedPcm }) => {
       >
         <nav>
           <Flex align="center" p="3">
-            <Box mx={5} alignItems="center" m="auto">
+            {/* These are hiiden as for now as they dont have actions. */}
+            {/* <Box mx={5} alignItems="center" m="auto">
               <HStack marginLeft="8" spacing="5">
                 <Box
                   onClick={() =>
@@ -101,7 +102,7 @@ const TemplateOne = ({ bg, color, mappedPcm }) => {
                 </Box>
                 <FontAwesomeIcon size="lg" icon={faSearch} cursor="pointer" color="#234371" />
               </HStack>
-            </Box>
+            </Box> */}
             <Spacer />
             <HStack spacing={8} marginRight="5">
               <AskMenu

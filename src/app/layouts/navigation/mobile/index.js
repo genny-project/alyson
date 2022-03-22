@@ -73,7 +73,7 @@ const MobileNav = ({ logoSrc }) => {
       >
         <nav>
           <Flex align="center" p="3">
-            <IconButton color="gray.600" onClick={onOpen} variant="ghost">
+            <IconButton color="gray.600" onClick={onOpen} variant="ghost" display={'none'}>
               <FontAwesomeIcon icon={faBars} />
             </IconButton>
             <Box mx={5} alignItems="center" m="auto">
