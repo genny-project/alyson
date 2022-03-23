@@ -1,10 +1,11 @@
-import { forEach, compose, keys, includes, find, filter, map } from 'ramda'
+import { DBState, Note } from '../types'
 import { Item, MsgPayload } from 'redux/types'
+import { compose, filter, find, forEach, includes, keys, map } from 'ramda'
+
+import { Keyable } from 'utils/types'
 import initialiseKey from 'utils/helpers/initialise-key'
 import pushUniqueString from 'utils/helpers/push-unique-string'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
-import { Keyable } from 'utils/types'
-import { DBState, Note } from '../types'
 import sortByIndex from './sort-by-index'
 
 export const formatBaseEntity = (
@@ -60,6 +61,18 @@ export const formatBaseEntity = (
       attribute = { ...attribute }
     }
     attribute.created = ''
+
+    if (attributeCode === 'PRI_IS_MENTOR' && attribute.value) {
+      initialiseKey(state, 'MENTORS', [])
+      if ((state.MENTORS as Array<string>).indexOf(code) === -1)
+        (state.MENTORS as Array<string>).push(code)
+    }
+
+    if (attributeCode === 'PRI_IS_MENTEE' && attribute.value) {
+      initialiseKey(state, 'MENTEE', [])
+      if ((state.MENTEE as Array<string>).indexOf(code) === -1)
+        (state.MENTEE as Array<string>).push(code)
+    }
 
     if ((state[code] as Array<string>).indexOf(attributeCode) === -1)
       (state[code] as Array<string>).push(attributeCode)
