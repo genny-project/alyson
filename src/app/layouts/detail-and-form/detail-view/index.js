@@ -4,6 +4,7 @@ import { find, includes, reduce } from 'ramda'
 import Attribute from 'app/BE/attribute'
 import Details from './Details'
 import { selectCode } from 'redux/db/selectors'
+import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 
 const DefaultTemplate = ({ beCode, name, video, bg, mappedPcm, miniCard, cardsbg }) => {
@@ -21,7 +22,7 @@ const DefaultTemplate = ({ beCode, name, video, bg, mappedPcm, miniCard, cardsbg
   } = mappedPcm
 
   return (
-    <Grid w="60vw" bg={bg} spacing={4} p="5" overflowY="scroll" top="10vh" gap={'1em'}>
+    <Grid bg={bg} spacing={4} p="5" overflowY="auto" top="10vh" gap={'1em'} rounded={'md'}>
       {video ? (
         <Grid
           justifyContent="space-between"
@@ -128,14 +129,16 @@ const TemplateOne = ({ beCode, name, video, bg, mappedPcm, miniCard, cardsbg }) 
     PRI_LOC10,
   } = mappedPcm
 
+  const templateColumns = useMobileValue(['1fr', '200px 2fr'])
+
   return (
-    <Grid w="60vw" bg={bg} spacing={4} p="5" overflowY="scroll" top="10vh" gap={'1em'}>
+    <Grid bg={bg} spacing={4} p="5" overflowY="auto" top="10vh" gap={'1em'} rounded={'md'}>
       {video ? (
         <Grid
           justifyContent="space-between"
           bg="gradient.900"
           mb={2}
-          templateColumns={'200px 2fr'}
+          templateColumns={templateColumns}
           gap={'1rem'}
           rounded={'md'}
           overflow={'hidden'}
