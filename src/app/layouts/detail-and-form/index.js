@@ -20,8 +20,8 @@ const DetailForm = () => {
       mb={4}
       px={4}
       gap={'1rem'}
-      maxW={'80rem'}
       mx={'auto'}
+      maxW={'80rem'}
     >
       <Box>
         <Form adjacent />

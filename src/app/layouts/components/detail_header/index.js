@@ -7,9 +7,11 @@ import { useSelector } from 'react-redux'
 const DetailHeader = ({ beCode }) => {
   const name = useSelector(selectCode(beCode, 'PRI_NAME'))?.value
   const video = useSelector(selectCode(beCode, 'PRI_VIDEO_URL'))?.value
+  const videoMentee = useSelector(selectCode(beCode, '_LNK_MENTEE__PRI_VIDEO_URL'))?.value
+
   return (
     <>
-      {video ? (
+      {video || videoMentee ? (
         <Grid
           w="95%"
           justifyContent="space-between"
@@ -24,10 +26,17 @@ const DetailHeader = ({ beCode }) => {
               code={beCode}
               attribute="PRI_USER_PROFILE_PICTURE"
             />
+
+            <Attribute
+              config={{ size: 'xl', name: name }}
+              code={beCode}
+              attribute="_LNK_MENTEE__PRI_USER_PROFILE_PICTURE"
+            />
             <Attribute config={{ textStyle: 'head.3' }} code={beCode} attribute="PRI_NAME" />
           </VStack>
           <VStack>
             <Attribute code={beCode} attribute="PRI_VIDEO_URL" />
+            <Attribute code={beCode} attribute="_LNK_MENTEE__PRI_VIDEO_URL" />
           </VStack>
         </Grid>
       ) : (
@@ -36,6 +45,11 @@ const DetailHeader = ({ beCode }) => {
             config={{ size: 'xl', name: name }}
             code={beCode}
             attribute="PRI_USER_PROFILE_PICTURE"
+          />
+          <Attribute
+            config={{ size: 'xl', name: name }}
+            code={beCode}
+            attribute="_LNK_MENTEE__PRI_USER_PROFILE_PICTURE"
           />
           <Spacer />
           <Attribute config={{ textStyle: 'head.3' }} code={beCode} attribute="PRI_NAME" />
