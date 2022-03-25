@@ -109,7 +109,7 @@ const TemplateOne = ({ bg, color, mappedPcm, logoSrc }) => {
           top: 0,
           zIndex: 9999,
           maxWidth: '100vw',
-          left: SIDEBAR_WIDTH,
+          left: 0,
           right: 0,
           backgroundColor: bg,
           h: 25,
