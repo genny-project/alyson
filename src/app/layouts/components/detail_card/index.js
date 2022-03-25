@@ -3,9 +3,11 @@ import { Box, Grid, Text, VStack, useColorModeValue } from '@chakra-ui/react'
 import Attribute from 'app/BE/attribute'
 import { map } from 'ramda'
 
-const DetailCards = ({ detailsection, currentMentor, miniCard }) => {
+const DetailCards = ({ detailsection, currentMentor, miniCard, currentMentee }) => {
   const { header, attributes } = detailsection
   const cardsbg = useColorModeValue('#ffffff', 'gray.600')
+
+  console.log(currentMentee)
   return (
     <VStack
       boxShadow="base"
@@ -29,7 +31,11 @@ const DetailCards = ({ detailsection, currentMentor, miniCard }) => {
         >
           {label && <Text>{label}</Text>}
           <Box>
-            <Attribute config={{ textStyle: 'body.3' }} code={currentMentor} attribute={attr} />
+            <Attribute
+              config={{ textStyle: 'body.3' }}
+              code={currentMentor || currentMentee}
+              attribute={attr}
+            />
           </Box>
         </Grid>
       ))(attributes)}

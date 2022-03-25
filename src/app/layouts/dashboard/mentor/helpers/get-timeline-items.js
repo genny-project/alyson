@@ -34,6 +34,13 @@ const useGetMentorTimelineItems = () => {
       code: 'ACT_PRI_EVENT_START_MENTOR_TRAINING',
       status: verifiedStatus,
     },
+    {
+      title: `Meet & Greet Invites`,
+      description: 'View all the invites from mentees.',
+      buttonText: 'View Invite',
+      completed: trainingStatus,
+      code: 'ACT_SHOW_MENTEE_MNG_INVITES',
+    },
   ]
 
   return {
