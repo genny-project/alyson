@@ -16,6 +16,7 @@ const Toast = () => {
       toast({
         isClosable: true,
         position: 'top-right',
+        description: newToast.message,
         status: toLower(newToast.code || 'info'),
         render: () => (
           <HStack

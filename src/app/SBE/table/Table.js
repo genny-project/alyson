@@ -55,10 +55,12 @@ const DataTable = ({ parentCode, mapSearch }) => {
       {mapSearch ? (
         <MapSearch parentCode={parentCode} />
       ) : (
-        <Table variant="simple" bg={bgColor} borderRadius="md" shadow="xs" size="sm">
-          <Header columns={columns} parentCode={parentCode} actions={actions} />
-          <Body columns={columns} parentCode={parentCode} actions={actions} />
-        </Table>
+        <Box maxW={'full'} overflow={'auto'}>
+          <Table variant="simple" bg={bgColor} borderRadius="md" shadow="xs" size="sm">
+            <Header columns={columns} parentCode={parentCode} actions={actions} />
+            <Body columns={columns} parentCode={parentCode} actions={actions} />
+          </Table>
+        </Box>
       )}
     </Box>
   )

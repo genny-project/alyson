@@ -22,6 +22,8 @@ const Item = ({ option, idx, onSelectChange, focus, selected, maxW, setInput, se
 
   return (
     <Flex
+      direction="row"
+      align="center"
       test-id={option.value}
       id={idx + 'item'}
       tabIndex={idx + 1}
@@ -33,9 +35,6 @@ const Item = ({ option, idx, onSelectChange, focus, selected, maxW, setInput, se
       key={option.value}
       bg={idx % 2 ? 'blackAlpha.50' : ''}
       fontWeight={focused ? 'semibold' : 'normal'}
-      direction="row"
-      align="center"
-      justifyContent={'space-between'}
       h="2rem"
       maxW={maxW}
       px="3"
@@ -53,9 +52,10 @@ const Item = ({ option, idx, onSelectChange, focus, selected, maxW, setInput, se
           {option.label}
         </Text>
       </Box>
+
       <Spacer />
       {focus === idx && <Text>⏎</Text>}
-      {includes(option.value, selected) ? <FontAwesomeIcon icon={faCheck} color="teal" /> : null}
+      {includes(option.value, selected) ? <FontAwesomeIcon icon={faCheck} color="green" /> : null}
     </Flex>
   )
 }

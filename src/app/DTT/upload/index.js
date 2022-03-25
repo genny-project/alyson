@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   CloseButton,
   HStack,
@@ -112,7 +111,7 @@ const Write = ({ questionCode, data, dttData, onSendAnswer, video, name }) => {
   }
 
   return (
-    <Box width={'100%'}>
+    <div>
       <div hidden={loading}>
         {typeName === 'Image' ? (
           <ImageType.Write
@@ -171,7 +170,7 @@ const Write = ({ questionCode, data, dttData, onSendAnswer, video, name }) => {
           />
         </VStack>
       </div>
-    </Box>
+    </div>
   )
 }
 

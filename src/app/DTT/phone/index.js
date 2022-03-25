@@ -15,8 +15,8 @@ const Read = ({ data, config }) => {
   const onClick = () => {
     onCopy()
     toast({
+      status: 'success',
       duration: 1000,
-      isClosable: true,
       render: () => (
         <HStack
           paddingBlock={5}

@@ -66,7 +66,6 @@ const Write = ({ questionCode, data, onSendAnswer, disabled, regexPattern, error
         <Input
           id={questionCode}
           test-id={questionCode}
-          pl="10rem"
           value={value}
           onChange={e => setValue(e.target.value)}
           onBlur={e => onSendAnswer(e.target.value)}

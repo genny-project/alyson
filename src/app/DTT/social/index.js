@@ -47,7 +47,7 @@ const Write = ({ questionCode, onSendAnswer, data, regexPattern, errorMessage })
   const [userInput, setuserInput] = useState(data?.value)
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
 
-  const maxW = useMobileValue('', '25vw')
+  const maxW = useMobileValue(['', '25vw'])
 
   const isInvalid = getIsInvalid(userInput)(RegExp(regexPattern))
 
@@ -68,7 +68,7 @@ const Write = ({ questionCode, onSendAnswer, data, regexPattern, errorMessage })
 
   return (
     <>
-      <InputGroup w="full" maxW={maxW}>
+      <InputGroup maxW={maxW}>
         <InputLeftAddon>
           <FontAwesomeIcon size="lg" icon={faLinkedin} />
         </InputLeftAddon>
@@ -78,8 +78,6 @@ const Write = ({ questionCode, onSendAnswer, data, regexPattern, errorMessage })
           defaultValue={data?.value}
           onBlur={onBlur}
           onChange={e => setuserInput(e.target.value)}
-          w="full"
-          maxW={maxW}
           paddingBlock={3}
           paddingInline={5}
           fontWeight={'medium'}

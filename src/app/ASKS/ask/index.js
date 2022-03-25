@@ -34,10 +34,10 @@ import TimeZonePicker from 'app/DTT/time_zone'
 import URL from 'app/DTT/url'
 import Upload from 'app/DTT/upload'
 import Video from 'app/DTT/video'
-import Switch from 'app/DTT/switch'
 import createSendAnswer from 'app/ASKS/utils/create-send-answer'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import getGroupCode from 'app/ASKS/utils/get-group-code'
+import { isNotStringifiedEmptyArray } from 'utils/functionals'
 import { pathOr } from 'ramda'
 import { selectCode } from 'redux/db/selectors'
 import { selectHighlightedQuestion } from 'redux/app/selectors'
@@ -45,7 +45,6 @@ import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
-import { isNotStringifiedEmptyArray } from 'utils/functionals'
 
 const Ask = ({
   parentCode,
@@ -115,7 +114,7 @@ const Ask = ({
   if (!!disabled && component !== 'button')
     return (
       <FormControl isDisabled isRequired={mandatory}>
-        <HStack display={noLabel ? 'none' : 'block'} w={'17.5vw'} justify="space-between">
+        <HStack display={noLabel ? 'none' : 'block'} justify="space-between">
           <FormLabel id={attributeCode} textStyle="body.1">
             {name}
           </FormLabel>
@@ -158,7 +157,12 @@ const Ask = ({
       transition="all 0.5s"
       minH="82px"
     >
-      <HStack justify="space-between" display={noLabel ? 'none' : 'flex'} w={labelWidth}>
+      <HStack
+        justify="space-between"
+        display={noLabel ? 'none' : 'flex'}
+        maxW={labelWidth}
+        w={'full'}
+      >
         <FormLabel id={attributeCode}>{name}</FormLabel>
         {(!failedValidation && fieldNotEmpty) ||
         (!failedValidation && dataValue && isNotStringifiedEmptyArray(dataValue)) ? (
@@ -402,15 +406,6 @@ const Ask = ({
       )}
       {component === 'flag' && (
         <Flag.Write
-          data={data}
-          questionCode={questionCode}
-          onSendAnswer={onSendAnswer}
-          regexPattern={regexPattern}
-          errorMessage={errorMessage}
-        />
-      )}
-      {component === 'switch' && (
-        <Switch.Write
           data={data}
           questionCode={questionCode}
           onSendAnswer={onSendAnswer}
