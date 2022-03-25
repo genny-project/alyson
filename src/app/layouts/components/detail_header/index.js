@@ -26,7 +26,6 @@ const DetailHeader = ({ beCode }) => {
               code={beCode}
               attribute="PRI_USER_PROFILE_PICTURE"
             />
-            <Attribute config={{ textStyle: 'head.3' }} code={beCode} attribute="PRI_NAME" />
 
             <Attribute
               config={{ size: 'xl', name: name }}
