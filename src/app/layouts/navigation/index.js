@@ -6,7 +6,7 @@ import { useIsMobile } from 'utils/hooks'
 const Navigation = () => {
   const logoSrc =
     apiConfig.realm === 'internmatch'
-      ? '/favicon.png'
+      ? '/internmatch_new.png'
       : apiConfig.realm === 'mentormatch'
       ? '/MM_Primary_Fullcolour-1.png'
       : ''

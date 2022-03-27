@@ -20,20 +20,9 @@ import { onSendMessage } from 'vertx'
 import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
 import { apiConfig } from 'config/get-api-config'
-import { useGetRealm } from 'utils/hooks'
+import { LOGO_WIDTH } from 'utils/constants'
 
 const DefaultTemplate = ({ bg, color, logoSrc }) => {
-  const realm = useGetRealm()
-
-  const logoWidth =
-    realm === 'mentormatch'
-      ? '120px'
-      : realm === 'internmatch'
-      ? '45px'
-      : realm === 'credmatch'
-      ? '120px'
-      : '45px'
-
   return (
     <>
       <header
@@ -62,7 +51,7 @@ const DefaultTemplate = ({ bg, color, logoSrc }) => {
                     })
                   }
                   src={logoSrc}
-                  htmlWidth={logoWidth}
+                  htmlWidth={LOGO_WIDTH}
                 />
               )}
             </Box>
@@ -89,16 +78,6 @@ const DefaultTemplate = ({ bg, color, logoSrc }) => {
 
 const TemplateOne = ({ bg, color, mappedPcm, logoSrc }) => {
   const { PRI_LOC2, PRI_LOC3, PRI_LOC4 } = mappedPcm
-  const realm = useGetRealm()
-
-  const logoWidth =
-    realm === 'mentormatch'
-      ? '120px'
-      : realm === 'internmatch'
-      ? '45px'
-      : realm === 'credmatch'
-      ? '120px'
-      : '45px'
 
   return (
     <>
@@ -144,7 +123,7 @@ const TemplateOne = ({ bg, color, mappedPcm, logoSrc }) => {
                     })
                   }
                   src={logoSrc}
-                  htmlWidth={logoWidth}
+                  htmlWidth={LOGO_WIDTH}
                 />
               )}
             </Box>
