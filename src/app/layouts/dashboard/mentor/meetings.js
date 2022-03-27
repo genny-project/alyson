@@ -1,6 +1,6 @@
 import { Box, HStack, Text, VStack } from '@chakra-ui/react'
 import { find, includes, map } from 'ramda'
-import { selectCode, selectRows } from 'redux/db/selectors'
+import { selectRows } from 'redux/db/selectors'
 
 import Attribute from 'app/BE/attribute'
 import Card from 'app/layouts/components/card'
@@ -10,9 +10,6 @@ import { selectDashboard } from '../../../../redux/app/selectors'
 import { useSelector } from 'react-redux'
 
 const Meetings = () => {
-  const userCode = useSelector(selectCode('USER'))
-  const name = useSelector(selectCode(userCode, 'PRI_NAME'))?.value
-
   const dashboardSbes = useSelector(selectDashboard)
   const meetingsSbe = dashboardSbes && find(includes('_MENTORING_MEETINGS_'))(dashboardSbes)
   const meetings = useSelector(selectRows(meetingsSbe))
