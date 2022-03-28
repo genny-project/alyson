@@ -8,7 +8,7 @@ import {
   useColorModeValue,
   useTheme,
 } from '@chakra-ui/react'
-import { SIDEBAR_WIDTH, addItemsQuestionCode, dashboardViewQuestion } from 'utils/constants'
+import { addItemsQuestionCode, dashboardViewQuestion } from 'utils/constants'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { find, includes, reduce } from 'ramda'
 
