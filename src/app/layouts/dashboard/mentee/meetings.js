@@ -3,6 +3,7 @@ import { find, includes, isEmpty, map } from 'ramda'
 import { selectCode, selectRows } from 'redux/db/selectors'
 
 import Attribute from 'app/BE/attribute'
+import BookedTiming from './bookedTiming'
 import Card from 'app/layouts/components/card'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faVideo } from '@fortawesome/free-solid-svg-icons'
@@ -17,7 +18,15 @@ const Meetings = () => {
   const meetingsSbe = dashboardSbes && find(includes('_MENTORING_MEETINGS_'))(dashboardSbes)
   const meetings = useSelector(selectRows(meetingsSbe))
 
-  return Array.isArray(meetings) && isEmpty(meetings) ? (
+  const bookedMeetingTime = dashboardSbes && find(includes('_MENTOR_MNG_BOOKED'))(dashboardSbes)
+  const mentorCode = useSelector(selectRows(bookedMeetingTime))[0]
+  const mentorAttributes = useSelector(selectCode(mentorCode, 'allAttributes'))
+
+  console.log(mentorAttributes)
+
+  return Array.isArray(meetings) && isEmpty(meetings) && mentorAttributes ? (
+    <BookedTiming mentorCode={mentorCode} />
+  ) : Array.isArray(meetings) && isEmpty(meetings) ? (
     <Box h="inherit" w="40%" ml={2}>
       <Card position="sticky" top="10vh">
         <VStack spacing={5}>

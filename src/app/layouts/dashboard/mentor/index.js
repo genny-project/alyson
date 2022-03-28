@@ -1,32 +1,35 @@
 import DetailView from './detailView'
-import { Flex } from '@chakra-ui/layout'
+import { Grid } from '@chakra-ui/layout'
 import Invites from './invites'
 import Meetings from './meetings'
 import Timeline from 'app/layouts/dashboard/timeline'
 import useGetMentorInformation from './helpers/get-mentor-information'
 import useGetMentorTimelineItems from 'app/layouts/dashboard/mentor/helpers/get-timeline-items'
+import { useMobileValue } from 'utils/hooks'
 import { useState } from 'react'
 
 const MentorDashboard = () => {
   const { items } = useGetMentorTimelineItems()
-  const { verifiedStatus } = useGetMentorInformation()
+  const { mentorStatus } = useGetMentorInformation()
   const [showDetailView, setShowDetailView] = useState(false)
   const [currentMentee, setCurrentMentee] = useState(null)
 
+  const templateColumns = useMobileValue(['1fr', 'minmax(35rem, 1fr) 1fr'])
+
   return (
-    <Flex paddingX="10">
+    <Grid paddingX="10" gap={'1rem'} templateColumns={templateColumns}>
       <Timeline items={items} />
 
-      {verifiedStatus === 'ACCEPTED' ? (
-        <Meetings />
+      {mentorStatus === 'ACCEPTED' || mentorStatus === 'MATCHED' ? (
+        <Meetings mentorStatus={mentorStatus} />
       ) : showDetailView && currentMentee ? (
         <DetailView setShowDetailView={setShowDetailView} currentMentee={currentMentee} />
-      ) : verifiedStatus === 'MATCHED' ? (
+      ) : mentorStatus === 'INVITED' ? (
         <Invites setShowDetailView={setShowDetailView} setCurrentMentee={setCurrentMentee} />
       ) : (
-        ''
+        <></>
       )}
-    </Flex>
+    </Grid>
   )
 }
 
