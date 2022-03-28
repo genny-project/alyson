@@ -5,12 +5,14 @@ import { useIsMobile } from 'utils/hooks'
 
 const Navigation = () => {
   const logoSrc =
-    apiConfig.realm === 'internmatch'
+    realm === 'internmatch'
       ? '/internmatch_new.png'
-      : apiConfig.realm === 'mentormatch'
+      : realm === 'mentormatch'
       ? '/MM_Primary_Fullcolour-1.png'
-      : ''
-      ? apiConfig.realm === 'credmatch'
+      : realm === 'lojing'
+      ? '/lojing-logo.png'
+      : realm === 'credmatch'
+      ? '/credmatch_logo.jpg'
       : '/credmatch_logo.jpg'
   const isMobile = useIsMobile()
 
