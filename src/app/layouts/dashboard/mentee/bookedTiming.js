@@ -7,7 +7,6 @@ import { useMobileValue } from 'utils/hooks'
 
 const BookedTiming = ({ mentorCode }) => {
   const templateColumns = useMobileValue(['1fr', '70px 1fr 100px'])
-  console.log(mentorCode)
 
   return (
     <Grid
