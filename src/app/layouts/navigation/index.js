@@ -4,6 +4,7 @@ import { apiConfig } from 'config/get-api-config'
 import { useIsMobile } from 'utils/hooks'
 
 const Navigation = () => {
+  const { realm } = apiConfig
   const logoSrc =
     realm === 'internmatch'
       ? '/internmatch_new.png'
