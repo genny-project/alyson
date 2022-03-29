@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux'
 
 const TemplateOne = ({ questionCode, mappedPcm, mappedIconAndQuestionCode }) => {
   const { PRI_LOC1, PRI_LOC2, PRI_LOC3, PRI_LOC4, PRI_LOC5, PRI_LOC6 } = mappedPcm
+
   return (
     <Center w={SIDEBAR_WIDTH} bg="#224371" h="100vh" paddingInline={'3'}>
       <VStack test-id={questionCode} justifyContent="center">
