@@ -28,7 +28,7 @@ const Invites = ({ setShowDetailView, setCurrentMentee }) => {
   return (
     <Box w="50vw" h="80vh" spacing={10} textAlign="center" p="5" position="sticky" top="10vh">
       <Text textStyle="head.2" bg={bg} py={5}>
-        {`Please select any Mentee from the invitation below!`}
+        {`Please select any invitation from Mentees below!`}
       </Text>
       <Spacer />
       <Grid gap={10} bg={bg} overflowY="scroll" h="70vh" mt={5} p={5}>

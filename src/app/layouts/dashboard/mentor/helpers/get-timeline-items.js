@@ -7,6 +7,7 @@ const useGetMentorTimelineItems = () => {
     isProfileCompleted,
     isStatusVerified,
     verifiedStatus,
+    isInvitedStatus,
   } = useGetMentorInformation()
 
   const items = [
@@ -39,6 +40,7 @@ const useGetMentorTimelineItems = () => {
       description: 'View all the invites from mentees.',
       buttonText: 'View Invite',
       completed: trainingStatus,
+      isDisabled: !isInvitedStatus,
       code: 'ACT_SHOW_MENTEE_MNG_INVITES',
     },
   ]

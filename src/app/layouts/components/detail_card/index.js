@@ -3,14 +3,19 @@ import { Box, Grid, Text, VStack, useColorModeValue } from '@chakra-ui/react'
 import Attribute from 'app/BE/attribute'
 import { map } from 'ramda'
 
-const DetailCards = ({ detailsection, currentMentor, miniCard, currentMentee }) => {
+const DetailCards = ({
+  detailsection,
+  currentMentor,
+  miniCard,
+  currentMentee,
+  shadow = 'base',
+}) => {
   const { header, attributes } = detailsection
   const cardsbg = useColorModeValue('#ffffff', 'gray.600')
 
-  console.log(currentMentee)
   return (
     <VStack
-      boxShadow="base"
+      boxShadow={shadow}
       rounded="md"
       p="5"
       w={'100%'}

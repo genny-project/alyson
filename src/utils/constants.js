@@ -3,6 +3,7 @@ export const DATE_FORMAT = 'DD MMM YY'
 export const WITH_TIME = DATE_FORMAT + ' h:mm A'
 export const SIDEBAR_WIDTH = '102px'
 export const SIDEBAR_QUESTION_CODE = 'QUE_PROJECT_SIDEBAR_GRP'
+export const LOGO_WIDTH = '120px'
 
 export const complete = 'COMPLETE'
 export const addItemsQuestionCode = 'QUE_ADD_ITEMS_GRP'

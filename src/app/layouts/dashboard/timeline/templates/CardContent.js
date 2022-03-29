@@ -101,3 +101,23 @@ export const menteeInviteePreference = {
   header: 'What I am interested from the mentorship',
   attributes: [{ attr: '_LNK_MENTEE__LNK_OUTPUTS_OF_MENTORING_PROGRAM__PRI_NAME' }],
 }
+
+export const menteeInfo = {
+  attributes: [
+    { label: 'First Name:', attr: '_LNK_MENTEE__PRI_FIRSTNAME' },
+    { label: 'Last Name', attr: '_LNK_MENTEE__PRI_LASTNAME' },
+    { label: 'Country of Origin', attr: '_LNK_MENTEE__LNK_SELECT_ORIGIN_COUNTRY__PRI_NAME' },
+    { label: 'Industry', attr: '_LNK_MENTEE__LNK_MM_INDUSTRY__PRI_NAME' },
+    { label: 'Hobbies', attr: '_LNK_MENTEE__LNK_HOBBIES_INTEREST__PRI_NAME' },
+  ],
+}
+
+export const mentorInfo = {
+  attributes: [
+    { label: 'First Name:', attr: '_LNK_MENTOR__PRI_FIRSTNAME' },
+    { label: 'Last Name', attr: '_LNK_MENTOR__PRI_LASTNAME' },
+    { label: 'Country of Origin', attr: '_LNK_MENTOR__LNK_SELECT_ORIGIN_COUNTRY__PRI_NAME' },
+    { label: 'Industry', attr: '_LNK_MENTOR__LNK_MM_INDUSTRY__PRI_NAME' },
+    { label: 'Hobbies', attr: '_LNK_MENTOR__LNK_HOBBIES_INTEREST__PRI_NAME' },
+  ],
+}
