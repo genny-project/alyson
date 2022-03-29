@@ -22,8 +22,6 @@ const Meetings = () => {
   const mentorCode = useSelector(selectRows(bookedMeetingTime))[0]
   const mentorAttributes = useSelector(selectCode(mentorCode, 'allAttributes'))
 
-  console.log(mentorAttributes)
-
   return Array.isArray(meetings) && isEmpty(meetings) && mentorAttributes ? (
     <BookedTiming mentorCode={mentorCode} />
   ) : Array.isArray(meetings) && isEmpty(meetings) ? (
