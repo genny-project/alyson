@@ -1,9 +1,11 @@
-import { Box, Grid } from '@chakra-ui/react'
+import { Box, Flex, Grid } from '@chakra-ui/react'
 import { find, includes } from 'ramda'
 import { selectCode, selectRows } from 'redux/db/selectors'
 
 import Attribute from '../../../BE/attribute/index'
 import DetailCards from 'app/layouts/components/detail_card'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCalendarDay } from '@fortawesome/free-solid-svg-icons'
 import { mentorInfo } from 'app/layouts/dashboard/timeline/templates/CardContent'
 import { onSendMessage } from 'vertx'
 import { selectDashboard } from '../../../../redux/app/selectors'
@@ -53,29 +55,62 @@ const ProvidedTimings = () => {
         shadow={'none'}
       />
 
-      <Box>
-        <Box padding={1} onClick={() => onSelect('PRI_PRIMARY_AVAILABILITY')}>
-          <Attribute
-            config={{ minW: 'inherit' }}
-            code={mentorTimings}
-            attribute={'PRI_PRIMARY_AVAILABILITY'}
-          />
+      <Grid>
+        <Box
+          onClick={() => onSelect('PRI_PRIMARY_AVAILABILITY')}
+          paddingBlock={2}
+          paddingInline={3}
+          bg={'orange.100'}
+          border={'1px'}
+          borderRadius={'0.5rem'}
+          borderColor={'orange.400'}
+        >
+          <Flex>
+            <FontAwesomeIcon color={'#fc825c'} icon={faCalendarDay} />
+            <Attribute
+              config={{ minW: 'inherit', ml: '0.5rem' }}
+              code={mentorTimings}
+              attribute={'PRI_PRIMARY_AVAILABILITY'}
+            />
+          </Flex>
         </Box>
-        <Box padding={1} onClick={() => onSelect('PRI_SECONDARY_AVAILABILITY')}>
-          <Attribute
-            config={{ minW: 'inherit' }}
-            code={mentorTimings}
-            attribute={'PRI_SECONDARY_AVAILABILITY'}
-          />
+        <Box
+          onClick={() => onSelect('PRI_SECONDARY_AVAILABILITY')}
+          paddingBlock={2}
+          paddingInline={3}
+          bg={'orange.100'}
+          border={'1px'}
+          borderRadius={'0.5rem'}
+          borderColor={'orange.400'}
+        >
+          <Flex>
+            <FontAwesomeIcon color={'#fc825c'} icon={faCalendarDay} />
+            <Attribute
+              config={{ minW: 'inherit', ml: '0.5rem' }}
+              code={mentorTimings}
+              attribute={'PRI_SECONDARY_AVAILABILITY'}
+            />
+          </Flex>
         </Box>
-        <Box padding={1} onClick={() => onSelect('PRI_TERTIARY_AVAILABILITY')}>
-          <Attribute
-            config={{ minW: 'inherit' }}
-            code={mentorTimings}
-            attribute={'PRI_TERTIARY_AVAILABILITY'}
-          />
+        <Box
+          onClick={() => onSelect('PRI_TERTIARY_AVAILABILITY')}
+          paddingBlock={2}
+          paddingInline={3}
+          bg={'orange.100'}
+          border={'1px'}
+          borderRadius={'0.5rem'}
+          borderColor={'orange.400'}
+        >
+          <Flex>
+            <FontAwesomeIcon color={'#fc825c'} icon={faCalendarDay} />
+            <Attribute
+              config={{ minW: 'inherit', ml: '0.5rem' }}
+              code={mentorTimings}
+              attribute={'PRI_TERTIARY_AVAILABILITY'}
+            />
+          </Flex>
         </Box>
-      </Box>
+      </Grid>
     </Grid>
   )
 }
