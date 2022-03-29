@@ -3,6 +3,7 @@ export const personalDetails = {
   attributes: [
     { label: 'First Name:', attr: 'PRI_FIRSTNAME' },
     { label: 'Last Name:', attr: 'PRI_LASTNAME' },
+    { label: 'Gender', attr: 'PRI_GENDER' },
     // { label: 'Email:', attr: 'PRI_EMAIL' },
     // { label: 'Mobile:', attr: 'PRI_MOBILE' },
   ],
