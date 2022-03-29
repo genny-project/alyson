@@ -22,6 +22,8 @@ const useGetMenteeTimelineItems = () => {
       ? 'COMPLETE'
       : 'INCOMPLETE'
 
+  const isPendingSelectDate = equals(menteeStatus, 'PENDING_SELECT_DATE')
+
   const items = [
     {
       title: 'Register',
@@ -55,6 +57,14 @@ const useGetMenteeTimelineItems = () => {
       code: 'ACT_PRI_EVENT_SELECT_MENTOR',
       targetCode: userCode,
       invitationStatus: menteeStatus,
+    },
+    {
+      title: 'Introductory Meeting with Mentor',
+      description: 'Select one of the dates proposed by your potential mentor',
+      buttonText: 'Select Date',
+      completed: isPendingSelectDate,
+      isDisabled: !isPendingSelectDate,
+      code: '',
     },
     {
       title: '12 Meetings with Mentors',
