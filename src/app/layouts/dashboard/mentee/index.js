@@ -1,16 +1,21 @@
-import { useState } from 'react'
-import { Flex } from '@chakra-ui/layout'
-
-import Timeline from 'app/layouts/dashboard/timeline'
-import Meetings from 'app/layouts/dashboard/mentee/meetings'
-import Recommendation from 'app/layouts/dashboard/mentee/recommendations'
-import DetailView from 'app/layouts/dashboard/mentee/detailView'
 import AlumniPage from 'app/layouts/dashboard/mentee/alumni'
-import useGetMenteeInformation from 'app/layouts/dashboard/mentee/helpers/get-mentee-information'
+import DetailView from 'app/layouts/dashboard/mentee/detailView'
+import { Flex } from '@chakra-ui/layout'
+import Meetings from 'app/layouts/dashboard/mentee/meetings'
+import ProvidedTimings from './providedTimings'
+import Recommendation from 'app/layouts/dashboard/mentee/recommendations'
+import Timeline from 'app/layouts/dashboard/timeline'
 import getMenteeTimelineItems from 'app/layouts/dashboard/mentee/helpers/get-timeline-items'
+import useGetMenteeInformation from 'app/layouts/dashboard/mentee/helpers/get-mentee-information'
+import { useState } from 'react'
 
 const MenteeDashboard = () => {
-  const { isMentorSelected, isTrainingCompleted, isMeetingCompleted } = useGetMenteeInformation()
+  const {
+    isMentorSelected,
+    isTrainingCompleted,
+    isMeetingCompleted,
+    menteeStatus,
+  } = useGetMenteeInformation()
   const [showDetailView, setShowDetailView] = useState(false)
   const [currentMentor, setCurrentMentor] = useState(null)
 
@@ -19,7 +24,9 @@ const MenteeDashboard = () => {
   return (
     <Flex paddingX="10">
       <Timeline items={items} />
-      {isMentorSelected && !isMeetingCompleted ? (
+      {menteeStatus === 'PENDING_SELECT_DATE' ? (
+        <ProvidedTimings />
+      ) : isMentorSelected && !isMeetingCompleted ? (
         <Meetings />
       ) : showDetailView && isTrainingCompleted && currentMentor ? (
         <DetailView setShowDetailView={setShowDetailView} currentMentor={currentMentor} />
