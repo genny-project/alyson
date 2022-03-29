@@ -7,7 +7,6 @@ const useGetMentorTimelineItems = () => {
     isProfileCompleted,
     isStatusVerified,
     verifiedStatus,
-    isMatchedStatus,
     isInvitedStatus,
   } = useGetMentorInformation()
 
