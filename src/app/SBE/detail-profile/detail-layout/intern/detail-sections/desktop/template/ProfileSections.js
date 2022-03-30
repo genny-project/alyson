@@ -233,64 +233,52 @@ export const InternshipSection = ({ beCode, pcm, mappedPcm }) => {
 export const ExperienceSection = ({ beCode, pcm, mappedPcm }) => {
   const cardBg = useColorModeValue('blue.200', 'gray.600')
 
-  const { PRI_LOC12, PRI_LOC13, PRI_LOC14, PRI_LOC15, PRI_LOC16 } = mappedPcm
+  const { PRI_LOC21, PRI_LOC22, PRI_LOC23, PRI_LOC24, PRI_LOC25 } = mappedPcm
   if (pcm) {
     return (
       <Center w="full">
-        <Card p={6} w="full" bg={cardBg} overflow="hidden" borderRadius="2rem">
+        <Card minH="13rem" p={6} w="full" bg={cardBg} overflow="hidden" borderRadius="2rem">
           <VStack align="start" spacing={7}>
             <HStack spacing={5} w="full">
-              {prefs?.icon}
-              <Text textStyle="body.1">{prefs?.header}</Text>
+              {recentEmployment?.icon}
+              <Text textStyle="body.1">{recentEmployment?.header}</Text>
             </HStack>
-            <Grid w="100%" templateRows="repeat(3, 1fr)" templateColumns="repeat(5, 1fr)" gap={6}>
+            <Grid w="100%" templateRows="repeat(2, 1fr)" templateColumns="repeat(4, 1fr)" gap={6}>
               <GridItem rowSpan={1} colSpan={1}>
                 <VStack align="start">
-                  <GetAttributeName attribute={PRI_LOC12} config={{ textStyle: 'tail.2' }} />
+                  <GetAttributeName attribute={PRI_LOC21} config={{ textStyle: 'tail.2' }} />
+                  <Attribute code={beCode} attribute={PRI_LOC21} />
+                </VStack>
+              </GridItem>
+              <GridItem rowSpan={1} colSpan={1}>
+                <VStack align="start">
+                  <GetAttributeName attribute={PRI_LOC22} config={{ textStyle: 'tail.2' }} />
+                  <Attribute code={beCode} attribute={PRI_LOC22} />
+                </VStack>
+              </GridItem>
+              <GridItem rowSpan={2} colSpan={2}>
+                <VStack align="start">
+                  <GetAttributeName attribute={PRI_LOC23} config={{ textStyle: 'tail.2' }} />
                   <Attribute
                     code={beCode}
-                    attribute={PRI_LOC12}
-                    config={{ detailViewTags: true }}
+                    attribute={PRI_LOC23}
+                    config={{ px: '0px', noOfLines: 6 }}
                   />
                 </VStack>
               </GridItem>
-              <GridItem rowSpan={2} colSpan={4}>
+              <GridItem rowSpan={1} colSpan={1}>
                 <VStack align="start">
-                  <GetAttributeName attribute={PRI_LOC13} config={{ textStyle: 'tail.2' }} />
-                  <Attribute
-                    code={beCode}
-                    attribute={PRI_LOC13}
-                    config={{ px: '0px', noOfLines: 5 }}
-                  />
+                  <GetAttributeName attribute={PRI_LOC24} config={{ textStyle: 'tail.2' }} />
+                  <Attribute code={beCode} attribute={PRI_LOC24} />
                 </VStack>
               </GridItem>
-              <GridItem rowSpan={2} colSpan={1}>
+              <GridItem rowSpan={1} colSpan={1}>
                 <VStack align="start">
-                  <GetAttributeName attribute={PRI_LOC14} config={{ textStyle: 'tail.2' }} />
+                  <GetAttributeName attribute={PRI_LOC25} config={{ textStyle: 'tail.2' }} />
                   <Attribute
                     code={beCode}
-                    attribute={PRI_LOC14}
-                    config={{ noOfLines: 1, detailViewTags: true }}
-                  />
-                </VStack>
-              </GridItem>
-              <GridItem rowSpan={1} colSpan={2}>
-                <VStack align="start">
-                  <GetAttributeName attribute={PRI_LOC15} config={{ textStyle: 'tail.2' }} />
-                  <Attribute
-                    code={beCode}
-                    attribute={PRI_LOC15}
-                    config={{ detailViewTags: true }}
-                  />
-                </VStack>
-              </GridItem>
-              <GridItem rowSpan={1} colSpan={2}>
-                <VStack align="start">
-                  <GetAttributeName attribute={PRI_LOC16} config={{ textStyle: 'tail.2' }} />
-                  <Attribute
-                    code={beCode}
-                    attribute={PRI_LOC16}
-                    config={{ detailViewTags: true }}
+                    attribute={PRI_LOC25}
+                    config={{ noOfLines: 2, detailViewTags: true }}
                   />
                 </VStack>
               </GridItem>

@@ -20,24 +20,6 @@ const DefaultTemplate = ({ beCode }) => {
 }
 
 const TemplateOne = ({ beCode, mappedPcm }) => {
-  const {
-    PRI_LOC11,
-    PRI_LOC12,
-    PRI_LOC13,
-    PRI_LOC14,
-    PRI_LOC15,
-    PRI_LOC16,
-    PRI_LOC17,
-    PRI_LOC18,
-    PRI_LOC19,
-    PRI_LOC20,
-    PRI_LOC21,
-    PRI_LOC22,
-    PRI_LOC23,
-    PRI_LOC24,
-    PRI_LOC25,
-  } = mappedPcm
-
   return (
     <VStack flex="1" m={3} mb={8} spacing={6}>
       <Header beCode={beCode} />
@@ -50,7 +32,6 @@ const TemplateOne = ({ beCode, mappedPcm }) => {
 
 const RightDetail = ({ beCode, pcm, mappedPcm }) => {
   const { PRI_TEMPLATE_CODE: code } = mappedPcm
-  console.log('********mappedpcm********', mappedPcm)
 
   if (pcm) {
     if (code === 'TPL_DETAIL_VIEW_1') return <TemplateOne beCode={beCode} mappedPcm={mappedPcm} />

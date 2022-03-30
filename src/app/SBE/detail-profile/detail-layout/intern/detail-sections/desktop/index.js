@@ -18,7 +18,6 @@ const DesktopView = ({ beCode, sbeCode, onScroll, onWheel }) => {
   }, {})(internDetailViewPcm || [])
 
   if (internDetailViewPcm) {
-    console.log('=====mappedpcm=======', internDetailViewPcm, mappedPcm)
     return (
       <Box className="nobar" overflowY="scroll" onScroll={onScroll} onWheel={onWheel}>
         <Box w="100%" alignItems="start" display="flex">
