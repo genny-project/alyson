@@ -17,18 +17,15 @@ const DesktopView = ({ beCode, sbeCode, onScroll, onWheel }) => {
     return acc
   }, {})(internDetailViewPcm || [])
 
-  const { PRI_TEMPLATE_CODE: code } = mappedPcm
-
   if (internDetailViewPcm) {
-    if (code === 'TPL_DETAIL_VIEW_1')
-      return (
-        <Box className="nobar" overflowY="scroll" onScroll={onScroll} onWheel={onWheel}>
-          <Box w="100%" alignItems="start" display="flex">
-            <LeftDetailSection beCode={beCode} sbeCode={sbeCode} pcm={true} mappedPcm={mappedPcm} />
-            <RightDetailSection beCode={beCode} />
-          </Box>
+    return (
+      <Box className="nobar" overflowY="scroll" onScroll={onScroll} onWheel={onWheel}>
+        <Box w="100%" alignItems="start" display="flex">
+          <LeftDetailSection beCode={beCode} sbeCode={sbeCode} pcm={true} mappedPcm={mappedPcm} />
+          <RightDetailSection beCode={beCode} />
         </Box>
-      )
+      </Box>
+    )
   }
 
   return (
