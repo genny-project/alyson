@@ -22,7 +22,7 @@ const DefaultTemplate = ({ beCode }) => {
 const TemplateOne = ({ beCode, mappedPcm }) => {
   return (
     <VStack flex="1" m={3} mb={8} spacing={6}>
-      <Header beCode={beCode} />
+      <Header beCode={beCode} pcm={true} mappedPcm={mappedPcm} />
       <InternshipPreferenceSection beCode={beCode} pcm={true} mappedPcm={mappedPcm} />
       <InternshipSection beCode={beCode} pcm={true} mappedPcm={mappedPcm} />
       <ExperienceSection beCode={beCode} pcm={true} mappedPcm={mappedPcm} />
