@@ -12,6 +12,13 @@ import Attribute from 'app/BE/attribute'
 import Card from 'app/layouts/components/card'
 import { map } from 'ramda'
 import { useColorModeValue } from '@chakra-ui/color-mode'
+import { selectCode } from 'redux/db/selectors'
+import { useSelector } from 'react-redux'
+
+export const GetAttributeName = ({ attribute, config }) => {
+  const attributeName = useSelector(selectCode(attribute, 'attributeName')) || ''
+  return <Text {...config}>{attributeName}</Text>
+}
 
 export const InternshipPreferenceSection = ({ beCode }) => {
   const cardBg = useColorModeValue('gray.200', 'gray.600')
@@ -26,7 +33,7 @@ export const InternshipPreferenceSection = ({ beCode }) => {
           <Grid w="100%" templateRows="repeat(3, 1fr)" templateColumns="repeat(5, 1fr)" gap={6}>
             <GridItem rowSpan={1} colSpan={1}>
               <VStack align="start">
-                <Text textStyle="tail.2">{`Industry`}</Text>
+                <GetAttributeName attribute={`PRI_IMAGE_URL`} config={{ textStyle: 'tail.2' }} />
                 <Attribute
                   code={beCode}
                   attribute={`_LNK_INDUSTRY__PRI_NAME`}
