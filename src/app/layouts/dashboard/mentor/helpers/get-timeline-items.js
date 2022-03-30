@@ -8,6 +8,7 @@ const useGetMentorTimelineItems = () => {
     isStatusVerified,
     verifiedStatus,
     isInvitedStatus,
+    mentorStatus,
   } = useGetMentorInformation()
 
   const items = [
@@ -42,6 +43,7 @@ const useGetMentorTimelineItems = () => {
       completed: trainingStatus,
       isDisabled: !isInvitedStatus,
       code: 'ACT_SHOW_MENTEE_MNG_INVITES',
+      mentorStatus: mentorStatus,
     },
   ]
 
