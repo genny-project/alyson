@@ -1,5 +1,4 @@
 import 'app/layouts/components/css/hide-scroll.css'
-
 import { Center, HStack, Text, VStack } from '@chakra-ui/layout'
 import { Grid, GridItem } from '@chakra-ui/react'
 import {
@@ -8,28 +7,13 @@ import {
   recentEmployment,
 } from 'app/SBE/detail-profile/detail-layout/intern/templates/AttributesList.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faCog,
-  faCalendarAlt,
-  faBriefcase,
-  faUser,
-  faPhoneAlt,
-  faEnvelope,
-  faMapMarkerAlt,
-  faGraduationCap,
-} from '@fortawesome/free-solid-svg-icons'
+import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
 
 import Attribute from 'app/BE/attribute'
 import Card from 'app/layouts/components/card'
 import { map } from 'ramda'
 import { useColorModeValue } from '@chakra-ui/color-mode'
-import { selectCode } from 'redux/db/selectors'
-import { useSelector } from 'react-redux'
-
-export const GetAttributeName = ({ attribute, config }) => {
-  const attributeName = useSelector(selectCode(attribute, 'attributeName')) || ''
-  return <Text {...config}>{attributeName}</Text>
-}
+import GetAttributeName from 'utils/helpers/get-attribute-name'
 
 export const InternshipPreferenceSection = ({ beCode, pcm, mappedPcm }) => {
   const cardBg = useColorModeValue('gray.200', 'gray.600')
