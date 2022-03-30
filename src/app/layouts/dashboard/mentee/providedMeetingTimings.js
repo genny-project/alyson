@@ -7,7 +7,7 @@ import { useMobileValue } from 'utils/hooks'
 
 const ProvidedTimings = ({ menteeStatus, currentMentor }) => {
   const templateColumns = useMobileValue(['1fr', '70px 1fr 100px'])
-  console.log(currentMentor)
+
   return (
     <Grid
       templateColumns={templateColumns}
