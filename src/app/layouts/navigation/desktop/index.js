@@ -77,7 +77,7 @@ const DefaultTemplate = ({ bg, color, logoSrc }) => {
 }
 
 const TemplateOne = ({ bg, color, mappedPcm, logoSrc }) => {
-  const { PRI_LOC2, PRI_LOC3, PRI_LOC4 } = mappedPcm
+  const { PRI_LOC3, PRI_LOC4, PRI_LOC5 } = mappedPcm
 
   return (
     <>
@@ -130,12 +130,12 @@ const TemplateOne = ({ bg, color, mappedPcm, logoSrc }) => {
             <Spacer />
             <HStack spacing={8} marginRight="5">
               <AskMenu
-                questionCode={PRI_LOC2}
+                questionCode={PRI_LOC3}
                 icon={<Button leftIcon={<FontAwesomeIcon icon={faPlus} />}>{`Add`}</Button>}
                 hideLabel={true}
               />
-              <Drafts code={PRI_LOC3} />
-              <Avatar code={PRI_LOC4} />
+              <Drafts code={PRI_LOC4} />
+              <Avatar code={PRI_LOC5} />
             </HStack>
           </Flex>
         </nav>

@@ -55,18 +55,16 @@ const TemplateOne = ({ questionCode, mappedPcm, mappedIconAndQuestionCode }) => 
 
 const DefaultTemplate = ({ questionCode, listOfQuestionCode, mappedIconAndQuestionCode }) => {
   return (
-    <Center w={SIDEBAR_WIDTH} bg="#224371" h="100vh" paddingInline={'3'}>
-      <VStack test-id={questionCode} justifyContent="center">
-        {listOfQuestionCode.map(code => (
-          <SidebarButtons
-            key={code}
-            questionCode={questionCode}
-            childCode={code}
-            iconId={mappedIconAndQuestionCode[code]}
-          />
-        ))}
-      </VStack>
-    </Center>
+    <VStack test-id={questionCode} justifyContent="center">
+      {listOfQuestionCode.map(code => (
+        <SidebarButtons
+          key={code}
+          questionCode={questionCode}
+          childCode={code}
+          iconId={mappedIconAndQuestionCode[code]}
+        />
+      ))}
+    </VStack>
   )
 }
 
@@ -96,7 +94,7 @@ const SideBar = () => {
   if (!data) return null
 
   if (sidebarPcm) {
-    if (code === 'TPL_WEST')
+    if (code === 'TPL_WEST') {
       return (
         <TemplateOne
           questionCode={questionCode}
@@ -104,6 +102,7 @@ const SideBar = () => {
           mappedIconAndQuestionCode={mappedIconAndQuestionCode}
         />
       )
+    }
   }
 
   return (
