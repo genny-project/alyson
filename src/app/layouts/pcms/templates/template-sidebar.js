@@ -6,21 +6,6 @@ import SidebarButtons from 'app/layouts/display/sidebar/buttons/SidebarButtons'
 import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
 
-const DefaultTemplate = ({ questionCode, listOfQuestionCode, mappedIconAndQuestionCode }) => {
-  return (
-    <VStack test-id={questionCode} justifyContent="center">
-      {listOfQuestionCode.map(code => (
-        <SidebarButtons
-          key={code}
-          questionCode={questionCode}
-          childCode={code}
-          iconId={mappedIconAndQuestionCode[code]}
-        />
-      ))}
-    </VStack>
-  )
-}
-
 const TemplateSidebar = () => {
   const questionCode = SIDEBAR_QUESTION_CODE
   const data = useSelector(selectCode(questionCode))
@@ -36,11 +21,16 @@ const TemplateSidebar = () => {
   if (!data) return null
 
   return (
-    <DefaultTemplate
-      questionCode={questionCode}
-      listOfQuestionCode={listOfQuestionCode}
-      mappedIconAndQuestionCode={mappedIconAndQuestionCode}
-    />
+    <VStack test-id={questionCode} justifyContent="center">
+      {listOfQuestionCode.map(code => (
+        <SidebarButtons
+          key={code}
+          questionCode={questionCode}
+          childCode={code}
+          iconId={mappedIconAndQuestionCode[code]}
+        />
+      ))}
+    </VStack>
   )
 }
 
