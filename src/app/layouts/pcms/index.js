@@ -6,7 +6,7 @@ import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
 import TemplateSidebar from './templates/template-sidebar'
 
-const Pcms = ({ code }) => {
+const Pcms = ({ code, appName }) => {
   const allPcmCode = useSelector(selectCode(`PCMINFORMATION`)) || []
   const pcmCode = find(includes(code))(allPcmCode)
 
@@ -19,10 +19,10 @@ const Pcms = ({ code }) => {
   var { PRI_TEMPLATE_CODE: templateCode } = mappedPcm
 
   const fromCode = {
-    TPL_ROOT: <TemplateRoot mappedPcm={mappedPcm} />,
-    TPL_VERT: <TemplateVert mappedPcm={mappedPcm} />,
-    TPL_SIDEBAR: <TemplateSidebar mappedPcm={mappedPcm} />,
-    TPL_DEFAULT: <TemplateDefault />,
+    TPL_ROOT: <TemplateRoot mappedPcm={mappedPcm} appName={appName} />,
+    TPL_VERT: <TemplateVert mappedPcm={mappedPcm} appName={appName} />,
+    TPL_SIDEBAR: <TemplateSidebar mappedPcm={mappedPcm} appName={appName} />,
+    TPL_DEFAULT: <TemplateDefault mappedPcm={mappedPcm} appName={appName} />,
   }
 
   /// Shows the root template while the page is loading. Don't like this much though
@@ -31,7 +31,7 @@ const Pcms = ({ code }) => {
   }
 
   if (!has(templateCode)(fromCode)) {
-    console.log('Unkown template ' + templateCode)
+    console.log('Unknown template ' + templateCode)
     templateCode = 'TPL_DEFAULT'
   }
 

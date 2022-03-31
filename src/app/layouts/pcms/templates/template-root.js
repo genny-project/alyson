@@ -12,23 +12,31 @@ import Navigation from '../../navigation'
 import Notes from 'app/NOTE'
 import Process from 'app/layouts/process'
 import { SIDEBAR_WIDTH } from 'utils/constants'
-import SideBar from 'app/layouts/display/sidebar'
 import Table from 'app/layouts/table'
 import Toast from 'app/layouts/display/toast'
 import { includes } from 'ramda'
+import { selectCode } from 'redux/db/selectors'
 import { selectDisplay } from 'redux/app/selectors'
 import Pcms from '..'
 
-const TemplateRoot = ({ mappedPcm }) => {
+const TemplateRoot = ({ mappedPcm, appName }) => {
   const display = useSelector(selectDisplay)
 
   // HEADER, SIDEBAR
   const { PRI_LOC1, PRI_LOC2 } = mappedPcm
   const backgroundColor = useColorModeValue('gray.50', '')
 
+  var surfaceColour = useSelector(selectCode(appName, 'PRI_COLOR_SURFACE'))?.valueString
+  if (surfaceColour === undefined) {
+    console.log('Surface Color was undefined!')
+    surfaceColour = '#224371'
+  }
+
+  console.log('Colour = ' + surfaceColour)
+
   return (
     <Box position={'relative'} h={'100%'}>
-      <Center w={SIDEBAR_WIDTH} bg="#224371" h="100vh" paddingInline={'3'}>
+      <Center w={SIDEBAR_WIDTH} bg={surfaceColour} h="100vh" paddingInline={'3'}>
         <Pcms code={PRI_LOC2} />
       </Center>
       <Box

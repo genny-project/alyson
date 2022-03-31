@@ -26,7 +26,7 @@ const Display = ({ title }) => {
         <title>{projectTitle}</title>
         <link rel="icon" href={projectIcon} type="image/x-icon"></link>
       </MetaTags>
-      <Pcms code="PCM_ROOT" />
+      <Pcms code="PCM_ROOT" appName={'PRJ_' + appName} />
     </ErrorBoundary>
   )
 }
