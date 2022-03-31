@@ -179,8 +179,10 @@ export const InternshipSection = ({ beCode, pcm, mappedPcm }) => {
               {map(({ label, attr, config }) => {
                 return (
                   <VStack key={`${beCode}-${attr}`} align="start" justify="start">
-                    <GetAttributeName attribute={attr} config={config} textStyle="tail.2" />
-
+                    <GetAttributeName
+                      attribute={attr}
+                      config={{ ...config, textStyle: 'tail.2' }}
+                    />
                     <Attribute code={beCode} attribute={attr} config={config} />
                   </VStack>
                 )
