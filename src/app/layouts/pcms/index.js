@@ -20,7 +20,8 @@ const Pcms = ({ code }) => {
 
   const fromCode = {
     TPL_ROOT: <TemplateRoot mappedPcm={mappedPcm} />,
-    TPL_VERT: <TemplateSidebar mappedPcm={mappedPcm} />,
+    TPL_VERT: <TemplateVert mappedPcm={mappedPcm} />,
+    TPL_SIDEBAR: <TemplateSidebar mappedPcm={mappedPcm} />,
     TPL_DEFAULT: <TemplateDefault />,
   }
 
