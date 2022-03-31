@@ -222,19 +222,17 @@ const LeftDetail = ({ beCode, sbeCode, pcm, mappedPcm }) => {
   const cardBg = useColorModeValue('gray.200', 'gray.600')
   const userCode = useSelector(selectCode('USER'), equals)
   const userType = getUserType(useSelector(selectCode(userCode), sameLength))
-  const { PRI_TEMPLATE_CODE: code } = mappedPcm
 
   if (pcm) {
-    if (code === 'TPL_DETAIL_VIEW_1')
-      return (
-        <TemplateOne
-          beCode={beCode}
-          sbeCode={sbeCode}
-          cardBg={cardBg}
-          userType={userType}
-          mappedPcm={mappedPcm}
-        />
-      )
+    return (
+      <TemplateOne
+        beCode={beCode}
+        sbeCode={sbeCode}
+        cardBg={cardBg}
+        userType={userType}
+        mappedPcm={mappedPcm}
+      />
+    )
   }
   return <DefaultTemplate beCode={beCode} sbeCode={sbeCode} cardBg={cardBg} userType={userType} />
 }
