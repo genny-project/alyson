@@ -4,6 +4,8 @@ import PcmField from '../pcm-field'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+import convertToUppercase from 'utils/formatters/uppercase-convert'
+import { apiConfig } from 'config/get-api-config'
 import AskMenu from 'app/ASKS/menu'
 import Avatar from 'app/layouts/navigation/Avatar'
 import Drafts from 'app/layouts/navigation/drafts/Drafts'
@@ -12,6 +14,11 @@ const TemplateHeaderDesktop = ({ mappedPcm, logoSrc }) => {
   const theme = useTheme()
   const bg = useColorModeValue('#F6F6F6', theme.colors.primary[900])
   const color = useColorModeValue(theme.colors.text.light, theme.colors.text.dark)
+
+  const { realm } = apiConfig
+  const appName = convertToUppercase(realm)
+
+  const entityCode = 'PRJ_' + appName
 
   const { PRI_LOC1, PRI_LOC2, PRI_LOC3, PRI_LOC4 } = mappedPcm
 
@@ -34,7 +41,7 @@ const TemplateHeaderDesktop = ({ mappedPcm, logoSrc }) => {
         <nav>
           <Flex align="center" p="3">
             <Box mx={5} alignItems="center" m="auto">
-              <PcmField code={PRI_LOC1} htmlWidth={LOGO_WIDTH} />
+              <PcmField code={PRI_LOC1} entityCode={entityCode} htmlWidth={LOGO_WIDTH} />
             </Box>
             <Spacer />
             <HStack spacing={8} marginRight="5">
