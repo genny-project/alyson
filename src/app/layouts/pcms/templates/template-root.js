@@ -17,27 +17,32 @@ import Toast from 'app/layouts/display/toast'
 import { includes } from 'ramda'
 import { selectCode } from 'redux/db/selectors'
 import { selectDisplay } from 'redux/app/selectors'
-import Pcms from '..'
+import PcmField from './pcm-field'
+import convertToUppercase from 'utils/formatters/uppercase-convert'
+import { apiConfig } from 'config/get-api-config'
 
-const TemplateRoot = ({ mappedPcm, appName }) => {
+const TemplateRoot = ({ mappedPcm }) => {
   const display = useSelector(selectDisplay)
 
   // HEADER, SIDEBAR
   const { PRI_LOC1, PRI_LOC2 } = mappedPcm
   const backgroundColor = useColorModeValue('gray.50', '')
 
-  var surfaceColour = useSelector(selectCode(appName, 'PRI_COLOR_SURFACE'))?.valueString
-  if (surfaceColour === undefined) {
-    console.log('Surface Color was undefined!')
-    surfaceColour = '#224371'
+  const { realm } = apiConfig
+  const appName = convertToUppercase(realm)
+
+  var primaryColour = useSelector(selectCode('PRJ_' + appName, 'PRI_COLOR'))?.valueString
+  if (primaryColour === undefined) {
+    console.log('Primary Color was undefined! for PRJ_' + appName + ' ' + realm)
+    primaryColour = '#224371'
   }
 
-  console.log('Colour = ' + surfaceColour)
+  console.log('Colour = ' + primaryColour)
 
   return (
     <Box position={'relative'} h={'100%'}>
-      <Center w={SIDEBAR_WIDTH} bg={surfaceColour} h="100vh" paddingInline={'3'}>
-        <Pcms code={PRI_LOC2} />
+      <Center w={SIDEBAR_WIDTH} bg={primaryColour} h="100vh" paddingInline={'3'}>
+        <PcmField code={PRI_LOC2} />
       </Center>
       <Box
         backgroundColor={backgroundColor}
@@ -50,7 +55,7 @@ const TemplateRoot = ({ mappedPcm, appName }) => {
         pb={1}
         overflow="scroll"
       >
-        <Navigation />
+        <PcmField code={PRI_LOC1} />
         <Box paddingTop="2.25rem">
           {/* <Timeout /> */}
           {display === 'DASHBOARD' && <Dashboard />}

@@ -5,12 +5,14 @@ import { has, includes, reduce, find } from 'ramda'
 import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
 import TemplateSidebar from './templates/template-sidebar'
+import PcmField from './templates/pcm-field'
+import TemplateHeader from './templates/template-header'
 
-const Pcms = ({ code, appName }) => {
+const Pcms = ({ code }) => {
   const allPcmCode = useSelector(selectCode(`PCMINFORMATION`)) || []
   const pcmCode = find(includes(code))(allPcmCode)
-
   const pcm = useSelector(selectCode(pcmCode, 'allAttributes'))
+
   const mappedPcm = reduce((acc, { attributeCode, valueString }) => {
     acc = { ...acc, [attributeCode]: valueString }
     return acc
@@ -19,10 +21,11 @@ const Pcms = ({ code, appName }) => {
   var { PRI_TEMPLATE_CODE: templateCode } = mappedPcm
 
   const fromCode = {
-    TPL_ROOT: <TemplateRoot mappedPcm={mappedPcm} appName={appName} />,
-    TPL_VERT: <TemplateVert mappedPcm={mappedPcm} appName={appName} />,
-    TPL_SIDEBAR: <TemplateSidebar mappedPcm={mappedPcm} appName={appName} />,
-    TPL_DEFAULT: <TemplateDefault mappedPcm={mappedPcm} appName={appName} />,
+    TPL_ROOT: <TemplateRoot mappedPcm={mappedPcm} />,
+    TPL_VERT: <TemplateVert mappedPcm={mappedPcm} />,
+    TPL_SIDEBAR: <TemplateSidebar mappedPcm={mappedPcm} />,
+    TPL_HEADER: <TemplateHeader mappedPcm={mappedPcm} />,
+    TPL_DEFAULT: <TemplateDefault mappedPcm={mappedPcm} />,
   }
 
   /// Shows the root template while the page is loading. Don't like this much though
