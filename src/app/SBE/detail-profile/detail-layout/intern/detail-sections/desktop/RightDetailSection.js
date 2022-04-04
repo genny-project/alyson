@@ -31,10 +31,8 @@ const TemplateOne = ({ beCode, mappedPcm }) => {
 }
 
 const RightDetail = ({ beCode, pcm, mappedPcm }) => {
-  const { PRI_TEMPLATE_CODE: code } = mappedPcm
-
   if (pcm) {
-    if (code === 'TPL_DETAIL_VIEW_1') return <TemplateOne beCode={beCode} mappedPcm={mappedPcm} />
+    return <TemplateOne beCode={beCode} mappedPcm={mappedPcm} />
   }
   return <DefaultTemplate beCode={beCode} />
 }

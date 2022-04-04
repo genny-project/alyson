@@ -17,8 +17,9 @@ import GetAttributeName from 'utils/helpers/get-attribute-name'
 
 export const InternshipPreferenceSection = ({ beCode, pcm, mappedPcm }) => {
   const cardBg = useColorModeValue('gray.200', 'gray.600')
-  const { PRI_LOC12, PRI_LOC13, PRI_LOC14, PRI_LOC15, PRI_LOC16 } = mappedPcm
   if (pcm) {
+    const { PRI_LOC12, PRI_LOC13, PRI_LOC14, PRI_LOC15, PRI_LOC16 } = mappedPcm
+
     return (
       <Center w="full">
         <Card p={6} w="full" bg={cardBg} overflow="hidden" borderRadius="2rem">
@@ -95,7 +96,7 @@ export const InternshipPreferenceSection = ({ beCode, pcm, mappedPcm }) => {
           <Grid w="100%" templateRows="repeat(3, 1fr)" templateColumns="repeat(5, 1fr)" gap={6}>
             <GridItem rowSpan={1} colSpan={1}>
               <VStack align="start">
-                <GetAttributeName attribute={PRI_LOC12} config={{ textStyle: 'tail.2' }} />
+                <Text textStyle="tail.2">{`Industry`}</Text>
                 <Attribute
                   code={beCode}
                   attribute={`_LNK_INDUSTRY__PRI_NAME`}
@@ -153,8 +154,9 @@ export const InternshipPreferenceSection = ({ beCode, pcm, mappedPcm }) => {
 export const InternshipSection = ({ beCode, pcm, mappedPcm }) => {
   const cardBg = useColorModeValue('blue.200', 'gray.600')
 
-  const { PRI_LOC17, PRI_LOC18, PRI_LOC19, PRI_LOC20 } = mappedPcm
   if (pcm) {
+    const { PRI_LOC17, PRI_LOC18, PRI_LOC19, PRI_LOC20 } = mappedPcm
+
     const internshipDetails = {
       header: 'Internship Specifications',
       icon: <FontAwesomeIcon size="lg" icon={faCalendarAlt} />,
@@ -177,8 +179,10 @@ export const InternshipSection = ({ beCode, pcm, mappedPcm }) => {
               {map(({ label, attr, config }) => {
                 return (
                   <VStack key={`${beCode}-${attr}`} align="start" justify="start">
-                    <GetAttributeName attribute={attr} config={config} textStyle="tail.2" />
-
+                    <GetAttributeName
+                      attribute={attr}
+                      config={{ ...config, textStyle: 'tail.2' }}
+                    />
                     <Attribute code={beCode} attribute={attr} config={config} />
                   </VStack>
                 )
@@ -217,8 +221,9 @@ export const InternshipSection = ({ beCode, pcm, mappedPcm }) => {
 export const ExperienceSection = ({ beCode, pcm, mappedPcm }) => {
   const cardBg = useColorModeValue('blue.200', 'gray.600')
 
-  const { PRI_LOC21, PRI_LOC22, PRI_LOC23, PRI_LOC24, PRI_LOC25 } = mappedPcm
   if (pcm) {
+    const { PRI_LOC21, PRI_LOC22, PRI_LOC23, PRI_LOC24, PRI_LOC25 } = mappedPcm
+
     return (
       <Center w="full">
         <Card minH="13rem" p={6} w="full" bg={cardBg} overflow="hidden" borderRadius="2rem">

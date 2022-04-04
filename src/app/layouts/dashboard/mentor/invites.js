@@ -1,29 +1,53 @@
-import { Box, Button, Grid, Spacer, Text, VStack, useColorModeValue } from '@chakra-ui/react'
+import {
+  Box,
+  Button,
+  Grid,
+  HStack,
+  Spacer,
+  Text,
+  VStack,
+  useColorModeValue,
+} from '@chakra-ui/react'
 import { find, includes, map } from 'ramda'
+import { selectCode, selectRows } from 'redux/db/selectors'
+import { useIsMobile, useMobileValue } from 'utils/hooks'
 
 import Attribute from 'app/BE/attribute'
+import DashboardMessages from '../dashboard_msg'
 import { inviteeDetails } from 'app/layouts/dashboard/timeline/templates/CardContent'
 import { selectDashboard } from 'redux/app/selectors'
-import { selectRows } from 'redux/db/selectors'
-import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 
 const Invites = ({ setShowDetailView, setCurrentMentee }) => {
   const bg = useColorModeValue('gray.100', 'gray.700')
   const cardsbg = useColorModeValue('#ffffff', 'gray.800')
   const hoverbg = useColorModeValue('teal.300', 'teal.500')
+  const childTemplateColumns = useMobileValue(['repeat(auto-fit, minmax(100px, 1fr))', '100px 1fr'])
+  const maxW = useMobileValue(['', '75%'])
+  const parentTemplateColumns = useMobileValue([
+    'repeat(auto-fit, minmax(100px, 1fr))',
+    '100px 1fr',
+  ])
+
+  const isMobile = useIsMobile()
 
   const dashboardSbes = useSelector(selectDashboard)
 
   const allMenteeCode = dashboardSbes && find(includes('_MENTEE_MNG_INVITES'))(dashboardSbes)
   const allMentee = useSelector(selectRows(allMenteeCode))
 
-  const parentTemplateColumns = useMobileValue([
-    'repeat(auto-fit, minmax(100px, 1fr))',
-    '100px 1fr',
-  ])
-  const childTemplateColumns = useMobileValue(['repeat(auto-fit, minmax(100px, 1fr))', '100px 1fr'])
-  const maxW = useMobileValue(['', '75%'])
+  const currentMentorSbes = dashboardSbes && find(includes('_SUMMARY_MENTOR_'))(dashboardSbes)
+  const currentMentorCode = useSelector(selectCode(currentMentorSbes, 'PRI_MENTOR_CODE'))?.value
+  const applicationCode = useSelector(selectCode(currentMentorCode, 'LNK_APPLICATION'))?.value
+  const agreeToMentor = useSelector(selectCode(applicationCode, 'LNK_AGREE_TO_MENTOR'))?.value
+
+  if (agreeToMentor) {
+    return (
+      <>
+        <DashboardMessages />
+      </>
+    )
+  }
 
   return (
     <Box w="50vw" h="80vh" spacing={10} textAlign="center" p="5" position="sticky" top="10vh">
@@ -59,23 +83,43 @@ const Invites = ({ setShowDetailView, setCurrentMentee }) => {
                   code={mentee}
                   attribute="_LNK_MENTEE__PRI_USER_PROFILE_PICTURE"
                 />
-                <Attribute config={{ textStyle: 'body.2' }} code={mentee} attribute="PRI_NAME" />
+
                 <Button w="full" colorScheme="primary" test-id={`VIEW_PROFILE_${mentee}`}>
                   {`View Profile`}
                 </Button>
               </VStack>
 
               <VStack display="inline">
-                {map(({ label, attribute }) => (
-                  <Grid key={`${label}-${attribute}`} templateColumns={childTemplateColumns}>
-                    <Text>{label}</Text>
+                <>
+                  <HStack mb={'6'}>
                     <Attribute
-                      config={{ textStyle: 'body.2' }}
+                      config={{ textStyle: 'body.1' }}
                       code={mentee}
-                      attribute={attribute}
+                      attribute="_LNK_MENTEE__PRI_FIRSTNAME"
                     />
-                  </Grid>
-                ))(inviteeDetails)}
+                    <Attribute
+                      config={{ textStyle: 'body.1' }}
+                      code={mentee}
+                      attribute="_LNK_MENTEE__PRI_LASTNAME"
+                    />
+                  </HStack>
+                  {map(({ label, attribute }) => (
+                    <Grid
+                      key={`${label}-${attribute}`}
+                      gap={isMobile ? '0' : '0.75rem'}
+                      templateColumns={childTemplateColumns}
+                    >
+                      <Text textAlign={isMobile ? 'left' : 'right'} opacity={'0.75'}>
+                        {label}
+                      </Text>
+                      <Attribute
+                        config={{ textStyle: 'body.2' }}
+                        code={mentee}
+                        attribute={attribute}
+                      />
+                    </Grid>
+                  ))(inviteeDetails)}
+                </>
               </VStack>
             </Grid>
           ))(allMentee)}

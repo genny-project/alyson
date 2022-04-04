@@ -13,7 +13,9 @@ import { selectCode } from 'redux/db/selectors'
 import getUserType from 'utils/helpers/get-user-type'
 import sameLength from 'redux/utils/same-length'
 
-const DefaultTemplate = ({ beCode, onClose, userType, hasVideo }) => {
+const DefaultTemplate = ({ beCode, onClose, userType }) => {
+  const videoSrc = useSelector(selectCode(beCode, 'PRI_VIDEO_URL'))?.value
+  const hasVideo = !isEmpty(videoSrc)
   return (
     <>
       <Center w="full">
@@ -69,8 +71,11 @@ const DefaultTemplate = ({ beCode, onClose, userType, hasVideo }) => {
   )
 }
 
-const TemplateOne = ({ beCode, onClose, userType, hasVideo, mappedPcm }) => {
+const TemplateOne = ({ beCode, onClose, userType, mappedPcm }) => {
   const { PRI_LOC11 } = mappedPcm
+  const videoSrc = useSelector(selectCode(beCode, PRI_LOC11))?.value
+  const hasVideo = !isEmpty(videoSrc)
+
   return (
     <>
       <Center w="full">
@@ -129,29 +134,17 @@ const TemplateOne = ({ beCode, onClose, userType, hasVideo, mappedPcm }) => {
 const Header = ({ beCode, pcm, mappedPcm }) => {
   const dispatch = useDispatch()
   const onClose = () => dispatch(closeDrawer())
-  const { PRI_TEMPLATE_CODE: code, PRI_LOC11 } = mappedPcm
 
   const userCode = useSelector(selectCode('USER'), equals)
   const userType = getUserType(useSelector(selectCode(userCode), sameLength))
-  const videoSrc = useSelector(selectCode(beCode, PRI_LOC11))?.value
-  const hasVideo = !isEmpty(videoSrc)
 
   if (pcm) {
-    if (code === 'TPL_DETAIL_VIEW_1')
-      return (
-        <TemplateOne
-          beCode={beCode}
-          mappedPcm={mappedPcm}
-          onClose={onClose}
-          userType={userType}
-          hasVideo={hasVideo}
-        />
-      )
+    return (
+      <TemplateOne beCode={beCode} mappedPcm={mappedPcm} onClose={onClose} userType={userType} />
+    )
   }
 
-  return (
-    <DefaultTemplate beCode={beCode} onClose={onClose} userType={userType} hasVideo={hasVideo} />
-  )
+  return <DefaultTemplate beCode={beCode} onClose={onClose} userType={userType} />
 }
 
 export default Header

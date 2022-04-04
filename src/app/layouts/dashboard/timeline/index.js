@@ -1,9 +1,21 @@
 import { Box, Button, Flex, HStack, Text, Tooltip, VStack } from '@chakra-ui/react'
+import {
+  accountVerificationPendingMsg,
+  alreadyRegisteredMsg,
+  complete,
+  completePrevStepsMsg,
+  dateSelctedMsg,
+  meetAndGreetInProgressMsg,
+  menteeInvitationPendingMsg,
+  mentorAlreadySelectedMsg,
+  mentorMatchedMsg,
+  mentorSelectionMsg,
+  trainingCompleteMsg,
+} from 'utils/constants'
 import { compose, divide, equals, filter, length, map, multiply, path } from 'ramda'
 
 import Card from 'app/layouts/components/card'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { complete } from 'utils/constants'
 import convertToUppercase from 'utils/formatters/uppercase-convert'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { onSendMessage } from 'vertx'
@@ -28,20 +40,22 @@ const Timeline = ({ items }) => {
           ml="-3.5"
         >
           {map(({ title, completed }) => (
-            <Box
-              h="8"
-              w="8"
-              background={equals(completed, complete) ? 'green' : 'silver'}
-              borderRadius="50%"
-              textAlign="center"
-              key={title}
-            >
-              <Box h="100%" marginTop="1">
-                {equals(completed, complete) ? (
-                  <FontAwesomeIcon icon={faCheck} color="#fff" />
-                ) : null}
+            <>
+              <Box
+                h="8"
+                w="8"
+                background={equals(completed, complete) ? 'green' : 'silver'}
+                borderRadius="50%"
+                textAlign="center"
+                key={title}
+              >
+                <Box h="100%" marginTop="1">
+                  {equals(completed, complete) ? (
+                    <FontAwesomeIcon icon={faCheck} color="#fff" />
+                  ) : null}
+                </Box>
               </Box>
-            </Box>
+            </>
           ))(items)}
         </Flex>
         <Box h={`${progressBarHeight}%`} w="100%" background="green" />
@@ -59,61 +73,69 @@ const Timeline = ({ items }) => {
             status,
             completed,
             invitationStatus,
+            mentorStatus,
+            pendingDateSelected,
           }) => (
-            <Card key={title} p={4} px={5}>
-              <VStack spacing={3} w="30vw" maxW={500}>
-                <Text textStyle="head.2" alignSelf="flex-start">
-                  {title}
-                </Text>
-                <Text textStyle="body.3" noOfLines={[1]} w="inherit" alignSelf="flex-start">
-                  {description}
-                </Text>
-                <Tooltip
-                  placement="right"
-                  isDisabled={isDisabled ? false : true}
-                  label={
-                    equals(buttonText, 'Register')
-                      ? 'You have already registered!'
-                      : equals(buttonText, 'Mentor Selected')
-                      ? 'You have already selected a Mentor!'
-                      : equals(buttonText, 'Go to Mentor Selection')
-                      ? 'Please select a mentor to proceed.'
-                      : equals(completed, 'COMPLETE')
-                      ? 'Training has already been completed.'
-                      : equals(status, 'UNVERIFIED')
-                      ? 'Account verification is pending.'
-                      : equals(status, 'MENTORING')
-                      ? 'Meet & Greet is already in process.'
-                      : equals(invitationStatus, 'MATCHED')
-                      ? 'Mentor has already been invited.'
-                      : 'Please complete the previous steps.'
-                  }
-                  aria-label="Please complete the previous steps"
-                  bg="red.400"
-                  color="#ffffff"
-                >
-                  <Box alignSelf="flex-end">
-                    {buttonText && (
-                      <Button
-                        colorScheme="blue"
-                        onClick={() =>
-                          onSendMessage({
-                            code: code,
-                            parentCode: parentCode,
-                            targetCode: targetCode,
-                          })
-                        }
-                        size="md"
-                        isDisabled={isDisabled}
-                        test-id={convertToUppercase(buttonText).replace(/ /g, '_')}
-                      >
-                        {buttonText}
-                      </Button>
-                    )}
-                  </Box>
-                </Tooltip>
-              </VStack>
-            </Card>
+            <>
+              <Card key={title} p={4} px={5}>
+                <VStack spacing={3} w="30vw" maxW={500}>
+                  <Text textStyle="head.2" alignSelf="flex-start">
+                    {title}
+                  </Text>
+                  <Text textStyle="body.3" noOfLines={[1]} w="inherit" alignSelf="flex-start">
+                    {description}
+                  </Text>
+                  <Tooltip
+                    placement="right"
+                    isDisabled={isDisabled ? false : true}
+                    label={
+                      equals(buttonText, 'Register')
+                        ? alreadyRegisteredMsg
+                        : equals(buttonText, 'Mentor Selected')
+                        ? mentorAlreadySelectedMsg
+                        : equals(buttonText, 'Go to Mentor Selection')
+                        ? mentorSelectionMsg
+                        : equals(mentorStatus, 'AVAILABLE')
+                        ? menteeInvitationPendingMsg
+                        : !pendingDateSelected && equals(completed, 'COMPLETE')
+                        ? dateSelctedMsg
+                        : equals(completed, 'COMPLETE')
+                        ? trainingCompleteMsg
+                        : equals(status, 'UNVERIFIED')
+                        ? accountVerificationPendingMsg
+                        : equals(status, 'MENTORING')
+                        ? meetAndGreetInProgressMsg
+                        : equals(invitationStatus, 'MATCHED')
+                        ? mentorMatchedMsg
+                        : completePrevStepsMsg
+                    }
+                    aria-label="Please complete the previous steps"
+                    bg="red.400"
+                    color="#ffffff"
+                  >
+                    <Box alignSelf="flex-end">
+                      {buttonText && (
+                        <Button
+                          colorScheme="blue"
+                          onClick={() =>
+                            onSendMessage({
+                              code: code,
+                              parentCode: parentCode,
+                              targetCode: targetCode,
+                            })
+                          }
+                          size="md"
+                          isDisabled={isDisabled}
+                          test-id={convertToUppercase(buttonText).replace(/ /g, '_')}
+                        >
+                          {buttonText}
+                        </Button>
+                      )}
+                    </Box>
+                  </Tooltip>
+                </VStack>
+              </Card>
+            </>
           ),
         )(items)}
       </VStack>
