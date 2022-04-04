@@ -1,11 +1,10 @@
 import TemplateRoot from './templates/template-root'
 import TemplateDefault from './templates/template-default'
 import TemplateVert from './templates/template-vert'
-import { has, includes, reduce, find } from 'ramda'
+import { includes, reduce, find } from 'ramda'
 import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
 import TemplateSidebar from './templates/template-sidebar'
-import PcmField from './templates/pcm-field'
 import TemplateHeader from './templates/template-header'
 
 const Pcms = ({ code }) => {
@@ -20,24 +19,19 @@ const Pcms = ({ code }) => {
 
   var { PRI_TEMPLATE_CODE: templateCode } = mappedPcm
 
-  const fromCode = {
-    TPL_ROOT: <TemplateRoot mappedPcm={mappedPcm} />,
-    TPL_VERT: <TemplateVert mappedPcm={mappedPcm} />,
-    TPL_SIDEBAR: <TemplateSidebar mappedPcm={mappedPcm} />,
-    TPL_HEADER: <TemplateHeader mappedPcm={mappedPcm} />,
-    TPL_DEFAULT: <TemplateDefault mappedPcm={mappedPcm} />,
+  if (templateCode === 'TPL_ROOT') {
+    return <TemplateRoot mappedPcm={mappedPcm} />
+  } else if (!templateCode && code === 'PCM_ROOT') {
+    return <TemplateRoot mappedPcm={mappedPcm} />
+  } else if (templateCode === 'TPL_VERT') {
+    return <TemplateVert mappedPcm={mappedPcm} />
+  } else if (templateCode === 'TPL_SIDEBAR' || templateCode === 'TPL_WEST') {
+    return <TemplateSidebar mappedPcm={mappedPcm} />
+  } else if (templateCode === 'TPL_HEADER' || templateCode === 'TPL_NORTH') {
+    return <TemplateHeader mappedPcm={mappedPcm} />
+  } else {
+    return <TemplateDefault mappedPcm={mappedPcm} />
   }
-
-  /// Shows the root template while the page is loading. Don't like this much though
-  if (!templateCode && code === 'PCM_ROOT') {
-    templateCode = 'TPL_ROOT'
-  }
-
-  if (!has(templateCode)(fromCode)) {
-    templateCode = 'TPL_DEFAULT'
-  }
-
-  return fromCode[templateCode]
 }
 
 export default Pcms

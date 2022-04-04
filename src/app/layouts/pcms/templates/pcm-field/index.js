@@ -1,6 +1,6 @@
+import Attribute from 'app/BE/attribute'
 import { split } from 'ramda'
 import Pcms from '../..'
-import AttributeField from './attribute-field'
 
 const PcmField = ({ code, ...props }) => {
   if (code === undefined) {
@@ -9,19 +9,20 @@ const PcmField = ({ code, ...props }) => {
 
   const splitArr = split('_')(code)
 
-  var prefix = 'none'
+  var prefix
+  var suffix
 
   if (splitArr.length > 1) {
     prefix = splitArr[0]
+    suffix = splitArr[splitArr.length - 1]
   }
 
-  switch (prefix) {
-    case 'PCM':
-      return <Pcms code={code} />
-    case 'PRI':
-      return <AttributeField code={code} {...props} />
-    default:
-      return <div>{code}</div>
+  if (prefix === 'PCM') {
+    return <Pcms code={code} />
+  } else if (prefix === 'PRI') {
+    return <Attribute attribute={code} code={props.parentCode} {...props} />
+  } else {
+    return <div>{code}</div>
   }
 }
 
