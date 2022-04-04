@@ -14,7 +14,8 @@ import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 
 const ProvidedTimings = () => {
-  const templateColumns = useMobileValue(['1fr', '70px 1fr 100px'])
+  const templateColumns = useMobileValue(['1fr', '70px 1fr minmax(10rem, max-content)'])
+  const margin = useMobileValue(['', '10'])
   const history = useHistory()
 
   const dashboardSbes = useSelector(selectDashboard)
@@ -39,13 +40,20 @@ const ProvidedTimings = () => {
     <Grid
       templateColumns={templateColumns}
       alignContent={'start'}
+      alignItems={'start'}
       gap={'1rem'}
       bg={'white'}
       spacing={4}
-      p="3"
+      p="5"
+      position={'sticky'}
+      top={'5vh'}
     >
-      <Box>
-        <Attribute code={mentorTimings} attribute="_LNK_MENTOR__PRI_USER_PROFILE_PICTURE" />
+      <Box mt={margin}>
+        <Attribute
+          config={{ w: '70px', h: '70px' }}
+          code={mentorTimings}
+          attribute="_LNK_MENTOR__PRI_USER_PROFILE_PICTURE"
+        />
       </Box>
 
       <DetailCards
@@ -55,7 +63,7 @@ const ProvidedTimings = () => {
         shadow={'none'}
       />
 
-      <Grid>
+      <Grid mt={margin} gap={'1rem'} alignItems={'start'} justifyContent={'start'}>
         <Box
           onClick={() => onSelect('PRI_PRIMARY_AVAILABILITY')}
           paddingBlock={2}
@@ -64,6 +72,10 @@ const ProvidedTimings = () => {
           border={'1px'}
           borderRadius={'0.5rem'}
           borderColor={'orange.400'}
+          cursor={'pointer'}
+          _hover={{
+            bg: 'orange.400',
+          }}
         >
           <Flex>
             <FontAwesomeIcon color={'#fc825c'} icon={faCalendarDay} />
@@ -82,6 +94,10 @@ const ProvidedTimings = () => {
           border={'1px'}
           borderRadius={'0.5rem'}
           borderColor={'orange.400'}
+          cursor={'pointer'}
+          _hover={{
+            bg: 'orange.400',
+          }}
         >
           <Flex>
             <FontAwesomeIcon color={'#fc825c'} icon={faCalendarDay} />
@@ -100,6 +116,10 @@ const ProvidedTimings = () => {
           border={'1px'}
           borderRadius={'0.5rem'}
           borderColor={'orange.400'}
+          cursor={'pointer'}
+          _hover={{
+            bg: 'orange.400',
+          }}
         >
           <Flex>
             <FontAwesomeIcon color={'#fc825c'} icon={faCalendarDay} />

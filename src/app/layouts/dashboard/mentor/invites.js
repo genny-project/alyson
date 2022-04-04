@@ -44,7 +44,7 @@ const Invites = ({ setShowDetailView, setCurrentMentee }) => {
   if (agreeToMentor) {
     return (
       <>
-        <DashboardMessages />
+        <DashboardMessages labelCode={'LAB_REJECT_MENTEE'} />
       </>
     )
   }
