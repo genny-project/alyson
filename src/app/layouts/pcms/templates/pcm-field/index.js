@@ -10,11 +10,12 @@ const PcmField = ({ code, ...props }) => {
   const splitArr = split('_')(code)
 
   var prefix
-  var suffix
+  /// Suffix could be used in that question group idea jasper was discussing
+  //var suffix
 
   if (splitArr.length > 1) {
     prefix = splitArr[0]
-    suffix = splitArr[splitArr.length - 1]
+    //suffix = splitArr[splitArr.length - 1]
   }
 
   if (prefix === 'PCM') {

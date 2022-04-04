@@ -4,8 +4,10 @@ import TemplateVert from './templates/template-vert'
 import { includes, reduce, find } from 'ramda'
 import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
-import TemplateSidebar from './templates/template-sidebar'
+import TemplateSidebarOne from './templates/template-sidebar-one'
 import TemplateHeader from './templates/template-header'
+
+import { CircularProgress } from '@chakra-ui/react'
 
 const Pcms = ({ code }) => {
   const allPcmCode = useSelector(selectCode(`PCMINFORMATION`)) || []
@@ -22,12 +24,12 @@ const Pcms = ({ code }) => {
   if (templateCode === 'TPL_ROOT') {
     return <TemplateRoot mappedPcm={mappedPcm} />
   } else if (!templateCode && code === 'PCM_ROOT') {
-    return <TemplateRoot mappedPcm={mappedPcm} />
+    return <CircularProgress mt="5" isIndeterminate />
   } else if (templateCode === 'TPL_VERT') {
     return <TemplateVert mappedPcm={mappedPcm} />
-  } else if (templateCode === 'TPL_SIDEBAR' || templateCode === 'TPL_WEST') {
-    return <TemplateSidebar mappedPcm={mappedPcm} />
-  } else if (templateCode === 'TPL_HEADER' || templateCode === 'TPL_NORTH') {
+  } else if (templateCode === 'TPL_SIDEBAR_1' || templateCode === 'TPL_WEST') {
+    return <TemplateSidebarOne mappedPcm={mappedPcm} />
+  } else if (templateCode === 'TPL_HEADER_1' || templateCode === 'TPL_NORTH') {
     return <TemplateHeader mappedPcm={mappedPcm} />
   } else {
     return <TemplateDefault mappedPcm={mappedPcm} />

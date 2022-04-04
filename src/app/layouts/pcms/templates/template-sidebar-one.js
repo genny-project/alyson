@@ -1,13 +1,12 @@
 import { VStack } from '@chakra-ui/react'
-import { SIDEBAR_QUESTION_CODE } from 'utils/constants'
 import { reduce } from 'ramda'
 
 import SidebarButtons from 'app/layouts/display/sidebar/buttons/SidebarButtons'
 import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
 
-const TemplateSidebar = () => {
-  const questionCode = SIDEBAR_QUESTION_CODE
+const TemplateSidebarOne = ({ mappedPcm }) => {
+  const questionCode = mappedPcm.PRI_LOC1
   const data = useSelector(selectCode(questionCode))
   const wholeData = useSelector(selectCode(questionCode, 'wholeData'))
 
@@ -34,4 +33,4 @@ const TemplateSidebar = () => {
   )
 }
 
-export default TemplateSidebar
+export default TemplateSidebarOne
