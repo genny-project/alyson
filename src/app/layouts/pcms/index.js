@@ -29,12 +29,11 @@ const Pcms = ({ code }) => {
   }
 
   /// Shows the root template while the page is loading. Don't like this much though
-  if (templateCode === undefined && code === 'PCM_ROOT') {
+  if (!templateCode && code === 'PCM_ROOT') {
     templateCode = 'TPL_ROOT'
   }
 
   if (!has(templateCode)(fromCode)) {
-    console.log('Unknown template ' + templateCode)
     templateCode = 'TPL_DEFAULT'
   }
 

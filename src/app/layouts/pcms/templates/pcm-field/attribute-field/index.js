@@ -5,8 +5,6 @@ import { Image } from '@chakra-ui/react'
 const AttributeField = ({ code, ...props }) => {
   const dataType = useSelector(selectCode(code))
 
-  console.log('FOUND FROM CODE ' + dataType + ' ' + props.htmlWidth)
-
   var valueString = useSelector(selectCode(props.entityCode, code))?.valueString
 
   switch (dataType) {

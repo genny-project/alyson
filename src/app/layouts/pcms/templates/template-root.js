@@ -33,11 +33,8 @@ const TemplateRoot = ({ mappedPcm }) => {
 
   var primaryColour = useSelector(selectCode('PRJ_' + appName, 'PRI_COLOR'))?.valueString
   if (primaryColour === undefined) {
-    console.log('Primary Color was undefined! for PRJ_' + appName + ' ' + realm)
     primaryColour = '#224371'
   }
-
-  console.log('Colour = ' + primaryColour)
 
   return (
     <Box position={'relative'} h={'100%'}>
