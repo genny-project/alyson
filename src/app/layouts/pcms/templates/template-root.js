@@ -30,7 +30,7 @@ const TemplateRoot = ({ mappedPcm }) => {
   const { realm } = apiConfig
   const appName = convertToUppercase(realm)
 
-  var primaryColour = useSelector(selectCode('PRJ_' + appName, 'PRI_COLOR'))?.valueString
+  var primaryColour = useSelector(selectCode('PRJ_' + appName, 'PRI_COLOR_SURFACE'))?.valueString
   if (primaryColour === undefined) {
     primaryColour = '#224371'
   }

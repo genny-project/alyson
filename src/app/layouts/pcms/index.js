@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux'
 import TemplateSidebarOne from './templates/template-sidebar-one'
 import TemplateHeader from './templates/template-header'
 
-import { CircularProgress } from '@chakra-ui/react'
+import { CircularProgress, Center } from '@chakra-ui/react'
 
 const Pcms = ({ code }) => {
   const allPcmCode = useSelector(selectCode(`PCMINFORMATION`)) || []
@@ -24,7 +24,11 @@ const Pcms = ({ code }) => {
   if (templateCode === 'TPL_ROOT') {
     return <TemplateRoot mappedPcm={mappedPcm} />
   } else if (!templateCode && code === 'PCM_ROOT') {
-    return <CircularProgress mt="5" isIndeterminate />
+    return (
+      <Center>
+        <CircularProgress mt="5" isIndeterminate />
+      </Center>
+    )
   } else if (templateCode === 'TPL_VERT') {
     return <TemplateVert mappedPcm={mappedPcm} />
   } else if (templateCode === 'TPL_SIDEBAR_1' || templateCode === 'TPL_WEST') {
