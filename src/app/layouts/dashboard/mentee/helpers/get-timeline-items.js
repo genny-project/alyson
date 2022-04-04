@@ -18,7 +18,9 @@ const useGetMenteeTimelineItems = () => {
   } = useGetMenteeInformation()
 
   const isSelectionCompleted =
-    equals(menteeStatus, 'MATCHED') || equals(selectMentorStatus, 'COMPLETE')
+    equals(menteeStatus, 'INVITED') ||
+    equals(menteeStatus, 'MATCHED') ||
+    equals(selectMentorStatus, 'COMPLETE')
       ? 'COMPLETE'
       : 'INCOMPLETE'
 

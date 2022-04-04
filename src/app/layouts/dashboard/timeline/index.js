@@ -19,6 +19,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import convertToUppercase from 'utils/formatters/uppercase-convert'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { onSendMessage } from 'vertx'
+import { useMobileValue } from 'utils/hooks'
 
 const Timeline = ({ items }) => {
   let totalItems = length(items)
@@ -28,8 +29,10 @@ const Timeline = ({ items }) => {
 
   let timelineHeight = multiply(totalItems, 25)
 
+  const maxW = useMobileValue(['', '50vw'])
+
   return (
-    <HStack h={`${timelineHeight}vh`} w="50vw" position="relative" spacing={8} mb={5}>
+    <HStack w={'full'} h={`${timelineHeight}vh`} maxW={maxW} position="relative" spacing={8} mb={5}>
       <Box h="100%" w="1" background="silver">
         <Flex
           direction="column"
