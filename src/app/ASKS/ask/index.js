@@ -81,11 +81,20 @@ const Ask = ({
 
   const highlightedQuestion = useSelector(selectHighlightedQuestion)
   const labelWidth = useMobileValue(['full', '25vw'])
-
-  const dataTypeFromReduxStore = useSelector(selectCode(attributeCode)) || ''
-  const dataType = useSelector(selectCode(dataTypeFromReduxStore)) || ''
-  const description = useSelector(selectCode(`${attributeCode}@description`)) || ''
   const groupCode = getGroupCode(question) || parentCode
+
+  if (!question?.attribute) return null
+
+  const {
+    attribute: {
+      description,
+      dataType: { component = 'text', typeName },
+      dataType,
+    },
+    html,
+    helper,
+  } = question
+
   const regexPattern = pathOr(null, ['validationList', 0, 'regex'])(dataType)
   const errorMessage = pathOr('Please enter valid data', ['validationList', 0, 'errormsg'])(
     dataType,
@@ -93,9 +102,6 @@ const Ask = ({
   const dataValue = data?.value
 
   if (!question?.attribute) return null
-
-  const { html, helper } = question
-  const { component = forcedComponent || 'text', typeName } = dataType
 
   const feedback = data?.feedback
   const onSendAnswer = createSendAnswer(askData, { passedTargetCode })
