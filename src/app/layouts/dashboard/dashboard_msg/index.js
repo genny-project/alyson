@@ -7,30 +7,22 @@ import React from 'react'
 import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
 
-const TemplateOne = ({ mappedPcm }) => {
+const TemplateOne = ({ mappedPcm, labelCode }) => {
   const { PRI_LOC1, PRI_LOC2 } = mappedPcm
 
   return (
     <Box>
       <Card position="sticky" top="5vh">
         <VStack alignItems={'start'} spacing={7} paddingRight={10}>
-          <Attribute
-            config={{ textStyle: 'head.1' }}
-            code="LAB_REJECT_MENTEE"
-            attribute={PRI_LOC1}
-          />
-          <Attribute
-            config={{ textStyle: 'head.2' }}
-            code="LAB_REJECT_MENTEE"
-            attribute={PRI_LOC2}
-          />
+          <Attribute config={{ textStyle: 'head.1' }} code={labelCode} attribute={PRI_LOC1} />
+          <Attribute config={{ textStyle: 'head.2' }} code={labelCode} attribute={PRI_LOC2} />
         </VStack>
       </Card>
     </Box>
   )
 }
 
-const DashboardMessages = () => {
+const DashboardMessages = ({ labelCode }) => {
   const allPcmCode = useSelector(selectCode(`PCMINFORMATION`))
   const messagesPcmCode = find(includes('_LABEL'))(allPcmCode)
   const messagesPcm = useSelector(selectCode(messagesPcmCode, 'allAttributes'))
@@ -43,7 +35,7 @@ const DashboardMessages = () => {
   const { PRI_TEMPLATE_CODE: code } = mappedPcm
 
   if (code === 'TPL_LABEL') {
-    return <TemplateOne mappedPcm={mappedPcm} />
+    return <TemplateOne mappedPcm={mappedPcm} labelCode={labelCode} />
   }
 }
 

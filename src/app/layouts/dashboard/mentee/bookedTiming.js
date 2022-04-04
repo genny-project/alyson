@@ -9,29 +9,39 @@ import { useMobileValue } from 'utils/hooks'
 
 const BookedTiming = ({ mentorCode }) => {
   const templateColumns = useMobileValue(['1fr', '70px 1fr 100px'])
+  const margin = useMobileValue(['', '10'])
 
   return (
     <Grid
       templateColumns={templateColumns}
       alignContent={'start'}
+      alignItems={'start'}
       gap={'1rem'}
       bg={'white'}
       spacing={4}
-      p="3"
+      p="5"
+      position={'sticky'}
+      top={'5vh'}
     >
-      <Box>
-        <Attribute code={mentorCode} attribute="_LNK_MENTOR__PRI_USER_PROFILE_PICTURE" />
+      <Box mt={margin}>
+        <Attribute
+          config={{ w: '70px', h: '70px' }}
+          code={mentorCode}
+          attribute="_LNK_MENTOR__PRI_USER_PROFILE_PICTURE"
+        />
       </Box>
 
       <DetailCards detailsection={mentorInfo} currentMentor={mentorCode} miniCard shadow={'none'} />
 
       <Box
+        mt={margin}
         paddingBlock={2}
         paddingInline={3}
         bg={'orange.100'}
         border={'1px'}
         borderRadius={'0.5rem'}
         borderColor={'orange.400'}
+        cursor={'pointer'}
       >
         <Flex>
           <FontAwesomeIcon color={'#fc825c'} icon={faCalendarDay} />
