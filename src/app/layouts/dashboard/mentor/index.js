@@ -1,3 +1,4 @@
+import DashboardMessages from '../dashboard_msg'
 import DetailView from './detailView'
 import { Grid } from '@chakra-ui/layout'
 import Invites from './invites'
@@ -24,6 +25,8 @@ const MentorDashboard = () => {
         <Meetings mentorStatus={mentorStatus} />
       ) : showDetailView && currentMentee ? (
         <DetailView setShowDetailView={setShowDetailView} currentMentee={currentMentee} />
+      ) : mentorStatus === 'AVAILABLE' ? (
+        <DashboardMessages labelCode={'LAB_MENTOR_TRAINING_COMPLETE'} />
       ) : mentorStatus === 'INVITED' ? (
         <Invites setShowDetailView={setShowDetailView} setCurrentMentee={setCurrentMentee} />
       ) : (
