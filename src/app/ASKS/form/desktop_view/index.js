@@ -11,7 +11,7 @@ const FormDesktopView = ({ title, onFinish, questionCode, childAsks, config = {}
   if (!groups.length)
     return (
       <Center>
-        <Card w={title === 'Agent' ? '50%':'full'} maxW={'75rem'} shadow={'md'}>
+        <Card maxW={'75rem'} shadow={'md'}>
           <VStack align="start" spacing={8}>
             <Text textStyle="head.2">{title}</Text>
             {config?.subHeader && <Text textStyle="body.3">{config.subHeader}</Text>}
