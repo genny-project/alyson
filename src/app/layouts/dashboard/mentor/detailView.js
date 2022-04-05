@@ -1,14 +1,4 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Grid,
-  HStack,
-  Text,
-  useColorModeValue,
-  useToast,
-} from '@chakra-ui/react'
-import { faCheckCircle, faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons'
+import { Box, Button, Flex, Grid, useColorModeValue } from '@chakra-ui/react'
 import {
   menteeInviteePersonalDetails,
   menteeInviteePreference,
@@ -18,35 +8,12 @@ import {
 import DetailCards from 'app/layouts/components/detail_card'
 import DetailHeader from 'app/layouts/components/detail_header'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons'
 import { onSendMessage } from 'vertx'
 
 const DetailView = ({ setShowDetailView, currentMentee }) => {
   const bg = useColorModeValue('gray.100', 'gray.700')
-  const toast = useToast()
-  const sendToast = () =>
-    toast({
-      duration: 9000,
-      isClosable: true,
-      position: 'top-right',
-      render: () => (
-        <HStack
-          paddingBlock={5}
-          paddingInline={6}
-          bg="success.100"
-          borderWidth={'1px'}
-          borderColor={'success.500'}
-          borderRadius={'lg'}
-        >
-          <FontAwesomeIcon color="#00AFAB" icon={faCheckCircle} size="lg" />
-          <Box>
-            <Text variant="head.3" color="text.light">
-              {`Invitation Sent!`}
-            </Text>
-            <Text>{'We will notify you once the Mentor has accepted your invitation.'}</Text>
-          </Box>
-        </HStack>
-      ),
-    })
+
   return (
     <Flex
       w="50vw"
@@ -101,10 +68,11 @@ const DetailView = ({ setShowDetailView, currentMentee }) => {
           onClick={() => {
             onSendMessage({ code: 'ACT_MENTOR_AGREE_TO_MENTOR', parentCode: currentMentee })
             setShowDetailView(false)
-            sendToast()
           }}
           test-id={`ACT_MENTOR_AGREE_TO_MENTOR`}
-        >{`Accept Invitation`}</Button>
+        >
+          {`Accept Invitation`}
+        </Button>
       </Box>
     </Flex>
   )
