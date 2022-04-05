@@ -24,8 +24,6 @@ const MentorDashboard = () => {
   const labelSbes = find(includes('_LABEL'))(dashboardSbes)
   const labelCode = useSelector(selectCode(labelSbes, 'PRI_CODE'))?.value
 
-  console.log(labelSbes)
-
   const templateColumns = useMobileValue(['1fr', 'minmax(35rem, 1fr) 1fr'])
 
   return (
