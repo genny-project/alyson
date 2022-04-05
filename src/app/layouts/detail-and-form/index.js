@@ -24,7 +24,7 @@ const DetailForm = () => {
       maxW={'80rem'}
     >
       <Box>
-        <Form adjacent />
+        <Form adjacent layout={'detailForm'} />
       </Box>
       <DetailView beCode={menteeCode} />
     </Grid>
