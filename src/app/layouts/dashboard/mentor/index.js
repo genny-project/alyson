@@ -24,10 +24,12 @@ const MentorDashboard = () => {
   const labelSbes = find(includes('_LABEL'))(dashboardSbes)
   const labelCode = useSelector(selectCode(labelSbes, 'PRI_CODE'))?.value
 
+  console.log(labelSbes)
+
   const templateColumns = useMobileValue(['1fr', 'minmax(35rem, 1fr) 1fr'])
 
   return (
-    <Grid paddingX="10" gap={'1rem'} templateColumns={templateColumns}>
+    <Grid paddingX="10" gap={'1rem'} templateColumns={templateColumns} alignItems={'start'}>
       <Timeline items={items} />
 
       {mentorStatus === 'MENTORING' || mentorStatus === 'MATCHED' ? (
