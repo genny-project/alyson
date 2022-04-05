@@ -1,12 +1,17 @@
+import { find, includes } from 'ramda'
+
 import DashboardMessages from '../dashboard_msg'
 import DetailView from './detailView'
 import { Grid } from '@chakra-ui/layout'
 import Invites from './invites'
 import Meetings from './meetings'
 import Timeline from 'app/layouts/dashboard/timeline'
+import { selectCode } from 'redux/db/selectors'
+import { selectDashboard } from 'redux/app/selectors'
 import useGetMentorInformation from './helpers/get-mentor-information'
 import useGetMentorTimelineItems from 'app/layouts/dashboard/mentor/helpers/get-timeline-items'
 import { useMobileValue } from 'utils/hooks'
+import { useSelector } from 'react-redux'
 import { useState } from 'react'
 
 const MentorDashboard = () => {
@@ -14,6 +19,10 @@ const MentorDashboard = () => {
   const { mentorStatus } = useGetMentorInformation()
   const [showDetailView, setShowDetailView] = useState(false)
   const [currentMentee, setCurrentMentee] = useState(null)
+
+  const dashboardSbes = useSelector(selectDashboard)
+  const labelSbes = find(includes('_LABEL'))(dashboardSbes)
+  const labelCode = useSelector(selectCode(labelSbes, 'PRI_CODE'))?.value
 
   const templateColumns = useMobileValue(['1fr', 'minmax(35rem, 1fr) 1fr'])
 
@@ -25,8 +34,8 @@ const MentorDashboard = () => {
         <Meetings mentorStatus={mentorStatus} />
       ) : showDetailView && currentMentee ? (
         <DetailView setShowDetailView={setShowDetailView} currentMentee={currentMentee} />
-      ) : mentorStatus === 'AVAILABLE' ? (
-        <DashboardMessages labelCode={'LAB_MENTOR_TRAINING_COMPLETE'} />
+      ) : mentorStatus === 'AVAILABLE' || labelCode ? (
+        <DashboardMessages labelCode={labelCode} />
       ) : mentorStatus === 'INVITED' ? (
         <Invites setShowDetailView={setShowDetailView} setCurrentMentee={setCurrentMentee} />
       ) : (
