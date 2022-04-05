@@ -20,7 +20,7 @@ const MentorDashboard = () => {
     <Grid paddingX="10" gap={'1rem'} templateColumns={templateColumns}>
       <Timeline items={items} />
 
-      {mentorStatus === 'ACCEPTED' || mentorStatus === 'MATCHED' ? (
+      {mentorStatus === 'MENTORING' || mentorStatus === 'MATCHED' ? (
         <Meetings mentorStatus={mentorStatus} />
       ) : showDetailView && currentMentee ? (
         <DetailView setShowDetailView={setShowDetailView} currentMentee={currentMentee} />
