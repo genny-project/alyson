@@ -1,5 +1,5 @@
 import { Box, Grid } from '@chakra-ui/layout'
-import { equals, find, includes } from 'ramda'
+import { equals, find, includes, not } from 'ramda'
 import { selectCode, selectRows } from 'redux/db/selectors'
 
 import AlumniPage from 'app/layouts/dashboard/mentee/alumni'
@@ -41,9 +41,7 @@ const MenteeDashboard = () => {
   return (
     <Grid templateColumns={templateColumns} alignItems={'start'} paddingX="10">
       <Timeline items={items} />
-      {isMentorSelected && !isMeetingCompleted ? (
-        <Meetings />
-      ) : equals('INVITED', menteeStatus) && (labelCode || invitedMentors) ? (
+      {equals('INVITED', menteeStatus) && (labelCode || invitedMentors) ? (
         <Box>
           {labelCode && <DashboardMessages labelCode={labelCode} />}
           {invitedMentors && (
@@ -52,6 +50,10 @@ const MenteeDashboard = () => {
         </Box>
       ) : equals('PENDING_SELECT_DATE', menteeStatus) ? (
         <ProvidedTimings />
+      ) : labelCode === 'LAB_INVITE_SENT' && not(equals('MENTORING', menteeStatus)) ? (
+        <DashboardMessages labelCode={labelCode} />
+      ) : isMentorSelected && !isMeetingCompleted ? (
+        <Meetings />
       ) : showDetailView && isTrainingCompleted && currentMentor ? (
         <DetailView setShowDetailView={setShowDetailView} currentMentor={currentMentor} />
       ) : isTrainingCompleted && !isMentorSelected ? (
