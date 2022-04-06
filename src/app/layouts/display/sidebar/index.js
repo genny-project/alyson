@@ -1,11 +1,13 @@
 import { Center, VStack } from '@chakra-ui/react'
 import { SIDEBAR_QUESTION_CODE, SIDEBAR_WIDTH } from 'utils/constants'
-import { find, includes, reduce } from 'ramda'
+import { reduce } from 'ramda'
 
 import SidebarButtons from 'app/layouts/display/sidebar/buttons/SidebarButtons'
 import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
 import templateHandlerMachine from 'app/PCM/templates'
+import useGetMappedPcm from 'app/PCM/helpers/get-mapped-pcm'
+import isNotEmpty from 'utils/helpers/is-not-empty.js'
 
 const DefaultTemplate = ({ questionCode, listOfQuestionCode, mappedIconAndQuestionCode }) => {
   return (
@@ -36,21 +38,14 @@ const SideBar = () => {
 
   const listOfQuestionCode = Object.keys(mappedIconAndQuestionCode)
 
-  const allPcmCode = useSelector(selectCode(`PCMINFORMATION`)) || []
-  const sidebarPcmCode = find(includes('_SIDEBAR'))(allPcmCode)
-
-  const sidebarPcm = useSelector(selectCode(sidebarPcmCode, 'allAttributes'))
-  const mappedPcm = reduce((acc, { attributeCode, valueString }) => {
-    acc = { ...acc, [attributeCode]: valueString }
-    return acc
-  }, {})(sidebarPcm || [])
+  const mappedPcm = useGetMappedPcm('_SIDEBAR')
 
   const { PRI_TEMPLATE_CODE: code } = mappedPcm
   const properties = { questionCode, mappedPcm, mappedIconAndQuestionCode, listOfQuestionCode }
 
   if (!data) return null
 
-  if (sidebarPcm) {
+  if (isNotEmpty(mappedPcm)) {
     return templateHandlerMachine(code)(properties)
   }
 
