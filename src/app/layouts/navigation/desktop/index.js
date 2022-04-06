@@ -21,7 +21,7 @@ import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
 import { apiConfig } from 'config/get-api-config'
 import { LOGO_WIDTH } from 'utils/constants'
-import { TemplateNorth } from 'app/PCM/templates'
+import templateHandlerMachine from 'app/PCM/templates'
 
 const DefaultTemplate = ({ bg, color, logoSrc }) => {
   return (
@@ -95,7 +95,7 @@ const DesktopNav = ({ logoSrc }) => {
   const properties = { bg, color, mappedPcm, logoSrc }
 
   if (headerPcm) {
-    if (code === 'TPL_NORTH') return <TemplateNorth {...properties} />
+    return templateHandlerMachine(code)(properties)
   }
 
   return <DefaultTemplate {...properties} />

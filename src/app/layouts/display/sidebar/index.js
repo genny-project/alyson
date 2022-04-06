@@ -5,7 +5,7 @@ import { find, includes, reduce } from 'ramda'
 import SidebarButtons from 'app/layouts/display/sidebar/buttons/SidebarButtons'
 import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
-import { TemplateWest } from 'app/PCM/templates'
+import templateHandlerMachine from 'app/PCM/templates'
 
 const DefaultTemplate = ({ questionCode, listOfQuestionCode, mappedIconAndQuestionCode }) => {
   return (
@@ -51,7 +51,7 @@ const SideBar = () => {
   if (!data) return null
 
   if (sidebarPcm) {
-    if (code === 'TPL_WEST') return <TemplateWest {...properties} />
+    return templateHandlerMachine(code)(properties)
   }
 
   return <DefaultTemplate {...properties} />
