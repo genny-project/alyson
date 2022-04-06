@@ -46,27 +46,15 @@ const SideBar = () => {
   }, {})(sidebarPcm || [])
 
   const { PRI_TEMPLATE_CODE: code } = mappedPcm
+  const properties = { questionCode, mappedPcm, mappedIconAndQuestionCode, listOfQuestionCode }
 
   if (!data) return null
 
   if (sidebarPcm) {
-    if (code === 'TPL_WEST')
-      return (
-        <TemplateWest
-          questionCode={questionCode}
-          mappedPcm={mappedPcm}
-          mappedIconAndQuestionCode={mappedIconAndQuestionCode}
-        />
-      )
+    if (code === 'TPL_WEST') return <TemplateWest {...properties} />
   }
 
-  return (
-    <DefaultTemplate
-      questionCode={questionCode}
-      listOfQuestionCode={listOfQuestionCode}
-      mappedIconAndQuestionCode={mappedIconAndQuestionCode}
-    />
-  )
+  return <DefaultTemplate {...properties} />
 }
 
 export default SideBar

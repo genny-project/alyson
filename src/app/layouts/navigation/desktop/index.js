@@ -92,13 +92,13 @@ const DesktopNav = ({ logoSrc }) => {
   }, {})(headerPcm || [])
 
   const { PRI_TEMPLATE_CODE: code } = mappedPcm
+  const properties = { bg, color, mappedPcm, logoSrc }
 
   if (headerPcm) {
-    if (code === 'TPL_NORTH')
-      return <TemplateNorth bg={bg} color={color} mappedPcm={mappedPcm} logoSrc={logoSrc} />
+    if (code === 'TPL_NORTH') return <TemplateNorth {...properties} />
   }
 
-  return <DefaultTemplate bg={bg} color={color} logoSrc={logoSrc} />
+  return <DefaultTemplate {...properties} />
 }
 
 export default DesktopNav
