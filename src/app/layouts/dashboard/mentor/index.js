@@ -26,6 +26,8 @@ const MentorDashboard = () => {
 
   const templateColumns = useMobileValue(['1fr', 'minmax(35rem, 1fr) 1fr'])
 
+  console.log(mentorStatus, labelCode)
+
   return (
     <Grid paddingX="10" gap={'1rem'} templateColumns={templateColumns}>
       <Timeline items={items} />
@@ -34,7 +36,9 @@ const MentorDashboard = () => {
         <Meetings mentorStatus={mentorStatus} />
       ) : showDetailView && currentMentee ? (
         <DetailView setShowDetailView={setShowDetailView} currentMentee={currentMentee} />
-      ) : mentorStatus === 'AVAILABLE' || labelCode ? (
+      ) : mentorStatus === 'AVAILABLE' && labelCode ? (
+        <DashboardMessages labelCode={labelCode} />
+      ) : labelCode ? (
         <DashboardMessages labelCode={labelCode} />
       ) : mentorStatus === 'INVITED' ? (
         <Invites setShowDetailView={setShowDetailView} setCurrentMentee={setCurrentMentee} />
