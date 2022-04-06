@@ -1,9 +1,7 @@
-import { Box, Flex, Grid } from '@chakra-ui/react'
+import { Box, Grid, Text } from '@chakra-ui/react'
 
 import Attribute from '../../../BE/attribute/index'
 import DetailCards from 'app/layouts/components/detail_card'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCalendarDay } from '@fortawesome/free-solid-svg-icons'
 import { menteeInfo } from 'app/layouts/dashboard/timeline/templates/CardContent'
 import { useMobileValue } from 'utils/hooks'
 
@@ -43,21 +41,20 @@ const BookedByMentee = ({ menteeCode }) => {
         mt={margin}
         paddingBlock={2}
         paddingInline={3}
-        bg={'orange.100'}
-        border={'1px'}
+        bg={'orange.600'}
         borderRadius={'0.5rem'}
-        borderColor={'orange.400'}
         cursor={'pointer'}
         justifySelf={'start'}
+        color={'text.dark'}
+        textAlign={'center'}
       >
-        <Flex>
-          <FontAwesomeIcon color={'#fc825c'} icon={faCalendarDay} />
-          <Attribute
-            config={{ minW: 'inherit', ml: '0.5rem' }}
-            code={menteeCode}
-            attribute={'PRI_MEET_AND_GREET_TIME'}
-          />
-        </Flex>
+        <Text>{'Meet & Greet Booked'}</Text>
+
+        <Attribute
+          config={{ minW: 'inherit', ml: '0.5rem' }}
+          code={menteeCode}
+          attribute={'PRI_MEET_AND_GREET_TIME'}
+        />
       </Box>
     </Grid>
   )
