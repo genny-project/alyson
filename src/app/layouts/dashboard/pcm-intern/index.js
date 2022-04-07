@@ -1,5 +1,5 @@
 import { Box, HStack, Text, VStack, Stack } from '@chakra-ui/layout'
-import { Flex, Progress, Spacer, Divider, Center } from '@chakra-ui/react'
+import { Flex, Progress, Spacer, Divider, Image } from '@chakra-ui/react'
 import { Button } from '@chakra-ui/button'
 import { useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -16,64 +16,90 @@ import Card from 'app/layouts/components/card'
 
 const Intern = ({ userCode }) => {
   const profileCompletedPercentage = 30
-
-  const [firstnameValue, occ, status] = useSelector(
-    selectAttributes(userCode, ['PRI_FIRSTNAME', 'PRI_ASSOC_OCCUPATION', 'PRI_STATUS']),
+  const [firstnameInfo, associatedAgentInfo, status] = useSelector(
+    selectAttributes(userCode, ['PRI_FIRSTNAME', 'PRI_AGENT_NAME', 'PRI_STATUS']),
   )
 
-  const firstName = toUpper(firstnameValue?.value) || ''
+  console.log('associatedAgent====>', associatedAgentInfo)
+
+  const firstName = toUpper(firstnameInfo?.value) || ''
+  const associatedAgent = associatedAgentInfo.value
 
   return (
-    <VStack marginLeft="72px" spacing="5" alignItems="flex-start" w="790px">
-      <Text fontFamily="Roboto" fontWeight="700" fontSize="36px" color="#234371">
-        {`WELCOME ${firstName}`}
-      </Text>
+    <VStack alignItems="flex-start" spacing="10">
+      <VStack marginLeft="72px" spacing="5" alignItems="flex-start" w="790px">
+        <Text fontFamily="Roboto" fontWeight="700" fontSize="36px" color="#234371">
+          {`WELCOME ${firstName}`}
+        </Text>
 
-      <VStack alignItems="flex-start" w="inherit">
-        <Progress
-          value={profileCompletedPercentage}
-          w="inherit"
-          h="13px"
-          borderRadius="13px"
-          colorScheme="teal"
-        />
-        <HStack w="inherit">
-          <Text
-            fontFamily="Roboto"
-            fontWeight="500"
-            fontSize="10px"
-            color="#00AFAC"
-          >{`EDIT YOUR PROFILE`}</Text>
-          <Spacer />
-          <Text
-            fontFamily="Roboto"
-            fontWeight="500"
-            fontSize="10px"
-            color="#00AFAC"
-          >{`PREVIEW YOUR PROFILE`}</Text>
-        </HStack>
-      </VStack>
+        <VStack w="inherit">
+          <Progress
+            value={profileCompletedPercentage}
+            w="inherit"
+            h="13px"
+            borderRadius="13px"
+            colorScheme="teal"
+          />
+          <HStack w="inherit">
+            <Text
+              fontFamily="Roboto"
+              fontWeight="500"
+              fontSize="10px"
+              color="#00AFAC"
+              cursor="pointer"
+            >{`EDIT YOUR PROFILE`}</Text>
+            <Spacer />
+            <Text
+              fontFamily="Roboto"
+              fontWeight="500"
+              fontSize="10px"
+              color="#00AFAC"
+              cursor="pointer"
+            >{`PREVIEW YOUR PROFILE`}</Text>
+          </HStack>
+        </VStack>
 
-      <Flex border="1px solid #808080" borderRadius="15px" w="inherit" h="80px">
-        <VStack flexGrow="1" justifyContent="center" spacing="0">
-          <Text fontFamily="Roboto" fontWeight="400" fontSize="24px" color="#00AFAB">{`35`}</Text>
+        <Flex border="1px solid #808080" borderRadius="15px" w="inherit" h="80px">
+          <VStack flexGrow="1" justifyContent="center" spacing="0">
+            <Text fontFamily="Roboto" fontWeight="400" fontSize="24px" color="#00AFAB">{`35`}</Text>
+            <Text
+              fontFamily="Roboto"
+              fontWeight="400"
+              fontSize="16px"
+            >{`Internships suitable for you`}</Text>
+          </VStack>
+          <Divider orientation="vertical" />
+          <VStack flexGrow="1" justifyContent="center" spacing="0">
+            <Text fontFamily="Roboto" fontWeight="400" fontSize="24px" color="#00AFAB">{`0`}</Text>
+            <Text
+              fontFamily="Roboto"
+              fontWeight="400"
+              fontSize="16px"
+            >{`Pending Applications`}</Text>
+          </VStack>
+          <Divider orientation="vertical" />
+          <VStack flexGrow="1" justifyContent="center" spacing="0">
+            <Text fontFamily="Roboto" fontWeight="400" fontSize="24px" color="#00AFAB">{`0`}</Text>
+            <Text fontFamily="Roboto" fontWeight="400" fontSize="16px">{`Pending Interview`}</Text>
+          </VStack>
+        </Flex>
+
+        <HStack>
+          <Image
+            borderRadius="full"
+            boxSize="46px"
+            src="https://bit.ly/dan-abramov"
+            alt="Dan Abramov"
+          />
           <Text
             fontFamily="Roboto"
             fontWeight="400"
             fontSize="16px"
-          >{`Internships suitable for you`}</Text>
-        </VStack>
-        <Divider orientation="vertical" />
-        <VStack flexGrow="1" justifyContent="center" spacing="0">
-          <Text fontFamily="Roboto" fontWeight="400" fontSize="24px" color="#00AFAB">{`0`}</Text>
-          <Text fontFamily="Roboto" fontWeight="400" fontSize="16px">{`Pending Applications`}</Text>
-        </VStack>
-        <Divider orientation="vertical" />
-        <VStack flexGrow="1" justifyContent="center" spacing="0">
-          <Text fontFamily="Roboto" fontWeight="400" fontSize="24px" color="#00AFAB">{`0`}</Text>
-          <Text fontFamily="Roboto" fontWeight="400" fontSize="16px">{`Pending Interview`}</Text>
-        </VStack>
-      </Flex>
+          >{`Your Matchmaker is ${associatedAgent}`}</Text>
+        </HStack>
+      </VStack>
+
+      <Divider w="calc(100% - 150px)" alignSelf="center" borderColor="#808080" />
     </VStack>
   )
 
