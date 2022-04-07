@@ -10,18 +10,18 @@ import {
 } from '@chakra-ui/react'
 import { addItemsQuestionCode, dashboardViewQuestion } from 'utils/constants'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import { find, includes, reduce } from 'ramda'
 
 import AskMenu from 'app/ASKS/menu'
 import Avatar from '../Avatar'
 import Drafts from '../drafts/Drafts'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { onSendMessage } from 'vertx'
-import { selectCode } from 'redux/db/selectors'
-import { useSelector } from 'react-redux'
 import { apiConfig } from 'config/get-api-config'
 import { LOGO_WIDTH } from 'utils/constants'
 import templateHandlerMachine from 'app/PCM/templates'
+
+import useGetMappedPcm from 'app/PCM/helpers/get-mapped-pcm'
+import isNotEmpty from 'utils/helpers/is-not-empty.js'
 
 const DefaultTemplate = ({ bg, color, logoSrc }) => {
   return (
@@ -82,19 +82,12 @@ const DesktopNav = ({ logoSrc }) => {
   const bg = useColorModeValue('#F6F6F6', theme.colors.primary[900])
   const color = useColorModeValue(theme.colors.text.light, theme.colors.text.dark)
 
-  const allPcmCode = useSelector(selectCode(`PCMINFORMATION`)) || []
-  const headerPcmCode = find(includes('_HEADER'))(allPcmCode)
-
-  const headerPcm = useSelector(selectCode(headerPcmCode, 'allAttributes'))
-  const mappedPcm = reduce((acc, { attributeCode, valueString }) => {
-    acc = { ...acc, [attributeCode]: valueString }
-    return acc
-  }, {})(headerPcm || [])
+  const mappedPcm = useGetMappedPcm('_HEADER')
 
   const { PRI_TEMPLATE_CODE: code } = mappedPcm
   const properties = { bg, color, mappedPcm, logoSrc }
 
-  if (headerPcm) {
+  if (isNotEmpty(mappedPcm)) {
     return templateHandlerMachine(code)(properties)
   }
 
