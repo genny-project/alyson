@@ -86,16 +86,10 @@ const DesktopNav = ({ logoSrc }) => {
   const { PRI_TEMPLATE_CODE: code } = mappedPcm
   const properties = { bg, color, mappedPcm, logoSrc }
 
-  if (isNotEmpty(mappedPcm)) {
-    const template = templateHandlerMachine(code)(properties)
-    if (template) {
-      return template
-    } else {
-      console.error('Undefined template code: ' + code + '! Falling back on default')
-      return <DefaultTemplate {...properties} />
-    }
+  if (isNotEmpty(mappedPcm) && templateHandlerMachine(code)(properties)) {
+    return templateHandlerMachine(code)(properties)
   }
-
+  console.error('Falling back on default template for ' + code + '!')
   return <DefaultTemplate {...properties} />
 }
 

@@ -5,6 +5,8 @@ const templateHandlerMachine = templateCode => properties => {
   const listOfTemplates = {
     TPL_NORTH: <TemplateNorth {...properties} />,
     TPL_WEST: <TemplateWest {...properties} />,
+    //TPL_SIDEBAR_1: <TemplateWest {...properties} />,
+    //TPL_HEADER_1: <TemplateNorth {...properties} />,
   }
   return listOfTemplates[templateCode]
 }
