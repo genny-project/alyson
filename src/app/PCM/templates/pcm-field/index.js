@@ -20,10 +20,8 @@ const PcmField = ({ code, ...props }) => {
 
   if (prefix === 'PCM') {
     return <Pcm code={code} />
-  } else if (prefix === 'PRI') {
-    return <Attribute attribute={code} code={props.parentCode} {...props} />
   } else {
-    return <div>{code}</div>
+    return <Attribute attribute={code} code={props.parentCode} {...props} />
   }
 }
 
