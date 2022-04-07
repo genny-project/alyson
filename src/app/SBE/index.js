@@ -16,9 +16,12 @@ import Mentees from './display_modes/mentees'
 import { useGetRealm } from 'utils/hooks'
 
 const DisplaySbe = ({ sbeCode }) => {
+  const allSbe = useSelector(selectCode(sbeCode))
   const displayMode = useSelector(selectCode(sbeCode, 'SCH_DISPLAY_MODE'))
   const rows = useSelector(selectRows(sbeCode))
   const realm = useGetRealm()
+
+  console.log({ sbeCode, allSbe })
 
   if (!rows || !displayMode) return null
 

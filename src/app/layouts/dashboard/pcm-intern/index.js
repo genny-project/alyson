@@ -25,6 +25,7 @@ const Intern = ({ userCode }) => {
 
   const sendEventMessage = actionCode =>
     onSendMessage({
+      parentCode: userCode,
       targetCode: userCode,
       code: actionCode,
     })
