@@ -1,5 +1,5 @@
 import { Box, HStack, Text, VStack, Stack } from '@chakra-ui/layout'
-import { Progress } from '@chakra-ui/react'
+import { Flex, Progress, Spacer } from '@chakra-ui/react'
 import { Button } from '@chakra-ui/button'
 import { useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -15,6 +15,8 @@ import { useEffect } from 'react'
 import Card from 'app/layouts/components/card'
 
 const Intern = ({ userCode }) => {
+  const profileCompletedPercentage = 30
+
   const [firstnameValue, occ, status] = useSelector(
     selectAttributes(userCode, ['PRI_FIRSTNAME', 'PRI_ASSOC_OCCUPATION', 'PRI_STATUS']),
   )
@@ -22,15 +24,38 @@ const Intern = ({ userCode }) => {
   const firstName = toUpper(firstnameValue?.value) || ''
 
   return (
-    <Box marginLeft="72px">
+    <VStack marginLeft="72px" spacing="5" alignItems="flex-start">
       <Text
         fontFamily="Roboto"
         fontWeight="700"
         fontSize="36px"
         color="#234371"
       >{`WELCOME ${firstName}`}</Text>
-      <Progress value={80} w="790px" h="13px" borderRadius="13px" colorScheme="teal" />
-    </Box>
+      <VStack alignItems="flex-start" w="790px">
+        <Progress
+          value={profileCompletedPercentage}
+          w="inherit"
+          h="13px"
+          borderRadius="13px"
+          colorScheme="teal"
+        />
+        <HStack w="inherit">
+          <Text
+            fontFamily="Roboto"
+            fontWeight="500"
+            fontSize="10px"
+            color="#00AFAC"
+          >{`EDIT YOUR PROFILE`}</Text>
+          <Spacer />
+          <Text
+            fontFamily="Roboto"
+            fontWeight="500"
+            fontSize="10px"
+            color="#00AFAC"
+          >{`PREVIEW YOUR PROFILE`}</Text>
+        </HStack>
+      </VStack>
+    </VStack>
   )
 
   //   const dashboardSbes = useSelector(selectDashboard)
