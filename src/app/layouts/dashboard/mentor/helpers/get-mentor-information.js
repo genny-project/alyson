@@ -18,6 +18,7 @@ const useGetMentorInformation = () => {
   mentorStatus = convertToUppercase(mentorStatus)
 
   const isProfileCompleted = isComplete(profileStatus)
+  const isTrainingCompleted = isComplete(trainingStatus)
   const isStatusVerified = equals(mentorStatus, 'VERIFIED')
   const isMatchedStatus = equals(mentorStatus, 'MATCHED')
   const isInvitedStatus = equals(mentorStatus, 'INVITED')
@@ -30,6 +31,7 @@ const useGetMentorInformation = () => {
     isStatusVerified,
     isMatchedStatus,
     isInvitedStatus,
+    isTrainingCompleted,
   }
 }
 

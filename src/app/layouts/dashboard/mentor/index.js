@@ -1,4 +1,4 @@
-import { find, includes } from 'ramda'
+import { equals, find, includes, not } from 'ramda'
 
 import DashboardMessages from '../dashboard_msg'
 import DetailView from './detailView'
@@ -30,14 +30,16 @@ const MentorDashboard = () => {
     <Grid paddingX="10" gap={'1rem'} templateColumns={templateColumns} alignItems={'start'}>
       <Timeline items={items} />
 
-      {mentorStatus === 'MENTORING' || mentorStatus === 'MATCHED' ? (
+      {equals('MENTORING', mentorStatus) || equals('MATCHED', mentorStatus) ? (
         <Meetings mentorStatus={mentorStatus} />
       ) : showDetailView && currentMentee ? (
         <DetailView setShowDetailView={setShowDetailView} currentMentee={currentMentee} />
-      ) : mentorStatus === 'AVAILABLE' || labelCode ? (
+      ) : equals('AVAILABLE', mentorStatus) && labelCode ? (
         <DashboardMessages labelCode={labelCode} />
-      ) : mentorStatus === 'INVITED' ? (
+      ) : equals('INVITED', mentorStatus) && not(equals('LAB_MENTOR_MNG_ACCEPTED', labelCode)) ? (
         <Invites setShowDetailView={setShowDetailView} setCurrentMentee={setCurrentMentee} />
+      ) : labelCode ? (
+        <DashboardMessages labelCode={labelCode} />
       ) : (
         <></>
       )}

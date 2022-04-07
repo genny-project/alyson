@@ -1,4 +1,3 @@
-import { equals } from 'ramda'
 import { selectCode } from 'redux/db/selectors'
 import useGetMenteeInformation from './get-mentee-information'
 import { useSelector } from 'react-redux'
@@ -8,23 +7,15 @@ const useGetMenteeTimelineItems = () => {
   const {
     profileStatus,
     trainingStatus,
-    selectMentorStatus,
     meetingWithMentorStatus,
     isProfileCompleted,
     isTrainingCompleted,
     isMentorSelected,
     isMeetingCompleted,
     menteeStatus,
+    isPendingSelectDate,
+    selectMentorStatus,
   } = useGetMenteeInformation()
-
-  const isSelectionCompleted =
-    equals(menteeStatus, 'INVITED') ||
-    equals(menteeStatus, 'MATCHED') ||
-    equals(selectMentorStatus, 'COMPLETE')
-      ? 'COMPLETE'
-      : 'INCOMPLETE'
-
-  const isPendingSelectDate = equals(menteeStatus, 'PENDING_SELECT_DATE')
 
   const items = [
     {
@@ -54,8 +45,8 @@ const useGetMenteeTimelineItems = () => {
       title: 'Select Mentor',
       description: 'Choose the Mentor that suits you the most!',
       buttonText: isMentorSelected ? 'Mentor Selected' : 'Go to Mentor Selection',
-      completed: isSelectionCompleted,
-      isDisabled: !isTrainingCompleted || isMentorSelected || menteeStatus === 'MATCHED',
+      completed: selectMentorStatus,
+      isDisabled: !isTrainingCompleted || isMentorSelected,
       code: 'ACT_PRI_EVENT_SELECT_MENTOR',
       targetCode: userCode,
       invitationStatus: menteeStatus,
@@ -63,7 +54,7 @@ const useGetMenteeTimelineItems = () => {
     {
       title: 'Introductory Meeting with Mentor',
       description: 'Select one of the dates proposed by your potential mentor',
-      buttonText: isPendingSelectDate ? 'Select Date' : 'Date Selected',
+      buttonText: isPendingSelectDate ? 'Date Selected' : 'Select Date',
       completed: isPendingSelectDate ? 'INCOMPLETE' : 'COMPLETE',
       isDisabled: !isPendingSelectDate,
       targetCode: userCode,

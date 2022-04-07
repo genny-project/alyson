@@ -11,7 +11,7 @@ const TemplateOne = ({ mappedPcm, labelCode }) => {
   const { PRI_LOC1, PRI_LOC2 } = mappedPcm
 
   return (
-    <Box>
+    <Box mb={5}>
       <Card position="sticky" top="5vh">
         <VStack alignItems={'start'} spacing={7} paddingRight={10}>
           <Attribute config={{ textStyle: 'head.1' }} code={labelCode} attribute={PRI_LOC1} />
@@ -37,6 +37,8 @@ const DashboardMessages = ({ labelCode }) => {
   if (code === 'TPL_LABEL') {
     return <TemplateOne mappedPcm={mappedPcm} labelCode={labelCode} />
   }
+
+  return <TemplateOne mappedPcm={mappedPcm} labelCode={labelCode} />
 }
 
 export default DashboardMessages
