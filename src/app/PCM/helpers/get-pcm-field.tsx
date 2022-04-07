@@ -8,7 +8,7 @@ const getPcmField = (
 ) => {
   const splitArr: string[] = split('_')(code)
 
-  var prefix: string
+  let prefix: string
 
   if (splitArr.length >= 1) {
     prefix = splitArr[0]
@@ -20,6 +20,8 @@ const getPcmField = (
   if (prefix === 'PCM') {
     return <Pcm code={code} />
   } else {
+    ////
+
     if (prefix === 'EVT') {
       return (
         <EvtButton
