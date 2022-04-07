@@ -1,4 +1,4 @@
-import timeZone from 'utils/helpers/timezone_magic/time-zone-from-browser'
+// import timeZone from 'utils/helpers/timezone_magic/time-zone-from-browser'
 
 const userLocale = navigator.language || navigator.languages[0]
 
@@ -11,7 +11,14 @@ const timeBasedOnTimeZone = (
     includeTime,
     onlyYear,
     month,
-  }: { locale: string; includeTime?: Boolean; onlyYear: Boolean | undefined; month?: Boolean } = {
+    timeZone,
+  }: {
+    locale: string
+    includeTime?: Boolean
+    onlyYear: Boolean | undefined
+    month?: Boolean
+    timeZone?: string
+  } = {
     locale: userLocale,
     includeTime: false,
     onlyYear: false,

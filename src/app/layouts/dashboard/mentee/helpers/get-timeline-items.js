@@ -55,7 +55,7 @@ const useGetMenteeTimelineItems = () => {
       title: 'Introductory Meeting with Mentor',
       description: 'Select one of the dates proposed by your potential mentor',
       buttonText: isPendingSelectDate ? 'Date Selected' : 'Select Date',
-      completed: isPendingSelectDate ? 'INCOMPLETE' : 'COMPLETE',
+      completed: isPendingSelectDate ? 'INCOMPLETE' : 'COMPLETE' && selectMentorStatus,
       isDisabled: !isPendingSelectDate,
       targetCode: userCode,
       code: 'ACT_SELECT_DATE',
