@@ -14,7 +14,6 @@ const useGetMenteeTimelineItems = () => {
     isMeetingCompleted,
     menteeStatus,
     isPendingSelectDate,
-    isInvited,
     selectMentorStatus,
   } = useGetMenteeInformation()
 
