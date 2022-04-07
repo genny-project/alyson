@@ -4,11 +4,16 @@ import { reduce } from 'ramda'
 import SidebarButtons from 'app/layouts/display/sidebar/buttons/SidebarButtons'
 import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
+import getSpillLocs from 'app/PCM/helpers/get-spill-locs'
 
 const TemplateSidebarOne = ({ mappedPcm }) => {
-  const questionCode = mappedPcm.PRI_LOC1
+  const questionCode = mappedPcm.PRI_QUESTION_CODE
   const data = useSelector(selectCode(questionCode))
   const wholeData = useSelector(selectCode(questionCode, 'wholeData'))
+
+  const spillLocs = getSpillLocs(mappedPcm)()
+
+  console.log(spillLocs)
 
   const mappedIconAndQuestionCode = reduce((acc, { question: { code, icon } }) => {
     acc = { ...acc, [code]: icon }

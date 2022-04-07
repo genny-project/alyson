@@ -2,7 +2,7 @@ import TemplateNorth from 'app/PCM/templates/navigation/tpl-north.js'
 import TemplateWest from 'app/PCM/templates/sidebar/tpl-west.js'
 import TemplateHeader from './tpl-header'
 import TemplateRoot from './tpl-root'
-import TemplateSidebarOne from './tpl-sidebar-one'
+import TemplateSidebarOne from './sidebar/tpl-sidebar-one'
 import TemplateVert from './tpl-vert'
 
 const templateHandlerMachine = templateCode => properties => {
