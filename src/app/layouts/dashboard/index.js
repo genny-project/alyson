@@ -16,6 +16,8 @@ import AgentDashboard from './mentor_agent'
 import MentorDashboard from './mentor'
 import { useGetRealm } from 'utils/hooks'
 
+import InternDashboard from 'app/layouts/dashboard/pcm-intern'
+
 const Dashboard = () => {
   const dashboardSbes = useSelector(selectDashboard)
   const dashboardCounts = useSelector(selectDashboardCounts)
@@ -26,7 +28,7 @@ const Dashboard = () => {
   if (!dashboardSbes) return <div />
 
   if (userType === 'HOST_CPY_REP') return <HostCompanyRep userCode={userCode} />
-  if (userType === 'INTERN') return <Intern userCode={userCode} />
+  if (userType === 'INTERN') return <InternDashboard userCode={userCode} />
   if (userType === 'AGENT' || userType === 'ADMIN') {
     if (realm === 'mentormatch') {
       return <AgentDashboard userCode={userCode} />
