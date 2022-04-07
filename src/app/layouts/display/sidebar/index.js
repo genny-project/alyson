@@ -1,11 +1,12 @@
 import { Center, VStack } from '@chakra-ui/react'
-import { SIDEBAR_QUESTION_CODE, SIDEBAR_WIDTH } from 'utils/constants'
 import { reduce } from 'ramda'
+import { useSelector } from 'react-redux'
 
 import SidebarButtons from 'app/layouts/display/sidebar/buttons/SidebarButtons'
 import { selectCode } from 'redux/db/selectors'
-import { useSelector } from 'react-redux'
 import templateHandlerMachine from 'app/PCM/templates'
+import { SIDEBAR_QUESTION_CODE, SIDEBAR_WIDTH } from 'utils/constants'
+
 import useGetMappedPcm from 'app/PCM/helpers/get-mapped-pcm'
 import isNotEmpty from 'utils/helpers/is-not-empty.js'
 

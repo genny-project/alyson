@@ -1,15 +1,13 @@
 import { Box, Button, Image, Flex, HStack, Spacer } from '@chakra-ui/react'
-import { dashboardViewQuestion } from 'utils/constants'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 import AskMenu from 'app/ASKS/menu'
 import Avatar from 'app/layouts/navigation/Avatar.js'
 import Drafts from 'app/layouts/navigation/drafts/Drafts.js'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { onSendMessage } from 'vertx'
-
+import { dashboardViewQuestion, LOGO_WIDTH } from 'utils/constants'
 import { apiConfig } from 'config/get-api-config'
-import { LOGO_WIDTH } from 'utils/constants'
 
 const TemplateNorth = ({ bg, color, mappedPcm, logoSrc }) => {
   const { PRI_LOC2, PRI_LOC3, PRI_LOC4 } = mappedPcm

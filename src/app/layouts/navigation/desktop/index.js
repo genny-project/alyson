@@ -8,18 +8,17 @@ import {
   useColorModeValue,
   useTheme,
 } from '@chakra-ui/react'
-import { addItemsQuestionCode, dashboardViewQuestion } from 'utils/constants'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import AskMenu from 'app/ASKS/menu'
 import Avatar from '../Avatar'
 import Drafts from '../drafts/Drafts'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { addItemsQuestionCode, dashboardViewQuestion } from 'utils/constants'
 import { onSendMessage } from 'vertx'
 import { apiConfig } from 'config/get-api-config'
 import { LOGO_WIDTH } from 'utils/constants'
 import templateHandlerMachine from 'app/PCM/templates'
-
 import useGetMappedPcm from 'app/PCM/helpers/get-mapped-pcm'
 import isNotEmpty from 'utils/helpers/is-not-empty.js'
 
