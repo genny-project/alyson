@@ -2,7 +2,6 @@ import { Box, Button, Grid, Spacer, Text, VStack, useColorModeValue } from '@cha
 import { find, includes, map } from 'ramda'
 
 import Attribute from 'app/BE/attribute'
-import DashboardMessages from '../dashboard_msg'
 import { recommendationDetails } from 'app/layouts/dashboard/timeline/templates/CardContent'
 import { selectDashboard } from 'redux/app/selectors'
 import { selectRows } from 'redux/db/selectors'
@@ -27,14 +26,6 @@ const Recommendation = ({ setShowDetailView, setCurrentMentor, menteeStatus }) =
   const maxW = useMobileValue(['', '75%'])
 
   const isMobile = useIsMobile()
-
-  if (menteeStatus === 'INVITED') {
-    return (
-      <>
-        <DashboardMessages labelCode={'LAB_INVITE_SENT'} />
-      </>
-    )
-  }
 
   return (
     <>
