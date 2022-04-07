@@ -7,6 +7,7 @@ import ContextMenu from 'app/BE/context'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import HCRDetail from './HCRDetail'
 import Image from 'app/DTT/upload/Image'
+import MMAgent from './MMAgent'
 import MainDetails from './MainDetails'
 import Text from 'app/DTT/text'
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
@@ -16,46 +17,25 @@ import { motion } from 'framer-motion'
 import sameLength from 'redux/utils/same-length'
 import sameValue from 'redux/utils/same-value'
 import { selectCode } from 'redux/db/selectors'
-import { useGetRealm } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 
 const MotionBox = motion(Box)
 
 const DefaultCard = ({ parentCode, actions = [], code, columns }) => {
-  const realm = useGetRealm()
   const title = useSelector(selectCode(code, getAttribute(columns[0] || '')), sameValue)
   const subTitle = useSelector(selectCode(code, getAttribute(columns[1] || '')), sameValue)
-  const image = useSelector(
-    selectCode(code, realm === 'mentormatch' ? 'PRI_USER_PROFILE_PICTURE' : 'PRI_IMAGE_URL'),
-    sameValue,
-  )
+  const image = useSelector(selectCode(code, 'PRI_IMAGE_URL'), sameValue)
   const statusColor = useSelector(selectCode(code, 'PRI_STATUS_COLOR'), sameValue)
   const color = useColorModeValue(`${statusColor?.value}.50`, `${statusColor?.value}.900`)
 
   const userCode = useSelector(selectCode('USER'), equals)
   const userType = getUserType(useSelector(selectCode(userCode), sameLength))
 
-  const mentorName = useSelector(selectCode(code, '_LNK_MENTOR__PRI_NAME'), sameValue)
-  const mentorImage = useSelector(
-    selectCode(code, '_LNK_MENTOR__PRI_USER_PROFILE_PICTURE'),
-    sameValue,
-  )
-  const mentorIndustry = useSelector(
-    selectCode(code, '_LNK_MENTOR__LNK_MM_INDUSTRY__PRI_NAME'),
-    sameValue,
-  )
+  const userRole = useSelector(selectCode('PROJECT'), equals)
 
-  const menteeName = useSelector(selectCode(code, '_LNK_MENTEE__PRI_NAME'), sameValue)
-  const menteeImage = useSelector(
-    selectCode(code, '_LNK_MENTEE__PRI_USER_PROFILE_PICTURE'),
-    sameValue,
-  )
-  const menteeIndustry = useSelector(
-    selectCode(code, '_LNK_MENTEE__LNK_MM_INDUSTRY__PRI_NAME'),
-    sameValue,
-  )
-
-  return realm !== 'mentormatch' ? (
+  return includes('_MENTOR', userRole) ? (
+    <MMAgent parentCode={parentCode} actions={actions} code={code} columns={columns} />
+  ) : (
     <MotionBox w="full" whileHover={{ scale: 1.02 }} transition={{ duration: 0.1 }}>
       <Card
         // maxW={['80vw', '80vw', '22rem']}
@@ -112,78 +92,6 @@ const DefaultCard = ({ parentCode, actions = [], code, columns }) => {
           <AgentDetail code={code} parentCode={parentCode} />
         )}
         {userType === 'HOST_CPY_REP' && <HCRDetail code={code} parentCode={parentCode} />}
-      </Card>
-    </MotionBox>
-  ) : (
-    <MotionBox w="full" whileHover={{ scale: 1.02 }} transition={{ duration: 0.1 }}>
-      <Card
-        // maxW={['80vw', '80vw', '22rem']}
-        p={[2, 2, 2, 4]}
-        variant="card1"
-        {...(statusColor?.value &&
-        statusColor?.value !== 'default' &&
-        !includes('#', statusColor?.value || '')
-          ? { bg: color }
-          : {})}
-      >
-        <Flex align="start" direction={'column'}>
-          <HStack align="start">
-            <Image.Read
-              config={{ size: 'lg' }}
-              data={mentorImage || { baseEntityCode: code }}
-              // parentCode={parentCode}
-            />
-
-            <VStack alignItems="start" minW="10rem" maxW="16rem" overflow="hidden" spacing={1}>
-              <Box>Mentor</Box>
-              <Text.Read
-                data={mentorName}
-                config={{
-                  textStyle: 'body.1',
-                  isTruncated: true,
-                  maxW: '10rem',
-                }}
-              />
-              <Text.Read
-                config={{
-                  as: 'span',
-                  textStyle: 'body.3',
-                  maxW: '10rem',
-                }}
-                data={mentorIndustry}
-              />
-            </VStack>
-          </HStack>
-
-          <HStack mt={4} align="start">
-            <Image.Read
-              config={{ size: 'lg' }}
-              data={menteeImage || { baseEntityCode: code }}
-              // parentCode={parentCode}
-            />
-
-            <VStack alignItems="start" minW="10rem" maxW="16rem" overflow="hidden" spacing={1}>
-              <Box>Mentee</Box>
-
-              <Text.Read
-                config={{
-                  textStyle: 'body.1',
-                  isTruncated: true,
-                  maxW: '10rem',
-                }}
-                data={menteeName}
-              />
-              <Text.Read
-                config={{
-                  as: 'span',
-                  textStyle: 'body.3',
-                  maxW: '10rem',
-                }}
-                data={menteeIndustry}
-              />
-            </VStack>
-          </HStack>
-        </Flex>
       </Card>
     </MotionBox>
   )
