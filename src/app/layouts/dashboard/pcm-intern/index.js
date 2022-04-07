@@ -1,5 +1,5 @@
 import { Box, HStack, Text, VStack, Stack } from '@chakra-ui/layout'
-import { Flex, Progress, Spacer } from '@chakra-ui/react'
+import { Flex, Progress, Spacer, Divider, Center } from '@chakra-ui/react'
 import { Button } from '@chakra-ui/button'
 import { useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -24,14 +24,12 @@ const Intern = ({ userCode }) => {
   const firstName = toUpper(firstnameValue?.value) || ''
 
   return (
-    <VStack marginLeft="72px" spacing="5" alignItems="flex-start">
-      <Text
-        fontFamily="Roboto"
-        fontWeight="700"
-        fontSize="36px"
-        color="#234371"
-      >{`WELCOME ${firstName}`}</Text>
-      <VStack alignItems="flex-start" w="790px">
+    <VStack marginLeft="72px" spacing="5" alignItems="flex-start" w="790px">
+      <Text fontFamily="Roboto" fontWeight="700" fontSize="36px" color="#234371">
+        {`WELCOME ${firstName}`}
+      </Text>
+
+      <VStack alignItems="flex-start" w="inherit">
         <Progress
           value={profileCompletedPercentage}
           w="inherit"
@@ -55,6 +53,27 @@ const Intern = ({ userCode }) => {
           >{`PREVIEW YOUR PROFILE`}</Text>
         </HStack>
       </VStack>
+
+      <Flex border="1px solid #808080" borderRadius="15px" w="inherit" h="80px">
+        <VStack flexGrow="1" justifyContent="center" spacing="0">
+          <Text fontFamily="Roboto" fontWeight="400" fontSize="24px" color="#00AFAB">{`35`}</Text>
+          <Text
+            fontFamily="Roboto"
+            fontWeight="400"
+            fontSize="16px"
+          >{`Internships suitable for you`}</Text>
+        </VStack>
+        <Divider orientation="vertical" />
+        <VStack flexGrow="1" justifyContent="center" spacing="0">
+          <Text fontFamily="Roboto" fontWeight="400" fontSize="24px" color="#00AFAB">{`0`}</Text>
+          <Text fontFamily="Roboto" fontWeight="400" fontSize="16px">{`Pending Applications`}</Text>
+        </VStack>
+        <Divider orientation="vertical" />
+        <VStack flexGrow="1" justifyContent="center" spacing="0">
+          <Text fontFamily="Roboto" fontWeight="400" fontSize="24px" color="#00AFAB">{`0`}</Text>
+          <Text fontFamily="Roboto" fontWeight="400" fontSize="16px">{`Pending Interview`}</Text>
+        </VStack>
+      </Flex>
     </VStack>
   )
 
