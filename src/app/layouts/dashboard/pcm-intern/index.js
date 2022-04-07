@@ -20,10 +20,14 @@ const Intern = ({ userCode }) => {
     selectAttributes(userCode, ['PRI_FIRSTNAME', 'PRI_AGENT_NAME', 'PRI_STATUS']),
   )
 
-  console.log('associatedAgent====>', associatedAgentInfo)
-
   const firstName = toUpper(firstnameInfo?.value) || ''
   const associatedAgent = associatedAgentInfo.value
+
+  const sendEventMessage = actionCode =>
+    onSendMessage({
+      targetCode: userCode,
+      code: actionCode,
+    })
 
   return (
     <VStack alignItems="flex-start" spacing="10">
@@ -47,6 +51,7 @@ const Intern = ({ userCode }) => {
               fontSize="10px"
               color="#00AFAC"
               cursor="pointer"
+              onClick={() => sendEventMessage('ACT_PRI_EVENT_EDIT')}
             >{`EDIT YOUR PROFILE`}</Text>
             <Spacer />
             <Text
@@ -55,6 +60,7 @@ const Intern = ({ userCode }) => {
               fontSize="10px"
               color="#00AFAC"
               cursor="pointer"
+              onClick={() => sendEventMessage('ACT_PRI_EVENT_VIEW')}
             >{`PREVIEW YOUR PROFILE`}</Text>
           </HStack>
         </VStack>
