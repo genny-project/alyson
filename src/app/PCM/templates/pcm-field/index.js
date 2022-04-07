@@ -1,6 +1,6 @@
 import Attribute from 'app/BE/attribute'
 import { split } from 'ramda'
-import Pcms from '../..'
+import Pcm from '../..'
 
 const PcmField = ({ code, ...props }) => {
   if (code === undefined) {
@@ -19,7 +19,7 @@ const PcmField = ({ code, ...props }) => {
   }
 
   if (prefix === 'PCM') {
-    return <Pcms code={code} />
+    return <Pcm code={code} />
   } else if (prefix === 'PRI') {
     return <Attribute attribute={code} code={props.parentCode} {...props} />
   } else {

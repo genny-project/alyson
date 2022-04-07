@@ -4,7 +4,7 @@ import convertToUppercase from 'utils/formatters/uppercase-convert'
 import { onSendMessage } from 'vertx'
 import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
-import Pcms from '../pcms'
+import Pcm from '../../PCM'
 
 const Display = ({ title }) => {
   window.onpopstate = event => {
@@ -26,7 +26,7 @@ const Display = ({ title }) => {
         <title>{projectTitle}</title>
         <link rel="icon" href={projectIcon} type="image/x-icon"></link>
       </MetaTags>
-      <Pcms code="PCM_ROOT" />
+      <Pcm code="PCM_ROOT" />
     </ErrorBoundary>
   )
 }

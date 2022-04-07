@@ -1,7 +1,7 @@
 import MobileNav from 'app/layouts/navigation/mobile'
 import { apiConfig } from 'config/get-api-config'
 import { useIsMobile } from 'utils/hooks'
-import TemplateHeaderDesktop from './template-header-desktop'
+import TemplateHeaderDesktop from './tpl-header-desktop'
 
 const TemplateHeader = ({ mappedPcm }) => {
   const { realm } = apiConfig
