@@ -1,10 +1,9 @@
 import { VStack } from '@chakra-ui/react'
 import { reduce } from 'ramda'
-
-import SidebarButtons from 'app/layouts/display/sidebar/buttons/SidebarButtons'
 import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
 import getSpillLocs from 'app/PCM/helpers/get-spill-locs'
+import EvtButton from 'app/PCM/components/evt-button'
 
 const TemplateSidebarOne = ({ mappedPcm }) => {
   const questionCode = mappedPcm.PRI_QUESTION_CODE
@@ -27,7 +26,7 @@ const TemplateSidebarOne = ({ mappedPcm }) => {
   return (
     <VStack test-id={questionCode} justifyContent="center">
       {listOfQuestionCode.map(code => (
-        <SidebarButtons
+        <EvtButton
           key={code}
           questionCode={questionCode}
           childCode={code}

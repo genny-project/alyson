@@ -9,7 +9,7 @@ import {
   Image,
 } from '@chakra-ui/react'
 import { LOGO_WIDTH } from 'utils/constants'
-import PcmField from '../pcm-field'
+import PcmField from '../../components/pcm-field'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
