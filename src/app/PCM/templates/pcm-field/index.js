@@ -20,6 +20,9 @@ const PcmField = ({ code, ...props }) => {
 
   if (prefix === 'PCM') {
     return <Pcm code={code} />
+  } else if (prefix === 'EVT') {
+    /// Show an event button here
+    return <div>{code}</div>
   } else {
     return <Attribute attribute={code} code={props.parentCode} {...props} />
   }
