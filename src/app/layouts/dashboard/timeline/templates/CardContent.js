@@ -60,14 +60,6 @@ export const recommendationDetails = [
 
 export const inviteeDetails = [
   {
-    label: 'First Name:',
-    attribute: '_LNK_MENTEE__PRI_FIRSTNAME',
-  },
-  {
-    label: 'Last Name:',
-    attribute: '_LNK_MENTEE__PRI_LASTNAME',
-  },
-  {
     label: 'Country of Origin:',
     attribute: '_LNK_MENTEE__LNK_SELECT_ORIGIN_COUNTRY__PRI_NAME',
   },

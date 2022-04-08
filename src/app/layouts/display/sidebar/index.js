@@ -1,56 +1,14 @@
 import { Center, VStack } from '@chakra-ui/react'
-import { SIDEBAR_QUESTION_CODE, SIDEBAR_WIDTH } from 'utils/constants'
-import { find, includes, reduce } from 'ramda'
+import { reduce } from 'ramda'
+import { useSelector } from 'react-redux'
 
 import SidebarButtons from 'app/layouts/display/sidebar/buttons/SidebarButtons'
 import { selectCode } from 'redux/db/selectors'
-import { useSelector } from 'react-redux'
+import templateHandlerMachine from 'app/PCM/templates'
+import { SIDEBAR_QUESTION_CODE, SIDEBAR_WIDTH } from 'utils/constants'
 
-const TemplateOne = ({ questionCode, mappedPcm, mappedIconAndQuestionCode }) => {
-  const { PRI_LOC1, PRI_LOC2, PRI_LOC3, PRI_LOC4, PRI_LOC5, PRI_LOC6 } = mappedPcm
-  return (
-    <Center w={SIDEBAR_WIDTH} bg="#224371" h="100vh" paddingInline={'3'}>
-      <VStack test-id={questionCode} justifyContent="center">
-        <SidebarButtons
-          key={PRI_LOC1}
-          questionCode={questionCode}
-          childCode={PRI_LOC1}
-          iconId={mappedIconAndQuestionCode[PRI_LOC1]}
-        />
-        <SidebarButtons
-          key={PRI_LOC2}
-          questionCode={questionCode}
-          childCode={PRI_LOC2}
-          iconId={mappedIconAndQuestionCode[PRI_LOC2]}
-        />
-        <SidebarButtons
-          key={PRI_LOC3}
-          questionCode={questionCode}
-          childCode={PRI_LOC3}
-          iconId={mappedIconAndQuestionCode[PRI_LOC3]}
-        />
-        <SidebarButtons
-          key={PRI_LOC4}
-          questionCode={questionCode}
-          childCode={PRI_LOC4}
-          iconId={mappedIconAndQuestionCode[PRI_LOC4]}
-        />
-        <SidebarButtons
-          key={PRI_LOC5}
-          questionCode={questionCode}
-          childCode={PRI_LOC5}
-          iconId={mappedIconAndQuestionCode[PRI_LOC5]}
-        />
-        <SidebarButtons
-          key={PRI_LOC6}
-          questionCode={questionCode}
-          childCode={PRI_LOC6}
-          iconId={mappedIconAndQuestionCode[PRI_LOC6]}
-        />
-      </VStack>
-    </Center>
-  )
-}
+import useGetMappedPcm from 'app/PCM/helpers/get-mapped-pcm'
+import isNotEmpty from 'utils/helpers/is-not-empty.js'
 
 const DefaultTemplate = ({ questionCode, listOfQuestionCode, mappedIconAndQuestionCode }) => {
   return (
@@ -81,37 +39,19 @@ const SideBar = () => {
 
   const listOfQuestionCode = Object.keys(mappedIconAndQuestionCode)
 
-  const allPcmCode = useSelector(selectCode(`PCMINFORMATION`)) || []
-  const sidebarPcmCode = find(includes('_SIDEBAR'))(allPcmCode)
-
-  const sidebarPcm = useSelector(selectCode(sidebarPcmCode, 'allAttributes'))
-  const mappedPcm = reduce((acc, { attributeCode, valueString }) => {
-    acc = { ...acc, [attributeCode]: valueString }
-    return acc
-  }, {})(sidebarPcm || [])
+  const mappedPcm = useGetMappedPcm('_SIDEBAR')
 
   const { PRI_TEMPLATE_CODE: code } = mappedPcm
+  const properties = { questionCode, mappedPcm, mappedIconAndQuestionCode, listOfQuestionCode }
 
   if (!data) return null
 
-  if (sidebarPcm) {
-    if (code === 'TPL_WEST')
-      return (
-        <TemplateOne
-          questionCode={questionCode}
-          mappedPcm={mappedPcm}
-          mappedIconAndQuestionCode={mappedIconAndQuestionCode}
-        />
-      )
+  if (isNotEmpty(mappedPcm) && templateHandlerMachine(code)(properties)) {
+    return templateHandlerMachine(code)(properties)
   }
+  console.error('Falling back on default template for ' + code + '!')
 
-  return (
-    <DefaultTemplate
-      questionCode={questionCode}
-      listOfQuestionCode={listOfQuestionCode}
-      mappedIconAndQuestionCode={mappedIconAndQuestionCode}
-    />
-  )
+  return <DefaultTemplate {...properties} />
 }
 
 export default SideBar
