@@ -4,7 +4,6 @@ import { useGetLabel, useIsMobile } from 'utils/hooks'
 
 import Draft from './Draft'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
 import getUserType from 'utils/helpers/get-user-type'
 import icons from 'utils/icons'
 import { selectCode } from 'redux/db/selectors'
@@ -16,10 +15,6 @@ const Drafts = ({ code: DRAFT_GROUP }) => {
   const drafts = (useSelector(selectCode(DRAFT_GROUP)) || []).filter(
     code => code.indexOf('TASK') !== -1,
   )
-
-  const label = useGetLabel(DRAFT_GROUP)
-
-  const isMobile = useIsMobile()
 
   if (userType === 'INTERN') return null
 
