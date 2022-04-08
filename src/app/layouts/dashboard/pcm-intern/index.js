@@ -21,7 +21,7 @@ const Intern = ({ userCode }) => {
       rootcode: userCode,
       targetCode: userCode,
       code: actionCode,
-      parentCode: 'QUE_AVATAR_DASHBOARD_GRP',
+      parentCode: 'QUE_AVATAR_GRP',
     })
 
   return (
@@ -46,7 +46,7 @@ const Intern = ({ userCode }) => {
               fontSize="10px"
               color="#00AFAC"
               cursor="pointer"
-              onClick={() => sendEventMessage('ACT_PRI_EVENT_EDIT')}
+              onClick={() => sendEventMessage('QUE_AVATAR_PROFILE_GRP')}
             >{`EDIT YOUR PROFILE`}</Text>
             <Spacer />
             <Text
