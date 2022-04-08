@@ -5,8 +5,17 @@ import { selectCode } from 'redux/db/selectors'
 import Pcm from '..'
 import EvtButton from '../components/evt-button'
 
-const getPcmField = (code: string, mappedPcm: { [x: string]: string }) => (
-  fn: (questionCode: string, attributeCode: string, askCode: string) => JSX.Element | undefined,
+interface AttributeProps {
+  size?: any
+  mini?: any
+  parentCode?: string
+  variant?: any
+  config?: {}
+  styles?: any
+}
+
+const getPcmField = (code: string, mappedPcm: { [x: string]: string }, props?: AttributeProps) => (
+  fn: (questionCode: string, attributeCode: string) => JSX.Element | undefined,
 ) => {
   const splitArr: string[] = split('_')(code)
 
@@ -47,18 +56,18 @@ const getPcmField = (code: string, mappedPcm: { [x: string]: string }) => (
       )
     } else {
       return fn ? (
-        fn('HI', 'BYE', 'NO')
+        fn(ask?.questionCode || '', code)
       ) : (
         <Attribute
           key={code}
           attribute={code}
           code={ask?.targetCode}
-          size={undefined}
-          mini={undefined}
-          parentCode={undefined}
-          variant={undefined}
-          config={undefined}
-          styles={undefined}
+          size={props?.size}
+          mini={props?.mini}
+          parentCode={props?.parentCode}
+          variant={props?.variant}
+          config={props?.config}
+          styles={props?.styles}
         />
       )
     }

@@ -9,7 +9,6 @@ import {
   Image,
 } from '@chakra-ui/react'
 import { LOGO_WIDTH } from 'utils/constants'
-import PcmField from '../../components/pcm-field'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -18,6 +17,7 @@ import { apiConfig } from 'config/get-api-config'
 import AskMenu from 'app/ASKS/menu'
 import Avatar from 'app/layouts/navigation/Avatar'
 import Drafts from 'app/layouts/navigation/drafts/Drafts'
+import getPcmField from 'app/PCM/helpers/get-pcm-field'
 
 const TemplateHeaderDesktop = ({ mappedPcm, logoSrc }) => {
   const theme = useTheme()
@@ -50,13 +50,11 @@ const TemplateHeaderDesktop = ({ mappedPcm, logoSrc }) => {
         <nav>
           <Flex align="center" p="3">
             <Box mx={5} alignItems="center" m="auto">
-              {PRI_LOC1 && (
-                <PcmField
-                  code={PRI_LOC1}
-                  parentCode={entityCode}
-                  config={{ htmlWidth: LOGO_WIDTH }}
-                />
-              )}
+              {PRI_LOC1 &&
+                getPcmField(PRI_LOC1, mappedPcm, {
+                  parentCode: entityCode,
+                  config: { htmlWidth: LOGO_WIDTH },
+                })()}
               {!PRI_LOC1 && <Image src={logoSrc} htmlWidth={LOGO_WIDTH} />}
             </Box>
             <Spacer />
