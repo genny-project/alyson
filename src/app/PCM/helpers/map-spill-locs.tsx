@@ -3,12 +3,16 @@ import { append, forEach, keys, sort } from 'ramda'
 /**
  * Returns a list of JSX.Elements created from fn, in order
  */
-const mapSpillLocs = (spillLocs: { [x: string]: string }) => (fn: (loc: string) => JSX.Element) => {
+const mapSpillLocs = (spillLocs: { [x: string]: string }) => (
+  fn: (loc: string) => JSX.Element | undefined,
+) => {
   let out: JSX.Element[] = []
 
   forEach(
     (x: string) => {
-      out = append(fn(spillLocs[x]), out)
+      if (fn(spillLocs[x])) {
+        out = append(fn(spillLocs[x])!, out)
+      }
     },
     sort((a: string, b: string) => a.localeCompare(b), keys(spillLocs) as string[]),
   )
