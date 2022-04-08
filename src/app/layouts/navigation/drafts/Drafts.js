@@ -1,6 +1,5 @@
-import { Box, Center, HStack, Text, VStack } from '@chakra-ui/layout'
+import { Box, Center, Text, VStack } from '@chakra-ui/layout'
 import { Menu, MenuButton, MenuList } from '@chakra-ui/menu'
-import { useGetLabel, useIsMobile } from 'utils/hooks'
 
 import Draft from './Draft'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
