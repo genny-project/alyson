@@ -28,7 +28,7 @@ const Drafts = ({ code: DRAFT_GROUP }) => {
       <MenuButton>
         <VStack color="grey" test-id={DRAFT_GROUP}>
           <Box>
-            <FontAwesomeIcon size="lg" w="8" h="8" icon={icons[DRAFT_GROUP]} color="#234371" />
+            <FontAwesomeIcon size="lg" icon={icons[DRAFT_GROUP]} color="#234371" />
             <Center
               ml={`0.5rem`}
               mt="-1.7rem"
@@ -43,14 +43,6 @@ const Drafts = ({ code: DRAFT_GROUP }) => {
               <Text textStyle="tail.2">{drafts.length - 1}</Text>
             </Center>
           </Box>
-          {!isMobile && (
-            <HStack spacing={1}>
-              <Text fontSize="xs" textStyle="tail.2" color="#234371">
-                {label}
-              </Text>
-              <FontAwesomeIcon icon={faCaretDown} color="#234371" />
-            </HStack>
-          )}
         </VStack>
       </MenuButton>
 

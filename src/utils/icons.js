@@ -1,6 +1,6 @@
 import {
   faAddressBook,
-  faBell,
+  faBookmark,
   faBuilding,
   faCity,
   faColumns,
@@ -18,7 +18,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 
 const icons = {
-  QUE_DRAFTS_GRP: faBell,
+  QUE_DRAFTS_GRP: faBookmark,
   QUE_QUICK_ADD_ITEMS_GRP: faRocket,
   QUE_ADD_ITEMS_GRP: faPlus,
   QUE_DASHBOARD_VIEW: faThLarge,
