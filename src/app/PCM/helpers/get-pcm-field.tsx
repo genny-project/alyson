@@ -5,6 +5,10 @@ import { selectCode } from 'redux/db/selectors'
 import Pcm from '..'
 import EvtButton from '../components/evt-button'
 
+/**
+ * Props for the fallback Attribute object if fn doesn't
+ * get set.
+ */
 interface AttributeProps {
   size?: any
   mini?: any
@@ -14,6 +18,9 @@ interface AttributeProps {
   styles?: any
 }
 
+/**
+ * Takes in a code, either a PCM or Attribute, and returns either a PCM, Attribute or Ask
+ */
 const getPcmField = (code: string, mappedPcm: { [x: string]: string }, props?: AttributeProps) => (
   fn: (questionCode: string, attributeCode: string) => JSX.Element | undefined,
 ) => {
@@ -64,7 +71,7 @@ const getPcmField = (code: string, mappedPcm: { [x: string]: string }, props?: A
           code={ask?.targetCode}
           size={props?.size}
           mini={props?.mini}
-          parentCode={props?.parentCode}
+          parentCode={props?.parentCode || ask?.targetCode}
           variant={props?.variant}
           config={props?.config}
           styles={props?.styles}

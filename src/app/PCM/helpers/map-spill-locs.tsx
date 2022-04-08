@@ -1,7 +1,10 @@
 import { append, forEach, keys, sort } from 'ramda'
 
-const mapSpillLocs = (spillLocs: { [x: string]: string }) => (fn: (loc: string) => any) => {
-  let out: any[] = []
+/**
+ * Returns a list of JSX.Elements created from fn, in order
+ */
+const mapSpillLocs = (spillLocs: { [x: string]: string }) => (fn: (loc: string) => JSX.Element) => {
+  let out: JSX.Element[] = []
 
   forEach(
     (x: string) => {
