@@ -1,5 +1,5 @@
 import Attribute from 'app/BE/attribute'
-import { includes, reduce, split } from 'ramda'
+import { includes, isEmpty, reduce, split } from 'ramda'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import Pcm from '..'
@@ -51,6 +51,11 @@ const getPcmField = (code: string, mappedPcm: { [x: string]: string }, props?: A
       {},
       wholeData || [],
     )
+
+    if (isEmpty(ask)) {
+      console.error('Got empty ask for ' + code + '!')
+      return null
+    }
 
     if (prefix === 'EVT') {
       return (
