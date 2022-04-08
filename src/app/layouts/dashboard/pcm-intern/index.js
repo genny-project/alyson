@@ -18,9 +18,10 @@ const Intern = ({ userCode }) => {
 
   const sendEventMessage = actionCode =>
     onSendMessage({
-      parentCode: userCode,
+      rootcode: userCode,
       targetCode: userCode,
       code: actionCode,
+      parentCode: 'QUE_AVATAR_DASHBOARD_GRP',
     })
 
   return (
