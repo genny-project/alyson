@@ -54,7 +54,7 @@ const getPcmField = (code: string, mappedPcm: { [x: string]: string }, props?: A
 
     if (isEmpty(ask)) {
       console.error('Got empty ask for ' + code + '!')
-      return null
+      return <div />
     }
 
     if (prefix === 'EVT') {
