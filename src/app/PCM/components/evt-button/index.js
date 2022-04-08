@@ -18,7 +18,7 @@ import sendAskClick from 'app/ASKS/utils/send-ask-click'
 import useApi from 'api'
 import { useSelector } from 'react-redux'
 
-const EvtButton = ({ questionCode, childCode, onClick, iconId }) => {
+const EvtButton = ({ questionCode, childCode, iconId }) => {
   const data = useSelector(selectCode(questionCode, childCode))
 
   const { getImageSrc } = useApi()
@@ -63,7 +63,6 @@ const EvtButton = ({ questionCode, childCode, onClick, iconId }) => {
           spacing="4"
           role="group"
           test-id={childCode}
-          onClick={onClick}
           mb={'30px !important'}
           mt={'0 !important'}
         >

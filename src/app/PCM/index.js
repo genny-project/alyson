@@ -22,7 +22,7 @@ const Pcm = ({ code, ...properties }) => {
       )
     }
   }
-
+  console.error('Falling back on default template for PCM: ' + code + '!')
   return <TemplateDefault {...properties} />
 }
 

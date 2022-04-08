@@ -16,7 +16,6 @@ import Toast from 'app/layouts/display/toast'
 import { includes } from 'ramda'
 import { selectCode } from 'redux/db/selectors'
 import { selectDisplay } from 'redux/app/selectors'
-import PcmField from '../components/pcm-field'
 import convertToUppercase from 'utils/formatters/uppercase-convert'
 import { apiConfig } from 'config/get-api-config'
 import getPcmField from '../helpers/get-pcm-field'
@@ -39,7 +38,7 @@ const TemplateRoot = ({ mappedPcm }) => {
   return (
     <Box position={'relative'} h={'100%'}>
       <Center w={SIDEBAR_WIDTH} bg={primaryColour} h="100vh" paddingInline={'3'}>
-        {getPcmField(PRI_LOC2)}
+        {getPcmField(PRI_LOC2, mappedPcm)()}
       </Center>
       <Box
         backgroundColor={backgroundColor}
@@ -52,7 +51,7 @@ const TemplateRoot = ({ mappedPcm }) => {
         pb={1}
         overflow="scroll"
       >
-        {getPcmField(PRI_LOC1)}
+        {getPcmField(PRI_LOC1, mappedPcm)()}
         <Box paddingTop="2.25rem">
           {/* <Timeout /> */}
           {display === 'DASHBOARD' && <Dashboard />}
