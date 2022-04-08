@@ -32,6 +32,7 @@ const useGetMenteeInformation = () => {
   const isInvited = equals(menteeStatus, 'INVITED')
 
   return {
+    userCode,
     profileStatus,
     trainingStatus,
     selectMentorStatus,

@@ -53,7 +53,10 @@ const MenteeDashboard = () => {
       ) : labelCode === 'LAB_INVITE_SENT' && not(equals('MENTORING', menteeStatus)) ? (
         <DashboardMessages labelCode={labelCode} />
       ) : isMentorSelected && !isMeetingCompleted ? (
-        <Meetings />
+        <Box>
+          <DashboardMessages labelCode={labelCode} />
+          <Meetings />
+        </Box>
       ) : showDetailView && isTrainingCompleted && currentMentor ? (
         <DetailView setShowDetailView={setShowDetailView} currentMentor={currentMentor} />
       ) : isTrainingCompleted && !isMentorSelected ? (
