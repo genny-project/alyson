@@ -78,6 +78,7 @@ const Timeline = ({ items }) => {
             invitationStatus,
             mentorStatus,
             pendingDateSelected,
+            trainingStatus,
           }) => (
             <>
               <Card key={title} p={4} px={5}>
@@ -100,10 +101,10 @@ const Timeline = ({ items }) => {
                         ? mentorSelectionMsg
                         : equals(mentorStatus, 'AVAILABLE')
                         ? menteeInvitationPendingMsg
+                        : equals(completed, 'COMPLETE') && equals(trainingStatus, 'COMPLETE')
+                        ? trainingCompleteMsg
                         : !pendingDateSelected && equals(completed, 'COMPLETE')
                         ? dateSelctedMsg
-                        : equals(completed, 'COMPLETE')
-                        ? trainingCompleteMsg
                         : equals(status, 'UNVERIFIED')
                         ? accountVerificationPendingMsg
                         : equals(status, 'MENTORING')
