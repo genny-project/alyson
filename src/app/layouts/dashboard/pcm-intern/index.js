@@ -7,7 +7,7 @@ import { selectAttributes } from 'redux/db/selectors'
 import { onSendMessage } from 'vertx'
 import Recommendations from 'app/layouts/dashboard/intern/recommendations'
 
-const Intern = ({ userCode }) => {
+const Intern = ({ code, userCode }) => {
   const profileCompletedPercentage = 30
   const [firstnameInfo, associatedAgentInfo] = useSelector(
     selectAttributes(userCode, ['PRI_FIRSTNAME', 'PRI_AGENT_NAME', 'PRI_STATUS']),
@@ -16,12 +16,12 @@ const Intern = ({ userCode }) => {
   const firstName = toUpper(firstnameInfo?.value) || ''
   const associatedAgent = associatedAgentInfo.value
 
-  const sendEventMessage = actionCode =>
+  const sendEventMessage = ({ actionCode, parentCode }) =>
     onSendMessage({
-      rootcode: userCode,
+      // rootcode: userCode,
       targetCode: userCode,
       code: actionCode,
-      parentCode: 'QUE_AVATAR_GRP',
+      parentCode: parentCode,
     })
 
   return (
@@ -46,7 +46,12 @@ const Intern = ({ userCode }) => {
               fontSize="10px"
               color="#00AFAC"
               cursor="pointer"
-              onClick={() => sendEventMessage('QUE_AVATAR_PROFILE_GRP')}
+              onClick={() =>
+                sendEventMessage({
+                  actionCode: 'QUE_AVATAR_PROFILE_GRP',
+                  parentCode: 'QUE_AVATAR_GRP',
+                })
+              }
             >{`EDIT YOUR PROFILE`}</Text>
             <Spacer />
             <Text
@@ -55,7 +60,9 @@ const Intern = ({ userCode }) => {
               fontSize="10px"
               color="#00AFAC"
               cursor="pointer"
-              onClick={() => sendEventMessage('ACT_PRI_EVENT_VIEW')}
+              onClick={() =>
+                sendEventMessage({ actionCode: 'ACT_PRI_EVENT_VIEW', parentCode: code })
+              }
             >{`PREVIEW YOUR PROFILE`}</Text>
           </HStack>
         </VStack>
