@@ -28,7 +28,8 @@ const Dashboard = () => {
   if (!dashboardSbes) return <div />
 
   if (userType === 'HOST_CPY_REP') return <HostCompanyRep userCode={userCode} />
-  if (userType === 'INTERN') return <InternDashboard userCode={userCode} />
+  if (userType === 'INTERN')
+    return <InternDashboard userCode={userCode} dashboardSbes={dashboardSbes} />
   if (userType === 'AGENT' || userType === 'ADMIN') {
     if (realm === 'mentormatch') {
       return <AgentDashboard userCode={userCode} />
