@@ -17,7 +17,7 @@ LogRocket.init('geop13/internmatch')
 
 const initialiseApp = async () => {
   try {
-    initLog()
+    //initLog()
     const { keycloak, theme, title } = await getApiConfig()
 
     ReactDOM.render(
