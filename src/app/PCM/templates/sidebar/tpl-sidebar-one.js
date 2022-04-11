@@ -1,13 +1,19 @@
 import { VStack } from '@chakra-ui/react'
-import getPcmField from 'app/PCM/helpers/get-pcm-field'
-import getSpillLocs from 'app/PCM/helpers/get-spill-locs'
-import mapSpillLocs from 'app/PCM/helpers/map-spill-locs'
+import mapQuestionGroup from 'app/PCM/helpers/map-question-grp'
+import EvtButton from 'app/PCM/components/evt-button'
 
 const TemplateSidebarOne = ({ mappedPcm }) => {
   return (
     <VStack test-id={mappedPcm.PRI_QUESTION_CODE} justifyContent="center">
-      {mapSpillLocs(getSpillLocs(mappedPcm)())(loc => {
-        return getPcmField(loc, mappedPcm)()
+      {mapQuestionGroup(mappedPcm.PRI_QUESTION_CODE)((questionCode, attributeCode, iconId) => {
+        return (
+          <EvtButton
+            key={attributeCode}
+            questionCode={mappedPcm.PRI_QUESTION_CODE}
+            childCode={questionCode}
+            iconId={iconId}
+          />
+        )
       })}
     </VStack>
   )
