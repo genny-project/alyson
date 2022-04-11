@@ -4,6 +4,7 @@ import TemplateHeader from './tpl-header'
 import TemplateRoot from './tpl-root'
 import TemplateSidebarOne from './sidebar/tpl-sidebar-one'
 import TemplateVert from './tpl-vert'
+import TemplateDisplay from './tpl-display'
 
 const templateHandlerMachine = templateCode => properties => {
   const listOfTemplates = {
@@ -13,6 +14,7 @@ const templateHandlerMachine = templateCode => properties => {
     TPL_SIDEBAR_1: <TemplateSidebarOne {...properties} />,
     TPL_VERT: <TemplateVert {...properties} />,
     TPL_HEADER_1: <TemplateHeader {...properties} />,
+    TPL_DISPLAY: <TemplateDisplay {...properties} />,
   }
   return listOfTemplates[templateCode]
 }
