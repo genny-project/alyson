@@ -20,14 +20,12 @@ const TemplateDisplay = ({ ...props }) => {
     <>
       {/* <Timeout /> */}
       {display === 'DASHBOARD' && <Dashboard />}
-      {display === 'TABLE' && <Table mapSearch={undefined} />}
-      {display === 'PROCESS' && <Process dashboard={undefined} />}
+      {display === 'TABLE' && <Table />}
+      {display === 'PROCESS' && <Process />}
       {display === 'VIEW:ASK' && <DisplayForm />}
-      {includes('FORM', (display as string) || '') && (
-        <Form onFinish={undefined} dialog={undefined} layout={undefined} />
-      )}
-      {display === 'DETAIL' && <Detail targetCode={undefined} defaultView={undefined} />}
-      {display === 'MAP' && <Table mapSearch />}
+      {includes('FORM', display || '') && <Form />}
+      {display === 'DETAIL' && <Detail />}
+      {display === 'MAP' && <Table />}
       {display === 'NOTES' && <Notes />}
     </>
   )
