@@ -1,13 +1,13 @@
 import { HStack, Text, VStack } from '@chakra-ui/layout'
 import { Flex, Progress, Spacer, Divider, Image } from '@chakra-ui/react'
 import { useSelector } from 'react-redux'
-import { toUpper } from 'ramda'
+import { toUpper, find, includes } from 'ramda'
 
 import { selectAttributes } from 'redux/db/selectors'
 import { onSendMessage } from 'vertx'
 import Recommendations from 'app/layouts/dashboard/intern/recommendations'
 
-const Intern = ({ code, userCode }) => {
+const Intern = ({ userCode, dashboardSbes }) => {
   const profileCompletedPercentage = 30
   const [firstnameInfo, associatedAgentInfo] = useSelector(
     selectAttributes(userCode, ['PRI_FIRSTNAME', 'PRI_AGENT_NAME', 'PRI_STATUS']),
@@ -16,12 +16,14 @@ const Intern = ({ code, userCode }) => {
   const firstName = toUpper(firstnameInfo?.value) || ''
   const associatedAgent = associatedAgentInfo.value
 
+  const internSbe = find(includes('_INTERN_'), dashboardSbes || [])
+
   const sendEventMessage = ({ actionCode, parentCode }) =>
     onSendMessage({
-      // rootcode: userCode,
+      rootcode: userCode,
       targetCode: userCode,
       code: actionCode,
-      parentCode: parentCode,
+      parentCode,
     })
 
   return (
@@ -61,7 +63,7 @@ const Intern = ({ code, userCode }) => {
               color="#00AFAC"
               cursor="pointer"
               onClick={() =>
-                sendEventMessage({ actionCode: 'ACT_PRI_EVENT_VIEW', parentCode: code })
+                sendEventMessage({ actionCode: 'ACT_PRI_EVENT_VIEW', parentCode: internSbe })
               }
             >{`PREVIEW YOUR PROFILE`}</Text>
           </HStack>
