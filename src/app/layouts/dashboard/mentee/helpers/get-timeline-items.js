@@ -12,6 +12,7 @@ const useGetMenteeTimelineItems = () => {
     menteeStatus,
     isPendingSelectDate,
     selectMentorStatus,
+    isProfileCompleted,
   } = useGetMenteeInformation()
 
   const items = [
@@ -35,7 +36,7 @@ const useGetMenteeTimelineItems = () => {
       description: 'Access different training modules under this section.',
       buttonText: 'Go to Training',
       completed: trainingStatus,
-      isDisabled: isTrainingCompleted,
+      isDisabled: isProfileCompleted && isTrainingCompleted,
       code: 'ACT_PRI_EVENT_START_MENTEE_TRAINING',
       trainingStatus: trainingStatus,
     },
