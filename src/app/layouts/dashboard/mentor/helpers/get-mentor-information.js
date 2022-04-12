@@ -24,6 +24,7 @@ const useGetMentorInformation = () => {
   const isInvitedStatus = equals(mentorStatus, 'INVITED')
 
   return {
+    userCode,
     profileStatus,
     trainingStatus,
     mentorStatus,

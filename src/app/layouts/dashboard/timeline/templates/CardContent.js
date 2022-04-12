@@ -78,6 +78,7 @@ export const menteeInviteePersonalDetails = {
   attributes: [
     { label: 'First Name:', attr: '_LNK_MENTEE__PRI_FIRSTNAME' },
     { label: 'Last Name:', attr: '_LNK_MENTEE__PRI_LASTNAME' },
+    { label: 'Gender:', attr: '_LNK_MENTEE__PRI_GENDER' },
   ],
 }
 
