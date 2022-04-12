@@ -11,7 +11,7 @@ import { selectDashboard } from '../../../../redux/app/selectors'
 import { selectRows } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
 
-const Meetings = ({ mentorStatus }) => {
+const Meetings = ({ mentorStatus, setShowDetailView, setCurrentMentee }) => {
   const dashboardSbes = useSelector(selectDashboard)
   const meetingsSbe = dashboardSbes && find(includes('_MENTORING_MEETINGS_'))(dashboardSbes)
   const meetings = useSelector(selectRows(meetingsSbe))
@@ -20,7 +20,11 @@ const Meetings = ({ mentorStatus }) => {
   const menteeAttributes = useSelector(selectCode(menteeCode, 'allAttributes'))
 
   return mentorStatus === 'MATCHED' && menteeAttributes ? (
-    <BookedByMentee menteeCode={menteeCode} />
+    <BookedByMentee
+      menteeCode={menteeCode}
+      setShowDetailView={setShowDetailView}
+      setCurrentMentee={setCurrentMentee}
+    />
   ) : mentorStatus === 'MATCHED' ? (
     <Box h="inherit" minW="30%" ml={2}>
       <Card position="sticky" top="10vh">
