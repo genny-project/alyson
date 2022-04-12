@@ -38,11 +38,11 @@ export const menteePreference = {
 export const recommendationDetails = [
   {
     label: 'Location:',
-    attribute: '_LNK_SELECT_COUNTRY__PRI_NAME',
+    attribute: '_LNK_SELECT_ORIGIN_COUNTRY__PRI_NAME',
   },
   {
     label: 'Gender:',
-    attribute: 'PRI_GENDER',
+    attribute: '_LNK_GENDER_SELECT__PRI_NAME',
   },
   {
     label: 'Country of Origin:',
