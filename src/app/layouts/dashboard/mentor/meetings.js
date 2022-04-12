@@ -50,11 +50,12 @@ const Meetings = ({ mentorStatus, setShowDetailView, setCurrentMentee }) => {
                 justifyContent="space-between"
                 key={meeting}
               >
-                {/* {'completed' ? (
-                  <FontAwesomeIcon icon={faCheckCircle} color="green" />
-                ) : (
-                  <FontAwesomeIcon icon={faCalendar} color="darkGrey" />
-                )} */}
+                <Attribute
+                  config={{ size: 'xl' }}
+                  code={meeting}
+                  attribute="PRI_STATUS"
+                  hasIndicatorIcon={'true'}
+                />
                 <Attribute config={{ size: 'xl' }} code={meeting} attribute="PRI_MEETING_TIME" />
 
                 {/* <a target="_blank" rel="noopener noreferrer" href={'link'}> */}

@@ -10,12 +10,17 @@ import getDate from 'utils/helpers/timezone_magic/get-date'
 import { getIsInvalid } from 'utils/functions'
 import { includes } from 'ramda'
 import safelyParseDate from 'utils/helpers/safely-parse-date'
+import { selectCode } from 'redux/db/selectors'
 import timeBasedOnTimeZone from 'utils/helpers/timezone_magic/time-based-on-timezone'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
+import { useSelector } from 'react-redux'
 
 const Read = ({ data, typeName, config }) => {
+  const userCode = useSelector(selectCode('USER'))
+  const timeZone = useSelector(selectCode(userCode, 'PRI_TIMEZONE_ID'))?.valueString
+
   const includeTime = includes('LocalDateTime', typeName)
   const onlyYear = typeName === 'year'
 
@@ -23,7 +28,7 @@ const Read = ({ data, typeName, config }) => {
 
   const date = timeBasedOnTimeZone(
     includes('Z', data.value || '') ? new Date(data.value) : new Date(data.value + 'Z'),
-    { includeTime, onlyYear },
+    { includeTime, onlyYear, timeZone },
   )
 
   if (date === 'Invalid Date') return null
