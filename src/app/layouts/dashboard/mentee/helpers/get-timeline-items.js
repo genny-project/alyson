@@ -15,8 +15,6 @@ const useGetMenteeTimelineItems = () => {
     isProfileCompleted,
   } = useGetMenteeInformation()
 
-  console.log(isProfileCompleted, isTrainingCompleted)
-
   const items = [
     {
       title: 'Register',
