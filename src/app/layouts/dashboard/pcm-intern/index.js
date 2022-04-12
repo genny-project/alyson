@@ -16,11 +16,11 @@ const Intern = ({ userCode, dashboardSbes }) => {
   const firstName = toUpper(firstnameInfo?.value) || ''
   const associatedAgent = associatedAgentInfo.value
 
-  const internSbe = find(includes('SBE_INTERN_'), dashboardSbes || [])
+  const internSbe = find(includes('SBE_INTERNS_'), dashboardSbes || [])
 
   const sendEventMessage = ({ actionCode, parentCode }) =>
     onSendMessage({
-      rootcode: userCode,
+      // rootcode: userCode,
       targetCode: userCode,
       code: actionCode,
       parentCode,
