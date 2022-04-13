@@ -1,18 +1,27 @@
-import timeZone from 'utils/helpers/timezone_magic/time-zone-from-browser'
+// import timeZone from 'utils/helpers/timezone_magic/time-zone-from-browser'
 
-const userLocale = navigator.language || navigator.languages[0]
+// const userLocale = navigator.language || navigator.languages[0]
+
+const locale = 'en-AU'
 
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
 const timeBasedOnTimeZone = (
   date: Date,
   {
-    locale,
+    // locale,
     includeTime,
     onlyYear,
     month,
-  }: { locale: string; includeTime?: Boolean; onlyYear: Boolean | undefined; month?: Boolean } = {
-    locale: userLocale,
+    timeZone,
+  }: {
+    // locale: string
+    includeTime?: Boolean
+    onlyYear: Boolean | undefined
+    month?: Boolean
+    timeZone?: string
+  } = {
+    // locale: userLocale,
     includeTime: false,
     onlyYear: false,
     month: false,

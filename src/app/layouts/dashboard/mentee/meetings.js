@@ -16,6 +16,9 @@ const Meetings = () => {
   const dashboardSbes = useSelector(selectDashboard)
   const meetingsSbe = dashboardSbes && find(includes('_MENTORING_MEETINGS_'))(dashboardSbes)
   const meetings = useSelector(selectRows(meetingsSbe))
+  const meetingsStatus = useSelector(selectCode('PRI_STATUS', meetings))?.value
+
+  console.log(meetingsStatus)
 
   return Array.isArray(meetings) && isEmpty(meetings) ? (
     <Box h="inherit" w="40%" ml={2}>
@@ -34,24 +37,27 @@ const Meetings = () => {
           <Text alignSelf="flex-start" textStyle="head.2">{`Meeting List`}</Text>
           <VStack spacing={5} alignSelf="flex-start">
             {map(meeting => (
-              <HStack
-                spacing={7}
-                alignSelf="flex-start"
-                w="100%"
-                justifyContent="space-between"
-                key={meeting}
-              >
-                {/* {'completed' ? (
-                  <FontAwesomeIcon icon={faCheckCircle} color="green" />
-                ) : (
-                  <FontAwesomeIcon icon={faCalendar} color="darkGrey" />
-                )} */}
-                <Attribute config={{ size: 'xl' }} code={meeting} attribute="PRI_MEETING_TIME" />
+              <>
+                <HStack
+                  spacing={7}
+                  alignSelf="flex-start"
+                  w="100%"
+                  justifyContent="space-between"
+                  key={meeting}
+                >
+                  <Attribute
+                    config={{ size: 'xl' }}
+                    code={meeting}
+                    attribute="PRI_STATUS"
+                    hasIndicatorIcon={'true'}
+                  />
+                  <Attribute config={{ size: 'xl' }} code={meeting} attribute="PRI_MEETING_TIME" />
 
-                {/* <a target="_blank" rel="noopener noreferrer" href={'link'}> */}
-                <FontAwesomeIcon icon={faVideo} color="darkGrey" />
-                {/* </a> */}
-              </HStack>
+                  {/* <a target="_blank" rel="noopener noreferrer" href={'link'}> */}
+                  <FontAwesomeIcon icon={faVideo} color="darkGrey" />
+                  {/* </a> */}
+                </HStack>
+              </>
             ))(meetings)}
           </VStack>
         </VStack>
