@@ -18,8 +18,6 @@ const DetailView = ({ setShowDetailView, currentMentee }) => {
   const bg = useColorModeValue('gray.100', 'gray.700')
   const menteeStatus = useSelector(selectCode(currentMentee, '_LNK_MENTEE__PRI_STATUS'))?.value
 
-  console.log(menteeStatus)
-
   return (
     <Flex
       w="50vw"
