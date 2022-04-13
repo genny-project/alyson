@@ -16,9 +16,6 @@ const Meetings = () => {
   const dashboardSbes = useSelector(selectDashboard)
   const meetingsSbe = dashboardSbes && find(includes('_MENTORING_MEETINGS_'))(dashboardSbes)
   const meetings = useSelector(selectRows(meetingsSbe))
-  const meetingsStatus = useSelector(selectCode('PRI_STATUS', meetings))?.value
-
-  console.log(meetingsStatus)
 
   return Array.isArray(meetings) && isEmpty(meetings) ? (
     <Box h="inherit" w="40%" ml={2}>
