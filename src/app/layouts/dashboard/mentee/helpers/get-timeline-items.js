@@ -61,7 +61,7 @@ const useGetMenteeTimelineItems = () => {
       pendingDateSelected: isPendingSelectDate,
     },
     {
-      title: '12 Meetings with Mentors',
+      title: 'Meetings with Mentors',
       description: 'Meet and Greet witht the mentors',
       buttonText: 'Meet & Greet',
       completed: meetingWithMentorStatus,
