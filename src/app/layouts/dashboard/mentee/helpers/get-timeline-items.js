@@ -65,7 +65,7 @@ const useGetMenteeTimelineItems = () => {
       description: 'Meet and Greet witht the mentors',
       buttonText: 'Meet & Greet',
       completed: meetingWithMentorStatus,
-      isDisabled: !isMentorSelected || menteeStatus === 'MATCHED',
+      isDisabled: !isMentorSelected || menteeStatus === 'MENTORING',
       code: 'ACT_PRI_EVENT_SCHEDULE_MENTORING',
       parentCode: 'SBE_APPLICATIONS_MEETING',
       targetCode: userCode,
