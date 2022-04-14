@@ -5,6 +5,7 @@ const getFormattedValue = value => (typeof value === 'object' ? JSON.stringify(v
 const createSendAnswer = (fieldData, { passedTargetCode } = {}) => value => {
   const {
     id: askId,
+    processId,
     attributeCode,
     sourceCode,
     targetCode,
@@ -13,10 +14,13 @@ const createSendAnswer = (fieldData, { passedTargetCode } = {}) => value => {
     inferred = false,
   } = fieldData
 
+  console.log('processid', fieldData)
+
   onSendMessage(
     [
       {
         askId,
+        processId,
         attributeCode,
         sourceCode,
         targetCode: passedTargetCode || targetCode,
