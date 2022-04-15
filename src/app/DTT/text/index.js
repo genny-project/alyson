@@ -1,8 +1,10 @@
 import { Text as ChakraText, Input } from '@chakra-ui/react'
+import { faCalendar, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useRef, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import DetailViewTags from 'app/DTT/text/detailview_tags'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import debounce from 'lodash.debounce'
 import { getIsInvalid } from 'utils/functions'
 import { useError } from 'utils/contexts/ErrorContext'
@@ -101,11 +103,19 @@ export const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMes
   )
 }
 
-export const Read = ({ data, config = {} }) => {
+export const Read = ({ data, config = {}, hasIndicatorIcon }) => {
   const { detailViewTags } = config
 
   if (detailViewTags) {
     return <DetailViewTags data={data} />
+  }
+
+  if (hasIndicatorIcon) {
+    return data?.value === 'UNFINISHED' ? (
+      <FontAwesomeIcon icon={faCalendar} color={'#C0C0C0'} />
+    ) : (
+      <FontAwesomeIcon icon={faCheckCircle} color={'#006400'} />
+    )
   }
 
   return (

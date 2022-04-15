@@ -12,6 +12,7 @@ const useGetMenteeTimelineItems = () => {
     menteeStatus,
     isPendingSelectDate,
     selectMentorStatus,
+    isProfileCompleted,
   } = useGetMenteeInformation()
 
   const items = [
@@ -35,7 +36,7 @@ const useGetMenteeTimelineItems = () => {
       description: 'Access different training modules under this section.',
       buttonText: 'Go to Training',
       completed: trainingStatus,
-      isDisabled: isTrainingCompleted,
+      isDisabled: isProfileCompleted && isTrainingCompleted,
       code: 'ACT_PRI_EVENT_START_MENTEE_TRAINING',
       trainingStatus: trainingStatus,
     },
@@ -60,11 +61,11 @@ const useGetMenteeTimelineItems = () => {
       pendingDateSelected: isPendingSelectDate,
     },
     {
-      title: '12 Meetings with Mentors',
+      title: 'Meetings with Mentors',
       description: 'Meet and Greet witht the mentors',
       buttonText: 'Meet & Greet',
       completed: meetingWithMentorStatus,
-      isDisabled: !isMentorSelected || menteeStatus === 'MATCHED',
+      isDisabled: !isMentorSelected || menteeStatus === 'MENTORING',
       code: 'ACT_PRI_EVENT_SCHEDULE_MENTORING',
       parentCode: 'SBE_APPLICATIONS_MEETING',
       targetCode: userCode,

@@ -1,4 +1,5 @@
 import { Box, Button, Flex, Grid, useColorModeValue } from '@chakra-ui/react'
+import { equals, not } from 'ramda'
 import {
   menteeInviteePersonalDetails,
   menteeInviteePreference,
@@ -10,9 +11,12 @@ import DetailHeader from 'app/layouts/components/detail_header'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons'
 import { onSendMessage } from 'vertx'
+import { selectCode } from 'redux/db/selectors'
+import { useSelector } from 'react-redux'
 
 const DetailView = ({ setShowDetailView, currentMentee }) => {
   const bg = useColorModeValue('gray.100', 'gray.700')
+  const menteeStatus = useSelector(selectCode(currentMentee, '_LNK_MENTEE__PRI_STATUS'))?.value
 
   return (
     <Flex
@@ -35,7 +39,9 @@ const DetailView = ({ setShowDetailView, currentMentee }) => {
           variant="solid"
           leftIcon={<FontAwesomeIcon icon={faLongArrowAltLeft} />}
           test-id={`BACK_TO_MENTEE_SELECTION`}
-        >{`Mentee Selection`}</Button>
+        >
+          {equals('MATCHED', menteeStatus) ? 'Back' : `Mentee Selection`}
+        </Button>
       </Box>
 
       <DetailHeader beCode={currentMentee} />
@@ -57,23 +63,26 @@ const DetailView = ({ setShowDetailView, currentMentee }) => {
           miniCard
         />
       </Grid>
+
       <Box width="95%" mb={'1rem'}>
         <DetailCards detailsection={menteeInviteePreference} currentMentee={currentMentee} />
       </Box>
 
-      <Box w="95%">
-        <Button
-          w="full"
-          colorScheme="blue"
-          onClick={() => {
-            onSendMessage({ code: 'ACT_MENTOR_AGREE_TO_MENTOR', parentCode: currentMentee })
-            setShowDetailView(false)
-          }}
-          test-id={`ACT_MENTOR_AGREE_TO_MENTOR`}
-        >
-          {`Accept Invitation`}
-        </Button>
-      </Box>
+      {not(equals('MATCHED', menteeStatus)) && (
+        <Box w="95%">
+          <Button
+            w="full"
+            colorScheme="blue"
+            onClick={() => {
+              onSendMessage({ code: 'ACT_MENTOR_AGREE_TO_MENTOR', parentCode: currentMentee })
+              setShowDetailView(false)
+            }}
+            test-id={`ACT_MENTOR_AGREE_TO_MENTOR`}
+          >
+            {`Accept Invitation`}
+          </Button>
+        </Box>
+      )}
     </Flex>
   )
 }
