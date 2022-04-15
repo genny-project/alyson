@@ -4,15 +4,16 @@ import { apiConfig } from 'config/get-api-config'
 import { useIsMobile } from 'utils/hooks'
 
 const Navigation = () => {
-  const { realm } = apiConfig
+  const { clientId, realm } = apiConfig
+  const value = clientId || realm
   const logoSrc =
-    realm === 'internmatch'
+    value === 'internmatch'
       ? '/internmatch_new.png'
-      : realm === 'mentormatch'
+      : value === 'mentormatch'
       ? '/MM_Primary_Fullcolour-1.png'
-      : realm === 'lojing'
+      : value === 'lojing'
       ? '/lojing-logo.png'
-      : realm === 'credmatch'
+      : value === 'credmatch'
       ? '/credmatch_logo.jpg'
       : '/credmatch_logo.jpg'
   const isMobile = useIsMobile()
