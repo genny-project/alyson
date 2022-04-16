@@ -31,6 +31,13 @@ const getApiConfig = async () => {
     setupLogRocketReact(LogRocket)
   }
 
+  if (!apiConfig.clientId) {
+    console.error(
+      'Did not receive a clientId from bridge! ',
+      apiConfig?.realm ? 'Realm received:' + apiConfig.realm : 'No realm received',
+    )
+  }
+
   /* Keycloak */
   keycloak = new Keycloak({
     realm: apiConfig.realm,
