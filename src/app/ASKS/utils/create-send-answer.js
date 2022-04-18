@@ -14,8 +14,6 @@ const createSendAnswer = (fieldData, { passedTargetCode } = {}) => value => {
     inferred = false,
   } = fieldData
 
-  console.log('processid', fieldData)
-
   onSendMessage(
     [
       {
