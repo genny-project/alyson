@@ -53,7 +53,7 @@ const useGetMenteeTimelineItems = () => {
     {
       title: 'Introductory Meeting with Mentor',
       description: 'Select one of the dates proposed by your potential mentor',
-      buttonText: isPendingSelectDate ? 'Date Selected' : 'Select Date',
+      buttonText: 'Meet & Greet',
       completed: isPendingSelectDate ? 'INCOMPLETE' : 'COMPLETE' && selectMentorStatus,
       isDisabled: !isPendingSelectDate,
       targetCode: userCode,
@@ -62,10 +62,10 @@ const useGetMenteeTimelineItems = () => {
     },
     {
       title: 'Meetings with Mentors',
-      description: 'Meet and Greet witht the mentors',
-      buttonText: 'Meet & Greet',
+      description: 'Mentoring sessions after meet & greet',
+      buttonText: 'Mentoring Sessions',
       completed: meetingWithMentorStatus,
-      isDisabled: !isMentorSelected || menteeStatus === 'MENTORING',
+      isDisabled: menteeStatus !== 'MATCHED',
       code: 'ACT_PRI_EVENT_SCHEDULE_MENTORING',
       parentCode: 'SBE_APPLICATIONS_MEETING',
       targetCode: userCode,
