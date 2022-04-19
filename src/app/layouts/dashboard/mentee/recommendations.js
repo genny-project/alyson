@@ -30,76 +30,83 @@ const Recommendation = ({ setShowDetailView, setCurrentMentor, menteeStatus }) =
   return (
     <>
       <Box w="50vw" h="80vh" spacing={10} textAlign="center" p="5" position="sticky" top="10vh">
-        <Text textStyle="head.2" bg={bg} py={5}>
-          {`Please select a Mentor from the suggestions below!`}
-        </Text>
-        <Spacer />
-        <Grid gap={10} bg={bg} overflowY="scroll" h="70vh" mt={5} p={5}>
-          {allMentors &&
-            map(mentor => (
-              <Grid
-                key={mentor}
-                bg={cardsbg}
-                _hover={{ boxShadow: 'dark-lg', rounded: 'md', color: 'white', bg: hoverbg }}
-                cursor="pointer"
-                w={'100%'}
-                p="5"
-                onClick={() => {
-                  setShowDetailView(true)
-                  setCurrentMentor(mentor)
-                }}
-                m="auto"
-                boxShadow="base"
-                rounded="md"
-                textAlign="left"
-                gap={'1rem'}
-                templateColumns={parentTemplateColumns}
-                maxW={maxW}
-              >
-                <VStack textAlign="center" spacing={5} justifyContent={'space-around'}>
-                  <Attribute
-                    config={{ size: 'xl' }}
-                    code={mentor}
-                    attribute="PRI_USER_PROFILE_PICTURE"
-                  />
-
-                  <Button w="full" colorScheme="primary" test-id={`VIEW_PROFILE_${mentor}`}>
-                    {`View Profile`}
-                  </Button>
-                </VStack>
-
-                <VStack display="inline">
-                  <>
+        {allMentors.length > 0 ? (
+          <>
+            <Text textStyle="head.2" bg={bg} py={5}>
+              {`Please select a Mentor from the suggestions below!`}
+            </Text>
+            <Spacer />
+            <Grid gap={10} bg={bg} overflowY="scroll" h="70vh" mt={5} p={5}>
+              {map(mentor => (
+                <Grid
+                  key={mentor}
+                  bg={cardsbg}
+                  _hover={{ boxShadow: 'dark-lg', rounded: 'md', color: 'white', bg: hoverbg }}
+                  cursor="pointer"
+                  w={'100%'}
+                  p="5"
+                  onClick={() => {
+                    setShowDetailView(true)
+                    setCurrentMentor(mentor)
+                  }}
+                  m="auto"
+                  boxShadow="base"
+                  rounded="md"
+                  textAlign="left"
+                  gap={'1rem'}
+                  templateColumns={parentTemplateColumns}
+                  maxW={maxW}
+                >
+                  <VStack textAlign="center" spacing={5} justifyContent={'space-around'}>
                     <Attribute
-                      config={{ textStyle: 'body.1', mb: '6' }}
+                      config={{ size: 'xl' }}
                       code={mentor}
-                      attribute="PRI_NAME"
+                      attribute="PRI_USER_PROFILE_PICTURE"
                     />
-                    {map(({ label, attribute }) => (
-                      <Grid
-                        key={`${label}-${attribute}`}
-                        templateColumns={childTemplateColumns}
-                        gap={isMobile ? '0' : '0.75rem'}
-                      >
-                        <Text
-                          title={label}
-                          textAlign={isMobile ? 'left' : 'right'}
-                          opacity={'0.75'}
+
+                    <Button w="full" colorScheme="primary" test-id={`VIEW_PROFILE_${mentor}`}>
+                      {`View Profile`}
+                    </Button>
+                  </VStack>
+
+                  <VStack display="inline">
+                    <>
+                      <Attribute
+                        config={{ textStyle: 'body.1', mb: '6' }}
+                        code={mentor}
+                        attribute="PRI_NAME"
+                      />
+                      {map(({ label, attribute }) => (
+                        <Grid
+                          key={`${label}-${attribute}`}
+                          templateColumns={childTemplateColumns}
+                          gap={isMobile ? '0' : '0.75rem'}
                         >
-                          {label}
-                        </Text>
-                        <Attribute
-                          config={{ textStyle: 'body.2' }}
-                          code={mentor}
-                          attribute={attribute}
-                        />
-                      </Grid>
-                    ))(recommendationDetails)}
-                  </>
-                </VStack>
-              </Grid>
-            ))(allMentors)}
-        </Grid>
+                          <Text
+                            title={label}
+                            textAlign={isMobile ? 'left' : 'right'}
+                            opacity={'0.75'}
+                          >
+                            {label}
+                          </Text>
+                          <Attribute
+                            config={{ textStyle: 'body.2' }}
+                            code={mentor}
+                            attribute={attribute}
+                          />
+                        </Grid>
+                      ))(recommendationDetails)}
+                    </>
+                  </VStack>
+                </Grid>
+              ))(allMentors)}
+            </Grid>
+          </>
+        ) : (
+          <Text textStyle="head.2" bg={bg} py={5}>
+            {`Currently no mentors are available !`}
+          </Text>
+        )}
       </Box>
     </>
   )

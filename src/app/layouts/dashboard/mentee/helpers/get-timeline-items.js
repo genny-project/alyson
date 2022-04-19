@@ -36,7 +36,8 @@ const useGetMenteeTimelineItems = () => {
       description: 'Access different training modules under this section.',
       buttonText: 'Go to Training',
       completed: trainingStatus,
-      isDisabled: isProfileCompleted && isTrainingCompleted,
+      isDisabled:
+        isProfileCompleted && menteeStatus === 'PENDING' && !isTrainingCompleted ? false : true,
       code: 'ACT_PRI_EVENT_START_MENTEE_TRAINING',
       trainingStatus: trainingStatus,
     },
