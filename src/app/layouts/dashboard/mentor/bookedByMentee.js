@@ -1,12 +1,12 @@
-import { Box, Grid, Text } from '@chakra-ui/react'
+import { Box, Button, Grid, Text } from '@chakra-ui/react'
 
 import Attribute from '../../../BE/attribute/index'
 import DetailCards from 'app/layouts/components/detail_card'
 import { menteeInfo } from 'app/layouts/dashboard/timeline/templates/CardContent'
 import { useMobileValue } from 'utils/hooks'
 
-const BookedByMentee = ({ menteeCode }) => {
-  const templateColumns = useMobileValue(['1fr', '70px 1fr minmax(10rem, max-content)'])
+const BookedByMentee = ({ menteeCode, setShowDetailView, setCurrentMentee }) => {
+  const templateColumns = useMobileValue(['1fr', '100px 1fr minmax(10rem, max-content)'])
   const margin = useMobileValue(['', '10'])
 
   return (
@@ -23,10 +23,21 @@ const BookedByMentee = ({ menteeCode }) => {
     >
       <Box mt={margin}>
         <Attribute
-          config={{ w: '70px', h: '70px' }}
+          config={{ w: '80px', h: '80px', mb: '1rem', mx: 'auto' }}
           code={menteeCode}
           attribute="_LNK_MENTEE__PRI_USER_PROFILE_PICTURE"
         />
+        <Button
+          onClick={() => {
+            setShowDetailView(true)
+            setCurrentMentee(menteeCode)
+          }}
+          w="full"
+          colorScheme="primary"
+          test-id={`VIEW_PROFILE_${menteeCode}`}
+        >
+          {`View Profile`}
+        </Button>
       </Box>
 
       <DetailCards

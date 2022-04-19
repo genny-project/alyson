@@ -35,7 +35,7 @@ const getApiConfig = async () => {
   keycloak = new Keycloak({
     realm: apiConfig.realm,
     url: apiConfig.ENV_KEYCLOAK_REDIRECTURI,
-    clientId: 'alyson',
+    clientId: apiConfig.clientId ? apiConfig.clientId : 'alyson',
   })
 
   if (includes('public', window.location.pathname)) {
