@@ -16,6 +16,7 @@ interface AttributeProps {
   variant?: any
   config?: {}
   styles?: any
+  hasIndicatorIcon?: any
 }
 
 /**
@@ -80,6 +81,7 @@ const getPcmField = (code: string, mappedPcm: { [x: string]: string }, props?: A
           variant={props?.variant}
           config={props?.config}
           styles={props?.styles}
+          hasIndicatorIcon={props?.hasIndicatorIcon}
         />
       )
     }
