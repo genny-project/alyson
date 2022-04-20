@@ -51,7 +51,7 @@ const useGetMenteeTimelineItems = () => {
       invitationStatus: menteeStatus,
     },
     {
-      title: 'Introductory Meeting with Mentor',
+      title: 'Meet & Greet',
       description: 'Select one of the dates proposed by your potential mentor',
       buttonText: 'Meet & Greet',
       completed: isPendingSelectDate ? 'INCOMPLETE' : 'COMPLETE' && selectMentorStatus,
