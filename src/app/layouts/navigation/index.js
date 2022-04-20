@@ -7,7 +7,7 @@ const Navigation = () => {
   const { realm, clientId } = apiConfig
   const value = clientId || realm
   const logoSrc =
-    value === 'internmatch'
+    value === 'internmatch' || value === 'alyson'
       ? '/internmatch_new.png'
       : value === 'mentormatch'
       ? '/MM_Primary_Fullcolour-1.png'
