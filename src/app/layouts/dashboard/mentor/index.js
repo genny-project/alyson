@@ -1,8 +1,8 @@
+import { Box, Grid } from '@chakra-ui/layout'
 import { equals, find, includes, not } from 'ramda'
 
 import DashboardMessages from '../dashboard_msg'
 import DetailView from './detailView'
-import { Grid } from '@chakra-ui/layout'
 import Invites from './invites'
 import Meetings from './meetings'
 import Timeline from 'app/layouts/dashboard/timeline'
@@ -30,23 +30,26 @@ const MentorDashboard = () => {
     <Grid paddingX="10" gap={'1rem'} templateColumns={templateColumns} alignItems={'start'}>
       <Timeline items={items} />
 
-      {equals('MENTORING', mentorStatus) || (equals('MATCHED', mentorStatus) && !showDetailView) ? (
-        <Meetings
-          mentorStatus={mentorStatus}
-          setShowDetailView={setShowDetailView}
-          setCurrentMentee={setCurrentMentee}
-        />
-      ) : showDetailView && currentMentee ? (
-        <DetailView setShowDetailView={setShowDetailView} currentMentee={currentMentee} />
-      ) : equals('AVAILABLE', mentorStatus) && labelCode ? (
-        <DashboardMessages labelCode={labelCode} />
-      ) : equals('INVITED', mentorStatus) && not(equals('LAB_MENTOR_MNG_ACCEPTED', labelCode)) ? (
-        <Invites setShowDetailView={setShowDetailView} setCurrentMentee={setCurrentMentee} />
-      ) : labelCode ? (
-        <DashboardMessages labelCode={labelCode} />
-      ) : (
-        <></>
-      )}
+      <Box position="sticky" top="10vh">
+        {equals('MENTORING', mentorStatus) ||
+        (equals('MATCHED', mentorStatus) && !showDetailView) ? (
+          <Meetings
+            mentorStatus={mentorStatus}
+            setShowDetailView={setShowDetailView}
+            setCurrentMentee={setCurrentMentee}
+          />
+        ) : showDetailView && currentMentee ? (
+          <DetailView setShowDetailView={setShowDetailView} currentMentee={currentMentee} />
+        ) : equals('AVAILABLE', mentorStatus) && labelCode ? (
+          <DashboardMessages labelCode={labelCode} />
+        ) : equals('INVITED', mentorStatus) && not(equals('LAB_MENTOR_MNG_ACCEPTED', labelCode)) ? (
+          <Invites setShowDetailView={setShowDetailView} setCurrentMentee={setCurrentMentee} />
+        ) : labelCode ? (
+          <DashboardMessages labelCode={labelCode} />
+        ) : (
+          <></>
+        )}
+      </Box>
     </Grid>
   )
 }

@@ -47,6 +47,7 @@ const DetailView = ({ setShowDetailView, currentMentor }) => {
         </HStack>
       ),
     })
+
   return (
     <Flex
       w="50vw"
@@ -55,10 +56,7 @@ const DetailView = ({ setShowDetailView, currentMentor }) => {
       spacing={4}
       p="3"
       overflowY="scroll"
-      position="sticky"
-      top="10vh"
       flexDirection="column"
-      // justifyContent="space-around"
       alignItems="center"
     >
       <Box mb={4} w="95%">

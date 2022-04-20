@@ -118,11 +118,7 @@ export const Read = ({ data, config = {}, hasIndicatorIcon }) => {
     )
   }
 
-  return (
-    <ChakraText noOfLines={3} {...config}>
-      {data?.value || config.defaultValue}
-    </ChakraText>
-  )
+  return <ChakraText {...config}>{data?.value || config.defaultValue}</ChakraText>
 }
 
 const Text = {
