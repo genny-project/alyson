@@ -61,9 +61,9 @@ const MenteeDashboard = () => {
           </>
         ) : isMentorSelected && !isMeetingCompleted ? (
           <>
-            <DashboardMessages labelCode={labelCode} />
+            {/* <DashboardMessages labelCode={labelCode} /> */}
             <Meetings labelCode={labelCode} />
-            <ProvidedTimings />
+            <ProvidedTimings labelCode={labelCode} />
           </>
         ) : showDetailView && isTrainingCompleted && currentMentor ? (
           <DetailView setShowDetailView={setShowDetailView} currentMentor={currentMentor} />

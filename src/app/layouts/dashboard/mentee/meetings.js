@@ -22,8 +22,7 @@ const Meetings = ({ labelCode }) => {
       <Card position="sticky" top="10vh">
         <VStack spacing={5}>
           <Text textStyle="head.1">{`Hello ${name}`}</Text>
-          <Text textStyle="head.2">{`Sit tight, look out for an email from your mentor with three suggested time to meet to know one another.`}</Text>
-          <Text textStyle="head.2">{`Should this meeting go well and you both agree to work with each other, we will be asking you to select a time to meet each fortnight for next six months.`}</Text>
+          <Text textStyle="head.2">{`Please select date for first mentoring session. Dates for remaining sessions will be calculated automatically.`}</Text>
         </VStack>
       </Card>
     </Box>

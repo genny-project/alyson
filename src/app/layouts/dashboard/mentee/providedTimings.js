@@ -1,5 +1,5 @@
 import { Box, Flex, Grid, Text } from '@chakra-ui/react'
-import { find, includes } from 'ramda'
+import { equals, find, includes } from 'ramda'
 import { selectCode, selectRows } from 'redux/db/selectors'
 
 import Attribute from '../../../BE/attribute/index'
@@ -61,7 +61,9 @@ const ProvidedTimings = ({ labelCode = '' }) => {
         shadow={'none'}
       />
 
-      {labelCode !== 'LAB_INVITE_SENT' ? (
+      {equals('LAB_MENTEE_SELECT_MNG_DATETIME', labelCode) ? (
+        <></>
+      ) : labelCode !== 'LAB_INVITE_SENT' ? (
         <Grid mt={margin} gap={'1rem'} alignItems={'start'} justifyContent={'start'}>
           <Box
             onClick={() => onSelect('PRI_PRIMARY_AVAILABILITY')}
