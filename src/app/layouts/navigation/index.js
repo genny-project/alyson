@@ -7,6 +7,7 @@ import { equals } from 'ramda'
 const Navigation = () => {
   const { clientId, realm } = apiConfig
   const value = clientId || realm
+  console.log('Value: ', value)
   const logoSrc = equals(value, 'alyson')
     ? '/internmatch_new.png'
     : equals(value, 'mentormatch')
