@@ -116,7 +116,9 @@ const Ask = ({
       </HStack>
     )
   }
-
+  if (component === 'phone') {
+    console.log('Phone regex:', regexPattern)
+  }
   if (!!disabled && component !== 'button')
     return (
       <FormControl isDisabled isRequired={mandatory}>

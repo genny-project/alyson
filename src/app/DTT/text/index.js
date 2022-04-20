@@ -19,7 +19,10 @@ export const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMes
   const [userInput, setuserInput] = useState(data?.value)
 
   try {
+    console.log('PATTERN:', regexPattern)
+    regexPattern = regexPattern.replaceAll('\\\\', '\\')
     regex = RegExp(regexPattern)
+    console.log('REGEX:', regex)
   } catch (err) {
     console.error('There is an error with the regex', questionCode, err)
     regex = undefined
@@ -27,6 +30,7 @@ export const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMes
 
   const inputRef = useRef()
   const isInvalid = getIsInvalid(userInput)(regex)
+  console.log('Data:-' + userInput + '-Invalid:', isInvalid)
 
   useEffect(() => {
     const listener = event => {
