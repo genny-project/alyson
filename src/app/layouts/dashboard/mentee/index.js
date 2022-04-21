@@ -41,35 +41,44 @@ const MenteeDashboard = () => {
   return (
     <Grid templateColumns={templateColumns} alignItems={'start'} paddingX="10">
       <Timeline items={items} />
-      {equals('INVITED', menteeStatus) && (labelCode || invitedMentors) ? (
-        <Box>
-          {labelCode && <DashboardMessages labelCode={labelCode} />}
-          {invitedMentors && (
-            <BookedTiming invitedMentors={invitedMentors} menteeStatus={menteeStatus} />
-          )}
-        </Box>
-      ) : equals('PENDING_SELECT_DATE', menteeStatus) ? (
-        <ProvidedTimings />
-      ) : labelCode === 'LAB_INVITE_SENT' && not(equals('MENTORING', menteeStatus)) ? (
-        <DashboardMessages labelCode={labelCode} />
-      ) : isMentorSelected && !isMeetingCompleted ? (
-        <Box>
-          <DashboardMessages labelCode={labelCode} />
-          <Meetings />
-        </Box>
-      ) : showDetailView && isTrainingCompleted && currentMentor ? (
-        <DetailView setShowDetailView={setShowDetailView} currentMentor={currentMentor} />
-      ) : isTrainingCompleted && !isMentorSelected ? (
-        <Recommendation
-          setShowDetailView={setShowDetailView}
-          setCurrentMentor={setCurrentMentor}
-          menteeStatus={menteeStatus}
-        />
-      ) : isMeetingCompleted ? (
-        <AlumniPage />
-      ) : (
-        <></>
-      )}
+
+      <Box position="sticky" top="10vh">
+        {equals('INVITED', menteeStatus) && (labelCode || invitedMentors) ? (
+          <>
+            {labelCode && <DashboardMessages labelCode={labelCode} />}
+            {invitedMentors && (
+              <BookedTiming invitedMentors={invitedMentors} menteeStatus={menteeStatus} />
+            )}
+          </>
+        ) : equals('PENDING_SELECT_DATE', menteeStatus) ? (
+          <ProvidedTimings />
+        ) : (equals('LAB_INVITE_SENT', labelCode) ||
+            equals('LAB_MENTEE_SELECT_MNG_DATETIME', labelCode)) &&
+          not(equals('MENTORING', menteeStatus)) ? (
+          <>
+            <DashboardMessages labelCode={labelCode} />
+            <ProvidedTimings labelCode={'LAB_INVITE_SENT'} />
+          </>
+        ) : isMentorSelected && !isMeetingCompleted ? (
+          <>
+            {/* <DashboardMessages labelCode={labelCode} /> */}
+            <Meetings labelCode={labelCode} />
+            <ProvidedTimings labelCode={labelCode} />
+          </>
+        ) : showDetailView && isTrainingCompleted && currentMentor ? (
+          <DetailView setShowDetailView={setShowDetailView} currentMentor={currentMentor} />
+        ) : isTrainingCompleted && !isMentorSelected ? (
+          <Recommendation
+            setShowDetailView={setShowDetailView}
+            setCurrentMentor={setCurrentMentor}
+            menteeStatus={menteeStatus}
+          />
+        ) : isMeetingCompleted ? (
+          <AlumniPage />
+        ) : (
+          <></>
+        )}
+      </Box>
     </Grid>
   )
 }

@@ -29,7 +29,7 @@ const Recommendation = ({ setShowDetailView, setCurrentMentor, menteeStatus }) =
 
   return (
     <>
-      <Box w="50vw" h="80vh" spacing={10} textAlign="center" p="5" position="sticky" top="10vh">
+      <Box w="50vw" h="80vh" spacing={10} textAlign="center" p="5">
         {allMentors.length > 0 ? (
           <>
             <Text textStyle="head.2" bg={bg} py={5}>

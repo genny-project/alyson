@@ -11,7 +11,7 @@ const DetailCards = ({
   currentMentee,
   shadow = 'base',
 }) => {
-  const templateColumns = useMobileValue(['1fr', '10rem 1fr'])
+  const templateColumns = useMobileValue(['1fr', 'repeat(auto-fit, minmax(9.5rem, max-content))'])
   const { header, attributes } = detailsection
   const cardsbg = useColorModeValue('#ffffff', 'gray.600')
 

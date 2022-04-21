@@ -9,7 +9,7 @@ import { faVideo } from '@fortawesome/free-solid-svg-icons'
 import { selectDashboard } from '../../../../redux/app/selectors'
 import { useSelector } from 'react-redux'
 
-const Meetings = () => {
+const Meetings = ({ labelCode }) => {
   const userCode = useSelector(selectCode('USER'))
   const name = useSelector(selectCode(userCode, 'PRI_NAME'))?.value
 
@@ -18,18 +18,17 @@ const Meetings = () => {
   const meetings = useSelector(selectRows(meetingsSbe))
 
   return Array.isArray(meetings) && isEmpty(meetings) ? (
-    <Box h="inherit" w="40%" ml={2}>
+    <Box h="inherit" mb={5}>
       <Card position="sticky" top="10vh">
         <VStack spacing={5}>
           <Text textStyle="head.1">{`Hello ${name}`}</Text>
-          <Text textStyle="head.2">{`Sit tight, look out for an email from you mentor with three suggested time to meet to know one another.`}</Text>
-          <Text textStyle="head.2">{`Should this meeting go well and you both agree to work with each other, we will be asking you to select a time to meet each fortnight for next six months.`}</Text>
+          <Text textStyle="head.2">{`Please select date for first mentoring session. Dates for remaining sessions will be calculated automatically.`}</Text>
         </VStack>
       </Card>
     </Box>
   ) : (
-    <Box h="inherit" minW="30%" ml={2}>
-      <Card position="sticky" top="10vh">
+    <Box h="inherit" minW="30%">
+      <Card>
         <VStack spacing={7} paddingRight={10}>
           <Text alignSelf="flex-start" textStyle="head.2">{`Meeting List`}</Text>
           <VStack spacing={5} alignSelf="flex-start">
