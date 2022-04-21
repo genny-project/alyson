@@ -13,7 +13,7 @@ const TemplateOne = ({ mappedPcm, labelCode }) => {
   return (
     <Box mb={5}>
       <Card>
-        <VStack spacing={7} paddingRight={10}>
+        <VStack spacing={5}>
           <Attribute config={{ textStyle: 'head.1' }} code={labelCode} attribute={PRI_LOC1} />
           <Attribute config={{ textStyle: 'head.2' }} code={labelCode} attribute={PRI_LOC2} />
         </VStack>

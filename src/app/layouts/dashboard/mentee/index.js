@@ -57,11 +57,11 @@ const MenteeDashboard = () => {
           not(equals('MENTORING', menteeStatus)) ? (
           <>
             <DashboardMessages labelCode={labelCode} />
-            <ProvidedTimings labelCode={'LAB_INVITE_SENT'} />
+            <ProvidedTimings labelCode={labelCode} />
           </>
         ) : isMentorSelected && !isMeetingCompleted ? (
           <>
-            {/* <DashboardMessages labelCode={labelCode} /> */}
+            <DashboardMessages labelCode={labelCode} />
             <Meetings labelCode={labelCode} />
             <ProvidedTimings labelCode={labelCode} />
           </>

@@ -20,6 +20,8 @@ const BookedByMentee = ({ menteeCode, setShowDetailView, setCurrentMentee }) => 
       p="5"
       position={'sticky'}
       top={'5vh'}
+      rounded={'md'}
+      shadow={'base'}
     >
       <Box mt={margin}>
         <Attribute
