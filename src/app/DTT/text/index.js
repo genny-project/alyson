@@ -19,10 +19,10 @@ export const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMes
   const [userInput, setuserInput] = useState(data?.value)
 
   try {
-    console.log('PATTERN:', regexPattern)
+    // console.log('PATTERN:', regexPattern)
     regexPattern = regexPattern.replaceAll('\\\\', '\\')
     regex = RegExp(regexPattern)
-    console.log('REGEX:', regex)
+    // console.log('REGEX:', regex)
   } catch (err) {
     console.error('There is an error with the regex', questionCode, err)
     regex = undefined

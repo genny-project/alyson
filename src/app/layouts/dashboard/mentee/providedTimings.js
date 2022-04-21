@@ -45,6 +45,8 @@ const ProvidedTimings = ({ labelCode = '' }) => {
       bg={'white'}
       spacing={4}
       p="5"
+      rounded={'md'}
+      shadow={'base'}
     >
       <Box mt={margin}>
         <Attribute
@@ -62,6 +64,26 @@ const ProvidedTimings = ({ labelCode = '' }) => {
       />
 
       {equals('LAB_MENTEE_SELECT_MNG_DATETIME', labelCode) ? (
+        <Box
+          mt={margin}
+          paddingBlock={2}
+          paddingInline={3}
+          bg={'orange.600'}
+          borderRadius={'0.5rem'}
+          cursor={'pointer'}
+          justifySelf={'start'}
+          color={'text.dark'}
+          textAlign={'center'}
+        >
+          <Text>{'Meet & Greet Booked'}</Text>
+
+          <Attribute
+            config={{ minW: 'inherit', ml: '0.5rem' }}
+            code={code}
+            attribute={'PRI_MEET_AND_GREET_TIME'}
+          />
+        </Box>
+      ) : equals('LAB_MENTEE_MEETINGS_SCHEDULES', labelCode) ? (
         <></>
       ) : labelCode !== 'LAB_INVITE_SENT' ? (
         <Grid mt={margin} gap={'1rem'} alignItems={'start'} justifyContent={'start'}>
@@ -133,25 +155,7 @@ const ProvidedTimings = ({ labelCode = '' }) => {
           </Box>
         </Grid>
       ) : (
-        <Box
-          mt={margin}
-          paddingBlock={2}
-          paddingInline={3}
-          bg={'orange.600'}
-          borderRadius={'0.5rem'}
-          cursor={'pointer'}
-          justifySelf={'start'}
-          color={'text.dark'}
-          textAlign={'center'}
-        >
-          <Text>{'Meet & Greet Booked'}</Text>
-
-          <Attribute
-            config={{ minW: 'inherit', ml: '0.5rem' }}
-            code={code}
-            attribute={'PRI_MEET_AND_GREET_TIME'}
-          />
-        </Box>
+        <></>
       )}
     </Grid>
   )

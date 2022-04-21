@@ -117,7 +117,7 @@ const Ask = ({
     )
   }
   if (component === 'phone') {
-    console.log('Phone regex:', regexPattern)
+    // console.log('Phone regex:', regexPattern)
   }
   if (!!disabled && component !== 'button')
     return (
