@@ -31,6 +31,9 @@ const MentorDashboard = () => {
       <Timeline items={items} />
 
       <Box position="sticky" top="10vh">
+        {labelCode && not(equals('INVITED', mentorStatus)) && (
+          <DashboardMessages labelCode={labelCode} />
+        )}
         {equals('MENTORING', mentorStatus) ||
         (equals('MATCHED', mentorStatus) && !showDetailView) ? (
           <Meetings
@@ -40,12 +43,8 @@ const MentorDashboard = () => {
           />
         ) : showDetailView && currentMentee ? (
           <DetailView setShowDetailView={setShowDetailView} currentMentee={currentMentee} />
-        ) : equals('AVAILABLE', mentorStatus) && labelCode ? (
-          <DashboardMessages labelCode={labelCode} />
         ) : equals('INVITED', mentorStatus) && not(equals('LAB_MENTOR_MNG_ACCEPTED', labelCode)) ? (
           <Invites setShowDetailView={setShowDetailView} setCurrentMentee={setCurrentMentee} />
-        ) : labelCode ? (
-          <DashboardMessages labelCode={labelCode} />
         ) : (
           <></>
         )}
