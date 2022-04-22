@@ -24,7 +24,7 @@ import { selectCode } from 'redux/db/selectors'
 import { selectDisplay } from 'redux/app/selectors'
 import { useSelector } from 'react-redux'
 
-const Display = ({ title }) => {
+const Display = () => {
   const display = useSelector(selectDisplay)
 
   const backgroundColor = useColorModeValue('gray.50', '')
@@ -36,10 +36,9 @@ const Display = ({ title }) => {
     }
   }
 
-  const appName = convertToUppercase(title)
-
-  const projectTitle = useSelector(selectCode('PRJ_' + appName, 'PRI_NAME'))?.valueString
-  const projectIcon = useSelector(selectCode('PRJ_' + appName, 'PRI_FAVICON'))?.valueString
+  const appName = useSelector(selectCode('PROJECT'))
+  const projectTitle = useSelector(selectCode(appName, 'PRI_NAME'))?.valueString
+  const projectIcon = useSelector(selectCode(appName, 'PRI_FAVICON'))?.valueString
 
   return (
     <ErrorBoundary>

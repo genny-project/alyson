@@ -19,6 +19,7 @@ const initialiseApp = async () => {
   try {
     // initLog()
     const { keycloak, theme, title } = await getApiConfig()
+
     ReactDOM.render(
       <React.StrictMode>
         <ChakraProvider theme={theme}>
