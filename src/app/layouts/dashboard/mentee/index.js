@@ -43,25 +43,17 @@ const MenteeDashboard = () => {
       <Timeline items={items} />
 
       <Box position="sticky" top="10vh">
-        {equals('INVITED', menteeStatus) && (labelCode || invitedMentors) ? (
-          <>
-            {labelCode && <DashboardMessages labelCode={labelCode} />}
-            {invitedMentors && (
-              <BookedTiming invitedMentors={invitedMentors} menteeStatus={menteeStatus} />
-            )}
-          </>
-        ) : equals('PENDING_SELECT_DATE', menteeStatus) ? (
-          <ProvidedTimings />
-        ) : (equals('LAB_INVITE_SENT', labelCode) ||
-            equals('LAB_MENTEE_SELECT_MNG_DATETIME', labelCode)) &&
+        {labelCode && <DashboardMessages labelCode={labelCode} />}
+
+        {equals('INVITED', menteeStatus) && invitedMentors ? (
+          <BookedTiming invitedMentors={invitedMentors} menteeStatus={menteeStatus} />
+        ) : not(equals('PENDING', menteeStatus)) &&
+          not(equals('TRAINING', menteeStatus)) &&
+          not(equals('AWAITING_SELECT_DATETIME_MENTORING', menteeStatus)) &&
           not(equals('MENTORING', menteeStatus)) ? (
-          <>
-            <DashboardMessages labelCode={labelCode} />
-            <ProvidedTimings labelCode={labelCode} />
-          </>
+          <ProvidedTimings labelCode={labelCode} />
         ) : isMentorSelected && !isMeetingCompleted ? (
           <>
-            <DashboardMessages labelCode={labelCode} />
             <Meetings labelCode={labelCode} />
             <ProvidedTimings labelCode={labelCode} />
           </>

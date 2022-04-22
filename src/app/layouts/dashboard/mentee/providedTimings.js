@@ -85,7 +85,7 @@ const ProvidedTimings = ({ labelCode = '' }) => {
         </Box>
       ) : equals('LAB_MENTEE_MEETINGS_SCHEDULES', labelCode) ? (
         <></>
-      ) : labelCode !== 'LAB_INVITE_SENT' ? (
+      ) : equals('LAB_INVITE_SENT', labelCode) ? (
         <Grid mt={margin} gap={'1rem'} alignItems={'start'} justifyContent={'start'}>
           <Box
             onClick={() => onSelect('PRI_PRIMARY_AVAILABILITY')}
