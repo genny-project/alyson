@@ -1,10 +1,11 @@
-import TemplateNorth from 'app/PCM/templates/navigation/tpl-north.js'
-import TemplateWest from 'app/PCM/templates/sidebar/tpl-west.js'
-import TemplateHeader from './tpl-header'
+import TemplateNorth from 'app/PCM/templates/navigation/tpl-north'
+import TemplateWest from 'app/PCM/templates/sidebar/tpl-west'
+import TemplateHeader from './navigation/tpl-header'
 import TemplateRoot from './tpl-root'
 import TemplateSidebarOne from './sidebar/tpl-sidebar-one'
 import TemplateVert from './tpl-vert'
 import TemplateDisplay from './tpl-display'
+import TemplateLogo from './tpl-logo'
 
 const templateHandlerMachine = templateCode => properties => {
   const listOfTemplates = {
@@ -15,6 +16,7 @@ const templateHandlerMachine = templateCode => properties => {
     TPL_VERT: <TemplateVert {...properties} />,
     TPL_HEADER_1: <TemplateHeader {...properties} />,
     TPL_DISPLAY: <TemplateDisplay {...properties} />,
+    TPL_LOGO: <TemplateLogo {...properties} />,
   }
   return listOfTemplates[templateCode]
 }

@@ -17,12 +17,16 @@ import { selectCode } from 'redux/db/selectors'
 import sendAskClick from 'app/ASKS/utils/send-ask-click'
 import useApi from 'api'
 import { useSelector } from 'react-redux'
+import { startsWith } from 'ramda'
 
 const EvtButton = ({ questionCode, childCode, iconId }) => {
   const data = useSelector(selectCode(questionCode, childCode))
 
   const { getImageSrc } = useApi()
-  const src = getImageSrc(iconId)
+  let src = iconId
+  if (!startsWith('http', iconId)) {
+    src = getImageSrc(iconId)
+  }
 
   if (!data) return null
 

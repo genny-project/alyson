@@ -22,8 +22,13 @@ interface AttributeProps {
 /**
  * Takes in a code, either a PCM or Attribute, and returns either a PCM, Attribute or Ask
  */
-const getPcmField = (code: string, mappedPcm: { [x: string]: string }, props?: AttributeProps) => (
-  fn: (questionCode: string, attributeCode: string) => JSX.Element | undefined,
+const getPcmField = (
+  code: string,
+  mappedPcm: { [x: string]: string },
+  props?: AttributeProps,
+  properties?: any,
+) => (
+  fn: (questionCode: string, childCode: string, attributeCode: string) => JSX.Element | undefined,
 ) => {
   const splitArr: string[] = split('_')(code)
 
@@ -37,7 +42,7 @@ const getPcmField = (code: string, mappedPcm: { [x: string]: string }, props?: A
   }
 
   if (prefix === 'PCM') {
-    return <Pcm code={code} />
+    return <Pcm code={code} properties={properties} />
   } else {
     const questionCode = mappedPcm.PRI_QUESTION_CODE
     const wholeData = useSelector(selectCode(questionCode, 'wholeData'))
@@ -58,7 +63,7 @@ const getPcmField = (code: string, mappedPcm: { [x: string]: string }, props?: A
       return <div />
     }
 
-    if (prefix === 'EVT') {
+    if (prefix === 'EVT' && !fn) {
       return (
         <EvtButton
           key={code}
@@ -68,8 +73,8 @@ const getPcmField = (code: string, mappedPcm: { [x: string]: string }, props?: A
         />
       )
     } else {
-      return fn ? (
-        fn(ask?.questionCode || '', code)
+      return !!fn ? (
+        fn(questionCode, ask?.questionCode || '', code)
       ) : (
         <Attribute
           key={code}

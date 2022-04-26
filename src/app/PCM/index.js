@@ -5,7 +5,7 @@ import templateHandlerMachine from 'app/PCM/templates'
 import TemplateDefault from './templates/tpl-default'
 import { assoc } from 'ramda'
 
-const Pcm = ({ code, ...properties }) => {
+const Pcm = ({ code, properties }) => {
   const mappedPcm = useGetMappedPcm(code)
 
   const { PRI_TEMPLATE_CODE: templateCode } = mappedPcm
