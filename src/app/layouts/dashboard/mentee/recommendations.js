@@ -9,7 +9,7 @@ import { useIsMobile } from '../../../../utils/hooks'
 import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 
-const Recommendation = ({ setShowDetailView, setCurrentMentor, menteeStatus }) => {
+const Recommendation = ({ setShowDetailView, setCurrentMentor }) => {
   const bg = useColorModeValue('gray.100', 'gray.700')
   const cardsbg = useColorModeValue('#ffffff', 'gray.800')
   const hoverbg = useColorModeValue('teal.300', 'teal.500')

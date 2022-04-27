@@ -40,7 +40,7 @@ const MenteeDashboard = () => {
 
   return (
     <Grid templateColumns={templateColumns} alignItems={'start'} paddingX="10">
-      <Timeline items={items} />
+      <Timeline items={items} setShowDetailView={setShowDetailView} />
 
       <Box position="sticky" top="10vh">
         {labelCode && <DashboardMessages labelCode={labelCode} />}

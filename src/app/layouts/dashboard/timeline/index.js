@@ -21,7 +21,7 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { onSendMessage } from 'vertx'
 import { useMobileValue } from 'utils/hooks'
 
-const Timeline = ({ items }) => {
+const Timeline = ({ items, setShowDetailView }) => {
   let totalItems = length(items)
   let numberOfCompletedItems = filter(item => equals(path(['completed'])(item), complete))(items)
   let lengthOfNumberOfCompletedItems = length(numberOfCompletedItems)
@@ -118,13 +118,14 @@ const Timeline = ({ items }) => {
                     {buttonText && (
                       <Button
                         colorScheme="blue"
-                        onClick={() =>
+                        onClick={() => {
                           onSendMessage({
                             code: code,
                             parentCode: parentCode,
                             targetCode: targetCode,
                           })
-                        }
+                          setShowDetailView(false)
+                        }}
                         size="md"
                         isDisabled={isDisabled}
                         test-id={convertToUppercase(buttonText).replace(/ /g, '_')}
