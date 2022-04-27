@@ -13,8 +13,6 @@ const DefaultTemplate = ({ beCode, name, video, bg, mappedPcm, miniCard, cardsbg
     PRI_LOC2,
     PRI_LOC3,
     PRI_LOC4,
-    PRI_LOC5,
-    PRI_LOC6,
     PRI_LOC7,
     PRI_LOC8,
     PRI_LOC9,
@@ -71,8 +69,6 @@ const DefaultTemplate = ({ beCode, name, video, bg, mappedPcm, miniCard, cardsbg
           <Details label="First Name" locationCode={PRI_LOC3} currentMentor={beCode} miniCard />
           <Details label="Last Name" locationCode={PRI_LOC4} currentMentor={beCode} miniCard />
           <Details label="Gender" locationCode={PRI_LOC9} currentMentor={beCode} miniCard />
-          <Details label="Email" locationCode={PRI_LOC5} currentMentor={beCode} miniCard />
-          <Details label="Mobile" locationCode={PRI_LOC6} currentMentor={beCode} miniCard />
         </VStack>
 
         <VStack
@@ -121,8 +117,6 @@ const TemplateOne = ({ beCode, name, video, bg, mappedPcm, miniCard, cardsbg }) 
     PRI_LOC2,
     PRI_LOC3,
     PRI_LOC4,
-    PRI_LOC5,
-    PRI_LOC6,
     PRI_LOC7,
     PRI_LOC8,
     PRI_LOC9,
@@ -181,8 +175,6 @@ const TemplateOne = ({ beCode, name, video, bg, mappedPcm, miniCard, cardsbg }) 
           <Details label="First Name" locationCode={PRI_LOC3} currentMentor={beCode} />
           <Details label="Last Name" locationCode={PRI_LOC4} currentMentor={beCode} />
           <Details label="Gender" locationCode={PRI_LOC9} currentMentor={beCode} />
-          <Details label="Email" locationCode={PRI_LOC5} currentMentor={beCode} />
-          <Details label="Mobile" locationCode={PRI_LOC6} currentMentor={beCode} />
         </VStack>
 
         <VStack
