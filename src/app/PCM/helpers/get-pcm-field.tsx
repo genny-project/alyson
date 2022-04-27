@@ -73,7 +73,7 @@ const getPcmField = (
         />
       )
     } else {
-      return !!fn ? (
+      return fn ? (
         fn(questionCode, ask?.questionCode || '', code)
       ) : (
         <Attribute
