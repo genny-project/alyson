@@ -28,7 +28,7 @@ const MentorDashboard = () => {
 
   return (
     <Grid paddingX="10" gap={'1rem'} templateColumns={templateColumns} alignItems={'start'}>
-      <Timeline items={items} />
+      <Timeline items={items} setShowDetailView={setShowDetailView} />
 
       <Box position="sticky" top="10vh">
         {labelCode && <DashboardMessages labelCode={labelCode} />}
