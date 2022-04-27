@@ -50,7 +50,8 @@ const MenteeDashboard = () => {
         ) : not(equals('PENDING', menteeStatus)) &&
           not(equals('TRAINING', menteeStatus)) &&
           not(equals('AWAITING_SELECT_DATETIME_MENTORING', menteeStatus)) &&
-          not(equals('MENTORING', menteeStatus)) ? (
+          not(equals('MENTORING', menteeStatus)) &&
+          not(equals('AVAILABLE', menteeStatus)) ? (
           <ProvidedTimings labelCode={labelCode} />
         ) : isMentorSelected && !isMeetingCompleted ? (
           <>
