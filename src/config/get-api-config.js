@@ -24,7 +24,6 @@ const getApiConfig = async () => {
   })
 
   apiConfig = response.data
-  // console.log('API CONFIG:', apiConfig)
 
   /* Log Rocket */
   if (process.env.NODE_ENV !== 'development') {
