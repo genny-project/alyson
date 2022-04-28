@@ -24,7 +24,8 @@ const getApiConfig = async () => {
   })
 
   apiConfig = response.data
-  console.log('API CONFIG:', apiConfig)
+  // console.log('API CONFIG:', apiConfig)
+
   /* Log Rocket */
   if (process.env.NODE_ENV !== 'development') {
     LogRocket.init('geop13/alyson-dev', { release: apiConfig.realm })
@@ -56,7 +57,7 @@ const getApiConfig = async () => {
   /* Theme */
   const { projectTheme } = apiConfig
   const theme = getTheme(projectTheme)
-  const title = apiConfig.realm
+  const title = apiConfig?.clientId || apiConfig?.realm
   const appIcon = apiConfig.PRI_FAVICON
 
   return { keycloak, theme, title, appIcon }

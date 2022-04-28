@@ -1,5 +1,5 @@
-import axios from 'axios'
 import { apiConfig } from 'config/get-api-config'
+import axios from 'axios'
 
 const data = new URLSearchParams()
 const url = 'https://keycloak.gada.io/auth/realms/internmatch/protocol/openid-connect/token'
@@ -11,7 +11,7 @@ const headers = {
 const loginAsGuest = async () => {
   try {
     let clientId = apiConfig?.clientId
-    if (clientId === undefined) {
+    if (clientId) {
       console.error('Guest defaulting clientId to alyson')
       clientId = 'alyson'
     }
