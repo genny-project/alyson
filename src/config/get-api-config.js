@@ -49,10 +49,8 @@ const getApiConfig = async () => {
   /* Theme */
   const { projectTheme } = apiConfig
   const theme = getTheme(projectTheme)
-  const title = apiConfig.realm
-  const appIcon = apiConfig.PRI_FAVICON
 
-  return { keycloak, theme, title, appIcon }
+  return { keycloak, theme }
 }
 
 export { apiConfig, keycloak, guestKeycloak, tokenFromUrl }
