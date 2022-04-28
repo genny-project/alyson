@@ -69,4 +69,4 @@ export const useMobileValue = ([mobile, base]) => {
 
 export const useGetLabel = questionGroup => useSelector(selectCode(`${questionGroup}@title`))
 
-export const useGetRealm = () => apiConfig?.clientId || apiConfig?.realm
+export const useGetRealm = () => apiConfig.clientId || apiConfig.realm
