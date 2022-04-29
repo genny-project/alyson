@@ -1,4 +1,5 @@
-import { Box, Grid, Text } from '@chakra-ui/layout'
+import { Box, Grid, HStack, Link, Text } from '@chakra-ui/layout'
+import { careerNavigatorLink, careerNavigatorText } from 'utils/constants'
 import { equals, find, includes, not } from 'ramda'
 import { selectCode, selectRows } from 'redux/db/selectors'
 
@@ -6,11 +7,14 @@ import AlumniPage from 'app/layouts/dashboard/mentee/alumni'
 import BookedTiming from './bookedTiming'
 import DashboardMessages from '../dashboard_msg'
 import DetailView from 'app/layouts/dashboard/mentee/detailView'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Meetings from 'app/layouts/dashboard/mentee/meetings'
 import ProvidedTimings from './providedTimings'
 import Recommendation from 'app/layouts/dashboard/mentee/recommendations'
 import Timeline from 'app/layouts/dashboard/timeline'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import getMenteeTimelineItems from 'app/layouts/dashboard/mentee/helpers/get-timeline-items'
+import { onSendMessage } from 'vertx'
 import { selectDashboard } from 'redux/app/selectors'
 import useGetMenteeInformation from 'app/layouts/dashboard/mentee/helpers/get-mentee-information'
 import { useMobileValue } from 'utils/hooks'
@@ -18,7 +22,7 @@ import { useSelector } from 'react-redux'
 import { useState } from 'react'
 
 const MenteeDashboard = () => {
-  const templateColumns = useMobileValue(['1fr', 'minmax(max-content, 655px) 1fr'])
+  const templateColumns = useMobileValue(['1fr', 'minmax(max-content, 575px) 1fr'])
   const {
     isMentorSelected,
     isTrainingCompleted,
@@ -41,18 +45,58 @@ const MenteeDashboard = () => {
   const userCode = useSelector(selectCode('USER'))
   const userFirstName = useSelector(selectCode(userCode, 'PRI_FIRSTNAME'))?.value
 
+  const onClick = () => {
+    onSendMessage({
+      code: 'ACT_GO_TO_PROFILE',
+      parentCode: 'BTN_CLICK',
+      targetCode: userCode,
+    })
+  }
+
   return (
     <Grid templateColumns={templateColumns} gap={'3rem'} alignItems={'start'}>
-      <Box p={10} mt={'-2.5rem'} bg={'gray.50'} boxShadow={`0.5rem -2px 1.5rem rgba(0,0,0,0.07)`}>
+      <Box p={10} mt={'-2.25rem'} bg={'gray.50'} boxShadow={`0.5rem -2px 1.5rem rgba(0,0,0,0.07)`}>
         <Timeline items={items} setShowDetailView={setShowDetailView} />
       </Box>
 
-      <Box position="sticky" top="10vh" paddingInline={10}>
-        <Text textStyle={'head.1'} paddingBottom={9}>
+      <Box position="sticky" top="5vh" paddingInline={10}>
+        <Text textStyle={'head.1'} paddingBottom={3}>
           {`Welcome, ${userFirstName}`}
         </Text>
 
-        <Box w={'full'} h={'1px'} bg={'gray.700'} mb={12}></Box>
+        <HStack color={'purple.100'} textStyle={'tail.1'} justifyContent={'space-between'} pb={8}>
+          <Text onClick={onClick} cursor={'pointer'} _hover={{ color: 'purple.500' }}>
+            {'EDIT YOUR PROFILE'}
+          </Text>
+          <Text onClick={onClick} cursor={'pointer'} _hover={{ color: 'purple.500' }}>
+            {'VIEW YOUR PROFILE'}
+          </Text>
+        </HStack>
+
+        <Box display={'flex'} justifyContent={'flex-end'}>
+          <Link
+            href={careerNavigatorLink}
+            isExternal
+            paddingInline={5}
+            paddingBlock={2}
+            bg={'orange.700'}
+            color={'text.dark'}
+            textStyle={'body.1'}
+            rounded={32}
+            cursor={'pointer'}
+            _hover={{
+              textDecoration: 'none',
+              bg: 'orange.600',
+            }}
+          >
+            <FontAwesomeIcon icon={faPlus} color="#fff" />
+            <Text as={'span'} ml={2}>
+              {careerNavigatorText}
+            </Text>
+          </Link>
+        </Box>
+
+        <Box w={'full'} h={'1px'} bg={'gray.300'} marginBlock={12}></Box>
 
         {labelCode && <DashboardMessages labelCode={labelCode} />}
 

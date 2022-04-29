@@ -18,7 +18,7 @@ const Navigation = () => {
     : '/credmatch_logo.jpg'
   const isMobile = useIsMobile()
 
-  return isMobile ? <MobileNav logoSrc={logoSrc} /> : <DesktopNav logoSrc={logoSrc} />
+  return isMobile ? <MobileNav logoSrc={logoSrc} /> : <DesktopNav value={value} logoSrc={logoSrc} />
 }
 
 export default Navigation

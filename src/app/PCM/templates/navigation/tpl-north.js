@@ -9,7 +9,7 @@ import { apiConfig } from 'config/get-api-config'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { onSendMessage } from 'vertx'
 
-const TemplateNorth = ({ bg, color, mappedPcm, logoSrc }) => {
+const TemplateNorth = ({ bg, color, mappedPcm, logoSrc, textColor }) => {
   const { PRI_LOC2, PRI_LOC3, PRI_LOC4 } = mappedPcm
 
   return (
@@ -66,7 +66,7 @@ const TemplateNorth = ({ bg, color, mappedPcm, logoSrc }) => {
               icon={<Button leftIcon={<FontAwesomeIcon icon={faPlus} />}>{`Add`}</Button>}
               hideLabel={true}
             />
-            <Drafts code={PRI_LOC3} />
+            <Drafts code={PRI_LOC3} textColor={textColor} />
             <Avatar code={PRI_LOC4} />
           </HStack>
         </Flex>

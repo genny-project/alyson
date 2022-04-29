@@ -53,6 +53,7 @@ const defaultProjectTheme = {
       800: '#171923',
     },
     purple: {
+      100: '#7678ED',
       400: '#5162FA',
     },
     green: {
@@ -66,6 +67,7 @@ const defaultProjectTheme = {
       400: '#fbbea3',
       500: '#fc825c',
       600: '#f45d22',
+      700: '#F36C24',
     },
     blackAlpha: {
       7: 'rgba(0, 0, 0, 0.07)',
