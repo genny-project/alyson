@@ -18,7 +18,7 @@ import { useSelector } from 'react-redux'
 import { useState } from 'react'
 
 const MenteeDashboard = () => {
-  const templateColumns = useMobileValue(['1fr', '1fr 1fr'])
+  const templateColumns = useMobileValue(['1fr', 'minmax(max-content, 655px) 1fr'])
   const {
     isMentorSelected,
     isTrainingCompleted,
@@ -42,46 +42,48 @@ const MenteeDashboard = () => {
   const userFirstName = useSelector(selectCode(userCode, 'PRI_FIRSTNAME'))?.value
 
   return (
-    <Box paddingInline={10}>
-      <Text textStyle={'head.1'} paddingBottom={9}>
-        {`Welcome, ${userFirstName}`}
-      </Text>
-
-      <Grid templateColumns={templateColumns} alignItems={'start'}>
+    <Grid templateColumns={templateColumns} gap={'3rem'} alignItems={'start'}>
+      <Box p={10} mt={'-2.5rem'} bg={'gray.50'} boxShadow={`0.5rem -2px 1.5rem rgba(0,0,0,0.07)`}>
         <Timeline items={items} setShowDetailView={setShowDetailView} />
+      </Box>
 
-        <Box position="sticky" top="10vh">
-          {labelCode && <DashboardMessages labelCode={labelCode} />}
+      <Box position="sticky" top="10vh" paddingInline={10}>
+        <Text textStyle={'head.1'} paddingBottom={9}>
+          {`Welcome, ${userFirstName}`}
+        </Text>
 
-          {equals('INVITED', menteeStatus) && invitedMentors ? (
-            <BookedTiming invitedMentors={invitedMentors} menteeStatus={menteeStatus} />
-          ) : not(equals('PENDING', menteeStatus)) &&
-            not(equals('TRAINING', menteeStatus)) &&
-            not(equals('AWAITING_SELECT_DATETIME_MENTORING', menteeStatus)) &&
-            not(equals('MENTORING', menteeStatus)) &&
-            not(equals('AVAILABLE', menteeStatus)) ? (
+        <Box w={'full'} h={'1px'} bg={'gray.700'} mb={12}></Box>
+
+        {labelCode && <DashboardMessages labelCode={labelCode} />}
+
+        {equals('INVITED', menteeStatus) && invitedMentors ? (
+          <BookedTiming invitedMentors={invitedMentors} menteeStatus={menteeStatus} />
+        ) : not(equals('PENDING', menteeStatus)) &&
+          not(equals('TRAINING', menteeStatus)) &&
+          not(equals('AWAITING_SELECT_DATETIME_MENTORING', menteeStatus)) &&
+          not(equals('MENTORING', menteeStatus)) &&
+          not(equals('AVAILABLE', menteeStatus)) ? (
+          <ProvidedTimings labelCode={labelCode} />
+        ) : isMentorSelected && !isMeetingCompleted ? (
+          <>
+            <Meetings labelCode={labelCode} />
             <ProvidedTimings labelCode={labelCode} />
-          ) : isMentorSelected && !isMeetingCompleted ? (
-            <>
-              <Meetings labelCode={labelCode} />
-              <ProvidedTimings labelCode={labelCode} />
-            </>
-          ) : showDetailView && isTrainingCompleted && currentMentor ? (
-            <DetailView setShowDetailView={setShowDetailView} currentMentor={currentMentor} />
-          ) : isTrainingCompleted && !isMentorSelected ? (
-            <Recommendation
-              setShowDetailView={setShowDetailView}
-              setCurrentMentor={setCurrentMentor}
-              menteeStatus={menteeStatus}
-            />
-          ) : isMeetingCompleted ? (
-            <AlumniPage />
-          ) : (
-            <></>
-          )}
-        </Box>
-      </Grid>
-    </Box>
+          </>
+        ) : showDetailView && isTrainingCompleted && currentMentor ? (
+          <DetailView setShowDetailView={setShowDetailView} currentMentor={currentMentor} />
+        ) : isTrainingCompleted && !isMentorSelected ? (
+          <Recommendation
+            setShowDetailView={setShowDetailView}
+            setCurrentMentor={setCurrentMentor}
+            menteeStatus={menteeStatus}
+          />
+        ) : isMeetingCompleted ? (
+          <AlumniPage />
+        ) : (
+          <></>
+        )}
+      </Box>
+    </Grid>
   )
 }
 export default MenteeDashboard

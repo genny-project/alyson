@@ -68,6 +68,7 @@ const defaultProjectTheme = {
       600: '#f45d22',
     },
     blackAlpha: {
+      7: 'rgba(0, 0, 0, 0.07)',
       20: 'rgba(0,0,0,0.2)',
     },
     whiteAlpha: {
