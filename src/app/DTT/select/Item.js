@@ -35,7 +35,6 @@ const Item = ({ option, idx, onSelectChange, focus, selected, maxW, setInput, se
       key={option.value}
       bg={idx % 2 ? 'blackAlpha.50' : ''}
       fontWeight={focused ? 'semibold' : 'normal'}
-      // h="2rem"
       maxW={maxW}
       px="3"
       color={includes(option.value, selected) ? 'green.400' : 'text.light'}
