@@ -31,11 +31,18 @@ const getApiConfig = async () => {
     setupLogRocketReact(LogRocket)
   }
 
+  if (!apiConfig.clientId) {
+    console.error(
+      'Did not receive a clientId from bridge! ',
+      apiConfig?.realm ? 'Realm received:' + apiConfig.realm : 'No realm received',
+    )
+  }
+
   /* Keycloak */
   keycloak = new Keycloak({
     realm: apiConfig.realm,
     url: apiConfig.ENV_KEYCLOAK_REDIRECTURI,
-    clientId: apiConfig.clientId ? apiConfig.clientId : 'alyson',
+    clientId: apiConfig.clientId, // We can't afford to default this
   })
 
   if (includes('public', window.location.pathname)) {
@@ -49,10 +56,8 @@ const getApiConfig = async () => {
   /* Theme */
   const { projectTheme } = apiConfig
   const theme = getTheme(projectTheme)
-  const title = apiConfig.realm
-  const appIcon = apiConfig.PRI_FAVICON
 
-  return { keycloak, theme, title, appIcon }
+  return { keycloak, theme }
 }
 
 export { apiConfig, keycloak, guestKeycloak, tokenFromUrl }

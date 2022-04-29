@@ -47,8 +47,10 @@ const SidebarButtons = ({ questionCode, childCode, onClick, iconId }) => {
         <Box display="flex" alignItems="center" justifyContent="center" cursor={'pointer'}>
           {iconId ? (
             <Image boxSize="35px" objectFit={'contain'} src={src} alt="" />
-          ) : (
+          ) : icons[childCode] ? (
             <FontAwesomeIcon icon={icons[childCode]} size="2x" color="#AAE3E2" />
+          ) : (
+            <></>
           )}
         </Box>
         <Text color="#BDC5CD" mt={'5px !important'} fontSize="12px" fontWeight="400">

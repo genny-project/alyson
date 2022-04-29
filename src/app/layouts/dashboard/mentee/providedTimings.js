@@ -1,5 +1,5 @@
-import { Box, Flex, Grid } from '@chakra-ui/react'
-import { find, includes } from 'ramda'
+import { Box, Flex, Grid, Text } from '@chakra-ui/react'
+import { equals, find, includes } from 'ramda'
 import { selectCode, selectRows } from 'redux/db/selectors'
 
 import Attribute from '../../../BE/attribute/index'
@@ -13,8 +13,8 @@ import { useHistory } from 'react-router-dom'
 import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 
-const ProvidedTimings = () => {
-  const templateColumns = useMobileValue(['1fr', '70px 1fr minmax(10rem, max-content)'])
+const ProvidedTimings = ({ labelCode = '' }) => {
+  const templateColumns = useMobileValue(['1fr', '70px 1fr minmax(1px, max-content)'])
   const margin = useMobileValue(['', '10'])
   const history = useHistory()
 
@@ -45,8 +45,8 @@ const ProvidedTimings = () => {
       bg={'white'}
       spacing={4}
       p="5"
-      position={'sticky'}
-      top={'5vh'}
+      rounded={'md'}
+      shadow={'base'}
     >
       <Box mt={margin}>
         <Attribute
@@ -63,74 +63,100 @@ const ProvidedTimings = () => {
         shadow={'none'}
       />
 
-      <Grid mt={margin} gap={'1rem'} alignItems={'start'} justifyContent={'start'}>
+      {equals('LAB_MENTEE_SELECT_MNG_DATETIME', labelCode) ? (
         <Box
-          onClick={() => onSelect('PRI_PRIMARY_AVAILABILITY')}
+          mt={margin}
           paddingBlock={2}
           paddingInline={3}
-          bg={'orange.100'}
-          border={'1px'}
+          bg={'orange.600'}
           borderRadius={'0.5rem'}
-          borderColor={'orange.400'}
           cursor={'pointer'}
-          _hover={{
-            bg: 'orange.400',
-          }}
+          justifySelf={'start'}
+          color={'text.dark'}
+          textAlign={'center'}
         >
-          <Flex>
-            <FontAwesomeIcon color={'#fc825c'} icon={faCalendarDay} />
-            <Attribute
-              config={{ minW: 'inherit', ml: '0.5rem' }}
-              code={mentorTimings}
-              attribute={'PRI_PRIMARY_AVAILABILITY'}
-            />
-          </Flex>
+          <Text>{'Meet & Greet Booked'}</Text>
+
+          <Attribute
+            config={{ minW: 'inherit', ml: '0.5rem' }}
+            code={code}
+            attribute={'PRI_MEET_AND_GREET_TIME'}
+          />
         </Box>
-        <Box
-          onClick={() => onSelect('PRI_SECONDARY_AVAILABILITY')}
-          paddingBlock={2}
-          paddingInline={3}
-          bg={'orange.100'}
-          border={'1px'}
-          borderRadius={'0.5rem'}
-          borderColor={'orange.400'}
-          cursor={'pointer'}
-          _hover={{
-            bg: 'orange.400',
-          }}
-        >
-          <Flex>
-            <FontAwesomeIcon color={'#fc825c'} icon={faCalendarDay} />
-            <Attribute
-              config={{ minW: 'inherit', ml: '0.5rem' }}
-              code={mentorTimings}
-              attribute={'PRI_SECONDARY_AVAILABILITY'}
-            />
-          </Flex>
-        </Box>
-        <Box
-          onClick={() => onSelect('PRI_TERTIARY_AVAILABILITY')}
-          paddingBlock={2}
-          paddingInline={3}
-          bg={'orange.100'}
-          border={'1px'}
-          borderRadius={'0.5rem'}
-          borderColor={'orange.400'}
-          cursor={'pointer'}
-          _hover={{
-            bg: 'orange.400',
-          }}
-        >
-          <Flex>
-            <FontAwesomeIcon color={'#fc825c'} icon={faCalendarDay} />
-            <Attribute
-              config={{ minW: 'inherit', ml: '0.5rem' }}
-              code={mentorTimings}
-              attribute={'PRI_TERTIARY_AVAILABILITY'}
-            />
-          </Flex>
-        </Box>
-      </Grid>
+      ) : equals('LAB_MENTEE_MEETINGS_SCHEDULES', labelCode) ? (
+        <></>
+      ) : equals('LAB_INVITE_SENT', labelCode) ? (
+        <Grid mt={margin} gap={'1rem'} alignItems={'start'} justifyContent={'start'}>
+          <Box
+            onClick={() => onSelect('PRI_PRIMARY_AVAILABILITY')}
+            paddingBlock={2}
+            paddingInline={3}
+            bg={'orange.100'}
+            border={'1px'}
+            borderRadius={'0.5rem'}
+            borderColor={'orange.400'}
+            cursor={'pointer'}
+            _hover={{
+              bg: 'orange.400',
+            }}
+          >
+            <Flex>
+              <FontAwesomeIcon color={'#fc825c'} icon={faCalendarDay} />
+              <Attribute
+                config={{ minW: 'inherit', ml: '0.5rem' }}
+                code={mentorTimings}
+                attribute={'PRI_PRIMARY_AVAILABILITY'}
+              />
+            </Flex>
+          </Box>
+          <Box
+            onClick={() => onSelect('PRI_SECONDARY_AVAILABILITY')}
+            paddingBlock={2}
+            paddingInline={3}
+            bg={'orange.100'}
+            border={'1px'}
+            borderRadius={'0.5rem'}
+            borderColor={'orange.400'}
+            cursor={'pointer'}
+            _hover={{
+              bg: 'orange.400',
+            }}
+          >
+            <Flex>
+              <FontAwesomeIcon color={'#fc825c'} icon={faCalendarDay} />
+              <Attribute
+                config={{ minW: 'inherit', ml: '0.5rem' }}
+                code={mentorTimings}
+                attribute={'PRI_SECONDARY_AVAILABILITY'}
+              />
+            </Flex>
+          </Box>
+          <Box
+            onClick={() => onSelect('PRI_TERTIARY_AVAILABILITY')}
+            paddingBlock={2}
+            paddingInline={3}
+            bg={'orange.100'}
+            border={'1px'}
+            borderRadius={'0.5rem'}
+            borderColor={'orange.400'}
+            cursor={'pointer'}
+            _hover={{
+              bg: 'orange.400',
+            }}
+          >
+            <Flex>
+              <FontAwesomeIcon color={'#fc825c'} icon={faCalendarDay} />
+              <Attribute
+                config={{ minW: 'inherit', ml: '0.5rem' }}
+                code={mentorTimings}
+                attribute={'PRI_TERTIARY_AVAILABILITY'}
+              />
+            </Flex>
+          </Box>
+        </Grid>
+      ) : (
+        <></>
+      )}
     </Grid>
   )
 }

@@ -1,26 +1,25 @@
 import {
   Box,
   Button,
-  Image,
   Flex,
   HStack,
+  Image,
   Spacer,
   useColorModeValue,
   useTheme,
 } from '@chakra-ui/react'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { LOGO_WIDTH, addItemsQuestionCode, dashboardViewQuestion } from 'utils/constants'
 
 import AskMenu from 'app/ASKS/menu'
 import Avatar from '../Avatar'
 import Drafts from '../drafts/Drafts'
-import { addItemsQuestionCode, dashboardViewQuestion } from 'utils/constants'
-import { onSendMessage } from 'vertx'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { apiConfig } from 'config/get-api-config'
-import { LOGO_WIDTH } from 'utils/constants'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import isNotEmpty from 'utils/helpers/is-not-empty.js'
+import { onSendMessage } from 'vertx'
 import templateHandlerMachine from 'app/PCM/templates'
 import useGetMappedPcm from 'app/PCM/helpers/get-mapped-pcm'
-import isNotEmpty from 'utils/helpers/is-not-empty.js'
 
 const DefaultTemplate = ({ bg, color, logoSrc }) => {
   return (
@@ -89,7 +88,7 @@ const DesktopNav = ({ logoSrc }) => {
   if (isNotEmpty(mappedPcm) && templateHandlerMachine(code)(properties)) {
     return templateHandlerMachine(code)(properties)
   }
-  console.error('Falling back on default template for ' + code + '!')
+  // console.error('Falling back on default template for ' + code + '!')
   return <DefaultTemplate {...properties} />
 }
 

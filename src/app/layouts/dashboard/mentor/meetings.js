@@ -25,19 +25,8 @@ const Meetings = ({ mentorStatus, setShowDetailView, setCurrentMentee }) => {
       setShowDetailView={setShowDetailView}
       setCurrentMentee={setCurrentMentee}
     />
-  ) : mentorStatus === 'MATCHED' ? (
-    <Box h="inherit" minW="30%" ml={2}>
-      <Card position="sticky" top="10vh">
-        <VStack spacing={7} paddingRight={10}>
-          <Text
-            alignSelf="flex-start"
-            textStyle="head.2"
-          >{`Great, now we wait for the mentee to agree to one of your selected Meet & Greet dates.`}</Text>
-        </VStack>
-      </Card>
-    </Box>
   ) : (
-    <Box h="inherit" minW="30%" ml={2}>
+    <Box h="inherit" minW="30%">
       <Card position="sticky" top="10vh">
         <VStack spacing={7} paddingRight={10}>
           <Text alignSelf="flex-start" textStyle="head.2">{`Meeting List`}</Text>

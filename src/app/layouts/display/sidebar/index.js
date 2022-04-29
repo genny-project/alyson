@@ -1,14 +1,13 @@
-import { Center, VStack } from '@chakra-ui/react'
-import { reduce } from 'ramda'
-import { useSelector } from 'react-redux'
+import { VStack } from '@chakra-ui/react'
+import { SIDEBAR_QUESTION_CODE } from 'utils/constants'
 
 import SidebarButtons from 'app/layouts/display/sidebar/buttons/SidebarButtons'
+import isNotEmpty from 'utils/helpers/is-not-empty.js'
+import { reduce } from 'ramda'
 import { selectCode } from 'redux/db/selectors'
 import templateHandlerMachine from 'app/PCM/templates'
-import { SIDEBAR_QUESTION_CODE, SIDEBAR_WIDTH } from 'utils/constants'
-
 import useGetMappedPcm from 'app/PCM/helpers/get-mapped-pcm'
-import isNotEmpty from 'utils/helpers/is-not-empty.js'
+import { useSelector } from 'react-redux'
 
 const DefaultTemplate = ({ questionCode, listOfQuestionCode, mappedIconAndQuestionCode }) => {
   return (
@@ -47,7 +46,7 @@ const SideBar = () => {
   if (isNotEmpty(mappedPcm) && templateHandlerMachine(code)(properties)) {
     return templateHandlerMachine(code)(properties)
   }
-  console.error('Falling back on default template for ' + code + '!')
+  // console.error('Falling back on default template for ' + code + '!')
 
   return <DefaultTemplate {...properties} />
 }

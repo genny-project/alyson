@@ -36,7 +36,7 @@ const Invites = ({ setShowDetailView, setCurrentMentee }) => {
   const allMentee = useSelector(selectRows(allMenteeCode))
 
   return (
-    <Box w="50vw" h="80vh" spacing={10} textAlign="center" p="5" position="sticky" top="10vh">
+    <Box h="80vh" spacing={10} textAlign="center">
       <Text textStyle="head.2" bg={bg} py={5}>
         {`Please select any invitation from Mentees below!`}
       </Text>
