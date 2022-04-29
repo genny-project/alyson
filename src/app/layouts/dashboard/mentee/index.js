@@ -1,4 +1,4 @@
-import { Box, Grid } from '@chakra-ui/layout'
+import { Box, Grid, Text } from '@chakra-ui/layout'
 import { equals, find, includes, not } from 'ramda'
 import { selectCode, selectRows } from 'redux/db/selectors'
 
@@ -38,39 +38,48 @@ const MenteeDashboard = () => {
   const invitedMentorSbes = find(includes('_MENTOR_MNG_INVITED'))(dashboardSbes)
   const invitedMentors = useSelector(selectRows(invitedMentorSbes))
 
+  const userCode = useSelector(selectCode('USER'))
+  const userFirstName = useSelector(selectCode(userCode, 'PRI_FIRSTNAME'))?.value
+
   return (
-    <Grid templateColumns={templateColumns} alignItems={'start'} paddingX="10">
-      <Timeline items={items} />
-      {equals('INVITED', menteeStatus) && (labelCode || invitedMentors) ? (
-        <Box>
-          {labelCode && <DashboardMessages labelCode={labelCode} />}
-          {invitedMentors && (
-            <BookedTiming invitedMentors={invitedMentors} menteeStatus={menteeStatus} />
-          )}
-        </Box>
-      ) : equals('PENDING_SELECT_DATE', menteeStatus) ? (
-        <ProvidedTimings />
-      ) : labelCode === 'LAB_INVITE_SENT' && not(equals('MENTORING', menteeStatus)) ? (
-        <DashboardMessages labelCode={labelCode} />
-      ) : isMentorSelected && !isMeetingCompleted ? (
-        <Box>
+    <>
+      <Text textStyle={'head.1'} paddingBottom={9} paddingInline={10}>
+        {`Welcome, ${userFirstName}`}
+      </Text>
+
+      <Grid templateColumns={templateColumns} alignItems={'start'} paddingX="10">
+        <Timeline items={items} />
+        {equals('INVITED', menteeStatus) && (labelCode || invitedMentors) ? (
+          <Box>
+            {labelCode && <DashboardMessages labelCode={labelCode} />}
+            {invitedMentors && (
+              <BookedTiming invitedMentors={invitedMentors} menteeStatus={menteeStatus} />
+            )}
+          </Box>
+        ) : equals('PENDING_SELECT_DATE', menteeStatus) ? (
+          <ProvidedTimings />
+        ) : labelCode === 'LAB_INVITE_SENT' && not(equals('MENTORING', menteeStatus)) ? (
           <DashboardMessages labelCode={labelCode} />
-          <Meetings />
-        </Box>
-      ) : showDetailView && isTrainingCompleted && currentMentor ? (
-        <DetailView setShowDetailView={setShowDetailView} currentMentor={currentMentor} />
-      ) : isTrainingCompleted && !isMentorSelected ? (
-        <Recommendation
-          setShowDetailView={setShowDetailView}
-          setCurrentMentor={setCurrentMentor}
-          menteeStatus={menteeStatus}
-        />
-      ) : isMeetingCompleted ? (
-        <AlumniPage />
-      ) : (
-        <></>
-      )}
-    </Grid>
+        ) : isMentorSelected && !isMeetingCompleted ? (
+          <Box>
+            <DashboardMessages labelCode={labelCode} />
+            <Meetings />
+          </Box>
+        ) : showDetailView && isTrainingCompleted && currentMentor ? (
+          <DetailView setShowDetailView={setShowDetailView} currentMentor={currentMentor} />
+        ) : isTrainingCompleted && !isMentorSelected ? (
+          <Recommendation
+            setShowDetailView={setShowDetailView}
+            setCurrentMentor={setCurrentMentor}
+            menteeStatus={menteeStatus}
+          />
+        ) : isMeetingCompleted ? (
+          <AlumniPage />
+        ) : (
+          <></>
+        )}
+      </Grid>
+    </>
   )
 }
 export default MenteeDashboard
