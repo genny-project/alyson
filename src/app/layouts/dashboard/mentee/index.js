@@ -1,4 +1,4 @@
-import { Box, Grid } from '@chakra-ui/layout'
+import { Box, Grid, Text } from '@chakra-ui/layout'
 import { equals, find, includes, not } from 'ramda'
 import { selectCode, selectRows } from 'redux/db/selectors'
 
@@ -38,41 +38,50 @@ const MenteeDashboard = () => {
   const invitedMentorSbes = find(includes('_MENTOR_MNG_INVITED'))(dashboardSbes)
   const invitedMentors = useSelector(selectRows(invitedMentorSbes))
 
+  const userCode = useSelector(selectCode('USER'))
+  const userFirstName = useSelector(selectCode(userCode, 'PRI_FIRSTNAME'))?.value
+
   return (
-    <Grid templateColumns={templateColumns} alignItems={'start'} paddingX="10">
-      <Timeline items={items} setShowDetailView={setShowDetailView} />
+    <Box paddingInline={10}>
+      <Text textStyle={'head.1'} paddingBottom={9}>
+        {`Welcome, ${userFirstName}`}
+      </Text>
 
-      <Box position="sticky" top="10vh">
-        {labelCode && <DashboardMessages labelCode={labelCode} />}
+      <Grid templateColumns={templateColumns} alignItems={'start'}>
+        <Timeline items={items} setShowDetailView={setShowDetailView} />
 
-        {equals('INVITED', menteeStatus) && invitedMentors ? (
-          <BookedTiming invitedMentors={invitedMentors} menteeStatus={menteeStatus} />
-        ) : not(equals('PENDING', menteeStatus)) &&
-          not(equals('TRAINING', menteeStatus)) &&
-          not(equals('AWAITING_SELECT_DATETIME_MENTORING', menteeStatus)) &&
-          not(equals('MENTORING', menteeStatus)) &&
-          not(equals('AVAILABLE', menteeStatus)) ? (
-          <ProvidedTimings labelCode={labelCode} />
-        ) : isMentorSelected && !isMeetingCompleted ? (
-          <>
-            <Meetings labelCode={labelCode} />
+        <Box position="sticky" top="10vh">
+          {labelCode && <DashboardMessages labelCode={labelCode} />}
+
+          {equals('INVITED', menteeStatus) && invitedMentors ? (
+            <BookedTiming invitedMentors={invitedMentors} menteeStatus={menteeStatus} />
+          ) : not(equals('PENDING', menteeStatus)) &&
+            not(equals('TRAINING', menteeStatus)) &&
+            not(equals('AWAITING_SELECT_DATETIME_MENTORING', menteeStatus)) &&
+            not(equals('MENTORING', menteeStatus)) &&
+            not(equals('AVAILABLE', menteeStatus)) ? (
             <ProvidedTimings labelCode={labelCode} />
-          </>
-        ) : showDetailView && isTrainingCompleted && currentMentor ? (
-          <DetailView setShowDetailView={setShowDetailView} currentMentor={currentMentor} />
-        ) : isTrainingCompleted && !isMentorSelected ? (
-          <Recommendation
-            setShowDetailView={setShowDetailView}
-            setCurrentMentor={setCurrentMentor}
-            menteeStatus={menteeStatus}
-          />
-        ) : isMeetingCompleted ? (
-          <AlumniPage />
-        ) : (
-          <></>
-        )}
-      </Box>
-    </Grid>
+          ) : isMentorSelected && !isMeetingCompleted ? (
+            <>
+              <Meetings labelCode={labelCode} />
+              <ProvidedTimings labelCode={labelCode} />
+            </>
+          ) : showDetailView && isTrainingCompleted && currentMentor ? (
+            <DetailView setShowDetailView={setShowDetailView} currentMentor={currentMentor} />
+          ) : isTrainingCompleted && !isMentorSelected ? (
+            <Recommendation
+              setShowDetailView={setShowDetailView}
+              setCurrentMentor={setCurrentMentor}
+              menteeStatus={menteeStatus}
+            />
+          ) : isMeetingCompleted ? (
+            <AlumniPage />
+          ) : (
+            <></>
+          )}
+        </Box>
+      </Grid>
+    </Box>
   )
 }
 export default MenteeDashboard
