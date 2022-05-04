@@ -13,7 +13,7 @@ const DetailHeader = ({ beCode }) => {
     <>
       {video || videoMentee ? (
         <Grid
-          w="95%"
+          w="full"
           justifyContent="space-between"
           bg="gradient.900"
           mb={5}

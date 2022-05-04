@@ -72,6 +72,7 @@ const defaultProjectTheme = {
     blackAlpha: {
       7: 'rgba(0, 0, 0, 0.07)',
       20: 'rgba(0,0,0,0.2)',
+      50: 'rgba(0, 0, 0, 0.5)',
     },
     whiteAlpha: {
       80: 'rgba(255, 255, 255, 0.8)',

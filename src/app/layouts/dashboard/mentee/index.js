@@ -9,6 +9,7 @@ import DashboardMessages from '../dashboard_msg'
 import DetailView from 'app/layouts/dashboard/mentee/detailView'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Meetings from 'app/layouts/dashboard/mentee/meetings'
+import MenteeDetailView from 'app/layouts/dashboard/mentor/menteeDetailView'
 import ProvidedTimings from './providedTimings'
 import Recommendation from 'app/layouts/dashboard/mentee/recommendations'
 import Timeline from 'app/layouts/dashboard/timeline'
@@ -23,14 +24,17 @@ import { useState } from 'react'
 
 const MenteeDashboard = () => {
   const templateColumns = useMobileValue(['1fr', 'minmax(max-content, 575px) 1fr'])
+
   const {
     isMentorSelected,
     isTrainingCompleted,
     isMeetingCompleted,
     menteeStatus,
   } = useGetMenteeInformation()
+
   const [showDetailView, setShowDetailView] = useState(false)
   const [currentMentor, setCurrentMentor] = useState(null)
+  const [showProfileView, setShowProfileView] = useState(false)
 
   const { items } = getMenteeTimelineItems()
 
@@ -41,13 +45,20 @@ const MenteeDashboard = () => {
 
   const invitedMentorSbes = find(includes('_MENTOR_MNG_INVITED'))(dashboardSbes)
   const invitedMentors = useSelector(selectRows(invitedMentorSbes))
+  const invitedMentorsCount = useSelector(selectCode(invitedMentorSbes, 'PRI_TOTAL_RESULTS'))?.value
 
   const userCode = useSelector(selectCode('USER'))
   const userFirstName = useSelector(selectCode(userCode, 'PRI_FIRSTNAME'))?.value
 
-  const onClick = () => {
+  const recommendedMentorSbes = find(includes('_SUMMARY_MENTORS'))(dashboardSbes)
+  const recommendedMentorCount = useSelector(selectCode(recommendedMentorSbes, 'PRI_TOTAL_RESULTS'))
+    ?.value
+
+  const mentoringSessions = useSelector(selectCode(userCode, 'LNK_MENTORING_SESSIONS'))?.value
+
+  const onClick = value => {
     onSendMessage({
-      code: 'ACT_GO_TO_PROFILE',
+      code: value,
       parentCode: 'BTN_CLICK',
       targetCode: userCode,
     })
@@ -60,71 +71,102 @@ const MenteeDashboard = () => {
       </Box>
 
       <Box position="sticky" top="5vh" paddingInline={10}>
-        <Text textStyle={'head.1'} paddingBottom={3}>
-          {`Welcome, ${userFirstName}`}
-        </Text>
-
-        <HStack color={'purple.100'} textStyle={'tail.1'} justifyContent={'space-between'} pb={8}>
-          <Text onClick={onClick} cursor={'pointer'} _hover={{ color: 'purple.500' }}>
-            {'EDIT YOUR PROFILE'}
-          </Text>
-          <Text onClick={onClick} cursor={'pointer'} _hover={{ color: 'purple.500' }}>
-            {'VIEW YOUR PROFILE'}
-          </Text>
-        </HStack>
-
-        <Box display={'flex'} justifyContent={'flex-end'}>
-          <Link
-            href={careerNavigatorLink}
-            isExternal
-            paddingInline={5}
-            paddingBlock={2}
-            bg={'orange.700'}
-            color={'text.dark'}
-            textStyle={'body.1'}
-            rounded={32}
-            cursor={'pointer'}
-            _hover={{
-              textDecoration: 'none',
-              bg: 'orange.600',
-            }}
-          >
-            <FontAwesomeIcon icon={faPlus} color="#fff" />
-            <Text as={'span'} ml={2}>
-              {careerNavigatorText}
-            </Text>
-          </Link>
-        </Box>
-
-        <Box w={'full'} h={'1px'} bg={'gray.300'} marginBlock={12}></Box>
-
-        {labelCode && <DashboardMessages labelCode={labelCode} />}
-
-        {equals('INVITED', menteeStatus) && invitedMentors ? (
-          <BookedTiming invitedMentors={invitedMentors} menteeStatus={menteeStatus} />
-        ) : not(equals('PENDING', menteeStatus)) &&
-          not(equals('TRAINING', menteeStatus)) &&
-          not(equals('AWAITING_SELECT_DATETIME_MENTORING', menteeStatus)) &&
-          not(equals('MENTORING', menteeStatus)) &&
-          not(equals('AVAILABLE', menteeStatus)) ? (
-          <ProvidedTimings labelCode={labelCode} />
-        ) : isMentorSelected && !isMeetingCompleted ? (
-          <>
-            <Meetings labelCode={labelCode} />
-            <ProvidedTimings labelCode={labelCode} />
-          </>
-        ) : showDetailView && isTrainingCompleted && currentMentor ? (
-          <DetailView setShowDetailView={setShowDetailView} currentMentor={currentMentor} />
-        ) : isTrainingCompleted && !isMentorSelected ? (
-          <Recommendation
+        {showProfileView && showDetailView ? (
+          <MenteeDetailView
             setShowDetailView={setShowDetailView}
-            setCurrentMentor={setCurrentMentor}
-            menteeStatus={menteeStatus}
+            currentMentee={userCode}
+            showProfileView={showProfileView}
           />
-        ) : isMeetingCompleted ? (
-          <AlumniPage />
         ) : (
-          <></>
+          <>
+            <Text textStyle={'head.1'} marginBottom={2}>
+              {`Welcome, ${userFirstName}`}
+            </Text>
+
+            <HStack color={'purple.100'} textStyle={'tail.1'} justifyContent={'space-between'}>
+              <Text
+                onClick={() => onClick('ACT_GO_TO_PROFILE')}
+                cursor={'pointer'}
+                _hover={{ color: 'purple.500' }}
+              >
+                {'EDIT YOUR PROFILE'}
+              </Text>
+              <Text
+                onClick={() => {
+                  setShowDetailView(true)
+                  setShowProfileView(true)
+                }}
+                cursor={'pointer'}
+                _hover={{ color: 'purple.500' }}
+              >
+                {'VIEW YOUR PROFILE'}
+              </Text>
+            </HStack>
+
+            {/* <MenteeStats
+              recommendedMentorCount={recommendedMentorCount}
+              invitedMentorsCount={invitedMentorsCount}
+              mentoringSessions={mentoringSessions}
+            /> */}
+
+            <Box display={'flex'} justifyContent={'flex-end'} mt={8}>
+              <Link
+                href={careerNavigatorLink}
+                isExternal
+                paddingInline={5}
+                paddingBlock={2}
+                bg={'orange.700'}
+                color={'text.dark'}
+                textStyle={'body.1'}
+                rounded={32}
+                cursor={'pointer'}
+                _hover={{
+                  textDecoration: 'none',
+                  bg: 'orange.600',
+                }}
+              >
+                <FontAwesomeIcon icon={faPlus} color="#fff" />
+                <Text as={'span'} ml={2}>
+                  {careerNavigatorText}
+                </Text>
+              </Link>
+            </Box>
+
+            <Box w={'full'} h={'1px'} bg={'gray.300'} marginBlock={16}></Box>
+
+            {labelCode && <DashboardMessages labelCode={labelCode} />}
+
+            {equals('INVITED', menteeStatus) && invitedMentors ? (
+              <BookedTiming invitedMentors={invitedMentors} menteeStatus={menteeStatus} />
+            ) : not(equals('PENDING', menteeStatus)) &&
+              not(equals('TRAINING', menteeStatus)) &&
+              not(equals('AWAITING_SELECT_DATETIME_MENTORING', menteeStatus)) &&
+              not(equals('MENTORING', menteeStatus)) &&
+              not(equals('AVAILABLE', menteeStatus)) ? (
+              <ProvidedTimings labelCode={labelCode} />
+            ) : !showDetailView && isMentorSelected && !isMeetingCompleted ? (
+              <>
+                <Meetings labelCode={labelCode} />
+                <ProvidedTimings labelCode={labelCode} />
+              </>
+            ) : showDetailView && isTrainingCompleted && currentMentor ? (
+              <DetailView
+                setShowDetailView={setShowDetailView}
+                currentMentor={currentMentor}
+                showProfileView={showProfileView}
+              />
+            ) : isTrainingCompleted && !isMentorSelected ? (
+              <Recommendation
+                setShowDetailView={setShowDetailView}
+                setCurrentMentor={setCurrentMentor}
+                menteeStatus={menteeStatus}
+              />
+            ) : isMeetingCompleted ? (
+              <AlumniPage />
+            ) : (
+              <></>
+            )}
+          </>
         )}
       </Box>
     </Grid>

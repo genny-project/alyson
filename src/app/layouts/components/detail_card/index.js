@@ -23,13 +23,15 @@ const DetailCards = ({
       w={'100%'}
       alignItems="flex-start"
       bg={cardsbg}
-      minH={miniCard ? '17rem' : 'inherit'}
+      minH={miniCard ? '2rem' : 'inherit'}
       flex="1 1 10rem"
       height={'100%'}
     >
-      <Text textStyle="head.2" mb={5}>
-        {header}
-      </Text>
+      {header && (
+        <Text textStyle="head.2" mb={5}>
+          {header}
+        </Text>
+      )}
       {map(({ attr, label }) => (
         <Grid templateColumns={templateColumns} key={`${label}-${attr}`} w={'100%'}>
           {label && <Text>{label}</Text>}

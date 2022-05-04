@@ -24,7 +24,7 @@ const TemplateNorth = ({ bg, color, mappedPcm, logoSrc, textColor }) => {
         right: 0,
         backgroundColor: bg,
         h: 25,
-        boxShadow: '0 4px 26px rgba(0,0,0,0.08)',
+        boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
       }}
     >
       <nav>
