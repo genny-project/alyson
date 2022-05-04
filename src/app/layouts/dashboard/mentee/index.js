@@ -10,6 +10,7 @@ import DetailView from 'app/layouts/dashboard/mentee/detailView'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Meetings from 'app/layouts/dashboard/mentee/meetings'
 import MenteeDetailView from 'app/layouts/dashboard/mentor/menteeDetailView'
+import MenteeStats from './menteeStats'
 import ProvidedTimings from './providedTimings'
 import Recommendation from 'app/layouts/dashboard/mentee/recommendations'
 import Timeline from 'app/layouts/dashboard/timeline'
@@ -103,11 +104,11 @@ const MenteeDashboard = () => {
               </Text>
             </HStack>
 
-            {/* <MenteeStats
+            <MenteeStats
               recommendedMentorCount={recommendedMentorCount}
               invitedMentorsCount={invitedMentorsCount}
               mentoringSessions={mentoringSessions}
-            /> */}
+            />
 
             <Box display={'flex'} justifyContent={'flex-end'} mt={8}>
               <Link

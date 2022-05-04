@@ -85,6 +85,7 @@ const DesktopNav = ({ logoSrc, value }) => {
   const mappedPcm = useGetMappedPcm('_HEADER')
 
   const { PRI_TEMPLATE_CODE: code } = mappedPcm
+
   const properties = { bg, color, mappedPcm, logoSrc, textColor }
 
   if (isNotEmpty(mappedPcm) && templateHandlerMachine(code)(properties)) {

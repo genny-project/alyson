@@ -6,10 +6,11 @@ import Avatar from 'app/layouts/navigation/Avatar.js'
 import Drafts from 'app/layouts/navigation/drafts/Drafts.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { apiConfig } from 'config/get-api-config'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import icons from 'utils/icons'
 import { onSendMessage } from 'vertx'
 
 const TemplateNorth = ({ bg, color, mappedPcm, logoSrc, textColor }) => {
+  console.log(mappedPcm)
   const { PRI_LOC2, PRI_LOC3, PRI_LOC4 } = mappedPcm
 
   return (
@@ -60,10 +61,11 @@ const TemplateNorth = ({ bg, color, mappedPcm, logoSrc, textColor }) => {
             )}
           </Box>
           <Spacer />
+
           <HStack spacing={8} marginRight="5">
             <AskMenu
               questionCode={PRI_LOC2}
-              icon={<Button leftIcon={<FontAwesomeIcon icon={faPlus} />}>{`Add`}</Button>}
+              icon={<Button leftIcon={<FontAwesomeIcon icon={icons[PRI_LOC2]} />}>{`Add`}</Button>}
               hideLabel={true}
             />
             <Drafts code={PRI_LOC3} textColor={textColor} />

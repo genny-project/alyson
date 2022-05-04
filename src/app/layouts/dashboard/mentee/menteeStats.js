@@ -17,6 +17,7 @@ const MenteeStats = ({ recommendedMentorCount, invitedMentorsCount, mentoringSes
       borderWidth={1}
       borderStyle={'solid'}
       borderColor={'gray.700'}
+      display={'none'}
     >
       <Box pt={5} pb={2} paddingInline={1} flex={1}>
         <Text textStyle={'head.1'} color={'orange.700'}>
