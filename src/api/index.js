@@ -56,10 +56,11 @@ const useApi = () => {
     return resp?.data?.data?.name || ''
   }
 
-  const getImageSrc = (uuid, dim) =>
-    uuid
+  const getImageSrc = (uuid, dim) => {
+    return uuid
       ? `${IMAGE_URL}/${dim ? `${dim.width}x${dim.height || ''},fit/` : ''}${MEDIA_URL}/${uuid}`
       : null
+  }
 
   const getSrc = uuid => (uuid ? `${MEDIA_URL}/${uuid}` : null)
 
