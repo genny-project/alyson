@@ -9,7 +9,7 @@ import { identity } from 'ramda'
 const useApi = () => {
   const { keycloak } = useKeycloak()
 
-  const IMAGE_URL = `${apiConfig.api_url}/imageproxy`
+  const IMAGE_URL = `${apiConfig.api_url}imageproxy`
   const ABN_URL = `${apiConfig.api_url}/json`
   const MEDIA_URL = apiConfig.ENV_MEDIA_PROXY_URL
   const VIDEO_URL = `${MEDIA_URL}/video`
@@ -56,11 +56,10 @@ const useApi = () => {
     return resp?.data?.data?.name || ''
   }
 
-  const getImageSrc = (uuid, dim) => {
-    return uuid
+  const getImageSrc = (uuid, dim) =>
+    uuid && uuid !== '[]'
       ? `${IMAGE_URL}/${dim ? `${dim.width}x${dim.height || ''},fit/` : ''}${MEDIA_URL}/${uuid}`
       : null
-  }
 
   const getSrc = uuid => (uuid ? `${MEDIA_URL}/${uuid}` : null)
 
