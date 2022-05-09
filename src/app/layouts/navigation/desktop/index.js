@@ -77,7 +77,7 @@ const DefaultTemplate = ({ bg, color, logoSrc }) => {
 
 const DesktopNav = ({ logoSrc }) => {
   const theme = useTheme()
-  const bg = useColorModeValue('#F6F6F6', theme.colors.primary[900])
+  const bg = useColorModeValue(theme.colors.background.light, theme.colors.primary[900])
   const color = useColorModeValue(theme.colors.text.light, theme.colors.text.dark)
 
   const mappedPcm = useGetMappedPcm('_HEADER')

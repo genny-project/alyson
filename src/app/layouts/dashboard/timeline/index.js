@@ -83,7 +83,7 @@ const Timeline = ({ items, setShowDetailView }) => {
                 <Text textStyle="head.2" alignSelf="flex-start">
                   {title}
                 </Text>
-                <Text textStyle="body.3" noOfLines={[1]} w="inherit" alignSelf="flex-start">
+                <Text textStyle="body.3" noOfLines={[1]} alignSelf="flex-start">
                   {description}
                 </Text>
                 <Tooltip
