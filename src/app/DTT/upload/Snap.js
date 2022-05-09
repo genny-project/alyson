@@ -41,13 +41,10 @@ const Snapshot = ({ handleSave, setLoading, setOpenSnap }) => {
 
   const getBlobFromMediaStream = stream => {
     if ('ImageCapture' in window) {
-      console.log('what?')
       const videoTrack = stream.getVideoTracks()[0]
       const imageCapture = new ImageCapture(videoTrack)
       return imageCapture.takePhoto()
     } else {
-      console.log('thats right!')
-
       const video = document.createElement('video')
       const canvas = document.createElement('canvas')
       const context = canvas.getContext('2d')
