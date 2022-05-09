@@ -15,7 +15,6 @@ const Snapshot = ({ handleSave, setLoading, setOpenSnap }) => {
   const toast = useToast()
   const videoRef = useRef()
   const countRef = useRef()
-  const imageCapture = useRef()
   const stream = useUserMedia(CAPTURE_OPTIONS, err =>
     toast({
       isClosable: true,
@@ -40,14 +39,71 @@ const Snapshot = ({ handleSave, setLoading, setOpenSnap }) => {
     }),
   )
 
-  useEffect(() => {
-    if (stream) {
-      imageCapture.current = new ImageCapture(stream.getVideoTracks()[0])
+  const getBlobFromMediaStream = stream => {
+    if ('ImageCapture' in window) {
+      console.log('what?')
+      const videoTrack = stream.getVideoTracks()[0]
+      const imageCapture = new ImageCapture(videoTrack)
+      return imageCapture.takePhoto()
+    } else {
+      console.log('thats right!')
+
+      const video = document.createElement('video')
+      const canvas = document.createElement('canvas')
+      const context = canvas.getContext('2d')
+
+      video.srcObject = stream
+
+      return new Promise((resolve, reject) => {
+        video.addEventListener('loadeddata', async () => {
+          const { videoWidth, videoHeight } = video
+          canvas.width = videoWidth
+          canvas.height = videoHeight
+
+          try {
+            await video.play()
+            context.drawImage(video, 0, 0, videoWidth, videoHeight)
+            canvas.toBlob(resolve, 'image/png')
+          } catch (error) {
+            reject(error)
+          }
+        })
+      })
     }
-  }, [stream])
+  }
+
+  // useEffect(() => {
+  //   if (stream && 'ImageCapture' in window) {
+  //     imageCapture.current = new ImageCapture(stream.getVideoTracks()[0])
+  //   } else {
+  //     const video = document.createElement('video')
+  //     const canvas = document.createElement('canvas')
+  //     const context = canvas.getContext('2d')
+
+  //     video.srcObject = stream
+
+  //     return new Promise((resolve, reject) => {
+  //       video.addEventListener('loadeddata', async () => {
+  //         const { videoWidth, videoHeight } = video
+  //         canvas.width = videoWidth
+  //         canvas.height = videoHeight
+
+  //         try {
+  //           await video.play()
+  //           context.drawImage(video, 0, 0, videoWidth, videoHeight)
+  //           console.log('this one', 'ImageCapture' in window, context)
+
+  //           canvas.toBlob(resolve, 'image/png')
+  //         } catch (error) {
+  //           reject(error)
+  //         }
+  //       })
+  //     })
+  //   }
+  // }, [stream])
 
   const onSnapshot = async () => {
-    const photoBlob = await imageCapture.current.takePhoto()
+    const photoBlob = await getBlobFromMediaStream(stream)
     handleSave([photoBlob])
     setLoading(true)
     setOpenSnap(false)
