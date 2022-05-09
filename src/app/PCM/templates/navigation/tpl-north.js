@@ -10,7 +10,6 @@ import icons from 'utils/icons'
 import { onSendMessage } from 'vertx'
 
 const TemplateNorth = ({ bg, color, mappedPcm, logoSrc, textColor }) => {
-  console.log(mappedPcm)
   const { PRI_LOC2, PRI_LOC3, PRI_LOC4 } = mappedPcm
 
   return (

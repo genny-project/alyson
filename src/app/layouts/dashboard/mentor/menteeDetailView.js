@@ -1,5 +1,5 @@
 import { Box, Button, Flex, Grid, useColorModeValue } from '@chakra-ui/react'
-import { equals, not } from 'ramda'
+import { compose, equals, not } from 'ramda'
 import {
   menteeInviteePersonalDetails,
   menteeInviteePreference,
@@ -74,7 +74,7 @@ const MenteeDetailView = ({ setShowDetailView, currentMentee, showProfileView })
       </Box>
 
       {showProfileView ||
-        (not(equals('MATCHED', menteeStatus)) && (
+        (compose(not, equals('MATCHED'))(menteeStatus) && (
           <Box w="full" mt={'1rem'}>
             <Button
               w="full"

@@ -80,7 +80,7 @@ const DesktopNav = ({ logoSrc, value }) => {
   const theme = useTheme()
   const bg = useColorModeValue(theme.colors.background.light, theme.colors.primary[900])
   const color = useColorModeValue(theme.colors.text.light, theme.colors.text.dark)
-  const textColor = equals('mentormatch', value) ? '#F36C24' : '#234371'
+  const textColor = equals('mentormatch', value) ? theme.colors.orange[700] : theme.colors.gray[700]
 
   const mappedPcm = useGetMappedPcm('_HEADER')
 

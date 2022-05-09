@@ -1,6 +1,6 @@
 import { Box, Grid, HStack, Link, Text } from '@chakra-ui/layout'
 import { careerNavigatorLink, careerNavigatorText } from 'utils/constants'
-import { equals, find, includes, not } from 'ramda'
+import { compose, equals, find, includes, not } from 'ramda'
 import { selectCode, selectRows } from 'redux/db/selectors'
 
 import AlumniPage from 'app/layouts/dashboard/mentee/alumni'
@@ -139,11 +139,11 @@ const MenteeDashboard = () => {
 
             {equals('INVITED', menteeStatus) && invitedMentors ? (
               <BookedTiming invitedMentors={invitedMentors} menteeStatus={menteeStatus} />
-            ) : not(equals('PENDING', menteeStatus)) &&
-              not(equals('TRAINING', menteeStatus)) &&
-              not(equals('AWAITING_SELECT_DATETIME_MENTORING', menteeStatus)) &&
-              not(equals('MENTORING', menteeStatus)) &&
-              not(equals('AVAILABLE', menteeStatus)) ? (
+            ) : compose(not, equals('PENDING'))(menteeStatus) &&
+              compose(not, equals('TRAINING'))(menteeStatus) &&
+              compose(not, equals('AWAITING_SELECT_DATETIME_MENTORING'))(menteeStatus) &&
+              compose(not, equals('MENTORING'))(menteeStatus) &&
+              compose(not, equals('AVAILABLE'))(menteeStatus) ? (
               <ProvidedTimings labelCode={labelCode} />
             ) : !showDetailView && isMentorSelected && !isMeetingCompleted ? (
               <>
