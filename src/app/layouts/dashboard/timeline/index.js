@@ -32,7 +32,7 @@ const Timeline = ({ items, setShowDetailView }) => {
   const maxW = useMobileValue(['', '50vw'])
 
   return (
-    <HStack w={'full'} h={`${timelineHeight}vh`} maxW={maxW} position="relative" spacing={8} mb={5}>
+    <HStack w={'full'} h={`${timelineHeight}vh`} maxW={maxW} position="relative" spacing={8}>
       <Box h="100%" w="1" background="silver">
         <Flex
           direction="column"

@@ -28,9 +28,11 @@ const MentorDashboard = () => {
 
   return (
     <Grid paddingX="10" gap={'1rem'} templateColumns={templateColumns} alignItems={'start'}>
-      <Timeline items={items} setShowDetailView={setShowDetailView} />
+      <Box h={'calc(100% + 5rem)'} pt={10} paddingInline={10} mt={-10}>
+        <Timeline items={items} setShowDetailView={setShowDetailView} />
+      </Box>
 
-      <Box position="sticky" top="10vh">
+      <Box mt={useMobileValue(['10', ''])} position="sticky" top="5vh" paddingInline={10}>
         {labelCode && <DashboardMessages labelCode={labelCode} />}
         {equals('MENTORING', mentorStatus) ||
         (equals('MATCHED', mentorStatus) && !showDetailView) ? (

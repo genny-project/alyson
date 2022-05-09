@@ -67,11 +67,18 @@ const MenteeDashboard = () => {
 
   return (
     <Grid templateColumns={templateColumns} gap={'3rem'} alignItems={'start'}>
-      <Box p={10} mt={'-2.25rem'} bg={'gray.50'} boxShadow={`0.5rem -2px 1.5rem rgba(0,0,0,0.07)`}>
+      <Box
+        h={'calc(100% + 5rem)'}
+        pt={10}
+        paddingInline={10}
+        mt={-10}
+        bg={'gray.50'}
+        boxShadow={`0.5rem -2px 1.5rem rgba(0,0,0,0.07)`}
+      >
         <Timeline items={items} setShowDetailView={setShowDetailView} />
       </Box>
 
-      <Box position="sticky" top="5vh" paddingInline={10}>
+      <Box mt={useMobileValue(['10', ''])} position="sticky" top="5vh" paddingInline={10}>
         {showProfileView && showDetailView ? (
           <MenteeDetailView
             setShowDetailView={setShowDetailView}
