@@ -45,37 +45,36 @@ const Display = () => {
         <title>{projectTitle}</title>
         <link rel="icon" href={projectIcon} type="image/x-icon"></link>
       </MetaTags>
-      <Box position={'relative'} h={'100%'}>
-        <SideBar />
+      <Box position={'relative'} h={'100%'} display="grid" gridTemplateRows={'74px 1fr'}>
+        <Navigation />
+
         <Box
           backgroundColor={backgroundColor}
           id="main-display"
-          position="fixed"
-          left={SIDEBAR_WIDTH}
-          top="74px"
-          width={`calc(100% - ${SIDEBAR_WIDTH})`}
-          h={'calc(100vh - 74px)'}
           pb={1}
-          overflow="scroll"
+          display="grid"
+          gridTemplateColumns={`${SIDEBAR_WIDTH} 1fr`}
         >
-          <Navigation />
-          <Box paddingTop="2.25rem">
-            {/* <Timeout /> */}
-            {display === 'DASHBOARD' && <Dashboard />}
-            {display === 'TABLE' && <Table />}
-            {display === 'PROCESS' && <Process />}
-            {display === 'VIEW:ASK' && <DisplayForm />}
-            {includes('FORM', display || '') && <Form />}
-            {display === 'DETAIL' && <Detail />}
-            {display === 'MAP' && <Table mapSearch />}
-            {display === 'NOTES' && <Notes />}
+          <SideBar />
+          <Box overflow="auto" maxH={'calc(100vh - 74px)'}>
+            <Box paddingBlock={10}>
+              {/* <Timeout /> */}
+              {display === 'DASHBOARD' && <Dashboard />}
+              {display === 'TABLE' && <Table />}
+              {display === 'PROCESS' && <Process />}
+              {display === 'VIEW:ASK' && <DisplayForm />}
+              {includes('FORM', display || '') && <Form />}
+              {display === 'DETAIL' && <Detail />}
+              {display === 'MAP' && <Table mapSearch />}
+              {display === 'NOTES' && <Notes />}
 
-            <DisplayDrawer />
-            <Dialog />
-            <Toast />
+              <DisplayDrawer />
+              <Dialog />
+              <Toast />
+            </Box>
+            {isDev ? <DeveloperConsole /> : null}
+            <LogrocketIdentifier />
           </Box>
-          {isDev ? <DeveloperConsole /> : null}
-          <LogrocketIdentifier />
         </Box>
       </Box>
     </ErrorBoundary>
