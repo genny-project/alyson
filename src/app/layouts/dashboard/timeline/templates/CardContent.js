@@ -114,3 +114,26 @@ export const mentorInfo = {
     { label: 'Hobbies', attr: '_LNK_MENTOR__LNK_HOBBIES_INTEREST__PRI_NAME' },
   ],
 }
+
+export const menteePersonalDetails = {
+  header: 'Personal Details',
+  attributes: [
+    { label: 'First Name:', attr: 'PRI_FIRSTNAME' },
+    { label: 'Last Name:', attr: 'PRI_LASTNAME' },
+    { label: 'Email:', attr: 'PRI_EMAIL' },
+    { label: 'Mobile:', attr: 'PRI_MOBILE' },
+  ],
+}
+
+export const menteeProfileProfessionalDetails = {
+  header: 'Professional Details',
+  attributes: [
+    { label: 'LinkedIn:', attr: 'PRI_LINKEDIN_PROFILE_URL' },
+    { label: 'Hobbies:', attr: '_LNK_HOBBIES_INTEREST__PRI_NAME' },
+  ],
+}
+
+export const menteeProfilePreference = {
+  header: 'What I am interested from the mentorship',
+  attributes: [{ attr: 'LNK_OUTPUTS_OF_MENTORING_PROGRAM' }],
+}

@@ -10,7 +10,7 @@ import icons from 'utils/icons'
 import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
 
-const Drafts = ({ code: DRAFT_GROUP }) => {
+const Drafts = ({ code: DRAFT_GROUP, textColor }) => {
   const userCode = useSelector(selectCode('USER'))
   const userType = getUserType(useSelector(selectCode(userCode)))
   const drafts = (useSelector(selectCode(DRAFT_GROUP)) || []).filter(
@@ -28,7 +28,7 @@ const Drafts = ({ code: DRAFT_GROUP }) => {
       <MenuButton>
         <VStack color="grey" test-id={DRAFT_GROUP}>
           <Box>
-            <FontAwesomeIcon size="lg" w="8" h="8" icon={icons[DRAFT_GROUP]} color="#234371" />
+            <FontAwesomeIcon size="lg" w="8" h="8" icon={icons[DRAFT_GROUP]} color={textColor} />
             <Center
               ml={`0.5rem`}
               mt="-1.7rem"
@@ -45,10 +45,10 @@ const Drafts = ({ code: DRAFT_GROUP }) => {
           </Box>
           {!isMobile && (
             <HStack spacing={1}>
-              <Text fontSize="xs" textStyle="tail.2" color="#234371">
+              <Text fontSize="xs" textStyle="tail.2" color={textColor}>
                 {label}
               </Text>
-              <FontAwesomeIcon icon={faCaretDown} color="#234371" />
+              <FontAwesomeIcon icon={faCaretDown} color={textColor} />
             </HStack>
           )}
         </VStack>

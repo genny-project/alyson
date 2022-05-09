@@ -15,6 +15,7 @@ import Avatar from '../Avatar'
 import Drafts from '../drafts/Drafts'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { apiConfig } from 'config/get-api-config'
+import { equals } from 'ramda'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import isNotEmpty from 'utils/helpers/is-not-empty.js'
 import { onSendMessage } from 'vertx'
@@ -29,13 +30,13 @@ const DefaultTemplate = ({ bg, color, logoSrc }) => {
           color,
           position: 'fixed',
           top: 0,
-          zIndex: 9999,
-          maxWidth: '100vw',
           left: 0,
           right: 0,
-          backgroundColor: bg,
+          zIndex: 9999,
+          maxWidth: '100vw',
           h: 25,
-          boxShadow: 'rgb(0 0 0 / 10%) 0px 2px 0px 0px',
+          backgroundColor: bg,
+          boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
         }}
       >
         <nav>
@@ -75,15 +76,17 @@ const DefaultTemplate = ({ bg, color, logoSrc }) => {
   )
 }
 
-const DesktopNav = ({ logoSrc }) => {
+const DesktopNav = ({ logoSrc, value }) => {
   const theme = useTheme()
   const bg = useColorModeValue(theme.colors.background.light, theme.colors.primary[900])
   const color = useColorModeValue(theme.colors.text.light, theme.colors.text.dark)
+  const textColor = equals('mentormatch', value) ? theme.colors.orange[700] : theme.colors.gray[700]
 
   const mappedPcm = useGetMappedPcm('_HEADER')
 
   const { PRI_TEMPLATE_CODE: code } = mappedPcm
-  const properties = { bg, color, mappedPcm, logoSrc }
+
+  const properties = { bg, color, mappedPcm, logoSrc, textColor }
 
   if (isNotEmpty(mappedPcm) && templateHandlerMachine(code)(properties)) {
     return templateHandlerMachine(code)(properties)

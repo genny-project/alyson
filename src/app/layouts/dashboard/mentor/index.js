@@ -1,10 +1,10 @@
 import { Box, Grid } from '@chakra-ui/layout'
 import { equals, find, includes, not } from 'ramda'
 
-import DashboardMessages from '../dashboard_msg'
-import DetailView from './detailView'
+import DashboardMessages from '../dashboard_msg/index'
 import Invites from './invites'
 import Meetings from './meetings'
+import MenteeDetailView from './menteeDetailView'
 import Timeline from 'app/layouts/dashboard/timeline'
 import { selectCode } from 'redux/db/selectors'
 import { selectDashboard } from 'redux/app/selectors'
@@ -40,7 +40,7 @@ const MentorDashboard = () => {
             setCurrentMentee={setCurrentMentee}
           />
         ) : showDetailView && currentMentee ? (
-          <DetailView setShowDetailView={setShowDetailView} currentMentee={currentMentee} />
+          <MenteeDetailView setShowDetailView={setShowDetailView} currentMentee={currentMentee} />
         ) : equals('INVITED', mentorStatus) && not(equals('LAB_MENTOR_MNG_ACCEPTED', labelCode)) ? (
           <Invites setShowDetailView={setShowDetailView} setCurrentMentee={setCurrentMentee} />
         ) : (
