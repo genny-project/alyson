@@ -11,7 +11,6 @@ import getDate from 'utils/helpers/timezone_magic/get-date'
 import { getIsInvalid } from 'utils/functions'
 import { includes } from 'ramda'
 import safelyParseDate from 'utils/helpers/safely-parse-date'
-import { setTimeout } from 'timers'
 import timeBasedOnTimeZone from 'utils/helpers/timezone_magic/time-based-on-timezone'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
@@ -57,12 +56,10 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
   const onlyYear = typeName === 'year'
 
   const handleChange = () => {
-    setTimeout(() => {
-      if (chosenDate && chosenTime) {
-        !errorStatus && onSendAnswer(safelyParseDate(chosenDateAndTime).toISOString())
-        dispatchFieldMessage({ payload: questionCode })
-      }
-    }, 5000)
+    if (chosenDate && chosenTime) {
+      !errorStatus && onSendAnswer(safelyParseDate(chosenDateAndTime).toISOString())
+      dispatchFieldMessage({ payload: questionCode })
+    }
   }
 
   const maxW = useMobileValue(['', '25vw'])
