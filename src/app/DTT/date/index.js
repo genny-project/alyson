@@ -5,11 +5,13 @@ import { useEffect, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import DateChip from './DateChip'
+import { Grid } from '@chakra-ui/layout'
 import Year from './Year'
 import getDate from 'utils/helpers/timezone_magic/get-date'
 import { getIsInvalid } from 'utils/functions'
 import { includes } from 'ramda'
 import safelyParseDate from 'utils/helpers/safely-parse-date'
+import { setTimeout } from 'timers'
 import timeBasedOnTimeZone from 'utils/helpers/timezone_magic/time-based-on-timezone'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
@@ -38,28 +40,41 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
   const { dispatch } = useError()
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
   const [errorStatus, setErrorStatus] = useState(false)
-  const [userInput, setuserInput] = useState(data?.value)
+
   const [isPreviousDate, setIsPreviousDate] = useState(true)
   const [errorMsg, setErrorMsg] = useState(initialErrorMsg)
+  const [chosenDate, setChosenDate] = useState()
+  const [chosenTime, setChosenTime] = useState()
+
+  const chosenDateAndTime =
+    chosenDate && chosenTime
+      ? format(new Date(chosenDate), 'yyyy/MM/dd') + ' ' + chosenTime
+      : chosenDate
+      ? format(new Date(chosenDate), 'yyyy/MM/dd')
+      : ''
 
   const includeTime = includes('LocalDateTime', typeName)
   const onlyYear = typeName === 'year'
 
-  const handleChange = e => {
-    if (e.target.value) {
-      !errorStatus && onSendAnswer(safelyParseDate(e.target.value).toISOString())
-      dispatchFieldMessage({ payload: questionCode })
-    }
+  const handleChange = () => {
+    setTimeout(() => {
+      if (chosenDate && chosenTime) {
+        !errorStatus && onSendAnswer(safelyParseDate(chosenDateAndTime).toISOString())
+        dispatchFieldMessage({ payload: questionCode })
+      }
+    }, 5000)
   }
 
   const maxW = useMobileValue(['', '25vw'])
 
-  const isInvalid = getIsInvalid(userInput)(RegExp(regexPattern))
+  const isInvalid = getIsInvalid(chosenDateAndTime)(RegExp(regexPattern))
 
   const today = format(new Date(), 'yyyy-MM-dd')
   const tomorrowsDateInISOFormat = startOfTomorrow(today)
-  const inputDate = new Date(userInput)
-  const formatInputDate = userInput ? format(new Date(userInput), 'yyyy-MM-dd') : today
+  const inputDate = new Date(chosenDateAndTime)
+  const formatInputDate = chosenDateAndTime
+    ? format(new Date(chosenDateAndTime), 'yyyy-MM-dd')
+    : today
   const diffInYears = differenceInYears(parseISO(today), parseISO(formatInputDate))
 
   useEffect(() => {
@@ -73,13 +88,13 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
   }, [dispatch, isInvalid, questionCode])
 
   useEffect(() => {
-    if (questionCode === 'QUE_JOURNAL_DATE' && userInput) {
+    if (questionCode === 'QUE_JOURNAL_DATE' && chosenDateAndTime) {
       const isDateBefore = isBefore(inputDate, tomorrowsDateInISOFormat)
 
       isDateBefore ? setIsPreviousDate(true) : setIsPreviousDate(false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [questionCode, userInput, today])
+  }, [questionCode, chosenDateAndTime, today])
 
   useEffect(() => {
     if (!isPreviousDate) {
@@ -110,44 +125,86 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
     <Year questionCode={questionCode} handleChange={handleChange} />
   ) : (
     <>
-      <Input
-        id={questionCode}
-        onKeyDown={e => e.preventDefault()}
-        test-id={questionCode}
-        type={includeTime ? 'datetime-local' : 'date'}
-        onBlur={handleChange}
-        onChange={e => setuserInput(e.target.value)}
-        max={
-          questionCode === journalDateQuestionCode
-            ? today
-            : questionCode === dateOfBirthQuestionCode
-            ? today
-            : ''
-        }
-        w="full"
-        maxW={maxW}
-        paddingBlock={3}
-        paddingInline={5}
-        fontWeight={'medium'}
-        borderColor={'gray.700'}
-        _hover={{
-          borderColor: 'green.500',
-          boxShadow: 'lg',
-        }}
-        _focusVisible={{
-          borderColor: 'green.500',
-          boxShadow: 'initial',
-        }}
-        _invalid={{
-          background: 'error.50',
-          borderColor: 'error.500',
-          color: 'error.500',
-        }}
-        _disabled={{
-          borderColor: 'gray.300',
-          background: 'gray.100',
-        }}
-      />
+      <Grid gridTemplateColumns={'1fr 1fr'} gap={'0.75rem'}>
+        <Input
+          id={questionCode}
+          onKeyDown={e => e.preventDefault()}
+          test-id={questionCode}
+          type={'date'}
+          onBlur={handleChange}
+          onChange={e => setChosenDate(e.target.value)}
+          max={
+            questionCode === journalDateQuestionCode
+              ? today
+              : questionCode === dateOfBirthQuestionCode
+              ? today
+              : ''
+          }
+          w="full"
+          maxW={maxW}
+          paddingBlock={3}
+          paddingInline={5}
+          fontWeight={'medium'}
+          borderColor={'gray.700'}
+          _hover={{
+            borderColor: 'green.500',
+            boxShadow: 'lg',
+          }}
+          _focusVisible={{
+            borderColor: 'green.500',
+            boxShadow: 'initial',
+          }}
+          _invalid={{
+            background: 'error.50',
+            borderColor: 'error.500',
+            color: 'error.500',
+          }}
+          _disabled={{
+            borderColor: 'gray.300',
+            background: 'gray.100',
+          }}
+        />
+        {includeTime && (
+          <Input
+            type={'time'}
+            id={questionCode}
+            test-id={questionCode}
+            onBlur={handleChange}
+            onChange={e => setChosenTime(e.target.value)}
+            max={
+              questionCode === journalDateQuestionCode
+                ? today
+                : questionCode === dateOfBirthQuestionCode
+                ? today
+                : ''
+            }
+            w="full"
+            maxW={maxW}
+            paddingBlock={3}
+            paddingInline={5}
+            fontWeight={'medium'}
+            borderColor={'gray.700'}
+            disabled={!chosenDate}
+            _hover={{
+              borderColor: 'green.500',
+              boxShadow: 'lg',
+            }}
+            _focusVisible={{
+              borderColor: 'green.500',
+              boxShadow: 'initial',
+            }}
+            _invalid={{
+              background: 'error.50',
+              borderColor: 'error.500',
+              color: 'error.500',
+            }}
+            _disabled={{
+              borderColor: 'gray.300',
+              background: 'gray.100',
+            }}
+          />
+        )}
+      </Grid>
       {errorStatus && (
         <Text textStyle="tail.error" mt={2}>
           {errorMsg}

@@ -24,13 +24,13 @@ const MentorDashboard = () => {
   const labelSbes = find(includes('_LABEL'))(dashboardSbes)
   const labelCode = useSelector(selectCode(labelSbes, 'PRI_CODE'))?.value
 
-  const templateColumns = useMobileValue(['1fr', 'minmax(35rem, 1fr) 1fr'])
+  const templateColumns = useMobileValue(['1fr', '1fr 2fr'])
 
   return (
-    <Grid paddingX="10" gap={'1rem'} templateColumns={templateColumns} alignItems={'start'}>
+    <Grid paddingX="10" gap={'4rem'} templateColumns={templateColumns} alignItems={'start'}>
       <Timeline items={items} setShowDetailView={setShowDetailView} />
 
-      <Box position="sticky" top="10vh">
+      <Box position="sticky" top="9.5vh">
         {labelCode && <DashboardMessages labelCode={labelCode} />}
         {equals('MENTORING', mentorStatus) ||
         (equals('MATCHED', mentorStatus) && !showDetailView) ? (

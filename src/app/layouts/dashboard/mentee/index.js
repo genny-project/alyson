@@ -18,7 +18,7 @@ import { useSelector } from 'react-redux'
 import { useState } from 'react'
 
 const MenteeDashboard = () => {
-  const templateColumns = useMobileValue(['1fr', '1fr 1fr'])
+  const templateColumns = useMobileValue(['1fr', '1fr 2fr'])
   const {
     isMentorSelected,
     isTrainingCompleted,
@@ -39,10 +39,10 @@ const MenteeDashboard = () => {
   const invitedMentors = useSelector(selectRows(invitedMentorSbes))
 
   return (
-    <Grid templateColumns={templateColumns} alignItems={'start'} paddingX="10">
+    <Grid templateColumns={templateColumns} gap={'4rem'} alignItems={'start'} paddingX="10">
       <Timeline items={items} setShowDetailView={setShowDetailView} />
 
-      <Box position="sticky" top="10vh">
+      <Box position="sticky" top="9.5vh">
         {labelCode && <DashboardMessages labelCode={labelCode} />}
 
         {equals('INVITED', menteeStatus) && invitedMentors ? (

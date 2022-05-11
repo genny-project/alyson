@@ -61,7 +61,13 @@ const Timeline = ({ items, setShowDetailView }) => {
         </Flex>
         <Box h={`${progressBarHeight}%`} w="100%" background="green" />
       </Box>
-      <VStack h="100%" justifyContent="space-around" display="flex" position="absolute">
+      <VStack
+        w={'calc(100% - 2rem)'}
+        h="100%"
+        justifyContent="space-around"
+        display="flex"
+        position="absolute"
+      >
         {map(
           ({
             title,
@@ -78,8 +84,8 @@ const Timeline = ({ items, setShowDetailView }) => {
             pendingDateSelected,
             trainingStatus,
           }) => (
-            <Card key={title} p={4} px={5}>
-              <VStack spacing={3} w="30vw" maxW={500}>
+            <Card w={'full'} key={title} p={4} px={5}>
+              <VStack spacing={3} w="full">
                 <Text textStyle="head.2" alignSelf="flex-start">
                   {title}
                 </Text>
