@@ -16,6 +16,7 @@ export const processView = 'Process View'
 export const mentees = 'Mentees'
 export const mentors = 'Mentors'
 export const agents = 'Agents'
+export const clientId = 'alyson'
 
 export const alreadyRegisteredMsg = 'You have already registered!'
 export const mentorAlreadySelectedMsg = 'You have already selected a Mentor!'
