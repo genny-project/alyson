@@ -45,20 +45,25 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
   const [chosenDate, setChosenDate] = useState()
   const [chosenTime, setChosenTime] = useState()
 
-  const chosenDateAndTime =
-    chosenDate && chosenTime
-      ? format(new Date(chosenDate), 'yyyy/MM/dd') + ' ' + chosenTime
-      : chosenDate
-      ? format(new Date(chosenDate), 'yyyy/MM/dd')
-      : ''
-
   const includeTime = includes('LocalDateTime', typeName)
+
+  const today = format(new Date(), 'yyyy-MM-dd')
+
+  const chosenDateAndTime =
+    chosenDate && chosenTime ? format(new Date(chosenDate), 'yyyy/MM/dd') + ' ' + chosenTime : ''
+
   const onlyYear = typeName === 'year'
 
   const handleChange = () => {
-    if (chosenDate && chosenTime) {
-      !errorStatus && onSendAnswer(safelyParseDate(chosenDateAndTime).toISOString())
+    if (!includeTime) {
+      !errorStatus && onSendAnswer(safelyParseDate(chosenDate).toISOString())
       dispatchFieldMessage({ payload: questionCode })
+    }
+    if (chosenDate && chosenTime) {
+      setTimeout(() => {
+        !errorStatus && onSendAnswer(safelyParseDate(chosenDateAndTime).toISOString())
+        dispatchFieldMessage({ payload: questionCode })
+      }, 2500)
     }
   }
 
@@ -66,7 +71,6 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
 
   const isInvalid = getIsInvalid(chosenDateAndTime)(RegExp(regexPattern))
 
-  const today = format(new Date(), 'yyyy-MM-dd')
   const tomorrowsDateInISOFormat = startOfTomorrow(today)
   const inputDate = new Date(chosenDateAndTime)
   const formatInputDate = chosenDateAndTime
@@ -168,13 +172,6 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
             test-id={questionCode}
             onBlur={handleChange}
             onChange={e => setChosenTime(e.target.value)}
-            max={
-              questionCode === journalDateQuestionCode
-                ? today
-                : questionCode === dateOfBirthQuestionCode
-                ? today
-                : ''
-            }
             w="full"
             maxW={maxW}
             paddingBlock={3}
