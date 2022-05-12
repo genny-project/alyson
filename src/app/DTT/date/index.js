@@ -67,6 +67,10 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
     }
   }
 
+  useEffect(() => {
+    handleChange()
+  }, [chosenDate, chosenTime, chosenDateAndTime])
+
   const maxW = useMobileValue(['', '25vw'])
 
   const isInvalid = getIsInvalid(chosenDateAndTime)(RegExp(regexPattern))
@@ -119,7 +123,11 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
     <DateChip
       onlyYear={onlyYear}
       includeTime={includeTime}
-      onClick={() => onSendAnswer('')}
+      onClick={() => {
+        onSendAnswer(chosenDateAndTime)
+        setChosenDate(null)
+        setChosenTime(null)
+      }}
       date={getDate(data?.value)}
     />
   ) : onlyYear ? (

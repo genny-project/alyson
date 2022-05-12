@@ -1,4 +1,4 @@
-import { Button, IconButton } from '@chakra-ui/button'
+import { IconButton } from '@chakra-ui/button'
 import { Box, HStack, Text, VStack } from '@chakra-ui/layout'
 import {
   Popover,
