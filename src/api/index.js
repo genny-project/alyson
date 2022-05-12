@@ -12,8 +12,7 @@ const useApi = () => {
   const IMAGE_URL = `${apiConfig.api_url}imageproxy`
   const ABN_URL = `${apiConfig.api_url}/json`
   const MEDIA_URL = apiConfig.ENV_MEDIA_PROXY_URL
-  const VIDEO_URL = `${MEDIA_URL}/video`
-  // const VIDEO_URL = MEDIA_URL
+  const VIDEO_URL = MEDIA_URL
 
   const { token: tokenFromKeycloak } = keycloak
 
