@@ -142,7 +142,7 @@ const TemplateOne = ({ beCode, name, video, bg, mappedPcm, miniCard, cardsbg }) 
             <Attribute config={{ textStyle: 'head.3' }} code={beCode} attribute={PRI_LOC3} />
           </VStack>
           <VStack>
-            <Attribute code={beCode} attribute={PRI_LOC2} />
+            <Attribute code={beCode} attribute={PRI_LOC2} styles={{ width: '60px' }} />
           </VStack>
         </Grid>
       ) : (
