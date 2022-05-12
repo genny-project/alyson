@@ -67,6 +67,10 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
     }
   }
 
+  useEffect(() => {
+    handleChange()
+  }, [chosenDate, chosenTime, chosenDateAndTime])
+
   const maxW = useMobileValue(['', '25vw'])
 
   const isInvalid = getIsInvalid(chosenDateAndTime)(RegExp(regexPattern))
