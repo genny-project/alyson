@@ -69,7 +69,6 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
   }
 
   useEffect(() => {
-    console.log('CD:', chosenDate, 'CT:', chosenTime, 'CDAT:', chosenDateAndTime)
     if (chosenDate && chosenTime) handleChange()
   }, [chosenDate, chosenTime, chosenDateAndTime])
 
