@@ -52,6 +52,8 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
   const chosenDateAndTime =
     chosenDate && chosenTime ? format(new Date(chosenDate), 'yyyy/MM/dd') + ' ' + chosenTime : ''
 
+  console.log('testing======>', { chosenDate, chosenTime, chosenDateAndTime, questionCode })
+
   const onlyYear = typeName === 'year'
 
   const handleChange = () => {
@@ -60,6 +62,7 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
       dispatchFieldMessage({ payload: questionCode })
     }
     if (chosenDate && chosenTime) {
+      console.log('triggering this')
       setTimeout(() => {
         !errorStatus && onSendAnswer(safelyParseDate(chosenDateAndTime).toISOString())
         dispatchFieldMessage({ payload: questionCode })
@@ -119,7 +122,11 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
     <DateChip
       onlyYear={onlyYear}
       includeTime={includeTime}
-      onClick={() => onSendAnswer('')}
+      onClick={() => {
+        onSendAnswer(chosenDateAndTime)
+        setChosenDate(null)
+        setChosenTime(null)
+      }}
       date={getDate(data?.value)}
     />
   ) : onlyYear ? (
