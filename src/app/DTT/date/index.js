@@ -55,21 +55,20 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
   const onlyYear = typeName === 'year'
 
   const handleChange = () => {
-    if (!includeTime) {
+    if (!includeTime || chosenDate) {
       !errorStatus && onSendAnswer(safelyParseDate(chosenDate).toISOString())
       dispatchFieldMessage({ payload: questionCode })
     }
     if (chosenDate && chosenTime) {
-      setTimeout(() => {
-        !errorStatus && onSendAnswer(safelyParseDate(chosenDateAndTime).toISOString())
-        dispatchFieldMessage({ payload: questionCode })
-      }, 2500)
+      !errorStatus && onSendAnswer(safelyParseDate(chosenDateAndTime).toISOString())
+      dispatchFieldMessage({ payload: questionCode })
     }
   }
 
-  useEffect(() => {
-    if (chosenDate && chosenTime) handleChange()
-  }, [chosenDate, chosenTime, chosenDateAndTime])
+  // useEffect(() => {
+  //   if (chosenDate && chosenTime) handleChange()
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [chosenDate, chosenTime, chosenDateAndTime])
 
   const maxW = useMobileValue(['', '25vw'])
 
@@ -125,8 +124,8 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
       includeTime={includeTime}
       onClick={() => {
         onSendAnswer(chosenDateAndTime)
-        setChosenDate(null)
-        setChosenTime(null)
+        // setChosenDate(null)
+        // setChosenTime(null)
       }}
       date={getDate(data?.value)}
     />
@@ -142,6 +141,7 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
           type={'date'}
           onBlur={handleChange}
           onChange={e => setChosenDate(e.target.value)}
+          defaultValue={chosenDate}
           max={
             questionCode === journalDateQuestionCode
               ? today
@@ -180,6 +180,7 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
             test-id={questionCode}
             onBlur={handleChange}
             onChange={e => setChosenTime(e.target.value)}
+            defaultValue={chosenTime}
             w="full"
             maxW={maxW}
             paddingBlock={3}
