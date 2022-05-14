@@ -45,6 +45,9 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
   const [chosenDate, setChosenDate] = useState()
   const [chosenTime, setChosenTime] = useState()
 
+  const [isDateField, setIsDateField] = useState(false)
+  const [isTimeField, setIsTimeField] = useState(false)
+
   const includeTime = includes('LocalDateTime', typeName)
 
   const today = format(new Date(), 'yyyy-MM-dd')
@@ -55,7 +58,7 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
   const onlyYear = typeName === 'year'
 
   const handleChange = () => {
-    if (!includeTime || chosenDate) {
+    if (!includeTime) {
       !errorStatus && onSendAnswer(safelyParseDate(chosenDate).toISOString())
       dispatchFieldMessage({ payload: questionCode })
     }
@@ -63,12 +66,10 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
       !errorStatus && onSendAnswer(safelyParseDate(chosenDateAndTime).toISOString())
       dispatchFieldMessage({ payload: questionCode })
     }
-  }
 
-  // useEffect(() => {
-  //   if (chosenDate && chosenTime) handleChange()
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [chosenDate, chosenTime, chosenDateAndTime])
+    !chosenDate && setIsDateField(false)
+    !chosenTime && setIsTimeField(false)
+  }
 
   const maxW = useMobileValue(['', '25vw'])
 
@@ -138,7 +139,9 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
           id={questionCode}
           onKeyDown={e => e.preventDefault()}
           test-id={questionCode}
-          type={'date'}
+          type={isDateField ? 'date' : 'text'}
+          placeholder={'Choose date'}
+          onFocus={() => setIsDateField(true)}
           onBlur={handleChange}
           onChange={e => setChosenDate(e.target.value)}
           defaultValue={chosenDate}
@@ -175,9 +178,11 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
         />
         {includeTime && (
           <Input
-            type={'time'}
+            type={isTimeField ? 'time' : 'text'}
+            placeholder={'Choose time'}
             id={questionCode}
             test-id={questionCode}
+            onFocus={() => setIsTimeField(true)}
             onBlur={handleChange}
             onChange={e => setChosenTime(e.target.value)}
             defaultValue={chosenTime}
