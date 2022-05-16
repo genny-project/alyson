@@ -210,6 +210,7 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
               borderColor: 'gray.300',
               background: 'gray.100',
             }}
+            required
           />
         )}
       </Grid>
