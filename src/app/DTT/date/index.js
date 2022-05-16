@@ -52,26 +52,26 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
   const hrs = ('0' + current.getHours()).slice(-2)
   const mins = ('0' + current.getMinutes()).slice(-2)
   const currentTime = hrs + ':' + mins
-  const timeOutDuration = !chosenTime ? 2000 : 1
+  const timeOutDuration = !chosenTime ? 2500 : 1000
 
   const chosenDateAndTime =
     (chosenDate && chosenTime) || (includeTime && chosenTime)
       ? format(new Date(chosenDate), 'yyyy/MM/dd') + ' ' + chosenTime
       : includeTime && chosenDate
       ? format(new Date(chosenDate), 'yyyy/MM/dd') + ' ' + currentTime
+      : chosenDate
+      ? format(new Date(chosenDate), 'yyyy/MM/dd')
       : ''
 
   const onlyYear = typeName === 'year'
 
-  console.log(timeOutDuration)
-
   const handleChange = () => {
-    if (!includeTime) {
+    if (!includeTime || chosenDate) {
       !errorStatus && onSendAnswer(safelyParseDate(chosenDate).toISOString())
     }
 
     setTimeout(() => {
-      if ((chosenDate && chosenTime) || chosenDate || chosenTime) {
+      if ((chosenDate && chosenTime) || (includeTime && chosenDate) || chosenTime) {
         !errorStatus && onSendAnswer(safelyParseDate(chosenDateAndTime).toISOString())
       }
     }, timeOutDuration)
@@ -91,7 +91,9 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
   const diffInYears = differenceInYears(parseISO(today), parseISO(formatInputDate))
 
   useEffect(() => {
-    handleChange()
+    if (includeTime) {
+      handleChange()
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chosenDate, chosenTime])
 
