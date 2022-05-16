@@ -21,31 +21,25 @@ const Meetings = () => {
           <VStack spacing={7} paddingRight={10}>
             <VStack spacing={5} alignSelf="flex-start">
               {map(meeting => (
-                <>
-                  <HStack
-                    spacing={7}
-                    alignSelf="flex-start"
-                    w="100%"
-                    justifyContent="space-between"
-                    key={meeting}
-                  >
-                    <Attribute
-                      config={{ size: 'xl' }}
-                      code={meeting}
-                      attribute="PRI_STATUS"
-                      hasIndicatorIcon={'true'}
-                    />
-                    <Attribute
-                      config={{ size: 'xl' }}
-                      code={meeting}
-                      attribute="PRI_MEETING_TIME"
-                    />
+                <HStack
+                  spacing={7}
+                  alignSelf="flex-start"
+                  w="100%"
+                  justifyContent="space-between"
+                  key={meeting}
+                >
+                  <Attribute
+                    config={{ size: 'xl' }}
+                    code={meeting}
+                    attribute="PRI_STATUS"
+                    hasIndicatorIcon={'true'}
+                  />
+                  <Attribute config={{ size: 'xl' }} code={meeting} attribute="PRI_MEETING_TIME" />
 
-                    {/* <a target="_blank" rel="noopener noreferrer" href={'link'}> */}
-                    <FontAwesomeIcon icon={faVideo} color="darkGrey" />
-                    {/* </a> */}
-                  </HStack>
-                </>
+                  {/* <a target="_blank" rel="noopener noreferrer" href={'link'}> */}
+                  <FontAwesomeIcon icon={faVideo} color="darkGrey" />
+                  {/* </a> */}
+                </HStack>
               ))(meetings)}
             </VStack>
           </VStack>

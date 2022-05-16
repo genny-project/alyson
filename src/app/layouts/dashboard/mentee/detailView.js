@@ -50,29 +50,30 @@ const DetailView = ({ setShowDetailView, currentMentor }) => {
 
   return (
     <Flex
-      w="50vw"
       bg={bg}
       h="85vh"
       spacing={4}
-      p="3"
-      overflowY="scroll"
+      p="5"
+      overflowY="auto"
       flexDirection="column"
       alignItems="center"
     >
-      <Box mb={4} w="95%">
+      <Box mb={4} w="full">
         <Button
           onClick={() => setShowDetailView(false)}
           colorScheme="blue"
           variant="solid"
           leftIcon={<FontAwesomeIcon icon={faLongArrowAltLeft} />}
           test-id={`BACK_TO_MENTOR_SELECTION`}
-        >{`Mentor Selection`}</Button>
+        >
+          {'Mentor Selection'}
+        </Button>
       </Box>
 
       <DetailHeader beCode={currentMentor} />
 
       <Grid
-        width={'95%'}
+        width={'full'}
         templateColumns={'repeat(auto-fit, minmax(260px, 1fr))'}
         gap={'1rem'}
         mb={'1rem'}
@@ -80,11 +81,11 @@ const DetailView = ({ setShowDetailView, currentMentor }) => {
         <DetailCards detailsection={personalDetails} currentMentor={currentMentor} miniCard />
         <DetailCards detailsection={professionalDetails} currentMentor={currentMentor} miniCard />
       </Grid>
-      <Box width="95%" mb={'1rem'}>
+      <Box width="full">
         <DetailCards detailsection={preference} currentMentor={currentMentor} />
       </Box>
 
-      <Box w="95%">
+      <Box w="full" mt={'1rem'}>
         <Button
           w="full"
           colorScheme="blue"
@@ -94,7 +95,9 @@ const DetailView = ({ setShowDetailView, currentMentor }) => {
             sendToast()
           }}
           test-id={`ACT_INVITE_MENTOR`}
-        >{`Invite`}</Button>
+        >
+          {`Invite`}
+        </Button>
       </Box>
     </Flex>
   )

@@ -1,10 +1,10 @@
 import { Box, Grid } from '@chakra-ui/layout'
 import { equals, find, includes, not } from 'ramda'
 
-import DashboardMessages from '../dashboard_msg'
-import DetailView from './detailView'
+import DashboardMessages from '../dashboard_msg/index'
 import Invites from './invites'
 import Meetings from './meetings'
+import MenteeDetailView from './menteeDetailView'
 import Timeline from 'app/layouts/dashboard/timeline'
 import { selectCode } from 'redux/db/selectors'
 import { selectDashboard } from 'redux/app/selectors'
@@ -28,9 +28,11 @@ const MentorDashboard = () => {
 
   return (
     <Grid paddingX="10" gap={'1rem'} templateColumns={templateColumns} alignItems={'start'}>
-      <Timeline items={items} setShowDetailView={setShowDetailView} />
+      <Box h={'calc(100% + 5rem)'} pt={10} paddingInline={10} mt={-10}>
+        <Timeline items={items} setShowDetailView={setShowDetailView} />
+      </Box>
 
-      <Box position="sticky" top="10vh">
+      <Box mt={useMobileValue(['10', ''])} position="sticky" top="5vh" paddingInline={10}>
         {labelCode && <DashboardMessages labelCode={labelCode} />}
         {equals('MENTORING', mentorStatus) ||
         (equals('MATCHED', mentorStatus) && !showDetailView) ? (
@@ -40,7 +42,7 @@ const MentorDashboard = () => {
             setCurrentMentee={setCurrentMentee}
           />
         ) : showDetailView && currentMentee ? (
-          <DetailView setShowDetailView={setShowDetailView} currentMentee={currentMentee} />
+          <MenteeDetailView setShowDetailView={setShowDetailView} currentMentee={currentMentee} />
         ) : equals('INVITED', mentorStatus) && not(equals('LAB_MENTOR_MNG_ACCEPTED', labelCode)) ? (
           <Invites setShowDetailView={setShowDetailView} setCurrentMentee={setCurrentMentee} />
         ) : (
