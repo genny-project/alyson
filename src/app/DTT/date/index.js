@@ -45,30 +45,38 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
   const [chosenDate, setChosenDate] = useState()
   const [chosenTime, setChosenTime] = useState()
 
-  const [isDateField, setIsDateField] = useState(false)
-  const [isTimeField, setIsTimeField] = useState(false)
-
   const includeTime = includes('LocalDateTime', typeName)
 
-  const today = format(new Date(), 'yyyy-MM-dd')
+  const current = new Date()
+  const today = format(current, 'yyyy-MM-dd')
+  const hrs = ('0' + current.getHours()).slice(-2)
+  const mins = ('0' + current.getMinutes()).slice(-2)
+  const currentTime = hrs + ':' + mins
+  const timeOutDuration = !chosenTime ? 2000 : 1
 
   const chosenDateAndTime =
-    chosenDate && chosenTime ? format(new Date(chosenDate), 'yyyy/MM/dd') + ' ' + chosenTime : ''
+    (chosenDate && chosenTime) || (includeTime && chosenTime)
+      ? format(new Date(chosenDate), 'yyyy/MM/dd') + ' ' + chosenTime
+      : includeTime && chosenDate
+      ? format(new Date(chosenDate), 'yyyy/MM/dd') + ' ' + currentTime
+      : ''
 
   const onlyYear = typeName === 'year'
+
+  console.log(timeOutDuration)
 
   const handleChange = () => {
     if (!includeTime) {
       !errorStatus && onSendAnswer(safelyParseDate(chosenDate).toISOString())
-      dispatchFieldMessage({ payload: questionCode })
-    }
-    if (chosenDate && chosenTime) {
-      !errorStatus && onSendAnswer(safelyParseDate(chosenDateAndTime).toISOString())
-      dispatchFieldMessage({ payload: questionCode })
     }
 
-    !chosenDate && setIsDateField(false)
-    !chosenTime && setIsTimeField(false)
+    setTimeout(() => {
+      if ((chosenDate && chosenTime) || chosenDate || chosenTime) {
+        !errorStatus && onSendAnswer(safelyParseDate(chosenDateAndTime).toISOString())
+      }
+    }, timeOutDuration)
+
+    dispatchFieldMessage({ payload: questionCode })
   }
 
   const maxW = useMobileValue(['', '25vw'])
@@ -81,6 +89,11 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
     ? format(new Date(chosenDateAndTime), 'yyyy-MM-dd')
     : today
   const diffInYears = differenceInYears(parseISO(today), parseISO(formatInputDate))
+
+  useEffect(() => {
+    handleChange()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [chosenDate, chosenTime])
 
   useEffect(() => {
     isInvalid ? setErrorStatus(true) : setErrorStatus(false)
@@ -125,8 +138,8 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
       includeTime={includeTime}
       onClick={() => {
         onSendAnswer(chosenDateAndTime)
-        // setChosenDate(null)
-        // setChosenTime(null)
+        setChosenDate(chosenDate)
+        setChosenTime(chosenTime)
       }}
       date={getDate(data?.value)}
     />
@@ -139,9 +152,7 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
           id={questionCode}
           onKeyDown={e => e.preventDefault()}
           test-id={questionCode}
-          type={isDateField ? 'date' : 'text'}
-          placeholder={'Choose date'}
-          onFocus={() => setIsDateField(true)}
+          type={'date'}
           onBlur={handleChange}
           onChange={e => setChosenDate(e.target.value)}
           defaultValue={chosenDate}
@@ -178,12 +189,10 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
         />
         {includeTime && (
           <Input
-            type={isTimeField ? 'time' : 'text'}
-            placeholder={'Choose time'}
+            type={'time'}
             id={questionCode}
             test-id={questionCode}
-            onFocus={() => setIsTimeField(true)}
-            onBlur={handleChange}
+            onBlur={() => handleChange}
             onChange={e => setChosenTime(e.target.value)}
             defaultValue={chosenTime}
             w="full"
