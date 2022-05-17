@@ -203,7 +203,6 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
             paddingInline={5}
             fontWeight={'medium'}
             borderColor={'gray.700'}
-            disabled={!chosenDate}
             _hover={{
               borderColor: 'green.500',
               boxShadow: 'lg',
