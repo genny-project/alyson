@@ -27,7 +27,7 @@ const Timeline = ({ items, setShowDetailView }) => {
   let lengthOfNumberOfCompletedItems = length(numberOfCompletedItems)
   let progressBarHeight = compose(multiply(100), divide)(lengthOfNumberOfCompletedItems, totalItems)
 
-  let timelineHeight = multiply(totalItems, 25)
+  let timelineHeight = multiply(totalItems, useMobileValue([30, 25]))
 
   const maxW = useMobileValue(['', '50vw'])
 

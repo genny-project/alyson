@@ -2,9 +2,11 @@ import { Grid, Spacer, VStack } from '@chakra-ui/react'
 
 import Attribute from 'app/BE/attribute'
 import { selectCode } from 'redux/db/selectors'
+import { useIsMobile } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 
 const DetailHeader = ({ beCode }) => {
+  const isMobile = useIsMobile()
   const name = useSelector(selectCode(beCode, 'PRI_NAME'))?.value
   const video = useSelector(selectCode(beCode, 'PRI_VIDEO_URL'))?.value
   const videoMentee = useSelector(selectCode(beCode, '_LNK_MENTEE__PRI_VIDEO_URL'))?.value
@@ -13,11 +15,11 @@ const DetailHeader = ({ beCode }) => {
     <>
       {video || videoMentee ? (
         <Grid
-          w="95%"
+          w="100%"
           justifyContent="space-between"
           bg="gradient.900"
           mb={5}
-          templateColumns={'1fr 2fr'}
+          templateColumns={isMobile ? '1fr' : '1fr 2fr'}
           gap={'1rem'}
         >
           <VStack justifyContent="center" spacing={5} m="auto" paddingX={'0.5rem'}>

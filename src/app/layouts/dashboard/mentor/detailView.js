@@ -12,24 +12,26 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons'
 import { onSendMessage } from 'vertx'
 import { selectCode } from 'redux/db/selectors'
+import { useIsMobile } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 
 const DetailView = ({ setShowDetailView, currentMentee }) => {
+  const isMobile = useIsMobile()
   const bg = useColorModeValue('gray.100', 'gray.700')
   const menteeStatus = useSelector(selectCode(currentMentee, '_LNK_MENTEE__PRI_STATUS'))?.value
 
   return (
     <Flex
-      w="50vw"
+      w={isMobile ? '' : '50vw'}
       bg={bg}
-      h="85vh"
+      h={isMobile ? 'auto' : '85vh'}
       spacing={4}
       p="3"
       overflowY="scroll"
       flexDirection="column"
       alignItems="center"
     >
-      <Box mb={4} w="95%">
+      <Box mb={4} w="100%">
         <Button
           onClick={() => setShowDetailView(false)}
           colorScheme="blue"
@@ -44,8 +46,8 @@ const DetailView = ({ setShowDetailView, currentMentee }) => {
       <DetailHeader beCode={currentMentee} />
 
       <Grid
-        width={'95%'}
-        templateColumns={'repeat(auto-fit, minmax(260px, 1fr))'}
+        width={'100%'}
+        templateColumns={isMobile ? '1fr' : 'repeat(auto-fit, minmax(260px, 1fr))'}
         gap={'1rem'}
         mb={'1rem'}
       >
@@ -61,12 +63,12 @@ const DetailView = ({ setShowDetailView, currentMentee }) => {
         />
       </Grid>
 
-      <Box width="95%" mb={'1rem'}>
+      <Box width="100%" mb={'1rem'}>
         <DetailCards detailsection={menteeInviteePreference} currentMentee={currentMentee} />
       </Box>
 
       {not(equals('MATCHED', menteeStatus)) && (
-        <Box w="95%">
+        <Box w="100%">
           <Button
             w="full"
             colorScheme="blue"

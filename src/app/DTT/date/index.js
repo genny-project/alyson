@@ -2,6 +2,7 @@ import { Input, Text } from '@chakra-ui/react'
 import { dateOfBirthQuestionCode, eligibleAge, journalDateQuestionCode } from 'utils/constants'
 import { differenceInYears, format, isBefore, parseISO, startOfTomorrow } from 'date-fns'
 import { useEffect, useState } from 'react'
+import { useIsMobile, useMobileValue } from 'utils/hooks'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import DateChip from './DateChip'
@@ -14,7 +15,6 @@ import safelyParseDate from 'utils/helpers/safely-parse-date'
 import timeBasedOnTimeZone from 'utils/helpers/timezone_magic/time-based-on-timezone'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
-import { useMobileValue } from 'utils/hooks'
 
 const Read = ({ data, typeName, config }) => {
   const includeTime = includes('LocalDateTime', typeName)
@@ -40,6 +40,8 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
   const [errorStatus, setErrorStatus] = useState(false)
 
+  const isMobile = useIsMobile()
+
   const [isPreviousDate, setIsPreviousDate] = useState(true)
   const [errorMsg, setErrorMsg] = useState(initialErrorMsg)
   const [chosenDate, setChosenDate] = useState()
@@ -52,31 +54,31 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
   const hrs = ('0' + current.getHours()).slice(-2)
   const mins = ('0' + current.getMinutes()).slice(-2)
   const currentTime = hrs + ':' + mins
-  const timeOutDuration = !chosenTime ? 2500 : 1000
+  const timeOutDuration = isMobile ? 5000 : !chosenTime && !isMobile ? 2500 : 1000
 
   const chosenDateAndTime =
     (chosenDate && chosenTime) || (includeTime && chosenTime)
       ? format(new Date(chosenDate), 'yyyy/MM/dd') + ' ' + chosenTime
       : includeTime && chosenDate
       ? format(new Date(chosenDate), 'yyyy/MM/dd') + ' ' + currentTime
-      : chosenDate
+      : chosenDate && !includeTime
       ? format(new Date(chosenDate), 'yyyy/MM/dd')
       : ''
 
   const onlyYear = typeName === 'year'
 
   const handleChange = () => {
-    if (!includeTime || chosenDate) {
+    if (!isMobile && (!includeTime || chosenDate)) {
       !errorStatus && onSendAnswer(safelyParseDate(chosenDate).toISOString())
+      dispatchFieldMessage({ payload: questionCode })
     }
 
     setTimeout(() => {
       if ((chosenDate && chosenTime) || (includeTime && chosenDate) || chosenTime) {
         !errorStatus && onSendAnswer(safelyParseDate(chosenDateAndTime).toISOString())
+        dispatchFieldMessage({ payload: questionCode })
       }
     }, timeOutDuration)
-
-    dispatchFieldMessage({ payload: questionCode })
   }
 
   const maxW = useMobileValue(['', '25vw'])
@@ -149,7 +151,7 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
     <Year questionCode={questionCode} handleChange={handleChange} />
   ) : (
     <>
-      <Grid gridTemplateColumns={'1fr 1fr'} gap={'0.75rem'}>
+      <Grid gridTemplateColumns={isMobile ? '1fr' : '1fr 1fr'} gap={'0.75rem'}>
         <Input
           id={questionCode}
           onKeyDown={e => e.preventDefault()}
@@ -194,7 +196,7 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
             type={'time'}
             id={questionCode}
             test-id={questionCode}
-            onBlur={() => handleChange}
+            onBlur={handleChange}
             onChange={e => setChosenTime(e.target.value)}
             defaultValue={chosenTime}
             w="full"
@@ -224,6 +226,14 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
             required={true}
           />
         )}
+
+        <DatePicker
+          showTimeSelect={includeTime}
+          id={questionCode}
+          test-id={questionCode}
+          onBlur={handleChange}
+          dateFormat="yyyy/mm/dd h:mm aa"
+        />
       </Grid>
       {errorStatus && (
         <Text textStyle="tail.error" mt={2}>
