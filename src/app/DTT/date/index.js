@@ -84,7 +84,7 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
   return data?.value ? (
     <DateChip
       onlyYear={onlyYear}
-      includeTime={includeTime}
+      includeTime
       onClick={() => onSendAnswer('')}
       date={getDate(data?.value)}
     />
@@ -101,13 +101,7 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
         onChange={e => setuserInput(e.target.value)}
         w="full"
         maxW={maxW}
-        max={
-          questionCode === journalDateQuestionCode
-            ? today
-            : questionCode === dateOfBirthQuestionCode
-            ? today
-            : ''
-        }
+        max={questionCode === journalDateQuestionCode || dateOfBirthQuestionCode ? today : ''}
       />
       {errorStatus && (
         <Text textStyle="tail.error" mt={2}>
