@@ -1,6 +1,7 @@
 import { Box, Grid } from '@chakra-ui/layout'
 import { equals, find, includes, not } from 'ramda'
 import { selectCode, selectRows } from 'redux/db/selectors'
+import { useIsMobile, useMobileValue } from 'utils/hooks'
 
 import AlumniPage from 'app/layouts/dashboard/mentee/alumni'
 import BookedTiming from './bookedTiming'
@@ -13,11 +14,11 @@ import Timeline from 'app/layouts/dashboard/timeline'
 import getMenteeTimelineItems from 'app/layouts/dashboard/mentee/helpers/get-timeline-items'
 import { selectDashboard } from 'redux/app/selectors'
 import useGetMenteeInformation from 'app/layouts/dashboard/mentee/helpers/get-mentee-information'
-import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
 
 const MenteeDashboard = () => {
+  const isMobile = useIsMobile()
   const templateColumns = useMobileValue(['1fr', '1fr 2fr'])
   const {
     isMentorSelected,
@@ -39,7 +40,12 @@ const MenteeDashboard = () => {
   const invitedMentors = useSelector(selectRows(invitedMentorSbes))
 
   return (
-    <Grid templateColumns={templateColumns} gap={'4rem'} alignItems={'start'} paddingX="10">
+    <Grid
+      templateColumns={templateColumns}
+      gap={'4rem'}
+      alignItems={'start'}
+      paddingInline={isMobile ? 7 : 10}
+    >
       <Timeline items={items} setShowDetailView={setShowDetailView} />
 
       <Box position="sticky" top="9.5vh">
