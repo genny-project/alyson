@@ -61,14 +61,27 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
       ? format(new Date(chosenDate), 'yyyy/MM/dd') + ' ' + currentTime
       : chosenDate
       ? format(new Date(chosenDate), 'yyyy/MM/dd')
-      : ''
+      : undefined
+
+  const chosenDateAndTimeCopy =
+    chosenDate && chosenTime
+      ? format(new Date(chosenDate), 'yyyy/MM/dd') + ' ' + chosenTime
+      : undefined
+
+  if (questionCode === 'QUE_INTERNSHIP_START_DATE') {
+    console.log('%c 🙀', 'background: tomato; color: silver; padding: 0.5rem', {
+      data,
+      chosenDate,
+      chosenTime,
+      chosenDateAndTime,
+    })
+  }
 
   const onlyYear = typeName === 'year'
 
   const handleChange = () => {
-    if (!includeTime || chosenDate) {
-      !errorStatus && onSendAnswer(safelyParseDate(chosenDate).toISOString())
-    }
+    console.log('triggered handleChange ======>')
+    !errorStatus && onSendAnswer(safelyParseDate(chosenDate).toISOString())
 
     setTimeout(() => {
       if ((chosenDate && chosenTime) || (includeTime && chosenDate) || chosenTime) {
@@ -91,11 +104,11 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
   const diffInYears = differenceInYears(parseISO(today), parseISO(formatInputDate))
 
   useEffect(() => {
-    if (includeTime) {
+    if (includeTime && !!chosenDateAndTime) {
       handleChange()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [chosenDate, chosenTime])
+  }, [chosenDateAndTime, includeTime])
 
   useEffect(() => {
     isInvalid ? setErrorStatus(true) : setErrorStatus(false)
@@ -155,7 +168,7 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
           onKeyDown={e => e.preventDefault()}
           test-id={questionCode}
           type={'date'}
-          onBlur={handleChange}
+          onBlur={includeTime && handleChange}
           onChange={e => setChosenDate(e.target.value)}
           defaultValue={chosenDate}
           max={
@@ -189,7 +202,7 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
             background: 'gray.100',
           }}
         />
-        {includeTime && (
+        {
           <Input
             type={'time'}
             id={questionCode}
@@ -203,7 +216,6 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
             paddingInline={5}
             fontWeight={'medium'}
             borderColor={'gray.700'}
-            disabled={!chosenDate}
             _hover={{
               borderColor: 'green.500',
               boxShadow: 'lg',
@@ -221,9 +233,8 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
               borderColor: 'gray.300',
               background: 'gray.100',
             }}
-            required={true}
           />
-        )}
+        }
       </Grid>
       {errorStatus && (
         <Text textStyle="tail.error" mt={2}>
