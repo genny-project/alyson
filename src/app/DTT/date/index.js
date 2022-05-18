@@ -46,48 +46,17 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
   const [errorStatus, setErrorStatus] = useState(false)
 
-  // const isMobile = useIsMobile()
-
   const current = new Date()
   const today = format(current, 'yyyy-MM-dd')
-  // const hrs = ('0' + current.getHours()).slice(-2)
-  // const mins = ('0' + current.getMinutes()).slice(-2)
-  // const currentTime = hrs + ':' + mins
 
   const [isPreviousDate, setIsPreviousDate] = useState(true)
   const [errorMsg, setErrorMsg] = useState(initialErrorMsg)
-  // const [chosenDate, setChosenDate] = useState()
-  // const [chosenTime, setChosenTime] = useState()
+
   const [dateValue, setDateValue] = useState(null)
-
-  // const timeOutDuration = isMobile ? 5000 : !chosenTime && !isMobile ? 2500 : 1000
-
-  // const chosenDateAndTime =
-  //   (chosenDate && chosenTime) || (includeTime && chosenTime)
-  //     ? format(new Date(chosenDate), 'yyyy/MM/dd') + ' ' + chosenTime
-  //     : includeTime && chosenDate
-  //     ? format(new Date(chosenDate), 'yyyy/MM/dd') + ' ' + currentTime
-  //     : chosenDate && !includeTime
-  //     ? format(new Date(chosenDate), 'yyyy/MM/dd')
-  //     : ''
 
   const onlyYear = typeName === 'year'
 
   const availabilityQuestions = includes('_AVAILABILITY')(questionCode)
-
-  // const handleChange = () => {
-  //   if (!isMobile && (!includeTime || chosenDate)) {
-  //     !errorStatus && onSendAnswer(safelyParseDate(chosenDate).toISOString())
-  //     dispatchFieldMessage({ payload: questionCode })
-  //   }
-
-  //   setTimeout(() => {
-  //     if ((chosenDate && chosenTime) || (includeTime && chosenDate) || chosenTime) {
-  //       !errorStatus && onSendAnswer(safelyParseDate(chosenDateAndTime).toISOString())
-  //       dispatchFieldMessage({ payload: questionCode })
-  //     }
-  //   }, timeOutDuration)
-  // }
 
   const handleOnBlur = () => {
     if (dateValue) {
