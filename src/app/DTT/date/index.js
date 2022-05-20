@@ -59,8 +59,11 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
   const availabilityQuestions = includes('_AVAILABILITY')(questionCode)
 
   const handleOnBlur = () => {
-    if (dateValue) {
-      !errorStatus && onSendAnswer(safelyParseDate(dateValue).toISOString())
+    const offsetDate = new Date(dateValue?.getTime() - dateValue?.getTimezoneOffset() * 60000)
+
+    const dateTimeValue = includeTime ? dateValue : offsetDate
+    if (dateTimeValue) {
+      !errorStatus && onSendAnswer(safelyParseDate(dateTimeValue).toISOString())
       dispatchFieldMessage({ payload: questionCode })
     }
   }
@@ -166,6 +169,9 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
         customInput={<CustomInput />}
         onCalendarClose={handleOnBlur}
         minDate={availabilityQuestions ? current : ''}
+        showMonthDropdown
+        showYearDropdown
+        dropdownMode="select"
       />
 
       {errorStatus && (
