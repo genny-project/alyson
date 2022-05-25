@@ -45,7 +45,7 @@ const Submit = ({ askData, onFinish, parentCode }) => {
       rootCode: parentCode,
       parentCode,
       targetCode,
-      value: true,
+      processId: askData.processId,
     })
     if (questionCode === 'QUE_SUBMIT') {
       typeof onFinish === 'function' && onFinish()
