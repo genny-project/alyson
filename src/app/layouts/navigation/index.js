@@ -8,7 +8,7 @@ const Navigation = () => {
   const { clientId, realm } = apiConfig
   const value = clientId
   const logoSrc =
-    equals(value, 'alyson') && equals(realm, 'internmatch')
+    clientId || equals(realm, 'internmatch')
       ? '/internmatch_new.png'
       : equals(value, 'mentormatch')
       ? '/MM_Primary_Fullcolour-1.png'
@@ -18,7 +18,7 @@ const Navigation = () => {
       ? '/credmatch_logo.jpg'
       : '/credmatch_logo.jpg'
   const isMobile = useIsMobile()
-  console.log({ logoSrc, clientId, realm })
+
   return isMobile ? <MobileNav logoSrc={logoSrc} /> : <DesktopNav value={value} logoSrc={logoSrc} />
 }
 
