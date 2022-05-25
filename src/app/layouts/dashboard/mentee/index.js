@@ -2,6 +2,7 @@ import { Box, Grid, HStack, Link, Text } from '@chakra-ui/layout'
 import { careerNavigatorLink, careerNavigatorText } from 'utils/constants'
 import { compose, equals, find, includes, not } from 'ramda'
 import { selectCode, selectRows } from 'redux/db/selectors'
+import { useIsMobile, useMobileValue } from 'utils/hooks'
 
 import AlumniPage from 'app/layouts/dashboard/mentee/alumni'
 import BookedTiming from './bookedTiming'
@@ -9,7 +10,6 @@ import DashboardMessages from '../dashboard_msg'
 import DetailView from 'app/layouts/dashboard/mentee/detailView'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Meetings from 'app/layouts/dashboard/mentee/meetings'
-import MenteeDetailView from 'app/layouts/dashboard/mentor/menteeDetailView'
 import MenteeStats from './menteeStats'
 import ProvidedTimings from './providedTimings'
 import Recommendation from 'app/layouts/dashboard/mentee/recommendations'
@@ -19,13 +19,12 @@ import getMenteeTimelineItems from 'app/layouts/dashboard/mentee/helpers/get-tim
 import { onSendMessage } from 'vertx'
 import { selectDashboard } from 'redux/app/selectors'
 import useGetMenteeInformation from 'app/layouts/dashboard/mentee/helpers/get-mentee-information'
-import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
 
 const MenteeDashboard = () => {
-  const templateColumns = useMobileValue(['1fr', 'minmax(max-content, 575px) 1fr'])
-
+  const isMobile = useIsMobile()
+  const templateColumns = useMobileValue(['1fr', '1fr 2fr'])
   const {
     isMentorSelected,
     isTrainingCompleted,
@@ -66,21 +65,34 @@ const MenteeDashboard = () => {
   }
 
   return (
-    <Grid templateColumns={templateColumns} gap={'3rem'} alignItems={'start'}>
-      <Box
-        h={'calc(100% + 5rem)'}
-        pt={10}
-        paddingInline={10}
-        mt={-10}
-        bg={'gray.50'}
-        boxShadow={`0.5rem -2px 1.5rem rgba(0,0,0,0.07)`}
-      >
-        <Timeline items={items} setShowDetailView={setShowDetailView} />
-      </Box>
+    <Grid
+      templateColumns={templateColumns}
+      gap={'4rem'}
+      alignItems={'start'}
+      paddingInline={isMobile ? 7 : 10}
+    >
+      <Timeline items={items} setShowDetailView={setShowDetailView} />
 
-      <Box mt={useMobileValue(['10', ''])} position="sticky" top="5vh" paddingInline={10}>
-        {showProfileView && showDetailView ? (
-          <MenteeDetailView
+      <Box position="sticky" top="9.5vh">
+        {labelCode && <DashboardMessages labelCode={labelCode} />}
+
+        {equals('INVITED', menteeStatus) && invitedMentors ? (
+          <BookedTiming invitedMentors={invitedMentors} menteeStatus={menteeStatus} />
+        ) : not(equals('PENDING', menteeStatus)) &&
+          not(equals('TRAINING', menteeStatus)) &&
+          not(equals('AWAITING_SELECT_DATETIME_MENTORING', menteeStatus)) &&
+          not(equals('MENTORING', menteeStatus)) &&
+          not(equals('AVAILABLE', menteeStatus)) ? (
+          <ProvidedTimings labelCode={labelCode} />
+        ) : isMentorSelected && !isMeetingCompleted ? (
+          <>
+            <Meetings labelCode={labelCode} />
+            <ProvidedTimings labelCode={labelCode} />
+          </>
+        ) : showDetailView && isTrainingCompleted && currentMentor ? (
+          <DetailView setShowDetailView={setShowDetailView} currentMentor={currentMentor} />
+        ) : isTrainingCompleted && !isMentorSelected ? (
+          <Recommendation
             setShowDetailView={setShowDetailView}
             currentMentee={userCode}
             showProfileView={showProfileView}

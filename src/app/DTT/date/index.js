@@ -1,10 +1,13 @@
+import 'react-datepicker/dist/react-datepicker.css'
+
 import { Input, Text } from '@chakra-ui/react'
-import { dateOfBirthQuestionCode, eligibleAge, journalDateQuestionCode } from 'utils/constants'
+import { dateOfBirthQuestionCode, eligibleAge } from 'utils/constants'
 import { differenceInYears, format, isBefore, parseISO, startOfTomorrow } from 'date-fns'
-import { useEffect, useState } from 'react'
+import { forwardRef, useEffect, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import DateChip from './DateChip'
+import DatePicker from 'react-datepicker'
 import Year from './Year'
 import getDate from 'utils/helpers/timezone_magic/get-date'
 import { getIsInvalid } from 'utils/functions'
@@ -33,33 +36,45 @@ const Read = ({ data, typeName, config }) => {
     </Text>
   )
 }
+
 const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, question }) => {
   let initialErrorMsg = 'You can only valid date.'
+
+  const includeTime = includes('LocalDateTime', typeName)
+
   const { dispatch } = useError()
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
   const [errorStatus, setErrorStatus] = useState(false)
-  const [userInput, setuserInput] = useState(data?.value)
+
+  const current = new Date()
+  const today = format(current, 'yyyy-MM-dd')
+
   const [isPreviousDate, setIsPreviousDate] = useState(true)
   const [errorMsg, setErrorMsg] = useState(initialErrorMsg)
 
-  const includeTime = includes('LocalDateTime', typeName)
+  const [dateValue, setDateValue] = useState(null)
+
   const onlyYear = typeName === 'year'
 
-  const handleChange = e => {
-    if (e.target.value) {
-      !errorStatus && onSendAnswer(safelyParseDate(e.target.value).toISOString())
+  const availabilityQuestions = includes('_AVAILABILITY')(questionCode)
+
+  const handleOnBlur = () => {
+    const offsetDate = new Date(dateValue?.getTime() - dateValue?.getTimezoneOffset() * 60000)
+
+    const dateTimeValue = includeTime ? dateValue : offsetDate
+    if (dateTimeValue) {
+      !errorStatus && onSendAnswer(safelyParseDate(dateTimeValue).toISOString())
       dispatchFieldMessage({ payload: questionCode })
     }
   }
 
   const maxW = useMobileValue(['', '25vw'])
 
-  const isInvalid = getIsInvalid(userInput)(RegExp(regexPattern))
+  const isInvalid = getIsInvalid(dateValue)(RegExp(regexPattern))
 
-  const today = format(new Date(), 'yyyy-MM-dd')
   const tomorrowsDateInISOFormat = startOfTomorrow(today)
-  const inputDate = new Date(userInput)
-  const formatInputDate = userInput ? format(new Date(userInput), 'yyyy-MM-dd') : today
+  const inputDate = new Date(dateValue)
+  const formatInputDate = dateValue ? format(new Date(dateValue), 'yyyy-MM-dd') : today
   const diffInYears = differenceInYears(parseISO(today), parseISO(formatInputDate))
 
   useEffect(() => {
@@ -73,13 +88,13 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
   }, [dispatch, isInvalid, questionCode])
 
   useEffect(() => {
-    if (questionCode === 'QUE_JOURNAL_DATE' && userInput) {
+    if (questionCode === 'QUE_JOURNAL_DATE' && dateValue) {
       const isDateBefore = isBefore(inputDate, tomorrowsDateInISOFormat)
 
       isDateBefore ? setIsPreviousDate(true) : setIsPreviousDate(false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [questionCode, userInput, today])
+  }, [questionCode, dateValue, today])
 
   useEffect(() => {
     if (!isPreviousDate) {
@@ -99,55 +114,66 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
     }
   }, [diffInYears, questionCode])
 
+  const CustomInput = forwardRef(({ value, onClick }, ref) => (
+    <Input
+      id={questionCode}
+      test-id={questionCode}
+      w="full"
+      maxW={maxW}
+      paddingBlock={3}
+      paddingInline={5}
+      fontWeight={'medium'}
+      borderColor={'gray.700'}
+      defaultValue={value}
+      ref={ref}
+      onFocus={onClick}
+      _hover={{
+        borderColor: 'green.500',
+        boxShadow: 'lg',
+      }}
+      _focusVisible={{
+        borderColor: 'green.500',
+        boxShadow: 'initial',
+      }}
+      _invalid={{
+        background: 'error.50',
+        borderColor: 'error.500',
+        color: 'error.500',
+      }}
+      _disabled={{
+        borderColor: 'gray.300',
+        background: 'gray.100',
+      }}
+      required={true}
+    />
+  ))
+
   return isPreviousDate && data?.value ? (
     <DateChip
       onlyYear={onlyYear}
       includeTime={includeTime}
-      onClick={() => onSendAnswer('')}
+      onClick={() => {
+        onSendAnswer(dateValue)
+      }}
       date={getDate(data?.value)}
     />
   ) : onlyYear ? (
-    <Year questionCode={questionCode} handleChange={handleChange} />
+    <Year questionCode={questionCode} handleChange={handleOnBlur} />
   ) : (
     <>
-      <Input
-        id={questionCode}
-        onKeyDown={e => e.preventDefault()}
-        test-id={questionCode}
-        type={includeTime ? 'datetime-local' : 'date'}
-        onBlur={handleChange}
-        onChange={e => setuserInput(e.target.value)}
-        max={
-          questionCode === journalDateQuestionCode
-            ? today
-            : questionCode === dateOfBirthQuestionCode
-            ? today
-            : ''
-        }
-        w="full"
-        maxW={maxW}
-        paddingBlock={3}
-        paddingInline={5}
-        fontWeight={'medium'}
-        borderColor={'gray.700'}
-        _hover={{
-          borderColor: 'green.500',
-          boxShadow: 'lg',
-        }}
-        _focusVisible={{
-          borderColor: 'green.500',
-          boxShadow: 'initial',
-        }}
-        _invalid={{
-          background: 'error.50',
-          borderColor: 'error.500',
-          color: 'error.500',
-        }}
-        _disabled={{
-          borderColor: 'gray.300',
-          background: 'gray.100',
-        }}
+      <DatePicker
+        selected={dateValue}
+        showTimeSelect={includeTime}
+        onChange={date => setDateValue(date)}
+        dateFormat={includeTime ? 'yyyy/MM/dd h:mm' : 'yyyy/MM/dd'}
+        customInput={<CustomInput />}
+        onCalendarClose={handleOnBlur}
+        minDate={availabilityQuestions ? current : ''}
+        showMonthDropdown
+        showYearDropdown
+        dropdownMode="select"
       />
+
       {errorStatus && (
         <Text textStyle="tail.error" mt={2}>
           {errorMsg}
@@ -157,9 +183,9 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
   )
 }
 
-const DatePicker = {
+const DatePickerComponent = {
   Write,
   Read,
 }
 
-export default DatePicker
+export default DatePickerComponent

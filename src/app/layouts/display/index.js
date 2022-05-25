@@ -21,10 +21,12 @@ import { includes } from 'ramda'
 import { onSendMessage } from 'vertx'
 import { selectCode } from 'redux/db/selectors'
 import { selectDisplay } from 'redux/app/selectors'
+import { useIsMobile } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 
 const Display = () => {
   const display = useSelector(selectDisplay)
+  const isMobile = useIsMobile()
 
   const backgroundColor = useColorModeValue('gray.50', '')
   window.onpopstate = event => {
@@ -53,10 +55,10 @@ const Display = () => {
           id="main-display"
           pb={1}
           display="grid"
-          gridTemplateColumns={`${SIDEBAR_WIDTH} 1fr`}
+          gridTemplateColumns={isMobile ? '80px 1fr' : `${SIDEBAR_WIDTH} 1fr`}
         >
           <SideBar />
-          <Box overflow="auto" maxH={'calc(100vh - 74px)'}>
+          <Box overflow="auto" maxH={'calc(100vh - 74px)'} h={'full'}>
             <Box paddingBlock={10}>
               {/* <Timeout /> */}
               {display === 'DASHBOARD' && <Dashboard />}
