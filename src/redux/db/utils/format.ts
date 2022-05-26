@@ -7,6 +7,7 @@ import initialiseKey from 'utils/helpers/initialise-key'
 import pushUniqueString from 'utils/helpers/push-unique-string'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import sortByIndex from './sort-by-index'
+import sortByWeight from './sort-by-weight'
 
 export const formatBaseEntity = (
   state: DBState,
@@ -82,12 +83,11 @@ export const formatBaseEntity = (
 }
 
 export const formatAsk = (state: DBState, replace: Boolean) => (item: Item) => {
-  const {
-    questionCode,
-    childAsks = [],
-    name,
-    question: { html },
-  } = item
+  const { questionCode, childAsks = [], name, question } = item
+
+  const { html } = question
+
+  const { childQuestions = [] } = question
 
   initialiseKey(state, questionCode, [])
   initialiseKey(state, `${questionCode}@title`, name)
@@ -101,6 +101,11 @@ export const formatAsk = (state: DBState, replace: Boolean) => (item: Item) => {
 
   if (childAsks.length) {
     initialiseKey(state, `${questionCode}@wholeData`, childAsks)
+  }
+
+  /// Saving the questions to access extra data
+  if (childQuestions.length) {
+    initialiseKey(state, `${questionCode}@questions`, sortByWeight(childQuestions))
   }
 
   forEach((childAsk: Keyable) => {

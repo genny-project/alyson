@@ -62,6 +62,9 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
     const dateTimeValue = includeTime ? dateValue : offsetDate
 
     if (dateTimeValue) {
+      if (dateTimeValue.toString() === 'Invalid Date') {
+        return
+      }
       !errorStatus && onSendAnswer(safelyParseDate(dateTimeValue).toISOString())
       dispatchFieldMessage({ payload: questionCode })
     }

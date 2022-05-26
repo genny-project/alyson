@@ -14,30 +14,29 @@ const mapQuestionGroup = (code: string) => (
 ) => {
   let out: JSX.Element[] = []
   // Currently using wholeData as allAttributes doesn't seem to store anything for questiin groups
-  const wholeData = useSelector(selectCode(code, 'wholeData'))
+  const questions = useSelector(selectCode(code, 'questions'))
 
   forEach((x: string) => {
+    const ask = useSelector(selectCode(code, questions[x].targetCode))
+    const question = questions[x]
+
     if (fn) {
       out = append(
-        fn(
-          wholeData[x]?.questionCode || '',
-          wholeData[x]?.question?.attributeCode || '',
-          wholeData[x]?.question?.icon || '',
-        )!,
+        fn(ask?.questionCode || '', ask?.question?.attributeCode || '', question?.icon || '')!,
         out,
       )
     } else {
       out = append(
         <EvtButton
-          key={wholeData[x]?.question?.attributeCode || ''}
+          key={ask?.question.attributeCode || ''}
           questionCode={code}
-          childCode={wholeData[x]?.questionCode || ''}
-          iconId={wholeData[x]?.question?.icon || ''}
+          childCode={ask?.questionCode || ''}
+          iconId={question?.icon || ''}
         />,
         out,
       )
     }
-  }, keys(wholeData) as string[])
+  }, keys(questions) as string[])
 
   return out
 }

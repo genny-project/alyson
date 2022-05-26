@@ -9,8 +9,8 @@ const TemplateLogo = ({ mappedPcm }) => {
   /// Loc1 is the evt, loc2 is the logo attribute
   const { PRI_LOC1, PRI_LOC2 } = mappedPcm
 
-  const { realm } = apiConfig
-  const appName = convertToUppercase(realm)
+  const { clientId } = apiConfig
+  const appName = convertToUppercase(clientId)
   const entityCode = 'PRJ_' + appName
 
   const handleClick = childCode => {

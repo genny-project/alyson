@@ -79,7 +79,7 @@ const getPcmField = (
         <Attribute
           key={code}
           attribute={code}
-          code={ask?.targetCode}
+          code={props?.parentCode || ask?.targetCode}
           size={props?.size}
           mini={props?.mini}
           parentCode={props?.parentCode || ask?.targetCode}
