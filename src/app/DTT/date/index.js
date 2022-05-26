@@ -62,6 +62,11 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
     const dateTimeValue = includeTime ? dateValue : offsetDate
 
     if (dateTimeValue) {
+      /// This stops the date picker from crashing when a date is not selected
+      if (dateTimeValue.toString() === 'Invalid Date') {
+        return
+      }
+
       !errorStatus && onSendAnswer(safelyParseDate(dateTimeValue).toISOString())
       dispatchFieldMessage({ payload: questionCode })
     }
