@@ -19,6 +19,8 @@ const HostCompanyRep = ({ userCode }) => {
   const companyCode = useSelector(selectCode('COMPANY'))
   const validation = useSelector(selectCode(companyCode, 'PRI_VALIDATION'))
   const hcValidation = useSelector(selectCode(companyCode, 'PRI_HC_VALIDATION_DOC_URL')) || ''
+  const digitalJobsAgreement =
+    useSelector(selectCode(companyCode, 'LNK_VIC_GOV_DIGITAL_JOBS')) || ''
   const hcValidationUrl = hcValidation?.value
 
   const ohs =
@@ -75,6 +77,17 @@ const HostCompanyRep = ({ userCode }) => {
     </Button>
   )
 
+  const digitalJobsButton = !!digitalJobsAgreement && (
+    <Button
+      size="sm"
+      onClick={() => onSendMessage({ targetCode: companyCode, code: 'ACT_DJP_DOC' })}
+      leftIcon={<FontAwesomeIcon icon={faEdit} />}
+      colorScheme="red"
+    >
+      {`Digital Jobs Participant Agreement`}
+    </Button>
+  )
+
   const documents = (
     <Card variant="card0" w={'25rem'}>
       <VStack align="start">
@@ -91,6 +104,7 @@ const HostCompanyRep = ({ userCode }) => {
         {ohs}
         {hcs}
         {hcValidationButton}
+        {digitalJobsButton}
       </VStack>
     </Card>
   )
@@ -102,7 +116,7 @@ const HostCompanyRep = ({ userCode }) => {
   }, [])
 
   return (
-    <VStack>
+    <VStack flexWrap={'wrap'}>
       <Stack maxW="90vw" direction={['column', 'row']} align="stretch">
         <VStack align="stretch">
           <Box padding="5" bg={cardBg} borderRadius="md" shadow="md">
@@ -185,7 +199,9 @@ const HostCompanyRep = ({ userCode }) => {
           </VStack>
         </Box>
       </Stack>
-      <Process dashboard />
+      <Box paddingInline={5} w={'full'}>
+        <Process dashboard />
+      </Box>
     </VStack>
   )
 }
