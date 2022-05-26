@@ -1,12 +1,9 @@
 import { Box, Button, Flex, Grid, useColorModeValue } from '@chakra-ui/react'
-import { compose, equals, not } from 'ramda'
+import { equals, not } from 'ramda'
 import {
   menteeInviteePersonalDetails,
   menteeInviteePreference,
   menteeInviteeProfessionalDetails,
-  menteePersonalDetails,
-  menteeProfilePreference,
-  menteeProfileProfessionalDetails,
 } from 'app/layouts/dashboard/timeline/templates/CardContent'
 
 import DetailCards from 'app/layouts/components/detail_card'
@@ -15,24 +12,26 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons'
 import { onSendMessage } from 'vertx'
 import { selectCode } from 'redux/db/selectors'
+import { useIsMobile } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 
-const MenteeDetailView = ({ setShowDetailView, currentMentee, showProfileView }) => {
+const DetailView = ({ setShowDetailView, currentMentee }) => {
+  const isMobile = useIsMobile()
   const bg = useColorModeValue('gray.100', 'gray.700')
   const menteeStatus = useSelector(selectCode(currentMentee, '_LNK_MENTEE__PRI_STATUS'))?.value
 
   return (
     <Flex
-      w="full"
+      w={isMobile ? '' : '50vw'}
       bg={bg}
-      h="85vh"
+      h={isMobile ? 'auto' : '85vh'}
       spacing={4}
       p="3"
-      overflowY="auto"
+      overflowY="scroll"
       flexDirection="column"
       alignItems="center"
     >
-      <Box mb={4} w="full">
+      <Box mb={4} w="100%">
         <Button
           onClick={() => setShowDetailView(false)}
           colorScheme="blue"
@@ -40,56 +39,50 @@ const MenteeDetailView = ({ setShowDetailView, currentMentee, showProfileView })
           leftIcon={<FontAwesomeIcon icon={faLongArrowAltLeft} />}
           test-id={`BACK_TO_MENTEE_SELECTION`}
         >
-          {equals('MATCHED', menteeStatus) || showProfileView ? 'Back' : `Mentee Selection`}
+          {equals('MATCHED', menteeStatus) ? 'Back' : `Mentee Selection`}
         </Button>
       </Box>
 
       <DetailHeader beCode={currentMentee} />
 
       <Grid
-        width={'full'}
-        templateColumns={'repeat(auto-fit, minmax(260px, 1fr))'}
+        width={'100%'}
+        templateColumns={isMobile ? '1fr' : 'repeat(auto-fit, minmax(260px, 1fr))'}
         gap={'1rem'}
         mb={'1rem'}
       >
         <DetailCards
-          detailsection={showProfileView ? menteePersonalDetails : menteeInviteePersonalDetails}
+          detailsection={menteeInviteePersonalDetails}
           currentMentee={currentMentee}
           miniCard
         />
         <DetailCards
-          detailsection={
-            showProfileView ? menteeProfileProfessionalDetails : menteeInviteeProfessionalDetails
-          }
+          detailsection={menteeInviteeProfessionalDetails}
           currentMentee={currentMentee}
           miniCard
         />
       </Grid>
 
-      <Box width="full">
-        <DetailCards
-          detailsection={showProfileView ? menteeProfilePreference : menteeInviteePreference}
-          currentMentee={currentMentee}
-        />
+      <Box width="100%" mb={'1rem'}>
+        <DetailCards detailsection={menteeInviteePreference} currentMentee={currentMentee} />
       </Box>
 
-      {showProfileView ||
-        (compose(not, equals('MATCHED'))(menteeStatus) && (
-          <Box w="full" mt={'1rem'}>
-            <Button
-              w="full"
-              colorScheme="blue"
-              onClick={() => {
-                onSendMessage({ code: 'ACT_MENTOR_AGREE_TO_MENTOR', parentCode: currentMentee })
-                setShowDetailView(false)
-              }}
-              test-id={`ACT_MENTOR_AGREE_TO_MENTOR`}
-            >
-              {`Accept Invitation`}
-            </Button>
-          </Box>
-        ))}
+      {not(equals('MATCHED', menteeStatus)) && (
+        <Box w="100%">
+          <Button
+            w="full"
+            colorScheme="blue"
+            onClick={() => {
+              onSendMessage({ code: 'ACT_MENTOR_AGREE_TO_MENTOR', parentCode: currentMentee })
+              setShowDetailView(false)
+            }}
+            test-id={`ACT_MENTOR_AGREE_TO_MENTOR`}
+          >
+            {`Accept Invitation`}
+          </Button>
+        </Box>
+      )}
     </Flex>
   )
 }
-export default MenteeDetailView
+export default DetailView

@@ -47,7 +47,7 @@ const Item = ({ option, idx, onSelectChange, focus, selected, maxW, setInput, se
       }}
     >
       <Box maxW={`calc(${maxW} - 2rem)`}>
-        <Text textOverflow="clip" noOfLines="1" my="1">
+        <Text textOverflow="clip" my="1">
           {option.label}
         </Text>
       </Box>

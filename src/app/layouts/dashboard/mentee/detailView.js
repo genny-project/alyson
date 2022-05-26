@@ -19,8 +19,10 @@ import DetailCards from 'app/layouts/components/detail_card'
 import DetailHeader from 'app/layouts/components/detail_header'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { onSendMessage } from 'vertx'
+import { useIsMobile } from 'utils/hooks'
 
 const DetailView = ({ setShowDetailView, currentMentor }) => {
+  const isMobile = useIsMobile()
   const bg = useColorModeValue('gray.100', 'gray.700')
   const toast = useToast()
   const sendToast = () =>
@@ -50,15 +52,16 @@ const DetailView = ({ setShowDetailView, currentMentor }) => {
 
   return (
     <Flex
+      w={isMobile ? '' : '50vw'}
       bg={bg}
-      h="85vh"
+      h={isMobile ? 'auto' : '85vh'}
       spacing={4}
       p="5"
       overflowY="auto"
       flexDirection="column"
       alignItems="center"
     >
-      <Box mb={4} w="full">
+      <Box mb={4} w="100%">
         <Button
           onClick={() => setShowDetailView(false)}
           colorScheme="blue"
@@ -73,19 +76,19 @@ const DetailView = ({ setShowDetailView, currentMentor }) => {
       <DetailHeader beCode={currentMentor} />
 
       <Grid
-        width={'full'}
-        templateColumns={'repeat(auto-fit, minmax(260px, 1fr))'}
+        width={'100%'}
+        templateColumns={isMobile ? '1fr' : 'repeat(auto-fit, minmax(260px, 1fr))'}
         gap={'1rem'}
         mb={'1rem'}
       >
         <DetailCards detailsection={personalDetails} currentMentor={currentMentor} miniCard />
         <DetailCards detailsection={professionalDetails} currentMentor={currentMentor} miniCard />
       </Grid>
-      <Box width="full">
+      <Box width="100%" mb={'1rem'}>
         <DetailCards detailsection={preference} currentMentor={currentMentor} />
       </Box>
 
-      <Box w="full" mt={'1rem'}>
+      <Box w="100%">
         <Button
           w="full"
           colorScheme="blue"
