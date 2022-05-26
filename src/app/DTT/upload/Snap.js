@@ -69,36 +69,6 @@ const Snapshot = ({ handleSave, setLoading, setOpenSnap }) => {
     }
   }
 
-  // useEffect(() => {
-  //   if (stream && 'ImageCapture' in window) {
-  //     imageCapture.current = new ImageCapture(stream.getVideoTracks()[0])
-  //   } else {
-  //     const video = document.createElement('video')
-  //     const canvas = document.createElement('canvas')
-  //     const context = canvas.getContext('2d')
-
-  //     video.srcObject = stream
-
-  //     return new Promise((resolve, reject) => {
-  //       video.addEventListener('loadeddata', async () => {
-  //         const { videoWidth, videoHeight } = video
-  //         canvas.width = videoWidth
-  //         canvas.height = videoHeight
-
-  //         try {
-  //           await video.play()
-  //           context.drawImage(video, 0, 0, videoWidth, videoHeight)
-  //           console.log('this one', 'ImageCapture' in window, context)
-
-  //           canvas.toBlob(resolve, 'image/png')
-  //         } catch (error) {
-  //           reject(error)
-  //         }
-  //       })
-  //     })
-  //   }
-  // }, [stream])
-
   const onSnapshot = async () => {
     const photoBlob = await getBlobFromMediaStream(stream)
     handleSave([photoBlob])

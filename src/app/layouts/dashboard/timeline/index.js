@@ -27,7 +27,7 @@ const Timeline = ({ items, setShowDetailView }) => {
   let lengthOfNumberOfCompletedItems = length(numberOfCompletedItems)
   let progressBarHeight = compose(multiply(100), divide)(lengthOfNumberOfCompletedItems, totalItems)
 
-  let timelineHeight = multiply(totalItems, 25)
+  let timelineHeight = multiply(totalItems, useMobileValue([30, 25]))
 
   const maxW = useMobileValue(['', '50vw'])
 
@@ -84,12 +84,12 @@ const Timeline = ({ items, setShowDetailView }) => {
             pendingDateSelected,
             trainingStatus,
           }) => (
-            <Card key={title} p={4} px={5} w={'full'}>
-              <VStack spacing={3} w={'full'}>
+            <Card w={'full'} key={title} p={4} px={5}>
+              <VStack spacing={3} w="full">
                 <Text textStyle="head.2" alignSelf="flex-start">
                   {title}
                 </Text>
-                <Text textStyle="body.3" alignSelf="flex-start">
+                <Text textStyle="body.3" w="inherit" alignSelf="flex-start">
                   {description}
                 </Text>
                 <Tooltip

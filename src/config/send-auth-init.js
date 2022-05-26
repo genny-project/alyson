@@ -1,10 +1,11 @@
-import axios from 'axios'
 import { INIT_URL } from './genny'
+import axios from 'axios'
 
 const sendAuthInit = async ({ token }) =>
   axios(
     INIT_URL,
     {
+      method: 'GET',
       responseType: 'json',
       timeout: 30000,
       headers: {
