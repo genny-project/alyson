@@ -39,8 +39,6 @@ const Rep = ({ sbeCode, targetCode }) => {
   const digitalJobsValidation = useSelector(selectCode(targetCode, 'LNK_VIC_GOV_DIGITAL_JOBS'))
     ?.value
 
-  console.log({ targetCode })
-
   const internships = (
     <Lane
       width={tileWidth}
