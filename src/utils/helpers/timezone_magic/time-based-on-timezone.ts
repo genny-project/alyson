@@ -20,7 +20,7 @@ const timeBasedOnTimeZone = (
 ) => {
   try {
     return onlyYear
-      ? new Intl.DateTimeFormat('en', { year: 'numeric' }).format(date)
+      ? date.getFullYear()
       : month
       ? `${months[date.getMonth()]}, ${date.getFullYear()}`
       : includeTime
