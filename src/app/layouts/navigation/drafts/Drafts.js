@@ -1,19 +1,16 @@
 import { Box, Center, HStack, Text, VStack } from '@chakra-ui/layout'
 import { Menu, MenuButton, MenuList } from '@chakra-ui/menu'
-import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useGetLabel, useIsMobile } from 'utils/hooks'
 
-import { useSelector } from 'react-redux'
-import { selectCode } from 'redux/db/selectors'
-import getUserType from 'utils/helpers/get-user-type'
-import { useIsMobile } from 'utils/hooks'
-import icons from 'utils/icons'
 import Draft from './Draft'
-import { useGetLabel } from 'utils/hooks'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
+import getUserType from 'utils/helpers/get-user-type'
+import icons from 'utils/icons'
+import { selectCode } from 'redux/db/selectors'
+import { useSelector } from 'react-redux'
 
-const DRAFT_GROUP = 'QUE_DRAFTS_GRP'
-
-const Drafts = () => {
+const Drafts = ({ code: DRAFT_GROUP }) => {
   const userCode = useSelector(selectCode('USER'))
   const userType = getUserType(useSelector(selectCode(userCode)))
   const drafts = (useSelector(selectCode(DRAFT_GROUP)) || []).filter(
@@ -31,7 +28,7 @@ const Drafts = () => {
       <MenuButton>
         <VStack color="grey" test-id={DRAFT_GROUP}>
           <Box>
-            <FontAwesomeIcon size="lg" w="8" h="8" icon={icons[DRAFT_GROUP]} />
+            <FontAwesomeIcon size="lg" w="8" h="8" icon={icons[DRAFT_GROUP]} color="#234371" />
             <Center
               ml={`0.5rem`}
               mt="-1.7rem"
@@ -48,10 +45,10 @@ const Drafts = () => {
           </Box>
           {!isMobile && (
             <HStack spacing={1}>
-              <Text fontSize="xs" textStyle="tail.2">
+              <Text fontSize="xs" textStyle="tail.2" color="#234371">
                 {label}
               </Text>
-              <FontAwesomeIcon icon={faCaretDown} />
+              <FontAwesomeIcon icon={faCaretDown} color="#234371" />
             </HStack>
           )}
         </VStack>

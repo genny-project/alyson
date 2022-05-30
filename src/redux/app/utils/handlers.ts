@@ -1,6 +1,7 @@
+import { equals, includes } from 'ramda'
+
 import { keycloak } from 'config/get-api-config'
 import history from 'config/history'
-import { equals, includes } from 'ramda'
 import { CmdPayload, Message } from 'redux/types'
 import { makePathname } from 'utils/pathname'
 import { AppState } from '../types'

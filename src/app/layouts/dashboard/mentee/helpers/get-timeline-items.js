@@ -1,19 +1,18 @@
-import { selectCode } from 'redux/db/selectors'
 import useGetMenteeInformation from './get-mentee-information'
-import { useSelector } from 'react-redux'
 
 const useGetMenteeTimelineItems = () => {
-  const userCode = useSelector(selectCode('USER'))
   const {
+    userCode,
     profileStatus,
     trainingStatus,
-    selectMentorStatus,
     meetingWithMentorStatus,
-    isProfileCompleted,
     isTrainingCompleted,
     isMentorSelected,
     isMeetingCompleted,
     menteeStatus,
+    isPendingSelectDate,
+    selectMentorStatus,
+    isProfileCompleted,
   } = useGetMenteeInformation()
 
   const items = [
@@ -37,25 +36,37 @@ const useGetMenteeTimelineItems = () => {
       description: 'Access different training modules under this section.',
       buttonText: 'Go to Training',
       completed: trainingStatus,
-      isDisabled: !isProfileCompleted,
+      isDisabled:
+        isProfileCompleted && menteeStatus === 'PENDING' && !isTrainingCompleted ? false : true,
       code: 'ACT_PRI_EVENT_START_MENTEE_TRAINING',
+      trainingStatus: trainingStatus,
     },
     {
       title: 'Select Mentor',
       description: 'Choose the Mentor that suits you the most!',
       buttonText: isMentorSelected ? 'Mentor Selected' : 'Go to Mentor Selection',
       completed: selectMentorStatus,
-      isDisabled: !isTrainingCompleted || isMentorSelected || menteeStatus === 'MATCHED',
+      isDisabled: !isTrainingCompleted || isMentorSelected,
       code: 'ACT_PRI_EVENT_SELECT_MENTOR',
       targetCode: userCode,
       invitationStatus: menteeStatus,
     },
     {
-      title: '12 Meetings with Mentors',
-      description: 'Meet and Greet witht the mentors',
+      title: 'Introductory Meeting with Mentor',
+      description: 'Select one of the dates proposed by your potential mentor',
       buttonText: 'Meet & Greet',
+      completed: isPendingSelectDate ? 'INCOMPLETE' : 'COMPLETE' && selectMentorStatus,
+      isDisabled: !isPendingSelectDate,
+      targetCode: userCode,
+      code: 'ACT_SELECT_DATE',
+      pendingDateSelected: isPendingSelectDate,
+    },
+    {
+      title: 'Meetings with Mentors',
+      description: 'Mentoring sessions after meet & greet',
+      buttonText: 'Mentoring Sessions',
       completed: meetingWithMentorStatus,
-      isDisabled: !isMentorSelected || menteeStatus === 'MATCHED',
+      isDisabled: menteeStatus !== 'AWAITING_SELECT_DATETIME_MENTORING',
       code: 'ACT_PRI_EVENT_SCHEDULE_MENTORING',
       parentCode: 'SBE_APPLICATIONS_MEETING',
       targetCode: userCode,

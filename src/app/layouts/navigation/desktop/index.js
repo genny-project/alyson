@@ -1,88 +1,94 @@
-import { Box, Flex, HStack, Image, Spacer, useColorModeValue, useTheme } from '@chakra-ui/react'
-import { addItemsQuestionCode, quickAddItemsQuestionCode } from 'utils/constants'
-import { caps, hideQuickAdd } from 'config/caps'
-import { faBolt, faPlus } from '@fortawesome/free-solid-svg-icons'
+import {
+  Box,
+  Button,
+  Flex,
+  HStack,
+  Image,
+  Spacer,
+  useColorModeValue,
+  useTheme,
+} from '@chakra-ui/react'
+import { LOGO_WIDTH, addItemsQuestionCode, dashboardViewQuestion } from 'utils/constants'
 
 import AskMenu from 'app/ASKS/menu'
 import Avatar from '../Avatar'
 import Drafts from '../drafts/Drafts'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Views from './Views'
 import { apiConfig } from 'config/get-api-config'
-import getUserType from 'utils/helpers/get-user-type'
+import { equals } from 'ramda'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import isNotEmpty from 'utils/helpers/is-not-empty.js'
 import { onSendMessage } from 'vertx'
-import { selectCode } from 'redux/db/selectors'
-import { useGetRealm } from 'utils/hooks'
-import { useRef } from 'react'
-import { useSelector } from 'react-redux'
+import templateHandlerMachine from 'app/PCM/templates'
+import useGetMappedPcm from 'app/PCM/helpers/get-mapped-pcm'
 
-const DesktopNav = ({ logoSrc }) => {
+const DefaultTemplate = ({ bg, color, logoSrc }) => {
+  return (
+    <>
+      <header
+        style={{
+          color,
+          maxWidth: '100vw',
+          h: 25,
+          backgroundColor: bg,
+          boxShadow: `0 4px 24px rgba(0,0,0,0.08)`,
+          position: 'relative',
+        }}
+      >
+        <nav>
+          <Flex align="center" p="3">
+            <Box mx={5} alignItems="center" m="auto">
+              {apiConfig && (
+                <Image
+                  onClick={() =>
+                    onSendMessage({
+                      code: dashboardViewQuestion,
+                      parentCode: dashboardViewQuestion,
+                    })
+                  }
+                  src={logoSrc}
+                  htmlWidth={LOGO_WIDTH}
+                />
+              )}
+            </Box>
+            <Spacer />
+            <HStack spacing={8} marginRight="5">
+              <AskMenu
+                questionCode={addItemsQuestionCode}
+                icon={
+                  <Button
+                    bg="#234371"
+                    leftIcon={<FontAwesomeIcon icon={faPlus} color="#234371" />}
+                  >{`Add`}</Button>
+                }
+              />
+              <Drafts code={'QUE_DRAFTS_GRP'} />
+              <Avatar code={'QUE_AVATAR_GRP'} />
+            </HStack>
+          </Flex>
+        </nav>
+      </header>
+    </>
+  )
+}
+
+const DesktopNav = ({ logoSrc, value }) => {
   const theme = useTheme()
   const bg = useColorModeValue(theme.colors.background.light, theme.colors.primary[900])
   const color = useColorModeValue(theme.colors.text.light, theme.colors.text.dark)
+  const textColor = equals('mentormatch', value) ? theme.colors.orange[700] : theme.colors.gray[700]
 
-  const userCode = useSelector(selectCode('USER'))
-  const userType = getUserType(useSelector(selectCode(userCode)))
+  const mappedPcm = useGetMappedPcm('_HEADER')
 
-  const btnRef = useRef()
-  const realm = useGetRealm()
+  const { PRI_TEMPLATE_CODE: code } = mappedPcm
 
-  const logoWidth =
-    realm === 'mentormatch'
-      ? '140px'
-      : realm === 'internmatch'
-      ? '55px'
-      : realm === 'credmatch'
-      ? '140px'
-      : '55px'
+  const properties = { bg, color, mappedPcm, logoSrc, textColor }
 
-  return (
-    <header
-      style={{
-        color,
-        position: 'fixed',
-        top: 0,
-        zIndex: 3,
-        width: '100%',
-        maxWidth: '100vw',
-        left: 0,
-        right: 0,
-        backgroundColor: bg,
-        boxShadow: 'rgb(0 0 0 / 10%) 0px 2px 0px 0px',
-      }}
-    >
-      <nav>
-        <Flex pr={8} py={2}>
-          <Box cursor="pointer" px={8}>
-            {apiConfig && (
-              <Box
-                onClick={() =>
-                  onSendMessage({ code: 'QUE_DASHBOARD_VIEW', parentCode: 'QUE_DASHBOARD_VIEW' })
-                }
-              >
-                <Image ref={btnRef} src={logoSrc} htmlWidth={logoWidth} />
-              </Box>
-            )}
-          </Box>
-          <Views />
-          <Spacer />
-          <HStack spacing={10}>
-            <AskMenu questionCode={addItemsQuestionCode} icon={<FontAwesomeIcon icon={faPlus} />} />
-            {!caps(userType)(hideQuickAdd) && (
-              <AskMenu
-                questionCode={quickAddItemsQuestionCode}
-                icon={<FontAwesomeIcon icon={faBolt} />}
-              />
-            )}
-            <Drafts />
-            <Box mr="4">
-              <Avatar />
-            </Box>
-          </HStack>
-        </Flex>
-      </nav>
-    </header>
-  )
+  if (isNotEmpty(mappedPcm) && templateHandlerMachine(code)(properties)) {
+    return templateHandlerMachine(code)(properties)
+  }
+  // console.error('Falling back on default template for ' + code + '!')
+  return <DefaultTemplate {...properties} />
 }
 
 export default DesktopNav

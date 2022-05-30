@@ -37,6 +37,7 @@ import Video from 'app/DTT/video'
 import createSendAnswer from 'app/ASKS/utils/create-send-answer'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import getGroupCode from 'app/ASKS/utils/get-group-code'
+import { isNotStringifiedEmptyArray } from 'utils/functionals'
 import { pathOr } from 'ramda'
 import { selectCode } from 'redux/db/selectors'
 import { selectHighlightedQuestion } from 'redux/app/selectors'
@@ -44,7 +45,6 @@ import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
-import { isNotStringifiedEmptyArray } from 'utils/functionals'
 
 const Ask = ({
   parentCode,
@@ -81,11 +81,20 @@ const Ask = ({
 
   const highlightedQuestion = useSelector(selectHighlightedQuestion)
   const labelWidth = useMobileValue(['full', '25vw'])
-
-  const dataTypeFromReduxStore = useSelector(selectCode(attributeCode)) || ''
-  const dataType = useSelector(selectCode(dataTypeFromReduxStore)) || ''
-  const description = useSelector(selectCode(`${attributeCode}@description`)) || ''
   const groupCode = getGroupCode(question) || parentCode
+
+  if (!question?.attribute) return null
+
+  const {
+    attribute: {
+      description,
+      dataType: { component = 'text', typeName },
+      dataType,
+    },
+    html,
+    helper,
+  } = question
+
   const regexPattern = pathOr(null, ['validationList', 0, 'regex'])(dataType)
   const errorMessage = pathOr('Please enter valid data', ['validationList', 0, 'errormsg'])(
     dataType,
@@ -93,9 +102,6 @@ const Ask = ({
   const dataValue = data?.value
 
   if (!question?.attribute) return null
-
-  const { html, helper } = question
-  const { component = forcedComponent || 'text', typeName } = dataType
 
   const feedback = data?.feedback
   const onSendAnswer = createSendAnswer(askData, { passedTargetCode })
@@ -114,7 +120,7 @@ const Ask = ({
   if (!!disabled && component !== 'button')
     return (
       <FormControl isDisabled isRequired={mandatory}>
-        <HStack display={noLabel ? 'none' : 'block'} w={'17.5vw'} justify="space-between">
+        <HStack display={noLabel ? 'none' : 'block'} justify="space-between">
           <FormLabel id={attributeCode} textStyle="body.1">
             {name}
           </FormLabel>
@@ -157,7 +163,12 @@ const Ask = ({
       transition="all 0.5s"
       minH="82px"
     >
-      <HStack justify="space-between" display={noLabel ? 'none' : 'flex'} w={labelWidth}>
+      <HStack
+        justify="space-between"
+        display={noLabel ? 'none' : 'flex'}
+        maxW={labelWidth}
+        w={'full'}
+      >
         <FormLabel id={attributeCode}>{name}</FormLabel>
         {(!failedValidation && fieldNotEmpty) ||
         (!failedValidation && dataValue && isNotStringifiedEmptyArray(dataValue)) ? (

@@ -2,15 +2,14 @@ import axios from 'axios'
 import { INIT_URL } from './genny'
 
 const sendAuthInit = async ({ token }) =>
-  axios.post(
+  axios(
     INIT_URL,
     {
-      method: 'POST',
+      method: 'GET',
       responseType: 'json',
       timeout: 30000,
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
       },
     },
     /*

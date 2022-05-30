@@ -1,8 +1,10 @@
 import { Text as ChakraText, Input } from '@chakra-ui/react'
+import { faCalendar, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useRef, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import DetailViewTags from 'app/DTT/text/detailview_tags'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import debounce from 'lodash.debounce'
 import { getIsInvalid } from 'utils/functions'
 import { useError } from 'utils/contexts/ErrorContext'
@@ -17,7 +19,10 @@ export const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMes
   const [userInput, setuserInput] = useState(data?.value)
 
   try {
+    // console.log('PATTERN:', regexPattern)
+    regexPattern = regexPattern.replaceAll('\\\\', '\\')
     regex = RegExp(regexPattern)
+    // console.log('REGEX:', regex)
   } catch (err) {
     console.error('There is an error with the regex', questionCode, err)
     regex = undefined
@@ -67,9 +72,30 @@ export const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMes
         onBlur={onBlur}
         onChange={e => setuserInput(e.target.value)}
         defaultValue={data?.value}
+        isInvalid={isInvalid}
         w="full"
         maxW={maxW}
-        isInvalid={isInvalid}
+        paddingBlock={3}
+        paddingInline={5}
+        fontWeight={'medium'}
+        borderColor={'gray.700'}
+        _hover={{
+          borderColor: 'green.500',
+          boxShadow: 'lg',
+        }}
+        _focusVisible={{
+          borderColor: 'green.500',
+          boxShadow: 'initial',
+        }}
+        _invalid={{
+          background: 'error.50',
+          borderColor: 'error.500',
+          color: 'error.500',
+        }}
+        _disabled={{
+          borderColor: 'gray.300',
+          background: 'gray.100',
+        }}
       />
       {errorStatus && (
         <ChakraText textStyle="tail.error" mt={2}>
@@ -80,18 +106,22 @@ export const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMes
   )
 }
 
-export const Read = ({ data, config = {} }) => {
+export const Read = ({ data, config = {}, hasIndicatorIcon }) => {
   const { detailViewTags } = config
 
   if (detailViewTags) {
     return <DetailViewTags data={data} />
   }
 
-  return (
-    <ChakraText noOfLines={3} {...config}>
-      {data?.value || config.defaultValue}
-    </ChakraText>
-  )
+  if (hasIndicatorIcon) {
+    return data?.value === 'UNFINISHED' ? (
+      <FontAwesomeIcon icon={faCalendar} color={'#C0C0C0'} />
+    ) : (
+      <FontAwesomeIcon icon={faCheckCircle} color={'#006400'} />
+    )
+  }
+
+  return <ChakraText {...config}>{data?.value || config.defaultValue}</ChakraText>
 }
 
 const Text = {
