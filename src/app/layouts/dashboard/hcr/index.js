@@ -22,6 +22,8 @@ const HostCompanyRep = ({ userCode }) => {
   const digitalJobsAgreement =
     useSelector(selectCode(companyCode, 'LNK_VIC_GOV_DIGITAL_JOBS')) || ''
   const hcValidationUrl = hcValidation?.value
+  const digitalJobsValidation = useSelector(selectCode(companyCode, 'PRI_DJP_DOCUMENT_ACCEPTED'))
+    ?.value
 
   const ohs =
     validation?.value === 'OHS' ||
@@ -82,7 +84,7 @@ const HostCompanyRep = ({ userCode }) => {
       size="sm"
       onClick={() => onSendMessage({ targetCode: companyCode, code: 'ACT_DJP_DOC' })}
       leftIcon={<FontAwesomeIcon icon={faEdit} />}
-      colorScheme="red"
+      colorScheme={digitalJobsValidation ? 'green' : 'red'}
     >
       {`Digital Jobs Participant Agreement`}
     </Button>
