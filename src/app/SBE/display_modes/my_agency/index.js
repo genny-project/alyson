@@ -1,8 +1,9 @@
-import { useSelector } from 'react-redux'
-import { selectCode } from 'redux/db/selectors'
 import { Text, VStack } from '@chakra-ui/react'
-import getActions from 'app/SBE/utils/get-actions'
+
 import Action from 'app/BE/action'
+import getActions from 'app/SBE/utils/get-actions'
+import { selectCode } from 'redux/db/selectors'
+import { useSelector } from 'react-redux'
 
 const MyAgency = ({ rows, sbeCode }) => {
   const agency = rows[0]

@@ -1,23 +1,38 @@
 import { Box, Button, Flex, HStack, Text, Tooltip, VStack } from '@chakra-ui/react'
+import {
+  accountVerificationPendingMsg,
+  alreadyRegisteredMsg,
+  complete,
+  completePrevStepsMsg,
+  dateSelctedMsg,
+  meetAndGreetInProgressMsg,
+  menteeInvitationPendingMsg,
+  mentorAlreadySelectedMsg,
+  mentorMatchedMsg,
+  mentorSelectionMsg,
+  trainingCompleteMsg,
+} from 'utils/constants'
 import { compose, divide, equals, filter, length, map, multiply, path } from 'ramda'
 
 import Card from 'app/layouts/components/card'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { complete } from 'utils/constants'
 import convertToUppercase from 'utils/formatters/uppercase-convert'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { onSendMessage } from 'vertx'
+import { useMobileValue } from 'utils/hooks'
 
-const Timeline = ({ items }) => {
+const Timeline = ({ items, setShowDetailView }) => {
   let totalItems = length(items)
   let numberOfCompletedItems = filter(item => equals(path(['completed'])(item), complete))(items)
   let lengthOfNumberOfCompletedItems = length(numberOfCompletedItems)
   let progressBarHeight = compose(multiply(100), divide)(lengthOfNumberOfCompletedItems, totalItems)
 
-  let timelineHeight = multiply(totalItems, 25)
+  let timelineHeight = multiply(totalItems, useMobileValue([30, 25]))
+
+  const maxW = useMobileValue(['', '50vw'])
 
   return (
-    <HStack h={`${timelineHeight}vh`} w="50vw" position="relative" spacing={8} mb={5}>
+    <HStack w={'full'} h={`${timelineHeight}vh`} maxW={maxW} position="relative" spacing={8} mb={5}>
       <Box h="100%" w="1" background="silver">
         <Flex
           direction="column"
@@ -46,7 +61,13 @@ const Timeline = ({ items }) => {
         </Flex>
         <Box h={`${progressBarHeight}%`} w="100%" background="green" />
       </Box>
-      <VStack h="100%" justifyContent="space-around" display="flex" position="absolute">
+      <VStack
+        w={'calc(100% - 2rem)'}
+        h="100%"
+        justifyContent="space-around"
+        display="flex"
+        position="absolute"
+      >
         {map(
           ({
             title,
@@ -59,13 +80,16 @@ const Timeline = ({ items }) => {
             status,
             completed,
             invitationStatus,
+            mentorStatus,
+            pendingDateSelected,
+            trainingStatus,
           }) => (
-            <Card key={title} p={4} px={5}>
-              <VStack spacing={3} w="30vw" maxW={500}>
+            <Card w={'full'} key={title} p={4} px={5}>
+              <VStack spacing={3} w="full">
                 <Text textStyle="head.2" alignSelf="flex-start">
                   {title}
                 </Text>
-                <Text textStyle="body.3" noOfLines={[1]} w="inherit" alignSelf="flex-start">
+                <Text textStyle="body.3" w="inherit" alignSelf="flex-start">
                   {description}
                 </Text>
                 <Tooltip
@@ -73,18 +97,24 @@ const Timeline = ({ items }) => {
                   isDisabled={isDisabled ? false : true}
                   label={
                     equals(buttonText, 'Register')
-                      ? 'You have already registered!'
+                      ? alreadyRegisteredMsg
                       : equals(buttonText, 'Mentor Selected')
-                      ? 'You have already selected a Mentor!'
-                      : equals(completed, 'COMPLETE')
-                      ? 'Training has already been completed.'
+                      ? mentorAlreadySelectedMsg
+                      : equals(buttonText, 'Go to Mentor Selection')
+                      ? mentorSelectionMsg
+                      : equals(mentorStatus, 'AVAILABLE')
+                      ? menteeInvitationPendingMsg
+                      : equals(completed, 'COMPLETE') && equals(trainingStatus, 'COMPLETE')
+                      ? trainingCompleteMsg
+                      : !pendingDateSelected && equals(completed, 'COMPLETE')
+                      ? dateSelctedMsg
                       : equals(status, 'UNVERIFIED')
-                      ? 'Account verification is pending.'
+                      ? accountVerificationPendingMsg
                       : equals(status, 'MENTORING')
-                      ? 'Meet & Greet is already in process.'
+                      ? meetAndGreetInProgressMsg
                       : equals(invitationStatus, 'MATCHED')
-                      ? 'Mentor has already been invited.'
-                      : 'Please complete the previous steps.'
+                      ? mentorMatchedMsg
+                      : completePrevStepsMsg
                   }
                   aria-label="Please complete the previous steps"
                   bg="red.400"
@@ -94,13 +124,14 @@ const Timeline = ({ items }) => {
                     {buttonText && (
                       <Button
                         colorScheme="blue"
-                        onClick={() =>
+                        onClick={() => {
                           onSendMessage({
                             code: code,
                             parentCode: parentCode,
                             targetCode: targetCode,
                           })
-                        }
+                          setShowDetailView(false)
+                        }}
                         size="md"
                         isDisabled={isDisabled}
                         test-id={convertToUppercase(buttonText).replace(/ /g, '_')}

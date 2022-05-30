@@ -54,6 +54,27 @@ const ProcessSearch = ({ sbeCode, process, placeholder }) => {
             ref={inputRef}
             value={searchValue}
             onChange={e => setSearchValue(e.currentTarget.value)}
+            paddingBlock={3}
+            paddingInline={8}
+            fontWeight={'medium'}
+            borderColor={'gray.700'}
+            _hover={{
+              borderColor: 'green.500',
+              boxShadow: 'lg',
+            }}
+            _focusVisible={{
+              borderColor: 'green.500',
+              boxShadow: 'initial',
+            }}
+            _invalid={{
+              background: 'error.50',
+              borderColor: 'error.500',
+              color: 'error.500',
+            }}
+            _disabled={{
+              borderColor: 'gray.300',
+              background: 'gray.100',
+            }}
           />
           <InputRightElement>
             <IconButton
@@ -73,6 +94,10 @@ const ProcessSearch = ({ sbeCode, process, placeholder }) => {
         leftIcon={<FontAwesomeIcon icon={faSearch} />}
         colorScheme="primary"
         test-id={`process-view-search`}
+        background={'primary.900'}
+        _hover={{
+          background: 'primary.500',
+        }}
       >
         {`Search`}
       </Button>

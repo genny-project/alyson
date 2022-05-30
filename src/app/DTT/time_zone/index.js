@@ -32,7 +32,7 @@ const Write = ({ questionCode, onSendAnswer, data }) => {
       <Text>{`Thanks, your timezone is ${data?.value}`}</Text>
     ) : (
       <Text textStyle="body.error">
-        {`Sorry, there is some issue we are working at the moment.`}{' '}
+        {`Sorry, there is some issue we are working at the moment.`}
       </Text>
     )
   ) : (

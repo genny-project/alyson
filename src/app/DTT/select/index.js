@@ -1,17 +1,18 @@
 import { Select as CSelect, Text } from '@chakra-ui/react'
 import { compose, includes, isEmpty, map, pathOr } from 'ramda'
 import { selectCode, selectRows } from 'redux/db/selectors'
-import { useState, useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
+import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import Autocomplete from './Autocomplete'
 import debounce from 'lodash.debounce'
+import { getIsInvalid } from 'utils/functions'
 import { getValue } from './get-value'
 import { onSendMessage } from 'vertx'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
-import { useSelector } from 'react-redux'
-import { getIsInvalid } from 'utils/functions'
-import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import { useError } from 'utils/contexts/ErrorContext'
+import { useMobileValue } from 'utils/hooks'
+import { useSelector } from 'react-redux'
 
 const Write = ({
   questionCode,
@@ -86,6 +87,7 @@ const Write = ({
   const defaultValue = safelyParseJson(data?.value, [])
 
   const { simpleSelect } = config || {}
+  const maxW = useMobileValue(['', '25vw'])
 
   if (simpleSelect)
     return (
@@ -96,6 +98,7 @@ const Write = ({
         placeholder={placeholder || 'Select'}
         test-id={`simpleSelect-${questionCode}`}
         id={questionCode}
+        maxW={maxW}
       >
         {options.map(({ value, label }) => (
           <option test-id={value} value={value} key={value}>

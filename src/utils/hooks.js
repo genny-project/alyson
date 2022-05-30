@@ -56,17 +56,17 @@ export const useUserMedia = (requestedMedia, setError = identity) => {
 }
 
 export const useIsMobile = () => {
-  const isMobile = useBreakpointValue({ base: true, sm: true, md: true, lg: true, xl: false })
+  const isMobile = useBreakpointValue({ base: true, sm: true, md: false, lg: false, xl: false })
 
   return isMobile
 }
 
 export const useMobileValue = ([mobile, base]) => {
-  const isMobile = useBreakpointValue({ base: true, sm: true, md: true, lg: true, xl: false })
+  const isMobile = useBreakpointValue({ base: true, sm: true, md: true, lg: false, xl: false })
 
   return isMobile ? mobile : base
 }
 
 export const useGetLabel = questionGroup => useSelector(selectCode(`${questionGroup}@title`))
 
-export const useGetRealm = () => apiConfig.realm
+export const useGetRealm = () => apiConfig.clientId || apiConfig.realm

@@ -1,7 +1,7 @@
-import { ReactChildren } from 'react'
 import { Button as ChakraButton } from '@chakra-ui/react'
-import { Keyable } from 'utils/types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Keyable } from 'utils/types'
+import { ReactChildren } from 'react'
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 
 const styles = {
@@ -56,13 +56,29 @@ const Chip = ({
 
   if (typeof onClick === 'function')
     return (
-      <ChakraButton leftIcon={leftIcon} onClick={onClick} {...stylesConfig} {...rest}>
+      <ChakraButton
+        whiteSpace={'normal'}
+        h={'auto'}
+        alignItems={'start'}
+        textAlign={'left'}
+        leftIcon={leftIcon}
+        onClick={onClick}
+        {...stylesConfig}
+        {...rest}
+      >
         {children}
       </ChakraButton>
     )
 
   return (
-    <ChakraButton {...stylesConfig} {...rest}>
+    <ChakraButton
+      whiteSpace={'normal'}
+      h={'auto'}
+      alignItems={'start'}
+      textAlign={'left'}
+      {...stylesConfig}
+      {...rest}
+    >
       {children}
     </ChakraButton>
   )
