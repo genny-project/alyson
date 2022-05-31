@@ -36,6 +36,11 @@ const Rep = ({ sbeCode, targetCode }) => {
   const hcValidation = useSelector(selectCode(targetCode, 'PRI_HC_VALIDATION_DOC_URL')) || ''
   const hcValidationUrl = hcValidation?.value
 
+  const digitalJobsAgreement = useSelector(selectCode(targetCode, 'LNK_VIC_GOV_DIGITAL_JOBS')) || ''
+  const digitalJobsAgreementValidation = useSelector(
+    selectCode(targetCode, 'LNK_VIC_GOV_DIGITAL_JOBS'),
+  )?.value
+
   const internships = (
     <Lane
       width={tileWidth}
@@ -96,6 +101,29 @@ const Rep = ({ sbeCode, targetCode }) => {
     </Button>
   )
 
+  const digitalJobsButton =
+    validation?.value === 'OHS' ||
+    validation?.value === 'Ready' ||
+    validation?.value === 'Validated' ? (
+      <Button
+        size="sm"
+        onClick={() => onSendMessage({ targetCode, parentCode: sbeCode, code: 'ACT_DJP_DOC' })}
+        leftIcon={<FontAwesomeIcon icon={faEdit} />}
+        colorScheme={'green'}
+      >
+        {`Digital Jobs Participant Agreement`}
+      </Button>
+    ) : (
+      <Button
+        size="sm"
+        onClick={() => onSendMessage({ targetCode, parentCode: sbeCode, code: 'ACT_DJP_DOC' })}
+        leftIcon={<FontAwesomeIcon icon={faEdit} />}
+        colorScheme={'red'}
+      >
+        {`Digital Jobs Participant Agreement`}
+      </Button>
+    )
+
   const documents = (
     <Card variant="card0" w={tileWidth}>
       <VStack align="start">
@@ -107,6 +135,7 @@ const Rep = ({ sbeCode, targetCode }) => {
         {ohs}
         {hcs}
         {hcValidationButton}
+        {digitalJobsButton}
       </VStack>
     </Card>
   )
