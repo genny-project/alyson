@@ -101,16 +101,28 @@ const Rep = ({ sbeCode, targetCode }) => {
     </Button>
   )
 
-  const digitalJobsButton = !!digitalJobsAgreement && (
-    <Button
-      size="sm"
-      onClick={() => onSendMessage({ targetCode, parentCode: sbeCode, code: 'ACT_DJP_DOC' })}
-      leftIcon={<FontAwesomeIcon icon={faEdit} />}
-      colorScheme={digitalJobsAgreementValidation ? 'green' : 'red'}
-    >
-      {`Digital Jobs Participant Agreement`}
-    </Button>
-  )
+  const digitalJobsButton =
+    validation?.value === 'OHS' ||
+    validation?.value === 'Ready' ||
+    validation?.value === 'Validated' ? (
+      <Button
+        size="sm"
+        onClick={() => onSendMessage({ targetCode, parentCode: sbeCode, code: 'ACT_DJP_DOC' })}
+        leftIcon={<FontAwesomeIcon icon={faEdit} />}
+        colorScheme={'green'}
+      >
+        {`Digital Jobs Participant Agreement`}
+      </Button>
+    ) : (
+      <Button
+        size="sm"
+        onClick={() => onSendMessage({ targetCode, parentCode: sbeCode, code: 'ACT_DJP_DOC' })}
+        leftIcon={<FontAwesomeIcon icon={faEdit} />}
+        colorScheme={'red'}
+      >
+        {`Digital Jobs Participant Agreement`}
+      </Button>
+    )
 
   const documents = (
     <Card variant="card0" w={tileWidth}>
