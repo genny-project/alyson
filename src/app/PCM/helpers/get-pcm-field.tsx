@@ -32,14 +32,7 @@ const getPcmField = (
 ) => {
   const splitArr: string[] = split('_')(code)
 
-  let prefix: string
-
-  if (splitArr.length >= 1) {
-    prefix = splitArr[0]
-  } else {
-    //Probably something better that could be done here
-    prefix = 'NONE'
-  }
+  let prefix: string = splitArr.length === 0 ? 'NONE' : splitArr[0]
 
   if (prefix === 'PCM') {
     return <Pcm code={code} properties={properties} />

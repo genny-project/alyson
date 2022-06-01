@@ -9,7 +9,7 @@ import Toast from 'app/layouts/display/toast'
 import { selectCode } from 'redux/db/selectors'
 import convertToUppercase from 'utils/formatters/uppercase-convert'
 import { apiConfig } from 'config/get-api-config'
-import getPcmField from '../../helpers/get-pcm-field'
+import PcmField from 'app/PCM/components/pcm-field'
 
 const TemplateRoot = ({ mappedPcm }) => {
   // HEADER, SIDEBAR
@@ -21,18 +21,16 @@ const TemplateRoot = ({ mappedPcm }) => {
 
   const bg = useColorModeValue('#F6F6F6', theme.colors.primary[900])
 
-  const { realm } = apiConfig
-  const appName = convertToUppercase(realm)
+  const { clientId } = apiConfig
+  const appName = convertToUppercase(clientId)
 
-  var primaryColour = useSelector(selectCode('PRJ_' + appName, 'PRI_COLOR_SURFACE'))?.valueString
-  if (primaryColour === undefined) {
-    primaryColour = '#224371'
-  }
+  const primaryColour =
+    useSelector(selectCode('PRJ_' + appName, 'PRI_COLOR_SURFACE'))?.valueString || '#224371'
 
   return (
     <Box position={'relative'} h={'100%'}>
       <Center w={SIDEBAR_WIDTH} bg={primaryColour} h="100vh" paddingInline={'3'}>
-        {getPcmField(PRI_LOC2, mappedPcm)()}
+        <PcmField code={PRI_LOC2} mappedPcm={mappedPcm} />
       </Center>
       <Box
         backgroundColor={backgroundColor}
@@ -45,9 +43,9 @@ const TemplateRoot = ({ mappedPcm }) => {
         pb={1}
         overflow="scroll"
       >
-        {getPcmField(PRI_LOC1, mappedPcm, {}, { bg: bg, color: color })()}
+        <PcmField code={PRI_LOC1} mappedPcm={mappedPcm} properties={{ bg: bg, color: color }} />
         <Box paddingTop="2.25rem">
-          {getPcmField(PRI_LOC3, mappedPcm)()}
+          <PcmField code={PRI_LOC3} mappedPcm={mappedPcm} />
           <DisplayDrawer />
           <Dialog />
           <Toast />

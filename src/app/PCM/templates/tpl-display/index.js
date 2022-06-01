@@ -16,8 +16,6 @@ import { includes } from 'ramda'
 const TemplateDisplay = ({ ...props }) => {
   const display = useSelector(selectDisplay)
 
-  console.log(display)
-
   return (
     <>
       {/* <Timeout /> */}

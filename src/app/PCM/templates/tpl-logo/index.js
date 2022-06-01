@@ -1,9 +1,9 @@
 import { apiConfig } from 'config/get-api-config'
 import convertToUppercase from 'utils/formatters/uppercase-convert'
-import getPcmField from '../../helpers/get-pcm-field'
 import { LOGO_WIDTH } from 'utils/constants'
 import sendAskClick from 'app/ASKS/utils/send-ask-click'
 import { Box } from '@chakra-ui/react'
+import PcmField from 'app/PCM/components/pcm-field'
 
 const TemplateLogo = ({ mappedPcm }) => {
   /// Loc1 is the evt, loc2 is the logo attribute
@@ -17,25 +17,32 @@ const TemplateLogo = ({ mappedPcm }) => {
     sendAskClick(childCode, childCode)
   }
 
-  const getLoc2 = getPcmField(PRI_LOC2, mappedPcm, {
-    parentCode: entityCode,
-    config: { htmlWidth: LOGO_WIDTH },
-  })()
-
-  return getPcmField(
-    PRI_LOC1,
-    mappedPcm,
-  )((questionCode, childCode, attributeCode) => (
-    <Box
-      display="flex"
-      alignItems="center"
-      justifyContent="center"
-      cursor={'pointer'}
-      onClick={() => handleClick(childCode)}
-    >
-      {getLoc2}
-    </Box>
-  ))
+  return (
+    <PcmField
+      code={PRI_LOC1}
+      mappedPcm={mappedPcm}
+      child={paramaters => (
+        <>
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            cursor={'pointer'}
+            onClick={() => handleClick(paramaters.ask.questionCode)}
+          >
+            <PcmField
+              code={PRI_LOC2}
+              mappedPcm={mappedPcm}
+              props={{
+                parentCode: entityCode,
+                config: { htmlWidth: LOGO_WIDTH },
+              }}
+            />
+          </Box>
+        </>
+      )}
+    />
+  )
 }
 
 export default TemplateLogo

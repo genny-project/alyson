@@ -6,6 +6,10 @@ import { useSelector } from 'react-redux'
 import Pcm from '../../PCM'
 
 const Display = () => {
+  let pcms = useSelector(selectCode(`PCMINFORMATION`)) || []
+
+  console.log(pcms)
+
   window.onpopstate = event => {
     try {
       onSendMessage(event.state.state.data)
@@ -18,12 +22,15 @@ const Display = () => {
   const projectTitle = useSelector(selectCode(appName, 'PRI_NAME'))?.valueString
   const projectIcon = useSelector(selectCode(appName, 'PRI_FAVICON'))?.valueString
 
+  const pcmRootCode = 'PCM_ROOT'
+
   return (
     <ErrorBoundary>
       <MetaTags>
         <title>{projectTitle}</title>
         <link rel="icon" href={projectIcon} type="image/x-icon"></link>
       </MetaTags>
+
       <Pcm code="PCM_ROOT" />
     </ErrorBoundary>
   )
