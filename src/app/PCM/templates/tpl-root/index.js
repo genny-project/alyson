@@ -30,6 +30,7 @@ const TemplateRoot = ({ mappedPcm }) => {
   return (
     <Box position={'relative'} h={'100%'}>
       <Center w={SIDEBAR_WIDTH} bg={primaryColour} h="100vh" paddingInline={'3'}>
+        {/* Sidebar */}
         <PcmField code={PRI_LOC2} mappedPcm={mappedPcm} />
       </Center>
       <Box
@@ -43,8 +44,10 @@ const TemplateRoot = ({ mappedPcm }) => {
         pb={1}
         overflow="scroll"
       >
+        {/* Header */}
         <PcmField code={PRI_LOC1} mappedPcm={mappedPcm} properties={{ bg: bg, color: color }} />
         <Box paddingTop="2.25rem">
+          {/* Main Page Content */}
           <PcmField code={PRI_LOC3} mappedPcm={mappedPcm} />
           <DisplayDrawer />
           <Dialog />

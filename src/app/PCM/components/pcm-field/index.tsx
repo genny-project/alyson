@@ -1,6 +1,6 @@
 import Attribute from 'app/BE/attribute'
 import Pcm from 'app/PCM'
-import getAskAndQuestionFromAttribute from 'app/PCM/helpers/get-ask-and-question'
+import getAskAndQuestionFromAttribute from 'app/PCM/helpers/get-ask-and-question-from-attribute'
 import { isEmpty, split } from 'ramda'
 import React from 'react'
 import EvtButton from '../evt-button'

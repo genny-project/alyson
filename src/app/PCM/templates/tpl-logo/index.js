@@ -6,7 +6,6 @@ import { Box } from '@chakra-ui/react'
 import PcmField from 'app/PCM/components/pcm-field'
 
 const TemplateLogo = ({ mappedPcm }) => {
-  /// Loc1 is the evt, loc2 is the logo attribute
   const { PRI_LOC1, PRI_LOC2 } = mappedPcm
 
   const { clientId } = apiConfig
@@ -19,6 +18,7 @@ const TemplateLogo = ({ mappedPcm }) => {
 
   return (
     <PcmField
+      // EVT triggered when the logo is clicked
       code={PRI_LOC1}
       mappedPcm={mappedPcm}
       child={paramaters => (
@@ -30,6 +30,7 @@ const TemplateLogo = ({ mappedPcm }) => {
             cursor={'pointer'}
             onClick={() => handleClick(paramaters.ask.questionCode)}
           >
+            {/* This is the actual logo attribute */}
             <PcmField
               code={PRI_LOC2}
               mappedPcm={mappedPcm}
