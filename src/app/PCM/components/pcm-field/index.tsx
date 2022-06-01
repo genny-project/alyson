@@ -1,7 +1,7 @@
 import Attribute from 'app/BE/attribute'
 import Pcm from 'app/PCM'
 import getAskAndQuestionFromAttribute from 'app/PCM/helpers/get-ask-and-question-from-attribute'
-import { isEmpty, split } from 'ramda'
+import { equals, isEmpty, split } from 'ramda'
 import React from 'react'
 import EvtButton from '../evt-button'
 
@@ -43,21 +43,20 @@ const PcmField: React.FC<PcmFieldProps> = (props): JSX.Element => {
   const splitArr: string[] = split('_')(props.code)
   const prefix: string = splitArr.length === 0 ? 'NONE' : splitArr[0]
 
-  return (
-    <>
-      {prefix === 'PCM' && <Pcm code={props.code} properties={props.properties} />}
-      {prefix !== 'PCM' && (
-        <NonPcmPcmField
-          code={props.code}
-          mappedPcm={props.mappedPcm}
-          props={props.props}
-          properties={props.properties}
-          prefix={prefix}
-          child={props.child}
-        />
-      )}
-    </>
-  )
+  if (equals(prefix, 'PCM')) {
+    return <Pcm code={props.code} properties={props.properties} />
+  } else {
+    return (
+      <NonPcmPcmField
+        code={props.code}
+        mappedPcm={props.mappedPcm}
+        props={props.props}
+        properties={props.properties}
+        prefix={prefix}
+        child={props.child}
+      />
+    )
+  }
 }
 
 const NonPcmPcmField: React.FC<NonPcmPcmFieldProps> = (props): JSX.Element => {
@@ -69,7 +68,7 @@ const NonPcmPcmField: React.FC<NonPcmPcmFieldProps> = (props): JSX.Element => {
     return <div />
   }
 
-  const isEvt = props.prefix === 'EVT'
+  const isEvt = equals(props.prefix, 'EVT')
   const childUndefined = !props.child
 
   return (

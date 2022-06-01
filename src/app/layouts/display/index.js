@@ -3,12 +3,11 @@ import { MetaTags } from 'react-meta-tags'
 import { onSendMessage } from 'vertx'
 import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
+import { equals, find } from 'ramda'
 import Pcm from '../../PCM'
 
 const Display = () => {
   let pcms = useSelector(selectCode(`PCMINFORMATION`)) || []
-
-  console.log(pcms)
 
   window.onpopstate = event => {
     try {
@@ -23,6 +22,9 @@ const Display = () => {
   const projectIcon = useSelector(selectCode(appName, 'PRI_FAVICON'))?.valueString
 
   const pcmRootCode = 'PCM_ROOT'
+  const pcmRoot = find(equals(pcmRootCode))(pcms)
+
+  const content = useSelector(selectCode(pcmRoot, 'PRI_LOC3'), (next, prev) => next === prev)
 
   return (
     <ErrorBoundary>
@@ -30,8 +32,7 @@ const Display = () => {
         <title>{projectTitle}</title>
         <link rel="icon" href={projectIcon} type="image/x-icon"></link>
       </MetaTags>
-
-      <Pcm code="PCM_ROOT" />
+      <Pcm code={pcmRoot} locOverride={{ PRI_LOC3: content.valueString }} />
     </ErrorBoundary>
   )
 }

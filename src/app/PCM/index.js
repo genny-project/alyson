@@ -3,14 +3,20 @@ import useGetMappedPcm from './helpers/get-mapped-pcm'
 import isNotEmpty from 'utils/helpers/is-not-empty'
 import templateHandlerMachine from 'app/PCM/templates'
 import TemplateDefault from './templates/tpl-default'
-import { assoc } from 'ramda'
+import { assoc, forEach, keys } from 'ramda'
 
-const Pcm = ({ code, properties }) => {
-  const mappedPcm = useGetMappedPcm(code)
+const Pcm = ({ code, properties, ...props }) => {
+  let mappedPcm = useGetMappedPcm(code)
 
   const { PRI_TEMPLATE_CODE: templateCode } = mappedPcm
 
   if (isNotEmpty(mappedPcm)) {
+    if (props.locOverride) {
+      forEach(x => {
+        mappedPcm = assoc(x, props.locOverride[x], mappedPcm)
+      })(keys(props.locOverride))
+    }
+
     if (templateCode) {
       properties = assoc('mappedPcm', mappedPcm, properties)
       return templateHandlerMachine(templateCode)(properties)
