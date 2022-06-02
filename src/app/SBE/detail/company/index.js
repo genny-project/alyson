@@ -37,6 +37,8 @@ const Rep = ({ sbeCode, targetCode }) => {
   const hcValidationUrl = hcValidation?.value
   const digitalJobsValidation = useSelector(selectCode(targetCode, 'PRI_DJP_DOCUMENT_ACCEPTED'))
     ?.value
+  const digitalJobsAgreement = useSelector(selectCode(targetCode, 'LNK_VIC_GOV_DIGITAL_JOBS'))
+    ?.value
 
   const internships = (
     <Lane
@@ -128,7 +130,7 @@ const Rep = ({ sbeCode, targetCode }) => {
         {ohs}
         {hcs}
         {hcValidationButton}
-        {digitalJobsButton}
+        {digitalJobsAgreement && digitalJobsButton}
       </VStack>
     </Card>
   )
