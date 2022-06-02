@@ -85,7 +85,7 @@ const HostCompanyRep = ({ userCode }) => {
     <Button
       size="sm"
       onClick={() => onSendMessage({ targetCode: companyCode, code: 'ACT_DJP_DOC' })}
-      leftIcon={<FontAwesomeIcon icon={faEdit} />}
+      leftIcon={<FontAwesomeIcon icon={digitalJobsAgreementValidation ? faDownload : faEdit} />}
       colorScheme={digitalJobsAgreementValidation ? 'gray' : 'red'}
     >
       {`Digital Jobs Participant Agreement`}
