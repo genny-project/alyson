@@ -10,7 +10,7 @@ import PcmField from 'app/PCM/components/pcm-field'
  */
 const TemplateVert = ({ mappedPcm }) => {
   return (
-    <VStack test-id={mappedPcm.PRI_QUESTION_CODE} justifyContent="center">
+    <VStack justifyContent="center">
       {mapSpillLocs(getSpillLocs(mappedPcm)())(loc => (
         <PcmField key={loc} code={loc} mappedPcm={mappedPcm} />
       ))}
