@@ -2,17 +2,10 @@ import { CircularProgress, Center } from '@chakra-ui/react'
 import isNotEmpty from 'utils/helpers/is-not-empty'
 import templateHandlerMachine from 'app/PCM/templates'
 import TemplateDefault from './templates/tpl-default'
-import { reduce } from 'ramda'
-import { useSelector } from 'react-redux'
-import { selectCode } from 'redux/db/selectors'
+import useGetMappedPcm from './helpers/get-mapped-pcm'
 
 const Pcm = ({ code, properties }) => {
-  const pcm = useSelector(selectCode(code, 'allAttributes'), (left, right) => left === right)
-
-  const mappedPcm = reduce((acc, { attributeCode, valueString }) => {
-    acc = { ...acc, [attributeCode]: valueString }
-    return acc
-  }, {})(pcm || [])
+  const mappedPcm = useGetMappedPcm(code)
 
   /// By making mapped PCM selected here, and using it as a prop, this causes rerenders
   return <MappedPcm code={code} mappedPcm={mappedPcm} properties={properties} />
@@ -23,7 +16,7 @@ const MappedPcm = ({ code, mappedPcm, properties }) => {
 
   if (isNotEmpty(mappedPcm)) {
     if (templateCode) {
-      const template = templateHandlerMachine(templateCode)(properties)(mappedPcm)
+      const template = templateHandlerMachine(mappedPcm)(templateCode)(properties)
 
       if (!template) {
         console.error(
@@ -38,6 +31,7 @@ const MappedPcm = ({ code, mappedPcm, properties }) => {
 
       return template
     } else {
+      console.error('PCM ' + code + " doesn't have a template code!")
       return (
         <Center>
           <CircularProgress mt="5" isIndeterminate />

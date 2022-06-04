@@ -21,6 +21,7 @@ const Display = () => {
   const projectTitle = useSelector(selectCode(appName, 'PRI_NAME'))?.valueString
   const projectIcon = useSelector(selectCode(appName, 'PRI_FAVICON'))?.valueString
 
+  // This should be determined by the Project base entity in the future
   const pcmRootCode = 'PCM_ROOT'
   const pcmRoot = find(equals(pcmRootCode))(pcms)
 

@@ -6,7 +6,7 @@ import { apiConfig } from 'config/get-api-config'
 
 const TemplateProgressBar = ({ mappedPcm }) => {
   const { PRI_LOC1 } = mappedPcm
-
+  console.log('AHH')
   return (
     <div>
       <PcmField
@@ -40,7 +40,7 @@ const ProgressBar = ({ fieldCode, sourceCode }) => {
       </div>
     )
   } else {
-    return <div style={{ width: width + 'px', backgroundColor: '#EEEEEE', height: '10px' }} />
+    return <div style={{ width: width + 'px', backgroundColor: '#DEDEDE', height: '10px' }} />
   }
 }
 

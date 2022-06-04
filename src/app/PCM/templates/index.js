@@ -11,7 +11,7 @@ import { has } from 'ramda'
 import TemplateProgressBar from './tpl-progress-bar'
 import TemplateLojingHeader from './tpl-lojing-header'
 
-const templateHandlerMachine = templateCode => properties => mappedPcm => {
+const templateHandlerMachine = mappedPcm => templateCode => properties => {
   const listOfTemplates = {
     TPL_NORTH: <TemplateNorth mappedPcm={mappedPcm} {...properties} />,
     TPL_WEST: <TemplateWest mappedPcm={mappedPcm} {...properties} />,

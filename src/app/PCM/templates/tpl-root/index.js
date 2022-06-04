@@ -23,7 +23,7 @@ const TemplateRoot = ({ mappedPcm }) => {
 
   const { clientId } = apiConfig
   const appName = convertToUppercase(clientId)
-
+  /// Write a function that gets an attribute out of project base entity
   const primaryColour =
     useSelector(selectCode('PRJ_' + appName, 'PRI_COLOR_SURFACE'))?.valueString || '#224371'
 

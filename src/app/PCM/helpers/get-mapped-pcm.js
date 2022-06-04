@@ -7,7 +7,10 @@ const useGetMappedPcm = identifier => {
   const allPcmCode = useSelector(selectCode(`PCMINFORMATION`)) || []
   const individualPcmCode = find(includes(identifier))(allPcmCode)
 
-  const individualPcm = useSelector(selectCode(individualPcmCode, 'allAttributes'))
+  const individualPcm = useSelector(
+    selectCode(individualPcmCode, 'allAttributes'),
+    (left, right) => left === right,
+  )
 
   const mappedPcm = reduce((acc, { attributeCode, valueString }) => {
     acc = { ...acc, [attributeCode]: valueString }
