@@ -51,7 +51,7 @@ const db = createSlice({
       }
 
       if (data_type === 'BaseEntity') {
-        forEach(formatBaseEntity(state, aliasCode, parentCode), items)
+        forEach(formatBaseEntity(state, aliasCode, parentCode, replace), items)
         return
       }
 

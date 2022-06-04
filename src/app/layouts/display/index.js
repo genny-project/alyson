@@ -24,15 +24,13 @@ const Display = () => {
   const pcmRootCode = 'PCM_ROOT'
   const pcmRoot = find(equals(pcmRootCode))(pcms)
 
-  const content = useSelector(selectCode(pcmRoot, 'PRI_LOC3'), (next, prev) => next === prev)
-
   return (
     <ErrorBoundary>
       <MetaTags>
         <title>{projectTitle}</title>
         <link rel="icon" href={projectIcon} type="image/x-icon"></link>
       </MetaTags>
-      <Pcm code={pcmRoot} locOverride={{ PRI_LOC3: content.valueString }} />
+      <Pcm code={pcmRoot} />
     </ErrorBoundary>
   )
 }

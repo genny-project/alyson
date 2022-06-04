@@ -85,7 +85,7 @@ const DesktopNav = ({ logoSrc, value }) => {
   const properties = { bg, color, mappedPcm, logoSrc, textColor }
 
   if (isNotEmpty(mappedPcm) && templateHandlerMachine(code)(properties)) {
-    return templateHandlerMachine(code)(properties)
+    return templateHandlerMachine(code)(properties)(mappedPcm)
   }
   // console.error('Falling back on default template for ' + code + '!')
   return <DefaultTemplate {...properties} />

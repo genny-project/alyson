@@ -5,19 +5,31 @@ import TemplateRoot from './tpl-root'
 import TemplateSidebarOne from './sidebar/tpl-sidebar-one'
 import TemplateVert from './tpl-vert'
 import TemplateDisplay from './tpl-display'
+import TemplateDefault from './tpl-default'
 import TemplateLogo from './tpl-logo'
+import { has } from 'ramda'
+import TemplateProgressBar from './tpl-progress-bar'
+import TemplateLojingHeader from './tpl-lojing-header'
 
-const templateHandlerMachine = templateCode => properties => {
+const templateHandlerMachine = templateCode => properties => mappedPcm => {
   const listOfTemplates = {
-    TPL_NORTH: <TemplateNorth {...properties} />,
-    TPL_WEST: <TemplateWest {...properties} />,
-    TPL_ROOT: <TemplateRoot {...properties} />,
-    TPL_SIDEBAR_1: <TemplateSidebarOne {...properties} />,
-    TPL_VERT: <TemplateVert {...properties} />,
-    TPL_HEADER_1: <TemplateHeader {...properties} />,
-    TPL_DISPLAY: <TemplateDisplay {...properties} />,
-    TPL_LOGO: <TemplateLogo {...properties} />,
+    TPL_NORTH: <TemplateNorth mappedPcm={mappedPcm} {...properties} />,
+    TPL_WEST: <TemplateWest mappedPcm={mappedPcm} {...properties} />,
+    TPL_ROOT: <TemplateRoot mappedPcm={mappedPcm} {...properties} />,
+    TPL_SIDEBAR_1: <TemplateSidebarOne mappedPcm={mappedPcm} {...properties} />,
+    TPL_VERT: <TemplateVert mappedPcm={mappedPcm} {...properties} />,
+    TPL_HEADER_1: <TemplateHeader mappedPcm={mappedPcm} {...properties} />,
+    TPL_DISPLAY: <TemplateDisplay mappedPcm={mappedPcm} {...properties} />,
+    TPL_LOGO: <TemplateLogo mappedPcm={mappedPcm} {...properties} />,
+    TPL_PROGRESS_BAR: <TemplateProgressBar mappedPcm={mappedPcm} {...properties} />,
+    TPL_LOJING_HEADER: <TemplateLojingHeader mappedPcm={mappedPcm} {...properties} />,
   }
+
+  if (!has(templateCode)(listOfTemplates)) {
+    console.error('No template code ' + templateCode + '! Falling back on default.')
+    return <TemplateDefault {...properties} />
+  }
+
   return listOfTemplates[templateCode]
 }
 

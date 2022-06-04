@@ -13,6 +13,7 @@ export const formatBaseEntity = (
   state: DBState,
   aliasCode: MsgPayload['aliasCode'],
   parentCode: MsgPayload['parentCode'],
+  replace: Boolean,
 ) => (item: Item) => {
   if (!item) return
 
@@ -26,7 +27,8 @@ export const formatBaseEntity = (
   //create a key to store pcm information
   const pcmKey = `PCMINFORMATION`
 
-  if (!state[allAttributesKey]) {
+  // If replace is true, update the all Attributes key
+  if (!state[allAttributesKey] || replace) {
     state[allAttributesKey] = baseEntityAttributes
   }
 
@@ -89,6 +91,10 @@ export const formatAsk = (state: DBState, replace: Boolean) => (item: Item) => {
 
   const { childQuestions = [] } = question
 
+  const wholeDataKey = `${questionCode}@wholeData`
+  const rawKey = `${questionCode}@raw`
+  const questionsKey = `${questionCode}@questions`
+
   initialiseKey(state, questionCode, [])
   initialiseKey(state, `${questionCode}@title`, name)
   initialiseKey(state, `${questionCode}@config`, safelyParseJson(html, {}))
@@ -96,16 +102,25 @@ export const formatAsk = (state: DBState, replace: Boolean) => (item: Item) => {
   if (replace) state[questionCode] = []
 
   if (!childAsks.length) {
-    initialiseKey(state, `${questionCode}@raw`, item)
+    initialiseKey(state, rawKey, item)
+    if (replace) {
+      state[rawKey] = item
+    }
   }
 
   if (childAsks.length) {
-    initialiseKey(state, `${questionCode}@wholeData`, childAsks)
+    initialiseKey(state, wholeDataKey, childAsks)
+    if (replace) {
+      state[wholeDataKey] = childAsks
+    }
   }
 
   /// Saving the questions to access extra data
   if (childQuestions.length) {
-    initialiseKey(state, `${questionCode}@questions`, sortByWeight(childQuestions))
+    initialiseKey(state, questionsKey, sortByWeight(childQuestions))
+    if (replace) {
+      state[questionsKey] = sortByWeight(childQuestions)
+    }
   }
 
   forEach((childAsk: Keyable) => {

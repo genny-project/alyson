@@ -12,7 +12,7 @@ const TemplateVert = ({ mappedPcm }) => {
   return (
     <VStack test-id={mappedPcm.PRI_QUESTION_CODE} justifyContent="center">
       {mapSpillLocs(getSpillLocs(mappedPcm)())(loc => (
-        <PcmField code={loc} mappedPcm={mappedPcm} />
+        <PcmField key={loc} code={loc} mappedPcm={mappedPcm} />
       ))}
     </VStack>
   )
