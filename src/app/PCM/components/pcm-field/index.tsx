@@ -3,6 +3,7 @@ import Pcm from 'app/PCM'
 import getAskAndQuestionFromAttribute from 'app/PCM/helpers/get-ask-and-question-from-attribute'
 import { equals, isEmpty, split } from 'ramda'
 import React from 'react'
+import debugOut from 'utils/debug-out'
 import EvtButton from '../evt-button'
 
 interface AttributeProps {
@@ -64,7 +65,7 @@ const NonPcmPcmField: React.FC<NonPcmPcmFieldProps> = (props): JSX.Element => {
   const { ask, question } = getAskAndQuestionFromAttribute(questionGroupCode)(props.code)
 
   if (isEmpty(ask)) {
-    console.error('Got empty ask for ' + props.code + '!')
+    debugOut.error(`NonPcmPcmField got an empty ask for ${props.code}! Returning a blank div`)
     return <div />
   }
 

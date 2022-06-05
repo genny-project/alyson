@@ -4,9 +4,8 @@ import mapSpillLocs from 'app/PCM/helpers/map-spill-locs'
 import PcmField from 'app/PCM/components/pcm-field'
 
 /**
- * Returns all attributes in a vertical list.
+ * Returns all mapped attributes in a vertical list.
  * Currently uses a more expensive mapping of attributes as this may take in locs
- * @returns
  */
 const TemplateVert = ({ mappedPcm }) => {
   return (

@@ -11,8 +11,10 @@ const useGetProjectCode = () => {
 
 /**
  * Returns the attribute from PRJ_{clientId}@{attributeCode}, or undefined if it does not exist
- * @param attributeCode - The attribute code for PRJ_{clientId}
- * @returns - The attribute object, or undefined
+ *
+ * `attributeCode` - The attribute code for `PROJECT`
+ *
+ * Returns the attribute object, or undefined
  */
 const useGetAttributeFromProjectBaseEntity = attributeCode => {
   return useSelector(selectCode('PROJECT', attributeCode))

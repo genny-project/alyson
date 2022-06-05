@@ -11,6 +11,7 @@ import TemplateProgressBar from 'app/PCM/templates/tpl-progress-bar'
 import TemplateLojingHeader from 'app/PCM/templates/tpl-lojing-header'
 import TemplateForm from 'app/PCM/templates/tpl-form'
 import hasNot from 'utils/helpers/has-not.js'
+import debugOut from 'utils/debug-out'
 
 /**
  * Takes in a mappedPcm, a templateCode and some misc properties and returns a template component.
@@ -35,7 +36,9 @@ const templateHandlerMachine = mappedPcm => templateCode => properties => {
   }
 
   if (hasNot(templateCode)(listOfTemplates)) {
-    console.error(`No template exists for code: ${templateCode}! Falling back on default tempalte!`)
+    debugOut.error(
+      `No template exists for code: ${templateCode}! Falling back on default tempalte!`,
+    )
     return <TemplateDefault {...properties} />
   }
 

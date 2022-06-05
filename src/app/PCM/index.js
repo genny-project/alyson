@@ -2,6 +2,7 @@ import templateHandlerMachine from 'app/PCM/templates'
 import TemplateDefault from './templates/tpl-default'
 import useGetMappedPcm from './helpers/get-mapped-pcm'
 import { isEmpty } from 'ramda'
+import debugOut from 'utils/debug-out'
 
 /**
  * Given a Pcm Code `code`, will attempt to render a PCM template based on
@@ -17,7 +18,7 @@ const Pcm = ({ code, properties }) => {
 const MappedPcm = ({ code, mappedPcm, properties }) => {
   /// Make sure the mapped PCM actually has data in it
   if (isEmpty(mappedPcm)) {
-    console.error(
+    debugOut.error(
       `PCM with code ${code} is empty! Rendering default template! It is possible that the PCM has not arrived yet, or a PCM with this code does not exist`,
     )
     return <TemplateDefault {...properties} />
@@ -27,7 +28,7 @@ const MappedPcm = ({ code, mappedPcm, properties }) => {
 
   /// Make sure the PCM actually has a template code
   if (!PRI_TEMPLATE_CODE) {
-    console.error(
+    debugOut.error(
       `PCM ${code} doesn't have PRI_TEMPLATE_CODE set! Falling back on default template!`,
     )
     return <TemplateDefault {...properties} />
@@ -38,7 +39,7 @@ const MappedPcm = ({ code, mappedPcm, properties }) => {
 
   /// This shouldn't return undefined, as templateHandlerMachine returns the default template on error, but if somehow it does, render the default template.
   if (!template) {
-    console.error(
+    debugOut.error(
       `Falling back on default template for PCM: ${code} as template: ${PRI_TEMPLATE_CODE} could not be found!`,
     )
     return <TemplateDefault {...properties} />
