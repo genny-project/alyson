@@ -1,4 +1,4 @@
-import { append, find, forEach, keys } from 'ramda'
+import { append, forEach, keys } from 'ramda'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import EvtButton from '../components/evt-button'
@@ -13,13 +13,11 @@ const mapQuestionGroup = (
   fn: (ask: { [x: string]: any }, question: { [x: string]: any }) => JSX.Element | undefined,
 ) => (code: string) => {
   let out: JSX.Element[] = []
-  // Currently using wholeData as allAttributes doesn't seem to store anything for questiin groups
-  const questions = useSelector(selectCode(code, 'questions'))
   const asks = useSelector(selectCode(code, 'wholeData'))
 
   forEach((x: string) => {
-    const question = questions[x]
-    const ask = find((a: any) => a.questionCode === question.targetCode)(asks)
+    const ask = asks[x]
+    const question = ask.question
 
     if (fn) {
       out = append(fn(ask, question)!, out)
@@ -34,7 +32,7 @@ const mapQuestionGroup = (
         out,
       )
     }
-  }, keys(questions) as string[])
+  }, keys(asks) as string[])
 
   return out
 }

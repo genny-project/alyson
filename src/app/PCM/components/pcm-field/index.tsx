@@ -1,6 +1,6 @@
 import Attribute from 'app/BE/attribute'
 import Pcm from 'app/PCM'
-import getAskAndQuestionFromAttribute from 'app/PCM/helpers/get-ask-and-question-from-attribute'
+import getAskFromAttribute from 'app/PCM/helpers/get-ask-from-attribute'
 import { equals, isEmpty, split } from 'ramda'
 import React from 'react'
 import debugOut from 'utils/debug-out'
@@ -62,7 +62,7 @@ const PcmField: React.FC<PcmFieldProps> = (props): JSX.Element => {
 
 const NonPcmPcmField: React.FC<NonPcmPcmFieldProps> = (props): JSX.Element => {
   const questionGroupCode = props.mappedPcm.PRI_QUESTION_CODE || ''
-  const { ask, question } = getAskAndQuestionFromAttribute(questionGroupCode)(props.code)
+  const ask = getAskFromAttribute(questionGroupCode)(props.code)
 
   if (isEmpty(ask)) {
     debugOut.error(`NonPcmPcmField got an empty ask for ${props.code}! Returning a blank div`)
@@ -86,7 +86,7 @@ const NonPcmPcmField: React.FC<NonPcmPcmFieldProps> = (props): JSX.Element => {
         props.child({
           fieldCode: props.code,
           ask: ask,
-          question: question,
+          question: ask.question,
           props: props.props,
         })}
       {!isEvt && childUndefined && (

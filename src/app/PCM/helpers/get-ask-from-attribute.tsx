@@ -8,17 +8,12 @@ import { selectCode } from 'redux/db/selectors'
  * `questionGroupCode` => `attributeCode`
  * @returns
  */
-const getAskAndQuestionFromAttribute = (questionGroupCode: string) => (attributeCode: string) => {
-  const ask =
+const getAskFromAttribute = (questionGroupCode: string) => (attributeCode: string) => {
+  return (
     find((a: any) => a.attributeCode === attributeCode)(
       useSelector(selectCode(questionGroupCode, 'wholeData')),
     ) || {}
-  const question =
-    find((a: any) => a.targetCode === ask?.questionCode)(
-      useSelector(selectCode(questionGroupCode, 'questions')),
-    ) || {}
-
-  return { ask, question }
+  )
 }
 
-export default getAskAndQuestionFromAttribute
+export default getAskFromAttribute
