@@ -5,16 +5,16 @@ import EvtButton from 'app/PCM/components/evt-button'
 const TemplateSidebarOne = ({ mappedPcm }) => {
   return (
     <VStack test-id={mappedPcm.PRI_QUESTION_CODE} justifyContent="center">
-      {mapQuestionGroup(mappedPcm.PRI_QUESTION_CODE)((questionCode, attributeCode, iconId) => {
+      {mapQuestionGroup((ask, question) => {
         return (
           <EvtButton
-            key={attributeCode}
+            key={ask?.attributeCode || ''}
             questionCode={mappedPcm.PRI_QUESTION_CODE}
-            childCode={questionCode}
-            iconId={iconId}
+            childCode={ask?.questionCode || ''}
+            iconId={question?.icon || ''}
           />
         )
-      })}
+      })(mappedPcm.PRI_QUESTION_CODE)}
     </VStack>
   )
 }

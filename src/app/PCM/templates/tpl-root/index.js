@@ -1,15 +1,12 @@
 import { Box, useColorModeValue, Center, useTheme } from '@chakra-ui/react'
 import DeveloperConsole, { isDev } from 'utils/developer'
-import { useSelector } from 'react-redux'
 import Dialog from 'app/layouts/display/dialog'
 import DisplayDrawer from 'app/layouts/display/drawer'
 import LogrocketIdentifier from 'app/layouts/components/logrocket_identifier'
 import { SIDEBAR_WIDTH } from 'utils/constants'
 import Toast from 'app/layouts/display/toast'
-import { selectCode } from 'redux/db/selectors'
-import convertToUppercase from 'utils/formatters/uppercase-convert'
-import { apiConfig } from 'config/get-api-config'
 import PcmField from 'app/PCM/components/pcm-field'
+import useGetAttributeFromProjectBaseEntity from 'app/BE/attribute/get-attribute-from-project-baseentity'
 
 const TemplateRoot = ({ mappedPcm }) => {
   // HEADER, SIDEBAR
@@ -21,11 +18,8 @@ const TemplateRoot = ({ mappedPcm }) => {
 
   const bg = useColorModeValue('#F6F6F6', theme.colors.primary[900])
 
-  const { clientId } = apiConfig
-  const appName = convertToUppercase(clientId)
-  /// Write a function that gets an attribute out of project base entity
   const primaryColour =
-    useSelector(selectCode('PRJ_' + appName, 'PRI_COLOR_SURFACE'))?.valueString || '#224371'
+    useGetAttributeFromProjectBaseEntity('PRI_SURFACE_COLOR')?.valueString || '#224371'
 
   return (
     <Box position={'relative'} h={'100%'}>

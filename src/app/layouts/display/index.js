@@ -4,7 +4,7 @@ import { onSendMessage } from 'vertx'
 import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
 import { equals, find } from 'ramda'
-import Pcm from '../../PCM'
+import Pcm from 'app/PCM'
 
 const Display = () => {
   let pcms = useSelector(selectCode(`PCMINFORMATION`)) || []

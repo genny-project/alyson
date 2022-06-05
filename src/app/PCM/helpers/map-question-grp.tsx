@@ -9,9 +9,9 @@ import EvtButton from '../components/evt-button'
  * @param code - Question group to map
  * @returns
  */
-const mapQuestionGroup = (code: string) => (
-  fn: (questionCode: string, attributeCode: string, iconId: string) => JSX.Element | undefined,
-) => {
+const mapQuestionGroup = (
+  fn: (ask: { [x: string]: any }, question: { [x: string]: any }) => JSX.Element | undefined,
+) => (code: string) => {
   let out: JSX.Element[] = []
   // Currently using wholeData as allAttributes doesn't seem to store anything for questiin groups
   const questions = useSelector(selectCode(code, 'questions'))
@@ -22,10 +22,7 @@ const mapQuestionGroup = (code: string) => (
     const ask = find((a: any) => a.questionCode === question.targetCode)(asks)
 
     if (fn) {
-      out = append(
-        fn(ask?.questionCode || '', ask?.question?.attributeCode || '', question?.icon || '')!,
-        out,
-      )
+      out = append(fn(ask, question)!, out)
     } else {
       out = append(
         <EvtButton
