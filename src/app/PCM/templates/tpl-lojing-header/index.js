@@ -1,3 +1,4 @@
+import RichText from 'app/DTT/rich_text'
 import PcmField from 'app/PCM/components/pcm-field'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
@@ -20,11 +21,13 @@ const TemplateLojingHeader = ({ mappedPcm }) => {
 }
 
 const Header = ({ fieldCode, sourceCode }) => {
-  const data = useSelector(selectCode(sourceCode, fieldCode))?.valueString
+  const attribute = useSelector(selectCode(sourceCode, fieldCode))
+  const value = attribute?.valueString
 
   return (
     <>
-      <div style={{ fontSize: 30, fontWeight: 'bold' }}>Hi {data}</div>
+      <RichText.Read data={attribute} config={{ style: { fontSize: 30, fontWeight: 'bold' } }} />
+      <div style={{ fontSize: 30, fontWeight: 'bold' }}>Hi {value}</div>
       Lojing.io Pre-Approval© means that once you’re approved, you can access any property within{' '}
       <br /> our platform without submitting the same details again.
       <br />

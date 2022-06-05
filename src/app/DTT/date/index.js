@@ -116,8 +116,6 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
     }
   }, [diffInYears, questionCode])
 
-  console.log(data?.value)
-
   const CustomInput = forwardRef(({ value, onClick }, ref) => (
     <>
       <Input

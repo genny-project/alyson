@@ -1,14 +1,4 @@
-import {
-  useColorModeValue,
-  useTheme,
-  Flex,
-  Box,
-  Spacer,
-  HStack,
-  Button,
-  Image,
-} from '@chakra-ui/react'
-import { LOGO_WIDTH } from 'utils/constants'
+import { useColorModeValue, useTheme, Flex, Box, Spacer, HStack, Button } from '@chakra-ui/react'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -43,8 +33,7 @@ const TemplateHeaderDesktop = ({ mappedPcm, logoSrc }) => {
         <nav>
           <Flex align="center" p="3">
             <Box mx={5} alignItems="center" m="auto">
-              {PRI_LOC1 && <PcmField code={PRI_LOC1} mappedPcm={mappedPcm} />}
-              {!PRI_LOC1 && <Image src={logoSrc} htmlWidth={LOGO_WIDTH} />}
+              <PcmField code={PRI_LOC1} mappedPcm={mappedPcm} />
             </Box>
             <Spacer />
             <HStack spacing={8} marginRight="5">

@@ -6,11 +6,23 @@ import LogrocketIdentifier from 'app/layouts/components/logrocket_identifier'
 import { SIDEBAR_WIDTH } from 'utils/constants'
 import Toast from 'app/layouts/display/toast'
 import PcmField from 'app/PCM/components/pcm-field'
-import useGetAttributeFromProjectBaseEntity from 'app/BE/attribute/get-attribute-from-project-baseentity'
+import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 
+/**
+ * The root template for an application. Contains a sidebar, header and a body content.
+ *
+ * Template Code: `TPL_ROOT`
+ *
+ *
+ * LOCS:
+ *
+ * `PRI_LOC1` -> The Header <br/>
+ *
+ * `PRI_LOC2` -> The Sidebar <br/>
+ *
+ * `PRI_LOC3` -> The Main content being displayed
+ */
 const TemplateRoot = ({ mappedPcm }) => {
-  // HEADER, SIDEBAR
-
   const theme = useTheme()
   const { PRI_LOC1, PRI_LOC2, PRI_LOC3 } = mappedPcm
   const backgroundColor = useColorModeValue('gray.50', '')

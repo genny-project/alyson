@@ -1,16 +1,12 @@
-import { apiConfig } from 'config/get-api-config'
-import convertToUppercase from 'utils/formatters/uppercase-convert'
 import { LOGO_WIDTH } from 'utils/constants'
 import sendAskClick from 'app/ASKS/utils/send-ask-click'
 import { Box } from '@chakra-ui/react'
 import PcmField from 'app/PCM/components/pcm-field'
+import { useGetProjectCode } from 'app/BE/project-be'
 
 const TemplateLogo = ({ mappedPcm }) => {
   const { PRI_LOC1, PRI_LOC2 } = mappedPcm
-
-  const { clientId } = apiConfig
-  const appName = convertToUppercase(clientId)
-  const entityCode = 'PRJ_' + appName
+  const entityCode = useGetProjectCode()
 
   const handleClick = childCode => {
     sendAskClick(childCode, childCode)
