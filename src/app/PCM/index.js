@@ -16,9 +16,10 @@ const MappedPcm = ({ code, mappedPcm, properties }) => {
 
   if (isNotEmpty(mappedPcm)) {
     const template = templateHandlerMachine(mappedPcm)(templateCode)(properties)
-    if (templateCode) {
+
+    if (templateCode && template) {
       return template
-    } else if (templateCode && !template) {
+    } else if (templateCode) {
       console.error(
         `Falling back on default template for PCM: ${code} as template: ${templateCode} could not be found!`,
       )
