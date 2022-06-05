@@ -10,28 +10,32 @@ import { selectCode } from 'redux/db/selectors'
 import convertToUppercase from 'utils/formatters/uppercase-convert'
 import { apiConfig } from 'config/get-api-config'
 import PcmField from 'app/PCM/components/pcm-field'
+import { find, includes, values } from 'ramda'
 
 const TemplateRoot = ({ mappedPcm }) => {
-  // HEADER, SIDEBAR
-
-  const theme = useTheme()
-  const { PRI_LOC1, PRI_LOC2, PRI_LOC3 } = mappedPcm
-  const backgroundColor = useColorModeValue('gray.50', '')
-  const color = useColorModeValue(theme.colors.text.light, theme.colors.text.dark)
-
-  const bg = useColorModeValue('#F6F6F6', theme.colors.primary[900])
+  const getPcmCode = pcmCode => find(includes(pcmCode))(allPcmValues)
 
   const { clientId } = apiConfig
   const appName = convertToUppercase(clientId)
-  /// Write a function that gets an attribute out of project base entity
+
+  const theme = useTheme()
+  const backgroundColor = useColorModeValue('gray.50', '')
+  const color = useColorModeValue(theme.colors.text.light, theme.colors.text.dark)
+  const bg = useColorModeValue('#F6F6F6', theme.colors.primary[900])
+  // Write a function that gets an attribute out of project base entity
   const primaryColour =
     useSelector(selectCode('PRJ_' + appName, 'PRI_COLOR_SURFACE'))?.valueString || '#224371'
+
+  const allPcmValues = values(mappedPcm)
+  const sidebarPcmCode = getPcmCode('SIDEBAR')
+  const headerPcmCode = getPcmCode('HEADER')
+  const displayPcmCode = getPcmCode('DISPLAY')
 
   return (
     <Box position={'relative'} h={'100%'}>
       <Center w={SIDEBAR_WIDTH} bg={primaryColour} h="100vh" paddingInline={'3'}>
         {/* Sidebar */}
-        <PcmField code={PRI_LOC2} mappedPcm={mappedPcm} />
+        <PcmField code={sidebarPcmCode} mappedPcm={mappedPcm} />
       </Center>
       <Box
         backgroundColor={backgroundColor}
@@ -45,10 +49,14 @@ const TemplateRoot = ({ mappedPcm }) => {
         overflow="scroll"
       >
         {/* Header */}
-        <PcmField code={PRI_LOC1} mappedPcm={mappedPcm} properties={{ bg: bg, color: color }} />
+        <PcmField
+          code={headerPcmCode}
+          mappedPcm={mappedPcm}
+          properties={{ bg: bg, color: color }}
+        />
         <Box paddingTop="2.25rem">
           {/* Main Page Content */}
-          <PcmField code={PRI_LOC3} mappedPcm={mappedPcm} />
+          <PcmField code={displayPcmCode} mappedPcm={mappedPcm} />
           <DisplayDrawer />
           <Dialog />
           <Toast />

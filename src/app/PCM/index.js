@@ -16,7 +16,6 @@ const MappedPcm = ({ code, mappedPcm, properties }) => {
 
   if (isNotEmpty(mappedPcm)) {
     const template = templateHandlerMachine(mappedPcm)(templateCode)(properties)
-
     if (templateCode && template) {
       return template
     } else if (templateCode) {
