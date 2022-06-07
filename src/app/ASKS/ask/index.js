@@ -111,7 +111,7 @@ const Ask = ({
     )
   }
 
-  if (!!disabled && component !== 'button')
+  if (!!disabled && !hidden && component !== 'button')
     return (
       <FormControl isDisabled isRequired={mandatory}>
         <HStack
