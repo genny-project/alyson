@@ -37,6 +37,7 @@ import Video from 'app/DTT/video'
 import createSendAnswer from 'app/ASKS/utils/create-send-answer'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import getGroupCode from 'app/ASKS/utils/get-group-code'
+import { isNotStringifiedEmptyArray } from 'utils/functionals'
 import { pathOr } from 'ramda'
 import { selectCode } from 'redux/db/selectors'
 import { selectHighlightedQuestion } from 'redux/app/selectors'
@@ -44,7 +45,6 @@ import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
-import { isNotStringifiedEmptyArray } from 'utils/functionals'
 
 const Ask = ({
   parentCode,
@@ -114,7 +114,11 @@ const Ask = ({
   if (!!disabled && component !== 'button')
     return (
       <FormControl isDisabled isRequired={mandatory}>
-        <HStack display={noLabel ? 'none' : 'block'} w={'17.5vw'} justify="space-between">
+        <HStack
+          display={noLabel ? 'none' : 'block'}
+          w={'max(17.5vw, 100%)'}
+          justify="space-between"
+        >
           <FormLabel id={attributeCode} textStyle="body.1">
             {name}
           </FormLabel>
@@ -124,16 +128,18 @@ const Ask = ({
     )
   if (component === 'checkbox')
     return (
-      <CheckBox.Write
-        data={data}
-        questionCode={questionCode}
-        onSendAnswer={onSendAnswer}
-        label={name}
-        isRequired={mandatory}
-        id={attributeCode}
-        regexPattern={regexPattern}
-        errorMessage={errorMessage}
-      />
+      <FormControl display={hidden ? 'none' : 'block'}>
+        <CheckBox.Write
+          data={data}
+          questionCode={questionCode}
+          onSendAnswer={onSendAnswer}
+          label={name}
+          isRequired={mandatory}
+          id={attributeCode}
+          regexPattern={regexPattern}
+          errorMessage={errorMessage}
+        />
+      </FormControl>
     )
   return component === 'button' ? (
     <Button
