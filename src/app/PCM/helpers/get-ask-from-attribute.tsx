@@ -1,6 +1,7 @@
-import { find } from 'ramda'
+import { find, isEmpty } from 'ramda'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
+import debugOut from 'utils/debug-out'
 
 /**
  * Takes in a questionGroupCode and an attributeCode, and returns an Ask and Question object for the Question in that question group
@@ -9,11 +10,14 @@ import { selectCode } from 'redux/db/selectors'
  * @returns
  */
 const getAskFromAttribute = (questionGroupCode: string) => (attributeCode: string) => {
-  return (
-    find((a: any) => a.attributeCode === attributeCode)(
-      useSelector(selectCode(questionGroupCode, 'wholeData') || []),
-    ) || {}
-  )
+  const wholeData = useSelector(selectCode(questionGroupCode, 'wholeData'))
+
+  if (!wholeData || isEmpty(wholeData)) {
+    debugOut.error(`Got empty from ${questionGroupCode}@wholeData!`)
+    return {}
+  }
+
+  return find((a: any) => a.attributeCode === attributeCode)(wholeData)
 }
 
 export default getAskFromAttribute
