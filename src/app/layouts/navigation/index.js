@@ -1,7 +1,7 @@
 import DesktopNav from './desktop'
 import MobileNav from './mobile'
 import { apiConfig } from 'config/get-api-config'
-import { equals } from 'ramda'
+import { cond, equals, always } from 'ramda'
 import { useIsMobile } from 'utils/hooks'
 
 const Navigation = () => {
