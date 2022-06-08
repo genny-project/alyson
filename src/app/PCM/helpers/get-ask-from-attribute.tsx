@@ -11,7 +11,7 @@ import { selectCode } from 'redux/db/selectors'
 const getAskFromAttribute = (questionGroupCode: string) => (attributeCode: string) => {
   return (
     find((a: any) => a.attributeCode === attributeCode)(
-      useSelector(selectCode(questionGroupCode, 'wholeData')),
+      useSelector(selectCode(questionGroupCode, 'wholeData') || []),
     ) || {}
   )
 }

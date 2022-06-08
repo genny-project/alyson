@@ -18,6 +18,7 @@ import sendAskClick from 'app/ASKS/utils/send-ask-click'
 import useApi from 'api'
 import { useSelector } from 'react-redux'
 import { startsWith } from 'ramda'
+import debugOut from 'utils/debug-out'
 
 const EvtButton = ({ questionCode, childCode, iconId }) => {
   const data = useSelector(selectCode(questionCode, childCode))
@@ -33,6 +34,7 @@ const EvtButton = ({ questionCode, childCode, iconId }) => {
   const { name, childAsks } = data
 
   const handleClick = () => {
+    debugOut.log(data)
     sendAskClick(childCode, childCode)
   }
 

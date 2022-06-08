@@ -35,7 +35,13 @@ const TemplateRoot = ({ mappedPcm }) => {
 
   return (
     <Box position={'relative'} h={'100%'}>
-      <Center w={SIDEBAR_WIDTH} bg={primaryColour} h="100vh" paddingInline={'3'}>
+      <Center
+        w={SIDEBAR_WIDTH}
+        bg={primaryColour}
+        h="100vh"
+        paddingInline={'3'}
+        paddingTop={'2.25rem'}
+      >
         {/* Sidebar */}
         <PcmField code={PRI_LOC2} mappedPcm={mappedPcm} />
       </Center>
