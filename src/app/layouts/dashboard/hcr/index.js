@@ -81,7 +81,7 @@ const HostCompanyRep = ({ userCode }) => {
     </Button>
   )
 
-  const digitalJobsButton = digitalJobsAgreement && (
+  const digitalJobsButton = digitalJobsAgreement === 'true' && (
     <Button
       size="sm"
       onClick={() => onSendMessage({ targetCode: companyCode, code: 'ACT_DJP_DOC' })}
