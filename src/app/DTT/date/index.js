@@ -1,4 +1,5 @@
 import 'react-datepicker/dist/react-datepicker.css'
+import './datePickerStyles.css'
 
 import { Input, Text } from '@chakra-ui/react'
 import { dateOfBirthQuestionCode, eligibleAge } from 'utils/constants'
@@ -59,12 +60,9 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
 
   const handleOnBlur = () => {
     const offsetDate = new Date(dateValue?.getTime() - dateValue?.getTimezoneOffset() * 60000)
-    const dateTimeValue = includeTime ? dateValue : offsetDate
+    const dateTimeValue = includeTime || onlyYear ? dateValue : offsetDate
 
-    if (dateTimeValue) {
-      if (dateTimeValue.toString() === 'Invalid Date') {
-        return
-      }
+    if (dateTimeValue && dateTimeValue.toString() !== 'Invalid Date') {
       !errorStatus && onSendAnswer(safelyParseDate(dateTimeValue).toISOString())
       dispatchFieldMessage({ payload: questionCode })
     }
