@@ -102,9 +102,7 @@ const Rep = ({ sbeCode, targetCode }) => {
   )
 
   const digitalJobsButton =
-    validation?.value === 'Ready' ||
-    validation?.value === 'Validated' ||
-    (digitalJobsAgreement === 'true' && digitalJobsValidation) ? (
+    digitalJobsAgreement === 'true' && digitalJobsValidation ? (
       <Button
         onClick={() => onSendMessage({ targetCode, parentCode: sbeCode, code: 'ACT_DJP_DOC' })}
         leftIcon={<FontAwesomeIcon icon={faDownload} />}
