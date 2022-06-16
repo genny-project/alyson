@@ -1,10 +1,6 @@
 import { Text, useClipboard, useToast } from '@chakra-ui/react'
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { HStack } from '@chakra-ui/layout'
-import { Write } from 'app/DTT/text'
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import phoneNumberFormatter from 'utils/formatters/phone-number'
+import { Write } from 'app/DTT/text'
 
 const Read = ({ data, config }) => {
   const { onCopy } = useClipboard(data.value)
@@ -15,21 +11,9 @@ const Read = ({ data, config }) => {
   const onClick = () => {
     onCopy()
     toast({
+      title: `${data?.value} copied!`,
       status: 'success',
       duration: 1000,
-      render: () => (
-        <HStack
-          paddingBlock={5}
-          paddingInline={6}
-          bg="success.100"
-          borderWidth={'1px'}
-          borderColor={'success.500'}
-          borderRadius={'lg'}
-        >
-          <FontAwesomeIcon color="#00AFAB" icon={faCheckCircle} size="lg" />
-          <Text color="text.light">{`${data?.value} copied!`}</Text>
-        </HStack>
-      ),
     })
   }
   return (

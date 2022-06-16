@@ -1,10 +1,8 @@
-import { Box, HStack, Input, Text, useClipboard, useToast } from '@chakra-ui/react'
+import { Box, Input, Text, useClipboard, useToast } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import Duplicates from './Duplicates'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { getIsInvalid } from 'utils/functions'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
@@ -43,30 +41,9 @@ const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMessage })
           type="email"
           onBlur={onBlur}
           onChange={e => setuserInput(e.target.value)}
-          isInvalid={isInvalid}
           w="full"
           maxW={maxW}
-          paddingBlock={3}
-          paddingInline={5}
-          fontWeight={'medium'}
-          borderColor={'gray.700'}
-          _hover={{
-            borderColor: 'green.500',
-            boxShadow: 'lg',
-          }}
-          _focusVisible={{
-            borderColor: 'green.500',
-            boxShadow: 'initial',
-          }}
-          _invalid={{
-            background: 'error.50',
-            borderColor: 'error.500',
-            color: 'error.500',
-          }}
-          _disabled={{
-            borderColor: 'gray.300',
-            background: 'gray.100',
-          }}
+          isInvalid={isInvalid}
         />
         {errorStatus && (
           <Text textStyle="tail.error" mt={2}>
@@ -88,21 +65,9 @@ const Read = ({ data }) => {
   const onClick = () => {
     onCopy()
     toast({
+      title: `${data?.value} copied!`,
       status: 'success',
       duration: 1000,
-      render: () => (
-        <HStack
-          paddingBlock={5}
-          paddingInline={6}
-          bg="success.100"
-          borderWidth={'1px'}
-          borderColor={'success.500'}
-          borderRadius={'lg'}
-        >
-          <FontAwesomeIcon color="#00AFAB" icon={faCheckCircle} size="lg" />
-          <Text color="text.light">{`${data?.value} copied!`}</Text>
-        </HStack>
-      ),
     })
   }
   return (

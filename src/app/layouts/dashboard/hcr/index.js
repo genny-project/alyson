@@ -21,8 +21,8 @@ const HostCompanyRep = ({ userCode }) => {
   const hcValidation = useSelector(selectCode(companyCode, 'PRI_HC_VALIDATION_DOC_URL')) || ''
   const hcValidationUrl = hcValidation?.value
 
-  const digitalJobsAgreement =
-    useSelector(selectCode(companyCode, 'LNK_VIC_GOV_DIGITAL_JOBS')) || ''
+  const digitalJobsAgreement = useSelector(selectCode(companyCode, 'LNK_VIC_GOV_DIGITAL_JOBS'))
+    ?.value
   const digitalJobsAgreementValidation = useSelector(
     selectCode(companyCode, 'PRI_DJP_DOCUMENT_ACCEPTED'),
   )?.value
@@ -81,11 +81,11 @@ const HostCompanyRep = ({ userCode }) => {
     </Button>
   )
 
-  const digitalJobsButton = !!digitalJobsAgreement && (
+  const digitalJobsButton = digitalJobsAgreement === 'true' && (
     <Button
       size="sm"
       onClick={() => onSendMessage({ targetCode: companyCode, code: 'ACT_DJP_DOC' })}
-      leftIcon={<FontAwesomeIcon icon={faEdit} />}
+      leftIcon={<FontAwesomeIcon icon={digitalJobsAgreementValidation ? faDownload : faEdit} />}
       colorScheme={digitalJobsAgreementValidation ? 'gray' : 'red'}
     >
       {`Digital Jobs Participant Agreement`}

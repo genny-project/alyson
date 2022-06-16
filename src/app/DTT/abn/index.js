@@ -51,14 +51,13 @@ const Write = ({ questionCode, data, onSendAnswer, disabled, regexPattern, error
         targetCode={data.baseEntityCode}
       />
       <InputGroup w={'100%'} maxW={maxW}>
-        <InputLeftElement w="8rem" h={`40px`}>
+        <InputLeftElement w="8rem">
           <Button
             isDisabled={disabled}
             w="8rem"
             variant="outline"
             colorScheme="primary"
             onClick={open}
-            h={`40px`}
           >
             ABN Lookup
           </Button>
@@ -66,33 +65,11 @@ const Write = ({ questionCode, data, onSendAnswer, disabled, regexPattern, error
         <Input
           id={questionCode}
           test-id={questionCode}
+          pl="10rem"
           value={value}
           onChange={e => setValue(e.target.value)}
           onBlur={e => onSendAnswer(e.target.value)}
-          w="full"
-          maxW={maxW}
-          paddingBlock={3}
-          paddingLeft={'9rem'}
-          paddingRight={5}
-          fontWeight={'medium'}
-          borderColor={'gray.700'}
-          _hover={{
-            borderColor: 'green.500',
-            boxShadow: 'lg',
-          }}
-          _focusVisible={{
-            borderColor: 'green.500',
-            boxShadow: 'initial',
-          }}
-          _invalid={{
-            background: 'error.50',
-            borderColor: 'error.500',
-            color: 'error.500',
-          }}
-          _disabled={{
-            borderColor: 'gray.300',
-            background: 'gray.100',
-          }}
+          w={`100%`}
         />
       </InputGroup>
       {errorStatus && (

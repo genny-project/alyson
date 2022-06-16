@@ -6,10 +6,7 @@ const defaultProjectTheme = {
     body: 'Roboto, sans-serif',
   },
   colors: {
-    background: {
-      light: '#ffffff',
-      dark: '#1A202C',
-    },
+    background: { light: '#ffffff', dark: '#1A202C' },
     text: {
       light: '#000000',
       dark: '#ffffff',
@@ -24,10 +21,7 @@ const defaultProjectTheme = {
       600: '#2B6CB0',
       700: '#2C5282',
       800: '#2A4365',
-      900: '#1A3B64',
-    },
-    primaryAlpha: {
-      20: 'rgba(49,130,206,0.2)',
+      900: '#1A365D',
     },
     secondary: {
       50: '#FFF5F7',
@@ -41,60 +35,9 @@ const defaultProjectTheme = {
       800: '#702459',
       900: '#521B41',
     },
-    gray: {
-      50: '#F6F6F6',
-      100: '#E5E5E5',
-      200: '#EDEDED',
-      300: '#C4C4C4',
-      400: '#718096',
-      500: '#9F9F9F',
-      600: '#979797',
-      700: '#808080',
-      800: '#171923',
-    },
-    purple: {
-      400: '#5162FA',
-    },
-    green: {
-      50: '#AAE3E2',
-      200: '#03DAC5',
-      400: '#00AFAB',
-      900: '#004753',
-    },
-    orange: {
-      100: '#feefea',
-      400: '#fbbea3',
-      500: '#fc825c',
-      600: '#f45d22',
-    },
-    blackAlpha: {
-      20: 'rgba(0,0,0,0.2)',
-    },
-    whiteAlpha: {
-      80: 'rgba(255, 255, 255, 0.8)',
-    },
-    info: {
-      50: '#EBF8FF',
-      500: '#4299E1',
-      900: '#1A365D',
-    },
-    error: {
-      50: '#FEF4F4',
-      500: '#F11E1B',
-      900: '#700f0f',
-    },
-    warning: {
-      50: '#FFFAF0',
-      500: '#DD6B20',
-      900: '#62300e',
-    },
-    success: {
-      50: '#F0FFF4',
-      100: '#DBFFFE',
-      500: '#3AB8B5',
-      800: '#00AFAB',
-      900: '#133523',
-    },
+    error: { 50: '#FFF5F5', 500: '#E53E3E', 900: '#700f0f' },
+    warning: { 50: '#FFFAF0', 500: '#DD6B20', 900: '#62300e' },
+    success: { 50: '#F0FFF4', 500: '#38A169', 900: '#133523' },
     gradient: {
       50: 'linear-gradient(135deg, #E6FFFA, #EBF8FF)',
       100: 'linear-gradient(135deg, #B2F5EA, #BEE3F8)',
@@ -108,101 +51,27 @@ const defaultProjectTheme = {
       900: 'linear-gradient(135deg, #38B2AC, #3182CE)',
     },
   },
-  shadows: {
-    md:
-      '0px 1px 1px rgba(0, 0, 0, 0.14), 0px 2px 1px rgba(0, 0, 0, 0.12), 0px 1px 3px rgba(0, 0, 0, 0.2)',
-    lg: '0 4px 15px -3px rgba(49, 130, 206, 0.22)',
-  },
-  radii: {
-    full: '9999px',
-  },
   textStyles: {
     head: {
-      1: {
-        fontSize: '2xl',
-        fontWeight: 700,
-        opacity: 0.9,
-      },
-      2: {
-        fontSize: '2xl',
-        fontWeight: 400,
-        opacity: 0.9,
-      },
-      3: {
-        fontSize: '2xl',
-        fontWeight: 400,
-        opacity: 0.6,
-      },
-      error: {
-        fontSize: '2xl',
-        fontWeight: 400,
-        color: 'red.500',
-        opacity: 0.9,
-      },
-      success: {
-        fontSize: '2xl',
-        fontWeight: 400,
-        color: 'green.500',
-        opacity: 0.9,
-      },
+      1: { fontSize: '2xl', fontWeight: 700, opacity: 0.9 },
+      2: { fontSize: '2xl', fontWeight: 400, opacity: 0.9 },
+      3: { fontSize: '2xl', fontWeight: 400, opacity: 0.6 },
+      error: { fontSize: '2xl', fontWeight: 400, color: 'red.500', opacity: 0.9 },
+      success: { fontSize: '2xl', fontWeight: 400, color: 'green.500', opacity: 0.9 },
     },
     body: {
-      1: {
-        fontSize: 'md',
-        fontWeight: 700,
-        opacity: 0.9,
-      },
-      2: {
-        fontSize: 'md',
-        fontWeight: 400,
-        opacity: 0.9,
-      },
-      3: {
-        fontSize: 'md',
-        fontWeight: 400,
-        opacity: 0.6,
-      },
-      error: {
-        fontSize: 'md',
-        fontWeight: 400,
-        color: 'red.500',
-        opacity: 0.9,
-      },
-      success: {
-        fontSize: 'md',
-        fontWeight: 400,
-        color: 'green.500',
-        opacity: 0.9,
-      },
+      1: { fontSize: 'md', fontWeight: 700, opacity: 0.9 },
+      2: { fontSize: 'md', fontWeight: 400, opacity: 0.9 },
+      3: { fontSize: 'md', fontWeight: 400, opacity: 0.6 },
+      error: { fontSize: 'md', fontWeight: 400, color: 'red.500', opacity: 0.9 },
+      success: { fontSize: 'md', fontWeight: 400, color: 'green.500', opacity: 0.9 },
     },
     tail: {
-      1: {
-        fontSize: 'xs',
-        fontWeight: 700,
-        opacity: 0.9,
-      },
-      2: {
-        fontSize: 'xs',
-        fontWeight: 400,
-        opacity: 0.9,
-      },
-      3: {
-        fontSize: 'xs',
-        fontWeight: 400,
-        opacity: 0.6,
-      },
-      error: {
-        fontSize: 'xs',
-        fontWeight: 400,
-        color: 'red.500',
-        opacity: 0.9,
-      },
-      success: {
-        fontSize: 'xs',
-        fontWeight: 400,
-        color: 'green.500',
-        opacity: 0.9,
-      },
+      1: { fontSize: 'xs', fontWeight: 700, opacity: 0.9 },
+      2: { fontSize: 'xs', fontWeight: 400, opacity: 0.9 },
+      3: { fontSize: 'xs', fontWeight: 400, opacity: 0.6 },
+      error: { fontSize: 'xs', fontWeight: 400, color: 'red.500', opacity: 0.9 },
+      success: { fontSize: 'xs', fontWeight: 400, color: 'green.500', opacity: 0.9 },
     },
   },
 }

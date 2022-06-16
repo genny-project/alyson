@@ -60,17 +60,20 @@ const MobileNav = ({ logoSrc }) => {
       <header
         style={{
           color,
+          position: 'fixed',
+          top: 0,
+          zIndex: 9999,
+          width: '100%',
           maxWidth: '100vw',
-          h: 25,
+          left: 0,
+          right: 0,
           backgroundColor: bg,
-          boxShadow: `0 4px 24px rgba(0,0,0,0.08)`,
-          position: 'relative',
-          zIndex: '1',
+          boxShadow: 'rgb(0 0 0 / 10%) 0px 2px 0px 0px',
         }}
       >
         <nav>
           <Flex align="center" p="3">
-            <IconButton color="gray.600" onClick={onOpen} variant="ghost" display={'none'}>
+            <IconButton color="gray.600" onClick={onOpen} variant="ghost">
               <FontAwesomeIcon icon={faBars} />
             </IconButton>
             <Box mx={5} alignItems="center" m="auto">

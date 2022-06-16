@@ -11,28 +11,21 @@ const useGetMentorInformation = () => {
   const userCode = useSelector(selectCode('USER'))
   let profileStatus = useSelector(selectCode(userCode, 'PRI_PROFILE'))?.valueString
   let trainingStatus = useSelector(selectCode(userCode, 'PRI_TRAINING_STATUS'))?.valueString
-  let mentorStatus = useSelector(selectCode(userCode, 'PRI_STATUS'))?.valueString
+  let verifiedStatus = useSelector(selectCode(userCode, 'PRI_STATUS'))?.valueString
 
   profileStatus = convertToUppercase(profileStatus)
   trainingStatus = convertToUppercase(trainingStatus)
-  mentorStatus = convertToUppercase(mentorStatus)
+  verifiedStatus = convertToUppercase(verifiedStatus)
 
   const isProfileCompleted = isComplete(profileStatus)
-  const isTrainingCompleted = isComplete(trainingStatus)
-  const isStatusVerified = equals(mentorStatus, 'VERIFIED')
-  const isMatchedStatus = equals(mentorStatus, 'MATCHED')
-  const isInvitedStatus = equals(mentorStatus, 'INVITED')
+  const isStatusVerified = equals(verifiedStatus, 'VERIFIED')
 
   return {
-    userCode,
     profileStatus,
     trainingStatus,
-    mentorStatus,
+    verifiedStatus,
     isProfileCompleted,
     isStatusVerified,
-    isMatchedStatus,
-    isInvitedStatus,
-    isTrainingCompleted,
   }
 }
 

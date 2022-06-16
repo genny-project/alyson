@@ -35,10 +35,10 @@ const ChildButton = ({ questionCode, childCode, onClick }) => {
         >
           <FontAwesomeIcon icon={icons[childCode]} />
         </Box>
+
         <Text textStyle="body.1" _hover={{ opacity: 1.0 }} opacity="0.8">
           {name}
         </Text>
-        )
       </HStack>
     )
   return (
@@ -61,7 +61,6 @@ const ChildButton = ({ questionCode, childCode, onClick }) => {
           <Text textStyle="body.1" _hover={{ opacity: 1.0 }} opacity="0.8">
             {name}
           </Text>
-          )
           <FontAwesomeIcon icon={faAngleDown} />
         </HStack>
       </MenuButton>

@@ -2,22 +2,13 @@ import { Box, Grid, Text, VStack, useColorModeValue } from '@chakra-ui/react'
 
 import Attribute from 'app/BE/attribute'
 import { map } from 'ramda'
-import { useMobileValue } from 'utils/hooks'
 
-const DetailCards = ({
-  detailsection,
-  currentMentor,
-  miniCard,
-  currentMentee,
-  shadow = 'base',
-}) => {
-  const templateColumns = useMobileValue(['1fr', 'repeat(auto-fit, minmax(9.5rem, max-content))'])
+const DetailCards = ({ detailsection, currentMentor, miniCard }) => {
   const { header, attributes } = detailsection
   const cardsbg = useColorModeValue('#ffffff', 'gray.600')
-
   return (
     <VStack
-      boxShadow={shadow}
+      boxShadow="base"
       rounded="md"
       p="5"
       w={'100%'}
@@ -31,14 +22,14 @@ const DetailCards = ({
         {header}
       </Text>
       {map(({ attr, label }) => (
-        <Grid templateColumns={templateColumns} key={`${label}-${attr}`} w={'100%'}>
+        <Grid
+          templateColumns={'repeat(auto-fit, minmax(7rem, 1fr))'}
+          key={`${label}-${attr}`}
+          w={'100%'}
+        >
           {label && <Text>{label}</Text>}
           <Box>
-            <Attribute
-              config={{ textStyle: 'body.3' }}
-              code={currentMentor || currentMentee}
-              attribute={attr}
-            />
+            <Attribute config={{ textStyle: 'body.3' }} code={currentMentor} attribute={attr} />
           </Box>
         </Grid>
       ))(attributes)}

@@ -47,7 +47,7 @@ const Write = ({ questionCode, onSendAnswer, data, regexPattern, errorMessage })
   const [userInput, setuserInput] = useState(data?.value)
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
 
-  const maxW = useMobileValue(['', '25vw'])
+  const maxW = useMobileValue('', '25vw')
 
   const isInvalid = getIsInvalid(userInput)(RegExp(regexPattern))
 
@@ -68,7 +68,7 @@ const Write = ({ questionCode, onSendAnswer, data, regexPattern, errorMessage })
 
   return (
     <>
-      <InputGroup maxW={maxW}>
+      <InputGroup w="full" maxW={maxW}>
         <InputLeftAddon>
           <FontAwesomeIcon size="lg" icon={faLinkedin} />
         </InputLeftAddon>
@@ -78,27 +78,6 @@ const Write = ({ questionCode, onSendAnswer, data, regexPattern, errorMessage })
           defaultValue={data?.value}
           onBlur={onBlur}
           onChange={e => setuserInput(e.target.value)}
-          paddingBlock={3}
-          paddingInline={5}
-          fontWeight={'medium'}
-          borderColor={'gray.700'}
-          _hover={{
-            borderColor: 'green.500',
-            boxShadow: 'lg',
-          }}
-          _focusVisible={{
-            borderColor: 'green.500',
-            boxShadow: 'initial',
-          }}
-          _invalid={{
-            background: 'error.50',
-            borderColor: 'error.500',
-            color: 'error.500',
-          }}
-          _disabled={{
-            borderColor: 'gray.300',
-            background: 'gray.100',
-          }}
         />
       </InputGroup>
       {errorStatus && (

@@ -1,16 +1,19 @@
 import { Box, Center, HStack, Text, VStack } from '@chakra-ui/layout'
 import { Menu, MenuButton, MenuList } from '@chakra-ui/menu'
-import { useGetLabel, useIsMobile } from 'utils/hooks'
-
-import Draft from './Draft'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
-import getUserType from 'utils/helpers/get-user-type'
-import icons from 'utils/icons'
-import { selectCode } from 'redux/db/selectors'
-import { useSelector } from 'react-redux'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-const Drafts = ({ code: DRAFT_GROUP }) => {
+import { useSelector } from 'react-redux'
+import { selectCode } from 'redux/db/selectors'
+import getUserType from 'utils/helpers/get-user-type'
+import { useIsMobile } from 'utils/hooks'
+import icons from 'utils/icons'
+import Draft from './Draft'
+import { useGetLabel } from 'utils/hooks'
+
+const DRAFT_GROUP = 'QUE_DRAFTS_GRP'
+
+const Drafts = () => {
   const userCode = useSelector(selectCode('USER'))
   const userType = getUserType(useSelector(selectCode(userCode)))
   const drafts = (useSelector(selectCode(DRAFT_GROUP)) || []).filter(
@@ -28,7 +31,7 @@ const Drafts = ({ code: DRAFT_GROUP }) => {
       <MenuButton>
         <VStack color="grey" test-id={DRAFT_GROUP}>
           <Box>
-            <FontAwesomeIcon size="lg" w="8" h="8" icon={icons[DRAFT_GROUP]} color="#234371" />
+            <FontAwesomeIcon size="lg" w="8" h="8" icon={icons[DRAFT_GROUP]} />
             <Center
               ml={`0.5rem`}
               mt="-1.7rem"
@@ -45,10 +48,10 @@ const Drafts = ({ code: DRAFT_GROUP }) => {
           </Box>
           {!isMobile && (
             <HStack spacing={1}>
-              <Text fontSize="xs" textStyle="tail.2" color="#234371">
+              <Text fontSize="xs" textStyle="tail.2">
                 {label}
               </Text>
-              <FontAwesomeIcon icon={faCaretDown} color="#234371" />
+              <FontAwesomeIcon icon={faCaretDown} />
             </HStack>
           )}
         </VStack>

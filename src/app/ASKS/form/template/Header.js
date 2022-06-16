@@ -2,7 +2,7 @@ import Card from 'app/layouts/components/card'
 import { Text } from '@chakra-ui/react'
 
 const Header = ({ title, subHeader, config }) => (
-  <Card shadow={'md'} w="full">
+  <Card w="full">
     <Text textStyle="head.1" w="100%" mb="2">
       {title}
     </Text>

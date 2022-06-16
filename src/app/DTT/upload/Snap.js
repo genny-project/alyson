@@ -1,11 +1,10 @@
-import { Box, Button, Center, HStack, IconButton, Text, VStack, useToast } from '@chakra-ui/react'
-import { faExclamationTriangle, faTimes } from '@fortawesome/free-solid-svg-icons'
-import { useEffect, useRef, useState } from 'react'
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { dec } from 'ramda'
-import sleep from 'utils/helpers/sleep'
+import { useRef, useEffect, useState } from 'react'
 import { useUserMedia } from 'utils/hooks'
+import { Button, VStack, HStack, useToast, IconButton, Box, Text, Center } from '@chakra-ui/react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import sleep from 'utils/helpers/sleep'
+import { dec } from 'ramda'
 
 const CAPTURE_OPTIONS = {
   video: true,
@@ -15,62 +14,24 @@ const Snapshot = ({ handleSave, setLoading, setOpenSnap }) => {
   const toast = useToast()
   const videoRef = useRef()
   const countRef = useRef()
+  const imageCapture = useRef()
   const stream = useUserMedia(CAPTURE_OPTIONS, err =>
     toast({
+      title: 'Oops',
+      description: `${err}`,
+      status: 'error',
       isClosable: true,
-      render: () => (
-        <HStack
-          paddingBlock={5}
-          paddingInline={6}
-          bg="error.50"
-          borderWidth={'1px'}
-          borderColor={'error.900'}
-          borderRadius={'lg'}
-        >
-          <FontAwesomeIcon color="#700f0f" icon={faExclamationTriangle} size="lg" />
-          <Box>
-            <Text variant="head.3" color="text.light">
-              {`Oops`}
-            </Text>
-            <Text>{err}</Text>
-          </Box>
-        </HStack>
-      ),
     }),
   )
 
-  const getBlobFromMediaStream = stream => {
-    if ('ImageCapture' in window) {
-      const videoTrack = stream.getVideoTracks()[0]
-      const imageCapture = new ImageCapture(videoTrack)
-      return imageCapture.takePhoto()
-    } else {
-      const video = document.createElement('video')
-      const canvas = document.createElement('canvas')
-      const context = canvas.getContext('2d')
-
-      video.srcObject = stream
-
-      return new Promise((resolve, reject) => {
-        video.addEventListener('loadeddata', async () => {
-          const { videoWidth, videoHeight } = video
-          canvas.width = videoWidth
-          canvas.height = videoHeight
-
-          try {
-            await video.play()
-            context.drawImage(video, 0, 0, videoWidth, videoHeight)
-            canvas.toBlob(resolve, 'image/png')
-          } catch (error) {
-            reject(error)
-          }
-        })
-      })
+  useEffect(() => {
+    if (stream) {
+      imageCapture.current = new ImageCapture(stream.getVideoTracks()[0])
     }
-  }
+  }, [stream])
 
   const onSnapshot = async () => {
-    const photoBlob = await getBlobFromMediaStream(stream)
+    const photoBlob = await imageCapture.current.takePhoto()
     handleSave([photoBlob])
     setLoading(true)
     setOpenSnap(false)

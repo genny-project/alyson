@@ -50,7 +50,7 @@ const Group = ({
 
   return (
     <Box display={!paginated || idx === group ? 'block' : 'none'} w="full" key={label}>
-      <Card shadow={'md'}>
+      <Card>
         <Center w="full">
           {paginated && (
             <Timeline

@@ -1,9 +1,8 @@
-import { Text, VStack, Wrap, WrapItem } from '@chakra-ui/layout'
-
+import { VStack, Text, Wrap, WrapItem } from '@chakra-ui/layout'
 import Card from 'app/layouts/components/card'
-import { selectCodes } from 'redux/db/selectors'
-import { selectProcess } from 'redux/app/selectors'
 import { useSelector } from 'react-redux'
+import { selectProcess } from 'redux/app/selectors'
+import { selectCodes } from 'redux/db/selectors'
 
 const AgentDashboardSummary = () => {
   const processCodes = useSelector(selectProcess)
@@ -13,7 +12,7 @@ const AgentDashboardSummary = () => {
 
   if (!titles.length) return null
   return (
-    <Card boxShadow={'md'}>
+    <Card>
       <Wrap justify="center" spacing={5} w={['xs', 'md']} wrap="wrap">
         {titles.map((title, idx) =>
           title ? (

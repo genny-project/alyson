@@ -1,4 +1,4 @@
-import { Box, Text, Wrap, WrapItem } from '@chakra-ui/layout'
+import { Box, Wrap, WrapItem } from '@chakra-ui/layout'
 import { Input, InputGroup, InputRightElement } from '@chakra-ui/input'
 import {
   append,
@@ -133,7 +133,7 @@ const Autocomplete = ({
   var renderOptions = items.map(item => (
     <WrapItem key={item}>
       <Chip id={questionCode} test-id={item} onClick={() => onSelectChange(item)} p="2">
-        <Text>{item}</Text>
+        {item}
       </Chip>
     </WrapItem>
   ))
@@ -143,7 +143,7 @@ const Autocomplete = ({
     renderOptions = items.map(item => (
       <WrapItem key={item}>
         <Chip id={questionCode} test-id={item} onClick={() => onSelectChange(item)} p="2">
-          <Text>{renderLabel(item)}</Text>
+          {renderLabel(item)}
         </Chip>
       </WrapItem>
     ))
@@ -152,7 +152,7 @@ const Autocomplete = ({
       renderOptions = selected.map(item => (
         <WrapItem key={item}>
           <Chip id={questionCode} test-id={item} onClick={() => onSelectChange(item)} p="2">
-            <Text>{renderLabel(item)}</Text>
+            {renderLabel(item)}
           </Chip>
         </WrapItem>
       ))
@@ -191,27 +191,6 @@ const Autocomplete = ({
             value={input}
             placeholder={placeholder}
             autoComplete="off"
-            paddingBlock={3}
-            paddingInline={5}
-            fontWeight={'medium'}
-            borderColor={'gray.700'}
-            _hover={{
-              borderColor: 'green.500',
-              boxShadow: 'lg',
-            }}
-            _focusVisible={{
-              borderColor: 'green.500',
-              boxShadow: 'initial',
-            }}
-            _invalid={{
-              background: 'error.50',
-              borderColor: 'error.500',
-              color: 'error.500',
-            }}
-            _disabled={{
-              borderColor: 'gray.300',
-              background: 'gray.100',
-            }}
           />
           <InputRightElement>
             <Box

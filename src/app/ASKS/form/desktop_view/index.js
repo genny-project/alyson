@@ -5,20 +5,13 @@ import Body from '../template/Body'
 import Card from 'app/layouts/components/card'
 import Header from '../template/Header'
 
-const FormDesktopView = ({
-  title,
-  onFinish,
-  questionCode,
-  childAsks,
-  config = {},
-  layout = '',
-}) => {
+const FormDesktopView = ({ title, onFinish, questionCode, childAsks, config = {} }) => {
   const { subHeader, groups = [], pagination } = config
 
   if (!groups.length)
     return (
       <Center>
-        <Card w={layout ? 'full' : '50%'} maxW={'75rem'} shadow={'md'}>
+        <Card mx="25vw" w="full">
           <VStack align="start" spacing={8}>
             <Text textStyle="head.2">{title}</Text>
             {config?.subHeader && <Text textStyle="body.3">{config.subHeader}</Text>}

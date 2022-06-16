@@ -3,9 +3,9 @@ import { Center, HStack, Text, VStack } from '@chakra-ui/layout'
 import Attribute from 'app/BE/attribute'
 import Button from 'app/layouts/components/button'
 import Card from 'app/layouts/components/card'
+import { Link } from 'react-router-dom'
 import { onSendMessage } from 'vertx'
 import { selectCode } from 'redux/db/selectors'
-import { useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 const LinkedApp = () => {
@@ -14,8 +14,6 @@ const LinkedApp = () => {
   const code = linkedApp?.value
   const menteeName = useSelector(selectCode(userCode, 'PRI_NAME'))?.value
 
-  const history = useHistory()
-
   if (!menteeName) return null
   const onSelect = option => {
     onSendMessage({
@@ -23,7 +21,6 @@ const LinkedApp = () => {
       sourceCode: userCode,
       code: `ACT_${option}`,
     })
-    history.push('/home')
   }
   return (
     <Center marginTop={10}>
@@ -74,6 +71,10 @@ const LinkedApp = () => {
               </Button>
             </VStack>
           </HStack>
+
+          <Link to="/home" style={{ width: '100%', textAlign: 'center' }}>
+            <Button w="80%">{`Close`}</Button>
+          </Link>
         </VStack>
       </Card>
     </Center>

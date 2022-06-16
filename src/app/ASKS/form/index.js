@@ -1,11 +1,12 @@
-import FormDesktopView from 'app/ASKS/form/desktop_view'
-import FormMobileView from 'app/ASKS/form/mobile_view'
-import VideoModules from './variations/video_modules'
 import { selectCode } from 'redux/db/selectors'
-import { useIsMobile } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 
-const AsksForm = ({ questionCode, onFinish, dialog, layout }) => {
+import { useIsMobile } from 'utils/hooks'
+import FormMobileView from 'app/ASKS/form/mobile_view'
+import FormDesktopView from 'app/ASKS/form/desktop_view'
+import VideoModules from './variations/video_modules'
+
+const AsksForm = ({ questionCode, onFinish, dialog }) => {
   const childAsks = useSelector(selectCode(questionCode)) || []
   const title = useSelector(selectCode(questionCode, 'title'))
   const config = useSelector(selectCode(questionCode, 'config'))
@@ -32,7 +33,6 @@ const AsksForm = ({ questionCode, onFinish, dialog, layout }) => {
       onFinish={onFinish}
       questionCode={questionCode}
       config={config}
-      layout={layout}
     />
   )
 }

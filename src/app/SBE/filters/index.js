@@ -1,22 +1,21 @@
+import { useSelector } from 'react-redux'
+import { selectAttributes } from 'redux/db/selectors'
 import {
-  Button,
   Popover,
-  PopoverArrow,
-  PopoverBody,
-  PopoverContent,
   PopoverTrigger,
+  PopoverContent,
+  PopoverBody,
+  PopoverArrow,
+  Button,
   Stack,
   VStack,
 } from '@chakra-ui/react'
-
 import Ask from 'app/ASKS/ask'
 import ExistingFilters from './existing_filters'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFilter } from '@fortawesome/free-solid-svg-icons'
-import { selectAttributes } from 'redux/db/selectors'
-import { useIsMobile } from 'utils/hooks'
 import { useRef } from 'react'
-import { useSelector } from 'react-redux'
+import { useIsMobile } from 'utils/hooks'
 
 const Filters = ({ sbeCode }) => {
   const triggerRef = useRef()
@@ -50,7 +49,7 @@ const Filters = ({ sbeCode }) => {
             {`Filters`}
           </Button>
         </PopoverTrigger>
-        <PopoverContent w={isMobile ? '75vw' : '25vw'}>
+        <PopoverContent w={isMobile ? '90vw' : '30vw'}>
           <PopoverArrow />
           <PopoverBody>
             <VStack m="5" spacing="5">

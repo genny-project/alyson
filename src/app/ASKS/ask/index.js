@@ -81,20 +81,11 @@ const Ask = ({
 
   const highlightedQuestion = useSelector(selectHighlightedQuestion)
   const labelWidth = useMobileValue(['full', '25vw'])
+
+  const dataTypeFromReduxStore = useSelector(selectCode(attributeCode)) || ''
+  const dataType = useSelector(selectCode(dataTypeFromReduxStore)) || ''
+  const description = useSelector(selectCode(`${attributeCode}@description`)) || ''
   const groupCode = getGroupCode(question) || parentCode
-
-  if (!question?.attribute) return null
-
-  const {
-    attribute: {
-      description,
-      dataType: { component = 'text', typeName },
-      dataType,
-    },
-    html,
-    helper,
-  } = question
-
   const regexPattern = pathOr(null, ['validationList', 0, 'regex'])(dataType)
   const errorMessage = pathOr('Please enter valid data', ['validationList', 0, 'errormsg'])(
     dataType,
@@ -102,6 +93,9 @@ const Ask = ({
   const dataValue = data?.value
 
   if (!question?.attribute) return null
+
+  const { html, helper } = question
+  const { component = forcedComponent || 'text', typeName } = dataType
 
   const feedback = data?.feedback
   const onSendAnswer = createSendAnswer(askData, { passedTargetCode })
@@ -117,10 +111,14 @@ const Ask = ({
     )
   }
 
-  if (!!disabled && component !== 'button')
+  if (!!disabled && !hidden && component !== 'button')
     return (
       <FormControl isDisabled isRequired={mandatory}>
-        <HStack display={noLabel ? 'none' : 'block'} justify="space-between">
+        <HStack
+          display={noLabel ? 'none' : 'block'}
+          w={'max(17.5vw, 100%)'}
+          justify="space-between"
+        >
           <FormLabel id={attributeCode} textStyle="body.1">
             {name}
           </FormLabel>
@@ -130,16 +128,18 @@ const Ask = ({
     )
   if (component === 'checkbox')
     return (
-      <CheckBox.Write
-        data={data}
-        questionCode={questionCode}
-        onSendAnswer={onSendAnswer}
-        label={name}
-        isRequired={mandatory}
-        id={attributeCode}
-        regexPattern={regexPattern}
-        errorMessage={errorMessage}
-      />
+      <FormControl display={hidden ? 'none' : 'block'}>
+        <CheckBox.Write
+          data={data}
+          questionCode={questionCode}
+          onSendAnswer={onSendAnswer}
+          label={name}
+          isRequired={mandatory}
+          id={attributeCode}
+          regexPattern={regexPattern}
+          errorMessage={errorMessage}
+        />
+      </FormControl>
     )
   return component === 'button' ? (
     <Button
@@ -163,12 +163,7 @@ const Ask = ({
       transition="all 0.5s"
       minH="82px"
     >
-      <HStack
-        justify="space-between"
-        display={noLabel ? 'none' : 'flex'}
-        maxW={labelWidth}
-        w={'full'}
-      >
+      <HStack justify="space-between" display={noLabel ? 'none' : 'flex'} w={labelWidth}>
         <FormLabel id={attributeCode}>{name}</FormLabel>
         {(!failedValidation && fieldNotEmpty) ||
         (!failedValidation && dataValue && isNotStringifiedEmptyArray(dataValue)) ? (

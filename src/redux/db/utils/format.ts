@@ -1,11 +1,10 @@
-import { DBState, Note } from '../types'
+import { forEach, compose, keys, includes, find, filter, map } from 'ramda'
 import { Item, MsgPayload } from 'redux/types'
-import { compose, filter, find, forEach, includes, keys, map } from 'ramda'
-
-import { Keyable } from 'utils/types'
 import initialiseKey from 'utils/helpers/initialise-key'
 import pushUniqueString from 'utils/helpers/push-unique-string'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
+import { Keyable } from 'utils/types'
+import { DBState, Note } from '../types'
 import sortByIndex from './sort-by-index'
 
 export const formatBaseEntity = (
@@ -19,22 +18,6 @@ export const formatBaseEntity = (
 
   if (aliasCode) state[aliasCode] = code
   if (!state[code]) state[code] = []
-
-  const allAttributesKey = `${code}@allAttributes`
-
-  //create a key to store pcm information
-  const pcmKey = `PCMINFORMATION`
-
-  if (!state[allAttributesKey]) {
-    state[allAttributesKey] = baseEntityAttributes
-  }
-
-  //store all the availalble PCM in the key
-  if (!state[pcmKey]) state[pcmKey] = []
-
-  if (code && includes('PCM_')(code)) {
-    if ((state[pcmKey] as Array<any>).indexOf(code) === -1) (state[pcmKey] as Array<any>).push(code)
-  }
 
   if (parentCode) {
     const rowKey = `${parentCode}@rows`
@@ -61,7 +44,6 @@ export const formatBaseEntity = (
       attribute = { ...attribute }
     }
     attribute.created = ''
-
     if (attributeCode === 'PRI_IS_MENTOR' && attribute.value) {
       initialiseKey(state, 'MENTORS', [])
       if ((state.MENTORS as Array<string>).indexOf(code) === -1)
@@ -122,11 +104,10 @@ export const formatAsk = (state: DBState, replace: Boolean) => (item: Item) => {
 }
 
 export const formatAttribute = (state: DBState) => (item: Item) => {
-  const { code, dataType, description, name } = item || {}
+  const { code, dataType, description } = item || {}
   const { dttCode } = dataType || {}
 
   const descriptionKey = `${code}@description`
-  initialiseKey(state, `${code}@attributeName`, name || '')
 
   state[code] = dttCode
   state[dttCode] = dataType

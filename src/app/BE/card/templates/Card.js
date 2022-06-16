@@ -7,7 +7,6 @@ import ContextMenu from 'app/BE/context'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import HCRDetail from './HCRDetail'
 import Image from 'app/DTT/upload/Image'
-import MMAgent from './MMAgent'
 import MainDetails from './MainDetails'
 import Text from 'app/DTT/text'
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
@@ -17,25 +16,26 @@ import { motion } from 'framer-motion'
 import sameLength from 'redux/utils/same-length'
 import sameValue from 'redux/utils/same-value'
 import { selectCode } from 'redux/db/selectors'
+import { useGetRealm } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 
 const MotionBox = motion(Box)
 
 const DefaultCard = ({ parentCode, actions = [], code, columns }) => {
+  const realm = useGetRealm()
   const title = useSelector(selectCode(code, getAttribute(columns[0] || '')), sameValue)
   const subTitle = useSelector(selectCode(code, getAttribute(columns[1] || '')), sameValue)
-  const image = useSelector(selectCode(code, 'PRI_IMAGE_URL'), sameValue)
+  const image = useSelector(
+    selectCode(code, realm === 'mentormatch' ? 'PRI_USER_PROFILE_PICTURE' : 'PRI_IMAGE_URL'),
+    sameValue,
+  )
   const statusColor = useSelector(selectCode(code, 'PRI_STATUS_COLOR'), sameValue)
   const color = useColorModeValue(`${statusColor?.value}.50`, `${statusColor?.value}.900`)
 
   const userCode = useSelector(selectCode('USER'), equals)
   const userType = getUserType(useSelector(selectCode(userCode), sameLength))
 
-  const userRole = useSelector(selectCode('PROJECT'), equals)
-
-  return includes('_MENTOR', userRole) ? (
-    <MMAgent parentCode={parentCode} actions={actions} code={code} columns={columns} />
-  ) : (
+  return (
     <MotionBox w="full" whileHover={{ scale: 1.02 }} transition={{ duration: 0.1 }}>
       <Card
         // maxW={['80vw', '80vw', '22rem']}

@@ -2,7 +2,6 @@ import { INIT_URL } from './genny'
 import Keycloak from 'keycloak-js'
 import LogRocket from 'logrocket'
 import axios from 'axios'
-import { clientId } from 'utils/constants'
 import getTheme from 'config/theme'
 import getTokenFromURL from 'keycloak/get-token-from-url'
 import { includes } from 'ramda'
@@ -32,18 +31,11 @@ const getApiConfig = async () => {
     setupLogRocketReact(LogRocket)
   }
 
-  if (!apiConfig.clientId) {
-    console.error(
-      'Did not receive a clientId from bridge! ',
-      apiConfig?.realm ? 'Realm received:' + apiConfig.realm : 'No realm received',
-    )
-  }
-
   /* Keycloak */
   keycloak = new Keycloak({
     realm: apiConfig.realm,
     url: apiConfig.ENV_KEYCLOAK_REDIRECTURI,
-    clientId: apiConfig.clientId || clientId, // We can't afford to default this
+    clientId: 'alyson',
   })
 
   if (includes('public', window.location.pathname)) {

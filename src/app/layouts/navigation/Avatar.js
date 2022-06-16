@@ -14,23 +14,18 @@ import ChildMenuItem from 'app/ASKS/menu/ChildMenuItem'
 import ColorToggler from './ColorToggler'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { apiConfig } from 'config/get-api-config'
-import { equals } from 'ramda'
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
 import { onSendMessage } from 'vertx'
 import { selectCode } from 'redux/db/selectors'
 import useApi from 'api'
-import { useGetRealm } from 'utils/hooks'
 import { useKeycloak } from '@react-keycloak/web'
 import { useSelector } from 'react-redux'
 
-const AvatarMenu = ({ code: QUE_AVATAR_GRP }) => {
+const QUE_AVATAR_GRP = 'QUE_AVATAR_GRP'
+
+const AvatarMenu = () => {
   const userCode = useSelector(selectCode('USER'))
-
-  const realm = useGetRealm()
-  const imageAttr = equals('mentormatch', realm) ? 'PRI_USER_PROFILE_PICTURE' : 'PRI_IMAGE_URL'
-
-  const userImage = useSelector(selectCode(userCode, imageAttr))
-
+  const userImage = useSelector(selectCode(userCode, 'PRI_IMAGE_URL'))
   const name = useSelector(selectCode(userCode, 'PRI_NAME'))
   const userName = useSelector(selectCode(userCode, 'PRI_USERNAME'))
   const associatedEntitiy = useSelector(selectCode(userCode, 'PRI_ASSOC_ENTITY_NAME'))

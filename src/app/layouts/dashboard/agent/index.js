@@ -1,20 +1,20 @@
-import { faBolt, faColumns } from '@fortawesome/free-solid-svg-icons'
-
-import AgentDashboardSummary from './summary'
-import Attribute from 'app/BE/attribute'
-import Button from 'app/layouts/components/button'
-import Card from 'app/layouts/components/card'
-import DisplaySbe from 'app/SBE'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Search from 'app/layouts/dashboard/search'
-import { VStack } from '@chakra-ui/react'
-import getFilteredDashboardSbes from 'app/layouts/dashboard/helpers/get-filtered-sbes.ts'
-import { head } from 'ramda'
-import { onSendMessage } from 'vertx'
-import safelyParseJson from 'utils/helpers/safely-parse-json'
-import { selectCode } from 'redux/db/selectors'
-import { selectDashboard } from 'redux/app/selectors'
 import { useSelector } from 'react-redux'
+import { selectDashboard } from 'redux/app/selectors'
+import DisplaySbe from 'app/SBE'
+import { VStack } from '@chakra-ui/react'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBolt, faColumns } from '@fortawesome/free-solid-svg-icons'
+import { onSendMessage } from 'vertx'
+import Card from 'app/layouts/components/card'
+import AgentDashboardSummary from './summary'
+import { selectCode } from 'redux/db/selectors'
+import safelyParseJson from 'utils/helpers/safely-parse-json'
+import { head } from 'ramda'
+import Attribute from 'app/BE/attribute'
+import Search from 'app/layouts/dashboard/search'
+import Button from 'app/layouts/components/button'
+import getFilteredDashboardSbes from 'app/layouts/dashboard/helpers/get-filtered-sbes.ts'
 
 const Agent = () => {
   const dashboardSbes = useSelector(selectDashboard) || []
@@ -26,7 +26,7 @@ const Agent = () => {
 
   return (
     <VStack spacing={4}>
-      <Card boxShadow={'md'}>
+      <Card>
         <VStack spacing={5} w={['xs', 'md']}>
           <Button
             variant="special"
