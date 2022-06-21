@@ -12,6 +12,7 @@ import TemplateLojingHeader from 'app/PCM/templates/tpl-lojing-header'
 import TemplateForm from 'app/PCM/templates/tpl-form'
 import hasNot from 'utils/helpers/has-not.js'
 import debugOut from 'utils/debug-out'
+import TemplateTable from './tpl-table'
 
 /**
  * Takes in a mappedPcm, a templateCode and some misc properties and returns a template component.
@@ -33,6 +34,7 @@ const templateHandlerMachine = mappedPcm => templateCode => properties => {
     TPL_PROGRESS_BAR: <TemplateProgressBar mappedPcm={mappedPcm} {...properties} />,
     TPL_LOJING_HEADER: <TemplateLojingHeader mappedPcm={mappedPcm} {...properties} />,
     TPL_FORM: <TemplateForm mappedPcm={mappedPcm} {...properties} />,
+    TPL_TABLE: <TemplateTable mappedPcm={mappedPcm} {...properties} />,
   }
 
   if (hasNot(templateCode)(listOfTemplates)) {
