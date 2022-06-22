@@ -84,7 +84,7 @@ export const formatBaseEntity = (
 }
 
 export const formatAsk = (state: DBState, replace: Boolean) => (item: Item) => {
-  const { questionCode, childAsks = [], name, question } = item
+  const { questionCode, childAsks = [], name, question, targetCode } = item
 
   const { html } = question
 
@@ -93,6 +93,7 @@ export const formatAsk = (state: DBState, replace: Boolean) => (item: Item) => {
 
   initialiseKey(state, questionCode, [])
   initialiseKey(state, `${questionCode}@title`, name)
+  initialiseKey(state, `${questionCode}@targetCode`, targetCode)
   initialiseKey(state, `${questionCode}@config`, safelyParseJson(html, {}))
 
   if (replace) state[questionCode] = []
