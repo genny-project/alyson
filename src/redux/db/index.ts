@@ -59,7 +59,9 @@ const db = createSlice({
         forEach(formatAsk(state, replace), items)
         return
       }
+
       if (data_type === 'Attribute') {
+        if (!items) return
         forEach(formatAttribute(state), items)
         return
       }

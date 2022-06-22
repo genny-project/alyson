@@ -17,7 +17,7 @@ const useGetProjectCode = () => {
  * Returns the attribute object, or undefined
  */
 const useGetAttributeFromProjectBaseEntity = attributeCode => {
-  return useSelector(selectCode('PROJECT', attributeCode))
+  return useSelector(selectCode(useGetProjectCode(), attributeCode))
 }
 
 export { useGetAttributeFromProjectBaseEntity, useGetProjectCode }

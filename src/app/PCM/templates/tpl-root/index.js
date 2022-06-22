@@ -30,8 +30,7 @@ const TemplateRoot = ({ mappedPcm }) => {
 
   const bg = useColorModeValue('#F6F6F6', theme.colors.primary[900])
 
-  const primaryColour =
-    useGetAttributeFromProjectBaseEntity('PRI_SURFACE_COLOR')?.valueString || '#224371'
+  const primaryColour = useGetAttributeFromProjectBaseEntity('PRI_COLOR_PRIMARY')?.valueString // || '#224371'
 
   return (
     <Box position={'relative'} h={'100%'}>
