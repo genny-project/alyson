@@ -4,6 +4,7 @@ import TemplateHeader from 'app/PCM/templates/navigation/tpl-header'
 import TemplateRoot from 'app/PCM/templates/tpl-root'
 import TemplateSidebarOne from 'app/PCM/templates/sidebar/tpl-sidebar-one'
 import TemplateVert from 'app/PCM/templates/tpl-vert'
+import TemplateHori from 'app/PCM/templates/tpl-hori'
 import TemplateDisplay from 'app/PCM/templates/tpl-display'
 import TemplateDefault from 'app/PCM/templates/tpl-default'
 import TemplateLogo from 'app/PCM/templates/tpl-logo'
@@ -28,6 +29,7 @@ const templateHandlerMachine = mappedPcm => templateCode => properties => {
     TPL_ROOT: <TemplateRoot mappedPcm={mappedPcm} {...properties} />,
     TPL_SIDEBAR_1: <TemplateSidebarOne mappedPcm={mappedPcm} {...properties} />,
     TPL_VERT: <TemplateVert mappedPcm={mappedPcm} {...properties} />,
+    TPL_HORI: <TemplateHori mappedPcm={mappedPcm} {...properties} />,
     TPL_HEADER_1: <TemplateHeader mappedPcm={mappedPcm} {...properties} />,
     TPL_DISPLAY: <TemplateDisplay mappedPcm={mappedPcm} {...properties} />,
     TPL_LOGO: <TemplateLogo mappedPcm={mappedPcm} {...properties} />,
