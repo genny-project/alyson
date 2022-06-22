@@ -12,6 +12,7 @@ import {
 import { DBState, Note } from './types'
 import { MsgPayload, CmdPayload } from 'redux/types'
 import { addKey, removeKey } from './utils/update-keys'
+import debugOut from 'utils/debug-out'
 
 export const initialState = {
   NOTES: {},
@@ -38,6 +39,11 @@ const db = createSlice({
         state[`${parentCode}@rows`] = []
       }
 
+      if (!items) {
+        debugOut.error(`Message (${data_type}) didn't have any items! Ignoring it!`)
+        return
+      }
+
       if (parentCode && linkCode && questionCode) {
         // new rule
         formatDropdownLinks(state, parentCode, questionCode, items, replace)
@@ -61,7 +67,6 @@ const db = createSlice({
       }
 
       if (data_type === 'Attribute') {
-        if (!items) return
         forEach(formatAttribute(state), items)
         return
       }
