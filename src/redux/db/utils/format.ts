@@ -84,15 +84,17 @@ export const formatBaseEntity = (
 }
 
 export const formatAsk = (state: DBState, replace: Boolean) => (item: Item) => {
-  const { questionCode, childAsks = [], name, question, targetCode } = item
+  const { questionCode, childAsks = [], name, question, targetCode, attributeCode } = item
 
   const { html } = question
 
   const wholeDataKey = `${questionCode}@wholeData`
   const rawKey = `${questionCode}@raw`
+  const attributeCodekey = `${questionCode}@attributeCode`
 
   initialiseKey(state, questionCode, [])
   initialiseKey(state, `${questionCode}@title`, name)
+  initialiseKey(state, attributeCodekey, attributeCode)
   initialiseKey(state, `${questionCode}@targetCode`, targetCode)
   initialiseKey(state, `${questionCode}@config`, safelyParseJson(html, {}))
 
@@ -119,6 +121,9 @@ export const formatAsk = (state: DBState, replace: Boolean) => (item: Item) => {
 
     pushUniqueString(codes, childAskCode)
     state[`${questionCode}@${childAskCode}`] = childAsk
+
+    // We really need to store questions recursively
+    formatAsk(state, replace)(childAsk)
   }, sortByIndex(childAsks))
 
   if (!childAsks.length) {
