@@ -9,7 +9,7 @@ import PcmField from 'app/PCM/components/pcm-field'
  */
 const TemplateHori = ({ mappedPcm }) => {
   return (
-    <HStack alignItems="center">
+    <HStack>
       {mapSpillLocs(getSpillLocs(mappedPcm)())(loc => (
         <PcmField key={loc} code={loc} mappedPcm={mappedPcm} />
       ))}
