@@ -11,7 +11,7 @@ const TemplateForm = ({ mappedPcm }) => {
       <Center>
         {/* This width is arbitrary and should probably be controlled by an attribute */}
         <div style={{ width: '80%' }}>
-          <AskGroup questionCode={PRI_QUESTION_CODE} />
+          <FormAsk questionCode={PRI_QUESTION_CODE} parentCode={PRI_QUESTION_CODE} />
         </div>
       </Center>
     )
@@ -42,7 +42,6 @@ const FormAsk = ({ parentCode, questionCode }) => {
 
 const AskGroup = ({ questionCode }) => {
   const childAsks = useSelector(selectCode(questionCode)) || []
-
   return (
     <div>
       {childAsks.map(code => (
