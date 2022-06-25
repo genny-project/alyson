@@ -12,6 +12,7 @@ export const formatBaseEntity = (
   state: DBState,
   aliasCode: MsgPayload['aliasCode'],
   parentCode: MsgPayload['parentCode'],
+  replace: Boolean,
 ) => (item: Item) => {
   if (!item) return
 
@@ -25,7 +26,8 @@ export const formatBaseEntity = (
   //create a key to store pcm information
   const pcmKey = `PCMINFORMATION`
 
-  if (!state[allAttributesKey]) {
+  // If replace is true, update the all Attributes key
+  if (!state[allAttributesKey] || replace) {
     state[allAttributesKey] = baseEntityAttributes
   }
 
@@ -82,25 +84,34 @@ export const formatBaseEntity = (
 }
 
 export const formatAsk = (state: DBState, replace: Boolean) => (item: Item) => {
-  const {
-    questionCode,
-    childAsks = [],
-    name,
-    question: { html },
-  } = item
+  const { questionCode, childAsks = [], name, question, targetCode, attributeCode } = item
+
+  const { html } = question
+
+  const wholeDataKey = `${questionCode}@wholeData`
+  const rawKey = `${questionCode}@raw`
+  const attributeCodekey = `${questionCode}@attributeCode`
 
   initialiseKey(state, questionCode, [])
   initialiseKey(state, `${questionCode}@title`, name)
+  initialiseKey(state, attributeCodekey, attributeCode)
+  initialiseKey(state, `${questionCode}@targetCode`, targetCode)
   initialiseKey(state, `${questionCode}@config`, safelyParseJson(html, {}))
 
   if (replace) state[questionCode] = []
 
   if (!childAsks.length) {
-    initialiseKey(state, `${questionCode}@raw`, item)
+    initialiseKey(state, rawKey, item)
+    if (replace) {
+      state[rawKey] = item
+    }
   }
 
   if (childAsks.length) {
-    initialiseKey(state, `${questionCode}@wholeData`, childAsks)
+    initialiseKey(state, wholeDataKey, childAsks)
+    if (replace) {
+      state[wholeDataKey] = childAsks
+    }
   }
 
   forEach((childAsk: Keyable) => {
@@ -110,6 +121,9 @@ export const formatAsk = (state: DBState, replace: Boolean) => (item: Item) => {
 
     pushUniqueString(codes, childAskCode)
     state[`${questionCode}@${childAskCode}`] = childAsk
+
+    // We really need to store questions recursively
+    formatAsk(state, replace)(childAsk)
   }, sortByIndex(childAsks))
 
   if (!childAsks.length) {

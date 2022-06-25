@@ -1,6 +1,6 @@
+import { Image, Text as CText } from '@chakra-ui/react'
 import ABN from 'app/DTT/abn'
 import Address from 'app/DTT/address'
-import { Text as CText } from '@chakra-ui/react'
 import CheckBox from 'app/DTT/check_box'
 import Date from 'app/DTT/date'
 import Email from 'app/DTT/email'
@@ -40,9 +40,15 @@ const Attribute = ({
   const dtt = useSelector(selectCode(fixLnkAndPri(data?.attributeCode)))
   const dttData = useSelector(selectCode(dtt))
   const component = dttData?.component
-
   if (attribute === 'PRI_IMAGE_URL' && !data)
     return <ImageType.Read config={config} code={code} data={data} parentCode={parentCode} />
+
+  /// Currently how I handle displaying the app logo in the header.
+  /// I reckon this can be improved but was unsure how to.
+  /// - Dan
+  if (attribute === 'PRI_LOGO' && data && data.valueString) {
+    return <Image src={data.valueString} {...config} />
+  }
 
   if (!component && fallback) return fallback
 

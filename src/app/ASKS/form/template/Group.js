@@ -26,8 +26,7 @@ const Group = ({
   setAdjGroups,
 }) => {
   const asks = flatten(questions)
-
-  const { targetCode } = useSelector(selectCode(questionCode, 'QUE_SUBMIT'))
+  const { targetCode } = useSelector(selectCode(questionCode, 'targetCode'))
   const questionDatas = filter(identity, useSelector(selectAttributes(questionCode, asks)))
   const mandatoryQuestions = filter(prop('mandatory'), questionDatas)
   const mandatoryAttributes = map(prop('attributeCode'))(mandatoryQuestions)
