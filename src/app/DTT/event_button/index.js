@@ -1,8 +1,9 @@
 import { Box, Button } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { onSendMessage } from 'vertx'
 import Submit from './Submit'
+import isSubmitButton from 'app/DTT/event_button/helpers/is-submit.js'
 
 const EventButton = ({ askData, onFinish, parentCode }) => {
   const { questionCode, targetCode, name, disabled } = askData
@@ -16,7 +17,7 @@ const EventButton = ({ askData, onFinish, parentCode }) => {
       value: true,
     })
 
-  if (name === 'Submit')
+  if (isSubmitButton(name))
     return <Submit askData={askData} onFinish={onFinish} parentCode={parentCode} />
 
   return (
@@ -25,14 +26,8 @@ const EventButton = ({ askData, onFinish, parentCode }) => {
         test-id={questionCode}
         isDisabled={disabled}
         onClick={onClick}
-        leftIcon={
-          questionCode === 'QUE_SUBMIT_NO' ? (
-            <FontAwesomeIcon icon={faTimes} />
-          ) : (
-            <FontAwesomeIcon icon={faCheck} />
-          )
-        }
-        colorScheme={questionCode === 'QUE_SUBMIT_NO' ? 'red' : 'primary'}
+        leftIcon={<FontAwesomeIcon icon={faCheck} />}
+        colorScheme="primary"
         variant="solid"
       >
         {name}
