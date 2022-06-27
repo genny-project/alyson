@@ -246,6 +246,8 @@ const Ask = ({
           onSendAnswer={onSendAnswer}
           regexPattern={regexPattern}
           errorMessage={errorMessage}
+          attributeCode={attributeCode}
+          parentCode={parentCode}
         />
       )}
       {component === 'textarea' && (

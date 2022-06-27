@@ -1,4 +1,4 @@
-import { Text as ChakraText, Input } from '@chakra-ui/react'
+import { Text as ChakraText, Input, HStack, Button } from '@chakra-ui/react'
 import { faCalendar, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useRef, useState } from 'react'
 
@@ -10,8 +10,19 @@ import { getIsInvalid } from 'utils/functions'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
+import { useDispatch } from 'react-redux'
+import { newCmd } from 'redux/app'
+import { compose } from 'ramda'
 
-export const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMessage }) => {
+export const Write = ({
+  questionCode,
+  data,
+  onSendAnswer,
+  regexPattern,
+  errorMessage,
+  attributeCode,
+  parentCode,
+}) => {
   let regex
   const { dispatch } = useError()
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
@@ -28,6 +39,8 @@ export const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMes
 
   const inputRef = useRef()
   const isInvalid = getIsInvalid(userInput)(regex)
+  const dispatchPushMessage = useDispatch()
+  const onNewCmd = compose(dispatchPushMessage, newCmd)
 
   useEffect(() => {
     const listener = event => {
@@ -59,6 +72,16 @@ export const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMes
   const onBlur = e => {
     !errorStatus && debouncedSendAnswer(e.target.value)
     dispatchFieldMessage({ payload: questionCode })
+  }
+
+  const handleDispatchMessage = () => {
+    onNewCmd({
+      cmd_type: '',
+      code: parentCode,
+      attributeCode,
+      questionCode,
+      message: 'This is working!',
+    })
   }
 
   return (
@@ -96,9 +119,12 @@ export const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMes
         }}
       />
       {errorStatus && (
-        <ChakraText textStyle="tail.error" mt={2}>
-          {errorMessage}
-        </ChakraText>
+        <HStack>
+          <ChakraText textStyle="tail.error" mt={2}>
+            {errorMessage}
+          </ChakraText>
+          <Button onClick={handleDispatchMessage}>{`Dispatch Message`}</Button>
+        </HStack>
       )}
     </>
   )
