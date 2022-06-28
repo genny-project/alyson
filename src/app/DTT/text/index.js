@@ -1,4 +1,4 @@
-import { Text as ChakraText, Input, HStack, Button, VStack } from '@chakra-ui/react'
+import { Text as ChakraText, Input, Button, VStack } from '@chakra-ui/react'
 import { faCalendar, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useRef, useState } from 'react'
 
@@ -36,8 +36,6 @@ export const Write = ({
   const fieldMessage = fieldMessageObject[`${parentCode}@${questionCode}`]
   let hasFieldMessage = isNotNullOrUndefinedOrEmpty(fieldMessage)
   let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMessage)
-
-  console.log('tesing===>', { hasFieldMessage, hasErrorMessage, errorMessage, fieldMessage })
 
   try {
     regexPattern = regexPattern.replaceAll('\\\\', '\\')
