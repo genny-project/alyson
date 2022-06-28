@@ -76,7 +76,7 @@ export const Write = ({
 
   const handleDispatchMessage = () => {
     onNewCmd({
-      cmd_type: '',
+      cmd_type: 'FIELDMSG',
       code: parentCode,
       attributeCode,
       questionCode,

@@ -9,6 +9,7 @@ export interface AppState {
   DASHBOARD_COUNTS: Array<String> | null
   NOTES: string
   DUPLICATE_EMAILS: string
+  FIELDMSG: object
   lastSentMessage: any
   lastReceivedMessage: any
   highlightedQuestion: String

@@ -24,6 +24,9 @@ export interface CmdPayload {
   code: string
   sourceCode?: string
   targetCode?: string
+  questionCode?: string
+  attributeCode?: string
+  message?: string
   exec: boolean
   targetCodes?: Array<string>
 }
