@@ -4,6 +4,10 @@ import { DBState } from './db/types'
 export interface Item {
   [key: string]: any
 }
+export interface message {
+  value: string
+  color?: string
+}
 export type TargetCode = string
 export type Items = Array<Item>
 export interface MsgPayload {
@@ -24,6 +28,9 @@ export interface CmdPayload {
   code: string
   sourceCode?: string
   targetCode?: string
+  questionCode?: string
+  attributeCode?: string
+  message?: message
   exec: boolean
   targetCodes?: Array<string>
 }

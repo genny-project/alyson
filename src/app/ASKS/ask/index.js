@@ -10,7 +10,7 @@ import {
 import ABN from 'app/DTT/abn'
 import Address from 'app/DTT/address'
 import Attribute from 'app/BE/attribute'
-import Button from 'app/DTT/button'
+import Button from 'app/DTT/event_button'
 import CheckBox from 'app/DTT/check_box'
 import Date from 'app/DTT/date'
 import DateRange from 'app/DTT/date_range'
@@ -186,6 +186,8 @@ const Ask = ({
           askData={askData}
           regexPattern={regexPattern}
           errorMessage={errorMessage}
+          attributeCode={attributeCode}
+          parentCode={parentCode}
         />
       )}
       {component === 'phone' && (
@@ -195,6 +197,8 @@ const Ask = ({
           data={data}
           regexPattern={regexPattern}
           errorMessage={errorMessage}
+          attributeCode={attributeCode}
+          parentCode={parentCode}
         />
       )}
       {component === 'address' && (
@@ -246,6 +250,8 @@ const Ask = ({
           onSendAnswer={onSendAnswer}
           regexPattern={regexPattern}
           errorMessage={errorMessage}
+          attributeCode={attributeCode}
+          parentCode={parentCode}
         />
       )}
       {component === 'textarea' && (

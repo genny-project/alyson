@@ -58,6 +58,13 @@ const cmdMachine: {
     state['DRAWER'] = 'NOTES'
     state['NOTES'] = code
   },
+  FIELDMSG: (state: AppState, { code, questionCode, message }: CmdPayload) => {
+    const fieldMsgKey = `${code}@${questionCode}`
+    state['FIELDMSG'] = {
+      ...state['FIELDMSG'],
+      [fieldMsgKey]: message?.value,
+    }
+  },
   DEFAULT: (state: AppState, { targetCodes, code, cmd_type }: CmdPayload) => {
     if (targetCodes) {
       if (!equals(state[cmd_type], targetCodes)) state[cmd_type] = targetCodes
