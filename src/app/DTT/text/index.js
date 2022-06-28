@@ -12,7 +12,7 @@ import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
 import { useDispatch } from 'react-redux'
 import { newCmd } from 'redux/app'
-import { compose } from 'ramda'
+import { compose, isEmpty, not } from 'ramda'
 import { useSelector } from 'react-redux'
 import { selectFieldMessage } from 'redux/app/selectors'
 
@@ -33,6 +33,7 @@ export const Write = ({
 
   const fieldMessageObject = useSelector(selectFieldMessage)
   const fieldMessage = fieldMessageObject[`${parentCode}@${questionCode}`]
+  let hasFieldMessage = compose(not, isEmpty)(fieldMessage)
 
   try {
     regexPattern = regexPattern.replaceAll('\\\\', '\\')
@@ -41,6 +42,8 @@ export const Write = ({
     console.error('There is an error with the regex', questionCode, err)
     regex = undefined
   }
+
+  console.log('testing=====>', { hasFieldMessage, fieldMessage })
 
   const inputRef = useRef()
   const isInvalid = getIsInvalid(userInput)(regex)
@@ -89,6 +92,16 @@ export const Write = ({
     })
   }
 
+  const handleClearFieldMessage = () => {
+    onNewCmd({
+      cmd_type: 'FIELDMSG',
+      code: parentCode,
+      attributeCode,
+      questionCode,
+      message: '',
+    })
+  }
+
   return (
     <>
       <Input
@@ -125,9 +138,14 @@ export const Write = ({
       />
       {errorStatus && (
         <HStack>
-          <ChakraText textStyle="tail.error" mt={2}>
-            {errorMessage}
-          </ChakraText>
+          {(hasFieldMessage || errorMessage) && (
+            <ChakraText textStyle="tail.error" mt={2}>
+              {hasFieldMessage ? fieldMessage : errorMessage}
+            </ChakraText>
+          )}
+          {hasFieldMessage && (
+            <Button onClick={handleClearFieldMessage}>{`Clear Field Message`}</Button>
+          )}
           <Button onClick={handleDispatchMessage}>{`Dispatch Message`}</Button>
         </HStack>
       )}
