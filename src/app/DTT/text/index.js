@@ -1,4 +1,4 @@
-import { Text as ChakraText, Input, HStack, Button } from '@chakra-ui/react'
+import { Text as ChakraText, Input, HStack, Button, VStack } from '@chakra-ui/react'
 import { faCalendar, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useRef, useState } from 'react'
 
@@ -12,9 +12,10 @@ import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
 import { useDispatch } from 'react-redux'
 import { newCmd } from 'redux/app'
-import { compose, isEmpty, not } from 'ramda'
+import { compose } from 'ramda'
 import { useSelector } from 'react-redux'
 import { selectFieldMessage } from 'redux/app/selectors'
+import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
 
 export const Write = ({
   questionCode,
@@ -33,7 +34,10 @@ export const Write = ({
 
   const fieldMessageObject = useSelector(selectFieldMessage)
   const fieldMessage = fieldMessageObject[`${parentCode}@${questionCode}`]
-  let hasFieldMessage = compose(not, isEmpty)(fieldMessage)
+  let hasFieldMessage = isNotNullOrUndefinedOrEmpty(fieldMessage)
+  let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMessage)
+
+  console.log('tesing===>', { hasFieldMessage, hasErrorMessage, errorMessage, fieldMessage })
 
   try {
     regexPattern = regexPattern.replaceAll('\\\\', '\\')
@@ -42,8 +46,6 @@ export const Write = ({
     console.error('There is an error with the regex', questionCode, err)
     regex = undefined
   }
-
-  console.log('testing=====>', { hasFieldMessage, fieldMessage })
 
   const inputRef = useRef()
   const isInvalid = getIsInvalid(userInput)(regex)
@@ -88,7 +90,9 @@ export const Write = ({
       code: parentCode,
       attributeCode,
       questionCode,
-      message: 'This is working!',
+      message: {
+        value: 'This replaced the error message with field message!',
+      },
     })
   }
 
@@ -98,7 +102,9 @@ export const Write = ({
       code: parentCode,
       attributeCode,
       questionCode,
-      message: '',
+      message: {
+        value: '',
+      },
     })
   }
 
@@ -137,8 +143,8 @@ export const Write = ({
         }}
       />
       {errorStatus && (
-        <HStack>
-          {(hasFieldMessage || errorMessage) && (
+        <VStack alignItems="start">
+          {(hasFieldMessage || hasErrorMessage) && (
             <ChakraText textStyle="tail.error" mt={2}>
               {hasFieldMessage ? fieldMessage : errorMessage}
             </ChakraText>
@@ -147,7 +153,7 @@ export const Write = ({
             <Button onClick={handleClearFieldMessage}>{`Clear Field Message`}</Button>
           )}
           <Button onClick={handleDispatchMessage}>{`Dispatch Message`}</Button>
-        </HStack>
+        </VStack>
       )}
     </>
   )
