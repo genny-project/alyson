@@ -53,7 +53,7 @@ const AskGroup = ({ questionCode }) => {
   return (
     <div>
       {childAsks.map(code => (
-        <FormAsk parentCode={questionCode} questionCode={code} />
+        <FormAsk key={`${questionCode}-${code}`} parentCode={questionCode} questionCode={code} />
       ))}
     </div>
   )
