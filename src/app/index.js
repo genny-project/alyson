@@ -11,6 +11,8 @@ import store from 'redux/store'
 
 const Display = lazy(() => import('app/layouts/display'))
 
+console.log('jisoo')
+
 const App = ({ title }) => {
   return (
     <Provider store={store}>
