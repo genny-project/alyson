@@ -13,6 +13,8 @@ import { useMobileValue } from 'utils/hooks'
 import { useDispatch } from 'react-redux'
 import { newCmd } from 'redux/app'
 import { compose } from 'ramda'
+import { useSelector } from 'react-redux'
+import { selectFieldMessage } from 'redux/app/selectors'
 
 export const Write = ({
   questionCode,
@@ -28,6 +30,9 @@ export const Write = ({
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value)
+
+  const fieldMessageObject = useSelector(selectFieldMessage)
+  const fieldMessage = fieldMessageObject[`${parentCode}@${questionCode}`]
 
   try {
     regexPattern = regexPattern.replaceAll('\\\\', '\\')
