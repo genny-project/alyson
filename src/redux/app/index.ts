@@ -14,6 +14,7 @@ export const initialState = {
   DASHBOARD_COUNTS: null,
   NOTES: '',
   DUPLICATE_EMAILS: '',
+  FIELDMSG: {},
   lastSentMessage: { time: '', data: { data: { code: 'QUE_DASHBOARD_VIEW' } } },
   lastReceivedMessage: {},
   highlightedQuestion: '',

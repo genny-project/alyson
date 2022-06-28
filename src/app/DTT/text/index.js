@@ -1,4 +1,4 @@
-import { Text as ChakraText, Input } from '@chakra-ui/react'
+import { Text as ChakraText, Input, Button, VStack } from '@chakra-ui/react'
 import { faCalendar, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useRef, useState } from 'react'
 
@@ -10,13 +10,32 @@ import { getIsInvalid } from 'utils/functions'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
+import { useDispatch } from 'react-redux'
+import { newCmd } from 'redux/app'
+import { compose } from 'ramda'
+import { useSelector } from 'react-redux'
+import { selectFieldMessage } from 'redux/app/selectors'
+import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
 
-export const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMessage }) => {
+export const Write = ({
+  questionCode,
+  data,
+  onSendAnswer,
+  regexPattern,
+  errorMessage,
+  attributeCode,
+  parentCode,
+}) => {
   let regex
   const { dispatch } = useError()
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value)
+
+  const fieldMessageObject = useSelector(selectFieldMessage)
+  const fieldMessage = fieldMessageObject[`${parentCode}@${questionCode}`]
+  let hasFieldMessage = isNotNullOrUndefinedOrEmpty(fieldMessage)
+  let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMessage)
 
   try {
     regexPattern = regexPattern.replaceAll('\\\\', '\\')
@@ -28,6 +47,32 @@ export const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMes
 
   const inputRef = useRef()
   const isInvalid = getIsInvalid(userInput)(regex)
+  const dispatchPushMessage = useDispatch()
+  const onNewCmd = compose(dispatchPushMessage, newCmd)
+
+  const handleDispatchMessage = () => {
+    onNewCmd({
+      cmd_type: 'FIELDMSG',
+      code: parentCode,
+      attributeCode,
+      questionCode,
+      message: {
+        value: 'This replaced the error message with field message!',
+      },
+    })
+  }
+
+  const handleClearFieldMessage = () => {
+    onNewCmd({
+      cmd_type: 'FIELDMSG',
+      code: parentCode,
+      attributeCode,
+      questionCode,
+      message: {
+        value: '',
+      },
+    })
+  }
 
   useEffect(() => {
     const listener = event => {
@@ -96,9 +141,17 @@ export const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMes
         }}
       />
       {errorStatus && (
-        <ChakraText textStyle="tail.error" mt={2}>
-          {errorMessage}
-        </ChakraText>
+        <VStack alignItems="start">
+          {(hasFieldMessage || hasErrorMessage) && (
+            <ChakraText textStyle="tail.error" mt={2}>
+              {hasFieldMessage ? fieldMessage : errorMessage}
+            </ChakraText>
+          )}
+          {hasFieldMessage && (
+            <Button onClick={handleClearFieldMessage}>{`Clear Field Message`}</Button>
+          )}
+          <Button onClick={handleDispatchMessage}>{`Dispatch Message`}</Button>
+        </VStack>
       )}
     </>
   )

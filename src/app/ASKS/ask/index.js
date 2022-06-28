@@ -186,6 +186,8 @@ const Ask = ({
           askData={askData}
           regexPattern={regexPattern}
           errorMessage={errorMessage}
+          attributeCode={attributeCode}
+          parentCode={parentCode}
         />
       )}
       {component === 'phone' && (
@@ -195,6 +197,8 @@ const Ask = ({
           data={data}
           regexPattern={regexPattern}
           errorMessage={errorMessage}
+          attributeCode={attributeCode}
+          parentCode={parentCode}
         />
       )}
       {component === 'address' && (
@@ -246,6 +250,8 @@ const Ask = ({
           onSendAnswer={onSendAnswer}
           regexPattern={regexPattern}
           errorMessage={errorMessage}
+          attributeCode={attributeCode}
+          parentCode={parentCode}
         />
       )}
       {component === 'textarea' && (
