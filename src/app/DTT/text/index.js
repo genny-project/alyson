@@ -50,6 +50,30 @@ export const Write = ({
   const dispatchPushMessage = useDispatch()
   const onNewCmd = compose(dispatchPushMessage, newCmd)
 
+  const handleDispatchMessage = () => {
+    onNewCmd({
+      cmd_type: 'FIELDMSG',
+      code: parentCode,
+      attributeCode,
+      questionCode,
+      message: {
+        value: 'This replaced the error message with field message!',
+      },
+    })
+  }
+
+  const handleClearFieldMessage = () => {
+    onNewCmd({
+      cmd_type: 'FIELDMSG',
+      code: parentCode,
+      attributeCode,
+      questionCode,
+      message: {
+        value: '',
+      },
+    })
+  }
+
   useEffect(() => {
     const listener = event => {
       if (event.code === 'Enter' && !event.shiftKey) {
@@ -80,30 +104,6 @@ export const Write = ({
   const onBlur = e => {
     !errorStatus && debouncedSendAnswer(e.target.value)
     dispatchFieldMessage({ payload: questionCode })
-  }
-
-  const handleDispatchMessage = () => {
-    onNewCmd({
-      cmd_type: 'FIELDMSG',
-      code: parentCode,
-      attributeCode,
-      questionCode,
-      message: {
-        value: 'This replaced the error message with field message!',
-      },
-    })
-  }
-
-  const handleClearFieldMessage = () => {
-    onNewCmd({
-      cmd_type: 'FIELDMSG',
-      code: parentCode,
-      attributeCode,
-      questionCode,
-      message: {
-        value: '',
-      },
-    })
   }
 
   return (
