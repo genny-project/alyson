@@ -55,7 +55,6 @@ const Ask = ({
   config,
   noLabel,
   forcedComponent,
-  processId,
 }) => {
   const { errorState } = useError()
   const { fieldState } = useIsFieldNotEmpty()
@@ -76,6 +75,7 @@ const Ask = ({
     disabled,
     readonly,
     placeholder,
+    processId,
   } = askData || {}
 
   const data = useSelector(selectCode(targetCode, attributeCode)) || {}
