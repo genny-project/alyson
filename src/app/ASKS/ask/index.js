@@ -55,6 +55,7 @@ const Ask = ({
   config,
   noLabel,
   forcedComponent,
+  processId,
 }) => {
   const { errorState } = useError()
   const { fieldState } = useIsFieldNotEmpty()
@@ -227,6 +228,7 @@ const Ask = ({
           parentCode={parentCode}
           regexPattern={regexPattern}
           errorMessage={errorMessage}
+          processId={processId}
         />
       )}
       {component === 'radio' && (
