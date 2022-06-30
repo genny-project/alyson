@@ -93,7 +93,7 @@ export const InternshipDetailsSection = ({ beCode }) => {
             </GridItem>
             <GridItem rowSpan={2} colSpan={2}>
               <VStack align="start">
-                <Text textStyle="tail.2">{`Expected Interpersonal Learning Outcomes`}</Text>
+                <Text textStyle="tail.2">{`Expected Technical & Industry Specific Learning Outcomes`}</Text>
                 <Attribute
                   code={beCode}
                   attribute={`PRI_SPECIFIC_LEARNING_OUTCOMES`}
@@ -115,7 +115,7 @@ export const InternshipDetailsSection = ({ beCode }) => {
             </GridItem>
             <GridItem rowSpan={2} colSpan={2}>
               <VStack align="start">
-                <Text textStyle="tail.2">{`Expected Technical & Industry Specific Learning Outcomes`}</Text>
+                <Text textStyle="tail.2">{`Expected Interpersonal Learning Outcomes`}</Text>
                 <Attribute
                   code={beCode}
                   attribute={`PRI_BASE_LEARNING_OUTCOMES`}
