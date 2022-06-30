@@ -18,9 +18,12 @@ const Pcm = ({ code, properties }) => {
 const MappedPcm = ({ code, mappedPcm, properties }) => {
   /// Make sure the mapped PCM actually has data in it
   if (isEmpty(mappedPcm)) {
-    debugOut.error(
-      `PCM with code ${code} is empty! Rendering default template! It is possible that the PCM has not arrived yet, or a PCM with this code does not exist`,
-    )
+    if (isEmpty(code)) {
+      debugOut.error(`No PCM code supplied!`)
+    } else
+      debugOut.error(
+        `PCM with code ${code} is empty! Rendering default template! It is possible that the PCM has not arrived yet, or a PCM with this code does not exist`,
+      )
     return <TemplateDefault {...properties} />
   }
 
