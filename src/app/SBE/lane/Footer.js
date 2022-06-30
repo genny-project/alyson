@@ -12,9 +12,12 @@ const Footer = ({ rows, sbeCode }) => {
 
   return (
     rows.length < totalResults.value && (
-      <Button test-id={`Process-Footer-${title}`} variant="ghost" colorScheme="secondary" onClick={paginationActions.lazy}>{`See ${
-        totalResults.value - rows.length
-      } more`}</Button>
+      <Button
+        test-id={`Process-Footer-${title}`}
+        variant="ghost"
+        colorScheme="secondary"
+        onClick={paginationActions.lazy}
+      >{`See ${totalResults.value - rows.length} more`}</Button>
     )
   )
 }
