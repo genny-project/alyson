@@ -1,17 +1,18 @@
-import { Grid, GridItem } from '@chakra-ui/react'
-import { Center, VStack, HStack, Text } from '@chakra-ui/layout'
-import { useColorModeValue } from '@chakra-ui/color-mode'
-import { useSelector } from 'react-redux'
-
 import 'app/layouts/components/css/hide-scroll.css'
+
+import { Center, HStack, Text, VStack } from '@chakra-ui/layout'
+import { Grid, GridItem } from '@chakra-ui/react'
+import {
+  companyDetails,
+  internshipDetails,
+} from 'app/SBE/detail-profile/detail-layout/internship/templates/AttributesList.js'
+
 import Attribute from 'app/BE/attribute'
 import Card from 'app/layouts/components/card'
-import {
-  internshipDetails,
-  companyDetails,
-} from 'app/SBE/detail-profile/detail-layout/internship/templates/AttributesList.js'
 import getUserType from 'utils/helpers/get-user-type'
 import { selectCode } from 'redux/db/selectors'
+import { useColorModeValue } from '@chakra-ui/color-mode'
+import { useSelector } from 'react-redux'
 
 export const InternshipDetailsSection = ({ beCode }) => {
   const cardBg = useColorModeValue('gray.200', 'gray.600')
@@ -114,7 +115,7 @@ export const InternshipDetailsSection = ({ beCode }) => {
             </GridItem>
             <GridItem rowSpan={2} colSpan={2}>
               <VStack align="start">
-                <Text textStyle="tail.2">{`Expected Technical & Industry Specefic Learning Outcomes`}</Text>
+                <Text textStyle="tail.2">{`Expected Technical & Industry Specific Learning Outcomes`}</Text>
                 <Attribute
                   code={beCode}
                   attribute={`PRI_BASE_LEARNING_OUTCOMES`}
