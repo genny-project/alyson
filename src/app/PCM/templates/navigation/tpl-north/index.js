@@ -16,12 +16,15 @@ const TemplateNorth = ({ bg, color, mappedPcm, logoSrc, textColor }) => {
     <header
       style={{
         color,
+        position: 'fixed',
+        top: 0,
+        zIndex: 9999,
         maxWidth: '100vw',
-        h: 25,
+        left: 0,
+        right: 0,
         backgroundColor: bg,
-        boxShadow: `0 4px 24px rgba(0,0,0,0.08)`,
-        position: 'relative',
-        zIndex: '1',
+        h: 25,
+        boxShadow: 'rgb(0 0 0 / 10%) 0px 2px 0px 0px',
       }}
     >
       <nav>

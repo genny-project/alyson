@@ -9,6 +9,7 @@ import getUserType from 'utils/helpers/get-user-type'
 import icons from 'utils/icons'
 import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
+import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 
 const Drafts = ({ code: DRAFT_GROUP, textColor }) => {
   const userCode = useSelector(selectCode('USER'))
@@ -16,8 +17,9 @@ const Drafts = ({ code: DRAFT_GROUP, textColor }) => {
   const drafts = (useSelector(selectCode(DRAFT_GROUP)) || []).filter(
     code => code.indexOf('TASK') !== -1,
   )
-
   const label = useGetLabel(DRAFT_GROUP)
+
+  const iconColor = useGetAttributeFromProjectBaseEntity('PRI_COLOR')?.valueString || '#234371'
 
   const isMobile = useIsMobile()
 
@@ -28,7 +30,7 @@ const Drafts = ({ code: DRAFT_GROUP, textColor }) => {
       <MenuButton>
         <VStack color="grey" test-id={DRAFT_GROUP}>
           <Box>
-            <FontAwesomeIcon size="lg" w="8" h="8" icon={icons[DRAFT_GROUP]} color={textColor} />
+            <FontAwesomeIcon size="lg" w="8" h="8" icon={icons[DRAFT_GROUP]} color={iconColor} />
             <Center
               ml={`0.5rem`}
               mt="-1.7rem"
@@ -48,7 +50,7 @@ const Drafts = ({ code: DRAFT_GROUP, textColor }) => {
               <Text fontSize="xs" textStyle="tail.2" color={textColor}>
                 {label}
               </Text>
-              <FontAwesomeIcon icon={faCaretDown} color={textColor} />
+              <FontAwesomeIcon icon={faCaretDown} color={iconColor} />
             </HStack>
           )}
         </VStack>

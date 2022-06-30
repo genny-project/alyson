@@ -54,9 +54,7 @@ const prettyLog = (msg, data = {}, style) => {
   const showConsoleLogs = showLogs()
 
   const title = data.items
-    ? data.items.length === 1
-      ? data.items[0]?.name
-      : data.parentCode && data.questionCode
+    ? data.parentCode && data.questionCode
       ? `Rows - ${data.parentCode} - ${data.questionCode}`
       : data.parentCode
       ? `Rows - ${data.parentCode} `
