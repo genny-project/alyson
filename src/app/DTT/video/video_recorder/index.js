@@ -30,7 +30,10 @@ const VideoRecorder = ({ setData, config, setStartVideo, id }) => {
   const onStartCapture = useCallback(() => {
     setCapturing(true)
     setRecordedChunks([])
-    recorderRef.current = new MediaRecorder(stream)
+    const options = {
+      mimeType: 'video/webm',
+    }
+    recorderRef.current = new MediaRecorder(stream, options)
     recorderRef.current.ondataavailable = ({ data }) => {
       if (data.size > 0) {
         setRecordedChunks(prev => [...prev, data])

@@ -15,6 +15,7 @@ import {
 } from '@chakra-ui/react'
 import { faBan, faExpand, faSave, faVideo } from '@fortawesome/free-solid-svg-icons'
 import { includes, pathOr } from 'ramda'
+import { v4 as uuidv4 } from 'uuid'
 
 import Download from 'app/DTT/download_button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -40,7 +41,7 @@ const Write = ({ questionCode, onSendAnswer, html, data, setSaving }) => {
   const handleSave = async file => {
     let data = new FormData()
 
-    data.append('file', file)
+    data.append('file', file, `${uuidv4()}.mp4`)
 
     const saveData = await postMediaFile({
       data,
