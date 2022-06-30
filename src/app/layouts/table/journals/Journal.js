@@ -42,7 +42,7 @@ const Journal = ({ code, actions, parentCode }) => {
         </HStack>
         <VStack justify="start" align="start">
           <Text w="15rem" textStyle="body.3">
-            {`What did you do today?`}
+            {`What did you do while on your internship today?`}
           </Text>
           <Text dangerouslySetInnerHTML={{ __html: tasks?.value }} w="40rem" maxW="85vw" />
         </VStack>
