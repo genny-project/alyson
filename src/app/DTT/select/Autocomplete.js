@@ -1,18 +1,6 @@
 import { Box, Text, Wrap, WrapItem } from '@chakra-ui/layout'
 import { Input, InputGroup, InputRightElement } from '@chakra-ui/input'
-import {
-  append,
-  compose,
-  filter,
-  find,
-  includes,
-  not,
-  prop,
-  propEq,
-  reduce,
-  replace,
-  toLower,
-} from 'ramda'
+import { append, compose, filter, find, includes, not, prop, propEq, replace, toLower } from 'ramda'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useRef, useState } from 'react'
 
@@ -26,6 +14,7 @@ import { selectBufferDropdownOptions } from 'redux/app/selectors'
 import { selectCode } from 'redux/db/selectors'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
+import { getUniqueValuesFromTwoArrays } from 'utils/functionals'
 
 const Autocomplete = ({
   multiple,
@@ -46,12 +35,6 @@ const Autocomplete = ({
   const dispatch = useDispatch()
   const setBufferDropdownOption = compose(dispatch, bufferDropdownOption)
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
-
-  const getUniqueValuesFromTwoArrays = firstArray => secondArray =>
-    reduce(
-      (acc, value) => (!includes(value)(acc) ? acc.concat(value) : acc),
-      secondArray,
-    )(firstArray)
 
   const getBufferedDropdownOptions = useSelector(selectBufferDropdownOptions)
 
