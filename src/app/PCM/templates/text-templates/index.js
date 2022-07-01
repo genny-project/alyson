@@ -11,7 +11,7 @@ const TemplateText = ({ mappedPcm }) => {
 
   const spillLocs = getSpillLocs(mappedPcm)(['PRI_LOC1'])
 
-  const targetCode = 'PER_0F6169E1-FDD5-4DAF-BEC3-4126C6626752' //useSelector(selectCode(questionCode, 'targetCode'))
+  const targetCode = useSelector(selectCode(questionCode, 'targetCode'))
   const wholeData = useSelector(selectCode(questionCode, 'wholeData'))
 
   const attributeCodes = reduce((acc, elem) => {
