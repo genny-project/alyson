@@ -9,7 +9,7 @@ const mapText = string => mappedPcm => attributeMap => {
 
   const matches = match(regex)(string)
 
-  return reduce((acc, elem) => {
+  const out = reduce((acc, elem) => {
     let replacerMatches
     let loc = undefined
     let data = undefined
@@ -34,6 +34,12 @@ const mapText = string => mappedPcm => attributeMap => {
 
     return acc
   }, string)(matches)
+
+  if (isNotEmpty(match(regex)(out))) {
+    return mapText(out)(mappedPcm)(attributeMap)
+  } else {
+    return out
+  }
 }
 
 export default mapText

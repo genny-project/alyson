@@ -1,6 +1,6 @@
 import { Text } from '@chakra-ui/react'
 import getSpillLocs from 'app/PCM/helpers/get-spill-locs'
-import { append, find, keys, propEq, reduce } from 'ramda'
+import { append, filter, find, keys, propEq, reduce } from 'ramda'
 import { useSelector } from 'react-redux'
 import { selectAttributes, selectCode } from 'redux/db/selectors'
 import mapText from './map-text'
@@ -11,7 +11,7 @@ const TemplateText = ({ mappedPcm }) => {
 
   const spillLocs = getSpillLocs(mappedPcm)(['PRI_LOC1'])
 
-  const targetCode = useSelector(selectCode(questionCode, 'targetCode'))
+  const targetCode = 'PER_0F6169E1-FDD5-4DAF-BEC3-4126C6626752' //useSelector(selectCode(questionCode, 'targetCode'))
   const wholeData = useSelector(selectCode(questionCode, 'wholeData'))
 
   const attributeCodes = reduce((acc, elem) => {
@@ -19,12 +19,16 @@ const TemplateText = ({ mappedPcm }) => {
     return acc
   }, [])(wholeData)
 
-  const attributes = useSelector(selectAttributes(targetCode), attributeCodes)
+  const attributes = useSelector(selectAttributes(targetCode, attributeCodes))
+  const attributesFiltered = filter(elem => elem)(attributes)
 
   const attributeMap = reduce((acc, elem) => {
     const attrCode = spillLocs[elem]
-    const attr = find(propEq('attributeCode', attrCode))(attributes)
-    if (attr) acc = { ...acc, [attrCode]: attr.value }
+    if (attrCode) {
+      const attr = find(propEq('attributeCode', attrCode))(attributesFiltered)
+      if (attr) acc = { ...acc, [attrCode]: attr.value }
+    }
+
     return acc
   }, {})(keys(spillLocs))
 
