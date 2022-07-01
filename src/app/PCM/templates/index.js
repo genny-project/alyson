@@ -15,6 +15,7 @@ import hasNot from 'utils/helpers/has-not.js'
 import debugOut from 'utils/debug-out'
 import TemplateTable from './tpl-table'
 import TemplateContent from './tpl-content'
+import TemplateText from './text-templates'
 
 /**
  * Takes in a mappedPcm, a templateCode and some misc properties and returns a template component.
@@ -39,6 +40,14 @@ const templateHandlerMachine = mappedPcm => templateCode => properties => {
     TPL_FORM: <TemplateForm mappedPcm={mappedPcm} {...properties} />,
     TPL_TABLE: <TemplateTable mappedPcm={mappedPcm} {...properties} />,
     TPL_CONTENT: <TemplateContent mappedPcm={mappedPcm} {...properties} />,
+    TPL_TEXT_BODY_1: <TemplateText mappedPcm={mappedPcm} {...properties} />,
+    TPL_TEXT_BODY_2: <TemplateText mappedPcm={mappedPcm} {...properties} />,
+    TPL_TEXT_HEADER_1: <TemplateText mappedPcm={mappedPcm} {...properties} />,
+    TPL_TEXT_HEADER_2: <TemplateText mappedPcm={mappedPcm} {...properties} />,
+    TPL_TEXT_HEADER_3: <TemplateText mappedPcm={mappedPcm} {...properties} />,
+    TPL_TEXT_HEADER_4: <TemplateText mappedPcm={mappedPcm} {...properties} />,
+    TPL_TEXT_HEADER_5: <TemplateText mappedPcm={mappedPcm} {...properties} />,
+    TPL_TEXT_HEADER_6: <TemplateText mappedPcm={mappedPcm} {...properties} />,
   }
 
   if (hasNot(templateCode)(listOfTemplates)) {
