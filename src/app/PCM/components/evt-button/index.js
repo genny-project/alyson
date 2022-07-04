@@ -25,8 +25,13 @@ const EvtButton = ({ questionCode, childCode, iconId }) => {
 
   const { getImageSrc } = useApi()
   let src = iconId
-  if (!startsWith('http', iconId)) {
-    src = getImageSrc(iconId)
+
+  if (iconId) {
+    if (!startsWith('http', iconId)) {
+      src = getImageSrc(iconId)
+    }
+  } else {
+    debugOut.error(`${questionCode}@${childCode} doesn't have an iconId!`)
   }
 
   if (!data) return null
