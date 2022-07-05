@@ -3,10 +3,8 @@ import { Suspense, lazy } from 'react'
 
 import { CSSReset } from '@chakra-ui/react'
 import GitVersionInfo from 'utils/helpers/git_version'
-import LinkedApp from 'app/layouts/dashboard/mentee/linked_app'
 import { Provider } from 'react-redux'
 import Vertx from 'vertx'
-import { pathNameLinkedApplication } from 'utils/pathname'
 import store from 'redux/store'
 
 const Display = lazy(() => import('app/layouts/display'))
