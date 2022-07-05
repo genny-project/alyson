@@ -2,6 +2,7 @@ import { Text } from '@chakra-ui/react'
 import { compose, includes, map, pathOr } from 'ramda'
 import { selectCode, selectRows } from 'redux/db/selectors'
 import { Select as CSelect } from 'chakra-react-select'
+import debounce from 'lodash.debounce'
 
 import { getValue } from './get-value'
 import { onSendMessage } from 'vertx'
@@ -30,6 +31,24 @@ const Write = ({
   const isMulti = includes('multiple', dataType.typeName || '') || component === 'tag'
   const defaultValue = safelyParseJson(data?.value, [])
 
+  const sourceCode = useSelector(selectCode('USER'))
+
+  const ddEvent = debounce(
+    value =>
+      onSendMessage(
+        {
+          sourceCode,
+          targetCode,
+          value,
+          parentCode,
+          questionCode,
+          code: questionCode,
+        },
+        { event_type: 'DD', redirect: false, attributeCode, questionCode, code: questionCode },
+      ),
+    500,
+  )
+
   return (
     <CSelect
       isMulti={isMulti}
@@ -37,6 +56,10 @@ const Write = ({
       onChange={value => {
         onSendAnswer(value)
       }}
+      onInputChange={value => {
+        ddEvent(value)
+      }}
+      onFocus={() => ddEvent('')}
       placeholder={!options.length ? 'Start typing to search' : placeholder || 'Select'}
       test-id={questionCode}
       id={questionCode}
