@@ -1,10 +1,8 @@
-import { Select as CSelect, Text } from '@chakra-ui/react'
-import { compose, includes, isEmpty, map, pathOr } from 'ramda'
+import { Text } from '@chakra-ui/react'
+import { compose, includes, map, pathOr } from 'ramda'
 import { selectCode, selectRows } from 'redux/db/selectors'
-import { useState, useEffect, useRef } from 'react'
+import { Select as CSelect } from 'chakra-react-select'
 
-import Autocomplete from './Autocomplete'
-import debounce from 'lodash.debounce'
 import { getValue } from './get-value'
 import { onSendMessage } from 'vertx'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
@@ -27,94 +25,22 @@ const Write = ({
   attributeCode,
   regexPattern = '.*',
 }) => {
-  let regex
-  // eslint-disable-next-line no-unused-vars
-  const [errorStatus, setErrorStatus] = useState(false)
-  const { dispatch } = useError()
-
-  const previousDropDownRef = useRef([])
-
-  const sourceCode = useSelector(selectCode('USER'))
-  const { typeName } = dataType
-  const multiple = includes('multiple', typeName || '') || component === 'tag'
   const dropdownData = useSelector(selectCode(`${parentCode}-${questionCode}-options`)) || []
-
   const options = compose(map(({ code, name }) => ({ label: name, value: code })))(dropdownData)
-
-  // const { attributeCode } = data || {}
-
-  useEffect(() => {
-    previousDropDownRef.current = !isEmpty(dropdownData)
-      ? dropdownData
-      : previousDropDownRef.current
-  })
-  try {
-    regex = RegExp(regexPattern)
-  } catch (err) {
-    console.error('There is an error with the regex', questionCode, err)
-    regex = undefined
-  }
-
-  const isInvalid = getIsInvalid(data?.value)(regex)
-
-  useEffect(() => {
-    isInvalid ? setErrorStatus(true) : setErrorStatus(false)
-  }, [isInvalid])
-
-  useEffect(() => {
-    isInvalid
-      ? dispatch({ type: ACTIONS.SET_TO_TRUE, payload: questionCode })
-      : dispatch({ type: ACTIONS.SET_TO_FALSE, payload: questionCode })
-  }, [dispatch, isInvalid, questionCode])
-
-  const ddEvent = debounce(
-    value =>
-      onSendMessage(
-        {
-          sourceCode,
-          targetCode,
-          value,
-          parentCode,
-          questionCode,
-          code: questionCode,
-        },
-        { event_type: 'DD', redirect: false, attributeCode, questionCode, code: questionCode },
-      ),
-    500,
-  )
-
+  const isMulti = includes('multiple', dataType.typeName || '') || component === 'tag'
   const defaultValue = safelyParseJson(data?.value, [])
 
-  const { simpleSelect } = config || {}
-
-  if (simpleSelect)
-    return (
-      <CSelect
-        onChange={e => {
-          onSendAnswer(e.target.value)
-        }}
-        placeholder={placeholder || 'Select'}
-        test-id={`simpleSelect-${questionCode}`}
-        id={questionCode}
-      >
-        {options.map(({ value, label }) => (
-          <option test-id={value} value={value} key={value}>
-            {label}
-          </option>
-        ))}
-      </CSelect>
-    )
-
   return (
-    <Autocomplete
-      placeholder={!options.length ? 'Start typing to search' : placeholder || 'Select'}
+    <CSelect
+      isMulti={isMulti}
       options={options}
-      onChange={onSendAnswer}
+      onChange={value => {
+        onSendAnswer(value)
+      }}
+      placeholder={!options.length ? 'Start typing to search' : placeholder || 'Select'}
+      test-id={questionCode}
+      id={questionCode}
       defaultValue={defaultValue}
-      multiple={multiple}
-      ddEvent={ddEvent}
-      questionCode={questionCode}
-      groupCode={groupCode}
     />
   )
 }
