@@ -91,14 +91,23 @@ export const formatAsk = (state: DBState, replace: Boolean) => (item: Item) => {
   const wholeDataKey = `${questionCode}@wholeData`
   const rawKey = `${questionCode}@raw`
   const attributeCodekey = `${questionCode}@attributeCode`
+  const nameKey = `${questionCode}@title`
+  const targetCodeKey = `${questionCode}@targetCode`
+  const configKey = `${questionCode}@config`
 
   initialiseKey(state, questionCode, [])
-  initialiseKey(state, `${questionCode}@title`, name)
+  initialiseKey(state, nameKey, name)
   initialiseKey(state, attributeCodekey, attributeCode)
-  initialiseKey(state, `${questionCode}@targetCode`, targetCode)
-  initialiseKey(state, `${questionCode}@config`, safelyParseJson(html, {}))
+  initialiseKey(state, targetCodeKey, targetCode)
+  initialiseKey(state, configKey, safelyParseJson(html, {}))
 
-  if (replace) state[questionCode] = []
+  if (replace) {
+    state[questionCode] = []
+    state[nameKey] = name
+    state[attributeCodekey] = attributeCode
+    state[targetCodeKey] = targetCode
+    state[configKey] = safelyParseJson(html, {})
+  }
 
   if (!childAsks.length) {
     initialiseKey(state, rawKey, item)
