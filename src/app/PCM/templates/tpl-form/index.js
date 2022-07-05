@@ -8,20 +8,13 @@ import debugOut from 'utils/debug-out'
 const TemplateForm = ({ mappedPcm }) => {
   const questionCode = mappedPcm?.PRI_QUESTION_CODE || ''
 
-  const targetCode = useSelector(selectCode(questionCode, 'targetCode')) || ''
-
   if (questionCode) {
     return (
       <Center>
         {/* This width is arbitrary and should probably be controlled by an attribute */}
         <div style={{ width: '80%' }}>
           {/* By using a form ask here, it means the form will work even if the question code passed is not a question group */}
-          <FormAsk
-            questionCode={questionCode}
-            parentCode={questionCode}
-            level={0}
-            targetCode={targetCode}
-          />
+          <FormAsk questionCode={questionCode} parentCode={questionCode} level={0} />
         </div>
       </Center>
     )
@@ -36,8 +29,9 @@ const TemplateForm = ({ mappedPcm }) => {
 }
 
 // Handles switching between individual asks and question groups
-const FormAsk = ({ parentCode, questionCode, level, targetCode }) => {
+const FormAsk = ({ parentCode, questionCode, level }) => {
   const attributeCode = useSelector(selectCode(questionCode, 'attributeCode'))
+  const targetCode = useSelector(selectCode(questionCode, 'targetCode'))
   if (equals(attributeCode)('QQQ_QUESTION_GROUP')) {
     return (
       <AskGroup
@@ -60,7 +54,7 @@ const FormAsk = ({ parentCode, questionCode, level, targetCode }) => {
 }
 
 // Takes a question group and maps each of its child asks
-const AskGroup = ({ questionCode, level, targetCode }) => {
+const AskGroup = ({ questionCode, level }) => {
   const childAsks = useSelector(selectCode(questionCode)) || []
   const title = useSelector(selectCode(questionCode, 'title')) || ''
 
@@ -80,12 +74,7 @@ const AskGroup = ({ questionCode, level, targetCode }) => {
     <div>
       <Text fontSize={fontSize}>{title}</Text>
       {childAsks.map(code => (
-        <FormAsk
-          key={`${questionCode}-${code}`}
-          parentCode={questionCode}
-          questionCode={code}
-          targetCode={targetCode}
-        />
+        <FormAsk key={`${questionCode}-${code}`} parentCode={questionCode} questionCode={code} />
       ))}
     </div>
   )
