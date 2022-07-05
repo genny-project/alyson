@@ -34,6 +34,10 @@ export const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMes
   }, [isInvalid])
 
   useEffect(() => {
+    setuserInput(data?.value)
+  }, [data])
+
+  useEffect(() => {
     isInvalid
       ? dispatch({ type: ACTIONS.SET_TO_TRUE, payload: questionCode })
       : dispatch({ type: ACTIONS.SET_TO_FALSE, payload: questionCode })
@@ -56,7 +60,7 @@ export const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMes
         ref={inputRef}
         onBlur={onBlur}
         onChange={e => setuserInput(e.target.value)}
-        defaultValue={data?.value}
+        value={userInput}
         maxW={maxW}
         isInvalid={isInvalid}
       />

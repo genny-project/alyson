@@ -75,6 +75,10 @@ export const Write = ({
   }
 
   useEffect(() => {
+    setuserInput(data?.value)
+  }, [data])
+
+  useEffect(() => {
     const listener = event => {
       if (event.code === 'Enter' && !event.shiftKey) {
         event.preventDefault()
@@ -114,7 +118,7 @@ export const Write = ({
         ref={inputRef}
         onBlur={onBlur}
         onChange={e => setuserInput(e.target.value)}
-        defaultValue={data?.value}
+        value={userInput}
         isInvalid={isInvalid}
         w="full"
         maxW={maxW}

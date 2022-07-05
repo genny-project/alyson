@@ -88,6 +88,10 @@ const Write = ({
       : dispatch({ type: ACTIONS.SET_TO_FALSE, payload: questionCode })
   }, [dispatch, isInvalid, questionCode])
 
+  useEffect(() => {
+    setuserInput(data?.value)
+  }, [data?.value])
+
   const handleChange = event => setuserInput(event.target.value)
 
   return (
