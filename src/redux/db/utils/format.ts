@@ -84,7 +84,16 @@ export const formatBaseEntity = (
 }
 
 export const formatAsk = (state: DBState, replace: Boolean) => (item: Item) => {
-  const { questionCode, childAsks = [], name, question, targetCode, attributeCode } = item
+  const {
+    questionCode,
+    childAsks = [],
+    name,
+    question,
+    targetCode,
+    attributeCode,
+    sourceCode,
+    processId,
+  } = item
 
   const { html } = question
 
@@ -93,6 +102,8 @@ export const formatAsk = (state: DBState, replace: Boolean) => (item: Item) => {
   const attributeCodekey = `${questionCode}@attributeCode`
   const nameKey = `${questionCode}@title`
   const targetCodeKey = `${questionCode}@targetCode`
+  const sourceCodeKey = `${questionCode}@sourceCode`
+  const processIdKey = `${questionCode}@processId`
   const configKey = `${questionCode}@config`
 
   initialiseKey(state, questionCode, [])
@@ -100,6 +111,8 @@ export const formatAsk = (state: DBState, replace: Boolean) => (item: Item) => {
   initialiseKey(state, attributeCodekey, attributeCode)
   initialiseKey(state, targetCodeKey, targetCode)
   initialiseKey(state, configKey, safelyParseJson(html, {}))
+  initialiseKey(state, sourceCodeKey, sourceCode)
+  initialiseKey(state, processIdKey, processId)
 
   if (replace) {
     state[questionCode] = []
@@ -107,6 +120,8 @@ export const formatAsk = (state: DBState, replace: Boolean) => (item: Item) => {
     state[attributeCodekey] = attributeCode
     state[targetCodeKey] = targetCode
     state[configKey] = safelyParseJson(html, {})
+    state[sourceCodeKey] = sourceCode
+    state[processIdKey] = processId
   }
 
   if (!childAsks.length) {
