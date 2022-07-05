@@ -19,7 +19,6 @@ const App = ({ title }) => {
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={() => <Redirect to={{ pathname: '/home' }} />} />
-          <Route exact path={pathNameLinkedApplication} component={() => <LinkedApp />} />
           <Route
             path="/home"
             component={() => (
