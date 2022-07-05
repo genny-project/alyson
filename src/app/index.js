@@ -1,4 +1,4 @@
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom'
 import { Suspense, lazy } from 'react'
 
 import { CSSReset } from '@chakra-ui/react'
@@ -14,7 +14,7 @@ const App = ({ title }) => {
     <Provider store={store}>
       <CSSReset />
       <Vertx />
-      <BrowserRouter>
+      <Router>
         <Switch>
           <Route exact path="/" component={() => <Redirect to={{ pathname: '/home' }} />} />
           <Route
@@ -29,7 +29,7 @@ const App = ({ title }) => {
           <Route path={`/public`} exact component={() => <Redirect to={{ pathname: '/home' }} />} />
           <Route path={'/*'} component={() => <Redirect to={{ pathname: '/home' }} />} />
         </Switch>
-      </BrowserRouter>
+      </Router>
     </Provider>
   )
 }
