@@ -70,7 +70,11 @@ const Autocomplete = ({
     var i = renderLabel(option)
 
     if (i) {
-      setItems([...items, i])
+      if (multiple) {
+        setItems([...items, i])
+      } else {
+        setItems([i])
+      }
     }
 
     dispatchFieldMessage({ payload: questionCode })

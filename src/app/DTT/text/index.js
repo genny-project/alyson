@@ -75,7 +75,7 @@ export const Write = ({
   }
 
   useEffect(() => {
-    setuserInput(data?.value || '')
+    setuserInput(data?.value)
   }, [data])
 
   useEffect(() => {
@@ -118,7 +118,7 @@ export const Write = ({
         ref={inputRef}
         onBlur={onBlur}
         onChange={e => setuserInput(e.target.value)}
-        value={userInput}
+        value={userInput || ''}
         isInvalid={isInvalid}
         w="full"
         maxW={maxW}

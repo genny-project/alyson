@@ -90,7 +90,7 @@ const Write = ({
 
   useEffect(() => {
     setuserInput(data?.value || '')
-  }, [data?.value])
+  }, [data])
 
   const handleChange = event => setuserInput(event.target.value)
 
