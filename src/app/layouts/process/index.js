@@ -2,7 +2,6 @@ import { Box, HStack, VStack } from '@chakra-ui/react'
 
 import Ask from 'app/ASKS/ask'
 import Lane from 'app/SBE/lane'
-import Search from 'app/SBE/search/Search'
 import getUserType from 'utils/helpers/get-user'
 import { selectCode } from 'redux/db/selectors'
 import { selectProcess } from 'redux/app/selectors'
@@ -30,7 +29,6 @@ const Process = ({ dashboard }) => {
                 />
               </Box>
             ))}
-          <Search process={processCodes[0]} sbeCode={JSON.stringify(processCodes)} />
         </HStack>
       )}
 
