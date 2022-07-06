@@ -1,5 +1,5 @@
 import { Text, Textarea } from '@chakra-ui/react'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import debounce from 'lodash.debounce'
@@ -7,7 +7,6 @@ import { getIsInvalid } from 'utils/functions'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
-import useStateMounted from 'utils/helpers/use-state-mounted'
 
 export const Read = ({ data, config = {} }) => {
   return <Textarea {...config}>{data?.value || config.defaultValue}</Textarea>
@@ -16,8 +15,8 @@ export const Read = ({ data, config = {} }) => {
 export const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMessage }) => {
   let regex
   const { dispatch } = useError()
-  const [errorStatus, setErrorStatus] = useStateMounted(false)
-  const [userInput, setuserInput] = useStateMounted(data?.value)
+  const [errorStatus, setErrorStatus] = useState(false)
+  const [userInput, setuserInput] = useState(data?.value)
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
 
   try {

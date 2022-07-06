@@ -9,7 +9,7 @@ import {
   Text as ChakraText,
   Button,
 } from '@chakra-ui/react'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import Duplicates from './Duplicates'
@@ -25,7 +25,6 @@ import { compose } from 'ramda'
 import { useSelector } from 'react-redux'
 import { selectFieldMessage } from 'redux/app/selectors'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
-import useStateMounted from 'utils/helpers/use-state-mounted'
 
 const Write = ({
   questionCode,
@@ -36,8 +35,8 @@ const Write = ({
   attributeCode,
   parentCode,
 }) => {
-  const [errorStatus, setErrorStatus] = useStateMounted(false)
-  const [userInput, setUserInput] = useStateMounted(data?.value)
+  const [errorStatus, setErrorStatus] = useState(false)
+  const [userInput, setUserInput] = useState(data?.value)
 
   const { dispatch } = useError()
   const { dispatchFieldMessage } = useIsFieldNotEmpty()

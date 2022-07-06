@@ -1,6 +1,6 @@
 import { Text as ChakraText, Input, Button, VStack } from '@chakra-ui/react'
 import { faCalendar, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import DetailViewTags from 'app/DTT/text/detailview_tags'
@@ -16,7 +16,6 @@ import { compose } from 'ramda'
 import { useSelector } from 'react-redux'
 import { selectFieldMessage } from 'redux/app/selectors'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
-import useStateMounted from 'utils/helpers/use-state-mounted'
 
 export const Write = ({
   questionCode,
@@ -30,8 +29,8 @@ export const Write = ({
   let regex
   const { dispatch } = useError()
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
-  const [errorStatus, setErrorStatus] = useStateMounted(false)
-  const [userInput, setuserInput] = useStateMounted(data?.value)
+  const [errorStatus, setErrorStatus] = useState(false)
+  const [userInput, setuserInput] = useState(data?.value)
 
   const fieldMessageObject = useSelector(selectFieldMessage)
   const fieldMessage = fieldMessageObject[`${parentCode}@${questionCode}`]
