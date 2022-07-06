@@ -142,7 +142,6 @@ const Write = ({
             <Button onClick={handleDispatchMessage}>{`Dispatch Message`}</Button>
           </VStack>
         )}
-        <Duplicates email={data?.value} sourceCode={data.baseEntityCode} />
       </>
     </Box>
   )
