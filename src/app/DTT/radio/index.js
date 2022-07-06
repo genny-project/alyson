@@ -12,11 +12,10 @@ const Write = ({ questionCode, data, onSendAnswer, groupCode, parentCode }) => {
   const radioData = useSelector(selectCode(`${parentCode}-${questionCode}-options`)) || []
   const options = compose(map(({ code, name }) => ({ label: name, value: code })))(radioData)
 
-  const getValue = data => (arrayValue.length ? arrayValue[0] : data?.value || null)
-
   // This checks if it is an Stringified Array
   const arrayValue = includes('[', data?.value || '') ? safelyParseJson(data?.value, []) : []
-  const [value, setValue] = useState(getValue(data))
+
+  const [value, setValue] = useState(arrayValue.length ? arrayValue[0] : data?.value || null)
 
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
 

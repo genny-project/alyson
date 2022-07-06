@@ -73,9 +73,16 @@ const AskGroup = ({ questionCode, level }) => {
   return (
     <div>
       <Text fontSize={fontSize}>{title}</Text>
-      {childAsks.map(code => (
-        <FormAsk key={`${questionCode}-${code}`} parentCode={questionCode} questionCode={code} />
-      ))}
+      {childAsks.map(
+        code =>
+          code === 'QUE_DESCRIPTION' && (
+            <FormAsk
+              key={`${questionCode}-${code}`}
+              parentCode={questionCode}
+              questionCode={code}
+            />
+          ),
+      )}
     </div>
   )
 }

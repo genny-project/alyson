@@ -9,7 +9,7 @@ import {
   Text as ChakraText,
   Button,
 } from '@chakra-ui/react'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import Duplicates from './Duplicates'
@@ -25,6 +25,7 @@ import { compose } from 'ramda'
 import { useSelector } from 'react-redux'
 import { selectFieldMessage } from 'redux/app/selectors'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
+import useStateMounted from 'utils/helpers/use-state-mounted'
 
 const Write = ({
   questionCode,
@@ -35,8 +36,9 @@ const Write = ({
   attributeCode,
   parentCode,
 }) => {
-  const [errorStatus, setErrorStatus] = useState(false)
-  const [userInput, setuserInput] = useState(data?.value)
+  const [errorStatus, setErrorStatus] = useStateMounted(false)
+  const [userInput, setUserInput] = useStateMounted(data?.value)
+
   const { dispatch } = useError()
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
   const isInvalid = getIsInvalid(userInput)(RegExp(regexPattern))
@@ -79,8 +81,12 @@ const Write = ({
   }
 
   useEffect(() => {
+    setUserInput(data?.value)
+  }, [data, setUserInput])
+
+  useEffect(() => {
     isInvalid ? setErrorStatus(true) : setErrorStatus(false)
-  }, [isInvalid])
+  }, [isInvalid, setErrorStatus])
 
   useEffect(() => {
     isInvalid
@@ -88,11 +94,7 @@ const Write = ({
       : dispatch({ type: ACTIONS.SET_TO_FALSE, payload: questionCode })
   }, [dispatch, isInvalid, questionCode])
 
-  useEffect(() => {
-    setuserInput(data?.value || '')
-  }, [data])
-
-  const handleChange = event => setuserInput(event.target.value)
+  const handleChange = event => setUserInput(event.target.value)
 
   return (
     <Box>
