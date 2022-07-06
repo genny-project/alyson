@@ -76,7 +76,7 @@ export const Write = ({
 
   useEffect(() => {
     setuserInput(data?.value)
-  }, [data])
+  }, [data, setuserInput])
 
   useEffect(() => {
     const listener = event => {
@@ -93,7 +93,7 @@ export const Write = ({
 
   useEffect(() => {
     isInvalid ? setErrorStatus(true) : setErrorStatus(false)
-  }, [isInvalid])
+  }, [isInvalid, setErrorStatus])
 
   useEffect(() => {
     isInvalid

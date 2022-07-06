@@ -31,11 +31,11 @@ export const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMes
 
   useEffect(() => {
     isInvalid ? setErrorStatus(true) : setErrorStatus(false)
-  }, [isInvalid])
+  }, [isInvalid, setErrorStatus])
 
   useEffect(() => {
     setuserInput(data?.value || '')
-  }, [data])
+  }, [data, setuserInput])
 
   useEffect(() => {
     isInvalid

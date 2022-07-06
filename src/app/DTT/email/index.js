@@ -35,7 +35,8 @@ const Write = ({
   parentCode,
 }) => {
   const [errorStatus, setErrorStatus] = useState(false)
-  const [userInput, setuserInput] = useState(data?.value)
+  const [userInput, setUserInput] = useState(data?.value)
+
   const { dispatch } = useError()
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
   const isInvalid = getIsInvalid(userInput)(RegExp(regexPattern))
@@ -78,8 +79,12 @@ const Write = ({
   }
 
   useEffect(() => {
+    setUserInput(data?.value)
+  }, [data, setUserInput])
+
+  useEffect(() => {
     isInvalid ? setErrorStatus(true) : setErrorStatus(false)
-  }, [isInvalid])
+  }, [isInvalid, setErrorStatus])
 
   useEffect(() => {
     isInvalid
@@ -87,11 +92,7 @@ const Write = ({
       : dispatch({ type: ACTIONS.SET_TO_FALSE, payload: questionCode })
   }, [dispatch, isInvalid, questionCode])
 
-  useEffect(() => {
-    setuserInput(data?.value || '')
-  }, [data])
-
-  const handleChange = event => setuserInput(event.target.value)
+  const handleChange = event => setUserInput(event.target.value)
 
   return (
     <Box>
