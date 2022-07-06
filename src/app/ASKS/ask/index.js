@@ -78,7 +78,7 @@ const Ask = ({
     processId,
   } = askData || {}
 
-  const data = useSelector(selectCode(targetCode, attributeCode)) || {}
+  const data = useSelector(selectCode(passedTargetCode || targetCode, attributeCode)) || {}
 
   const highlightedQuestion = useSelector(selectHighlightedQuestion)
   const labelWidth = useMobileValue(['full', '25vw'])

@@ -6,18 +6,22 @@ import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { selectCode } from 'redux/db/selectors'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useSelector } from 'react-redux'
+import { useState } from 'react'
 
 const Write = ({ questionCode, data, onSendAnswer, groupCode, parentCode }) => {
   const radioData = useSelector(selectCode(`${parentCode}-${questionCode}-options`)) || []
   const options = compose(map(({ code, name }) => ({ label: name, value: code })))(radioData)
 
+  const getValue = data => (arrayValue.length ? arrayValue[0] : data?.value || null)
+
   // This checks if it is an Stringified Array
   const arrayValue = includes('[', data?.value || '') ? safelyParseJson(data?.value, []) : []
-  const value = arrayValue.length ? arrayValue[0] : data?.value || null
+  const [value, setValue] = useState(getValue(data))
 
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
 
   const onChange = value => {
+    setValue(value)
     onSendAnswer([value])
     dispatchFieldMessage({ payload: questionCode })
   }

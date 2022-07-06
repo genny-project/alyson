@@ -55,8 +55,23 @@ const TemplateRoot = ({ mappedPcm }) => {
         pb={1}
         overflow="scroll"
       >
-        {/* Header */}
-        <PcmField code={PRI_LOC1} mappedPcm={mappedPcm} properties={{ bg: bg, color: color }} />
+        <header
+          style={{
+            color,
+            position: 'fixed',
+            top: 0,
+            zIndex: 9999,
+            maxWidth: '100vw',
+            left: 0,
+            right: 0,
+            backgroundColor: bg,
+            h: 25,
+            boxShadow: 'rgb(0 0 0 / 10%) 0px 2px 0px 0px',
+          }}
+        >
+          {/* Header */}
+          <PcmField code={PRI_LOC1} mappedPcm={mappedPcm} properties={{ bg: bg, color: color }} />
+        </header>
         <Box paddingTop="2.25rem">
           {/* Main Page Content */}
           <PcmField code={PRI_LOC3} mappedPcm={mappedPcm} />

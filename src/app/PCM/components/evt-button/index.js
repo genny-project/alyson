@@ -14,14 +14,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import icons from 'utils/icons'
 import { selectCode } from 'redux/db/selectors'
-import sendAskClick from 'app/ASKS/utils/send-ask-click'
 import useApi from 'api'
 import { useSelector } from 'react-redux'
 import { startsWith } from 'ramda'
 import debugOut from 'utils/debug-out'
+import sendEvtClick from 'app/ASKS/utils/send-evt-click'
 
 const EvtButton = ({ questionCode, childCode, iconId }) => {
   const data = useSelector(selectCode(questionCode, childCode))
+
+  const targetCode = useSelector(selectCode(questionCode, 'targetCode'))
+  const sourceCode = useSelector(selectCode(questionCode, 'sourceCode'))
+  const processId = useSelector(selectCode(questionCode, 'processId'))
+  const attrCode = useSelector(selectCode(questionCode, 'attributeCode'))
 
   const { getImageSrc } = useApi()
   let src = iconId
@@ -40,7 +45,14 @@ const EvtButton = ({ questionCode, childCode, iconId }) => {
 
   const handleClick = () => {
     debugOut.log(data)
-    sendAskClick(childCode, childCode)
+    sendEvtClick({
+      targetCode: targetCode,
+      sourceCode: sourceCode,
+      parentCode: questionCode,
+      code: childCode,
+      attributeCode: attrCode,
+      processId: processId,
+    })
   }
 
   if (!childAsks)
@@ -97,7 +109,14 @@ const EvtButton = ({ questionCode, childCode, iconId }) => {
         {childAsks.map(childAsk => (
           <MenuItem
             onClick={() => {
-              sendAskClick(childAsk.questionCode, childAsk.questionCode)
+              sendEvtClick({
+                code: childAsk.questionCode,
+                parentCode: childAsk.questionCode,
+                attributeCode: childAsk.attributeCode,
+                sourceCode: sourceCode,
+                targetCode: targetCode,
+                processId: processId,
+              })
             }}
             test-id={childAsk.questionCode}
             key={childAsk.questionCode}

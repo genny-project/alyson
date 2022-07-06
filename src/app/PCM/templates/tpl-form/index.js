@@ -6,15 +6,15 @@ import { equals, isEmpty } from 'ramda'
 import debugOut from 'utils/debug-out'
 
 const TemplateForm = ({ mappedPcm }) => {
-  const { PRI_QUESTION_CODE } = mappedPcm
+  const questionCode = mappedPcm?.PRI_QUESTION_CODE || ''
 
-  if (PRI_QUESTION_CODE) {
+  if (questionCode) {
     return (
       <Center>
         {/* This width is arbitrary and should probably be controlled by an attribute */}
         <div style={{ width: '80%' }}>
           {/* By using a form ask here, it means the form will work even if the question code passed is not a question group */}
-          <FormAsk questionCode={PRI_QUESTION_CODE} parentCode={PRI_QUESTION_CODE} level={0} />
+          <FormAsk questionCode={questionCode} parentCode={questionCode} level={0} />
         </div>
       </Center>
     )
@@ -31,12 +31,14 @@ const TemplateForm = ({ mappedPcm }) => {
 // Handles switching between individual asks and question groups
 const FormAsk = ({ parentCode, questionCode, level }) => {
   const attributeCode = useSelector(selectCode(questionCode, 'attributeCode'))
+  const targetCode = useSelector(selectCode(questionCode, 'targetCode'))
   if (equals(attributeCode)('QQQ_QUESTION_GROUP')) {
     return (
       <AskGroup
         key={`${parentCode}-${questionCode}`}
         questionCode={questionCode}
         level={level + 1}
+        targetCode={targetCode}
       />
     )
   } else {
@@ -45,6 +47,7 @@ const FormAsk = ({ parentCode, questionCode, level }) => {
         questionCode={questionCode}
         parentCode={parentCode}
         key={`${parentCode}-${questionCode}`}
+        passedTargetCode={targetCode}
       />
     )
   }

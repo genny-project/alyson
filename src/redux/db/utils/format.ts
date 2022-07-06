@@ -84,21 +84,45 @@ export const formatBaseEntity = (
 }
 
 export const formatAsk = (state: DBState, replace: Boolean) => (item: Item) => {
-  const { questionCode, childAsks = [], name, question, targetCode, attributeCode } = item
+  const {
+    questionCode,
+    childAsks = [],
+    name,
+    question,
+    targetCode,
+    attributeCode,
+    sourceCode,
+    processId,
+  } = item
 
   const { html } = question
 
   const wholeDataKey = `${questionCode}@wholeData`
   const rawKey = `${questionCode}@raw`
   const attributeCodekey = `${questionCode}@attributeCode`
+  const nameKey = `${questionCode}@title`
+  const targetCodeKey = `${questionCode}@targetCode`
+  const sourceCodeKey = `${questionCode}@sourceCode`
+  const processIdKey = `${questionCode}@processId`
+  const configKey = `${questionCode}@config`
 
   initialiseKey(state, questionCode, [])
-  initialiseKey(state, `${questionCode}@title`, name)
+  initialiseKey(state, nameKey, name)
   initialiseKey(state, attributeCodekey, attributeCode)
-  initialiseKey(state, `${questionCode}@targetCode`, targetCode)
-  initialiseKey(state, `${questionCode}@config`, safelyParseJson(html, {}))
+  initialiseKey(state, targetCodeKey, targetCode)
+  initialiseKey(state, configKey, safelyParseJson(html, {}))
+  initialiseKey(state, sourceCodeKey, sourceCode)
+  initialiseKey(state, processIdKey, processId)
 
-  if (replace) state[questionCode] = []
+  if (replace) {
+    state[questionCode] = []
+    state[nameKey] = name
+    state[attributeCodekey] = attributeCode
+    state[targetCodeKey] = targetCode
+    state[configKey] = safelyParseJson(html, {})
+    state[sourceCodeKey] = sourceCode
+    state[processIdKey] = processId
+  }
 
   if (!childAsks.length) {
     initialiseKey(state, rawKey, item)
