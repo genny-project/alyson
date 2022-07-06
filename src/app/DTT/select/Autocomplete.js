@@ -15,6 +15,7 @@ import { selectCode } from 'redux/db/selectors'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
 import { getUniqueValuesFromTwoArrays } from 'utils/functionals'
+import debugOut from 'utils/debug-out'
 
 const Autocomplete = ({
   multiple,
@@ -26,7 +27,7 @@ const Autocomplete = ({
   ddEvent,
   groupCode,
 }) => {
-  const selected = defaultValue
+  const [selected, setSelected] = useState(defaultValue)
   const [input, setInput] = useState('')
   const [open, setOpen] = useState(false)
   const [searching, setSearching] = useState(false)
@@ -60,11 +61,14 @@ const Autocomplete = ({
   }
 
   const onSelectChange = option => {
+    debugOut.log(`Item is ${option}`)
+
     const newSelected = includes(option, selected)
       ? filter(item => item !== option, selected)
       : append(option, selected)
 
     onChange(newSelected)
+    setSelected(newSelected)
 
     if (!multiple) setOpen(false)
     var i = renderLabel(option)
@@ -76,6 +80,8 @@ const Autocomplete = ({
         setItems([i])
       }
     }
+
+    debugOut.log(newSelected)
 
     dispatchFieldMessage({ payload: questionCode })
   }
@@ -117,10 +123,10 @@ const Autocomplete = ({
     }
   }, [])
 
-  var renderOptions = items.map(item => (
+  var renderOptions = selected.map(item => (
     <WrapItem key={item}>
       <Chip id={questionCode} test-id={item} onClick={() => onSelectChange(item)} p="2">
-        <Text>{item}</Text>
+        <Text>{renderLabel(item)}</Text>
       </Chip>
     </WrapItem>
   ))
