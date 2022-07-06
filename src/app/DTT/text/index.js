@@ -75,7 +75,7 @@ export const Write = ({
   }
 
   useEffect(() => {
-    setuserInput(data?.value)
+    setuserInput(data?.value || '')
   }, [data])
 
   useEffect(() => {

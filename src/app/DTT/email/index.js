@@ -89,7 +89,7 @@ const Write = ({
   }, [dispatch, isInvalid, questionCode])
 
   useEffect(() => {
-    setuserInput(data?.value)
+    setuserInput(data?.value || '')
   }, [data?.value])
 
   const handleChange = event => setuserInput(event.target.value)

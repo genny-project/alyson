@@ -34,7 +34,7 @@ export const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMes
   }, [isInvalid])
 
   useEffect(() => {
-    setuserInput(data?.value)
+    setuserInput(data?.value || '')
   }, [data])
 
   useEffect(() => {
