@@ -12,7 +12,6 @@ import {
 import { useEffect, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
-import Duplicates from './Duplicates'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { getIsInvalid } from 'utils/functions'
@@ -136,7 +135,6 @@ const Write = ({
             <Button onClick={handleDispatchMessage}>{`Dispatch Message`}</Button>
           </VStack>
         )}
-        <Duplicates email={data?.value} sourceCode={data.baseEntityCode} />
       </>
     </Box>
   )
