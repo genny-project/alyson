@@ -12,7 +12,6 @@ import { selectCode } from 'redux/db/selectors'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { head } from 'ramda'
 import Attribute from 'app/BE/attribute'
-import Search from 'app/layouts/dashboard/search'
 import Button from 'app/layouts/components/button'
 import getFilteredDashboardSbes from 'app/layouts/dashboard/helpers/get-filtered-sbes.ts'
 
@@ -47,7 +46,6 @@ const Agent = () => {
           {filteredDashboardSbes.slice(1, Infinity).map(sbeCode => (
             <DisplaySbe key={sbeCode} sbeCode={sbeCode} />
           ))}
-          <Search sbeCode={dashboardSbes} />
         </VStack>
       </Card>
       <AgentDashboardSummary />
