@@ -35,7 +35,6 @@ const Process = ({ dashboard }) => {
                 />
               </Box>
             ))}
-          {}
           {roles.includes('test') && (
             <Search process={processCodes[0]} sbeCode={JSON.stringify(processCodes)} />
           )}
