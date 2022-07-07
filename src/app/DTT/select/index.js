@@ -8,6 +8,7 @@ import { getValue } from './get-value'
 import { onSendMessage } from 'vertx'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { useSelector } from 'react-redux'
+import { selectBufferDropdownOptions } from 'redux/app/selectors'
 
 const Write = ({
   questionCode,
@@ -23,7 +24,6 @@ const Write = ({
   const dropdownData = useSelector(selectCode(`${parentCode}-${questionCode}-options`)) || []
   const options = compose(map(({ code, name }) => ({ label: name, value: code })))(dropdownData)
   const isMulti = includes('multiple', dataType.typeName || '') || component === 'tag'
-  const defaultValue = safelyParseJson(data?.value, [])
 
   const sourceCode = useSelector(selectCode('USER'))
 
@@ -42,6 +42,14 @@ const Write = ({
       ),
     500,
   )
+
+  const getBufferedDropdownOptions = useSelector(selectBufferDropdownOptions)
+  const optionsIncludingBufferedOptions = [...getBufferedDropdownOptions, ...options]
+  let defaultValue = safelyParseJson(data?.value, [])
+  defaultValue =
+    defaultValue &&
+    Array.isArray(defaultValue) &&
+    optionsIncludingBufferedOptions.filter(i => defaultValue.includes(i.value))
 
   // the backend accepts array only when sending dropdown values regardless of multi or single select
   const prepareValueForSendingAnswer = (value, isMulti) =>
