@@ -8,23 +8,17 @@ import { getValue } from './get-value'
 import { onSendMessage } from 'vertx'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { useSelector } from 'react-redux'
-import { getIsInvalid } from 'utils/functions'
-import { ACTIONS } from 'utils/contexts/ErrorReducer'
-import { useError } from 'utils/contexts/ErrorContext'
 
 const Write = ({
   questionCode,
   placeholder,
   onSendAnswer,
-  groupCode,
   component,
   dataType,
   data,
   targetCode,
-  config,
   parentCode,
   attributeCode,
-  regexPattern = '.*',
 }) => {
   const dropdownData = useSelector(selectCode(`${parentCode}-${questionCode}-options`)) || []
   const options = compose(map(({ code, name }) => ({ label: name, value: code })))(dropdownData)
@@ -49,21 +43,22 @@ const Write = ({
     500,
   )
 
+  // the backend accepts array only when sending dropdown values regardless of multi or single select
+  const prepareValueForSendingAnswer = (value, isMulti) =>
+    isMulti ? value && Array.isArray(value) && value.map(i => i.value) : [value.value]
+
   return (
     <CSelect
       isMulti={isMulti}
       options={options}
-      onChange={value => {
-        onSendAnswer(value)
-      }}
-      onInputChange={value => {
-        ddEvent(value)
-      }}
+      onChange={value => onSendAnswer(prepareValueForSendingAnswer(value, isMulti))}
+      onInputChange={value => ddEvent(value)}
       onFocus={() => ddEvent('')}
       placeholder={!options.length ? 'Start typing to search' : placeholder || 'Select'}
       test-id={questionCode}
       id={questionCode}
       defaultValue={defaultValue}
+      maxW="25vw"
     />
   )
 }
