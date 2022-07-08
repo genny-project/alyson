@@ -35,6 +35,9 @@ import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { stateToHTML } from 'draft-js-export-html'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
+import { useSelector } from 'react-redux'
+import { selectFieldMessage } from 'redux/app/selectors'
+import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
 
 const Write = ({
   questionCode,
@@ -44,6 +47,7 @@ const Write = ({
   regexPattern,
   errorMessage,
   placeholder,
+  parentCode,
 }) => {
   const { minCharacterCount = 0, maxCharacterCount } = safelyParseJson(html, {})
   const blocksFromHTML = convertFromHTML(data?.value || '')
@@ -61,6 +65,11 @@ const Write = ({
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
 
   const userInputWithoutHtmlTags = removeHtmlTags(userInput)
+
+  const fieldMessageObject = useSelector(selectFieldMessage)
+  const fieldMessage = fieldMessageObject[`${parentCode}@${questionCode}`]
+  let hasFieldMessage = isNotNullOrUndefinedOrEmpty(fieldMessage)
+  let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMessage)
 
   const userInputWithoutLineBreaks = userInputWithoutHtmlTags
     ?.replace(/(\r\n|\n|\r|-|\xA0)/gi, '')
@@ -167,9 +176,13 @@ const Write = ({
         />
       </Box>
       {errorStatus && (
-        <Text textStyle="tail.error" mt={2}>
-          {errorMessage}
-        </Text>
+        <VStack alignItems="start">
+          {(hasFieldMessage || hasErrorMessage) && (
+            <Text textStyle="tail.error" mt={2}>
+              {hasFieldMessage ? fieldMessage : errorMessage}
+            </Text>
+          )}
+        </VStack>
       )}
     </>
   )

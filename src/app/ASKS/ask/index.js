@@ -264,6 +264,7 @@ const Ask = ({
           onSendAnswer={onSendAnswer}
           regexPattern={regexPattern}
           errorMessage={errorMessage}
+          parentCode={parentCode}
         />
       )}
       {component === 'social' && (
@@ -308,6 +309,7 @@ const Ask = ({
           regexPattern={regexPattern}
           errorMessage={errorMessage}
           placeholder={placeholder}
+          parentCode={parentCode}
         />
       )}
       {component === 'date_range' && (
