@@ -1,4 +1,4 @@
-import { Text, Textarea } from '@chakra-ui/react'
+import { Text, Textarea, VStack } from '@chakra-ui/react'
 import { useEffect, useRef, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
@@ -7,12 +7,22 @@ import { getIsInvalid } from 'utils/functions'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
+import { useSelector } from 'react-redux'
+import { selectFieldMessage } from 'redux/app/selectors'
+import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
 
 export const Read = ({ data, config = {} }) => {
   return <Textarea {...config}>{data?.value || config.defaultValue}</Textarea>
 }
 
-export const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMessage }) => {
+export const Write = ({
+  questionCode,
+  data,
+  onSendAnswer,
+  regexPattern,
+  errorMessage,
+  parentCode,
+}) => {
   let regex
   const { dispatch } = useError()
   const [errorStatus, setErrorStatus] = useState(false)
@@ -28,6 +38,10 @@ export const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMes
 
   const inputRef = useRef()
   const isInvalid = getIsInvalid(userInput)(regex)
+  const fieldMessageObject = useSelector(selectFieldMessage)
+  const fieldMessage = fieldMessageObject[`${parentCode}@${questionCode}`]
+  let hasFieldMessage = isNotNullOrUndefinedOrEmpty(fieldMessage)
+  let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMessage)
 
   useEffect(() => {
     isInvalid ? setErrorStatus(true) : setErrorStatus(false)
@@ -65,9 +79,13 @@ export const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMes
         isInvalid={isInvalid}
       />
       {errorStatus && (
-        <Text textStyle="tail.error" mt={2}>
-          {errorMessage}
-        </Text>
+        <VStack alignItems="start">
+          {(hasFieldMessage || hasErrorMessage) && (
+            <Text textStyle="tail.error" mt={2}>
+              {hasFieldMessage ? fieldMessage : errorMessage}
+            </Text>
+          )}
+        </VStack>
       )}
     </>
   )

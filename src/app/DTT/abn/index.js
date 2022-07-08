@@ -1,4 +1,4 @@
-import { Button, Input, InputGroup, InputLeftElement, Text } from '@chakra-ui/react'
+import { Button, Input, InputGroup, InputLeftElement, Text, VStack } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 
 import ABNLookup from './abn_lookup'
@@ -7,13 +7,29 @@ import { Read } from '../text'
 import { getIsInvalid } from 'utils/functions'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useMobileValue } from 'utils/hooks'
+import { useSelector } from 'react-redux'
+import { selectFieldMessage } from 'redux/app/selectors'
+import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
 
-const Write = ({ questionCode, data, onSendAnswer, disabled, regexPattern, errorMessage }) => {
+const Write = ({
+  questionCode,
+  data,
+  onSendAnswer,
+  disabled,
+  regexPattern,
+  errorMessage,
+  parentCode,
+}) => {
   let regex
   const { dispatch } = useError()
   const [errorStatus, setErrorStatus] = useState(false)
   const [value, setValue] = useState(data?.value)
   const [isOpen, setIsOpen] = useState(false)
+
+  const fieldMessageObject = useSelector(selectFieldMessage)
+  const fieldMessage = fieldMessageObject[`${parentCode}@${questionCode}`]
+  let hasFieldMessage = isNotNullOrUndefinedOrEmpty(fieldMessage)
+  let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMessage)
 
   useEffect(() => {
     setValue(data?.value)
@@ -96,9 +112,13 @@ const Write = ({ questionCode, data, onSendAnswer, disabled, regexPattern, error
         />
       </InputGroup>
       {errorStatus && (
-        <Text textStyle="tail.error" mt={2}>
-          {errorMessage}
-        </Text>
+        <VStack alignItems="start">
+          {(hasFieldMessage || hasErrorMessage) && (
+            <Text textStyle="tail.error" mt={2}>
+              {hasFieldMessage ? fieldMessage : errorMessage}
+            </Text>
+          )}
+        </VStack>
       )}
     </>
   )
