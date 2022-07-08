@@ -63,9 +63,7 @@ const Write = ({
   const [errorStatus, setErrorStatus] = useState(false)
   const { dispatch } = useError()
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
-
   const userInputWithoutHtmlTags = removeHtmlTags(userInput)
-
   const fieldMessageObject = useSelector(selectFieldMessage)
   const fieldMessage = fieldMessageObject[`${parentCode}@${questionCode}`]
   let hasFieldMessage = isNotNullOrUndefinedOrEmpty(fieldMessage)

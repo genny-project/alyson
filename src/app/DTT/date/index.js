@@ -1,7 +1,7 @@
 import 'react-datepicker/dist/react-datepicker.css'
 import './datePickerStyles.css'
 
-import { Input, Text } from '@chakra-ui/react'
+import { Input, Text, VStack } from '@chakra-ui/react'
 import { dateOfBirthQuestionCode, eligibleAge } from 'utils/constants'
 import { differenceInYears, format, isBefore, parseISO, startOfTomorrow } from 'date-fns'
 import { forwardRef, useEffect, useState } from 'react'
@@ -17,6 +17,9 @@ import timeBasedOnTimeZone from 'utils/helpers/timezone_magic/time-based-on-time
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
+import { useSelector } from 'react-redux'
+import { selectFieldMessage } from 'redux/app/selectors'
+import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
 
 const Read = ({ data, typeName, config }) => {
   const includeTime = includes('LocalDateTime', typeName)
@@ -37,7 +40,7 @@ const Read = ({ data, typeName, config }) => {
   )
 }
 
-const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, question }) => {
+const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, parentCode }) => {
   let initialErrorMsg = 'You can only valid date.'
 
   const includeTime = includes('LocalDateTime', typeName)
@@ -57,6 +60,10 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
   const onlyYear = typeName === 'year'
 
   const availabilityQuestions = includes('_AVAILABILITY')(questionCode)
+  const fieldMessageObject = useSelector(selectFieldMessage)
+  const fieldMessage = fieldMessageObject[`${parentCode}@${questionCode}`]
+  let hasFieldMessage = isNotNullOrUndefinedOrEmpty(fieldMessage)
+  let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMsg)
 
   const handleOnBlur = () => {
     const offsetDate = new Date(dateValue?.getTime() - dateValue?.getTimezoneOffset() * 60000)
@@ -176,9 +183,13 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
       />
 
       {errorStatus && (
-        <Text textStyle="tail.error" mt={2}>
-          {errorMsg}
-        </Text>
+        <VStack alignItems="start">
+          {(hasFieldMessage || hasErrorMessage) && (
+            <Text textStyle="tail.error" mt={2}>
+              {hasFieldMessage ? fieldMessage : errorMsg}
+            </Text>
+          )}
+        </VStack>
       )}
     </>
   )
