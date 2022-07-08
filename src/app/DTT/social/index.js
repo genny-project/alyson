@@ -1,4 +1,11 @@
-import { Text as ChakraText, IconButton, Input, InputGroup, InputLeftAddon } from '@chakra-ui/react'
+import {
+  Text as ChakraText,
+  IconButton,
+  Input,
+  InputGroup,
+  InputLeftAddon,
+  VStack,
+} from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
@@ -9,6 +16,9 @@ import { includes } from 'ramda'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
+import { useSelector } from 'react-redux'
+import { selectFieldMessage } from 'redux/app/selectors'
+import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
 
 const Read = ({ data, config = {} }) => {
   const attributeName = data?.attributeName
@@ -41,7 +51,7 @@ const Read = ({ data, config = {} }) => {
   )
 }
 
-const Write = ({ questionCode, onSendAnswer, data, regexPattern, errorMessage }) => {
+const Write = ({ questionCode, onSendAnswer, data, regexPattern, errorMessage, parentCode }) => {
   const { dispatch } = useError()
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value)
@@ -50,6 +60,10 @@ const Write = ({ questionCode, onSendAnswer, data, regexPattern, errorMessage })
   const maxW = useMobileValue(['', '25vw'])
 
   const isInvalid = getIsInvalid(userInput)(RegExp(regexPattern))
+  const fieldMessageObject = useSelector(selectFieldMessage)
+  const fieldMessage = fieldMessageObject[`${parentCode}@${questionCode}`]
+  let hasFieldMessage = isNotNullOrUndefinedOrEmpty(fieldMessage)
+  let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMessage)
 
   const onBlur = e => {
     !errorStatus && onSendAnswer(e.target.value)
@@ -102,9 +116,13 @@ const Write = ({ questionCode, onSendAnswer, data, regexPattern, errorMessage })
         />
       </InputGroup>
       {errorStatus && (
-        <ChakraText textStyle="tail.error" mt={2}>
-          {errorMessage}
-        </ChakraText>
+        <VStack alignItems="start">
+          {(hasFieldMessage || hasErrorMessage) && (
+            <ChakraText textStyle="tail.error" mt={2}>
+              {hasFieldMessage ? fieldMessage : errorMessage}
+            </ChakraText>
+          )}
+        </VStack>
       )}
     </>
   )
