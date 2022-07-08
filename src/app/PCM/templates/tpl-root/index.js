@@ -1,4 +1,15 @@
-import { Box, useColorModeValue, Center, useTheme } from '@chakra-ui/react'
+import {
+  Box,
+  useColorModeValue,
+  Center,
+  useTheme,
+  Drawer,
+  useDisclosure,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  Button,
+} from '@chakra-ui/react'
 import DeveloperConsole, { isDev } from 'utils/developer'
 import Dialog from 'app/layouts/display/dialog'
 import DisplayDrawer from 'app/layouts/display/drawer'
@@ -24,9 +35,11 @@ import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
  */
 const TemplateRoot = ({ mappedPcm }) => {
   const theme = useTheme()
-  const { PRI_LOC1, PRI_LOC2, PRI_LOC3 } = mappedPcm
+  const { PRI_LOC1, PRI_LOC2, PRI_LOC3, PRI_LOC6 } = mappedPcm
   const backgroundColor = useColorModeValue('gray.50', '')
   const color = useColorModeValue(theme.colors.text.light, theme.colors.text.dark)
+
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   const bg = useColorModeValue('#F6F6F6', theme.colors.primary[900])
 
@@ -34,6 +47,14 @@ const TemplateRoot = ({ mappedPcm }) => {
 
   return (
     <Box position={'relative'} h={'100%'}>
+      <Drawer isOpen={isOpen} placement="right" onClose={onClose} size="xl">
+        <DrawerOverlay />
+
+        <DrawerContent>
+          <DrawerCloseButton />
+          <PcmField code={PRI_LOC6 || ''} mappedPcm={mappedPcm} />
+        </DrawerContent>
+      </Drawer>
       <Center
         w={SIDEBAR_WIDTH}
         bg={primaryColour}
@@ -43,6 +64,7 @@ const TemplateRoot = ({ mappedPcm }) => {
       >
         {/* Sidebar */}
         <PcmField code={PRI_LOC2} mappedPcm={mappedPcm} />
+        <Button onClick={onOpen}>Open</Button>
       </Center>
       <Box
         backgroundColor={backgroundColor}
