@@ -17,6 +17,7 @@ import TemplateTable from './tpl-table'
 import TemplateContent from './tpl-content'
 import TemplateText from './text-templates'
 import TemplateCard from './tpl-card'
+import TemplateDetailView from './tpl-detail-view'
 
 /**
  * Takes in a mappedPcm, a templateCode and some misc properties and returns a template component.
@@ -50,6 +51,7 @@ const templateHandlerMachine = mappedPcm => templateCode => properties => {
     TPL_TEXT_HEADER_5: <TemplateText mappedPcm={mappedPcm} {...properties} />,
     TPL_TEXT_HEADER_6: <TemplateText mappedPcm={mappedPcm} {...properties} />,
     TPL_CARD: <TemplateCard mappedPcm={mappedPcm} {...properties} />,
+    TPL_DETAIL_VIEW: <TemplateDetailView mappedPcm={mappedPcm} {...properties} />,
   }
 
   if (hasNot(templateCode)(listOfTemplates)) {
