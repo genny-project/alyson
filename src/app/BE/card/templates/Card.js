@@ -35,6 +35,9 @@ const DefaultCard = ({ parentCode, actions = [], code, columns }) => {
   const userCode = useSelector(selectCode('USER'), equals)
   const userType = getUserType(useSelector(selectCode(userCode), sameLength))
 
+  const videoEntity = useSelector(selectCode(code, 'PRI_VIDEO_URL'), sameValue)
+  const hasVideo = videoEntity?.value
+
   return (
     <MotionBox w="full" whileHover={{ scale: 1.02 }} transition={{ duration: 0.1 }}>
       <Card
@@ -89,7 +92,7 @@ const DefaultCard = ({ parentCode, actions = [], code, columns }) => {
           />
         </Flex>
         {(userType === 'AGENT' || userType === 'ADMIN') && (
-          <AgentDetail code={code} parentCode={parentCode} />
+          <AgentDetail code={code} parentCode={parentCode} hasVideo={hasVideo} />
         )}
         {userType === 'HOST_CPY_REP' && <HCRDetail code={code} parentCode={parentCode} />}
       </Card>
