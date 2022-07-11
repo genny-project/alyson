@@ -57,6 +57,7 @@ const Write = ({
 
   return (
     <CSelect
+      useBasicStyles
       isMulti={isMulti}
       options={options}
       onChange={value => onSendAnswer(prepareValueForSendingAnswer(value, isMulti))}
@@ -66,7 +67,6 @@ const Write = ({
       test-id={questionCode}
       id={questionCode}
       defaultValue={defaultValue}
-      maxW="25vw"
     />
   )
 }
