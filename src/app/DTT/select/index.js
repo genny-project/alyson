@@ -1,73 +1,31 @@
-import { Select as CSelect, Text } from '@chakra-ui/react'
-import { compose, includes, isEmpty, map, pathOr } from 'ramda'
+import { Text } from '@chakra-ui/react'
+import { compose, includes, map, pathOr } from 'ramda'
 import { selectCode, selectRows } from 'redux/db/selectors'
-import { useEffect, useRef, useState } from 'react'
-
-import { ACTIONS } from 'utils/contexts/ErrorReducer'
-import Autocomplete from './Autocomplete'
+import { Select as CSelect } from 'chakra-react-select'
 import debounce from 'lodash.debounce'
-import { getIsInvalid } from 'utils/functions'
+
 import { getValue } from './get-value'
 import { onSendMessage } from 'vertx'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
-import { useError } from 'utils/contexts/ErrorContext'
-import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
+import { selectBufferDropdownOptions } from 'redux/app/selectors'
 
 const Write = ({
   questionCode,
   placeholder,
   onSendAnswer,
-  groupCode,
   component,
   dataType,
   data,
   targetCode,
-  config,
   parentCode,
   attributeCode,
-  regexPattern = '.*',
-  processId,
 }) => {
-  let regex
-  // eslint-disable-next-line no-unused-vars
-  const [errorStatus, setErrorStatus] = useState(false)
-  const { dispatch } = useError()
-
-  const previousDropDownRef = useRef([])
+  const dropdownData = useSelector(selectCode(`${parentCode}-${questionCode}-options`)) || []
+  const options = compose(map(({ code, name }) => ({ label: name, value: code })))(dropdownData)
+  const isMulti = includes('multiple', dataType.typeName || '') || component === 'tag'
 
   const sourceCode = useSelector(selectCode('USER'))
-  const { typeName } = dataType
-  const multiple = includes('multiple', typeName || '') || component === 'tag'
-  const dropdownData = useSelector(selectCode(`${parentCode}-${questionCode}-options`)) || []
-
-  const options = compose(map(({ code, name }) => ({ label: name, value: code })))(dropdownData)
-
-  // const { attributeCode } = data || {}
-
-  useEffect(() => {
-    previousDropDownRef.current = !isEmpty(dropdownData)
-      ? dropdownData
-      : previousDropDownRef.current
-  })
-  try {
-    regex = RegExp(regexPattern)
-  } catch (err) {
-    console.error('There is an error with the regex', questionCode, err)
-    regex = undefined
-  }
-
-  const isInvalid = getIsInvalid(data?.value)(regex)
-
-  useEffect(() => {
-    isInvalid ? setErrorStatus(true) : setErrorStatus(false)
-  }, [isInvalid])
-
-  useEffect(() => {
-    isInvalid
-      ? dispatch({ type: ACTIONS.SET_TO_TRUE, payload: questionCode })
-      : dispatch({ type: ACTIONS.SET_TO_FALSE, payload: questionCode })
-  }, [dispatch, isInvalid, questionCode])
 
   const ddEvent = debounce(
     value =>
@@ -79,47 +37,36 @@ const Write = ({
           parentCode,
           questionCode,
           code: questionCode,
-          processId,
         },
         { event_type: 'DD', redirect: false, attributeCode, questionCode, code: questionCode },
       ),
     500,
   )
 
-  const defaultValue = safelyParseJson(data?.value, [])
+  const getBufferedDropdownOptions = useSelector(selectBufferDropdownOptions)
+  const optionsIncludingBufferedOptions = [...getBufferedDropdownOptions, ...options]
+  let defaultValue = safelyParseJson(data?.value, [])
+  defaultValue =
+    defaultValue &&
+    Array.isArray(defaultValue) &&
+    optionsIncludingBufferedOptions.filter(i => defaultValue.includes(i.value))
 
-  const { simpleSelect } = config || {}
-  const maxW = useMobileValue(['', '25vw'])
-
-  if (simpleSelect)
-    return (
-      <CSelect
-        onChange={e => {
-          onSendAnswer(e.target.value)
-        }}
-        placeholder={placeholder || 'Select'}
-        test-id={`simpleSelect-${questionCode}`}
-        id={questionCode}
-        maxW={maxW}
-      >
-        {options.map(({ value, label }) => (
-          <option test-id={value} value={value} key={value}>
-            {label}
-          </option>
-        ))}
-      </CSelect>
-    )
+  // the backend accepts array only when sending dropdown values regardless of multi or single select
+  const prepareValueForSendingAnswer = (value, isMulti) =>
+    isMulti ? value && Array.isArray(value) && value.map(i => i.value) : [value.value]
 
   return (
-    <Autocomplete
-      placeholder={!options.length ? 'Start typing to search' : placeholder || 'Select'}
+    <CSelect
+      useBasicStyles
+      isMulti={isMulti}
       options={options}
-      onChange={onSendAnswer}
+      onChange={value => onSendAnswer(prepareValueForSendingAnswer(value, isMulti))}
+      onInputChange={value => ddEvent(value)}
+      onFocus={() => ddEvent('')}
+      placeholder={!options.length ? 'Start typing to search' : placeholder || 'Select'}
+      test-id={questionCode}
+      id={questionCode}
       defaultValue={defaultValue}
-      multiple={multiple}
-      ddEvent={ddEvent}
-      questionCode={questionCode}
-      groupCode={groupCode}
     />
   )
 }
