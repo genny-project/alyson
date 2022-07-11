@@ -1,4 +1,6 @@
 import { Box, HStack, VStack } from '@chakra-ui/react'
+import { useKeycloak } from '@react-keycloak/web'
+import { pathOr } from 'ramda'
 
 import Ask from 'app/ASKS/ask'
 import Lane from 'app/SBE/lane'
@@ -14,7 +16,10 @@ const Process = ({ dashboard }) => {
 
   const bucketSearch = useSelector(selectCode('QUE_BUCKET_INTERNS_GRP')) || []
 
+  const roles = pathOr('', ['realmAccess', 'roles'])(useKeycloak().keycloak)
+
   if (!processCodes) return null
+
   return (
     <VStack align="start" spacing={0} px="5">
       {!dashboard && userType !== 'INTERN' && (
@@ -30,7 +35,9 @@ const Process = ({ dashboard }) => {
                 />
               </Box>
             ))}
-          <Search process={processCodes[0]} sbeCode={JSON.stringify(processCodes)} />
+          {roles.includes('test') && (
+            <Search process={processCodes[0]} sbeCode={JSON.stringify(processCodes)} />
+          )}
         </HStack>
       )}
 
