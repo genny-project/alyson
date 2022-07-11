@@ -3,8 +3,11 @@ import Attribute from 'app/BE/attribute'
 import { includes } from 'ramda'
 import FunActions from './FunActions'
 import SigDetails from './SigDetails'
+import { IconButton } from '@chakra-ui/react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faVideo } from '@fortawesome/free-solid-svg-icons'
 
-const AgentDetail = ({ code, parentCode }) => {
+const AgentDetail = ({ code, parentCode, hasVideo }) => {
   return (
     <Box>
       <Flex mt="3" w="full" justify="flex-end">
@@ -12,7 +15,17 @@ const AgentDetail = ({ code, parentCode }) => {
       </Flex>
 
       <Flex mt="3" w="full" justify="flex-end">
-        <FunActions code={code} parentCode={parentCode} />
+        <HStack>
+          <FunActions code={code} parentCode={parentCode} />
+          {hasVideo && (
+            <IconButton
+              variant="ghost"
+              colorScheme="whatsapp"
+              icon={<FontAwesomeIcon icon={faVideo} />}
+            />
+          )}
+        </HStack>
+
         <Spacer minW="1" />
         <HStack>
           <Attribute
