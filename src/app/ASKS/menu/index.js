@@ -16,16 +16,21 @@ import { useSelector } from 'react-redux'
 import icons from 'utils/icons'
 import labels from 'utils/labels'
 import { selectCode } from 'redux/db/selectors'
-import sendAskClick from '../utils/send-ask-click'
 import { useIsMobile } from 'utils/hooks'
+import sendEvtClick from '../utils/send-evt-click'
 
 const AsksMenu = ({ questionCode, hideLabel }) => {
   const data = useSelector(selectCode(questionCode))
   const wholeData = useSelector(selectCode(questionCode, 'wholeData'))
-  const labelsAndQuestionCode = map(({ questionCode, name }) => ({
+  const labelsAndQuestionCode = map(({ questionCode, name, attributeCode }) => ({
     label: name,
     code: questionCode,
+    attributeCode: attributeCode,
   }))(wholeData || [])
+
+  const sourceCode = useSelector(selectCode(questionCode, 'sourceCode'))
+  const targetCode = useSelector(selectCode(questionCode, 'targetCode'))
+  const processId = useSelector(selectCode(questionCode, 'processId'))
 
   const isMobile = useIsMobile()
 
@@ -48,10 +53,17 @@ const AsksMenu = ({ questionCode, hideLabel }) => {
         </VStack>
       </MenuButton>
       <MenuList>
-        {map(({ label, code }) => (
+        {map(({ label, code, attributeCode }) => (
           <MenuItem
             onClick={() => {
-              sendAskClick(questionCode, code)
+              sendEvtClick({
+                code: code,
+                parentCode: questionCode,
+                sourceCode: sourceCode,
+                targetCode: targetCode,
+                processId: processId,
+                attributeCode: attributeCode,
+              })
             }}
             test-id={code}
             key={code}
