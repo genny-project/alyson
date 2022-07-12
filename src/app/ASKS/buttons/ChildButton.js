@@ -4,18 +4,31 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import icons from 'utils/icons'
 import { selectCode } from 'redux/db/selectors'
-import sendAskClick from 'app/ASKS/utils/send-ask-click'
+import sendEvtClick from 'app/ASKS/utils/send-evt-click'
 import { useSelector } from 'react-redux'
 
 const ChildButton = ({ questionCode, childCode, onClick }) => {
   const data = useSelector(selectCode(questionCode, childCode))
+  const processId = useSelector(selectCode(questionCode, 'processId'))
+  const sourceCode = useSelector(selectCode(questionCode, 'sourceCode'))
+  const targetCode = useSelector(selectCode(questionCode, 'targetCode'))
 
   if (!data) return null
 
   const { name, childAsks } = data
 
   const handleClick = () => {
-    sendAskClick(childCode, childCode)
+    handleChildClick(childCode)
+  }
+
+  const handleChildClick = childCode => {
+    sendEvtClick({
+      processId: processId,
+      parentCode: childCode,
+      code: childCode,
+      sourceCode: sourceCode,
+      targetCode: targetCode,
+    })
     onClick()
   }
 
@@ -69,10 +82,7 @@ const ChildButton = ({ questionCode, childCode, onClick }) => {
       <MenuList>
         {childAsks.map(childAsk => (
           <MenuItem
-            onClick={() => {
-              sendAskClick(childAsk.questionCode, childAsk.questionCode)
-              onClick()
-            }}
+            onClick={() => handleChildClick(childAsk.questionCode)}
             test-id={childAsk.questionCode}
             key={childAsk.questionCode}
           >

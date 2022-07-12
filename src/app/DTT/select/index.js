@@ -24,7 +24,7 @@ const Write = ({
   const dropdownData = useSelector(selectCode(`${parentCode}-${questionCode}-options`)) || []
   const options = compose(map(({ code, name }) => ({ label: name, value: code })))(dropdownData)
   const isMulti = includes('multiple', dataType.typeName || '') || component === 'tag'
-
+  const processId = useSelector(selectCode(questionCode, 'processId'))
   const sourceCode = useSelector(selectCode('USER'))
 
   const ddEvent = debounce(
@@ -37,6 +37,7 @@ const Write = ({
           parentCode,
           questionCode,
           code: questionCode,
+          processId: processId,
         },
         { event_type: 'DD', redirect: false, attributeCode, questionCode, code: questionCode },
       ),
