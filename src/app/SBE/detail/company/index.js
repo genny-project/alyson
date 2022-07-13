@@ -94,7 +94,7 @@ const Rep = ({ sbeCode, targetCode }) => {
     <Button
       variant="secondary"
       colorScheme="green"
-      onClick={() => window.open(hcValidationUrl)}
+      onClick={() => onSendMessage({ targetCode, parentCode: sbeCode, code: 'ACT_HCV_DOC' })}
       leftIcon={<FontAwesomeIcon icon={faDownload} />}
     >
       {`Host Company Validation`}
