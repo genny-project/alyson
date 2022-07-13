@@ -42,8 +42,8 @@ const defaultProjectTheme = {
       900: '#521B41',
     },
     gray: {
-      50: '#F6F6F6',
-      100: '#E5E5E5',
+      50: '#E5E5E5',
+      100: '#F4F5F5',
       200: '#EDEDED',
       300: '#C4C4C4',
       400: '#718096',
@@ -69,6 +69,7 @@ const defaultProjectTheme = {
       500: '#fc825c',
       600: '#f45d22',
       700: '#F36C24',
+      800: '#F18B32',
     },
     blackAlpha: {
       7: 'rgba(0, 0, 0, 0.07)',

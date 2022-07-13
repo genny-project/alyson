@@ -1,21 +1,22 @@
-import { Text as ChakraText, Input, Button, VStack } from '@chakra-ui/react'
+import { Button, Text as ChakraText, Input, VStack } from '@chakra-ui/react'
 import { faCalendar, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useRef, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import DetailViewTags from 'app/DTT/text/detailview_tags'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { compose } from 'ramda'
 import debounce from 'lodash.debounce'
 import { getIsInvalid } from 'utils/functions'
+import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
+import { newCmd } from 'redux/app'
+import { selectFieldMessage } from 'redux/app/selectors'
 import { useError } from 'utils/contexts/ErrorContext'
+import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
-import { useDispatch } from 'react-redux'
-import { newCmd } from 'redux/app'
-import { compose } from 'ramda'
-import { useSelector } from 'react-redux'
-import { selectFieldMessage } from 'redux/app/selectors'
-import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
+import { useTheme } from '@emotion/react'
 
 export const Write = ({
   questionCode,
@@ -31,11 +32,19 @@ export const Write = ({
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value)
+  const theme = useTheme()
 
   const fieldMessageObject = useSelector(selectFieldMessage)
   const fieldMessage = fieldMessageObject[`${parentCode}@${questionCode}`]
   let hasFieldMessage = isNotNullOrUndefinedOrEmpty(fieldMessage)
   let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMessage)
+
+  const fieldBgColor =
+    useGetAttributeFromProjectBaseEntity('PRI_FIELD_ACCENT_COLOR')?.valueString ||
+    theme.colors.gray[100]
+  const secondaryColor =
+    useGetAttributeFromProjectBaseEntity('PRI_SECONDARY_COLOR')?.valueString ||
+    theme.colors.orange[800]
 
   try {
     regexPattern = regexPattern.replaceAll('\\\\', '\\')
@@ -123,15 +132,18 @@ export const Write = ({
         w="full"
         maxW={maxW}
         paddingBlock={3}
-        paddingInline={5}
+        paddingInline={6}
         fontWeight={'medium'}
-        borderColor={'gray.700'}
+        borderColor={fieldBgColor}
+        bg={fieldBgColor}
+        h={'auto'}
+        fontSize={'sm'}
         _hover={{
-          borderColor: 'green.500',
+          borderColor: secondaryColor,
           boxShadow: 'lg',
         }}
         _focusVisible={{
-          borderColor: 'green.500',
+          borderColor: secondaryColor,
           boxShadow: 'initial',
         }}
         _invalid={{
