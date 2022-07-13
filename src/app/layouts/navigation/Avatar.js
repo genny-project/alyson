@@ -55,6 +55,7 @@ const AvatarMenu = ({ code: QUE_AVATAR_GRP }) => {
               bg="gradient.400"
               name={name?.value || userName?.value}
               src={getImageSrc(userImage?.value)}
+              size="md"
             />
             <FontAwesomeIcon icon={faCaretDown} />
           </HStack>

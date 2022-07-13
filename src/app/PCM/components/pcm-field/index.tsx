@@ -1,10 +1,11 @@
-import Attribute from 'app/BE/attribute'
-import Pcm from 'app/PCM'
-import getAskFromAttribute from 'app/PCM/helpers/get-ask-from-attribute'
 import { equals, isEmpty, split } from 'ramda'
+
+import Attribute from 'app/BE/attribute'
+import EvtButton from '../evt-button'
+import Pcm from 'app/PCM'
 import React from 'react'
 import debugOut from 'utils/debug-out'
-import EvtButton from '../evt-button'
+import getAskFromAttribute from 'app/PCM/helpers/get-ask-from-attribute'
 
 interface AttributeProps {
   size?: any

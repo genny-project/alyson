@@ -8,25 +8,32 @@ import {
   MenuList,
   Text,
   VStack,
+  useTheme,
 } from '@chakra-ui/react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import debugOut from 'utils/debug-out'
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import icons from 'utils/icons'
 import { selectCode } from 'redux/db/selectors'
-import useApi from 'api'
-import { useSelector } from 'react-redux'
-import { startsWith } from 'ramda'
-import debugOut from 'utils/debug-out'
 import sendEvtClick from 'app/ASKS/utils/send-evt-click'
+import { startsWith } from 'ramda'
+import useApi from 'api'
+import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
+import { useSelector } from 'react-redux'
 
 const EvtButton = ({ questionCode, childCode, iconId }) => {
+  const theme = useTheme()
   const data = useSelector(selectCode(questionCode, childCode))
 
   const targetCode = useSelector(selectCode(questionCode, 'targetCode'))
   const sourceCode = useSelector(selectCode(questionCode, 'sourceCode'))
   const processId = useSelector(selectCode(questionCode, 'processId'))
   const attrCode = useSelector(selectCode(questionCode, 'attributeCode'))
+
+  const color =
+    useGetAttributeFromProjectBaseEntity('PRI_COLOR_PRIMARY_ON')?.valueString ||
+    theme.colors.primary[900]
 
   const { getImageSrc } = useApi()
   let src = iconId
@@ -58,14 +65,13 @@ const EvtButton = ({ questionCode, childCode, iconId }) => {
   if (!childAsks)
     return (
       <VStack
-        spacing="4"
+        spacing={2}
         role="group"
         p="0"
         test-id={childCode}
         onClick={handleClick}
         as="button"
-        mb={'30px !important'}
-        mt={'0 !important'}
+        w={'full'}
       >
         <Box display="flex" alignItems="center" justifyContent="center" cursor={'pointer'}>
           {iconId ? (
@@ -74,7 +80,7 @@ const EvtButton = ({ questionCode, childCode, iconId }) => {
             <FontAwesomeIcon icon={icons[childCode]} size="2x" color="#AAE3E2" />
           )}
         </Box>
-        <Text color="#BDC5CD" mt={'5px !important'} fontSize="12px" fontWeight="400">
+        <Text color={color} fontSize={12} fontWeight="700">
           {name}
         </Text>
       </VStack>
@@ -97,7 +103,7 @@ const EvtButton = ({ questionCode, childCode, iconId }) => {
             )}
           </Box>
           <HStack mt={'5px !important'}>
-            <Text color="#BDC5CD" fontSize="12px" fontWeight="400">
+            <Text fontSize="12px" fontWeight="400">
               {name}
             </Text>
             <FontAwesomeIcon icon={faAngleDown} color="#BDC5CD" />
