@@ -1,7 +1,8 @@
-import { any, compose, equals, includes, isEmpty, not, reduce } from 'ramda'
+import { any, compose, includes, not, reduce } from 'ramda'
+import { isNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
 
-export const getIsInvalid = (inputValue, question) => pattern => {
-  if (isEmpty(inputValue) || equals(inputValue, undefined)) return false
+export const getIsInvalid = inputValue => pattern => {
+  if (isNullOrUndefinedOrEmpty(inputValue)) return false
 
   if (Array.isArray(pattern)) {
     const result = reduce((acc, individualPattern) => {
