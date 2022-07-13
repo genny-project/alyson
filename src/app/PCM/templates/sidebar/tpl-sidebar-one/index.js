@@ -1,10 +1,10 @@
+import EvtButton from 'app/PCM/components/evt-button'
 import { VStack } from '@chakra-ui/react'
 import mapQuestionGroup from 'app/PCM/helpers/map-question-grp'
-import EvtButton from 'app/PCM/components/evt-button'
 
-const TemplateSidebarOne = ({ mappedPcm }) => {
+const TemplateSidebarOne = ({ mappedPcm, color }) => {
   return (
-    <VStack test-id={mappedPcm.PRI_QUESTION_CODE} justifyContent="center">
+    <VStack test-id={mappedPcm.PRI_QUESTION_CODE} justifyContent="center" spacing={12}>
       {mapQuestionGroup((ask, question) => {
         return (
           <EvtButton
