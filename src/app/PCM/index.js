@@ -1,8 +1,8 @@
-import templateHandlerMachine from 'app/PCM/templates'
 import TemplateDefault from './templates/tpl-default'
-import useGetMappedPcm from './helpers/get-mapped-pcm'
-import { isEmpty } from 'ramda'
 import debugOut from 'utils/debug-out'
+import { isEmpty } from 'ramda'
+import templateHandlerMachine from 'app/PCM/templates'
+import useGetMappedPcm from './helpers/get-mapped-pcm'
 
 /**
  * Given a Pcm Code `code`, will attempt to render a PCM template based on

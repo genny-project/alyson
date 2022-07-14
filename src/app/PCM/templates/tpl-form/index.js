@@ -1,11 +1,12 @@
 import { Center, CircularProgress, Text } from '@chakra-ui/react'
+import { equals, isEmpty } from 'ramda'
+
 import Ask from 'app/ASKS/ask'
+import debugOut from 'utils/debug-out'
 import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
-import { equals, isEmpty } from 'ramda'
-import debugOut from 'utils/debug-out'
 
-const TemplateForm = ({ mappedPcm }) => {
+const TemplateForm = ({ mappedPcm, ...properties }) => {
   const questionCode = mappedPcm?.PRI_QUESTION_CODE || ''
 
   if (questionCode) {
@@ -14,7 +15,12 @@ const TemplateForm = ({ mappedPcm }) => {
         {/* This width is arbitrary and should probably be controlled by an attribute */}
         <div style={{ width: '80%' }}>
           {/* By using a form ask here, it means the form will work even if the question code passed is not a question group */}
-          <FormAsk questionCode={questionCode} parentCode={questionCode} level={0} />
+          <FormAsk
+            questionCode={questionCode}
+            parentCode={questionCode}
+            level={0}
+            properties={properties}
+          />
         </div>
       </Center>
     )
@@ -29,9 +35,10 @@ const TemplateForm = ({ mappedPcm }) => {
 }
 
 // Handles switching between individual asks and question groups
-const FormAsk = ({ parentCode, questionCode, level }) => {
+const FormAsk = ({ parentCode, questionCode, level, properties }) => {
   const attributeCode = useSelector(selectCode(questionCode, 'attributeCode'))
   const targetCode = useSelector(selectCode(questionCode, 'targetCode'))
+
   if (equals(attributeCode)('QQQ_QUESTION_GROUP')) {
     return (
       <AskGroup
@@ -39,6 +46,7 @@ const FormAsk = ({ parentCode, questionCode, level }) => {
         questionCode={questionCode}
         level={level + 1}
         targetCode={targetCode}
+        properties={properties}
       />
     )
   } else {
@@ -48,13 +56,14 @@ const FormAsk = ({ parentCode, questionCode, level }) => {
         parentCode={parentCode}
         key={`${parentCode}-${questionCode}`}
         passedTargetCode={targetCode}
+        properties={properties}
       />
     )
   }
 }
 
 // Takes a question group and maps each of its child asks
-const AskGroup = ({ questionCode, level }) => {
+const AskGroup = ({ questionCode, level, properties }) => {
   const childAsks = useSelector(selectCode(questionCode)) || []
   const title = useSelector(selectCode(questionCode, 'title')) || ''
 
@@ -74,7 +83,12 @@ const AskGroup = ({ questionCode, level }) => {
     <div>
       <Text fontSize={fontSize}>{title}</Text>
       {childAsks.map(code => (
-        <FormAsk key={`${questionCode}-${code}`} parentCode={questionCode} questionCode={code} />
+        <FormAsk
+          key={`${questionCode}-${code}`}
+          parentCode={questionCode}
+          questionCode={code}
+          properties={properties}
+        />
       ))}
     </div>
   )

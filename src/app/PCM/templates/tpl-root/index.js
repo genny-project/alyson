@@ -26,13 +26,28 @@ import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 const TemplateRoot = ({ mappedPcm }) => {
   const theme = useTheme()
   const { PRI_LOC1, PRI_LOC2, PRI_LOC3 } = mappedPcm
-  const backgroundColor = useColorModeValue('gray.50', '')
-  const color = useColorModeValue(theme.colors.text.light, theme.colors.text.dark)
-  const bg =
+
+  // THEME COLORS
+  const lightColor =
+    useGetAttributeFromProjectBaseEntity('PRI_COLOR_PRIMARY_ON')?.valueString ||
+    theme.colors.background['light']
+  const darkColor =
+    useGetAttributeFromProjectBaseEntity('PRI_COLOR_BACKGROUND_ON')?.valueString ||
+    theme.colors.background['dark']
+  const color = useColorModeValue(lightColor, darkColor)
+
+  const appBg =
     useGetAttributeFromProjectBaseEntity('PRI_COLOR_PRIMARY_ON')?.valueString ||
     theme.colors.primary[900]
 
-  const primaryColour = useGetAttributeFromProjectBaseEntity('PRI_COLOR_PRIMARY')?.valueString // || '#224371'
+  const primaryColor =
+    useGetAttributeFromProjectBaseEntity('PRI_COLOR_SURFACE')?.valueString ||
+    theme.colors.primary[400]
+  const secondaryColor =
+    useGetAttributeFromProjectBaseEntity('PRI_COLOR')?.valueString || theme.colors.secondary[400]
+  const fieldBgColor =
+    useGetAttributeFromProjectBaseEntity('PRI_COLORS_BACKGROUND')?.valueString ||
+    theme.colors.gray['100']
 
   return (
     <Grid
@@ -48,32 +63,40 @@ const TemplateRoot = ({ mappedPcm }) => {
           gridArea: 'header',
           color,
           width: '100vw',
-          backgroundColor: bg,
+          backgroundColor: appBg,
           boxShadow: '0px 4px 32px -16px rgba(0, 0, 0, 0.25)',
           position: 'relative',
         }}
       >
         {/* Header PCM*/}
-        <PcmField code={PRI_LOC1} mappedPcm={mappedPcm} properties={{ bg: bg, color: color }} />
+        <PcmField
+          code={PRI_LOC1}
+          mappedPcm={mappedPcm}
+          properties={{ bg: appBg, color: color, secondaryColor: secondaryColor }}
+        />
       </header>
 
       {/* SIDEBAR WRAPPER */}
       <VStack
         area={'nav'}
         w={SIDEBAR_WIDTH}
-        bg={primaryColour}
+        bg={primaryColor}
         h="100%"
         paddingInline={4}
         paddingTop={14}
       >
         {/* Sidebar Pcm */}
-        <PcmField code={PRI_LOC2} mappedPcm={mappedPcm} properties={{ color: bg }} />
+        <PcmField code={PRI_LOC2} mappedPcm={mappedPcm} properties={{ color: appBg }} />
       </VStack>
 
-      <Box backgroundColor={backgroundColor} id="main-display" pb={1} overflow="auto" area={'main'}>
+      <Box backgroundColor={lightColor} id="main-display" pb={1} overflow="auto" area={'main'}>
         <Box paddingTop="2.25rem">
           {/* Main Page Content */}
-          <PcmField code={PRI_LOC3} mappedPcm={mappedPcm} />
+          <PcmField
+            code={PRI_LOC3}
+            mappedPcm={mappedPcm}
+            properties={{ secondaryColor: secondaryColor, fieldBgColor: fieldBgColor }}
+          />
           <DisplayDrawer />
           <Dialog />
           <Toast />
