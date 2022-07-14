@@ -27,7 +27,7 @@ const getApiConfig = async () => {
 
   apiConfig = response.data
 
-  const realm = apiConfig?.realm
+  const clientId = apiConfig?.clientId
 
   /* Log Rocket */
   if (process.env.NODE_ENV !== 'development') {
@@ -57,7 +57,7 @@ const getApiConfig = async () => {
 
   setupGoogleApi()
   //to set the product colours received from the backend, you can send the product colour as second argument. ie: getProductColours(realm, {primary: '', secondary: ''}) where productColour needs to be an object with two keys set to primary and secondary.
-  const productColours = getProductColours(realm)
+  const productColours = getProductColours(clientId)
   const theme = getTheme(productColours)
 
   return { keycloak, theme }
