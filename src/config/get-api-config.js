@@ -9,6 +9,7 @@ import { includes } from 'ramda'
 import loginAsGuest from '../keycloak/login-as-guest'
 import setupGoogleApi from './setup-google-api'
 import setupLogRocketReact from 'logrocket-react'
+import getProductColours from './get-product-colour'
 
 let apiConfig = { api_url: '', ENV_GOOGLE_MAPS_APIKEY: '', ENV_GOOGLE_TIMEZONE_APIKEY: '' }
 let keycloak = {}
@@ -25,6 +26,8 @@ const getApiConfig = async () => {
   })
 
   apiConfig = response.data
+
+  const realm = apiConfig?.realm
 
   /* Log Rocket */
   if (process.env.NODE_ENV !== 'development') {
@@ -53,10 +56,8 @@ const getApiConfig = async () => {
   tokenFromUrl = getTokenFromURL(keycloak)
 
   setupGoogleApi()
-
-  /* Theme */
-  const { projectTheme } = apiConfig
-  const theme = getTheme(projectTheme)
+  const productColours = getProductColours(realm)
+  const theme = getTheme(productColours)
 
   return { keycloak, theme }
 }
