@@ -2,13 +2,13 @@ import { INIT_URL } from './genny'
 import Keycloak from 'keycloak-js'
 import LogRocket from 'logrocket'
 import axios from 'axios'
-import { clientId } from 'utils/constants'
 import getTheme from 'config/theme'
 import getTokenFromURL from 'keycloak/get-token-from-url'
 import { includes } from 'ramda'
 import loginAsGuest from '../keycloak/login-as-guest'
 import setupGoogleApi from './setup-google-api'
 import setupLogRocketReact from 'logrocket-react'
+import getProductColours from './get-product-colour'
 
 let apiConfig = { api_url: '', ENV_GOOGLE_MAPS_APIKEY: '', ENV_GOOGLE_TIMEZONE_APIKEY: '' }
 let keycloak = {}
@@ -25,6 +25,8 @@ const getApiConfig = async () => {
   })
 
   apiConfig = response.data
+
+  const clientId = apiConfig?.clientId
 
   /* Log Rocket */
   if (process.env.NODE_ENV !== 'development') {
@@ -53,10 +55,9 @@ const getApiConfig = async () => {
   tokenFromUrl = getTokenFromURL(keycloak)
 
   setupGoogleApi()
-
-  /* Theme */
-  const { projectTheme } = apiConfig
-  const theme = getTheme(projectTheme)
+  //to set the product colours received from the backend, you can send the product colour as second argument. ie: getProductColours(realm, {primary: '', secondary: ''}) where productColour needs to be an object with two keys set to primary and secondary.
+  const productColours = getProductColours(clientId)
+  const theme = getTheme(productColours)
 
   return { keycloak, theme }
 }
