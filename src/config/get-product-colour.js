@@ -7,11 +7,11 @@ const productBasedDefaultColours = {
   },
 }
 
-const getProductColours = realm => {
+const getProductColours = (realm, defaultProductColours) => {
   const defaultThemeColours = defaultProjectTheme.colors || ''
   const productColours = {
     colors: {
-      product: productBasedDefaultColours[realm],
+      product: defaultProductColours || productBasedDefaultColours[realm],
       ...defaultThemeColours,
     },
   }
