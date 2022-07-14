@@ -1,7 +1,7 @@
 import 'react-datepicker/dist/react-datepicker.css'
 import './datePickerStyles.css'
 
-import { Input, Text, VStack } from '@chakra-ui/react'
+import { Input, InputGroup, InputRightElement, Text, VStack } from '@chakra-ui/react'
 import { dateOfBirthQuestionCode, eligibleAge } from 'utils/constants'
 import { differenceInYears, format, isBefore, parseISO, startOfTomorrow } from 'date-fns'
 import { forwardRef, useEffect, useState } from 'react'
@@ -9,17 +9,19 @@ import { forwardRef, useEffect, useState } from 'react'
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import DateChip from './DateChip'
 import DatePicker from 'react-datepicker'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCalendarDay } from '@fortawesome/free-solid-svg-icons'
 import getDate from 'utils/helpers/timezone_magic/get-date'
 import { getIsInvalid } from 'utils/functions'
 import { includes } from 'ramda'
+import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
 import safelyParseDate from 'utils/helpers/safely-parse-date'
+import { selectFieldMessage } from 'redux/app/selectors'
 import timeBasedOnTimeZone from 'utils/helpers/timezone_magic/time-based-on-timezone'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
-import { selectFieldMessage } from 'redux/app/selectors'
-import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
 
 const Read = ({ data, typeName, config }) => {
   const includeTime = includes('LocalDateTime', typeName)
@@ -40,10 +42,22 @@ const Read = ({ data, typeName, config }) => {
   )
 }
 
-const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, parentCode }) => {
+const Write = ({
+  questionCode,
+  data,
+  onSendAnswer,
+  typeName,
+  regexPattern,
+  parentCode,
+  realm,
+  properties,
+}) => {
   let initialErrorMsg = 'You can only valid date.'
 
   const includeTime = includes('LocalDateTime', typeName)
+
+  const fieldBgColor = properties.fieldBgColor
+  const secondaryColor = properties.secondaryColor
 
   const { dispatch } = useError()
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
@@ -121,41 +135,82 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, paren
     }
   }, [diffInYears, questionCode])
 
-  const CustomInput = forwardRef(({ value, onClick }, ref) => (
-    <>
-      <Input
-        id={questionCode}
-        test-id={questionCode}
-        w="full"
-        maxW={maxW}
-        paddingBlock={3}
-        paddingInline={5}
-        fontWeight={'medium'}
-        borderColor={'gray.700'}
-        defaultValue={value}
-        ref={ref}
-        onFocus={onClick}
-        _hover={{
-          borderColor: 'green.500',
-          boxShadow: 'lg',
-        }}
-        _focusVisible={{
-          borderColor: 'green.500',
-          boxShadow: 'initial',
-        }}
-        _invalid={{
-          background: 'error.50',
-          borderColor: 'error.500',
-          color: 'error.500',
-        }}
-        _disabled={{
-          borderColor: 'gray.300',
-          background: 'gray.100',
-        }}
-        required={true}
-      />
-    </>
-  ))
+  const CustomInput = forwardRef(({ value, onClick }, ref) =>
+    realm === 'lojing' ? (
+      <InputGroup maxW={maxW}>
+        <Input
+          id={questionCode}
+          test-id={questionCode}
+          defaultValue={value}
+          ref={ref}
+          onFocus={onClick}
+          w="full"
+          paddingBlock={2}
+          paddingInline={6}
+          fontWeight={'medium'}
+          borderColor={fieldBgColor}
+          bg={fieldBgColor}
+          h={'auto'}
+          fontSize={'sm'}
+          _hover={{
+            borderColor: secondaryColor,
+            boxShadow: 'lg',
+          }}
+          _focusVisible={{
+            borderColor: secondaryColor,
+            boxShadow: 'initial',
+          }}
+          _invalid={{
+            background: 'error.50',
+            borderColor: 'error.500',
+            color: 'error.500',
+          }}
+          _disabled={{
+            borderColor: 'gray.300',
+            background: 'gray.100',
+          }}
+          required={true}
+        />
+        <InputRightElement
+          children={<FontAwesomeIcon icon={faCalendarDay} color={secondaryColor} />}
+        />
+      </InputGroup>
+    ) : (
+      <>
+        <Input
+          id={questionCode}
+          test-id={questionCode}
+          w="full"
+          maxW={maxW}
+          paddingBlock={3}
+          paddingInline={5}
+          fontWeight={'medium'}
+          borderColor={'gray.700'}
+          defaultValue={value}
+          ref={ref}
+          onFocus={onClick}
+          _hover={{
+            borderColor: 'green.500',
+            boxShadow: 'lg',
+          }}
+          _focusVisible={{
+            borderColor: 'green.500',
+            boxShadow: 'initial',
+          }}
+          _invalid={{
+            background: 'error.50',
+            borderColor: 'error.500',
+            color: 'error.500',
+          }}
+          _disabled={{
+            borderColor: 'gray.300',
+            background: 'gray.100',
+          }}
+          required={true}
+        />
+      </>
+    ),
+  )
 
   return isPreviousDate && data?.value ? (
     <DateChip

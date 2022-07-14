@@ -42,6 +42,7 @@ import { pathOr } from 'ramda'
 import { selectCode } from 'redux/db/selectors'
 import { selectHighlightedQuestion } from 'redux/app/selectors'
 import { useError } from 'utils/contexts/ErrorContext'
+import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
@@ -58,6 +59,8 @@ const Ask = ({
   secondaryColor,
   properties,
 }) => {
+  const projectTitle = useGetAttributeFromProjectBaseEntity('PRI_NAME')?.valueString.toLowerCase()
+
   const { errorState } = useError()
   const { fieldState } = useIsFieldNotEmpty()
 
@@ -233,6 +236,8 @@ const Ask = ({
           regexPattern={regexPattern}
           errorMessage={errorMessage}
           processId={processId}
+          properties={properties}
+          realm={projectTitle}
         />
       )}
       {component === 'radio' && (
@@ -259,6 +264,7 @@ const Ask = ({
           attributeCode={attributeCode}
           parentCode={parentCode}
           properties={properties}
+          realm={projectTitle}
         />
       )}
       {component === 'textarea' && (
@@ -271,6 +277,8 @@ const Ask = ({
           errorMessage={errorMessage}
           parentCode={parentCode}
           secondaryColor={secondaryColor}
+          properties={properties}
+          realm={projectTitle}
         />
       )}
       {component === 'social' && (
@@ -306,6 +314,8 @@ const Ask = ({
           errorMessage={errorMessage}
           question={question}
           parentCode={parentCode}
+          properties={properties}
+          realm={projectTitle}
         />
       )}
       {component === 'richtext_editor' && (

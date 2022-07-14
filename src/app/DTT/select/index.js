@@ -1,14 +1,15 @@
-import { Text } from '@chakra-ui/react'
 import { compose, includes, map, pathOr } from 'ramda'
 import { selectCode, selectRows } from 'redux/db/selectors'
-import { Select as CSelect } from 'chakra-react-select'
-import debounce from 'lodash.debounce'
 
+import { Select as CSelect } from 'chakra-react-select'
+import { Text } from '@chakra-ui/react'
+import debounce from 'lodash.debounce'
 import { getValue } from './get-value'
 import { onSendMessage } from 'vertx'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
-import { useSelector } from 'react-redux'
 import { selectBufferDropdownOptions } from 'redux/app/selectors'
+import { useMobileValue } from 'utils/hooks'
+import { useSelector } from 'react-redux'
 
 const Write = ({
   questionCode,
@@ -20,12 +21,18 @@ const Write = ({
   targetCode,
   parentCode,
   attributeCode,
+  properties,
+  realm,
 }) => {
   const dropdownData = useSelector(selectCode(`${parentCode}-${questionCode}-options`)) || []
   const options = compose(map(({ code, name }) => ({ label: name, value: code })))(dropdownData)
   const isMulti = includes('multiple', dataType.typeName || '') || component === 'tag'
   const processId = useSelector(selectCode(questionCode, 'processId'))
   const sourceCode = useSelector(selectCode('USER'))
+  const maxW = useMobileValue(['', '25vw'])
+
+  const fieldBgColor = properties.fieldBgColor
+  const secondaryColor = properties.secondaryColor
 
   const ddEvent = debounce(
     value =>
@@ -56,7 +63,47 @@ const Write = ({
   const prepareValueForSendingAnswer = (value, isMulti) =>
     isMulti ? value && Array.isArray(value) && value.map(i => i.value) : [value.value]
 
-  return (
+  return realm === 'lojing' ? (
+    <CSelect
+      useBasicStyles
+      isMulti={isMulti}
+      options={options}
+      onChange={value => onSendAnswer(prepareValueForSendingAnswer(value, isMulti))}
+      onInputChange={value => ddEvent(value)}
+      onFocus={() => ddEvent('')}
+      placeholder={!options.length ? 'Start typing to search' : placeholder || 'Select'}
+      test-id={questionCode}
+      id={questionCode}
+      defaultValue={defaultValue}
+      chakraStyles={{
+        container: provided => ({
+          ...provided,
+          maxW: maxW,
+        }),
+        control: provided => ({
+          ...provided,
+          bg: fieldBgColor,
+          borderColor: fieldBgColor,
+          cursor: 'pointer',
+          fontSize: '0.875rem',
+          fontWeight: '500',
+          _hover: {
+            borderColor: secondaryColor,
+            boxShadow: 'lg',
+          },
+          _focus: {
+            borderColor: secondaryColor,
+            boxShadow: 'inherit',
+          },
+        }),
+        menuList: provided => ({
+          ...provided,
+          paddingInline: 10,
+          paddingBlock: 2,
+        }),
+      }}
+    />
+  ) : (
     <CSelect
       useBasicStyles
       isMulti={isMulti}
