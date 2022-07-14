@@ -55,8 +55,8 @@ const Ask = ({
   config,
   noLabel,
   forcedComponent,
-  fieldBgColor,
   secondaryColor,
+  properties,
 }) => {
   const { errorState } = useError()
   const { fieldState } = useIsFieldNotEmpty()
@@ -258,7 +258,7 @@ const Ask = ({
           errorMessage={errorMessage}
           attributeCode={attributeCode}
           parentCode={parentCode}
-          fieldBgColor={fieldBgColor}
+          properties={properties}
         />
       )}
       {component === 'textarea' && (

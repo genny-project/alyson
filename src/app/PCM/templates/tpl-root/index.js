@@ -45,6 +45,9 @@ const TemplateRoot = ({ mappedPcm }) => {
     theme.colors.primary[400]
   const secondaryColor =
     useGetAttributeFromProjectBaseEntity('PRI_COLOR')?.valueString || theme.colors.secondary[400]
+  const fieldBgColor =
+    useGetAttributeFromProjectBaseEntity('PRI_COLORS_BACKGROUND')?.valueString ||
+    theme.colors.gray['100']
 
   return (
     <Grid
@@ -92,7 +95,7 @@ const TemplateRoot = ({ mappedPcm }) => {
           <PcmField
             code={PRI_LOC3}
             mappedPcm={mappedPcm}
-            properties={{ secondaryColor: secondaryColor }}
+            properties={{ secondaryColor: secondaryColor, fieldBgColor: fieldBgColor }}
           />
           <DisplayDrawer />
           <Dialog />

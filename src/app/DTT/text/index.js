@@ -13,10 +13,8 @@ import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.
 import { newCmd } from 'redux/app'
 import { selectFieldMessage } from 'redux/app/selectors'
 import { useError } from 'utils/contexts/ErrorContext'
-import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
-import { useTheme } from '@emotion/react'
 
 export const Write = ({
   questionCode,
@@ -26,25 +24,21 @@ export const Write = ({
   errorMessage,
   attributeCode,
   parentCode,
+  properties,
 }) => {
   let regex
   const { dispatch } = useError()
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value)
-  const theme = useTheme()
 
   const fieldMessageObject = useSelector(selectFieldMessage)
   const fieldMessage = fieldMessageObject[`${parentCode}@${questionCode}`]
   let hasFieldMessage = isNotNullOrUndefinedOrEmpty(fieldMessage)
   let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMessage)
 
-  const fieldBgColor =
-    useGetAttributeFromProjectBaseEntity('PRI_FIELD_ACCENT_COLOR')?.valueString ||
-    theme.colors.gray[100]
-  const secondaryColor =
-    useGetAttributeFromProjectBaseEntity('PRI_SECONDARY_COLOR')?.valueString ||
-    theme.colors.orange[800]
+  const fieldBgColor = properties.fieldBgColor
+  const secondaryColor = properties.secondaryColor
 
   try {
     regexPattern = regexPattern.replaceAll('\\\\', '\\')
@@ -127,7 +121,7 @@ export const Write = ({
         ref={inputRef}
         onBlur={onBlur}
         onChange={e => setuserInput(e.target.value)}
-        value={userInput || ''}
+        defaultValue={userInput || ''}
         isInvalid={isInvalid}
         w="full"
         maxW={maxW}
