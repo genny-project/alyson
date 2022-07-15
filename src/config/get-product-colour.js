@@ -2,8 +2,9 @@ import { defaultProjectTheme } from './theme'
 
 const productBasedDefaultColours = {
   lojing: {
-    primary: '#F18B32',
-    secondary: '#00596D',
+    primary: '#00596D',
+    secondary: '#F18B32',
+    gray: '#F4F5F5',
   },
 }
 

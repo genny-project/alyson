@@ -6,6 +6,7 @@ import {
   FormLabel,
   HStack,
 } from '@chakra-ui/react'
+import { compose, equals, not, pathOr } from 'ramda'
 
 import ABN from 'app/DTT/abn'
 import Address from 'app/DTT/address'
@@ -34,11 +35,11 @@ import TimeZonePicker from 'app/DTT/time_zone'
 import URL from 'app/DTT/url'
 import Upload from 'app/DTT/upload'
 import Video from 'app/DTT/video'
+import { apiConfig } from 'config/get-api-config.js'
 import createSendAnswer from 'app/ASKS/utils/create-send-answer'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import getGroupCode from 'app/ASKS/utils/get-group-code'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
-import { equals, pathOr, compose, not } from 'ramda'
 import { selectCode } from 'redux/db/selectors'
 import { selectHighlightedQuestion } from 'redux/app/selectors'
 import { useError } from 'utils/contexts/ErrorContext'
@@ -46,7 +47,6 @@ import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
-import { apiConfig } from 'config/get-api-config.js'
 
 const Ask = ({
   parentCode,
@@ -199,7 +199,6 @@ const Ask = ({
           attributeCode={attributeCode}
           parentCode={parentCode}
           placeholderName={placeholderName}
-          properties={properties}
         />
       )}
       {component === 'phone' && (
@@ -212,7 +211,6 @@ const Ask = ({
           attributeCode={attributeCode}
           parentCode={parentCode}
           placeholderName={placeholderName}
-          properties={properties}
         />
       )}
       {component === 'address' && (
@@ -224,7 +222,6 @@ const Ask = ({
           errorMessage={errorMessage}
           parentCode={parentCode}
           placeholderName={placeholderName}
-          properties={properties}
         />
       )}
       {(component === 'dropdown' || component === 'tag') && (
@@ -245,8 +242,6 @@ const Ask = ({
           regexPattern={regexPattern}
           errorMessage={errorMessage}
           processId={processId}
-          properties={properties}
-          realm={projectTitle}
           placeholderName={placeholderName}
         />
       )}
@@ -275,8 +270,6 @@ const Ask = ({
           errorMessage={errorMessage}
           attributeCode={attributeCode}
           parentCode={parentCode}
-          properties={properties}
-          realm={projectTitle}
           placeholderName={placeholderName}
         />
       )}
@@ -290,8 +283,6 @@ const Ask = ({
           errorMessage={errorMessage}
           parentCode={parentCode}
           secondaryColor={secondaryColor}
-          properties={properties}
-          realm={projectTitle}
           placeholderName={placeholderName}
         />
       )}

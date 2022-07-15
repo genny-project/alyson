@@ -1,28 +1,27 @@
 import {
   Box,
+  Text as ChakraText,
   HStack,
   Input,
   Text,
+  VStack,
   useClipboard,
   useToast,
-  VStack,
-  Text as ChakraText,
 } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { apiConfig } from 'config/get-api-config.js'
+import { equals } from 'ramda'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { getIsInvalid } from 'utils/functions'
+import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
+import { selectFieldMessage } from 'redux/app/selectors'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
-
 import { useSelector } from 'react-redux'
-import { selectFieldMessage } from 'redux/app/selectors'
-import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
-import { apiConfig } from 'config/get-api-config.js'
-import { equals } from 'ramda'
 
 const Write = ({
   questionCode,
@@ -33,7 +32,6 @@ const Write = ({
   attributeCode,
   parentCode,
   placeholderName,
-  properties,
 }) => {
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setUserInput] = useState(data?.value)
@@ -47,8 +45,7 @@ const Write = ({
   const fieldMessage = fieldMessageObject[`${parentCode}@${questionCode}`]
   let hasFieldMessage = isNotNullOrUndefinedOrEmpty(fieldMessage)
   let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMessage)
-  const fieldBgColor = properties.fieldBgColor
-  const secondaryColor = properties.secondaryColor
+
   const clientId = apiConfig?.clientId
 
   const onBlur = e => {
@@ -86,16 +83,17 @@ const Write = ({
           w="full"
           paddingBlock={2}
           paddingInline={6}
-          fontWeight={'medium'}
-          borderColor={fieldBgColor}
-          bg={fieldBgColor}
+          borderColor={'product.gray'}
+          bg={'product.gray'}
           placeholder={placeholderName}
+          fontSize={'sm'}
+          fontWeight={'medium'}
           _hover={{
-            borderColor: 'product.primary',
+            borderColor: 'product.secondary',
             boxShadow: 'lg',
           }}
           _focusVisible={{
-            borderColor: 'product.primary',
+            borderColor: 'product.secondary',
             boxShadow: 'initial',
           }}
           _invalid={{

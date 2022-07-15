@@ -2,7 +2,9 @@ import { Text, Textarea, VStack } from '@chakra-ui/react'
 import { useEffect, useRef, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
+import { apiConfig } from 'config/get-api-config.js'
 import debounce from 'lodash.debounce'
+import { equals } from 'ramda'
 import { getIsInvalid } from 'utils/functions'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
 import { selectFieldMessage } from 'redux/app/selectors'
@@ -10,8 +12,6 @@ import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
-import { apiConfig } from 'config/get-api-config.js'
-import { equals } from 'ramda'
 
 export const Read = ({ data, config = {} }) => {
   return <Textarea {...config}>{data?.value || config.defaultValue}</Textarea>
@@ -24,7 +24,7 @@ export const Write = ({
   regexPattern,
   errorMessage,
   parentCode,
-  properties,
+
   placeholderName,
 }) => {
   let regex
@@ -33,8 +33,6 @@ export const Write = ({
   const [userInput, setuserInput] = useState(data?.value)
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
 
-  const fieldBgColor = properties.fieldBgColor
-  const secondaryColor = properties.secondaryColor
   const clientId = apiConfig?.clientId
 
   try {
@@ -88,14 +86,14 @@ export const Write = ({
         paddingBlock={2}
         paddingInline={6}
         fontWeight={'medium'}
-        borderColor={fieldBgColor}
-        bg={fieldBgColor}
+        borderColor={'product.gray'}
+        bg={'product.gray'}
         h={'auto'}
         minH={'5.13rem'}
         fontSize={'sm'}
         placeholder={placeholderName}
         _hover={{
-          borderColor: { secondaryColor },
+          borderColor: 'product.secondary',
         }}
       />
       {errorStatus && (

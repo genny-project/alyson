@@ -1,6 +1,8 @@
 import { useEffect, useRef } from 'react'
 
 import { Input } from '@chakra-ui/react'
+import { apiConfig } from 'config/get-api-config.js'
+import { equals } from 'ramda'
 import makeAddressData from './make-address-data'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
@@ -10,6 +12,8 @@ let autocomplete
 const AddressPicker = ({ onSendAnswer, data, questionCode }) => {
   const autoCompleteRef = useRef(null)
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
+
+  const clientId = apiConfig?.clientId
 
   useEffect(() => {
     if (autoCompleteRef?.current) {
@@ -48,7 +52,40 @@ const AddressPicker = ({ onSendAnswer, data, questionCode }) => {
 
   const maxW = useMobileValue(['', '25vw'])
 
-  return (
+  return equals(clientId)('lojing') ? (
+    <Input
+      id={questionCode}
+      test-id={questionCode}
+      defaultValue={data?.value}
+      ref={autoCompleteRef}
+      onBlur={onBlur}
+      w="full"
+      maxW={maxW}
+      paddingBlock={3}
+      paddingInline={5}
+      fontWeight={'medium'}
+      fontSize={'sm'}
+      borderColor={'product.gray'}
+      bg={'product.gray'}
+      _hover={{
+        borderColor: 'product.secondary',
+        boxShadow: 'lg',
+      }}
+      _focusVisible={{
+        borderColor: 'product.secondary',
+        boxShadow: 'initial',
+      }}
+      _invalid={{
+        background: 'error.50',
+        borderColor: 'error.500',
+        color: 'error.500',
+      }}
+      _disabled={{
+        borderColor: 'gray.300',
+        background: 'gray.100',
+      }}
+    />
+  ) : (
     <Input
       id={questionCode}
       test-id={questionCode}
