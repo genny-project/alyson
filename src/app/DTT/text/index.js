@@ -1,20 +1,20 @@
-import { Button, Text as ChakraText, Input, VStack } from '@chakra-ui/react'
+import { Text as ChakraText, Input, VStack } from '@chakra-ui/react'
 import { faCalendar, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
-import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useRef, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import DetailViewTags from 'app/DTT/text/detailview_tags'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { compose } from 'ramda'
+import { apiConfig } from 'config/get-api-config'
 import debounce from 'lodash.debounce'
+import { equals } from 'ramda'
 import { getIsInvalid } from 'utils/functions'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
-import { newCmd } from 'redux/app'
 import { selectFieldMessage } from 'redux/app/selectors'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
+import { useSelector } from 'react-redux'
 
 export const Write = ({
   questionCode,
@@ -24,7 +24,8 @@ export const Write = ({
   errorMessage,
   attributeCode,
   parentCode,
-  properties,
+
+  placeholderName,
 }) => {
   let regex
   const { dispatch } = useError()
@@ -32,13 +33,12 @@ export const Write = ({
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value)
 
+  const clientId = apiConfig?.clientId
+
   const fieldMessageObject = useSelector(selectFieldMessage)
   const fieldMessage = fieldMessageObject[`${parentCode}@${questionCode}`]
   let hasFieldMessage = isNotNullOrUndefinedOrEmpty(fieldMessage)
   let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMessage)
-
-  const fieldBgColor = properties.fieldBgColor
-  const secondaryColor = properties.secondaryColor
 
   try {
     regexPattern = regexPattern.replaceAll('\\\\', '\\')
@@ -50,32 +50,6 @@ export const Write = ({
 
   const inputRef = useRef()
   const isInvalid = getIsInvalid(userInput)(regex)
-  const dispatchPushMessage = useDispatch()
-  const onNewCmd = compose(dispatchPushMessage, newCmd)
-
-  const handleDispatchMessage = () => {
-    onNewCmd({
-      cmd_type: 'FIELDMSG',
-      code: parentCode,
-      attributeCode,
-      questionCode,
-      message: {
-        value: 'This replaced the error message with field message!',
-      },
-    })
-  }
-
-  const handleClearFieldMessage = () => {
-    onNewCmd({
-      cmd_type: 'FIELDMSG',
-      code: parentCode,
-      attributeCode,
-      questionCode,
-      message: {
-        value: '',
-      },
-    })
-  }
 
   useEffect(() => {
     setuserInput(data?.value)
@@ -104,16 +78,16 @@ export const Write = ({
       : dispatch({ type: ACTIONS.SET_TO_FALSE, payload: questionCode })
   }, [dispatch, isInvalid, questionCode])
 
-  const debouncedSendAnswer = debounce(onSendAnswer, 500)
-
   const maxW = useMobileValue(['', '25vw'])
+
+  const debouncedSendAnswer = debounce(onSendAnswer, 500)
 
   const onBlur = e => {
     !errorStatus && debouncedSendAnswer(e.target.value)
     dispatchFieldMessage({ payload: questionCode })
   }
 
-  return (
+  return equals(clientId)('lojing') ? (
     <>
       <Input
         test-id={questionCode}
@@ -121,23 +95,24 @@ export const Write = ({
         ref={inputRef}
         onBlur={onBlur}
         onChange={e => setuserInput(e.target.value)}
-        defaultValue={userInput || ''}
+        value={userInput || ''}
         isInvalid={isInvalid}
         w="full"
-        maxW={maxW}
         paddingBlock={2}
         paddingInline={6}
         fontWeight={'medium'}
-        borderColor={fieldBgColor}
-        bg={fieldBgColor}
+        borderColor={'product.gray'}
+        bg={'product.gray'}
         h={'auto'}
         fontSize={'sm'}
+        placeholder={placeholderName}
+        text
         _hover={{
-          borderColor: secondaryColor,
+          borderColor: 'product.secondary',
           boxShadow: 'lg',
         }}
         _focusVisible={{
-          borderColor: secondaryColor,
+          borderColor: 'product.secondary',
           boxShadow: 'initial',
         }}
         _invalid={{
@@ -157,10 +132,50 @@ export const Write = ({
               {hasFieldMessage ? fieldMessage : errorMessage}
             </ChakraText>
           )}
-          {hasFieldMessage && (
-            <Button onClick={handleClearFieldMessage}>{`Clear Field Message`}</Button>
+        </VStack>
+      )}
+    </>
+  ) : (
+    <>
+      <Input
+        test-id={questionCode}
+        id={questionCode}
+        ref={inputRef}
+        onBlur={onBlur}
+        onChange={e => setuserInput(e.target.value)}
+        defaultValue={data?.value}
+        isInvalid={isInvalid}
+        w="full"
+        maxW={maxW}
+        paddingBlock={3}
+        paddingInline={5}
+        fontWeight={'medium'}
+        borderColor={'gray.700'}
+        _hover={{
+          borderColor: 'green.500',
+          boxShadow: 'lg',
+        }}
+        _focusVisible={{
+          borderColor: 'green.500',
+          boxShadow: 'initial',
+        }}
+        _invalid={{
+          background: 'error.50',
+          borderColor: 'error.500',
+          color: 'error.500',
+        }}
+        _disabled={{
+          borderColor: 'gray.300',
+          background: 'gray.100',
+        }}
+      />
+      {errorStatus && (
+        <VStack alignItems="start">
+          {(hasFieldMessage || hasErrorMessage) && (
+            <ChakraText textStyle="tail.error" mt={2}>
+              {hasFieldMessage ? fieldMessage : errorMessage}
+            </ChakraText>
           )}
-          <Button onClick={handleDispatchMessage}>{`Dispatch Message`}</Button>
         </VStack>
       )}
     </>

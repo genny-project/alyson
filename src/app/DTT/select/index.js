@@ -1,8 +1,9 @@
-import { compose, includes, map, pathOr } from 'ramda'
+import { compose, equals, includes, map, pathOr } from 'ramda'
 import { selectCode, selectRows } from 'redux/db/selectors'
 
 import { Select as CSelect } from 'chakra-react-select'
 import { Text } from '@chakra-ui/react'
+import { apiConfig } from 'config/get-api-config'
 import debounce from 'lodash.debounce'
 import { getValue } from './get-value'
 import { onSendMessage } from 'vertx'
@@ -10,10 +11,11 @@ import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { selectBufferDropdownOptions } from 'redux/app/selectors'
 import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
+import { useState, useEffect, useCallback } from 'react'
 
 const Write = ({
   questionCode,
-  placeholder,
+  placeholderName,
   onSendAnswer,
   component,
   dataType,
@@ -21,8 +23,6 @@ const Write = ({
   targetCode,
   parentCode,
   attributeCode,
-  properties,
-  realm,
 }) => {
   const dropdownData = useSelector(selectCode(`${parentCode}-${questionCode}-options`)) || []
   const options = compose(map(({ code, name }) => ({ label: name, value: code })))(dropdownData)
@@ -30,40 +30,55 @@ const Write = ({
   const processId = useSelector(selectCode(questionCode, 'processId'))
   const sourceCode = useSelector(selectCode('USER'))
   const maxW = useMobileValue(['', '25vw'])
+  const clientId = apiConfig?.clientId
 
-  const fieldBgColor = properties.fieldBgColor
-  const secondaryColor = properties.secondaryColor
+  const ddEvent = value => {
+    setValue(value)
 
-  const ddEvent = debounce(
-    value =>
-      onSendMessage(
-        {
-          sourceCode,
-          targetCode,
-          value,
-          parentCode,
-          questionCode,
-          code: questionCode,
-          processId: processId,
-        },
-        { event_type: 'DD', redirect: false, attributeCode, questionCode, code: questionCode },
-      ),
-    500,
-  )
+    debounce(
+      value =>
+        onSendMessage(
+          {
+            sourceCode,
+            targetCode,
+            value,
+            parentCode,
+            questionCode,
+            code: questionCode,
+            processId: processId,
+          },
+          { event_type: 'DD', redirect: false, attributeCode, questionCode, code: questionCode },
+        ),
+      500,
+    )
+  }
 
   const getBufferedDropdownOptions = useSelector(selectBufferDropdownOptions)
-  const optionsIncludingBufferedOptions = [...getBufferedDropdownOptions, ...options]
-  let defaultValue = safelyParseJson(data?.value, [])
-  defaultValue =
-    defaultValue &&
-    Array.isArray(defaultValue) &&
-    optionsIncludingBufferedOptions.filter(i => defaultValue.includes(i.value))
+
+  const getValue = useCallback(
+    data => {
+      const optionsIncludingBufferedOptions = [...getBufferedDropdownOptions, ...options]
+      let defaultValue = safelyParseJson(data?.value, [])
+      defaultValue =
+        defaultValue &&
+        Array.isArray(defaultValue) &&
+        optionsIncludingBufferedOptions.filter(i => defaultValue.includes(i.value))
+      return defaultValue
+    },
+    [getBufferedDropdownOptions, options],
+  )
+
+  const [value, setValue] = useState(getValue(data))
+
+  useEffect(() => {
+    setValue(getValue(data))
+  }, [data, setValue, getValue])
 
   // the backend accepts array only when sending dropdown values regardless of multi or single select
   const prepareValueForSendingAnswer = (value, isMulti) =>
     isMulti ? value && Array.isArray(value) && value.map(i => i.value) : [value.value]
 
-  return realm === 'lojing' ? (
+  return equals(clientId)('lojing') ? (
     <CSelect
       useBasicStyles
       isMulti={isMulti}
@@ -71,10 +86,10 @@ const Write = ({
       onChange={value => onSendAnswer(prepareValueForSendingAnswer(value, isMulti))}
       onInputChange={value => ddEvent(value)}
       onFocus={() => ddEvent('')}
-      placeholder={!options.length ? 'Start typing to search' : placeholder || 'Select'}
+      placeholder={!options.length ? 'Start typing to search' : placeholderName || 'Select'}
       test-id={questionCode}
       id={questionCode}
-      defaultValue={defaultValue}
+      value={value || ''}
       chakraStyles={{
         container: provided => ({
           ...provided,
@@ -82,17 +97,17 @@ const Write = ({
         }),
         control: provided => ({
           ...provided,
-          bg: fieldBgColor,
-          borderColor: fieldBgColor,
+          bg: 'product.gray',
+          borderColor: 'product.gray',
           cursor: 'pointer',
           fontSize: '0.875rem',
           fontWeight: '500',
           _hover: {
-            borderColor: secondaryColor,
+            borderColor: 'product.secondary',
             boxShadow: 'lg',
           },
           _focus: {
-            borderColor: secondaryColor,
+            borderColor: 'product.secondary',
             boxShadow: 'inherit',
           },
         }),
@@ -111,10 +126,10 @@ const Write = ({
       onChange={value => onSendAnswer(prepareValueForSendingAnswer(value, isMulti))}
       onInputChange={value => ddEvent(value)}
       onFocus={() => ddEvent('')}
-      placeholder={!options.length ? 'Start typing to search' : placeholder || 'Select'}
+      placeholder={!options.length ? 'Start typing to search' : placeholderName || 'Select'}
       test-id={questionCode}
       id={questionCode}
-      defaultValue={defaultValue}
+      value={value || ''}
     />
   )
 }

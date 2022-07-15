@@ -1,29 +1,27 @@
 import {
   Box,
+  Text as ChakraText,
   HStack,
   Input,
   Text,
+  VStack,
   useClipboard,
   useToast,
-  VStack,
-  Text as ChakraText,
-  Button,
 } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { apiConfig } from 'config/get-api-config.js'
+import { equals } from 'ramda'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { getIsInvalid } from 'utils/functions'
+import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
+import { selectFieldMessage } from 'redux/app/selectors'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
-import { useDispatch } from 'react-redux'
-import { newCmd } from 'redux/app'
-import { compose } from 'ramda'
 import { useSelector } from 'react-redux'
-import { selectFieldMessage } from 'redux/app/selectors'
-import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
 
 const Write = ({
   questionCode,
@@ -33,6 +31,7 @@ const Write = ({
   errorMessage,
   attributeCode,
   parentCode,
+  placeholderName,
 }) => {
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setUserInput] = useState(data?.value)
@@ -46,32 +45,8 @@ const Write = ({
   const fieldMessage = fieldMessageObject[`${parentCode}@${questionCode}`]
   let hasFieldMessage = isNotNullOrUndefinedOrEmpty(fieldMessage)
   let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMessage)
-  const dispatchPushMessage = useDispatch()
-  const onNewCmd = compose(dispatchPushMessage, newCmd)
 
-  const handleDispatchMessage = () => {
-    onNewCmd({
-      cmd_type: 'FIELDMSG',
-      code: parentCode,
-      attributeCode,
-      questionCode,
-      message: {
-        value: 'This replaced the error message with field message!',
-      },
-    })
-  }
-
-  const handleClearFieldMessage = () => {
-    onNewCmd({
-      cmd_type: 'FIELDMSG',
-      code: parentCode,
-      attributeCode,
-      questionCode,
-      message: {
-        value: '',
-      },
-    })
-  }
+  const clientId = apiConfig?.clientId
 
   const onBlur = e => {
     !errorStatus && onSendAnswer(e.target.value)
@@ -94,7 +69,55 @@ const Write = ({
 
   const handleChange = event => setUserInput(event.target.value)
 
-  return (
+  return equals(clientId)('lojing') ? (
+    <Box>
+      <>
+        <Input
+          test-id={questionCode}
+          id={questionCode}
+          type="email"
+          onBlur={onBlur}
+          onChange={handleChange}
+          isInvalid={isInvalid}
+          value={userInput}
+          w="full"
+          paddingBlock={2}
+          paddingInline={6}
+          borderColor={'product.gray'}
+          bg={'product.gray'}
+          placeholder={placeholderName}
+          fontSize={'sm'}
+          fontWeight={'medium'}
+          _hover={{
+            borderColor: 'product.secondary',
+            boxShadow: 'lg',
+          }}
+          _focusVisible={{
+            borderColor: 'product.secondary',
+            boxShadow: 'initial',
+          }}
+          _invalid={{
+            background: 'error.50',
+            borderColor: 'error.500',
+            color: 'error.500',
+          }}
+          _disabled={{
+            borderColor: 'gray.300',
+            background: 'gray.100',
+          }}
+        />
+        {errorStatus && (
+          <VStack alignItems="start">
+            {(hasFieldMessage || hasErrorMessage) && (
+              <ChakraText textStyle="tail.error" mt={2}>
+                {hasFieldMessage ? fieldMessage : errorMessage}
+              </ChakraText>
+            )}
+          </VStack>
+        )}
+      </>
+    </Box>
+  ) : (
     <Box>
       <>
         <Input
@@ -136,10 +159,6 @@ const Write = ({
                 {hasFieldMessage ? fieldMessage : errorMessage}
               </ChakraText>
             )}
-            {hasFieldMessage && (
-              <Button onClick={handleClearFieldMessage}>{`Clear Field Message`}</Button>
-            )}
-            <Button onClick={handleDispatchMessage}>{`Dispatch Message`}</Button>
           </VStack>
         )}
       </>
