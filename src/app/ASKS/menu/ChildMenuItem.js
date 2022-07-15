@@ -23,7 +23,7 @@ const ChildMenuItem = ({ onClose, questionCode, childCode, rootCode, targetCode 
   }
 
   return (
-    <MenuItem test-id={childCode} onClick={onClick}>
+    <MenuItem test-id={childCode} onClick={onClick} color="#000000">
       {name}
     </MenuItem>
   )

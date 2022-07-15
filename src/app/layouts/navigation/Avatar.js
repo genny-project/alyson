@@ -62,7 +62,7 @@ const AvatarMenu = ({ code: QUE_AVATAR_GRP }) => {
         </MenuButton>
         <MenuList>
           <MenuGroup title={title}>
-            <MenuItem test-id={'HELP'} onClick={onOpenHelp}>
+            <MenuItem test-id={'HELP'} onClick={onOpenHelp} color="#000000">
               {`Help & Support`}
             </MenuItem>
             <MenuItem
@@ -74,6 +74,7 @@ const AvatarMenu = ({ code: QUE_AVATAR_GRP }) => {
                 window.location.assign(window.location.origin)
                 keycloak.logout()
               }}
+              color="#000000"
             >
               Logout
             </MenuItem>
@@ -119,10 +120,10 @@ const AvatarMenu = ({ code: QUE_AVATAR_GRP }) => {
             <MenuItem test-id={'QUE_AVATAR_SETTINGS'}>Account</MenuItem>
           </a>
 
-          <MenuItem test-id={'HELP'} onClick={onOpenHelp}>
+          <MenuItem test-id={'HELP'} onClick={onOpenHelp} color="#000000">
             {`Help & Support`}
           </MenuItem>
-          <MenuItem test-id={'T&Cs'} onClick={onTandC}>
+          <MenuItem test-id={'T&Cs'} onClick={onTandC} color="#000000">
             {`Terms & Conditions`}
           </MenuItem>
           <MenuItem
@@ -134,6 +135,7 @@ const AvatarMenu = ({ code: QUE_AVATAR_GRP }) => {
               window.location.assign(window.location.origin)
               keycloak.logout()
             }}
+            color="#000000"
           >
             Logout
           </MenuItem>
