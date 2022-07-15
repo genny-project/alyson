@@ -93,7 +93,7 @@ export const Write = ({
         ref={inputRef}
         onBlur={onBlur}
         onChange={e => setuserInput(e.target.value)}
-        defaultValue={userInput || ''}
+        value={userInput || ''}
         isInvalid={isInvalid}
         w="full"
         paddingBlock={2}

@@ -1,6 +1,7 @@
 import { Box } from '@chakra-ui/react'
 import useGetMappedBaseEntity from 'app/PCM/helpers/use-get-mapped-base-entity'
-import { filter, has, includes, reduce, sort, values, replace } from 'ramda'
+import { useGetActionsFromCode } from 'app/SBE/utils/get-actions'
+import { filter, has, includes, reduce, sort, values, replace, map } from 'ramda'
 import DetailField from './detail-field'
 
 const getColumnDefs = mappedSbe => {
@@ -29,10 +30,22 @@ const TemplateDetailView = ({ mappedPcm }) => {
   const baseEntityCode = mappedSbe.PRI_CODE?.value || ''
   const mappedValues = getFields(getColumnDefs(mappedSbe))
 
+  const actions = filter(e => e)(
+    map(act => act?.attributeCode)(useGetActionsFromCode(sbeCode) || []),
+  )
+
   return (
     <Box padding={'10px'}>
       {mappedValues.map((attributeCode, index) => {
-        return <DetailField code={baseEntityCode} attributeCode={attributeCode} index={index} />
+        return (
+          <DetailField
+            sbeCode={sbeCode}
+            code={baseEntityCode}
+            attributeCode={attributeCode}
+            index={index}
+            actions={actions}
+          />
+        )
       })}
     </Box>
   )
