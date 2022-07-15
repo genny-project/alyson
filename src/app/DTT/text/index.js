@@ -1,16 +1,14 @@
-import { Button, Text as ChakraText, Input, VStack } from '@chakra-ui/react'
+import { Text as ChakraText, Input, VStack } from '@chakra-ui/react'
 import { faCalendar, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useEffect, useRef, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import DetailViewTags from 'app/DTT/text/detailview_tags'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { compose } from 'ramda'
 import debounce from 'lodash.debounce'
 import { getIsInvalid } from 'utils/functions'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
-import { newCmd } from 'redux/app'
 import { selectFieldMessage } from 'redux/app/selectors'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
@@ -51,32 +49,6 @@ export const Write = ({
 
   const inputRef = useRef()
   const isInvalid = getIsInvalid(userInput)(regex)
-  const dispatchPushMessage = useDispatch()
-  const onNewCmd = compose(dispatchPushMessage, newCmd)
-
-  const handleDispatchMessage = () => {
-    onNewCmd({
-      cmd_type: 'FIELDMSG',
-      code: parentCode,
-      attributeCode,
-      questionCode,
-      message: {
-        value: 'This replaced the error message with field message!',
-      },
-    })
-  }
-
-  const handleClearFieldMessage = () => {
-    onNewCmd({
-      cmd_type: 'FIELDMSG',
-      code: parentCode,
-      attributeCode,
-      questionCode,
-      message: {
-        value: '',
-      },
-    })
-  }
 
   useEffect(() => {
     setuserInput(data?.value)
@@ -160,10 +132,6 @@ export const Write = ({
               {hasFieldMessage ? fieldMessage : errorMessage}
             </ChakraText>
           )}
-          {hasFieldMessage && (
-            <Button onClick={handleClearFieldMessage}>{`Clear Field Message`}</Button>
-          )}
-          <Button onClick={handleDispatchMessage}>{`Dispatch Message`}</Button>
         </VStack>
       )}
     </>

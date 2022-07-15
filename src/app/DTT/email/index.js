@@ -7,7 +7,6 @@ import {
   useToast,
   VStack,
   Text as ChakraText,
-  Button,
 } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 
@@ -18,9 +17,7 @@ import { getIsInvalid } from 'utils/functions'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
-import { useDispatch } from 'react-redux'
-import { newCmd } from 'redux/app'
-import { compose } from 'ramda'
+
 import { useSelector } from 'react-redux'
 import { selectFieldMessage } from 'redux/app/selectors'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
@@ -34,6 +31,7 @@ const Write = ({
   attributeCode,
   parentCode,
   placeholderName,
+  properties,
 }) => {
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setUserInput] = useState(data?.value)
@@ -47,32 +45,8 @@ const Write = ({
   const fieldMessage = fieldMessageObject[`${parentCode}@${questionCode}`]
   let hasFieldMessage = isNotNullOrUndefinedOrEmpty(fieldMessage)
   let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMessage)
-  const dispatchPushMessage = useDispatch()
-  const onNewCmd = compose(dispatchPushMessage, newCmd)
-
-  const handleDispatchMessage = () => {
-    onNewCmd({
-      cmd_type: 'FIELDMSG',
-      code: parentCode,
-      attributeCode,
-      questionCode,
-      message: {
-        value: 'This replaced the error message with field message!',
-      },
-    })
-  }
-
-  const handleClearFieldMessage = () => {
-    onNewCmd({
-      cmd_type: 'FIELDMSG',
-      code: parentCode,
-      attributeCode,
-      questionCode,
-      message: {
-        value: '',
-      },
-    })
-  }
+  const fieldBgColor = properties.fieldBgColor
+  const secondaryColor = properties.secondaryColor
 
   const onBlur = e => {
     !errorStatus && onSendAnswer(e.target.value)
@@ -108,17 +82,18 @@ const Write = ({
           value={userInput}
           w="full"
           maxW={maxW}
-          paddingBlock={3}
-          paddingInline={5}
+          paddingBlock={2}
+          paddingInline={6}
           fontWeight={'medium'}
-          borderColor={'gray.700'}
+          borderColor={fieldBgColor}
+          bg={fieldBgColor}
           placeholder={placeholderName}
           _hover={{
-            borderColor: 'green.500',
+            borderColor: secondaryColor,
             boxShadow: 'lg',
           }}
           _focusVisible={{
-            borderColor: 'green.500',
+            borderColor: secondaryColor,
             boxShadow: 'initial',
           }}
           _invalid={{
@@ -138,10 +113,6 @@ const Write = ({
                 {hasFieldMessage ? fieldMessage : errorMessage}
               </ChakraText>
             )}
-            {hasFieldMessage && (
-              <Button onClick={handleClearFieldMessage}>{`Clear Field Message`}</Button>
-            )}
-            <Button onClick={handleDispatchMessage}>{`Dispatch Message`}</Button>
           </VStack>
         )}
       </>
