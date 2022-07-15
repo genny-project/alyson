@@ -13,7 +13,7 @@ import { useSelector } from 'react-redux'
 
 const Write = ({
   questionCode,
-  placeholder,
+  placeholderName,
   onSendAnswer,
   component,
   dataType,
@@ -71,7 +71,7 @@ const Write = ({
       onChange={value => onSendAnswer(prepareValueForSendingAnswer(value, isMulti))}
       onInputChange={value => ddEvent(value)}
       onFocus={() => ddEvent('')}
-      placeholder={!options.length ? 'Start typing to search' : placeholder || 'Select'}
+      placeholder={!options.length ? 'Start typing to search' : placeholderName || 'Select'}
       test-id={questionCode}
       id={questionCode}
       defaultValue={defaultValue}
@@ -111,7 +111,7 @@ const Write = ({
       onChange={value => onSendAnswer(prepareValueForSendingAnswer(value, isMulti))}
       onInputChange={value => ddEvent(value)}
       onFocus={() => ddEvent('')}
-      placeholder={!options.length ? 'Start typing to search' : placeholder || 'Select'}
+      placeholder={!options.length ? 'Start typing to search' : placeholderName || 'Select'}
       test-id={questionCode}
       id={questionCode}
       defaultValue={defaultValue}

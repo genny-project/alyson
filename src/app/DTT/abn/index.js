@@ -19,6 +19,7 @@ const Write = ({
   regexPattern,
   errorMessage,
   parentCode,
+  placeholderName,
 }) => {
   let regex
   const { dispatch } = useError()
@@ -92,6 +93,7 @@ const Write = ({
           paddingRight={5}
           fontWeight={'medium'}
           borderColor={'gray.700'}
+          placeholder={placeholderName}
           _hover={{
             borderColor: 'green.500',
             boxShadow: 'lg',

@@ -1,4 +1,4 @@
-import { Center, CircularProgress, Text } from '@chakra-ui/react'
+import { Box, Center, CircularProgress, Text } from '@chakra-ui/react'
 import { equals, isEmpty } from 'ramda'
 
 import Ask from 'app/ASKS/ask'
@@ -12,16 +12,13 @@ const TemplateForm = ({ mappedPcm, ...properties }) => {
   if (questionCode) {
     return (
       <Center>
-        {/* This width is arbitrary and should probably be controlled by an attribute */}
-        <div style={{ width: '80%' }}>
-          {/* By using a form ask here, it means the form will work even if the question code passed is not a question group */}
-          <FormAsk
-            questionCode={questionCode}
-            parentCode={questionCode}
-            level={0}
-            properties={properties}
-          />
-        </div>
+        {/* By using a form ask here, it means the form will work even if the question code passed is not a question group */}
+        <FormAsk
+          questionCode={questionCode}
+          parentCode={questionCode}
+          level={0}
+          properties={properties}
+        />
       </Center>
     )
   } else {
@@ -67,21 +64,14 @@ const AskGroup = ({ questionCode, level, properties }) => {
   const childAsks = useSelector(selectCode(questionCode)) || []
   const title = useSelector(selectCode(questionCode, 'title')) || ''
 
-  const levels = {
-    0: '3xl',
-    1: '3xl',
-    2: '2xl',
-    3: 'xl',
-  }
-
-  const fontSize = levels[level] || 'xl'
-
   if (isEmpty(childAsks)) {
     debugOut.error(`${questionCode} has no child asks! (AskGroup in TPL_FORM)`)
   }
   return (
-    <div>
-      <Text fontSize={fontSize}>{title}</Text>
+    <Box w="40vw">
+      <Text fontFamily="Roboto" fontWeight="700px" fontSize="36px" mb="5">
+        {title}
+      </Text>
       {childAsks.map(code => (
         <FormAsk
           key={`${questionCode}-${code}`}
@@ -90,7 +80,7 @@ const AskGroup = ({ questionCode, level, properties }) => {
           properties={properties}
         />
       ))}
-    </div>
+    </Box>
   )
 }
 

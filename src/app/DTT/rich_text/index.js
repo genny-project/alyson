@@ -48,6 +48,7 @@ const Write = ({
   errorMessage,
   placeholder,
   parentCode,
+  placeholderName,
 }) => {
   const { minCharacterCount = 0, maxCharacterCount } = safelyParseJson(html, {})
   const blocksFromHTML = convertFromHTML(data?.value || '')
@@ -170,7 +171,7 @@ const Write = ({
           onChange={handleEditorChange}
           spellCheck={true}
           lang="en"
-          placeholder={placeholder || ' '}
+          placeholder={placeholderName || ' '}
         />
       </Box>
       {errorStatus && (

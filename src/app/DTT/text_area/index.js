@@ -10,6 +10,8 @@ import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
+import { apiConfig } from 'config/get-api-config.js'
+import { equals } from 'ramda'
 
 export const Read = ({ data, config = {} }) => {
   return <Textarea {...config}>{data?.value || config.defaultValue}</Textarea>
@@ -23,7 +25,7 @@ export const Write = ({
   errorMessage,
   parentCode,
   properties,
-  realm,
+  placeholderName,
 }) => {
   let regex
   const { dispatch } = useError()
@@ -33,6 +35,7 @@ export const Write = ({
 
   const fieldBgColor = properties.fieldBgColor
   const secondaryColor = properties.secondaryColor
+  const clientId = apiConfig?.clientId
 
   try {
     regex = RegExp(regexPattern)
@@ -71,7 +74,7 @@ export const Write = ({
     dispatchFieldMessage({ payload: questionCode })
   }
 
-  return realm === 'lojing' ? (
+  return equals(clientId)('lojing') ? (
     <>
       <Textarea
         id={questionCode}
@@ -90,6 +93,7 @@ export const Write = ({
         h={'auto'}
         minH={'5.13rem'}
         fontSize={'sm'}
+        placeholder={placeholderName}
         _hover={{
           borderColor: { secondaryColor },
         }}
@@ -115,6 +119,7 @@ export const Write = ({
         value={userInput}
         maxW={maxW}
         isInvalid={isInvalid}
+        placeholder={placeholderName}
       />
       {errorStatus && (
         <VStack alignItems="start">
