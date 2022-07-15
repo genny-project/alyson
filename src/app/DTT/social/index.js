@@ -19,6 +19,8 @@ import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 import { selectFieldMessage } from 'redux/app/selectors'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
+import { apiConfig } from 'config/get-api-config'
+import { equals } from 'ramda'
 
 const Read = ({ data, config = {} }) => {
   const attributeName = data?.attributeName
@@ -51,13 +53,22 @@ const Read = ({ data, config = {} }) => {
   )
 }
 
-const Write = ({ questionCode, onSendAnswer, data, regexPattern, errorMessage, parentCode }) => {
+const Write = ({
+  questionCode,
+  onSendAnswer,
+  data,
+  regexPattern,
+  errorMessage,
+  parentCode,
+  placeholderName,
+}) => {
   const { dispatch } = useError()
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value)
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
 
   const maxW = useMobileValue(['', '25vw'])
+  const clientId = apiConfig?.clientId
 
   const isInvalid = getIsInvalid(userInput)(RegExp(regexPattern))
   const fieldMessageObject = useSelector(selectFieldMessage)
@@ -80,7 +91,54 @@ const Write = ({ questionCode, onSendAnswer, data, regexPattern, errorMessage, p
       : dispatch({ type: ACTIONS.SET_TO_FALSE, payload: questionCode })
   }, [dispatch, isInvalid, questionCode])
 
-  return (
+  return equals(clientId)('lojing') ? (
+    <>
+      <InputGroup maxW={maxW}>
+        <InputLeftAddon bg="gray.200">
+          <FontAwesomeIcon size="lg" icon={faLinkedin} />
+        </InputLeftAddon>
+        <Input
+          id={questionCode}
+          test-id={questionCode}
+          defaultValue={data?.value}
+          onBlur={onBlur}
+          onChange={e => setuserInput(e.target.value)}
+          paddingBlock={2}
+          paddingInline={6}
+          fontWeight={'medium'}
+          borderColor={'product.gray'}
+          bg={'product.gray'}
+          placeholder={placeholderName}
+          _hover={{
+            borderColor: 'product.secondary',
+            boxShadow: 'lg',
+          }}
+          _focusVisible={{
+            borderColor: 'product.secondary',
+            boxShadow: 'initial',
+          }}
+          _invalid={{
+            background: 'error.50',
+            borderColor: 'error.500',
+            color: 'error.500',
+          }}
+          _disabled={{
+            borderColor: 'gray.300',
+            background: 'gray.100',
+          }}
+        />
+      </InputGroup>
+      {errorStatus && (
+        <VStack alignItems="start">
+          {(hasFieldMessage || hasErrorMessage) && (
+            <ChakraText textStyle="tail.error" mt={2}>
+              {hasFieldMessage ? fieldMessage : errorMessage}
+            </ChakraText>
+          )}
+        </VStack>
+      )}
+    </>
+  ) : (
     <>
       <InputGroup maxW={maxW}>
         <InputLeftAddon>

@@ -22,9 +22,7 @@ export const Write = ({
   onSendAnswer,
   regexPattern,
   errorMessage,
-  attributeCode,
   parentCode,
-
   placeholderName,
 }) => {
   let regex
