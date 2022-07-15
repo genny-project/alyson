@@ -30,7 +30,9 @@ const TemplateDetailView = ({ mappedPcm }) => {
   const baseEntityCode = mappedSbe.PRI_CODE?.value || ''
   const mappedValues = getFields(getColumnDefs(mappedSbe))
 
-  const actions = map(act => act.attributeCode)(useGetActionsFromCode(sbeCode))
+  const actions = filter(e => e)(
+    map(act => act?.attributeCode)(useGetActionsFromCode(sbeCode) || []),
+  )
 
   return (
     <Box padding={'10px'}>
