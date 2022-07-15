@@ -35,7 +35,7 @@ const Submit = ({ askData, onFinish, parentCode }) => {
     filter(attr => !attr.value),
   )(attributeData)
 
-  const bgColor = 'product.primary' || 'primary.900'
+  const bgColor = 'product.secondary' || 'primary.900'
 
   const mandatoryQuestionsNoValue = filter(
     q => q.questionCode !== 'QUE_SUBMIT' && includes(q.attributeCode, mandatoryAttributesNoValue),
