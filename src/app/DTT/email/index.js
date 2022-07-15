@@ -21,6 +21,8 @@ import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 import { selectFieldMessage } from 'redux/app/selectors'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
+import { apiConfig } from 'config/get-api-config.js'
+import { equals } from 'ramda'
 
 const Write = ({
   questionCode,
@@ -47,6 +49,7 @@ const Write = ({
   let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMessage)
   const fieldBgColor = properties.fieldBgColor
   const secondaryColor = properties.secondaryColor
+  const clientId = apiConfig?.clientId
 
   const onBlur = e => {
     !errorStatus && onSendAnswer(e.target.value)
@@ -69,7 +72,7 @@ const Write = ({
 
   const handleChange = event => setUserInput(event.target.value)
 
-  return (
+  return equals(clientId)('lojing') ? (
     <Box>
       <>
         <Input
@@ -94,6 +97,52 @@ const Write = ({
           }}
           _focusVisible={{
             borderColor: secondaryColor,
+            boxShadow: 'initial',
+          }}
+          _invalid={{
+            background: 'error.50',
+            borderColor: 'error.500',
+            color: 'error.500',
+          }}
+          _disabled={{
+            borderColor: 'gray.300',
+            background: 'gray.100',
+          }}
+        />
+        {errorStatus && (
+          <VStack alignItems="start">
+            {(hasFieldMessage || hasErrorMessage) && (
+              <ChakraText textStyle="tail.error" mt={2}>
+                {hasFieldMessage ? fieldMessage : errorMessage}
+              </ChakraText>
+            )}
+          </VStack>
+        )}
+      </>
+    </Box>
+  ) : (
+    <Box>
+      <>
+        <Input
+          test-id={questionCode}
+          id={questionCode}
+          type="email"
+          onBlur={onBlur}
+          onChange={handleChange}
+          isInvalid={isInvalid}
+          value={userInput}
+          w="full"
+          maxW={maxW}
+          paddingBlock={3}
+          paddingInline={5}
+          fontWeight={'medium'}
+          borderColor={'gray.700'}
+          _hover={{
+            borderColor: 'green.500',
+            boxShadow: 'lg',
+          }}
+          _focusVisible={{
+            borderColor: 'green.500',
             boxShadow: 'initial',
           }}
           _invalid={{
