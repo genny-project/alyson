@@ -6,21 +6,21 @@ import {
   InputLeftAddon,
   VStack,
 } from '@chakra-ui/react'
+import { equals, includes } from 'ramda'
 import { useEffect, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { apiConfig } from 'config/get-api-config.js'
 import { faLinkedin } from '@fortawesome/free-brands-svg-icons'
 import { getIsInvalid } from 'utils/functions'
-import { includes } from 'ramda'
+import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
+import { selectFieldMessage } from 'redux/app/selectors'
 import { useError } from 'utils/contexts/ErrorContext'
+import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
-import { selectFieldMessage } from 'redux/app/selectors'
-import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
-import { apiConfig } from 'config/get-api-config'
-import { equals } from 'ramda'
 
 const Read = ({ data, config = {} }) => {
   const attributeName = data?.attributeName
@@ -69,6 +69,7 @@ const Write = ({
 
   const maxW = useMobileValue(['', '25vw'])
   const clientId = apiConfig?.clientId
+  const iconColor = useGetAttributeFromProjectBaseEntity('PRI_COLOR')?.valueString
 
   const isInvalid = getIsInvalid(userInput)(RegExp(regexPattern))
   const fieldMessageObject = useSelector(selectFieldMessage)
@@ -94,8 +95,8 @@ const Write = ({
   return equals(clientId)('lojing') ? (
     <>
       <InputGroup maxW={maxW}>
-        <InputLeftAddon bg="gray.200">
-          <FontAwesomeIcon size="lg" icon={faLinkedin} />
+        <InputLeftAddon border={'product.gray'}>
+          <FontAwesomeIcon size="lg" icon={faLinkedin} color={iconColor} />
         </InputLeftAddon>
         <Input
           id={questionCode}
@@ -108,7 +109,8 @@ const Write = ({
           fontWeight={'medium'}
           borderColor={'product.gray'}
           bg={'product.gray'}
-          placeholder={placeholderName}
+          fontSize={'sm'}
+          h={'auto'}
           _hover={{
             borderColor: 'product.secondary',
             boxShadow: 'lg',

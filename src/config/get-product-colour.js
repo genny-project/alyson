@@ -6,6 +6,12 @@ const productBasedDefaultColours = {
     secondary: '#F18B32',
     gray: '#F4F5F5',
   },
+
+  alyson: {
+    primary: '#00596D',
+    secondary: '#F18B32',
+    gray: '#F4F5F5',
+  },
 }
 
 const getProductColours = (realm, defaultProductColours) => {

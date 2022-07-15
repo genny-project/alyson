@@ -4,21 +4,23 @@ import './datePickerStyles.css'
 import { Input, InputGroup, InputRightElement, Text, VStack } from '@chakra-ui/react'
 import { dateOfBirthQuestionCode, eligibleAge } from 'utils/constants'
 import { differenceInYears, format, isBefore, parseISO, startOfTomorrow } from 'date-fns'
+import { equals, includes } from 'ramda'
 import { forwardRef, useEffect, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import DateChip from './DateChip'
 import DatePicker from 'react-datepicker'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { apiConfig } from 'config/get-api-config.js'
 import { faCalendarDay } from '@fortawesome/free-solid-svg-icons'
 import getDate from 'utils/helpers/timezone_magic/get-date'
 import { getIsInvalid } from 'utils/functions'
-import { includes } from 'ramda'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
 import safelyParseDate from 'utils/helpers/safely-parse-date'
 import { selectFieldMessage } from 'redux/app/selectors'
 import timeBasedOnTimeZone from 'utils/helpers/timezone_magic/time-based-on-timezone'
 import { useError } from 'utils/contexts/ErrorContext'
+import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
@@ -49,16 +51,14 @@ const Write = ({
   typeName,
   regexPattern,
   parentCode,
-  realm,
-  properties,
   placeholderName,
 }) => {
   let initialErrorMsg = 'You can only valid date.'
 
   const includeTime = includes('LocalDateTime', typeName)
+  const themeSecondary = useGetAttributeFromProjectBaseEntity('PRI_COLOR')?.value
 
-  const fieldBgColor = properties.fieldBgColor
-  const secondaryColor = properties.secondaryColor
+  const clientId = apiConfig?.clientId
 
   const { dispatch } = useError()
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
@@ -137,7 +137,7 @@ const Write = ({
   }, [diffInYears, questionCode])
 
   const CustomInput = forwardRef(({ value, onClick }, ref) =>
-    realm === 'lojing' ? (
+    equals(clientId)('lojing') ? (
       <InputGroup maxW={maxW}>
         <Input
           id={questionCode}
@@ -149,17 +149,17 @@ const Write = ({
           paddingBlock={2}
           paddingInline={6}
           fontWeight={'medium'}
-          borderColor={fieldBgColor}
-          bg={fieldBgColor}
+          borderColor={'product.gray'}
+          bg={'product.gray'}
           h={'auto'}
           fontSize={'sm'}
           placeholder={placeholderName}
           _hover={{
-            borderColor: secondaryColor,
+            borderColor: 'product.secondary',
             boxShadow: 'lg',
           }}
           _focusVisible={{
-            borderColor: secondaryColor,
+            borderColor: 'product.secondary',
             boxShadow: 'initial',
           }}
           _invalid={{
@@ -174,7 +174,7 @@ const Write = ({
           required={true}
         />
         <InputRightElement
-          children={<FontAwesomeIcon icon={faCalendarDay} color={secondaryColor} />}
+          children={<FontAwesomeIcon icon={faCalendarDay} color={themeSecondary} />}
         />
       </InputGroup>
     ) : (
