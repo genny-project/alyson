@@ -1,4 +1,4 @@
-import { Box, Center, CircularProgress, Text } from '@chakra-ui/react'
+import { Center, CircularProgress, Text } from '@chakra-ui/react'
 import { equals, isEmpty } from 'ramda'
 
 import Ask from 'app/ASKS/ask'
@@ -12,16 +12,13 @@ const TemplateForm = ({ mappedPcm, ...properties }) => {
   if (questionCode) {
     return (
       <Center>
-        {/* This width is arbitrary and should probably be controlled by an attribute */}
-        <Box w="80%">
-          {/* By using a form ask here, it means the form will work even if the question code passed is not a question group */}
-          <FormAsk
-            questionCode={questionCode}
-            parentCode={questionCode}
-            level={0}
-            properties={properties}
-          />
-        </Box>
+        {/* By using a form ask here, it means the form will work even if the question code passed is not a question group */}
+        <FormAsk
+          questionCode={questionCode}
+          parentCode={questionCode}
+          level={0}
+          properties={properties}
+        />
       </Center>
     )
   } else {
@@ -81,7 +78,9 @@ const AskGroup = ({ questionCode, level, properties }) => {
   }
   return (
     <div>
-      <Text fontSize={fontSize}>{title}</Text>
+      <Text fontSize={fontSize} mb="5">
+        {title}
+      </Text>
       {childAsks.map(code => (
         <FormAsk
           key={`${questionCode}-${code}`}

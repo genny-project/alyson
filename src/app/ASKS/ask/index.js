@@ -89,7 +89,7 @@ const Ask = ({
   const highlightedQuestion = useSelector(selectHighlightedQuestion)
   const labelWidth = useMobileValue(['full', '25vw'])
   const groupCode = getGroupCode(question) || parentCode
-
+  const placeholderName = equals(clientId)('lojing') ? name : ''
   if (!question?.attribute) return null
 
   const {
@@ -196,7 +196,7 @@ const Ask = ({
           errorMessage={errorMessage}
           attributeCode={attributeCode}
           parentCode={parentCode}
-          name={name}
+          placeholderName={placeholderName}
         />
       )}
       {component === 'phone' && (
@@ -208,7 +208,7 @@ const Ask = ({
           errorMessage={errorMessage}
           attributeCode={attributeCode}
           parentCode={parentCode}
-          name={name}
+          placeholderName={placeholderName}
         />
       )}
       {component === 'address' && (
@@ -219,7 +219,7 @@ const Ask = ({
           regexPattern={regexPattern}
           errorMessage={errorMessage}
           parentCode={parentCode}
-          name={name}
+          placeholderName={placeholderName}
         />
       )}
       {(component === 'dropdown' || component === 'tag') && (
@@ -242,7 +242,7 @@ const Ask = ({
           processId={processId}
           properties={properties}
           realm={projectTitle}
-          name={name}
+          placeholderName={placeholderName}
         />
       )}
       {component === 'radio' && (
@@ -256,7 +256,7 @@ const Ask = ({
           parentCode={parentCode}
           regexPattern={regexPattern}
           errorMessage={errorMessage}
-          name={name}
+          placeholderName={placeholderName}
         />
       )}
       {component === 'text' && (
@@ -271,7 +271,7 @@ const Ask = ({
           parentCode={parentCode}
           properties={properties}
           realm={projectTitle}
-          name={name}
+          placeholderName={placeholderName}
         />
       )}
       {component === 'textarea' && (
@@ -286,7 +286,7 @@ const Ask = ({
           secondaryColor={secondaryColor}
           properties={properties}
           realm={projectTitle}
-          name={name}
+          placeholderName={placeholderName}
         />
       )}
       {component === 'social' && (
@@ -298,7 +298,7 @@ const Ask = ({
           regexPattern={regexPattern}
           errorMessage={errorMessage}
           parentCode={parentCode}
-          name={name}
+          placeholderName={placeholderName}
         />
       )}
       {component === 'upload' && (
@@ -309,7 +309,7 @@ const Ask = ({
           onSendAnswer={onSendAnswer}
           regexPattern={regexPattern}
           errorMessage={errorMessage}
-          name={name}
+          placeholderName={placeholderName}
           parentCode={parentCode}
         />
       )}
@@ -325,7 +325,7 @@ const Ask = ({
           parentCode={parentCode}
           properties={properties}
           realm={projectTitle}
-          name={name}
+          placeholderName={placeholderName}
         />
       )}
       {component === 'richtext_editor' && (
@@ -339,7 +339,7 @@ const Ask = ({
           errorMessage={errorMessage}
           placeholder={placeholder}
           parentCode={parentCode}
-          name={name}
+          placeholderName={placeholderName}
         />
       )}
       {component === 'date_range' && (
@@ -351,7 +351,7 @@ const Ask = ({
           regexPattern={regexPattern}
           errorMessage={errorMessage}
           parentCode={parentCode}
-          name={name}
+          placeholderName={placeholderName}
         />
       )}
       {component === 'video' && (
@@ -363,7 +363,7 @@ const Ask = ({
           regexPattern={regexPattern}
           errorMessage={errorMessage}
           parentCode={parentCode}
-          name={name}
+          placeholderName={placeholderName}
         />
       )}
       {component === 'time_range' && (
@@ -374,7 +374,7 @@ const Ask = ({
           regexPattern={regexPattern}
           errorMessage={errorMessage}
           parentCode={parentCode}
-          name={name}
+          placeholderName={placeholderName}
         />
       )}
       {component === 'html_display' && (
@@ -384,7 +384,7 @@ const Ask = ({
           regexPattern={regexPattern}
           errorMessage={errorMessage}
           parentCode={parentCode}
-          name={name}
+          placeholderName={placeholderName}
         />
       )}
       {component === 'signature' && (
@@ -395,7 +395,7 @@ const Ask = ({
           regexPattern={regexPattern}
           errorMessage={errorMessage}
           parentCode={parentCode}
-          name={name}
+          placeholderName={placeholderName}
         />
       )}
       {component === 'link' && (
@@ -406,7 +406,7 @@ const Ask = ({
           regexPattern={regexPattern}
           errorMessage={errorMessage}
           parentCode={parentCode}
-          name={name}
+          placeholderName={placeholderName}
         />
       )}
       {component === 'abn_number' && (
@@ -418,7 +418,7 @@ const Ask = ({
           regexPattern={regexPattern}
           errorMessage={errorMessage}
           parentCode={parentCode}
-          name={name}
+          placeholderName={placeholderName}
         />
       )}
       {component === 'rating' && (
@@ -429,7 +429,7 @@ const Ask = ({
           regexPattern={regexPattern}
           errorMessage={errorMessage}
           parentCode={parentCode}
-          name={name}
+          placeholderName={placeholderName}
         />
       )}
       {component === 'youtube' && (
@@ -440,7 +440,7 @@ const Ask = ({
           regexPattern={regexPattern}
           errorMessage={errorMessage}
           parentCode={parentCode}
-          name={name}
+          placeholderName={placeholderName}
         />
       )}
       {component === 'time_zone' && (
@@ -451,7 +451,7 @@ const Ask = ({
           regexPattern={regexPattern}
           errorMessage={errorMessage}
           parentCode={parentCode}
-          name={name}
+          placeholderName={placeholderName}
         />
       )}
       {component === 'checkbox' && (
@@ -462,7 +462,7 @@ const Ask = ({
           regexPattern={regexPattern}
           errorMessage={errorMessage}
           parentCode={parentCode}
-          name={name}
+          placeholderName={placeholderName}
         />
       )}
       {component === 'log_rocket_session' && (
@@ -471,7 +471,7 @@ const Ask = ({
           regexPattern={regexPattern}
           errorMessage={errorMessage}
           parentCode={parentCode}
-          name={name}
+          placeholderName={placeholderName}
         />
       )}
       {component === 'flag' && (
@@ -482,7 +482,7 @@ const Ask = ({
           regexPattern={regexPattern}
           errorMessage={errorMessage}
           parentCode={parentCode}
-          name={name}
+          placeholderName={placeholderName}
         />
       )}
       <FormErrorMessage>{feedback}</FormErrorMessage>

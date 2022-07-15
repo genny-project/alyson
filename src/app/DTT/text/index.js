@@ -25,6 +25,7 @@ export const Write = ({
   attributeCode,
   parentCode,
   properties,
+  placeholderName,
 }) => {
   let regex
   const { dispatch } = useError()
@@ -132,6 +133,8 @@ export const Write = ({
         bg={fieldBgColor}
         h={'auto'}
         fontSize={'sm'}
+        placeholder={placeholderName}
+        text
         _hover={{
           borderColor: secondaryColor,
           boxShadow: 'lg',
