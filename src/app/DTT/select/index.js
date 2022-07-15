@@ -35,26 +35,22 @@ const Write = ({
   const fieldBgColor = properties.fieldBgColor
   const secondaryColor = properties.secondaryColor
 
-  const ddEvent = value => {
-    setValue(value)
-
-    debounce(
-      value =>
-        onSendMessage(
-          {
-            sourceCode,
-            targetCode,
-            value,
-            parentCode,
-            questionCode,
-            code: questionCode,
-            processId: processId,
-          },
-          { event_type: 'DD', redirect: false, attributeCode, questionCode, code: questionCode },
-        ),
-      500,
-    )
-  }
+  const ddEvent = debounce(
+    value =>
+      onSendMessage(
+        {
+          sourceCode,
+          targetCode,
+          value,
+          parentCode,
+          questionCode,
+          code: questionCode,
+          processId: processId,
+        },
+        { event_type: 'DD', redirect: false, attributeCode, questionCode, code: questionCode },
+      ),
+    500,
+  )
 
   const getBufferedDropdownOptions = useSelector(selectBufferDropdownOptions)
 
