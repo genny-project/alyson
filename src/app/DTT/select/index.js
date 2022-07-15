@@ -1,8 +1,9 @@
-import { compose, includes, map, pathOr } from 'ramda'
+import { compose, equals, includes, map, pathOr } from 'ramda'
 import { selectCode, selectRows } from 'redux/db/selectors'
 
 import { Select as CSelect } from 'chakra-react-select'
 import { Text } from '@chakra-ui/react'
+import { apiConfig } from 'config/get-api-config'
 import debounce from 'lodash.debounce'
 import { getValue } from './get-value'
 import { onSendMessage } from 'vertx'
@@ -21,8 +22,6 @@ const Write = ({
   targetCode,
   parentCode,
   attributeCode,
-  properties,
-  realm,
 }) => {
   const dropdownData = useSelector(selectCode(`${parentCode}-${questionCode}-options`)) || []
   const options = compose(map(({ code, name }) => ({ label: name, value: code })))(dropdownData)
@@ -30,9 +29,7 @@ const Write = ({
   const processId = useSelector(selectCode(questionCode, 'processId'))
   const sourceCode = useSelector(selectCode('USER'))
   const maxW = useMobileValue(['', '25vw'])
-
-  const fieldBgColor = properties.fieldBgColor
-  const secondaryColor = properties.secondaryColor
+  const clientId = apiConfig?.clientId
 
   const ddEvent = debounce(
     value =>
@@ -63,7 +60,7 @@ const Write = ({
   const prepareValueForSendingAnswer = (value, isMulti) =>
     isMulti ? value && Array.isArray(value) && value.map(i => i.value) : [value.value]
 
-  return realm === 'lojing' ? (
+  return equals(clientId)('lojing') ? (
     <CSelect
       useBasicStyles
       isMulti={isMulti}
@@ -82,17 +79,17 @@ const Write = ({
         }),
         control: provided => ({
           ...provided,
-          bg: fieldBgColor,
-          borderColor: fieldBgColor,
+          bg: 'product.gray',
+          borderColor: 'product.gray',
           cursor: 'pointer',
           fontSize: '0.875rem',
           fontWeight: '500',
           _hover: {
-            borderColor: secondaryColor,
+            borderColor: 'product.secondary',
             boxShadow: 'lg',
           },
           _focus: {
-            borderColor: secondaryColor,
+            borderColor: 'product.secondary',
             boxShadow: 'inherit',
           },
         }),
