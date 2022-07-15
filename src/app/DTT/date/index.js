@@ -51,6 +51,7 @@ const Write = ({
   parentCode,
   realm,
   properties,
+  placeholderName,
 }) => {
   let initialErrorMsg = 'You can only valid date.'
 
@@ -152,6 +153,7 @@ const Write = ({
           bg={fieldBgColor}
           h={'auto'}
           fontSize={'sm'}
+          placeholder={placeholderName}
           _hover={{
             borderColor: secondaryColor,
             boxShadow: 'lg',

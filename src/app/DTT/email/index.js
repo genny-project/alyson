@@ -33,6 +33,7 @@ const Write = ({
   errorMessage,
   attributeCode,
   parentCode,
+  placeholderName,
 }) => {
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setUserInput] = useState(data?.value)
@@ -111,6 +112,7 @@ const Write = ({
           paddingInline={5}
           fontWeight={'medium'}
           borderColor={'gray.700'}
+          placeholder={placeholderName}
           _hover={{
             borderColor: 'green.500',
             boxShadow: 'lg',

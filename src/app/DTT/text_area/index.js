@@ -24,6 +24,7 @@ export const Write = ({
   parentCode,
   properties,
   realm,
+  placeholderName,
 }) => {
   let regex
   const { dispatch } = useError()
@@ -90,6 +91,7 @@ export const Write = ({
         h={'auto'}
         minH={'5.13rem'}
         fontSize={'sm'}
+        placeholder={placeholderName}
         _hover={{
           borderColor: { secondaryColor },
         }}
@@ -115,6 +117,7 @@ export const Write = ({
         value={userInput}
         maxW={maxW}
         isInvalid={isInvalid}
+        placeholder={placeholderName}
       />
       {errorStatus && (
         <VStack alignItems="start">
