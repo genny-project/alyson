@@ -14,7 +14,7 @@ const DetailField = ({ sbeCode, code, attributeCode, index, actions }) => {
   const label = index === 0 ? <></> : <Text>{title}:</Text>
 
   const acts =
-    index === 0 ? (
+    index === 0 && actions.length > 0 ? (
       <ContextMenu
         actions={actions}
         parentCode={sbeCode}
