@@ -1,15 +1,15 @@
 import { Box, Button, Center, Tag, Text, VStack, Wrap, WrapItem } from '@chakra-ui/react'
-import { compose, filter, identity, includes, map, prop, equals } from 'ramda'
+import { compose, equals, filter, identity, includes, map, prop } from 'ramda'
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { selectAttributes, selectCode } from 'redux/db/selectors'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { apiConfig } from 'config/get-api-config.js'
 import { highlightQuestion } from 'redux/app'
 import { onSendMessage } from 'vertx'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useState } from 'react'
-import { apiConfig } from 'config/get-api-config.js'
 
 const Submit = ({ askData, onFinish, parentCode }) => {
   const { questionCode, targetCode, name, disabled: disabledFromBackEnd } = askData
@@ -74,11 +74,13 @@ const Submit = ({ askData, onFinish, parentCode }) => {
         colorScheme={questionCode === 'QUE_SUBMIT_NO' ? 'red' : 'primary'}
         variant="solid"
         borderRadius={'full'}
-        paddingBlock="6px"
-        paddingInline="20px"
-        background={bgColor}
+        paddingBlock={2}
+        paddingInline={2}
+        minW={'9rem'}
+        background={'product.secondary'}
+        fontSize={'sm'}
         _hover={{
-          background: 'orange',
+          background: 'product.secondaryAccent',
         }}
       >
         {name}

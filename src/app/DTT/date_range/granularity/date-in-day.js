@@ -28,13 +28,15 @@ const DateInDay = ({
               onBlur={e => handleDateChange(e, 'startDate')}
               min={setYearForDate('2002')}
               max={maxDate}
-              paddingBlock={2}
-              paddingInline={6}
-              fontWeight={'medium'}
-              borderColor={'product.gray'}
-              bg={'product.gray'}
+              w="full"
               h={'auto'}
+              paddingBlock={3}
+              paddingInline={6}
+              bg={'product.gray'}
+              borderColor={'product.gray'}
               fontSize={'sm'}
+              fontWeight={'medium'}
+              color="product.darkGray"
               _hover={{
                 borderColor: 'product.secondary',
                 boxShadow: 'lg',
@@ -65,13 +67,15 @@ const DateInDay = ({
               onBlur={e => handleDateChange(e, 'endDate')}
               min={setYearForDate()}
               max={maxDate}
-              paddingBlock={2}
-              paddingInline={6}
-              fontWeight={'medium'}
-              borderColor={'product.gray'}
-              bg={'product.gray'}
+              w="full"
               h={'auto'}
+              paddingBlock={3}
+              paddingInline={6}
+              bg={'product.gray'}
+              borderColor={'product.gray'}
               fontSize={'sm'}
+              fontWeight={'medium'}
+              color="product.darkGray"
               _hover={{
                 borderColor: 'product.secondary',
                 boxShadow: 'lg',

@@ -1,4 +1,4 @@
-import { Switch, FormControl, FormLabel, HStack } from '@chakra-ui/react'
+import { FormControl, FormLabel, HStack, Switch } from '@chakra-ui/react'
 
 const Read = ({ data }) => {
   return (
@@ -14,6 +14,7 @@ const Read = ({ data }) => {
 
 const Write = ({ questionCode, data, onSendAnswer, isRequired, label }) => {
   const toggle = () => onSendAnswer(data?.value === 'true' ? 'false' : 'true')
+
   return (
     <HStack w="full" spacing={2} align="start">
       <Switch

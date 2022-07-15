@@ -1,5 +1,6 @@
 import { compose, equals, includes, map, pathOr } from 'ramda'
 import { selectCode, selectRows } from 'redux/db/selectors'
+import { useCallback, useEffect, useState } from 'react'
 
 import { Select as CSelect } from 'chakra-react-select'
 import { Text } from '@chakra-ui/react'
@@ -11,7 +12,6 @@ import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { selectBufferDropdownOptions } from 'redux/app/selectors'
 import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
-import { useState, useEffect, useCallback } from 'react'
 
 const Write = ({
   questionCode,
@@ -93,7 +93,6 @@ const Write = ({
       chakraStyles={{
         container: provided => ({
           ...provided,
-          maxW: maxW,
         }),
         control: provided => ({
           ...provided,
@@ -102,6 +101,9 @@ const Write = ({
           cursor: 'pointer',
           fontSize: '0.875rem',
           fontWeight: '500',
+          paddingInline: '0.63rem',
+          paddingBlock: '0.5rem',
+          color: 'product.secondaryAccent',
           _hover: {
             borderColor: 'product.secondary',
             boxShadow: 'lg',

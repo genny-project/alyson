@@ -94,8 +94,30 @@ const Write = ({
 
   return equals(clientId)('lojing') ? (
     <>
-      <InputGroup maxW={maxW}>
-        <InputLeftAddon border={'product.gray'}>
+      <InputGroup
+        border="1px"
+        borderColor={'product.gray'}
+        borderRadius={4}
+        overflow={'hidden'}
+        _hover={{
+          borderColor: 'product.secondary',
+          boxShadow: 'lg',
+        }}
+        _focusVisible={{
+          borderColor: 'product.secondary',
+          boxShadow: 'initial',
+        }}
+        _invalid={{
+          background: 'error.50',
+          borderColor: 'error.500',
+          color: 'error.500',
+        }}
+        _disabled={{
+          borderColor: 'gray.300',
+          background: 'gray.100',
+        }}
+      >
+        <InputLeftAddon h={'auto'} border={0}>
           <FontAwesomeIcon size="lg" icon={faLinkedin} color={iconColor} />
         </InputLeftAddon>
         <Input
@@ -104,29 +126,22 @@ const Write = ({
           defaultValue={data?.value}
           onBlur={onBlur}
           onChange={e => setuserInput(e.target.value)}
-          paddingBlock={2}
-          paddingInline={6}
-          fontWeight={'medium'}
-          borderColor={'product.gray'}
-          bg={'product.gray'}
-          fontSize={'sm'}
+          w="full"
           h={'auto'}
-          _hover={{
-            borderColor: 'product.secondary',
-            boxShadow: 'lg',
-          }}
+          paddingBlock={3}
+          paddingInlineEnd={6}
+          paddingInlineStart={0}
+          bg={'product.gray'}
+          border={0}
+          fontSize={'sm'}
+          fontWeight={'medium'}
+          color="product.darkGray"
+          borderRadius={0}
           _focusVisible={{
-            borderColor: 'product.secondary',
-            boxShadow: 'initial',
+            border: '0',
           }}
-          _invalid={{
-            background: 'error.50',
-            borderColor: 'error.500',
-            color: 'error.500',
-          }}
-          _disabled={{
-            borderColor: 'gray.300',
-            background: 'gray.100',
+          _focus={{
+            border: '0',
           }}
         />
       </InputGroup>

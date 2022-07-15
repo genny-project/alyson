@@ -138,22 +138,23 @@ const Write = ({
 
   const CustomInput = forwardRef(({ value, onClick }, ref) =>
     equals(clientId)('lojing') ? (
-      <InputGroup maxW={maxW}>
+      <InputGroup>
         <Input
           id={questionCode}
           test-id={questionCode}
           defaultValue={value}
           ref={ref}
           onFocus={onClick}
-          w="full"
-          paddingBlock={2}
-          paddingInline={6}
-          fontWeight={'medium'}
-          borderColor={'product.gray'}
-          bg={'product.gray'}
-          h={'auto'}
-          fontSize={'sm'}
           placeholder={placeholderName}
+          w="full"
+          h={'auto'}
+          paddingBlock={3}
+          paddingInline={6}
+          bg={'product.gray'}
+          borderColor={'product.gray'}
+          fontSize={'sm'}
+          fontWeight={'medium'}
+          color="product.darkGray"
           _hover={{
             borderColor: 'product.secondary',
             boxShadow: 'lg',
