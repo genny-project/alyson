@@ -1,4 +1,4 @@
-import { Center, CircularProgress, Text } from '@chakra-ui/react'
+import { Box, Center, CircularProgress, Text } from '@chakra-ui/react'
 import { equals, isEmpty } from 'ramda'
 
 import Ask from 'app/ASKS/ask'
@@ -77,8 +77,8 @@ const AskGroup = ({ questionCode, level, properties }) => {
     debugOut.error(`${questionCode} has no child asks! (AskGroup in TPL_FORM)`)
   }
   return (
-    <div>
-      <Text fontSize={fontSize} mb="5">
+    <Box w="40vw">
+      <Text fontFamily="Roboto" fontWeight="700px" fontSize="36px" mb="5">
         {title}
       </Text>
       {childAsks.map(code => (
@@ -89,7 +89,7 @@ const AskGroup = ({ questionCode, level, properties }) => {
           properties={properties}
         />
       ))}
-    </div>
+    </Box>
   )
 }
 

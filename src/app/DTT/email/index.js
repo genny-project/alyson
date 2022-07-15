@@ -84,7 +84,6 @@ const Write = ({
           isInvalid={isInvalid}
           value={userInput}
           w="full"
-          maxW={maxW}
           paddingBlock={2}
           paddingInline={6}
           fontWeight={'medium'}

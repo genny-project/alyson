@@ -79,8 +79,6 @@ export const Write = ({
 
   const debouncedSendAnswer = debounce(onSendAnswer, 500)
 
-  const maxW = useMobileValue(['', '25vw'])
-
   const onBlur = e => {
     !errorStatus && debouncedSendAnswer(e.target.value)
     dispatchFieldMessage({ payload: questionCode })
@@ -97,7 +95,6 @@ export const Write = ({
         defaultValue={userInput || ''}
         isInvalid={isInvalid}
         w="full"
-        maxW={maxW}
         paddingBlock={2}
         paddingInline={6}
         fontWeight={'medium'}
