@@ -91,11 +91,11 @@ const Write = ({
           bg={fieldBgColor}
           placeholder={placeholderName}
           _hover={{
-            borderColor: secondaryColor,
+            borderColor: 'product.primary',
             boxShadow: 'lg',
           }}
           _focusVisible={{
-            borderColor: secondaryColor,
+            borderColor: 'product.primary',
             boxShadow: 'initial',
           }}
           _invalid={{

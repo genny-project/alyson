@@ -64,15 +64,6 @@ const AskGroup = ({ questionCode, level, properties }) => {
   const childAsks = useSelector(selectCode(questionCode)) || []
   const title = useSelector(selectCode(questionCode, 'title')) || ''
 
-  const levels = {
-    0: '3xl',
-    1: '3xl',
-    2: '2xl',
-    3: 'xl',
-  }
-
-  const fontSize = levels[level] || 'xl'
-
   if (isEmpty(childAsks)) {
     debugOut.error(`${questionCode} has no child asks! (AskGroup in TPL_FORM)`)
   }

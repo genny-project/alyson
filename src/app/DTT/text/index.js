@@ -12,7 +12,6 @@ import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.
 import { selectFieldMessage } from 'redux/app/selectors'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
-import { useMobileValue } from 'utils/hooks'
 
 export const Write = ({
   questionCode,
