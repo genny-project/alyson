@@ -28,26 +28,13 @@ const TemplateRoot = ({ mappedPcm }) => {
   const { PRI_LOC1, PRI_LOC2, PRI_LOC3 } = mappedPcm
 
   // THEME COLORS
-  const lightColor =
-    useGetAttributeFromProjectBaseEntity('PRI_COLOR_PRIMARY_ON')?.valueString ||
-    theme.colors.background['light']
+  const lightColor = 'product.grayLight' || theme.colors.background['light']
   const darkColor =
     useGetAttributeFromProjectBaseEntity('PRI_COLOR_BACKGROUND_ON')?.valueString ||
     theme.colors.background['dark']
   const color = useColorModeValue(lightColor, darkColor)
 
-  const appBg =
-    useGetAttributeFromProjectBaseEntity('PRI_COLOR_PRIMARY_ON')?.valueString ||
-    theme.colors.primary[900]
-
-  const primaryColor =
-    useGetAttributeFromProjectBaseEntity('PRI_COLOR_SURFACE')?.valueString ||
-    theme.colors.primary[400]
-  const secondaryColor =
-    useGetAttributeFromProjectBaseEntity('PRI_COLOR')?.valueString || theme.colors.secondary[400]
-  const fieldBgColor =
-    useGetAttributeFromProjectBaseEntity('PRI_COLORS_BACKGROUND')?.valueString ||
-    theme.colors.gray['100']
+  const appBg = 'product.grayLight' || theme.colors.primary[900]
 
   return (
     <Grid
@@ -69,18 +56,14 @@ const TemplateRoot = ({ mappedPcm }) => {
         }}
       >
         {/* Header PCM*/}
-        <PcmField
-          code={PRI_LOC1}
-          mappedPcm={mappedPcm}
-          properties={{ bg: appBg, color: color, secondaryColor: secondaryColor }}
-        />
+        <PcmField code={PRI_LOC1} mappedPcm={mappedPcm} properties={{ bg: appBg, color: color }} />
       </header>
 
       {/* SIDEBAR WRAPPER */}
       <VStack
         area={'nav'}
         w={SIDEBAR_WIDTH}
-        bg={primaryColor}
+        bg="product.primary"
         h="100%"
         paddingInline={4}
         paddingTop={14}
@@ -92,11 +75,7 @@ const TemplateRoot = ({ mappedPcm }) => {
       <Box backgroundColor={lightColor} id="main-display" pb={1} overflow="auto" area={'main'}>
         <Box paddingTop="2.25rem">
           {/* Main Page Content */}
-          <PcmField
-            code={PRI_LOC3}
-            mappedPcm={mappedPcm}
-            properties={{ secondaryColor: secondaryColor, fieldBgColor: fieldBgColor }}
-          />
+          <PcmField code={PRI_LOC3} mappedPcm={mappedPcm} />
           <DisplayDrawer />
           <Dialog />
           <Toast />

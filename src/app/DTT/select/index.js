@@ -1,5 +1,8 @@
+import './styles.css'
+
 import { compose, equals, includes, map, pathOr } from 'ramda'
 import { selectCode, selectRows } from 'redux/db/selectors'
+import { useCallback, useEffect, useState } from 'react'
 
 import { Select as CSelect } from 'chakra-react-select'
 import { Text } from '@chakra-ui/react'
@@ -11,7 +14,6 @@ import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { selectBufferDropdownOptions } from 'redux/app/selectors'
 import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
-import { useState, useEffect, useCallback } from 'react'
 
 const Write = ({
   questionCode,
@@ -80,7 +82,6 @@ const Write = ({
 
   return equals(clientId)('lojing') ? (
     <CSelect
-      useBasicStyles
       isMulti={isMulti}
       options={options}
       onChange={value => onSendAnswer(prepareValueForSendingAnswer(value, isMulti))}
@@ -90,10 +91,10 @@ const Write = ({
       test-id={questionCode}
       id={questionCode}
       value={value || ''}
+      classNamePrefix={clientId + '_dd'}
       chakraStyles={{
         container: provided => ({
           ...provided,
-          maxW: maxW,
         }),
         control: provided => ({
           ...provided,
@@ -102,6 +103,9 @@ const Write = ({
           cursor: 'pointer',
           fontSize: '0.875rem',
           fontWeight: '500',
+          paddingInline: '0.63rem',
+          paddingBlock: '0.5rem',
+          color: 'product.secondaryAccent',
           _hover: {
             borderColor: 'product.secondary',
             boxShadow: 'lg',
@@ -111,10 +115,36 @@ const Write = ({
             boxShadow: 'inherit',
           },
         }),
+        menu: provided => ({
+          ...provided,
+          marginBlock: 0,
+          paddingBlock: 0,
+          border: 0,
+          borderRadius: '0.25rem 0.25rem 0.75rem 0.75rem',
+          boxShadow: '0px 4px 15px -2px rgba(0, 0, 0, 0.25)',
+          zIndex: 100,
+        }),
         menuList: provided => ({
+          ...provided,
+          paddingBlock: 0,
+          borderRadius: '0.25rem 0.25rem 0.75rem 0.75rem',
+        }),
+        option: provided => ({
           ...provided,
           paddingInline: 10,
           paddingBlock: 2,
+          fontSize: '0.875rem',
+          fontWeight: '500',
+          color: 'product.darkGray',
+          _hover: {
+            bg: 'product.secondary',
+            color: '#fff',
+          },
+        }),
+        noOptionsMessage: provided => ({
+          ...provided,
+          fontSize: '0.875rem',
+          fontWeight: '500',
         }),
       }}
     />

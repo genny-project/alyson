@@ -14,6 +14,8 @@ import { useEffect, useState } from 'react'
 import DropZone from './Dropzone'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ImageType from './Image'
+import { apiConfig } from 'config/get-api-config'
+import { equals } from 'ramda'
 import useApi from 'api'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 
@@ -81,6 +83,8 @@ const Write = ({ questionCode, data, dttData, onSendAnswer, video, name }) => {
   const closeDropzone = () => setDropzone(false)
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
 
+  const clientId = apiConfig?.clientId
+
   useEffect(() => {
     const getFileName = async uuid => {
       setFileName(await api.getMediaFileName(uuid))
@@ -132,6 +136,27 @@ const Write = ({ questionCode, data, dttData, onSendAnswer, video, name }) => {
               <CloseButton cursor="pointer" test-id={questionCode} onClick={() => onSendAnswer()} />
             </Tooltip>
           </HStack>
+        ) : equals(clientId)('lojing') ? (
+          <Button
+            id={questionCode}
+            hidden={!!dropzone}
+            test-id={questionCode}
+            onClick={openDropzone}
+            leftIcon={<FontAwesomeIcon icon={faUpload} />}
+            colorScheme="product.primary"
+            variant="solid"
+            borderRadius={'full'}
+            paddingBlock={2}
+            paddingInline={2}
+            minW={'9rem'}
+            fontSize={'sm'}
+            background={'product.secondary'}
+            _hover={{
+              background: 'product.secondaryAccent',
+            }}
+          >
+            Upload file
+          </Button>
         ) : (
           <Button
             id={questionCode}

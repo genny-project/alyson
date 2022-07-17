@@ -147,7 +147,6 @@ const Ask = ({
         regexPattern={regexPattern}
         errorMessage={errorMessage}
         parentCode={parentCode}
-        properties={properties}
       />
     )
   return component === 'button' ? (
@@ -159,7 +158,6 @@ const Ask = ({
       id={attributeCode}
       regexPattern={regexPattern}
       errorMessage={errorMessage}
-      properties={properties}
     />
   ) : (
     <FormControl
@@ -257,7 +255,6 @@ const Ask = ({
           regexPattern={regexPattern}
           errorMessage={errorMessage}
           placeholderName={placeholderName}
-          properties={properties}
         />
       )}
       {component === 'text' && (
@@ -296,7 +293,6 @@ const Ask = ({
           errorMessage={errorMessage}
           parentCode={parentCode}
           placeholderName={placeholderName}
-          properties={properties}
         />
       )}
       {component === 'upload' && (
@@ -309,7 +305,6 @@ const Ask = ({
           errorMessage={errorMessage}
           placeholderName={placeholderName}
           parentCode={parentCode}
-          properties={properties}
         />
       )}
       {(component === 'date' || component === 'year') && (
@@ -322,7 +317,6 @@ const Ask = ({
           errorMessage={errorMessage}
           question={question}
           parentCode={parentCode}
-          properties={properties}
           realm={projectTitle}
           placeholderName={placeholderName}
         />
@@ -339,7 +333,6 @@ const Ask = ({
           placeholder={placeholder}
           parentCode={parentCode}
           placeholderName={placeholderName}
-          properties={properties}
         />
       )}
       {component === 'date_range' && (
@@ -352,7 +345,6 @@ const Ask = ({
           errorMessage={errorMessage}
           parentCode={parentCode}
           placeholderName={placeholderName}
-          properties={properties}
         />
       )}
       {component === 'video' && (
@@ -365,7 +357,6 @@ const Ask = ({
           errorMessage={errorMessage}
           parentCode={parentCode}
           placeholderName={placeholderName}
-          properties={properties}
         />
       )}
       {component === 'time_range' && (
@@ -377,7 +368,6 @@ const Ask = ({
           errorMessage={errorMessage}
           parentCode={parentCode}
           placeholderName={placeholderName}
-          properties={properties}
         />
       )}
       {component === 'html_display' && (
@@ -388,7 +378,6 @@ const Ask = ({
           errorMessage={errorMessage}
           parentCode={parentCode}
           placeholderName={placeholderName}
-          properties={properties}
         />
       )}
       {component === 'signature' && (
@@ -400,7 +389,6 @@ const Ask = ({
           errorMessage={errorMessage}
           parentCode={parentCode}
           placeholderName={placeholderName}
-          properties={properties}
         />
       )}
       {component === 'link' && (
@@ -412,7 +400,6 @@ const Ask = ({
           errorMessage={errorMessage}
           parentCode={parentCode}
           placeholderName={placeholderName}
-          properties={properties}
         />
       )}
       {component === 'abn_number' && (
@@ -425,7 +412,6 @@ const Ask = ({
           errorMessage={errorMessage}
           parentCode={parentCode}
           placeholderName={placeholderName}
-          properties={properties}
         />
       )}
       {component === 'rating' && (
@@ -437,7 +423,6 @@ const Ask = ({
           errorMessage={errorMessage}
           parentCode={parentCode}
           placeholderName={placeholderName}
-          properties={properties}
         />
       )}
       {component === 'youtube' && (
@@ -449,7 +434,6 @@ const Ask = ({
           errorMessage={errorMessage}
           parentCode={parentCode}
           placeholderName={placeholderName}
-          properties={properties}
         />
       )}
       {component === 'time_zone' && (
@@ -461,7 +445,6 @@ const Ask = ({
           errorMessage={errorMessage}
           parentCode={parentCode}
           placeholderName={placeholderName}
-          properties={properties}
         />
       )}
       {component === 'checkbox' && (
@@ -473,7 +456,6 @@ const Ask = ({
           errorMessage={errorMessage}
           parentCode={parentCode}
           placeholderName={placeholderName}
-          properties={properties}
         />
       )}
       {component === 'log_rocket_session' && (
@@ -483,7 +465,6 @@ const Ask = ({
           errorMessage={errorMessage}
           parentCode={parentCode}
           placeholderName={placeholderName}
-          properties={properties}
         />
       )}
       {component === 'flag' && (
@@ -495,7 +476,6 @@ const Ask = ({
           errorMessage={errorMessage}
           parentCode={parentCode}
           placeholderName={placeholderName}
-          properties={properties}
         />
       )}
       <FormErrorMessage>{feedback}</FormErrorMessage>

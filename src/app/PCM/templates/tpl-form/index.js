@@ -69,7 +69,7 @@ const AskGroup = ({ questionCode, level, properties }) => {
   }
   return (
     <Box w="40vw">
-      <Text fontFamily="Roboto" fontWeight="700px" fontSize="36px" mb="5">
+      <Text fontWeight="700" fontSize="36px" mb="5">
         {title}
       </Text>
       {childAsks.map(code => (

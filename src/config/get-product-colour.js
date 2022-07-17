@@ -4,6 +4,16 @@ const productBasedDefaultColours = {
   lojing: {
     primary: '#00596D',
     secondary: '#F18B32',
+    secondaryAccent: '#EF8567',
+    secondaryLight: '#FFF6F0',
+    gray: '#F4F5F5',
+    grayMedium: '#C4C4C4',
+    darkGray: '#33475B',
+  },
+
+  alyson: {
+    primary: '#00596D',
+    secondary: '#F18B32',
     gray: '#F4F5F5',
   },
 }

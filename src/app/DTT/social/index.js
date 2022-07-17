@@ -6,21 +6,21 @@ import {
   InputLeftAddon,
   VStack,
 } from '@chakra-ui/react'
+import { equals, includes } from 'ramda'
 import { useEffect, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { apiConfig } from 'config/get-api-config.js'
 import { faLinkedin } from '@fortawesome/free-brands-svg-icons'
 import { getIsInvalid } from 'utils/functions'
-import { includes } from 'ramda'
+import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
+import { selectFieldMessage } from 'redux/app/selectors'
 import { useError } from 'utils/contexts/ErrorContext'
+import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
-import { selectFieldMessage } from 'redux/app/selectors'
-import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
-import { apiConfig } from 'config/get-api-config'
-import { equals } from 'ramda'
 
 const Read = ({ data, config = {} }) => {
   const attributeName = data?.attributeName
@@ -69,6 +69,7 @@ const Write = ({
 
   const maxW = useMobileValue(['', '25vw'])
   const clientId = apiConfig?.clientId
+  const iconColor = useGetAttributeFromProjectBaseEntity('PRI_COLOR')?.valueString
 
   const isInvalid = getIsInvalid(userInput)(RegExp(regexPattern))
   const fieldMessageObject = useSelector(selectFieldMessage)
@@ -93,9 +94,31 @@ const Write = ({
 
   return equals(clientId)('lojing') ? (
     <>
-      <InputGroup maxW={maxW}>
-        <InputLeftAddon bg="gray.200">
-          <FontAwesomeIcon size="lg" icon={faLinkedin} />
+      <InputGroup
+        border="1px"
+        borderColor={'product.gray'}
+        borderRadius={4}
+        overflow={'hidden'}
+        _hover={{
+          borderColor: 'product.secondary',
+          boxShadow: 'lg',
+        }}
+        _focusVisible={{
+          borderColor: 'product.secondary',
+          boxShadow: 'initial',
+        }}
+        _invalid={{
+          background: 'error.50',
+          borderColor: 'error.500',
+          color: 'error.500',
+        }}
+        _disabled={{
+          borderColor: 'gray.300',
+          background: 'gray.100',
+        }}
+      >
+        <InputLeftAddon h={'auto'} border={0}>
+          <FontAwesomeIcon size="lg" icon={faLinkedin} color={iconColor} />
         </InputLeftAddon>
         <Input
           id={questionCode}
@@ -103,28 +126,22 @@ const Write = ({
           defaultValue={data?.value}
           onBlur={onBlur}
           onChange={e => setuserInput(e.target.value)}
-          paddingBlock={2}
-          paddingInline={6}
-          fontWeight={'medium'}
-          borderColor={'product.gray'}
+          w="full"
+          h={'auto'}
+          paddingBlock={3}
+          paddingInlineEnd={6}
+          paddingInlineStart={0}
           bg={'product.gray'}
-          placeholder={placeholderName}
-          _hover={{
-            borderColor: 'product.secondary',
-            boxShadow: 'lg',
-          }}
+          border={0}
+          fontSize={'sm'}
+          fontWeight={'medium'}
+          color="product.darkGray"
+          borderRadius={0}
           _focusVisible={{
-            borderColor: 'product.secondary',
-            boxShadow: 'initial',
+            border: '0',
           }}
-          _invalid={{
-            background: 'error.50',
-            borderColor: 'error.500',
-            color: 'error.500',
-          }}
-          _disabled={{
-            borderColor: 'gray.300',
-            background: 'gray.100',
+          _focus={{
+            border: '0',
           }}
         />
       </InputGroup>

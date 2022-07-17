@@ -1,7 +1,9 @@
 import { Input, Stack, Text, VStack } from '@chakra-ui/react'
 
 import DateChip from 'app/DTT/date/DateChip'
+import { apiConfig } from 'config/get-api-config.js'
 import { currentMonthInIsoFormat } from 'utils/helpers/date-info-in-iso-format'
+import { equals } from 'ramda'
 import setYearForMonth from 'utils/helpers/set-year-for-month'
 
 const DateInMonth = ({
@@ -11,6 +13,7 @@ const DateInMonth = ({
   handleDateChange,
   errorStatus,
 }) => {
+  const clientId = apiConfig?.clientId
   return (
     <>
       <Stack direction={['column', 'row']} spacing={5}>
@@ -22,23 +25,28 @@ const DateInMonth = ({
               date={dates.startDate}
               onClick={() => handleDateChange(null, 'startDate')}
             />
-          ) : (
+          ) : equals(clientId)('lojing') ? (
             <Input
               test-id={questionCode}
               type={'month'}
               onBlur={e => handleDateChange(e, 'startDate')}
               min={setYearForMonth('2000')}
               max={maxDate}
+              w="full"
+              h={'auto'}
               paddingBlock={3}
-              paddingInline={5}
+              paddingInline={6}
+              bg={'product.gray'}
+              borderColor={'product.gray'}
+              fontSize={'sm'}
               fontWeight={'medium'}
-              borderColor={'gray.700'}
+              color="product.darkGray"
               _hover={{
-                borderColor: 'green.500',
+                borderColor: 'product.secondary',
                 boxShadow: 'lg',
               }}
               _focusVisible={{
-                borderColor: 'green.500',
+                borderColor: 'product.secondary',
                 boxShadow: 'initial',
               }}
               _invalid={{
@@ -51,6 +59,37 @@ const DateInMonth = ({
                 background: 'gray.100',
               }}
             />
+          ) : (
+            <>
+              <Input
+                test-id={questionCode}
+                type={'month'}
+                onBlur={e => handleDateChange(e, 'startDate')}
+                min={setYearForMonth('2000')}
+                max={maxDate}
+                paddingBlock={3}
+                paddingInline={5}
+                fontWeight={'medium'}
+                borderColor={'gray.700'}
+                _hover={{
+                  borderColor: 'green.500',
+                  boxShadow: 'lg',
+                }}
+                _focusVisible={{
+                  borderColor: 'green.500',
+                  boxShadow: 'initial',
+                }}
+                _invalid={{
+                  background: 'error.50',
+                  borderColor: 'error.500',
+                  color: 'error.500',
+                }}
+                _disabled={{
+                  borderColor: 'gray.300',
+                  background: 'gray.100',
+                }}
+              />
+            </>
           )}
         </VStack>
         <VStack align="left" spacing={2}>
@@ -60,6 +99,40 @@ const DateInMonth = ({
               month
               date={dates.endDate}
               onClick={() => handleDateChange(null, 'endDate')}
+            />
+          ) : equals(clientId)('lojing') ? (
+            <Input
+              test-id={questionCode}
+              type={'month'}
+              onBlur={e => handleDateChange(e, 'endDate')}
+              min={setYearForMonth()}
+              max={maxDate}
+              w="full"
+              h={'auto'}
+              paddingBlock={3}
+              paddingInline={6}
+              bg={'product.gray'}
+              borderColor={'product.gray'}
+              fontSize={'sm'}
+              fontWeight={'medium'}
+              color="product.darkGray"
+              _hover={{
+                borderColor: 'product.secondary',
+                boxShadow: 'lg',
+              }}
+              _focusVisible={{
+                borderColor: 'product.secondary',
+                boxShadow: 'initial',
+              }}
+              _invalid={{
+                background: 'error.50',
+                borderColor: 'error.500',
+                color: 'error.500',
+              }}
+              _disabled={{
+                borderColor: 'gray.300',
+                background: 'gray.100',
+              }}
             />
           ) : (
             <Input

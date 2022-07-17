@@ -1,0 +1,16 @@
+.select__option {
+  display: flex;
+  justify-content: space-between;
+}
+
+.select__option span {
+  order: 2;
+}
+
+.select__option--is-selected {
+  color: #fff !important;
+}
+
+.lojing_dd__option--is-selected {
+  background: #f18b32 !important;
+}

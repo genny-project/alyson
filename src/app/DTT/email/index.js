@@ -80,14 +80,16 @@ const Write = ({
           onChange={handleChange}
           isInvalid={isInvalid}
           value={userInput}
-          w="full"
-          paddingBlock={2}
-          paddingInline={6}
-          borderColor={'product.gray'}
-          bg={'product.gray'}
           placeholder={placeholderName}
+          w="full"
+          h={'auto'}
+          paddingBlock={3}
+          paddingInline={6}
+          bg={'product.gray'}
+          borderColor={'product.gray'}
           fontSize={'sm'}
           fontWeight={'medium'}
+          color="product.darkGray"
           _hover={{
             borderColor: 'product.secondary',
             boxShadow: 'lg',
