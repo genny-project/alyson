@@ -26,7 +26,7 @@ const Write = ({ questionCode, data, onSendAnswer, placeholderName: label }) => 
 
   return (
     <HStack spacing={5}>
-      <Text>{label}</Text>
+      <Text color="gray.700">{label}</Text>
       <Switch test-id={questionCode} isChecked={isChecked} onChange={handleToggle} />
     </HStack>
   )
