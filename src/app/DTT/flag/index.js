@@ -24,9 +24,6 @@ const Write = ({ questionCode, data, onSendAnswer }) => {
     setIsChecked(isChecked => !isChecked)
   }
 
-  if (questionCode === 'QUE_DISPLAY_ADDRESS') {
-    console.log('isChecked====>', { questionCode, data, isChecked })
-  }
   return <Switch test-id={questionCode} isChecked={isChecked} onChange={handleToggle} />
 }
 const Flag = {
