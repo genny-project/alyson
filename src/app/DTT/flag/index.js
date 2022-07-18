@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Switch } from '@chakra-ui/react'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
@@ -16,8 +17,17 @@ const Read = ({ data = {} }) => {
 }
 
 const Write = ({ questionCode, data, onSendAnswer }) => {
-  const toggle = () => onSendAnswer(data?.value === 'true' ? 'false' : 'true')
-  return <Switch test-id={questionCode} isChecked={data.value} onChange={toggle} />
+  const [isChecked, setIsChecked] = useState(!!data?.value)
+
+  const handleToggle = () => {
+    onSendAnswer(isChecked ? 'false' : 'true')
+    setIsChecked(isChecked => !isChecked)
+  }
+
+  if (questionCode === 'QUE_DISPLAY_ADDRESS') {
+    console.log('isChecked====>', { questionCode, data, isChecked })
+  }
+  return <Switch test-id={questionCode} isChecked={isChecked} onChange={handleToggle} />
 }
 const Flag = {
   Write,
