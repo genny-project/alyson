@@ -33,10 +33,10 @@ const Write = ({
   parentCode,
   placeholderName,
 }) => {
-  const { isNullDataValue, defaultValue } = getDataValue(data.value)
+  const { isNullDataValue, dataValue } = getDataValue(data.value)
 
   const [errorStatus, setErrorStatus] = useState(false)
-  const [userInput, setUserInput] = useState(defaultValue)
+  const [userInput, setUserInput] = useState(dataValue)
 
   const { dispatch } = useError()
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
@@ -56,7 +56,7 @@ const Write = ({
   }
 
   useEffect(() => {
-    setUserInput(data?.value)
+    !isNullDataValue && setUserInput(data?.value)
   }, [data, isNullDataValue, setUserInput])
 
   useEffect(() => {

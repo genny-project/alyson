@@ -1,10 +1,10 @@
 import { equals } from 'ramda'
 
-const getDataValue = dataValue => {
+const getDataValue = value => {
   const isNullDataValue = dataValue => equals(dataValue, null)
-  let defaultValue = isNullDataValue ? '' : dataValue
+  let dataValue = isNullDataValue ? '' : value
 
-  return { isNullDataValue, defaultValue }
+  return { isNullDataValue, dataValue }
 }
 
 export default getDataValue
