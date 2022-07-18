@@ -71,6 +71,9 @@ export const defaultProjectTheme = {
       700: '#F36C24',
       800: '#F18B32',
     },
+    teal: {
+      500: '#00596D',
+    },
     blackAlpha: {
       7: 'rgba(0, 0, 0, 0.07)',
       20: 'rgba(0,0,0,0.2)',

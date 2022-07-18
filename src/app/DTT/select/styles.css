@@ -1,13 +1,13 @@
-.select__option {
+[class*='_dd__option'] {
   display: flex;
   justify-content: space-between;
 }
 
-.select__option span {
+[class*='_dd__option'] > span {
   order: 2;
 }
 
-.select__option--is-selected {
+[class*='_dd__option--is-selected'] {
   color: #fff !important;
 }
 

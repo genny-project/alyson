@@ -165,11 +165,11 @@ const Ask = ({
       isDisabled={!!disabled}
       isRequired={mandatory}
       isInvalid={!!feedback}
-      border={highlightedQuestion === attributeCode ? '1px solid red' : ''}
+      border={highlightedQuestion === attributeCode ? '1px solid red' : '1px solid transparent'}
       borderRadius="md"
-      p={highlightedQuestion === attributeCode ? '3' : ''}
+      p={highlightedQuestion === attributeCode ? '3' : '0'}
       transition="all 0.5s"
-      minH="82px"
+      mb={5}
     >
       {compose(not, equals(clientId))('lojing') && (
         <HStack

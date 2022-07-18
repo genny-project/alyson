@@ -99,6 +99,7 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 1, questionCode
       borderWidth={'1px'}
       borderRadius={16}
       borderColor={'product.grayMedium'}
+      role="group"
       _hover={{
         boxShadow: '0px 4px 20px 5px rgba(51, 71, 91, 0.06)',
       }}
@@ -119,6 +120,8 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 1, questionCode
                 style={{
                   width: 80,
                   height: 80,
+                }}
+                _groupHover={{
                   filter: 'drop-shadow(0px 4px 4px rgba(26, 59, 100, 0.35)',
                 }}
               />

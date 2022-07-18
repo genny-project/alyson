@@ -2,7 +2,6 @@ import './styles.css'
 
 import { compose, equals, includes, map, pathOr } from 'ramda'
 import { selectCode, selectRows } from 'redux/db/selectors'
-import { useCallback } from 'react'
 
 import { Select as CSelect } from 'chakra-react-select'
 import { Text } from '@chakra-ui/react'
@@ -12,6 +11,7 @@ import { getValue } from './get-value'
 import { onSendMessage } from 'vertx'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { selectBufferDropdownOptions } from 'redux/app/selectors'
+import { useCallback } from 'react'
 import { useSelector } from 'react-redux'
 
 const Write = ({
@@ -70,6 +70,7 @@ const Write = ({
 
   return equals(clientId)('lojing') ? (
     <CSelect
+      useBasicStyles
       isMulti={isMulti}
       options={options}
       onChange={value => onSendAnswer(prepareValueForSendingAnswer(value, isMulti))}
@@ -80,6 +81,7 @@ const Write = ({
       id={questionCode}
       defaultValue={getDefaultValue()}
       classNamePrefix={clientId + '_dd'}
+      selectedOptionStyle="check"
       chakraStyles={{
         container: provided => ({
           ...provided,
@@ -91,9 +93,9 @@ const Write = ({
           cursor: 'pointer',
           fontSize: '0.875rem',
           fontWeight: '500',
-          paddingInline: '0.63rem',
+          paddingInline: '0.5rem',
           paddingBlock: '0.5rem',
-          color: 'product.secondaryAccent',
+          color: 'product.darkGray',
           _hover: {
             borderColor: 'product.secondary',
             boxShadow: 'lg',
@@ -115,11 +117,13 @@ const Write = ({
         menuList: provided => ({
           ...provided,
           paddingBlock: 0,
+          border: 0,
           borderRadius: '0.25rem 0.25rem 0.75rem 0.75rem',
         }),
         option: provided => ({
           ...provided,
-          paddingInline: 10,
+          paddingInlineStart: 10,
+          paddingInlineEnd: 3,
           paddingBlock: 2,
           fontSize: '0.875rem',
           fontWeight: '500',
