@@ -2,7 +2,7 @@ import './styles.css'
 
 import { compose, equals, includes, map, pathOr } from 'ramda'
 import { selectCode, selectRows } from 'redux/db/selectors'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback } from 'react'
 
 import { Select as CSelect } from 'chakra-react-select'
 import { Text } from '@chakra-ui/react'
@@ -12,7 +12,6 @@ import { getValue } from './get-value'
 import { onSendMessage } from 'vertx'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { selectBufferDropdownOptions } from 'redux/app/selectors'
-import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 
 const Write = ({
@@ -31,33 +30,28 @@ const Write = ({
   const isMulti = includes('multiple', dataType.typeName || '') || component === 'tag'
   const processId = useSelector(selectCode(questionCode, 'processId'))
   const sourceCode = useSelector(selectCode('USER'))
-  const maxW = useMobileValue(['', '25vw'])
   const clientId = apiConfig?.clientId
 
-  const ddEvent = value => {
-    setValue(value)
-
-    debounce(
-      value =>
-        onSendMessage(
-          {
-            sourceCode,
-            targetCode,
-            value,
-            parentCode,
-            questionCode,
-            code: questionCode,
-            processId: processId,
-          },
-          { event_type: 'DD', redirect: false, attributeCode, questionCode, code: questionCode },
-        ),
-      500,
-    )
-  }
+  const ddEvent = debounce(
+    value =>
+      onSendMessage(
+        {
+          sourceCode,
+          targetCode,
+          value,
+          parentCode,
+          questionCode,
+          code: questionCode,
+          processId: processId,
+        },
+        { event_type: 'DD', redirect: false, attributeCode, questionCode, code: questionCode },
+      ),
+    500,
+  )
 
   const getBufferedDropdownOptions = useSelector(selectBufferDropdownOptions)
 
-  const getValue = useCallback(
+  const getDefaultValue = useCallback(
     data => {
       const optionsIncludingBufferedOptions = [...getBufferedDropdownOptions, ...options]
       let defaultValue = safelyParseJson(data?.value, [])
@@ -69,13 +63,6 @@ const Write = ({
     },
     [getBufferedDropdownOptions, options],
   )
-
-  const [value, setValue] = useState(getValue(data))
-
-  useEffect(() => {
-    setValue(getValue(data))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, setValue])
 
   // the backend accepts array only when sending dropdown values regardless of multi or single select
   const prepareValueForSendingAnswer = (value, isMulti) =>
@@ -91,7 +78,7 @@ const Write = ({
       placeholder={!options.length ? 'Start typing to search' : placeholderName || 'Select'}
       test-id={questionCode}
       id={questionCode}
-      value={value || ''}
+      defaultValue={getDefaultValue()}
       classNamePrefix={clientId + '_dd'}
       chakraStyles={{
         container: provided => ({
@@ -160,7 +147,7 @@ const Write = ({
       placeholder={!options.length ? 'Start typing to search' : placeholderName || 'Select'}
       test-id={questionCode}
       id={questionCode}
-      value={value || ''}
+      defaultValue={getDefaultValue()}
     />
   )
 }
