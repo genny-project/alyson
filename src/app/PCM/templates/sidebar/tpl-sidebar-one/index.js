@@ -12,6 +12,7 @@ const TemplateSidebarOne = ({ mappedPcm }) => {
             questionCode={mappedPcm.PRI_QUESTION_CODE}
             childCode={ask?.questionCode || ''}
             iconId={question?.icon || ''}
+            vert={true}
           />
         )
       })(mappedPcm.PRI_QUESTION_CODE)}

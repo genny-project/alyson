@@ -74,7 +74,8 @@ const Write = ({
 
   useEffect(() => {
     setValue(getValue(data))
-  }, [data, setValue, getValue])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, setValue])
 
   // the backend accepts array only when sending dropdown values regardless of multi or single select
   const prepareValueForSendingAnswer = (value, isMulti) =>
