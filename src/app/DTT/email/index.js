@@ -22,6 +22,7 @@ import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
+import getDataValue from 'utils/helpers/get-data-value'
 
 const Write = ({
   questionCode,
@@ -29,12 +30,13 @@ const Write = ({
   onSendAnswer,
   regexPattern,
   errorMessage,
-  attributeCode,
   parentCode,
   placeholderName,
 }) => {
+  const { isNullDataValue, defaultValue } = getDataValue(data.value)
+
   const [errorStatus, setErrorStatus] = useState(false)
-  const [userInput, setUserInput] = useState(data?.value)
+  const [userInput, setUserInput] = useState(defaultValue)
 
   const { dispatch } = useError()
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
@@ -55,7 +57,7 @@ const Write = ({
 
   useEffect(() => {
     setUserInput(data?.value)
-  }, [data, setUserInput])
+  }, [data, isNullDataValue, setUserInput])
 
   useEffect(() => {
     isInvalid ? setErrorStatus(true) : setErrorStatus(false)
