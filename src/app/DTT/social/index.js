@@ -117,7 +117,7 @@ const Write = ({
           background: 'gray.100',
         }}
       >
-        <InputLeftAddon h={'auto'} border={0}>
+        <InputLeftAddon h={'auto'} border={0} paddingInlineStart={6}>
           <FontAwesomeIcon size="lg" icon={faLinkedin} color={iconColor} />
         </InputLeftAddon>
         <Input
