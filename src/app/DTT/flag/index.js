@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Switch } from '@chakra-ui/react'
+import { HStack, Switch, Text } from '@chakra-ui/react'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import { onSendMessage } from 'vertx'
@@ -16,7 +16,7 @@ const Read = ({ data = {} }) => {
   return <Switch isChecked={data.value} onChange={toggle} />
 }
 
-const Write = ({ questionCode, data, onSendAnswer }) => {
+const Write = ({ questionCode, data, onSendAnswer, placeholderName: label }) => {
   const [isChecked, setIsChecked] = useState(!!data?.value)
 
   const handleToggle = () => {
@@ -24,7 +24,12 @@ const Write = ({ questionCode, data, onSendAnswer }) => {
     setIsChecked(isChecked => !isChecked)
   }
 
-  return <Switch test-id={questionCode} isChecked={isChecked} onChange={handleToggle} />
+  return (
+    <HStack spacing={5}>
+      <Text>{label}</Text>
+      <Switch test-id={questionCode} isChecked={isChecked} onChange={handleToggle} />
+    </HStack>
+  )
 }
 const Flag = {
   Write,
