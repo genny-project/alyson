@@ -105,7 +105,6 @@ export const Write = ({
         fontSize={'sm'}
         fontWeight={'medium'}
         color="product.darkGray"
-        text
         _hover={{
           borderColor: 'product.secondary',
           boxShadow: 'lg',
