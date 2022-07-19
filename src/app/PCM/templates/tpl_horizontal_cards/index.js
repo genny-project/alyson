@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux'
 import { selectKeys, selectCode } from 'redux/db/selectors'
 import { includes, filter } from 'ramda'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
+import Attribute from 'app/BE/attribute'
 
 const TemplateHorizontalCards = ({ mappedPcm }) => {
   const sbeCodePrefix = mappedPcm.PRI_LOC1
@@ -19,7 +20,7 @@ const TemplateHorizontalCards = ({ mappedPcm }) => {
   const mappedSbe = useGetMappedBaseEntity(sbeCode)
   const mappedValues = getFields(getColumnDefs(mappedSbe))
 
-  const rows = useSelector(selectCode(sbeCode, 'rows'))
+  const rows = useSelector(selectCode(sbeCode, 'rows')) || []
 
   const color = useGetAttributeFromProjectBaseEntity('PRI_COLOR').valueString
 
@@ -27,20 +28,24 @@ const TemplateHorizontalCards = ({ mappedPcm }) => {
     <Box padding={'10px'}>
       <HStack>
         {rows.map(item => {
-          return <Card mappedValues={mappedValues} baseEntity={item} color={color} />
+          return <Card mappedValues={mappedValues} baseEntity={item['code'] || ''} color={color} />
         })}
       </HStack>
     </Box>
   )
 }
 
-const Card = ({ mappedValues, baseEntity, color }) => {
+const Card = ({ mappedValues, baseEntityCode, color }) => {
   return (
     <Box border={'thick'} borderRadius={'lg'} borderColor={color} height={'100px'}>
       <VStack>
         {mappedValues.map((value, index) => {
           const fontSize = index === 0 ? 'xl' : 'md'
-          return <Text fontSize={fontSize}>{value}</Text>
+          return (
+            <Text fontSize={fontSize}>
+              <Attribute code={baseEntityCode} attribute={value} />
+            </Text>
+          )
         })}
       </VStack>
     </Box>
