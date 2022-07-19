@@ -8,6 +8,7 @@ import {
   MenuItem,
   MenuList,
   Spacer,
+  Box,
 } from '@chakra-ui/react'
 
 import ChildMenuItem from 'app/ASKS/menu/ChildMenuItem'
@@ -47,23 +48,87 @@ const AvatarMenu = ({ code: QUE_AVATAR_GRP }) => {
 
   if (!avatarAsks)
     return (
-      <Menu test-id={'QUE_AVATAR_GRP'}>
-        <MenuButton>
+      <Box>
+        <Menu test-id={'QUE_AVATAR_GRP'}>
+          <MenuButton>
+            <HStack spacing={1} color="grey">
+              <Avatar
+                color="white"
+                bg="gradient.400"
+                name={name?.value || userName?.value}
+                src={getImageSrc(userImage?.value)}
+                size="md"
+              />
+              <FontAwesomeIcon icon={faCaretDown} />
+            </HStack>
+          </MenuButton>
+          <MenuList>
+            <MenuGroup title={title}>
+              <MenuItem test-id={'HELP'} onClick={onOpenHelp} color="#000000">
+                {`Help & Support`}
+              </MenuItem>
+              <MenuItem
+                test-id={'QUE_AVATAR_LOGOUT'}
+                onClick={() => {
+                  onSendMessage({ code: 'LOGOUT' }, { event_type: 'LOGOUT' })
+                  window.localStorage.localToken = ''
+                  window.localStorage.removeItem('state')
+                  window.location.assign(window.location.origin)
+                  keycloak.logout()
+                }}
+                color="#000000"
+              >
+                Logout
+              </MenuItem>
+            </MenuGroup>
+          </MenuList>
+        </Menu>
+      </Box>
+    )
+
+  return (
+    <Box>
+      <Menu>
+        <MenuButton test-id={'QUE_AVATAR_GRP'}>
           <HStack spacing={1} color="grey">
             <Avatar
               color="white"
               bg="gradient.400"
               name={name?.value || userName?.value}
               src={getImageSrc(userImage?.value)}
-              size="md"
             />
             <FontAwesomeIcon icon={faCaretDown} />
           </HStack>
         </MenuButton>
         <MenuList>
           <MenuGroup title={title}>
+            {avatarAsks
+              .filter(
+                childAsk => childAsk !== 'QUE_AVATAR_LOGOUT' && childAsk !== 'QUE_AVATAR_SETTINGS',
+              )
+              .map(childAsk => (
+                <ChildMenuItem
+                  rootCode={userCode}
+                  targetCode={userCode}
+                  key={childAsk}
+                  questionCode={QUE_AVATAR_GRP}
+                  childCode={childAsk}
+                />
+              ))}
+
+            <a
+              href={`https://keycloak.gada.io/auth/realms/${apiConfig?.realm}/account/`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <MenuItem test-id={'QUE_AVATAR_SETTINGS'}>Account</MenuItem>
+            </a>
+
             <MenuItem test-id={'HELP'} onClick={onOpenHelp} color="#000000">
               {`Help & Support`}
+            </MenuItem>
+            <MenuItem test-id={'T&Cs'} onClick={onTandC} color="#000000">
+              {`Terms & Conditions`}
             </MenuItem>
             <MenuItem
               test-id={'QUE_AVATAR_LOGOUT'}
@@ -79,73 +144,13 @@ const AvatarMenu = ({ code: QUE_AVATAR_GRP }) => {
               Logout
             </MenuItem>
           </MenuGroup>
+          <Flex>
+            <Spacer />
+            <ColorToggler />
+          </Flex>
         </MenuList>
       </Menu>
-    )
-
-  return (
-    <Menu>
-      <MenuButton test-id={'QUE_AVATAR_GRP'}>
-        <HStack spacing={1} color="grey">
-          <Avatar
-            color="white"
-            bg="gradient.400"
-            name={name?.value || userName?.value}
-            src={getImageSrc(userImage?.value)}
-          />
-          <FontAwesomeIcon icon={faCaretDown} />
-        </HStack>
-      </MenuButton>
-      <MenuList>
-        <MenuGroup title={title}>
-          {avatarAsks
-            .filter(
-              childAsk => childAsk !== 'QUE_AVATAR_LOGOUT' && childAsk !== 'QUE_AVATAR_SETTINGS',
-            )
-            .map(childAsk => (
-              <ChildMenuItem
-                rootCode={userCode}
-                targetCode={userCode}
-                key={childAsk}
-                questionCode={QUE_AVATAR_GRP}
-                childCode={childAsk}
-              />
-            ))}
-
-          <a
-            href={`https://keycloak.gada.io/auth/realms/${apiConfig?.realm}/account/`}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <MenuItem test-id={'QUE_AVATAR_SETTINGS'}>Account</MenuItem>
-          </a>
-
-          <MenuItem test-id={'HELP'} onClick={onOpenHelp} color="#000000">
-            {`Help & Support`}
-          </MenuItem>
-          <MenuItem test-id={'T&Cs'} onClick={onTandC} color="#000000">
-            {`Terms & Conditions`}
-          </MenuItem>
-          <MenuItem
-            test-id={'QUE_AVATAR_LOGOUT'}
-            onClick={() => {
-              onSendMessage({ code: 'LOGOUT' }, { event_type: 'LOGOUT' })
-              window.localStorage.localToken = ''
-              window.localStorage.removeItem('state')
-              window.location.assign(window.location.origin)
-              keycloak.logout()
-            }}
-            color="#000000"
-          >
-            Logout
-          </MenuItem>
-        </MenuGroup>
-        <Flex>
-          <Spacer />
-          <ColorToggler />
-        </Flex>
-      </MenuList>
-    </Menu>
+    </Box>
   )
 }
 
