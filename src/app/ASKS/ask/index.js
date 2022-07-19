@@ -35,6 +35,7 @@ import TimeZonePicker from 'app/DTT/time_zone'
 import URL from 'app/DTT/url'
 import Upload from 'app/DTT/upload'
 import Video from 'app/DTT/video'
+import ProgressBar from 'app/DTT/progress'
 import { apiConfig } from 'config/get-api-config.js'
 import createSendAnswer from 'app/ASKS/utils/create-send-answer'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
@@ -165,11 +166,11 @@ const Ask = ({
       isDisabled={!!disabled}
       isRequired={mandatory}
       isInvalid={!!feedback}
-      border={highlightedQuestion === attributeCode ? '1px solid red' : ''}
+      border={highlightedQuestion === attributeCode ? '1px solid red' : '1px solid transparent'}
       borderRadius="md"
-      p={highlightedQuestion === attributeCode ? '3' : ''}
+      p={highlightedQuestion === attributeCode ? '3' : '0'}
       transition="all 0.5s"
-      minH="82px"
+      mb={5}
     >
       {compose(not, equals(clientId))('lojing') && (
         <HStack
@@ -469,6 +470,17 @@ const Ask = ({
       )}
       {component === 'flag' && (
         <Flag.Write
+          data={data}
+          questionCode={questionCode}
+          onSendAnswer={onSendAnswer}
+          regexPattern={regexPattern}
+          errorMessage={errorMessage}
+          parentCode={parentCode}
+          placeholderName={placeholderName}
+        />
+      )}
+      {component === 'progress' && (
+        <ProgressBar.Write
           data={data}
           questionCode={questionCode}
           onSendAnswer={onSendAnswer}

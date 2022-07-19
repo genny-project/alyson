@@ -8,7 +8,7 @@ import Flag from 'app/DTT/flag'
 import HtmlDisplay from 'app/DTT/html_display'
 import ImageType from 'app/DTT/upload/Image'
 import Phone from 'app/DTT/phone'
-import ProgressBar from 'app/DTT/progress_bar'
+import JournalProgress from 'app/DTT/progress'
 import Rating from 'app/DTT/rating'
 import RichText from 'app/DTT/rich_text'
 import Select from 'app/DTT/select'
@@ -80,7 +80,7 @@ const Attribute = ({
   ) : component === 'date' ? (
     <Date.Read config={config} data={data} size={size} typeName={dttData.typeName} />
   ) : component === 'progress' ? (
-    <ProgressBar.Read data={data} />
+    <JournalProgress.Read data={data} />
   ) : component === 'html_display' ? (
     <HtmlDisplay.Read data={data} />
   ) : component === 'richtext_editor' ? (

@@ -1,8 +1,9 @@
-import { useState } from 'react'
 import { HStack, Switch, Text } from '@chakra-ui/react'
-import { useSelector } from 'react-redux'
-import { selectCode } from 'redux/db/selectors'
+
 import { onSendMessage } from 'vertx'
+import { selectCode } from 'redux/db/selectors'
+import { useSelector } from 'react-redux'
+import { useState } from 'react'
 
 const Read = ({ data = {} }) => {
   const sourceCode = useSelector(selectCode('USER'))
@@ -27,7 +28,12 @@ const Write = ({ questionCode, data, onSendAnswer, placeholderName: label }) => 
   return (
     <HStack spacing={5}>
       <Text color="gray.700">{label}</Text>
-      <Switch test-id={questionCode} isChecked={isChecked} onChange={handleToggle} />
+      <Switch
+        colorScheme="teal"
+        test-id={questionCode}
+        isChecked={isChecked}
+        onChange={handleToggle}
+      />
     </HStack>
   )
 }

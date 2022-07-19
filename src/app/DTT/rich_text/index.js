@@ -28,16 +28,18 @@ import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import DOMPurify from 'dompurify'
 import { Editor } from 'react-draft-wysiwyg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { apiConfig } from 'config/get-api-config.js'
+import { equals } from 'ramda'
 import { faExpand } from '@fortawesome/free-solid-svg-icons'
 import { getIsInvalid } from 'utils/functions'
+import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
 import removeHtmlTags from 'utils/helpers/remove-html-tags'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
+import { selectFieldMessage } from 'redux/app/selectors'
 import { stateToHTML } from 'draft-js-export-html'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useSelector } from 'react-redux'
-import { selectFieldMessage } from 'redux/app/selectors'
-import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
 
 const Write = ({
   questionCode,
@@ -117,7 +119,81 @@ const Write = ({
     dispatchFieldMessage({ payload: questionCode })
   }
 
-  return (
+  const clientId = apiConfig?.clientId
+
+  return equals(clientId)('lojing') ? (
+    <>
+      <Box
+        test-id={questionCode}
+        w="full"
+        border="1px"
+        borderColor="product.gray"
+        borderRadius={4}
+        paddingBlock={3}
+        paddingInline={6}
+        bg="product.gray"
+        fontSize={'sm'}
+        fontWeight={'medium'}
+      >
+        {minCharacterCount || maxCharacterCount ? (
+          !minCharacterCount ? (
+            <HStack>
+              <Text>{`Please use less than`}</Text>
+              <Text color={curLength > maxCharacterCount ? 'red' : 'green'}>
+                {maxCharacterCount}
+              </Text>
+              <Text>{`characters`}</Text>
+            </HStack>
+          ) : (
+            <HStack>
+              <Text>{`Please use between`}</Text>
+              <Text color={curLength < minCharacterCount ? 'red' : 'green'}>
+                {minCharacterCount}
+              </Text>
+              <Text>{`and`}</Text>
+              <Text color={curLength > maxCharacterCount ? 'red' : 'green'}>
+                {maxCharacterCount}
+              </Text>
+              <Text>{`characters`}</Text>
+            </HStack>
+          )
+        ) : null}
+        {minCharacterCount || maxCharacterCount ? (
+          <Text mb="3">
+            {minCharacterCount > curLength
+              ? `Keep typing please`
+              : curLength > maxCharacterCount
+              ? `Too much text`
+              : curLength
+              ? `That's perfect, thanks!`
+              : ''}
+          </Text>
+        ) : null}
+        <Editor
+          toolbar={{
+            options: ['list', 'textAlign'],
+          }}
+          id={questionCode}
+          editorState={editor}
+          onEditorStateChange={setEditor}
+          onBlur={handleSave}
+          onChange={handleEditorChange}
+          spellCheck={true}
+          lang="en"
+          placeholder={placeholderName || ' '}
+        />
+      </Box>
+      {errorStatus && (
+        <VStack alignItems="start">
+          {(hasFieldMessage || hasErrorMessage) && (
+            <Text textStyle="tail.error" mt={2}>
+              {hasFieldMessage ? fieldMessage : errorMessage}
+            </Text>
+          )}
+        </VStack>
+      )}
+    </>
+  ) : (
     <>
       <Box
         test-id={questionCode}

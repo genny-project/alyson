@@ -71,7 +71,15 @@ const Read = ({ code, data, dttData, parentCode, variant, config = {} }) => {
   )
 }
 
-const Write = ({ questionCode, data, dttData, onSendAnswer, video, name }) => {
+const Write = ({
+  questionCode,
+  data,
+  dttData,
+  onSendAnswer,
+  video,
+  name,
+  placeholderName: label,
+}) => {
   const api = useApi()
   const typeName = dttData?.typeName
 
@@ -115,7 +123,10 @@ const Write = ({ questionCode, data, dttData, onSendAnswer, video, name }) => {
   }
 
   return (
-    <div>
+    <VStack>
+      <Text color="gray.700" alignSelf="start">
+        {label}
+      </Text>
       <div hidden={loading}>
         {typeName === 'Image' ? (
           <ImageType.Write
@@ -195,7 +206,7 @@ const Write = ({ questionCode, data, dttData, onSendAnswer, video, name }) => {
           />
         </VStack>
       </div>
-    </div>
+    </VStack>
   )
 }
 
