@@ -17,13 +17,15 @@ const ProgressBar = props => {
     }
   })()
 
-  return (
+  return completedJournals || completedPercentage ? (
     <VStack alignItems="start" w="40">
       <Text mb={1}>{`Internship progress`}</Text>
       <Progress w="full" colorScheme="green" size="sm" value={completedPercentage} />
       <Text mb={1}>{`Journal progress ${completedJournals || ''}`}</Text>
       <Progress w="full" colorScheme="secondary" size="sm" value={completedJournalsPercentage} />
     </VStack>
+  ) : (
+    <Progress w="full" colorScheme="green" size="sm" value="20" />
   )
 }
 
