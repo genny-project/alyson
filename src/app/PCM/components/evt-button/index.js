@@ -22,7 +22,7 @@ import useApi from 'api'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import { useSelector } from 'react-redux'
 
-const EvtButton = ({ questionCode, childCode, iconId }) => {
+const EvtButton = ({ questionCode, childCode, iconId, vert }) => {
   const theme = useTheme()
   const data = useSelector(selectCode(questionCode, childCode))
 
@@ -30,6 +30,8 @@ const EvtButton = ({ questionCode, childCode, iconId }) => {
   const sourceCode = useSelector(selectCode(questionCode, 'sourceCode'))
   const processId = useSelector(selectCode(questionCode, 'processId'))
   const attrCode = useSelector(selectCode(questionCode, 'attributeCode'))
+
+  const bgColor = useGetAttributeFromProjectBaseEntity('PRI_COLOR')?.valueString || '#234371'
 
   const color =
     useGetAttributeFromProjectBaseEntity('PRI_COLOR_PRIMARY_ON')?.valueString ||
@@ -62,8 +64,23 @@ const EvtButton = ({ questionCode, childCode, iconId }) => {
     })
   }
 
-  if (!childAsks)
-    return (
+  if (!childAsks) {
+    let box = (
+      <Box display="flex" alignItems="center" justifyContent="center" cursor={'pointer'}>
+        {iconId ? (
+          <Image boxSize="35px" objectFit={'contain'} src={src} alt="" />
+        ) : (
+          <FontAwesomeIcon icon={icons[childCode]} size="2x" color="#AAE3E2" />
+        )}
+      </Box>
+    )
+    let text = (
+      <Text color={color} fontSize={vert ? 12 : 15} fontWeight="700">
+        {name}
+      </Text>
+    )
+
+    return vert ? (
       <VStack
         spacing={2}
         role="group"
@@ -73,18 +90,26 @@ const EvtButton = ({ questionCode, childCode, iconId }) => {
         as="button"
         w={'full'}
       >
-        <Box display="flex" alignItems="center" justifyContent="center" cursor={'pointer'}>
-          {iconId ? (
-            <Image boxSize="35px" objectFit={'contain'} src={src} alt="" />
-          ) : (
-            <FontAwesomeIcon icon={icons[childCode]} size="2x" color="#AAE3E2" />
-          )}
-        </Box>
-        <Text color={color} fontSize={12} fontWeight="700">
-          {name}
-        </Text>
+        {box}
+        {text}
       </VStack>
+    ) : (
+      <Box padding={1} borderRadius="lg" background={bgColor}>
+        <HStack
+          spacing={2}
+          role="group"
+          p="0"
+          test-id={childCode}
+          onClick={handleClick}
+          as="button"
+          w={'full'}
+        >
+          {box}
+          {text}
+        </HStack>
+      </Box>
     )
+  }
   return (
     <Menu placement="right-start">
       <MenuButton test-id={childCode}>
@@ -103,7 +128,7 @@ const EvtButton = ({ questionCode, childCode, iconId }) => {
             )}
           </Box>
           <HStack mt={'5px !important'}>
-            <Text fontSize="12px" fontWeight="400">
+            <Text fontSize="12px" fontWeight="400" color={color}>
               {name}
             </Text>
             <FontAwesomeIcon icon={faAngleDown} color="#BDC5CD" />
