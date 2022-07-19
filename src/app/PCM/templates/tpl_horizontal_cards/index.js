@@ -28,7 +28,14 @@ const TemplateHorizontalCards = ({ mappedPcm }) => {
     <Box padding={'10px'}>
       <HStack>
         {rows.map(item => {
-          return <Card mappedValues={mappedValues} baseEntity={item['code'] || ''} color={color} />
+          return (
+            <Card
+              key={`CARD-${item['code'] || ''}`}
+              mappedValues={mappedValues}
+              baseEntity={item['code'] || ''}
+              color={color}
+            />
+          )
         })}
       </HStack>
     </Box>
@@ -42,7 +49,7 @@ const Card = ({ mappedValues, baseEntityCode, color }) => {
         {mappedValues.map((value, index) => {
           const fontSize = index === 0 ? 'xl' : 'md'
           return (
-            <Text fontSize={fontSize}>
+            <Text fontSize={fontSize} key={`CARD-ATTRIBUTE-${baseEntityCode}-${value}`}>
               <Attribute code={baseEntityCode} attribute={value} />
             </Text>
           )
