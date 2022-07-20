@@ -81,6 +81,7 @@ const NonPcmPcmField: React.FC<NonPcmPcmFieldProps> = (props): JSX.Element => {
           questionCode={questionGroupCode}
           childCode={ask?.questionCode}
           iconId={ask?.question?.icon}
+          vert={false}
         />
       )}
       {!childUndefined &&

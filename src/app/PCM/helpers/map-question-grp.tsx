@@ -28,6 +28,7 @@ const mapQuestionGroup = (
           questionCode={code}
           childCode={ask?.questionCode || ''}
           iconId={question?.icon || ''}
+          vert={false}
         />,
         out,
       )
