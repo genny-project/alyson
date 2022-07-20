@@ -26,7 +26,7 @@ const TemplateHorizontalCards = ({ mappedPcm }) => {
 
   return (
     <Box padding={'10px'}>
-      <HStack>
+      <HStack spacing="10">
         {rows.map(item => (
           <Card
             key={`CARD-${item['code'] || ''}`}
@@ -40,13 +40,16 @@ const TemplateHorizontalCards = ({ mappedPcm }) => {
   )
 }
 
+//Image is hardcoded for the demo, need to remove it after the demo.
+
 const Card = ({ mappedValues, baseEntityCode, primaryColor }) => {
   return (
-    <Box border={`1px solid`} borderRadius={'lg'} borderColor={primaryColor} p="5">
+    <Box border={`1px solid`} borderRadius="3xl" borderColor={primaryColor} p="5">
       <VStack>
         <Image
           src="https://cdn.pixabay.com/photo/2016/11/18/17/20/living-room-1835923_1280.jpg"
           alt="Property"
+          maxWidth="35vw"
         />
         {mappedValues.map((value, index) => {
           const fontSize = index === 0 ? 'xl' : 'md'
