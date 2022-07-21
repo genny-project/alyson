@@ -18,6 +18,7 @@ import TemplateVert from 'app/PCM/templates/tpl-vert'
 import TemplateWest from 'app/PCM/templates/sidebar/tpl-west'
 import debugOut from 'utils/debug-out'
 import hasNot from 'utils/helpers/has-not.js'
+import TemplateHorizontalCards from './tpl_horizontal_cards'
 
 /**
  * Takes in a mappedPcm, a templateCode and some misc properties and returns a template component.
@@ -52,6 +53,7 @@ const templateHandlerMachine = mappedPcm => templateCode => properties => {
     TPL_TEXT_HEADER_6: <TemplateText mappedPcm={mappedPcm} {...properties} />,
     TPL_CARD: <TemplateCard mappedPcm={mappedPcm} {...properties} />,
     TPL_DETAIL_VIEW: <TemplateDetailView mappedPcm={mappedPcm} {...properties} />,
+    TPL_HORIZONTAL_CARDS: <TemplateHorizontalCards mappedPcm={mappedPcm} {...properties} />,
   }
 
   if (hasNot(templateCode)(listOfTemplates)) {

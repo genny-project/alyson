@@ -1,4 +1,4 @@
-import { Text as ChakraText, Input, VStack } from '@chakra-ui/react'
+import { Text as ChakraText, Input, VStack, useTheme } from '@chakra-ui/react'
 import { faCalendar, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useRef, useState } from 'react'
 
@@ -25,6 +25,7 @@ export const Write = ({
   parentCode,
   placeholderName,
 }) => {
+  const theme = useTheme()
   let regex
   const { dispatch } = useError()
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
@@ -126,7 +127,7 @@ export const Write = ({
       {errorStatus && (
         <VStack alignItems="start">
           {(hasFieldMessage || hasErrorMessage) && (
-            <ChakraText textStyle="tail.error" mt={2}>
+            <ChakraText color={theme.colors.error[500]} fontSize={'xs'} mt={2}>
               {hasFieldMessage ? fieldMessage : errorMessage}
             </ChakraText>
           )}

@@ -10,6 +10,8 @@ import MapSearch from 'app/SBE/display_modes/map_view'
 import Pagination from './Pagination'
 import Search from 'app/SBE/search/Search'
 import Title from './Title'
+import { apiConfig } from 'config/get-api-config'
+import { equals } from 'ramda'
 import getColumns from '../utils/get-columns'
 import { selectCode } from 'redux/db/selectors'
 import { useIsMobile } from 'utils/hooks'
@@ -27,10 +29,17 @@ const DataTable = ({ parentCode, mapSearch }) => {
   const actions = getActions(tableData)
   const tableActions = getTableActions(tableData)
 
+  const clientId = apiConfig?.clientId || 'alyson'
+
   return (
     <Box mx="5">
       <HStack align="flex-end" mb="3" justify="space-between">
-        <Stack align="flex-start" spacing="7" direction={isMobile ? 'column' : 'row'}>
+        <Stack
+          align="flex-start"
+          alignItems={'center'}
+          spacing="7"
+          direction={isMobile ? 'column' : 'row'}
+        >
           <Title sbeCode={parentCode} />
           <Search sbeCode={parentCode} />
           <Filters sbeCode={parentCode} />
@@ -56,7 +65,14 @@ const DataTable = ({ parentCode, mapSearch }) => {
         <MapSearch parentCode={parentCode} />
       ) : (
         <Box maxW={'full'} overflow={'auto'}>
-          <Table variant="simple" bg={bgColor} borderRadius="md" shadow="xs" size="sm">
+          <Table
+            variant={equals(clientId)('lojing') ? 'striped' : 'simple'}
+            bg={bgColor}
+            color="product.darkAlpha50"
+            borderRadius="md"
+            shadow="xs"
+            size="sm"
+          >
             <Header columns={columns} parentCode={parentCode} actions={actions} />
             <Body columns={columns} parentCode={parentCode} actions={actions} />
           </Table>
