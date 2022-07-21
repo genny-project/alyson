@@ -193,10 +193,10 @@ const Read = ({ data, mini, styles, config = {} }) => {
       </PopoverContent>
     </Popover>
   ) : (
-    <Box>
+    <HStack sx={{ alignItems: 'flex-end' }}>
       <Player src={src} inline={config.inline} styles={styles} />
       {hasDownloadableRole && <Download urlLink={downloadableLink} />}
-    </Box>
+    </HStack>
   )
 }
 
