@@ -22,7 +22,7 @@ import Player from './Player'
 import Upload from '../upload'
 import VideoRecorder from './video_recorder'
 import configs from './configs'
-import getDownloadableLinkFromUrl from 'utils/helpers/get-downloadble-link'
+import { getDownloadableVideoLinkFromUrl } from 'utils/helpers/get-downloadble-link'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import useApi from 'api'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
@@ -181,7 +181,7 @@ const Read = ({ data, mini, styles, config = {} }) => {
 
   const src = api.getVideoSrc(data?.value)
 
-  const downloadableLink = getDownloadableLinkFromUrl(src)
+  const downloadableLink = getDownloadableVideoLinkFromUrl(src)
 
   return mini ? (
     <Popover>
