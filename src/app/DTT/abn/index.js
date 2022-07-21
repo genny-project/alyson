@@ -5,11 +5,11 @@ import ABNLookup from './abn_lookup'
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import { Read } from '../text'
 import { getIsInvalid } from 'utils/functions'
+import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
+import { selectFieldMessage } from 'redux/app/selectors'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
-import { selectFieldMessage } from 'redux/app/selectors'
-import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
 
 const Write = ({
   questionCode,
@@ -89,17 +89,19 @@ const Write = ({
           w="full"
           maxW={maxW}
           paddingBlock={3}
-          paddingLeft={'9rem'}
-          paddingRight={5}
+          paddingInlineStart={'9rem'}
+          paddingInlineEnd={6}
           fontWeight={'medium'}
+          borderRadius={'calc(0.25rem - 1px)'}
           borderColor={'gray.700'}
+          bg={'product.gray'}
           placeholder={placeholderName}
           _hover={{
-            borderColor: 'green.500',
+            borderColor: 'product.gray',
             boxShadow: 'lg',
           }}
           _focusVisible={{
-            borderColor: 'green.500',
+            borderColor: 'product.secondary',
             boxShadow: 'initial',
           }}
           _invalid={{

@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react'
 import PcmField from 'app/PCM/components/pcm-field'
 
 /**
@@ -6,9 +5,9 @@ import PcmField from 'app/PCM/components/pcm-field'
  */
 const TemplateContent = ({ mappedPcm, ...properties }) => {
   return (
-    <Box mx="100px">
+    <>
       <PcmField code={mappedPcm.PRI_LOC1} mappedPcm={mappedPcm} properties={properties} />
-    </Box>
+    </>
   )
 }
 

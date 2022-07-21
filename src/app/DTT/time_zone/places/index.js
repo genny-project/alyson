@@ -33,12 +33,57 @@ const PlacesAutocomplete = ({ onSelect, questionCode }) => {
   return (
     <div>
       <Text m="1">What is a city inside your preferred timezone?</Text>
-      <InputGroup>
+      <InputGroup
+        bg={'product.gray'}
+        borderRadius={'calc(0.25rem - 1px)'}
+        borderWidth="1px"
+        borderStyle="solid"
+        borderColor={'product.gray'}
+        overflow={'hidden'}
+        role="group"
+        _hover={{
+          borderColor: 'product.gray',
+          boxShadow: 'lg',
+        }}
+        _focusVisible={{
+          borderColor: 'product.secondary',
+          boxShadow: 'initial',
+        }}
+        _invalid={{
+          background: 'error.50',
+          borderColor: 'error.500',
+          color: 'error.500',
+        }}
+        _disabled={{
+          borderColor: 'gray.300',
+          background: 'gray.100',
+        }}
+        _focusWithin={{
+          borderColor: 'product.secondary',
+          boxShadow: 'initial',
+        }}
+      >
         <Input
           test-id={questionCode}
           ref={inputRef}
           value={input}
           onChange={e => setInput(e.target.value)}
+          w="full"
+          h={'auto'}
+          paddingBlock={3}
+          paddingInlineEnd={6}
+          paddingInlineStart={0}
+          border={0}
+          fontSize={'sm'}
+          fontWeight={'medium'}
+          color="product.darkGray"
+          role="peer"
+          _focusVisible={{
+            border: '0',
+          }}
+          _focus={{
+            border: '0',
+          }}
         />
         <InputRightAddon>
           <Menu>

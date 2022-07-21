@@ -28,8 +28,6 @@ import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import DOMPurify from 'dompurify'
 import { Editor } from 'react-draft-wysiwyg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { apiConfig } from 'config/get-api-config.js'
-import { equals } from 'ramda'
 import { faExpand } from '@fortawesome/free-solid-svg-icons'
 import { getIsInvalid } from 'utils/functions'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
@@ -119,88 +117,27 @@ const Write = ({
     dispatchFieldMessage({ payload: questionCode })
   }
 
-  const clientId = apiConfig?.clientId
-
-  return equals(clientId)('lojing') ? (
+  return (
     <>
       <Box
         test-id={questionCode}
         w="full"
         border="1px"
         borderColor="product.gray"
-        borderRadius={4}
+        borderRadius={'calc(0.24rem - 1px)'}
         paddingBlock={3}
         paddingInline={6}
         bg="product.gray"
         fontSize={'sm'}
         fontWeight={'medium'}
-      >
-        {minCharacterCount || maxCharacterCount ? (
-          !minCharacterCount ? (
-            <HStack>
-              <Text>{`Please use less than`}</Text>
-              <Text color={curLength > maxCharacterCount ? 'red' : 'green'}>
-                {maxCharacterCount}
-              </Text>
-              <Text>{`characters`}</Text>
-            </HStack>
-          ) : (
-            <HStack>
-              <Text>{`Please use between`}</Text>
-              <Text color={curLength < minCharacterCount ? 'red' : 'green'}>
-                {minCharacterCount}
-              </Text>
-              <Text>{`and`}</Text>
-              <Text color={curLength > maxCharacterCount ? 'red' : 'green'}>
-                {maxCharacterCount}
-              </Text>
-              <Text>{`characters`}</Text>
-            </HStack>
-          )
-        ) : null}
-        {minCharacterCount || maxCharacterCount ? (
-          <Text mb="3">
-            {minCharacterCount > curLength
-              ? `Keep typing please`
-              : curLength > maxCharacterCount
-              ? `Too much text`
-              : curLength
-              ? `That's perfect, thanks!`
-              : ''}
-          </Text>
-        ) : null}
-        <Editor
-          toolbar={{
-            options: ['list', 'textAlign'],
-          }}
-          id={questionCode}
-          editorState={editor}
-          onEditorStateChange={setEditor}
-          onBlur={handleSave}
-          onChange={handleEditorChange}
-          spellCheck={true}
-          lang="en"
-          placeholder={placeholderName || ' '}
-        />
-      </Box>
-      {errorStatus && (
-        <VStack alignItems="start">
-          {(hasFieldMessage || hasErrorMessage) && (
-            <Text textStyle="tail.error" mt={2}>
-              {hasFieldMessage ? fieldMessage : errorMessage}
-            </Text>
-          )}
-        </VStack>
-      )}
-    </>
-  ) : (
-    <>
-      <Box
-        test-id={questionCode}
-        w="full"
-        border="1px solid #E2E8F0"
-        borderRadius="0.375rem"
-        p="1rem"
+        _hover={{
+          borderColor: 'product.gray',
+          boxShadow: 'lg',
+        }}
+        _focusWithin={{
+          borderColor: 'product.secondary',
+          boxShadow: 'lg',
+        }}
       >
         {minCharacterCount || maxCharacterCount ? (
           !minCharacterCount ? (

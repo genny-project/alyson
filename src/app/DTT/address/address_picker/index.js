@@ -2,7 +2,6 @@ import { useEffect, useRef } from 'react'
 
 import { Input } from '@chakra-ui/react'
 import { apiConfig } from 'config/get-api-config.js'
-import { equals } from 'ramda'
 import makeAddressData from './make-address-data'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
@@ -52,7 +51,7 @@ const AddressPicker = ({ onSendAnswer, data, questionCode }) => {
 
   const maxW = useMobileValue(['', '25vw'])
 
-  return equals(clientId)('lojing') ? (
+  return (
     <Input
       id={questionCode}
       test-id={questionCode}
@@ -65,45 +64,15 @@ const AddressPicker = ({ onSendAnswer, data, questionCode }) => {
       paddingInline={5}
       fontWeight={'medium'}
       fontSize={'sm'}
+      borderRadius={'calc(0.25rem - 1px)'}
       borderColor={'product.gray'}
       bg={'product.gray'}
       _hover={{
-        borderColor: 'product.secondary',
+        borderColor: 'product.gray',
         boxShadow: 'lg',
       }}
       _focusVisible={{
         borderColor: 'product.secondary',
-        boxShadow: 'initial',
-      }}
-      _invalid={{
-        background: 'error.50',
-        borderColor: 'error.500',
-        color: 'error.500',
-      }}
-      _disabled={{
-        borderColor: 'gray.300',
-        background: 'gray.100',
-      }}
-    />
-  ) : (
-    <Input
-      id={questionCode}
-      test-id={questionCode}
-      defaultValue={data?.value}
-      ref={autoCompleteRef}
-      onBlur={onBlur}
-      w="full"
-      maxW={maxW}
-      paddingBlock={3}
-      paddingInline={5}
-      fontWeight={'medium'}
-      borderColor={'gray.700'}
-      _hover={{
-        borderColor: 'green.500',
-        boxShadow: 'lg',
-      }}
-      _focusVisible={{
-        borderColor: 'green.500',
         boxShadow: 'initial',
       }}
       _invalid={{
