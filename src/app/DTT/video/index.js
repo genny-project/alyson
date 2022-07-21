@@ -32,7 +32,7 @@ import { useState } from 'react'
 const Write = ({ questionCode, onSendAnswer, html, data, setSaving }) => {
   const config = configs[questionCode] || safelyParseJson(html, {})
 
-  const { postMediaFile, getSrc } = useApi()
+  const { postMediaFile, getVideoSrc } = useApi()
   const [startVideo, setStartVideo] = useState(false)
   const [upload, setUpload] = useBoolean()
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
@@ -50,7 +50,7 @@ const Write = ({ questionCode, onSendAnswer, html, data, setSaving }) => {
     dispatchFieldMessage({ payload: questionCode })
   }
 
-  const src = getSrc(data?.value)
+  const src = getVideoSrc(data?.value)
 
   if (src)
     return (
