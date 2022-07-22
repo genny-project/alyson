@@ -3,7 +3,7 @@ import { HStack, Switch, Text } from '@chakra-ui/react'
 import { onSendMessage } from 'vertx'
 import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const Read = ({ data = {} }) => {
   const sourceCode = useSelector(selectCode('USER'))
@@ -24,6 +24,10 @@ const Write = ({ questionCode, data, onSendAnswer, placeholderName: label }) => 
     onSendAnswer(isChecked ? 'false' : 'true')
     setIsChecked(isChecked => !isChecked)
   }
+
+  useEffect(() => {
+    setIsChecked(data?.value)
+  }, [data, setIsChecked])
 
   return (
     <HStack spacing={5}>

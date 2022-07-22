@@ -1,17 +1,17 @@
 import './styles.css'
 
-import { compose, equals, includes, map, pathOr } from 'ramda'
+import { compose, equals, includes, map, pathOr, isEmpty } from 'ramda'
 import { selectCode, selectRows } from 'redux/db/selectors'
 
 import { Select as CSelect } from 'chakra-react-select'
 import { Text } from '@chakra-ui/react'
 import { apiConfig } from 'config/get-api-config'
 import debounce from 'lodash.debounce'
-import { getValue } from './get-value'
+import { getValue, onlyValue } from './get-value'
 import { onSendMessage } from 'vertx'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { selectBufferDropdownOptions } from 'redux/app/selectors'
-import { useCallback } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
 const Write = ({
@@ -31,6 +31,7 @@ const Write = ({
   const processId = useSelector(selectCode(questionCode, 'processId'))
   const sourceCode = useSelector(selectCode('USER'))
   const clientId = apiConfig?.clientId
+  const [value, setValue] = useState(getValue(data, options))
 
   const ddEvent = debounce(
     value =>
@@ -49,20 +50,26 @@ const Write = ({
     500,
   )
 
-  const getBufferedDropdownOptions = useSelector(selectBufferDropdownOptions)
+  //const getBufferedDropdownOptions = useSelector(selectBufferDropdownOptions)
 
-  const getDefaultValue = useCallback(
-    data => {
-      const optionsIncludingBufferedOptions = [...getBufferedDropdownOptions, ...options]
-      let defaultValue = safelyParseJson(data?.value, [])
-      defaultValue =
-        defaultValue &&
-        Array.isArray(defaultValue) &&
-        optionsIncludingBufferedOptions.filter(i => defaultValue.includes(i.value))
-      return defaultValue
-    },
-    [getBufferedDropdownOptions, options],
-  )
+  // const getDefaultValue = useCallback(
+  //   data => {
+  //     const optionsIncludingBufferedOptions = [...getBufferedDropdownOptions, ...options]
+  //     let defaultValue = safelyParseJson(data?.value, [])
+  //     defaultValue =
+  //       defaultValue &&
+  //       Array.isArray(defaultValue) &&
+  //       optionsIncludingBufferedOptions.filter(i => defaultValue.includes(i.value))
+  //     return defaultValue
+  //   },
+  //   [getBufferedDropdownOptions, options],
+  // )
+
+  useEffect(() => {
+    let d = getValue(safelyParseJson(data?.value, [], options))
+    console.log(d)
+    setValue(d)
+  }, [data])
 
   // the backend accepts array only when sending dropdown values regardless of multi or single select
   const prepareValueForSendingAnswer = (value, isMulti) =>
@@ -79,7 +86,7 @@ const Write = ({
       placeholder={!options.length ? 'Start typing to search' : placeholderName || 'Select'}
       test-id={questionCode}
       id={questionCode}
-      defaultValue={getDefaultValue()}
+      value={value}
       classNamePrefix={clientId + '_dd'}
       selectedOptionStyle="check"
       chakraStyles={{
@@ -151,7 +158,7 @@ const Write = ({
       placeholder={!options.length ? 'Start typing to search' : placeholderName || 'Select'}
       test-id={questionCode}
       id={questionCode}
-      defaultValue={getDefaultValue()}
+      value={value}
     />
   )
 }
