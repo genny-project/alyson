@@ -6,7 +6,7 @@ import {
   FormLabel,
   HStack,
 } from '@chakra-ui/react'
-import { compose, equals, not, pathOr } from 'ramda'
+import { equals, pathOr } from 'ramda'
 
 import ABN from 'app/DTT/abn'
 import Address from 'app/DTT/address'
@@ -172,20 +172,20 @@ const Ask = ({
       transition="all 0.5s"
       mb={5}
     >
-      {compose(not, equals(clientId))('lojing') && (
+      {
         <HStack
           justify="space-between"
           display={noLabel ? 'none' : 'flex'}
           maxW={labelWidth}
           w={'full'}
         >
-          <FormLabel id={attributeCode}>{name}</FormLabel>
+          <FormLabel id={attributeCode} />
           {(!failedValidation && fieldNotEmpty) ||
           (!failedValidation && dataValue && isNotStringifiedEmptyArray(dataValue)) ? (
             <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
           ) : null}
         </HStack>
-      )}
+      }
 
       {component === 'email' && (
         <Email.Write
