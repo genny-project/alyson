@@ -3,7 +3,7 @@ import { ReactElement } from 'react'
 const Player = ({ src }: { src: string }): ReactElement => {
   return (
     <video
-      style={{ maxHeight: '340px', minWidth: '340px' }}
+      style={{ maxHeight: '340px', minWidth: '240px' }}
       controls
       autoPlay
       muted
