@@ -1,17 +1,15 @@
 import './styles.css'
 
-import { compose, equals, includes, map, pathOr, isEmpty } from 'ramda'
+import { compose, includes, isEmpty, map, pathOr } from 'ramda'
 import { selectCode, selectRows } from 'redux/db/selectors'
 
 import { Select as CSelect } from 'chakra-react-select'
 import { Text } from '@chakra-ui/react'
 import { apiConfig } from 'config/get-api-config'
 import debounce from 'lodash.debounce'
-import { getValue, onlyValue } from './get-value'
+import { getValue } from './get-value'
 import { onSendMessage } from 'vertx'
-import safelyParseJson from 'utils/helpers/safely-parse-json'
-import { selectBufferDropdownOptions } from 'redux/app/selectors'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
 const Write = ({
@@ -25,7 +23,13 @@ const Write = ({
   parentCode,
   attributeCode,
 }) => {
-  const dropdownData = useSelector(selectCode(`${parentCode}-${questionCode}-options`)) || []
+  const dropdownData =
+    useSelector(
+      selectCode(`${parentCode}-${questionCode}-options`),
+      /// Checking this way means that if left or right is undefined, the comparison still works as expected.
+      /// Without the length checks I found this comparison didn't tend to behave as expected
+      (left, right) => (left?.length || -1) === (right?.length || -2),
+    ) || []
   const options = compose(map(({ code, name }) => ({ label: name, value: code })))(dropdownData)
   const isMulti = includes('multiple', dataType.typeName || '') || component === 'tag'
   const processId = useSelector(selectCode(questionCode, 'processId'))
@@ -50,32 +54,22 @@ const Write = ({
     500,
   )
 
-  //const getBufferedDropdownOptions = useSelector(selectBufferDropdownOptions)
-
-  // const getDefaultValue = useCallback(
-  //   data => {
-  //     const optionsIncludingBufferedOptions = [...getBufferedDropdownOptions, ...options]
-  //     let defaultValue = safelyParseJson(data?.value, [])
-  //     defaultValue =
-  //       defaultValue &&
-  //       Array.isArray(defaultValue) &&
-  //       optionsIncludingBufferedOptions.filter(i => defaultValue.includes(i.value))
-  //     return defaultValue
-  //   },
-  //   [getBufferedDropdownOptions, options],
-  // )
-
   useEffect(() => {
-    let d = getValue(safelyParseJson(data?.value, [], options))
-    console.log(d)
-    setValue(d)
-  }, [data])
+    /// If the dropdown data doesn't exist yet, we need to get it
+    if (isEmpty(dropdownData)) {
+      console.log('Getting dropdownData')
+      ddEvent('')
+    }
+    setValue(getValue(data, options))
+    // I found that adding options on its own to this array just caused infinite re-renders
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, options?.length])
 
   // the backend accepts array only when sending dropdown values regardless of multi or single select
   const prepareValueForSendingAnswer = (value, isMulti) =>
     isMulti ? value && Array.isArray(value) && value.map(i => i.value) : [value.value]
 
-  return equals(clientId)('lojing') ? (
+  return (
     <CSelect
       useBasicStyles
       isMulti={isMulti}
@@ -95,16 +89,17 @@ const Write = ({
         }),
         control: provided => ({
           ...provided,
-          bg: 'product.gray',
-          borderColor: 'product.gray',
-          cursor: 'pointer',
-          fontSize: '0.875rem',
-          fontWeight: '500',
           paddingInline: '0.5rem',
           paddingBlock: '0.5rem',
+          bg: 'product.gray',
+          borderRadius: 'calc(0.25rem - 1px)',
+          borderColor: 'product.gray',
+          fontSize: '0.875rem',
+          fontWeight: '500',
           color: 'product.darkGray',
+          cursor: 'pointer',
           _hover: {
-            borderColor: 'product.secondary',
+            borderColor: 'product.gray',
             boxShadow: 'lg',
           },
           _focus: {
@@ -117,7 +112,7 @@ const Write = ({
           marginBlock: 0,
           paddingBlock: 0,
           border: 0,
-          borderRadius: '0.25rem 0.25rem 0.75rem 0.75rem',
+          borderRadius: '0.25rem 0.25rem 1.25rem 1.25rem',
           boxShadow: '0px 4px 15px -2px rgba(0, 0, 0, 0.25)',
           zIndex: 100,
         }),
@@ -125,13 +120,15 @@ const Write = ({
           ...provided,
           paddingBlock: 0,
           border: 0,
-          borderRadius: '0.25rem 0.25rem 0.75rem 0.75rem',
+          borderRadius: '0.25rem 0.25rem 1.25rem 1.25rem',
         }),
         option: provided => ({
           ...provided,
           paddingInlineStart: 10,
           paddingInlineEnd: 3,
           paddingBlock: 2,
+          borderRadius: '1.25rem',
+          bg: '#fff',
           fontSize: '0.875rem',
           fontWeight: '500',
           color: 'product.darkGray',
@@ -146,19 +143,6 @@ const Write = ({
           fontWeight: '500',
         }),
       }}
-    />
-  ) : (
-    <CSelect
-      useBasicStyles
-      isMulti={isMulti}
-      options={options}
-      onChange={value => onSendAnswer(prepareValueForSendingAnswer(value, isMulti))}
-      onInputChange={value => ddEvent(value)}
-      onFocus={() => ddEvent('')}
-      placeholder={!options.length ? 'Start typing to search' : placeholderName || 'Select'}
-      test-id={questionCode}
-      id={questionCode}
-      value={value}
     />
   )
 }

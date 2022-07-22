@@ -1,6 +1,6 @@
 import { getFields, getColumnDefs } from '../../helpers/sbe-utils'
 
-import { Box, HStack, Text, VStack } from '@chakra-ui/react'
+import { Box, HStack, Text, VStack, Image } from '@chakra-ui/react'
 import useGetMappedBaseEntity from 'app/PCM/helpers/use-get-mapped-base-entity'
 import { useSelector } from 'react-redux'
 import { selectKeys, selectCode } from 'redux/db/selectors'
@@ -22,34 +22,45 @@ const TemplateHorizontalCards = ({ mappedPcm }) => {
 
   const rows = useSelector(selectCode(sbeCode, 'rows')) || []
 
-  const color = useGetAttributeFromProjectBaseEntity('PRI_COLOR').valueString
+  const primaryColor = useGetAttributeFromProjectBaseEntity('PRI_COLOR').valueString
 
   return (
     <Box padding={'10px'}>
-      <HStack>
-        {rows.map(item => {
-          return (
-            <Card
-              key={`CARD-${item['code'] || ''}`}
-              mappedValues={mappedValues}
-              baseEntity={item['code'] || ''}
-              color={color}
-            />
-          )
-        })}
+      <HStack spacing="10">
+        {rows.map(item => (
+          <Card
+            key={`CARD-${item['code'] || ''}`}
+            mappedValues={mappedValues}
+            baseEntityCode={item}
+            primaryColor={primaryColor}
+          />
+        ))}
       </HStack>
     </Box>
   )
 }
 
-const Card = ({ mappedValues, baseEntityCode, color }) => {
+//Image is hardcoded for the demo, need to remove it after the demo.
+
+const Card = ({ mappedValues, baseEntityCode, primaryColor }) => {
   return (
-    <Box border={'thick'} borderRadius={'lg'} borderColor={color} height={'100px'}>
+    <Box border={`1px solid`} borderRadius="3xl" borderColor={primaryColor} p="5">
       <VStack>
+        <Image
+          src="https://cdn.pixabay.com/photo/2016/11/18/17/20/living-room-1835923_1280.jpg"
+          alt="Property"
+          maxWidth="35vw"
+        />
         {mappedValues.map((value, index) => {
           const fontSize = index === 0 ? 'xl' : 'md'
           return (
-            <Text fontSize={fontSize} key={`CARD-ATTRIBUTE-${baseEntityCode}-${value}`}>
+            <Text
+              fontSize={fontSize}
+              key={`CARD-ATTRIBUTE-${baseEntityCode}-${value}`}
+              alignSelf="start"
+              color="#004654"
+              fontWeight="400"
+            >
               <Attribute code={baseEntityCode} attribute={value} />
             </Text>
           )

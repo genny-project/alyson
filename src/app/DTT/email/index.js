@@ -6,6 +6,7 @@ import {
   Text,
   VStack,
   useClipboard,
+  useTheme,
   useToast,
 } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
@@ -15,6 +16,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { apiConfig } from 'config/get-api-config.js'
 import { equals } from 'ramda'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import getDataValue from 'utils/helpers/get-data-value'
 import { getIsInvalid } from 'utils/functions'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
 import { selectFieldMessage } from 'redux/app/selectors'
@@ -22,7 +24,6 @@ import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
-import getDataValue from 'utils/helpers/get-data-value'
 
 const Write = ({
   questionCode,
@@ -33,6 +34,7 @@ const Write = ({
   parentCode,
   placeholderName,
 }) => {
+  const theme = useTheme()
   const { isNullDataValue, dataValue } = getDataValue(data.value)
 
   const [errorStatus, setErrorStatus] = useState(false)
@@ -93,7 +95,7 @@ const Write = ({
           fontWeight={'medium'}
           color="product.darkGray"
           _hover={{
-            borderColor: 'product.secondary',
+            borderColor: 'product.gray',
             boxShadow: 'lg',
           }}
           _focusVisible={{
@@ -113,7 +115,7 @@ const Write = ({
         {errorStatus && (
           <VStack alignItems="start">
             {(hasFieldMessage || hasErrorMessage) && (
-              <ChakraText textStyle="tail.error" mt={2}>
+              <ChakraText textStyle={'product.errorText'}>
                 {hasFieldMessage ? fieldMessage : errorMessage}
               </ChakraText>
             )}

@@ -1,9 +1,10 @@
+import { append, filter, find, keys, propEq, reduce } from 'ramda'
+import { selectAttributes, selectCode } from 'redux/db/selectors'
+
 import { Text } from '@chakra-ui/react'
 import getSpillLocs from 'app/PCM/helpers/get-spill-locs'
-import { append, filter, find, keys, propEq, reduce } from 'ramda'
-import { useSelector } from 'react-redux'
-import { selectAttributes, selectCode } from 'redux/db/selectors'
 import mapText from './map-text'
+import { useSelector } from 'react-redux'
 
 const TemplateText = ({ mappedPcm }) => {
   const questionCode = mappedPcm.PRI_QUESTION_CODE || ''
