@@ -87,11 +87,6 @@ export const Write = ({
     dispatchFieldMessage({ payload: questionCode })
   }
 
-  console.log(
-    '%c 🙀🙀🙀🙀🙀🙀🙀🙀🙀🙀🙀🙀🙀',
-    'background: tomato; color: silver; padding: 0.5rem',
-    { hasFieldMessage, hasErrorMessage, errorStatus, errorMessage },
-  )
   return (
     <>
       <HStack>
