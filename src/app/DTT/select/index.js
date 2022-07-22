@@ -64,16 +64,24 @@ const Write = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, options?.length])
 
+  const onChange = newValue => {
+    if (!isMulti) {
+      newValue = [newValue]
+    }
+    setValue(newValue)
+    onSendAnswer(prepareValueForSendingAnswer(newValue))
+  }
+
   // the backend accepts array only when sending dropdown values regardless of multi or single select
-  const prepareValueForSendingAnswer = (value, isMulti) =>
-    isMulti ? value && Array.isArray(value) && value.map(i => i.value) : [value.value]
+  const prepareValueForSendingAnswer = value =>
+    value && Array.isArray(value) && value.map(i => i.value)
 
   return (
     <CSelect
       useBasicStyles
       isMulti={isMulti}
       options={options}
-      onChange={value => onSendAnswer(prepareValueForSendingAnswer(value, isMulti))}
+      onChange={onChange}
       onInputChange={value => ddEvent(value)}
       onFocus={() => ddEvent('')}
       placeholder={!options.length ? 'Start typing to search' : placeholderName || 'Select'}
