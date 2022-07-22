@@ -57,7 +57,6 @@ const Write = ({
   useEffect(() => {
     /// If the dropdown data doesn't exist yet, we need to get it
     if (isEmpty(dropdownData)) {
-      console.log('Getting dropdownData')
       ddEvent('')
     }
     setValue(getValue(data, options))
