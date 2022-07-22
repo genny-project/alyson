@@ -1,7 +1,6 @@
 import { Input, Stack, Text, VStack } from '@chakra-ui/react'
 
 import DateChip from 'app/DTT/date/DateChip'
-import { apiConfig } from 'config/get-api-config.js'
 import { currentMonthInIsoFormat } from 'utils/helpers/date-info-in-iso-format'
 import setYearForMonth from 'utils/helpers/set-year-for-month'
 
@@ -12,7 +11,6 @@ const DateInMonth = ({
   handleDateChange,
   errorStatus,
 }) => {
-  const clientId = apiConfig?.clientId
   return (
     <>
       <Stack direction={['column', 'row']} spacing={5}>

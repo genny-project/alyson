@@ -6,7 +6,6 @@ import {
   Text,
   VStack,
   useClipboard,
-  useTheme,
   useToast,
 } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
@@ -34,7 +33,6 @@ const Write = ({
   parentCode,
   placeholderName,
 }) => {
-  const theme = useTheme()
   const { isNullDataValue, dataValue } = getDataValue(data.value)
 
   const [errorStatus, setErrorStatus] = useState(false)

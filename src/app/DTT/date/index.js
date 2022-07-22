@@ -21,7 +21,6 @@ import timeBasedOnTimeZone from 'utils/helpers/timezone_magic/time-based-on-time
 import { useError } from 'utils/contexts/ErrorContext'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
-import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 
 const Read = ({ data, typeName, config }) => {
@@ -86,8 +85,6 @@ const Write = ({
       dispatchFieldMessage({ payload: questionCode })
     }
   }
-
-  const maxW = useMobileValue(['', '25vw'])
 
   const isInvalid = getIsInvalid(dateValue)(RegExp(regexPattern))
 

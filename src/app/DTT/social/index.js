@@ -10,7 +10,6 @@ import { useEffect, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { apiConfig } from 'config/get-api-config.js'
 import { faLinkedin } from '@fortawesome/free-brands-svg-icons'
 import { getIsInvalid } from 'utils/functions'
 import { includes } from 'ramda'
@@ -19,7 +18,6 @@ import { selectFieldMessage } from 'redux/app/selectors'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
-import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 
 const Read = ({ data, config = {} }) => {
@@ -67,8 +65,6 @@ const Write = ({
   const [userInput, setuserInput] = useState(data?.value)
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
 
-  const maxW = useMobileValue(['', '25vw'])
-  const clientId = apiConfig?.clientId
   const iconColor = useGetAttributeFromProjectBaseEntity('PRI_COLOR')?.valueString
 
   const isInvalid = getIsInvalid(userInput)(RegExp(regexPattern))
