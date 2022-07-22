@@ -17,7 +17,6 @@ import Date from 'app/DTT/date'
 import DateRange from 'app/DTT/date_range'
 import Email from 'app/DTT/email'
 import Flag from 'app/DTT/flag'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import HtmlDisplay from 'app/DTT/html_display'
 import LogRocketSession from 'app/DTT/log_rocket_session'
 import Phone from 'app/DTT/phone'
@@ -38,14 +37,10 @@ import Video from 'app/DTT/video'
 import ProgressBar from 'app/DTT/progress'
 import { apiConfig } from 'config/get-api-config.js'
 import createSendAnswer from 'app/ASKS/utils/create-send-answer'
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import getGroupCode from 'app/ASKS/utils/get-group-code'
-import { isNotStringifiedEmptyArray } from 'utils/functionals'
 import { selectCode } from 'redux/db/selectors'
 import { selectHighlightedQuestion } from 'redux/app/selectors'
-import { useError } from 'utils/contexts/ErrorContext'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
-import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 
@@ -61,12 +56,6 @@ const Ask = ({
   properties,
 }) => {
   const projectTitle = useGetAttributeFromProjectBaseEntity('PRI_NAME')?.valueString.toLowerCase()
-
-  const { errorState } = useError()
-  const { fieldState } = useIsFieldNotEmpty()
-
-  const failedValidation = errorState[passedQuestionCode]
-  const fieldNotEmpty = fieldState[passedQuestionCode]
 
   const askData = useSelector(selectCode(parentCode, passedQuestionCode)) || passedAskData
 
@@ -107,7 +96,6 @@ const Ask = ({
   const errorMessage = pathOr('Please enter valid data', ['validationList', 0, 'errormsg'])(
     dataType,
   )
-  const dataValue = data?.value
 
   if (!question?.attribute) return null
 
@@ -180,10 +168,6 @@ const Ask = ({
           w={'full'}
         >
           <FormLabel id={attributeCode} />
-          {(!failedValidation && fieldNotEmpty) ||
-          (!failedValidation && dataValue && isNotStringifiedEmptyArray(dataValue)) ? (
-            <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
-          ) : null}
         </HStack>
       }
 
