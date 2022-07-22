@@ -1,13 +1,11 @@
-import { Text as ChakraText, Input, VStack, useTheme } from '@chakra-ui/react'
+import { Text as ChakraText, Input, VStack } from '@chakra-ui/react'
 import { faCalendar, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useRef, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import DetailViewTags from 'app/DTT/text/detailview_tags'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { apiConfig } from 'config/get-api-config'
 import debounce from 'lodash.debounce'
-import { equals } from 'ramda'
 import { getIsInvalid } from 'utils/functions'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
 import { selectFieldMessage } from 'redux/app/selectors'
@@ -25,14 +23,11 @@ export const Write = ({
   parentCode,
   placeholderName,
 }) => {
-  const theme = useTheme()
   let regex
   const { dispatch } = useError()
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value)
-
-  const clientId = apiConfig?.clientId
 
   const fieldMessageObject = useSelector(selectFieldMessage)
   const fieldMessage = fieldMessageObject[`${parentCode}@${questionCode}`]
@@ -86,7 +81,7 @@ export const Write = ({
     dispatchFieldMessage({ payload: questionCode })
   }
 
-  return equals(clientId)('lojing') ? (
+  return (
     <>
       <Input
         test-id={questionCode}
@@ -99,15 +94,18 @@ export const Write = ({
         placeholder={placeholderName}
         w="full"
         h={'auto'}
+        maxW={maxW}
         paddingBlock={3}
         paddingInline={6}
         bg={'product.gray'}
+        borderRadius={'calc(0.25rem - 1px)'}
         borderColor={'product.gray'}
         fontSize={'sm'}
         fontWeight={'medium'}
         color="product.darkGray"
+        cursor={'pointer'}
         _hover={{
-          borderColor: 'product.secondary',
+          borderColor: 'product.gray',
           boxShadow: 'lg',
         }}
         _focusVisible={{
@@ -127,51 +125,7 @@ export const Write = ({
       {errorStatus && (
         <VStack alignItems="start">
           {(hasFieldMessage || hasErrorMessage) && (
-            <ChakraText color={theme.colors.error[500]} fontSize={'xs'} mt={2}>
-              {hasFieldMessage ? fieldMessage : errorMessage}
-            </ChakraText>
-          )}
-        </VStack>
-      )}
-    </>
-  ) : (
-    <>
-      <Input
-        test-id={questionCode}
-        id={questionCode}
-        ref={inputRef}
-        onBlur={onBlur}
-        onChange={e => setuserInput(e.target.value)}
-        defaultValue={data?.value}
-        isInvalid={isInvalid}
-        w="full"
-        maxW={maxW}
-        paddingBlock={3}
-        paddingInline={5}
-        fontWeight={'medium'}
-        borderColor={'gray.700'}
-        _hover={{
-          borderColor: 'green.500',
-          boxShadow: 'lg',
-        }}
-        _focusVisible={{
-          borderColor: 'green.500',
-          boxShadow: 'initial',
-        }}
-        _invalid={{
-          background: 'error.50',
-          borderColor: 'error.500',
-          color: 'error.500',
-        }}
-        _disabled={{
-          borderColor: 'gray.300',
-          background: 'gray.100',
-        }}
-      />
-      {errorStatus && (
-        <VStack alignItems="start">
-          {(hasFieldMessage || hasErrorMessage) && (
-            <ChakraText textStyle="tail.error" mt={2}>
+            <ChakraText textStyle="product.errorText">
               {hasFieldMessage ? fieldMessage : errorMessage}
             </ChakraText>
           )}

@@ -2,9 +2,7 @@ import { Text, Textarea, VStack } from '@chakra-ui/react'
 import { useEffect, useRef, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
-import { apiConfig } from 'config/get-api-config.js'
 import debounce from 'lodash.debounce'
-import { equals } from 'ramda'
 import { getIsInvalid } from 'utils/functions'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
 import { selectFieldMessage } from 'redux/app/selectors'
@@ -32,8 +30,6 @@ export const Write = ({
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value)
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
-
-  const clientId = apiConfig?.clientId
 
   try {
     regex = RegExp(regexPattern)
@@ -72,7 +68,7 @@ export const Write = ({
     dispatchFieldMessage({ payload: questionCode })
   }
 
-  return equals(clientId)('lojing') ? (
+  return (
     <>
       <Textarea
         id={questionCode}
@@ -81,43 +77,26 @@ export const Write = ({
         onBlur={onBlur}
         onChange={e => setuserInput(e.target.value)}
         value={userInput}
-        maxW={maxW}
         isInvalid={isInvalid}
         paddingBlock={2}
         paddingInline={6}
-        fontWeight={'medium'}
-        borderColor={'product.gray'}
-        bg={'product.gray'}
         h={'auto'}
         minH={'5.13rem'}
+        maxW={maxW}
+        bg={'product.gray'}
+        borderRadius={'calc(0.75rem - 1px)'}
+        borderColor={'product.gray'}
         fontSize={'sm'}
+        fontWeight={'medium'}
         placeholder={placeholderName}
         _hover={{
-          borderColor: 'product.secondary',
+          borderColor: 'product.gray',
+          boxShadow: 'lg',
         }}
-      />
-      {errorStatus && (
-        <VStack alignItems="start">
-          {(hasFieldMessage || hasErrorMessage) && (
-            <Text textStyle="tail.error" mt={2}>
-              {hasFieldMessage ? fieldMessage : errorMessage}
-            </Text>
-          )}
-        </VStack>
-      )}
-    </>
-  ) : (
-    <>
-      <Textarea
-        id={questionCode}
-        test-id={questionCode}
-        ref={inputRef}
-        onBlur={onBlur}
-        onChange={e => setuserInput(e.target.value)}
-        value={userInput}
-        maxW={maxW}
-        isInvalid={isInvalid}
-        placeholder={placeholderName}
+        _focusVisible={{
+          borderColor: 'product.secondary',
+          boxShadow: 'initial',
+        }}
       />
       {errorStatus && (
         <VStack alignItems="start">

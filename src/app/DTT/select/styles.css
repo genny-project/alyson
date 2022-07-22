@@ -7,10 +7,14 @@
   order: 2;
 }
 
-[class*='_dd__option--is-selected'] {
-  color: #fff !important;
+[class*='_dd__indicators'] {
+  transition: transform 0.25s ease;
 }
 
-.lojing_dd__option--is-selected {
-  background: #f18b32 !important;
+[class*='_dd__control--menu-is-open'] > [class*='_dd__indicators'] {
+  transform: rotateX(180deg);
+}
+
+[class*='_dd__option--is-selected']:not(:hover) {
+  background-color: transparent !important;
 }

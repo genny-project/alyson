@@ -4,7 +4,12 @@ import mapQuestionGroup from 'app/PCM/helpers/map-question-grp'
 
 const TemplateSidebarOne = ({ mappedPcm }) => {
   return (
-    <VStack test-id={mappedPcm.PRI_QUESTION_CODE} justifyContent="center" spacing={12}>
+    <VStack
+      test-id={mappedPcm.PRI_QUESTION_CODE}
+      justifyContent="center"
+      spacing={12}
+      fontFamily={'product.sidebarFont'}
+    >
       {mapQuestionGroup((ask, question) => {
         return (
           <EvtButton

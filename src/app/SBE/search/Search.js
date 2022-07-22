@@ -16,6 +16,7 @@ import { apiConfig } from 'config/get-api-config.js'
 import { onSendSearch } from 'vertx'
 import { selectCode } from 'redux/db/selectors'
 import { useHotkeys } from 'react-hotkeys-hook'
+import { useIsMobile } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 
 const ProcessSearch = ({ sbeCode, process, placeholder }) => {
@@ -42,8 +43,10 @@ const ProcessSearch = ({ sbeCode, process, placeholder }) => {
     inputRef?.current?.focus()
   })
 
+  const isMobile = useIsMobile()
+
   return equals(clientId)('lojing') ? (
-    <Stack direction="row" alignItems={'center'}>
+    <Stack direction={isMobile ? 'column' : 'row'} alignItems={'center'}>
       <form onSubmit={handleSubmit}>
         <InputGroup w="xs" maxW="50vw">
           <InputLeftElement>
@@ -101,11 +104,16 @@ const ProcessSearch = ({ sbeCode, process, placeholder }) => {
         test-id={`process-view-search`}
         paddingBlock={2}
         paddingInline={2}
-        minW={'9rem'}
+        minW={'8.25rem'}
         background={'product.secondary'}
         fontSize={'sm'}
+        fontWeight={'400'}
+        borderRadius={'calc(0.25rem - 1px)'}
+        border={'1px solid transparent'}
+        borderColor={'product.secondary'}
         _hover={{
-          background: 'product.secondaryAccent',
+          background: 'product.white',
+          color: 'product.secondary',
         }}
       >
         {`Search`}
@@ -116,12 +124,18 @@ const ProcessSearch = ({ sbeCode, process, placeholder }) => {
           leftIcon={<FontAwesomeIcon icon={faTimes} />}
           colorScheme="secondary"
           test-id={`clear-search`}
+          variant="outline"
           paddingBlock={2}
           paddingInline={2}
-          minW={'9rem'}
+          minW={'8.25rem'}
+          background={'product.white'}
           fontSize={'sm'}
+          fontWeight={'400'}
+          borderRadius={'calc(0.25rem - 1px)'}
+          borderColor="product.secondary"
           _hover={{
-            background: 'product.secondaryAccent',
+            background: 'product.secondary',
+            color: 'product.white',
           }}
         >
           {`Clear Search`}

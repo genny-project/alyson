@@ -7,6 +7,8 @@ import LogrocketIdentifier from 'app/layouts/components/logrocket_identifier'
 import PcmField from 'app/PCM/components/pcm-field'
 import { SIDEBAR_WIDTH } from 'utils/constants'
 import Toast from 'app/layouts/display/toast'
+import { apiConfig } from 'config/get-api-config'
+import { equals } from 'ramda'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 
 /**
@@ -35,6 +37,7 @@ const TemplateRoot = ({ mappedPcm }) => {
   const color = useColorModeValue(lightColor, darkColor)
 
   const appBg = 'product.grayLight' || theme.colors.primary[900]
+  const clientId = apiConfig?.clientId
 
   return (
     <Grid
@@ -43,6 +46,7 @@ const TemplateRoot = ({ mappedPcm }) => {
     "nav main"`}
       gridTemplateColumns={`${SIDEBAR_WIDTH} 1fr`}
       gridTemplateRows={'auto 1fr'}
+      fontFamily="product.bodyFont"
     >
       {/* HEADER WRAPPER */}
       <header
@@ -73,7 +77,10 @@ const TemplateRoot = ({ mappedPcm }) => {
       </VStack>
 
       <Box backgroundColor={lightColor} id="main-display" pb={1} overflow="auto" area={'main'}>
-        <Box paddingTop="2.25rem">
+        <Box
+          paddingTop="2.25rem"
+          paddingInline={equals(clientId)('lojing') ? 'clamp(1.25rem, 5vw, 7.5rem)' : ''}
+        >
           {/* Main Page Content */}
           <PcmField code={PRI_LOC3} mappedPcm={mappedPcm} />
           <DisplayDrawer />

@@ -95,7 +95,7 @@ const Write = ({
           fontWeight={'medium'}
           color="product.darkGray"
           _hover={{
-            borderColor: 'product.secondary',
+            borderColor: 'product.gray',
             boxShadow: 'lg',
           }}
           _focusVisible={{
@@ -115,7 +115,7 @@ const Write = ({
         {errorStatus && (
           <VStack alignItems="start">
             {(hasFieldMessage || hasErrorMessage) && (
-              <ChakraText color={theme.colors.error[500]} fontSize={'xs'} mt={2}>
+              <ChakraText textStyle={'product.errorText'}>
                 {hasFieldMessage ? fieldMessage : errorMessage}
               </ChakraText>
             )}
