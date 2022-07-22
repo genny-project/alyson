@@ -1,5 +1,6 @@
 import {
   Avatar,
+  Box,
   Flex,
   HStack,
   Menu,
@@ -8,7 +9,6 @@ import {
   MenuItem,
   MenuList,
   Spacer,
-  Box,
 } from '@chakra-ui/react'
 
 import ChildMenuItem from 'app/ASKS/menu/ChildMenuItem'
@@ -88,7 +88,7 @@ const AvatarMenu = ({ code: QUE_AVATAR_GRP }) => {
 
   return (
     <Box>
-      <Menu>
+      <Menu fontSize={'sm'}>
         <MenuButton test-id={'QUE_AVATAR_GRP'}>
           <HStack spacing={1} color="grey">
             <Avatar
@@ -121,13 +121,15 @@ const AvatarMenu = ({ code: QUE_AVATAR_GRP }) => {
               target="_blank"
               rel="noreferrer"
             >
-              <MenuItem test-id={'QUE_AVATAR_SETTINGS'}>Account</MenuItem>
+              <MenuItem test-id={'QUE_AVATAR_SETTINGS'} fontSize={'sm'}>
+                Account
+              </MenuItem>
             </a>
 
-            <MenuItem test-id={'HELP'} onClick={onOpenHelp} color="#000000">
+            <MenuItem test-id={'HELP'} onClick={onOpenHelp} color="red" fontSize={'sm'}>
               {`Help & Support`}
             </MenuItem>
-            <MenuItem test-id={'T&Cs'} onClick={onTandC} color="#000000">
+            <MenuItem test-id={'T&Cs'} onClick={onTandC} color="#000000" fontSize={'sm'}>
               {`Terms & Conditions`}
             </MenuItem>
             <MenuItem
@@ -140,6 +142,7 @@ const AvatarMenu = ({ code: QUE_AVATAR_GRP }) => {
                 keycloak.logout()
               }}
               color="#000000"
+              fontSize={'sm'}
             >
               Logout
             </MenuItem>

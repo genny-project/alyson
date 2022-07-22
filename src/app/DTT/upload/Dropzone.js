@@ -1,25 +1,22 @@
 import { Box, Button, Center, Flex, HStack, Image, Input, Text, useToast } from '@chakra-ui/react'
 import { compose, equals, includes, isEmpty, map, pathOr, split } from 'ramda'
-import {
-  faCloudUploadAlt,
-  faExclamationTriangle,
-  faUpload,
-} from '@fortawesome/free-solid-svg-icons'
+import { faCloudUploadAlt, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useState } from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { apiConfig } from 'config/get-api-config'
 import { isImageField } from 'utils/functions'
 import { useDropzone } from 'react-dropzone'
-import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
+import { useMobileValue } from 'utils/hooks'
 
 const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 1, questionCode }) => {
   const [files, setFiles] = useState([])
+  const [hover, setHover] = useState(false)
   const toast = useToast()
   const checkIfImage = compose(includes('image'), split('/'))
+  const maxW = useMobileValue(['', '30vw'])
 
   const clientId = apiConfig?.clientId
-  const iconColor = useGetAttributeFromProjectBaseEntity('PRI_COLOR')?.valueString
 
   useEffect(() => {
     if (files.length) {
@@ -91,15 +88,19 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 1, questionCode
     )
   })(files)
 
-  return equals(clientId)('lojing') ? (
+  return (
     <Box
       w="100%"
+      maxW={maxW}
       p={4}
       mt={'1rem'}
       borderWidth={'1px'}
       borderRadius={16}
       borderColor={'product.grayMedium'}
+      color={'gray.600'}
       role="group"
+      onPointerOver={() => setHover(true)}
+      onPointerOut={() => setHover(false)}
       _hover={{
         boxShadow: '0px 4px 20px 5px rgba(51, 71, 91, 0.06)',
       }}
@@ -108,28 +109,52 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 1, questionCode
         <Box {...getRootProps()}>
           <Center
             cursor="pointer"
-            bg="product.secondaryLight"
             borderRadius={12}
             borderColor={'blackAlpha.20'}
+            borderWidth={1}
+            borderStyle={'dashed'}
+            _groupHover={{
+              borderColor: 'product.secondary100',
+              bg: 'product.secondary100',
+            }}
           >
-            <Box paddingBlock={'12'} maxW={'16rem'} textAlign={'center'}>
+            <Box
+              paddingBlock={'12'}
+              maxW={'16rem'}
+              textAlign={'center'}
+              color={'gray.600'}
+              _groupHover={{
+                color: 'product.secondary',
+              }}
+            >
               <FontAwesomeIcon
                 icon={faCloudUploadAlt}
                 size={80}
-                color={iconColor}
+                color={'inherit'}
                 style={{
                   width: 80,
                   height: 80,
-                }}
-                _groupHover={{
-                  filter: 'drop-shadow(0px 4px 4px rgba(26, 59, 100, 0.35)',
+                  filter: hover ? 'drop-shadow(0px 4px 4px rgba(26, 59, 100, 0.35)' : '',
                 }}
               />
-              <Text fontSize={13} fontWeight={500}>
+              <Text
+                fontSize={13}
+                fontWeight={500}
+                _groupHover={{
+                  color: '#4d4d4d',
+                }}
+              >
                 {`Drag and drop images and videos`}
                 <br />
-                {`OR`}{' '}
-                <Text as="span" color="product.secondary">{`browse files from your computer`}</Text>
+                {`OR `}
+                <Text
+                  as="span"
+                  _groupHover={{
+                    color: 'product.secondary',
+                  }}
+                >
+                  {`browse files from your computer`}
+                </Text>
               </Text>
             </Box>
           </Center>
@@ -138,71 +163,45 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 1, questionCode
         <Flex mt={'1rem'}>
           <Flex direction="row">{preview}</Flex>
           <Flex justify="center" w={'full'}>
-            <Button
-              variant="outline"
-              isDisabled={!!isEmpty(files)}
-              onClick={() => handleSave(files)}
-              test-id={`${questionCode}-SUBMIT`}
-              paddingInline={10}
-              paddingBlock={2}
-              fontSize={'sm'}
-              color={'product.secondary'}
-              borderRadius="full"
-              borderColor={'product.secondary'}
-            >
-              {`Upload`}
-            </Button>
-          </Flex>
-        </Flex>
-      </Flex>
-    </Box>
-  ) : (
-    <Box w="100%" borderWidth={'1px'} p={'1.5rem'} borderRadius={'1.25rem'} mt={'1rem'}>
-      <Flex w="100%" direction="column">
-        <Box {...getRootProps()}>
-          <Center
-            cursor="pointer"
-            border="1px dashed"
-            borderRadius={`1.25rem`}
-            borderColor={'blackAlpha.20'}
-            _hover={{
-              background: 'primary.500',
-              color: 'text.dark',
-              borderColor: 'text.dark',
-              boxShadow: '0 4px 20px 5px rgba(49, 130, 206, 0.14)',
-            }}
-          >
-            <Text paddingBlock={'12'} maxW={'16rem'} textAlign={'center'}>
-              <FontAwesomeIcon icon={faUpload} />
-              <br />
-              {`Drag and drop images and videos OR browse files from your computer`}
-            </Text>
-          </Center>
-          <Input {...getInputProps()} id={questionCode} test-id={questionCode} />
-        </Box>
-        <Flex mt={'1rem'}>
-          <Flex direction="row">{preview}</Flex>
-          <Flex justify="center" w={'full'}>
-            <Button
-              mr="2"
-              variant="ghost"
-              onClick={closeDropzone}
-              test-id={`${questionCode}-CANCEL`}
-              borderRadius="full"
-              paddingInline={10}
-            >
-              {`Cancel`}
-            </Button>
-            <Button
-              variant="solid"
-              isDisabled={!!isEmpty(files)}
-              onClick={() => handleSave(files)}
-              test-id={`${questionCode}-SUBMIT`}
-              borderRadius="full"
-              paddingInline={10}
-            >
-              {`Submit`}
-            </Button>
+            {equals(clientId)('lojing') ? (
+              <Button
+                variant="outline"
+                isDisabled={!!isEmpty(files)}
+                onClick={() => handleSave(files)}
+                test-id={`${questionCode}-SUBMIT`}
+                paddingInline={10}
+                paddingBlock={2}
+                fontSize={'sm'}
+                color={'product.secondary'}
+                borderRadius="full"
+                borderColor={'product.secondary'}
+              >
+                {`Upload`}
+              </Button>
+            ) : (
+              <>
+                <Button
+                  mr="2"
+                  variant="ghost"
+                  onClick={closeDropzone}
+                  test-id={`${questionCode}-CANCEL`}
+                  borderRadius="full"
+                  paddingInline={10}
+                >
+                  {`Cancel`}
+                </Button>
+                <Button
+                  variant="solid"
+                  isDisabled={!!isEmpty(files)}
+                  onClick={() => handleSave(files)}
+                  test-id={`${questionCode}-SUBMIT`}
+                  borderRadius="full"
+                  paddingInline={10}
+                >
+                  {`Submit`}
+                </Button>
+              </>
+            )}
           </Flex>
         </Flex>
       </Flex>

@@ -72,7 +72,7 @@ export const Write = ({
       : dispatch({ type: ACTIONS.SET_TO_FALSE, payload: questionCode })
   }, [dispatch, isInvalid, questionCode])
 
-  const maxW = useMobileValue(['', '25vw'])
+  const maxW = useMobileValue(['', '30vw'])
 
   const debouncedSendAnswer = debounce(onSendAnswer, 500)
 
@@ -104,6 +104,15 @@ export const Write = ({
         fontWeight={'medium'}
         color="product.darkGray"
         cursor={'pointer'}
+        _invalid={{
+          background: 'error.50',
+          borderColor: 'transparent',
+          color: 'error.500',
+        }}
+        _disabled={{
+          borderColor: 'transparent',
+          background: 'gray.100',
+        }}
         _hover={{
           borderColor: 'product.gray',
           boxShadow: 'lg',
@@ -111,15 +120,6 @@ export const Write = ({
         _focusVisible={{
           borderColor: 'product.secondary',
           boxShadow: 'initial',
-        }}
-        _invalid={{
-          background: 'error.50',
-          borderColor: 'error.500',
-          color: 'error.500',
-        }}
-        _disabled={{
-          borderColor: 'gray.300',
-          background: 'gray.100',
         }}
       />
       {errorStatus && (

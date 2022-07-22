@@ -1,4 +1,5 @@
 import {
+  Box,
   Center,
   HStack,
   Menu,
@@ -7,18 +8,17 @@ import {
   MenuList,
   Text,
   VStack,
-  Box,
 } from '@chakra-ui/react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { map } from 'ramda'
-import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
-import { useSelector } from 'react-redux'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
 import icons from 'utils/icons'
 import labels from 'utils/labels'
+import { map } from 'ramda'
 import { selectCode } from 'redux/db/selectors'
-import { useIsMobile } from 'utils/hooks'
 import sendEvtClick from '../utils/send-evt-click'
+import { useIsMobile } from 'utils/hooks'
+import { useSelector } from 'react-redux'
 
 const AsksMenu = ({ questionCode, hideLabel }) => {
   const data = useSelector(selectCode(questionCode))
@@ -69,6 +69,7 @@ const AsksMenu = ({ questionCode, hideLabel }) => {
               }}
               test-id={code}
               key={code}
+              fontSize={'sm'}
             >
               {label}
             </MenuItem>

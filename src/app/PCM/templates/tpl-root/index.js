@@ -1,15 +1,16 @@
 import { Box, Grid, VStack, useColorModeValue, useTheme } from '@chakra-ui/react'
 import DeveloperConsole, { isDev } from 'utils/developer'
+import { SIDEBAR_WIDTH, SIDEBAR_WIDTH_SM } from 'utils/constants'
 
 import Dialog from 'app/layouts/display/dialog'
 import DisplayDrawer from 'app/layouts/display/drawer'
 import LogrocketIdentifier from 'app/layouts/components/logrocket_identifier'
 import PcmField from 'app/PCM/components/pcm-field'
-import { SIDEBAR_WIDTH } from 'utils/constants'
 import Toast from 'app/layouts/display/toast'
 import { apiConfig } from 'config/get-api-config'
 import { equals } from 'ramda'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
+import { useIsMobile } from 'utils/hooks'
 
 /**
  * The root template for an application. Contains a sidebar, header and a body content.
@@ -38,13 +39,14 @@ const TemplateRoot = ({ mappedPcm }) => {
 
   const appBg = 'product.grayLight' || theme.colors.primary[900]
   const clientId = apiConfig?.clientId
+  const isMobile = useIsMobile()
 
   return (
     <Grid
       h={'100vh'}
       templateAreas={`"header header"
     "nav main"`}
-      gridTemplateColumns={`${SIDEBAR_WIDTH} 1fr`}
+      gridTemplateColumns={isMobile ? `${SIDEBAR_WIDTH_SM} 1fr` : `${SIDEBAR_WIDTH} 1fr`}
       gridTemplateRows={'auto 1fr'}
       fontFamily="product.bodyFont"
     >
@@ -57,6 +59,7 @@ const TemplateRoot = ({ mappedPcm }) => {
           backgroundColor: appBg,
           boxShadow: '0px 4px 32px -16px rgba(0, 0, 0, 0.25)',
           position: 'relative',
+          zIndex: theme.zIndices.docked,
         }}
       >
         {/* Header PCM*/}
@@ -66,7 +69,7 @@ const TemplateRoot = ({ mappedPcm }) => {
       {/* SIDEBAR WRAPPER */}
       <VStack
         area={'nav'}
-        w={SIDEBAR_WIDTH}
+        w={isMobile ? SIDEBAR_WIDTH_SM : SIDEBAR_WIDTH}
         bg="product.primary"
         h="100%"
         paddingInline={4}
