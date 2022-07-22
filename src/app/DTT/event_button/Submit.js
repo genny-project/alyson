@@ -1,11 +1,10 @@
-import { Box, Button, Center, Tag, Text, VStack, Wrap, WrapItem } from '@chakra-ui/react'
-import { compose, equals, filter, identity, includes, map, prop } from 'ramda'
+import { Box, Button, Tag, Text, VStack, Wrap, WrapItem } from '@chakra-ui/react'
+import { compose, filter, identity, includes, map, prop } from 'ramda'
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { selectAttributes, selectCode } from 'redux/db/selectors'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { apiConfig } from 'config/get-api-config.js'
 import { highlightQuestion } from 'redux/app'
 import { onSendMessage } from 'vertx'
 import { useError } from 'utils/contexts/ErrorContext'
@@ -16,7 +15,6 @@ const Submit = ({ askData, onFinish, parentCode }) => {
   const { errorState } = useError()
   const dispatch = useDispatch()
   const onHighlightQuestion = compose(dispatch, highlightQuestion)
-  const clientId = apiConfig?.clientId
 
   const errorStateValues = Object.values(errorState)
   const hasError = includes(true)(errorStateValues)
@@ -57,36 +55,7 @@ const Submit = ({ askData, onFinish, parentCode }) => {
     }
   }
 
-  return equals(clientId)('lojing') ? (
-    <Center>
-      <Button
-        isLoading={loading}
-        test-id={questionCode}
-        isDisabled={isDisabled}
-        onClick={onClick}
-        leftIcon={
-          questionCode === 'QUE_SUBMIT_NO' ? (
-            <FontAwesomeIcon icon={faTimes} />
-          ) : (
-            <FontAwesomeIcon icon={faCheck} />
-          )
-        }
-        colorScheme={questionCode === 'QUE_SUBMIT_NO' ? 'red' : 'primary'}
-        variant="solid"
-        borderRadius={'full'}
-        paddingBlock={2}
-        paddingInline={2}
-        minW={'9rem'}
-        background={'product.secondary'}
-        fontSize={'sm'}
-        _hover={{
-          background: 'product.secondaryAccent',
-        }}
-      >
-        {name}
-      </Button>
-    </Center>
-  ) : (
+  return (
     <Box>
       <VStack
         pb="1rem"
