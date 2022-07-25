@@ -55,11 +55,11 @@ export const Write = ({
     regex = undefined
   }
 
-  console.log(
-    '%c 🙀🙀🙀🙀🙀🙀🙀🙀🙀🙀🙀🙀🙀',
-    'background: tomato; color: silver; padding: 0.5rem',
-    { attributeCode, targetCode },
-  )
+  // console.log(
+  //   '%c 🙀🙀🙀🙀🙀🙀🙀🙀🙀🙀🙀🙀🙀',
+  //   'background: tomato; color: silver; padding: 0.5rem',
+  //   { attributeCode, targetCode },
+  // )
 
   const inputRef = useRef()
   const isInvalid = getIsInvalid(userInput)(regex)
@@ -95,9 +95,18 @@ export const Write = ({
 
   const debouncedSendAnswer = debounce(onSendAnswer, 500)
 
+  const updateBaseEntityInformation = () => {
+    onNewMsg({
+      data_type: 'BaseEntity',
+      replace: true,
+      items: [{ code: targetCode, baseEntityAttributes: [{ attributeCode, value: userInput }] }],
+    })
+  }
+
   const onBlur = e => {
     !errorStatus && debouncedSendAnswer(e.target.value)
     dispatchFieldMessage({ payload: questionCode })
+    updateBaseEntityInformation()
     //send a message to redux store replicating backend message
   }
 
@@ -110,16 +119,6 @@ export const Write = ({
   //     message: 'This is working!',
   //   })
   // }
-
-  const updateBaseEntityInformation = () => {
-    onNewMsg({
-      cmd_type: '',
-      code: parentCode,
-      attributeCode,
-      questionCode,
-      message: 'This is working!',
-    })
-  }
 
   return (
     <>
