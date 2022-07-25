@@ -1,6 +1,6 @@
 import './styles.css'
 
-import { compose, includes, isEmpty, map, pathOr } from 'ramda'
+import { includes, isEmpty, pathOr } from 'ramda'
 import { selectCode, selectRows } from 'redux/db/selectors'
 import { useEffect, useState } from 'react'
 
@@ -12,6 +12,7 @@ import { getValue } from './get-value'
 import { onSendMessage } from 'vertx'
 import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
+import mapOptions from './map-options'
 
 const Write = ({
   questionCode,
@@ -31,7 +32,9 @@ const Write = ({
       /// Without the length checks I found this comparison didn't tend to behave as expected
       (left, right) => (left?.length || -1) === (right?.length || -2),
     ) || []
-  const options = compose(map(({ code, name }) => ({ label: name, value: code })))(dropdownData)
+
+  const options = mapOptions(dropdownData)
+  console.log(options)
   const isMulti = includes('multiple', dataType.typeName || '') || component === 'tag'
   const processId = useSelector(selectCode(questionCode, 'processId'))
   const sourceCode = useSelector(selectCode('USER'))
