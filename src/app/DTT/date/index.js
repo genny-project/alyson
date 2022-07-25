@@ -22,6 +22,7 @@ import { useError } from 'utils/contexts/ErrorContext'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useSelector } from 'react-redux'
+import { useMobileValue } from 'utils/hooks'
 
 const Read = ({ data, typeName, config }) => {
   const includeTime = includes('LocalDateTime', typeName)
@@ -86,6 +87,8 @@ const Write = ({
     }
   }
 
+  const maxW = useMobileValue(['', '30vw'])
+
   const isInvalid = getIsInvalid(dateValue)(RegExp(regexPattern))
 
   const tomorrowsDateInISOFormat = startOfTomorrow(today)
@@ -130,7 +133,7 @@ const Write = ({
     }
   }, [diffInYears, questionCode])
 
-  const CustomInput = forwardRef(({ value, onClick }, ref) => (
+  const DateInput = forwardRef(({ value, onClick }, ref) => (
     <InputGroup role="group">
       <Input
         id={questionCode}
@@ -140,10 +143,11 @@ const Write = ({
         onFocus={onClick}
         placeholder={placeholderName}
         w="full"
+        maxW={maxW}
         h={'auto'}
         paddingBlock={3}
-        paddingInlineStart={10}
-        paddingInlineEnd={6}
+        paddingStart={12}
+        paddingEnd={6}
         bg={'product.gray'}
         borderRadius="calc(0.25rem - 1px)"
         borderColor={'product.gray'}
@@ -165,7 +169,7 @@ const Write = ({
           color: 'error.500',
         }}
         _disabled={{
-          borderColor: 'gray.300',
+          borderColor: 'transparent',
           background: 'gray.100',
         }}
         required={true}
@@ -202,7 +206,7 @@ const Write = ({
         showTimeSelect={includeTime}
         onChange={date => setDateValue(date)}
         dateFormat={includeTime ? 'yyyy/MM/dd h:mm' : onlyYear ? 'yyyy' : 'yyyy/MM/dd'}
-        customInput={<CustomInput />}
+        customInput={<DateInput />}
         onCalendarClose={handleOnBlur}
         minDate={availabilityQuestions ? current : ''}
         showMonthDropdown

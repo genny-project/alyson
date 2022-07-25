@@ -1,7 +1,8 @@
 import './styles.css'
 
-import { compose, includes, map, pathOr } from 'ramda'
+import { compose, includes, isEmpty, map, pathOr } from 'ramda'
 import { selectCode, selectRows } from 'redux/db/selectors'
+import { useEffect, useState } from 'react'
 
 import { Select as CSelect } from 'chakra-react-select'
 import { Text } from '@chakra-ui/react'
@@ -9,9 +10,7 @@ import { apiConfig } from 'config/get-api-config'
 import debounce from 'lodash.debounce'
 import { getValue } from './get-value'
 import { onSendMessage } from 'vertx'
-import safelyParseJson from 'utils/helpers/safely-parse-json'
-import { selectBufferDropdownOptions } from 'redux/app/selectors'
-import { useCallback } from 'react'
+import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 
 const Write = ({
@@ -25,12 +24,20 @@ const Write = ({
   parentCode,
   attributeCode,
 }) => {
-  const dropdownData = useSelector(selectCode(`${parentCode}-${questionCode}-options`)) || []
+  const dropdownData =
+    useSelector(
+      selectCode(`${parentCode}-${questionCode}-options`),
+      /// Checking this way means that if left or right is undefined, the comparison still works as expected.
+      /// Without the length checks I found this comparison didn't tend to behave as expected
+      (left, right) => (left?.length || -1) === (right?.length || -2),
+    ) || []
   const options = compose(map(({ code, name }) => ({ label: name, value: code })))(dropdownData)
   const isMulti = includes('multiple', dataType.typeName || '') || component === 'tag'
   const processId = useSelector(selectCode(questionCode, 'processId'))
   const sourceCode = useSelector(selectCode('USER'))
   const clientId = apiConfig?.clientId
+  const [value, setValue] = useState(getValue(data, options))
+  const maxW = useMobileValue(['', '30vw'])
 
   const ddEvent = debounce(
     value =>
@@ -49,45 +56,51 @@ const Write = ({
     500,
   )
 
-  const getBufferedDropdownOptions = useSelector(selectBufferDropdownOptions)
+  useEffect(() => {
+    /// If the dropdown data doesn't exist yet, we need to get it
+    if (isEmpty(dropdownData)) {
+      ddEvent('')
+    }
+    setValue(getValue(data, options))
+    // I found that adding options on its own to this array just caused infinite re-renders
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, options?.length])
 
-  const getDefaultValue = useCallback(
-    data => {
-      const optionsIncludingBufferedOptions = [...getBufferedDropdownOptions, ...options]
-      let defaultValue = safelyParseJson(data?.value, [])
-      defaultValue =
-        defaultValue &&
-        Array.isArray(defaultValue) &&
-        optionsIncludingBufferedOptions.filter(i => defaultValue.includes(i.value))
-      return defaultValue
-    },
-    [getBufferedDropdownOptions, options],
-  )
+  const onChange = newValue => {
+    if (!isMulti) {
+      newValue = [newValue]
+    }
+    setValue(newValue)
+    onSendAnswer(prepareValueForSendingAnswer(newValue))
+  }
 
   // the backend accepts array only when sending dropdown values regardless of multi or single select
-  const prepareValueForSendingAnswer = (value, isMulti) =>
-    isMulti ? value && Array.isArray(value) && value.map(i => i.value) : [value.value]
+  const prepareValueForSendingAnswer = value =>
+    value && Array.isArray(value) && value.map(i => i.value)
 
   return (
     <CSelect
       useBasicStyles
       isMulti={isMulti}
       options={options}
-      onChange={value => onSendAnswer(prepareValueForSendingAnswer(value, isMulti))}
+      onChange={onChange}
       onInputChange={value => ddEvent(value)}
       onFocus={() => ddEvent('')}
       placeholder={!options.length ? 'Start typing to search' : placeholderName || 'Select'}
       test-id={questionCode}
       id={questionCode}
-      defaultValue={getDefaultValue()}
+      value={value}
       classNamePrefix={clientId + '_dd'}
       selectedOptionStyle="check"
+      maxW={maxW}
       chakraStyles={{
         container: provided => ({
           ...provided,
+          maxW: maxW,
         }),
         control: provided => ({
           ...provided,
+
           paddingInline: '0.5rem',
           paddingBlock: '0.5rem',
           bg: 'product.gray',

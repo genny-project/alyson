@@ -1,7 +1,7 @@
-import { useSelector } from 'react-redux'
+import { MenuItem } from '@chakra-ui/react'
 import { selectCode } from 'redux/db/selectors'
 import sendEvtClick from 'app/ASKS/utils/send-evt-click'
-import { MenuItem } from '@chakra-ui/react'
+import { useSelector } from 'react-redux'
 
 const ChildMenuItem = ({ onClose, questionCode, childCode, rootCode, targetCode }) => {
   const data = useSelector(selectCode(questionCode, childCode))
@@ -23,7 +23,7 @@ const ChildMenuItem = ({ onClose, questionCode, childCode, rootCode, targetCode 
   }
 
   return (
-    <MenuItem test-id={childCode} onClick={onClick} color="#000000">
+    <MenuItem test-id={childCode} onClick={onClick} color="#000000" fontSize={'sm'}>
       {name}
     </MenuItem>
   )

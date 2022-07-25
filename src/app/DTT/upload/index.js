@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   CloseButton,
   HStack,
@@ -14,8 +15,6 @@ import { useEffect, useState } from 'react'
 import DropZone from './Dropzone'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ImageType from './Image'
-import { apiConfig } from 'config/get-api-config'
-import { equals } from 'ramda'
 import useApi from 'api'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 
@@ -91,8 +90,6 @@ const Write = ({
   const closeDropzone = () => setDropzone(false)
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
 
-  const clientId = apiConfig?.clientId
-
   useEffect(() => {
     const getFileName = async uuid => {
       setFileName(await api.getMediaFileName(uuid))
@@ -127,7 +124,7 @@ const Write = ({
       <Text color="gray.700" alignSelf="start">
         {label}
       </Text>
-      <div hidden={loading}>
+      <Box w={'full'} hidden={loading}>
         {typeName === 'Image' ? (
           <ImageType.Write
             handleSave={handleSave}
@@ -147,7 +144,7 @@ const Write = ({
               <CloseButton cursor="pointer" test-id={questionCode} onClick={() => onSendAnswer()} />
             </Tooltip>
           </HStack>
-        ) : equals(clientId)('lojing') ? (
+        ) : (
           <Button
             id={questionCode}
             hidden={!!dropzone}
@@ -168,16 +165,6 @@ const Write = ({
           >
             Upload file
           </Button>
-        ) : (
-          <Button
-            id={questionCode}
-            hidden={!!dropzone}
-            test-id={questionCode}
-            onClick={openDropzone}
-            leftIcon={<FontAwesomeIcon icon={faUpload} />}
-          >
-            Upload file
-          </Button>
         )}
         {dropzone && (
           <DropZone
@@ -188,8 +175,8 @@ const Write = ({
             id={questionCode}
           />
         )}
-      </div>
-      <div hidden={!loading}>
+      </Box>
+      <Box w={'full'} hidden={!loading}>
         <VStack align="start">
           {progress && progress.loaded !== progress.total ? (
             <Text> Thanks! Uploading, sit tight... </Text>
@@ -205,7 +192,7 @@ const Write = ({
             value={progress ? Math.floor((progress.loaded / progress.total) * 100) : 0}
           />
         </VStack>
-      </div>
+      </Box>
     </VStack>
   )
 }

@@ -218,6 +218,13 @@ export const defaultProjectTheme = {
 
 const getTheme = (projectTheme = defaultProjectTheme) =>
   extendTheme({
+    styles: {
+      global: {
+        body: {
+          lineHeight: '1.43',
+        },
+      },
+    },
     config: {
       initialColorMode: 'light',
     },

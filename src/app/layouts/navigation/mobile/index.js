@@ -13,9 +13,7 @@ import {
   Image,
   Spacer,
   Text,
-  useColorModeValue,
   useDisclosure,
-  useTheme,
 } from '@chakra-ui/react'
 import { addItemsQuestionCode, dashboardViewQuestion } from 'utils/constants'
 import { caps, hideQuickAdd } from 'config/caps'
@@ -35,10 +33,6 @@ import { useRef } from 'react'
 import { useSelector } from 'react-redux'
 
 const MobileNav = ({ logoSrc }) => {
-  const theme = useTheme()
-  const bg = useColorModeValue(theme.colors.background.light, theme.colors.primary[900])
-  const color = useColorModeValue(theme.colors.text.light, theme.colors.text.dark)
-
   const userCode = useSelector(selectCode('USER'))
   const userType = getUserType(useSelector(selectCode(userCode)))
 
@@ -57,50 +51,39 @@ const MobileNav = ({ logoSrc }) => {
 
   return (
     <>
-      <header
-        style={{
-          color,
-          maxWidth: '100vw',
-          h: 25,
-          backgroundColor: bg,
-          boxShadow: `0 4px 24px rgba(0,0,0,0.08)`,
-          position: 'relative',
-          zIndex: '1',
-        }}
-      >
-        <nav>
-          <Flex align="center" p="3">
-            <IconButton color="gray.600" onClick={onOpen} variant="ghost" display={'none'}>
-              <FontAwesomeIcon icon={faBars} />
-            </IconButton>
-            <Box mx={5} alignItems="center" m="auto">
-              {apiConfig && (
-                <Image
-                  onClick={() =>
-                    onSendMessage({
-                      code: dashboardViewQuestion,
-                      parentCode: dashboardViewQuestion,
-                    })
-                  }
-                  ref={btnRef}
-                  src={logoSrc}
-                  htmlWidth={logoWidth}
-                />
-              )}
-            </Box>
-            <Spacer />
-            <HStack spacing={5}>
-              <AskMenu
-                onClose={onClose}
-                questionCode={addItemsQuestionCode}
-                icon={<Button leftIcon={<FontAwesomeIcon icon={faPlus} />}>Add</Button>}
+      <nav>
+        <Flex align="center" p="3">
+          <IconButton color="gray.600" onClick={onOpen} variant="ghost" display={'none'}>
+            <FontAwesomeIcon icon={faBars} />
+          </IconButton>
+          <Box mx={5} alignItems="center" m="auto">
+            {apiConfig && (
+              <Image
+                onClick={() =>
+                  onSendMessage({
+                    code: dashboardViewQuestion,
+                    parentCode: dashboardViewQuestion,
+                  })
+                }
+                ref={btnRef}
+                src={logoSrc}
+                htmlWidth={logoWidth}
               />
-              <Drafts />
-              <Avatar />
-            </HStack>
-          </Flex>
-        </nav>
-      </header>
+            )}
+          </Box>
+          <Spacer />
+          <HStack spacing={5}>
+            <AskMenu
+              onClose={onClose}
+              questionCode={addItemsQuestionCode}
+              icon={<Button leftIcon={<FontAwesomeIcon icon={faPlus} />}>Add</Button>}
+            />
+            <Drafts />
+            <Avatar />
+          </HStack>
+        </Flex>
+      </nav>
+
       <Drawer
         preserveScrollBarGap
         isOpen={isOpen}

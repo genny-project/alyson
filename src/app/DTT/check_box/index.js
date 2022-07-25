@@ -1,5 +1,6 @@
 import { Checkbox, FormControl, FormLabel, HStack } from '@chakra-ui/react'
 
+import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 
 const Read = ({ data }) => {
@@ -20,13 +21,14 @@ const Write = ({ questionCode, data, onSendAnswer, isRequired, label }) => {
     onSendAnswer(data?.value === 'true' ? 'false' : 'true')
     dispatchFieldMessage({ payload: questionCode })
   }
+  const colorScheme = useGetAttributeFromProjectBaseEntity('PRI_COLOR')?.valueString
   return (
     <HStack w="full" spacing={2} align="start">
       <Checkbox
         m="1"
         id={questionCode}
         test-id={questionCode}
-        colorScheme="green"
+        colorScheme={colorScheme}
         isChecked={data?.value === 'true'}
         onChange={toggle}
       />

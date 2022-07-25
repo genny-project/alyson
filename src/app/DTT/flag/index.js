@@ -1,9 +1,12 @@
 import { HStack, Switch, Text } from '@chakra-ui/react'
+import { useEffect, useState } from 'react'
 
+import { apiConfig } from 'config/get-api-config'
+import { equals } from 'ramda'
 import { onSendMessage } from 'vertx'
 import { selectCode } from 'redux/db/selectors'
+import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
-import { useState } from 'react'
 
 const Read = ({ data = {} }) => {
   const sourceCode = useSelector(selectCode('USER'))
@@ -19,17 +22,23 @@ const Read = ({ data = {} }) => {
 
 const Write = ({ questionCode, data, onSendAnswer, placeholderName: label }) => {
   const [isChecked, setIsChecked] = useState(!!data?.value)
+  const clientId = apiConfig?.clientId
+  const maxW = useMobileValue(['', '30vw'])
 
   const handleToggle = () => {
     onSendAnswer(isChecked ? 'false' : 'true')
     setIsChecked(isChecked => !isChecked)
   }
 
+  useEffect(() => {
+    setIsChecked(data?.value)
+  }, [data, setIsChecked])
+
   return (
-    <HStack spacing={5}>
+    <HStack spacing={5} justifyContent={'space-between'} maxW={maxW}>
       <Text color="gray.700">{label}</Text>
       <Switch
-        colorScheme="teal"
+        colorScheme={equals(clientId)('lojing') ? 'orange' : 'primary'}
         test-id={questionCode}
         isChecked={isChecked}
         onChange={handleToggle}

@@ -78,7 +78,7 @@ export const Write = ({
       : dispatch({ type: ACTIONS.SET_TO_FALSE, payload: questionCode })
   }, [dispatch, isInvalid, questionCode])
 
-  const maxW = useMobileValue(['', '25vw'])
+  const maxW = useMobileValue(['', '30vw'])
 
   const debouncedSendAnswer = debounce(onSendAnswer, 500)
 

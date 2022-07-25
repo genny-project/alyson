@@ -1,17 +1,19 @@
-import { Box, Center, CircularProgress, Text } from '@chakra-ui/react'
+import { Box, Center, CircularProgress, Flex, Text } from '@chakra-ui/react'
 import { equals, isEmpty } from 'ramda'
 
 import Ask from 'app/ASKS/ask'
 import debugOut from 'utils/debug-out'
 import { selectCode } from 'redux/db/selectors'
+import { useIsMobile } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 
 const TemplateForm = ({ mappedPcm, ...properties }) => {
   const questionCode = mappedPcm?.PRI_QUESTION_CODE || ''
+  const isMobile = useIsMobile()
 
   if (questionCode) {
     return (
-      <Center>
+      <Flex justifyContent={isMobile ? 'flex-start' : 'center'}>
         {/* By using a form ask here, it means the form will work even if the question code passed is not a question group */}
         <FormAsk
           questionCode={questionCode}
@@ -19,7 +21,7 @@ const TemplateForm = ({ mappedPcm, ...properties }) => {
           level={0}
           properties={properties}
         />
-      </Center>
+      </Flex>
     )
   } else {
     console.error('Attempting to display a TPL_FORM for a PCM without a question code!')
@@ -68,7 +70,7 @@ const AskGroup = ({ questionCode, level, properties }) => {
     debugOut.error(`${questionCode} has no child asks! (AskGroup in TPL_FORM)`)
   }
   return (
-    <Box w="40vw">
+    <Box w="min(100%, 40rem)">
       <Text fontWeight="700" fontSize="36px" mb="5">
         {title}
       </Text>
