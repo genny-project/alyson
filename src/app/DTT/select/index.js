@@ -2,6 +2,7 @@ import './styles.css'
 
 import { compose, includes, isEmpty, map, pathOr } from 'ramda'
 import { selectCode, selectRows } from 'redux/db/selectors'
+import { useEffect, useState } from 'react'
 
 import { Select as CSelect } from 'chakra-react-select'
 import { Text } from '@chakra-ui/react'
@@ -9,7 +10,7 @@ import { apiConfig } from 'config/get-api-config'
 import debounce from 'lodash.debounce'
 import { getValue } from './get-value'
 import { onSendMessage } from 'vertx'
-import { useEffect, useState } from 'react'
+import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 
 const Write = ({
@@ -36,6 +37,7 @@ const Write = ({
   const sourceCode = useSelector(selectCode('USER'))
   const clientId = apiConfig?.clientId
   const [value, setValue] = useState(getValue(data, options))
+  const maxW = useMobileValue(['', '30vw'])
 
   const ddEvent = debounce(
     value =>
@@ -90,12 +92,15 @@ const Write = ({
       value={value}
       classNamePrefix={clientId + '_dd'}
       selectedOptionStyle="check"
+      maxW={maxW}
       chakraStyles={{
         container: provided => ({
           ...provided,
+          maxW: maxW,
         }),
         control: provided => ({
           ...provided,
+
           paddingInline: '0.5rem',
           paddingBlock: '0.5rem',
           bg: 'product.gray',

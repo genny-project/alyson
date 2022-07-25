@@ -6,15 +6,12 @@ import {
   Text,
   VStack,
   useClipboard,
-  useTheme,
   useToast,
 } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { apiConfig } from 'config/get-api-config.js'
-import { equals } from 'ramda'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import getDataValue from 'utils/helpers/get-data-value'
 import { getIsInvalid } from 'utils/functions'
@@ -34,7 +31,6 @@ const Write = ({
   parentCode,
   placeholderName,
 }) => {
-  const theme = useTheme()
   const { isNullDataValue, dataValue } = getDataValue(data.value)
 
   const [errorStatus, setErrorStatus] = useState(false)
@@ -49,8 +45,6 @@ const Write = ({
   const fieldMessage = fieldMessageObject[`${parentCode}@${questionCode}`]
   let hasFieldMessage = isNotNullOrUndefinedOrEmpty(fieldMessage)
   let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMessage)
-
-  const clientId = apiConfig?.clientId
 
   const onBlur = e => {
     !errorStatus && onSendAnswer(e.target.value)
@@ -73,7 +67,7 @@ const Write = ({
 
   const handleChange = event => setUserInput(event.target.value)
 
-  return equals(clientId)('lojing') ? (
+  return (
     <Box>
       <>
         <Input
@@ -87,13 +81,16 @@ const Write = ({
           placeholder={placeholderName}
           w="full"
           h={'auto'}
+          maxW={maxW}
           paddingBlock={3}
           paddingInline={6}
           bg={'product.gray'}
+          borderRadius={'calc(0.25rem - 1px)'}
           borderColor={'product.gray'}
           fontSize={'sm'}
           fontWeight={'medium'}
           color="product.darkGray"
+          cursor={'pointer'}
           _hover={{
             borderColor: 'product.gray',
             boxShadow: 'lg',
@@ -116,52 +113,6 @@ const Write = ({
           <VStack alignItems="start">
             {(hasFieldMessage || hasErrorMessage) && (
               <ChakraText textStyle={'product.errorText'}>
-                {hasFieldMessage ? fieldMessage : errorMessage}
-              </ChakraText>
-            )}
-          </VStack>
-        )}
-      </>
-    </Box>
-  ) : (
-    <Box>
-      <>
-        <Input
-          test-id={questionCode}
-          id={questionCode}
-          type="email"
-          onBlur={onBlur}
-          onChange={handleChange}
-          isInvalid={isInvalid}
-          value={userInput}
-          w="full"
-          maxW={maxW}
-          paddingBlock={3}
-          paddingInline={5}
-          fontWeight={'medium'}
-          borderColor={'gray.700'}
-          _hover={{
-            borderColor: 'green.500',
-            boxShadow: 'lg',
-          }}
-          _focusVisible={{
-            borderColor: 'green.500',
-            boxShadow: 'initial',
-          }}
-          _invalid={{
-            background: 'error.50',
-            borderColor: 'error.500',
-            color: 'error.500',
-          }}
-          _disabled={{
-            borderColor: 'gray.300',
-            background: 'gray.100',
-          }}
-        />
-        {errorStatus && (
-          <VStack alignItems="start">
-            {(hasFieldMessage || hasErrorMessage) && (
-              <ChakraText textStyle="tail.error" mt={2}>
                 {hasFieldMessage ? fieldMessage : errorMessage}
               </ChakraText>
             )}

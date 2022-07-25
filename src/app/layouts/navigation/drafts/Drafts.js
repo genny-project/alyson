@@ -8,8 +8,8 @@ import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
 import getUserType from 'utils/helpers/get-user-type'
 import icons from 'utils/icons'
 import { selectCode } from 'redux/db/selectors'
-import { useSelector } from 'react-redux'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
+import { useSelector } from 'react-redux'
 
 const Drafts = ({ code: DRAFT_GROUP, textColor }) => {
   const userCode = useSelector(selectCode('USER'))
@@ -28,7 +28,7 @@ const Drafts = ({ code: DRAFT_GROUP, textColor }) => {
   return (
     <Box>
       <Menu>
-        <MenuButton>
+        <MenuButton fontSize={'sm'}>
           <VStack color="grey" test-id={DRAFT_GROUP}>
             <Box>
               <FontAwesomeIcon size="lg" w="8" h="8" icon={icons[DRAFT_GROUP]} color={iconColor} />

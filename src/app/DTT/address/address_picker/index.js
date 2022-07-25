@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react'
 
 import { Input } from '@chakra-ui/react'
-import { apiConfig } from 'config/get-api-config.js'
 import makeAddressData from './make-address-data'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
@@ -11,8 +10,6 @@ let autocomplete
 const AddressPicker = ({ onSendAnswer, data, questionCode }) => {
   const autoCompleteRef = useRef(null)
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
-
-  const clientId = apiConfig?.clientId
 
   useEffect(() => {
     if (autoCompleteRef?.current) {

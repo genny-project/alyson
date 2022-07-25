@@ -37,6 +37,7 @@ import { selectFieldMessage } from 'redux/app/selectors'
 import { stateToHTML } from 'draft-js-export-html'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
+import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 
 const Write = ({
@@ -83,6 +84,8 @@ const Write = ({
     setUserInput(value)
   }
 
+  const maxW = useMobileValue(['', '30vw'])
+
   useEffect(() => {
     isInvalid ? setErrorStatus(true) : setErrorStatus(false)
   }, [isInvalid])
@@ -122,6 +125,7 @@ const Write = ({
       <Box
         test-id={questionCode}
         w="full"
+        maxW={maxW}
         border="1px"
         borderColor="product.gray"
         borderRadius={'calc(0.24rem - 1px)'}

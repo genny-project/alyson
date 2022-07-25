@@ -10,7 +10,6 @@ import { useEffect, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { apiConfig } from 'config/get-api-config.js'
 import { faLinkedin } from '@fortawesome/free-brands-svg-icons'
 import { getIsInvalid } from 'utils/functions'
 import { includes } from 'ramda'
@@ -65,10 +64,9 @@ const Write = ({
   const { dispatch } = useError()
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value)
+
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
 
-  const maxW = useMobileValue(['', '25vw'])
-  const clientId = apiConfig?.clientId
   const iconColor = useGetAttributeFromProjectBaseEntity('PRI_COLOR')?.valueString
 
   const isInvalid = getIsInvalid(userInput)(RegExp(regexPattern))
@@ -76,6 +74,8 @@ const Write = ({
   const fieldMessage = fieldMessageObject[`${parentCode}@${questionCode}`]
   let hasFieldMessage = isNotNullOrUndefinedOrEmpty(fieldMessage)
   let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMessage)
+
+  const maxW = useMobileValue(['', '30vw'])
 
   const onBlur = e => {
     !errorStatus && onSendAnswer(e.target.value)
@@ -92,6 +92,8 @@ const Write = ({
       : dispatch({ type: ACTIONS.SET_TO_FALSE, payload: questionCode })
   }, [dispatch, isInvalid, questionCode])
 
+  console.log(data?.value)
+
   return (
     <>
       <InputGroup
@@ -102,6 +104,7 @@ const Write = ({
         borderColor={'product.gray'}
         overflow={'hidden'}
         role="group"
+        maxW={maxW}
         _hover={{
           borderColor: 'product.gray',
           boxShadow: 'lg',
@@ -124,8 +127,23 @@ const Write = ({
           boxShadow: 'initial',
         }}
       >
-        <InputLeftAddon h={'auto'} border={0} borderRadius={0} paddingInlineStart={6}>
-          <FontAwesomeIcon size="lg" icon={faLinkedin} color={iconColor} />
+        <InputLeftAddon
+          h={'auto'}
+          border={0}
+          borderRadius={0}
+          paddingInlineStart={6}
+          color={userInput ? iconColor : 'gray.600'}
+          _groupHover={{
+            color: iconColor,
+          }}
+          _groupFocusVisible={{
+            color: iconColor,
+          }}
+          _groupFocusWithin={{
+            color: iconColor,
+          }}
+        >
+          <FontAwesomeIcon size="lg" icon={faLinkedin} color={'inherit'} />
         </InputLeftAddon>
 
         <Input
@@ -143,7 +161,6 @@ const Write = ({
           fontSize={'sm'}
           fontWeight={'medium'}
           color="product.darkGray"
-          role="peer"
           _focusVisible={{
             border: '0',
           }}
