@@ -39,6 +39,13 @@ const Submit = ({ askData, onFinish, parentCode }) => {
     q => q.questionCode !== 'QUE_SUBMIT' && includes(q.attributeCode, mandatoryAttributesNoValue),
   )(mandatoryQuestions)
 
+  console.log(
+    '%c 🙀🙀🙀🙀🙀🙀🙀🙀🙀🙀🙀🙀🙀',
+    'background: tomato; color: silver; padding: 0.5rem',
+    mandatoryQuestionsNoValue,
+    mandatoryAttributesNoValue,
+  )
+
   const [loading, setLoading] = useState(false)
 
   const onClick = () => {

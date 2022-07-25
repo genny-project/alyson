@@ -1,6 +1,7 @@
 import { Text as ChakraText, Input, VStack, HStack } from '@chakra-ui/react'
 import { faCalendar, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useRef, useState } from 'react'
+import { compose } from 'ramda'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import DetailViewTags from 'app/DTT/text/detailview_tags'
@@ -14,6 +15,8 @@ import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
+import { newMsg } from 'redux/app'
+import { useDispatch } from 'react-redux'
 
 export const Write = ({
   questionCode,
@@ -23,6 +26,8 @@ export const Write = ({
   errorMessage,
   parentCode,
   placeholderName,
+  attributeCode,
+  targetCode,
 }) => {
   let regex
   const { dispatch } = useError()
@@ -39,6 +44,8 @@ export const Write = ({
 
   const failedValidation = errorState[questionCode]
   const fieldNotEmpty = fieldState[questionCode]
+  const dispatchBeInformation = useDispatch()
+  const onNewMsg = compose(dispatchBeInformation, newMsg)
 
   try {
     regexPattern = regexPattern.replaceAll('\\\\', '\\')
@@ -47,6 +54,12 @@ export const Write = ({
     console.error('There is an error with the regex', questionCode, err)
     regex = undefined
   }
+
+  console.log(
+    '%c 🙀🙀🙀🙀🙀🙀🙀🙀🙀🙀🙀🙀🙀',
+    'background: tomato; color: silver; padding: 0.5rem',
+    { attributeCode, targetCode },
+  )
 
   const inputRef = useRef()
   const isInvalid = getIsInvalid(userInput)(regex)
@@ -85,6 +98,27 @@ export const Write = ({
   const onBlur = e => {
     !errorStatus && debouncedSendAnswer(e.target.value)
     dispatchFieldMessage({ payload: questionCode })
+    //send a message to redux store replicating backend message
+  }
+
+  // const updateBaseEntityInformation = () => {
+  //   onNewCmd({
+  //     cmd_type: '',
+  //     code: parentCode,
+  //     attributeCode,
+  //     questionCode,
+  //     message: 'This is working!',
+  //   })
+  // }
+
+  const updateBaseEntityInformation = () => {
+    onNewMsg({
+      cmd_type: '',
+      code: parentCode,
+      attributeCode,
+      questionCode,
+      message: 'This is working!',
+    })
   }
 
   return (

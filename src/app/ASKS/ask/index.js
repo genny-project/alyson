@@ -251,6 +251,7 @@ const Ask = ({
           regexPattern={regexPattern}
           errorMessage={errorMessage}
           attributeCode={attributeCode}
+          targetCode={targetCode}
           parentCode={parentCode}
           placeholderName={placeholderName}
         />
