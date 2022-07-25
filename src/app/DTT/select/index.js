@@ -38,6 +38,7 @@ const Write = ({
   const clientId = apiConfig?.clientId
   const [value, setValue] = useState(getValue(data, options))
   const maxW = useMobileValue(['', '30vw'])
+  const [updated, setUpdated] = useState(false)
 
   const ddEvent = debounce(
     value =>
@@ -61,7 +62,9 @@ const Write = ({
     if (isEmpty(dropdownData)) {
       ddEvent('')
     }
-    setValue(getValue(data, options))
+    if (!updated) {
+      setValue(getValue(data, options))
+    }
     // I found that adding options on its own to this array just caused infinite re-renders
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, options?.length])
@@ -71,6 +74,7 @@ const Write = ({
       newValue = [newValue]
     }
     setValue(newValue)
+    setUpdated(true)
     onSendAnswer(prepareValueForSendingAnswer(newValue))
   }
 
