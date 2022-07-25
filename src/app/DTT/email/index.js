@@ -53,7 +53,8 @@ const Write = ({
 
   useEffect(() => {
     !isNullDataValue && setUserInput(data?.value)
-  }, [data, isNullDataValue, setUserInput])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data])
 
   useEffect(() => {
     isInvalid ? setErrorStatus(true) : setErrorStatus(false)
