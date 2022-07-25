@@ -34,7 +34,6 @@ const Write = ({
     ) || []
 
   const options = mapOptions(dropdownData)
-  console.log(options)
   const isMulti = includes('multiple', dataType.typeName || '') || component === 'tag'
   const processId = useSelector(selectCode(questionCode, 'processId'))
   const sourceCode = useSelector(selectCode('USER'))
