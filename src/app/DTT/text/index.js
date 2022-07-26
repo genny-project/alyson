@@ -94,18 +94,7 @@ export const Write = ({
     !errorStatus && debouncedSendAnswer(e.target.value)
     dispatchFieldMessage({ payload: questionCode })
     dispatchBaseEntityUpdates(attributeCode, targetCode, userInput)(onNewMsg)
-    //send a message to redux store replicating backend message
   }
-
-  // const updateBaseEntityInformation = () => {
-  //   onNewCmd({
-  //     cmd_type: '',
-  //     code: parentCode,
-  //     attributeCode,
-  //     questionCode,
-  //     message: 'This is working!',
-  //   })
-  // }
 
   return (
     <>
