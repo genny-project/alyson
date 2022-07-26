@@ -6,7 +6,7 @@ import Submit from './Submit'
 import isSubmitButton from 'app/DTT/event_button/helpers/is-submit.js'
 
 const EventButton = ({ askData, onFinish, parentCode }) => {
-  const { questionCode, targetCode, name, disabled, processId } = askData
+  const { questionCode, targetCode, name, disabled, processId, attributeCode } = askData
 
   const onClick = () =>
     onSendMessage({
@@ -15,6 +15,7 @@ const EventButton = ({ askData, onFinish, parentCode }) => {
       parentCode,
       targetCode,
       value: true,
+      attributeCode: attributeCode,
       processId: processId,
     })
 

@@ -19,7 +19,7 @@ const Submit = ({ askData, onFinish, parentCode }) => {
   const errorStateValues = Object.values(errorState)
   const hasError = includes(true)(errorStateValues)
   const isDisabled = hasError || disabledFromBackEnd
-
+  const attrCode = useSelector(selectCode(questionCode, 'attributeCode'))
   const questions = useSelector(selectCode(parentCode))
   const questionDatas = useSelector(selectAttributes(parentCode, questions))
   const mandatoryQuestions = filter(prop('mandatory'), questionDatas)
@@ -47,6 +47,7 @@ const Submit = ({ askData, onFinish, parentCode }) => {
       rootCode: parentCode,
       parentCode,
       targetCode,
+      attributeCode: attrCode,
       processId: askData.processId,
     })
     if (questionCode === 'QUE_SUBMIT') {
