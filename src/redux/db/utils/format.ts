@@ -14,11 +14,6 @@ export const formatBaseEntity = (
   parentCode: MsgPayload['parentCode'],
   replace: Boolean,
 ) => (item: Item) => {
-  console.log(
-    '%c 🙀🙀🙀🙀🙀🙀🙀🙀🙀🙀🙀🙀🙀',
-    'background: tomato; color: silver; padding: 0.5rem',
-    { item },
-  )
   if (!item) return
 
   const { code, baseEntityAttributes = [] } = item
