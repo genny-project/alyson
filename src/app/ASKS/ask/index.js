@@ -176,7 +176,7 @@ const Ask = ({
       }
 
       {component === 'email' && (
-        <Email.Write
+        <Phone.Write
           questionCode={questionCode}
           data={data}
           onSendAnswer={onSendAnswer}

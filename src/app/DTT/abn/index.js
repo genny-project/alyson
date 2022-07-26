@@ -10,6 +10,10 @@ import { selectFieldMessage } from 'redux/app/selectors'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
+import { compose } from 'ramda'
+import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
+import { newMsg } from 'redux/app'
+import { useDispatch } from 'react-redux'
 
 const Write = ({
   questionCode,
@@ -20,6 +24,8 @@ const Write = ({
   errorMessage,
   parentCode,
   placeholderName,
+  attributeCode,
+  targetCode,
 }) => {
   let regex
   const { dispatch } = useError()
@@ -31,6 +37,8 @@ const Write = ({
   const fieldMessage = fieldMessageObject[`${parentCode}@${questionCode}`]
   let hasFieldMessage = isNotNullOrUndefinedOrEmpty(fieldMessage)
   let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMessage)
+  const dispatchBeInformation = useDispatch()
+  const onNewMsg = compose(dispatchBeInformation, newMsg)
 
   useEffect(() => {
     setValue(data?.value)
@@ -43,6 +51,11 @@ const Write = ({
   }
 
   const isInvalid = getIsInvalid(value)(regex)
+
+  const handleOnBlur = e => {
+    onSendAnswer(e.target.value)
+    dispatchBaseEntityUpdates(attributeCode, targetCode, value)(onNewMsg)
+  }
 
   useEffect(() => {
     isInvalid ? setErrorStatus(true) : setErrorStatus(false)
@@ -85,7 +98,7 @@ const Write = ({
           test-id={questionCode}
           value={value}
           onChange={e => setValue(e.target.value)}
-          onBlur={e => onSendAnswer(e.target.value)}
+          onBlur={handleOnBlur}
           w="full"
           maxW={maxW}
           paddingBlock={3}
