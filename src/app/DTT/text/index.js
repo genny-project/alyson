@@ -55,12 +55,6 @@ export const Write = ({
     regex = undefined
   }
 
-  // console.log(
-  //   '%c 🙀🙀🙀🙀🙀🙀🙀🙀🙀🙀🙀🙀🙀',
-  //   'background: tomato; color: silver; padding: 0.5rem',
-  //   { attributeCode, targetCode },
-  // )
-
   const inputRef = useRef()
   const isInvalid = getIsInvalid(userInput)(regex)
 

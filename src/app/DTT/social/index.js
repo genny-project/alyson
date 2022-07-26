@@ -92,8 +92,6 @@ const Write = ({
       : dispatch({ type: ACTIONS.SET_TO_FALSE, payload: questionCode })
   }, [dispatch, isInvalid, questionCode])
 
-  console.log(data?.value)
-
   return (
     <>
       <InputGroup

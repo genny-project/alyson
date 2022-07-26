@@ -136,6 +136,8 @@ const Ask = ({
         regexPattern={regexPattern}
         errorMessage={errorMessage}
         parentCode={parentCode}
+        attributeCode={attributeCode}
+        targetCode={targetCode}
       />
     )
   return component === 'button' ? (
@@ -147,6 +149,8 @@ const Ask = ({
       id={attributeCode}
       regexPattern={regexPattern}
       errorMessage={errorMessage}
+      attributeCode={attributeCode}
+      targetCode={targetCode}
     />
   ) : (
     <FormControl
@@ -182,6 +186,7 @@ const Ask = ({
           attributeCode={attributeCode}
           parentCode={parentCode}
           placeholderName={placeholderName}
+          targetCode={targetCode}
         />
       )}
       {component === 'phone' && (
@@ -194,6 +199,7 @@ const Ask = ({
           attributeCode={attributeCode}
           parentCode={parentCode}
           placeholderName={placeholderName}
+          targetCode={targetCode}
         />
       )}
       {component === 'address' && (
@@ -205,6 +211,8 @@ const Ask = ({
           errorMessage={errorMessage}
           parentCode={parentCode}
           placeholderName={placeholderName}
+          attributeCode={attributeCode}
+          targetCode={targetCode}
         />
       )}
       {(component === 'dropdown' || component === 'tag') && (
@@ -240,6 +248,7 @@ const Ask = ({
           regexPattern={regexPattern}
           errorMessage={errorMessage}
           placeholderName={placeholderName}
+          targetCode={targetCode}
         />
       )}
       {component === 'text' && (
@@ -267,6 +276,8 @@ const Ask = ({
           parentCode={parentCode}
           secondaryColor={secondaryColor}
           placeholderName={placeholderName}
+          attributeCode={attributeCode}
+          targetCode={targetCode}
         />
       )}
       {component === 'social' && (
@@ -279,6 +290,8 @@ const Ask = ({
           errorMessage={errorMessage}
           parentCode={parentCode}
           placeholderName={placeholderName}
+          attributeCode={attributeCode}
+          targetCode={targetCode}
         />
       )}
       {component === 'upload' && (
@@ -291,6 +304,8 @@ const Ask = ({
           errorMessage={errorMessage}
           placeholderName={placeholderName}
           parentCode={parentCode}
+          attributeCode={attributeCode}
+          targetCode={targetCode}
         />
       )}
       {(component === 'date' || component === 'year') && (
@@ -305,6 +320,8 @@ const Ask = ({
           parentCode={parentCode}
           realm={projectTitle}
           placeholderName={placeholderName}
+          attributeCode={attributeCode}
+          targetCode={targetCode}
         />
       )}
       {component === 'richtext_editor' && (
@@ -319,6 +336,8 @@ const Ask = ({
           placeholder={placeholder}
           parentCode={parentCode}
           placeholderName={placeholderName}
+          attributeCode={attributeCode}
+          targetCode={targetCode}
         />
       )}
       {component === 'date_range' && (
@@ -331,6 +350,8 @@ const Ask = ({
           errorMessage={errorMessage}
           parentCode={parentCode}
           placeholderName={placeholderName}
+          attributeCode={attributeCode}
+          targetCode={targetCode}
         />
       )}
       {component === 'video' && (
@@ -343,6 +364,8 @@ const Ask = ({
           errorMessage={errorMessage}
           parentCode={parentCode}
           placeholderName={placeholderName}
+          attributeCode={attributeCode}
+          targetCode={targetCode}
         />
       )}
       {component === 'time_range' && (
@@ -354,6 +377,8 @@ const Ask = ({
           errorMessage={errorMessage}
           parentCode={parentCode}
           placeholderName={placeholderName}
+          attributeCode={attributeCode}
+          targetCode={targetCode}
         />
       )}
       {component === 'html_display' && (
@@ -364,6 +389,8 @@ const Ask = ({
           errorMessage={errorMessage}
           parentCode={parentCode}
           placeholderName={placeholderName}
+          attributeCode={attributeCode}
+          targetCode={targetCode}
         />
       )}
       {component === 'signature' && (
@@ -375,6 +402,8 @@ const Ask = ({
           errorMessage={errorMessage}
           parentCode={parentCode}
           placeholderName={placeholderName}
+          attributeCode={attributeCode}
+          targetCode={targetCode}
         />
       )}
       {component === 'link' && (
@@ -386,6 +415,8 @@ const Ask = ({
           errorMessage={errorMessage}
           parentCode={parentCode}
           placeholderName={placeholderName}
+          attributeCode={attributeCode}
+          targetCode={targetCode}
         />
       )}
       {component === 'abn_number' && (
@@ -398,6 +429,8 @@ const Ask = ({
           errorMessage={errorMessage}
           parentCode={parentCode}
           placeholderName={placeholderName}
+          attributeCode={attributeCode}
+          targetCode={targetCode}
         />
       )}
       {component === 'rating' && (
@@ -409,6 +442,8 @@ const Ask = ({
           errorMessage={errorMessage}
           parentCode={parentCode}
           placeholderName={placeholderName}
+          attributeCode={attributeCode}
+          targetCode={targetCode}
         />
       )}
       {component === 'youtube' && (
@@ -420,6 +455,8 @@ const Ask = ({
           errorMessage={errorMessage}
           parentCode={parentCode}
           placeholderName={placeholderName}
+          attributeCode={attributeCode}
+          targetCode={targetCode}
         />
       )}
       {component === 'time_zone' && (
@@ -431,6 +468,8 @@ const Ask = ({
           errorMessage={errorMessage}
           parentCode={parentCode}
           placeholderName={placeholderName}
+          attributeCode={attributeCode}
+          targetCode={targetCode}
         />
       )}
       {component === 'checkbox' && (
@@ -442,6 +481,8 @@ const Ask = ({
           errorMessage={errorMessage}
           parentCode={parentCode}
           placeholderName={placeholderName}
+          attributeCode={attributeCode}
+          targetCode={targetCode}
         />
       )}
       {component === 'log_rocket_session' && (
@@ -451,6 +492,8 @@ const Ask = ({
           errorMessage={errorMessage}
           parentCode={parentCode}
           placeholderName={placeholderName}
+          attributeCode={attributeCode}
+          targetCode={targetCode}
         />
       )}
       {component === 'flag' && (
@@ -462,6 +505,8 @@ const Ask = ({
           errorMessage={errorMessage}
           parentCode={parentCode}
           placeholderName={placeholderName}
+          attributeCode={attributeCode}
+          targetCode={targetCode}
         />
       )}
       {component === 'progress' && (
@@ -473,6 +518,8 @@ const Ask = ({
           errorMessage={errorMessage}
           parentCode={parentCode}
           placeholderName={placeholderName}
+          attributeCode={attributeCode}
+          targetCode={targetCode}
         />
       )}
       <FormErrorMessage>{feedback}</FormErrorMessage>
