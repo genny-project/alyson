@@ -1,6 +1,6 @@
 import './styles.css'
 
-import { compose, includes, isEmpty, map, pathOr } from 'ramda'
+import { includes, isEmpty, pathOr } from 'ramda'
 import { selectCode, selectRows } from 'redux/db/selectors'
 import { useEffect, useState } from 'react'
 
@@ -12,6 +12,7 @@ import { getValue } from './get-value'
 import { onSendMessage } from 'vertx'
 import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
+import mapOptions from './map-options'
 
 const Write = ({
   questionCode,
@@ -31,13 +32,15 @@ const Write = ({
       /// Without the length checks I found this comparison didn't tend to behave as expected
       (left, right) => (left?.length || -1) === (right?.length || -2),
     ) || []
-  const options = compose(map(({ code, name }) => ({ label: name, value: code })))(dropdownData)
+
+  const options = mapOptions(dropdownData)
   const isMulti = includes('multiple', dataType.typeName || '') || component === 'tag'
   const processId = useSelector(selectCode(questionCode, 'processId'))
   const sourceCode = useSelector(selectCode('USER'))
   const clientId = apiConfig?.clientId
   const [value, setValue] = useState(getValue(data, options))
   const maxW = useMobileValue(['', '30vw'])
+  const [updated, setUpdated] = useState(false)
 
   const ddEvent = debounce(
     value =>
@@ -61,7 +64,9 @@ const Write = ({
     if (isEmpty(dropdownData)) {
       ddEvent('')
     }
-    setValue(getValue(data, options))
+    if (!updated) {
+      setValue(getValue(data, options))
+    }
     // I found that adding options on its own to this array just caused infinite re-renders
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, options?.length])
@@ -71,6 +76,7 @@ const Write = ({
       newValue = [newValue]
     }
     setValue(newValue)
+    setUpdated(true)
     onSendAnswer(prepareValueForSendingAnswer(newValue))
   }
 
