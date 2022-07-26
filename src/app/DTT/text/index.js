@@ -1,4 +1,4 @@
-import { Text as ChakraText, Input, VStack } from '@chakra-ui/react'
+import { Text as ChakraText, Input, VStack, HStack } from '@chakra-ui/react'
 import { faCalendar, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useRef, useState } from 'react'
 
@@ -13,6 +13,12 @@ import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
+import { isNotStringifiedEmptyArray } from 'utils/functionals'
+
+import { compose } from 'ramda'
+import { newMsg } from 'redux/app'
+import { useDispatch } from 'react-redux'
+import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
 
 export const Write = ({
   questionCode,
@@ -22,6 +28,8 @@ export const Write = ({
   errorMessage,
   parentCode,
   placeholderName,
+  attributeCode,
+  targetCode,
 }) => {
   let regex
   const { dispatch } = useError()
@@ -33,6 +41,13 @@ export const Write = ({
   const fieldMessage = fieldMessageObject[`${parentCode}@${questionCode}`]
   let hasFieldMessage = isNotNullOrUndefinedOrEmpty(fieldMessage)
   let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMessage)
+  const { errorState } = useError()
+  const { fieldState } = useIsFieldNotEmpty()
+
+  const failedValidation = errorState[questionCode]
+  const fieldNotEmpty = fieldState[questionCode]
+  const dispatchBeInformation = useDispatch()
+  const onNewMsg = compose(dispatchBeInformation, newMsg)
 
   try {
     regexPattern = regexPattern.replaceAll('\\\\', '\\')
@@ -79,49 +94,57 @@ export const Write = ({
   const onBlur = e => {
     !errorStatus && debouncedSendAnswer(e.target.value)
     dispatchFieldMessage({ payload: questionCode })
+    dispatchBaseEntityUpdates(attributeCode, targetCode, userInput)(onNewMsg)
   }
 
   return (
     <>
-      <Input
-        test-id={questionCode}
-        id={questionCode}
-        ref={inputRef}
-        onBlur={onBlur}
-        onChange={e => setuserInput(e.target.value)}
-        value={userInput || ''}
-        isInvalid={isInvalid}
-        placeholder={placeholderName}
-        w="full"
-        h={'auto'}
-        maxW={maxW}
-        paddingBlock={3}
-        paddingInline={6}
-        bg={'product.gray'}
-        borderRadius={'calc(0.25rem - 1px)'}
-        borderColor={'product.gray'}
-        fontSize={'sm'}
-        fontWeight={'medium'}
-        color="product.darkGray"
-        cursor={'pointer'}
-        _invalid={{
-          background: 'error.50',
-          borderColor: 'transparent',
-          color: 'error.500',
-        }}
-        _disabled={{
-          borderColor: 'transparent',
-          background: 'gray.100',
-        }}
-        _hover={{
-          borderColor: 'product.gray',
-          boxShadow: 'lg',
-        }}
-        _focusVisible={{
-          borderColor: 'product.secondary',
-          boxShadow: 'initial',
-        }}
-      />
+      <HStack>
+        <Input
+          test-id={questionCode}
+          id={questionCode}
+          ref={inputRef}
+          onBlur={onBlur}
+          onChange={e => setuserInput(e.target.value)}
+          value={userInput || ''}
+          isInvalid={isInvalid}
+          placeholder={placeholderName}
+          w="full"
+          h={'auto'}
+          maxW={maxW}
+          paddingBlock={3}
+          paddingInline={6}
+          bg={'product.gray'}
+          borderRadius={'calc(0.25rem - 1px)'}
+          borderColor={'product.gray'}
+          fontSize={'sm'}
+          fontWeight={'medium'}
+          color="product.darkGray"
+          cursor={'pointer'}
+          _hover={{
+            borderColor: 'product.gray',
+            boxShadow: 'lg',
+          }}
+          _focusVisible={{
+            borderColor: 'product.secondary',
+            boxShadow: 'initial',
+          }}
+          _invalid={{
+            background: 'error.50',
+            borderColor: 'error.500',
+            color: 'error.500',
+          }}
+          _disabled={{
+            borderColor: 'gray.300',
+            background: 'gray.100',
+          }}
+        />
+        {(!failedValidation && fieldNotEmpty) ||
+        (!failedValidation && userInput && isNotStringifiedEmptyArray(userInput)) ? (
+          <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
+        ) : null}
+      </HStack>
+
       {errorStatus && (
         <VStack alignItems="start">
           {(hasFieldMessage || hasErrorMessage) && (

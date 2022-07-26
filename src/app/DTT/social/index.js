@@ -18,8 +18,8 @@ import { selectFieldMessage } from 'redux/app/selectors'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
-import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
+import { useMobileValue } from 'utils/hooks'
 
 const Read = ({ data, config = {} }) => {
   const attributeName = data?.attributeName
@@ -91,8 +91,6 @@ const Write = ({
       ? dispatch({ type: ACTIONS.SET_TO_TRUE, payload: questionCode })
       : dispatch({ type: ACTIONS.SET_TO_FALSE, payload: questionCode })
   }, [dispatch, isInvalid, questionCode])
-
-  console.log(data?.value)
 
   return (
     <>
