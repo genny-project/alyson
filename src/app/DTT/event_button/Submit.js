@@ -18,7 +18,7 @@ const Submit = ({ askData, onFinish, parentCode }) => {
 
   const errorStateValues = Object.values(errorState)
   const hasError = includes(true)(errorStateValues)
-  const isDisabled = hasError || disabledFromBackEnd ? true : false
+  const isDisabled = hasError || disabledFromBackEnd
 
   const questions = useSelector(selectCode(parentCode))
   const questionDatas = useSelector(selectAttributes(parentCode, questions))
