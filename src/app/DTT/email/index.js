@@ -1,6 +1,7 @@
 import { HStack, Text, useClipboard, useToast } from '@chakra-ui/react'
-import { Write } from 'app/DTT/text'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Write } from 'app/DTT/text'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 
 const Read = ({ data }) => {
