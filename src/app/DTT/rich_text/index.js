@@ -22,15 +22,20 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import { ContentState, EditorState, convertFromHTML, convertToRaw } from 'draft-js'
+import { faCheckCircle, faExpand } from '@fortawesome/free-solid-svg-icons'
+import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import DOMPurify from 'dompurify'
 import { Editor } from 'react-draft-wysiwyg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faExpand } from '@fortawesome/free-solid-svg-icons'
+import { compose } from 'ramda'
+import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
 import { getIsInvalid } from 'utils/functions'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
+import { isNotStringifiedEmptyArray } from 'utils/functionals'
+import { newMsg } from 'redux/app'
 import removeHtmlTags from 'utils/helpers/remove-html-tags'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { selectFieldMessage } from 'redux/app/selectors'
@@ -38,7 +43,6 @@ import { stateToHTML } from 'draft-js-export-html'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
-import { useSelector } from 'react-redux'
 
 const Write = ({
   questionCode,
@@ -50,6 +54,8 @@ const Write = ({
   placeholder,
   parentCode,
   placeholderName,
+  attributeCode,
+  targetCode,
 }) => {
   const { minCharacterCount = 0, maxCharacterCount } = safelyParseJson(html, {})
   const blocksFromHTML = convertFromHTML(data?.value || '')
@@ -77,6 +83,14 @@ const Write = ({
     ?.replace(/^.*\s{2,}.*$/, '')
 
   const isInvalid = getIsInvalid(userInputWithoutLineBreaks, questionCode)(RegExp(regexPattern))
+
+  const { errorState } = useError()
+  const { fieldState } = useIsFieldNotEmpty()
+
+  const failedValidation = errorState[questionCode]
+  const fieldNotEmpty = fieldState[questionCode]
+  const dispatchBeInformation = useDispatch()
+  const onNewMsg = compose(dispatchBeInformation, newMsg)
 
   const handleEditorChange = () => {
     const blocks = convertToRaw(editor.getCurrentContent()).blocks
@@ -118,79 +132,87 @@ const Write = ({
       onSendAnswer(stateToHTML(editor.getCurrentContent()))
     }
     dispatchFieldMessage({ payload: questionCode })
+    dispatchBaseEntityUpdates(attributeCode, targetCode, userInput)(onNewMsg)
   }
 
   return (
     <>
-      <Box
-        test-id={questionCode}
-        w="full"
-        maxW={maxW}
-        border="1px"
-        borderColor="product.gray"
-        borderRadius={'calc(0.24rem - 1px)'}
-        paddingBlock={3}
-        paddingInline={6}
-        bg="product.gray"
-        fontSize={'sm'}
-        fontWeight={'medium'}
-        _hover={{
-          borderColor: 'product.gray',
-          boxShadow: 'lg',
-        }}
-        _focusWithin={{
-          borderColor: 'product.secondary',
-          boxShadow: 'lg',
-        }}
-      >
-        {minCharacterCount || maxCharacterCount ? (
-          !minCharacterCount ? (
-            <HStack>
-              <Text>{`Please use less than`}</Text>
-              <Text color={curLength > maxCharacterCount ? 'red' : 'green'}>
-                {maxCharacterCount}
-              </Text>
-              <Text>{`characters`}</Text>
-            </HStack>
-          ) : (
-            <HStack>
-              <Text>{`Please use between`}</Text>
-              <Text color={curLength < minCharacterCount ? 'red' : 'green'}>
-                {minCharacterCount}
-              </Text>
-              <Text>{`and`}</Text>
-              <Text color={curLength > maxCharacterCount ? 'red' : 'green'}>
-                {maxCharacterCount}
-              </Text>
-              <Text>{`characters`}</Text>
-            </HStack>
-          )
-        ) : null}
-        {minCharacterCount || maxCharacterCount ? (
-          <Text mb="3">
-            {minCharacterCount > curLength
-              ? `Keep typing please`
-              : curLength > maxCharacterCount
-              ? `Too much text`
-              : curLength
-              ? `That's perfect, thanks!`
-              : ''}
-          </Text>
-        ) : null}
-        <Editor
-          toolbar={{
-            options: ['list', 'textAlign'],
+      <HStack justifyContent={'space-between'} alignItems={'flex-start'}>
+        <Box
+          test-id={questionCode}
+          w="full"
+          maxW={maxW}
+          border="1px"
+          borderColor="product.gray"
+          borderRadius={'calc(0.24rem - 1px)'}
+          paddingBlock={3}
+          paddingInline={6}
+          bg="product.gray"
+          fontSize={'sm'}
+          fontWeight={'medium'}
+          _hover={{
+            borderColor: 'product.gray',
+            boxShadow: 'lg',
           }}
-          id={questionCode}
-          editorState={editor}
-          onEditorStateChange={setEditor}
-          onBlur={handleSave}
-          onChange={handleEditorChange}
-          spellCheck={true}
-          lang="en"
-          placeholder={placeholderName || ' '}
-        />
-      </Box>
+          _focusWithin={{
+            borderColor: 'product.secondary',
+            boxShadow: 'lg',
+          }}
+        >
+          {minCharacterCount || maxCharacterCount ? (
+            !minCharacterCount ? (
+              <HStack>
+                <Text>{`Please use less than`}</Text>
+                <Text color={curLength > maxCharacterCount ? 'red' : 'green'}>
+                  {maxCharacterCount}
+                </Text>
+                <Text>{`characters`}</Text>
+              </HStack>
+            ) : (
+              <HStack>
+                <Text>{`Please use between`}</Text>
+                <Text color={curLength < minCharacterCount ? 'red' : 'green'}>
+                  {minCharacterCount}
+                </Text>
+                <Text>{`and`}</Text>
+                <Text color={curLength > maxCharacterCount ? 'red' : 'green'}>
+                  {maxCharacterCount}
+                </Text>
+                <Text>{`characters`}</Text>
+              </HStack>
+            )
+          ) : null}
+          {minCharacterCount || maxCharacterCount ? (
+            <Text mb="3">
+              {minCharacterCount > curLength
+                ? `Keep typing please`
+                : curLength > maxCharacterCount
+                ? `Too much text`
+                : curLength
+                ? `That's perfect, thanks!`
+                : ''}
+            </Text>
+          ) : null}
+          <Editor
+            toolbar={{
+              options: ['list', 'textAlign'],
+            }}
+            id={questionCode}
+            editorState={editor}
+            onEditorStateChange={setEditor}
+            onBlur={handleSave}
+            onChange={handleEditorChange}
+            spellCheck={true}
+            lang="en"
+            placeholder={placeholderName || ' '}
+          />
+        </Box>
+
+        {(!failedValidation && fieldNotEmpty) ||
+        (!failedValidation && userInput && isNotStringifiedEmptyArray(userInput)) ? (
+          <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
+        ) : null}
+      </HStack>
       {errorStatus && (
         <VStack alignItems="start">
           {(hasFieldMessage || hasErrorMessage) && (

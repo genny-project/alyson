@@ -1,27 +1,30 @@
 import 'react-datepicker/dist/react-datepicker.css'
 import './datePickerStyles.css'
 
-import { Input, InputGroup, InputLeftElement, Text, VStack } from '@chakra-ui/react'
+import { HStack, Input, InputGroup, InputLeftElement, Text, VStack } from '@chakra-ui/react'
+import { compose, includes } from 'ramda'
 import { dateOfBirthQuestionCode, eligibleAge } from 'utils/constants'
 import { differenceInYears, format, isBefore, parseISO, startOfTomorrow } from 'date-fns'
+import { faCalendarDay, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { forwardRef, useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import DateChip from './DateChip'
 import DatePicker from 'react-datepicker'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCalendarDay } from '@fortawesome/free-solid-svg-icons'
+import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
 import getDate from 'utils/helpers/timezone_magic/get-date'
 import { getIsInvalid } from 'utils/functions'
-import { includes } from 'ramda'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
+import { isNotStringifiedEmptyArray } from 'utils/functionals'
+import { newMsg } from 'redux/app'
 import safelyParseDate from 'utils/helpers/safely-parse-date'
 import { selectFieldMessage } from 'redux/app/selectors'
 import timeBasedOnTimeZone from 'utils/helpers/timezone_magic/time-based-on-timezone'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
-import { useSelector } from 'react-redux'
 import { useMobileValue } from 'utils/hooks'
 
 const Read = ({ data, typeName, config }) => {
@@ -51,6 +54,8 @@ const Write = ({
   regexPattern,
   parentCode,
   placeholderName,
+  attributeCode,
+  targetCode,
 }) => {
   let initialErrorMsg = 'You can only valid date.'
 
@@ -58,6 +63,7 @@ const Write = ({
   const themeSecondary = useGetAttributeFromProjectBaseEntity('PRI_COLOR')?.value
 
   const { dispatch } = useError()
+
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
   const [errorStatus, setErrorStatus] = useState(false)
 
@@ -77,6 +83,14 @@ const Write = ({
   let hasFieldMessage = isNotNullOrUndefinedOrEmpty(fieldMessage)
   let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMsg)
 
+  const { errorState } = useError()
+  const { fieldState } = useIsFieldNotEmpty()
+
+  const failedValidation = errorState[questionCode]
+  const fieldNotEmpty = fieldState[questionCode]
+  const dispatchBeInformation = useDispatch()
+  const onNewMsg = compose(dispatchBeInformation, newMsg)
+
   const handleOnBlur = () => {
     const offsetDate = new Date(dateValue?.getTime() - dateValue?.getTimezoneOffset() * 60000)
     const dateTimeValue = includeTime || onlyYear ? dateValue : offsetDate
@@ -84,6 +98,11 @@ const Write = ({
     if (dateTimeValue && dateTimeValue.toString() !== 'Invalid Date') {
       !errorStatus && onSendAnswer(safelyParseDate(dateTimeValue).toISOString())
       dispatchFieldMessage({ payload: questionCode })
+      dispatchBaseEntityUpdates(
+        attributeCode,
+        targetCode,
+        safelyParseDate(dateTimeValue).toISOString(),
+      )(onNewMsg)
     }
   }
 
@@ -190,30 +209,47 @@ const Write = ({
     </InputGroup>
   ))
 
-  return isPreviousDate && data?.value ? (
-    <DateChip
-      onlyYear={onlyYear}
-      includeTime={includeTime}
-      onClick={() => {
-        onSendAnswer(onlyYear ? '' : dateValue)
-      }}
-      date={getDate(data?.value)}
-    />
+  return isPreviousDate && data?.value && dateValue ? (
+    <>
+      <HStack justifyContent={'space-between'}>
+        <DateChip
+          onlyYear={onlyYear}
+          includeTime={includeTime}
+          onClick={() => {
+            onSendAnswer('')
+            setDateValue('')
+          }}
+          date={getDate(data?.value)}
+        />
+
+        {(!failedValidation && fieldNotEmpty) ||
+        (!failedValidation && dateValue && isNotStringifiedEmptyArray(dateValue)) ? (
+          <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
+        ) : null}
+      </HStack>
+    </>
   ) : (
     <>
-      <DatePicker
-        selected={dateValue}
-        showTimeSelect={includeTime}
-        onChange={date => setDateValue(date)}
-        dateFormat={includeTime ? 'yyyy/MM/dd h:mm' : onlyYear ? 'yyyy' : 'yyyy/MM/dd'}
-        customInput={<DateInput />}
-        onCalendarClose={handleOnBlur}
-        minDate={availabilityQuestions ? current : ''}
-        showMonthDropdown
-        showYearDropdown
-        dropdownMode="select"
-        showYearPicker={onlyYear}
-      />
+      <HStack>
+        <DatePicker
+          selected={dateValue}
+          showTimeSelect={includeTime}
+          onChange={date => setDateValue(date)}
+          dateFormat={includeTime ? 'yyyy/MM/dd h:mm' : onlyYear ? 'yyyy' : 'yyyy/MM/dd'}
+          customInput={<DateInput />}
+          onCalendarClose={handleOnBlur}
+          minDate={availabilityQuestions ? current : ''}
+          showMonthDropdown
+          showYearDropdown
+          dropdownMode="select"
+          showYearPicker={onlyYear}
+        />
+
+        {(!failedValidation && fieldNotEmpty) ||
+        (!failedValidation && dateValue && isNotStringifiedEmptyArray(dateValue)) ? (
+          <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
+        ) : null}
+      </HStack>
 
       {errorStatus && (
         <VStack alignItems="start">

@@ -64,7 +64,13 @@ const AvatarMenu = ({ code: QUE_AVATAR_GRP }) => {
           </MenuButton>
           <MenuList>
             <MenuGroup title={title}>
-              <MenuItem test-id={'HELP'} onClick={onOpenHelp} color="#000000">
+              <MenuItem
+                test-id={'HELP'}
+                onClick={onOpenHelp}
+                color="gray.800"
+                fontSize={'sm'}
+                fontWeight={'medium'}
+              >
                 {`Help & Support`}
               </MenuItem>
               <MenuItem
@@ -76,7 +82,9 @@ const AvatarMenu = ({ code: QUE_AVATAR_GRP }) => {
                   window.location.assign(window.location.origin)
                   keycloak.logout()
                 }}
-                color="#000000"
+                color="gray.800"
+                fontSize={'sm'}
+                fontWeight={'medium'}
               >
                 Logout
               </MenuItem>
@@ -126,10 +134,10 @@ const AvatarMenu = ({ code: QUE_AVATAR_GRP }) => {
               </MenuItem>
             </a>
 
-            <MenuItem test-id={'HELP'} onClick={onOpenHelp} color="red" fontSize={'sm'}>
+            <MenuItem test-id={'HELP'} onClick={onOpenHelp} color="gray.800" fontSize={'0.875rem'}>
               {`Help & Support`}
             </MenuItem>
-            <MenuItem test-id={'T&Cs'} onClick={onTandC} color="#000000" fontSize={'sm'}>
+            <MenuItem test-id={'T&Cs'} onClick={onTandC} color="gray.800" fontSize={'sm'}>
               {`Terms & Conditions`}
             </MenuItem>
             <MenuItem

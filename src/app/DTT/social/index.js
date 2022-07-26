@@ -1,24 +1,29 @@
 import {
   Text as ChakraText,
+  HStack,
   IconButton,
   Input,
   InputGroup,
   InputLeftAddon,
   VStack,
 } from '@chakra-ui/react'
+import { compose, includes } from 'ramda'
+import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { faLinkedin } from '@fortawesome/free-brands-svg-icons'
 import { getIsInvalid } from 'utils/functions'
-import { includes } from 'ramda'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
+import { isNotStringifiedEmptyArray } from 'utils/functionals'
+import { newMsg } from 'redux/app'
 import { selectFieldMessage } from 'redux/app/selectors'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
-import { useSelector } from 'react-redux'
 import { useMobileValue } from 'utils/hooks'
 
 const Read = ({ data, config = {} }) => {
@@ -60,6 +65,8 @@ const Write = ({
   errorMessage,
   parentCode,
   placeholderName,
+  attributeCode,
+  targetCode,
 }) => {
   const { dispatch } = useError()
   const [errorStatus, setErrorStatus] = useState(false)
@@ -75,11 +82,20 @@ const Write = ({
   let hasFieldMessage = isNotNullOrUndefinedOrEmpty(fieldMessage)
   let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMessage)
 
+  const { errorState } = useError()
+  const { fieldState } = useIsFieldNotEmpty()
+
+  const failedValidation = errorState[questionCode]
+  const fieldNotEmpty = fieldState[questionCode]
+  const dispatchBeInformation = useDispatch()
+  const onNewMsg = compose(dispatchBeInformation, newMsg)
+
   const maxW = useMobileValue(['', '30vw'])
 
   const onBlur = e => {
     !errorStatus && onSendAnswer(e.target.value)
     dispatchFieldMessage({ payload: questionCode })
+    dispatchBaseEntityUpdates(attributeCode, targetCode, userInput)(onNewMsg)
   }
 
   useEffect(() => {
@@ -94,79 +110,86 @@ const Write = ({
 
   return (
     <>
-      <InputGroup
-        bg={'product.gray'}
-        borderRadius={'calc(0.25rem - 1px)'}
-        borderWidth="1px"
-        borderStyle="solid"
-        borderColor={'product.gray'}
-        overflow={'hidden'}
-        role="group"
-        maxW={maxW}
-        _hover={{
-          borderColor: 'product.gray',
-          boxShadow: 'lg',
-        }}
-        _focusVisible={{
-          borderColor: 'product.secondary',
-          boxShadow: 'initial',
-        }}
-        _invalid={{
-          background: 'error.50',
-          borderColor: 'error.500',
-          color: 'error.500',
-        }}
-        _disabled={{
-          borderColor: 'gray.300',
-          background: 'gray.100',
-        }}
-        _focusWithin={{
-          borderColor: 'product.secondary',
-          boxShadow: 'initial',
-        }}
-      >
-        <InputLeftAddon
-          h={'auto'}
-          border={0}
-          borderRadius={0}
-          paddingInlineStart={6}
-          color={userInput ? iconColor : 'gray.600'}
-          _groupHover={{
-            color: iconColor,
+      <HStack justifyContent={'space-between'}>
+        <InputGroup
+          bg={'product.gray'}
+          borderRadius={'calc(0.25rem - 1px)'}
+          borderWidth="1px"
+          borderStyle="solid"
+          borderColor={'product.gray'}
+          overflow={'hidden'}
+          role="group"
+          maxW={maxW}
+          _hover={{
+            borderColor: 'product.gray',
+            boxShadow: 'lg',
           }}
-          _groupFocusVisible={{
-            color: iconColor,
+          _focusVisible={{
+            borderColor: 'product.secondary',
+            boxShadow: 'initial',
           }}
-          _groupFocusWithin={{
-            color: iconColor,
+          _invalid={{
+            background: 'error.50',
+            borderColor: 'error.500',
+            color: 'error.500',
+          }}
+          _disabled={{
+            borderColor: 'gray.300',
+            background: 'gray.100',
+          }}
+          _focusWithin={{
+            borderColor: 'product.secondary',
+            boxShadow: 'initial',
           }}
         >
-          <FontAwesomeIcon size="lg" icon={faLinkedin} color={'inherit'} />
-        </InputLeftAddon>
+          <InputLeftAddon
+            h={'auto'}
+            border={0}
+            borderRadius={0}
+            paddingInlineStart={6}
+            color={userInput ? iconColor : 'gray.600'}
+            _groupHover={{
+              color: iconColor,
+            }}
+            _groupFocusVisible={{
+              color: iconColor,
+            }}
+            _groupFocusWithin={{
+              color: iconColor,
+            }}
+          >
+            <FontAwesomeIcon size="lg" icon={faLinkedin} color={'inherit'} />
+          </InputLeftAddon>
 
-        <Input
-          id={questionCode}
-          test-id={questionCode}
-          defaultValue={data?.value}
-          onBlur={onBlur}
-          onChange={e => setuserInput(e.target.value)}
-          w="full"
-          h={'auto'}
-          paddingBlock={3}
-          paddingInlineEnd={6}
-          paddingInlineStart={0}
-          border={0}
-          fontSize={'sm'}
-          fontWeight={'medium'}
-          color="product.darkGray"
-          _focusVisible={{
-            border: '0',
-          }}
-          _focus={{
-            border: '0',
-          }}
-        />
-      </InputGroup>
+          <Input
+            id={questionCode}
+            test-id={questionCode}
+            defaultValue={data?.value}
+            onBlur={onBlur}
+            onChange={e => setuserInput(e.target.value)}
+            w="full"
+            h={'auto'}
+            paddingBlock={3}
+            paddingInlineEnd={6}
+            paddingInlineStart={0}
+            border={0}
+            fontSize={'sm'}
+            fontWeight={'medium'}
+            color="product.darkGray"
+            _focusVisible={{
+              border: '0',
+            }}
+            _focus={{
+              border: '0',
+            }}
+          />
+        </InputGroup>
+
+        {(!failedValidation && fieldNotEmpty) ||
+        (!failedValidation && userInput && isNotStringifiedEmptyArray(userInput)) ? (
+          <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
+        ) : null}
+      </HStack>
       {errorStatus && (
         <VStack alignItems="start">
           {(hasFieldMessage || hasErrorMessage) && (

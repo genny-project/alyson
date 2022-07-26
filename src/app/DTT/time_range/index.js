@@ -1,7 +1,15 @@
-import { useState } from 'react'
-import safelyParseJson from 'utils/helpers/safely-parse-json'
+import { HStack, Select, Text } from '@chakra-ui/react'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Read } from '../text'
-import { HStack, Select } from '@chakra-ui/react'
+import { compose } from 'ramda'
+import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import { isNotStringifiedEmptyArray } from 'utils/functionals'
+import { newMsg } from 'redux/app'
+import safelyParseJson from 'utils/helpers/safely-parse-json'
+import { useDispatch } from 'react-redux'
+import { useState } from 'react'
 
 const defaultTimeRange = [null, null]
 
@@ -12,12 +20,15 @@ const getLabel = x =>
     x < 12 ? 'am' : 'pm'
   }`
 
-const Write = ({ questionCode, onSendAnswer, data }) => {
+const Write = ({ questionCode, onSendAnswer, data, attributeCode, targetCode }) => {
   const [initialStartTime, initialEndTime] = data?.value
     ? safelyParseJson(data?.value, defaultTimeRange)
     : defaultTimeRange
 
   const [selectedRange, setSelectedRange] = useState([initialStartTime, initialEndTime])
+
+  const dispatchBeInformation = useDispatch()
+  const onNewMsg = compose(dispatchBeInformation, newMsg)
 
   const handleChange = (idx, value) => {
     const updated = idx
@@ -25,6 +36,7 @@ const Write = ({ questionCode, onSendAnswer, data }) => {
       : [parseFloat(value), selectedRange[1]]
     onSendAnswer(updated)
     setSelectedRange(updated)
+    dispatchBaseEntityUpdates(attributeCode, targetCode, value)(onNewMsg)
   }
 
   return (
@@ -53,6 +65,12 @@ const Write = ({ questionCode, onSendAnswer, data }) => {
             <option key={time} test-id={time} value={time}>{`${getLabel(time)}`}</option>
           ))}
       </Select>
+
+      {selectedRange && isNotStringifiedEmptyArray(selectedRange) ? (
+        <Text as="p" alignSelf={'flex-end'}>
+          <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
+        </Text>
+      ) : null}
     </HStack>
   )
 }

@@ -15,10 +15,12 @@ const productBasedDefaultColors = {
     gray: '#F4F5F5',
     gray100: '#F4F5F5',
     gray700: '#33475B',
+    gray800: '#4D4D4D',
     grayMedium: '#C4C4C4',
     darkGray: '#33475B',
 
     white: '#FFFFFF',
+    dark: '#000000',
   },
 
   alyson: {

@@ -1,8 +1,10 @@
-import { HStack, Switch, Text } from '@chakra-ui/react'
+import { Box, HStack, Switch, Text } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { apiConfig } from 'config/get-api-config'
 import { equals } from 'ramda'
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { onSendMessage } from 'vertx'
 import { selectCode } from 'redux/db/selectors'
 import { useMobileValue } from 'utils/hooks'
@@ -37,12 +39,15 @@ const Write = ({ questionCode, data, onSendAnswer, placeholderName: label }) => 
   return (
     <HStack spacing={5} justifyContent={'space-between'} maxW={maxW}>
       <Text color="gray.700">{label}</Text>
-      <Switch
-        colorScheme={equals(clientId)('lojing') ? 'orange' : 'primary'}
-        test-id={questionCode}
-        isChecked={isChecked}
-        onChange={handleToggle}
-      />
+      <Box>
+        <Switch
+          colorScheme={equals(clientId)('lojing') ? 'orange' : 'primary'}
+          test-id={questionCode}
+          isChecked={isChecked}
+          onChange={handleToggle}
+        />
+        {isChecked && <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />}
+      </Box>
     </HStack>
   )
 }

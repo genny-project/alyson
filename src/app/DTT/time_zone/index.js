@@ -1,8 +1,10 @@
 import { Button, HStack, Text, VStack } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import PlacesAutocomplete from './places'
 import { Read } from 'app/DTT/text'
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import timeZone from 'utils/helpers/timezone_magic/time-zone-from-browser'
 
 const Write = ({ questionCode, onSendAnswer, data }) => {
@@ -29,7 +31,10 @@ const Write = ({ questionCode, onSendAnswer, data }) => {
     </VStack>
   ) : confirm ? (
     data?.value ? (
-      <Text>{`Thanks, your timezone is ${data?.value}`}</Text>
+      <HStack justifyContent={'space-between'}>
+        <Text>{`Thanks, your timezone is ${data?.value}`}</Text>
+        <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
+      </HStack>
     ) : (
       <Text textStyle="body.error">
         {`Sorry, there is some issue we are working at the moment.`}
