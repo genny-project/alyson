@@ -17,6 +17,7 @@ import { useSelector } from 'react-redux'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
 import { newMsg } from 'redux/app'
 import { useDispatch } from 'react-redux'
+import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
 
 export const Write = ({
   questionCode,
@@ -89,18 +90,10 @@ export const Write = ({
 
   const debouncedSendAnswer = debounce(onSendAnswer, 500)
 
-  const updateBaseEntityInformation = () => {
-    onNewMsg({
-      data_type: 'BaseEntity',
-      replace: true,
-      items: [{ code: targetCode, baseEntityAttributes: [{ attributeCode, value: userInput }] }],
-    })
-  }
-
   const onBlur = e => {
     !errorStatus && debouncedSendAnswer(e.target.value)
     dispatchFieldMessage({ payload: questionCode })
-    updateBaseEntityInformation()
+    dispatchBaseEntityUpdates(attributeCode, targetCode, userInput)(onNewMsg)
     //send a message to redux store replicating backend message
   }
 
