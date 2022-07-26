@@ -1,7 +1,6 @@
 import { Text as ChakraText, Input, VStack, HStack } from '@chakra-ui/react'
 import { faCalendar, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useRef, useState } from 'react'
-import { compose } from 'ramda'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import DetailViewTags from 'app/DTT/text/detailview_tags'
@@ -15,6 +14,8 @@ import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
+
+import { compose } from 'ramda'
 import { newMsg } from 'redux/app'
 import { useDispatch } from 'react-redux'
 import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
