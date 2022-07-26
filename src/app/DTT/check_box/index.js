@@ -1,10 +1,13 @@
 import { Checkbox, FormControl, FormLabel, HStack } from '@chakra-ui/react'
-import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
-import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { compose } from 'ramda'
+import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { newMsg } from 'redux/app'
 import { useDispatch } from 'react-redux'
-import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
+import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
+import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 
 const Read = ({ data }) => {
   return (
@@ -53,6 +56,7 @@ const Write = ({
       <FormControl onClick={toggle} isRequired={isRequired}>
         <FormLabel cursor="pointer">{label}</FormLabel>
       </FormControl>
+      {answer && <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />}
     </HStack>
   )
 }

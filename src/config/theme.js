@@ -220,8 +220,18 @@ const getTheme = (projectTheme = defaultProjectTheme) =>
   extendTheme({
     styles: {
       global: {
+        '*': {
+          textRendering: 'optimizespeed !important',
+        },
         body: {
           lineHeight: '1.43',
+        },
+      },
+    },
+    components: {
+      Button: {
+        baseStyle: {
+          lineHeight: 'inherit',
         },
       },
     },

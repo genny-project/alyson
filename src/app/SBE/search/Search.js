@@ -122,11 +122,11 @@ const ProcessSearch = ({ sbeCode, process, placeholder }) => {
         paddingInline={2}
         minW={'8.25rem'}
         background={'product.secondary'}
-        fontSize={'sm'}
-        fontWeight={'400'}
         borderRadius={'calc(0.25rem - 1px)'}
         border={'1px solid transparent'}
         borderColor={'product.secondary'}
+        fontSize={'sm'}
+        fontWeight={'400'}
         _hover={{
           background: 'product.white',
           color: 'product.secondary',
