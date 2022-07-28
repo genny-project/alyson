@@ -11,7 +11,6 @@ const EventButton = ({ askData, onFinish, parentCode, sourceCode }) => {
   const onClick = () =>
     onSendMessage({
       code: questionCode,
-      rootCode: parentCode,
       parentCode,
       targetCode,
       value: true,
