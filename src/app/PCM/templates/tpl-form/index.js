@@ -70,8 +70,8 @@ const AskGroup = ({ questionCode, level, properties }) => {
     debugOut.error(`${questionCode} has no child asks! (AskGroup in TPL_FORM)`)
   }
   return (
-    <Box w="min(100%, 25rem)">
-      <Text fontWeight="700" fontSize="36px" mb="5">
+    <Box w="min(100%, 38.75rem)">
+      <Text fontWeight={'bold'} fontSize={'2.25rem'} marginBlock={8}>
         {title}
       </Text>
       {childAsks.map(code => (

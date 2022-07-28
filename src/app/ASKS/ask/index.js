@@ -20,6 +20,7 @@ import Flag from 'app/DTT/flag'
 import HtmlDisplay from 'app/DTT/html_display'
 import LogRocketSession from 'app/DTT/log_rocket_session'
 import Phone from 'app/DTT/phone'
+import ProgressBar from 'app/DTT/progress'
 import Radio from 'app/DTT/radio'
 import Rating from 'app/DTT/rating'
 import RichText from 'app/DTT/rich_text'
@@ -34,7 +35,6 @@ import TimeZonePicker from 'app/DTT/time_zone'
 import URL from 'app/DTT/url'
 import Upload from 'app/DTT/upload'
 import Video from 'app/DTT/video'
-import ProgressBar from 'app/DTT/progress'
 import { apiConfig } from 'config/get-api-config.js'
 import createSendAnswer from 'app/ASKS/utils/create-send-answer'
 import getGroupCode from 'app/ASKS/utils/get-group-code'
@@ -53,7 +53,6 @@ const Ask = ({
   config,
   noLabel,
   secondaryColor,
-  properties,
 }) => {
   const projectTitle = useGetAttributeFromProjectBaseEntity('PRI_NAME')?.valueString.toLowerCase()
 
@@ -163,13 +162,13 @@ const Ask = ({
       border={highlightedQuestion === attributeCode ? '1px solid red' : '1px solid transparent'}
       borderRadius="md"
       p={highlightedQuestion === attributeCode ? '3' : '0'}
-      transition="all 0.5s"
-      mb={5}
+      transition="all 0.5s ease"
+      mt={5}
     >
       {
         <HStack
           justify="space-between"
-          display={noLabel ? 'none' : 'flex'}
+          display={noLabel || equals(clientId)('lojing') ? 'none' : 'flex'}
           maxW={labelWidth}
           w={'full'}
         >
@@ -189,6 +188,7 @@ const Ask = ({
           parentCode={parentCode}
           placeholderName={placeholderName}
           targetCode={targetCode}
+          mandatory={mandatory}
         />
       )}
       {component === 'phone' && (
@@ -202,6 +202,7 @@ const Ask = ({
           parentCode={parentCode}
           placeholderName={placeholderName}
           targetCode={targetCode}
+          mandatory={mandatory}
         />
       )}
       {component === 'address' && (
@@ -215,6 +216,7 @@ const Ask = ({
           placeholderName={placeholderName}
           attributeCode={attributeCode}
           targetCode={targetCode}
+          mandatory={mandatory}
         />
       )}
       {(component === 'dropdown' || component === 'tag') && (
@@ -308,6 +310,7 @@ const Ask = ({
           parentCode={parentCode}
           attributeCode={attributeCode}
           targetCode={targetCode}
+          mandatory={mandatory}
         />
       )}
       {(component === 'date' || component === 'year') && (
@@ -324,6 +327,7 @@ const Ask = ({
           placeholderName={placeholderName}
           attributeCode={attributeCode}
           targetCode={targetCode}
+          mandatory={mandatory}
         />
       )}
       {component === 'richtext_editor' && (
@@ -340,6 +344,7 @@ const Ask = ({
           placeholderName={placeholderName}
           attributeCode={attributeCode}
           targetCode={targetCode}
+          mandatory={mandatory}
         />
       )}
       {component === 'date_range' && (
@@ -354,6 +359,7 @@ const Ask = ({
           placeholderName={placeholderName}
           attributeCode={attributeCode}
           targetCode={targetCode}
+          mandatory={mandatory}
         />
       )}
       {component === 'video' && (
@@ -381,6 +387,7 @@ const Ask = ({
           placeholderName={placeholderName}
           attributeCode={attributeCode}
           targetCode={targetCode}
+          mandatory={mandatory}
         />
       )}
       {component === 'html_display' && (
@@ -419,6 +426,7 @@ const Ask = ({
           placeholderName={placeholderName}
           attributeCode={attributeCode}
           targetCode={targetCode}
+          mandatory={mandatory}
         />
       )}
       {component === 'abn_number' && (
@@ -433,6 +441,7 @@ const Ask = ({
           placeholderName={placeholderName}
           attributeCode={attributeCode}
           targetCode={targetCode}
+          mandatory={mandatory}
         />
       )}
       {component === 'rating' && (

@@ -1,4 +1,5 @@
 import {
+  Box,
   Text as ChakraText,
   HStack,
   IconButton,
@@ -6,6 +7,7 @@ import {
   InputGroup,
   InputLeftAddon,
   VStack,
+  useTheme,
 } from '@chakra-ui/react'
 import { compose, includes } from 'ramda'
 import { useDispatch, useSelector } from 'react-redux'
@@ -24,7 +26,6 @@ import { selectFieldMessage } from 'redux/app/selectors'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
-import { useMobileValue } from 'utils/hooks'
 
 const Read = ({ data, config = {} }) => {
   const attributeName = data?.attributeName
@@ -67,14 +68,17 @@ const Write = ({
   placeholderName,
   attributeCode,
   targetCode,
+  mandatory,
 }) => {
+  const theme = useTheme()
   const { dispatch } = useError()
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value)
+  const [isFocused, setIsFocused] = useState(false)
 
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
 
-  const iconColor = useGetAttributeFromProjectBaseEntity('PRI_COLOR')?.valueString
+  const iconColor = useGetAttributeFromProjectBaseEntity('PRI_COLOR_SECONDARY')?.valueString
 
   const isInvalid = getIsInvalid(userInput)(RegExp(regexPattern))
   const fieldMessageObject = useSelector(selectFieldMessage)
@@ -90,13 +94,17 @@ const Write = ({
   const dispatchBeInformation = useDispatch()
   const onNewMsg = compose(dispatchBeInformation, newMsg)
 
-  const maxW = useMobileValue(['', '30vw'])
-
   const onBlur = e => {
+    e.target.value ? setIsFocused(true) : setIsFocused(false)
     !errorStatus && onSendAnswer(e.target.value)
     dispatchFieldMessage({ payload: questionCode })
     dispatchBaseEntityUpdates(attributeCode, targetCode, userInput)(onNewMsg)
   }
+
+  useEffect(() => {
+    data?.value ? setIsFocused(true) : setIsFocused(false)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useEffect(() => {
     isInvalid ? setErrorStatus(true) : setErrorStatus(false)
@@ -109,7 +117,36 @@ const Write = ({
   }, [dispatch, isInvalid, questionCode])
 
   return (
-    <>
+    <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
+      <HStack
+        position={'absolute'}
+        zIndex={theme.zIndices.docked}
+        top={isFocused ? '-1.5rem' : 3}
+        left={0}
+        paddingStart={isFocused ? 6 : 12}
+        w="full"
+        justifyContent={'space-between'}
+        pointerEvents={'none'}
+        transition="all 0.25s ease"
+      >
+        {placeholderName && (
+          <ChakraText as="label" fontSize={'sm'} fontWeight={'medium'} color={'gray.600'}>
+            {placeholderName}
+            {mandatory ? (
+              <ChakraText as="span" color={'red.500'} ml={1}>
+                *
+              </ChakraText>
+            ) : (
+              <></>
+            )}
+          </ChakraText>
+        )}
+        {(!failedValidation && fieldNotEmpty) ||
+        (!failedValidation && userInput && isNotStringifiedEmptyArray(userInput)) ? (
+          <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
+        ) : null}
+      </HStack>
+
       <HStack justifyContent={'space-between'}>
         <InputGroup
           bg={'product.gray'}
@@ -118,8 +155,8 @@ const Write = ({
           borderStyle="solid"
           borderColor={'product.gray'}
           overflow={'hidden'}
+          onClick={() => setIsFocused(true)}
           role="group"
-          maxW={maxW}
           _hover={{
             borderColor: 'product.gray',
             boxShadow: 'lg',
@@ -147,7 +184,7 @@ const Write = ({
             border={0}
             borderRadius={0}
             paddingInlineStart={6}
-            color={userInput ? iconColor : 'gray.600'}
+            color={isFocused ? iconColor : 'gray.600'}
             _groupHover={{
               color: iconColor,
             }}
@@ -184,11 +221,6 @@ const Write = ({
             }}
           />
         </InputGroup>
-
-        {(!failedValidation && fieldNotEmpty) ||
-        (!failedValidation && userInput && isNotStringifiedEmptyArray(userInput)) ? (
-          <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
-        ) : null}
       </HStack>
       {errorStatus && (
         <VStack alignItems="start">
@@ -199,7 +231,7 @@ const Write = ({
           )}
         </VStack>
       )}
-    </>
+    </Box>
   )
 }
 

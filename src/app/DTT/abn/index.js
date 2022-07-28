@@ -1,19 +1,32 @@
-import { Button, Input, InputGroup, InputLeftElement, Text, VStack } from '@chakra-ui/react'
+import {
+  Box,
+  Button,
+  HStack,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  Text,
+  VStack,
+  useTheme,
+} from '@chakra-ui/react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 
 import ABNLookup from './abn_lookup'
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Read } from '../text'
-import { getIsInvalid } from 'utils/functions'
-import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
-import { selectFieldMessage } from 'redux/app/selectors'
-import { useError } from 'utils/contexts/ErrorContext'
-import { useMobileValue } from 'utils/hooks'
-import { useSelector } from 'react-redux'
 import { compose } from 'ramda'
 import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import { getIsInvalid } from 'utils/functions'
+import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
+import { isNotStringifiedEmptyArray } from 'utils/functionals'
 import { newMsg } from 'redux/app'
-import { useDispatch } from 'react-redux'
+import { selectFieldMessage } from 'redux/app/selectors'
+import { useError } from 'utils/contexts/ErrorContext'
+import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
+import { useMobileValue } from 'utils/hooks'
 
 const Write = ({
   questionCode,
@@ -26,23 +39,36 @@ const Write = ({
   placeholderName,
   attributeCode,
   targetCode,
+  mandatory,
 }) => {
   let regex
+  const theme = useTheme()
   const { dispatch } = useError()
   const [errorStatus, setErrorStatus] = useState(false)
   const [value, setValue] = useState(data?.value)
   const [isOpen, setIsOpen] = useState(false)
+  const [isFocused, setIsFocused] = useState(false)
 
   const fieldMessageObject = useSelector(selectFieldMessage)
   const fieldMessage = fieldMessageObject[`${parentCode}@${questionCode}`]
   let hasFieldMessage = isNotNullOrUndefinedOrEmpty(fieldMessage)
   let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMessage)
+  const { errorState } = useError()
+  const { fieldState } = useIsFieldNotEmpty()
+
+  const failedValidation = errorState[questionCode]
+  const fieldNotEmpty = fieldState[questionCode]
   const dispatchBeInformation = useDispatch()
   const onNewMsg = compose(dispatchBeInformation, newMsg)
 
   useEffect(() => {
     setValue(data?.value)
   }, [data])
+
+  useEffect(() => {
+    data?.value ? setIsFocused(true) : setIsFocused(false)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   try {
     regex = RegExp(regexPattern)
@@ -53,6 +79,7 @@ const Write = ({
   const isInvalid = getIsInvalid(value)(regex)
 
   const handleOnBlur = e => {
+    e.target.value ? setIsFocused(true) : setIsFocused(false)
     onSendAnswer(e.target.value)
     dispatchBaseEntityUpdates(attributeCode, targetCode, value)(onNewMsg)
   }
@@ -72,7 +99,36 @@ const Write = ({
   const maxW = useMobileValue(['', '25vw'])
 
   return (
-    <>
+    <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
+      <HStack
+        position={'absolute'}
+        zIndex={theme.zIndices.docked}
+        top={isFocused ? '-1.5rem' : 3}
+        left={0}
+        paddingStart={6}
+        w="full"
+        justifyContent={'space-between'}
+        pointerEvents={'none'}
+        transition="all 0.25s ease"
+      >
+        {placeholderName && (
+          <Text as="label" fontSize={'sm'} fontWeight={'medium'} color={'gray.600'}>
+            {placeholderName}
+            {mandatory ? (
+              <Text as="span" color={'red.500'} ml={1}>
+                *
+              </Text>
+            ) : (
+              <></>
+            )}
+          </Text>
+        )}
+        {(!failedValidation && fieldNotEmpty) ||
+        (!failedValidation && value && isNotStringifiedEmptyArray(value)) ? (
+          <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
+        ) : null}
+      </HStack>
+
       <ABNLookup
         isOpen={isOpen}
         close={close}
@@ -80,6 +136,7 @@ const Write = ({
         onSendAnswer={onSendAnswer}
         targetCode={data.baseEntityCode}
       />
+
       <InputGroup w={'100%'} maxW={maxW}>
         <InputLeftElement w="8rem" h={`40px`}>
           <Button
@@ -97,6 +154,9 @@ const Write = ({
           id={questionCode}
           test-id={questionCode}
           value={value}
+          onFocus={() => {
+            setIsFocused(true)
+          }}
           onChange={e => setValue(e.target.value)}
           onBlur={handleOnBlur}
           w="full"
@@ -128,6 +188,7 @@ const Write = ({
           }}
         />
       </InputGroup>
+
       {errorStatus && (
         <VStack alignItems="start">
           {(hasFieldMessage || hasErrorMessage) && (
@@ -137,7 +198,7 @@ const Write = ({
           )}
         </VStack>
       )}
-    </>
+    </Box>
   )
 }
 

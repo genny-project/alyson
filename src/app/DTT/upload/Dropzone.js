@@ -7,14 +7,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { apiConfig } from 'config/get-api-config'
 import { isImageField } from 'utils/functions'
 import { useDropzone } from 'react-dropzone'
-import { useMobileValue } from 'utils/hooks'
 
 const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 1, questionCode }) => {
   const [files, setFiles] = useState([])
   const [hover, setHover] = useState(false)
   const toast = useToast()
   const checkIfImage = compose(includes('image'), split('/'))
-  const maxW = useMobileValue(['', '30vw'])
 
   const clientId = apiConfig?.clientId
 
@@ -91,7 +89,6 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 1, questionCode
   return (
     <Box
       w="100%"
-      maxW={maxW}
       p={4}
       mt={'1rem'}
       borderWidth={'1px'}
