@@ -71,6 +71,7 @@ const Ask = ({
     readonly,
     placeholder,
     processId,
+    sourceCode,
   } = askData || {}
 
   const clientId = apiConfig?.clientId
@@ -151,6 +152,7 @@ const Ask = ({
       errorMessage={errorMessage}
       attributeCode={attributeCode}
       targetCode={targetCode}
+      sourceCode={sourceCode}
     />
   ) : (
     <FormControl
