@@ -5,7 +5,7 @@ import { onSendMessage } from 'vertx'
 import Submit from './Submit'
 import isSubmitButton from 'app/DTT/event_button/helpers/is-submit.js'
 
-const EventButton = ({ askData, onFinish, parentCode }) => {
+const EventButton = ({ askData, onFinish, parentCode, sourceCode }) => {
   const { questionCode, targetCode, name, disabled, processId, attributeCode } = askData
 
   const onClick = () =>
@@ -17,6 +17,7 @@ const EventButton = ({ askData, onFinish, parentCode }) => {
       value: true,
       attributeCode: attributeCode,
       processId: processId,
+      sourceCode,
     })
 
   if (isSubmitButton(name))
