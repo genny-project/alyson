@@ -1,4 +1,4 @@
-import { HStack, Input } from '@chakra-ui/react'
+import { Box, HStack, Input, Text, useTheme } from '@chakra-ui/react'
 import { useEffect, useRef, useState } from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -11,13 +11,22 @@ import { newMsg } from 'redux/app'
 import { useDispatch } from 'react-redux'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
-import { useMobileValue } from 'utils/hooks'
 
 let autocomplete
 
-const AddressPicker = ({ onSendAnswer, data, questionCode, attributeCode, targetCode }) => {
+const AddressPicker = ({
+  onSendAnswer,
+  data,
+  questionCode,
+  attributeCode,
+  targetCode,
+  placeholderName,
+  mandatory,
+}) => {
+  const theme = useTheme()
   const autoCompleteRef = useRef(null)
   const [userInput, setuserInput] = useState(data?.value)
+  const [isFocused, setIsFocused] = useState(false)
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
 
   const { errorState } = useError()
@@ -27,6 +36,11 @@ const AddressPicker = ({ onSendAnswer, data, questionCode, attributeCode, target
   const fieldNotEmpty = fieldState[questionCode]
   const dispatchBeInformation = useDispatch()
   const onNewMsg = compose(dispatchBeInformation, newMsg)
+
+  useEffect(() => {
+    data?.value ? setIsFocused(true) : setIsFocused(false)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useEffect(() => {
     if (autoCompleteRef?.current) {
@@ -59,24 +73,54 @@ const AddressPicker = ({ onSendAnswer, data, questionCode, attributeCode, target
   }, [])
 
   const onBlur = e => {
+    e.target.value ? setIsFocused(true) : setIsFocused(false)
     setuserInput(e.target.value)
     onSendAnswer(e.target.value)
     dispatchFieldMessage({ payload: questionCode })
     dispatchBaseEntityUpdates(attributeCode, targetCode, userInput)(onNewMsg)
   }
 
-  const maxW = useMobileValue(['', '25vw'])
-
   return (
-    <HStack>
+    <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
+      <HStack
+        position={'absolute'}
+        zIndex={theme.zIndices.docked}
+        top={isFocused ? '-1.5rem' : 3}
+        left={0}
+        paddingStart={6}
+        w="full"
+        justifyContent={'space-between'}
+        pointerEvents={'none'}
+        transition="all 0.25s ease"
+      >
+        {placeholderName && (
+          <Text as="label" fontSize={'sm'} fontWeight={'medium'} color={'gray.600'}>
+            {placeholderName}
+            {mandatory ? (
+              <Text as="span" color={'red.500'} ml={1}>
+                *
+              </Text>
+            ) : (
+              <></>
+            )}
+          </Text>
+        )}
+        {(!failedValidation && fieldNotEmpty) ||
+        (!failedValidation && userInput && isNotStringifiedEmptyArray(userInput)) ? (
+          <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
+        ) : null}
+      </HStack>
+
       <Input
         id={questionCode}
         test-id={questionCode}
         defaultValue={data?.value}
         ref={autoCompleteRef}
         onBlur={onBlur}
+        onFocus={() => {
+          setIsFocused(true)
+        }}
         w="full"
-        maxW={maxW}
         paddingBlock={3}
         paddingInline={5}
         fontWeight={'medium'}
@@ -102,12 +146,7 @@ const AddressPicker = ({ onSendAnswer, data, questionCode, attributeCode, target
           background: 'gray.100',
         }}
       />
-
-      {(!failedValidation && fieldNotEmpty) ||
-      (!failedValidation && userInput && isNotStringifiedEmptyArray(userInput)) ? (
-        <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
-      ) : null}
-    </HStack>
+    </Box>
   )
 }
 

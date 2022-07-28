@@ -33,9 +33,7 @@ const EvtButton = ({ questionCode, childCode, iconId, vert }) => {
 
   const bgColor = useGetAttributeFromProjectBaseEntity('PRI_COLOR')?.valueString || '#234371'
 
-  const color =
-    useGetAttributeFromProjectBaseEntity('PRI_COLOR_PRIMARY_ON')?.valueString ||
-    theme.colors.primary[900]
+  const color = theme.colors.text.dark
 
   const { getImageSrc } = useApi()
   let src = iconId

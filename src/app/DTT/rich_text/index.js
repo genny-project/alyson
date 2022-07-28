@@ -20,6 +20,7 @@ import {
   Text,
   VStack,
   useDisclosure,
+  useTheme,
 } from '@chakra-ui/react'
 import { ContentState, EditorState, convertFromHTML, convertToRaw } from 'draft-js'
 import { faCheckCircle, faExpand } from '@fortawesome/free-solid-svg-icons'
@@ -42,7 +43,6 @@ import { selectFieldMessage } from 'redux/app/selectors'
 import { stateToHTML } from 'draft-js-export-html'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
-import { useMobileValue } from 'utils/hooks'
 
 const Write = ({
   questionCode,
@@ -56,13 +56,16 @@ const Write = ({
   placeholderName,
   attributeCode,
   targetCode,
+  mandatory,
 }) => {
+  const theme = useTheme()
   const { minCharacterCount = 0, maxCharacterCount } = safelyParseJson(html, {})
   const blocksFromHTML = convertFromHTML(data?.value || '')
   const state = ContentState.createFromBlockArray(
     blocksFromHTML.contentBlocks,
     blocksFromHTML.entityMap,
   )
+  const [isFocused, setIsFocused] = useState(false)
   const [userInput, setUserInput] = useState(data?.value)
   const [dataValue, setDataValue] = useState(data?.value)
   const [editor, setEditor] = useState(
@@ -96,9 +99,8 @@ const Write = ({
     const blocks = convertToRaw(editor.getCurrentContent()).blocks
     const value = blocks.map(block => (!block.text.trim() && '\n') || block.text).join('')
     setUserInput(value)
+    value ? setIsFocused(true) : setIsFocused(false)
   }
-
-  const maxW = useMobileValue(['', '30vw'])
 
   useEffect(() => {
     isInvalid ? setErrorStatus(true) : setErrorStatus(false)
@@ -116,6 +118,11 @@ const Write = ({
       setEditor(EditorState.createWithContent(state))
     }
   }, [data?.value, dataValue, state])
+
+  useEffect(() => {
+    data?.value ? setIsFocused(true) : setIsFocused(false)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   // const curLength = (stateToHTML(editor.getCurrentContent()) || '')
   //   .replace(/(<([^>]+)>)/gi, '')
@@ -136,83 +143,106 @@ const Write = ({
   }
 
   return (
-    <>
-      <HStack justifyContent={'space-between'} alignItems={'flex-start'}>
-        <Box
-          test-id={questionCode}
-          w="full"
-          maxW={maxW}
-          border="1px"
-          borderColor="product.gray"
-          borderRadius={'calc(0.24rem - 1px)'}
-          paddingBlock={3}
-          paddingInline={6}
-          bg="product.gray"
-          fontSize={'sm'}
-          fontWeight={'medium'}
-          _hover={{
-            borderColor: 'product.gray',
-            boxShadow: 'lg',
-          }}
-          _focusWithin={{
-            borderColor: 'product.secondary',
-            boxShadow: 'lg',
-          }}
-        >
-          {minCharacterCount || maxCharacterCount ? (
-            !minCharacterCount ? (
-              <HStack>
-                <Text>{`Please use less than`}</Text>
-                <Text color={curLength > maxCharacterCount ? 'red' : 'green'}>
-                  {maxCharacterCount}
-                </Text>
-                <Text>{`characters`}</Text>
-              </HStack>
+    <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
+      <HStack
+        position={'absolute'}
+        zIndex={theme.zIndices.docked}
+        top={isFocused ? '-1.5rem' : 14}
+        left={0}
+        paddingStart={6}
+        w="full"
+        justifyContent={'space-between'}
+        pointerEvents={'none'}
+        transition="all 0.25s ease"
+      >
+        {placeholderName && (
+          <Text as="label" fontSize={'sm'} fontWeight={'medium'} color={'gray.600'}>
+            {placeholderName}
+            {mandatory ? (
+              <Text as="span" color={'red.500'} ml={1}>
+                *
+              </Text>
             ) : (
-              <HStack>
-                <Text>{`Please use between`}</Text>
-                <Text color={curLength < minCharacterCount ? 'red' : 'green'}>
-                  {minCharacterCount}
-                </Text>
-                <Text>{`and`}</Text>
-                <Text color={curLength > maxCharacterCount ? 'red' : 'green'}>
-                  {maxCharacterCount}
-                </Text>
-                <Text>{`characters`}</Text>
-              </HStack>
-            )
-          ) : null}
-          {minCharacterCount || maxCharacterCount ? (
-            <Text mb="3">
-              {minCharacterCount > curLength
-                ? `Keep typing please`
-                : curLength > maxCharacterCount
-                ? `Too much text`
-                : curLength
-                ? `That's perfect, thanks!`
-                : ''}
-            </Text>
-          ) : null}
-          <Editor
-            toolbar={{
-              options: ['list', 'textAlign'],
-            }}
-            id={questionCode}
-            editorState={editor}
-            onEditorStateChange={setEditor}
-            onBlur={handleSave}
-            onChange={handleEditorChange}
-            spellCheck={true}
-            lang="en"
-            placeholder={placeholderName || ' '}
-          />
-        </Box>
+              <></>
+            )}
+          </Text>
+        )}
 
         {(!failedValidation && fieldNotEmpty) ||
         (!failedValidation && userInput && isNotStringifiedEmptyArray(userInput)) ? (
           <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
         ) : null}
       </HStack>
+
+      <Box
+        test-id={questionCode}
+        w="full"
+        border="1px"
+        borderColor="product.gray"
+        borderRadius={'calc(0.24rem - 1px)'}
+        paddingBlock={3}
+        paddingInline={6}
+        bg="product.gray"
+        fontSize={'sm'}
+        fontWeight={'medium'}
+        _hover={{
+          borderColor: 'product.gray',
+          boxShadow: 'lg',
+        }}
+        _focusWithin={{
+          borderColor: 'product.secondary',
+          boxShadow: 'lg',
+        }}
+      >
+        {minCharacterCount || maxCharacterCount ? (
+          !minCharacterCount ? (
+            <HStack>
+              <Text>{`Please use less than`}</Text>
+              <Text color={curLength > maxCharacterCount ? 'red' : 'green'}>
+                {maxCharacterCount}
+              </Text>
+              <Text>{`characters`}</Text>
+            </HStack>
+          ) : (
+            <HStack>
+              <Text>{`Please use between`}</Text>
+              <Text color={curLength < minCharacterCount ? 'red' : 'green'}>
+                {minCharacterCount}
+              </Text>
+              <Text>{`and`}</Text>
+              <Text color={curLength > maxCharacterCount ? 'red' : 'green'}>
+                {maxCharacterCount}
+              </Text>
+              <Text>{`characters`}</Text>
+            </HStack>
+          )
+        ) : null}
+        {minCharacterCount || maxCharacterCount ? (
+          <Text mb="3">
+            {minCharacterCount > curLength
+              ? `Keep typing please`
+              : curLength > maxCharacterCount
+              ? `Too much text`
+              : curLength
+              ? `That's perfect, thanks!`
+              : ''}
+          </Text>
+        ) : null}
+        <Editor
+          toolbar={{
+            options: ['list', 'textAlign'],
+          }}
+          id={questionCode}
+          editorState={editor}
+          onEditorStateChange={setEditor}
+          onFocus={() => setIsFocused(true)}
+          onBlur={handleSave}
+          onChange={handleEditorChange}
+          spellCheck={true}
+          lang="en"
+        />
+      </Box>
+
       {errorStatus && (
         <VStack alignItems="start">
           {(hasFieldMessage || hasErrorMessage) && (
@@ -222,7 +252,7 @@ const Write = ({
           )}
         </VStack>
       )}
-    </>
+    </Box>
   )
 }
 

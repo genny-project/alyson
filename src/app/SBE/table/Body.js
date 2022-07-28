@@ -1,11 +1,12 @@
+import { HStack, Tbody, Td, Text, Tr } from '@chakra-ui/react'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Row from './Row'
+import { faBinoculars } from '@fortawesome/free-solid-svg-icons'
 import { selectRows } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
-import { Tbody, Text, Tr, Td } from '@chakra-ui/react'
-import Row from './Row'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBinoculars } from '@fortawesome/free-solid-svg-icons'
 
-const Body = ({ parentCode, columns, actions }) => {
+const Body = ({ parentCode, columns, actions, colspan }) => {
   const rows = useSelector(selectRows(parentCode))
 
   return rows.length ? (
@@ -18,11 +19,13 @@ const Body = ({ parentCode, columns, actions }) => {
     <Tbody>
       <Tr>
         <Td />
-        <Td>
-          <FontAwesomeIcon color="grey" icon={faBinoculars} size="3x" />
-        </Td>
-        <Td>
-          <Text width="20rem">We looked, nothing seems to be here!</Text>
+        <Td colspan={colspan}>
+          <HStack alignItems={'center'}>
+            <FontAwesomeIcon color="grey" icon={faBinoculars} size="2x" />
+            <Text as="span" ml={1}>
+              We looked, nothing seems to be here!
+            </Text>
+          </HStack>
         </Td>
       </Tr>
     </Tbody>

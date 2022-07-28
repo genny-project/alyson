@@ -1,6 +1,6 @@
 import './styles.css'
 
-import { HStack, Text } from '@chakra-ui/react'
+import { Box, HStack, Text, useTheme } from '@chakra-ui/react'
 import { compose, includes, isEmpty, pathOr } from 'ramda'
 import { selectCode, selectRows } from 'redux/db/selectors'
 import { useDispatch, useSelector } from 'react-redux'
@@ -19,7 +19,6 @@ import { newMsg } from 'redux/app'
 import { onSendMessage } from 'vertx'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
-import { useMobileValue } from 'utils/hooks'
 
 const Write = ({
   questionCode,
@@ -31,6 +30,7 @@ const Write = ({
   targetCode,
   parentCode,
   attributeCode,
+  mandatory,
 }) => {
   const dropdownData =
     useSelector(
@@ -46,8 +46,9 @@ const Write = ({
   const sourceCode = useSelector(selectCode('USER'))
   const clientId = apiConfig?.clientId
   const [value, setValue] = useState(getValue(data, options))
-  const maxW = useMobileValue(['', '30vw'])
   const [updated, setUpdated] = useState(false)
+  const [isFocused, setIsFocused] = useState(true)
+  const theme = useTheme()
 
   const { errorState } = useError()
   const { fieldState } = useIsFieldNotEmpty()
@@ -86,12 +87,18 @@ const Write = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, options?.length])
 
+  useEffect(() => {
+    data?.value ? setIsFocused(true) : setIsFocused(false)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   const onChange = newValue => {
     if (!isMulti) {
       newValue = [newValue]
     }
     setValue(newValue)
     setUpdated(true)
+    newValue ? setIsFocused(true) : setIsFocused(false)
     onSendAnswer(prepareValueForSendingAnswer(newValue))
     dispatchBaseEntityUpdates(attributeCode, targetCode, newValue)(onNewMsg)
   }
@@ -101,92 +108,114 @@ const Write = ({
     value && Array.isArray(value) && value.map(i => i.value)
 
   return (
-    <>
-      <HStack justifyContent={'space-between'}>
-        <CSelect
-          useBasicStyles
-          isMulti={isMulti}
-          options={options}
-          onChange={onChange}
-          onInputChange={value => ddEvent(value)}
-          onFocus={() => ddEvent('')}
-          placeholder={!options.length ? 'Start typing to search' : placeholderName || 'Select'}
-          test-id={questionCode}
-          id={questionCode}
-          value={value}
-          classNamePrefix={clientId + '_dd'}
-          selectedOptionStyle="check"
-          chakraStyles={{
-            container: provided => ({
-              ...provided,
-              maxW: maxW,
-              w: 'full',
-            }),
-            control: provided => ({
-              ...provided,
-
-              paddingInline: '0.5rem',
-              paddingBlock: '0.5rem',
-              bg: 'product.gray',
-              borderRadius: 'calc(0.25rem - 1px)',
-              borderColor: 'product.gray',
-              fontSize: '0.875rem',
-              fontWeight: '500',
-              color: 'product.darkGray',
-              cursor: 'pointer',
-              _hover: {
-                borderColor: 'product.gray',
-                boxShadow: 'lg',
-              },
-              _focus: {
-                borderColor: 'product.secondary',
-                boxShadow: 'inherit',
-              },
-            }),
-            menu: provided => ({
-              ...provided,
-              marginBlock: 0,
-              paddingBlock: 0,
-              border: 0,
-              borderRadius: '0.25rem 0.25rem 1.25rem 1.25rem',
-              boxShadow: '0px 4px 15px -2px rgba(0, 0, 0, 0.25)',
-              zIndex: 100,
-            }),
-            menuList: provided => ({
-              ...provided,
-              paddingBlock: 0,
-              border: 0,
-              borderRadius: '0.25rem 0.25rem 1.25rem 1.25rem',
-            }),
-            option: provided => ({
-              ...provided,
-              paddingInlineStart: 10,
-              paddingInlineEnd: 3,
-              paddingBlock: 2,
-              borderRadius: '1.25rem',
-              bg: '#fff',
-              fontSize: '0.875rem',
-              fontWeight: '500',
-              color: 'product.darkGray',
-              _hover: {
-                bg: 'product.secondary',
-                color: '#fff',
-              },
-            }),
-            noOptionsMessage: provided => ({
-              ...provided,
-              fontSize: '0.875rem',
-              fontWeight: '500',
-            }),
-          }}
-        />
+    <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
+      <HStack
+        position={'absolute'}
+        zIndex={theme.zIndices.docked}
+        top={isFocused ? '-1.5rem' : 3}
+        left={0}
+        paddingStart={6}
+        w="full"
+        justifyContent={'space-between'}
+        pointerEvents={'none'}
+        transition="all 0.25s ease"
+      >
+        {placeholderName && (
+          <Text as="label" fontSize={'sm'} fontWeight={'medium'} color={'gray.600'}>
+            {placeholderName}
+            {mandatory ? (
+              <Text as="span" color={'red.500'} ml={1}>
+                *
+              </Text>
+            ) : (
+              <></>
+            )}
+          </Text>
+        )}
 
         {(!failedValidation && fieldNotEmpty) ||
         (!failedValidation && data?.value && isNotStringifiedEmptyArray(value)) ? (
           <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
         ) : null}
       </HStack>
-    </>
+
+      <CSelect
+        useBasicStyles
+        isMulti={isMulti}
+        options={options}
+        onChange={onChange}
+        onInputChange={value => ddEvent(value)}
+        onFocus={() => ddEvent('')}
+        test-id={questionCode}
+        id={questionCode}
+        value={value}
+        classNamePrefix={clientId + '_dd'}
+        selectedOptionStyle="check"
+        placeholder=""
+        chakraStyles={{
+          container: provided => ({
+            ...provided,
+            w: 'full',
+          }),
+          control: provided => ({
+            ...provided,
+
+            paddingInline: '0.5rem',
+            paddingBlock: '0.5rem',
+            bg: 'product.gray',
+            borderRadius: 'calc(0.25rem - 1px)',
+            borderColor: 'product.gray',
+            fontSize: '0.875rem',
+            fontWeight: '500',
+            color: 'product.darkGray',
+            cursor: 'pointer',
+            _hover: {
+              borderColor: 'product.gray',
+              boxShadow: 'lg',
+            },
+            _focus: {
+              borderColor: 'product.secondary',
+              boxShadow: 'inherit',
+            },
+          }),
+          menu: provided => ({
+            ...provided,
+            marginBlock: 0,
+            paddingBlock: 0,
+            border: 0,
+            borderRadius: '0.25rem 0.25rem 1.25rem 1.25rem',
+            boxShadow: '0px 4px 15px -2px rgba(0, 0, 0, 0.25)',
+            zIndex: 100,
+          }),
+          menuList: provided => ({
+            ...provided,
+            paddingBlock: 0,
+            border: 0,
+            borderRadius: '0.25rem 0.25rem 1.25rem 1.25rem',
+          }),
+          option: provided => ({
+            ...provided,
+            paddingInlineStart: 10,
+            paddingInlineEnd: 3,
+            paddingBlock: 2,
+            borderRadius: '1.25rem',
+            bg: '#fff',
+            fontSize: '0.875rem',
+            fontWeight: '500',
+            color: 'product.darkGray',
+            _hover: {
+              bg: 'product.secondary',
+              color: '#fff',
+            },
+          }),
+          noOptionsMessage: provided => ({
+            ...provided,
+            fontSize: '0.875rem',
+            fontWeight: '500',
+          }),
+        }}
+      />
+    </Box>
   )
 }
 

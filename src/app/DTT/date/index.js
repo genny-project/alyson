@@ -1,7 +1,16 @@
 import 'react-datepicker/dist/react-datepicker.css'
 import './datePickerStyles.css'
 
-import { HStack, Input, InputGroup, InputLeftElement, Text, VStack } from '@chakra-ui/react'
+import {
+  Box,
+  HStack,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  Text,
+  VStack,
+  useTheme,
+} from '@chakra-ui/react'
 import { compose, includes } from 'ramda'
 import { dateOfBirthQuestionCode, eligibleAge } from 'utils/constants'
 import { differenceInYears, format, isBefore, parseISO, startOfTomorrow } from 'date-fns'
@@ -13,6 +22,7 @@ import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import DateChip from './DateChip'
 import DatePicker from 'react-datepicker'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { apiConfig } from 'config/get-api-config'
 import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
 import getDate from 'utils/helpers/timezone_magic/get-date'
 import { getIsInvalid } from 'utils/functions'
@@ -25,7 +35,6 @@ import timeBasedOnTimeZone from 'utils/helpers/timezone_magic/time-based-on-time
 import { useError } from 'utils/contexts/ErrorContext'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
-import { useMobileValue } from 'utils/hooks'
 
 const Read = ({ data, typeName, config }) => {
   const includeTime = includes('LocalDateTime', typeName)
@@ -56,8 +65,11 @@ const Write = ({
   placeholderName,
   attributeCode,
   targetCode,
+  mandatory,
 }) => {
   let initialErrorMsg = 'You can only valid date.'
+
+  const theme = useTheme()
 
   const includeTime = includes('LocalDateTime', typeName)
   const themeSecondary = useGetAttributeFromProjectBaseEntity('PRI_COLOR')?.value
@@ -74,6 +86,7 @@ const Write = ({
   const [errorMsg, setErrorMsg] = useState(initialErrorMsg)
 
   const [dateValue, setDateValue] = useState(null)
+  const [isFocused, setIsFocused] = useState(false)
 
   const onlyYear = typeName === 'year'
 
@@ -96,6 +109,8 @@ const Write = ({
     const dateTimeValue = includeTime || onlyYear ? dateValue : offsetDate
 
     if (dateTimeValue && dateTimeValue.toString() !== 'Invalid Date') {
+      setIsFocused(true)
+
       !errorStatus && onSendAnswer(safelyParseDate(dateTimeValue).toISOString())
       dispatchFieldMessage({ payload: questionCode })
       dispatchBaseEntityUpdates(
@@ -103,10 +118,10 @@ const Write = ({
         targetCode,
         safelyParseDate(dateTimeValue).toISOString(),
       )(onNewMsg)
+    } else {
+      setIsFocused(false)
     }
   }
-
-  const maxW = useMobileValue(['', '30vw'])
 
   const isInvalid = getIsInvalid(dateValue)(RegExp(regexPattern))
 
@@ -114,6 +129,8 @@ const Write = ({
   const inputDate = new Date(dateValue)
   const formatInputDate = dateValue ? format(inputDate, 'yyyy-MM-dd') : today
   const diffInYears = differenceInYears(parseISO(today), parseISO(formatInputDate))
+
+  const prodocutBasedDatepickerClass = apiConfig?.clientId
 
   useEffect(() => {
     isInvalid ? setErrorStatus(true) : setErrorStatus(false)
@@ -152,6 +169,13 @@ const Write = ({
     }
   }, [diffInYears, questionCode])
 
+  useEffect(() => {
+    dateValue ? setIsFocused(true) : setIsFocused(false)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dateValue])
+
+  console.log(dateValue)
+
   const DateInput = forwardRef(({ value, onClick }, ref) => (
     <InputGroup role="group">
       <Input
@@ -159,13 +183,14 @@ const Write = ({
         test-id={questionCode}
         defaultValue={value}
         ref={ref}
-        onFocus={onClick}
-        placeholder={placeholderName}
+        onFocus={() => {
+          setIsFocused(true)
+          onClick()
+        }}
         w="full"
-        maxW={maxW}
         h={'auto'}
         paddingBlock={3}
-        paddingStart={12}
+        paddingStart={isFocused ? 6 : 12}
         paddingEnd={6}
         bg={'product.gray'}
         borderRadius="calc(0.25rem - 1px)"
@@ -210,46 +235,92 @@ const Write = ({
   ))
 
   return isPreviousDate && data?.value && dateValue ? (
-    <>
-      <HStack justifyContent={'space-between'}>
-        <DateChip
-          onlyYear={onlyYear}
-          includeTime={includeTime}
-          onClick={() => {
-            onSendAnswer('')
-            setDateValue('')
-          }}
-          date={getDate(data?.value)}
-        />
+    <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
+      <HStack
+        position={'absolute'}
+        zIndex={theme.zIndices.docked}
+        top={isFocused ? '-1.5rem' : 3}
+        left={0}
+        paddingStart={isFocused ? 6 : 12}
+        w="full"
+        justifyContent={'space-between'}
+        pointerEvents={'none'}
+        transition="all 0.25s ease"
+      >
+        {placeholderName && (
+          <Text as="label" fontSize={'sm'} fontWeight={'medium'} color={'gray.600'}>
+            {placeholderName}
+            {mandatory ? (
+              <Text as="span" color={'red.500'} ml={1}>
+                *
+              </Text>
+            ) : (
+              <></>
+            )}
+          </Text>
+        )}
 
         {(!failedValidation && fieldNotEmpty) ||
         (!failedValidation && dateValue && isNotStringifiedEmptyArray(dateValue)) ? (
           <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
         ) : null}
       </HStack>
-    </>
+      <DateChip
+        onlyYear={onlyYear}
+        includeTime={includeTime}
+        onClick={() => {
+          onSendAnswer('')
+          setDateValue('')
+        }}
+        date={getDate(data?.value)}
+      />
+    </Box>
   ) : (
-    <>
-      <HStack>
-        <DatePicker
-          selected={dateValue}
-          showTimeSelect={includeTime}
-          onChange={date => setDateValue(date)}
-          dateFormat={includeTime ? 'yyyy/MM/dd h:mm' : onlyYear ? 'yyyy' : 'yyyy/MM/dd'}
-          customInput={<DateInput />}
-          onCalendarClose={handleOnBlur}
-          minDate={availabilityQuestions ? current : ''}
-          showMonthDropdown
-          showYearDropdown
-          dropdownMode="select"
-          showYearPicker={onlyYear}
-        />
+    <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
+      <HStack
+        position={'absolute'}
+        zIndex={theme.zIndices.docked}
+        top={isFocused ? '-1.5rem' : 3}
+        left={0}
+        paddingStart={12}
+        w="full"
+        justifyContent={'space-between'}
+        pointerEvents={'none'}
+        transition="all 0.25s ease"
+      >
+        {placeholderName && (
+          <Text as="label" fontSize={'sm'} fontWeight={'medium'} color={'gray.600'}>
+            {placeholderName}
+            {mandatory ? (
+              <Text as="span" color={'red.500'} ml={1}>
+                *
+              </Text>
+            ) : (
+              <></>
+            )}
+          </Text>
+        )}
 
         {(!failedValidation && fieldNotEmpty) ||
         (!failedValidation && dateValue && isNotStringifiedEmptyArray(dateValue)) ? (
           <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
         ) : null}
       </HStack>
+
+      <DatePicker
+        selected={dateValue}
+        showTimeSelect={includeTime}
+        onChange={date => setDateValue(date)}
+        dateFormat={includeTime ? 'yyyy/MM/dd h:mm' : onlyYear ? 'yyyy' : 'yyyy/MM/dd'}
+        customInput={<DateInput />}
+        onCalendarClose={handleOnBlur}
+        minDate={availabilityQuestions ? current : ''}
+        showMonthDropdown
+        showYearDropdown
+        dropdownMode="select"
+        showYearPicker={onlyYear}
+        calendarClassName={`${prodocutBasedDatepickerClass}__calendar`}
+      />
 
       {errorStatus && (
         <VStack alignItems="start">
@@ -260,7 +331,7 @@ const Write = ({
           )}
         </VStack>
       )}
-    </>
+    </Box>
   )
 }
 

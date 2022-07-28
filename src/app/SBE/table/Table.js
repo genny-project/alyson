@@ -74,7 +74,12 @@ const DataTable = ({ parentCode, mapSearch }) => {
             size="sm"
           >
             <Header columns={columns} parentCode={parentCode} actions={actions} />
-            <Body columns={columns} parentCode={parentCode} actions={actions} />
+            <Body
+              columns={columns}
+              parentCode={parentCode}
+              actions={actions}
+              colspan={columns.length}
+            />
           </Table>
         </Box>
       )}
