@@ -174,8 +174,6 @@ const Write = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dateValue])
 
-  console.log(dateValue)
-
   const DateInput = forwardRef(({ value, onClick }, ref) => (
     <InputGroup role="group">
       <Input
