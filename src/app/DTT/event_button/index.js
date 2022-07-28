@@ -13,7 +13,7 @@ const EventButton = ({ askData, onFinish, parentCode, sourceCode }) => {
       code: questionCode,
       parentCode,
       targetCode,
-      value: true,
+      value: 'TRUE',
       attributeCode: attributeCode,
       processId: processId,
       sourceCode,
