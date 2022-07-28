@@ -22,7 +22,7 @@ const TemplateHorizontalCards = ({ mappedPcm }) => {
 
   const rows = useSelector(selectCode(sbeCode, 'rows')) || []
 
-  const primaryColor = useGetAttributeFromProjectBaseEntity('PRI_COLOR').valueString
+  const primaryColor = useGetAttributeFromProjectBaseEntity('PRI_COLOR')?.valueString || ''
 
   return (
     <Box padding={'10px'}>
