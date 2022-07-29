@@ -79,7 +79,7 @@ const Ask = ({
   const highlightedQuestion = useSelector(selectHighlightedQuestion)
   const labelWidth = useMobileValue(['full', '25vw'])
   const groupCode = getGroupCode(question) || parentCode
-  const placeholderName = name
+  const placeholderName = equals(clientId)('lojing') ? name : ''
   if (!question?.attribute) return null
 
   const {
