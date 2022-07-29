@@ -165,7 +165,6 @@ const Write = ({
             hidden={!!dropzone}
             test-id={questionCode}
             onClick={openDropzone}
-            leftIcon={<FontAwesomeIcon icon={faUpload} />}
             colorScheme="product.primary"
             variant="solid"
             borderRadius={'full'}
@@ -178,7 +177,7 @@ const Write = ({
               background: 'product.secondaryAccent',
             }}
           >
-            Upload file
+            {`Upload`}
           </Button>
         )}
         {dropzone && (
