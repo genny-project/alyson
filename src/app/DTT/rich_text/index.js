@@ -62,8 +62,6 @@ const Write = ({
 }) => {
   const theme = useTheme()
 
-  console.log(clientId)
-
   const fieldBackgroundColor = equals(clientId)(lojing)
     ? 'product.gray'
     : theme.colors.background.light
