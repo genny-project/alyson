@@ -10,6 +10,11 @@ const DateInDay = ({
   maxDate = currentDateInIsoFormat,
   handleDateChange,
   errorStatus,
+  fieldBackgroundColor,
+  fieldBorderColor,
+  fieldHoverBorderColor,
+  fieldTextColor,
+  borderRadius,
 }) => {
   return (
     <>
@@ -25,18 +30,17 @@ const DateInDay = ({
               onBlur={e => handleDateChange(e, 'startDate')}
               min={setYearForDate('2002')}
               max={maxDate}
+              h={'auto'}
               paddingBlock={3}
-              paddingInlineStart={10}
-              paddingInlineEnd={6}
-              bg={'product.gray'}
-              borderRadius="calc(0.25rem - 1px)"
-              borderColor={'product.gray'}
+              paddingInline={6}
+              bg={fieldBackgroundColor}
+              borderRadius={borderRadius}
+              borderColor={fieldBorderColor}
               fontSize={'sm'}
               fontWeight={'medium'}
-              color="product.darkGray"
-              cursor={'pointer'}
+              color={fieldTextColor}
               _hover={{
-                borderColor: 'product.gray',
+                borderColor: fieldHoverBorderColor,
                 boxShadow: 'lg',
               }}
               _focusVisible={{
@@ -66,18 +70,17 @@ const DateInDay = ({
               onBlur={e => handleDateChange(e, 'endDate')}
               min={setYearForDate()}
               max={maxDate}
+              h={'auto'}
               paddingBlock={3}
-              paddingInlineStart={10}
-              paddingInlineEnd={6}
-              bg={'product.gray'}
-              borderRadius="calc(0.25rem - 1px)"
-              borderColor={'product.gray'}
+              paddingInline={6}
+              bg={fieldBackgroundColor}
+              borderRadius={borderRadius}
+              borderColor={fieldBorderColor}
               fontSize={'sm'}
               fontWeight={'medium'}
-              color="product.darkGray"
-              cursor={'pointer'}
+              color={fieldTextColor}
               _hover={{
-                borderColor: 'product.gray',
+                borderColor: fieldHoverBorderColor,
                 boxShadow: 'lg',
               }}
               _focusVisible={{
@@ -97,7 +100,7 @@ const DateInDay = ({
           )}
         </VStack>
       </HStack>
-      {errorStatus && <Text textStyle="tail.error" mt={2}>{`Please enter a valid date. `}</Text>}
+      {errorStatus && <Text textStyle="product.errorText">{`Please enter a valid date. `}</Text>}
     </>
   )
 }

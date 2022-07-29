@@ -23,7 +23,7 @@ import HeroIconButton from 'app/layouts/components/hero_icon_button'
 import StreetView from './street_view'
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
 
-const Write = ({ questionCode, onSendAnswer, data, placeholderName, mandatory }) => {
+const Write = ({ questionCode, onSendAnswer, data, placeholderName, mandatory, clientId }) => {
   return (
     <AddressPicker
       id={questionCode}
@@ -32,6 +32,7 @@ const Write = ({ questionCode, onSendAnswer, data, placeholderName, mandatory })
       data={data}
       placeholder={placeholderName}
       mandatory={mandatory}
+      clientId={clientId}
     />
   )
 }

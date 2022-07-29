@@ -9,7 +9,7 @@ import {
   VStack,
   useTheme,
 } from '@chakra-ui/react'
-import { compose, includes } from 'ramda'
+import { compose, equals, includes } from 'ramda'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 
@@ -21,6 +21,7 @@ import { faLinkedin } from '@fortawesome/free-brands-svg-icons'
 import { getIsInvalid } from 'utils/functions'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
+import { lojing } from 'utils/constants'
 import { newMsg } from 'redux/app'
 import { selectFieldMessage } from 'redux/app/selectors'
 import { useError } from 'utils/contexts/ErrorContext'
@@ -69,8 +70,20 @@ const Write = ({
   attributeCode,
   targetCode,
   mandatory,
+  clientId,
 }) => {
   const theme = useTheme()
+
+  const fieldBackgroundColor = equals(clientId)(lojing)
+    ? 'product.gray'
+    : theme.colors.background.light
+  const fieldBorderColor = equals(clientId)(lojing) ? 'product.gray' : theme.colors.gray['600']
+  const fieldHoverBorderColor = equals(clientId)(lojing) ? 'product.gray' : 'product.secondary'
+  const fieldTextColor = 'product.gray700'
+
+  const labelTextColor = equals(clientId)(lojing) ? 'gray.600' : 'product.gray700'
+  const borderRadius = equals(clientId)(lojing) ? 'calc(0.25rem - 1px)' : '0.5rem'
+
   const { dispatch } = useError()
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value)
@@ -130,7 +143,7 @@ const Write = ({
         transition="all 0.25s ease"
       >
         {placeholderName && (
-          <ChakraText as="label" fontSize={'sm'} fontWeight={'medium'} color={'gray.600'}>
+          <ChakraText as="label" fontSize={'sm'} fontWeight={'medium'} color={labelTextColor}>
             {placeholderName}
             {mandatory ? (
               <ChakraText as="span" color={'red.500'} ml={1}>
@@ -149,16 +162,16 @@ const Write = ({
 
       <HStack justifyContent={'space-between'}>
         <InputGroup
-          bg={'product.gray'}
-          borderRadius={'calc(0.25rem - 1px)'}
+          bg={fieldBackgroundColor}
+          borderRadius={borderRadius}
           borderWidth="1px"
           borderStyle="solid"
-          borderColor={'product.gray'}
+          borderColor={fieldBorderColor}
           overflow={'hidden'}
           onClick={() => setIsFocused(true)}
           role="group"
           _hover={{
-            borderColor: 'product.gray',
+            borderColor: fieldHoverBorderColor,
             boxShadow: 'lg',
           }}
           _focusVisible={{
@@ -212,7 +225,7 @@ const Write = ({
             border={0}
             fontSize={'sm'}
             fontWeight={'medium'}
-            color="product.darkGray"
+            color={fieldTextColor}
             _focusVisible={{
               border: '0',
             }}
@@ -225,7 +238,7 @@ const Write = ({
       {errorStatus && (
         <VStack alignItems="start">
           {(hasFieldMessage || hasErrorMessage) && (
-            <ChakraText textStyle="tail.error" mt={2}>
+            <ChakraText textStyle="product.errorText">
               {hasFieldMessage ? fieldMessage : errorMessage}
             </ChakraText>
           )}

@@ -1,11 +1,12 @@
 import { Box, HStack, Input, Text, useTheme } from '@chakra-ui/react'
+import { compose, equals } from 'ramda'
 import { useEffect, useRef, useState } from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { compose } from 'ramda'
 import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
+import { lojing } from 'utils/constants'
 import makeAddressData from './make-address-data'
 import { newMsg } from 'redux/app'
 import { useDispatch } from 'react-redux'
@@ -22,6 +23,7 @@ const AddressPicker = ({
   targetCode,
   placeholderName,
   mandatory,
+  clientId,
 }) => {
   const theme = useTheme()
   const autoCompleteRef = useRef(null)
@@ -36,6 +38,16 @@ const AddressPicker = ({
   const fieldNotEmpty = fieldState[questionCode]
   const dispatchBeInformation = useDispatch()
   const onNewMsg = compose(dispatchBeInformation, newMsg)
+
+  const fieldBackgroundColor = equals(clientId)(lojing)
+    ? 'product.gray'
+    : theme.colors.background.light
+  const fieldBorderColor = equals(clientId)(lojing) ? 'product.gray' : theme.colors.gray['600']
+  const fieldHoverBorderColor = equals(clientId)(lojing) ? 'product.gray' : 'product.secondary'
+  const fieldTextColor = 'product.gray700'
+
+  const labelTextColor = equals(clientId)(lojing) ? 'gray.600' : 'product.gray700'
+  const borderRadius = equals(clientId)(lojing) ? 'calc(0.25rem - 1px)' : '0.5rem'
 
   useEffect(() => {
     data?.value ? setIsFocused(true) : setIsFocused(false)
@@ -94,7 +106,7 @@ const AddressPicker = ({
         transition="all 0.25s ease"
       >
         {placeholderName && (
-          <Text as="label" fontSize={'sm'} fontWeight={'medium'} color={'gray.600'}>
+          <Text as="label" fontSize={'sm'} fontWeight={'medium'} color={labelTextColor}>
             {placeholderName}
             {mandatory ? (
               <Text as="span" color={'red.500'} ml={1}>
@@ -125,11 +137,12 @@ const AddressPicker = ({
         paddingInline={5}
         fontWeight={'medium'}
         fontSize={'sm'}
-        borderRadius={'calc(0.25rem - 1px)'}
-        borderColor={'product.gray'}
-        bg={'product.gray'}
+        color={fieldTextColor}
+        borderRadius={borderRadius}
+        borderColor={fieldBorderColor}
+        bg={fieldBackgroundColor}
         _hover={{
-          borderColor: 'product.gray',
+          borderColor: fieldHoverBorderColor,
           boxShadow: 'lg',
         }}
         _focusVisible={{

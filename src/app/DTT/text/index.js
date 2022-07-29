@@ -1,4 +1,5 @@
 import { Box, Text as ChakraText, HStack, Input, VStack, useTheme } from '@chakra-ui/react'
+import { compose, equals } from 'ramda'
 import { faCalendar, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useRef, useState } from 'react'
@@ -6,12 +7,12 @@ import { useEffect, useRef, useState } from 'react'
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import DetailViewTags from 'app/DTT/text/detailview_tags'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { compose } from 'ramda'
 import debounce from 'lodash.debounce'
 import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
 import { getIsInvalid } from 'utils/functions'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
+import { lojing } from 'utils/constants'
 import { newMsg } from 'redux/app'
 import { selectFieldMessage } from 'redux/app/selectors'
 import { useError } from 'utils/contexts/ErrorContext'
@@ -28,6 +29,7 @@ export const Write = ({
   attributeCode,
   targetCode,
   mandatory,
+  clientId,
 }) => {
   let regex
   const theme = useTheme()
@@ -48,6 +50,16 @@ export const Write = ({
   const fieldNotEmpty = fieldState[questionCode]
   const dispatchBeInformation = useDispatch()
   const onNewMsg = compose(dispatchBeInformation, newMsg)
+
+  const fieldBackgroundColor = equals(clientId)(lojing)
+    ? 'product.gray'
+    : theme.colors.background.light
+  const fieldBorderColor = equals(clientId)(lojing) ? 'product.gray' : theme.colors.gray['600']
+  const fieldHoverBorderColor = equals(clientId)(lojing) ? 'product.gray' : 'product.secondary'
+  const fieldTextColor = 'product.gray700'
+
+  const labelTextColor = equals(clientId)(lojing) ? 'gray.600' : 'product.gray700'
+  const borderRadius = equals(clientId)(lojing) ? 'calc(0.25rem - 1px)' : '0.5rem'
 
   try {
     regexPattern = regexPattern.replaceAll('\\\\', '\\')
@@ -115,7 +127,7 @@ export const Write = ({
         transition="all 0.25s ease"
       >
         {placeholderName && (
-          <ChakraText as="label" fontSize={'sm'} fontWeight={'medium'} color={'gray.600'}>
+          <ChakraText as="label" fontSize={'sm'} fontWeight={'medium'} color={labelTextColor}>
             {placeholderName}
             {mandatory ? (
               <ChakraText as="span" color={'red.500'} ml={1}>
@@ -147,15 +159,15 @@ export const Write = ({
         h={'auto'}
         paddingBlock={3}
         paddingInline={6}
-        bg={'product.gray'}
-        borderRadius={'calc(0.25rem - 1px)'}
-        borderColor={'product.gray'}
+        bg={fieldBackgroundColor}
+        borderRadius={borderRadius}
+        borderColor={fieldBorderColor}
         fontSize={'sm'}
         fontWeight={'medium'}
-        color="product.darkGray"
+        color={fieldTextColor}
         cursor={'pointer'}
         _hover={{
-          borderColor: 'product.gray',
+          borderColor: fieldHoverBorderColor,
           boxShadow: 'lg',
         }}
         _focusVisible={{

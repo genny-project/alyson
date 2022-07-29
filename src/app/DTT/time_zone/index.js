@@ -7,7 +7,7 @@ import { Read } from 'app/DTT/text'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import timeZone from 'utils/helpers/timezone_magic/time-zone-from-browser'
 
-const Write = ({ questionCode, onSendAnswer, data }) => {
+const Write = ({ questionCode, onSendAnswer, data, clientId }) => {
   const [confirm, setConfirm] = useState(null)
 
   useEffect(() => {
@@ -43,6 +43,7 @@ const Write = ({ questionCode, onSendAnswer, data }) => {
   ) : (
     <PlacesAutocomplete
       questionCode={questionCode}
+      clientId={clientId}
       onSelect={selection => {
         onSendAnswer(selection)
         setConfirm(true)

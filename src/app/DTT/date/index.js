@@ -11,8 +11,8 @@ import {
   VStack,
   useTheme,
 } from '@chakra-ui/react'
-import { compose, includes } from 'ramda'
-import { dateOfBirthQuestionCode, eligibleAge } from 'utils/constants'
+import { compose, equals, includes } from 'ramda'
+import { dateOfBirthQuestionCode, eligibleAge, lojing } from 'utils/constants'
 import { differenceInYears, format, isBefore, parseISO, startOfTomorrow } from 'date-fns'
 import { faCalendarDay, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { forwardRef, useEffect, useState } from 'react'
@@ -66,10 +66,20 @@ const Write = ({
   attributeCode,
   targetCode,
   mandatory,
+  clientId,
 }) => {
   let initialErrorMsg = 'You can only valid date.'
 
   const theme = useTheme()
+  const fieldBackgroundColor = equals(clientId)(lojing)
+    ? 'product.gray'
+    : theme.colors.background.light
+  const fieldBorderColor = equals(clientId)(lojing) ? 'product.gray' : theme.colors.gray['600']
+  const fieldHoverBorderColor = equals(clientId)(lojing) ? 'product.gray' : 'product.secondary'
+  const fieldTextColor = 'product.gray700'
+
+  const labelTextColor = equals(clientId)(lojing) ? 'gray.600' : 'product.gray700'
+  const borderRadius = equals(clientId)(lojing) ? 'calc(0.25rem - 1px)' : '0.5rem'
 
   const includeTime = includes('LocalDateTime', typeName)
   const themeSecondary = useGetAttributeFromProjectBaseEntity('PRI_COLOR')?.value
@@ -190,15 +200,15 @@ const Write = ({
         paddingBlock={3}
         paddingStart={isFocused ? 6 : 12}
         paddingEnd={6}
-        bg={'product.gray'}
-        borderRadius="calc(0.25rem - 1px)"
-        borderColor={'product.gray'}
+        bg={fieldBackgroundColor}
+        borderRadius={borderRadius}
+        borderColor={fieldBorderColor}
         fontSize={'sm'}
         fontWeight={'medium'}
-        color="product.darkGray"
+        color={fieldTextColor}
         cursor={'pointer'}
         _hover={{
-          borderColor: 'product.gray',
+          borderColor: fieldHoverBorderColor,
           boxShadow: 'lg',
         }}
         _focusVisible={{
@@ -246,7 +256,7 @@ const Write = ({
         transition="all 0.25s ease"
       >
         {placeholderName && (
-          <Text as="label" fontSize={'sm'} fontWeight={'medium'} color={'gray.600'}>
+          <Text as="label" fontSize={'sm'} fontWeight={'medium'} color={labelTextColor}>
             {placeholderName}
             {mandatory ? (
               <Text as="span" color={'red.500'} ml={1}>
@@ -287,7 +297,7 @@ const Write = ({
         transition="all 0.25s ease"
       >
         {placeholderName && (
-          <Text as="label" fontSize={'sm'} fontWeight={'medium'} color={'gray.600'}>
+          <Text as="label" fontSize={'sm'} fontWeight={'medium'} color={labelTextColor}>
             {placeholderName}
             {mandatory ? (
               <Text as="span" color={'red.500'} ml={1}>
@@ -323,9 +333,7 @@ const Write = ({
       {errorStatus && (
         <VStack alignItems="start">
           {(hasFieldMessage || hasErrorMessage) && (
-            <Text textStyle="tail.error" mt={2}>
-              {hasFieldMessage ? fieldMessage : errorMsg}
-            </Text>
+            <Text textStyle="product.errorText">{hasFieldMessage ? fieldMessage : errorMsg}</Text>
           )}
         </VStack>
       )}

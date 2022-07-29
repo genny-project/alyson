@@ -51,7 +51,6 @@ const EvtButton = ({ questionCode, childCode, iconId, vert }) => {
   const { name, childAsks } = data
 
   const handleClick = () => {
-    debugOut.log(data)
     sendEvtClick({
       targetCode: targetCode,
       sourceCode: sourceCode,

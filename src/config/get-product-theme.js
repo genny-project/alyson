@@ -24,9 +24,15 @@ const productBasedDefaultColors = {
   },
 
   alyson: {
-    primary: '#00596D',
-    secondary: '#F18B32',
-    gray: '#F4F5F5',
+    primary: '#224371',
+    primary100: '#AAE3E2',
+
+    secondary: '#00AFAB',
+
+    gray: '#808080',
+    gray50: '#F6F6F6',
+    gray100: '#BDC5CD',
+    gray700: '#808080',
   },
 }
 
@@ -34,12 +40,30 @@ const productBasedDefaultFonts = {
   lojing: {
     headerFont: 'Proxima Nova, Nunito, sans-serif',
     bodyFont: 'Proxima Nova, Nunito, sans-serif',
-    sidebarFont: 'Proxima Nova, Nunito, sans-serif',
+  },
+
+  alyson: {
+    headerFont: 'Roboto, sans-serif',
+    bodyFont: 'Roboto, sans-serif',
   },
 }
 
 const productBasedDefaultTextStyles = {
   lojing: {
+    bodyText100: {
+      fontSize: 'md',
+      fontWeight: 700,
+      opacity: 0.9,
+    },
+    errorText: {
+      fontSize: 'sm',
+      fontWeight: 400,
+      color: 'red.500',
+      opacity: 0.9,
+      marginTop: '0.5rem',
+    },
+  },
+  alyson: {
     bodyText100: {
       fontSize: 'md',
       fontWeight: 700,
