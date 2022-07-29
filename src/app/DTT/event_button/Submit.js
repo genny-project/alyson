@@ -1,14 +1,15 @@
 import { Button, Tag, Text, VStack, Wrap, WrapItem, useTheme } from '@chakra-ui/react'
-import { compose, filter, identity, includes, map, prop } from 'ramda'
+import { compose, equals, filter, identity, includes, map, prop } from 'ramda'
 import { selectAttributes, selectCode } from 'redux/db/selectors'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { highlightQuestion } from 'redux/app'
+import { lojing } from 'utils/constants'
 import { onSendMessage } from 'vertx'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useState } from 'react'
 
-const Submit = ({ askData, onFinish, parentCode }) => {
+const Submit = ({ askData, onFinish, parentCode, clientId }) => {
   const { questionCode, targetCode, name, disabled: disabledFromBackEnd } = askData
   const { errorState } = useError()
   const dispatch = useDispatch()
@@ -32,7 +33,7 @@ const Submit = ({ askData, onFinish, parentCode }) => {
     filter(attr => !attr.value),
   )(attributeData)
 
-  const bgColor = 'product.secondary' || 'primary.900'
+  const bgColor = equals(clientId)(lojing) ? 'product.secondary' : 'product.primary'
 
   const mandatoryQuestionsNoValue = filter(
     q => q.questionCode !== 'QUE_SUBMIT' && includes(q.attributeCode, mandatoryAttributesNoValue),
@@ -104,9 +105,9 @@ const Submit = ({ askData, onFinish, parentCode }) => {
         color={theme.colors.text.dark}
         _hover={{
           background: theme.colors.background.light,
-          color: 'product.secondary',
+          color: bgColor,
           border: '1px solid',
-          borderColor: 'product.secondary',
+          borderColor: bgColor,
           variant: 'outline',
         }}
       >

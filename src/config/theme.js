@@ -2,8 +2,8 @@ import { extendTheme } from '@chakra-ui/react'
 
 export const defaultProjectTheme = {
   fonts: {
-    heading: 'Proxima Nova, Nunito, Roboto, DM Sans, sans-serif',
-    body: 'Proxima Nova, Nunito, Roboto, DM Sans, sans-serif',
+    heading: 'Proxima Nova, Nunito, Roboto, sans-serif',
+    body: 'Proxima Nova, Nunito, Roboto, sans-serif',
   },
   colors: {
     background: {

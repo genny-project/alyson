@@ -85,6 +85,7 @@ const Write = ({
   placeholderName: label,
   attributeCode,
   targetCode,
+  clientId,
 }) => {
   const api = useApi()
   const typeName = dttData?.typeName
@@ -187,6 +188,7 @@ const Write = ({
             closeDropzone={closeDropzone}
             questionCode={questionCode}
             id={questionCode}
+            clientId={clientId}
           />
         )}
       </Box>

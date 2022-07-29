@@ -9,6 +9,7 @@ import {
   VStack,
   useTheme,
 } from '@chakra-ui/react'
+import { compose, equals } from 'ramda'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 
@@ -16,7 +17,6 @@ import ABNLookup from './abn_lookup'
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Read } from '../text'
-import { compose } from 'ramda'
 import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { getIsInvalid } from 'utils/functions'
@@ -26,7 +26,6 @@ import { newMsg } from 'redux/app'
 import { selectFieldMessage } from 'redux/app/selectors'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
-import { useMobileValue } from 'utils/hooks'
 
 const Write = ({
   questionCode,
@@ -40,6 +39,7 @@ const Write = ({
   attributeCode,
   targetCode,
   mandatory,
+  clientId,
 }) => {
   let regex
   const theme = useTheme()
@@ -60,6 +60,16 @@ const Write = ({
   const fieldNotEmpty = fieldState[questionCode]
   const dispatchBeInformation = useDispatch()
   const onNewMsg = compose(dispatchBeInformation, newMsg)
+
+  const fieldBackgroundColor = equals(clientId)('lojing')
+    ? 'product.gray'
+    : theme.colors.background.light
+  const fieldBorderColor = equals(clientId)('lojing') ? 'product.gray' : theme.colors.gray['600']
+  const fieldHoverBorderColor = equals(clientId)('lojing') ? 'product.gray' : 'product.secondary'
+  const fieldTextColor = 'product.gray700'
+
+  const labelTextColor = equals(clientId)('lojing') ? 'gray.600' : 'product.gray700'
+  const borderRadius = equals(clientId)('lojing') ? 'calc(0.25rem - 1px)' : '0.5rem'
 
   useEffect(() => {
     setValue(data?.value)
@@ -96,7 +106,6 @@ const Write = ({
 
   const open = () => setIsOpen(true)
   const close = () => setIsOpen(false)
-  const maxW = useMobileValue(['', '25vw'])
 
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
@@ -112,7 +121,7 @@ const Write = ({
         transition="all 0.25s ease"
       >
         {placeholderName && (
-          <Text as="label" fontSize={'sm'} fontWeight={'medium'} color={'gray.600'}>
+          <Text as="label" fontSize={'sm'} fontWeight={'medium'} color={labelTextColor}>
             {placeholderName}
             {mandatory ? (
               <Text as="span" color={'red.500'} ml={1}>
@@ -137,7 +146,7 @@ const Write = ({
         targetCode={data.baseEntityCode}
       />
 
-      <InputGroup w={'100%'} maxW={maxW}>
+      <InputGroup w={'100%'}>
         <InputLeftElement w="8rem" h={`40px`}>
           <Button
             isDisabled={disabled}
@@ -153,6 +162,7 @@ const Write = ({
         <Input
           id={questionCode}
           test-id={questionCode}
+          placeholder={placeholderName}
           value={value}
           onFocus={() => {
             setIsFocused(true)
@@ -160,17 +170,17 @@ const Write = ({
           onChange={e => setValue(e.target.value)}
           onBlur={handleOnBlur}
           w="full"
-          maxW={maxW}
           paddingBlock={3}
           paddingInlineStart={'9rem'}
           paddingInlineEnd={6}
+          borderRadius={borderRadius}
+          borderColor={fieldBorderColor}
+          bg={fieldBackgroundColor}
+          fontSize={'sm'}
           fontWeight={'medium'}
-          borderRadius={'calc(0.25rem - 1px)'}
-          borderColor={'gray.700'}
-          bg={'product.gray'}
-          placeholder={placeholderName}
+          color={fieldTextColor}
           _hover={{
-            borderColor: 'product.gray',
+            borderColor: fieldHoverBorderColor,
             boxShadow: 'lg',
           }}
           _focusVisible={{
@@ -192,7 +202,7 @@ const Write = ({
       {errorStatus && (
         <VStack alignItems="start">
           {(hasFieldMessage || hasErrorMessage) && (
-            <Text textStyle="tail.error" mt={2}>
+            <Text textStyle="product.errorText">
               {hasFieldMessage ? fieldMessage : errorMessage}
             </Text>
           )}

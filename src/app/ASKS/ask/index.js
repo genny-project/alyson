@@ -6,7 +6,6 @@ import {
   FormLabel,
   HStack,
 } from '@chakra-ui/react'
-import { equals, pathOr } from 'ramda'
 
 import ABN from 'app/DTT/abn'
 import Address from 'app/DTT/address'
@@ -38,6 +37,7 @@ import Video from 'app/DTT/video'
 import { apiConfig } from 'config/get-api-config.js'
 import createSendAnswer from 'app/ASKS/utils/create-send-answer'
 import getGroupCode from 'app/ASKS/utils/get-group-code'
+import { pathOr } from 'ramda'
 import { selectCode } from 'redux/db/selectors'
 import { selectHighlightedQuestion } from 'redux/app/selectors'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
@@ -79,7 +79,7 @@ const Ask = ({
   const highlightedQuestion = useSelector(selectHighlightedQuestion)
   const labelWidth = useMobileValue(['full', '25vw'])
   const groupCode = getGroupCode(question) || parentCode
-  const placeholderName = equals(clientId)('lojing') ? name : ''
+  const placeholderName = name
   if (!question?.attribute) return null
 
   const {
@@ -138,6 +138,7 @@ const Ask = ({
         parentCode={parentCode}
         attributeCode={attributeCode}
         targetCode={targetCode}
+        clientId={clientId}
       />
     )
   return component === 'button' ? (
@@ -152,6 +153,7 @@ const Ask = ({
       attributeCode={attributeCode}
       targetCode={targetCode}
       sourceCode={sourceCode}
+      clientId={clientId}
     />
   ) : (
     <FormControl
@@ -168,7 +170,8 @@ const Ask = ({
       {
         <HStack
           justify="space-between"
-          display={noLabel || equals(clientId)('lojing') ? 'none' : 'flex'}
+          // display={noLabel ? 'none' : 'flex'}
+          display="none"
           maxW={labelWidth}
           w={'full'}
         >
@@ -189,6 +192,7 @@ const Ask = ({
           placeholderName={placeholderName}
           targetCode={targetCode}
           mandatory={mandatory}
+          clientId={clientId}
         />
       )}
       {component === 'phone' && (
@@ -203,6 +207,7 @@ const Ask = ({
           placeholderName={placeholderName}
           targetCode={targetCode}
           mandatory={mandatory}
+          clientId={clientId}
         />
       )}
       {component === 'address' && (
@@ -217,6 +222,7 @@ const Ask = ({
           attributeCode={attributeCode}
           targetCode={targetCode}
           mandatory={mandatory}
+          clientId={clientId}
         />
       )}
       {(component === 'dropdown' || component === 'tag') && (
@@ -238,6 +244,7 @@ const Ask = ({
           errorMessage={errorMessage}
           processId={processId}
           placeholderName={placeholderName}
+          clientId={clientId}
         />
       )}
       {component === 'radio' && (
@@ -253,6 +260,7 @@ const Ask = ({
           errorMessage={errorMessage}
           placeholderName={placeholderName}
           targetCode={targetCode}
+          clientId={clientId}
         />
       )}
       {component === 'text' && (
@@ -267,6 +275,7 @@ const Ask = ({
           targetCode={targetCode}
           parentCode={parentCode}
           placeholderName={placeholderName}
+          clientId={clientId}
         />
       )}
       {component === 'textarea' && (
@@ -282,6 +291,7 @@ const Ask = ({
           placeholderName={placeholderName}
           attributeCode={attributeCode}
           targetCode={targetCode}
+          clientId={clientId}
         />
       )}
       {component === 'social' && (
@@ -296,6 +306,7 @@ const Ask = ({
           placeholderName={placeholderName}
           attributeCode={attributeCode}
           targetCode={targetCode}
+          clientId={clientId}
         />
       )}
       {component === 'upload' && (
@@ -311,6 +322,7 @@ const Ask = ({
           attributeCode={attributeCode}
           targetCode={targetCode}
           mandatory={mandatory}
+          clientId={clientId}
         />
       )}
       {(component === 'date' || component === 'year') && (
@@ -328,6 +340,7 @@ const Ask = ({
           attributeCode={attributeCode}
           targetCode={targetCode}
           mandatory={mandatory}
+          clientId={clientId}
         />
       )}
       {component === 'richtext_editor' && (
@@ -345,6 +358,7 @@ const Ask = ({
           attributeCode={attributeCode}
           targetCode={targetCode}
           mandatory={mandatory}
+          clientId={clientId}
         />
       )}
       {component === 'date_range' && (
@@ -360,6 +374,7 @@ const Ask = ({
           attributeCode={attributeCode}
           targetCode={targetCode}
           mandatory={mandatory}
+          clientId={clientId}
         />
       )}
       {component === 'video' && (
@@ -374,6 +389,7 @@ const Ask = ({
           placeholderName={placeholderName}
           attributeCode={attributeCode}
           targetCode={targetCode}
+          clientId={clientId}
         />
       )}
       {component === 'time_range' && (
@@ -388,6 +404,7 @@ const Ask = ({
           attributeCode={attributeCode}
           targetCode={targetCode}
           mandatory={mandatory}
+          clientId={clientId}
         />
       )}
       {component === 'html_display' && (
@@ -400,6 +417,7 @@ const Ask = ({
           placeholderName={placeholderName}
           attributeCode={attributeCode}
           targetCode={targetCode}
+          clientId={clientId}
         />
       )}
       {component === 'signature' && (
@@ -413,6 +431,7 @@ const Ask = ({
           placeholderName={placeholderName}
           attributeCode={attributeCode}
           targetCode={targetCode}
+          clientId={clientId}
         />
       )}
       {component === 'link' && (
@@ -427,6 +446,7 @@ const Ask = ({
           attributeCode={attributeCode}
           targetCode={targetCode}
           mandatory={mandatory}
+          clientId={clientId}
         />
       )}
       {component === 'abn_number' && (
@@ -442,6 +462,7 @@ const Ask = ({
           attributeCode={attributeCode}
           targetCode={targetCode}
           mandatory={mandatory}
+          clientId={clientId}
         />
       )}
       {component === 'rating' && (
@@ -455,6 +476,7 @@ const Ask = ({
           placeholderName={placeholderName}
           attributeCode={attributeCode}
           targetCode={targetCode}
+          clientId={clientId}
         />
       )}
       {component === 'youtube' && (
@@ -468,6 +490,7 @@ const Ask = ({
           placeholderName={placeholderName}
           attributeCode={attributeCode}
           targetCode={targetCode}
+          clientId={clientId}
         />
       )}
       {component === 'time_zone' && (
@@ -481,6 +504,7 @@ const Ask = ({
           placeholderName={placeholderName}
           attributeCode={attributeCode}
           targetCode={targetCode}
+          clientId={clientId}
         />
       )}
       {component === 'checkbox' && (
@@ -494,6 +518,7 @@ const Ask = ({
           placeholderName={placeholderName}
           attributeCode={attributeCode}
           targetCode={targetCode}
+          clientId={clientId}
         />
       )}
       {component === 'log_rocket_session' && (
@@ -505,6 +530,7 @@ const Ask = ({
           placeholderName={placeholderName}
           attributeCode={attributeCode}
           targetCode={targetCode}
+          clientId={clientId}
         />
       )}
       {component === 'flag' && (
@@ -518,6 +544,7 @@ const Ask = ({
           placeholderName={placeholderName}
           attributeCode={attributeCode}
           targetCode={targetCode}
+          clientId={clientId}
         />
       )}
       {component === 'progress' && (
@@ -531,6 +558,7 @@ const Ask = ({
           placeholderName={placeholderName}
           attributeCode={attributeCode}
           targetCode={targetCode}
+          clientId={clientId}
         />
       )}
       <FormErrorMessage>{feedback}</FormErrorMessage>

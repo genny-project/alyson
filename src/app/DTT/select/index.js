@@ -1,19 +1,19 @@
 import './styles.css'
 
 import { Box, HStack, Text, useTheme } from '@chakra-ui/react'
-import { compose, includes, isEmpty, pathOr } from 'ramda'
+import { compose, equals, includes, isEmpty, pathOr } from 'ramda'
 import { selectCode, selectRows } from 'redux/db/selectors'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 
 import { Select as CSelect } from 'chakra-react-select'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { apiConfig } from 'config/get-api-config'
 import debounce from 'lodash.debounce'
 import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { getValue } from './get-value'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
+import { lojing } from 'utils/constants'
 import mapOptions from './map-options'
 import { newMsg } from 'redux/app'
 import { onSendMessage } from 'vertx'
@@ -31,6 +31,7 @@ const Write = ({
   parentCode,
   attributeCode,
   mandatory,
+  clientId,
 }) => {
   const dropdownData =
     useSelector(
@@ -44,11 +45,21 @@ const Write = ({
   const isMulti = includes('multiple', dataType.typeName || '') || component === 'tag'
   const processId = useSelector(selectCode(questionCode, 'processId'))
   const sourceCode = useSelector(selectCode('USER'))
-  const clientId = apiConfig?.clientId
+
   const [value, setValue] = useState(getValue(data, options))
   const [updated, setUpdated] = useState(false)
   const [isFocused, setIsFocused] = useState(true)
+
   const theme = useTheme()
+  const fieldBackgroundColor = equals(clientId)(lojing)
+    ? 'product.gray'
+    : theme.colors.background.light
+  const fieldBorderColor = equals(clientId)(lojing) ? 'product.gray' : theme.colors.gray['600']
+  const fieldHoverBorderColor = equals(clientId)(lojing) ? 'product.gray' : 'product.secondary'
+  const fieldTextColor = 'product.gray700'
+
+  const labelTextColor = equals(clientId)(lojing) ? 'gray.600' : 'product.gray700'
+  const borderRadius = equals(clientId)(lojing) ? 'calc(0.25rem - 1px)' : '0.5rem'
 
   const { errorState } = useError()
   const { fieldState } = useIsFieldNotEmpty()
@@ -121,7 +132,7 @@ const Write = ({
         transition="all 0.25s ease"
       >
         {placeholderName && (
-          <Text as="label" fontSize={'sm'} fontWeight={'medium'} color={'gray.600'}>
+          <Text as="label" fontSize={'sm'} fontWeight={'medium'} color={labelTextColor}>
             {placeholderName}
             {mandatory ? (
               <Text as="span" color={'red.500'} ml={1}>
@@ -162,15 +173,15 @@ const Write = ({
 
             paddingInline: '0.5rem',
             paddingBlock: '0.5rem',
-            bg: 'product.gray',
-            borderRadius: 'calc(0.25rem - 1px)',
-            borderColor: 'product.gray',
+            bg: fieldBackgroundColor,
+            borderRadius: borderRadius,
+            borderColor: fieldBorderColor,
             fontSize: '0.875rem',
             fontWeight: '500',
-            color: 'product.darkGray',
+            color: fieldTextColor,
             cursor: 'pointer',
             _hover: {
-              borderColor: 'product.gray',
+              borderColor: fieldHoverBorderColor,
               boxShadow: 'lg',
             },
             _focus: {
@@ -202,7 +213,7 @@ const Write = ({
             bg: '#fff',
             fontSize: '0.875rem',
             fontWeight: '500',
-            color: 'product.darkGray',
+            color: fieldTextColor,
             _hover: {
               bg: 'product.secondary',
               color: '#fff',

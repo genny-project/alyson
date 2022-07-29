@@ -1,6 +1,6 @@
 import { Box, Grid, VStack, useColorModeValue, useTheme } from '@chakra-ui/react'
 import DeveloperConsole, { isDev } from 'utils/developer'
-import { SIDEBAR_WIDTH, SIDEBAR_WIDTH_SM } from 'utils/constants'
+import { SIDEBAR_WIDTH, SIDEBAR_WIDTH_SM, lojing } from 'utils/constants'
 
 import Dialog from 'app/layouts/display/dialog'
 import DisplayDrawer from 'app/layouts/display/drawer'
@@ -30,15 +30,17 @@ const TemplateRoot = ({ mappedPcm }) => {
   const theme = useTheme()
   const { PRI_LOC1, PRI_LOC2, PRI_LOC3 } = mappedPcm
 
+  const clientId = apiConfig?.clientId
+
   // THEME COLORS
-  const lightColor = 'product.grayLight' || theme.colors.background['light']
+  const lightColor = equals(clientId)(lojing) ? theme.colors.background['light'] : 'product.gray50'
   const darkColor =
     useGetAttributeFromProjectBaseEntity('PRI_COLOR_BACKGROUND_ON')?.valueString ||
     theme.colors.background['dark']
-  const color = useColorModeValue(lightColor, darkColor)
+  const color = useColorModeValue(darkColor, lightColor)
 
-  const appBg = 'product.grayLight' || theme.colors.primary[900]
-  const clientId = apiConfig?.clientId
+  const appBg = equals(clientId)(lojing) ? theme.colors.background['light'] : 'product.gray50'
+
   const isMobile = useIsMobile()
 
   return (
@@ -48,7 +50,7 @@ const TemplateRoot = ({ mappedPcm }) => {
     "nav main"`}
       gridTemplateColumns={isMobile ? `${SIDEBAR_WIDTH_SM} 1fr` : `${SIDEBAR_WIDTH} 1fr`}
       gridTemplateRows={'auto 1fr'}
-      fontFamily="product.bodyFont"
+      fontFamily={'product.bodyFont'}
     >
       {/* HEADER WRAPPER */}
       <header
@@ -82,7 +84,7 @@ const TemplateRoot = ({ mappedPcm }) => {
       <Box backgroundColor={lightColor} id="main-display" pb={1} overflow="auto" area={'main'}>
         <Box
           paddingTop="2.25rem"
-          paddingInline={equals(clientId)('lojing') ? 'clamp(1.25rem, 5vw, 7.5rem)' : ''}
+          paddingInline={equals(clientId)(lojing) ? 'clamp(1.25rem, 5vw, 7.5rem)' : ''}
         >
           {/* Main Page Content */}
           <PcmField code={PRI_LOC3} mappedPcm={mappedPcm} />

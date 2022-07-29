@@ -10,6 +10,11 @@ const DateInMonth = ({
   maxDate = currentMonthInIsoFormat,
   handleDateChange,
   errorStatus,
+  fieldBackgroundColor,
+  fieldBorderColor,
+  fieldHoverBorderColor,
+  fieldTextColor,
+  borderRadius,
 }) => {
   return (
     <>
@@ -33,14 +38,14 @@ const DateInMonth = ({
               h={'auto'}
               paddingBlock={3}
               paddingInline={6}
-              bg={'product.gray'}
-              borderRadius={'calc(0.25rem - 1px)'}
-              borderColor={'product.gray'}
+              bg={fieldBackgroundColor}
+              borderRadius={borderRadius}
+              borderColor={fieldBorderColor}
               fontSize={'sm'}
               fontWeight={'medium'}
-              color="product.darkGray"
+              color={fieldTextColor}
               _hover={{
-                borderColor: 'product.gray',
+                borderColor: fieldHoverBorderColor,
                 boxShadow: 'lg',
               }}
               _focusVisible={{
@@ -78,14 +83,14 @@ const DateInMonth = ({
               h={'auto'}
               paddingBlock={3}
               paddingInline={6}
-              bg={'product.gray'}
-              borderRadius={'calc(0.25rem - 1px)'}
-              borderColor={'product.gray'}
+              bg={fieldBackgroundColor}
+              borderRadius={borderRadius}
+              borderColor={fieldBorderColor}
               fontSize={'sm'}
               fontWeight={'medium'}
-              color="product.darkGray"
+              color={fieldTextColor}
               _hover={{
-                borderColor: 'product.secondary',
+                borderColor: fieldHoverBorderColor,
                 boxShadow: 'lg',
               }}
               _focusVisible={{
@@ -106,7 +111,7 @@ const DateInMonth = ({
         </VStack>
       </Stack>
 
-      {errorStatus && <Text textStyle="tail.error" mt={2}>{`Please enter a valid date. `}</Text>}
+      {errorStatus && <Text textStyle="product.errorText">{`Please enter a valid date. `}</Text>}
     </>
   )
 }

@@ -4,13 +4,28 @@ import { useEffect, useRef, useState } from 'react'
 
 import { Text } from '@chakra-ui/layout'
 import defaultTimeZones from 'utils/helpers/time-zone.json'
+import { equals } from 'ramda'
 import { fromLatLng } from 'utils/helpers/timezone_magic/get-timezone-name'
+import { lojing } from 'utils/constants'
+import { useTheme } from '@chakra-ui/react'
 
 let places
 
-const PlacesAutocomplete = ({ onSelect, questionCode }) => {
+const PlacesAutocomplete = ({ onSelect, questionCode, clientId }) => {
   const inputRef = useRef(null)
   const [input, setInput] = useState('')
+
+  const theme = useTheme()
+
+  const fieldBackgroundColor = equals(clientId)(lojing)
+    ? 'product.gray'
+    : theme.colors.background.light
+  const fieldBorderColor = equals(clientId)(lojing) ? 'product.gray' : theme.colors.gray['600']
+  const fieldHoverBorderColor = equals(clientId)(lojing) ? 'product.gray' : 'product.secondary'
+  const fieldTextColor = 'product.gray700'
+
+  const labelTextColor = equals(clientId)(lojing) ? 'gray.600' : 'product.gray700'
+  const borderRadius = equals(clientId)(lojing) ? 'calc(0.25rem - 1px)' : '0.5rem'
 
   useEffect(() => {
     if (inputRef) {
@@ -32,17 +47,20 @@ const PlacesAutocomplete = ({ onSelect, questionCode }) => {
 
   return (
     <div>
-      <Text m="1">What is a city inside your preferred timezone?</Text>
+      <Text color={labelTextColor} m="1">
+        What is a city inside your preferred timezone?
+      </Text>
+
       <InputGroup
-        bg={'product.gray'}
-        borderRadius={'calc(0.25rem - 1px)'}
+        bg={fieldBackgroundColor}
+        borderRadius={borderRadius}
         borderWidth="1px"
         borderStyle="solid"
-        borderColor={'product.gray'}
+        borderColor={fieldBorderColor}
         overflow={'hidden'}
         role="group"
         _hover={{
-          borderColor: 'product.gray',
+          borderColor: fieldHoverBorderColor,
           boxShadow: 'lg',
         }}
         _focusVisible={{
@@ -76,7 +94,7 @@ const PlacesAutocomplete = ({ onSelect, questionCode }) => {
           border={0}
           fontSize={'sm'}
           fontWeight={'medium'}
-          color="product.darkGray"
+          color={fieldTextColor}
           role="peer"
           _focusVisible={{
             border: '0',

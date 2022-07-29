@@ -1,20 +1,42 @@
-import { Box, Button, Center, Flex, HStack, Image, Input, Text, useToast } from '@chakra-ui/react'
+import {
+  Box,
+  Button,
+  Center,
+  Flex,
+  HStack,
+  Image,
+  Input,
+  Text,
+  useTheme,
+  useToast,
+} from '@chakra-ui/react'
 import { compose, equals, includes, isEmpty, map, pathOr, split } from 'ramda'
 import { faCloudUploadAlt, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useState } from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { apiConfig } from 'config/get-api-config'
 import { isImageField } from 'utils/functions'
+import { lojing } from 'utils/constants'
 import { useDropzone } from 'react-dropzone'
 
-const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 1, questionCode }) => {
+const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 1, questionCode, clientId }) => {
   const [files, setFiles] = useState([])
   const [hover, setHover] = useState(false)
   const toast = useToast()
   const checkIfImage = compose(includes('image'), split('/'))
 
-  const clientId = apiConfig?.clientId
+  const theme = useTheme()
+
+  const fieldHoverBackgroundColor = equals(clientId)(lojing)
+    ? 'product.secondary100'
+    : 'product.primary'
+  const fieldHoverBorderColor = equals(clientId)(lojing)
+    ? 'product.secondary100'
+    : 'product.primary'
+
+  const fieldHoverTextColor = equals(clientId)(lojing)
+    ? 'product.secondary'
+    : theme.colors.text.dark
 
   useEffect(() => {
     if (files.length) {
@@ -111,8 +133,8 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 1, questionCode
             borderWidth={1}
             borderStyle={'dashed'}
             _groupHover={{
-              borderColor: 'product.secondary100',
-              bg: 'product.secondary100',
+              borderColor: fieldHoverBorderColor,
+              bg: fieldHoverBackgroundColor,
             }}
           >
             <Box
@@ -121,7 +143,7 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 1, questionCode
               textAlign={'center'}
               color={'gray.600'}
               _groupHover={{
-                color: 'product.secondary',
+                color: fieldHoverTextColor,
               }}
             >
               <FontAwesomeIcon
@@ -138,7 +160,7 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 1, questionCode
                 fontSize={13}
                 fontWeight={500}
                 _groupHover={{
-                  color: '#4d4d4d',
+                  color: equals(clientId)(lojing) ? '#4d4d4d' : theme.colors.text.dark,
                 }}
               >
                 {`Drag and drop images and videos`}
@@ -147,7 +169,7 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 1, questionCode
                 <Text
                   as="span"
                   _groupHover={{
-                    color: 'product.secondary',
+                    color: fieldHoverTextColor,
                   }}
                 >
                   {`browse files from your computer`}
@@ -160,7 +182,7 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 1, questionCode
         <Flex mt={'1rem'}>
           <Flex direction="row">{preview}</Flex>
           <Flex justify="center" w={'full'}>
-            {equals(clientId)('lojing') ? (
+            {equals(clientId)(lojing) ? (
               <Button
                 variant="outline"
                 isDisabled={!!isEmpty(files)}

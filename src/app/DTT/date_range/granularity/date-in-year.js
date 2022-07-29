@@ -37,7 +37,7 @@ const DateInYear = ({ questionCode, handleDateChange, handleClearDate, errorStat
         </VStack>
       </HStack>
 
-      {errorStatus && <Text textStyle="tail.error" mt={2}>{`Please enter a valid date. `}</Text>}
+      {errorStatus && <Text textStyle="product.errorText">{`Please enter a valid date. `}</Text>}
     </>
   )
 }

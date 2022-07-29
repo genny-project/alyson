@@ -1,15 +1,16 @@
 import { Box, HStack, Text, useTheme } from '@chakra-ui/react'
 import { DateInDay, DateInMonth, DateInYear } from './granularity'
+import { compose, equals } from 'ramda'
 import { useEffect, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Read } from '../text'
-import { compose } from 'ramda'
 import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { getIsInvalid } from 'utils/functions'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
+import { lojing } from 'utils/constants'
 import { newMsg } from 'redux/app'
 import safelyParseDate from 'utils/helpers/safely-parse-date'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
@@ -27,7 +28,20 @@ const Write = ({
   targetCode,
   placeholder,
   mandatory,
+  clientId,
 }) => {
+  const theme = useTheme()
+
+  const fieldBackgroundColor = equals(clientId)(lojing)
+    ? 'product.gray'
+    : theme.colors.background.light
+  const fieldBorderColor = equals(clientId)(lojing) ? 'product.gray' : theme.colors.gray['600']
+  const fieldHoverBorderColor = equals(clientId)(lojing) ? 'product.gray' : 'product.secondary'
+  const fieldTextColor = 'product.gray700'
+
+  const labelTextColor = equals(clientId)(lojing) ? 'gray.600' : 'product.gray700'
+  const borderRadius = equals(clientId)(lojing) ? 'calc(0.25rem - 1px)' : '0.5rem'
+
   const config = safelyParseJson(html, {})
   const { maxDate, granularity = 'date' } = config
   const { startDate, endDate } = data?.value ? safelyParseJson(data.value, {}) : {}
@@ -97,7 +111,7 @@ const Write = ({
         transition="all 0.25s ease"
       >
         {placeholder && (
-          <Text as="label" fontSize={'sm'} fontWeight={'medium'} color={'gray.600'}>
+          <Text as="label" fontSize={'sm'} fontWeight={'medium'} color={labelTextColor}>
             {placeholder}
             {mandatory ? (
               <Text as="span" color={'red.500'} ml={1}>
@@ -127,6 +141,11 @@ const Write = ({
           maxDate={maxDate}
           handleDateChange={handleDateChange}
           errorStatus={errorStatus}
+          fieldBackgroundColor={fieldBackgroundColor}
+          fieldBorderColor={fieldBorderColor}
+          fieldHoverBorderColor={fieldHoverBorderColor}
+          fieldTextColor={fieldTextColor}
+          borderRadius={borderRadius}
         />
       </Box>
     )
@@ -143,6 +162,11 @@ const Write = ({
           maxDate={maxDate}
           handleDateChange={handleDateChange}
           errorStatus={errorStatus}
+          fieldBackgroundColor={fieldBackgroundColor}
+          fieldBorderColor={fieldBorderColor}
+          fieldHoverBorderColor={fieldHoverBorderColor}
+          fieldTextColor={fieldTextColor}
+          borderRadius={borderRadius}
         />
       </Box>
     )
@@ -157,6 +181,11 @@ const Write = ({
         maxDate={maxDate}
         handleDateChange={handleDateChange}
         errorStatus={errorStatus}
+        fieldBackgroundColor={fieldBackgroundColor}
+        fieldBorderColor={fieldBorderColor}
+        fieldHoverBorderColor={fieldHoverBorderColor}
+        fieldTextColor={fieldTextColor}
+        borderRadius={borderRadius}
       />
     </Box>
   )

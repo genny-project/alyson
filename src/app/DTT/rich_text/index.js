@@ -23,6 +23,7 @@ import {
   useTheme,
 } from '@chakra-ui/react'
 import { ContentState, EditorState, convertFromHTML, convertToRaw } from 'draft-js'
+import { compose, equals } from 'ramda'
 import { faCheckCircle, faExpand } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
@@ -31,11 +32,11 @@ import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import DOMPurify from 'dompurify'
 import { Editor } from 'react-draft-wysiwyg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { compose } from 'ramda'
 import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
 import { getIsInvalid } from 'utils/functions'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
+import { lojing } from 'utils/constants'
 import { newMsg } from 'redux/app'
 import removeHtmlTags from 'utils/helpers/remove-html-tags'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
@@ -57,8 +58,21 @@ const Write = ({
   attributeCode,
   targetCode,
   mandatory,
+  clientId,
 }) => {
   const theme = useTheme()
+
+  console.log(clientId)
+
+  const fieldBackgroundColor = equals(clientId)(lojing)
+    ? 'product.gray'
+    : theme.colors.background.light
+  const fieldBorderColor = equals(clientId)(lojing) ? 'product.gray' : theme.colors.gray['600']
+  const fieldHoverBorderColor = equals(clientId)(lojing) ? 'product.gray' : 'product.secondary'
+
+  const labelTextColor = equals(clientId)(lojing) ? 'gray.600' : 'product.gray700'
+  const borderRadius = equals(clientId)(lojing) ? 'calc(0.25rem - 1px)' : '0.5rem'
+
   const { minCharacterCount = 0, maxCharacterCount } = safelyParseJson(html, {})
   const blocksFromHTML = convertFromHTML(data?.value || '')
   const state = ContentState.createFromBlockArray(
@@ -156,7 +170,7 @@ const Write = ({
         transition="all 0.25s ease"
       >
         {placeholderName && (
-          <Text as="label" fontSize={'sm'} fontWeight={'medium'} color={'gray.600'}>
+          <Text as="label" fontSize={'sm'} fontWeight={'medium'} color={labelTextColor}>
             {placeholderName}
             {mandatory ? (
               <Text as="span" color={'red.500'} ml={1}>
@@ -178,15 +192,15 @@ const Write = ({
         test-id={questionCode}
         w="full"
         border="1px"
-        borderColor="product.gray"
-        borderRadius={'calc(0.24rem - 1px)'}
+        borderColor={fieldBorderColor}
+        borderRadius={borderRadius}
         paddingBlock={3}
         paddingInline={6}
-        bg="product.gray"
+        bg={fieldBackgroundColor}
         fontSize={'sm'}
         fontWeight={'medium'}
         _hover={{
-          borderColor: 'product.gray',
+          borderColor: fieldHoverBorderColor,
           boxShadow: 'lg',
         }}
         _focusWithin={{

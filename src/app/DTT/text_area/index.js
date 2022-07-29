@@ -1,21 +1,21 @@
 import { Box, HStack, Text, Textarea, VStack, useTheme } from '@chakra-ui/react'
+import { compose, equals } from 'ramda'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useRef, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { compose } from 'ramda'
 import debounce from 'lodash.debounce'
 import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { getIsInvalid } from 'utils/functions'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
+import { lojing } from 'utils/constants'
 import { newMsg } from 'redux/app'
 import { selectFieldMessage } from 'redux/app/selectors'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
-import { useMobileValue } from 'utils/hooks'
 
 export const Read = ({ data, config = {} }) => {
   return <Textarea {...config}>{data?.value || config.defaultValue}</Textarea>
@@ -32,9 +32,21 @@ export const Write = ({
   attributeCode,
   targetCode,
   mandatory,
+  clientId,
 }) => {
   let regex
   const theme = useTheme()
+
+  const fieldBackgroundColor = equals(clientId)(lojing)
+    ? 'product.gray'
+    : theme.colors.background.light
+  const fieldBorderColor = equals(clientId)(lojing) ? 'product.gray' : theme.colors.gray['600']
+  const fieldHoverBorderColor = equals(clientId)(lojing) ? 'product.gray' : 'product.secondary'
+  const fieldTextColor = 'product.gray700'
+
+  const labelTextColor = equals(clientId)(lojing) ? 'gray.600' : 'product.gray700'
+  const borderRadius = equals(clientId)(lojing) ? 'calc(0.25rem - 1px)' : '0.5rem'
+
   const { dispatch } = useError()
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value)
@@ -105,7 +117,7 @@ export const Write = ({
         transition="all 0.25s ease"
       >
         {placeholderName && (
-          <Text as="label" fontSize={'sm'} fontWeight={'medium'} color={'gray.600'}>
+          <Text as="label" fontSize={'sm'} fontWeight={'medium'} color={labelTextColor}>
             {placeholderName}
             {mandatory ? (
               <Text as="span" color={'red.500'} ml={1}>
@@ -138,13 +150,14 @@ export const Write = ({
         paddingInline={6}
         h={'auto'}
         minH={'5.13rem'}
-        bg={'product.gray'}
-        borderRadius={'calc(0.75rem - 1px)'}
-        borderColor={'product.gray'}
+        bg={fieldBackgroundColor}
+        borderRadius={borderRadius}
+        borderColor={fieldBorderColor}
         fontSize={'sm'}
         fontWeight={'medium'}
+        color={fieldTextColor}
         _hover={{
-          borderColor: 'product.gray',
+          borderColor: fieldHoverBorderColor,
           boxShadow: 'lg',
         }}
         _focusVisible={{
@@ -155,7 +168,7 @@ export const Write = ({
       {errorStatus && (
         <VStack alignItems="start">
           {(hasFieldMessage || hasErrorMessage) && (
-            <Text textStyle="tail.error" mt={2}>
+            <Text textStyle="product.errorText">
               {hasFieldMessage ? fieldMessage : errorMessage}
             </Text>
           )}
