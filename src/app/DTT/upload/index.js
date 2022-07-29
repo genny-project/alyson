@@ -9,7 +9,7 @@ import {
   Tooltip,
   VStack,
 } from '@chakra-ui/react'
-import { faArrowDown, faCheck, faFileDownload, faUpload } from '@fortawesome/free-solid-svg-icons'
+import { faArrowDown, faCheck, faFileDownload } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useState } from 'react'
 
 import DropZone from './Dropzone'
