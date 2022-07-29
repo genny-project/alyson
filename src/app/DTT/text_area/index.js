@@ -84,8 +84,6 @@ export const Write = ({
 
   const debouncedSendAnswer = debounce(onSendAnswer, 500)
 
-  const maxW = useMobileValue(['', '25vw'])
-
   const onBlur = e => {
     e.target.value ? setIsFocused(true) : setIsFocused(false)
     !errorStatus && debouncedSendAnswer(e.target.value)

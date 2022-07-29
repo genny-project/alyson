@@ -1,10 +1,7 @@
 import { Box, Button, Tag, Text, VStack, Wrap, WrapItem } from '@chakra-ui/react'
 import { compose, filter, identity, includes, map, prop } from 'ramda'
-import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { selectAttributes, selectCode } from 'redux/db/selectors'
 import { useDispatch, useSelector } from 'react-redux'
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { highlightQuestion } from 'redux/app'
 import { onSendMessage } from 'vertx'
 import { useError } from 'utils/contexts/ErrorContext'
@@ -89,25 +86,24 @@ const Submit = ({ askData, onFinish, parentCode }) => {
         </Wrap>
       </VStack>
       <Button
+        w={`105px`}
+        color="white"
         isLoading={loading}
         test-id={questionCode}
         isDisabled={isDisabled}
         onClick={onClick}
-        leftIcon={
-          questionCode === 'QUE_SUBMIT_NO' ? (
-            <FontAwesomeIcon icon={faTimes} />
-          ) : (
-            <FontAwesomeIcon icon={faCheck} />
-          )
-        }
-        colorScheme={questionCode === 'QUE_SUBMIT_NO' ? 'red' : 'primary'}
         variant="solid"
-        borderRadius={'full'}
+        borderRadius={'8px'}
         paddingBlock="6px"
         paddingInline="20px"
         background={bgColor}
+        fontSize={'sm'}
         _hover={{
-          background: 'orange',
+          background: '#ffffff',
+          color: 'product.secondary',
+          border: '1px solid',
+          borderColor: 'product.secondary',
+          variant: 'outline',
         }}
       >
         {name}

@@ -28,9 +28,18 @@ const EventButton = ({ askData, onFinish, parentCode, sourceCode }) => {
         test-id={questionCode}
         isDisabled={disabled}
         onClick={onClick}
-        leftIcon={<FontAwesomeIcon icon={faCheck} />}
-        colorScheme="primary"
-        variant="solid"
+        background="#ffffff"
+        color="product.secondary"
+        border="1px solid"
+        borderColor="product.secondary"
+        variant="outline"
+        w={`105px`}
+        _hover={{
+          background: 'product.secondary',
+          color: '#ffffff',
+          variant: 'solid',
+        }}
+        mt={4}
       >
         {name}
       </Button>
