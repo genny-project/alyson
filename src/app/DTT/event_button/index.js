@@ -1,12 +1,12 @@
-import { Box, Button } from '@chakra-ui/react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck } from '@fortawesome/free-solid-svg-icons'
-import { onSendMessage } from 'vertx'
+import { Button, useTheme } from '@chakra-ui/react'
+
 import Submit from './Submit'
 import isSubmitButton from 'app/DTT/event_button/helpers/is-submit.js'
+import { onSendMessage } from 'vertx'
 
 const EventButton = ({ askData, onFinish, parentCode, sourceCode }) => {
   const { questionCode, targetCode, name, disabled, processId, attributeCode } = askData
+  const theme = useTheme()
 
   const onClick = () =>
     onSendMessage({
@@ -23,27 +23,26 @@ const EventButton = ({ askData, onFinish, parentCode, sourceCode }) => {
     return <Submit askData={askData} onFinish={onFinish} parentCode={parentCode} />
 
   return (
-    <Box>
-      <Button
-        test-id={questionCode}
-        isDisabled={disabled}
-        onClick={onClick}
-        background="#ffffff"
-        color="product.secondary"
-        border="1px solid"
-        borderColor="product.secondary"
-        variant="outline"
-        w={`105px`}
-        _hover={{
-          background: 'product.secondary',
-          color: '#ffffff',
-          variant: 'solid',
-        }}
-        mt={4}
-      >
-        {name}
-      </Button>
-    </Box>
+    <Button
+      test-id={questionCode}
+      isDisabled={disabled}
+      onClick={onClick}
+      variant="outline"
+      bg={theme.colors.background.light}
+      border="1px solid"
+      borderColor="product.secondary"
+      w={`6.5rem`}
+      fontSize={'sm'}
+      color="product.secondary"
+      mr={2}
+      _hover={{
+        variant: 'solid',
+        background: 'product.secondary',
+        color: theme.colors.text.dark,
+      }}
+    >
+      {name}
+    </Button>
   )
 }
 
