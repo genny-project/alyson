@@ -141,6 +141,7 @@ const Write = ({
   const diffInYears = differenceInYears(parseISO(today), parseISO(formatInputDate))
 
   const prodocutBasedDatepickerClass = apiConfig?.clientId
+  const selectedDateInIsoFormat = !!dateValue ? safelyParseDate(dateValue).toISOString() : ''
 
   useEffect(() => {
     isInvalid ? setErrorStatus(true) : setErrorStatus(false)
@@ -280,7 +281,7 @@ const Write = ({
           onSendAnswer('')
           setDateValue('')
         }}
-        date={getDate(data?.value)}
+        date={getDate(selectedDateInIsoFormat || '')}
       />
     </Box>
   ) : (
