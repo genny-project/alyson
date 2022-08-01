@@ -1,22 +1,21 @@
 import { Box, Text as ChakraText, HStack, Input, VStack, useTheme } from '@chakra-ui/react'
-import { compose, equals } from 'ramda'
+import { equals } from 'ramda'
 import { faCalendar, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useEffect, useRef, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import DetailViewTags from 'app/DTT/text/detailview_tags'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import debounce from 'lodash.debounce'
-import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
 import { getIsInvalid } from 'utils/functions'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
 import { lojing } from 'utils/constants'
-import { newMsg } from 'redux/app'
 import { selectFieldMessage } from 'redux/app/selectors'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
+import notEqual from 'utils/helpers/not-equal'
 
 export const Write = ({
   questionCode,
@@ -26,15 +25,32 @@ export const Write = ({
   errorMessage,
   parentCode,
   placeholderName,
-  attributeCode,
-  targetCode,
   mandatory,
   clientId,
 }) => {
-  const [userInput, setuserInput] = useState(data?.value)
-  const [dataValue, setDataValue] = useState(data?.value)
+  const [userInput, setuserInput] = useState(data?.value || '')
+  const [dataValue] = useState(data?.value)
+  const [validatedFromBackend, setValidatedFromBackend] = useState(false)
   const [errorStatus, setErrorStatus] = useState(false)
   const [isFocused, setIsFocused] = useState(false)
+  const debouncedSendAnswer = debounce(onSendAnswer, 500)
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (!!userInput && notEqual(userInput, dataValue)) {
+        !errorStatus && debouncedSendAnswer(userInput)
+        setValidatedFromBackend(false)
+      }
+    }, 5000)
+    return () => clearInterval(timer)
+  }, [dataValue, debouncedSendAnswer, errorStatus, questionCode, userInput])
+
+  if (questionCode === 'QUE_FIRSTNAME') {
+    console.log(
+      '%c And this will always run first',
+      'background: tomato; color: silver; padding: 0.5rem',
+    )
+  }
 
   let regex
   const theme = useTheme()
@@ -49,8 +65,6 @@ export const Write = ({
 
   const failedValidation = errorState[questionCode]
   const fieldNotEmpty = fieldState[questionCode]
-  const dispatchBeInformation = useDispatch()
-  const onNewMsg = compose(dispatchBeInformation, newMsg)
 
   const fieldBackgroundColor = equals(clientId)(lojing)
     ? 'product.gray'
@@ -78,10 +92,6 @@ export const Write = ({
   }, [userInput])
 
   useEffect(() => {
-    setuserInput(data?.value)
-  }, [data, setuserInput])
-
-  useEffect(() => {
     const listener = event => {
       if (event.code === 'Enter' && !event.shiftKey) {
         event.preventDefault()
@@ -104,14 +114,18 @@ export const Write = ({
       : dispatch({ type: ACTIONS.SET_TO_FALSE, payload: questionCode })
   }, [dispatch, isInvalid, questionCode])
 
-  const debouncedSendAnswer = debounce(onSendAnswer, 500)
-
   const onBlur = e => {
     e.target.value ? setIsFocused(true) : setIsFocused(false)
     !errorStatus && debouncedSendAnswer(e.target.value)
     dispatchFieldMessage({ payload: questionCode })
-    dispatchBaseEntityUpdates(attributeCode, targetCode, userInput)(onNewMsg)
+    setValidatedFromBackend(true)
   }
+
+  // console.log(
+  //   '%c 🙀🙀🙀🙀🙀🙀🙀🙀🙀🙀🙀🙀🙀',
+  //   'background: tomato; color: silver; padding: 0.5rem',
+  //   { userInput, dataValue, questionCode, data },
+  // )
 
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
@@ -140,7 +154,11 @@ export const Write = ({
         )}
         {(!failedValidation && fieldNotEmpty) ||
         (!failedValidation && userInput && isNotStringifiedEmptyArray(userInput)) ? (
-          <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
+          validatedFromBackend ? (
+            <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
+          ) : (
+            <FontAwesomeIcon opacity="0.5" color="orange" icon={faCheckCircle} />
+          )
         ) : null}
       </HStack>
 
