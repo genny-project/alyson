@@ -1,17 +1,17 @@
 import { Box, HStack, Input, Text, useTheme } from '@chakra-ui/react'
-import { compose, equals } from 'ramda'
 import { useEffect, useRef, useState } from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { compose } from 'ramda'
 import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
-import { lojing } from 'utils/constants'
 import makeAddressData from './make-address-data'
 import { newMsg } from 'redux/app'
 import { useDispatch } from 'react-redux'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
+import useProductColors from 'utils/productColors'
 
 let autocomplete
 
@@ -39,20 +39,18 @@ const AddressPicker = ({
   const dispatchBeInformation = useDispatch()
   const onNewMsg = compose(dispatchBeInformation, newMsg)
 
-  const fieldBackgroundColor = equals(clientId)(lojing)
-    ? 'product.gray'
-    : theme.colors.background.light
-  const fieldBorderColor = equals(clientId)(lojing) ? 'product.gray' : theme.colors.gray['600']
-  const fieldHoverBorderColor = equals(clientId)(lojing) ? 'product.gray' : 'product.secondary'
-  const fieldTextColor = 'product.gray700'
-
-  const labelTextColor = equals(clientId)(lojing) ? 'gray.600' : 'product.gray700'
-  const borderRadius = equals(clientId)(lojing) ? 'calc(0.25rem - 1px)' : '0.5rem'
+  const {
+    fieldBackgroundColor,
+    fieldBorderColor,
+    fieldHoverBorderColor,
+    fieldTextColor,
+    labelTextColor,
+    borderRadius,
+  } = useProductColors()
 
   useEffect(() => {
-    data?.value ? setIsFocused(true) : setIsFocused(false)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    userInput ? setIsFocused(true) : setIsFocused(false)
+  }, [userInput])
 
   useEffect(() => {
     if (autoCompleteRef?.current) {

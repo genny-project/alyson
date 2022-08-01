@@ -1,7 +1,7 @@
 import './styles.css'
 
 import { Box, HStack, Text, useTheme } from '@chakra-ui/react'
-import { compose, equals, includes, isEmpty, pathOr } from 'ramda'
+import { compose, includes, isEmpty, pathOr } from 'ramda'
 import { selectCode, selectRows } from 'redux/db/selectors'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
@@ -13,12 +13,12 @@ import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { getValue } from './get-value'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
-import { lojing } from 'utils/constants'
 import mapOptions from './map-options'
 import { newMsg } from 'redux/app'
 import { onSendMessage } from 'vertx'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
+import useProductColors from 'utils/productColors'
 
 const Write = ({
   questionCode,
@@ -51,15 +51,14 @@ const Write = ({
   const [isFocused, setIsFocused] = useState(true)
 
   const theme = useTheme()
-  const fieldBackgroundColor = equals(clientId)(lojing)
-    ? 'product.gray'
-    : theme.colors.background.light
-  const fieldBorderColor = equals(clientId)(lojing) ? 'product.gray' : theme.colors.gray['600']
-  const fieldHoverBorderColor = equals(clientId)(lojing) ? 'product.gray' : 'product.secondary'
-  const fieldTextColor = 'product.gray700'
-
-  const labelTextColor = equals(clientId)(lojing) ? 'gray.600' : 'product.gray700'
-  const borderRadius = equals(clientId)(lojing) ? 'calc(0.25rem - 1px)' : '0.5rem'
+  const {
+    fieldBackgroundColor,
+    fieldBorderColor,
+    fieldHoverBorderColor,
+    fieldTextColor,
+    labelTextColor,
+    borderRadius,
+  } = useProductColors()
 
   const { errorState } = useError()
   const { fieldState } = useIsFieldNotEmpty()
@@ -100,8 +99,7 @@ const Write = ({
 
   useEffect(() => {
     data?.value ? setIsFocused(true) : setIsFocused(false)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [data?.value])
 
   const onChange = newValue => {
     if (!isMulti) {

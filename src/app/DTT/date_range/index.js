@@ -1,22 +1,22 @@
 import { Box, HStack, Text, useTheme } from '@chakra-ui/react'
 import { DateInDay, DateInMonth, DateInYear } from './granularity'
-import { compose, equals } from 'ramda'
 import { useEffect, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Read } from '../text'
+import { compose } from 'ramda'
 import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { getIsInvalid } from 'utils/functions'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
-import { lojing } from 'utils/constants'
 import { newMsg } from 'redux/app'
 import safelyParseDate from 'utils/helpers/safely-parse-date'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { useDispatch } from 'react-redux'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
+import useProductColors from 'utils/productColors'
 
 const Write = ({
   questionCode,
@@ -28,19 +28,15 @@ const Write = ({
   targetCode,
   placeholder,
   mandatory,
-  clientId,
 }) => {
-  const theme = useTheme()
-
-  const fieldBackgroundColor = equals(clientId)(lojing)
-    ? 'product.gray'
-    : theme.colors.background.light
-  const fieldBorderColor = equals(clientId)(lojing) ? 'product.gray' : theme.colors.gray['600']
-  const fieldHoverBorderColor = equals(clientId)(lojing) ? 'product.gray' : 'product.secondary'
-  const fieldTextColor = 'product.gray700'
-
-  const labelTextColor = equals(clientId)(lojing) ? 'gray.600' : 'product.gray700'
-  const borderRadius = equals(clientId)(lojing) ? 'calc(0.25rem - 1px)' : '0.5rem'
+  const {
+    fieldBackgroundColor,
+    fieldBorderColor,
+    fieldHoverBorderColor,
+    fieldTextColor,
+    labelTextColor,
+    borderRadius,
+  } = useProductColors()
 
   const config = safelyParseJson(html, {})
   const { maxDate, granularity = 'date' } = config
@@ -93,8 +89,7 @@ const Write = ({
 
   useEffect(() => {
     dates ? setIsFocused(true) : setIsFocused(false)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [dates])
 
   const FieldLabel = ({ placeholder, mandatory, isFocused }) => {
     const theme = useTheme()

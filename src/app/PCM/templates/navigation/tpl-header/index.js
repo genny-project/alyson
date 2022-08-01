@@ -1,19 +1,19 @@
 import MobileNav from 'app/layouts/navigation/mobile'
+import TemplateHeaderDesktop from './tpl-header-desktop'
 import { apiConfig } from 'config/get-api-config'
 import { useIsMobile } from 'utils/hooks'
-import TemplateHeaderDesktop from './tpl-header-desktop'
 
 const TemplateHeader = ({ mappedPcm }) => {
-  const { realm } = apiConfig
+  const clientId = apiConfig?.clientId
 
   const logoSrc =
-    realm === 'internmatch'
+    clientId === 'internmatch'
       ? '/internmatch_new.png'
-      : realm === 'mentormatch'
+      : clientId === 'mentormatch'
       ? '/MM_Primary_Fullcolour-1.png'
-      : realm === 'lojing'
+      : clientId === 'lojing'
       ? '/lojing-logo.png'
-      : realm === 'credmatch'
+      : clientId === 'credmatch'
       ? '/credmatch_logo.jpg'
       : '/credmatch_logo.jpg'
   const isMobile = useIsMobile()
