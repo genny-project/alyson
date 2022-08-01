@@ -36,7 +36,7 @@ export const Write = ({
   const { dispatch } = useError()
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
   const [errorStatus, setErrorStatus] = useState(false)
-  const [userInput, setuserInput] = useState(data?.value)
+  const [userInput, setuserInput] = useState(data?.value || '')
   const [isFocused, setIsFocused] = useState(false)
 
   const fieldMessageObject = useSelector(selectFieldMessage)
@@ -73,9 +73,8 @@ export const Write = ({
   const isInvalid = getIsInvalid(userInput)(regex)
 
   useEffect(() => {
-    data?.value ? setIsFocused(true) : setIsFocused(false)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    userInput ? setIsFocused(true) : setIsFocused(false)
+  }, [userInput])
 
   useEffect(() => {
     setuserInput(data?.value)
