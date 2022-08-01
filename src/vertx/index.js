@@ -66,10 +66,6 @@ const onSendSearch = ({
   })
 
 //hack for the duration of christmas break, need to remove it
-const heartBeat = () =>
-  onSendAnswer({
-    attributeCode: undefined,
-  })
 
 const VertxContainer = () => {
   const { keycloak } = useKeycloak()
@@ -99,7 +95,6 @@ const VertxContainer = () => {
 
     sendAuthInit({ token })
 
-    setInterval(heartBeat, 240000)
     eventBus.send(
       'address.inbound',
       {
