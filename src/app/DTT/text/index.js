@@ -45,13 +45,6 @@ export const Write = ({
     return () => clearInterval(timer)
   }, [dataValue, debouncedSendAnswer, errorStatus, questionCode, userInput])
 
-  if (questionCode === 'QUE_FIRSTNAME') {
-    console.log(
-      '%c And this will always run first',
-      'background: tomato; color: silver; padding: 0.5rem',
-    )
-  }
-
   let regex
   const theme = useTheme()
   const { dispatch } = useError()
@@ -120,12 +113,6 @@ export const Write = ({
     dispatchFieldMessage({ payload: questionCode })
     setValidatedFromBackend(true)
   }
-
-  // console.log(
-  //   '%c 🙀🙀🙀🙀🙀🙀🙀🙀🙀🙀🙀🙀🙀',
-  //   'background: tomato; color: silver; padding: 0.5rem',
-  //   { userInput, dataValue, questionCode, data },
-  // )
 
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
