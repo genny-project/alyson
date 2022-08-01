@@ -18,6 +18,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { isImageField } from 'utils/functions'
 import { lojing } from 'utils/constants'
 import { useDropzone } from 'react-dropzone'
+import useProductColors from 'utils/productColors'
 
 const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 1, questionCode, clientId }) => {
   const [files, setFiles] = useState([])
@@ -26,17 +27,11 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 1, questionCode
   const checkIfImage = compose(includes('image'), split('/'))
 
   const theme = useTheme()
-
-  const fieldHoverBackgroundColor = equals(clientId)(lojing)
-    ? 'product.secondary100'
-    : 'product.primary'
-  const fieldHoverBorderColor = equals(clientId)(lojing)
-    ? 'product.secondary100'
-    : 'product.primary'
-
-  const fieldHoverTextColor = equals(clientId)(lojing)
-    ? 'product.secondary'
-    : theme.colors.text.dark
+  const {
+    fieldHoverBorderColor,
+    fieldHoverBackgroundColor,
+    fieldHoverTextColor,
+  } = useProductColors()
 
   useEffect(() => {
     if (files.length) {

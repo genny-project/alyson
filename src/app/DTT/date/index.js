@@ -11,8 +11,8 @@ import {
   VStack,
   useTheme,
 } from '@chakra-ui/react'
-import { compose, equals, includes } from 'ramda'
-import { dateOfBirthQuestionCode, eligibleAge, lojing } from 'utils/constants'
+import { compose, includes } from 'ramda'
+import { dateOfBirthQuestionCode, eligibleAge } from 'utils/constants'
 import { differenceInYears, format, isBefore, parseISO, startOfTomorrow } from 'date-fns'
 import { faCalendarDay, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { forwardRef, useEffect, useState } from 'react'
@@ -35,6 +35,7 @@ import timeBasedOnTimeZone from 'utils/helpers/timezone_magic/time-based-on-time
 import { useError } from 'utils/contexts/ErrorContext'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
+import useProductColors from 'utils/productColors'
 
 const Read = ({ data, typeName, config }) => {
   const includeTime = includes('LocalDateTime', typeName)
@@ -71,15 +72,14 @@ const Write = ({
   let initialErrorMsg = 'You can only valid date.'
 
   const theme = useTheme()
-  const fieldBackgroundColor = equals(clientId)(lojing)
-    ? 'product.gray'
-    : theme.colors.background.light
-  const fieldBorderColor = equals(clientId)(lojing) ? 'product.gray' : theme.colors.gray['600']
-  const fieldHoverBorderColor = equals(clientId)(lojing) ? 'product.gray' : 'product.secondary'
-  const fieldTextColor = 'product.gray700'
-
-  const labelTextColor = equals(clientId)(lojing) ? 'gray.600' : 'product.gray700'
-  const borderRadius = equals(clientId)(lojing) ? 'calc(0.25rem - 1px)' : '0.5rem'
+  const {
+    fieldBackgroundColor,
+    fieldBorderColor,
+    fieldHoverBorderColor,
+    fieldTextColor,
+    labelTextColor,
+    borderRadius,
+  } = useProductColors()
 
   const includeTime = includes('LocalDateTime', typeName)
   const themeSecondary = useGetAttributeFromProjectBaseEntity('PRI_COLOR')?.value
@@ -182,7 +182,6 @@ const Write = ({
 
   useEffect(() => {
     dateValue ? setIsFocused(true) : setIsFocused(false)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dateValue])
 
   const DateInput = forwardRef(({ value, onClick }, ref) => (

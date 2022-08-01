@@ -55,7 +55,9 @@ const getApiConfig = async () => {
   tokenFromUrl = getTokenFromURL(keycloak)
 
   setupGoogleApi()
-  //to set the product colours received from the backend, you can send the product colour as second argument. ie: getProductTheme(realm, {primary: '', secondary: ''}) where productColour needs to be an object with two keys set to primary and secondary.
+  //to set the product colours received from the backend, you can send the product colour as second argument.
+  //ie: getProductTheme(realm, { primary: '', secondary: '' })
+  //where productColour needs to be an object with two keys set to primary and secondary.
   const productThemes = getProductTheme(clientId)
   const theme = getTheme(productThemes)
 

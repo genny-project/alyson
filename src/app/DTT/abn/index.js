@@ -9,7 +9,6 @@ import {
   VStack,
   useTheme,
 } from '@chakra-ui/react'
-import { compose, equals } from 'ramda'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 
@@ -17,6 +16,7 @@ import ABNLookup from './abn_lookup'
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Read } from '../text'
+import { compose } from 'ramda'
 import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { getIsInvalid } from 'utils/functions'
@@ -26,6 +26,7 @@ import { newMsg } from 'redux/app'
 import { selectFieldMessage } from 'redux/app/selectors'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
+import useProductColors from 'utils/productColors'
 
 const Write = ({
   questionCode,
@@ -61,24 +62,22 @@ const Write = ({
   const dispatchBeInformation = useDispatch()
   const onNewMsg = compose(dispatchBeInformation, newMsg)
 
-  const fieldBackgroundColor = equals(clientId)('lojing')
-    ? 'product.gray'
-    : theme.colors.background.light
-  const fieldBorderColor = equals(clientId)('lojing') ? 'product.gray' : theme.colors.gray['600']
-  const fieldHoverBorderColor = equals(clientId)('lojing') ? 'product.gray' : 'product.secondary'
-  const fieldTextColor = 'product.gray700'
-
-  const labelTextColor = equals(clientId)('lojing') ? 'gray.600' : 'product.gray700'
-  const borderRadius = equals(clientId)('lojing') ? 'calc(0.25rem - 1px)' : '0.5rem'
+  const {
+    fieldBackgroundColor,
+    fieldBorderColor,
+    fieldHoverBorderColor,
+    fieldTextColor,
+    labelTextColor,
+    borderRadius,
+  } = useProductColors()
 
   useEffect(() => {
     setValue(data?.value)
   }, [data])
 
   useEffect(() => {
-    data?.value ? setIsFocused(true) : setIsFocused(false)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    value ? setIsFocused(true) : setIsFocused(false)
+  }, [value])
 
   try {
     regex = RegExp(regexPattern)

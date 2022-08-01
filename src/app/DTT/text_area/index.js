@@ -1,21 +1,21 @@
 import { Box, HStack, Text, Textarea, VStack, useTheme } from '@chakra-ui/react'
-import { compose, equals } from 'ramda'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useRef, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { compose } from 'ramda'
 import debounce from 'lodash.debounce'
 import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { getIsInvalid } from 'utils/functions'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
-import { lojing } from 'utils/constants'
 import { newMsg } from 'redux/app'
 import { selectFieldMessage } from 'redux/app/selectors'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
+import useProductColors from 'utils/productColors'
 
 export const Read = ({ data, config = {} }) => {
   return <Textarea {...config}>{data?.value || config.defaultValue}</Textarea>
@@ -37,15 +37,14 @@ export const Write = ({
   let regex
   const theme = useTheme()
 
-  const fieldBackgroundColor = equals(clientId)(lojing)
-    ? 'product.gray'
-    : theme.colors.background.light
-  const fieldBorderColor = equals(clientId)(lojing) ? 'product.gray' : theme.colors.gray['600']
-  const fieldHoverBorderColor = equals(clientId)(lojing) ? 'product.gray' : 'product.secondary'
-  const fieldTextColor = 'product.gray700'
-
-  const labelTextColor = equals(clientId)(lojing) ? 'gray.600' : 'product.gray700'
-  const borderRadius = equals(clientId)(lojing) ? 'calc(0.25rem - 1px)' : '0.5rem'
+  const {
+    fieldBackgroundColor,
+    fieldBorderColor,
+    fieldHoverBorderColor,
+    fieldTextColor,
+    labelTextColor,
+    borderRadius,
+  } = useProductColors()
 
   const { dispatch } = useError()
   const [errorStatus, setErrorStatus] = useState(false)
@@ -76,9 +75,8 @@ export const Write = ({
   const onNewMsg = compose(dispatchBeInformation, newMsg)
 
   useEffect(() => {
-    data?.value ? setIsFocused(true) : setIsFocused(false)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    userInput ? setIsFocused(true) : setIsFocused(false)
+  }, [userInput])
 
   useEffect(() => {
     isInvalid ? setErrorStatus(true) : setErrorStatus(false)

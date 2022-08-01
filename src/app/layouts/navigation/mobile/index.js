@@ -28,7 +28,6 @@ import { apiConfig } from 'config/get-api-config'
 import getUserType from 'utils/helpers/get-user-type'
 import { onSendMessage } from 'vertx'
 import { selectCode } from 'redux/db/selectors'
-import { useGetRealm } from 'utils/hooks'
 import { useRef } from 'react'
 import { useSelector } from 'react-redux'
 
@@ -38,14 +37,14 @@ const MobileNav = ({ logoSrc }) => {
 
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = useRef()
-  const realm = useGetRealm()
+  const clientId = apiConfig?.clientId
 
   const logoWidth =
-    realm === 'mentormatch'
+    clientId === 'mentormatch'
       ? '120px'
-      : realm === 'internmatch'
+      : clientId === 'internmatch'
       ? '45px'
-      : realm === 'credmatch'
+      : clientId === 'lojing'
       ? '120px'
       : '45px'
 

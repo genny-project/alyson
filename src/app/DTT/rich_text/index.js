@@ -23,7 +23,6 @@ import {
   useTheme,
 } from '@chakra-ui/react'
 import { ContentState, EditorState, convertFromHTML, convertToRaw } from 'draft-js'
-import { compose, equals } from 'ramda'
 import { faCheckCircle, faExpand } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
@@ -32,11 +31,11 @@ import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import DOMPurify from 'dompurify'
 import { Editor } from 'react-draft-wysiwyg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { compose } from 'ramda'
 import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
 import { getIsInvalid } from 'utils/functions'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
-import { lojing } from 'utils/constants'
 import { newMsg } from 'redux/app'
 import removeHtmlTags from 'utils/helpers/remove-html-tags'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
@@ -44,6 +43,7 @@ import { selectFieldMessage } from 'redux/app/selectors'
 import { stateToHTML } from 'draft-js-export-html'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
+import useProductColors from 'utils/productColors'
 
 const Write = ({
   questionCode,
@@ -52,24 +52,21 @@ const Write = ({
   html,
   regexPattern,
   errorMessage,
-  placeholder,
   parentCode,
   placeholderName,
   attributeCode,
   targetCode,
   mandatory,
-  clientId,
 }) => {
   const theme = useTheme()
 
-  const fieldBackgroundColor = equals(clientId)(lojing)
-    ? 'product.gray'
-    : theme.colors.background.light
-  const fieldBorderColor = equals(clientId)(lojing) ? 'product.gray' : theme.colors.gray['600']
-  const fieldHoverBorderColor = equals(clientId)(lojing) ? 'product.gray' : 'product.secondary'
-
-  const labelTextColor = equals(clientId)(lojing) ? 'gray.600' : 'product.gray700'
-  const borderRadius = equals(clientId)(lojing) ? 'calc(0.25rem - 1px)' : '0.5rem'
+  const {
+    fieldBackgroundColor,
+    fieldBorderColor,
+    fieldHoverBorderColor,
+    labelTextColor,
+    borderRadius,
+  } = useProductColors()
 
   const { minCharacterCount = 0, maxCharacterCount } = safelyParseJson(html, {})
   const blocksFromHTML = convertFromHTML(data?.value || '')
@@ -132,9 +129,8 @@ const Write = ({
   }, [data?.value, dataValue, state])
 
   useEffect(() => {
-    data?.value ? setIsFocused(true) : setIsFocused(false)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    userInput ? setIsFocused(true) : setIsFocused(false)
+  }, [userInput])
 
   // const curLength = (stateToHTML(editor.getCurrentContent()) || '')
   //   .replace(/(<([^>]+)>)/gi, '')
