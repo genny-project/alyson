@@ -94,12 +94,13 @@ const Write = ({
       setValue(getValue(data, options))
     }
     // I found that adding options on its own to this array just caused infinite re-renders
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, options?.length])
 
   useEffect(() => {
-    data?.value ? setIsFocused(true) : setIsFocused(false)
-  }, [data?.value])
+    value?.length ? setIsFocused(true) : setIsFocused(false)
+  }, [value])
 
   const onChange = newValue => {
     if (!isMulti) {
@@ -154,7 +155,10 @@ const Write = ({
         options={options}
         onChange={onChange}
         onInputChange={value => ddEvent(value)}
-        onFocus={() => ddEvent('')}
+        onFocus={() => {
+          setIsFocused(true)
+          ddEvent('')
+        }}
         test-id={questionCode}
         id={questionCode}
         value={value}
@@ -168,7 +172,6 @@ const Write = ({
           }),
           control: provided => ({
             ...provided,
-
             paddingInline: '0.5rem',
             paddingBlock: '0.5rem',
             bg: fieldBackgroundColor,
