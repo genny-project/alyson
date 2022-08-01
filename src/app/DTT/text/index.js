@@ -36,7 +36,7 @@ export const Write = ({
   const { dispatch } = useError()
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
   const [errorStatus, setErrorStatus] = useState(false)
-  const [userInput, setuserInput] = useState(data?.value)
+  const [userInput, setuserInput] = useState(data?.value || '')
   const [isFocused, setIsFocused] = useState(false)
 
   const fieldMessageObject = useSelector(selectFieldMessage)
