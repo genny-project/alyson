@@ -31,9 +31,9 @@ const DownloadButton = ({ urlLink = 'https://internmatch.io/' }) => {
         >
           {`Download`}
         </Button>
-        <Button onClick={SpeechRecognition.startListening}>{`Start`}</Button>
-        <Button onClick={SpeechRecognition.stopListening}>{`Stop`}</Button>
-        <Button onClick={resetTranscript}>{`Reset`}</Button>
+        <Button onClick={SpeechRecognition.startListening}>{`👂🏼`}</Button>
+        <Button onClick={SpeechRecognition.stopListening}>{`🙉`}</Button>
+        <Button onClick={resetTranscript}>{`🚫`}</Button>
         <Text color="white">Microphone: {listening ? 'on' : 'off'}</Text>
         <Text color="white">{transcript}</Text>
       </VStack>
