@@ -1,4 +1,4 @@
-import { Box, useColorModeValue } from '@chakra-ui/react'
+import { Box, useColorModeValue, Text, HStack, Button } from '@chakra-ui/react'
 import DeveloperConsole, { isDev } from 'utils/developer'
 
 import Dashboard from 'app/layouts/dashboard'
@@ -21,6 +21,26 @@ import { onSendMessage } from 'vertx'
 import { selectCode } from 'redux/db/selectors'
 import { selectDisplay } from 'redux/app/selectors'
 import { useSelector } from 'react-redux'
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
+
+const SpeechDetector = () => {
+  const { transcript, listening, resetTranscript } = useSpeechRecognition()
+  if (transcript === 'open intern match') {
+    window.open(`https://internmatch-interns.gada.io/`)
+  }
+  if (transcript === 'open lojing' || 'open lodging') {
+    window.open(`https://lojing.gada.io/home`)
+  }
+  return (
+    <HStack>
+      <Button onClick={SpeechRecognition.startListening}>{`👂🏼`}</Button>
+      <Button onClick={SpeechRecognition.stopListening}>{`🙉`}</Button>
+      <Button onClick={resetTranscript}>{`🚫`}</Button>
+      {/* <Text color="black">Microphone: {listening ? 'on' : 'off'}</Text>
+      <Text color="black">{transcript}</Text> */}
+    </HStack>
+  )
+}
 
 const Display = ({ title }) => {
   const display = useSelector(selectDisplay)
@@ -57,6 +77,8 @@ const Display = ({ title }) => {
       >
         <Navigation />
         <Box paddingTop="5.5rem">
+          <SpeechDetector />
+
           {/* <Timeout /> */}
           {display === 'DASHBOARD' && <Dashboard />}
           {display === 'TABLE' && <Table />}
