@@ -73,15 +73,23 @@ const TemplateRoot = ({ mappedPcm }) => {
         area={'nav'}
         w={isMobile ? SIDEBAR_WIDTH_SM : SIDEBAR_WIDTH}
         bg="product.primary"
-        h="100%"
+        h="calc(100vh - 72px)"
         paddingInline={4}
         paddingTop={14}
+        overflow="auto"
       >
         {/* Sidebar Pcm */}
         <PcmField code={PRI_LOC2} mappedPcm={mappedPcm} properties={{ color: appBg }} />
       </VStack>
 
-      <Box backgroundColor={lightColor} id="main-display" pb={1} overflow="auto" area={'main'}>
+      <Box
+        backgroundColor={lightColor}
+        id="main-display"
+        pb={1}
+        h="calc(100vh - 72px)"
+        overflow="auto"
+        area={'main'}
+      >
         <Box
           paddingTop="2.25rem"
           paddingInline={equals(clientId)(lojing) ? 'clamp(1.25rem, 5vw, 7.5rem)' : ''}
