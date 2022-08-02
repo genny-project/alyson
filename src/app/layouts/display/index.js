@@ -1,4 +1,4 @@
-import { Box, useColorModeValue, Text, HStack, Button } from '@chakra-ui/react'
+import { Box, useColorModeValue } from '@chakra-ui/react'
 import DeveloperConsole, { isDev } from 'utils/developer'
 
 import Dashboard from 'app/layouts/dashboard'
