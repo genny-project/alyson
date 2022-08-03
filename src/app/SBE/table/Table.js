@@ -78,7 +78,7 @@ const DataTable = ({ parentCode, mapSearch }) => {
               columns={columns}
               parentCode={parentCode}
               actions={actions}
-              colspan={columns.length}
+              colSpan={columns.length}
             />
           </Table>
         </Box>
