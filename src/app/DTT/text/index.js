@@ -29,21 +29,11 @@ export const Write = ({
   clientId,
 }) => {
   const [userInput, setuserInput] = useState(data?.value || '')
-  const [dataValue] = useState(data?.value)
+  const dataValue = data?.value
   const [validatedFromBackend, setValidatedFromBackend] = useState(false)
   const [errorStatus, setErrorStatus] = useState(false)
   const [isFocused, setIsFocused] = useState(false)
   const debouncedSendAnswer = debounce(onSendAnswer, 500)
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      if (!!userInput && notEqual(userInput, dataValue)) {
-        !errorStatus && debouncedSendAnswer(userInput)
-        setValidatedFromBackend(false)
-      }
-    }, 5000)
-    return () => clearInterval(timer)
-  }, [dataValue, debouncedSendAnswer, errorStatus, questionCode, userInput])
 
   let regex
   const theme = useTheme()
@@ -79,6 +69,22 @@ export const Write = ({
 
   const inputRef = useRef()
   const isInvalid = getIsInvalid(userInput)(regex)
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (!!userInput && notEqual(userInput, dataValue)) {
+        !errorStatus && debouncedSendAnswer(userInput)
+        setValidatedFromBackend(false)
+      }
+    }, 5000)
+    return () => clearInterval(timer)
+  }, [dataValue, debouncedSendAnswer, errorStatus, questionCode, userInput])
+
+  useEffect(() => {
+    if (equals(userInput)(dataValue)) {
+      setValidatedFromBackend(true)
+    }
+  }, [dataValue, userInput])
 
   useEffect(() => {
     userInput ? setIsFocused(true) : setIsFocused(false)
