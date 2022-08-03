@@ -1,13 +1,14 @@
-import { Box, HStack, VStack } from '@chakra-ui/react'
-import { useKeycloak } from '@react-keycloak/web'
-import { pathOr } from 'ramda'
+import { Box, Button, HStack, VStack } from '@chakra-ui/react'
 
 import Ask from 'app/ASKS/ask'
 import Lane from 'app/SBE/lane'
 import Search from 'app/SBE/search/Search'
 import getUserType from 'utils/helpers/get-user'
+import { onSendMessage } from 'vertx'
+import { pathOr } from 'ramda'
 import { selectCode } from 'redux/db/selectors'
 import { selectProcess } from 'redux/app/selectors'
+import { useKeycloak } from '@react-keycloak/web'
 import { useSelector } from 'react-redux'
 
 const Process = ({ dashboard }) => {
@@ -20,9 +21,9 @@ const Process = ({ dashboard }) => {
   if (!processCodes) return null
 
   return (
-    <VStack align="start" spacing={0} px="5">
+    <VStack align="start" px="5">
       {!dashboard && userType !== 'INTERN' && (
-        <HStack mb={`4`} align="start">
+        <HStack align="start">
           {bucketSearch &&
             bucketSearch.map((childAsk, index) => (
               <Box key={`${index}-${childAsk}`} width={'20rem'}>
@@ -40,7 +41,20 @@ const Process = ({ dashboard }) => {
         </HStack>
       )}
 
-      <HStack spacing={5} mt="5" w="95vw" align="flex-start" justify="space-between">
+      <Button
+        colorScheme={'primary'}
+        onClick={() =>
+          onSendMessage({
+            attributeCode: 'PRI_INTERN_SEARCH',
+            targetCode: JSON.stringify(processCodes),
+            value: 'DJP_INTERNS',
+          })
+        }
+      >
+        {'View DJP Interns Only'}
+      </Button>
+
+      <HStack spacing={5} marginBlockStart={5} w="100vw" align="flex-start" justify="space-between">
         {processCodes.map((sbeCode, index) => (
           <Lane key={`${index}-${sbeCode}`} sbeCode={sbeCode} dashboard={dashboard} />
         ))}
