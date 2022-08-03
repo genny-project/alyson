@@ -2,29 +2,18 @@ import { Box, HStack, Input, Text, useTheme } from '@chakra-ui/react'
 import { useEffect, useRef, useState } from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { compose } from 'ramda'
-import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
+
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
 import makeAddressData from './make-address-data'
-import { newMsg } from 'redux/app'
-import { useDispatch } from 'react-redux'
+
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
 
 let autocomplete
 
-const AddressPicker = ({
-  onSendAnswer,
-  data,
-  questionCode,
-  attributeCode,
-  targetCode,
-  placeholderName,
-  mandatory,
-  clientId,
-}) => {
+const AddressPicker = ({ onSendAnswer, data, questionCode, placeholderName, mandatory }) => {
   const theme = useTheme()
   const autoCompleteRef = useRef(null)
   const [userInput, setuserInput] = useState(data?.value)
@@ -36,8 +25,6 @@ const AddressPicker = ({
 
   const failedValidation = errorState[questionCode]
   const fieldNotEmpty = fieldState[questionCode]
-  const dispatchBeInformation = useDispatch()
-  const onNewMsg = compose(dispatchBeInformation, newMsg)
 
   const {
     fieldBackgroundColor,
@@ -87,7 +74,6 @@ const AddressPicker = ({
     setuserInput(e.target.value)
     onSendAnswer(e.target.value)
     dispatchFieldMessage({ payload: questionCode })
-    dispatchBaseEntityUpdates(attributeCode, targetCode, userInput)(onNewMsg)
   }
 
   return (

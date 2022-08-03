@@ -19,7 +19,7 @@ const Body = ({ parentCode, columns, actions, colspan }) => {
     <Tbody>
       <Tr>
         <Td />
-        <Td colspan={colspan}>
+        <Td colSpan={colspan}>
           <HStack alignItems={'center'}>
             <FontAwesomeIcon color="grey" icon={faBinoculars} size="2x" />
             <Text as="span" ml={1}>
