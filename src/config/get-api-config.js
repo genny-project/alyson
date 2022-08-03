@@ -25,7 +25,8 @@ const getApiConfig = async () => {
   })
 
   apiConfig = response.data
-
+  const { colors } = apiConfig
+  console.log('the colors are: colors', colors)
   const clientId = apiConfig?.clientId
 
   /* Log Rocket */
@@ -58,7 +59,7 @@ const getApiConfig = async () => {
   //to set the product colours received from the backend, you can send the product colour as second argument.
   //ie: getProductTheme(realm, { primary: '', secondary: '' })
   //where productColour needs to be an object with two keys set to primary and secondary.
-  const productThemes = getProductTheme(clientId)
+  const productThemes = getProductTheme(clientId, colors)
   const theme = getTheme(productThemes)
 
   return { keycloak, theme }
