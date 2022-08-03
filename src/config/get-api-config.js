@@ -26,7 +26,6 @@ const getApiConfig = async () => {
 
   apiConfig = response.data
   const { colors } = apiConfig
-  console.log('the colors are: colors', colors)
   const clientId = apiConfig?.clientId
 
   /* Log Rocket */
