@@ -45,9 +45,7 @@ const Process = ({ dashboard }) => {
         colorScheme={'primary'}
         onClick={() =>
           onSendMessage({
-            attributeCode: 'PRI_INTERN_SEARCH',
-            targetCode: JSON.stringify(processCodes),
-            value: 'DJP_INTERNS',
+            code: 'ACT_DJP_INTERN_SEARCH',
           })
         }
       >
