@@ -56,7 +56,7 @@ const AvatarMenu = () => {
         </MenuButton>
         <MenuList>
           <MenuGroup title={title}>
-            <MenuItem test-id={'HELP'} onClick={onOpenHelp}>
+            <MenuItem test-id={'HELP'} onClick={onOpenHelp} display={'none '}>
               {`Help & Support`}
             </MenuItem>
             <MenuItem
@@ -113,7 +113,7 @@ const AvatarMenu = () => {
             <MenuItem test-id={'QUE_AVATAR_SETTINGS'}>Account</MenuItem>
           </a>
 
-          <MenuItem test-id={'HELP'} onClick={onOpenHelp}>
+          <MenuItem test-id={'HELP'} onClick={onOpenHelp} display={'none'}>
             {`Help & Support`}
           </MenuItem>
           <MenuItem test-id={'T&Cs'} onClick={onTandC}>
