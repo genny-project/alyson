@@ -46,6 +46,7 @@ const Process = ({ dashboard }) => {
         onClick={() =>
           onSendMessage({
             code: 'ACT_DJP_INTERN_SEARCH',
+            targetCode: JSON.stringify(processCodes),
           })
         }
       >
