@@ -80,7 +80,7 @@ const Header = ({ beCode, sbeCode }) => {
                 <Center minH="7rem" w="100%">
                   <VStack>
                     <Text textStyle="head.2" color="#ffffff">
-                      {`Intertnship video has not been uploaded`}
+                      {`Internship video has not been uploaded`}
                     </Text>
                     <Text textStyle="head.2" color="#ffffff">
                       {`Once it is, it will appear here!`}
