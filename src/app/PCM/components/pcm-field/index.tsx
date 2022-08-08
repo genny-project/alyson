@@ -42,23 +42,21 @@ interface NonPcmPcmFieldProps {
 }
 
 const PcmField: React.FC<PcmFieldProps> = (props): JSX.Element => {
-  const splitArr: string[] = split('_')(props.code)
+  const splitArr: string[] = split('_')(props?.code) || ''
   const prefix: string = splitArr.length === 0 ? 'NONE' : splitArr[0]
 
-  if (equals(prefix, 'PCM')) {
-    return <Pcm code={props.code} properties={props.properties} />
-  } else {
-    return (
-      <NonPcmPcmField
-        code={props.code}
-        mappedPcm={props.mappedPcm}
-        props={props.props}
-        properties={props.properties}
-        prefix={prefix}
-        child={props.child}
-      />
-    )
-  }
+  return equals(prefix, 'PCM') ? (
+    <Pcm code={props.code} properties={props.properties} />
+  ) : (
+    <NonPcmPcmField
+      code={props.code}
+      mappedPcm={props.mappedPcm}
+      props={props.props}
+      properties={props.properties}
+      prefix={prefix}
+      child={props.child}
+    />
+  )
 }
 
 const NonPcmPcmField: React.FC<NonPcmPcmFieldProps> = (props): JSX.Element => {
