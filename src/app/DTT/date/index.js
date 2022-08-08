@@ -234,7 +234,7 @@ const Write = ({
         _groupHover={{
           color: themeSecondary,
         }}
-        _groupFocusVisible={{
+        _groupfocusvisible={{
           color: themeSecondary,
         }}
         children={<FontAwesomeIcon icon={faCalendarDay} color={'inherit'} />}
