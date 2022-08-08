@@ -66,8 +66,6 @@ const PcmField: React.FC<PcmFieldProps> = ({
 }
 
 const NonPcmPcmField: React.FC<NonPcmPcmFieldProps> = (props): JSX.Element => {
-  console.log('props', { props })
-
   const { prefix, child, code, mappedPcm, config } = props
 
   const questionGroupCode = mappedPcm.PRI_QUESTION_CODE || ''
@@ -79,11 +77,10 @@ const NonPcmPcmField: React.FC<NonPcmPcmFieldProps> = (props): JSX.Element => {
   }
 
   const isEvt = equals(prefix, 'EVT')
-  const childUndefined = !child
 
   return (
     <>
-      {isEvt && childUndefined && (
+      {isEvt && !child && (
         <EvtButton
           key={code}
           questionCode={questionGroupCode}
@@ -92,14 +89,14 @@ const NonPcmPcmField: React.FC<NonPcmPcmFieldProps> = (props): JSX.Element => {
           vert={false}
         />
       )}
-      {!childUndefined &&
+      {!!child &&
         child({
           fieldCode: code,
           ask: ask,
           question: ask.question,
           props: config,
         })}
-      {!isEvt && childUndefined && (
+      {!isEvt && !child && (
         <Attribute
           key={code}
           attribute={code}
