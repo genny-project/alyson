@@ -29,7 +29,7 @@ interface PcmFieldProps {
   mappedPcm: { [x: string]: string }
   config?: AttributeProps
   properties?: any
-  child: (parameters: PcmFieldParameters) => JSX.Element | undefined
+  child: (parameters: PcmFieldParameters) => JSX.Element
 }
 
 interface NonPcmPcmFieldProps {
@@ -38,7 +38,7 @@ interface NonPcmPcmFieldProps {
   config?: AttributeProps
   properties?: any
   prefix: string
-  child: (parameters: PcmFieldParameters) => JSX.Element | undefined
+  child: (parameters: PcmFieldParameters) => JSX.Element
 }
 
 const PcmField: React.FC<PcmFieldProps> = ({
