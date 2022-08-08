@@ -27,7 +27,7 @@ interface PcmFieldParameters {
 interface PcmFieldProps {
   code: string
   mappedPcm: { [x: string]: string }
-  props?: AttributeProps
+  config?: AttributeProps
   properties?: any
   child: (parameters: PcmFieldParameters) => JSX.Element | undefined
 }
@@ -35,7 +35,7 @@ interface PcmFieldProps {
 interface NonPcmPcmFieldProps {
   code: string
   mappedPcm: { [x: string]: string }
-  props?: AttributeProps
+  config?: AttributeProps
   properties?: any
   prefix: string
   child: (parameters: PcmFieldParameters) => JSX.Element | undefined
@@ -46,18 +46,18 @@ const PcmField: React.FC<PcmFieldProps> = ({
   mappedPcm,
   properties,
   child,
-  props: restProps,
+  config,
 }): JSX.Element => {
   const splitArr: string[] = split('_')(code) || ''
   const prefix: string = splitArr.length === 0 ? 'NONE' : splitArr[0]
 
-  return equals(prefix, 'PCM') ? (
+  return equals(prefix)('PCM') ? (
     <Pcm code={code} properties={properties} />
   ) : (
     <NonPcmPcmField
       code={code}
       mappedPcm={mappedPcm}
-      props={restProps}
+      config={config}
       properties={properties}
       prefix={prefix}
       child={child}
@@ -66,22 +66,26 @@ const PcmField: React.FC<PcmFieldProps> = ({
 }
 
 const NonPcmPcmField: React.FC<NonPcmPcmFieldProps> = (props): JSX.Element => {
-  const questionGroupCode = props.mappedPcm.PRI_QUESTION_CODE || ''
-  const ask = getAskFromAttribute(questionGroupCode)(props.code)
+  console.log('props', { props })
+
+  const { prefix, child, code, mappedPcm, config } = props
+
+  const questionGroupCode = mappedPcm.PRI_QUESTION_CODE || ''
+  const ask = getAskFromAttribute(questionGroupCode)(code)
 
   if (isEmpty(ask)) {
     debugOut.error(`NonPcmPcmField got an empty ask for ${props.code}! Returning a blank div`)
     return <div />
   }
 
-  const isEvt = equals(props.prefix, 'EVT')
-  const childUndefined = !props.child
+  const isEvt = equals(prefix, 'EVT')
+  const childUndefined = !child
 
   return (
     <>
       {isEvt && childUndefined && (
         <EvtButton
-          key={props.code}
+          key={code}
           questionCode={questionGroupCode}
           childCode={ask?.questionCode}
           iconId={ask?.question?.icon}
@@ -89,24 +93,24 @@ const NonPcmPcmField: React.FC<NonPcmPcmFieldProps> = (props): JSX.Element => {
         />
       )}
       {!childUndefined &&
-        props.child({
-          fieldCode: props.code,
+        child({
+          fieldCode: code,
           ask: ask,
           question: ask.question,
-          props: props.props,
+          props: config,
         })}
       {!isEvt && childUndefined && (
         <Attribute
-          key={props.code}
-          attribute={props.code}
-          code={props.props?.parentCode || ask?.targetCode}
-          size={props.props?.size}
-          mini={props.props?.mini}
-          parentCode={props.props?.parentCode || ask?.targetCode}
-          variant={props.props?.variant}
-          config={props.props?.config}
-          styles={props.props?.styles}
-          hasIndicatorIcon={props.props?.hasIndicatorIcon}
+          key={code}
+          attribute={code}
+          code={config?.parentCode || ask?.targetCode}
+          size={config?.size}
+          mini={config?.mini}
+          parentCode={config?.parentCode || ask?.targetCode}
+          variant={config?.variant}
+          config={config?.config}
+          styles={config?.styles}
+          hasIndicatorIcon={config?.hasIndicatorIcon}
         />
       )}
     </>
