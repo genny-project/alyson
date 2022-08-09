@@ -42,6 +42,7 @@ const Process = ({ dashboard }) => {
       )}
 
       <Button
+        display={'none'}
         colorScheme={'primary'}
         onClick={() =>
           onSendMessage({
