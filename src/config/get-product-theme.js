@@ -92,7 +92,7 @@ const getProductTheme = (
 
   const productThemes = {
     colors: {
-      product: defaultProductColours || productBasedDefaultColors[realm],
+      product: { ...productBasedDefaultColors[realm], ...defaultProductColours },
       ...defaultThemeColours,
     },
 
