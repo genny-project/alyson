@@ -7,7 +7,7 @@ import { selectCode } from 'redux/db/selectors'
 import { useIsMobile } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 
-const TemplateForm = ({ mappedPcm, ...properties }) => {
+const TemplateForm = ({ mappedPcm, depth, ...properties }) => {
   const questionCode = mappedPcm?.PRI_QUESTION_CODE || ''
   const isMobile = useIsMobile()
 

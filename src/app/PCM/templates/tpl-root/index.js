@@ -26,7 +26,7 @@ import { useIsMobile } from 'utils/hooks'
  *
  * `PRI_LOC3` -> The Main content being displayed
  */
-const TemplateRoot = ({ mappedPcm }) => {
+const TemplateRoot = ({ mappedPcm, depth }) => {
   const theme = useTheme()
   const { PRI_LOC1, PRI_LOC2, PRI_LOC3 } = mappedPcm
 
@@ -66,7 +66,12 @@ const TemplateRoot = ({ mappedPcm }) => {
         }}
       >
         {/* Header PCM*/}
-        <PcmField code={PRI_LOC1} mappedPcm={mappedPcm} properties={{ bg: appBg, color: color }} />
+        <PcmField
+          code={PRI_LOC1}
+          mappedPcm={mappedPcm}
+          depth={depth}
+          properties={{ bg: appBg, color: color }}
+        />
       </header>
 
       {/* SIDEBAR WRAPPER */}
@@ -80,7 +85,12 @@ const TemplateRoot = ({ mappedPcm }) => {
         overflow="auto"
       >
         {/* Sidebar Pcm */}
-        <PcmField code={PRI_LOC2} mappedPcm={mappedPcm} properties={{ color: appBg }} />
+        <PcmField
+          code={PRI_LOC2}
+          mappedPcm={mappedPcm}
+          depth={depth}
+          properties={{ color: appBg }}
+        />
       </VStack>
 
       <Box
@@ -96,7 +106,7 @@ const TemplateRoot = ({ mappedPcm }) => {
           paddingInline={equals(clientId)(lojing) ? 'clamp(1.25rem, 5vw, 7.5rem)' : ''}
         >
           {/* Main Page Content */}
-          <PcmField code={PRI_LOC3} mappedPcm={mappedPcm} />
+          <PcmField code={PRI_LOC3} mappedPcm={mappedPcm} depth={depth} />
           <DisplayDrawer />
           <Dialog />
           <Toast />

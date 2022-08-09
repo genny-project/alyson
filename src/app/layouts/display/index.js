@@ -24,7 +24,7 @@ const Display = () => {
         <title>{projectTitle}</title>
         <link rel="icon" href={projectIcon} type="image/x-icon"></link>
       </MetaTags>
-      <Pcm code={rootPcmCode} />
+      <Pcm code={rootPcmCode} depth={0} />
     </ErrorBoundary>
   )
 }

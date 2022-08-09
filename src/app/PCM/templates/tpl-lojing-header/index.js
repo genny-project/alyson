@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 
 /// This template should not be user specifc. We can likely make a TPL_TEXT or something similar to run this
-const TemplateLojingHeader = ({ mappedPcm }) => {
+const TemplateLojingHeader = ({ mappedPcm, depth }) => {
   const { PRI_LOC1 } = mappedPcm
 
   return (

@@ -9,10 +9,10 @@ import useGetMappedPcm from './helpers/get-mapped-pcm'
  * `PRI_TEMPLATE_CODE`, using the pcm stored at `code` in the redux store.
  */
 
-const Pcm = ({ code, properties }) => {
+const Pcm = ({ code, properties, depth }) => {
   const mappedPcm = useGetMappedPcm(code)
   const { PRI_TEMPLATE_CODE } = mappedPcm
-  const template = templateHandlerMachine(mappedPcm)(PRI_TEMPLATE_CODE)(properties)
+  const template = templateHandlerMachine(mappedPcm)(PRI_TEMPLATE_CODE)(properties)(depth + 1)
 
   if (isEmpty(mappedPcm) || !PRI_TEMPLATE_CODE || !template) {
     if (!template) {
