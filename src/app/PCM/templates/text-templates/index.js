@@ -6,7 +6,7 @@ import getSpillLocs from 'app/PCM/helpers/get-spill-locs'
 import mapText from './map-text'
 import { useSelector } from 'react-redux'
 
-const TemplateText = ({ mappedPcm }) => {
+const TemplateText = ({ mappedPcm, depth }) => {
   const questionCode = mappedPcm.PRI_QUESTION_CODE || ''
   const mainString = mappedPcm.PRI_LOC1 || ''
 

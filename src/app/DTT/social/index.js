@@ -198,10 +198,10 @@ const Write = ({
             _groupHover={{
               color: iconColor,
             }}
-            _groupFocusVisible={{
+            _groupfocusvisible={{
               color: iconColor,
             }}
-            _groupFocusWithin={{
+            _groupfocuswithin={{
               color: iconColor,
             }}
           >

@@ -7,11 +7,11 @@ import PcmField from 'app/PCM/components/pcm-field'
  * Returns all mapped attributes in a vertical list.
  * Currently uses a more expensive mapping of attributes as this may take in locs
  */
-const TemplateVert = ({ mappedPcm }) => {
+const TemplateVert = ({ mappedPcm, depth }) => {
   return (
     <VStack alignItems="flex-start" spacing="5">
       {mapSpillLocs(getSpillLocs(mappedPcm)())(loc => (
-        <PcmField key={loc} code={loc} mappedPcm={mappedPcm} />
+        <PcmField key={loc} code={loc} mappedPcm={mappedPcm} depth={depth} />
       ))}
     </VStack>
   )

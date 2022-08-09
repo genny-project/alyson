@@ -5,7 +5,7 @@ import { filter, map } from 'ramda'
 import DetailField from './detail-field'
 import { getFields, getColumnDefs } from '../../helpers/sbe-utils'
 
-const TemplateDetailView = ({ mappedPcm }) => {
+const TemplateDetailView = ({ mappedPcm, depth }) => {
   const sbeCode = mappedPcm.PRI_LOC1
 
   const mappedSbe = useGetMappedBaseEntity(sbeCode)
@@ -21,6 +21,7 @@ const TemplateDetailView = ({ mappedPcm }) => {
       {mappedValues.map((attributeCode, index) => {
         return (
           <DetailField
+            key={`${attributeCode}-${index}`}
             sbeCode={sbeCode}
             code={baseEntityCode}
             attributeCode={attributeCode}

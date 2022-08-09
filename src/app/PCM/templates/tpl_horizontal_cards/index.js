@@ -8,7 +8,7 @@ import { includes, filter } from 'ramda'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import Attribute from 'app/BE/attribute'
 
-const TemplateHorizontalCards = ({ mappedPcm }) => {
+const TemplateHorizontalCards = ({ mappedPcm, depth }) => {
   const sbeCodePrefix = mappedPcm.PRI_LOC1
 
   const keys = useSelector(selectKeys)

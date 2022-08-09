@@ -13,7 +13,7 @@ import { includes } from 'ramda'
  * This is a backwards compatibility pcm.
  * It preforms the task that the old display.js use to do
  */
-const TemplateDisplay = ({ ...props }) => {
+const TemplateDisplay = ({ depth, ...props }) => {
   const display = useSelector(selectDisplay)
 
   return (

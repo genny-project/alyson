@@ -1,5 +1,5 @@
 import Table from 'app/layouts/table'
-const TemplateTable = ({ mappedPcm }) => {
+const TemplateTable = ({ mappedPcm, depth }) => {
   return <Table />
 }
 
