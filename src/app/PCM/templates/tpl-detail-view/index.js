@@ -21,6 +21,7 @@ const TemplateDetailView = ({ mappedPcm }) => {
       {mappedValues.map((attributeCode, index) => {
         return (
           <DetailField
+            key={`${attributeCode}-${index}`}
             sbeCode={sbeCode}
             code={baseEntityCode}
             attributeCode={attributeCode}
