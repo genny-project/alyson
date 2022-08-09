@@ -33,6 +33,7 @@ const TemplateRoot = ({ mappedPcm }) => {
   const clientId = apiConfig?.clientId
 
   // THEME COLORS
+  //need to fix this, we cannot get colours this way
   const lightColor = equals(clientId)(lojing) ? theme.colors.background['light'] : 'product.gray50'
   const darkColor =
     useGetAttributeFromProjectBaseEntity('PRI_COLOR_BACKGROUND_ON')?.valueString ||

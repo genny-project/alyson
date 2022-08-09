@@ -59,9 +59,7 @@ const templateHandlerMachine = mappedPcm => templateCode => properties => {
   }
 
   if (hasNot(templateCode)(listOfTemplates)) {
-    debugOut.error(
-      `No template exists for code: ${templateCode}! Falling back on default tempalte!`,
-    )
+    debugOut.warn(`No template exists for code: ${templateCode}! Falling back on default tempalte!`)
     return <TemplateDefault {...properties} />
   }
 
