@@ -20,6 +20,7 @@ export interface PcmFieldProps {
   mappedPcm: { [x: string]: string }
   config?: AttributeProps
   properties?: any
+  depth: number
   child: (parameters: PcmFieldParameters) => JSX.Element
 }
 

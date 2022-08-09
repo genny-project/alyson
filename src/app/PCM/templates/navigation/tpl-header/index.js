@@ -3,7 +3,7 @@ import TemplateHeaderDesktop from './tpl-header-desktop'
 import { apiConfig } from 'config/get-api-config'
 import { useIsMobile } from 'utils/hooks'
 
-const TemplateHeader = ({ mappedPcm }) => {
+const TemplateHeader = ({ mappedPcm, depth }) => {
   const clientId = apiConfig?.clientId
 
   const logoSrc =
@@ -21,7 +21,7 @@ const TemplateHeader = ({ mappedPcm }) => {
   return isMobile ? (
     <MobileNav logoSrc={logoSrc} />
   ) : (
-    <TemplateHeaderDesktop mappedPcm={mappedPcm} logoSrc={logoSrc} />
+    <TemplateHeaderDesktop mappedPcm={mappedPcm} logoSrc={logoSrc} depth={depth} />
   )
 }
 

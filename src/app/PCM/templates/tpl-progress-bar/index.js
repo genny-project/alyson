@@ -3,13 +3,14 @@ import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 
-const TemplateProgressBar = ({ mappedPcm }) => {
+const TemplateProgressBar = ({ mappedPcm, depth }) => {
   const { PRI_LOC1 } = mappedPcm
   return (
     <div>
       <PcmField
         code={PRI_LOC1}
         mappedPcm={mappedPcm}
+        depth={depth}
         child={parameters => {
           return (
             <ProgressBar fieldCode={parameters.fieldCode} sourceCode={parameters.ask.sourceCode} />

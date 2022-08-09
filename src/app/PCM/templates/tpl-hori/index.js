@@ -7,11 +7,11 @@ import PcmField from 'app/PCM/components/pcm-field'
  * Returns all mapped attributes in a horizontal list.
  * Currently uses a more expensive mapping of attributes as this may take in locs
  */
-const TemplateHori = ({ mappedPcm }) => {
+const TemplateHori = ({ mappedPcm, depth }) => {
   return (
     <HStack alignSelf="flex-start">
       {mapSpillLocs(getSpillLocs(mappedPcm)())(loc => (
-        <PcmField key={loc} code={loc} mappedPcm={mappedPcm} />
+        <PcmField key={loc} code={loc} mappedPcm={mappedPcm} depth={depth} />
       ))}
     </HStack>
   )

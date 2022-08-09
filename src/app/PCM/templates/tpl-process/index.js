@@ -1,5 +1,5 @@
 import Process from 'app/layouts/process'
-const TemplateProcess = ({ mappedPcm }) => {
+const TemplateProcess = ({ mappedPcm, depth }) => {
   return <Process />
 }
 
