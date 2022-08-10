@@ -2,13 +2,9 @@ import { HStack, Select, Text } from '@chakra-ui/react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Read } from '../text'
-import { compose } from 'ramda'
-import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
-import { newMsg } from 'redux/app'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
-import { useDispatch } from 'react-redux'
 import { useState } from 'react'
 
 const defaultTimeRange = [null, null]
@@ -27,16 +23,12 @@ const Write = ({ questionCode, onSendAnswer, data, attributeCode, targetCode }) 
 
   const [selectedRange, setSelectedRange] = useState([initialStartTime, initialEndTime])
 
-  const dispatchBeInformation = useDispatch()
-  const onNewMsg = compose(dispatchBeInformation, newMsg)
-
   const handleChange = (idx, value) => {
     const updated = idx
       ? [selectedRange[0], parseFloat(value)]
       : [parseFloat(value), selectedRange[1]]
     onSendAnswer(updated)
     setSelectedRange(updated)
-    dispatchBaseEntityUpdates(attributeCode, targetCode, value)(onNewMsg)
   }
 
   return (
