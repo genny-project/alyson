@@ -17,6 +17,7 @@ import DateRange from 'app/DTT/date_range'
 import Email from 'app/DTT/email'
 import Flag from 'app/DTT/flag'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import HTMLEditor from 'app/DTT/html_editor'
 import HtmlDisplay from 'app/DTT/html_display'
 import LogRocketSession from 'app/DTT/log_rocket_session'
 import Phone from 'app/DTT/phone'
@@ -287,6 +288,18 @@ const Ask = ({
       )}
       {component === 'richtext_editor' && (
         <RichText.Write
+          questionCode={questionCode}
+          data={data}
+          onSendAnswer={onSendAnswer}
+          description={description}
+          html={html}
+          regexPattern={regexPattern}
+          errorMessage={errorMessage}
+          placeholder={placeholder}
+        />
+      )}
+      {component === 'html_editor' && (
+        <HTMLEditor.Write
           questionCode={questionCode}
           data={data}
           onSendAnswer={onSendAnswer}

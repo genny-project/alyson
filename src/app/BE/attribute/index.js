@@ -1,28 +1,29 @@
-import { useSelector } from 'react-redux'
-import { selectCode } from 'redux/db/selectors'
+import ABN from 'app/DTT/abn'
+import Address from 'app/DTT/address'
 import { Text as CText } from '@chakra-ui/react'
-import Text from 'app/DTT/text'
-import Email from 'app/DTT/email'
-import Upload from 'app/DTT/upload'
-import Social from 'app/DTT/social'
-import Status from 'app/DTT/status'
-import Phone from 'app/DTT/phone'
+import CheckBox from 'app/DTT/check_box'
 import Date from 'app/DTT/date'
-import ProgressBar from 'app/DTT/progress_bar'
+import Email from 'app/DTT/email'
+import Flag from 'app/DTT/flag'
+import HTMLEditor from 'app/DTT/html_editor'
 import HtmlDisplay from 'app/DTT/html_display'
+import ImageType from 'app/DTT/upload/Image'
+import Phone from 'app/DTT/phone'
+import ProgressBar from 'app/DTT/progress_bar'
+import Rating from 'app/DTT/rating'
 import RichText from 'app/DTT/rich_text'
 import Select from 'app/DTT/select'
-import Video from 'app/DTT/video'
-import Address from 'app/DTT/address'
-import ABN from 'app/DTT/abn'
-import URL from 'app/DTT/url'
-import Rating from 'app/DTT/rating'
-import TimeZonePicker from 'app/DTT/time_zone'
-import CheckBox from 'app/DTT/check_box'
-import ImageType from 'app/DTT/upload/Image'
-import Flag from 'app/DTT/flag'
-import fixLnkAndPri from './fix-lnk-and-pri'
+import Social from 'app/DTT/social'
+import Status from 'app/DTT/status'
+import Text from 'app/DTT/text'
 import TextArea from 'app/DTT/text_area'
+import TimeZonePicker from 'app/DTT/time_zone'
+import URL from 'app/DTT/url'
+import Upload from 'app/DTT/upload'
+import Video from 'app/DTT/video'
+import fixLnkAndPri from './fix-lnk-and-pri'
+import { selectCode } from 'redux/db/selectors'
+import { useSelector } from 'react-redux'
 
 const Attribute = ({
   code,
@@ -78,6 +79,8 @@ const Attribute = ({
     <HtmlDisplay.Read data={data} />
   ) : component === 'richtext_editor' ? (
     <RichText.Read data={data} mini={mini} styles={styles} config={config} />
+  ) : component === 'html_editor' ? (
+    <HTMLEditor.Read data={data} mini={mini} styles={styles} config={config} />
   ) : component === 'dropdown' ? (
     <Select.Read dataType={dttData} data={data} />
   ) : component === 'video' ? (
