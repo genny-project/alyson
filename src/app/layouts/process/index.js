@@ -41,18 +41,19 @@ const Process = ({ dashboard }) => {
         </HStack>
       )}
 
-      <Button
-        display={'none'}
-        colorScheme={'primary'}
-        onClick={() =>
-          onSendMessage({
-            code: 'ACT_DJP_INTERN_SEARCH',
-            targetCode: JSON.stringify(processCodes),
-          })
-        }
-      >
-        {'View DJP Interns Only'}
-      </Button>
+      {userType === 'AGENT' && (
+        <Button
+          colorScheme={'primary'}
+          onClick={() =>
+            onSendMessage({
+              code: 'ACT_DJP_INTERN_SEARCH',
+              targetCode: JSON.stringify(processCodes),
+            })
+          }
+        >
+          {'View DJP Interns Only'}
+        </Button>
+      )}
 
       <HStack spacing={5} marginBlockStart={5} w="100vw" align="flex-start" justify="space-between">
         {processCodes.map((sbeCode, index) => (
