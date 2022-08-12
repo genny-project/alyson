@@ -6,7 +6,7 @@ import { faBinoculars } from '@fortawesome/free-solid-svg-icons'
 import { selectRows } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
 
-const Body = ({ parentCode, columns, actions, colspan }) => {
+const Body = ({ parentCode, columns, actions, colSpan }) => {
   const rows = useSelector(selectRows(parentCode))
 
   return rows.length ? (
@@ -19,7 +19,7 @@ const Body = ({ parentCode, columns, actions, colspan }) => {
     <Tbody>
       <Tr>
         <Td />
-        <Td colSpan={colspan}>
+        <Td colSpan={colSpan}>
           <HStack alignItems={'center'}>
             <FontAwesomeIcon color="grey" icon={faBinoculars} size="2x" />
             <Text as="span" ml={1}>
