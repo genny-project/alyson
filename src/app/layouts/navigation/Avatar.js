@@ -155,10 +155,6 @@ const AvatarMenu = ({ code: QUE_AVATAR_GRP }) => {
               Logout
             </MenuItem>
           </MenuGroup>
-          <Flex>
-            <Spacer />
-            <ColorToggler />
-          </Flex>
         </MenuList>
       </Menu>
     </Box>
