@@ -1,17 +1,6 @@
-import {
-  Avatar,
-  Flex,
-  HStack,
-  Menu,
-  MenuButton,
-  MenuGroup,
-  MenuItem,
-  MenuList,
-  Spacer,
-} from '@chakra-ui/react'
+import { Avatar, HStack, Menu, MenuButton, MenuGroup, MenuItem, MenuList } from '@chakra-ui/react'
 
 import ChildMenuItem from 'app/ASKS/menu/ChildMenuItem'
-import ColorToggler from './ColorToggler'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { apiConfig } from 'config/get-api-config'
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
@@ -132,10 +121,6 @@ const AvatarMenu = () => {
             Logout
           </MenuItem>
         </MenuGroup>
-        <Flex>
-          <Spacer />
-          <ColorToggler />
-        </Flex>
       </MenuList>
     </Menu>
   )
