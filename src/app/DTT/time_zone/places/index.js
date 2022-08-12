@@ -23,20 +23,24 @@ const PlacesAutocomplete = ({ onSelect, questionCode, clientId }) => {
   } = useProductColors()
 
   useEffect(() => {
-    if (inputRef) {
-      places = new window.google.maps.places.Autocomplete(inputRef.current, {
-        types: ['(cities)'],
-        fields: ['geometry'],
-      })
-      window.google.maps.event.addListener(places, 'place_changed', async () => {
-        const { geometry } = places.getPlace() || {}
-        const { location } = geometry || {}
-        const timezone = await fromLatLng({
-          lat: location?.lat(),
-          lng: location?.lng(),
+    try {
+      if (inputRef) {
+        places = new window.google.maps.places.Autocomplete(inputRef.current, {
+          types: ['(cities)'],
+          fields: ['geometry'],
         })
-        onSelect(timezone?.timeZoneId)
-      })
+        window.google.maps.event.addListener(places, 'place_changed', async () => {
+          const { geometry } = places.getPlace() || {}
+          const { location } = geometry || {}
+          const timezone = await fromLatLng({
+            lat: location?.lat(),
+            lng: location?.lng(),
+          })
+          onSelect(timezone?.timeZoneId)
+        })
+      }
+    } catch (error) {
+      console.error(error)
     }
   }, [onSelect])
 

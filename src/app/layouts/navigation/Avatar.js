@@ -1,18 +1,15 @@
 import {
   Avatar,
   Box,
-  Flex,
   HStack,
   Menu,
   MenuButton,
   MenuGroup,
   MenuItem,
   MenuList,
-  Spacer,
 } from '@chakra-ui/react'
 
 import ChildMenuItem from 'app/ASKS/menu/ChildMenuItem'
-import ColorToggler from './ColorToggler'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { apiConfig } from 'config/get-api-config'
 import { equals } from 'ramda'
