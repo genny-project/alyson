@@ -40,6 +40,7 @@ const EventButton = ({ askData, onFinish, parentCode, sourceCode, clientId }) =>
       fontSize={'sm'}
       color={bgColor}
       mr={2}
+      mb="5"
       _hover={{
         variant: 'solid',
         background: bgColor,

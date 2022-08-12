@@ -110,6 +110,7 @@ const Submit = ({ askData, onFinish, parentCode, clientId }) => {
           borderColor: bgColor,
           variant: 'outline',
         }}
+        mb="5"
       >
         {name}
       </Button>
