@@ -43,7 +43,8 @@ const Process = ({ dashboard }) => {
 
       {userType === 'AGENT' && (
         <Button
-          colorScheme={'primary'}
+          colorScheme={'green'}
+          variant={'outline'}
           onClick={() =>
             onSendMessage({
               code: 'ACT_DJP_INTERN_SEARCH',
