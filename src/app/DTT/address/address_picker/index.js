@@ -2,18 +2,16 @@ import { Box, HStack, Input, Text, useTheme } from '@chakra-ui/react'
 import { useEffect, useRef, useState } from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
 import makeAddressData from './make-address-data'
-
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
 
 let autocomplete
 
-const AddressPicker = ({ onSendAnswer, data, questionCode, placeholderName, mandatory }) => {
+const AddressPicker = ({ onSendAnswer, data, questionCode, placeholder, mandatory }) => {
   const theme = useTheme()
   const autoCompleteRef = useRef(null)
   const [userInput, setuserInput] = useState(data?.value)
@@ -94,9 +92,9 @@ const AddressPicker = ({ onSendAnswer, data, questionCode, placeholderName, mand
         pointerEvents={'none'}
         transition="all 0.25s ease"
       >
-        {placeholderName && (
+        {placeholder && (
           <Text as="label" fontSize={'sm'} fontWeight={'medium'} color={labelTextColor}>
-            {placeholderName}
+            {placeholder}
             {mandatory ? (
               <Text as="span" color={'red.500'} ml={1}>
                 *
@@ -130,6 +128,7 @@ const AddressPicker = ({ onSendAnswer, data, questionCode, placeholderName, mand
         borderRadius={borderRadius}
         borderColor={fieldBorderColor}
         bg={fieldBackgroundColor}
+        placeholder=""
         _hover={{
           borderColor: fieldHoverBorderColor,
           boxShadow: 'lg',
