@@ -21,6 +21,7 @@ import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
 import { selectFieldMessage } from 'redux/app/selectors'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined'
+import { newCmd } from 'redux/app'
 
 const Write = ({
   questionCode,
@@ -73,6 +74,20 @@ const Write = ({
   const fieldMessageObject = useSelector(selectFieldMessage)
   const fieldMessage = fieldMessageObject[`${parentCode}@${questionCode}`]
   let hasFieldMessage = isNotNullOrUndefinedOrEmpty(fieldMessage)
+  const dispatchPushMessage = useDispatch()
+  const onNewCmd = compose(dispatchPushMessage, newCmd)
+
+  const handleClearFieldMessage = () => {
+    onNewCmd({
+      cmd_type: 'FIELDMSG',
+      code: questionCode,
+      attributeCode,
+      questionCode: parentCode,
+      message: {
+        value: '',
+      },
+    })
+  }
 
   const ddEvent = debounce(
     value =>
@@ -109,6 +124,7 @@ const Write = ({
   }, [value])
 
   const onChange = newValue => {
+    handleClearFieldMessage()
     if (!isMulti) {
       newValue = [newValue]
     }
