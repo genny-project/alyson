@@ -1,11 +1,5 @@
-import { Box, Button, Flex, HStack, Spacer } from '@chakra-ui/react'
-
-import AskMenu from 'app/ASKS/menu'
-import Avatar from 'app/layouts/navigation/Avatar'
-import Drafts from 'app/layouts/navigation/drafts/Drafts'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Box, Flex, HStack, Spacer } from '@chakra-ui/react'
 import PcmField from 'app/PCM/components/pcm-field'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 const TemplateHeaderDesktop = ({ mappedPcm, depth }) => {
   const { PRI_LOC1, PRI_LOC2, PRI_LOC3, PRI_LOC4 } = mappedPcm
@@ -18,13 +12,9 @@ const TemplateHeaderDesktop = ({ mappedPcm, depth }) => {
         </Box>
         <Spacer />
         <HStack spacing={8} marginRight="5">
-          <AskMenu
-            questionCode={PRI_LOC2}
-            icon={<Button leftIcon={<FontAwesomeIcon icon={faPlus} />}>{`Add`}</Button>}
-            hideLabel={true}
-          />
-          <Drafts code={PRI_LOC3} />
-          <Avatar code={PRI_LOC4} />
+          <PcmField code={PRI_LOC2} mappedPcm={mappedPcm} depth={depth} />
+          <PcmField code={PRI_LOC3} mappedPcm={mappedPcm} depth={depth} />
+          <PcmField code={PRI_LOC4} mappedPcm={mappedPcm} depth={depth} />
         </HStack>
       </Flex>
     </nav>
