@@ -40,6 +40,9 @@ const AvatarMenu = ({ code: QUE_AVATAR_GRP }) => {
     associatedEntitiy?.value ? ` - ${associatedEntitiy?.value}` : ''
   }`
 
+  // Far too much hard coding here, gotta do something about it!
+  // Maybe get the backend to send back an event to tell alyson to log out/redirect to account page
+
   const onOpenHelp = () => onSendMessage({ code: 'ACT_PRI_HELPER_FUNCTION' })
   const onTandC = () => onSendMessage({ code: 'ACT_PRI_EVENT_TERMS_AND_CONDITIONS' })
 
