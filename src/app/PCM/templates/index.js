@@ -20,6 +20,9 @@ import debugOut from 'utils/debug-out'
 import hasNot from 'utils/helpers/has-not.js'
 import TemplateHorizontalCards from './tpl_horizontal_cards'
 import TemplateProcess from './tpl-process'
+import TemplateAddItems from './tpl-add-items'
+import TemplateBell from './tpl-bell'
+import TemplateAvatar from './tpl-avatar'
 
 /**
  * Takes in a mappedPcm, a templateCode and some misc properties and returns a template component.
@@ -58,6 +61,9 @@ const templateHandlerMachine = mappedPcm => templateCode => properties => depth 
       <TemplateHorizontalCards mappedPcm={mappedPcm} depth={depth} {...properties} />
     ),
     TPL_PROCESS: <TemplateProcess mappedPcm={mappedPcm} depth={depth} {...properties} />,
+    TPL_ADD_ITEMS: <TemplateAddItems mappedPcm={mappedPcm} depth={depth} {...properties} />,
+    TPL_BELL: <TemplateBell mappedPcm={mappedPcm} depth={depth} {...properties} />,
+    TPL_AVATAR: <TemplateAvatar mappedPcm={mappedPcm} depth={depth} {...properties} />,
   }
 
   if (hasNot(templateCode)(listOfTemplates)) {
