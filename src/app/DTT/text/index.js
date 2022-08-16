@@ -10,7 +10,7 @@ import { compose } from 'ramda'
 import debounce from 'lodash.debounce'
 import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
 import { getIsInvalid } from 'utils/functions'
-import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
+import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
 import { newMsg } from 'redux/app'
 import { selectFieldMessage } from 'redux/app/selectors'
@@ -29,7 +29,6 @@ export const Write = ({
   attributeCode,
   targetCode,
   mandatory,
-  clientId,
 }) => {
   let regex
   const theme = useTheme()
