@@ -4,7 +4,7 @@ import AskMenu from 'app/ASKS/menu'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
-const TemplateAddItems = mappedPcm => {
+const TemplateAddItems = ({ mappedPcm }) => {
   const { PRI_QUESTION_CODE } = mappedPcm
 
   return (
