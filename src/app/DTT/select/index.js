@@ -1,6 +1,6 @@
 import './styles.css'
 
-import { Box, HStack, Text, useTheme } from '@chakra-ui/react'
+import { Box, HStack, Text, VStack, useTheme } from '@chakra-ui/react'
 import { compose, includes, isEmpty, pathOr } from 'ramda'
 import { selectCode, selectRows } from 'redux/db/selectors'
 import { useDispatch, useSelector } from 'react-redux'
@@ -19,6 +19,8 @@ import { onSendMessage } from 'vertx'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
+import { selectFieldMessage } from 'redux/app/selectors'
+import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined'
 
 const Write = ({
   questionCode,
@@ -67,6 +69,10 @@ const Write = ({
   const fieldNotEmpty = fieldState[questionCode]
   const dispatchBeInformation = useDispatch()
   const onNewMsg = compose(dispatchBeInformation, newMsg)
+
+  const fieldMessageObject = useSelector(selectFieldMessage)
+  const fieldMessage = fieldMessageObject[`${parentCode}@${questionCode}`]
+  let hasFieldMessage = isNotNullOrUndefinedOrEmpty(fieldMessage)
 
   const ddEvent = debounce(
     value =>
@@ -227,6 +233,11 @@ const Write = ({
           }),
         }}
       />
+      {hasFieldMessage && (
+        <VStack alignItems="start">
+          <Text textStyle="product.errorText">{fieldMessage}</Text>)
+        </VStack>
+      )}
     </Box>
   )
 }

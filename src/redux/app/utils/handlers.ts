@@ -59,7 +59,7 @@ const cmdMachine: {
     state['NOTES'] = code
   },
   FIELDMSG: (state: AppState, { code, questionCode, message }: CmdPayload) => {
-    const fieldMsgKey = `${code}@${questionCode}`
+    const fieldMsgKey = `${questionCode}@${code}`
     state['FIELDMSG'] = {
       ...state['FIELDMSG'],
       [fieldMsgKey]: message?.value,
