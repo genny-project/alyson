@@ -32,7 +32,7 @@ const TemplateLogo = ({ mappedPcm, depth }) => {
               code={PRI_LOC2}
               depth={depth}
               mappedPcm={mappedPcm}
-              props={{
+              config={{
                 parentCode: entityCode,
                 config: { htmlWidth: LOGO_WIDTH },
               }}
