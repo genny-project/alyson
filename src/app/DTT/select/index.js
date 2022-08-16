@@ -120,6 +120,11 @@ const Write = ({
   }, [data, options?.length])
 
   useEffect(() => {
+    handleClearFieldMessage()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
     value?.length ? setIsFocused(true) : setIsFocused(false)
   }, [value])
 
