@@ -23,6 +23,7 @@ import TemplateProcess from './tpl-process'
 import TemplateAddItems from './tpl-add-items'
 import TemplateBell from './tpl-bell'
 import TemplateAvatar from './tpl-avatar'
+import TemplatePropertyDetailView from './tpl-detail-view/tpl-property-detail-view'
 
 /**
  * Takes in a mappedPcm, a templateCode and some misc properties and returns a template component.
@@ -56,7 +57,9 @@ const templateHandlerMachine = mappedPcm => templateCode => properties => depth 
     TPL_TEXT_HEADER_5: <TemplateText mappedPcm={mappedPcm} depth={depth} {...properties} />,
     TPL_TEXT_HEADER_6: <TemplateText mappedPcm={mappedPcm} depth={depth} {...properties} />,
     TPL_CARD: <TemplateCard mappedPcm={mappedPcm} depth={depth} {...properties} />,
-    TPL_DETAIL_VIEW: <TemplateDetailView mappedPcm={mappedPcm} depth={depth} {...properties} />,
+    TPL_DETAIL_VIEW: (
+      <TemplatePropertyDetailView mappedPcm={mappedPcm} depth={depth} {...properties} />
+    ),
     TPL_HORIZONTAL_CARDS: (
       <TemplateHorizontalCards mappedPcm={mappedPcm} depth={depth} {...properties} />
     ),
