@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import { IconButton } from '@chakra-ui/button'
-import { HStack } from '@chakra-ui/layout'
+import { HStack, Box } from '@chakra-ui/layout'
 import { Menu, MenuButton, MenuList } from '@chakra-ui/menu'
 import { faEllipsisH } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -34,23 +34,25 @@ const DetailActions = ({ sbeCode, beCode }) => {
         customAction
       />
       {actions.length > 1 && (
-        <Menu>
-          <MenuButton>
-            <IconButton
-              test-id={'detail-view-actions'}
-              colorScheme="primary"
-              variant="outline"
-              icon={<FontAwesomeIcon icon={faEllipsisH} />}
-              borderRadius="2rem"
-              p="1rem"
-            />
-          </MenuButton>
-          <MenuList>
-            {map(action => (
-              <Action key={action} parentCode={sbeCode} code={action} targetCode={beCode} />
-            ))(tail(actions))}
-          </MenuList>
-        </Menu>
+        <Box>
+          <Menu>
+            <MenuButton>
+              <IconButton
+                test-id={'detail-view-actions'}
+                colorScheme="primary"
+                variant="outline"
+                icon={<FontAwesomeIcon icon={faEllipsisH} />}
+                borderRadius="2rem"
+                p="1rem"
+              />
+            </MenuButton>
+            <MenuList>
+              {map(action => (
+                <Action key={action} parentCode={sbeCode} code={action} targetCode={beCode} />
+              ))(tail(actions))}
+            </MenuList>
+          </Menu>
+        </Box>
       )}
     </HStack>
   )

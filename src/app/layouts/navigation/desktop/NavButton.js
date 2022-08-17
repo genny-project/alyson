@@ -1,4 +1,4 @@
-import { HStack, Menu, MenuButton, MenuItem, MenuList, Text, VStack } from '@chakra-ui/react'
+import { HStack, Menu, MenuButton, MenuItem, MenuList, Text, VStack, Box } from '@chakra-ui/react'
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import sendAskClick from 'app/ASKS/utils/send-ask-click'
@@ -39,30 +39,32 @@ const NavButton = ({ code, questionCode }) => {
     )
 
   return (
-    <Menu>
-      <MenuButton opacity={0.8} _hover={{ opacity: 1 }} test-id={code}>
-        <VStack color="grey" test-id={code}>
-          <FontAwesomeIcon size="lg" icon={icons[code]} />
-          <HStack spacing={0.5}>
-            <Text fontSize="xs">{labels[code]}</Text>
-            <FontAwesomeIcon icon={faCaretDown} />
-          </HStack>
-        </VStack>
-      </MenuButton>
-      <MenuList>
-        {childAsks.map(childAsk => (
-          <MenuItem
-            onClick={() => {
-              sendAskClick(childAsk.questionCode, childAsk.questionCode)
-            }}
-            test-id={childAsk.questionCode}
-            key={childAsk.questionCode}
-          >
-            {childAsk.name}
-          </MenuItem>
-        ))}
-      </MenuList>
-    </Menu>
+    <Box>
+      <Menu>
+        <MenuButton opacity={0.8} _hover={{ opacity: 1 }} test-id={code}>
+          <VStack color="grey" test-id={code}>
+            <FontAwesomeIcon size="lg" icon={icons[code]} />
+            <HStack spacing={0.5}>
+              <Text fontSize="xs">{labels[code]}</Text>
+              <FontAwesomeIcon icon={faCaretDown} />
+            </HStack>
+          </VStack>
+        </MenuButton>
+        <MenuList>
+          {childAsks.map(childAsk => (
+            <MenuItem
+              onClick={() => {
+                sendAskClick(childAsk.questionCode, childAsk.questionCode)
+              }}
+              test-id={childAsk.questionCode}
+              key={childAsk.questionCode}
+            >
+              {childAsk.name}
+            </MenuItem>
+          ))}
+        </MenuList>
+      </Menu>
+    </Box>
   )
 }
 

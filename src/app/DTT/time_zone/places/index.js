@@ -1,3 +1,4 @@
+import { Box } from '@chakra-ui/react'
 import { Input, InputGroup, InputRightAddon } from '@chakra-ui/input'
 import { Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/menu'
 import { useEffect, useRef, useState } from 'react'
@@ -41,18 +42,20 @@ const PlacesAutocomplete = ({ onSelect, questionCode }) => {
           onChange={e => setInput(e.target.value)}
         />
         <InputRightAddon>
-          <Menu>
-            <MenuButton test-id={`${questionCode}_LISTS`}>Select From A List</MenuButton>
-            <MenuList maxH="20rem" overflowY="scroll">
-              {Object.entries(defaultTimeZones).map(([key, value]) => (
-                <MenuItem
-                  test-id={value}
-                  key={key}
-                  onClick={() => onSelect(value)}
-                >{`${key}: ${value}`}</MenuItem>
-              ))}
-            </MenuList>
-          </Menu>
+          <Box>
+            <Menu>
+              <MenuButton test-id={`${questionCode}_LISTS`}>Select From A List</MenuButton>
+              <MenuList maxH="20rem" overflowY="scroll">
+                {Object.entries(defaultTimeZones).map(([key, value]) => (
+                  <MenuItem
+                    test-id={value}
+                    key={key}
+                    onClick={() => onSelect(value)}
+                  >{`${key}: ${value}`}</MenuItem>
+                ))}
+              </MenuList>
+            </Menu>
+          </Box>
         </InputRightAddon>
       </InputGroup>
     </div>
