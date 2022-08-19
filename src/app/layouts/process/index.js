@@ -38,22 +38,22 @@ const Process = ({ dashboard }) => {
           {roles.includes('test') && (
             <Search process={processCodes[0]} sbeCode={JSON.stringify(processCodes)} />
           )}
-        </HStack>
-      )}
 
-      {userType === 'AGENT' && (
-        <Button
-          colorScheme={'green'}
-          variant={'outline'}
-          onClick={() =>
-            onSendMessage({
-              code: 'ACT_DJP_INTERN_SEARCH',
-              targetCode: JSON.stringify(processCodes),
-            })
-          }
-        >
-          {'View DJP Interns Only'}
-        </Button>
+          {userType === 'AGENT' && (
+            <Button
+              colorScheme={'green'}
+              variant={'outline'}
+              onClick={() =>
+                onSendMessage({
+                  code: 'ACT_DJP_INTERN_SEARCH',
+                  targetCode: JSON.stringify(processCodes),
+                })
+              }
+            >
+              {'View DJP Interns Only'}
+            </Button>
+          )}
+        </HStack>
       )}
 
       <HStack spacing={5} marginBlockStart={5} w="100vw" align="flex-start" justify="space-between">
