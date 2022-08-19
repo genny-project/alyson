@@ -9,7 +9,7 @@ const AmenityField = ({ attributeCode, code }) => {
   const entityAttribute = useSelector(selectCode(code, attributeCode))
 
   const titleUpper = toUpper(
-    replace('Number of ')('')(entityAttribute?.attribute?.name) || attributeCode,
+    replace('Number of ')('')(entityAttribute?.attribute?.name || '') || attributeCode,
   )
   const title = slice(0, 1, titleUpper) + toLower(slice(1, titleUpper.length, titleUpper))
   const value = entityAttribute.value ?? '?'
