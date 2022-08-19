@@ -1,13 +1,14 @@
+import 'swiper/swiper.min.css'
+
 import { Box, VStack } from '@chakra-ui/react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 import Ask from 'app/ASKS/ask'
 import Lane from 'app/SBE/lane'
-import { useSelector } from 'react-redux'
-import { selectProcess } from 'redux/app/selectors'
-import { selectCode } from 'redux/db/selectors'
-import 'swiper/swiper.min.css'
 import getUserType from 'utils/helpers/get-user'
+import { selectCode } from 'redux/db/selectors'
+import { selectProcess } from 'redux/app/selectors'
+import { useSelector } from 'react-redux'
 
 const MobileView = () => {
   const userType = getUserType()
@@ -28,6 +29,7 @@ const MobileView = () => {
             ))}
         </VStack>
       )}
+
       <Swiper>
         {processCodes.map(sbeCode => (
           <SwiperSlide key={sbeCode}>

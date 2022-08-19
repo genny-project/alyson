@@ -19,6 +19,7 @@ import { selectCode } from 'redux/db/selectors'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import { useHotkeys } from 'react-hotkeys-hook'
 import { useIsMobile } from 'utils/hooks'
+import useProductColors from 'utils/productColors'
 import { useSelector } from 'react-redux'
 
 const ProcessSearch = ({ sbeCode, process, placeholder }) => {
@@ -47,10 +48,17 @@ const ProcessSearch = ({ sbeCode, process, placeholder }) => {
   const isMobile = useIsMobile()
   const iconColor = useGetAttributeFromProjectBaseEntity('PRI_COLOR')?.value
 
+  const { fieldBackgroundColor } = useProductColors
+
   return (
-    <Stack direction={isMobile ? 'column' : 'row'} alignItems={'center'}>
-      <form onSubmit={handleSubmit}>
-        <InputGroup w="xs" maxW="50vw">
+    <Stack
+      direction={isMobile ? 'column' : 'row'}
+      alignItems={'center'}
+      w="full"
+      maxW={isMobile ? 'inherit' : '50vw'}
+    >
+      <form onSubmit={handleSubmit} style={{ width: '100%' }}>
+        <InputGroup w="full" maxW={isMobile ? 'inherit' : '50vw'}>
           <InputLeftElement left={3}>
             <FontAwesomeIcon color={iconColor} icon={faSearch} />
           </InputLeftElement>
@@ -75,7 +83,7 @@ const ProcessSearch = ({ sbeCode, process, placeholder }) => {
             paddingBlock={3}
             paddingStart={14}
             paddingEnd={12}
-            bg={'product.gray'}
+            bg={fieldBackgroundColor}
             borderRadius={'calc(0.25rem - 1px)'}
             borderColor={'product.gray'}
             fontSize={'sm'}

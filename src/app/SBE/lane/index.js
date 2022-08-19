@@ -1,6 +1,6 @@
 import './lane.css'
 
-import { Box, VStack, useColorModeValue } from '@chakra-ui/react'
+import { Box, VStack } from '@chakra-ui/react'
 
 import BECard from 'app/BE/card'
 import Card from 'app/layouts/components/card'
@@ -11,15 +11,13 @@ import { useIsMobile } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 
 const Lane = ({ sbeCode, dashboard, width }) => {
-  const bg = useColorModeValue('gray.100', 'gray.700')
-
   const rows = useSelector(selectRows(sbeCode), (prev, next) => prev.length === next.length)
 
   const isMobile = useIsMobile()
 
   return (
     <Box>
-      <Box width={width} bg={bg} mb="2" p="1">
+      <Box width={width} bg={'#f6f6f6'} mb="2" p="1">
         <Title sbeCode={sbeCode} />
       </Box>
 
