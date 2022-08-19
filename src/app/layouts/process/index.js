@@ -18,8 +18,6 @@ const Process = ({ dashboard }) => {
   const bucketSearch = useSelector(selectCode('QUE_BUCKET_INTERNS_GRP')) || []
   const roles = pathOr('', ['realmAccess', 'roles'])(useKeycloak().keycloak)
 
-  console.log(userType, dashboard)
-
   if (!processCodes) return null
 
   return (
