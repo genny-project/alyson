@@ -23,6 +23,7 @@ import TemplateProcess from './tpl-process'
 import TemplateAddItems from './tpl-add-items'
 import TemplateBell from './tpl-bell'
 import TemplateAvatar from './tpl-avatar'
+import TemplatePropertyDetailView from './tpl-detail-view/tpl-property-detail-view'
 
 /**
  * Takes in a mappedPcm, a templateCode and some misc properties and returns a template component.
@@ -64,6 +65,9 @@ const templateHandlerMachine = mappedPcm => templateCode => properties => depth 
     TPL_ADD_ITEMS: <TemplateAddItems mappedPcm={mappedPcm} depth={depth} {...properties} />,
     TPL_BELL: <TemplateBell mappedPcm={mappedPcm} depth={depth} {...properties} />,
     TPL_AVATAR: <TemplateAvatar mappedPcm={mappedPcm} depth={depth} {...properties} />,
+    TPL_PROPERTY_DETAIL_VIEW: (
+      <TemplatePropertyDetailView mappedPcm={mappedPcm} depth={depth} {...properties} />
+    ),
   }
 
   if (hasNot(templateCode)(listOfTemplates)) {
