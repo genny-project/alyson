@@ -11,6 +11,19 @@ const TemplateForm = ({ mappedPcm, depth, ...properties }) => {
   const questionCode = mappedPcm?.PRI_QUESTION_CODE || ''
   const isMobile = useIsMobile()
 
+  let dataStore = []
+  const askData = useSelector(selectCode(questionCode, 'wholeData'))
+
+  const getQuestionsList = individualAsk => {
+    const { questionCode, childAsks } = individualAsk
+    dataStore = dataStore.concat(questionCode)
+    if (childAsks?.length) {
+      childAsks.map(individualAsk => getQuestionsList(individualAsk))
+    }
+    return dataStore
+  }
+  askData.map(individualAsk => getQuestionsList(individualAsk))
+
   if (questionCode) {
     return (
       <Flex justifyContent={isMobile ? 'flex-start' : 'center'}>
