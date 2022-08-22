@@ -41,8 +41,6 @@ const Submit = ({ askData, onFinish, parentCode, clientId }) => {
     q => q.questionCode !== 'QUE_SUBMIT' && includes(q.attributeCode, mandatoryAttributesNoValue),
   )(mandatoryQuestions)
 
-  console.log('logging---->', { mandatoryQuestionsNoValue })
-
   const [loading, setLoading] = useState(false)
 
   const onClick = () => {
