@@ -79,10 +79,9 @@ const Submit = ({ askData, onFinish, parentCode, clientId }) => {
                 onClick={() => {
                   const element = document.getElementById(question.attributeCode)
                   if (!element) return
-                  onHighlightQuestion(question.attributeCode)
+                  onHighlightQuestion(question?.attributeCode)
                   element.scrollIntoView({ behavior: 'smooth', block: 'center' })
                 }}
-                transition="all 0.2s"
               >
                 {question.name}
               </Tag>
