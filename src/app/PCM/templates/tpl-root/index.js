@@ -1,16 +1,19 @@
-import { Box, Grid, VStack, useColorModeValue, useTheme } from '@chakra-ui/react'
+import { Box, Grid, IconButton, useColorModeValue, useTheme } from '@chakra-ui/react'
 import DeveloperConsole, { isDev } from 'utils/developer'
-import { SIDEBAR_WIDTH, SIDEBAR_WIDTH_SM, lojing } from 'utils/constants'
+import { SIDEBAR_WIDTH, lojing } from 'utils/constants'
 
 import Dialog from 'app/layouts/display/dialog'
 import DisplayDrawer from 'app/layouts/display/drawer'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import LogrocketIdentifier from 'app/layouts/components/logrocket_identifier'
 import PcmField from 'app/PCM/components/pcm-field'
 import Toast from 'app/layouts/display/toast'
 import { apiConfig } from 'config/get-api-config'
 import { equals } from 'ramda'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import { useIsMobile } from 'utils/hooks'
+import { useState } from 'react'
 
 /**
  * The root template for an application. Contains a sidebar, header and a body content.
@@ -31,6 +34,7 @@ const TemplateRoot = ({ mappedPcm, depth }) => {
   const { PRI_LOC1, PRI_LOC2, PRI_LOC3 } = mappedPcm
 
   const clientId = apiConfig?.clientId
+  const [showSidebar, setShowSidebar] = useState(false)
 
   // THEME COLORS
   //need to fix this, we cannot get colours this way
@@ -49,7 +53,7 @@ const TemplateRoot = ({ mappedPcm, depth }) => {
       h={'100vh'}
       templateAreas={`"header header"
     "nav main"`}
-      gridTemplateColumns={isMobile ? `${SIDEBAR_WIDTH_SM} 1fr` : `${SIDEBAR_WIDTH} 1fr`}
+      gridTemplateColumns={isMobile ? '1fr' : `${SIDEBAR_WIDTH} 1fr`}
       gridTemplateRows={'auto 1fr'}
       fontFamily={'product.bodyFont'}
     >
@@ -62,7 +66,7 @@ const TemplateRoot = ({ mappedPcm, depth }) => {
           backgroundColor: appBg,
           boxShadow: '0px 4px 32px -16px rgba(0, 0, 0, 0.25)',
           position: 'relative',
-          zIndex: theme.zIndices.docked,
+          zIndex: theme.zIndices.sticky,
         }}
       >
         {/* Header PCM*/}
@@ -72,17 +76,39 @@ const TemplateRoot = ({ mappedPcm, depth }) => {
           depth={depth}
           properties={{ bg: appBg, color: color }}
         />
+
+        {isMobile && (
+          <IconButton
+            aria-label="Toggle Side Navigation Bar"
+            aria-controls="sideNav"
+            icon={<FontAwesomeIcon icon={faBars} />}
+            position="absolute"
+            top="1.25rem"
+            left="0.75rem"
+            color="product.secondary"
+            bg="transparent"
+            onClick={() => {
+              setShowSidebar(!showSidebar)
+            }}
+          />
+        )}
       </header>
 
       {/* SIDEBAR WRAPPER */}
-      <VStack
+      <Box
+        id="sideNav"
         area={'nav'}
-        w={isMobile ? SIDEBAR_WIDTH_SM : SIDEBAR_WIDTH}
+        w={SIDEBAR_WIDTH}
         bg="product.primary"
-        h="calc(100vh - 72px)"
-        paddingInline={4}
+        h={isMobile ? 'calc(100vh - 80px)' : 'calc(100vh - 86px)'}
         paddingTop={14}
-        overflow="auto"
+        position={isMobile ? 'absolute' : 'inherit'}
+        bottom="0"
+        left={showSidebar ? '0' : isMobile && !showSidebar ? `-${SIDEBAR_WIDTH}` : 0}
+        zIndex={theme.zIndices.dropdown}
+        boxShadow={isMobile && showSidebar ? '0 0 0 100vmax rgb(0 0 0 / 0.25)' : 'none'}
+        clipPath={isMobile ? 'inset(0 -100vmax)' : 'initial'}
+        transition="left 0.35s ease, box-shadow 0.35s ease 0.1s"
       >
         {/* Sidebar Pcm */}
         <PcmField
@@ -91,13 +117,13 @@ const TemplateRoot = ({ mappedPcm, depth }) => {
           depth={depth}
           properties={{ color: appBg }}
         />
-      </VStack>
+      </Box>
 
       <Box
         backgroundColor={lightColor}
         id="main-display"
         pb={1}
-        h="calc(100vh - 72px)"
+        h={isMobile ? 'calc(100vh - 80px)' : 'calc(100vh - 86px)'}
         overflow="auto"
         area={'main'}
       >

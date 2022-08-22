@@ -8,6 +8,7 @@ import {
   MenuList,
   Text,
   VStack,
+  useTheme,
 } from '@chakra-ui/react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -21,6 +22,7 @@ import { useIsMobile } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 
 const AsksMenu = ({ questionCode, hideLabel }) => {
+  const theme = useTheme()
   const data = useSelector(selectCode(questionCode))
   const wholeData = useSelector(selectCode(questionCode, 'wholeData'))
   const labelsAndQuestionCode = map(({ questionCode, name, attributeCode }) => ({
@@ -41,8 +43,14 @@ const AsksMenu = ({ questionCode, hideLabel }) => {
       <Menu>
         <MenuButton opacity={0.8} _hover={{ opacity: 1 }} test-id={questionCode}>
           <VStack color="grey" test-id={questionCode}>
-            <Center bg="#03DAC5" h="10" w="10" borderRadius="50%">
-              <FontAwesomeIcon size="lg" icon={icons[questionCode]} color="#234371" />
+            <Center
+              bg={'product.secondary'}
+              color={theme.colors.background.light}
+              h="8"
+              w="8"
+              borderRadius="50%"
+            >
+              <FontAwesomeIcon size={'md'} icon={icons[questionCode]} color={'inherit'} />
             </Center>
             {!isMobile && !hideLabel && (
               <HStack spacing={1}>

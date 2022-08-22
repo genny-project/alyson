@@ -13,7 +13,7 @@ import { useSelector } from 'react-redux'
 const Lane = ({ sbeCode, dashboard, width }) => {
   const bg = useColorModeValue('gray.100', 'gray.700')
 
-  const rows = useSelector(selectRows(sbeCode), (prev, next) => prev.length === next.length)
+  const rows = useSelector(selectRows(sbeCode))
 
   const isMobile = useIsMobile()
 
