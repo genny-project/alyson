@@ -1,17 +1,29 @@
 import { Box, Center, CircularProgress, Flex, Text } from '@chakra-ui/react'
-import { compose, equals, filter, identity, includes, map, prop, isEmpty } from 'ramda'
+import {
+  compose,
+  equals,
+  filter,
+  identity,
+  includes,
+  map,
+  prop,
+  isEmpty,
+  find,
+  pathOr,
+} from 'ramda'
 
 import Ask from 'app/ASKS/ask'
 import debugOut from 'utils/debug-out'
 import { selectCode } from 'redux/db/selectors'
 import { useIsMobile } from 'utils/hooks'
 import { useSelector } from 'react-redux'
-import { selectWholeQuestionData } from 'redux/db/selectors'
+import { selectWholeQuestionData, selectAttributes } from 'redux/db/selectors'
 
 const TemplateForm = ({ mappedPcm, depth, ...properties }) => {
   const questionCode = mappedPcm?.PRI_QUESTION_CODE || ''
   const isMobile = useIsMobile()
   const askData = useSelector(selectCode(questionCode, 'wholeData'))
+  const targetCode = pathOr(undefined, [0, 'targetCode'])(askData)
 
   let questionStore = []
 
@@ -26,22 +38,22 @@ const TemplateForm = ({ mappedPcm, depth, ...properties }) => {
   askData?.map(individualAsk => getQuestionsList(individualAsk))
 
   const questionDatas = useSelector(selectWholeQuestionData(questionStore))
-  // const mandatoryQuestions = filter(prop('mandatory'), questionDatas)
-  // const mandatoryAttributes = map(prop('attributeCode'))(mandatoryQuestions)
-  // const attributeData = filter(
-  //   identity,
-  //   useSelector(selectAttributes(targetCode, mandatoryAttributes)),
-  // )
-  // const mandatoryAttributesNoValue = compose(
-  //   map(prop('attributeCode')),
-  //   filter(attr => !attr.value),
-  // )(attributeData)
+  const mandatoryQuestions = filter(prop('mandatory'), questionDatas)
+  const mandatoryAttributes = map(prop('attributeCode'))(mandatoryQuestions)
+  const attributeData = filter(
+    identity,
+    useSelector(selectAttributes(targetCode, mandatoryAttributes)),
+  )
+  const mandatoryAttributesNoValue = compose(
+    map(prop('attributeCode')),
+    filter(attr => !attr.value),
+  )(attributeData)
 
-  // const mandatoryQuestionsNoValue = filter(
-  //   q => q.questionCode !== 'QUE_SUBMIT' && includes(q.attributeCode, mandatoryAttributesNoValue),
-  // )(mandatoryQuestions)
+  const mandatoryQuestionsNoValue = filter(
+    q => q.questionCode !== 'QUE_SUBMIT' && includes(q.attributeCode, mandatoryAttributesNoValue),
+  )(mandatoryQuestions)
 
-  console.log('questions---->', { askData, questionStore, questionDatas })
+  console.log('questions---->', { mandatoryQuestionsNoValue })
 
   if (questionCode) {
     return (
