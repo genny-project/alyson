@@ -77,10 +77,10 @@ const Submit = ({ askData, onFinish, parentCode, clientId }) => {
                 colorScheme="red"
                 cursor="pointer"
                 onClick={() => {
-                  const el = document.getElementById(question.attributeCode)
-                  if (!el) return
+                  const element = document.getElementById(question.attributeCode)
+                  if (!element) return
                   onHighlightQuestion(question.attributeCode)
-                  el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+                  element.scrollIntoView({ behavior: 'smooth', block: 'center' })
                 }}
                 transition="all 0.2s"
               >
