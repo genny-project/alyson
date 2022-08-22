@@ -15,7 +15,7 @@ export const selectAttributes = (parentCode: string, attributes: Array<string> =
 ) => map(attr => selectCode(parentCode, attr)(state), attributes)
 
 export const selectWholeQuestionData = (questionList: Array<string>) => (state: RootState): any =>
-  map(individualQuestion => selectCode(individualQuestion, 'wholeData')(state), questionList || [])
+  map(individualQuestion => selectCode(individualQuestion, 'raw')(state), questionList || [])
 
 export const selectNote = (id: string) => (state: RootState) => state.db.NOTES[id]
 
