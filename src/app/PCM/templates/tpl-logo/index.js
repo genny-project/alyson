@@ -1,12 +1,15 @@
-import { LOGO_WIDTH } from 'utils/constants'
-import sendAskClick from 'app/ASKS/utils/send-ask-click'
+import { LOGO_WIDTH, LOGO_WIDTH_SM } from 'utils/constants'
+
 import { Box } from '@chakra-ui/react'
 import PcmField from 'app/PCM/components/pcm-field'
+import sendAskClick from 'app/ASKS/utils/send-ask-click'
 import { useGetProjectCode } from 'app/BE/project-be'
+import { useIsMobile } from 'utils/hooks'
 
 const TemplateLogo = ({ mappedPcm, depth }) => {
   const { PRI_LOC1, PRI_LOC2 } = mappedPcm
   const entityCode = useGetProjectCode()
+  const isMobile = useIsMobile()
 
   const handleClick = childCode => {
     sendAskClick(childCode, childCode)
@@ -34,7 +37,7 @@ const TemplateLogo = ({ mappedPcm, depth }) => {
               mappedPcm={mappedPcm}
               config={{
                 parentCode: entityCode,
-                config: { htmlWidth: LOGO_WIDTH },
+                config: { htmlWidth: isMobile ? LOGO_WIDTH_SM : LOGO_WIDTH },
               }}
             />
           </Box>

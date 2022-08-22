@@ -110,13 +110,7 @@ const EvtButton = ({ questionCode, childCode, iconId, vert }) => {
   return (
     <Menu placement="right-start">
       <MenuButton test-id={childCode}>
-        <VStack
-          spacing="4"
-          role="group"
-          test-id={childCode}
-          mb={'30px !important'}
-          mt={'0 !important'}
-        >
+        <VStack spacing="4" role="group" test-id={childCode}>
           <Box display="flex" alignItems="center" justifyContent="center" cursor={'pointer'}>
             {iconId ? (
               <Image boxSize="35px" objectFit={'contain'} src={src} alt="" />
