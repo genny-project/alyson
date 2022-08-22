@@ -17,7 +17,7 @@ const TemplateForm = ({ mappedPcm, depth, ...properties }) => {
 
   const getQuestionsList = individualAsk => {
     const { questionCode, childAsks } = individualAsk
-    questionStore = questionStore.concat(questionCode)
+    questionStore = childAsks?.length ? questionStore : questionStore.concat(questionCode)
     if (childAsks?.length) {
       childAsks?.map(individualAsk => getQuestionsList(individualAsk))
     }
@@ -41,7 +41,7 @@ const TemplateForm = ({ mappedPcm, depth, ...properties }) => {
   //   q => q.questionCode !== 'QUE_SUBMIT' && includes(q.attributeCode, mandatoryAttributesNoValue),
   // )(mandatoryQuestions)
 
-  console.log('questions---->', { questionStore, questionDatas })
+  console.log('questions---->', { askData, questionStore, questionDatas })
 
   if (questionCode) {
     return (
