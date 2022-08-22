@@ -1,13 +1,15 @@
+import { useState } from 'react'
 import { Button, Tag, Text, VStack, Wrap, WrapItem, useTheme } from '@chakra-ui/react'
 import { compose, equals, filter, identity, includes, map, prop } from 'ramda'
-import { selectAttributes, selectCode } from 'redux/db/selectors'
+import { selectWholeQuestionData, selectAttributes, selectCode } from 'redux/db/selectors'
+
 import { useDispatch, useSelector } from 'react-redux'
 
 import { highlightQuestion } from 'redux/app'
 import { lojing } from 'utils/constants'
 import { onSendMessage } from 'vertx'
 import { useError } from 'utils/contexts/ErrorContext'
-import { useState } from 'react'
+import { selectCurrentFormQuestions } from 'redux/app/selectors'
 
 const Submit = ({ askData, onFinish, parentCode, clientId }) => {
   const { questionCode, targetCode, name, disabled: disabledFromBackEnd } = askData
@@ -20,8 +22,8 @@ const Submit = ({ askData, onFinish, parentCode, clientId }) => {
   const hasError = includes(true)(errorStateValues)
   const isDisabled = hasError || disabledFromBackEnd
   const attrCode = useSelector(selectCode(questionCode, 'attributeCode'))
-  const questions = useSelector(selectCode(parentCode))
-  const questionDatas = useSelector(selectAttributes(parentCode, questions))
+  const questions = useSelector(selectCurrentFormQuestions)
+  const questionDatas = useSelector(selectWholeQuestionData(questions))
   const mandatoryQuestions = filter(prop('mandatory'), questionDatas)
   const mandatoryAttributes = map(prop('attributeCode'))(mandatoryQuestions)
   const attributeData = filter(
@@ -38,6 +40,8 @@ const Submit = ({ askData, onFinish, parentCode, clientId }) => {
   const mandatoryQuestionsNoValue = filter(
     q => q.questionCode !== 'QUE_SUBMIT' && includes(q.attributeCode, mandatoryAttributesNoValue),
   )(mandatoryQuestions)
+
+  console.log('logging---->', { mandatoryQuestionsNoValue })
 
   const [loading, setLoading] = useState(false)
 
