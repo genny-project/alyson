@@ -1,28 +1,47 @@
 import { Box, Center, CircularProgress, Flex, Text } from '@chakra-ui/react'
-import { equals, isEmpty } from 'ramda'
+import { compose, equals, filter, identity, includes, map, prop, isEmpty } from 'ramda'
 
 import Ask from 'app/ASKS/ask'
 import debugOut from 'utils/debug-out'
 import { selectCode } from 'redux/db/selectors'
 import { useIsMobile } from 'utils/hooks'
 import { useSelector } from 'react-redux'
+import { selectWholeQuestionData } from 'redux/db/selectors'
 
 const TemplateForm = ({ mappedPcm, depth, ...properties }) => {
   const questionCode = mappedPcm?.PRI_QUESTION_CODE || ''
   const isMobile = useIsMobile()
-
-  let dataStore = []
   const askData = useSelector(selectCode(questionCode, 'wholeData'))
+
+  let questionStore = []
 
   const getQuestionsList = individualAsk => {
     const { questionCode, childAsks } = individualAsk
-    dataStore = dataStore.concat(questionCode)
+    questionStore = questionStore.concat(questionCode)
     if (childAsks?.length) {
-      childAsks.map(individualAsk => getQuestionsList(individualAsk))
+      childAsks?.map(individualAsk => getQuestionsList(individualAsk))
     }
-    return dataStore
+    return questionStore
   }
-  askData.map(individualAsk => getQuestionsList(individualAsk))
+  askData?.map(individualAsk => getQuestionsList(individualAsk))
+
+  const questionDatas = useSelector(selectWholeQuestionData(questionStore))
+  // const mandatoryQuestions = filter(prop('mandatory'), questionDatas)
+  // const mandatoryAttributes = map(prop('attributeCode'))(mandatoryQuestions)
+  // const attributeData = filter(
+  //   identity,
+  //   useSelector(selectAttributes(targetCode, mandatoryAttributes)),
+  // )
+  // const mandatoryAttributesNoValue = compose(
+  //   map(prop('attributeCode')),
+  //   filter(attr => !attr.value),
+  // )(attributeData)
+
+  // const mandatoryQuestionsNoValue = filter(
+  //   q => q.questionCode !== 'QUE_SUBMIT' && includes(q.attributeCode, mandatoryAttributesNoValue),
+  // )(mandatoryQuestions)
+
+  console.log('questions---->', { questionStore, questionDatas })
 
   if (questionCode) {
     return (
