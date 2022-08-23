@@ -48,15 +48,16 @@ const ProcessSearch = ({ sbeCode, process, placeholder }) => {
   const isMobile = useIsMobile()
   const iconColor = useGetAttributeFromProjectBaseEntity('PRI_COLOR')?.value
 
-  const { fieldBackgroundColor } = useProductColors
+  const {
+    fieldBackgroundColor,
+    fieldBorderColor,
+    fieldHoverBorderColor,
+    fieldTextColor,
+    borderRadius,
+  } = useProductColors()
 
   return (
-    <Stack
-      direction={isMobile ? 'column' : 'row'}
-      alignItems={'center'}
-      w="full"
-      maxW={isMobile ? 'inherit' : '50vw'}
-    >
+    <Stack spacing="5" direction={isMobile ? 'column' : 'row'} w={isMobile ? 'full' : 'auto'}>
       <form onSubmit={handleSubmit} style={{ width: '100%' }}>
         <InputGroup w="full" maxW={isMobile ? 'inherit' : '50vw'}>
           <InputLeftElement left={3}>
@@ -84,14 +85,14 @@ const ProcessSearch = ({ sbeCode, process, placeholder }) => {
             paddingStart={14}
             paddingEnd={12}
             bg={fieldBackgroundColor}
-            borderRadius={'calc(0.25rem - 1px)'}
-            borderColor={'product.gray'}
+            borderRadius={borderRadius}
+            borderColor={fieldBorderColor}
             fontSize={'sm'}
             fontWeight={'medium'}
-            color="product.darkGray"
+            color={fieldTextColor}
             cursor={'pointer'}
             _hover={{
-              borderColor: 'product.gray',
+              borderColor: fieldHoverBorderColor,
               boxShadow: 'lg',
             }}
             _focusVisible={{
@@ -130,7 +131,7 @@ const ProcessSearch = ({ sbeCode, process, placeholder }) => {
         paddingInline={2}
         minW={'8.25rem'}
         background={'product.secondary'}
-        borderRadius={'calc(0.25rem - 1px)'}
+        borderRadius={borderRadius}
         border={'1px solid transparent'}
         borderColor={'product.secondary'}
         fontSize={'sm'}
@@ -142,6 +143,7 @@ const ProcessSearch = ({ sbeCode, process, placeholder }) => {
       >
         {`Search`}
       </Button>
+
       {compose(not, isEmpty)(searchValue) && search && (
         <Button
           onClick={handleClear}
@@ -155,7 +157,7 @@ const ProcessSearch = ({ sbeCode, process, placeholder }) => {
           background={'product.white'}
           fontSize={'sm'}
           fontWeight={'400'}
-          borderRadius={'calc(0.25rem - 1px)'}
+          borderRadius={borderRadius}
           borderColor="product.secondary"
           _hover={{
             background: 'product.secondary',

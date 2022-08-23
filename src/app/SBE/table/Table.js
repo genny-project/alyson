@@ -37,8 +37,9 @@ const DataTable = ({ parentCode, mapSearch }) => {
         <Stack
           align="flex-start"
           alignItems={'center'}
-          spacing="7"
+          spacing="5"
           direction={isMobile ? 'column' : 'row'}
+          w={'full'}
         >
           <Title sbeCode={parentCode} />
           <Search sbeCode={parentCode} />

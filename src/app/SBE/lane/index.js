@@ -19,7 +19,7 @@ const Lane = ({ sbeCode, dashboard, width }) => {
 
   return (
     <Box>
-      <Box width={width} bg={'#f6f6f6'} mb="2" p="1">
+      <Box width={width} bg={bg} mb="2" p="1">
         <Title sbeCode={sbeCode} />
       </Box>
 

@@ -20,7 +20,7 @@ const MobileView = () => {
   return (
     <Box>
       {userType !== 'INTERN' && (
-        <VStack mb="5">
+        <VStack w={'full'} mb="5">
           {bucketSearch &&
             bucketSearch.map(childAsk => (
               <Box width={'20rem'}>
