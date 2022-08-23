@@ -43,8 +43,6 @@ const Write = ({ questionCode, data, onSendAnswer }) => {
     }
   }, [data.value])
 
-  console.log('test')
-
   return (
     <VStack>
       <Text>Start typing your name, or draw on the pad</Text>
