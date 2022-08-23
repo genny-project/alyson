@@ -6,7 +6,10 @@ const Rating = ({ value, hover, setHover, onChange, questionCode }) => {
     return (
       <HStack spacing="0">
         {[1, 2, 3, 4, 5].map((idx, index) => (
-          <div key={index} style={{ width: '2rem', height: '2rem', padding: '0.5rem' }}>
+          <div
+            key={`${questionCode}-rating-${index}`}
+            style={{ width: '2rem', height: '2rem', padding: '0.5rem' }}
+          >
             <Star fill={value >= idx ? 'gold' : 'white'} />
           </div>
         ))}
