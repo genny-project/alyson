@@ -58,6 +58,8 @@ export const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMes
     dispatchFieldMessage({ payload: questionCode })
   }
 
+  console.log('test')
+
   return (
     <>
       <Input

@@ -12,6 +12,8 @@ const Read = ({ data }) => {
   )
 }
 
+console.log('test')
+
 const Write = ({ questionCode, data, onSendAnswer, isRequired, label }) => {
   const toggle = () => onSendAnswer(data?.value === 'true' ? 'false' : 'true')
   return (

@@ -2,6 +2,7 @@ import { Badge } from '@chakra-ui/react'
 
 const Read = ({ data, config }) => {
   const value = data?.value
+  console.log('test')
 
   if (!data) return null
 
