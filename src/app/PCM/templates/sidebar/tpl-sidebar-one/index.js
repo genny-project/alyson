@@ -1,14 +1,17 @@
 import EvtButton from 'app/PCM/components/evt-button'
-import { VStack } from '@chakra-ui/react'
+import { Grid } from '@chakra-ui/react'
 import mapQuestionGroup from 'app/PCM/helpers/map-question-grp'
 
 const TemplateSidebarOne = ({ mappedPcm, depth }) => {
   return (
-    <VStack
+    <Grid
       test-id={mappedPcm.PRI_QUESTION_CODE}
-      justifyContent="center"
-      spacing={12}
-      fontFamily={'product.sidebarFont'}
+      placeItems="center"
+      gap={12}
+      paddingInline={4}
+      maxH={'full'}
+      wordBreak={'break-word'}
+      overflow={'auto'}
     >
       {mapQuestionGroup((ask, question) => {
         return (
@@ -21,7 +24,7 @@ const TemplateSidebarOne = ({ mappedPcm, depth }) => {
           />
         )
       })(mappedPcm.PRI_QUESTION_CODE)}
-    </VStack>
+    </Grid>
   )
 }
 

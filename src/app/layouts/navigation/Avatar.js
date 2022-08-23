@@ -49,8 +49,8 @@ const AvatarMenu = ({ code: QUE_AVATAR_GRP }) => {
   if (!avatarAsks)
     return (
       <Box>
-        <Menu test-id={'QUE_AVATAR_GRP'}>
-          <MenuButton>
+        <Menu>
+          <MenuButton test-id={'QUE_AVATAR_GRP'}>
             <HStack spacing={1} color="grey">
               <Avatar
                 color="white"
@@ -98,10 +98,11 @@ const AvatarMenu = ({ code: QUE_AVATAR_GRP }) => {
     <Box>
       <Menu fontSize={'sm'}>
         <MenuButton test-id={'QUE_AVATAR_GRP'}>
-          <HStack spacing={1} color="grey">
+          <HStack spacing={1} color="product.gray700">
             <Avatar
+              size={'md'}
               color="white"
-              bg="gradient.400"
+              bg={'gradient.400'}
               name={name?.value || userName?.value}
               src={getImageSrc(userImage?.value)}
             />
