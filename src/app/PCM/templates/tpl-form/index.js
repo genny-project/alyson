@@ -8,26 +8,12 @@ import { useIsMobile } from 'utils/hooks'
 import FormAsk from 'app/PCM/templates/tpl-form/form-ask'
 import { setCurrentFormQuestions } from 'redux/app'
 import { useDispatch } from 'react-redux'
+import getCurrentFormQuestions from 'app/PCM/templates/helpers/get-current-form-questions'
 
 const TemplateForm = ({ mappedPcm, depth, ...properties }) => {
   const questionCode = mappedPcm?.PRI_QUESTION_CODE || ''
   const isMobile = useIsMobile()
   const completeAskData = useSelector(selectCode(questionCode, 'wholeData'))
-
-  const getCurrentFormQuestions = askData => {
-    let questionStore = []
-
-    const getQuestionsList = individualAsk => {
-      const { questionCode, childAsks } = individualAsk
-      questionStore = childAsks?.length ? questionStore : questionStore.concat(questionCode)
-      if (childAsks?.length) {
-        childAsks?.map(individualAsk => getQuestionsList(individualAsk))
-      }
-      return questionStore
-    }
-    askData?.map(individualAsk => getQuestionsList(individualAsk))
-    return questionStore
-  }
 
   const currentFormQuestions = getCurrentFormQuestions(completeAskData)
 
@@ -51,7 +37,7 @@ const TemplateForm = ({ mappedPcm, depth, ...properties }) => {
       </Flex>
     )
   } else {
-    console.error('Attempting to display a TPL_FORM for a PCM without a question code!')
+    console.warn('Attempting to display a TPL_FORM for a PCM without a question code!')
     return (
       <Center>
         <CircularProgress isIndeterminate />

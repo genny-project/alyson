@@ -50,7 +50,7 @@ const AsksMenu = ({ questionCode, hideLabel }) => {
               w="8"
               borderRadius="50%"
             >
-              <FontAwesomeIcon size={'md'} icon={icons[questionCode]} color={'inherit'} />
+              <FontAwesomeIcon icon={icons[questionCode]} color={'inherit'} />
             </Center>
             {!isMobile && !hideLabel && (
               <HStack spacing={1}>
