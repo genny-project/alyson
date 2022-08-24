@@ -171,9 +171,13 @@ const Ask = ({
         <HStack
           justify="space-between"
           // display={noLabel ? 'none' : 'flex'}
-          display="none"
+          // display="none"
           maxW={labelWidth}
           w={'full'}
+          h={0}
+          visibility={'hidden'}
+          transform={'scale(0)'}
+          overflow={'hidden'}
         >
           <FormLabel id={attributeCode} />
         </HStack>

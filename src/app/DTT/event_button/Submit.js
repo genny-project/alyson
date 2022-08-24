@@ -1,15 +1,14 @@
-import { useState } from 'react'
 import { Button, Tag, Text, VStack, Wrap, WrapItem, useTheme } from '@chakra-ui/react'
 import { compose, equals, filter, identity, includes, map, prop } from 'ramda'
-import { selectWholeQuestionData, selectAttributes, selectCode } from 'redux/db/selectors'
-
+import { selectAttributes, selectCode, selectWholeQuestionData } from 'redux/db/selectors'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { highlightQuestion } from 'redux/app'
 import { lojing } from 'utils/constants'
 import { onSendMessage } from 'vertx'
-import { useError } from 'utils/contexts/ErrorContext'
 import { selectCurrentFormQuestions } from 'redux/app/selectors'
+import { useError } from 'utils/contexts/ErrorContext'
+import { useState } from 'react'
 
 const Submit = ({ askData, onFinish, parentCode, clientId }) => {
   const { questionCode, targetCode, name, disabled: disabledFromBackEnd } = askData
