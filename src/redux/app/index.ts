@@ -19,6 +19,7 @@ export const initialState = {
   lastReceivedMessage: {},
   highlightedQuestion: '',
   bufferDropdownOptions: [],
+  currentFormQuestions: [],
 }
 
 const appSlice = createSlice({
@@ -72,6 +73,9 @@ const appSlice = createSlice({
     bufferDropdownOption: (state, { payload }) => {
       state.bufferDropdownOptions = payload
     },
+    setCurrentFormQuestions: (state, { payload }) => {
+      state.currentFormQuestions = payload
+    },
   },
 })
 
@@ -84,5 +88,6 @@ export const {
   closeNotes,
   highlightQuestion,
   bufferDropdownOption,
+  setCurrentFormQuestions,
 } = appSlice.actions
 export default appSlice.reducer

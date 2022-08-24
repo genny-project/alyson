@@ -6,8 +6,6 @@ import { Button } from '@chakra-ui/react'
 const PropAction = ({ parentCode, code, targetCode }) => {
   const data = useSelector(selectCode(parentCode, code))
 
-  console.log(data)
-
   if (!data) return <box />
 
   const handleClick = code => {
