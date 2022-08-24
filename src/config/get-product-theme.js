@@ -34,6 +34,9 @@ const productBasedDefaultColors = {
     gray100: '#BDC5CD',
 
     gray700: '#808080',
+
+    white: '#FFFFFF',
+    dark: '#000000',
   },
 }
 
