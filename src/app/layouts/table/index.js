@@ -22,7 +22,7 @@ const TableWrapper = ({ mapSearch }) => {
   if (includes('_JNLS_', table) || includes('_LOGBOOK_', table)) return <Journals sbeCode={table} />
 
   return (
-    <VStack bg="red">
+    <VStack>
       <Pagination sbeCode={table} />
       <Table parentCode={table} mapSearch={mapSearch} />
     </VStack>
