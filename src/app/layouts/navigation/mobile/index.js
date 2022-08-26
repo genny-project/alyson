@@ -27,6 +27,7 @@ import Buttons from 'app/ASKS/buttons'
 import Drafts from '../drafts/Drafts'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { apiConfig } from 'config/get-api-config'
+import { equals } from 'ramda'
 import getUserType from 'utils/helpers/get-user-type'
 import { onSendMessage } from 'vertx'
 import { selectCode } from 'redux/db/selectors'
@@ -41,6 +42,12 @@ const MobileNav = ({ logoSrc }) => {
 
   const userCode = useSelector(selectCode('USER'))
   const userType = getUserType(useSelector(selectCode(userCode)))
+
+  const educationProviderCode = useSelector(
+    selectCode(userCode, 'LNK_EDU_PROVIDER'),
+  )?.value.replace(/[\[\]"]+/g, '')
+  const educationProviderName = useSelector(selectCode(educationProviderCode, 'PRI_NAME'))?.value
+  const isVicDigJobRep = equals(educationProviderName)('Victorian Government Digital Jobs Program')
 
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = useRef()
@@ -93,11 +100,13 @@ const MobileNav = ({ logoSrc }) => {
             </Box>
             <Spacer />
             <HStack spacing={5}>
-              <AskMenu
-                onClose={onClose}
-                questionCode={addItemsQuestionCode}
-                icon={<Button leftIcon={<FontAwesomeIcon icon={faPlus} />}>Add</Button>}
-              />
+              {!isVicDigJobRep && (
+                <AskMenu
+                  onClose={onClose}
+                  questionCode={addItemsQuestionCode}
+                  icon={<Button leftIcon={<FontAwesomeIcon icon={faPlus} />}>Add</Button>}
+                />
+              )}
               <Drafts />
               <Avatar />
             </HStack>

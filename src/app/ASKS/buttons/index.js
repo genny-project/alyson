@@ -1,7 +1,7 @@
 import ChildButton from './ChildButton'
-import { useSelector } from 'react-redux'
-import { selectCode } from 'redux/db/selectors'
 import { VStack } from '@chakra-ui/react'
+import { selectCode } from 'redux/db/selectors'
+import { useSelector } from 'react-redux'
 
 const AskButtons = ({ questionCode, onClick }) => {
   const data = useSelector(selectCode(questionCode))
