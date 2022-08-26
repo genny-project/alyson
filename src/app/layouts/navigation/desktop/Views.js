@@ -1,7 +1,7 @@
 import { HStack } from '@chakra-ui/layout'
-import { useSelector } from 'react-redux'
-import { selectCode } from 'redux/db/selectors'
 import NavButton from './NavButton'
+import { selectCode } from 'redux/db/selectors'
+import { useSelector } from 'react-redux'
 
 const NAV_Q_CODE = 'QUE_PROJECT_SIDEBAR_GRP'
 

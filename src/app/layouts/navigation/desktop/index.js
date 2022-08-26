@@ -9,6 +9,7 @@ import Drafts from '../drafts/Drafts'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Views from './Views'
 import { apiConfig } from 'config/get-api-config'
+import { equals } from 'ramda'
 import getUserType from 'utils/helpers/get-user-type'
 import { onSendMessage } from 'vertx'
 import { selectCode } from 'redux/db/selectors'
@@ -23,6 +24,12 @@ const DesktopNav = ({ logoSrc }) => {
 
   const userCode = useSelector(selectCode('USER'))
   const userType = getUserType(useSelector(selectCode(userCode)))
+
+  const educationProviderCode = useSelector(
+    selectCode(userCode, 'LNK_EDU_PROVIDER'),
+  )?.value.replace(/[\[\]"]+/g, '')
+  const educationProviderName = useSelector(selectCode(educationProviderCode, 'PRI_NAME'))?.value
+  const isVicDigJobRep = equals(educationProviderName)('Victorian Government Digital Jobs Program')
 
   const btnRef = useRef()
   const realm = useGetRealm()
@@ -64,10 +71,15 @@ const DesktopNav = ({ logoSrc }) => {
               </Box>
             )}
           </Box>
-          <Views />
+          <Views isVicDigJobRep={isVicDigJobRep} />
           <Spacer />
           <HStack spacing={10}>
-            <AskMenu questionCode={addItemsQuestionCode} icon={<FontAwesomeIcon icon={faPlus} />} />
+            {!isVicDigJobRep && (
+              <AskMenu
+                questionCode={addItemsQuestionCode}
+                icon={<FontAwesomeIcon icon={faPlus} />}
+              />
+            )}
             {!caps(userType)(hideQuickAdd) && (
               <AskMenu
                 questionCode={quickAddItemsQuestionCode}
