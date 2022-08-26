@@ -3,6 +3,7 @@ import { useTheme } from '@chakra-ui/react'
 
 const fieldBackgroundColors = {
   lojing: 'product.gray',
+  alyson: 'product.white',
 }
 const fieldBorderColors = {
   lojing: 'product.gray',

@@ -1,11 +1,12 @@
 import { Button, Tag, Text, VStack, Wrap, WrapItem, useTheme } from '@chakra-ui/react'
 import { compose, equals, filter, identity, includes, map, prop } from 'ramda'
-import { selectAttributes, selectCode } from 'redux/db/selectors'
+import { selectAttributes, selectCode, selectWholeQuestionData } from 'redux/db/selectors'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { highlightQuestion } from 'redux/app'
 import { lojing } from 'utils/constants'
 import { onSendMessage } from 'vertx'
+import { selectCurrentFormQuestions } from 'redux/app/selectors'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useState } from 'react'
 
@@ -20,8 +21,8 @@ const Submit = ({ askData, onFinish, parentCode, clientId }) => {
   const hasError = includes(true)(errorStateValues)
   const isDisabled = hasError || disabledFromBackEnd
   const attrCode = useSelector(selectCode(questionCode, 'attributeCode'))
-  const questions = useSelector(selectCode(parentCode))
-  const questionDatas = useSelector(selectAttributes(parentCode, questions))
+  const questions = useSelector(selectCurrentFormQuestions)
+  const questionDatas = useSelector(selectWholeQuestionData(questions))
   const mandatoryQuestions = filter(prop('mandatory'), questionDatas)
   const mandatoryAttributes = map(prop('attributeCode'))(mandatoryQuestions)
   const attributeData = filter(
@@ -75,12 +76,11 @@ const Submit = ({ askData, onFinish, parentCode, clientId }) => {
                 colorScheme="red"
                 cursor="pointer"
                 onClick={() => {
-                  const el = document.getElementById(question.attributeCode)
-                  if (!el) return
-                  onHighlightQuestion(question.attributeCode)
-                  el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+                  const element = document.getElementById(question.attributeCode)
+                  if (!element) return
+                  onHighlightQuestion(question?.attributeCode)
+                  element.scrollIntoView({ behavior: 'smooth', block: 'center' })
                 }}
-                transition="all 0.2s"
               >
                 {question.name}
               </Tag>

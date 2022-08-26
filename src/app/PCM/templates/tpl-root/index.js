@@ -1,4 +1,16 @@
-import { Box, Grid, IconButton, useColorModeValue, useTheme } from '@chakra-ui/react'
+import {
+  Box,
+  Drawer,
+  DrawerBody,
+  DrawerCloseButton,
+  DrawerContent,
+  DrawerOverlay,
+  Grid,
+  IconButton,
+  useColorModeValue,
+  useDisclosure,
+  useTheme,
+} from '@chakra-ui/react'
 import DeveloperConsole, { isDev } from 'utils/developer'
 import { SIDEBAR_WIDTH, lojing } from 'utils/constants'
 
@@ -13,7 +25,7 @@ import { equals } from 'ramda'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import { useIsMobile } from 'utils/hooks'
-import { useState } from 'react'
+import { useRef } from 'react'
 
 /**
  * The root template for an application. Contains a sidebar, header and a body content.
@@ -31,10 +43,11 @@ import { useState } from 'react'
  */
 const TemplateRoot = ({ mappedPcm, depth }) => {
   const theme = useTheme()
+  const btnRef = useRef()
+  const { isOpen, onOpen, onClose } = useDisclosure()
   const { PRI_LOC1, PRI_LOC2, PRI_LOC3 } = mappedPcm
 
   const clientId = apiConfig?.clientId
-  const [showSidebar, setShowSidebar] = useState(false)
 
   // THEME COLORS
   //need to fix this, we cannot get colours this way
@@ -79,6 +92,7 @@ const TemplateRoot = ({ mappedPcm, depth }) => {
 
         {isMobile && (
           <IconButton
+            ref={btnRef}
             aria-label="Toggle Side Navigation Bar"
             aria-controls="sideNav"
             icon={<FontAwesomeIcon icon={faBars} />}
@@ -87,38 +101,48 @@ const TemplateRoot = ({ mappedPcm, depth }) => {
             left="0.75rem"
             color="product.secondary"
             bg="transparent"
-            onClick={() => {
-              setShowSidebar(!showSidebar)
-            }}
+            onClick={onOpen}
           />
         )}
       </header>
 
       {/* SIDEBAR WRAPPER */}
-      <Box
-        id="sideNav"
-        area={'nav'}
-        w={SIDEBAR_WIDTH}
-        bg="product.primary"
-        h={isMobile ? 'calc(100vh - 80px)' : 'calc(100vh - 86px)'}
-        paddingTop={14}
-        position={isMobile ? 'absolute' : 'inherit'}
-        bottom="0"
-        left={showSidebar ? '0' : isMobile && !showSidebar ? `-${SIDEBAR_WIDTH}` : 0}
-        zIndex={theme.zIndices.dropdown}
-        boxShadow={isMobile && showSidebar ? '0 0 0 100vmax rgb(0 0 0 / 0.25)' : 'none'}
-        clipPath={isMobile ? 'inset(0 -100vmax)' : 'initial'}
-        transition="left 0.35s ease, box-shadow 0.35s ease 0.1s"
-      >
-        {/* Sidebar Pcm */}
-        <PcmField
-          code={PRI_LOC2}
-          mappedPcm={mappedPcm}
-          depth={depth}
-          properties={{ color: appBg }}
-        />
-      </Box>
 
+      {isMobile ? (
+        <Drawer placement="left" isOpen={isOpen} onClose={onClose}>
+          <DrawerOverlay />
+          <DrawerContent width={'9rem !important'}>
+            <DrawerCloseButton color={theme.colors.text.dark} />
+            <DrawerBody paddingTop={14} paddingInline={0} bg="product.primary">
+              <PcmField
+                code={PRI_LOC2}
+                mappedPcm={mappedPcm}
+                depth={depth}
+                properties={{ color: appBg }}
+              />
+            </DrawerBody>
+          </DrawerContent>
+        </Drawer>
+      ) : (
+        <Box
+          id="sideNav"
+          area={'nav'}
+          w={SIDEBAR_WIDTH}
+          bg="product.primary"
+          h={isMobile ? 'calc(100vh - 80px)' : 'calc(100vh - 86px)'}
+          paddingTop={14}
+        >
+          {/* Sidebar Pcm */}
+          <PcmField
+            code={PRI_LOC2}
+            mappedPcm={mappedPcm}
+            depth={depth}
+            properties={{ color: appBg }}
+          />
+        </Box>
+      )}
+
+      {/* MAIN CONTENT WRAPPER */}
       <Box
         backgroundColor={lightColor}
         id="main-display"

@@ -18,7 +18,7 @@ const Process = ({ dashboard }) => {
   return (
     <VStack align="start" spacing={0} px="5">
       {!dashboard && userType !== 'INTERN' && (
-        <HStack mb={`4`} align="start">
+        <HStack w={'full'} mb={`4`} align="start">
           {bucketSearch &&
             bucketSearch.map((childAsk, index) => (
               <Box key={`${index}-${childAsk}`} width={'20rem'}>
@@ -34,7 +34,14 @@ const Process = ({ dashboard }) => {
         </HStack>
       )}
 
-      <HStack spacing={5} mt="5" w="95vw" align="flex-start" justify="space-between">
+      <HStack
+        spacing={5}
+        paddingBlock="5"
+        w="95vw"
+        align="flex-start"
+        justify="space-between"
+        overflow={'auto'}
+      >
         {processCodes.map((sbeCode, index) => (
           <Lane key={`${index}-${sbeCode}`} sbeCode={sbeCode} dashboard={dashboard} />
         ))}

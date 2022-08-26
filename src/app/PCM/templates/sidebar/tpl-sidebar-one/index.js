@@ -11,7 +11,6 @@ const TemplateSidebarOne = ({ mappedPcm, depth }) => {
       paddingInline={4}
       maxH={'full'}
       wordBreak={'break-word'}
-      overflow={'auto'}
     >
       {mapQuestionGroup((ask, question) => {
         return (
