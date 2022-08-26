@@ -1,7 +1,8 @@
-import { VStack, Box, HStack, Text } from '@chakra-ui/react'
-
+import { Box, Text as ChakraText, HStack, VStack } from '@chakra-ui/react'
 import { useState } from 'react'
 import HtmlEditorPreview from './html-editor-preview'
+import TextArea from '../text_area'
+import purify from './purify'
 
 const Write = ({
   questionCode,
@@ -15,10 +16,10 @@ const Write = ({
   targetCode,
   mandatory,
 }) => {
-  const [userInput, setUserInput] = useState('')
+  const [userInput, setuserInput] = useState(data?.value || '')
 
   const handleChange = event => {
-    setUserInput(event.target.value)
+    setuserInput(event.target.value)
     event.target.style.height = 'inherit'
     event.target.style.height = `${event.target.scrollHeight}px`
   }
@@ -26,22 +27,26 @@ const Write = ({
   return (
     <HStack justify={'space-evenly'} align={'flex-start'}>
       <Box width={'49%'}>
-        <VStack width={'100%'} align="flex-start">
-          <Text>HTML Code</Text>
-          <Box border={'1px'} width={'100%'}>
-            <tt style={{ width: '100%' }}>
-              <textarea
-                value={userInput}
-                onChange={handleChange}
-                style={{ width: '100%', boxSizing: 'border-box' }}
-              />
-            </tt>
-          </Box>
-        </VStack>
+        <tt>
+          <TextArea.Write
+            questionCode={questionCode}
+            data={data}
+            onSendAnswer={onSendAnswer}
+            regexPattern={regexPattern}
+            errorMessage={errorMessage}
+            parentCode={parentCode}
+            placeholderName={placeholderName}
+            attributeCode={attributeCode}
+            targetCode={targetCode}
+            mandatory={mandatory}
+            onChange={handleChange}
+            sanatise={purify}
+          />
+        </tt>
       </Box>
       <Box width={'49%'}>
         <VStack width={'100%'} align="flex-start">
-          <Text>Output</Text>
+          <ChakraText>Output</ChakraText>
           <Box borderTop="1px" width={'100%'}>
             <Box width={'100%'} padding={1}>
               <HtmlEditorPreview html={userInput} />
@@ -54,7 +59,7 @@ const Write = ({
 }
 
 const Read = ({ data, config }) => {
-  return <div></div>
+  return <HtmlEditorPreview html={data?.value || ''} />
 }
 
 const HtmlEditor = {

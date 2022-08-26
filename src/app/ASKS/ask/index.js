@@ -43,6 +43,7 @@ import { selectHighlightedQuestion } from 'redux/app/selectors'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import { useMobileValue } from 'utils/hooks'
 import { useSelector } from 'react-redux'
+import HtmlEditor from 'app/DTT/html-editor'
 
 const Ask = ({
   parentCode,
@@ -267,8 +268,23 @@ const Ask = ({
           clientId={clientId}
         />
       )}
-      {component === 'text' && (
+      {component === 'texte' && (
         <Text.Write
+          questionCode={questionCode}
+          mandatory={mandatory}
+          data={data}
+          onSendAnswer={onSendAnswer}
+          regexPattern={regexPattern}
+          errorMessage={errorMessage}
+          attributeCode={attributeCode}
+          targetCode={targetCode}
+          parentCode={parentCode}
+          placeholderName={placeholderName}
+          clientId={clientId}
+        />
+      )}
+      {component === 'text' && (
+        <HtmlEditor.Write
           questionCode={questionCode}
           mandatory={mandatory}
           data={data}

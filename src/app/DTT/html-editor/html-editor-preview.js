@@ -1,12 +1,11 @@
 import { Center } from '@chakra-ui/react'
-import DOMPurify from 'dompurify'
+import purify from './purify'
+
 const HtmlEditorPreview = ({ html }) => {
   if (!html) {
     return <Center>No HTML!</Center>
   }
-
-  const clean = `<div>${DOMPurify.sanitize(html)}</div>`
-
+  const clean = purify(html)
   return <div dangerouslySetInnerHTML={{ __html: clean }} />
 }
 
