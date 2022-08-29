@@ -42,7 +42,10 @@ import { selectCode } from 'redux/db/selectors'
 import { selectHighlightedQuestion } from 'redux/app/selectors'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import { useMobileValue } from 'utils/hooks'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
+import { compose } from 'ramda'
+import { newMsg } from 'redux/app'
 
 const Ask = ({
   parentCode,
@@ -80,6 +83,11 @@ const Ask = ({
   const labelWidth = useMobileValue(['full', '25vw'])
   const groupCode = getGroupCode(question) || parentCode
   const placeholderName = name
+
+  const dispatchBeInformation = useDispatch()
+
+  const onNewMsg = compose(dispatchBeInformation, newMsg)
+
   if (!question?.attribute) return null
 
   const {
@@ -100,7 +108,15 @@ const Ask = ({
   if (!question?.attribute) return null
 
   const feedback = data?.feedback
-  const onSendAnswer = createSendAnswer(askData, { passedTargetCode })
+  const onSendAnswerOnReceivingValue = createSendAnswer(askData, { passedTargetCode })
+
+  const testOnSendAnswer = onSendFn => storeUpdateFn => infoObject => {
+    const { attributeCode, targetCode, userInput } = infoObject
+    onSendFn(userInput)
+    dispatchBaseEntityUpdates(attributeCode, targetCode, userInput)(storeUpdateFn)
+  }
+
+  const onSendAnswer = testOnSendAnswer(onSendAnswerOnReceivingValue)(onNewMsg)
 
   if (readonly) {
     return (
