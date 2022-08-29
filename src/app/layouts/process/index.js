@@ -1,4 +1,4 @@
-import { Box, Button, HStack, VStack } from '@chakra-ui/react'
+import { Box, Checkbox, FormControl, FormLabel, HStack, VStack } from '@chakra-ui/react'
 
 import Ask from 'app/ASKS/ask'
 import Lane from 'app/SBE/lane'
@@ -10,13 +10,24 @@ import { selectCode } from 'redux/db/selectors'
 import { selectProcess } from 'redux/app/selectors'
 import { useKeycloak } from '@react-keycloak/web'
 import { useSelector } from 'react-redux'
+import { useState } from 'react'
 
 const Process = ({ dashboard }) => {
+  const [filterDJPInternsOnly, setFilterDJPInternsOnly] = useState(false)
   const userType = getUserType()
   const processCodes = useSelector(selectProcess, (prev, next) => prev.length === next.length)
 
   const bucketSearch = useSelector(selectCode('QUE_BUCKET_INTERNS_GRP')) || []
   const roles = pathOr('', ['realmAccess', 'roles'])(useKeycloak().keycloak)
+
+  const toggle = () => {
+    onSendMessage({
+      code: !!filterDJPInternsOnly ? 'QUE_TAB_BUCKET_VIEW' : 'ACT_DJP_INTERN_SEARCH',
+      parentCode: !!filterDJPInternsOnly ? 'QUE_TAB_BUCKET_VIEW' : '',
+      targetCode: !!filterDJPInternsOnly ? undefined : JSON.stringify(processCodes),
+    })
+    setFilterDJPInternsOnly(!filterDJPInternsOnly)
+  }
 
   if (!processCodes) return null
 
@@ -40,18 +51,14 @@ const Process = ({ dashboard }) => {
           )}
 
           {userType === 'AGENT' && (
-            <Button
-              colorScheme={'green'}
-              variant={'outline'}
-              onClick={() =>
-                onSendMessage({
-                  code: 'ACT_DJP_INTERN_SEARCH',
-                  targetCode: JSON.stringify(processCodes),
-                })
-              }
-            >
-              {'View DJP Interns Only'}
-            </Button>
+            <>
+              <HStack alignItems={'center'}>
+                <Checkbox isChecked={filterDJPInternsOnly} onChange={toggle} />
+                <FormControl onClick={toggle}>
+                  <FormLabel cursor={'pointer'}>{'View DJP Interns Only'}</FormLabel>
+                </FormControl>
+              </HStack>
+            </>
           )}
         </HStack>
       )}
