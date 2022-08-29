@@ -100,7 +100,7 @@ export const Write = ({
 
   const onBlur = e => {
     e.target.value ? setIsFocused(true) : setIsFocused(false)
-    !errorStatus && debouncedSendAnswer(e.target.value)
+    !errorStatus && debouncedSendAnswer(userInput)
     dispatchFieldMessage({ payload: questionCode })
   }
 

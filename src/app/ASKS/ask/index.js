@@ -110,13 +110,16 @@ const Ask = ({
   const feedback = data?.feedback
   const onSendAnswerOnReceivingValue = createSendAnswer(askData, { passedTargetCode })
 
-  const testOnSendAnswer = onSendFn => storeUpdateFn => infoObject => {
-    const { attributeCode, targetCode, userInput } = infoObject
+  const testOnSendAnswer = onSendFn => storeUpdateFn => infoObject => userInput => {
+    const { attributeCode, targetCode } = infoObject
     onSendFn(userInput)
     dispatchBaseEntityUpdates(attributeCode, targetCode, userInput)(storeUpdateFn)
   }
 
-  const onSendAnswer = testOnSendAnswer(onSendAnswerOnReceivingValue)(onNewMsg)
+  const onSendAnswer = testOnSendAnswer(onSendAnswerOnReceivingValue)(onNewMsg)({
+    attributeCode,
+    targetCode,
+  })
 
   if (readonly) {
     return (
