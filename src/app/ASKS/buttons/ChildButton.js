@@ -42,44 +42,46 @@ const ChildButton = ({ questionCode, childCode, onClick }) => {
       </HStack>
     )
   return (
-    <Menu>
-      <MenuButton test-id={childCode}>
-        <HStack spacing="4" role="group" p="2" test-id={childCode} onClick={onClick}>
-          <Box
-            background="primary.500"
-            borderRadius="0.5rem"
-            color="white"
-            p={2}
-            w="40px"
-            h="40px"
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-          >
-            <FontAwesomeIcon icon={icons[childCode]} />
-          </Box>
-          <Text textStyle="body.1" _hover={{ opacity: 1.0 }} opacity="0.8">
-            {name}
-          </Text>
-          <FontAwesomeIcon icon={faAngleDown} />
-        </HStack>
-      </MenuButton>
+    <Box>
+      <Menu>
+        <MenuButton test-id={childCode}>
+          <HStack spacing="4" role="group" p="2" test-id={childCode} onClick={onClick}>
+            <Box
+              background="primary.500"
+              borderRadius="0.5rem"
+              color="white"
+              p={2}
+              w="40px"
+              h="40px"
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+            >
+              <FontAwesomeIcon icon={icons[childCode]} />
+            </Box>
+            <Text textStyle="body.1" _hover={{ opacity: 1.0 }} opacity="0.8">
+              {name}
+            </Text>
+            <FontAwesomeIcon icon={faAngleDown} />
+          </HStack>
+        </MenuButton>
 
-      <MenuList>
-        {childAsks.map(childAsk => (
-          <MenuItem
-            onClick={() => {
-              sendAskClick(childAsk.questionCode, childAsk.questionCode)
-              onClick()
-            }}
-            test-id={childAsk.questionCode}
-            key={childAsk.questionCode}
-          >
-            {childAsk.name}
-          </MenuItem>
-        ))}
-      </MenuList>
-    </Menu>
+        <MenuList>
+          {childAsks.map(childAsk => (
+            <MenuItem
+              onClick={() => {
+                sendAskClick(childAsk.questionCode, childAsk.questionCode)
+                onClick()
+              }}
+              test-id={childAsk.questionCode}
+              key={childAsk.questionCode}
+            >
+              {childAsk.name}
+            </MenuItem>
+          ))}
+        </MenuList>
+      </Menu>
+    </Box>
   )
 }
 

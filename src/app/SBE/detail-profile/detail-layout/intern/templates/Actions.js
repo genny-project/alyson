@@ -1,4 +1,4 @@
-import { HStack, Text } from '@chakra-ui/layout'
+import { HStack, Text, Box } from '@chakra-ui/layout'
 import { Menu, MenuButton, MenuList } from '@chakra-ui/menu'
 import { equals, includes, reduce } from 'ramda'
 import { faEllipsisH, faPlus } from '@fortawesome/free-solid-svg-icons'
@@ -43,10 +43,11 @@ const DetailActions = ({ sbeCode, beCode }) => {
         config={{ customButton: true, name: 'Download CV' }}
       />
       {reducedActions.length > 0 ? (
-        <Menu placement="bottom-end">
-          <MenuButton test-id={'detail-view-actions'}>
-            <>
-              {/* <IconButton
+        <Box>
+          <Menu placement="bottom-end">
+            <MenuButton test-id={'detail-view-actions'}>
+              <>
+                {/* <IconButton
                 test-id={'detail-view-actions'}
                 colorScheme="primary"
                 variant="outline"
@@ -54,29 +55,30 @@ const DetailActions = ({ sbeCode, beCode }) => {
                 borderRadius="2rem"
                 p="1rem"
               /> */}
-              <Text
-                border="1px"
-                borderColor="#2B6CB0"
-                borderRadius="2rem"
-                py="2"
-                px="4"
-                lineHeight="1.35"
-              >
-                <FontAwesomeIcon color="#2B6CB0" icon={faEllipsisH} />
-              </Text>
-            </>
-          </MenuButton>
-          <MenuList zIndex={'modal'}>
-            {reducedActions.map((action, index) => (
-              <Action
-                key={`${action}-${index}`}
-                parentCode={sbeCode}
-                code={action}
-                targetCode={beCode}
-              />
-            ))}
-          </MenuList>
-        </Menu>
+                <Text
+                  border="1px"
+                  borderColor="#2B6CB0"
+                  borderRadius="2rem"
+                  py="2"
+                  px="4"
+                  lineHeight="1.35"
+                >
+                  <FontAwesomeIcon color="#2B6CB0" icon={faEllipsisH} />
+                </Text>
+              </>
+            </MenuButton>
+            <MenuList zIndex={'modal'}>
+              {reducedActions.map((action, index) => (
+                <Action
+                  key={`${action}-${index}`}
+                  parentCode={sbeCode}
+                  code={action}
+                  targetCode={beCode}
+                />
+              ))}
+            </MenuList>
+          </Menu>
+        </Box>
       ) : null}
     </HStack>
   )
