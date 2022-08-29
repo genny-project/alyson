@@ -5,15 +5,11 @@ import { useEffect, useState } from 'react'
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Read } from '../text'
-import { compose } from 'ramda'
-import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { getIsInvalid } from 'utils/functions'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
-import { newMsg } from 'redux/app'
 import safelyParseDate from 'utils/helpers/safely-parse-date'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
-import { useDispatch } from 'react-redux'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
@@ -58,21 +54,17 @@ const Write = ({
 
   const failedValidation = errorState[questionCode]
   const fieldNotEmpty = fieldState[questionCode]
-  const dispatchBeInformation = useDispatch()
-  const onNewMsg = compose(dispatchBeInformation, newMsg)
 
   const handleDateChange = (e, date) => {
     if (!e) {
       dates ? setIsFocused(true) : setIsFocused(false)
       setDates(dates => ({ ...dates, [date]: null }))
       onSendAnswer({ ...dates, [date]: null })
-      dispatchBaseEntityUpdates(attributeCode, targetCode, dates)(onNewMsg)
     } else {
       if (e.target.value) {
         e.target.value ? setIsFocused(true) : setIsFocused(false)
         setDates(dates => ({ ...dates, [date]: safelyParseDate(e.target.value) }))
         onSendAnswer({ ...dates, [date]: safelyParseDate(e.target.value).toISOString() })
-        dispatchBaseEntityUpdates(attributeCode, targetCode, e.target.value)(onNewMsg)
       }
     }
   }

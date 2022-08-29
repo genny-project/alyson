@@ -11,24 +11,22 @@ import {
   VStack,
   useTheme,
 } from '@chakra-ui/react'
-import { compose, includes } from 'ramda'
+import { includes } from 'ramda'
 import { dateOfBirthQuestionCode, eligibleAge } from 'utils/constants'
 import { differenceInYears, format, isBefore, parseISO, startOfTomorrow } from 'date-fns'
 import { faCalendarDay, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { forwardRef, useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import DateChip from './DateChip'
 import DatePicker from 'react-datepicker'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { apiConfig } from 'config/get-api-config'
-import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
 import getDate from 'utils/helpers/timezone_magic/get-date'
 import { getIsInvalid } from 'utils/functions'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
-import { newMsg } from 'redux/app'
 import safelyParseDate from 'utils/helpers/safely-parse-date'
 import { selectFieldMessage } from 'redux/app/selectors'
 import timeBasedOnTimeZone from 'utils/helpers/timezone_magic/time-based-on-timezone'
@@ -64,10 +62,7 @@ const Write = ({
   regexPattern,
   parentCode,
   placeholderName,
-  attributeCode,
-  targetCode,
   mandatory,
-  clientId,
 }) => {
   let initialErrorMsg = 'You can only valid date.'
 
@@ -111,8 +106,6 @@ const Write = ({
 
   const failedValidation = errorState[questionCode]
   const fieldNotEmpty = fieldState[questionCode]
-  const dispatchBeInformation = useDispatch()
-  const onNewMsg = compose(dispatchBeInformation, newMsg)
 
   const handleOnBlur = () => {
     const offsetDate = new Date(dateValue?.getTime() - dateValue?.getTimezoneOffset() * 60000)
@@ -123,11 +116,6 @@ const Write = ({
 
       !errorStatus && onSendAnswer(safelyParseDate(dateTimeValue).toISOString())
       dispatchFieldMessage({ payload: questionCode })
-      dispatchBaseEntityUpdates(
-        attributeCode,
-        targetCode,
-        safelyParseDate(dateTimeValue).toISOString(),
-      )(onNewMsg)
     } else {
       setIsFocused(false)
     }
