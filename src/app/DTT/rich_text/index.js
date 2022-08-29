@@ -51,8 +51,7 @@ const Write = ({
   errorMessage,
   parentCode,
   placeholderName,
-  attributeCode,
-  targetCode,
+
   mandatory,
 }) => {
   const theme = useTheme()

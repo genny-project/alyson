@@ -20,8 +20,7 @@ const Write = ({
   data,
   html,
   regexPattern,
-  attributeCode,
-  targetCode,
+
   placeholder,
   mandatory,
 }) => {

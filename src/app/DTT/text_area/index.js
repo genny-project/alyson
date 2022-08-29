@@ -26,10 +26,7 @@ export const Write = ({
   errorMessage,
   parentCode,
   placeholderName,
-  attributeCode,
-  targetCode,
   mandatory,
-  clientId,
 }) => {
   let regex
   const theme = useTheme()

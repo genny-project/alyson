@@ -110,13 +110,18 @@ const Ask = ({
   const feedback = data?.feedback
   const onSendAnswerWithNovalue = createSendAnswer(askData, { passedTargetCode })
 
-  const testOnSendAnswer = onSendFn => storeUpdateFn => infoObject => userInput => {
+  const handleUpadateReduxStore = onSendFn => storeUpdateFn => infoObject => userInput => {
     const { attributeCode, targetCode } = infoObject
     onSendFn(userInput)
     dispatchBaseEntityUpdates(storeUpdateFn)(attributeCode, targetCode, userInput)
+    console.log('%c Local Update - Redux Store', ' color: tomato; padding: 4px; font-size: 25px', {
+      targetCode,
+      attributeCode,
+      userInput,
+    })
   }
 
-  const onSendAnswer = testOnSendAnswer(onSendAnswerWithNovalue)(onNewMsg)({
+  const onSendAnswer = handleUpadateReduxStore(onSendAnswerWithNovalue)(onNewMsg)({
     attributeCode,
     targetCode,
   })
