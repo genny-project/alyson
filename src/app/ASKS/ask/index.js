@@ -268,7 +268,7 @@ const Ask = ({
           clientId={clientId}
         />
       )}
-      {component === 'text' && (
+      {component === 'texte' && (
         <Text.Write
           questionCode={questionCode}
           mandatory={mandatory}
@@ -283,7 +283,7 @@ const Ask = ({
           clientId={clientId}
         />
       )}
-      {component === 'html_editor' && (
+      {component === 'text' && (
         <HtmlEditor.Write
           questionCode={questionCode}
           mandatory={mandatory}

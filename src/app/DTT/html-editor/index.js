@@ -1,4 +1,4 @@
-import { Box, Text as ChakraText, HStack, VStack } from '@chakra-ui/react'
+import { Box, HStack } from '@chakra-ui/react'
 import { useState } from 'react'
 import HtmlEditorPreview from './html-editor-preview'
 import TextArea from '../text_area'
@@ -25,7 +25,7 @@ const Write = ({
   }
 
   return (
-    <HStack justify={'space-evenly'} align={'flex-start'}>
+    <HStack justify={'space-evenly'} align={'stretch'}>
       <Box width={'49%'}>
         <tt>
           <TextArea.Write
@@ -45,14 +45,7 @@ const Write = ({
         </tt>
       </Box>
       <Box width={'49%'}>
-        <VStack width={'100%'} align="flex-start">
-          <ChakraText>Output</ChakraText>
-          <Box borderTop="1px" width={'100%'}>
-            <Box width={'100%'} padding={1}>
-              <HtmlEditorPreview html={userInput} />
-            </Box>
-          </Box>
-        </VStack>
+        <HtmlEditorPreview html={userInput} />
       </Box>
     </HStack>
   )
