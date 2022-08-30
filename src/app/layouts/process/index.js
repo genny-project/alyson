@@ -1,40 +1,22 @@
-import { Box, Checkbox, FormControl, FormLabel, HStack, VStack } from '@chakra-ui/react'
+import { useSelector } from 'react-redux'
+import { pathOr, equals } from 'ramda'
+import { Box, HStack, VStack } from '@chakra-ui/react'
+import { useKeycloak } from '@react-keycloak/web'
 
 import Ask from 'app/ASKS/ask'
 import Lane from 'app/SBE/lane'
 import Search from 'app/SBE/search/Search'
 import getUserType from 'utils/helpers/get-user'
-import { onSendMessage } from 'vertx'
-import { pathOr } from 'ramda'
 import { selectCode } from 'redux/db/selectors'
 import { selectProcess } from 'redux/app/selectors'
-import { useKeycloak } from '@react-keycloak/web'
-import { useSelector } from 'react-redux'
-import { useState } from 'react'
+import FilterDjpInterns from 'app/layouts/process/filter-djp-interns'
 
 const Process = ({ dashboard }) => {
-  const [filterDJPInternsOnly, setFilterDJPInternsOnly] = useState(false)
   const userType = getUserType()
   const processCodes = useSelector(selectProcess, (prev, next) => prev.length === next.length)
 
   const bucketSearch = useSelector(selectCode('QUE_BUCKET_INTERNS_GRP')) || []
   const roles = pathOr('', ['realmAccess', 'roles'])(useKeycloak().keycloak)
-
-  const djpInternsOnlyMessage = {
-    code: 'QUE_TAB_BUCKET_VIEW',
-    parentCode: 'QUE_TAB_BUCKET_VIEW',
-    targetCode: undefined,
-  }
-  const defaultMessage = {
-    code: 'ACT_DJP_INTERN_SEARCH',
-    parentCode: '',
-    targetCode: JSON.stringify(processCodes),
-  }
-
-  const toggle = () => {
-    onSendMessage(!!filterDJPInternsOnly ? djpInternsOnlyMessage : defaultMessage)
-    setFilterDJPInternsOnly(!filterDJPInternsOnly)
-  }
 
   if (!processCodes) return null
 
@@ -56,17 +38,7 @@ const Process = ({ dashboard }) => {
           {roles.includes('test') && (
             <Search process={processCodes[0]} sbeCode={JSON.stringify(processCodes)} />
           )}
-
-          {userType === 'AGENT' && (
-            <>
-              <HStack alignItems={'center'}>
-                <Checkbox isChecked={filterDJPInternsOnly} onChange={toggle} />
-                <FormControl onClick={toggle}>
-                  <FormLabel cursor={'pointer'}>{'View DJP Interns Only'}</FormLabel>
-                </FormControl>
-              </HStack>
-            </>
-          )}
+          {equals(userType)('AGENT') && <FilterDjpInterns processCodes={processCodes} />}
         </HStack>
       )}
 
