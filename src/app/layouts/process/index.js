@@ -20,12 +20,19 @@ const Process = ({ dashboard }) => {
   const bucketSearch = useSelector(selectCode('QUE_BUCKET_INTERNS_GRP')) || []
   const roles = pathOr('', ['realmAccess', 'roles'])(useKeycloak().keycloak)
 
+  const djpInternsOnlyMessage = {
+    code: 'QUE_TAB_BUCKET_VIEW',
+    parentCode: 'QUE_TAB_BUCKET_VIEW',
+    targetCode: undefined,
+  }
+  const defaultMessage = {
+    code: 'ACT_DJP_INTERN_SEARCH',
+    parentCode: '',
+    targetCode: JSON.stringify(processCodes),
+  }
+
   const toggle = () => {
-    onSendMessage({
-      code: !!filterDJPInternsOnly ? 'QUE_TAB_BUCKET_VIEW' : 'ACT_DJP_INTERN_SEARCH',
-      parentCode: !!filterDJPInternsOnly ? 'QUE_TAB_BUCKET_VIEW' : '',
-      targetCode: !!filterDJPInternsOnly ? undefined : JSON.stringify(processCodes),
-    })
+    onSendMessage(!!filterDJPInternsOnly ? djpInternsOnlyMessage : defaultMessage)
     setFilterDJPInternsOnly(!filterDJPInternsOnly)
   }
 
