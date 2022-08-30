@@ -6,7 +6,6 @@ import GitVersionInfo from 'utils/helpers/git_version'
 import { Provider } from 'react-redux'
 import Vertx from 'vertx'
 import store from 'redux/store'
-import HtmlEditor from './DTT/html-editor'
 
 const Display = lazy(() => import('app/layouts/display'))
 
@@ -26,7 +25,6 @@ const App = ({ title }) => {
               </Suspense>
             )}
           />
-          <Route path="/htmleditortest" component={() => <HtmlEditor.Write />} />
           <Route path="/version" component={() => <GitVersionInfo />} />
           <Route path={`/public`} exact component={() => <Redirect to={{ pathname: '/home' }} />} />
           <Route path={'/*'} component={() => <Redirect to={{ pathname: '/home' }} />} />
