@@ -1,15 +1,15 @@
-import { Box, Button, HStack, VStack } from '@chakra-ui/react'
+import { pathOr, equals } from 'ramda'
+import { useSelector } from 'react-redux'
+import { Box, HStack, VStack } from '@chakra-ui/react'
+import { useKeycloak } from '@react-keycloak/web'
 
 import Ask from 'app/ASKS/ask'
 import Lane from 'app/SBE/lane'
 import Search from 'app/SBE/search/Search'
 import getUserType from 'utils/helpers/get-user'
-import { onSendMessage } from 'vertx'
-import { pathOr } from 'ramda'
 import { selectCode } from 'redux/db/selectors'
 import { selectProcess } from 'redux/app/selectors'
-import { useKeycloak } from '@react-keycloak/web'
-import { useSelector } from 'react-redux'
+import FilterDjpInterns from 'app/layouts/process/filter-djp-interns'
 
 const Process = ({ dashboard }) => {
   const userType = getUserType()
@@ -38,21 +38,7 @@ const Process = ({ dashboard }) => {
           {roles.includes('test') && (
             <Search process={processCodes[0]} sbeCode={JSON.stringify(processCodes)} />
           )}
-
-          {userType === 'AGENT' && (
-            <Button
-              colorScheme={'green'}
-              variant={'outline'}
-              onClick={() =>
-                onSendMessage({
-                  code: 'ACT_DJP_INTERN_SEARCH',
-                  targetCode: JSON.stringify(processCodes),
-                })
-              }
-            >
-              {'View DJP Interns Only'}
-            </Button>
-          )}
+          {equals(userType)('AGENT') && <FilterDjpInterns processCodes={processCodes} />}
         </HStack>
       )}
 
