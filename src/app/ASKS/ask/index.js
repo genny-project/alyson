@@ -295,7 +295,6 @@ const Ask = ({
           targetCode={targetCode}
           parentCode={parentCode}
           placeholderName={placeholderName}
-          clientId={clientId}
         />
       )}
       {component === 'textarea' && (

@@ -29,8 +29,6 @@ export const Write = ({
   attributeCode,
   targetCode,
   mandatory,
-  onChange,
-  sanatise,
 }) => {
   let regex
   const theme = useTheme()
@@ -51,13 +49,6 @@ export const Write = ({
   const fieldNotEmpty = fieldState[questionCode]
   const dispatchBeInformation = useDispatch()
   const onNewMsg = compose(dispatchBeInformation, newMsg)
-
-  const handleChange = e => {
-    setuserInput(e.target.value)
-    if (onChange) {
-      onChange(e)
-    }
-  }
 
   const {
     fieldBackgroundColor,
@@ -115,14 +106,10 @@ export const Write = ({
   const onBlur = e => {
     e.target.value ? setIsFocused(true) : setIsFocused(false)
 
-    const cleanVal = sanatise ? sanatise(e.target.value) : e.target.value
-
-    !errorStatus && debouncedSendAnswer(cleanVal)
+    !errorStatus && debouncedSendAnswer(e.target.value)
     dispatchFieldMessage({ payload: questionCode })
 
-    const clean = sanatise ? sanatise(userInput) : userInput
-
-    dispatchBaseEntityUpdates(attributeCode, targetCode, clean)(onNewMsg)
+    dispatchBaseEntityUpdates(attributeCode, targetCode, userInput)(onNewMsg)
   }
 
   return (
@@ -164,7 +151,7 @@ export const Write = ({
           setIsFocused(true)
         }}
         onBlur={onBlur}
-        onChange={handleChange}
+        onChange={e => setuserInput(e.target.value)}
         value={userInput || ''}
         isInvalid={isInvalid}
         w="full"
