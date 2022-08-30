@@ -105,8 +105,10 @@ export const Write = ({
 
   const onBlur = e => {
     e.target.value ? setIsFocused(true) : setIsFocused(false)
+
     !errorStatus && debouncedSendAnswer(e.target.value)
     dispatchFieldMessage({ payload: questionCode })
+
     dispatchBaseEntityUpdates(attributeCode, targetCode, userInput)(onNewMsg)
   }
 
