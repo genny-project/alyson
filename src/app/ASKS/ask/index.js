@@ -86,7 +86,7 @@ const Ask = ({
   const {
     attribute: {
       description,
-      dataType: { component = 'text', typeName },
+      dataType: { component = 'text', typeName, inputmask },
       dataType,
     },
     html,
@@ -213,6 +213,7 @@ const Ask = ({
           targetCode={targetCode}
           mandatory={mandatory}
           clientId={clientId}
+          inputmask={inputmask}
         />
       )}
       {component === 'address' && (
@@ -281,6 +282,7 @@ const Ask = ({
           parentCode={parentCode}
           placeholderName={placeholderName}
           clientId={clientId}
+          inputmask={inputmask}
         />
       )}
       {component === 'html_editor' && (
@@ -482,6 +484,7 @@ const Ask = ({
           targetCode={targetCode}
           mandatory={mandatory}
           clientId={clientId}
+          inputmask={inputmask}
         />
       )}
       {component === 'rating' && (

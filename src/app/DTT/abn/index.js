@@ -41,6 +41,7 @@ const Write = ({
   targetCode,
   mandatory,
   clientId,
+  inputmask,
 }) => {
   let regex
   const theme = useTheme()
@@ -106,6 +107,17 @@ const Write = ({
   const open = () => setIsOpen(true)
   const close = () => setIsOpen(false)
 
+  const inputmaskFilter = value => {
+    // check if inputmask only contains digits
+    if (value && inputmask && /^\d+$/.test(inputmask)) {
+      // remove all non-digits
+      let filteredValue = value.replace(/\D/g, '')
+
+      return filteredValue && filteredValue.substring(0, inputmask.length)
+    }
+    return value
+  }
+
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
       <HStack
@@ -166,7 +178,7 @@ const Write = ({
           onFocus={() => {
             setIsFocused(true)
           }}
-          onChange={e => setValue(e.target.value)}
+          onChange={e => setValue(inputmaskFilter(e.target.value))}
           onBlur={handleOnBlur}
           w="full"
           paddingBlock={3}
