@@ -9,12 +9,10 @@ import { useEffect, useState } from 'react'
 import { Select as CSelect } from 'chakra-react-select'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import debounce from 'lodash.debounce'
-import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { getValue } from './get-value'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
 import mapOptions from './map-options'
-import { newMsg } from 'redux/app'
 import { onSendMessage } from 'vertx'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
@@ -68,8 +66,6 @@ const Write = ({
 
   const failedValidation = errorState[questionCode]
   const fieldNotEmpty = fieldState[questionCode]
-  const dispatchBeInformation = useDispatch()
-  const onNewMsg = compose(dispatchBeInformation, newMsg)
 
   const fieldMessageObject = useSelector(selectFieldMessage)
   const fieldMessage = fieldMessageObject[`${parentCode}@${questionCode}`]
@@ -137,7 +133,6 @@ const Write = ({
     setUpdated(true)
     newValue ? setIsFocused(true) : setIsFocused(false)
     onSendAnswer(prepareValueForSendingAnswer(newValue))
-    dispatchBaseEntityUpdates(attributeCode, targetCode, newValue)(onNewMsg)
   }
 
   // the backend accepts array only when sending dropdown values regardless of multi or single select

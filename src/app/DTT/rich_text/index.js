@@ -24,19 +24,16 @@ import {
 } from '@chakra-ui/react'
 import { ContentState, EditorState, convertFromHTML, convertToRaw } from 'draft-js'
 import { faCheckCircle, faExpand } from '@fortawesome/free-solid-svg-icons'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import DOMPurify from 'dompurify'
 import { Editor } from 'react-draft-wysiwyg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { compose } from 'ramda'
-import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
 import { getIsInvalid } from 'utils/functions'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
-import { newMsg } from 'redux/app'
 import removeHtmlTags from 'utils/helpers/remove-html-tags'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { selectFieldMessage } from 'redux/app/selectors'
@@ -54,8 +51,7 @@ const Write = ({
   errorMessage,
   parentCode,
   placeholderName,
-  attributeCode,
-  targetCode,
+
   mandatory,
 }) => {
   const theme = useTheme()
@@ -101,8 +97,6 @@ const Write = ({
 
   const failedValidation = errorState[questionCode]
   const fieldNotEmpty = fieldState[questionCode]
-  const dispatchBeInformation = useDispatch()
-  const onNewMsg = compose(dispatchBeInformation, newMsg)
 
   const handleEditorChange = () => {
     const blocks = convertToRaw(editor.getCurrentContent()).blocks
@@ -147,7 +141,6 @@ const Write = ({
       onSendAnswer(stateToHTML(editor.getCurrentContent()))
     }
     dispatchFieldMessage({ payload: questionCode })
-    dispatchBaseEntityUpdates(attributeCode, targetCode, userInput)(onNewMsg)
   }
 
   return (
