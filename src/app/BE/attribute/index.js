@@ -23,6 +23,7 @@ import Video from 'app/DTT/video'
 import fixLnkAndPri from './fix-lnk-and-pri'
 import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
+import HtmlEditor from 'app/DTT/html-editor'
 
 const Attribute = ({
   code,
@@ -103,6 +104,8 @@ const Attribute = ({
     <CheckBox.Read data={data} />
   ) : component === 'flag' ? (
     <Flag.Read data={data} />
+  ) : component === 'html_editor' ? (
+    <HtmlEditor.Read data={data} />
   ) : (
     <CText>{data?.value}</CText>
   )

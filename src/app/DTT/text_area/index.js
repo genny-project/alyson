@@ -27,6 +27,8 @@ export const Write = ({
   parentCode,
   placeholderName,
   mandatory,
+  onChange,
+  sanatise,
 }) => {
   let regex
   const theme = useTheme()
@@ -66,6 +68,13 @@ export const Write = ({
   const failedValidation = errorState[questionCode]
   const fieldNotEmpty = fieldState[questionCode]
 
+  const handleChange = e => {
+    setuserInput(e.target.value)
+    if (onChange) {
+      onChange(e)
+    }
+  }
+
   useEffect(() => {
     userInput ? setIsFocused(true) : setIsFocused(false)
   }, [userInput])
@@ -88,7 +97,11 @@ export const Write = ({
 
   const onBlur = e => {
     e.target.value ? setIsFocused(true) : setIsFocused(false)
-    !errorStatus && debouncedSendAnswer(e.target.value)
+
+    const clean = sanatise ? sanatise(e.target.value) : e.target.value
+
+    !errorStatus && debouncedSendAnswer(clean)
+
     dispatchFieldMessage({ payload: questionCode })
   }
 
@@ -132,7 +145,7 @@ export const Write = ({
           setIsFocused(true)
         }}
         onBlur={onBlur}
-        onChange={e => setuserInput(e.target.value)}
+        onChange={handleChange}
         value={userInput}
         isInvalid={isInvalid}
         paddingBlock={2}

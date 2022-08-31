@@ -46,6 +46,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
 import { compose } from 'ramda'
 import { newMsg } from 'redux/app'
+import HtmlEditor from 'app/DTT/html-editor'
 
 const Ask = ({
   parentCode,
@@ -304,6 +305,20 @@ const Ask = ({
           parentCode={parentCode}
           placeholderName={placeholderName}
           clientId={clientId}
+        />
+      )}
+      {component === 'html_editor' && (
+        <HtmlEditor.Write
+          questionCode={questionCode}
+          mandatory={mandatory}
+          data={data}
+          onSendAnswer={onSendAnswer}
+          regexPattern={regexPattern}
+          errorMessage={errorMessage}
+          attributeCode={attributeCode}
+          targetCode={targetCode}
+          parentCode={parentCode}
+          placeholderName={placeholderName}
         />
       )}
       {component === 'textarea' && (
