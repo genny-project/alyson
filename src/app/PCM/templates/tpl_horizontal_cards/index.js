@@ -1,6 +1,6 @@
 import { getFields, getColumnDefs } from '../../helpers/sbe-utils'
 
-import { Box, HStack, Text, VStack, Image } from '@chakra-ui/react'
+import { Box, HStack, Text, VStack } from '@chakra-ui/react'
 import useGetMappedBaseEntity from 'app/PCM/helpers/use-get-mapped-base-entity'
 import { useSelector } from 'react-redux'
 import { selectKeys, selectCode } from 'redux/db/selectors'
