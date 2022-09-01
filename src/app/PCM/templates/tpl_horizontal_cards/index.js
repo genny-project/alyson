@@ -19,7 +19,6 @@ const TemplateHorizontalCards = ({ mappedPcm, depth }) => {
   const mappedValues = getFields(getColumnDefs(mappedSbe))
 
   const rows = useSelector(selectCode(sbeCode, 'rows')) || []
-  console.log('rows', { mappedValues })
 
   const primaryColor = useGetAttributeFromProjectBaseEntity('PRI_COLOR')?.valueString || ''
 
