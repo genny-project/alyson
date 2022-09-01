@@ -10,9 +10,7 @@ import Attribute from 'app/BE/attribute'
 
 const TemplateHorizontalCards = ({ mappedPcm, depth }) => {
   const sbeCodePrefix = mappedPcm.PRI_LOC1
-
   const keys = useSelector(selectKeys)
-
   const sbeCode = (filter(key => includes(sbeCodePrefix)(key) && !includes('@')(key))(keys) || [
     '',
   ])[0]
@@ -21,6 +19,7 @@ const TemplateHorizontalCards = ({ mappedPcm, depth }) => {
   const mappedValues = getFields(getColumnDefs(mappedSbe))
 
   const rows = useSelector(selectCode(sbeCode, 'rows')) || []
+  console.log('rows', { mappedValues })
 
   const primaryColor = useGetAttributeFromProjectBaseEntity('PRI_COLOR')?.valueString || ''
 
@@ -46,11 +45,6 @@ const Card = ({ mappedValues, baseEntityCode, primaryColor }) => {
   return (
     <Box border={`1px solid`} borderRadius="3xl" borderColor={primaryColor} p="5">
       <VStack>
-        <Image
-          src="https://cdn.pixabay.com/photo/2016/11/18/17/20/living-room-1835923_1280.jpg"
-          alt="Property"
-          maxWidth="35vw"
-        />
         {mappedValues.map((value, index) => {
           const fontSize = index === 0 ? 'xl' : 'md'
           return (
@@ -61,7 +55,7 @@ const Card = ({ mappedValues, baseEntityCode, primaryColor }) => {
               color="#004654"
               fontWeight="400"
             >
-              <Attribute code={baseEntityCode} attribute={value} />
+              <Attribute code={baseEntityCode} attribute={value} config={{ cardDisplay: true }} />
             </Text>
           )
         })}
