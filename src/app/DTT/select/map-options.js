@@ -1,7 +1,11 @@
 import { find, map, propEq } from 'ramda'
 
 const mapOptions = dropdownData => {
-  return map(selection => ({ label: extractName(selection), value: selection.code }))(dropdownData)
+  return map(selection => ({
+    label: extractName(selection),
+    value: selection.code,
+    'test-id': selection.code,
+  }))(dropdownData)
 }
 
 const extractName = selection => {
