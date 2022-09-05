@@ -6,8 +6,6 @@ import { includes } from 'ramda'
 import { selectCode } from 'redux/db/selectors'
 import { selectTable } from 'redux/app/selectors'
 import { useSelector } from 'react-redux'
-import Pagination from 'app/SBE/table/Pagination.js'
-import { VStack } from '@chakra-ui/react'
 
 const TableWrapper = ({ mapSearch }) => {
   const table = useSelector(selectTable)
@@ -21,12 +19,7 @@ const TableWrapper = ({ mapSearch }) => {
 
   if (includes('_JNLS_', table) || includes('_LOGBOOK_', table)) return <Journals sbeCode={table} />
 
-  return (
-    <VStack>
-      <Pagination sbeCode={table} />
-      <Table parentCode={table} mapSearch={mapSearch} />
-    </VStack>
-  )
+  return <Table parentCode={table} mapSearch={mapSearch} />
 }
 
 export default TableWrapper
