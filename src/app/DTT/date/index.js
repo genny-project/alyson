@@ -14,6 +14,7 @@ import timeBasedOnTimeZone from 'utils/helpers/timezone_magic/time-based-on-time
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
+import isNullOrUndefined from 'utils/helpers/is-null-or-undefined'
 
 const Read = ({ data, typeName, config }) => {
   const includeTime = includes('LocalDateTime', typeName)
@@ -35,10 +36,11 @@ const Read = ({ data, typeName, config }) => {
 }
 const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, question }) => {
   let initialErrorMsg = 'You can only valid date.'
+  const initialValue = isNullOrUndefined(data?.value) ? '' : data?.value
   const { dispatch } = useError()
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
   const [errorStatus, setErrorStatus] = useState(false)
-  const [userInput, setuserInput] = useState(data?.value)
+  const [userInput, setuserInput] = useState(initialValue)
   const [isPreviousDate, setIsPreviousDate] = useState(true)
   const [errorMsg, setErrorMsg] = useState(initialErrorMsg)
 
