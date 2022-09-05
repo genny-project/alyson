@@ -71,7 +71,7 @@ const Write = ({
 const Read = ({ code, data, parentCode, variant, config }) => {
   const { getImageSrc } = useApi()
   const src = getImageSrc(data?.value, { height: '500', width: '500' })
-  const { cardDisplay } = config
+  const { cardDisplay } = config || ''
 
   const name = useSelector(selectCode(data?.baseEntityCode, 'PRI_NAME'))
   const assocName = useSelector(selectCode(data?.baseEntityCode, 'PRI_INTERN_NAME'))
@@ -89,7 +89,7 @@ const Read = ({ code, data, parentCode, variant, config }) => {
     return <Image {...config} src={src} alt="profile-picture" w="10rem" borderRadius="xl" />
   }
 
-  if (cardDisplay) {
+  if (!!cardDisplay) {
     return (
       <Avatar
         name={name?.value || assocName?.value}
