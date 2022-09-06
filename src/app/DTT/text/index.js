@@ -25,6 +25,7 @@ export const Write = ({
   attributeCode,
   targetCode,
   mandatory,
+  inputmask,
 }) => {
   let regex
   const theme = useTheme()
@@ -102,6 +103,20 @@ export const Write = ({
     dispatchFieldMessage({ payload: questionCode })
   }
 
+  const inputmaskFilter = value => inputmask => {
+    // check if inputmask only contains digits
+    let filteredValue = ''
+    if (value && inputmask && /^\d+$/.test(inputmask)) {
+      // allow a leading '+' to phone number, otherwise break validations
+      if (value.length > 0 && /^\+/.test(value)) {
+        filteredValue = '+' + value.substring(1).replace(/\D/g, '')
+      } else {
+        filteredValue = value.replace(/\D/g, '')
+      }
+    }
+    return filteredValue ? filteredValue.substring(0, inputmask.length) : value
+  }
+
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
       <HStack
@@ -141,7 +156,7 @@ export const Write = ({
           setIsFocused(true)
         }}
         onBlur={onBlur}
-        onChange={e => setuserInput(e.target.value)}
+        onChange={e => setuserInput(inputmaskFilter(e.target.value)(inputmask))}
         value={userInput || ''}
         isInvalid={isInvalid}
         w="full"
