@@ -24,7 +24,6 @@ import {
 } from '@chakra-ui/react'
 import { ContentState, EditorState, convertFromHTML, convertToRaw } from 'draft-js'
 import { faCheckCircle, faExpand } from '@fortawesome/free-solid-svg-icons'
-import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
@@ -36,9 +35,9 @@ import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
 import removeHtmlTags from 'utils/helpers/remove-html-tags'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
-import { selectFieldMessage } from 'redux/app/selectors'
 import { stateToHTML } from 'draft-js-export-html'
 import { useError } from 'utils/contexts/ErrorContext'
+import useGetFieldMessage from 'utils/fieldMessage'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
 
@@ -80,10 +79,10 @@ const Write = ({
   const { dispatch } = useError()
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
   const userInputWithoutHtmlTags = removeHtmlTags(userInput)
-  const fieldMessageObject = useSelector(selectFieldMessage)
-  const fieldMessage = fieldMessageObject[`${parentCode}@${questionCode}`]
-  let hasFieldMessage = isNotNullOrUndefinedOrEmpty(fieldMessage)
+
   let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMessage)
+
+  const { hasFieldMessage, fieldMessage } = useGetFieldMessage(parentCode, questionCode)
 
   const userInputWithoutLineBreaks = userInputWithoutHtmlTags
     ?.replace(/(\r\n|\n|\r|-|\xA0)/gi, '')

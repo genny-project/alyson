@@ -1,6 +1,5 @@
 import { Box, Text as ChakraText, HStack, Input, VStack, useTheme } from '@chakra-ui/react'
 import { faCalendar, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
-import { useSelector } from 'react-redux'
 import { useEffect, useRef, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
@@ -10,8 +9,8 @@ import debounce from 'lodash.debounce'
 import { getIsInvalid } from 'utils/functions'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
-import { selectFieldMessage } from 'redux/app/selectors'
 import { useError } from 'utils/contexts/ErrorContext'
+import useGetFieldMessage from 'utils/fieldMessage'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
 
@@ -36,9 +35,6 @@ export const Write = ({
   const [userInput, setuserInput] = useState(data?.value || '')
   const [isFocused, setIsFocused] = useState(false)
 
-  const fieldMessageObject = useSelector(selectFieldMessage)
-  const fieldMessage = fieldMessageObject[`${parentCode}@${questionCode}`]
-  let hasFieldMessage = isNotNullOrUndefinedOrEmpty(fieldMessage)
   let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMessage)
   const { errorState } = useError()
   const { fieldState } = useIsFieldNotEmpty()
@@ -54,6 +50,8 @@ export const Write = ({
     labelTextColor,
     borderRadius,
   } = useProductColors()
+
+  const { hasFieldMessage, fieldMessage } = useGetFieldMessage(parentCode, questionCode)
 
   try {
     regexPattern = regexPattern.replaceAll('\\\\', '\\')
