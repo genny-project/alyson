@@ -42,7 +42,10 @@ import { selectCode } from 'redux/db/selectors'
 import { selectHighlightedQuestion } from 'redux/app/selectors'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import { useMobileValue } from 'utils/hooks'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
+import { compose } from 'ramda'
+import { newMsg } from 'redux/app'
 import HtmlEditor from 'app/DTT/html-editor'
 
 const Ask = ({
@@ -81,6 +84,11 @@ const Ask = ({
   const labelWidth = useMobileValue(['full', '25vw'])
   const groupCode = getGroupCode(question) || parentCode
   const placeholderName = name
+
+  const dispatchBeInformation = useDispatch()
+
+  const onNewMsg = compose(dispatchBeInformation, newMsg)
+
   if (!question?.attribute) return null
 
   const {
@@ -101,7 +109,23 @@ const Ask = ({
   if (!question?.attribute) return null
 
   const feedback = data?.feedback
-  const onSendAnswer = createSendAnswer(askData, { passedTargetCode })
+  const onSendAnswerWithNovalue = createSendAnswer(askData, { passedTargetCode })
+
+  const handleUpadateReduxStore = onSendFn => storeUpdateFn => infoObject => userInput => {
+    const { attributeCode, targetCode } = infoObject
+    onSendFn(userInput)
+    dispatchBaseEntityUpdates(storeUpdateFn)(attributeCode, targetCode, userInput)
+    console.log('%c Local Update - Redux Store', ' color: tomato; padding: 4px; font-size: 25px', {
+      targetCode,
+      attributeCode,
+      userInput,
+    })
+  }
+
+  const onSendAnswer = handleUpadateReduxStore(onSendAnswerWithNovalue)(onNewMsg)({
+    attributeCode,
+    targetCode,
+  })
 
   if (readonly) {
     return (

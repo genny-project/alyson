@@ -1,4 +1,4 @@
-const dispatchBaseEntityUpdates = (attributeCode, targetCode, userInput) => dispatchFn => {
+const dispatchBaseEntityUpdates = dispatchFn => (attributeCode, targetCode, userInput) => {
   dispatchFn({
     data_type: 'BaseEntity',
     replace: true,

@@ -9,20 +9,17 @@ import {
   VStack,
   useTheme,
 } from '@chakra-ui/react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 
 import ABNLookup from './abn_lookup'
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Read } from '../text'
-import { compose } from 'ramda'
-import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { getIsInvalid } from 'utils/functions'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
-import { newMsg } from 'redux/app'
 import { selectFieldMessage } from 'redux/app/selectors'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
@@ -37,10 +34,7 @@ const Write = ({
   errorMessage,
   parentCode,
   placeholderName,
-  attributeCode,
-  targetCode,
   mandatory,
-  clientId,
   inputmask,
 }) => {
   let regex
@@ -60,8 +54,6 @@ const Write = ({
 
   const failedValidation = errorState[questionCode]
   const fieldNotEmpty = fieldState[questionCode]
-  const dispatchBeInformation = useDispatch()
-  const onNewMsg = compose(dispatchBeInformation, newMsg)
 
   const {
     fieldBackgroundColor,
@@ -91,7 +83,6 @@ const Write = ({
   const handleOnBlur = e => {
     e.target.value ? setIsFocused(true) : setIsFocused(false)
     onSendAnswer(e.target.value)
-    dispatchBaseEntityUpdates(attributeCode, targetCode, value)(onNewMsg)
   }
 
   useEffect(() => {

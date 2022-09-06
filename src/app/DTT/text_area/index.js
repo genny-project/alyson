@@ -1,17 +1,14 @@
 import { Box, HStack, Text, Textarea, VStack, useTheme } from '@chakra-ui/react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useEffect, useRef, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { compose } from 'ramda'
 import debounce from 'lodash.debounce'
-import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { getIsInvalid } from 'utils/functions'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
-import { newMsg } from 'redux/app'
 import { selectFieldMessage } from 'redux/app/selectors'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
@@ -29,10 +26,7 @@ export const Write = ({
   errorMessage,
   parentCode,
   placeholderName,
-  attributeCode,
-  targetCode,
   mandatory,
-  clientId,
   onChange,
   sanatise,
 }) => {
@@ -73,8 +67,6 @@ export const Write = ({
 
   const failedValidation = errorState[questionCode]
   const fieldNotEmpty = fieldState[questionCode]
-  const dispatchBeInformation = useDispatch()
-  const onNewMsg = compose(dispatchBeInformation, newMsg)
 
   const handleChange = e => {
     setuserInput(e.target.value)
@@ -111,9 +103,6 @@ export const Write = ({
     !errorStatus && debouncedSendAnswer(clean)
 
     dispatchFieldMessage({ payload: questionCode })
-
-    const cleanInput = sanatise ? sanatise(userInput) : userInput
-    dispatchBaseEntityUpdates(attributeCode, targetCode, cleanInput)(onNewMsg)
   }
 
   return (

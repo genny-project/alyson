@@ -15,12 +15,8 @@ import { useEffect, useState } from 'react'
 import DropZone from './Dropzone'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ImageType from './Image'
-import { compose } from 'ramda'
-import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
-import { newMsg } from 'redux/app'
 import useApi from 'api'
-import { useDispatch } from 'react-redux'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 
 const Read = ({ code, data, dttData, parentCode, variant, config = {} }) => {
@@ -83,8 +79,6 @@ const Write = ({
   video,
   name,
   placeholderName: label,
-  attributeCode,
-  targetCode,
   clientId,
 }) => {
   const api = useApi()
@@ -97,9 +91,6 @@ const Write = ({
   const openDropzone = () => setDropzone(true)
   const closeDropzone = () => setDropzone(false)
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
-
-  const dispatchBeInformation = useDispatch()
-  const onNewMsg = compose(dispatchBeInformation, newMsg)
 
   useEffect(() => {
     const getFileName = async uuid => {
@@ -128,7 +119,6 @@ const Write = ({
 
     setLoading(false)
     dispatchFieldMessage({ payload: questionCode })
-    dispatchBaseEntityUpdates(attributeCode, targetCode, files)(onNewMsg)
   }
 
   return (

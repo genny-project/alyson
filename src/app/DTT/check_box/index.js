@@ -1,11 +1,7 @@
 import { Checkbox, FormControl, FormLabel, HStack } from '@chakra-ui/react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { compose } from 'ramda'
-import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
-import { newMsg } from 'redux/app'
-import { useDispatch } from 'react-redux'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 
@@ -21,26 +17,15 @@ const Read = ({ data }) => {
   )
 }
 
-const Write = ({
-  questionCode,
-  data,
-  onSendAnswer,
-  isRequired,
-  label,
-  attributeCode,
-  targetCode,
-}) => {
+const Write = ({ questionCode, data, onSendAnswer, isRequired, label }) => {
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
   let answer = data?.value === 'true' ? 'false' : 'true'
 
   const colorScheme = useGetAttributeFromProjectBaseEntity('PRI_COLOR')?.valueString
-  const dispatchBeInformation = useDispatch()
-  const onNewMsg = compose(dispatchBeInformation, newMsg)
 
   const toggle = () => {
     onSendAnswer(answer)
     dispatchFieldMessage({ payload: questionCode })
-    dispatchBaseEntityUpdates(attributeCode, targetCode, answer)(onNewMsg)
   }
 
   return (
