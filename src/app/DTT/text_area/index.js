@@ -1,5 +1,4 @@
 import { Box, HStack, Text, Textarea, VStack, useTheme } from '@chakra-ui/react'
-import { useSelector } from 'react-redux'
 import { useEffect, useRef, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
@@ -9,8 +8,8 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { getIsInvalid } from 'utils/functions'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
-import { selectFieldMessage } from 'redux/app/selectors'
 import { useError } from 'utils/contexts/ErrorContext'
+import useGetFieldMessage from 'utils/fieldMessage'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
 
@@ -57,9 +56,7 @@ export const Write = ({
 
   const inputRef = useRef()
   const isInvalid = getIsInvalid(userInput)(regex)
-  const fieldMessageObject = useSelector(selectFieldMessage)
-  const fieldMessage = fieldMessageObject[`${parentCode}@${questionCode}`]
-  let hasFieldMessage = isNotNullOrUndefinedOrEmpty(fieldMessage)
+
   let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMessage)
 
   const { errorState } = useError()
@@ -67,6 +64,8 @@ export const Write = ({
 
   const failedValidation = errorState[questionCode]
   const fieldNotEmpty = fieldState[questionCode]
+
+  const { hasFieldMessage, fieldMessage } = useGetFieldMessage(parentCode, questionCode)
 
   const handleChange = e => {
     setuserInput(e.target.value)
