@@ -20,6 +20,7 @@ import useProductColors from 'utils/productColors'
 import { selectFieldMessage } from 'redux/app/selectors'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined'
 import { newCmd } from 'redux/app'
+import debugOut from 'utils/debug-out'
 
 const Write = ({
   questionCode,
@@ -51,7 +52,7 @@ const Write = ({
   const [updated, setUpdated] = useState(false)
   const [isFocused, setIsFocused] = useState(true)
 
-  const [asked, setAsked] = useState(false)
+  const [askedForDropDownData, setAskedForDropDownData] = useState(false)
 
   const theme = useTheme()
   const {
@@ -106,9 +107,14 @@ const Write = ({
 
   useEffect(() => {
     /// If the dropdown data doesn't exist yet, we need to get it
-    if (isEmpty(dropdownData) && !asked) {
-      ddEvent('')
-      setAsked(true)
+    if (isEmpty(dropdownData)) {
+      // If the backend returns no data, it would just loop constantly, hence this check here
+      if (!askedForDropDownData) {
+        ddEvent('')
+        setAskedForDropDownData(true)
+      } else {
+        debugOut.warn(`Dropdown ${parentCode}@${questionCode} has no options!`)
+      }
     }
     if (!updated) {
       setValue(getValue(data, options))
