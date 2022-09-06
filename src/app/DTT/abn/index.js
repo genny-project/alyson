@@ -107,7 +107,7 @@ const Write = ({
   const open = () => setIsOpen(true)
   const close = () => setIsOpen(false)
 
-  const inputmaskFilter = value => {
+  const inputmaskFilter = value => inputmask => {
     // check if inputmask only contains digits
     if (value && inputmask && /^\d+$/.test(inputmask)) {
       // remove all non-digits
@@ -178,7 +178,7 @@ const Write = ({
           onFocus={() => {
             setIsFocused(true)
           }}
-          onChange={e => setValue(inputmaskFilter(e.target.value))}
+          onChange={e => setValue(inputmaskFilter(e.target.value)(inputmask))}
           onBlur={handleOnBlur}
           w="full"
           paddingBlock={3}
