@@ -62,7 +62,7 @@ const Ask = ({
 
   const selectedAskData = useSelector(selectCode(parentCode, passedQuestionCode))
 
-  const askData = selectedAskData || passedAskData
+  const askData = passedAskData || selectedAskData
 
   const {
     questionCode,
