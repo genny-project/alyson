@@ -13,13 +13,12 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { getValue } from './get-value'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
 import mapOptions from './map-options'
+import { newCmd } from 'redux/app'
 import { onSendMessage } from 'vertx'
 import { useError } from 'utils/contexts/ErrorContext'
+import useGetFieldMessage from 'utils/fieldMessage'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
-import { selectFieldMessage } from 'redux/app/selectors'
-import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined'
-import { newCmd } from 'redux/app'
 
 const Write = ({
   questionCode,
@@ -67,11 +66,10 @@ const Write = ({
   const failedValidation = errorState[questionCode]
   const fieldNotEmpty = fieldState[questionCode]
 
-  const fieldMessageObject = useSelector(selectFieldMessage)
-  const fieldMessage = fieldMessageObject[`${parentCode}@${questionCode}`]
-  let hasFieldMessage = isNotNullOrUndefinedOrEmpty(fieldMessage)
   const dispatchPushMessage = useDispatch()
   const onNewCmd = compose(dispatchPushMessage, newCmd)
+
+  const { hasFieldMessage, fieldMessage } = useGetFieldMessage(parentCode, questionCode)
 
   const handleClearFieldMessage = () => {
     onNewCmd({

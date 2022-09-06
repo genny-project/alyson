@@ -11,12 +11,10 @@ import {
   VStack,
   useTheme,
 } from '@chakra-ui/react'
-import { includes } from 'ramda'
 import { dateOfBirthQuestionCode, eligibleAge } from 'utils/constants'
 import { differenceInYears, format, isBefore, parseISO, startOfTomorrow } from 'date-fns'
 import { faCalendarDay, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { forwardRef, useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import DateChip from './DateChip'
@@ -25,13 +23,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { apiConfig } from 'config/get-api-config'
 import getDate from 'utils/helpers/timezone_magic/get-date'
 import { getIsInvalid } from 'utils/functions'
+import { includes } from 'ramda'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
 import safelyParseDate from 'utils/helpers/safely-parse-date'
-import { selectFieldMessage } from 'redux/app/selectors'
 import timeBasedOnTimeZone from 'utils/helpers/timezone_magic/time-based-on-timezone'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
+import useGetFieldMessage from 'utils/fieldMessage'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
 
@@ -96,10 +95,10 @@ const Write = ({
   const onlyYear = typeName === 'year'
 
   const availabilityQuestions = includes('_AVAILABILITY')(questionCode)
-  const fieldMessageObject = useSelector(selectFieldMessage)
-  const fieldMessage = fieldMessageObject[`${parentCode}@${questionCode}`]
-  let hasFieldMessage = isNotNullOrUndefinedOrEmpty(fieldMessage)
+
   let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMsg)
+
+  const { hasFieldMessage, fieldMessage } = useGetFieldMessage(parentCode, questionCode)
 
   const { errorState } = useError()
   const { fieldState } = useIsFieldNotEmpty()
