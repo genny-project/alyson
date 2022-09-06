@@ -51,6 +51,8 @@ const Write = ({
   const [updated, setUpdated] = useState(false)
   const [isFocused, setIsFocused] = useState(true)
 
+  const [asked, setAsked] = useState(false)
+
   const theme = useTheme()
   const {
     fieldBackgroundColor,
@@ -104,8 +106,9 @@ const Write = ({
 
   useEffect(() => {
     /// If the dropdown data doesn't exist yet, we need to get it
-    if (isEmpty(dropdownData)) {
+    if (isEmpty(dropdownData) && !asked) {
       ddEvent('')
+      setAsked(true)
     }
     if (!updated) {
       setValue(getValue(data, options))
