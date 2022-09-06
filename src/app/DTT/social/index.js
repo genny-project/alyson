@@ -9,8 +9,6 @@ import {
   VStack,
   useTheme,
 } from '@chakra-ui/react'
-import { includes } from 'ramda'
-import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
@@ -18,11 +16,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { faLinkedin } from '@fortawesome/free-brands-svg-icons'
 import { getIsInvalid } from 'utils/functions'
+import { includes } from 'ramda'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
-import { selectFieldMessage } from 'redux/app/selectors'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
+import useGetFieldMessage from 'utils/fieldMessage'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
 
@@ -78,6 +77,8 @@ const Write = ({
     borderRadius,
   } = useProductColors()
 
+  const { hasFieldMessage, fieldMessage } = useGetFieldMessage(parentCode, questionCode)
+
   const { dispatch } = useError()
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value)
@@ -88,9 +89,7 @@ const Write = ({
   const iconColor = useGetAttributeFromProjectBaseEntity('PRI_COLOR_SECONDARY')?.valueString
 
   const isInvalid = getIsInvalid(userInput)(RegExp(regexPattern))
-  const fieldMessageObject = useSelector(selectFieldMessage)
-  const fieldMessage = fieldMessageObject[`${parentCode}@${questionCode}`]
-  let hasFieldMessage = isNotNullOrUndefinedOrEmpty(fieldMessage)
+
   let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMessage)
 
   const { errorState } = useError()

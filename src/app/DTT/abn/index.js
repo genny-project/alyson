@@ -9,7 +9,6 @@ import {
   VStack,
   useTheme,
 } from '@chakra-ui/react'
-import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 
 import ABNLookup from './abn_lookup'
@@ -20,8 +19,8 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { getIsInvalid } from 'utils/functions'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
-import { selectFieldMessage } from 'redux/app/selectors'
 import { useError } from 'utils/contexts/ErrorContext'
+import useGetFieldMessage from 'utils/fieldMessage'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
 
@@ -44,9 +43,6 @@ const Write = ({
   const [isOpen, setIsOpen] = useState(false)
   const [isFocused, setIsFocused] = useState(false)
 
-  const fieldMessageObject = useSelector(selectFieldMessage)
-  const fieldMessage = fieldMessageObject[`${parentCode}@${questionCode}`]
-  let hasFieldMessage = isNotNullOrUndefinedOrEmpty(fieldMessage)
   let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMessage)
   const { errorState } = useError()
   const { fieldState } = useIsFieldNotEmpty()
@@ -62,6 +58,8 @@ const Write = ({
     labelTextColor,
     borderRadius,
   } = useProductColors()
+
+  const { hasFieldMessage, fieldMessage } = useGetFieldMessage(parentCode, questionCode)
 
   useEffect(() => {
     setValue(data?.value)
