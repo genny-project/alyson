@@ -19,6 +19,7 @@ import { useError } from 'utils/contexts/ErrorContext'
 import useGetFieldMessage from 'utils/fieldMessage'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
+import debugOut from 'utils/debug-out'
 
 const Write = ({
   questionCode,
@@ -49,6 +50,8 @@ const Write = ({
   const [value, setValue] = useState(getValue(data, options))
   const [updated, setUpdated] = useState(false)
   const [isFocused, setIsFocused] = useState(true)
+
+  const [askedForDropDownData, setAskedForDropDownData] = useState(false)
 
   const theme = useTheme()
   const {
@@ -103,7 +106,13 @@ const Write = ({
   useEffect(() => {
     /// If the dropdown data doesn't exist yet, we need to get it
     if (isEmpty(dropdownData)) {
-      ddEvent('')
+      // If the backend returns no data, it would just loop constantly, hence this check here
+      if (!askedForDropDownData) {
+        ddEvent('')
+        setAskedForDropDownData(true)
+      } else {
+        debugOut.warn(`Dropdown ${parentCode}@${questionCode} has no options!`)
+      }
     }
     if (!updated) {
       setValue(getValue(data, options))

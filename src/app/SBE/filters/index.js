@@ -58,7 +58,7 @@ const Filters = ({ sbeCode }) => {
                 <Ask
                   passedTargetCode={sbeCode}
                   key={childAskObject.attributeCode}
-                  passedAskData={childAskObject}
+                  questionCode={childAskObject.questionCode}
                   onFinish={onToggle}
                   config={{ simpleSelect: true }}
                   parentCode={`QUE_ADD_FILTER_GRP`}
