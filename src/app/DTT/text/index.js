@@ -113,20 +113,18 @@ export const Write = ({
     dispatchBaseEntityUpdates(attributeCode, targetCode, userInput)(onNewMsg)
   }
 
-  const inputmaskFilter = value => {
+  const inputmaskFilter = value => inputmask => {
     // check if inputmask only contains digits
+    let filteredValue = ''
     if (value && inputmask && /^\d+$/.test(inputmask)) {
-      let filteredValue = ''
       // allow a leading '+' to phone number, otherwise break validations
       if (value.length > 0 && /^\+/.test(value)) {
         filteredValue = '+' + value.substring(1).replace(/\D/g, '')
       } else {
         filteredValue = value.replace(/\D/g, '')
       }
-
-      return filteredValue && filteredValue.substring(0, inputmask.length)
     }
-    return value
+    return filteredValue ? filteredValue.substring(0, inputmask.length) : value
   }
 
   return (
@@ -168,7 +166,7 @@ export const Write = ({
           setIsFocused(true)
         }}
         onBlur={onBlur}
-        onChange={e => setuserInput(inputmaskFilter(e.target.value))}
+        onChange={e => setuserInput(inputmaskFilter(e.target.value)(inputmask))}
         value={userInput || ''}
         isInvalid={isInvalid}
         w="full"
