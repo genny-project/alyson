@@ -1,6 +1,6 @@
 import './styles.css'
 
-import { Box, HStack, Text, VStack, useTheme, Select as SimpleSelect } from '@chakra-ui/react'
+import { Box, HStack, Text, VStack, useTheme } from '@chakra-ui/react'
 import { compose, includes, isEmpty, pathOr } from 'ramda'
 import { selectCode, selectRows } from 'redux/db/selectors'
 import { useDispatch, useSelector } from 'react-redux'
@@ -74,8 +74,6 @@ const Write = ({
 
   const { hasFieldMessage, fieldMessage } = useGetFieldMessage(parentCode, questionCode)
 
-  const { simpleSelect } = config || {}
-
   const handleClearFieldMessage = () => {
     onNewCmd({
       cmd_type: 'FIELDMSG',
@@ -145,24 +143,6 @@ const Write = ({
   // the backend accepts array only when sending dropdown values regardless of multi or single select
   const prepareValueForSendingAnswer = value =>
     value && Array.isArray(value) && value.map(i => i.value)
-
-  if (simpleSelect)
-    return (
-      <SimpleSelect
-        onChange={e => {
-          onSendAnswer(e.target.value)
-        }}
-        placeholder={placeholderName || 'Select'}
-        test-id={`simpleSelect-${questionCode}`}
-        id={questionCode}
-      >
-        {options.map(({ value, label }) => (
-          <option test-id={value} value={value} key={value}>
-            {label}
-          </option>
-        ))}
-      </SimpleSelect>
-    )
 
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
