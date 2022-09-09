@@ -110,8 +110,6 @@ const Write = ({
       if (!askedForDropDownData) {
         ddEvent('')
         setAskedForDropDownData(true)
-      } else {
-        debugOut.warn(`Dropdown ${parentCode}@${questionCode} has no options!`)
       }
     }
     if (!updated) {
