@@ -1,6 +1,6 @@
 import './styles.css'
 
-import { Box, HStack, Text, VStack, useTheme } from '@chakra-ui/react'
+import { Box, HStack, Text, VStack, useTheme, Select as SimpleSelect } from '@chakra-ui/react'
 import { compose, includes, isEmpty, pathOr } from 'ramda'
 import { selectCode, selectRows } from 'redux/db/selectors'
 import { useDispatch, useSelector } from 'react-redux'
@@ -148,7 +148,7 @@ const Write = ({
 
   if (simpleSelect)
     return (
-      <CSelect
+      <SimpleSelect
         onChange={e => {
           onSendAnswer(e.target.value)
         }}
@@ -161,7 +161,7 @@ const Write = ({
             {label}
           </option>
         ))}
-      </CSelect>
+      </SimpleSelect>
     )
 
   return (
