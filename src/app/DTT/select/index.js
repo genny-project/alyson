@@ -32,6 +32,7 @@ const Write = ({
   attributeCode,
   mandatory,
   clientId,
+  config,
 }) => {
   const dropdownData =
     useSelector(
@@ -72,6 +73,8 @@ const Write = ({
   const onNewCmd = compose(dispatchPushMessage, newCmd)
 
   const { hasFieldMessage, fieldMessage } = useGetFieldMessage(parentCode, questionCode)
+
+  const { simpleSelect } = config || {}
 
   const handleClearFieldMessage = () => {
     onNewCmd({
@@ -142,6 +145,24 @@ const Write = ({
   // the backend accepts array only when sending dropdown values regardless of multi or single select
   const prepareValueForSendingAnswer = value =>
     value && Array.isArray(value) && value.map(i => i.value)
+
+  if (simpleSelect)
+    return (
+      <CSelect
+        onChange={e => {
+          onSendAnswer(e.target.value)
+        }}
+        placeholder={placeholderName || 'Select'}
+        test-id={`simpleSelect-${questionCode}`}
+        id={questionCode}
+      >
+        {options.map(({ value, label }) => (
+          <option test-id={value} value={value} key={value}>
+            {label}
+          </option>
+        ))}
+      </CSelect>
+    )
 
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
