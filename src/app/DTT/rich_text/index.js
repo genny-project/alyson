@@ -201,7 +201,7 @@ const Read = ({ data, mini, config = {} }) => {
   ) : noOfLines ? (
     <VStack onClick={onOpen}>
       <Box p="0px" dangerouslySetInnerHTML={{ __html: cleanHtml }} {...config} />
-      <Modal isOpen={isOpen} onClose={onClose} isCentered size="xl">
+      <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="inside" size="xl">
         <ModalOverlay />
         <ModalContent>
           <ModalBody>
