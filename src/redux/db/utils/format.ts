@@ -12,7 +12,7 @@ export const formatBaseEntity = (
   state: DBState,
   aliasCode: MsgPayload['aliasCode'],
   parentCode: MsgPayload['parentCode'],
-  replace: Boolean,
+  replace?: Boolean,
 ) => (item: Item) => {
   if (!item) return
 
@@ -210,5 +210,20 @@ export const formatDropdownLinks = (
     state[key] = items
   } else {
     state[key] = (state[key] as Array<Keyable>).concat(items)
+  }
+}
+
+export const handleAckMessages = (state: DBState, items: any) => {
+  const ackMessageIdentifier = 'ACKMESSAGE'
+  initialiseKey(state, ackMessageIdentifier, {})
+
+  if (items.length === 1) {
+    const { code: questionCode, value } = items[0] || []
+
+    const currentAckStore = state[ackMessageIdentifier]
+    const updatedAskStore = { ...currentAckStore, [questionCode]: value }
+    state[ackMessageIdentifier] = updatedAskStore
+  } else {
+    return
   }
 }

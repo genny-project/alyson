@@ -8,6 +8,7 @@ import {
   formatDropdownLinks,
   formatGroupData,
   formatNotes,
+  handleAckMessages,
 } from './utils/format'
 import { DBState, Note } from './types'
 import { MsgPayload, CmdPayload } from 'redux/types'
@@ -35,6 +36,10 @@ const db = createSlice({
         questionCode,
         linkCode,
       } = payload
+      if (data_type === 'Answer') {
+        handleAckMessages(state, items)
+      }
+
       if (replace && parentCode) {
         state[`${parentCode}@rows`] = []
       }
