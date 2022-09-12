@@ -16,7 +16,6 @@ import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
 import { selectCode } from 'redux/db/selectors'
 import { ACKMESSAGEKEY } from 'utils/constants'
-import notEqual from 'utils/helpers/not-equal'
 import { maxNumberOfRetries } from 'utils/constants'
 
 export const Write = ({
