@@ -7,6 +7,8 @@ export const SIDEBAR_QUESTION_CODE = 'QUE_PROJECT_SIDEBAR_GRP'
 export const LOGO_WIDTH = '120px'
 export const LOGO_WIDTH_SM = '100px'
 
+export const ACKMESSAGEKEY = 'ACKMESSAGE'
+
 export const complete = 'COMPLETE'
 export const addItemsQuestionCode = 'QUE_ADD_ITEMS_GRP'
 export const quickAddItemsQuestionCode = 'QUE_QUICK_ADD_ITEMS_GRP'

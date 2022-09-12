@@ -1,6 +1,7 @@
 import { Box, Text as ChakraText, HStack, Input, VStack, useTheme } from '@chakra-ui/react'
 import { faCalendar, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useRef, useState } from 'react'
+import { useSelector } from 'react-redux'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import DetailViewTags from 'app/DTT/text/detailview_tags'
@@ -13,6 +14,8 @@ import { useError } from 'utils/contexts/ErrorContext'
 import useGetFieldMessage from 'utils/fieldMessage'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
+import { selectCode } from 'redux/db/selectors'
+import { ACKMESSAGEKEY } from 'utils/constants'
 
 export const Write = ({
   questionCode,
@@ -22,8 +25,6 @@ export const Write = ({
   errorMessage,
   parentCode,
   placeholderName,
-  attributeCode,
-  targetCode,
   mandatory,
   inputmask,
 }) => {
@@ -52,6 +53,8 @@ export const Write = ({
   const fieldNotEmpty = fieldState[questionCode]
   const isInvalid = getIsInvalid(userInput)(regex)
   const debouncedSendAnswer = debounce(onSendAnswer, 500)
+  const ackMessageObject = useSelector(selectCode(ACKMESSAGEKEY))
+  const ackMessageValue = ackMessageObject[questionCode]
 
   const onBlur = e => {
     e.target.value ? setIsFocused(true) : setIsFocused(false)

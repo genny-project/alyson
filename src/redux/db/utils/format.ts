@@ -7,6 +7,7 @@ import initialiseKey from 'utils/helpers/initialise-key'
 import pushUniqueString from 'utils/helpers/push-unique-string'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import sortByIndex from './sort-by-index'
+import { ACKMESSAGEKEY } from 'utils/constants'
 
 export const formatBaseEntity = (
   state: DBState,
@@ -214,15 +215,14 @@ export const formatDropdownLinks = (
 }
 
 export const handleAckMessages = (state: DBState, items: any) => {
-  const ackMessageIdentifier = 'ACKMESSAGE'
-  initialiseKey(state, ackMessageIdentifier, {})
+  initialiseKey(state, ACKMESSAGEKEY, {})
 
   if (items.length === 1) {
     const { code: questionCode, value } = items[0] || []
 
-    const currentAckStore = state[ackMessageIdentifier]
+    const currentAckStore = state[ACKMESSAGEKEY]
     const updatedAskStore = { ...currentAckStore, [questionCode]: value }
-    state[ackMessageIdentifier] = updatedAskStore
+    state[ACKMESSAGEKEY] = updatedAskStore
   } else {
     return
   }
