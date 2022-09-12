@@ -58,7 +58,7 @@ export const Write = ({
   const isInvalid = getIsInvalid(userInput)(regex)
   const debouncedSendAnswer = debounce(onSendAnswer, 500)
   const ackMessageObject = useSelector(selectCode(ACKMESSAGEKEY))
-  const ackMessageValue = ackMessageObject[questionCode]
+  const ackMessageValue = ackMessageObject?.[questionCode] || ''
 
   const onBlur = e => {
     e.target.value ? setIsFocused(true) : setIsFocused(false)
