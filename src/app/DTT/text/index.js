@@ -34,13 +34,12 @@ export const Write = ({
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value || '')
   const [isFocused, setIsFocused] = useState(false)
-  const [validatedFromBackend, setValidatedFromBackend] = useState(false)
   const inputRef = useRef()
   const retrySendingAnswerRef = useRef(0)
 
   const theme = useTheme()
   const { dispatch } = useError()
-  const { dispatchFieldMessage, fieldState } = useIsFieldNotEmpty()
+  const { dispatchFieldMessage } = useIsFieldNotEmpty()
   const { errorState } = useError()
   const { hasFieldMessage, fieldMessage } = useGetFieldMessage(parentCode, questionCode)
   const {
@@ -54,7 +53,6 @@ export const Write = ({
 
   let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMessage)
   const failedValidation = errorState[questionCode]
-  const fieldNotEmpty = fieldState[questionCode]
   const isInvalid = getIsInvalid(userInput)(regex)
   const debouncedSendAnswer = debounce(onSendAnswer, 500)
   const ackMessageObject = useSelector(selectCode(ACKMESSAGEKEY))
@@ -123,12 +121,12 @@ export const Write = ({
     const timer = setInterval(() => {
       if (
         !!userInput &&
+        !ackMessageValue &&
         notEqual(userInput, ackMessageValue) &&
         retrySendingAnswerRef.current < maxNumberOfRetries
       ) {
         !errorStatus && debouncedSendAnswer(userInput)
         retrySendingAnswerRef.current = retrySendingAnswerRef.current + 1
-        setValidatedFromBackend(false)
       }
     }, 5000)
     return () => clearInterval(timer)
@@ -159,9 +157,8 @@ export const Write = ({
             )}
           </ChakraText>
         )}
-        {(!failedValidation && fieldNotEmpty) ||
-        (!failedValidation && userInput && isNotStringifiedEmptyArray(userInput)) ? (
-          validatedFromBackend ? (
+        {!failedValidation && userInput && isNotStringifiedEmptyArray(userInput) ? (
+          !!ackMessageValue ? (
             <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
           ) : retrySendingAnswerRef.current < maxNumberOfRetries ? (
             <FontAwesomeIcon opacity="0.5" color="orange" icon={faCheckCircle} />
