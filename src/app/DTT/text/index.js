@@ -28,20 +28,16 @@ export const Write = ({
   inputmask,
 }) => {
   let regex
-  const theme = useTheme()
-  const { dispatch } = useError()
-  const { dispatchFieldMessage } = useIsFieldNotEmpty()
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value || '')
   const [isFocused, setIsFocused] = useState(false)
+  const inputRef = useRef()
 
-  let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMessage)
+  const theme = useTheme()
+  const { dispatch } = useError()
+  const { dispatchFieldMessage, fieldState } = useIsFieldNotEmpty()
   const { errorState } = useError()
-  const { fieldState } = useIsFieldNotEmpty()
-
-  const failedValidation = errorState[questionCode]
-  const fieldNotEmpty = fieldState[questionCode]
-
+  const { hasFieldMessage, fieldMessage } = useGetFieldMessage(parentCode, questionCode)
   const {
     fieldBackgroundColor,
     fieldBorderColor,
@@ -51,7 +47,31 @@ export const Write = ({
     borderRadius,
   } = useProductColors()
 
-  const { hasFieldMessage, fieldMessage } = useGetFieldMessage(parentCode, questionCode)
+  let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMessage)
+  const failedValidation = errorState[questionCode]
+  const fieldNotEmpty = fieldState[questionCode]
+  const isInvalid = getIsInvalid(userInput)(regex)
+  const debouncedSendAnswer = debounce(onSendAnswer, 500)
+
+  const onBlur = e => {
+    e.target.value ? setIsFocused(true) : setIsFocused(false)
+    !errorStatus && debouncedSendAnswer(userInput)
+    dispatchFieldMessage({ payload: questionCode })
+  }
+
+  const inputmaskFilter = value => inputmask => {
+    // check if inputmask only contains digits
+    let filteredValue = ''
+    if (value && inputmask && /^\d+$/.test(inputmask)) {
+      // allow a leading '+' to phone number, otherwise break validations
+      if (value.length > 0 && /^\+/.test(value)) {
+        filteredValue = '+' + value.substring(1).replace(/\D/g, '')
+      } else {
+        filteredValue = value.replace(/\D/g, '')
+      }
+    }
+    return filteredValue ? filteredValue.substring(0, inputmask.length) : value
+  }
 
   try {
     regexPattern = regexPattern.replaceAll('\\\\', '\\')
@@ -60,9 +80,6 @@ export const Write = ({
     console.error('There is an error with the regex', questionCode, err)
     regex = undefined
   }
-
-  const inputRef = useRef()
-  const isInvalid = getIsInvalid(userInput)(regex)
 
   useEffect(() => {
     userInput ? setIsFocused(true) : setIsFocused(false)
@@ -94,28 +111,6 @@ export const Write = ({
       ? dispatch({ type: ACTIONS.SET_TO_TRUE, payload: questionCode })
       : dispatch({ type: ACTIONS.SET_TO_FALSE, payload: questionCode })
   }, [dispatch, isInvalid, questionCode])
-
-  const debouncedSendAnswer = debounce(onSendAnswer, 500)
-
-  const onBlur = e => {
-    e.target.value ? setIsFocused(true) : setIsFocused(false)
-    !errorStatus && debouncedSendAnswer(userInput)
-    dispatchFieldMessage({ payload: questionCode })
-  }
-
-  const inputmaskFilter = value => inputmask => {
-    // check if inputmask only contains digits
-    let filteredValue = ''
-    if (value && inputmask && /^\d+$/.test(inputmask)) {
-      // allow a leading '+' to phone number, otherwise break validations
-      if (value.length > 0 && /^\+/.test(value)) {
-        filteredValue = '+' + value.substring(1).replace(/\D/g, '')
-      } else {
-        filteredValue = value.replace(/\D/g, '')
-      }
-    }
-    return filteredValue ? filteredValue.substring(0, inputmask.length) : value
-  }
 
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
