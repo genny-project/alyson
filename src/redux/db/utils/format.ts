@@ -7,12 +7,13 @@ import initialiseKey from 'utils/helpers/initialise-key'
 import pushUniqueString from 'utils/helpers/push-unique-string'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import sortByIndex from './sort-by-index'
+import { ACKMESSAGEKEY } from 'utils/constants'
 
 export const formatBaseEntity = (
   state: DBState,
   aliasCode: MsgPayload['aliasCode'],
   parentCode: MsgPayload['parentCode'],
-  replace: Boolean,
+  replace?: Boolean,
 ) => (item: Item) => {
   if (!item) return
 
@@ -210,5 +211,19 @@ export const formatDropdownLinks = (
     state[key] = items
   } else {
     state[key] = (state[key] as Array<Keyable>).concat(items)
+  }
+}
+
+export const handleAckMessages = (state: DBState, items: any) => {
+  initialiseKey(state, ACKMESSAGEKEY, {})
+
+  if (items.length === 1) {
+    const { code: questionCode, value } = items[0] || []
+
+    const currentAckStore = state[ACKMESSAGEKEY]
+    const updatedAskStore = { ...currentAckStore, [questionCode]: value }
+    state[ACKMESSAGEKEY] = updatedAskStore
+  } else {
+    return
   }
 }

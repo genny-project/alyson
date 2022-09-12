@@ -6,6 +6,8 @@ export const SIDEBAR_WIDTH_SM = '80px'
 export const SIDEBAR_QUESTION_CODE = 'QUE_PROJECT_SIDEBAR_GRP'
 export const LOGO_WIDTH = '120px'
 export const LOGO_WIDTH_SM = '100px'
+export const ACKMESSAGEKEY = 'ACKMESSAGE'
+export const maxNumberOfRetries = 5
 
 export const complete = 'COMPLETE'
 export const addItemsQuestionCode = 'QUE_ADD_ITEMS_GRP'

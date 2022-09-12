@@ -16,6 +16,6 @@ export interface Notes {
   [key: string]: Note | null
 }
 export interface DBState {
-  [key: string]: string | object | Array<string>
+  [key: string]: string | object | Array<string> | any
   NOTES: Notes
 }

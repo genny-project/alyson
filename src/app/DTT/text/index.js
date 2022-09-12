@@ -1,6 +1,7 @@
 import { Box, Text as ChakraText, HStack, Input, VStack, useTheme } from '@chakra-ui/react'
-import { faCalendar, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import { faCalendar, faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useRef, useState } from 'react'
+import { useSelector } from 'react-redux'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import DetailViewTags from 'app/DTT/text/detailview_tags'
@@ -13,6 +14,9 @@ import { useError } from 'utils/contexts/ErrorContext'
 import useGetFieldMessage from 'utils/fieldMessage'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
+import { selectCode } from 'redux/db/selectors'
+import { ACKMESSAGEKEY } from 'utils/constants'
+import { maxNumberOfRetries } from 'utils/constants'
 
 export const Write = ({
   questionCode,
@@ -22,26 +26,21 @@ export const Write = ({
   errorMessage,
   parentCode,
   placeholderName,
-  attributeCode,
-  targetCode,
   mandatory,
   inputmask,
 }) => {
   let regex
-  const theme = useTheme()
-  const { dispatch } = useError()
-  const { dispatchFieldMessage } = useIsFieldNotEmpty()
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value || '')
   const [isFocused, setIsFocused] = useState(false)
+  const inputRef = useRef()
+  const retrySendingAnswerRef = useRef(0)
 
-  let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMessage)
+  const theme = useTheme()
+  const { dispatch } = useError()
+  const { dispatchFieldMessage } = useIsFieldNotEmpty()
   const { errorState } = useError()
-  const { fieldState } = useIsFieldNotEmpty()
-
-  const failedValidation = errorState[questionCode]
-  const fieldNotEmpty = fieldState[questionCode]
-
+  const { hasFieldMessage, fieldMessage } = useGetFieldMessage(parentCode, questionCode)
   const {
     fieldBackgroundColor,
     fieldBorderColor,
@@ -51,7 +50,32 @@ export const Write = ({
     borderRadius,
   } = useProductColors()
 
-  const { hasFieldMessage, fieldMessage } = useGetFieldMessage(parentCode, questionCode)
+  let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMessage)
+  const failedValidation = errorState[questionCode]
+  const isInvalid = getIsInvalid(userInput)(regex)
+  const debouncedSendAnswer = debounce(onSendAnswer, 500)
+  const ackMessageObject = useSelector(selectCode(ACKMESSAGEKEY))
+  const ackMessageValue = ackMessageObject?.[questionCode] || ''
+
+  const onBlur = e => {
+    e.target.value ? setIsFocused(true) : setIsFocused(false)
+    !errorStatus && debouncedSendAnswer(userInput)
+    dispatchFieldMessage({ payload: questionCode })
+  }
+
+  const inputmaskFilter = value => inputmask => {
+    // check if inputmask only contains digits
+    let filteredValue = ''
+    if (value && inputmask && /^\d+$/.test(inputmask)) {
+      // allow a leading '+' to phone number, otherwise break validations
+      if (value.length > 0 && /^\+/.test(value)) {
+        filteredValue = '+' + value.substring(1).replace(/\D/g, '')
+      } else {
+        filteredValue = value.replace(/\D/g, '')
+      }
+    }
+    return filteredValue ? filteredValue.substring(0, inputmask.length) : value
+  }
 
   try {
     regexPattern = regexPattern.replaceAll('\\\\', '\\')
@@ -60,9 +84,6 @@ export const Write = ({
     console.error('There is an error with the regex', questionCode, err)
     regex = undefined
   }
-
-  const inputRef = useRef()
-  const isInvalid = getIsInvalid(userInput)(regex)
 
   useEffect(() => {
     userInput ? setIsFocused(true) : setIsFocused(false)
@@ -95,27 +116,19 @@ export const Write = ({
       : dispatch({ type: ACTIONS.SET_TO_FALSE, payload: questionCode })
   }, [dispatch, isInvalid, questionCode])
 
-  const debouncedSendAnswer = debounce(onSendAnswer, 500)
-
-  const onBlur = e => {
-    e.target.value ? setIsFocused(true) : setIsFocused(false)
-    !errorStatus && debouncedSendAnswer(userInput)
-    dispatchFieldMessage({ payload: questionCode })
-  }
-
-  const inputmaskFilter = value => inputmask => {
-    // check if inputmask only contains digits
-    let filteredValue = ''
-    if (value && inputmask && /^\d+$/.test(inputmask)) {
-      // allow a leading '+' to phone number, otherwise break validations
-      if (value.length > 0 && /^\+/.test(value)) {
-        filteredValue = '+' + value.substring(1).replace(/\D/g, '')
-      } else {
-        filteredValue = value.replace(/\D/g, '')
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (retrySendingAnswerRef.current < maxNumberOfRetries) {
+        !errorStatus && !ackMessageValue && userInput && debouncedSendAnswer(userInput)
+        retrySendingAnswerRef.current = retrySendingAnswerRef.current + 1
       }
-    }
-    return filteredValue ? filteredValue.substring(0, inputmask.length) : value
-  }
+    }, 5000)
+    return () => clearInterval(timer)
+  }, [ackMessageValue, debouncedSendAnswer, errorStatus, userInput])
+
+  useEffect(() => {
+    retrySendingAnswerRef.current = 0
+  }, [userInput])
 
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
@@ -142,9 +155,14 @@ export const Write = ({
             )}
           </ChakraText>
         )}
-        {(!failedValidation && fieldNotEmpty) ||
-        (!failedValidation && userInput && isNotStringifiedEmptyArray(userInput)) ? (
-          <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
+        {!failedValidation && userInput && isNotStringifiedEmptyArray(userInput) ? (
+          !!ackMessageValue ? (
+            <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
+          ) : retrySendingAnswerRef.current < maxNumberOfRetries ? (
+            <FontAwesomeIcon opacity="0.5" color="orange" icon={faCheckCircle} />
+          ) : (
+            <FontAwesomeIcon opacity="0.5" color="red" icon={faTimesCircle} />
+          )
         ) : null}
       </HStack>
 
