@@ -36,8 +36,10 @@ const db = createSlice({
         questionCode,
         linkCode,
       } = payload
+
       if (data_type === 'Answer') {
         handleAckMessages(state, items)
+        return
       }
 
       if (replace && parentCode) {
