@@ -119,7 +119,7 @@ export const Write = ({
   useEffect(() => {
     const timer = setInterval(() => {
       if (retrySendingAnswerRef.current < maxNumberOfRetries) {
-        !errorStatus && debouncedSendAnswer(userInput)
+        !errorStatus && !ackMessageValue && userInput && debouncedSendAnswer(userInput)
         retrySendingAnswerRef.current = retrySendingAnswerRef.current + 1
       }
     }, 5000)
