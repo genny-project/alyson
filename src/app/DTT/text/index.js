@@ -1,5 +1,5 @@
 import { Box, Text as ChakraText, HStack, Input, VStack, useTheme } from '@chakra-ui/react'
-import { faCalendar, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import { faCalendar, faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 
@@ -16,6 +16,8 @@ import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
 import { selectCode } from 'redux/db/selectors'
 import { ACKMESSAGEKEY } from 'utils/constants'
+import notEqual from 'utils/helpers/not-equal'
+import { maxNumberOfRetries } from 'utils/constants'
 
 export const Write = ({
   questionCode,
@@ -32,7 +34,9 @@ export const Write = ({
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value || '')
   const [isFocused, setIsFocused] = useState(false)
+  const [validatedFromBackend, setValidatedFromBackend] = useState(false)
   const inputRef = useRef()
+  const retrySendingAnswerRef = useRef(0)
 
   const theme = useTheme()
   const { dispatch } = useError()
@@ -115,6 +119,21 @@ export const Write = ({
       : dispatch({ type: ACTIONS.SET_TO_FALSE, payload: questionCode })
   }, [dispatch, isInvalid, questionCode])
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (
+        !!userInput &&
+        notEqual(userInput, ackMessageValue) &&
+        retrySendingAnswerRef.current < maxNumberOfRetries
+      ) {
+        !errorStatus && debouncedSendAnswer(userInput)
+        retrySendingAnswerRef.current = retrySendingAnswerRef.current + 1
+        setValidatedFromBackend(false)
+      }
+    }, 5000)
+    return () => clearInterval(timer)
+  }, [ackMessageValue, debouncedSendAnswer, errorStatus, userInput])
+
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
       <HStack
@@ -142,7 +161,13 @@ export const Write = ({
         )}
         {(!failedValidation && fieldNotEmpty) ||
         (!failedValidation && userInput && isNotStringifiedEmptyArray(userInput)) ? (
-          <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
+          validatedFromBackend ? (
+            <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
+          ) : retrySendingAnswerRef.current < maxNumberOfRetries ? (
+            <FontAwesomeIcon opacity="0.5" color="orange" icon={faCheckCircle} />
+          ) : (
+            <FontAwesomeIcon opacity="0.5" color="red" icon={faTimesCircle} />
+          )
         ) : null}
       </HStack>
 
