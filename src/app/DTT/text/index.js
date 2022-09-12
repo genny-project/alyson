@@ -119,18 +119,17 @@ export const Write = ({
 
   useEffect(() => {
     const timer = setInterval(() => {
-      if (
-        !!userInput &&
-        !ackMessageValue &&
-        notEqual(userInput, ackMessageValue) &&
-        retrySendingAnswerRef.current < maxNumberOfRetries
-      ) {
+      if (retrySendingAnswerRef.current < maxNumberOfRetries) {
         !errorStatus && debouncedSendAnswer(userInput)
         retrySendingAnswerRef.current = retrySendingAnswerRef.current + 1
       }
     }, 5000)
     return () => clearInterval(timer)
   }, [ackMessageValue, debouncedSendAnswer, errorStatus, userInput])
+
+  useEffect(() => {
+    retrySendingAnswerRef.current = 0
+  }, [userInput])
 
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
