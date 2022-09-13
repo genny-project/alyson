@@ -32,7 +32,7 @@ const DataTable = ({ parentCode, mapSearch }) => {
   const clientId = apiConfig?.clientId || 'alyson'
 
   return (
-    <Box mx={equals(clientId)('lojing') ? '0' : '5'} width="full">
+    <Box mx={equals(clientId)('lojing') ? '0' : '5'}>
       <HStack align="flex-end" mb="3" justify="space-between">
         <Stack
           align="flex-start"
