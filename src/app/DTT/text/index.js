@@ -1,22 +1,22 @@
-import { Box, Text as ChakraText, HStack, Input, VStack, useTheme } from '@chakra-ui/react'
-import { faCalendar, faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useRef, useState } from 'react'
+import { Box, Text as ChakraText, HStack, Input, VStack, useTheme } from '@chakra-ui/react'
 import { useSelector } from 'react-redux'
+import { faCalendar, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import DetailViewTags from 'app/DTT/text/detailview_tags'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import debounce from 'lodash.debounce'
 import { getIsInvalid } from 'utils/functions'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined'
-import { isNotStringifiedEmptyArray } from 'utils/functionals'
 import { useError } from 'utils/contexts/ErrorContext'
 import useGetFieldMessage from 'utils/fieldMessage'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
 import { selectCode } from 'redux/db/selectors'
-import { ACKMESSAGEKEY } from 'utils/constants'
-import { maxNumberOfRetries } from 'utils/constants'
+import { maxNumberOfRetries, ACKMESSAGEKEY } from 'utils/constants'
+import AnswerAcknowledge from 'app/layouts/components/form/answer_acknowledge'
+import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
 
 export const Write = ({
   questionCode,
@@ -143,27 +143,17 @@ export const Write = ({
         pointerEvents={'none'}
         transition="all 0.25s ease"
       >
-        {placeholderName && (
-          <ChakraText as="label" fontSize={'sm'} fontWeight={'medium'} color={labelTextColor}>
-            {placeholderName}
-            {mandatory ? (
-              <ChakraText as="span" color={'red.500'} ml={1}>
-                *
-              </ChakraText>
-            ) : (
-              <></>
-            )}
-          </ChakraText>
-        )}
-        {!failedValidation && userInput && isNotStringifiedEmptyArray(userInput) ? (
-          !!ackMessageValue ? (
-            <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
-          ) : retrySendingAnswerRef.current < maxNumberOfRetries ? (
-            <FontAwesomeIcon opacity="0.5" color="orange" icon={faCheckCircle} />
-          ) : (
-            <FontAwesomeIcon opacity="0.5" color="red" icon={faTimesCircle} />
-          )
-        ) : null}
+        <MandatorySymbol
+          placeholderName={placeholderName}
+          mandatory={mandatory}
+          labelTextColor={labelTextColor}
+        />
+        <AnswerAcknowledge
+          failedValidation={failedValidation}
+          userInput={userInput}
+          retrySendingAnswerRef={retrySendingAnswerRef}
+          questionCode={questionCode}
+        />
       </HStack>
 
       <Input
