@@ -15,7 +15,8 @@ import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
 import { selectCode } from 'redux/db/selectors'
 import { maxNumberOfRetries, ACKMESSAGEKEY } from 'utils/constants'
-import AnswerAcknowledge from 'app/layouts/components/answer_acknowledge'
+import AnswerAcknowledge from 'app/layouts/components/form/answer_acknowledge'
+import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
 
 export const Write = ({
   questionCode,
@@ -142,18 +143,11 @@ export const Write = ({
         pointerEvents={'none'}
         transition="all 0.25s ease"
       >
-        {placeholderName && (
-          <ChakraText as="label" fontSize={'sm'} fontWeight={'medium'} color={labelTextColor}>
-            {placeholderName}
-            {mandatory ? (
-              <ChakraText as="span" color={'red.500'} ml={1}>
-                *
-              </ChakraText>
-            ) : (
-              <></>
-            )}
-          </ChakraText>
-        )}
+        <MandatorySymbol
+          placeholderName={placeholderName}
+          mandatory={mandatory}
+          labelTextColor={labelTextColor}
+        />
         <AnswerAcknowledge
           failedValidation={failedValidation}
           userInput={userInput}
