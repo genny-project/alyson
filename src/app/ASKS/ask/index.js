@@ -103,7 +103,7 @@ const Ask = ({
   if (readonly) {
     return (
       <HStack>
-        <CText id={attributeCode} w={labelWidth} textStyle="body.1">
+        <CText id={attributeCode} w={'full'} maxW={labelWidth} textStyle="body.1">
           {name}
         </CText>
         <Attribute config={{ textStyle: 'body.1' }} code={targetCode} attribute={attributeCode} />
