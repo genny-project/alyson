@@ -1,21 +1,25 @@
+import { always, cond, equals } from 'ramda'
+
 import TemplateHeaderDesktop from './tpl-header-desktop'
+import TemplateHeaderMobile from './tpl-header-mobile'
 import { apiConfig } from 'config/get-api-config'
 import { useIsMobile } from 'utils/hooks'
-import TemplateHeaderMobile from './tpl-header-mobile'
 
 const TemplateHeader = ({ mappedPcm, depth }) => {
-  const clientId = apiConfig?.clientId
+  const { clientId, realm } = apiConfig
 
-  const logoSrc =
-    clientId === 'internmatch'
-      ? '/internmatch_new.png'
-      : clientId === 'mentormatch'
-      ? '/MM_Primary_Fullcolour-1.png'
-      : clientId === 'lojing'
-      ? '/lojing-logo.png'
-      : clientId === 'credmatch'
-      ? '/credmatch_logo.jpg'
-      : '/credmatch_logo.jpg'
+  const getLogoSrc = cond([
+    [equals('internmatch') || equals('alyson'), always('/internmatch_new.png')],
+    [equals('mentormatch'), always('/MM_Primary_Fullcolour-1.png')],
+    [equals('lojing'), always('/lojing-logo.png')],
+    [equals('credmatch'), always('/credmatch_logo.jpg')],
+  ])
+
+  const logoSrcFromRealm = getLogoSrc(realm)
+  const logoSrcFromClientId = getLogoSrc(clientId)
+
+  const logoSrc = logoSrcFromRealm || logoSrcFromClientId
+
   const isMobile = useIsMobile()
 
   return isMobile ? (

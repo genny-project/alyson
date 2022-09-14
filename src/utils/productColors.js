@@ -30,6 +30,26 @@ const labelTextColors = {
 const borderRadiuses = {
   lojing: 'calc(0.25rem - 1px)',
 }
+const buttonBackgroundColors = {
+  lojing: 'product.secondary',
+  alyson: 'product.primary',
+  internmatch: 'product.primary',
+}
+const dropZoneTextHoverColors = {
+  lojing: '#4d4d4d',
+}
+const switchColors = {
+  lojing: 'orange',
+}
+const lightColors = {
+  alyson: 'product.gray50',
+}
+const appWrapperInlinePaddings = {
+  lojing: 'clamp(1.25rem, 5vw, 7.5rem)',
+}
+const tableStyles = {
+  lojing: 'striped',
+}
 
 const useProductColors = () => {
   const clientId = apiConfig?.clientId
@@ -46,6 +66,15 @@ const useProductColors = () => {
   const labelTextColor = labelTextColors[clientId] || theme.colors.gray['600']
   const borderRadius = borderRadiuses[clientId] || '0.5rem'
 
+  const buttonBackgroundColor = buttonBackgroundColors[clientId] || theme.colors.primary
+  const dropZoneTextHoverColor = dropZoneTextHoverColors[clientId] || theme.colors.text.dark
+
+  const lightColor = lightColors[clientId] || theme.colors.background['light']
+  const appWrapperInlinePadding = appWrapperInlinePaddings[clientId] || ''
+  const switchColor = switchColors[clientId] || 'primary'
+
+  const tableStyle = tableStyles[clientId] || 'simple'
+
   return {
     fieldBackgroundColor,
     fieldBorderColor,
@@ -55,6 +84,12 @@ const useProductColors = () => {
     fieldHoverBackgroundColor,
     labelTextColor,
     borderRadius,
+    buttonBackgroundColor,
+    dropZoneTextHoverColor,
+    lightColor,
+    appWrapperInlinePadding,
+    switchColor,
+    tableStyle,
   }
 }
 

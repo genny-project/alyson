@@ -12,19 +12,18 @@ import {
   useTheme,
 } from '@chakra-ui/react'
 import DeveloperConsole, { isDev } from 'utils/developer'
-import { SIDEBAR_WIDTH, lojing } from 'utils/constants'
 
 import Dialog from 'app/layouts/display/dialog'
 import DisplayDrawer from 'app/layouts/display/drawer'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import LogrocketIdentifier from 'app/layouts/components/logrocket_identifier'
 import PcmField from 'app/PCM/components/pcm-field'
+import { SIDEBAR_WIDTH } from 'utils/constants'
 import Toast from 'app/layouts/display/toast'
-import { apiConfig } from 'config/get-api-config'
-import { equals } from 'ramda'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import { useIsMobile } from 'utils/hooks'
+import useProductColors from 'utils/productColors'
 import { useRef } from 'react'
 
 /**
@@ -47,17 +46,13 @@ const TemplateRoot = ({ mappedPcm, depth }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { PRI_LOC1, PRI_LOC2, PRI_LOC3 } = mappedPcm
 
-  const clientId = apiConfig?.clientId
-
   // THEME COLORS
   //need to fix this, we cannot get colours this way
-  const lightColor = equals(clientId)(lojing) ? theme.colors.background['light'] : 'product.gray50'
+  const { lightColor, appWrapperInlinePadding } = useProductColors()
   const darkColor =
     useGetAttributeFromProjectBaseEntity('PRI_COLOR_BACKGROUND_ON')?.valueString ||
     theme.colors.background['dark']
   const color = useColorModeValue(darkColor, lightColor)
-
-  const appBg = equals(clientId)(lojing) ? theme.colors.background['light'] : 'product.gray50'
 
   const isMobile = useIsMobile()
 
@@ -76,7 +71,7 @@ const TemplateRoot = ({ mappedPcm, depth }) => {
           gridArea: 'header',
           color,
           width: '100vw',
-          backgroundColor: appBg,
+          backgroundColor: lightColor,
           boxShadow: '0px 4px 32px -16px rgba(0, 0, 0, 0.25)',
           position: 'relative',
           zIndex: theme.zIndices.sticky,
@@ -87,7 +82,7 @@ const TemplateRoot = ({ mappedPcm, depth }) => {
           code={PRI_LOC1}
           mappedPcm={mappedPcm}
           depth={depth}
-          properties={{ bg: appBg, color: color }}
+          properties={{ bg: lightColor, color: color }}
         />
 
         {isMobile && (
@@ -118,7 +113,7 @@ const TemplateRoot = ({ mappedPcm, depth }) => {
                 code={PRI_LOC2}
                 mappedPcm={mappedPcm}
                 depth={depth}
-                properties={{ color: appBg }}
+                properties={{ color: lightColor }}
               />
             </DrawerBody>
           </DrawerContent>
@@ -137,7 +132,7 @@ const TemplateRoot = ({ mappedPcm, depth }) => {
             code={PRI_LOC2}
             mappedPcm={mappedPcm}
             depth={depth}
-            properties={{ color: appBg }}
+            properties={{ color: lightColor }}
           />
         </Box>
       )}
@@ -151,10 +146,7 @@ const TemplateRoot = ({ mappedPcm, depth }) => {
         overflow="auto"
         area={'main'}
       >
-        <Box
-          paddingTop="2.25rem"
-          paddingInline={equals(clientId)(lojing) ? 'clamp(1.25rem, 5vw, 7.5rem)' : ''}
-        >
+        <Box paddingTop="2.25rem" paddingInline={appWrapperInlinePadding}>
           {/* Main Page Content */}
           <PcmField code={PRI_LOC3} mappedPcm={mappedPcm} depth={depth} />
           <DisplayDrawer />

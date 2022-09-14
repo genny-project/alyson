@@ -1,10 +1,9 @@
 import { Box, HStack, Switch, Text } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 
-import { apiConfig } from 'config/get-api-config'
-import { equals } from 'ramda'
 import { onSendMessage } from 'vertx'
 import { selectCode } from 'redux/db/selectors'
+import useProductColors from 'utils/productColors'
 import { useSelector } from 'react-redux'
 
 const Read = ({ data = {} }) => {
@@ -21,7 +20,8 @@ const Read = ({ data = {} }) => {
 
 const Write = ({ questionCode, data, onSendAnswer, placeholderName: label }) => {
   const [isChecked, setIsChecked] = useState(!!data?.value)
-  const clientId = apiConfig?.clientId
+
+  const { switchColor } = useProductColors()
 
   const handleToggle = () => {
     onSendAnswer(isChecked ? 'false' : 'true')
@@ -37,7 +37,7 @@ const Write = ({ questionCode, data, onSendAnswer, placeholderName: label }) => 
       <Text color="gray.700">{label}</Text>
       <Box>
         <Switch
-          colorScheme={equals(clientId)('lojing') ? 'orange' : 'primary'}
+          colorScheme={switchColor}
           test-id={questionCode}
           isChecked={isChecked}
           onChange={handleToggle}

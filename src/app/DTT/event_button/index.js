@@ -1,15 +1,15 @@
 import { Button, useTheme } from '@chakra-ui/react'
 
 import Submit from './Submit'
-import { equals } from 'ramda'
 import isSubmitButton from 'app/DTT/event_button/helpers/is-submit.js'
-import { lojing } from 'utils/constants'
 import { onSendMessage } from 'vertx'
+import useProductColors from 'utils/productColors'
 
 const EventButton = ({ askData, onFinish, parentCode, sourceCode, clientId }) => {
   const { questionCode, targetCode, name, disabled, processId, attributeCode } = askData
   const theme = useTheme()
-  const bgColor = equals(clientId)(lojing) ? 'product.secondary' : 'product.primary'
+
+  const { buttonBackgroundColor } = useProductColors()
 
   const onClick = () =>
     onSendMessage({
@@ -34,16 +34,17 @@ const EventButton = ({ askData, onFinish, parentCode, sourceCode, clientId }) =>
       onClick={onClick}
       variant="outline"
       bg={theme.colors.background.light}
-      border="1px solid"
-      borderColor={bgColor}
+      borderWidth="1px"
+      borderStyle={'solid'}
+      borderColor={buttonBackgroundColor}
       w={`6.5rem`}
       fontSize={'sm'}
-      color={bgColor}
+      color={buttonBackgroundColor}
       mr={2}
       mb="5"
       _hover={{
         variant: 'solid',
-        background: bgColor,
+        background: buttonBackgroundColor,
         color: theme.colors.text.dark,
       }}
     >
