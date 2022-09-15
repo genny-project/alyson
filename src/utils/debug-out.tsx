@@ -1,7 +1,7 @@
-import showLogs from 'utils/helpers/show-logs'
+import showVerbose from 'utils/helpers/show-verbose'
 
 const out = (fn: (message?: any) => void) => (message?: any) => {
-  if (showLogs()) {
+  if (showVerbose()) {
     fn(message)
   }
 }
@@ -12,7 +12,7 @@ const warn = out(console.warn)
 const error = out(console.error)
 
 /**
- * Provides logging functions from `console`, but only if `showLogs()` returns true
+ * Provides logging functions from `console`, but only if `showVerbose()` returns true
  */
 const debugOut = {
   log,
