@@ -47,6 +47,7 @@ import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates
 import { compose } from 'ramda'
 import { newMsg } from 'redux/app'
 import HtmlEditor from 'app/DTT/html-editor'
+import Favourites from 'app/DTT/favourites'
 
 const Ask = ({
   parentCode,
@@ -297,6 +298,22 @@ const Ask = ({
       )}
       {component === 'text' && (
         <Text.Write
+          questionCode={questionCode}
+          mandatory={mandatory}
+          data={data}
+          onSendAnswer={onSendAnswer}
+          regexPattern={regexPattern}
+          errorMessage={errorMessage}
+          attributeCode={attributeCode}
+          targetCode={targetCode}
+          parentCode={parentCode}
+          placeholderName={placeholderName}
+          clientId={clientId}
+          inputmask={inputmask}
+        />
+      )}
+      {component === 'favourites' && (
+        <Favourites.Write
           questionCode={questionCode}
           mandatory={mandatory}
           data={data}
