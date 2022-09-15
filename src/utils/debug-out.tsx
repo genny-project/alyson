@@ -1,7 +1,7 @@
-import showLogs from 'utils/helpers/show-logs'
+import showVerbose from 'utils/helpers/show-logs'
 
 const out = (fn: (message?: any) => void) => (message?: any) => {
-  if (showLogs()) {
+  if (showVerbose()) {
     fn(message)
   }
 }
