@@ -13,9 +13,7 @@ export const Write = ({ questionCode, data, onSendAnswer }) => {
     debouncedSendAnswer(currentState)
     dispatchFieldMessage({ payload: questionCode })
   }
-  useEffect(() => {
-    setStarred(data?.value)
-  }, [data, setStarred])
+
   return (
     <FontAwesomeIcon
       onClick={() => handleClick(starred)}
