@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState, useEffect } from 'react'
 import debounce from 'lodash.debounce'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
+
 export const Write = ({ questionCode, data, onSendAnswer }) => {
   const [starred, setStarred] = useState(false)
   const debouncedSendAnswer = debounce(onSendAnswer, 500)
