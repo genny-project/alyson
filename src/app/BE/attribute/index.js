@@ -24,6 +24,7 @@ import fixLnkAndPri from './fix-lnk-and-pri'
 import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
 import HtmlEditor from 'app/DTT/html-editor'
+import Favourites from 'app/DTT/favourites'
 
 const Attribute = ({
   code,
@@ -106,6 +107,8 @@ const Attribute = ({
     <Flag.Read data={data} />
   ) : component === 'html_editor' ? (
     <HtmlEditor.Read data={data} />
+  ) : component === 'favourites' ? (
+    <Favourites.Read data={data} />
   ) : (
     <CText>{data?.value}</CText>
   )
