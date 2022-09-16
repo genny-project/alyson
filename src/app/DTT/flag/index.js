@@ -30,7 +30,10 @@ const Write = ({ questionCode, data, onSendAnswer, placeholderName: label }) => 
 
   useEffect(() => {
     setIsChecked(data?.value === 'true')
-  }, [data, setIsChecked])
+    if (!!data?.value) {
+      onSendAnswer(false)
+    }
+  }, [data, setIsChecked, onSendAnswer])
 
   return (
     <HStack spacing={5} justifyContent={'space-between'}>
