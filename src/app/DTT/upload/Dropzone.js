@@ -1,15 +1,4 @@
-import {
-  Box,
-  Button,
-  Center,
-  Flex,
-  HStack,
-  Image,
-  Input,
-  Text,
-  useTheme,
-  useToast,
-} from '@chakra-ui/react'
+import { Box, Button, Center, Flex, HStack, Image, Input, Text, useToast } from '@chakra-ui/react'
 import { compose, equals, includes, isEmpty, map, pathOr, split } from 'ramda'
 import { faCloudUploadAlt, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useState } from 'react'
@@ -26,11 +15,11 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 1, questionCode
   const toast = useToast()
   const checkIfImage = compose(includes('image'), split('/'))
 
-  const theme = useTheme()
   const {
     fieldHoverBorderColor,
     fieldHoverBackgroundColor,
     fieldHoverTextColor,
+    dropZoneTextHoverColor,
   } = useProductColors()
 
   useEffect(() => {
@@ -155,7 +144,7 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 1, questionCode
                 fontSize={13}
                 fontWeight={500}
                 _groupHover={{
-                  color: equals(clientId)(lojing) ? '#4d4d4d' : theme.colors.text.dark,
+                  color: dropZoneTextHoverColor,
                 }}
               >
                 {`Drag and drop images and videos`}
