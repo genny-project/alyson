@@ -29,7 +29,7 @@ const Write = ({ questionCode, data, onSendAnswer, placeholderName: label }) => 
   }
 
   useEffect(() => {
-    setIsChecked(data?.value)
+    setIsChecked(data?.value === 'true')
   }, [data, setIsChecked])
 
   return (
