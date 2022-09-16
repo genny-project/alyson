@@ -42,8 +42,10 @@ const Attribute = ({
   const dtt = useSelector(selectCode(fixLnkAndPri(data?.attributeCode)))
   const dttData = useSelector(selectCode(dtt))
   const component = dttData?.component
-  if (attribute === 'PRI_IMAGE_URL' && !data)
+
+  if (attribute === 'PRI_IMAGE_URL' && !!data) {
     return <ImageType.Read config={config} code={code} data={data} parentCode={parentCode} />
+  }
 
   /// Currently how I handle displaying the app logo in the header.
   /// I reckon this can be improved but was unsure how to.
