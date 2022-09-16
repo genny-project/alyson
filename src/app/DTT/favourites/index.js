@@ -1,6 +1,6 @@
 import { faStar, faStarHalf } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import debounce from 'lodash.debounce'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 
