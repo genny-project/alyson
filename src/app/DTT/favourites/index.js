@@ -26,7 +26,7 @@ export const Write = ({ questionCode, onSendAnswer }) => {
 }
 
 export const Read = ({ data }) => {
-  const isStarred = data.value
+  const isStarred = data?.value
   return <FontAwesomeIcon size="lg" icon={faStar} color={isStarred ? '#ffd700' : '#C0C0C0'} />
 }
 
