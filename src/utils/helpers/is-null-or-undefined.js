@@ -1,8 +1,10 @@
-import { isEmpty, not } from 'ramda'
-const isNullOrUndefined = value => value === undefined || value === null
+import { equals, isEmpty, not } from 'ramda'
+const isNullOrUndefined = value => equals(value, undefined) || equals(value, null)
 
 export const isNullOrUndefinedOrEmpty = value => isNullOrUndefined(value) || isEmpty(value)
 
 export const isNotNullOrUndefinedOrEmpty = value => not(isNullOrUndefined(value) || isEmpty(value))
+
+export const isNullOrUndefinedOrFalse = value => isNullOrUndefined(value) || equals(value, false)
 
 export default isNullOrUndefined
