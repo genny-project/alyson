@@ -1,10 +1,12 @@
 import { Box, HStack, Switch, Text } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 
+import { apiConfig } from 'config/get-api-config'
+import { equals } from 'ramda'
 import { onSendMessage } from 'vertx'
 import { selectCode } from 'redux/db/selectors'
-import useProductColors from 'utils/productColors'
 import { useSelector } from 'react-redux'
+import { isNullOrUndefinedOrFalse } from 'utils/helpers/is-null-or-undefined'
 
 const Read = ({ data = {} }) => {
   const sourceCode = useSelector(selectCode('USER'))
@@ -19,9 +21,8 @@ const Read = ({ data = {} }) => {
 }
 
 const Write = ({ questionCode, data, onSendAnswer, placeholderName: label }) => {
-  const [isChecked, setIsChecked] = useState(!!data?.value)
-
-  const { switchColor } = useProductColors()
+  const [isChecked, setIsChecked] = useState(false)
+  const clientId = apiConfig?.clientId
 
   const handleToggle = () => {
     onSendAnswer(isChecked ? 'false' : 'true')
@@ -29,15 +30,18 @@ const Write = ({ questionCode, data, onSendAnswer, placeholderName: label }) => 
   }
 
   useEffect(() => {
-    setIsChecked(data?.value)
-  }, [data, setIsChecked])
+    if (isNullOrUndefinedOrFalse(data?.value)) {
+      onSendAnswer('false')
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <HStack spacing={5} justifyContent={'space-between'}>
       <Text color="gray.700">{label}</Text>
       <Box>
         <Switch
-          colorScheme={switchColor}
+          colorScheme={equals(clientId)('lojing') ? 'orange' : 'primary'}
           test-id={questionCode}
           isChecked={isChecked}
           onChange={handleToggle}
