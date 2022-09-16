@@ -18,6 +18,8 @@ import ImageType from './Image'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import useApi from 'api'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
+import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
+import useProductColors from 'utils/productColors'
 
 const Read = ({ code, data, dttData, parentCode, variant, config = {} }) => {
   const typeName = dttData?.typeName
@@ -80,6 +82,7 @@ const Write = ({
   name,
   placeholderName: label,
   clientId,
+  mandatory,
 }) => {
   const api = useApi()
   const typeName = dttData?.typeName
@@ -91,6 +94,7 @@ const Write = ({
   const openDropzone = () => setDropzone(true)
   const closeDropzone = () => setDropzone(false)
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
+  const { labelTextColor } = useProductColors()
 
   useEffect(() => {
     const getFileName = async uuid => {
@@ -124,9 +128,11 @@ const Write = ({
   return (
     <VStack>
       <HStack justifyContent={'space-between'} w={'full'}>
-        <Text color="gray.700" alignSelf="start">
-          {label}
-        </Text>
+        <MandatorySymbol
+          placeholderName={label}
+          mandatory={mandatory}
+          labelTextColor={labelTextColor}
+        />
 
         {data?.value ? <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} /> : null}
       </HStack>
