@@ -78,6 +78,7 @@ const Ask = ({
     placeholder,
     processId,
     sourceCode,
+    forcedComponent,
   } = askData || {}
 
   const clientId = apiConfig?.clientId
@@ -92,24 +93,16 @@ const Ask = ({
 
   const onNewMsg = compose(dispatchBeInformation, newMsg)
 
-  if (!question?.attribute) return null
-
-  const {
-    attribute: {
-      description,
-      dataType: { component = 'text', typeName, inputmask },
-      dataType,
-    },
-    html,
-    helper,
-  } = question
-
+  const dataTypeFromReduxStore = useSelector(selectCode(attributeCode)) || ''
+  const dataType = useSelector(selectCode(dataTypeFromReduxStore)) || ''
+  const description = useSelector(selectCode(`${attributeCode}@description`)) || ''
   const regexPattern = pathOr(null, ['validationList', 0, 'regex'])(dataType)
   const errorMessage = pathOr('Please enter valid data', ['validationList', 0, 'errormsg'])(
     dataType,
   )
 
-  if (!question?.attribute) return null
+  const { html, helper } = question
+  const { component = forcedComponent || 'text', typeName, inputmask } = dataType
 
   const feedback = data?.feedback
   const onSendAnswerWithNovalue = createSendAnswer(askData, { passedTargetCode })
