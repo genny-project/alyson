@@ -15,30 +15,30 @@ const AddressPicker = ({ onSendAnswer, data, questionCode }) => {
     if (autoCompleteRef?.current) {
       try {
         autocomplete = new window.google.maps.places.Autocomplete(autoCompleteRef.current, {
-          types: ['geocode'] || '',
+          types: ['geocode'],
         })
+
+        autocomplete.addListener('place_changed', () => {
+          const place = autocomplete.getPlace()
+          onSendAnswer(makeAddressData([place]))
+          dispatchFieldMessage({ payload: questionCode })
+        })
+
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(position => {
+            const geolocation = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            }
+            const circle = new window.google.maps.Circle({
+              center: geolocation,
+              radius: position.coords.accuracy,
+            })
+            autocomplete.setBounds(circle.getBounds())
+          })
+        }
       } catch (error) {
         console.error(error)
-      }
-
-      autocomplete.addListener('place_changed', () => {
-        const place = autocomplete.getPlace()
-        onSendAnswer(makeAddressData([place]))
-        dispatchFieldMessage({ payload: questionCode })
-      })
-
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(position => {
-          const geolocation = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          }
-          const circle = new window.google.maps.Circle({
-            center: geolocation,
-            radius: position.coords.accuracy,
-          })
-          autocomplete.setBounds(circle.getBounds())
-        })
       }
     }
 
