@@ -107,13 +107,6 @@ const Ask = ({
   const feedback = data?.feedback
   const onSendAnswerWithNovalue = createSendAnswer(askData, { passedTargetCode })
 
-  console.log('logging all the tests---->', {
-    questionCode,
-    dataType,
-    dataTypeFromReduxStore,
-    description,
-  })
-
   const handleUpadateReduxStore = onSendFn => storeUpdateFn => infoObject => userInput => {
     const { attributeCode, targetCode } = infoObject
     onSendFn(userInput)
