@@ -12,7 +12,7 @@ const AmenityField = ({ attributeCode, code }) => {
     replace('Number of ')('')(entityAttribute?.attribute?.name || '') || attributeCode,
   )
   const title = slice(0, 1, titleUpper) + toLower(slice(1, titleUpper.length, titleUpper))
-  const value = entityAttribute.value ?? '?'
+  const value = entityAttribute?.value ?? '?'
 
   const iconSet = {
     Toilet: faToilet,
