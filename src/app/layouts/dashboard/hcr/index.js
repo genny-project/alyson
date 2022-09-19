@@ -88,7 +88,7 @@ const HostCompanyRep = ({ userCode }) => {
       leftIcon={<FontAwesomeIcon icon={digitalJobsAgreementValidation ? faDownload : faEdit} />}
       colorScheme={digitalJobsAgreementValidation ? 'gray' : 'red'}
     >
-      {`Digital Jobs Participant Agreement`}
+      {`Digital Jobs Program Host Employer Subsidy Agreement`}
     </Button>
   )
 
