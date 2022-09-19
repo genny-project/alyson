@@ -32,9 +32,11 @@ const Write = ({ questionCode, data, onSendAnswer, placeholderName: label }) => 
   useEffect(() => {
     if (isNullOrUndefinedOrFalse(data?.value)) {
       onSendAnswer('false')
+    } else {
+      setIsChecked(true)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [data?.value])
 
   return (
     <HStack spacing={5} justifyContent={'space-between'}>
