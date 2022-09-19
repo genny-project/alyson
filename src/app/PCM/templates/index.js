@@ -24,6 +24,7 @@ import TemplateVert from 'app/PCM/templates/tpl-vert'
 import TemplateWest from 'app/PCM/templates/sidebar/tpl-west'
 import debugOut from 'utils/debug-out'
 import hasNot from 'utils/helpers/has-not.js'
+import TemplateDetailView from './tpl-detail-view'
 
 /**
  * Takes in a mappedPcm, a templateCode and some misc properties and returns a template component.
@@ -57,9 +58,7 @@ const templateHandlerMachine = mappedPcm => templateCode => properties => depth 
     TPL_TEXT_HEADER_5: <TemplateText mappedPcm={mappedPcm} depth={depth} {...properties} />,
     TPL_TEXT_HEADER_6: <TemplateText mappedPcm={mappedPcm} depth={depth} {...properties} />,
     TPL_CARD: <TemplateCard mappedPcm={mappedPcm} depth={depth} {...properties} />,
-    TPL_DETAIL_VIEW: (
-      <TemplateApplicationDetailView mappedPcm={mappedPcm} depth={depth} {...properties} />
-    ),
+    TPL_DETAIL_VIEW: <TemplateDetailView mappedPcm={mappedPcm} depth={depth} {...properties} />,
     TPL_HORIZONTAL_CARDS: (
       <TemplateHorizontalCards mappedPcm={mappedPcm} depth={depth} {...properties} />
     ),
@@ -69,6 +68,9 @@ const templateHandlerMachine = mappedPcm => templateCode => properties => depth 
     TPL_AVATAR: <TemplateAvatar mappedPcm={mappedPcm} depth={depth} {...properties} />,
     TPL_PROPERTY_DETAIL_VIEW: (
       <TemplatePropertyDetailView mappedPcm={mappedPcm} depth={depth} {...properties} />
+    ),
+    TPL_APPLICATION_DETAIL_VIEW: (
+      <TemplateApplicationDetailView mappedPcm={mappedPcm} depth={depth} {...properties} />
     ),
   }
 
