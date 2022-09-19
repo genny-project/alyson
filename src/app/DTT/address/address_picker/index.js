@@ -13,28 +13,32 @@ const AddressPicker = ({ onSendAnswer, data, questionCode }) => {
 
   useEffect(() => {
     if (autoCompleteRef?.current) {
-      autocomplete = new window.google.maps.places.Autocomplete(autoCompleteRef.current, {
-        types: ['geocode'],
-      })
-
-      autocomplete.addListener('place_changed', () => {
-        const place = autocomplete.getPlace()
-        onSendAnswer(makeAddressData([place]))
-        dispatchFieldMessage({ payload: questionCode })
-      })
-
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(position => {
-          const geolocation = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          }
-          const circle = new window.google.maps.Circle({
-            center: geolocation,
-            radius: position.coords.accuracy,
-          })
-          autocomplete.setBounds(circle.getBounds())
+      try {
+        autocomplete = new window.google.maps.places.Autocomplete(autoCompleteRef.current, {
+          types: ['geocode'],
         })
+
+        autocomplete.addListener('place_changed', () => {
+          const place = autocomplete.getPlace()
+          onSendAnswer(makeAddressData([place]))
+          dispatchFieldMessage({ payload: questionCode })
+        })
+
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(position => {
+            const geolocation = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            }
+            const circle = new window.google.maps.Circle({
+              center: geolocation,
+              radius: position.coords.accuracy,
+            })
+            autocomplete.setBounds(circle.getBounds())
+          })
+        }
+      } catch (error) {
+        console.error(error)
       }
     }
 
