@@ -17,6 +17,7 @@ const TemplateDetailView = ({ mappedPcm, depth }) => {
     map(act => act?.attributeCode)(useGetActionsFromCode(sbeCode) || []),
   )
 
+  //This is not a good way to check this but it was the best I could come up with short term
   const titleIndex = findIndex(notIncludes('_IMAGE_'))(mappedValues)
 
   return (

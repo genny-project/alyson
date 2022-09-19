@@ -14,7 +14,7 @@ const DetailField = ({ sbeCode, code, attributeCode, isTitle, actions }) => {
   const title = entityAttribute?.attribute?.name || attributeCode
   const size = isTitle ? '2xl' : 'md'
   const weight = isTitle ? '700' : 'normal'
-  const label = isTitle || contains('_IMAGE')(attributeCode) ? '' : <Text>{title}</Text>
+  const label = isTitle || contains('_IMAGE_')(attributeCode) ? '' : <Text>{title}</Text>
 
   const acts =
     isTitle && actions?.length > 0 ? (
