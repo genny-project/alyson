@@ -13,9 +13,13 @@ const AddressPicker = ({ onSendAnswer, data, questionCode }) => {
 
   useEffect(() => {
     if (autoCompleteRef?.current) {
-      autocomplete = new window.google.maps.places.Autocomplete(autoCompleteRef.current, {
-        types: ['geocode'],
-      })
+      try {
+        autocomplete = new window.google.maps.places.Autocomplete(autoCompleteRef.current, {
+          types: ['geocode'] || '',
+        })
+      } catch (error) {
+        console.error(error)
+      }
 
       autocomplete.addListener('place_changed', () => {
         const place = autocomplete.getPlace()
