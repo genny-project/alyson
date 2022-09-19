@@ -1,6 +1,7 @@
 import { Box, Button } from '@chakra-ui/react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDownload, faSpinner } from '@fortawesome/free-solid-svg-icons'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react'
 
 const DownloadButton = ({ urlLink = 'https://internmatch.io/' }) => {
@@ -8,7 +9,6 @@ const DownloadButton = ({ urlLink = 'https://internmatch.io/' }) => {
   let newFileName
 
   function download(url, filename) {
-    console.log({ filename })
     const a = document.createElement('a')
     a.style.display = 'none'
     a.href = url
