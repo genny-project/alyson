@@ -1,13 +1,13 @@
 import { Button, Tag, Text, VStack, Wrap, WrapItem, useTheme } from '@chakra-ui/react'
-import { compose, equals, filter, identity, includes, map, prop } from 'ramda'
+import { compose, filter, identity, includes, map, prop } from 'ramda'
 import { selectAttributes, selectCode, selectWholeQuestionData } from 'redux/db/selectors'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { highlightQuestion } from 'redux/app'
-import { lojing } from 'utils/constants'
 import { onSendMessage } from 'vertx'
 import { selectCurrentFormQuestions } from 'redux/app/selectors'
 import { useError } from 'utils/contexts/ErrorContext'
+import useProductColors from 'utils/productColors'
 import { useState } from 'react'
 
 const Submit = ({ askData, onFinish, parentCode, clientId }) => {
@@ -34,7 +34,7 @@ const Submit = ({ askData, onFinish, parentCode, clientId }) => {
     filter(attr => !attr.value),
   )(attributeData)
 
-  const bgColor = equals(clientId)(lojing) ? 'product.secondary' : 'product.primary'
+  const { buttonBackgroundColor } = useProductColors()
 
   const mandatoryQuestionsNoValue = filter(
     q => q.questionCode !== 'QUE_SUBMIT' && includes(q.attributeCode, mandatoryAttributesNoValue),
@@ -99,18 +99,19 @@ const Submit = ({ askData, onFinish, parentCode, clientId }) => {
         paddingBlock="0.38rem"
         paddingInline="1.25rem"
         mr={2}
-        background={bgColor}
+        mb="5"
+        background={buttonBackgroundColor}
         borderRadius={'0.5rem'}
         fontSize={'sm'}
         color={theme.colors.text.dark}
         _hover={{
           background: theme.colors.background.light,
-          color: bgColor,
-          border: '1px solid',
-          borderColor: bgColor,
+          color: buttonBackgroundColor,
+          borderWidth: '1px',
+          borderStyle: 'solid',
+          borderColor: buttonBackgroundColor,
           variant: 'outline',
         }}
-        mb="5"
       >
         {name}
       </Button>
