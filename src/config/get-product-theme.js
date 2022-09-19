@@ -13,6 +13,7 @@ const productBasedDefaultColors = {
     secondaryLight: '#FFF6F0',
 
     gray: '#F4F5F5',
+    gray50: '#F6F6F6',
     gray100: '#F4F5F5',
     gray700: '#33475B',
     gray800: '#4D4D4D',
