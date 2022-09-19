@@ -93,9 +93,9 @@ const Ask = ({
 
   const onNewMsg = compose(dispatchBeInformation, newMsg)
 
-  const dataTypeFromReduxStore = useSelector(selectCode(attributeCode)) || ''
-  const dataType = useSelector(selectCode(dataTypeFromReduxStore)) || ''
-  const description = useSelector(selectCode(`${attributeCode}@description`)) || ''
+  const dataTypeFromReduxStore = compose(useSelector, selectCode)(attributeCode) || ''
+  const dataType = compose(useSelector, selectCode)(dataTypeFromReduxStore) || ''
+  const description = compose(useSelector, selectCode)(`${attributeCode}@description`) || ''
   const regexPattern = pathOr(null, ['validationList', 0, 'regex'])(dataType)
   const errorMessage = pathOr('Please enter valid data', ['validationList', 0, 'errormsg'])(
     dataType,
@@ -106,6 +106,13 @@ const Ask = ({
 
   const feedback = data?.feedback
   const onSendAnswerWithNovalue = createSendAnswer(askData, { passedTargetCode })
+
+  console.log('logging all the tests---->', {
+    questionCode,
+    dataType,
+    dataTypeFromReduxStore,
+    description,
+  })
 
   const handleUpadateReduxStore = onSendFn => storeUpdateFn => infoObject => userInput => {
     const { attributeCode, targetCode } = infoObject
