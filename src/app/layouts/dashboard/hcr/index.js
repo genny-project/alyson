@@ -87,8 +87,12 @@ const HostCompanyRep = ({ userCode }) => {
       onClick={() => onSendMessage({ targetCode: companyCode, code: 'ACT_DJP_DOC' })}
       leftIcon={<FontAwesomeIcon icon={digitalJobsAgreementValidation ? faDownload : faEdit} />}
       colorScheme={digitalJobsAgreementValidation ? 'gray' : 'red'}
+      whiteSpace={'normal'}
+      paddingBlock={1}
+      height={'auto'}
+      alignItems={'flex-start'}
     >
-      {`Digital Jobs Program Host Employer Subsidy Agreement`}
+      <Text as="span">{`Digital Jobs Program Host Employer Subsidy Agreement`}</Text>
     </Button>
   )
 
