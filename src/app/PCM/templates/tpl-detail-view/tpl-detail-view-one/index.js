@@ -24,8 +24,12 @@ const TemplateDetailViewOne = ({ mappedPcm, depth }) => {
         {isNotEmpty(mappedValues) && detailField(0)}
         {l > 1 && detailField(1)}
       </VStack>
-      <HStack>{l > 2 && slice(2, min(6, l)).map(index => detailField(2 + index))}</HStack>
-      <VStack>{l > 6 && slice(6, Infinity).map(index => detailField(6 + index))}</VStack>
+      <HStack>
+        {l > 2 && slice(2, min(6, l))(mappedValues).map(index => detailField(2 + index))}
+      </HStack>
+      <VStack>
+        {l > 6 && slice(6, Infinity)(mappedValues).map(index => detailField(6 + index))}
+      </VStack>
     </Box>
   )
 }
