@@ -6,6 +6,7 @@ const Player = ({ src }: { src: string }): ReactElement => {
       style={{ maxHeight: '340px', minWidth: '240px' }}
       controls
       autoPlay
+      muted
       poster="/video-intro.png"
     >
       <source src={src} />
