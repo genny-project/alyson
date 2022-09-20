@@ -6,8 +6,6 @@ import {
   FormLabel,
   HStack,
 } from '@chakra-ui/react'
-import { compose, pathOr } from 'ramda'
-import { useDispatch, useSelector } from 'react-redux'
 
 import ABN from 'app/DTT/abn'
 import Address from 'app/DTT/address'
@@ -17,10 +15,8 @@ import CheckBox from 'app/DTT/check_box'
 import Date from 'app/DTT/date'
 import DateRange from 'app/DTT/date_range'
 import Email from 'app/DTT/email'
-import Favourites from 'app/DTT/favourites'
 import Flag from 'app/DTT/flag'
 import HtmlDisplay from 'app/DTT/html_display'
-import HtmlEditor from 'app/DTT/html-editor'
 import LogRocketSession from 'app/DTT/log_rocket_session'
 import Phone from 'app/DTT/phone'
 import ProgressBar from 'app/DTT/progress'
@@ -40,13 +36,17 @@ import Upload from 'app/DTT/upload'
 import Video from 'app/DTT/video'
 import { apiConfig } from 'config/get-api-config.js'
 import createSendAnswer from 'app/ASKS/utils/create-send-answer'
-import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
 import getGroupCode from 'app/ASKS/utils/get-group-code'
-import { newMsg } from 'redux/app'
+import { pathOr } from 'ramda'
 import { selectCode } from 'redux/db/selectors'
 import { selectHighlightedQuestion } from 'redux/app/selectors'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import { useMobileValue } from 'utils/hooks'
+import { useDispatch, useSelector } from 'react-redux'
+import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
+import { compose } from 'ramda'
+import { newMsg } from 'redux/app'
+import HtmlEditor from 'app/DTT/html-editor'
 
 const Ask = ({
   parentCode,
@@ -77,7 +77,6 @@ const Ask = ({
     placeholder,
     processId,
     sourceCode,
-    forcedComponent,
   } = askData || {}
 
   const clientId = apiConfig?.clientId
@@ -92,16 +91,24 @@ const Ask = ({
 
   const onNewMsg = compose(dispatchBeInformation, newMsg)
 
-  const dataTypeFromReduxStore = compose(useSelector, selectCode)(attributeCode) || ''
-  const dataType = compose(useSelector, selectCode)(dataTypeFromReduxStore) || ''
-  const description = compose(useSelector, selectCode)(`${attributeCode}@description`) || ''
+  if (!question?.attribute) return null
+
+  const {
+    attribute: {
+      description,
+      dataType: { component = 'text', typeName, inputmask },
+      dataType,
+    },
+    html,
+    helper,
+  } = question
+
   const regexPattern = pathOr(null, ['validationList', 0, 'regex'])(dataType)
   const errorMessage = pathOr('Please enter valid data', ['validationList', 0, 'errormsg'])(
     dataType,
   )
 
-  const { html = '', helper = '' } = question
-  const { component = forcedComponent || 'text', typeName, inputmask } = dataType
+  if (!question?.attribute) return null
 
   const feedback = data?.feedback
   const onSendAnswerWithNovalue = createSendAnswer(askData, { passedTargetCode })
@@ -290,22 +297,6 @@ const Ask = ({
       )}
       {component === 'text' && (
         <Text.Write
-          questionCode={questionCode}
-          mandatory={mandatory}
-          data={data}
-          onSendAnswer={onSendAnswer}
-          regexPattern={regexPattern}
-          errorMessage={errorMessage}
-          attributeCode={attributeCode}
-          targetCode={targetCode}
-          parentCode={parentCode}
-          placeholderName={placeholderName}
-          clientId={clientId}
-          inputmask={inputmask}
-        />
-      )}
-      {component === 'favourites' && (
-        <Favourites.Write
           questionCode={questionCode}
           mandatory={mandatory}
           data={data}
