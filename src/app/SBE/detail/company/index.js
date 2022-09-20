@@ -108,7 +108,7 @@ const Rep = ({ sbeCode, targetCode }) => {
         leftIcon={<FontAwesomeIcon icon={faDownload} />}
         colorScheme={'green'}
       >
-        {`Digital Jobs Participant Agreement`}
+        {`Digital Jobs Program Host Employer Subsidy Agreement`}
       </Button>
     ) : digitalJobsAgreement === 'true' ? (
       <Button
@@ -116,7 +116,7 @@ const Rep = ({ sbeCode, targetCode }) => {
         leftIcon={<FontAwesomeIcon icon={faEdit} />}
         colorScheme={'red'}
       >
-        {`Digital Jobs Participant Agreement`}
+        {`Digital Jobs Program Host Employer Subsidy Agreement`}
       </Button>
     ) : (
       <></>
