@@ -47,6 +47,8 @@ import { selectCode } from 'redux/db/selectors'
 import { selectHighlightedQuestion } from 'redux/app/selectors'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import { useMobileValue } from 'utils/hooks'
+import Switch from 'app/DTT/toggle'
+import Toggle from 'app/DTT/toggle'
 
 const Ask = ({
   parentCode,
@@ -289,7 +291,7 @@ const Ask = ({
         />
       )}
       {component === 'text' && (
-        <Text.Write
+        <Toggle.Write
           questionCode={questionCode}
           mandatory={mandatory}
           data={data}
@@ -304,6 +306,23 @@ const Ask = ({
           inputmask={inputmask}
         />
       )}
+      {component === 'toggle' && (
+        <Toggle.Write
+          questionCode={questionCode}
+          mandatory={mandatory}
+          data={data}
+          onSendAnswer={onSendAnswer}
+          regexPattern={regexPattern}
+          errorMessage={errorMessage}
+          attributeCode={attributeCode}
+          targetCode={targetCode}
+          parentCode={parentCode}
+          placeholderName={placeholderName}
+          clientId={clientId}
+          inputmask={inputmask}
+        />
+      )}
+
       {component === 'favourites' && (
         <Favourites.Write
           questionCode={questionCode}
