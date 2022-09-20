@@ -76,6 +76,7 @@ const HostCompanyRep = ({ userCode }) => {
       size="sm"
       onClick={() => window.open(hcValidationUrl)}
       leftIcon={<FontAwesomeIcon icon={faDownload} />}
+      display={'none'}
     >
       {`Host Company Validation`}
     </Button>

@@ -1,21 +1,25 @@
-import { useSelector } from 'react-redux'
-import { selectDetail } from 'redux/app/selectors'
-import { selectCode } from 'redux/db/selectors'
-import Intern from 'app/SBE/detail-profile/intern'
+import Agent from './agent'
+import Application from 'app/SBE/detail-profile/application'
 import Company from './company'
+import DefaultView from './default-view'
+import EduProDetail from './edu_pro'
+import Intern from 'app/SBE/detail-profile/intern'
 import Internship from 'app/SBE/detail-profile/internship'
 import Rep from './rep'
-import Agent from './agent'
-import EduProDetail from './edu_pro'
-import DefaultView from './default-view'
 import getDetailType from './helpers/get-detail-type'
-import Application from 'app/SBE/detail-profile/application'
+import getUserType from 'utils/helpers/get-user'
 import { head } from 'ramda'
+import { selectCode } from 'redux/db/selectors'
+import { selectDetail } from 'redux/app/selectors'
+import { useSelector } from 'react-redux'
 
 const BaseEntityDetail = ({ targetCode, defaultView }) => {
   const code = useSelector(selectDetail)
   const displayMode = useSelector(selectCode(code, 'SCH_DISPLAY_MODE'))
   const displayType = getDetailType(displayMode?.value)
+
+  const userCode = useSelector(selectCode('USER'))
+  const userType = getUserType(useSelector(selectCode(userCode)))
 
   const beCode = head(useSelector(selectCode(code, 'rows')) || [targetCode])
 
@@ -25,7 +29,7 @@ const BaseEntityDetail = ({ targetCode, defaultView }) => {
   }
 
   if (displayType === 'COMPANY') {
-    return <Company sbeCode={code} targetCode={beCode} />
+    return <Company sbeCode={code} targetCode={beCode} userType={userType} />
   }
 
   if (displayType === 'INTERNSHIP') {
