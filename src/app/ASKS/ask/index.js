@@ -291,7 +291,7 @@ const Ask = ({
         />
       )}
       {component === 'text' && (
-        <Toggle.Write
+        <Text.Write
           questionCode={questionCode}
           mandatory={mandatory}
           data={data}
@@ -322,7 +322,6 @@ const Ask = ({
           inputmask={inputmask}
         />
       )}
-
       {component === 'favourites' && (
         <Favourites.Write
           questionCode={questionCode}
