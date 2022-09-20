@@ -1,4 +1,3 @@
-import TemplateDefault from './templates/tpl-default'
 import debugOut from 'utils/debug-out'
 import { isEmpty } from 'ramda'
 import templateHandlerMachine from 'app/PCM/templates'
@@ -25,7 +24,6 @@ const Pcm = ({ code, properties, depth }) => {
         `PCM with code ${code} is empty! Rendering default template! It is possible that the PCM has not arrived yet, or a PCM with this code does not exist`,
       )
     }
-    return <TemplateDefault {...properties} />
   }
 
   return template
