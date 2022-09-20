@@ -1,23 +1,23 @@
-import { Box, Text } from '@chakra-ui/react'
+import { Box, Text, HStack } from '@chakra-ui/react'
 
 import Attribute from 'app/BE/attribute'
 import ContextMenu from 'app/BE/context'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { equals } from 'ramda'
+import { contains } from 'ramda'
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
 
-const DetailField = ({ sbeCode, code, attributeCode, index, actions }) => {
+const DetailField = ({ sbeCode, code, attributeCode, isTitle, actions }) => {
   const entityAttribute = useSelector(selectCode(code, attributeCode))
 
   const title = entityAttribute?.attribute?.name || attributeCode
-  const size = equals(index)(0) ? '2xl' : 'md'
-  const weight = equals(index)(0) ? '700' : 'normal'
-  const label = equals(index)(0) ? '' : <Text>{title}:</Text>
+  const size = isTitle ? '2xl' : 'md'
+  const weight = isTitle ? '700' : 'normal'
+  const label = isTitle || contains('_IMAGE_')(attributeCode) ? '' : <Text>{title}</Text>
 
   const acts =
-    equals(index)(0) && actions?.length > 0 ? (
+    isTitle && actions?.length > 0 ? (
       <ContextMenu
         actions={actions}
         parentCode={sbeCode}
@@ -29,17 +29,19 @@ const DetailField = ({ sbeCode, code, attributeCode, index, actions }) => {
     )
 
   return (
-    <Box>
+    <HStack>
       {acts}
-      <Text as="label" hidden>
-        {label}
-      </Text>
-      <Attribute
-        code={code}
-        attribute={attributeCode}
-        config={{ fontSize: size, fontWeight: weight }}
-      />
-    </Box>
+      <Box>
+        <Text as="label" textStyle="tail.1" color="gray.700">
+          {label}
+        </Text>
+        <Attribute
+          code={code}
+          attribute={attributeCode}
+          config={{ fontSize: size, fontWeight: weight }}
+        />
+      </Box>
+    </HStack>
   )
 }
 
