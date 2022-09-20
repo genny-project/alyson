@@ -100,8 +100,6 @@ const Ask = ({
     dataType,
   )
 
-  if (!question?.attribute) return null
-
   const { html = '', helper = '' } = question
   const { component = forcedComponent || 'text', typeName, inputmask } = dataType
 
