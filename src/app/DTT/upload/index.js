@@ -158,7 +158,7 @@ const Write = ({ questionCode, data, dttData, onSendAnswer, video, name }) => {
           {progress && progress.loaded !== progress.total ? (
             <Text> Thanks! Uploading, sit tight... </Text>
           ) : (
-            <Text>Finishing up!</Text>
+            <Text>Processing! Please wait, this might take a while...</Text>
           )}
 
           <Progress
@@ -166,7 +166,8 @@ const Write = ({ questionCode, data, dttData, onSendAnswer, video, name }) => {
             h="1rem"
             hasStripe
             borderRadius="md"
-            value={progress ? Math.floor((progress.loaded / progress.total) * 100) : 0}
+            // value={progress ? Math.floor((progress.loaded / progress.total) * 100) : 0}
+            isIndeterminate
           />
         </VStack>
       </div>
