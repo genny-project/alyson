@@ -92,6 +92,8 @@ const Ask = ({
 
   const onNewMsg = compose(dispatchBeInformation, newMsg)
 
+  if (!question) return null
+
   const dataTypeFromReduxStore = compose(useSelector, selectCode)(attributeCode) || ''
   const dataType = compose(useSelector, selectCode)(dataTypeFromReduxStore) || ''
   const description = compose(useSelector, selectCode)(`${attributeCode}@description`) || ''
