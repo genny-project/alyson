@@ -6,7 +6,7 @@ import { compose } from 'ramda'
 import Ask from 'app/ASKS/ask'
 
 const TableSearch = ({ searchCode }) => {
-  const tableSearch = compose(useSelector, selectCode)(searchCode)
+  const tableSearch = compose(useSelector, selectCode)(searchCode) || []
 
   return (
     <Box>
