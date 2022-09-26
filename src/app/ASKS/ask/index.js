@@ -92,7 +92,7 @@ const Ask = ({
 
   const onNewMsg = compose(dispatchBeInformation, newMsg)
 
-  if (!question?.attribute) return null
+  if (!question) return null
 
   const dataTypeFromReduxStore = compose(useSelector, selectCode)(attributeCode) || ''
   const dataType = compose(useSelector, selectCode)(dataTypeFromReduxStore) || ''
