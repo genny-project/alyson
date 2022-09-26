@@ -45,6 +45,9 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
 
   const imageCode = findCode('PRI_IMAGE_URL')
 
+  //Get suburb, state if both not null, otherwise just the one that isn't null
+  const location = !!suburb && !!state ? `${suburb}, ${state}` : suburb || state
+
   return (
     <VStack w={'100%'} alignItems="flex-start">
       <Attribute code={baseEntityCode} attribute={imageCode} />
@@ -56,7 +59,7 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
             config={{ fontSize: '4xl', color: textColor }}
           />
           <Text color={textColor} fontSize="2xl">
-            {suburb}, {state}
+            {location}
           </Text>
           <Wrap>
             {rooms.map((room, index) => (
