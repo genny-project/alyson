@@ -76,15 +76,15 @@ const templateHandlerMachine = mappedPcm => templateCode => properties => depth 
     ),
   }
 
-  let out = <TemplateDefault {...properties} />
+  const hasTemplate = hasNot(templateCode)(listOfTemplates)
 
-  if (hasNot(templateCode)(listOfTemplates)) {
+  if (hasTemplate) {
     debugOut.warn(`No template exists for code: ${templateCode}! Falling back on default tempalte!`)
-  } else {
-    out = listOfTemplates[templateCode]
   }
 
-  return showTemplateNames() ? (
+  const out = hasTemplate ? listOfTemplates[templateCode] : <TemplateDefault {...properties} />
+
+  return showTemplateNames ? (
     <Box>
       <Box>{templateCode}</Box>
       <Box border="solid 2px red">{out}</Box>

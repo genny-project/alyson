@@ -12,6 +12,12 @@ const AmenityField = ({ attributeCode, code }) => {
     replace('Number of ')('')(entityAttribute?.attribute?.name || '') || attributeCode,
   )
   const title = slice(0, 1, titleUpper) + toLower(slice(1, titleUpper.length, titleUpper))
+
+  // https://plainenglish.io/blog/javascript-operator <- explandation of the "Nullish" operator,
+  // but basically if foo = a ?? b then
+  // if a is not null or undefined, foo = a
+  // if a is null or undefined, foo = b
+  // Unlike ||, which if foo = a || b, and a = falsey value, then foo = b
   const value = entityAttribute?.value ?? '?'
 
   const iconSet = {

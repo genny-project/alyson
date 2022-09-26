@@ -3,7 +3,7 @@ import log from 'utils/log'
 import showLogs from 'utils/helpers/show-logs'
 
 const createSendMessage = (token, onSendMsg) => (data, options = {}) => {
-  const showConsoleLogs = showLogs()
+  const showConsoleLogs = showLogs
   const { msg_type = 'EVT_MSG', event_type = 'BTN_CLICK', redirect = true, ...rest } = options
 
   const message = {

@@ -1,8 +1,3 @@
-const showVerbose = () => {
-  if (localStorage.getItem('verbose') === 'true') {
-    return true
-  }
-  return false
-}
+const showVerbose = localStorage.getItem('verbose')
 
 export default showVerbose

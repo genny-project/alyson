@@ -1,8 +1,3 @@
-const showTemplateNames = () => {
-  if (localStorage.getItem('showTemplateNames') === 'true') {
-    return true
-  }
-  return false
-}
+const showTemplateNames = localStorage.getItem('showTemplateNames')
 
 export default showTemplateNames
