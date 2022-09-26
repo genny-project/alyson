@@ -68,7 +68,7 @@ const Header = ({ beCode, sbeCode }) => {
           </VStack>
         </VStack>
         <Center w="full">
-          <Card p={0} w="full" bg="#1A365D" overflow="hidden" maxH="15rem">
+          <Card p={0} w="full" bg="#1A365D" overflow="hidden">
             <Center>
               {hasVideo ? (
                 <Attribute code={beCode} attribute="PRI_VIDEO_URL" />

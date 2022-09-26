@@ -1,17 +1,18 @@
-import { isEmpty, equals } from 'ramda'
-import { useSelector, useDispatch } from 'react-redux'
-import { Box, Center, Text, VStack } from '@chakra-ui/layout'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimes } from '@fortawesome/free-solid-svg-icons'
-import { IconButton } from '@chakra-ui/react'
-
 import 'app/layouts/components/css/hide-scroll.css'
+
+import { Box, Center, Text, VStack } from '@chakra-ui/layout'
+import { equals, isEmpty } from 'ramda'
+import { useDispatch, useSelector } from 'react-redux'
+
 import Attribute from 'app/BE/attribute'
 import Card from 'app/layouts/components/card'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { IconButton } from '@chakra-ui/react'
 import { closeDrawer } from 'redux/app'
-import { selectCode } from 'redux/db/selectors'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import getUserType from 'utils/helpers/get-user-type'
 import sameLength from 'redux/utils/same-length'
+import { selectCode } from 'redux/db/selectors'
 
 const Header = ({ beCode }) => {
   const dispatch = useDispatch()
@@ -28,7 +29,7 @@ const Header = ({ beCode }) => {
         <Card minH="10rem" p={0} w="full" bg="#1A365D" overflow="hidden" borderRadius="2rem">
           <Center w="full">
             {hasVideo ? (
-              <Box maxW="30vw">
+              <Box>
                 <Attribute code={beCode} attribute="PRI_VIDEO_URL" />
               </Box>
             ) : (

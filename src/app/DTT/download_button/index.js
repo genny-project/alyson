@@ -1,75 +1,30 @@
-import { Box, Button } from '@chakra-ui/react'
-import { faDownload, faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { Button, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useState } from 'react'
+import { faArrowDown } from '@fortawesome/free-solid-svg-icons'
 
 const DownloadButton = ({ urlLink = 'https://internmatch.io/' }) => {
-  const [downloading, setDownloading] = useState(false)
-  let newFileName
-
-  function download(url, filename) {
-    const a = document.createElement('a')
-    a.style.display = 'none'
-    a.href = url
-    // the filename you want
-    a.download = filename
-    document.body.appendChild(a)
-    a.click()
-    document.body.removeChild(a)
-    window.URL.revokeObjectURL(url)
-  }
-
-  const onClick = () => {
-    setDownloading(true)
-    fetch(urlLink)
-      .then(response => {
-        const respHeaders = response.headers.get('Content-Disposition')
-        newFileName = respHeaders.replace('attachment; filename= ', '')
-        const reader = response.body.getReader()
-        return new ReadableStream({
-          start(controller) {
-            return pump()
-            function pump() {
-              return reader.read().then(({ done, value }) => {
-                if (done) {
-                  controller.close()
-                  return
-                }
-                controller.enqueue(value)
-                return pump()
-              })
-            }
-          },
-        })
-      })
-      .then(stream => new Response(stream))
-      .then(response => response.blob())
-      .then(blob => URL.createObjectURL(blob))
-      .then(url => {
-        download(url, newFileName)
-        setDownloading(false)
-      })
-      .catch(err => {
-        console.error(err)
-        setDownloading(false)
-      })
+  const onClick = downloadQuality => {
+    const videoDownloadLink = urlLink.replace('videoQuality', downloadQuality)
+    window.open(videoDownloadLink, '_self')
   }
 
   return (
-    <Box>
-      <Button
-        onClick={onClick}
-        leftIcon={
-          <FontAwesomeIcon
-            className={downloading ? 'fa-spin' : ''}
-            icon={downloading ? faSpinner : faDownload}
-          />
-        }
+    <Menu>
+      <MenuButton
         colorScheme="primary"
-        variant="solid"
-      ></Button>
-    </Box>
+        as={Button}
+        rightIcon={<FontAwesomeIcon icon={faArrowDown} />}
+      >
+        {'Download'}
+      </MenuButton>
+
+      <MenuList>
+        <MenuItem onClick={() => onClick('360')}>{'360p'}</MenuItem>
+        <MenuItem onClick={() => onClick('720')}>{'720p'}</MenuItem>
+        <MenuItem onClick={() => onClick('original')}>{'Original'}</MenuItem>
+      </MenuList>
+    </Menu>
   )
 }
 
