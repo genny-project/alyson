@@ -60,9 +60,7 @@ const templateHandlerMachine = mappedPcm => templateCode => properties => depth 
     TPL_TEXT_HEADER_5: <TemplateText mappedPcm={mappedPcm} depth={depth} {...properties} />,
     TPL_TEXT_HEADER_6: <TemplateText mappedPcm={mappedPcm} depth={depth} {...properties} />,
     TPL_CARD: <TemplateCard mappedPcm={mappedPcm} depth={depth} {...properties} />,
-    TPL_DETAIL_VIEW: (
-      <TemplatePropertyDetailView mappedPcm={mappedPcm} depth={depth} {...properties} />
-    ),
+    TPL_DETAIL_VIEW: <TemplateDetailView mappedPcm={mappedPcm} depth={depth} {...properties} />,
     TPL_HORIZONTAL_CARDS: (
       <TemplateHorizontalCards mappedPcm={mappedPcm} depth={depth} {...properties} />
     ),
