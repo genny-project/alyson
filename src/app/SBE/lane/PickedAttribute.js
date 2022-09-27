@@ -1,5 +1,5 @@
 import Attribute from 'app/BE/attribute'
-import { HStack } from '@chakra-ui/react'
+import { Stack } from '@chakra-ui/react'
 import { getAttribute } from '../utils/get-columns'
 import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
@@ -12,14 +12,14 @@ const PickedAttribute = ({ col, code, parentCode }) => {
   if (label === ' ') return null
 
   return (
-    <HStack align="start" key={col}>
+    <Stack align="start" key={col}>
       <Attribute
         size="xs"
         code={code}
         attribute={attribute}
         config={{ portal: 'true', textStyle: 'tail.2' }}
       />
-    </HStack>
+    </Stack>
   )
 }
 
