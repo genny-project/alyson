@@ -34,7 +34,7 @@ const Read = ({ data, typeName, config }) => {
       <Text minW="10rem" {...config}>
         {date}
       </Text>
-      <Text {...config}>{`Current timezone is ${timeZone}`}</Text>
+      {includeTime && <Text {...config}>{`Current timezone is ${timeZone}`}</Text>}
     </>
   )
 }
@@ -111,12 +111,13 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
       includeTime={includeTime}
       onClick={() => onSendAnswer('')}
       date={getDate(data?.value)}
+      timezone={timeZone}
     />
   ) : onlyYear ? (
     <Year questionCode={questionCode} handleChange={handleChange} />
   ) : (
     <>
-      <Text fontSize={'sm'}>{`Current timezone is ${timeZone}`}</Text>
+      {includeTime && <Text fontSize={'sm'}>{`Current timezone is ${timeZone}`}</Text>}
       <Input
         id={questionCode}
         onKeyDown={e => e.preventDefault()}
