@@ -1,7 +1,7 @@
 import './styles.css'
 
 import { Box, HStack, Text, VStack, useTheme } from '@chakra-ui/react'
-import { compose, includes, isEmpty, pathOr } from 'ramda'
+import { compose, includes, isEmpty, pathOr, equals } from 'ramda'
 import { selectCode, selectRows } from 'redux/db/selectors'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
@@ -132,7 +132,11 @@ const Write = ({
   const onChange = newValue => {
     handleClearFieldMessage()
     if (!isMulti) {
-      newValue = [newValue]
+      if (equals([newValue])(value) && !mandatory) {
+        newValue = []
+      } else {
+        newValue = [newValue]
+      }
     }
     setValue(newValue)
     setUpdated(true)
