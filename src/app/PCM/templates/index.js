@@ -25,6 +25,8 @@ import TemplateWest from 'app/PCM/templates/sidebar/tpl-west'
 import debugOut from 'utils/debug-out'
 import hasNot from 'utils/helpers/has-not.js'
 import TemplateDetailView from './tpl-detail-view'
+import { Box } from '@chakra-ui/react'
+import showTemplateNames from 'utils/helpers/show-template-names'
 
 /**
  * Takes in a mappedPcm, a templateCode and some misc properties and returns a template component.
@@ -74,12 +76,22 @@ const templateHandlerMachine = mappedPcm => templateCode => properties => depth 
     ),
   }
 
-  if (hasNot(templateCode)(listOfTemplates)) {
+  const hasTemplate = hasNot(templateCode)(listOfTemplates)
+
+  if (hasTemplate) {
     debugOut.warn(`No template exists for code: ${templateCode}! Falling back on default tempalte!`)
-    return <TemplateDefault {...properties} />
   }
 
-  return listOfTemplates[templateCode]
+  const out = hasTemplate ? listOfTemplates[templateCode] : <TemplateDefault {...properties} />
+
+  return showTemplateNames ? (
+    <Box>
+      <Box>{templateCode}</Box>
+      <Box border="solid 2px red">{out}</Box>
+    </Box>
+  ) : (
+    out
+  )
 }
 
 export default templateHandlerMachine

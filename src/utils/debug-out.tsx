@@ -1,7 +1,7 @@
 import showVerbose from 'utils/helpers/show-verbose'
 
 const out = (fn: (message?: any) => void) => (message?: any) => {
-  if (showVerbose()) {
+  if (showVerbose) {
     fn(message)
   }
 }

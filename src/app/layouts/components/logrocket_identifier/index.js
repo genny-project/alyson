@@ -8,7 +8,7 @@ import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
 const LogrocketIdentifier = () => {
-  const showConsoleLogs = showLogs()
+  const showConsoleLogs = showLogs
   const code = useSelector(selectCode('USER'))
   const [nameData, emailData] = useSelector(selectAttributes(code, ['PRI_NAME', 'PRI_EMAIL']))
   const type = getUserType(useSelector(selectCode(code)))

@@ -51,7 +51,7 @@ const initLog = async () => {
 }
 
 const prettyLog = (msg, data = {}, style) => {
-  const showConsoleLogs = showLogs()
+  const showConsoleLogs = showLogs
 
   const title = data.items
     ? data.parentCode && data.questionCode
