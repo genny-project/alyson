@@ -1,6 +1,8 @@
 import { Box, HStack, Stack, Table, useColorModeValue } from '@chakra-ui/react'
-import getActions, { getTableActions } from '../utils/get-actions'
+import { equals } from 'ramda'
+import { useSelector } from 'react-redux'
 
+import getActions, { getTableActions } from '../utils/get-actions'
 import Action from 'app/BE/action'
 import Body from './Body'
 import Download from '../download'
@@ -8,19 +10,17 @@ import Filters from '../filters'
 import Header from './Header'
 import MapSearch from 'app/SBE/display_modes/map_view'
 import Pagination from './Pagination'
-import Search from 'app/SBE/search/Search'
 import Title from './Title'
 import { apiConfig } from 'config/get-api-config'
-import { equals } from 'ramda'
 import getColumns from '../utils/get-columns'
 import { selectCode } from 'redux/db/selectors'
 import { useIsMobile } from 'utils/hooks'
-import { useSelector } from 'react-redux'
+import TableSearch from 'app/SBE/table/TableSearch'
+import { tableSearchCode } from 'utils/constants'
 
 const DataTable = ({ parentCode, mapSearch }) => {
   const tableData = useSelector(selectCode(parentCode))
   const bgColor = useColorModeValue('white', 'gray.700')
-
   const isMobile = useIsMobile()
 
   if (!tableData) return null
@@ -42,7 +42,7 @@ const DataTable = ({ parentCode, mapSearch }) => {
           w={'full'}
         >
           <Title sbeCode={parentCode} />
-          <Search sbeCode={parentCode} />
+          <TableSearch tableSearchCode={tableSearchCode} />
           <Filters sbeCode={parentCode} />
           <Download sbeCode={parentCode} />
         </Stack>

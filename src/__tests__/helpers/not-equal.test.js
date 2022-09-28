@@ -1,9 +1,14 @@
 import notEqual from 'utils/helpers/not-equal'
-describe('Is not equal', () => {
-  it('should return true if two arguments are not equal', () => {
-    expect(notEqual('hello world')('john doe')).toEqual(true)
-    expect(notEqual(['Hello', 'World', 1])(['html', 'css', 'react'])).toEqual(true)
-    expect(notEqual({})({})).toEqual(false)
-    expect(notEqual(['Hello', 'World', 1])(['Hello', 'World', 1])).toEqual(false)
+
+describe('Is not Equal', () => {
+  it('should return true if the two values are not equal and false if they are are equal', () => {
+    expect(notEqual([])([''])).toEqual(true)
+    expect(notEqual(['value'])('value')).toEqual(true)
+    expect(notEqual(1)(null)).toEqual(true)
+    expect(notEqual()(null)).toEqual(true)
+    expect(notEqual()()).toEqual(false)
+    expect(notEqual('')('')).toEqual(false)
+    expect(notEqual('value')('value')).toEqual(false)
+    expect(notEqual(null)(null)).toEqual(false)
   })
 })

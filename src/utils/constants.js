@@ -9,6 +9,7 @@ export const LOGO_WIDTH_SM = '100px'
 export const ACKMESSAGEKEY = 'ACKMESSAGE'
 export const maxNumberOfRetries = 5
 
+export const tableSearchCode = 'QUE_TABLE_FILTER_GRP'
 export const complete = 'COMPLETE'
 export const addItemsQuestionCode = 'QUE_ADD_ITEMS_GRP'
 export const quickAddItemsQuestionCode = 'QUE_QUICK_ADD_ITEMS_GRP'
