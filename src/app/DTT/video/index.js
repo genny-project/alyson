@@ -179,9 +179,6 @@ const Read = ({ data, mini, styles, config = {} }) => {
   const src = api.getVideoSrc(data?.value)
   const [serverResponse, setServerResponse] = useState()
 
-  console.log(src)
-  console.log(serverResponse)
-
   useEffect(() => {
     fetch(src + '-360p.mp4', {
       method: 'HEAD',
