@@ -47,6 +47,7 @@ import { selectCode } from 'redux/db/selectors'
 import { selectHighlightedQuestion } from 'redux/app/selectors'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import { useMobileValue } from 'utils/hooks'
+import SearchableText from 'app/DTT/searchable_text'
 
 const Ask = ({
   parentCode,
@@ -253,7 +254,7 @@ const Ask = ({
         />
       )}
       {(component === 'dropdown' || component === 'tag') && (
-        <Select.Write
+        <SearchableText.Write
           config={config}
           targetCode={targetCode}
           questionCode={questionCode}
