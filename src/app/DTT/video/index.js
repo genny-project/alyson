@@ -177,7 +177,7 @@ const Read = ({ data, mini, styles, config = {} }) => {
 
   const hasDownloadableRole = includes('download')(roles)
   const src = api.getVideoSrc(data?.value)
-  const [serverResponse, setServerResponse] = useState()
+  const [serverResponse, setServerResponse] = useState(null)
 
   useEffect(() => {
     fetch(src + '-360p.mp4', {
