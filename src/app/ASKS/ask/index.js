@@ -47,6 +47,7 @@ import { selectCode } from 'redux/db/selectors'
 import { selectHighlightedQuestion } from 'redux/app/selectors'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import { useMobileValue } from 'utils/hooks'
+import SearchableText from 'app/DTT/searchable_text'
 
 const Ask = ({
   parentCode,
@@ -268,6 +269,27 @@ const Ask = ({
           label={name}
           parentCode={parentCode}
           regexPattern={regexPattern}
+          errorMessage={errorMessage}
+          processId={processId}
+          placeholderName={placeholderName}
+          clientId={clientId}
+        />
+      )}
+      {component === 'searchable_text' && (
+        <SearchableText.Write
+          config={config}
+          targetCode={targetCode}
+          questionCode={questionCode}
+          groupCode={groupCode}
+          attributeCode={attributeCode}
+          onSendAnswer={onSendAnswer}
+          placeholder={description}
+          mandatory={mandatory}
+          component={component}
+          dataType={dataType}
+          data={data}
+          label={name}
+          parentCode={parentCode}
           errorMessage={errorMessage}
           processId={processId}
           placeholderName={placeholderName}

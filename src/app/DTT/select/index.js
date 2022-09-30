@@ -175,7 +175,10 @@ const Write = ({
         )}
 
         {(!failedValidation && fieldNotEmpty) ||
-        (!failedValidation && data?.value && isNotStringifiedEmptyArray(value)) ? (
+        (!failedValidation &&
+          data?.value &&
+          isNotStringifiedEmptyArray(value) &&
+          value.length > 0) ? (
           <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
         ) : null}
       </HStack>
