@@ -28,9 +28,6 @@ export const Write = ({
   placeholderName,
   mandatory,
   inputmask,
-  onFocus,
-  onChange,
-  searchable,
 }) => {
   let regex
   const [errorStatus, setErrorStatus] = useState(false)
@@ -60,13 +57,8 @@ export const Write = ({
   const ackMessageObject = useSelector(selectCode(ACKMESSAGEKEY))
   const ackMessageValue = ackMessageObject?.[questionCode] || ''
 
-  const setFocused = focused => {
-    !!onFocus && onFocus(focused) // Calling this so that SearchableText knows when it's focus changed
-    setIsFocused(focused)
-  }
-
   const onBlur = e => {
-    e.target.value ? setFocused(true) : setFocused(false)
+    e.target.value ? setIsFocused(true) : setIsFocused(false)
     !errorStatus && debouncedSendAnswer(userInput)
     dispatchFieldMessage({ payload: questionCode })
   }
@@ -93,14 +85,8 @@ export const Write = ({
     regex = undefined
   }
 
-  const onChangeMethod = e => {
-    !!onChange && onChange(e.target.value)
-    setuserInput(inputmaskFilter(e.target.value)(inputmask))
-  }
-
   useEffect(() => {
-    userInput ? setFocused(true) : setFocused(searchable)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    userInput ? setIsFocused(true) : setIsFocused(false)
   }, [userInput])
 
   useEffect(() => {
@@ -175,10 +161,10 @@ export const Write = ({
         id={questionCode}
         ref={inputRef}
         onFocus={() => {
-          setFocused(true)
+          setIsFocused(true)
         }}
         onBlur={onBlur}
-        onChange={onChangeMethod}
+        onChange={e => setuserInput(inputmaskFilter(e.target.value)(inputmask))}
         value={userInput || ''}
         isInvalid={isInvalid}
         w="full"
