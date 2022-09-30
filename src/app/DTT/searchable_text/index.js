@@ -83,6 +83,7 @@ export const Write = ({
   }
 
   const onInputChange = e => {
+    setUpdated(true)
     setUserInput(e.target.value)
     ddEvent(e.target.value || '')
     setSelectedOption(null)
@@ -254,7 +255,7 @@ export const Write = ({
                   rightIcon={<div>⏎</div>}
                   key={`${questionCode}-typed-input`}
                 >
-                  {`Search all for: ${userInput}`}
+                  {`Search for: ${userInput}`}
                 </Button>
               ) : null}
               {options.map(option => {
