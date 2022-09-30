@@ -12,7 +12,7 @@ const Player: FC<Props> = ({ src, serverResponse }) => {
     <>
       {equals(serverResponse)(404) ? (
         <Text color={'white'} padding={3}>
-          {'Your video is being processed currently. Please try after some time.'}
+          {'Your video is currently being processed. Please try later.'}
         </Text>
       ) : equals(serverResponse)(500) ? (
         <Text color={'white'} padding={3}>
