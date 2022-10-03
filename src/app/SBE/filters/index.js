@@ -17,6 +17,7 @@ import { selectAttributes } from 'redux/db/selectors'
 import { useIsMobile } from 'utils/hooks'
 import { useRef } from 'react'
 import { useSelector } from 'react-redux'
+import SavedSearches from './saved-searches'
 
 const Filters = ({ sbeCode }) => {
   const triggerRef = useRef()
@@ -37,6 +38,7 @@ const Filters = ({ sbeCode }) => {
 
   return (
     <Stack direction={isMobile ? 'column' : 'row'}>
+      <SavedSearches sbeCode={sbeCode} />
       <Popover isLazy>
         <PopoverTrigger>
           <Button
