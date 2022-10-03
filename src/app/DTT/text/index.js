@@ -17,6 +17,7 @@ import { selectCode } from 'redux/db/selectors'
 import { maxNumberOfRetries, ACKMESSAGEKEY } from 'utils/constants'
 import AnswerAcknowledge from 'app/layouts/components/form/answer_acknowledge'
 import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
+import InputMask from 'react-input-mask'
 
 export const Write = ({
   questionCode,
@@ -61,20 +62,6 @@ export const Write = ({
     e.target.value ? setIsFocused(true) : setIsFocused(false)
     !errorStatus && debouncedSendAnswer(userInput)
     dispatchFieldMessage({ payload: questionCode })
-  }
-
-  const inputmaskFilter = value => inputmask => {
-    // check if inputmask only contains digits
-    let filteredValue = ''
-    if (value && inputmask && /^\d+$/.test(inputmask)) {
-      // allow a leading '+' to phone number, otherwise break validations
-      if (value.length > 0 && /^\+/.test(value)) {
-        filteredValue = '+' + value.substring(1).replace(/\D/g, '')
-      } else {
-        filteredValue = value.replace(/\D/g, '')
-      }
-    }
-    return filteredValue ? filteredValue.substring(0, inputmask.length) : value
   }
 
   try {
@@ -157,6 +144,9 @@ export const Write = ({
       </HStack>
 
       <Input
+        as={InputMask}
+        mask={inputmask}
+        maskChar={null}
         test-id={questionCode}
         id={questionCode}
         ref={inputRef}
@@ -164,7 +154,7 @@ export const Write = ({
           setIsFocused(true)
         }}
         onBlur={onBlur}
-        onChange={e => setuserInput(inputmaskFilter(e.target.value)(inputmask))}
+        onChange={e => setuserInput(e.target.value)}
         value={userInput || ''}
         isInvalid={isInvalid}
         w="full"
