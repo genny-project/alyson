@@ -1,4 +1,5 @@
 import { Text, VStack } from '@chakra-ui/react'
+import { equals, replace } from 'ramda'
 import { faDownload, faEdit, faHandshake, faUser } from '@fortawesome/free-solid-svg-icons'
 
 import Button from 'app/layouts/components/button'
@@ -7,7 +8,6 @@ import DetailLayout from '../layout'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Lane from 'app/SBE/lane'
 import { onSendMessage } from 'vertx'
-import { replace } from 'ramda'
 import { selectCode } from 'redux/db/selectors'
 import { useIsMobile } from 'utils/hooks'
 import { useSelector } from 'react-redux'
@@ -30,7 +30,7 @@ const about = {
   attributes: [{ attr: 'PRI_COMPANY_DESCRIPTION' }],
 }
 
-const Rep = ({ sbeCode, targetCode }) => {
+const Rep = ({ sbeCode, targetCode, userType }) => {
   const tileWidth = useIsMobile() ? '90vw' : '33vw'
   const validation = useSelector(selectCode(targetCode, 'PRI_VALIDATION'))
   const hcValidation = useSelector(selectCode(targetCode, 'PRI_HC_VALIDATION_DOC_URL')) || ''
@@ -90,7 +90,7 @@ const Rep = ({ sbeCode, targetCode }) => {
       </Button>
     )
 
-  const hcValidationButton = !!hcValidationUrl && (
+  const hcValidationButton = !!hcValidationUrl && equals(userType)('AGENT') && (
     <Button
       variant="secondary"
       colorScheme="green"
