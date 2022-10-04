@@ -101,6 +101,7 @@ const Write = ({
   const ackMessageObject = useSelector(selectCode(ACKMESSAGEKEY))
   const ackMessageValue = ackMessageObject?.[questionCode] || ''
   const [countryCode, setCountryCode] = useState(null)
+  const [countryFlag, setCountryFlag] = useState(null)
 
   const onBlur = e => {
     e.target.value ? setIsFocused(true) : setIsFocused(false)
@@ -121,7 +122,7 @@ const Write = ({
   }, [userInput])
 
   useEffect(() => {
-    setuserInput(data?.value)
+    !!data?.value && setuserInput(data?.value)
   }, [data, setuserInput])
 
   useEffect(() => {
@@ -187,17 +188,26 @@ const Write = ({
         />
       </HStack>
       <HStack>
-        <Menu>
-          <MenuButton as={Button}>
-            <FontAwesomeIcon color="#000000" icon={faAngleDown} size="sm" />
-            {countryCode === null ? 'Code' : `${countryCode}`}
-          </MenuButton>
-          <MenuList zIndex={100}>
-            {map(({ code, icon, name }) => (
-              <MenuItem onClick={() => setCountryCode(code)}>{`${icon} ${code} ${name}`}</MenuItem>
-            ))(countryList)}
-          </MenuList>
-        </Menu>
+        {
+          <Menu>
+            <MenuButton as={Button}>
+              {countryCode === null ? 'Code' : `${countryFlag}${countryCode}`}
+              <FontAwesomeIcon color="#000000" icon={faAngleDown} size="sm" />
+            </MenuButton>
+            <MenuList zIndex={100}>
+              {map(({ code, icon, name }) => (
+                <MenuItem
+                  onClick={() => {
+                    setCountryCode(code)
+                    setCountryFlag(icon)
+                  }}
+                >
+                  {`${icon} ${code} ${name}`}
+                </MenuItem>
+              ))(countryList)}
+            </MenuList>
+          </Menu>
+        }
         <Input
           as={InputMask}
           mask={inputmask}
