@@ -77,6 +77,8 @@ const Write = ({
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value || '')
   const [isFocused, setIsFocused] = useState(false)
+  const [countryCode, setCountryCode] = useState(null)
+  const [countryFlag, setCountryFlag] = useState(null)
   const inputRef = useRef()
   const retrySendingAnswerRef = useRef(0)
 
@@ -100,8 +102,6 @@ const Write = ({
   const debouncedSendAnswer = debounce(onSendAnswer, 500)
   const ackMessageObject = useSelector(selectCode(ACKMESSAGEKEY))
   const ackMessageValue = ackMessageObject?.[questionCode] || ''
-  const [countryCode, setCountryCode] = useState(null)
-  const [countryFlag, setCountryFlag] = useState(null)
 
   const onBlur = e => {
     e.target.value ? setIsFocused(true) : setIsFocused(false)
@@ -162,6 +162,15 @@ const Write = ({
     retrySendingAnswerRef.current = 0
   }, [userInput])
 
+  useEffect(() => {
+    setuserInput(countryCode)
+  }, [countryFlag])
+
+  const handleSelectCountry = (code, icon) => {
+    setCountryCode(code)
+    setCountryFlag(icon)
+  }
+
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
       <HStack
@@ -190,18 +199,13 @@ const Write = ({
       <HStack>
         {
           <Menu>
-            <MenuButton as={Button}>
-              {countryCode === null ? 'Code' : `${countryFlag}${countryCode}`}
+            <MenuButton as={Button} bg="gray.300">
+              {countryCode === null ? 'Code' : `${countryFlag}`}
               <FontAwesomeIcon color="#000000" icon={faAngleDown} size="sm" />
             </MenuButton>
             <MenuList zIndex={100}>
               {map(({ code, icon, name }) => (
-                <MenuItem
-                  onClick={() => {
-                    setCountryCode(code)
-                    setCountryFlag(icon)
-                  }}
-                >
+                <MenuItem onClick={() => handleSelectCountry(code, icon)}>
                   {`${icon} ${code} ${name}`}
                 </MenuItem>
               ))(countryList)}
@@ -210,7 +214,7 @@ const Write = ({
         }
         <Input
           as={InputMask}
-          mask={inputmask}
+          // mask={inputmask}
           maskChar={null}
           test-id={questionCode}
           id={questionCode}
