@@ -13,8 +13,9 @@ import {
   VStack,
   useBoolean,
 } from '@chakra-ui/react'
+import { equals, includes, pathOr } from 'ramda'
 import { faBan, faExpand, faSave, faVideo } from '@fortawesome/free-solid-svg-icons'
-import { includes, pathOr } from 'ramda'
+import { useEffect, useState } from 'react'
 
 import Download from 'app/DTT/download_button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -27,7 +28,6 @@ import safelyParseJson from 'utils/helpers/safely-parse-json'
 import useApi from 'api'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useKeycloak } from '@react-keycloak/web'
-import { useState } from 'react'
 
 const Write = ({ questionCode, onSendAnswer, html, data, setSaving }) => {
   const config = configs[questionCode] || safelyParseJson(html, {})
@@ -176,10 +176,18 @@ const Read = ({ data, mini, styles, config = {} }) => {
   const roles = pathOr('', ['realmAccess', 'roles'])(keycloak)
 
   const hasDownloadableRole = includes('download')(roles)
+  const src = api.getVideoSrc(data?.value)
+  const [serverResponse, setServerResponse] = useState(null)
+
+  useEffect(() => {
+    fetch(src + '-360p.mp4', {
+      method: 'HEAD',
+    }).then(response => {
+      setServerResponse(response.status)
+    })
+  }, [src])
 
   if (!data?.value) return null
-
-  const src = api.getVideoSrc(data?.value)
 
   const downloadableLink = getDownloadableVideoLinkFromUrl(src)
 
@@ -194,8 +202,10 @@ const Read = ({ data, mini, styles, config = {} }) => {
     </Popover>
   ) : (
     <HStack sx={{ alignItems: 'flex-end' }}>
-      <Player src={src} inline={config.inline} styles={styles} />
-      {hasDownloadableRole && <Download urlLink={downloadableLink} />}
+      <Player src={src} inline={config.inline} styles={styles} serverResponse={serverResponse} />
+      {hasDownloadableRole && equals(serverResponse)(200) && (
+        <Download urlLink={downloadableLink} />
+      )}
     </HStack>
   )
 }

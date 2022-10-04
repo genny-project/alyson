@@ -9,12 +9,13 @@ import Year from './Year'
 import getDate from 'utils/helpers/timezone_magic/get-date'
 import { getIsInvalid } from 'utils/functions'
 import { includes } from 'ramda'
+import isNullOrUndefined from 'utils/helpers/is-null-or-undefined'
 import safelyParseDate from 'utils/helpers/safely-parse-date'
 import timeBasedOnTimeZone from 'utils/helpers/timezone_magic/time-based-on-timezone'
+import timeZone from 'utils/helpers/timezone_magic/time-zone-from-browser'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useMobileValue } from 'utils/hooks'
-import isNullOrUndefined from 'utils/helpers/is-null-or-undefined'
 
 const Read = ({ data, typeName, config }) => {
   const includeTime = includes('LocalDateTime', typeName)
@@ -29,9 +30,12 @@ const Read = ({ data, typeName, config }) => {
 
   if (date === 'Invalid Date') return null
   return (
-    <Text minW="10rem" {...config}>
-      {date}
-    </Text>
+    <>
+      <Text minW="10rem" {...config}>
+        {date}
+      </Text>
+      {includeTime && <Text {...config}>{`Current timezone is ${timeZone}`}</Text>}
+    </>
   )
 }
 const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, question }) => {
@@ -107,11 +111,13 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
       includeTime={includeTime}
       onClick={() => onSendAnswer('')}
       date={getDate(data?.value)}
+      timezone={timeZone}
     />
   ) : onlyYear ? (
     <Year questionCode={questionCode} handleChange={handleChange} />
   ) : (
     <>
+      {includeTime && <Text fontSize={'sm'}>{`Current timezone is ${timeZone}`}</Text>}
       <Input
         id={questionCode}
         onKeyDown={e => e.preventDefault()}
@@ -129,6 +135,7 @@ const Write = ({ questionCode, data, onSendAnswer, typeName, regexPattern, quest
             : ''
         }
       />
+
       {errorStatus && (
         <Text textStyle="tail.error" mt={2}>
           {errorMsg}

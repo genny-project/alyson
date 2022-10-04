@@ -1,16 +1,35 @@
-import { ReactElement } from 'react'
+import { FC } from 'react'
+import { Text } from '@chakra-ui/react'
+import { equals } from 'ramda'
 
-const Player = ({ src }: { src: string }): ReactElement => {
+interface Props {
+  src: string
+  serverResponse: number
+}
+
+const Player: FC<Props> = ({ src, serverResponse }) => {
   return (
-    <video
-      style={{ maxHeight: '340px', minWidth: '240px' }}
-      controls
-      autoPlay
-      muted
-      poster="/video-intro.png"
-    >
-      <source src={src} />
-    </video>
+    <>
+      {equals(serverResponse)(404) ? (
+        <Text color={'white'} padding={3}>
+          {'Your video is currently being processed. Please try later.'}
+        </Text>
+      ) : equals(serverResponse)(500) ? (
+        <Text color={'white'} padding={3}>
+          {'There looks to be some issue in server. Please try after some time.'}
+        </Text>
+      ) : (
+        <video
+          style={{ maxHeight: '340px', minWidth: '240px' }}
+          controls
+          autoPlay
+          poster="/video-intro.png"
+          muted
+        >
+          <source src={src} />
+        </video>
+      )}
+    </>
   )
 }
 
