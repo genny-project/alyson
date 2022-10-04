@@ -74,6 +74,7 @@ const Write = ({
   inputmask,
 }) => {
   let regex
+  let phoneMask = useRef(inputmask)
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value || '')
   const [isFocused, setIsFocused] = useState(false)
@@ -107,6 +108,15 @@ const Write = ({
     e.target.value ? setIsFocused(true) : setIsFocused(false)
     !errorStatus && debouncedSendAnswer(userInput)
     dispatchFieldMessage({ payload: questionCode })
+  }
+
+  const handleSelectCountry = (code, icon) => {
+    setCountryCode(code)
+    setCountryFlag(icon)
+  }
+
+  const getPhoneMask = countryCode => {
+    return !!countryCode ? `${countryCode} 999999999` : `999999999`
   }
 
   try {
@@ -163,14 +173,12 @@ const Write = ({
   }, [userInput])
 
   useEffect(() => {
-    setuserInput(countryCode)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [countryFlag])
+    countryFlag && setuserInput(countryCode)
+  }, [countryCode, countryFlag])
 
-  const handleSelectCountry = (code, icon) => {
-    setCountryCode(code)
-    setCountryFlag(icon)
-  }
+  useEffect(() => {
+    phoneMask.current = getPhoneMask(countryCode)
+  }, [countryFlag, countryCode])
 
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
@@ -215,7 +223,7 @@ const Write = ({
         }
         <Input
           as={InputMask}
-          // mask={inputmask}
+          mask={phoneMask?.current}
           maskChar={null}
           test-id={questionCode}
           id={questionCode}
