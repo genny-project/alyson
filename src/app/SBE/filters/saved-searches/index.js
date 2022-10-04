@@ -18,16 +18,21 @@ import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import SavedSearchValue from './saved-search-value'
 import { equals, keys, prop, reduce, reject } from 'ramda'
 import getActiveAsk from './get-active-ask'
+import { useSelector } from 'react-redux'
+import { selectCode } from 'redux/db/selectors'
+import { onSendMessage } from 'vertx'
 
 const SavedSearches = ({ sbeCode }) => {
   const addFilterCode = 'QUE_ADD_FILTER_GRP'
 
   const filterGrp = `QUE_FILTER_GRP_${sbeCode}`
 
+  const submitCode = `QUE_SUBMIT`
+
+  const submitAsk = useSelector(selectCode(addFilterCode, submitCode))
+
   const [columnSelect, setColumnSelect] = useState(undefined)
-
   const [operatorSelect, setOperatorSelect] = useState(undefined)
-
   const [value, setValue] = useState(undefined)
 
   const [rows, setRows] = useState([])
@@ -87,7 +92,17 @@ const SavedSearches = ({ sbeCode }) => {
         },
       }
     })({})(rows)
-    console.log(output)
+    return output
+  }
+
+  const onSubmit = () => {
+    onSendMessage({
+      code: submitAsk.questionCode,
+      parentCode: addFilterCode,
+      targetCode: submitAsk.targetCode,
+      sourceCode: submitAsk.sourceCode,
+      value: JSON.stringify(prepareRowsForSending()),
+    })
   }
 
   return (
@@ -144,7 +159,9 @@ const SavedSearches = ({ sbeCode }) => {
                 />
               </HStack>
 
-              <Button onClick={prepareRowsForSending}>Test</Button>
+              <Button disabled={rows.length < 1} onClick={onSubmit}>
+                Submit
+              </Button>
             </VStack>
           </PopoverBody>
           <PopoverArrow />
