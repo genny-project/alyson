@@ -164,6 +164,7 @@ const Write = ({
 
   useEffect(() => {
     setuserInput(countryCode)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [countryFlag])
 
   const handleSelectCountry = (code, icon) => {
