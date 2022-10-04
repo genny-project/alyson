@@ -1,13 +1,28 @@
 import { Input } from '@chakra-ui/react'
-import { isEmpty } from 'ramda'
+import { equals } from 'ramda'
 import SavedSearchDropdown from './saved-search-dropdown'
+import getActiveAsk from './get-active-ask'
 
-const SavedSearchValue = ({ w, placeholder, options, value, onChange, disabled }) => {
-  if (isEmpty(options || [])) {
+const SavedSearchValue = ({
+  w,
+  placeholder,
+  value,
+  onChange,
+  disabled,
+  parentCode,
+  parentParentCode,
+}) => {
+  const activeAsk = getActiveAsk(parentParentCode)(parentCode)
+
+  const isDisabled = !(!disabled && !!activeAsk)
+
+  const isDropdown = equals(activeAsk?.question?.attribute?.dataType?.component ?? '')('dropdown')
+
+  if (!isDropdown) {
     return (
       <Input
-        disabled={disabled}
-        onChange={onChange}
+        disabled={isDisabled}
+        onChange={e => onChange(e.target.value)}
         value={value}
         placeholder={placeholder}
         w={w}
@@ -16,10 +31,11 @@ const SavedSearchValue = ({ w, placeholder, options, value, onChange, disabled }
   } else {
     return (
       <SavedSearchDropdown
-        disabled={disabled}
+        disabled={isDisabled}
         onChange={onChange}
         value={value}
-        options={options}
+        questionCode={activeAsk?.questionCode}
+        parentCode={parentCode}
         placeholder={placeholder}
         w={w}
       />

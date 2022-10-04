@@ -3,7 +3,6 @@ import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
 import mapOptions from 'app/DTT/select/map-options'
 import createSendAnswer from 'app/ASKS/utils/create-send-answer'
-import { useState } from 'react'
 const SavedSearchDropdown = ({ w, disabled, value, onChange, parentCode, questionCode }) => {
   const askData = useSelector(selectCode(parentCode, questionCode))
   const dropdownData =
@@ -16,15 +15,14 @@ const SavedSearchDropdown = ({ w, disabled, value, onChange, parentCode, questio
 
   const options = mapOptions(dropdownData)
 
-  const [internalValue, setInternalValue] = useState(value)
-
   const { name } = askData || {}
 
   const onSendAnswer = createSendAnswer(askData)
 
   const doOnChange = newOption => {
-    onChange(newOption)
-    setInternalValue(newOption)
+    if (!!onChange) {
+      onChange(newOption)
+    }
     onSendAnswer(newOption.value)
   }
 
@@ -32,7 +30,7 @@ const SavedSearchDropdown = ({ w, disabled, value, onChange, parentCode, questio
     <CSelect
       isDisabled={disabled}
       onChange={doOnChange}
-      value={internalValue}
+      value={value}
       options={options}
       chakraStyles={{
         input: provided => ({
