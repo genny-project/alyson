@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Text, useClipboard, useToast } from '@chakra-ui/react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheckCircle, faAngleDown } from '@fortawesome/free-solid-svg-icons'
+import { faCheckCircle, faAngleDown, faPhoneAlt } from '@fortawesome/free-solid-svg-icons'
 import phoneNumberFormatter from 'utils/formatters/phone-number'
 
 import { useEffect, useRef, useState } from 'react'
@@ -32,32 +33,32 @@ import { maxNumberOfRetries, ACKMESSAGEKEY } from 'utils/constants'
 import AnswerAcknowledge from 'app/layouts/components/form/answer_acknowledge'
 import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
 import InputMask from 'react-input-mask'
-import { map } from 'ramda'
+import { map, find, propEq, prop, compose, split, tail, path } from 'ramda'
 
 const countryList = [
   {
     name: 'Nepal',
-    code: '+977',
+    code: '977',
     icon: '🇳🇵',
   },
   {
     name: 'Australia',
-    code: '+61',
+    code: '61',
     icon: '🇦🇺',
   },
   {
     name: 'Indonesia',
-    code: '+62',
+    code: '62',
     icon: '🇮🇩',
   },
   {
     name: 'India',
-    code: '+971',
+    code: '91',
     icon: '🇮🇳',
   },
   {
     name: 'Qatar',
-    code: '+974',
+    code: '974',
     icon: '🇶🇦',
   },
 ]
@@ -75,11 +76,13 @@ const Write = ({
 }) => {
   let regex
   let phoneMask = useRef(inputmask)
+  const mask = phoneMask?.current
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value || '')
   const [isFocused, setIsFocused] = useState(false)
   const [countryCode, setCountryCode] = useState(null)
   const [countryFlag, setCountryFlag] = useState(null)
+  const [selectedFromDropDown, setSelectedFromDropdown] = useState(false)
   const inputRef = useRef()
   const retrySendingAnswerRef = useRef(0)
 
@@ -104,6 +107,24 @@ const Write = ({
   const ackMessageObject = useSelector(selectCode(ACKMESSAGEKEY))
   const ackMessageValue = ackMessageObject?.[questionCode] || ''
 
+  const getPhoneMask = countryCode => selectedFromDropDown =>
+    !!countryCode && selectedFromDropDown ? `+${countryCode} 999999999` : `+99999999999`
+
+  const getUserInputWithoutPlusSign = input => {
+    const splitAtPlusSign = split('+')
+    const getFirstItemOffArray = path([0])
+    const trimmedInput = compose(getFirstItemOffArray, tail, splitAtPlusSign)(input)
+    return trimmedInput
+  }
+
+  const getCountryInfo = countryList => countryCode => requiredInfo => {
+    let countryObject = find(propEq('code', countryCode))(countryList || [])
+    let requiredCountryInfo = prop(requiredInfo)(countryObject)
+    return requiredCountryInfo
+  }
+
+  const getCountryInfoFromCountryList = getCountryInfo(countryList)
+
   const onBlur = e => {
     e.target.value ? setIsFocused(true) : setIsFocused(false)
     !errorStatus && debouncedSendAnswer(userInput)
@@ -111,12 +132,10 @@ const Write = ({
   }
 
   const handleSelectCountry = (code, icon) => {
+    setSelectedFromDropdown(true)
     setCountryCode(code)
     setCountryFlag(icon)
-  }
-
-  const getPhoneMask = countryCode => {
-    return !!countryCode ? `${countryCode} 999999999` : `999999999`
+    setuserInput(`+ ${code}`)
   }
 
   try {
@@ -173,12 +192,20 @@ const Write = ({
   }, [userInput])
 
   useEffect(() => {
-    countryFlag && setuserInput(countryCode)
-  }, [countryCode, countryFlag])
+    phoneMask.current = getPhoneMask(countryCode)(selectedFromDropDown)
+  }, [countryFlag, countryCode, userInput])
 
   useEffect(() => {
-    phoneMask.current = getPhoneMask(countryCode)
-  }, [countryFlag, countryCode])
+    setSelectedFromDropdown(false)
+    let userInputWithoutPlusSign = getUserInputWithoutPlusSign(userInput)
+    let getSpecificCountryInfo = getCountryInfoFromCountryList(userInputWithoutPlusSign)
+    let countryIcon = getSpecificCountryInfo('icon')
+    !!countryIcon && setCountryFlag(countryIcon)
+  }, [userInput])
+
+  useEffect(() => {
+    countryFlag && selectedFromDropDown && setuserInput(`+${countryCode}`)
+  }, [countryCode, countryFlag])
 
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
@@ -209,8 +236,16 @@ const Write = ({
         {
           <Menu>
             <MenuButton as={Button} bg="gray.300">
-              {countryCode === null ? 'Code' : `${countryFlag}`}
-              <FontAwesomeIcon color="#000000" icon={faAngleDown} size="sm" />
+              <HStack>
+                <Text>
+                  {!!countryFlag ? (
+                    `${countryFlag}`
+                  ) : (
+                    <FontAwesomeIcon color="#000000" icon={faPhoneAlt} size="sm" />
+                  )}
+                </Text>
+                <FontAwesomeIcon color="gray" icon={faAngleDown} size="sm" />
+              </HStack>
             </MenuButton>
             <MenuList zIndex={100}>
               {map(({ code, icon, name }) => (
@@ -221,9 +256,10 @@ const Write = ({
             </MenuList>
           </Menu>
         }
+
         <Input
           as={InputMask}
-          mask={phoneMask?.current}
+          mask={mask}
           maskChar={null}
           test-id={questionCode}
           id={questionCode}
