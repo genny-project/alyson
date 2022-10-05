@@ -17,7 +17,7 @@ const Read = ({ data }) => {
 const Write = ({ questionCode, data, onSendAnswer, isRequired, label }) => {
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
   const toggle = () => {
-    onSendAnswer(data?.value === 'true' ? 'false' : 'true')
+    onSendAnswer(!!data?.value ? false : true)
     dispatchFieldMessage({ payload: questionCode })
   }
   return (
@@ -27,7 +27,7 @@ const Write = ({ questionCode, data, onSendAnswer, isRequired, label }) => {
         id={questionCode}
         test-id={questionCode}
         colorScheme="green"
-        isChecked={data?.value === 'true'}
+        isChecked={!!data?.value}
         onChange={toggle}
       />
       <FormControl onClick={toggle} isRequired={isRequired}>
