@@ -33,7 +33,7 @@ import { maxNumberOfRetries, ACKMESSAGEKEY } from 'utils/constants'
 import AnswerAcknowledge from 'app/layouts/components/form/answer_acknowledge'
 import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
 import InputMask from 'react-input-mask'
-import { map, find, propEq, prop, compose, split, tail, path } from 'ramda'
+import { map, compose, find, propEq, prop, path, split, tail } from 'ramda'
 
 const countryList = [
   {
