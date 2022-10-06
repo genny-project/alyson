@@ -138,8 +138,6 @@ const Write = ({
     setuserInput(`+ ${code}`)
   }
 
-  console.log('test-->', { selectedFromDropdown, countryCode, countryFlag, userInput })
-
   try {
     regexPattern = regexPattern.replaceAll('\\\\', '\\')
     regex = RegExp(regexPattern)
