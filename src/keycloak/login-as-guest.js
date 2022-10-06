@@ -22,7 +22,7 @@ const loginAsGuest = async () => {
     data.append('client_id', clientId)
     data.append('username', 'support@internmatch.io')
     data.append('password', 'guest')
-
+    console.log('DEBUG URL:' + url);
     const res = await axios.request({
       method: 'POST',
       url,
