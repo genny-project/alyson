@@ -2,7 +2,9 @@ import { apiConfig } from 'config/get-api-config'
 import axios from 'axios'
 
 const data = new URLSearchParams()
-const url = 'https://keycloak.gada.io/auth/realms/internmatch/protocol/openid-connect/token'
+const keycloakUrl = Process.env('ENV_KEYCLOAK_REDIRECTURI')
+const realm = Process.env('GENNY_KEYCLOAK_REALM')
+const url = 'https://' + keycloakUrl + '/auth/realms/' + realm + '/protocol/openid-connect/token'
 const headers = {
   Accept: 'application/json',
   'Content-Type': 'application/x-www-form-urlencoded',
