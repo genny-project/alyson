@@ -19,7 +19,7 @@ const Filters = ({ sbeCode }) => {
   return (
     <Stack direction={isMobile ? 'column' : 'row'}>
       <SavedSearches sbeCode={sbeCode} />
-      <ExistingFilters existingFilters={existingFilters} />
+      {/* <ExistingFilters existingFilters={existingFilters} /> */}
     </Stack>
   )
 }

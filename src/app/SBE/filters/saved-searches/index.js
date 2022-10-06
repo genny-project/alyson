@@ -129,6 +129,7 @@ const SavedSearches = ({ sbeCode }) => {
                 questionCode={bookmarkQuestionCode}
                 passedAskData={bookmarkAskData}
                 sourceCode={submitAsk.sourceCode}
+                config={{ overridePrefix: 'Create New Search' }}
               />
             </Box>
             <VStack w={'100%'}>

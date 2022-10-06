@@ -21,6 +21,7 @@ export const Write = ({
   mandatory,
   targetCode,
   attributeCode,
+  config,
 }) => {
   const dropdownData =
     useSelector(
@@ -254,7 +255,7 @@ export const Write = ({
                   rightIcon={<div>⏎</div>}
                   key={`${questionCode}-typed-input`}
                 >
-                  {`Search for: ${userInput}`}
+                  {`${config?.overridePrefix || 'Search for'}: ${userInput}`}
                 </Button>
               ) : null}
               {options.map(option => {
