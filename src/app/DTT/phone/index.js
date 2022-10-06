@@ -82,7 +82,7 @@ const Write = ({
   const [isFocused, setIsFocused] = useState(false)
   const [countryCode, setCountryCode] = useState(null)
   const [countryFlag, setCountryFlag] = useState(null)
-  const [selectedFromDropDown, setSelectedFromDropdown] = useState(false)
+  const [selectedFromDropdown, setSelectedFromDropdown] = useState(false)
   const inputRef = useRef()
   const retrySendingAnswerRef = useRef(0)
 
@@ -107,8 +107,8 @@ const Write = ({
   const ackMessageObject = useSelector(selectCode(ACKMESSAGEKEY))
   const ackMessageValue = ackMessageObject?.[questionCode] || ''
 
-  const getPhoneMask = countryCode => selectedFromDropDown =>
-    !!countryCode && selectedFromDropDown ? `+${countryCode} 999999999` : `+99999999999`
+  const getPhoneMask = countryCode => selectedFromDropdown =>
+    !!countryCode && selectedFromDropdown ? `+${countryCode} 999999999` : `+99999999999`
 
   const getUserInputWithoutPlusSign = input => {
     const splitAtPlusSign = split('+')
@@ -137,6 +137,8 @@ const Write = ({
     setCountryFlag(icon)
     setuserInput(`+ ${code}`)
   }
+
+  console.log('test-->', { selectedFromDropdown, countryCode, countryFlag, userInput })
 
   try {
     regexPattern = regexPattern.replaceAll('\\\\', '\\')
@@ -192,7 +194,7 @@ const Write = ({
   }, [userInput])
 
   useEffect(() => {
-    phoneMask.current = getPhoneMask(countryCode)(selectedFromDropDown)
+    phoneMask.current = getPhoneMask(countryCode)(selectedFromDropdown)
   }, [countryFlag, countryCode, userInput])
 
   useEffect(() => {
@@ -204,7 +206,7 @@ const Write = ({
   }, [userInput])
 
   useEffect(() => {
-    countryFlag && selectedFromDropDown && setuserInput(`+${countryCode}`)
+    countryFlag && selectedFromDropdown && setuserInput(`+${countryCode}`)
   }, [countryCode, countryFlag])
 
   return (
