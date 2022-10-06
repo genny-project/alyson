@@ -3,7 +3,18 @@ import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
 import mapOptions from 'app/DTT/select/map-options'
 import createSendAnswer from 'app/ASKS/utils/create-send-answer'
-const SavedSearchDropdown = ({ w, disabled, value, onChange, parentCode, questionCode }) => {
+import { useEffect, useRef } from 'react'
+import notEqual from 'utils/helpers/not-equal'
+
+const SavedSearchDropdown = ({
+  w,
+  disabled,
+  value,
+  onChange,
+  parentCode,
+  questionCode,
+  sendAnswers,
+}) => {
   const askData = useSelector(selectCode(parentCode, questionCode))
   const dropdownData =
     useSelector(
@@ -13,11 +24,17 @@ const SavedSearchDropdown = ({ w, disabled, value, onChange, parentCode, questio
       (left, right) => (left?.length || -1) === (right?.length || -2),
     ) || []
 
+  const previousVal = useRef(value)
+
   const options = mapOptions(dropdownData)
 
   const { name } = askData || {}
 
-  const onSendAnswer = createSendAnswer(askData)
+  const onSendAnswer = answer => {
+    if (sendAnswers) {
+      createSendAnswer(askData)(answer)
+    }
+  }
 
   const doOnChange = newOption => {
     if (!!onChange) {
@@ -25,6 +42,15 @@ const SavedSearchDropdown = ({ w, disabled, value, onChange, parentCode, questio
     }
     onSendAnswer(newOption.value)
   }
+
+  useEffect(() => {
+    if (notEqual(previousVal.current?.value)(value?.value)) {
+      previousVal.current = value
+      if (!!value) {
+        onSendAnswer(value?.value)
+      }
+    }
+  })
 
   return (
     <CSelect

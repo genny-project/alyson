@@ -130,6 +130,7 @@ const SavedSearches = ({ sbeCode }) => {
                   parentCode={addFilterCode}
                   questionCode={'QUE_FILTER_COLUMN'}
                   value={columnSelect || ''}
+                  sendAnswers
                   onChange={option => {
                     clearFields()
                     setColumnSelect(option)

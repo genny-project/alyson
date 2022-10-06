@@ -19,11 +19,15 @@ const SavedSearchValue = ({
   const isDropdown = equals(activeAsk?.question?.attribute?.dataType?.component ?? '')('dropdown')
 
   if (!isDropdown) {
+    const gotStringOrNull = equals(typeof value)('string') || !value
+    const trueVal = gotStringOrNull ? value : 'Loading...'
+    const inputDisabled = !gotStringOrNull || isDisabled
+
     return (
       <Input
-        disabled={isDisabled}
+        disabled={inputDisabled}
         onChange={e => onChange(e.target.value)}
-        value={value}
+        value={trueVal}
         placeholder={placeholder}
         w={w}
       />
