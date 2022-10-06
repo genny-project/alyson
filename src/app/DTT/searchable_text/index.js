@@ -83,6 +83,7 @@ export const Write = ({
   }
 
   const onInputChange = e => {
+    setIsFocused(true)
     setUpdated(true)
     setUserInput(e.target.value)
     ddEvent(e.target.value || '')
@@ -98,7 +99,7 @@ export const Write = ({
     onSendAnswer(JSON.stringify(out))
 
     setUpdated(true)
-    inputRef.current.blur()
+    setIsFocused(false)
   }
 
   const onBlur = () => {
@@ -198,6 +199,7 @@ export const Write = ({
         fontSize={'sm'}
         fontWeight={'medium'}
         color={fieldTextColor}
+        autoComplete={'off'}
         cursor={'pointer'}
         _hover={{
           borderColor: fieldHoverBorderColor,

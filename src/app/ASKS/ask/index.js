@@ -82,6 +82,7 @@ const Ask = ({
   } = askData || {}
 
   const clientId = apiConfig?.clientId
+
   const data = useSelector(selectCode(passedTargetCode || targetCode, attributeCode)) || {}
 
   const highlightedQuestion = useSelector(selectHighlightedQuestion)

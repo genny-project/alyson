@@ -26,10 +26,22 @@ import Ask from 'app/ASKS/ask'
 const SavedSearches = ({ sbeCode }) => {
   const bookmarkParentCode = 'QUE_TABLE_FILTER_GRP'
   const bookmarkQuestionCode = 'QUE_SAVED_SEARCH_LIST'
+
+  const bookmarkSaveQuestionCode = 'QUE_SAVED_SEARCH_SAVE'
+  const bookmarkApplyQuestionCode = 'QUE_FILTER_APPLY'
+  const bookmarkDeleteQuestionCode = 'QUE_SAVED_SEARCH_DELETE'
+
   const bookmarkAskData = {
     ...useSelector(selectCode(bookmarkParentCode, bookmarkQuestionCode)),
     forcedComponent: 'searchable_text',
   }
+  const currentBookmark = useSelector(
+    selectCode(bookmarkAskData.targetCode, bookmarkAskData.attributeCode),
+  )
+
+  const bookmarkSave = useSelector(selectCode(bookmarkParentCode, bookmarkSaveQuestionCode))
+  const bookmarkApply = useSelector(selectCode(bookmarkParentCode, bookmarkApplyQuestionCode))
+  const bookmarkDelete = useSelector(selectCode(bookmarkParentCode, bookmarkDeleteQuestionCode))
 
   const addFilterCode = 'QUE_ADD_FILTER_GRP'
 
@@ -103,12 +115,22 @@ const SavedSearches = ({ sbeCode }) => {
     return output
   }
 
-  const onSubmit = () => {
+  const onSave = () => {
     onSendMessage({
-      code: submitAsk.questionCode,
-      parentCode: addFilterCode,
-      targetCode: submitAsk.targetCode,
-      sourceCode: submitAsk.sourceCode,
+      code: bookmarkSave.questionCode,
+      parentCode: bookmarkParentCode,
+      targetCode: bookmarkSave.targetCode,
+      sourceCode: bookmarkSave.sourceCode,
+      value: JSON.stringify(prepareRowsForSending()),
+    })
+  }
+
+  const onApply = () => {
+    onSendMessage({
+      code: bookmarkApply.questionCode,
+      parentCode: bookmarkParentCode,
+      targetCode: bookmarkApply.targetCode,
+      sourceCode: bookmarkApply.sourceCode,
       value: JSON.stringify(prepareRowsForSending()),
     })
   }
@@ -128,7 +150,7 @@ const SavedSearches = ({ sbeCode }) => {
                 parentCode={bookmarkParentCode}
                 questionCode={bookmarkQuestionCode}
                 passedAskData={bookmarkAskData}
-                sourceCode={submitAsk.sourceCode}
+                sourceCode={bookmarkAskData.sourceCode}
                 config={{ overridePrefix: 'Create New Search' }}
               />
             </Box>
@@ -176,10 +198,14 @@ const SavedSearches = ({ sbeCode }) => {
                   icon={<FontAwesomeIcon icon={faPlusCircle} />}
                 />
               </HStack>
-
-              <Button disabled={rows.length < 1} onClick={onSubmit}>
-                Apply
-              </Button>
+              <HStack>
+                <Button disabled={rows.length < 1} onClick={onSave}>
+                  Save
+                </Button>
+                <Button disabled={rows.length < 1} onClick={onApply}>
+                  Apply
+                </Button>
+              </HStack>
             </VStack>
           </PopoverBody>
           <PopoverArrow />
