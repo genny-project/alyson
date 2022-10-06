@@ -21,8 +21,16 @@ import getActiveAsk from './get-active-ask'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import { onSendMessage } from 'vertx'
+import Ask from 'app/ASKS/ask'
 
 const SavedSearches = ({ sbeCode }) => {
+  const bookmarkParentCode = 'QUE_TABLE_FILTER_GRP'
+  const bookmarkQuestionCode = 'QUE_SAVED_SEARCH_LIST'
+  const bookmarkAskData = {
+    ...useSelector(selectCode(bookmarkParentCode, bookmarkQuestionCode)),
+    forcedComponent: 'searchable_text',
+  }
+
   const addFilterCode = 'QUE_ADD_FILTER_GRP'
 
   const filterGrp = `QUE_FILTER_GRP_${sbeCode}`
@@ -115,6 +123,14 @@ const SavedSearches = ({ sbeCode }) => {
         </PopoverTrigger>
         <PopoverContent bg="#fff" borderRadius={'md'} w={'100%'}>
           <PopoverBody w={'100%'}>
+            <Box p={1}>
+              <Ask
+                parentCode={bookmarkParentCode}
+                questionCode={bookmarkQuestionCode}
+                passedAskData={bookmarkAskData}
+                sourceCode={submitAsk.sourceCode}
+              />
+            </Box>
             <VStack w={'100%'}>
               {rows.map((row, index) => (
                 <SavedSearchRow
@@ -161,7 +177,7 @@ const SavedSearches = ({ sbeCode }) => {
               </HStack>
 
               <Button disabled={rows.length < 1} onClick={onSubmit}>
-                Submit
+                Apply
               </Button>
             </VStack>
           </PopoverBody>

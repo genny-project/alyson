@@ -104,7 +104,8 @@ const Ask = ({
   )
 
   const { html = '', helper = '' } = question
-  const { component = forcedComponent || 'text', typeName, inputmask } = dataType
+  const { dataTypeComponent = forcedComponent || 'text', typeName, inputmask } = dataType
+  const component = forcedComponent ?? dataTypeComponent
 
   const feedback = data?.feedback
   const onSendAnswerWithNovalue = createSendAnswer(askData, { passedTargetCode })

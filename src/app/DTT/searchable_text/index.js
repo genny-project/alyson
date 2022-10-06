@@ -16,7 +16,6 @@ export const Write = ({
   questionCode,
   data,
   onSendAnswer,
-  errorMessage,
   parentCode,
   placeholderName,
   mandatory,
@@ -41,7 +40,7 @@ export const Write = ({
   const theme = useTheme()
 
   const [updated, setUpdated] = useState(false)
-  const { selectedValue, value } = getValueSearchableText(data?.value || '')
+  const { selectedValue, value } = getValueSearchableText(data?.value || '', options)
 
   const [userInput, setUserInput] = useState(value)
   const [selectedOption, setSelectedOption] = useState(selectedValue)
@@ -138,7 +137,7 @@ export const Write = ({
       }
     }
     if (!updated) {
-      const { selectedValue, value } = getValueSearchableText(data?.value || '')
+      const { selectedValue, value } = getValueSearchableText(data?.value || '', options)
       setUserInput(value)
       setSelectedOption(selectedValue)
     }
