@@ -1,10 +1,20 @@
 import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
+import { compose } from 'ramda'
 
 /**
  * Returns the value stored in redux with the key `PROJECT`.
  * This should be the name of the main project base entity.
  */
+
+const projectCodeString = 'PROJECT'
+
+const useGetProjectInformation = () => {
+  const projectCode = compose(useSelector, selectCode)(projectCodeString)
+
+  return { projectCode }
+}
+
 const useGetProjectCode = () => useSelector(selectCode('PROJECT'))
 
 /**
@@ -18,4 +28,4 @@ const useGetAttributeFromProjectBaseEntity = attributeCode => {
   return useSelector(selectCode(useGetProjectCode(), attributeCode))
 }
 
-export { useGetAttributeFromProjectBaseEntity, useGetProjectCode }
+export { useGetAttributeFromProjectBaseEntity, useGetProjectCode, useGetProjectInformation }
