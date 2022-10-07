@@ -113,7 +113,7 @@ const SavedSearches = ({ sbeCode }) => {
       }),
     })
 
-  const sendBookmarkMessage = () => sendMessage(bookmarkParentCode)
+  const sendBookmarkMessage = sendMessage(bookmarkParentCode)
 
   const prepareRowsForSending = () => {
     const output = reduce((acc, row) => {
