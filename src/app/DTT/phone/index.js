@@ -1,14 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Text, useClipboard, useToast } from '@chakra-ui/react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle, faAngleDown } from '@fortawesome/free-solid-svg-icons'
-import phoneNumberFormatter from 'utils/formatters/phone-number'
-
 import { useEffect, useRef, useState } from 'react'
+import debounce from 'lodash.debounce'
+import { useSelector } from 'react-redux'
+import InputMask from 'react-input-mask'
 import {
   Box,
-  Text as ChakraText,
+  Text,
+  useClipboard,
+  useToast,
   HStack,
   Input,
   VStack,
@@ -19,20 +21,6 @@ import {
   MenuItem,
   Button,
 } from '@chakra-ui/react'
-import { useSelector } from 'react-redux'
-import { ACTIONS } from 'utils/contexts/ErrorReducer'
-import debounce from 'lodash.debounce'
-import { getIsInvalid } from 'utils/functions'
-import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined'
-import { useError } from 'utils/contexts/ErrorContext'
-import useGetFieldMessage from 'utils/fieldMessage'
-import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
-import useProductColors from 'utils/productColors'
-import { selectCode } from 'redux/db/selectors'
-import { maxNumberOfRetries, ACKMESSAGEKEY } from 'utils/constants'
-import AnswerAcknowledge from 'app/layouts/components/form/answer_acknowledge'
-import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
-import InputMask from 'react-input-mask'
 import {
   map,
   compose,
@@ -49,33 +37,19 @@ import {
   pathOr,
 } from 'ramda'
 
-const countryList = [
-  {
-    name: 'Nepal',
-    code: '977',
-    icon: '🇳🇵',
-  },
-  {
-    name: 'Australia',
-    code: '61',
-    icon: '🇦🇺',
-  },
-  {
-    name: 'Indonesia',
-    code: '62',
-    icon: '🇮🇩',
-  },
-  {
-    name: 'India',
-    code: '91',
-    icon: '🇮🇳',
-  },
-  {
-    name: 'Qatar',
-    code: '974',
-    icon: '🇶🇦',
-  },
-]
+import { ACTIONS } from 'utils/contexts/ErrorReducer'
+import { getIsInvalid } from 'utils/functions'
+import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined'
+import { useError } from 'utils/contexts/ErrorContext'
+import useGetFieldMessage from 'utils/fieldMessage'
+import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
+import useProductColors from 'utils/productColors'
+import { selectCode } from 'redux/db/selectors'
+import { maxNumberOfRetries, ACKMESSAGEKEY } from 'utils/constants'
+import AnswerAcknowledge from 'app/layouts/components/form/answer_acknowledge'
+import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
+import phoneNumberFormatter from 'utils/formatters/phone-number'
+import countryList from './helpers/country-list'
 
 const Write = ({
   questionCode,
@@ -325,9 +299,9 @@ const Write = ({
         {errorStatus && (
           <VStack alignItems="start">
             {(hasFieldMessage || hasErrorMessage) && (
-              <ChakraText textStyle="product.errorText">
+              <Text textStyle="product.errorText">
                 {hasFieldMessage ? fieldMessage : errorMessage}
-              </ChakraText>
+              </Text>
             )}
           </VStack>
         )}
