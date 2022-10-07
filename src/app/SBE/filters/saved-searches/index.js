@@ -213,7 +213,7 @@ const SavedSearches = ({ sbeCode }) => {
                 <Button disabled={rows.length < 1} onClick={onApply}>
                   Apply
                 </Button>
-                <Button disabled={!!currentSearchCode} onClick={onDelete}>
+                <Button disabled={!currentSearchCode} onClick={onDelete}>
                   Delete
                 </Button>
               </HStack>
