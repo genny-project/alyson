@@ -1,4 +1,4 @@
-import { selectCode } from 'redux/db/selectors'
+import { selectCode, selectCodeUnary } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
 import { compose } from 'ramda'
 import { projectCodeString } from 'utils/constants'
@@ -8,9 +8,10 @@ import { projectCodeString } from 'utils/constants'
  * This should be the name of the main project base entity.
  */
 
-const useGetProjectInformation = () => {
+const useGetProjectInformation = attributeCode => {
   const projectCode = compose(useSelector, selectCode)(projectCodeString)
-  return { projectCode }
+  const attributeObject = compose(useSelector, selectCodeUnary(projectCode))(attributeCode)
+  return { attributeObject, projectCode }
 }
 
 /**
