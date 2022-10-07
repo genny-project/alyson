@@ -5,6 +5,7 @@ import mapOptions from 'app/DTT/select/map-options'
 import createSendAnswer from 'app/ASKS/utils/create-send-answer'
 import { useEffect, useRef } from 'react'
 import notEqual from 'utils/helpers/not-equal'
+import { equals, find } from 'ramda'
 
 const SavedSearchDropdown = ({
   w,
@@ -24,9 +25,15 @@ const SavedSearchDropdown = ({
       (left, right) => (left?.length || -1) === (right?.length || -2),
     ) || []
 
-  const previousVal = useRef(value)
-
   const options = mapOptions(dropdownData)
+
+  const getValueFromCode = value => {
+    return find(option => equals(option.value)(value.value))(options)
+  }
+
+  value = getValueFromCode(value)
+
+  const previousVal = useRef(value)
 
   const { name } = askData || {}
 

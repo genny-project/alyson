@@ -11,18 +11,20 @@ import {
   IconButton,
 } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import SavedSearchDropdown from './saved-search-dropdown'
 import SavedSearchRow from './saved-search-row'
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import SavedSearchValue from './saved-search-value'
-import { equals, keys, prop, reduce, reject } from 'ramda'
+import { equals, find, forEach, keys, prop, reduce, reject, map } from 'ramda'
 import getActiveAsk from './get-active-ask'
 import { useSelector } from 'react-redux'
-import { selectCode } from 'redux/db/selectors'
+import { selectCode, selectCodes } from 'redux/db/selectors'
 import { onSendMessage } from 'vertx'
 import Ask from 'app/ASKS/ask'
 import jsonParseOrUndefined from 'utils/helpers/json-parse-or-undefined'
+import notIncludes from 'utils/helpers/not-includes'
+import getFilterAsks from './get-filter-asks'
 
 const SavedSearches = ({ sbeCode }) => {
   const bookmarkParentCode = 'QUE_TABLE_FILTER_GRP'
@@ -42,8 +44,13 @@ const SavedSearches = ({ sbeCode }) => {
   const bookmarkDelete = useSelector(selectCode(bookmarkParentCode, bookmarkDeleteQuestionCode))
 
   const addFilterCode = 'QUE_ADD_FILTER_GRP'
+  const existingFilterCode = 'QUE_EXISTING_FILTERS_GRP'
 
   const filterGrp = `QUE_FILTER_GRP_${sbeCode}`
+
+  const filterAsks = getFilterAsks(filterGrp)(addFilterCode)
+
+  console.log(filterAsks)
 
   const currentSearch = jsonParseOrUndefined(
     useSelector(selectCode(bookmarkAskData.targetCode, bookmarkAskData.attributeCode))?.value,
@@ -57,10 +64,15 @@ const SavedSearches = ({ sbeCode }) => {
 
   const [rows, setRows] = useState([])
 
-  const activeAsk = getActiveAsk(filterGrp)(addFilterCode)
+  const setFields = column => operator => value => {
+    setColumnSelect(column)
+    setOperatorSelect(operator)
+    setValue(value)
+  }
 
-  const inputWidth = '20ch'
+  const clearFields = () => setFields(undefined)(undefined)(undefined)
 
+  const existingFilterGrp = useSelector(selectCode(filterGrp, existingFilterCode))
   const rowEquals = rowA => rowB => {
     return (
       equals(rowA.column.value)(rowB.column.value) &&
@@ -69,13 +81,32 @@ const SavedSearches = ({ sbeCode }) => {
     )
   }
 
-  const setFields = column => operator => value => {
-    setColumnSelect(column)
-    setOperatorSelect(operator)
-    setValue(value)
-  }
+  useEffect(() => {
+    setRows([])
+    if (!!currentSearchCode && !!existingFilterGrp?.childAsks) {
+      const existingRows = reject(ask => equals(ask.name)(currentSearchCode))(
+        existingFilterGrp.childAsks,
+      )
 
-  const clearFields = () => setFields(undefined)(undefined)(undefined)
+      const newRows = map(existingRow => {
+        const ask = filterAsks[existingRow.question.code]
+
+        return {
+          column: { value: existingRow.name },
+          operator: { value: existingRow.question.name },
+          value: { value: existingRow.question.html },
+          ask: ask,
+        }
+      })(existingRows)
+
+      setRows(newRows)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentSearchCode, existingFilterGrp])
+
+  const activeAsk = getActiveAsk(filterGrp)(addFilterCode)
+
+  const inputWidth = '20ch'
 
   const addRow = () => {
     const newRow = {

@@ -5,9 +5,13 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
 const SavedSearchRow = ({ row, onEdit, onDelete }) => {
-  const { column, operator, value } = row
+  const { column, operator, value, ask } = row
 
-  const string = `${column.label} is ${toUpper(operator.label)}: ${prop('label')(value) || value}`
+  console.log(ask)
+
+  const string = `${column?.label || column?.value} is ${toUpper(
+    operator?.label || operator.value,
+  )}: ${prop('label')(value) || prop('value')(value) || value}`
 
   return (
     <Box w={'100%'}>
