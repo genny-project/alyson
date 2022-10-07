@@ -22,6 +22,7 @@ export const mentees = 'Mentees'
 export const mentors = 'Mentors'
 export const agents = 'Agents'
 export const lojing = 'lojing'
+export const projectCodeString = 'PROJECT'
 
 export const alreadyRegisteredMsg = 'You have already registered!'
 export const mentorAlreadySelectedMsg = 'You have already selected a Mentor!'
