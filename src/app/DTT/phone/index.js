@@ -2,7 +2,7 @@
 import { Text, useClipboard, useToast } from '@chakra-ui/react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheckCircle, faAngleDown, faPhoneAlt } from '@fortawesome/free-solid-svg-icons'
+import { faCheckCircle, faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import phoneNumberFormatter from 'utils/formatters/phone-number'
 
 import { useEffect, useRef, useState } from 'react'
@@ -264,13 +264,7 @@ const Write = ({
           <Menu>
             <MenuButton as={Button} bg="gray.300">
               <HStack>
-                <Text>
-                  {!!countryFlag
-                    ? `${countryFlag}`
-                    : 'Code'
-                      // <FontAwesomeIcon color="#000000" icon={faPhoneAlt} size="sm"/>
-                  }
-                </Text>
+                <Text>{!!countryFlag ? `${countryFlag}` : 'Code'}</Text>
                 <FontAwesomeIcon color="gray" icon={faAngleDown} size="sm" />
               </HStack>
             </MenuButton>
