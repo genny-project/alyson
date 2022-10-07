@@ -106,11 +106,7 @@ const SavedSearches = ({ sbeCode }) => {
       parentCode: parentCode,
       targetCode: ask.targetCode,
       sourceCode: ask.sourceCode,
-      value: JSON.stringify({
-        ...prepareRowsForSending(),
-        SEARCH_NAME: currentSearchName,
-        SEARCH_CODE: currentSearchCode,
-      }),
+      value: value,
     })
 
   const sendBookmarkMessage = sendMessage(bookmarkParentCode)
@@ -207,7 +203,7 @@ const SavedSearches = ({ sbeCode }) => {
                 />
               </HStack>
               <HStack>
-                <Button disabled={rows.length < 1} onClick={onSave}>
+                <Button disabled={rows.length < 1 || !currentSearchName} onClick={onSave}>
                   Save
                 </Button>
                 <Button disabled={rows.length < 1} onClick={onApply}>
