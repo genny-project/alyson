@@ -22,6 +22,7 @@ import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import { onSendMessage } from 'vertx'
 import Ask from 'app/ASKS/ask'
+import jsonParseOrUndefined from 'utils/helpers/json-parse-or-undefined'
 
 const SavedSearches = ({ sbeCode }) => {
   const bookmarkParentCode = 'QUE_TABLE_FILTER_GRP'
@@ -35,9 +36,6 @@ const SavedSearches = ({ sbeCode }) => {
     ...useSelector(selectCode(bookmarkParentCode, bookmarkQuestionCode)),
     forcedComponent: 'searchable_text',
   }
-  const currentBookmark = useSelector(
-    selectCode(bookmarkAskData.targetCode, bookmarkAskData.attributeCode),
-  )
 
   const bookmarkSave = useSelector(selectCode(bookmarkParentCode, bookmarkSaveQuestionCode))
   const bookmarkApply = useSelector(selectCode(bookmarkParentCode, bookmarkApplyQuestionCode))
@@ -47,9 +45,11 @@ const SavedSearches = ({ sbeCode }) => {
 
   const filterGrp = `QUE_FILTER_GRP_${sbeCode}`
 
-  const submitCode = `QUE_SUBMIT`
-
-  const submitAsk = useSelector(selectCode(addFilterCode, submitCode))
+  const currentSearch = jsonParseOrUndefined(
+    useSelector(selectCode(bookmarkAskData.targetCode, bookmarkAskData.attributeCode))?.value,
+  )
+  const currentSearchName = currentSearch?.userInput
+  const currentSearchCode = currentSearch?.selectedOption
 
   const [columnSelect, setColumnSelect] = useState(undefined)
   const [operatorSelect, setOperatorSelect] = useState(undefined)
@@ -93,12 +93,27 @@ const SavedSearches = ({ sbeCode }) => {
     clearFields()
   }
 
-  const onDelete = row => setRows(reject(rowEquals(row))(rows))
+  const onDeleteRow = row => setRows(reject(rowEquals(row))(rows))
 
   const onEdit = row => {
     setFields(row.column)(row.operator)(row.value)
-    onDelete(row)
+    onDeleteRow(row)
   }
+
+  const sendMessage = parentCode => ask => value =>
+    onSendMessage({
+      code: ask.questionCode,
+      parentCode: parentCode,
+      targetCode: ask.targetCode,
+      sourceCode: ask.sourceCode,
+      value: JSON.stringify({
+        ...prepareRowsForSending(),
+        SEARCH_NAME: currentSearchName,
+        SEARCH_CODE: currentSearchCode,
+      }),
+    })
+
+  const sendBookmarkMessage = () => sendMessage(bookmarkParentCode)
 
   const prepareRowsForSending = () => {
     const output = reduce((acc, row) => {
@@ -115,25 +130,18 @@ const SavedSearches = ({ sbeCode }) => {
     return output
   }
 
-  const onSave = () => {
-    onSendMessage({
-      code: bookmarkSave.questionCode,
-      parentCode: bookmarkParentCode,
-      targetCode: bookmarkSave.targetCode,
-      sourceCode: bookmarkSave.sourceCode,
-      value: JSON.stringify(prepareRowsForSending()),
-    })
-  }
+  const onSave = () =>
+    sendBookmarkMessage(bookmarkSave)(
+      JSON.stringify({
+        ...prepareRowsForSending(),
+        SEARCH_NAME: currentSearchName,
+        SEARCH_CODE: currentSearchCode,
+      }),
+    )
 
-  const onApply = () => {
-    onSendMessage({
-      code: bookmarkApply.questionCode,
-      parentCode: bookmarkParentCode,
-      targetCode: bookmarkApply.targetCode,
-      sourceCode: bookmarkApply.sourceCode,
-      value: JSON.stringify(prepareRowsForSending()),
-    })
-  }
+  const onApply = () => sendBookmarkMessage(bookmarkApply)(JSON.stringify(prepareRowsForSending()))
+
+  const onDelete = () => sendBookmarkMessage(bookmarkDelete)({ SEARCH_CODE: currentSearchCode })
 
   return (
     <Box>
@@ -160,7 +168,7 @@ const SavedSearches = ({ sbeCode }) => {
                   key={`SAVED-SEARCH-ROW-${index}`}
                   row={row}
                   onEdit={onEdit}
-                  onDelete={onDelete}
+                  onDelete={onDeleteRow}
                 />
               ))}
               <HStack>
@@ -204,6 +212,9 @@ const SavedSearches = ({ sbeCode }) => {
                 </Button>
                 <Button disabled={rows.length < 1} onClick={onApply}>
                   Apply
+                </Button>
+                <Button disabled={!!currentSearchCode} onClick={onDelete}>
+                  Delete
                 </Button>
               </HStack>
             </VStack>
