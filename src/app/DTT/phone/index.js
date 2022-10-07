@@ -33,7 +33,21 @@ import { maxNumberOfRetries, ACKMESSAGEKEY } from 'utils/constants'
 import AnswerAcknowledge from 'app/layouts/components/form/answer_acknowledge'
 import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
 import InputMask from 'react-input-mask'
-import { map, compose, find, propEq, prop, path, split, tail } from 'ramda'
+import {
+  map,
+  compose,
+  find,
+  propEq,
+  prop,
+  path,
+  split,
+  tail,
+  head,
+  splitAt,
+  reduce,
+  includes,
+  pathOr,
+} from 'ramda'
 
 const countryList = [
   {
@@ -107,15 +121,16 @@ const Write = ({
   const ackMessageObject = useSelector(selectCode(ACKMESSAGEKEY))
   const ackMessageValue = ackMessageObject?.[questionCode] || ''
 
+  const onBlur = e => {
+    e.target.value ? setIsFocused(true) : setIsFocused(false)
+    !errorStatus && debouncedSendAnswer(userInput)
+    dispatchFieldMessage({ payload: questionCode })
+  }
+
   const getPhoneMask = countryCode => selectedFromDropdown =>
     !!countryCode && selectedFromDropdown ? `+${countryCode} 999999999` : `+99999999999`
 
-  const getUserInputWithoutPlusSign = input => {
-    const splitAtPlusSign = split('+')
-    const getFirstItemOffArray = path([0])
-    const trimmedInput = compose(getFirstItemOffArray, tail, splitAtPlusSign)(input)
-    return trimmedInput
-  }
+  const getUserInputWithoutPlusSign = compose(path([0]), tail, split('+'))
 
   const getCountryInfo = countryList => countryCode => requiredInfo => {
     let countryObject = find(propEq('code', countryCode))(countryList || [])
@@ -125,11 +140,16 @@ const Write = ({
 
   const getCountryInfoFromCountryList = getCountryInfo(countryList)
 
-  const onBlur = e => {
-    e.target.value ? setIsFocused(true) : setIsFocused(false)
-    !errorStatus && debouncedSendAnswer(userInput)
-    dispatchFieldMessage({ payload: questionCode })
+  const getCountryObjectFromExistingUserInput = countryList => userInput => {
+    const initialInput = compose(head, splitAt(4))(userInput)
+    return reduce((acc, countryObject) => {
+      let { code } = countryObject
+      acc = includes(`+${code}`, initialInput) ? acc.concat(countryObject) : acc
+      return acc
+    }, [])(countryList)
   }
+
+  const getCountryObjectFromUserInput = getCountryObjectFromExistingUserInput(countryList)
 
   const handleSelectCountry = (code, icon) => {
     setSelectedFromDropdown(true)
@@ -207,6 +227,13 @@ const Write = ({
     countryFlag && selectedFromDropdown && setuserInput(`+${countryCode}`)
   }, [countryCode, countryFlag])
 
+  useEffect(() => {
+    let countryObject = getCountryObjectFromUserInput(userInput)
+    let countryObjectFromUserInput = pathOr('undefined', [0])(countryObject)
+    let { icon: countryFlagFromUserInput } = countryObjectFromUserInput || ''
+    !!countryFlagFromUserInput ? setCountryFlag(countryFlagFromUserInput) : setCountryFlag('Code')
+  }, [userInput])
+
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
       <HStack
@@ -238,11 +265,11 @@ const Write = ({
             <MenuButton as={Button} bg="gray.300">
               <HStack>
                 <Text>
-                  {!!countryFlag ? (
-                    `${countryFlag}`
-                  ) : (
-                    <FontAwesomeIcon color="#000000" icon={faPhoneAlt} size="sm" />
-                  )}
+                  {!!countryFlag
+                    ? `${countryFlag}`
+                    : 'Code'
+                      // <FontAwesomeIcon color="#000000" icon={faPhoneAlt} size="sm"/>
+                  }
                 </Text>
                 <FontAwesomeIcon color="gray" icon={faAngleDown} size="sm" />
               </HStack>
