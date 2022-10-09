@@ -21,21 +21,7 @@ import {
   MenuItem,
   Button,
 } from '@chakra-ui/react'
-import {
-  map,
-  compose,
-  find,
-  propEq,
-  prop,
-  path,
-  split,
-  tail,
-  head,
-  splitAt,
-  reduce,
-  includes,
-  pathOr,
-} from 'ramda'
+import { map, compose, pathOr } from 'ramda'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import { getIsInvalid } from 'utils/functions'
@@ -50,6 +36,13 @@ import AnswerAcknowledge from 'app/layouts/components/form/answer_acknowledge'
 import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
 import phoneNumberFormatter from 'utils/formatters/phone-number'
 import countryList from './helpers/country-list'
+import {
+  prepareAnswer,
+  getPhoneMask,
+  getUserInputWithoutPlusSign,
+  getCountryInfoFromCountryList,
+  getCountryObjectFromUserInput,
+} from './helpers'
 
 const Write = ({
   questionCode,
@@ -94,36 +87,13 @@ const Write = ({
   const debouncedSendAnswer = debounce(onSendAnswer, 500)
   const ackMessageObject = useSelector(selectCode(ACKMESSAGEKEY))
   const ackMessageValue = ackMessageObject?.[questionCode] || ''
+  const sendAnswer = compose(debouncedSendAnswer, prepareAnswer)
 
   const onBlur = e => {
     e.target.value ? setIsFocused(true) : setIsFocused(false)
-    !errorStatus && debouncedSendAnswer(userInput)
+    !errorStatus && sendAnswer(userInput)
     dispatchFieldMessage({ payload: questionCode })
   }
-
-  const getPhoneMask = countryCode => selectedFromDropdown =>
-    !!countryCode && selectedFromDropdown ? `+${countryCode} 999999999` : `+99999999999`
-
-  const getUserInputWithoutPlusSign = compose(path([0]), tail, split('+'))
-
-  const getCountryInfo = countryList => countryCode => requiredInfo => {
-    let countryObject = find(propEq('code', countryCode))(countryList || [])
-    let requiredCountryInfo = prop(requiredInfo)(countryObject)
-    return requiredCountryInfo
-  }
-
-  const getCountryInfoFromCountryList = getCountryInfo(countryList)
-
-  const getCountryObjectFromExistingUserInput = countryList => userInput => {
-    const initialInput = compose(head, splitAt(4))(userInput)
-    return reduce((acc, countryObject) => {
-      let { code } = countryObject
-      acc = includes(`+${code}`, initialInput) ? acc.concat(countryObject) : acc
-      return acc
-    }, [])(countryList)
-  }
-
-  const getCountryObjectFromUserInput = getCountryObjectFromExistingUserInput(countryList)
 
   const handleSelectCountry = (code, icon) => {
     setSelectedFromDropdown(true)
