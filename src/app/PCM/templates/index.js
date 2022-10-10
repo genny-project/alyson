@@ -34,7 +34,7 @@ import { Box, Text } from '@chakra-ui/react'
  * If the template does not exist, it will return the default template
  *
  */
-const templateHandlerMachine = mappedPcm => templateCode => properties => depth => {
+const templateHandlerMachine = depth => mappedPcm => templateCode => properties => {
   const listOfTemplates = {
     TPL_DEFAULT: <TemplateDefault {...properties} />,
     TPL_NORTH: <TemplateNorth mappedPcm={mappedPcm} depth={depth} {...properties} />,
