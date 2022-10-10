@@ -165,11 +165,14 @@ const Write = ({
     let getSpecificCountryInfo = getCountryInfoFromCountryList(userInputWithoutPlusSign)
     let countryIcon = getSpecificCountryInfo('icon')
     !!countryIcon && setCountryFlag(countryIcon)
-    !!countryCode && setCountryCode(countryCode)
   }, [userInput])
 
   useEffect(() => {
     countryFlag && selectedFromDropdown && setuserInput(`+${countryCode}`)
+    let countryObject = getCountryObjectFromUserInput(userInput)
+    let countryObjectFromUserInput = pathOr('undefined', [0])(countryObject)
+    let { code: countryCodeFromUserInput } = countryObjectFromUserInput || ''
+    !!countryCodeFromUserInput ? setCountryCode(countryCodeFromUserInput) : setCountryCode('')
   }, [countryCode, countryFlag])
 
   useEffect(() => {
@@ -178,6 +181,8 @@ const Write = ({
     let { icon: countryFlagFromUserInput } = countryObjectFromUserInput || ''
     !!countryFlagFromUserInput ? setCountryFlag(countryFlagFromUserInput) : setCountryFlag('Code')
   }, [userInput])
+
+  console.log({ countryCode, countryFlag })
 
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
