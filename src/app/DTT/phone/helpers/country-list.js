@@ -39,11 +39,11 @@ const countryList = [
     code: '1',
     icon: '🇨🇦',
   },
-  {
-    name: 'Cayman Islands',
-    code: '1-345',
-    icon: '🇰🇾',
-  },
+  //   {
+  //     name: 'Cayman Islands',
+  //     code: '1-345',
+  //     icon: '🇰🇾',
+  //   },
   {
     name: 'Central African Republic',
     code: '236',
@@ -114,11 +114,11 @@ const countryList = [
     code: '230',
     icon: '🇲🇺',
   },
-  {
-    name: 'Montserrat',
-    code: '1-664',
-    icon: '🇲🇸',
-  },
+  //   {
+  //     name: 'Montserrat',
+  //     code: '1-664',
+  //     icon: '🇲🇸',
+  //   },
   {
     name: 'Mozambique',
     code: '258',
@@ -274,11 +274,11 @@ const countryList = [
     code: '90',
     icon: '🇹🇷',
   },
-  {
-    name: 'Turks And Caicos Islands',
-    code: '1-649',
-    icon: '🇹🇨',
-  },
+  //   {
+  //     name: 'Turks And Caicos Islands',
+  //     code: '1-649',
+  //     icon: '🇹🇨',
+  //   },
   {
     name: 'Uganda',
     code: '256',
@@ -299,11 +299,11 @@ const countryList = [
     code: '44',
     icon: '🇬🇧',
   },
-  {
-    name: 'United States',
-    code: '1',
-    icon: '🇺🇸',
-  },
+  //   {
+  //     name: 'United States',
+  //     code: '1',
+  //     icon: '🇺🇸',
+  //   },
   {
     name: 'Uruguay',
     code: '598',
