@@ -1,15 +1,9 @@
-import { find, equals, reduce, compose } from 'ramda'
+import { find, equals, compose } from 'ramda'
 import { useSelector } from 'react-redux'
 
 import { selectCode } from 'redux/db/selectors'
 import { pcmKey } from 'utils/constants'
-
-const getMappedPcm = pcmObject => {
-  return reduce((acc, { attributeCode, valueString }) => {
-    acc = { ...acc, [attributeCode]: valueString }
-    return acc
-  }, {})(pcmObject || [])
-}
+import getMappedPcm from 'app/PCM/helpers/get-mapped-pcm-from-pcm-object'
 
 const useGetMappedPcm = identifier => {
   const allPcmCode = compose(useSelector, selectCode)(pcmKey) || []
