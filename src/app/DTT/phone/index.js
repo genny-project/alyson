@@ -1,48 +1,48 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheckCircle, faAngleDown } from '@fortawesome/free-solid-svg-icons'
-import { useEffect, useRef, useState } from 'react'
-import debounce from 'lodash.debounce'
-import { useSelector } from 'react-redux'
-import InputMask from 'react-input-mask'
+import { ACKMESSAGEKEY, maxNumberOfRetries } from 'utils/constants'
 import {
   Box,
-  Text,
-  useClipboard,
-  useToast,
+  Button,
   HStack,
   Input,
-  VStack,
-  useTheme,
   Menu,
   MenuButton,
-  MenuList,
   MenuItem,
-  Button,
+  MenuList,
+  Text,
+  VStack,
+  useClipboard,
+  useTheme,
+  useToast,
 } from '@chakra-ui/react'
-import { map, compose, pathOr } from 'ramda'
+import { compose, map, pathOr } from 'ramda'
+import { faAngleDown, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import {
+  getCountryInfoFromCountryList,
+  getCountryObjectFromUserInput,
+  getPhoneMask,
+  getUserInputWithoutPlusSign,
+  prepareAnswer,
+} from './helpers'
+import { useEffect, useRef, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
+import AnswerAcknowledge from 'app/layouts/components/form/answer_acknowledge'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import InputMask from 'react-input-mask'
+import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
+import countryList from './helpers/country-list'
+import debounce from 'lodash.debounce'
 import { getIsInvalid } from 'utils/functions'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined'
+import phoneNumberFormatter from 'utils/formatters/phone-number'
+import { selectCode } from 'redux/db/selectors'
 import { useError } from 'utils/contexts/ErrorContext'
 import useGetFieldMessage from 'utils/fieldMessage'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
-import { selectCode } from 'redux/db/selectors'
-import { maxNumberOfRetries, ACKMESSAGEKEY } from 'utils/constants'
-import AnswerAcknowledge from 'app/layouts/components/form/answer_acknowledge'
-import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
-import phoneNumberFormatter from 'utils/formatters/phone-number'
-import countryList from './helpers/country-list'
-import {
-  prepareAnswer,
-  getPhoneMask,
-  getUserInputWithoutPlusSign,
-  getCountryInfoFromCountryList,
-  getCountryObjectFromUserInput,
-} from './helpers'
+import { useSelector } from 'react-redux'
 
 const Write = ({
   questionCode,
@@ -185,7 +185,7 @@ const Write = ({
         zIndex={theme.zIndices.docked}
         top={isFocused ? '-1.5rem' : 3}
         left={0}
-        paddingStart={6}
+        paddingStart={isFocused ? 6 : 20}
         w="full"
         justifyContent={'space-between'}
         pointerEvents={'none'}
@@ -203,16 +203,22 @@ const Write = ({
           questionCode={questionCode}
         />
       </HStack>
-      <HStack>
+      <HStack spacing={0}>
         {
           <Menu>
-            <MenuButton as={Button} bg="gray.300">
+            <MenuButton
+              as={Button}
+              bg="transparent"
+              position={'absolute'}
+              zIndex={10}
+              _active={{ background: 'transparent' }}
+            >
               <HStack>
                 <Text>{!!countryFlag ? `${countryFlag}` : 'Code'}</Text>
                 <FontAwesomeIcon color="gray" icon={faAngleDown} size="sm" />
               </HStack>
             </MenuButton>
-            <MenuList zIndex={100}>
+            <MenuList zIndex={100} overflow={'auto'} maxH={'20rem'}>
               {map(({ code, icon, name }) => (
                 <MenuItem onClick={() => handleSelectCountry(code, icon)}>
                   {`${icon} ${code} ${name}`}
@@ -239,7 +245,8 @@ const Write = ({
           w="full"
           h={'auto'}
           paddingBlock={3}
-          paddingInline={6}
+          paddingInlineStart={20}
+          paddingInlineEnd={6}
           bg={fieldBackgroundColor}
           borderRadius={borderRadius}
           borderColor={fieldBorderColor}
