@@ -2,7 +2,7 @@ const countryList = [
   {
     name: 'Afghanistan',
     code: '93',
-    icon: '	🇦🇫',
+    icon: '🇦🇫',
   },
   {
     name: 'Australia',

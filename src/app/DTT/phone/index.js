@@ -18,22 +18,16 @@ import {
 } from '@chakra-ui/react'
 import { compose, map, pathOr } from 'ramda'
 import { faAngleDown, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
-import {
-  getCountryInfoFromCountryList,
-  getCountryObjectFromUserInput,
-  getPhoneMask,
-  getUserInputWithoutPlusSign,
-  prepareAnswer,
-} from './helpers'
 import { useEffect, useRef, useState } from 'react'
+import { useSelector } from 'react-redux'
+import debounce from 'lodash.debounce'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import InputMask from 'react-input-mask'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import AnswerAcknowledge from 'app/layouts/components/form/answer_acknowledge'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import InputMask from 'react-input-mask'
 import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
 import countryList from './helpers/country-list'
-import debounce from 'lodash.debounce'
 import { getIsInvalid } from 'utils/functions'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined'
 import phoneNumberFormatter from 'utils/formatters/phone-number'
@@ -42,7 +36,13 @@ import { useError } from 'utils/contexts/ErrorContext'
 import useGetFieldMessage from 'utils/fieldMessage'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
-import { useSelector } from 'react-redux'
+import {
+  getCountryInfoFromCountryList,
+  getCountryObjectFromUserInput,
+  getPhoneMask,
+  getUserInputWithoutPlusSign,
+  prepareAnswer,
+} from './helpers'
 
 const Write = ({
   questionCode,
@@ -165,6 +165,7 @@ const Write = ({
     let getSpecificCountryInfo = getCountryInfoFromCountryList(userInputWithoutPlusSign)
     let countryIcon = getSpecificCountryInfo('icon')
     !!countryIcon && setCountryFlag(countryIcon)
+    !!countryCode && setCountryCode(countryCode)
   }, [userInput])
 
   useEffect(() => {
