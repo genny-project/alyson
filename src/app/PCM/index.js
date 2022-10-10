@@ -13,17 +13,16 @@ const Pcm = ({ code, properties, depth }) => {
   const { PRI_TEMPLATE_CODE } = mappedPcm
   const template = templateHandlerMachine(mappedPcm)(PRI_TEMPLATE_CODE)(properties)(depth + 1)
 
-  if (isEmpty(mappedPcm) || !PRI_TEMPLATE_CODE || !template) {
-    if (!template) {
-      debugOut.warn(
-        `Falling back on default template for PCM: ${code} as template: ${PRI_TEMPLATE_CODE} could not be found!`,
-      )
-    }
-    if (isEmpty(mappedPcm) || !PRI_TEMPLATE_CODE) {
-      debugOut.warn(
-        `PCM with code ${code} is empty! Rendering default template! It is possible that the PCM has not arrived yet, or a PCM with this code does not exist`,
-      )
-    }
+  if (!template) {
+    debugOut.warn(
+      `Falling back on default template for PCM: ${code} as template: ${PRI_TEMPLATE_CODE} could not be found!`,
+    )
+  }
+
+  if (isEmpty(mappedPcm) || !PRI_TEMPLATE_CODE) {
+    debugOut.warn(
+      `PCM with code ${code} is empty! Rendering default template! It is possible that the PCM has not arrived yet, or a PCM with this code does not exist`,
+    )
   }
 
   return template
