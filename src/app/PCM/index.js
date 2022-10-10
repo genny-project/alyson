@@ -13,7 +13,7 @@ const Pcm = ({ code, properties, depth }) => {
   const depthPlusOne = addOne(depth)
   const mappedPcm = useGetMappedPcm(code)
   const { PRI_TEMPLATE_CODE: templateCode } = mappedPcm
-  const template = templateHandlerMachine(mappedPcm)(templateCode)(properties)(depthPlusOne)
+  const template = templateHandlerMachine(depthPlusOne)(mappedPcm)(templateCode)(properties)
 
   if (!template) {
     debugOut.warn(
