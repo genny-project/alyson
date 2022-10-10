@@ -23,6 +23,7 @@ export const mentors = 'Mentors'
 export const agents = 'Agents'
 export const lojing = 'lojing'
 export const projectCodeString = 'PROJECT'
+export const pcmKey = `PCMINFORMATION`
 
 export const alreadyRegisteredMsg = 'You have already registered!'
 export const mentorAlreadySelectedMsg = 'You have already selected a Mentor!'

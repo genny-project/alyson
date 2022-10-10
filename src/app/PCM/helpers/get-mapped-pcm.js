@@ -1,24 +1,25 @@
-import { find, equals, reduce } from 'ramda'
-
-import { selectCode } from 'redux/db/selectors'
+import { find, equals, reduce, compose } from 'ramda'
 import { useSelector } from 'react-redux'
 
-const reducePcm = unmappedPcm => {
+import { selectCode } from 'redux/db/selectors'
+import { pcmKey } from 'utils/constants'
+
+const getMappedPcm = pcmObject => {
   return reduce((acc, { attributeCode, valueString }) => {
     acc = { ...acc, [attributeCode]: valueString }
     return acc
-  }, {})(unmappedPcm || [])
+  }, {})(pcmObject || [])
 }
 
 const useGetMappedPcm = identifier => {
-  const allPcmCode = useSelector(selectCode(`PCMINFORMATION`)) || []
+  const allPcmCode = compose(useSelector, selectCode)(pcmKey) || []
   const individualPcmCode = find(equals(identifier))(allPcmCode)
 
   const individualPcm = useSelector(selectCode(individualPcmCode, 'allAttributes'), (left, right) =>
-    equals(reducePcm(left))(reducePcm(right)),
+    equals(getMappedPcm(left))(getMappedPcm(right)),
   )
 
-  const mappedPcm = reducePcm(individualPcm)
+  const mappedPcm = getMappedPcm(individualPcm)
 
   return mappedPcm
 }
