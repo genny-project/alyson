@@ -2,16 +2,16 @@ import { find, equals, compose } from 'ramda'
 import { useSelector } from 'react-redux'
 
 import { selectCode } from 'redux/db/selectors'
-import { pcmKey } from 'utils/constants'
+import { pcmKeyDefault } from 'utils/constants'
 import getMappedPcm from 'app/PCM/helpers/get-mapped-pcm-from-pcm-object'
 
-const useGetMappedPcm = identifier => {
+const useGetMappedPcm = (identifier, pcmKey = pcmKeyDefault, getterFn = getMappedPcm) => {
   const allPcmCode = compose(useSelector, selectCode)(pcmKey) || []
   const selectedPcmCode = find(equals(identifier))(allPcmCode)
   const selectedPcm = useSelector(selectCode(selectedPcmCode, 'allAttributes'), (left, right) =>
-    equals(getMappedPcm(left))(getMappedPcm(right)),
+    equals(getterFn(left))(getterFn(right)),
   )
-  return getMappedPcm(selectedPcm)
+  return getterFn(selectedPcm)
 }
 
 export default useGetMappedPcm
