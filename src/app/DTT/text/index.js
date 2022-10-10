@@ -81,19 +81,6 @@ export const Write = ({
   }, [data, setuserInput])
 
   useEffect(() => {
-    const listener = event => {
-      if (event.code === 'Enter' && !event.shiftKey) {
-        event.preventDefault()
-        inputRef.current.blur()
-      }
-    }
-    document.addEventListener('keydown', listener)
-    return () => {
-      document.removeEventListener('keydown', listener)
-    }
-  }, [])
-
-  useEffect(() => {
     isInvalid ? setErrorStatus(true) : setErrorStatus(false)
   }, [isInvalid, setErrorStatus])
 
