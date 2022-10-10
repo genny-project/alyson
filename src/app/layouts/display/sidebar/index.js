@@ -46,7 +46,6 @@ const SideBar = () => {
   if (isNotEmpty(mappedPcm) && templateHandlerMachine(mappedPcm)(code)(properties)) {
     return templateHandlerMachine(mappedPcm)(code)(properties)
   }
-  // console.error('Falling back on default template for ' + code + '!')
 
   return <DefaultTemplate {...properties} />
 }
