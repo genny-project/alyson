@@ -1,26 +1,17 @@
-import { find, equals, reduce } from 'ramda'
+import { find, equals, compose } from 'ramda'
+import { useSelector, shallowEqual } from 'react-redux'
 
 import { selectCode } from 'redux/db/selectors'
-import { useSelector } from 'react-redux'
+import { pcmKeyDefault } from 'utils/constants'
+import getMappedPcm from 'app/PCM/helpers/get-mapped-pcm-from-pcm-object'
 
-const reducePcm = unmappedPcm => {
-  return reduce((acc, { attributeCode, valueString }) => {
-    acc = { ...acc, [attributeCode]: valueString }
-    return acc
-  }, {})(unmappedPcm || [])
-}
-
-const useGetMappedPcm = identifier => {
-  const allPcmCode = useSelector(selectCode(`PCMINFORMATION`)) || []
-  const individualPcmCode = find(equals(identifier))(allPcmCode)
-
-  const individualPcm = useSelector(selectCode(individualPcmCode, 'allAttributes'), (left, right) =>
-    equals(reducePcm(left))(reducePcm(right)),
+const useGetMappedPcm = (code, pcmKey = pcmKeyDefault, getterFn = getMappedPcm) => {
+  const allPcmCode = compose(useSelector, selectCode)(pcmKey) || []
+  const selectedPcmCode = find(equals(code))(allPcmCode)
+  const selectedPcm = useSelector(selectCode(selectedPcmCode, 'allAttributes'), (prev, current) =>
+    shallowEqual(prev, current),
   )
-
-  const mappedPcm = reducePcm(individualPcm)
-
-  return mappedPcm
+  return getterFn(selectedPcm)
 }
 
 export default useGetMappedPcm
