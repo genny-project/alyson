@@ -8,6 +8,7 @@ import { Button } from '@chakra-ui/button'
 import Card from 'app/layouts/components/card'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Process from 'app/layouts/process'
+import { equals } from 'ramda'
 import { useColorModeValue } from '@chakra-ui/color-mode'
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
@@ -18,84 +19,35 @@ const HostCompanyRep = ({ userCode }) => {
   )
   const companyCode = useSelector(selectCode('COMPANY'))
   const validation = useSelector(selectCode(companyCode, 'PRI_VALIDATION'))
-  const hcValidation = useSelector(selectCode(companyCode, 'PRI_HC_VALIDATION_DOC_URL')) || ''
-  const hcValidationUrl = hcValidation?.value
 
-  const digitalJobsAgreement = useSelector(selectCode(companyCode, 'LNK_VIC_GOV_DIGITAL_JOBS'))
-    ?.value
-  const digitalJobsAgreementValidation = useSelector(
-    selectCode(companyCode, 'PRI_DJP_DOCUMENT_ACCEPTED'),
-  )?.value
+  const hasOHSDoc = useSelector(selectCode(companyCode, 'PRI_DOC_OHS'))?.value
+  const OHSDocStatus = useSelector(selectCode(companyCode, 'PRI_DOC_OHS_STATUS'))?.value
+  const isOHSDocAgreed = equals(OHSDocStatus)('Complete')
 
-  const ohs =
-    validation?.value === 'OHS' ||
-    validation?.value === 'Ready' ||
-    validation?.value === 'Validated' ? (
+  const hasDJPDoc = useSelector(selectCode(companyCode, 'PRI_DOC_DJP'))?.value
+  const DJPDocStatus = useSelector(selectCode(companyCode, 'PRI_DOC_DJP_STATUS'))?.value
+  const isDJPDocAgreed = equals(DJPDocStatus)('Complete')
+
+  const hasHCSDoc = useSelector(selectCode(companyCode, 'PRI_DOC_OHS'))?.value
+  const HCSDocStatus = useSelector(selectCode(companyCode, 'PRI_DOC_OHS_STATUS'))?.value
+  const isHCSDocAgreed = equals(HCSDocStatus)('Complete')
+
+  const hasHCRIDoc = useSelector(selectCode(companyCode, 'PRI_DOC_HCRI'))?.value
+  const HCRIDocStatus = useSelector(selectCode(companyCode, 'PRI_DOC_HCRI_STATUS'))?.value
+  const isHCRIDocAgreed = equals(HCRIDocStatus)('Complete')
+
+  const DocButtons = ({ actionCode = '', buttonName = '', icon = faEdit, colorScheme = 'red' }) => {
+    return (
       <Button
         size="sm"
-        onClick={() => onSendMessage({ targetCode: companyCode, code: 'ACT_OHS_DOC' })}
-        leftIcon={<FontAwesomeIcon icon={faDownload} />}
+        leftIcon={<FontAwesomeIcon icon={icon} />}
+        onClick={() => onSendMessage({ targetCode: companyCode, code: actionCode })}
+        colorScheme={colorScheme}
       >
-        {`OH&S Declaration`}
-      </Button>
-    ) : (
-      <Button
-        size="sm"
-        colorScheme="red"
-        onClick={() => onSendMessage({ targetCode: companyCode, code: 'ACT_OHS_DOC' })}
-        leftIcon={<FontAwesomeIcon icon={faEdit} />}
-      >
-        {`OH&S Declaration`}
+        {buttonName}
       </Button>
     )
-
-  const hcs =
-    validation?.value === 'HCS' ||
-    validation?.value === 'Ready' ||
-    validation?.value === 'Validated' ? (
-      <Button
-        size="sm"
-        leftIcon={<FontAwesomeIcon icon={faDownload} />}
-        onClick={() => onSendMessage({ targetCode: companyCode, code: 'ACT_HCS_DOC' })}
-      >
-        Host Company Placement Agreement
-      </Button>
-    ) : (
-      <Button
-        size="sm"
-        colorScheme="red"
-        leftIcon={<FontAwesomeIcon icon={faEdit} />}
-        onClick={() => onSendMessage({ targetCode: companyCode, code: 'ACT_HCS_DOC' })}
-      >
-        Host Company Placement Agreement
-      </Button>
-    )
-
-  const hcValidationButton = !!hcValidationUrl && (
-    <Button
-      size="sm"
-      onClick={() => window.open(hcValidationUrl)}
-      leftIcon={<FontAwesomeIcon icon={faDownload} />}
-      display={'none'}
-    >
-      {`Host Company Validation`}
-    </Button>
-  )
-
-  const digitalJobsButton = digitalJobsAgreement === 'true' && (
-    <Button
-      size="sm"
-      onClick={() => onSendMessage({ targetCode: companyCode, code: 'ACT_DJP_DOC' })}
-      leftIcon={<FontAwesomeIcon icon={digitalJobsAgreementValidation ? faDownload : faEdit} />}
-      colorScheme={digitalJobsAgreementValidation ? 'gray' : 'red'}
-      whiteSpace={'normal'}
-      paddingBlock={1}
-      height={'auto'}
-      alignItems={'flex-start'}
-    >
-      <Text as="span">{`Digital Jobs Program Host Employer Subsidy Agreement`}</Text>
-    </Button>
-  )
+  }
 
   const documents = (
     <Card variant="card0" w={'25rem'}>
@@ -110,10 +62,39 @@ const HostCompanyRep = ({ userCode }) => {
             <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
           )}
         </HStack>
-        {ohs}
-        {hcs}
-        {hcValidationButton}
-        {digitalJobsButton}
+
+        {hasOHSDoc && (
+          <DocButtons
+            actionCode="ACT_OHS_DOC"
+            buttonName="OH&S Declaration"
+            icon={isOHSDocAgreed ? faDownload : faEdit}
+            colorScheme={isOHSDocAgreed ? 'green' : 'red'}
+          />
+        )}
+        {hasHCSDoc && (
+          <DocButtons
+            actionCode="ACT_HCS_DOC"
+            buttonName="Host Company Placement Agreement"
+            icon={isHCSDocAgreed ? faDownload : faEdit}
+            colorScheme={isHCSDocAgreed ? 'green' : 'red'}
+          />
+        )}
+        {hasDJPDoc && (
+          <DocButtons
+            actionCode="ACT_DJP_DOC"
+            buttonName="Digital Jobs Program Host Employer Subsidy Agreement"
+            icon={isDJPDocAgreed ? faDownload : faEdit}
+            colorScheme={isDJPDocAgreed ? 'green' : 'red'}
+          />
+        )}
+        {hasHCRIDoc && (
+          <DocButtons
+            actionCode="ACT_HCRI_DOC"
+            buttonName="Host Company Remote Internship"
+            icon={isHCRIDocAgreed ? faDownload : faEdit}
+            colorScheme={isHCRIDocAgreed ? 'green' : 'red'}
+          />
+        )}
       </VStack>
     </Card>
   )
