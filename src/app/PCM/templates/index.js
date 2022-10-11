@@ -76,22 +76,19 @@ const templateHandlerMachine = depth => mappedPcm => templateCode => properties 
     ),
   }
 
-  const hasNotGotTemplate = hasNot(templateCode)(listOfTemplates)
+  let noMatchingTemplates = hasNot(templateCode)(listOfTemplates)
+  const defaultTemplate = <TemplateDefault {...properties} />
+  let matchingTemplate = listOfTemplates[templateCode]
+  let template = noMatchingTemplates ? defaultTemplate : matchingTemplate
 
-  if (hasNotGotTemplate) {
+  if (noMatchingTemplates) {
     debugOut.warn(`No template exists for code: ${templateCode}! Falling back on default tempalte!`)
   }
-
-  const template = hasNotGotTemplate ? (
-    <TemplateDefault {...properties} />
-  ) : (
-    listOfTemplates[templateCode]
-  )
 
   return showTemplateNames ? (
     <Box>
       <Text>
-        {hasNotGotTemplate ? `TPL_DEFAULT (Couldn't find ${templateCode})` : templateCode}
+        {noMatchingTemplates ? `TPL_DEFAULT (Couldn't find ${templateCode})` : templateCode}
       </Text>
       <Box border="solid 2px red">{template}</Box>
     </Box>
