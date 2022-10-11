@@ -117,9 +117,14 @@ const Write = ({
     console.error('There is an error with the regex', questionCode, err)
     regex = undefined
   }
-
   useEffect(() => {
     userInput ? setIsFocused(true) : setIsFocused(false)
+    retrySendingAnswerRef.current = 0
+    setSelectedFromDropdown(false)
+    let countryIcon = getSpecificCountryInfo('icon')
+    !!countryIcon && setCountryFlag(countryIcon)
+    let { icon: countryFlagFromUserInput } = countryObjectFromUserInput || ''
+    !!countryFlagFromUserInput ? setCountryFlag(countryFlagFromUserInput) : setCountryFlag('Code')
   }, [userInput])
 
   useEffect(() => {
@@ -147,22 +152,8 @@ const Write = ({
   }, [ackMessageValue, debouncedSendAnswer, errorStatus, userInput])
 
   useEffect(() => {
-    retrySendingAnswerRef.current = 0
-  }, [userInput])
-
-  useEffect(() => {
     phoneMask.current = getPhoneMask(countryCode)(selectedFromDropdown)
   }, [countryFlag, countryCode, userInput])
-
-  useEffect(() => {
-    userInput ? setIsFocused(true) : setIsFocused(false)
-    retrySendingAnswerRef.current = 0
-    setSelectedFromDropdown(false)
-    let countryIcon = getSpecificCountryInfo('icon')
-    !!countryIcon && setCountryFlag(countryIcon)
-    let { icon: countryFlagFromUserInput } = countryObjectFromUserInput || ''
-    !!countryFlagFromUserInput ? setCountryFlag(countryFlagFromUserInput) : setCountryFlag('Code')
-  }, [userInput])
 
   useEffect(() => {
     countryFlag && selectedFromDropdown && setuserInput(`+${countryCode}`)
