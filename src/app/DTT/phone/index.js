@@ -172,13 +172,6 @@ const Write = ({
     !!countryCodeFromUserInput ? setCountryCode(countryCodeFromUserInput) : setCountryCode('')
   }, [countryCode, countryFlag])
 
-  useEffect(() => {
-    let countryObject = getCountryObjectFromUserInput(userInput)
-    let countryObjectFromUserInput = pathOr('undefined', [0])(countryObject)
-    let { icon: countryFlagFromUserInput } = countryObjectFromUserInput || ''
-    !!countryFlagFromUserInput ? setCountryFlag(countryFlagFromUserInput) : setCountryFlag('Code')
-  }, [userInput])
-
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
       <HStack
