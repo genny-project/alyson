@@ -27,6 +27,7 @@ import hasNot from 'utils/helpers/has-not.js'
 import TemplateDetailView from './tpl-detail-view'
 import showTemplateNames from 'utils/helpers/show-template-names'
 import { Box, Text } from '@chakra-ui/react'
+import TemplatePopup from './tpl_popup'
 
 /**
  * Takes in a mappedPcm, a templateCode and some misc properties and returns a template component.
@@ -74,6 +75,7 @@ const templateHandlerMachine = depth => mappedPcm => templateCode => properties 
     TPL_APPLICATION_DETAIL_VIEW: (
       <TemplateApplicationDetailView mappedPcm={mappedPcm} depth={depth} {...properties} />
     ),
+    TPL_POPUP: <TemplatePopup mappedPcm={mappedPcm} depth={depth} {...properties} />,
   }
 
   let noMatchingTemplates = hasNot(templateCode)(listOfTemplates)
