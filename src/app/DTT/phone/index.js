@@ -18,7 +18,7 @@ import {
 } from '@chakra-ui/react'
 import { compose, map, pathOr } from 'ramda'
 import { faAngleDown, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import debounce from 'lodash.debounce'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -89,6 +89,14 @@ const Write = ({
   const ackMessageValue = ackMessageObject?.[questionCode] || ''
   const sendAnswer = compose(debouncedSendAnswer, prepareAnswer)
 
+  let countryObject = useMemo(() => getCountryObjectFromUserInput(userInput), [userInput])
+  let countryObjectFromUserInput = pathOr('undefined', [0])(countryObject)
+  let userInputWithoutPlusSign = getUserInputWithoutPlusSign(userInput)
+  let getSpecificCountryInfo = useMemo(
+    () => getCountryInfoFromCountryList(userInputWithoutPlusSign),
+    [userInputWithoutPlusSign],
+  )
+
   const onBlur = e => {
     e.target.value ? setIsFocused(true) : setIsFocused(false)
     !errorStatus && sendAnswer(userInput)
@@ -147,11 +155,13 @@ const Write = ({
   }, [countryFlag, countryCode, userInput])
 
   useEffect(() => {
+    userInput ? setIsFocused(true) : setIsFocused(false)
+    retrySendingAnswerRef.current = 0
     setSelectedFromDropdown(false)
-    let userInputWithoutPlusSign = getUserInputWithoutPlusSign(userInput)
-    let getSpecificCountryInfo = getCountryInfoFromCountryList(userInputWithoutPlusSign)
     let countryIcon = getSpecificCountryInfo('icon')
     !!countryIcon && setCountryFlag(countryIcon)
+    let { icon: countryFlagFromUserInput } = countryObjectFromUserInput || ''
+    !!countryFlagFromUserInput ? setCountryFlag(countryFlagFromUserInput) : setCountryFlag('Code')
   }, [userInput])
 
   useEffect(() => {
