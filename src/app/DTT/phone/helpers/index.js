@@ -29,7 +29,7 @@ const getCountryInfo = countryList => countryCode => requiredInfo => {
 
 export const getCountryInfoFromCountryList = getCountryInfo(countryList)
 
-const getCountryObjectFromExistingUserInput = countryList => userInput => {
+export const getCountryObjectFromExistingUserInput = countryList => userInput => {
   const initialInput = compose(head, splitAt(4))(userInput)
   return reduce((acc, countryObject) => {
     let { code } = countryObject
