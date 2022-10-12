@@ -9,8 +9,7 @@ import { NonPcmPcmFieldProps } from 'app/PCM/components/pcm-field/types'
 
 const NonPcmPcmField: React.FC<NonPcmPcmFieldProps> = (props): JSX.Element => {
   const { prefix, child, code, mappedPcm, config } = props
-
-  const questionGroupCode = mappedPcm.PRI_QUESTION_CODE || ''
+  const questionGroupCode = mappedPcm?.PRI_QUESTION_CODE || ''
   const ask = getAskFromAttribute(questionGroupCode)(code)
 
   if (isEmpty(ask)) {
