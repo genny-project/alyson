@@ -39,7 +39,6 @@ import useProductColors from 'utils/productColors'
 import {
   getCountryInfoFromCountryList,
   getCountryObjectFromUserInput,
-  getPhoneMask,
   getUserInputWithoutPlusSign,
   prepareAnswer,
 } from './helpers'
@@ -56,14 +55,12 @@ const Write = ({
   inputmask,
 }) => {
   let regex
-  let phoneMask = useRef(inputmask)
-  const mask = phoneMask?.current
+  const mask = `99999999999`
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value || '')
   const [isFocused, setIsFocused] = useState(false)
   const [countryCode, setCountryCode] = useState(null)
   const [countryFlag, setCountryFlag] = useState(null)
-  const [selectedFromDropdown, setSelectedFromDropdown] = useState(false)
   const inputRef = useRef()
   const retrySendingAnswerRef = useRef(0)
 
@@ -90,7 +87,12 @@ const Write = ({
   const sendAnswer = compose(debouncedSendAnswer, prepareAnswer)
 
   let countryObject = useMemo(() => getCountryObjectFromUserInput(userInput), [userInput])
-  let countryObjectFromUserInput = pathOr('undefined', [0])(countryObject)
+  let countryObjectFromUserInput = pathOr({}, [0])(countryObject)
+
+  let { code, icon } = countryObjectFromUserInput
+  let countryCodeFromUserInput = !!code ? code : ''
+  let countryFlagFromUserInput = !!icon ? icon : ''
+
   let userInputWithoutPlusSign = getUserInputWithoutPlusSign(userInput)
   let getSpecificCountryInfo = useMemo(
     () => getCountryInfoFromCountryList(userInputWithoutPlusSign),
@@ -104,10 +106,9 @@ const Write = ({
   }
 
   const handleSelectCountry = (code, icon) => {
-    setSelectedFromDropdown(true)
     setCountryCode(code)
     setCountryFlag(icon)
-    setuserInput(`+ ${code}`)
+    setuserInput(code)
   }
 
   try {
@@ -117,13 +118,12 @@ const Write = ({
     console.error('There is an error with the regex', questionCode, err)
     regex = undefined
   }
+
   useEffect(() => {
     userInput ? setIsFocused(true) : setIsFocused(false)
     retrySendingAnswerRef.current = 0
-    setSelectedFromDropdown(false)
     let countryIcon = getSpecificCountryInfo('icon')
     !!countryIcon && setCountryFlag(countryIcon)
-    let { icon: countryFlagFromUserInput } = countryObjectFromUserInput || ''
     !!countryFlagFromUserInput ? setCountryFlag(countryFlagFromUserInput) : setCountryFlag('Code')
   }, [userInput])
 
@@ -152,14 +152,6 @@ const Write = ({
   }, [ackMessageValue, debouncedSendAnswer, errorStatus, userInput])
 
   useEffect(() => {
-    phoneMask.current = getPhoneMask(countryCode)(selectedFromDropdown)
-  }, [countryFlag, countryCode, userInput])
-
-  useEffect(() => {
-    countryFlag && selectedFromDropdown && setuserInput(`+${countryCode}`)
-    let countryObject = getCountryObjectFromUserInput(userInput)
-    let countryObjectFromUserInput = pathOr('undefined', [0])(countryObject)
-    let { code: countryCodeFromUserInput } = countryObjectFromUserInput || ''
     !!countryCodeFromUserInput ? setCountryCode(countryCodeFromUserInput) : setCountryCode('')
   }, [countryCode, countryFlag])
 
