@@ -40,7 +40,11 @@ const TemplatePopup = ({ mappedPcm, depth, ...properties }) => {
             variant: 'outline',
           }}
         >
-          <PcmField code={PRI_LOC1} mappedPcm={mappedPcm} depth={depth} />
+          {!!PRI_LOC1 ? (
+            <PcmField code={PRI_LOC1} mappedPcm={mappedPcm} depth={depth} />
+          ) : (
+            mappedPcm.code
+          )}
         </Button>
       </PopoverTrigger>
       <PopoverContent>
