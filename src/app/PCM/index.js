@@ -7,7 +7,7 @@ import templateHandlerMachine from 'app/PCM/templates'
 import useGetMappedPcm from './helpers/get-mapped-pcm'
 import addOne from 'utils/helpers/add-one'
 import debugOut from 'utils/debug-out'
-
+import { maxRecursiveDepth } from 'utils/constants'
 /**
  * Given a Pcm Code `code`, will attempt to render a PCM template based on
  * `PRI_TEMPLATE_CODE`, using the pcm stored at `code` in the redux store.
@@ -31,7 +31,7 @@ const Pcm = ({ code, properties, depth }) => {
     )
   }
 
-  if (depth > 1) {
+  if (depth > maxRecursiveDepth) {
     return (
       <VStack>
         <FontAwesomeIcon color="red" icon={faExclamationTriangle} />
@@ -39,8 +39,6 @@ const Pcm = ({ code, properties, depth }) => {
       </VStack>
     )
   }
-
-  console.log('depth------>', { depth, code })
 
   return template
 }
