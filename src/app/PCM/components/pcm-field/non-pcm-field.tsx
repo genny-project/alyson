@@ -6,6 +6,7 @@ import React from 'react'
 import debugOut from 'utils/debug-out'
 import getAskFromAttribute from 'app/PCM/helpers/get-ask-from-attribute'
 import { NonPcmPcmFieldProps } from 'app/PCM/components/pcm-field/types'
+import showTemplateNames from 'utils/helpers/show-template-names'
 
 const NonPcmPcmField: React.FC<NonPcmPcmFieldProps> = (props): JSX.Element => {
   const { prefix, child, code, mappedPcm, config } = props
@@ -15,7 +16,7 @@ const NonPcmPcmField: React.FC<NonPcmPcmFieldProps> = (props): JSX.Element => {
 
   if (isEmpty(ask)) {
     debugOut.error(`NonPcmPcmField got an empty ask for ${props.code}! Returning a blank div`)
-    return <div />
+    return showTemplateNames ? <div>Empty ask for ${props.code}</div> : <div />
   }
 
   const isEvt = equals(prefix, 'EVT')

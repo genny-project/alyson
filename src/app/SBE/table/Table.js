@@ -18,7 +18,7 @@ import { useIsMobile } from 'utils/hooks'
 import TableSearch from 'app/SBE/table/TableSearch'
 import { tableSearchCode } from 'utils/constants'
 
-const DataTable = ({ parentCode, mapSearch }) => {
+const DataTable = ({ parentCode, mapSearch, passedComponents = [] }) => {
   const tableData = useSelector(selectCode(parentCode))
   const bgColor = useColorModeValue('white', 'gray.700')
   const isMobile = useIsMobile()
@@ -42,8 +42,13 @@ const DataTable = ({ parentCode, mapSearch }) => {
           w={'full'}
         >
           <Title sbeCode={parentCode} />
-          <TableSearch tableSearchCode={tableSearchCode} />
-          <Filters sbeCode={parentCode} />
+          {/* <TableSearch tableSearchCode={tableSearchCode} />
+          <Filters sbeCode={parentCode} /> */}
+
+          {passedComponents.map((component, index) => (
+            <Box key={`TABLE-${parentCode}-CHILD-${index}`}>{component}</Box>
+          ))}
+
           <Download sbeCode={parentCode} />
         </Stack>
         <Pagination sbeCode={parentCode} />

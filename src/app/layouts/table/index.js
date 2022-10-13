@@ -7,7 +7,7 @@ import { selectCode } from 'redux/db/selectors'
 import { selectTable } from 'redux/app/selectors'
 import { useSelector } from 'react-redux'
 
-const TableWrapper = ({ mapSearch }) => {
+const TableWrapper = ({ mapSearch, passedComponents = [] }) => {
   const table = useSelector(selectTable)
   const userCode = useSelector(selectCode('USER'))
   const userType = getUserType(useSelector(selectCode(userCode)))
@@ -19,7 +19,7 @@ const TableWrapper = ({ mapSearch }) => {
 
   if (includes('_JNLS_', table) || includes('_LOGBOOK_', table)) return <Journals sbeCode={table} />
 
-  return <Table parentCode={table} mapSearch={mapSearch} />
+  return <Table parentCode={table} mapSearch={mapSearch} passedComponents={passedComponents} />
 }
 
 export default TableWrapper
