@@ -1,8 +1,12 @@
-import debugOut from 'utils/debug-out'
 import { isEmpty } from 'ramda'
+import { VStack, Text } from '@chakra-ui/react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
+
 import templateHandlerMachine from 'app/PCM/templates'
 import useGetMappedPcm from './helpers/get-mapped-pcm'
 import addOne from 'utils/helpers/add-one'
+import debugOut from 'utils/debug-out'
 
 /**
  * Given a Pcm Code `code`, will attempt to render a PCM template based on
@@ -26,6 +30,17 @@ const Pcm = ({ code, properties, depth }) => {
       `PCM with code ${code} is empty! Rendering default template! It is possible that the PCM has not arrived yet, or a PCM with this code does not exist`,
     )
   }
+
+  if (depth > 1) {
+    return (
+      <VStack>
+        <FontAwesomeIcon color="red" icon={faExclamationTriangle} />
+        <Text>{`Maxiumum Recursive Depth Exceeded!`}</Text>
+      </VStack>
+    )
+  }
+
+  console.log('depth------>', { depth, code })
 
   return template
 }
