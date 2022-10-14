@@ -15,11 +15,10 @@ import TemplateProcess from './tpl-process'
 import TemplateProgressBar from 'app/PCM/templates/tpl-progress-bar'
 import TemplatePropertyDetailView from './tpl-detail-view/tpl-property-detail-view'
 import TemplateRoot from 'app/PCM/templates/tpl-root'
-import TemplateSidebarOne from 'app/PCM/templates/sidebar/tpl-sidebar-one'
+import TemplateSidebarOne from 'app/PCM/templates/tpl-sidebar-one'
 import TemplateTable from './tpl-table'
 import TemplateText from './text-templates'
 import TemplateVert from 'app/PCM/templates/tpl-vert'
-import TemplateWest from 'app/PCM/templates/sidebar/tpl-west'
 import debugOut from 'utils/debug-out'
 import hasNot from 'utils/helpers/has-not.js'
 import TemplateDetailView from './tpl-detail-view'
@@ -36,7 +35,6 @@ import TemplatePopup from './tpl_popup'
 const templateHandlerMachine = depth => mappedPcm => templateCode => properties => {
   const listOfTemplates = {
     TPL_DEFAULT: <TemplateDefault {...properties} />,
-    TPL_WEST: <TemplateWest mappedPcm={mappedPcm} depth={depth} {...properties} />,
     TPL_ROOT: <TemplateRoot mappedPcm={mappedPcm} depth={depth} {...properties} />,
     TPL_SIDEBAR_1: <TemplateSidebarOne mappedPcm={mappedPcm} depth={depth} {...properties} />,
     TPL_VERT: <TemplateVert mappedPcm={mappedPcm} depth={depth} {...properties} />,
