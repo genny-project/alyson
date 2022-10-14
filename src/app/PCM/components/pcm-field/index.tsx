@@ -13,8 +13,10 @@ const PcmField: React.FC<PcmFieldProps> = ({
   config,
   depth,
 }): JSX.Element => {
+  let prefixCode
+  prefixCode = code ?? ''
   const pcm = 'PCM'
-  const prefix: any = getPrefixFromCode(code) || 'NONE'
+  const prefix: any = getPrefixFromCode(prefixCode) || 'NONE'
   const isPrefixPcm = equals(prefix)(pcm)
 
   return isPrefixPcm ? (

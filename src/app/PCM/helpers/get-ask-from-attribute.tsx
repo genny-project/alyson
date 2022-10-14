@@ -12,7 +12,7 @@ const getAskFromAttribute = (questionGroupCode: string) => (attributeCode: strin
   let isWholeObjectListFalsy = !wholeObjectList || isEmpty(wholeObjectList)
   let matchingObjectBasedOnAttributeCode = find((individualObject: any) =>
     equals(individualObject?.attributeCode)(attributeCode),
-  )(wholeObjectList)
+  )(wholeObjectList || [])
 
   if (isWholeObjectListFalsy) {
     debugOut.error(`Got empty from ${questionGroupCode}@wholeData!`)
