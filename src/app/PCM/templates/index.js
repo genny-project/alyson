@@ -32,10 +32,11 @@ import TemplatePopup from './tpl_popup'
  * If the template does not exist, it will return the default template
  *
  */
-const templateHandlerMachine = depth => mappedPcm => templateCode => rest => {
+const templateHandlerMachine = depth => mappedPcm => templateCode => parentCode => rest => {
   const mandatoryProps = {
     mappedPcm,
     depth,
+    parentCode,
     ...rest,
   }
 
