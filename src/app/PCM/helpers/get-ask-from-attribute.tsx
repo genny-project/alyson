@@ -1,8 +1,6 @@
-import { find, isEmpty } from 'ramda'
-import { useSelector } from 'react-redux'
-import { selectCode } from 'redux/db/selectors'
+import { equals, find, isEmpty } from 'ramda'
 import debugOut from 'utils/debug-out'
-
+import getAssociatedObjectListFromQuestionGroup from 'app/PCM/helpers/get-whole-data-from-question-group'
 /**
  * Takes in a questionGroupCode and an attributeCode, and returns an Ask and Question object for the Question in that question group
  * with the given attribute
@@ -10,14 +8,17 @@ import debugOut from 'utils/debug-out'
  * @returns
  */
 const getAskFromAttribute = (questionGroupCode: string) => (attributeCode: string) => {
-  const wholeData = useSelector(selectCode(questionGroupCode, 'wholeData'))
+  let wholeObjectList = getAssociatedObjectListFromQuestionGroup(questionGroupCode)('wholeData')
+  let isWholeObjectListFalsy = !wholeObjectList || isEmpty(wholeObjectList)
+  let matchingObjectBasedOnAttributeCode = find((individualObject: any) =>
+    equals(individualObject?.attributeCode)(attributeCode),
+  )(wholeObjectList)
 
-  if (!wholeData || isEmpty(wholeData)) {
+  if (isWholeObjectListFalsy) {
     debugOut.error(`Got empty from ${questionGroupCode}@wholeData!`)
-    return {}
   }
 
-  return find((a: any) => a.attributeCode === attributeCode)(wholeData)
+  return isWholeObjectListFalsy ? {} : matchingObjectBasedOnAttributeCode
 }
 
 export default getAskFromAttribute

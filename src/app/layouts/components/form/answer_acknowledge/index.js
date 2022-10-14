@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { maxNumberOfRetries, ACKMESSAGEKEY } from 'utils/constants'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
 import { selectCode } from 'redux/db/selectors'
+import { compose } from 'ramda'
 
 const AnswerAcknowledge = ({
   failedValidation,
@@ -12,7 +13,8 @@ const AnswerAcknowledge = ({
   retrySendingAnswerRef,
   questionCode,
 }) => {
-  const ackMessageObject = useSelector(selectCode(ACKMESSAGEKEY))
+  const ackMessageObject = compose(useSelector, selectCode)(ACKMESSAGEKEY)
+
   const ackMessageValue = ackMessageObject?.[questionCode] || ''
 
   return !failedValidation && userInput && isNotStringifiedEmptyArray(userInput) ? (

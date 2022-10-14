@@ -8,6 +8,7 @@ export const LOGO_WIDTH = '120px'
 export const LOGO_WIDTH_SM = '100px'
 export const ACKMESSAGEKEY = 'ACKMESSAGE'
 export const maxNumberOfRetries = 5
+export const maxRecursiveDepth = 50
 
 export const tableSearchCode = 'QUE_TABLE_FILTER_GRP'
 export const complete = 'COMPLETE'
