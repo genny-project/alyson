@@ -1,10 +1,8 @@
 import { useSelector } from 'react-redux'
 import { selectDisplay } from 'redux/app/selectors'
 import Dashboard from 'app/layouts/dashboard'
-import Detail from 'app/SBE/detail'
 import DisplayForm from 'app/layouts/detail-and-form'
 import Form from 'app/layouts/form'
-import Notes from 'app/NOTE'
 import Process from 'app/layouts/process'
 import Table from 'app/layouts/table'
 import { includes } from 'ramda'
@@ -24,9 +22,7 @@ const TemplateDisplay = ({ depth, ...props }) => {
       {display === 'PROCESS' && <Process />}
       {display === 'VIEW:ASK' && <DisplayForm />}
       {includes('FORM', display || '') && <Form />}
-      {display === 'DETAIL' && <Detail />}
       {display === 'MAP' && <Table />}
-      {display === 'NOTES' && <Notes />}
     </>
   )
 }
