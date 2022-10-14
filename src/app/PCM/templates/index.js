@@ -7,12 +7,10 @@ import TemplateContent from './tpl-content'
 import TemplateDefault from 'app/PCM/templates/tpl-default'
 import TemplateDisplay from 'app/PCM/templates/tpl-display'
 import TemplateForm from 'app/PCM/templates/tpl-form'
-import TemplateHeader from 'app/PCM/templates/navigation/tpl-header'
+import TemplateHeader from 'app/PCM/templates/tpl-header'
 import TemplateHori from 'app/PCM/templates/tpl-hori'
 import TemplateHorizontalCards from './tpl_horizontal_cards'
 import TemplateLogo from 'app/PCM/templates/tpl-logo'
-import TemplateLojingHeader from 'app/PCM/templates/tpl-lojing-header'
-import TemplateNorth from 'app/PCM/templates/navigation/tpl-north'
 import TemplateProcess from './tpl-process'
 import TemplateProgressBar from 'app/PCM/templates/tpl-progress-bar'
 import TemplatePropertyDetailView from './tpl-detail-view/tpl-property-detail-view'
@@ -38,7 +36,6 @@ import TemplatePopup from './tpl_popup'
 const templateHandlerMachine = depth => mappedPcm => templateCode => properties => {
   const listOfTemplates = {
     TPL_DEFAULT: <TemplateDefault {...properties} />,
-    TPL_NORTH: <TemplateNorth mappedPcm={mappedPcm} depth={depth} {...properties} />,
     TPL_WEST: <TemplateWest mappedPcm={mappedPcm} depth={depth} {...properties} />,
     TPL_ROOT: <TemplateRoot mappedPcm={mappedPcm} depth={depth} {...properties} />,
     TPL_SIDEBAR_1: <TemplateSidebarOne mappedPcm={mappedPcm} depth={depth} {...properties} />,
@@ -48,7 +45,6 @@ const templateHandlerMachine = depth => mappedPcm => templateCode => properties 
     TPL_DISPLAY: <TemplateDisplay mappedPcm={mappedPcm} depth={depth} {...properties} />,
     TPL_LOGO: <TemplateLogo mappedPcm={mappedPcm} depth={depth} {...properties} />,
     TPL_PROGRESS_BAR: <TemplateProgressBar mappedPcm={mappedPcm} depth={depth} {...properties} />,
-    TPL_LOJING_HEADER: <TemplateLojingHeader mappedPcm={mappedPcm} depth={depth} {...properties} />,
     TPL_FORM: <TemplateForm mappedPcm={mappedPcm} depth={depth} {...properties} />,
     TPL_TABLE: <TemplateTable mappedPcm={mappedPcm} depth={depth} {...properties} />,
     TPL_CONTENT: <TemplateContent mappedPcm={mappedPcm} depth={depth} {...properties} />,
