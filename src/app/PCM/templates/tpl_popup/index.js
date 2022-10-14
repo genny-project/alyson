@@ -9,7 +9,7 @@ import {
 import PcmField from 'app/PCM/components/pcm-field'
 import useProductColors from 'utils/productColors'
 
-const TemplatePopup = ({ mappedPcm, depth, ...properties }) => {
+const TemplatePopup = ({ mappedPcm, depth }) => {
   const { PRI_LOC1, PRI_LOC2 } = mappedPcm
 
   const theme = useTheme()
