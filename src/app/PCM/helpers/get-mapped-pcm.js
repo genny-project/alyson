@@ -11,6 +11,7 @@ const useGetMappedPcm = (code, pcmKey = pcmKeyDefault, getterFn = getMappedPcm) 
   const selectedPcm = useSelector(selectCode(selectedPcmCode, 'allAttributes'), (prev, current) =>
     shallowEqual(prev, current),
   )
+
   return getterFn(selectedPcm)
 }
 

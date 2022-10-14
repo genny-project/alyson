@@ -25,6 +25,7 @@ export const agents = 'Agents'
 export const lojing = 'lojing'
 export const projectCodeString = 'PROJECT'
 export const pcmKeyDefault = `PCMINFORMATION`
+export const tableSbeLocation = 'PRI_LOC1'
 
 export const alreadyRegisteredMsg = 'You have already registered!'
 export const mentorAlreadySelectedMsg = 'You have already selected a Mentor!'
