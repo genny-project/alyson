@@ -55,21 +55,21 @@ const useProductColors = () => {
   const clientId = apiConfig?.clientId
   const theme = useTheme()
 
-  const fieldBackgroundColor = fieldBackgroundColors[clientId] || theme.colors.background.light
-  const fieldBorderColor = fieldBorderColors[clientId] || theme.colors.gray['600']
-  const fieldTextColor = fieldTextColors[clientId] || theme.colors.gray['700']
+  const fieldBackgroundColor = fieldBackgroundColors[clientId] || theme?.colors?.background?.light
+  const fieldBorderColor = fieldBorderColors[clientId] || theme?.colors?.gray['600']
+  const fieldTextColor = fieldTextColors[clientId] || theme?.colors?.gray['700']
 
-  const fieldHoverBackgroundColor = fieldHoverBackgroundColors[clientId] || theme.colors.primary
-  const fieldHoverBorderColor = fieldHoverBorderColors[clientId] || theme.colors.gray['600']
-  const fieldHoverTextColor = fieldHoverTextColors[clientId] || theme.colors.text.dark
+  const fieldHoverBackgroundColor = fieldHoverBackgroundColors[clientId] || theme?.colors?.primary
+  const fieldHoverBorderColor = fieldHoverBorderColors[clientId] || theme?.colors?.gray['600']
+  const fieldHoverTextColor = fieldHoverTextColors[clientId] || theme?.colors?.text?.dark
 
-  const labelTextColor = labelTextColors[clientId] || theme.colors.gray['600']
+  const labelTextColor = labelTextColors[clientId] || theme?.colors?.gray['600']
   const borderRadius = borderRadiuses[clientId] || '0.5rem'
 
-  const buttonBackgroundColor = buttonBackgroundColors[clientId] || theme.colors.primary
-  const dropZoneTextHoverColor = dropZoneTextHoverColors[clientId] || theme.colors.text.dark
+  const buttonBackgroundColor = buttonBackgroundColors[clientId] || theme?.colors?.primary
+  const dropZoneTextHoverColor = dropZoneTextHoverColors[clientId] || theme?.colors?.text?.dark
 
-  const lightColor = lightColors[clientId] || theme.colors.background['light']
+  const lightColor = lightColors[clientId] || theme?.colors?.background['light']
   const appWrapperInlinePadding = appWrapperInlinePaddings[clientId] || ''
   const switchColor = switchColors[clientId] || 'primary'
 

@@ -37,9 +37,9 @@ export const Write = ({
   const retrySendingAnswerRef = useRef(0)
 
   const theme = useTheme()
-  const { dispatch } = useError()
-  const { dispatchFieldMessage } = useIsFieldNotEmpty()
-  const { errorState } = useError()
+  const { dispatch } = useError() || {}
+  const { dispatchFieldMessage } = useIsFieldNotEmpty() || {}
+  const { errorState } = useError() || {}
   const { hasFieldMessage, fieldMessage } = useGetFieldMessage(parentCode, questionCode)
   const {
     fieldBackgroundColor,

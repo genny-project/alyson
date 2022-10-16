@@ -18,7 +18,7 @@ const Read = ({ data }) => {
 }
 
 const Write = ({ questionCode, data, onSendAnswer, isRequired, label }) => {
-  const { dispatchFieldMessage } = useIsFieldNotEmpty()
+  const { dispatchFieldMessage } = useIsFieldNotEmpty() || {}
   let answer = data?.value === 'true' ? 'false' : 'true'
 
   const colorScheme = useGetAttributeFromProjectBaseEntity('PRI_COLOR')?.valueString

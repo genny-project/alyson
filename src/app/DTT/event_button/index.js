@@ -33,7 +33,7 @@ const EventButton = ({ askData, onFinish, parentCode, sourceCode, clientId }) =>
       isDisabled={disabled}
       onClick={onClick}
       variant="outline"
-      bg={theme.colors.background.light}
+      bg={theme?.colors?.background?.light}
       borderWidth="1px"
       borderStyle={'solid'}
       borderColor={buttonBackgroundColor}
@@ -45,7 +45,7 @@ const EventButton = ({ askData, onFinish, parentCode, sourceCode, clientId }) =>
       _hover={{
         variant: 'solid',
         background: buttonBackgroundColor,
-        color: theme.colors.text.dark,
+        color: theme?.colors?.text?.dark,
       }}
     >
       {name}
