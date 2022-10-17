@@ -6,6 +6,7 @@ import React from 'react'
 import debugOut from 'utils/debug-out'
 import getAskFromAttribute from 'app/PCM/helpers/get-ask-from-attribute'
 import { NonPcmPcmFieldProps } from 'app/PCM/components/pcm-field/types'
+import showTemplateNames from 'utils/helpers/show-template-names'
 import Ask from 'app/ASKS/ask'
 
 const NonPcmPcmField: React.FC<NonPcmPcmFieldProps> = (props): JSX.Element => {
@@ -15,13 +16,13 @@ const NonPcmPcmField: React.FC<NonPcmPcmFieldProps> = (props): JSX.Element => {
   const isEvt = equals(prefix, 'EVT')
   const renderEventButton = isEvt && !child
   const renderChild = not(renderEventButton) && !!child
-  const isReadyOnly = config?.readonly ?? ask?.readonly ?? true
-  const renderAttribute = not(renderChild) && !isEvt && !child && isReadyOnly
-  const renderAsk = not(renderChild) && !isEvt && !child && not(isReadyOnly)
+  const isReadOnly = config?.readonly ?? ask?.readonly ?? true
+  const renderAttribute = not(renderChild) && !isEvt && !child && isReadOnly
+  const renderAsk = not(renderChild) && !isEvt && !child && not(isReadOnly)
 
   if (isEmpty(ask)) {
     debugOut.error(`NonPcmPcmField got an empty ask for ${props.code}! Returning a blank div`)
-    return <div />
+    return showTemplateNames ? <div>Empty ask for ${props.code}</div> : <div />
   }
 
   return renderEventButton ? (
@@ -55,14 +56,14 @@ const NonPcmPcmField: React.FC<NonPcmPcmFieldProps> = (props): JSX.Element => {
   ) : renderAsk ? (
     <Ask
       key={code}
-      parentCode={config?.parentCode || ask?.parentCode}
-      questionCode={ask?.code}
+      parentCode={questionGroupCode ?? ask?.parentCode}
+      questionCode={ask?.questionCode}
       config={config?.config}
       noLabel={undefined}
       secondaryColor={undefined}
       onFinish={undefined}
       passedAskData={undefined}
-      passedTargetCode={config?.parentCode || ask?.targetCode}
+      passedTargetCode={config?.parentCode ?? ask?.targetCode}
     />
   ) : (
     <div />
