@@ -21,6 +21,7 @@ const TemplateLogo = ({ mappedPcm, depth }) => {
       code={PRI_LOC1}
       mappedPcm={mappedPcm}
       depth={depth}
+      config={{ readonly: true }}
       child={paramaters => (
         <>
           <Box
@@ -37,6 +38,7 @@ const TemplateLogo = ({ mappedPcm, depth }) => {
               mappedPcm={mappedPcm}
               config={{
                 parentCode: entityCode,
+                readonly: true,
                 config: { htmlWidth: isMobile ? LOGO_WIDTH_SM : LOGO_WIDTH },
               }}
             />

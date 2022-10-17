@@ -1,12 +1,20 @@
 import PcmField from 'app/PCM/components/pcm-field'
+import TemplateDefault from 'app/PCM/templates/tpl-default'
 
 /**
  * A straight passthrough template, can use this to prevent re-rendering large templates with lots of children
  */
 const TemplateContent = ({ mappedPcm, depth, parentCode, ...rest }) => {
+  const { PRI_LOC1 } = mappedPcm || {}
+
+  if (!PRI_LOC1) {
+    console.warn(`PRI_LOC1 is missing from the list of BaseEntity Attributes`)
+    return <TemplateDefault />
+  }
+
   return (
     <>
-      <PcmField code={mappedPcm.PRI_LOC1} mappedPcm={mappedPcm} properties={rest} depth={depth} />
+      <PcmField code={PRI_LOC1} mappedPcm={mappedPcm} properties={rest} depth={depth} />
     </>
   )
 }
