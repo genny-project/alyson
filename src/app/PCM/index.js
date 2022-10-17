@@ -22,8 +22,6 @@ const Pcm = ({ code, properties, depth }) => {
     properties,
   )
 
-  console.log({ mappedPcm, templateCode })
-
   if (!template) {
     debugOut.warn(
       `Falling back on default template for PCM: ${code} as template: ${templateCode} could not be found!`,
