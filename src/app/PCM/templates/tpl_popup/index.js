@@ -47,7 +47,7 @@ const TemplatePopup = ({ mappedPcm, depth }) => {
           )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent>
+      <PopoverContent width="auto" paddingX={2}>
         <PopoverArrow />
         <PcmField code={PRI_LOC2} mappedPcm={mappedPcm} depth={depth} />
       </PopoverContent>

@@ -34,13 +34,7 @@ const DataTable = ({ parentCode, mapSearch, passedComponents = [] }) => {
   return (
     <Box mx={'5'}>
       <HStack align="flex-end" mb="3" justify="space-between">
-        <Stack
-          align="flex-start"
-          alignItems={'center'}
-          spacing="5"
-          direction={isMobile ? 'column' : 'row'}
-          w={'full'}
-        >
+        <Stack align="center" spacing="5" direction={isMobile ? 'column' : 'row'} w={'full'}>
           <Title sbeCode={parentCode} />
           {/* <TableSearch tableSearchCode={tableSearchCode} />
           <Filters sbeCode={parentCode} /> */}
