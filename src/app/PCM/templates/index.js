@@ -25,6 +25,7 @@ import TemplateDetailView from './tpl-detail-view'
 import showTemplateNames from 'utils/helpers/show-template-names'
 import { Box, Text } from '@chakra-ui/react'
 import TemplatePopup from './tpl_popup'
+import TemplateSBEDetailView from './tpl-detail-view/tpl-sbe-detail-view'
 
 /**
  * Takes in a mappedPcm, a templateCode and some misc properties and returns a template component.
@@ -70,6 +71,7 @@ const templateHandlerMachine = depth => mappedPcm => templateCode => parentCode 
     TPL_AVATAR: <TemplateAvatar {...mandatoryProps} />,
     TPL_PROPERTY_DETAIL_VIEW: <TemplatePropertyDetailView {...mandatoryProps} />,
     TPL_APPLICATION_DETAIL_VIEW: <TemplateApplicationDetailView {...mandatoryProps} />,
+    TPL_SBE_DETAIL_VIEW: <TemplateSBEDetailView {...mandatoryProps} />,
     TPL_POPUP: <TemplatePopup {...mandatoryProps} />,
   }
 

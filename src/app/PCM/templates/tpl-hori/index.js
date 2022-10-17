@@ -8,6 +8,7 @@ import PcmField from 'app/PCM/components/pcm-field'
  * Currently uses a more expensive mapping of attributes as this may take in locs
  */
 const TemplateHori = ({ mappedPcm, depth }) => {
+  console.log(mappedPcm)
   return (
     <HStack alignSelf="flex-start">
       {mapSpillLocs(loc => <PcmField key={loc} code={loc} mappedPcm={mappedPcm} depth={depth} />)(
