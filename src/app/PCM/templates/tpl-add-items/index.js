@@ -5,7 +5,6 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 const TemplateAddItems = ({ mappedPcm }) => {
   const { PRI_QUESTION_CODE } = mappedPcm
-
   return (
     <AskMenu
       questionCode={PRI_QUESTION_CODE}

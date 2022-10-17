@@ -23,7 +23,6 @@ import { useSelector } from 'react-redux'
 
 const AsksMenu = ({ questionCode, hideLabel }) => {
   const theme = useTheme()
-  const data = useSelector(selectCode(questionCode))
   const wholeData = useSelector(selectCode(questionCode, 'wholeData'))
   const labelsAndQuestionCode = map(({ questionCode, name, attributeCode }) => ({
     label: name,
@@ -37,7 +36,7 @@ const AsksMenu = ({ questionCode, hideLabel }) => {
 
   const isMobile = useIsMobile()
 
-  if (!data?.length) return null
+  if (!wholeData?.length) return null
   return (
     <Box>
       <Menu>
