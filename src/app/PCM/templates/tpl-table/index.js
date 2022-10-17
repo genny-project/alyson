@@ -1,15 +1,20 @@
-import Table from 'app/layouts/table'
-import PcmField from 'app/PCM/components/pcm-field'
+import TableWrapper from 'app/layouts/table'
+import { selectCode } from 'redux/db/selectors'
+import { useSelector } from 'react-redux'
+import { tableSbeLocation } from 'utils/constants'
 import getSpillLocs from 'app/PCM/helpers/get-spill-locs'
 import mapSpillLocs from 'app/PCM/helpers/map-spill-locs'
+import PcmField from 'app/PCM/components/pcm-field'
 
-const TemplateTable = ({ mappedPcm, depth }) => {
+const TemplateTable = ({ parentCode, mappedPcm, depth }) => {
   const spillLocs = getSpillLocs(mappedPcm)('PRI_LOC1')
   const passedComponents = mapSpillLocs(loc => (
     <PcmField key={loc} code={loc} mappedPcm={mappedPcm} depth={depth} />
   ))(spillLocs)
+  const tableObject = useSelector(selectCode(parentCode, tableSbeLocation))
+  const tableCode = tableObject?.value || ''
 
-  return <Table passedComponents={passedComponents} />
+  return <TableWrapper tableCode={tableCode} passedComponents={passedComponents} />
 }
 
 export default TemplateTable

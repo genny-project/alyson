@@ -7,21 +7,18 @@ import TemplateContent from './tpl-content'
 import TemplateDefault from 'app/PCM/templates/tpl-default'
 import TemplateDisplay from 'app/PCM/templates/tpl-display'
 import TemplateForm from 'app/PCM/templates/tpl-form'
-import TemplateHeader from 'app/PCM/templates/navigation/tpl-header'
+import TemplateHeader from 'app/PCM/templates/tpl-header'
 import TemplateHori from 'app/PCM/templates/tpl-hori'
 import TemplateHorizontalCards from './tpl_horizontal_cards'
 import TemplateLogo from 'app/PCM/templates/tpl-logo'
-import TemplateLojingHeader from 'app/PCM/templates/tpl-lojing-header'
-import TemplateNorth from 'app/PCM/templates/navigation/tpl-north'
 import TemplateProcess from './tpl-process'
 import TemplateProgressBar from 'app/PCM/templates/tpl-progress-bar'
 import TemplatePropertyDetailView from './tpl-detail-view/tpl-property-detail-view'
 import TemplateRoot from 'app/PCM/templates/tpl-root'
-import TemplateSidebarOne from 'app/PCM/templates/sidebar/tpl-sidebar-one'
+import TemplateSidebarOne from 'app/PCM/templates/tpl-sidebar-one'
 import TemplateTable from './tpl-table'
 import TemplateText from './text-templates'
 import TemplateVert from 'app/PCM/templates/tpl-vert'
-import TemplateWest from 'app/PCM/templates/sidebar/tpl-west'
 import debugOut from 'utils/debug-out'
 import hasNot from 'utils/helpers/has-not.js'
 import TemplateDetailView from './tpl-detail-view'
@@ -35,51 +32,49 @@ import TemplatePopup from './tpl_popup'
  * If the template does not exist, it will return the default template
  *
  */
-const templateHandlerMachine = depth => mappedPcm => templateCode => properties => {
+const templateHandlerMachine = depth => mappedPcm => templateCode => parentCode => rest => {
+  const mandatoryProps = {
+    mappedPcm,
+    depth,
+    parentCode,
+    ...rest,
+  }
+
   const listOfTemplates = {
-    TPL_DEFAULT: <TemplateDefault {...properties} />,
-    TPL_NORTH: <TemplateNorth mappedPcm={mappedPcm} depth={depth} {...properties} />,
-    TPL_WEST: <TemplateWest mappedPcm={mappedPcm} depth={depth} {...properties} />,
-    TPL_ROOT: <TemplateRoot mappedPcm={mappedPcm} depth={depth} {...properties} />,
-    TPL_SIDEBAR_1: <TemplateSidebarOne mappedPcm={mappedPcm} depth={depth} {...properties} />,
-    TPL_VERT: <TemplateVert mappedPcm={mappedPcm} depth={depth} {...properties} />,
-    TPL_HORI: <TemplateHori mappedPcm={mappedPcm} depth={depth} {...properties} />,
-    TPL_HEADER_1: <TemplateHeader mappedPcm={mappedPcm} depth={depth} {...properties} />,
-    TPL_DISPLAY: <TemplateDisplay mappedPcm={mappedPcm} depth={depth} {...properties} />,
-    TPL_LOGO: <TemplateLogo mappedPcm={mappedPcm} depth={depth} {...properties} />,
-    TPL_PROGRESS_BAR: <TemplateProgressBar mappedPcm={mappedPcm} depth={depth} {...properties} />,
-    TPL_LOJING_HEADER: <TemplateLojingHeader mappedPcm={mappedPcm} depth={depth} {...properties} />,
-    TPL_FORM: <TemplateForm mappedPcm={mappedPcm} depth={depth} {...properties} />,
-    TPL_TABLE: <TemplateTable mappedPcm={mappedPcm} depth={depth} {...properties} />,
-    TPL_CONTENT: <TemplateContent mappedPcm={mappedPcm} depth={depth} {...properties} />,
-    TPL_TEXT_BODY_1: <TemplateText mappedPcm={mappedPcm} depth={depth} {...properties} />,
-    TPL_TEXT_BODY_2: <TemplateText mappedPcm={mappedPcm} depth={depth} {...properties} />,
-    TPL_TEXT_HEADER_1: <TemplateText mappedPcm={mappedPcm} depth={depth} {...properties} />,
-    TPL_TEXT_HEADER_2: <TemplateText mappedPcm={mappedPcm} depth={depth} {...properties} />,
-    TPL_TEXT_HEADER_3: <TemplateText mappedPcm={mappedPcm} depth={depth} {...properties} />,
-    TPL_TEXT_HEADER_4: <TemplateText mappedPcm={mappedPcm} depth={depth} {...properties} />,
-    TPL_TEXT_HEADER_5: <TemplateText mappedPcm={mappedPcm} depth={depth} {...properties} />,
-    TPL_TEXT_HEADER_6: <TemplateText mappedPcm={mappedPcm} depth={depth} {...properties} />,
-    TPL_CARD: <TemplateCard mappedPcm={mappedPcm} depth={depth} {...properties} />,
-    TPL_DETAIL_VIEW: <TemplateDetailView mappedPcm={mappedPcm} depth={depth} {...properties} />,
-    TPL_HORIZONTAL_CARDS: (
-      <TemplateHorizontalCards mappedPcm={mappedPcm} depth={depth} {...properties} />
-    ),
-    TPL_PROCESS: <TemplateProcess mappedPcm={mappedPcm} depth={depth} {...properties} />,
-    TPL_ADD_ITEMS: <TemplateAddItems mappedPcm={mappedPcm} depth={depth} {...properties} />,
-    TPL_BELL: <TemplateBell mappedPcm={mappedPcm} depth={depth} {...properties} />,
-    TPL_AVATAR: <TemplateAvatar mappedPcm={mappedPcm} depth={depth} {...properties} />,
-    TPL_PROPERTY_DETAIL_VIEW: (
-      <TemplatePropertyDetailView mappedPcm={mappedPcm} depth={depth} {...properties} />
-    ),
-    TPL_APPLICATION_DETAIL_VIEW: (
-      <TemplateApplicationDetailView mappedPcm={mappedPcm} depth={depth} {...properties} />
-    ),
-    TPL_POPUP: <TemplatePopup mappedPcm={mappedPcm} depth={depth} {...properties} />,
+    TPL_DEFAULT: <TemplateDefault />,
+    TPL_ROOT: <TemplateRoot {...mandatoryProps} />,
+    TPL_SIDEBAR_1: <TemplateSidebarOne {...mandatoryProps} />,
+    TPL_VERT: <TemplateVert {...mandatoryProps} />,
+    TPL_HORI: <TemplateHori {...mandatoryProps} />,
+    TPL_HEADER_1: <TemplateHeader {...mandatoryProps} />,
+    TPL_DISPLAY: <TemplateDisplay {...mandatoryProps} />,
+    TPL_LOGO: <TemplateLogo {...mandatoryProps} />,
+    TPL_PROGRESS_BAR: <TemplateProgressBar {...mandatoryProps} />,
+    TPL_FORM: <TemplateForm {...mandatoryProps} />,
+    TPL_TABLE: <TemplateTable {...mandatoryProps} />,
+    TPL_CONTENT: <TemplateContent {...mandatoryProps} />,
+    TPL_TEXT_BODY_1: <TemplateText {...mandatoryProps} />,
+    TPL_TEXT_BODY_2: <TemplateText {...mandatoryProps} />,
+    TPL_TEXT_HEADER_1: <TemplateText {...mandatoryProps} />,
+    TPL_TEXT_HEADER_2: <TemplateText {...mandatoryProps} />,
+    TPL_TEXT_HEADER_3: <TemplateText {...mandatoryProps} />,
+    TPL_TEXT_HEADER_4: <TemplateText {...mandatoryProps} />,
+    TPL_TEXT_HEADER_5: <TemplateText {...mandatoryProps} />,
+    TPL_TEXT_HEADER_6: <TemplateText {...mandatoryProps} />,
+    TPL_CARD: <TemplateCard {...mandatoryProps} />,
+    TPL_DETAIL_VIEW: <TemplateDetailView {...mandatoryProps} />,
+    TPL_HORIZONTAL_CARDS: <TemplateHorizontalCards {...mandatoryProps} />,
+    TPL_PROCESS: <TemplateProcess {...mandatoryProps} />,
+    TPL_ADD_ITEMS: <TemplateAddItems {...mandatoryProps} />,
+    TPL_BELL: <TemplateBell {...mandatoryProps} />,
+    TPL_AVATAR: <TemplateAvatar {...mandatoryProps} />,
+    TPL_PROPERTY_DETAIL_VIEW: <TemplatePropertyDetailView {...mandatoryProps} />,
+    TPL_APPLICATION_DETAIL_VIEW: <TemplateApplicationDetailView {...mandatoryProps} />,
+    TPL_POPUP: <TemplatePopup {...mandatoryProps} />,
   }
 
   let noMatchingTemplates = hasNot(templateCode)(listOfTemplates)
-  const defaultTemplate = <TemplateDefault {...properties} />
+  const defaultTemplate = <TemplateDefault />
   let matchingTemplate = listOfTemplates[templateCode]
   let template = noMatchingTemplates ? defaultTemplate : matchingTemplate
 
