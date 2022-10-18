@@ -1,22 +1,7 @@
-import {
-  equals,
-  compose,
-  path,
-  split,
-  tail,
-  find,
-  prop,
-  propEq,
-  head,
-  splitAt,
-  reduce,
-  includes,
-} from 'ramda'
+import { equals, compose, find, prop, propEq, head, splitAt, reduce, includes } from 'ramda'
 import countryList from './country-list'
 
 export const prepareAnswer = input => (equals('+')(input) ? '' : input)
-
-export const getUserInputWithoutPlusSign = compose(path([0]), tail, split(''))
 
 const getCountryInfo = countryList => countryCode => requiredInfo => {
   let countryObject = find(propEq('code', countryCode))(countryList || [])

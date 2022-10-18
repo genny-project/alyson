@@ -39,7 +39,6 @@ import useProductColors from 'utils/productColors'
 import {
   getCountryInfoFromCountryList,
   getCountryObjectFromUserInput,
-  getUserInputWithoutPlusSign,
   prepareAnswer,
 } from './helpers'
 
@@ -55,7 +54,11 @@ const Write = ({
   inputmask,
 }) => {
   let regex
-  const mask = `99999999999`
+  const formatChars = {
+    P: '[+0123456789]',
+    0: '[0123456789]',
+  }
+  const mask = `P00000000000`
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value || '')
   const [isFocused, setIsFocused] = useState(false)
@@ -93,11 +96,7 @@ const Write = ({
   let countryCodeFromUserInput = !!code ? code : ''
   let countryFlagFromUserInput = !!icon ? icon : ''
 
-  let userInputWithoutPlusSign = getUserInputWithoutPlusSign(userInput)
-  let getSpecificCountryInfo = useMemo(
-    () => getCountryInfoFromCountryList(userInputWithoutPlusSign),
-    [userInputWithoutPlusSign],
-  )
+  let getSpecificCountryInfo = useMemo(() => getCountryInfoFromCountryList(userInput), [userInput])
 
   const onBlur = e => {
     e.target.value ? setIsFocused(true) : setIsFocused(false)
@@ -208,6 +207,7 @@ const Write = ({
         <Input
           as={InputMask}
           mask={mask}
+          formatChars={formatChars}
           maskChar={null}
           test-id={questionCode}
           id={questionCode}
