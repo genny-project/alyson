@@ -201,10 +201,11 @@ export const defaultProjectTheme = {
         opacity: 0.6,
       },
       error: {
-        fontSize: 'xs',
+        fontSize: 'sm',
         fontWeight: 400,
         color: 'red.500',
         opacity: 0.9,
+        marginTop: '0.5rem',
       },
       success: {
         fontSize: 'xs',

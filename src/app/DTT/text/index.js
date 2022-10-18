@@ -1,22 +1,11 @@
-import { useEffect, useRef, useState } from 'react'
 import { Box, Text as ChakraText, HStack, Input, VStack, useTheme } from '@chakra-ui/react'
-import { useSelector } from 'react-redux'
 import { faCalendar, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useEffect, useRef, useState } from 'react'
 
-import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import DetailViewTags from 'app/DTT/text/detailview_tags'
-import debounce from 'lodash.debounce'
-import { getIsInvalid } from 'utils/functions'
-import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined'
-import { useError } from 'utils/contexts/ErrorContext'
-import useGetFieldMessage from 'utils/fieldMessage'
-import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
-import useProductColors from 'utils/productColors'
-import { selectCode } from 'redux/db/selectors'
-import { maxNumberOfRetries, ACKMESSAGEKEY } from 'utils/constants'
-import AnswerAcknowledge from 'app/layouts/components/form/answer_acknowledge'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
+import useProductColors from 'utils/productColors'
 
 export const Write = ({
   questionCode,
@@ -28,19 +17,25 @@ export const Write = ({
   placeholderName,
   mandatory,
   inputmask,
+  clientId,
+  isInvalid,
 }) => {
   let regex
-  const [errorStatus, setErrorStatus] = useState(false)
+
   const [userInput, setuserInput] = useState(data?.value || '')
   const [isFocused, setIsFocused] = useState(false)
   const inputRef = useRef()
-  const retrySendingAnswerRef = useRef(0)
+  // const retrySendingAnswerRef = useRef(0)
 
   const theme = useTheme()
-  const { dispatch } = useError() || {}
-  const { dispatchFieldMessage } = useIsFieldNotEmpty() || {}
-  const { errorState } = useError() || {}
-  const { hasFieldMessage, fieldMessage } = useGetFieldMessage(parentCode, questionCode)
+  // const { dispatch } = useError() || {}
+  // const { dispatchFieldMessage } = useIsFieldNotEmpty() || {}
+
+  // const { errorState } = useError() || {}
+  // const { hasFieldMessage, fieldMessage } = useGetFieldMessage(parentCode, questionCode)
+  const hasFieldMessage = false
+  const fieldMessage = 'Please enter valid data.'
+
   const {
     fieldBackgroundColor,
     fieldBorderColor,
@@ -50,18 +45,19 @@ export const Write = ({
     borderRadius,
   } = useProductColors()
 
-  let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMessage)
-  const failedValidation = errorState[questionCode]
-  const isInvalid = getIsInvalid(userInput)(regex)
-  const debouncedSendAnswer = debounce(onSendAnswer, 500)
-  const ackMessageObject = useSelector(selectCode(ACKMESSAGEKEY))
-  const ackMessageValue = ackMessageObject?.[questionCode] || ''
+  // let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMessage)
 
-  const onBlur = e => {
-    e.target.value ? setIsFocused(true) : setIsFocused(false)
-    !errorStatus && debouncedSendAnswer(userInput)
-    dispatchFieldMessage({ payload: questionCode })
-  }
+  const [showErrorMessage, setShowErrorMessage] = useState(false)
+
+  // const failedValidation = errorState[questionCode]
+  const failedValidation = false
+  // const errorStatus = isInvalid
+  const [errorStatus, setErrorStatus] = useState(isInvalid)
+
+  // const isInvalid = getIsInvalid(userInput)(regex)
+  // const debouncedSendAnswer = debounce(onSendAnswer, 500)
+  // const ackMessageObject = useSelector(selectCode(ACKMESSAGEKEY))
+  // const ackMessageValue = ackMessageObject?.[questionCode] || ''
 
   const inputmaskFilter = value => inputmask => {
     // check if inputmask only contains digits
@@ -87,7 +83,8 @@ export const Write = ({
 
   useEffect(() => {
     userInput ? setIsFocused(true) : setIsFocused(false)
-  }, [userInput])
+    isInvalid ? setShowErrorMessage(true) : setShowErrorMessage(false)
+  }, [userInput, isInvalid])
 
   useEffect(() => {
     setuserInput(data?.value)
@@ -106,35 +103,21 @@ export const Write = ({
     }
   }, [])
 
-  useEffect(() => {
-    isInvalid ? setErrorStatus(true) : setErrorStatus(false)
-  }, [isInvalid, setErrorStatus])
+  const onBlur = () => {
+    userInput ? setIsFocused(true) : setIsFocused(false)
+    userInput ? setShowErrorMessage(false) : setShowErrorMessage(true)
+    userInput ? setErrorStatus(false) : setErrorStatus(true)
+  }
 
-  useEffect(() => {
-    isInvalid
-      ? dispatch({ type: ACTIONS.SET_TO_TRUE, payload: questionCode })
-      : dispatch({ type: ACTIONS.SET_TO_FALSE, payload: questionCode })
-  }, [dispatch, isInvalid, questionCode])
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      if (retrySendingAnswerRef.current < maxNumberOfRetries) {
-        !errorStatus && !ackMessageValue && userInput && debouncedSendAnswer(userInput)
-        retrySendingAnswerRef.current = retrySendingAnswerRef.current + 1
-      }
-    }, 5000)
-    return () => clearInterval(timer)
-  }, [ackMessageValue, debouncedSendAnswer, errorStatus, userInput])
-
-  useEffect(() => {
-    retrySendingAnswerRef.current = 0
-  }, [userInput])
+  // useEffect(() => {
+  //   isInvalid ? setErrorStatus(true) : setErrorStatus(false)
+  // }, [isInvalid, setErrorStatus])
 
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
       <HStack
         position={'absolute'}
-        zIndex={theme.zIndices.docked}
+        zIndex={theme?.zIndices?.docked}
         top={isFocused ? '-1.5rem' : 3}
         left={0}
         paddingStart={6}
@@ -148,12 +131,12 @@ export const Write = ({
           mandatory={mandatory}
           labelTextColor={labelTextColor}
         />
-        <AnswerAcknowledge
+        {/* <AnswerAcknowledge
           failedValidation={failedValidation}
           userInput={userInput}
-          retrySendingAnswerRef={retrySendingAnswerRef}
+          // retrySendingAnswerRef={retrySendingAnswerRef}
           questionCode={questionCode}
-        />
+        /> */}
       </HStack>
 
       <Input
@@ -164,11 +147,13 @@ export const Write = ({
           setIsFocused(true)
         }}
         onBlur={onBlur}
-        onChange={e => setuserInput(inputmaskFilter(e.target.value)(inputmask))}
+        onChange={e => {
+          setuserInput(e.target.value)
+        }}
         value={userInput || ''}
-        isInvalid={isInvalid}
+        isInvalid={mandatory && errorStatus}
         w="full"
-        h={'auto'}
+        h={'2.75rem'}
         paddingBlock={3}
         paddingInline={6}
         bg={fieldBackgroundColor}
@@ -197,10 +182,10 @@ export const Write = ({
         }}
       />
 
-      {errorStatus && (
+      {errorStatus && mandatory && (
         <VStack alignItems="start">
-          {(hasFieldMessage || hasErrorMessage) && (
-            <ChakraText textStyle="product.errorText">
+          {(hasFieldMessage || showErrorMessage) && (
+            <ChakraText textStyle="tail.error">
               {hasFieldMessage ? fieldMessage : errorMessage}
             </ChakraText>
           )}

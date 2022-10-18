@@ -9,13 +9,11 @@ const questionCode = ''
 const data = ''
 const onSendAnswer = ''
 const regexPattern = ''
-const errorMessage = ''
+const errorMessage = 'Please enter valid data.'
 const parentCode = ''
-const placeholderName = ''
-const mandatory = ''
+const placeholderName = 'Enter Value'
 
 const Template = args => {
-  console.log('args', { args })
   return (
     <Text.Write
       questionCode={questionCode}
@@ -25,14 +23,13 @@ const Template = args => {
       errorMessage={errorMessage}
       parentCode={parentCode}
       placeholderName={placeholderName}
-      mandatory={mandatory}
+      {...args}
     />
   )
 }
 
-export const Primary = Template.bind({})
-Primary.args = {
-  autoFocus: true,
-  label: 'Name',
-  fullwidth: false,
+export const Default = Template.bind({})
+Default.args = {
+  mandatory: false,
+  isInvalid: false,
 }

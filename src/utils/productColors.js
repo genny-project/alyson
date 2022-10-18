@@ -32,8 +32,6 @@ const borderRadiuses = {
 }
 const buttonBackgroundColors = {
   lojing: 'product.secondary',
-  alyson: 'product.primary',
-  internmatch: 'product.primary',
 }
 const dropZoneTextHoverColors = {
   lojing: '#4d4d4d',
@@ -59,17 +57,18 @@ const useProductColors = () => {
   const fieldBorderColor = fieldBorderColors[clientId] || theme?.colors?.gray['600']
   const fieldTextColor = fieldTextColors[clientId] || theme?.colors?.gray['700']
 
-  const fieldHoverBackgroundColor = fieldHoverBackgroundColors[clientId] || theme?.colors?.primary
+  const fieldHoverBackgroundColor =
+    fieldHoverBackgroundColors[clientId] || theme?.colors?.primary['500']
   const fieldHoverBorderColor = fieldHoverBorderColors[clientId] || theme?.colors?.gray['600']
   const fieldHoverTextColor = fieldHoverTextColors[clientId] || theme?.colors?.text?.dark
 
   const labelTextColor = labelTextColors[clientId] || theme?.colors?.gray['600']
   const borderRadius = borderRadiuses[clientId] || '0.5rem'
 
-  const buttonBackgroundColor = buttonBackgroundColors[clientId] || theme?.colors?.primary
+  const buttonBackgroundColor = buttonBackgroundColors[clientId] || theme?.colors?.primary['500']
   const dropZoneTextHoverColor = dropZoneTextHoverColors[clientId] || theme?.colors?.text?.dark
 
-  const lightColor = lightColors[clientId] || theme?.colors?.background['light']
+  const lightColor = lightColors[clientId] || theme?.colors?.background?.light
   const appWrapperInlinePadding = appWrapperInlinePaddings[clientId] || ''
   const switchColor = switchColors[clientId] || 'primary'
 

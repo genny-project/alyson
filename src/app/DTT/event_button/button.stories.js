@@ -5,26 +5,24 @@ export default {
   component: EventButton,
 }
 
-const askData = ''
+const askData = { name: 'Save' }
 const onFinish = ''
 const parentCode = ''
 const clientId = ''
 
 const Template = args => {
-  console.log('args', { args })
   return (
     <EventButton
       askData={askData}
       onFinish={onFinish}
       parentCode={parentCode}
       clientId={clientId}
+      {...args}
     />
   )
 }
 
 export const Primary = Template.bind({})
 Primary.args = {
-  autoFocus: true,
-  label: 'Name',
-  fullwidth: false,
+  label: 'Save',
 }
