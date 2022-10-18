@@ -16,7 +16,7 @@ import {
   useTheme,
   useToast,
 } from '@chakra-ui/react'
-import { compose, map, pathOr } from 'ramda'
+import { map } from 'ramda'
 import { faAngleDown, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useRef, useState, useMemo } from 'react'
 import { useSelector } from 'react-redux'
@@ -36,7 +36,7 @@ import { useError } from 'utils/contexts/ErrorContext'
 import useGetFieldMessage from 'utils/fieldMessage'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
-import { getCountryInfoFromCountryList, getCountryObjectFromUserInput } from './helpers'
+import { getCountryInfoFromCountryList } from './helpers'
 
 const Write = ({
   questionCode,
@@ -54,7 +54,6 @@ const Write = ({
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value || '')
   const [isFocused, setIsFocused] = useState(false)
-  const [countryCode, setCountryCode] = useState(null)
   const [countryFlag, setCountryFlag] = useState(null)
   const inputRef = useRef()
   const retrySendingAnswerRef = useRef(0)
@@ -89,7 +88,6 @@ const Write = ({
   }
 
   const handleSelectCountry = (code, icon) => {
-    setCountryCode(code)
     setCountryFlag(icon)
     setuserInput(code)
   }
