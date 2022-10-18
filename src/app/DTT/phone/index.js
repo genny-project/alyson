@@ -36,12 +36,7 @@ import { useError } from 'utils/contexts/ErrorContext'
 import useGetFieldMessage from 'utils/fieldMessage'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
-import {
-  getCountryInfoFromCountryList,
-  getCountryObjectFromUserInput,
-  getUserInputWithoutPlusSign,
-  prepareAnswer,
-} from './helpers'
+import { getCountryInfoFromCountryList, getCountryObjectFromUserInput } from './helpers'
 
 const Write = ({
   questionCode,
@@ -84,24 +79,12 @@ const Write = ({
   const debouncedSendAnswer = debounce(onSendAnswer, 500)
   const ackMessageObject = useSelector(selectCode(ACKMESSAGEKEY))
   const ackMessageValue = ackMessageObject?.[questionCode] || ''
-  const sendAnswer = compose(debouncedSendAnswer, prepareAnswer)
 
-  let countryObject = useMemo(() => getCountryObjectFromUserInput(userInput), [userInput])
-  let countryObjectFromUserInput = pathOr({}, [0])(countryObject)
-
-  let { code, icon } = countryObjectFromUserInput
-  let countryCodeFromUserInput = !!code ? code : ''
-  let countryFlagFromUserInput = !!icon ? icon : ''
-
-  let userInputWithoutPlusSign = getUserInputWithoutPlusSign(userInput)
-  let getSpecificCountryInfo = useMemo(
-    () => getCountryInfoFromCountryList(userInputWithoutPlusSign),
-    [userInputWithoutPlusSign],
-  )
+  let getSpecificCountryInfo = useMemo(() => getCountryInfoFromCountryList(userInput), [userInput])
 
   const onBlur = e => {
     e.target.value ? setIsFocused(true) : setIsFocused(false)
-    !errorStatus && sendAnswer(userInput)
+    !errorStatus && debouncedSendAnswer(userInput)
     dispatchFieldMessage({ payload: questionCode })
   }
 
@@ -124,7 +107,6 @@ const Write = ({
     retrySendingAnswerRef.current = 0
     let countryIcon = getSpecificCountryInfo('icon')
     !!countryIcon && setCountryFlag(countryIcon)
-    !!countryFlagFromUserInput ? setCountryFlag(countryFlagFromUserInput) : setCountryFlag('Code')
   }, [userInput])
 
   useEffect(() => {
@@ -150,10 +132,6 @@ const Write = ({
     }, 5000)
     return () => clearInterval(timer)
   }, [ackMessageValue, debouncedSendAnswer, errorStatus, userInput])
-
-  useEffect(() => {
-    !!countryCodeFromUserInput ? setCountryCode(countryCodeFromUserInput) : setCountryCode('')
-  }, [countryCode, countryFlag])
 
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
