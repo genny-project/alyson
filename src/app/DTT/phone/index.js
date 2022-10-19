@@ -16,7 +16,7 @@ import {
   useTheme,
   useToast,
 } from '@chakra-ui/react'
-import { compose, map, pathOr } from 'ramda'
+import { map, pathOr } from 'ramda'
 import { faAngleDown, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useRef, useState, useMemo } from 'react'
 import { useSelector } from 'react-redux'
@@ -36,11 +36,7 @@ import { useError } from 'utils/contexts/ErrorContext'
 import useGetFieldMessage from 'utils/fieldMessage'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
-import {
-  getCountryInfoFromCountryList,
-  getCountryObjectFromUserInput,
-  prepareAnswer,
-} from './helpers'
+import { getCountryInfoFromCountryList, getCountryObjectFromUserInput } from './helpers'
 
 const Write = ({
   questionCode,
@@ -87,7 +83,6 @@ const Write = ({
   const debouncedSendAnswer = debounce(onSendAnswer, 500)
   const ackMessageObject = useSelector(selectCode(ACKMESSAGEKEY))
   const ackMessageValue = ackMessageObject?.[questionCode] || ''
-  const sendAnswer = compose(debouncedSendAnswer, prepareAnswer)
 
   let countryObject = useMemo(() => getCountryObjectFromUserInput(userInput), [userInput])
   let countryObjectFromUserInput = pathOr({}, [0])(countryObject)
@@ -100,7 +95,7 @@ const Write = ({
 
   const onBlur = e => {
     e.target.value ? setIsFocused(true) : setIsFocused(false)
-    !errorStatus && sendAnswer(userInput)
+    !errorStatus && debouncedSendAnswer(userInput)
     dispatchFieldMessage({ payload: questionCode })
   }
 
