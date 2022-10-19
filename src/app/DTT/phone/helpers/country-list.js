@@ -5,14 +5,14 @@ const countryList = [
     icon: '🇦🇫',
   },
   {
+    name: 'Algeria',
+    code: '+213',
+    icon: '🇩🇿',
+  },
+  {
     name: 'Australia',
     code: '+61',
     icon: '🇦🇺',
-  },
-  {
-    name: 'Bahrain',
-    code: '+973',
-    icon: '🇧🇭',
   },
   {
     name: 'Bangladesh',
@@ -23,11 +23,6 @@ const countryList = [
     name: 'Bhutan',
     code: '+975',
     icon: '🇧🇹',
-  },
-  {
-    name: 'Brazil',
-    code: '+55',
-    icon: '🇧🇷',
   },
   {
     name: 'Cambodia',
@@ -105,6 +100,11 @@ const countryList = [
     icon: '🇮🇩',
   },
   {
+    name: 'Kenya',
+    code: '+254',
+    icon: '🇰🇪',
+  },
+  {
     name: 'Malaysia',
     code: '+60',
     icon: '🇲🇾',
@@ -135,11 +135,6 @@ const countryList = [
     icon: '🇳🇵',
   },
   {
-    name: 'Netherlands',
-    code: '+31',
-    icon: '🇳🇱',
-  },
-  {
     name: 'Niger',
     code: '+227',
     icon: '🇳🇪',
@@ -148,11 +143,6 @@ const countryList = [
     name: 'Nigeria',
     code: '+234',
     icon: '🇳🇬',
-  },
-  {
-    name: 'Oman',
-    code: '+868',
-    icon: '🇴🇲',
   },
   {
     name: 'Pakistan',
@@ -165,11 +155,6 @@ const countryList = [
     icon: '🇵🇸',
   },
   {
-    name: 'Papua New Guinea',
-    code: '+675',
-    icon: '🇵🇬',
-  },
-  {
     name: 'Philippines',
     code: '+63',
     icon: '🇵🇭',
@@ -178,16 +163,6 @@ const countryList = [
     name: 'Pitcairn',
     code: '+870',
     icon: '🇵🇳',
-  },
-  {
-    name: 'Portugal',
-    code: '+48',
-    icon: '🇵🇹',
-  },
-  {
-    name: 'Qatar',
-    code: '+974',
-    icon: '🇶🇦',
   },
   {
     name: 'Republic Of The Congo',
@@ -203,11 +178,6 @@ const countryList = [
     name: 'Samoa',
     code: '+685',
     icon: '🇼🇸',
-  },
-  {
-    name: 'Saudi Arabia',
-    code: '+966',
-    icon: '🇸🇦',
   },
   {
     name: 'Singapore',
@@ -264,16 +234,6 @@ const countryList = [
     code: '+66',
     icon: '🇹🇭',
   },
-  {
-    name: 'Tunisia',
-    code: '+216',
-    icon: '🇹🇳',
-  },
-  {
-    name: 'Turkey',
-    code: '+90',
-    icon: '🇹🇷',
-  },
   //   {
   //     name: 'Turks And Caicos Islands',
   //     code: '1-649',
@@ -288,11 +248,6 @@ const countryList = [
     name: 'Ukraine',
     code: '+380',
     icon: '🇺🇦',
-  },
-  {
-    name: 'United Arab Emirates',
-    code: '+971',
-    icon: '🇦🇪',
   },
   {
     name: 'United Kingdom',
@@ -310,19 +265,9 @@ const countryList = [
     icon: '🇺🇾',
   },
   {
-    name: 'Venezuela',
-    code: '+58',
-    icon: '🇻🇪',
-  },
-  {
     name: 'Vietnam',
     code: '+84',
     icon: '🇻🇳',
-  },
-  {
-    name: 'Yemen',
-    code: '+967',
-    icon: '🇾🇪',
   },
   {
     name: 'Zambia',
