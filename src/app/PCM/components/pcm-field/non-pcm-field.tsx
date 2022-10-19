@@ -37,7 +37,7 @@ const NonPcmPcmField: React.FC<NonPcmPcmFieldProps> = (props): JSX.Element => {
     child({
       fieldCode: code,
       ask: ask,
-      question: ask.question,
+      question: ask?.question,
       props: config,
     })
   ) : renderAttribute ? (
