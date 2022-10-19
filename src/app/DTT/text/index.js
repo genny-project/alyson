@@ -19,6 +19,7 @@ export const Write = ({
   inputmask,
   clientId,
   isInvalid,
+  BorderColor,
 }) => {
   let regex
 
@@ -59,27 +60,27 @@ export const Write = ({
   // const ackMessageObject = useSelector(selectCode(ACKMESSAGEKEY))
   // const ackMessageValue = ackMessageObject?.[questionCode] || ''
 
-  const inputmaskFilter = value => inputmask => {
-    // check if inputmask only contains digits
-    let filteredValue = ''
-    if (value && inputmask && /^\d+$/.test(inputmask)) {
-      // allow a leading '+' to phone number, otherwise break validations
-      if (value.length > 0 && /^\+/.test(value)) {
-        filteredValue = '+' + value.substring(1).replace(/\D/g, '')
-      } else {
-        filteredValue = value.replace(/\D/g, '')
-      }
-    }
-    return filteredValue ? filteredValue.substring(0, inputmask.length) : value
-  }
+  // const inputmaskFilter = value => inputmask => {
+  //   // check if inputmask only contains digits
+  //   let filteredValue = ''
+  //   if (value && inputmask && /^\d+$/.test(inputmask)) {
+  //     // allow a leading '+' to phone number, otherwise break validations
+  //     if (value.length > 0 && /^\+/.test(value)) {
+  //       filteredValue = '+' + value.substring(1).replace(/\D/g, '')
+  //     } else {
+  //       filteredValue = value.replace(/\D/g, '')
+  //     }
+  //   }
+  //   return filteredValue ? filteredValue.substring(0, inputmask.length) : value
+  // }
 
-  try {
-    regexPattern = regexPattern.replaceAll('\\\\', '\\')
-    regex = RegExp(regexPattern)
-  } catch (err) {
-    console.error('There is an error with the regex', questionCode, err)
-    regex = undefined
-  }
+  // try {
+  //   regexPattern = regexPattern.replaceAll('\\\\', '\\')
+  //   regex = RegExp(regexPattern)
+  // } catch (err) {
+  //   console.error('There is an error with the regex', questionCode, err)
+  //   regex = undefined
+  // }
 
   useEffect(() => {
     userInput ? setIsFocused(true) : setIsFocused(false)
@@ -158,7 +159,7 @@ export const Write = ({
         paddingInline={6}
         bg={fieldBackgroundColor}
         borderRadius={borderRadius}
-        borderColor={fieldBorderColor}
+        borderColor={BorderColor || fieldBorderColor}
         fontSize={'sm'}
         fontWeight={'medium'}
         color={fieldTextColor}

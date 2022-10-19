@@ -10,7 +10,7 @@ import { useError } from 'utils/contexts/ErrorContext'
 import useProductColors from 'utils/productColors'
 import { useState } from 'react'
 
-const Submit = ({ askData, onFinish, parentCode, clientId }) => {
+const Submit = ({ askData, onFinish, parentCode, clientId, borderRadius }) => {
   const { questionCode, targetCode, name, disabled: disabledFromBackEnd } = askData
   const { errorState } = useError()
   const dispatch = useDispatch()
@@ -101,7 +101,7 @@ const Submit = ({ askData, onFinish, parentCode, clientId }) => {
         mr={2}
         mb="5"
         background={buttonBackgroundColor}
-        borderRadius={'0.5rem'}
+        borderRadius={borderRadius}
         fontSize={'sm'}
         color={theme.colors.text.dark}
         _hover={{

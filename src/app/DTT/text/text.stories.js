@@ -3,6 +3,12 @@ import Text from 'app/DTT/text'
 export default {
   title: 'Components/Text',
   component: Text,
+  argTypes: {
+    BorderColor: {
+      control: 'color',
+      presetColors: ['red, green'],
+    },
+  },
 }
 
 const questionCode = ''
@@ -32,4 +38,5 @@ export const Default = Template.bind({})
 Default.args = {
   mandatory: false,
   isInvalid: false,
+  BorderColor: 'red',
 }

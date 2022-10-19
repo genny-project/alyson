@@ -9,7 +9,7 @@ const EventButton = ({ askData, onFinish, parentCode, sourceCode, clientId }) =>
   const { questionCode, targetCode, name, disabled, processId, attributeCode } = askData
   const theme = useTheme()
 
-  const { buttonBackgroundColor } = useProductColors()
+  const { buttonBackgroundColor, buttonBorderRadius } = useProductColors()
 
   const onClick = () =>
     onSendMessage({
@@ -24,7 +24,13 @@ const EventButton = ({ askData, onFinish, parentCode, sourceCode, clientId }) =>
 
   if (isSubmitButton(name))
     return (
-      <Submit askData={askData} onFinish={onFinish} parentCode={parentCode} clientId={clientId} />
+      <Submit
+        askData={askData}
+        onFinish={onFinish}
+        parentCode={parentCode}
+        clientId={clientId}
+        borderRadius={buttonBorderRadius}
+      />
     )
 
   return (
@@ -37,6 +43,7 @@ const EventButton = ({ askData, onFinish, parentCode, sourceCode, clientId }) =>
       borderWidth="1px"
       borderStyle={'solid'}
       borderColor={buttonBackgroundColor}
+      borderRadius={buttonBorderRadius}
       w={`6.5rem`}
       fontSize={'sm'}
       color={buttonBackgroundColor}

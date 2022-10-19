@@ -48,6 +48,10 @@ const appWrapperInlinePaddings = {
 const tableStyles = {
   lojing: 'striped',
 }
+const buttonBorderRadiuses = {
+  lojing: 'calc(0.25rem - 1px)',
+  alyson: '2rem',
+}
 
 const useProductColors = () => {
   const clientId = apiConfig?.clientId
@@ -66,6 +70,7 @@ const useProductColors = () => {
   const borderRadius = borderRadiuses[clientId] || '0.5rem'
 
   const buttonBackgroundColor = buttonBackgroundColors[clientId] || theme?.colors?.primary['500']
+  const buttonBorderRadius = buttonBorderRadiuses[clientId] || '.5rem'
   const dropZoneTextHoverColor = dropZoneTextHoverColors[clientId] || theme?.colors?.text?.dark
 
   const lightColor = lightColors[clientId] || theme?.colors?.background?.light
@@ -89,6 +94,7 @@ const useProductColors = () => {
     appWrapperInlinePadding,
     switchColor,
     tableStyle,
+    buttonBorderRadius,
   }
 }
 
