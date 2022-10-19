@@ -8,6 +8,7 @@ export const LOGO_WIDTH = '120px'
 export const LOGO_WIDTH_SM = '100px'
 export const ACKMESSAGEKEY = 'ACKMESSAGE'
 export const maxNumberOfRetries = 5
+export const maxRecursiveDepth = 50
 
 export const tableSearchCode = 'QUE_TABLE_FILTER_GRP'
 export const complete = 'COMPLETE'
@@ -22,6 +23,9 @@ export const mentees = 'Mentees'
 export const mentors = 'Mentors'
 export const agents = 'Agents'
 export const lojing = 'lojing'
+export const projectCodeString = 'PROJECT'
+export const pcmKeyDefault = `PCMINFORMATION`
+export const tableSbeLocation = 'PRI_LOC1'
 
 export const alreadyRegisteredMsg = 'You have already registered!'
 export const mentorAlreadySelectedMsg = 'You have already selected a Mentor!'

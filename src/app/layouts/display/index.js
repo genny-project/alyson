@@ -2,7 +2,7 @@ import ErrorBoundary from 'utils/developer/ErrorBoundary'
 import { MetaTags } from 'react-meta-tags'
 import { onSendMessage } from 'vertx'
 import Pcm from 'app/PCM'
-import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
+import { useGetProjectInformation } from 'app/BE/project-be'
 
 const Display = () => {
   window.onpopstate = event => {
@@ -13,10 +13,14 @@ const Display = () => {
     }
   }
 
-  const projectTitle = useGetAttributeFromProjectBaseEntity('PRI_NAME')?.valueString
-  const projectIcon = useGetAttributeFromProjectBaseEntity('PRI_FAVICON')?.valueString
-  const rootPcmCode =
-    useGetAttributeFromProjectBaseEntity('PRI_ROOT_PCM')?.valueString || 'PCM_ROOT'
+  const { attributeObject: nameAttributeObject } = useGetProjectInformation('PRI_NAME')
+  const projectTitle = nameAttributeObject?.valueString
+
+  const { attributeObject: iconAttributeObject } = useGetProjectInformation('PRI_FAVICON')
+  const projectIcon = iconAttributeObject?.valueString
+
+  const { attributeObject: rootObject } = useGetProjectInformation('PRI_ROOT_PCM')
+  const rootPcmCode = rootObject?.valueString || 'PCM_ROOT'
 
   return (
     <ErrorBoundary>

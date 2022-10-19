@@ -1,11 +1,9 @@
-import React from 'react'
-import { equals, split } from 'ramda'
+import { equals } from 'ramda'
 import Pcm from 'app/PCM'
 import NonPcmPcmField from 'app/PCM/components/pcm-field/non-pcm-field'
 import { PcmFieldProps } from 'app/PCM/components/pcm-field/types'
-import { VStack } from '@chakra-ui/react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
+
+import getPrefixFromCode from 'app/PCM/helpers/get-prefix-from-code'
 
 const PcmField: React.FC<PcmFieldProps> = ({
   code,
@@ -15,19 +13,13 @@ const PcmField: React.FC<PcmFieldProps> = ({
   config,
   depth,
 }): JSX.Element => {
-  const splitArr: string[] = split('_')(code) || ''
-  const prefix: string = splitArr.length === 0 ? 'NONE' : splitArr[0]
+  let prefixCode
+  prefixCode = code ?? ''
+  const pcm = 'PCM'
+  const prefix: any = getPrefixFromCode(prefixCode) || 'NONE'
+  const isPrefixPcm = equals(prefix)(pcm)
 
-  if (depth > 50) {
-    return (
-      <VStack>
-        <FontAwesomeIcon color="red" icon={faExclamationTriangle} />
-        Maxiumum Recursive Depth Exceeded!
-      </VStack>
-    )
-  }
-
-  return equals(prefix)('PCM') ? (
+  return isPrefixPcm ? (
     <Pcm code={code} properties={properties} depth={depth} />
   ) : (
     <NonPcmPcmField
