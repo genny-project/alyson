@@ -19,7 +19,10 @@ export const Write = ({
   inputmask,
   clientId,
   isInvalid,
+  BackgroundColor,
   BorderColor,
+  BorderHoverColor,
+  PlaceholderColor,
 }) => {
   let regex
 
@@ -131,6 +134,7 @@ export const Write = ({
           placeholderName={placeholderName}
           mandatory={mandatory}
           labelTextColor={labelTextColor}
+          PlaceholderColor={PlaceholderColor}
         />
         {/* <AnswerAcknowledge
           failedValidation={failedValidation}
@@ -157,15 +161,15 @@ export const Write = ({
         h={'2.75rem'}
         paddingBlock={3}
         paddingInline={6}
-        bg={fieldBackgroundColor}
+        bg={BackgroundColor || fieldBackgroundColor}
         borderRadius={borderRadius}
         borderColor={BorderColor || fieldBorderColor}
         fontSize={'sm'}
         fontWeight={'medium'}
-        color={fieldTextColor}
+        color={PlaceholderColor || fieldTextColor}
         cursor={'pointer'}
         _hover={{
-          borderColor: fieldHoverBorderColor,
+          borderColor: BorderHoverColor || fieldHoverBorderColor,
           boxShadow: 'lg',
         }}
         _focusVisible={{
@@ -196,8 +200,21 @@ export const Write = ({
   )
 }
 
-export const Read = ({ data, config = {}, hasIndicatorIcon }) => {
+export const Read = ({
+  data,
+  config = {},
+  hasIndicatorIcon,
+  TextSize,
+  TextColor,
+  TextContent,
+  TextWeight,
+}) => {
   const { detailViewTags } = config
+  const storyConfigs = {
+    fontSize: TextSize,
+    color: TextColor,
+    fontWeight: TextWeight,
+  }
 
   if (detailViewTags) {
     return <DetailViewTags data={data} />
@@ -211,7 +228,11 @@ export const Read = ({ data, config = {}, hasIndicatorIcon }) => {
     )
   }
 
-  return <ChakraText {...config}>{data?.value || config.defaultValue}</ChakraText>
+  return (
+    <ChakraText {...storyConfigs} {...config}>
+      {TextContent || data?.value || config.defaultValue}
+    </ChakraText>
+  )
 }
 
 const Text = {
