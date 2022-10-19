@@ -23,6 +23,7 @@ const Read = ({ data = {} }) => {
 const Write = ({ questionCode, data, onSendAnswer, placeholderName: label }) => {
   const [isChecked, setIsChecked] = useState(false)
   const clientId = apiConfig?.clientId
+  const dataValue = data?.value
 
   const handleToggle = () => {
     onSendAnswer(isChecked ? 'false' : 'true')
@@ -30,11 +31,7 @@ const Write = ({ questionCode, data, onSendAnswer, placeholderName: label }) => 
   }
 
   useEffect(() => {
-    if (isNullOrUndefinedOrFalse(data?.value)) {
-      onSendAnswer('false')
-    } else {
-      setIsChecked(true)
-    }
+    !!dataValue && setIsChecked(true)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data?.value])
 
