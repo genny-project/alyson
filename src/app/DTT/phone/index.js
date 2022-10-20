@@ -16,7 +16,7 @@ import {
   useTheme,
   useToast,
 } from '@chakra-ui/react'
-import { equals, map, pathOr } from 'ramda'
+import { equals, map, pathOr, compose } from 'ramda'
 import { faAngleDown, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useRef, useState, useMemo } from 'react'
 import { useSelector } from 'react-redux'
@@ -82,7 +82,7 @@ const Write = ({
   const failedValidation = errorState[questionCode]
   const isInvalid = getIsInvalid(userInput)(regex)
   const debouncedSendAnswer = debounce(onSendAnswer, 500)
-  const ackMessageObject = useSelector(selectCode(ACKMESSAGEKEY))
+  const ackMessageObject = compose(useSelector, selectCode)(ACKMESSAGEKEY)
   const ackMessageValue = ackMessageObject?.[questionCode] || ''
 
   let countryObject = useMemo(() => getCountryObjectFromUserInput(userInput), [userInput])
@@ -128,7 +128,7 @@ const Write = ({
     if (!duplicateCode) {
       !!countryFlagFromUserInput ? setCountryFlag(countryFlagFromUserInput) : setCountryFlag('Code')
     }
-  }, [userInput])
+  }, [userInput, duplicateCode])
 
   useEffect(() => {
     !!data?.value && setuserInput(data?.value)
