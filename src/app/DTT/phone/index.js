@@ -16,7 +16,7 @@ import {
   useTheme,
   useToast,
 } from '@chakra-ui/react'
-import { map, pathOr } from 'ramda'
+import { equals, map, pathOr } from 'ramda'
 import { faAngleDown, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useRef, useState, useMemo } from 'react'
 import { useSelector } from 'react-redux'
@@ -60,6 +60,7 @@ const Write = ({
   const [isFocused, setIsFocused] = useState(false)
   const [countryCode, setCountryCode] = useState(null)
   const [countryFlag, setCountryFlag] = useState(null)
+  const [duplicateCode, setDuplicateCode] = useState(false)
   const inputRef = useRef()
   const retrySendingAnswerRef = useRef(0)
 
@@ -103,7 +104,13 @@ const Write = ({
     setCountryCode(code)
     setCountryFlag(icon)
     setuserInput(code)
+    equals(code)('+1') && setDuplicateCode(true)
   }
+
+  useEffect(() => {
+    const firstTwoCharacters = userInput.slice(0, 2)
+    equals(firstTwoCharacters)('+1') ? setDuplicateCode(true) : setDuplicateCode(false)
+  }, [userInput])
 
   try {
     regexPattern = regexPattern.replaceAll('\\\\', '\\')
@@ -117,8 +124,10 @@ const Write = ({
     userInput ? setIsFocused(true) : setIsFocused(false)
     retrySendingAnswerRef.current = 0
     let countryIcon = getSpecificCountryInfo('icon')
-    !!countryIcon && setCountryFlag(countryIcon)
-    !!countryFlagFromUserInput ? setCountryFlag(countryFlagFromUserInput) : setCountryFlag('Code')
+    !!countryIcon && !duplicateCode && setCountryFlag(countryIcon)
+    if (!duplicateCode) {
+      !!countryFlagFromUserInput ? setCountryFlag(countryFlagFromUserInput) : setCountryFlag('Code')
+    }
   }, [userInput])
 
   useEffect(() => {
@@ -147,7 +156,7 @@ const Write = ({
 
   useEffect(() => {
     !!countryCodeFromUserInput ? setCountryCode(countryCodeFromUserInput) : setCountryCode('')
-  }, [countryCode, countryFlag])
+  }, [countryCode])
 
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
