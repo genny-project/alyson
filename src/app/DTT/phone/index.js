@@ -60,7 +60,7 @@ const Write = ({
   const [isFocused, setIsFocused] = useState(false)
   const [countryCode, setCountryCode] = useState(null)
   const [countryFlag, setCountryFlag] = useState(null)
-  const [duplicateCode, setDuplicateCode] = useState(false)
+  const [isDuplicatedCountryCode, setIsDuplicatedCountryCode] = useState(false)
   const inputRef = useRef()
   const retrySendingAnswerRef = useRef(0)
 
@@ -86,13 +86,11 @@ const Write = ({
   const ackMessageValue = ackMessageObject?.[questionCode] || ''
 
   let countryObject = useMemo(() => getCountryObjectFromUserInput(userInput), [userInput])
+  let getSpecificCountryInfo = useMemo(() => getCountryInfoFromCountryList(userInput), [userInput])
   let countryObjectFromUserInput = pathOr({}, [0])(countryObject)
-
   let { code, icon } = countryObjectFromUserInput
   let countryCodeFromUserInput = !!code ? code : ''
   let countryFlagFromUserInput = !!icon ? icon : ''
-
-  let getSpecificCountryInfo = useMemo(() => getCountryInfoFromCountryList(userInput), [userInput])
 
   const onBlur = e => {
     e.target.value ? setIsFocused(true) : setIsFocused(false)
@@ -104,12 +102,14 @@ const Write = ({
     setCountryCode(code)
     setCountryFlag(icon)
     setuserInput(code)
-    equals(code)('+1') && setDuplicateCode(true)
+    equals(code)('+1') && setIsDuplicatedCountryCode(true)
   }
 
   useEffect(() => {
-    const firstTwoCharacters = userInput.slice(0, 2)
-    equals(firstTwoCharacters)('+1') ? setDuplicateCode(true) : setDuplicateCode(false)
+    let firstTwoCharacters = userInput.slice(0, 2)
+    equals(firstTwoCharacters)('+1')
+      ? setIsDuplicatedCountryCode(true)
+      : setIsDuplicatedCountryCode(false)
   }, [userInput])
 
   try {
@@ -124,11 +124,11 @@ const Write = ({
     userInput ? setIsFocused(true) : setIsFocused(false)
     retrySendingAnswerRef.current = 0
     let countryIcon = getSpecificCountryInfo('icon')
-    !!countryIcon && !duplicateCode && setCountryFlag(countryIcon)
-    if (!duplicateCode) {
+    !!countryIcon && !isDuplicatedCountryCode && setCountryFlag(countryIcon)
+    if (!isDuplicatedCountryCode) {
       !!countryFlagFromUserInput ? setCountryFlag(countryFlagFromUserInput) : setCountryFlag('Code')
     }
-  }, [userInput, duplicateCode])
+  }, [userInput, isDuplicatedCountryCode])
 
   useEffect(() => {
     !!data?.value && setuserInput(data?.value)
