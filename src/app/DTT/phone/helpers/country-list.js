@@ -34,11 +34,7 @@ const countryList = [
     code: '+1',
     icon: '🇨🇦',
   },
-  //   {
-  //     name: 'Cayman Islands',
-  //     code: '1345',
-  //     icon: '🇰🇾',
-  //   },
+
   {
     name: 'Central African Republic',
     code: '+236',
@@ -114,11 +110,7 @@ const countryList = [
     code: '+230',
     icon: '🇲🇺',
   },
-  //   {
-  //     name: 'Montserrat',
-  //     code: '1-664',
-  //     icon: '🇲🇸',
-  //   },
+
   {
     name: 'Mozambique',
     code: '+258',
@@ -233,11 +225,6 @@ const countryList = [
     name: 'Thailand',
     code: '+66',
     icon: '🇹🇭',
-  },
-  {
-    name: 'Turks And Caicos Islands',
-    code: '+1-649',
-    icon: '🇹🇨',
   },
   {
     name: 'Uganda',
