@@ -5,12 +5,20 @@ import Lane from 'app/SBE/lane'
 import Search from 'app/SBE/search/Search'
 import getUserType from 'utils/helpers/get-user'
 import { selectCode } from 'redux/db/selectors'
-import { selectProcess } from 'redux/app/selectors'
 import { useSelector } from 'react-redux'
 
-const Process = ({ dashboard }) => {
+const Process = ({ dashboard, processCodes }) => {
   const userType = getUserType()
-  const processCodes = useSelector(selectProcess, (prev, next) => prev.length === next.length)
+
+  // const processCodes = [
+  //   'SBE_AVAILABLE_INTERNS',
+  //   'SBE_PLACED_APPLICATIONS',
+  //   'SBE_APPLIED_APPLICATIONS',
+  //   'SBE_INPROGRESS_APPLICATIONS',
+  //   'SBE_OFFERED_APPLICATIONS',
+  //   'SBE_SHORTLISTED_APPLICATIONS',
+  //   'SBE_INTERVIEWED_APPLICATIONS',
+  // ]
 
   const bucketSearch = useSelector(selectCode('QUE_BUCKET_INTERNS_GRP')) || []
 
