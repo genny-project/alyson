@@ -9,17 +9,6 @@ import { useSelector } from 'react-redux'
 
 const Process = ({ dashboard, processCodes }) => {
   const userType = getUserType()
-
-  // const processCodes = [
-  //   'SBE_AVAILABLE_INTERNS',
-  //   'SBE_PLACED_APPLICATIONS',
-  //   'SBE_APPLIED_APPLICATIONS',
-  //   'SBE_INPROGRESS_APPLICATIONS',
-  //   'SBE_OFFERED_APPLICATIONS',
-  //   'SBE_SHORTLISTED_APPLICATIONS',
-  //   'SBE_INTERVIEWED_APPLICATIONS',
-  // ]
-
   const bucketSearch = useSelector(selectCode('QUE_BUCKET_INTERNS_GRP')) || []
 
   if (!processCodes) return null
