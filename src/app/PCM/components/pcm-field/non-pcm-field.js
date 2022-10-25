@@ -5,15 +5,16 @@ import EvtButton from '../evt-button'
 import React from 'react'
 import debugOut from 'utils/debug-out'
 import getAskFromAttribute from 'app/PCM/helpers/get-ask-from-attribute'
-import { NonPcmPcmFieldProps } from 'app/PCM/components/pcm-field/types'
 import showTemplateNames from 'utils/helpers/show-template-names'
 import Ask from 'app/ASKS/ask'
+import QuestionEvents from 'app/ASKS/question-events'
 
-const NonPcmPcmField: React.FC<NonPcmPcmFieldProps> = (props): JSX.Element => {
+const NonPcmPcmField = props => {
   const { prefix, child, code, mappedPcm, config } = props
   const questionGroupCode = mappedPcm?.PRI_QUESTION_CODE || ''
   const ask = getAskFromAttribute(questionGroupCode)(code)
   const isEvt = equals(prefix, 'EVT')
+  const isQueEvent = equals(code, 'QUE_EVENTS')
   const renderEventButton = isEvt && !child
   const renderChild = not(renderEventButton) && !!child
   const isReadOnly = config?.readonly ?? ask?.readonly ?? true
@@ -23,6 +24,10 @@ const NonPcmPcmField: React.FC<NonPcmPcmFieldProps> = (props): JSX.Element => {
   if (isEmpty(ask)) {
     debugOut.error(`NonPcmPcmField got an empty ask for ${props.code}! Returning a blank div`)
     return showTemplateNames ? <div>Empty ask for ${props.code}</div> : <div />
+  }
+
+  if (isQueEvent) {
+    return <QuestionEvents mappedPcm={mappedPcm} />
   }
 
   return renderEventButton ? (
