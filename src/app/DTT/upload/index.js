@@ -17,7 +17,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ImageType from './Image'
 import useApi from 'api'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
-import { type } from 'os'
 
 const Read = ({ code, data, dttData, parentCode, variant, config = {} }) => {
   const typeName = dttData?.typeName
@@ -127,7 +126,7 @@ const Write = ({ questionCode, data, dttData, onSendAnswer, video, name }) => {
           />
         ) : data?.value ? (
           <VStack>
-            {!!src && <Image src={src} w="30rem" borderRadius="md" />}
+            {!!src && <Image src={src} borderRadius="md" />}
             <HStack>
               <Button leftIcon={<FontAwesomeIcon icon={faCheck} />} colorScheme="green">{`${
                 fileName || 'File'
