@@ -5,12 +5,11 @@ import EvtButton from '../evt-button'
 import React from 'react'
 import debugOut from 'utils/debug-out'
 import getAskFromAttribute from 'app/PCM/helpers/get-ask-from-attribute'
-import { NonPcmPcmFieldProps } from 'app/PCM/components/pcm-field/types'
 import showTemplateNames from 'utils/helpers/show-template-names'
 import Ask from 'app/ASKS/ask'
 import QuestionEvents from 'app/ASKS/question-events'
 
-const NonPcmPcmField: React.FC<NonPcmPcmFieldProps> = (props): JSX.Element => {
+const NonPcmPcmField = props => {
   const { prefix, child, code, mappedPcm, config } = props
   const questionGroupCode = mappedPcm?.PRI_QUESTION_CODE || ''
   const ask = getAskFromAttribute(questionGroupCode)(code)
@@ -28,7 +27,7 @@ const NonPcmPcmField: React.FC<NonPcmPcmFieldProps> = (props): JSX.Element => {
   }
 
   if (isQueEvent) {
-    return <QuestionEvents />
+    return <QuestionEvents mappedPcm={mappedPcm} />
   }
 
   return renderEventButton ? (
