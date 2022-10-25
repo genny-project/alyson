@@ -1,26 +1,15 @@
-import useGetMappedBaseEntity from 'app/PCM/helpers/use-get-mapped-base-entity'
-import { getFields, getColumnDefs } from 'app/PCM/helpers/sbe-utils'
-import { useGetActionsFromCode } from 'app/SBE/utils/get-actions'
-import { filter, find, map, equals, includes } from 'ramda'
+import { filter, find, equals, includes } from 'ramda'
 import Attribute from 'app/BE/attribute'
 import { VStack, Wrap, WrapItem, Text, HStack, Box } from '@chakra-ui/react'
 import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
 import AmenityField from './amenity-field'
-import PropAction from './prop-action'
+import useGetDetailData from '../get-detail-data'
 
 const TemplatePropertyDetailView = ({ mappedPcm }) => {
-  const sbeCode = mappedPcm.PRI_LOC1
+  const { baseEntityCode, fields } = useGetDetailData(mappedPcm)
 
-  const mappedSbe = useGetMappedBaseEntity(sbeCode)
-  const baseEntityCode = mappedSbe.PRI_CODE?.value || ''
-  const mappedValues = getFields(getColumnDefs(mappedSbe))
-
-  const actions = filter(e => e)(
-    map(act => act?.attributeCode)(useGetActionsFromCode(sbeCode) || []),
-  )
-
-  const findCode = code => find(equals(code))(mappedValues) || ''
+  const findCode = code => find(equals(code))(fields) || ''
 
   const textColor = 'product.primary'
 
@@ -31,9 +20,9 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
   const suburb = useSelector(selectCode(baseEntityCode, suburbCode))?.valueString || ''
   const state = useSelector(selectCode(baseEntityCode, stateCode))?.valueString || ''
 
-  const amentities = filter(includes('PRI_NUMBER_OF_'))(mappedValues) || []
+  const amentities = filter(includes('PRI_NUMBER_OF_'))(fields) || []
 
-  const rooms = filter(includes('ROOM'))(mappedValues) || []
+  const rooms = filter(includes('ROOM'))(fields) || []
 
   const descriptionCode = findCode('PRI_PROPERTY_DESCRIPTION')
 
@@ -63,9 +52,9 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
           </Text>
           <Wrap>
             {rooms.map((room, index) => (
-              <WrapItem key={`${sbeCode}-${baseEntityCode}-${index}-room-wrapitem`}>
+              <WrapItem key={`${baseEntityCode}-${index}-room-wrapitem`}>
                 <AmenityField
-                  key={`${sbeCode}-${baseEntityCode}-${index}-room`}
+                  key={`${baseEntityCode}-${index}-room`}
                   code={baseEntityCode}
                   attributeCode={room}
                 />
@@ -82,9 +71,9 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
           </Text>
           <Wrap>
             {amentities.map((item, index) => (
-              <WrapItem key={`${sbeCode}-${baseEntityCode}-${index}-amentity-wrapitem`}>
+              <WrapItem key={`${baseEntityCode}-${index}-amentity-wrapitem`}>
                 <AmenityField
-                  key={`${sbeCode}-${baseEntityCode}-${index}-amenity`}
+                  key={`${baseEntityCode}-${index}-amenity`}
                   code={baseEntityCode}
                   attributeCode={item}
                 />
@@ -119,16 +108,6 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
               <Box height={'200pt'}></Box>
             </VStack>
           </Box>
-          <VStack width="70%">
-            {actions.map(action => (
-              <PropAction
-                key={action}
-                parentCode={sbeCode}
-                code={action}
-                targetCode={baseEntityCode}
-              />
-            ))}
-          </VStack>
         </VStack>
       </HStack>
     </VStack>
