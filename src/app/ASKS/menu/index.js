@@ -16,28 +16,29 @@ import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
 import icons from 'utils/icons'
 import labels from 'utils/labels'
 import { map } from 'ramda'
-import { selectCode } from 'redux/db/selectors'
+import { selectCodeUnary } from 'redux/db/selectors'
 import sendEvtClick from '../utils/send-evt-click'
 import { useIsMobile } from 'utils/hooks'
 import { useSelector } from 'react-redux'
+import { compose } from 'ramda'
 
 const AsksMenu = ({ questionCode, hideLabel }) => {
-  const theme = useTheme()
-  const data = useSelector(selectCode(questionCode))
-  const wholeData = useSelector(selectCode(questionCode, 'wholeData'))
-  const labelsAndQuestionCode = map(({ questionCode, name, attributeCode }) => ({
+  let theme = useTheme()
+  let wholeData = compose(useSelector, selectCodeUnary(questionCode))('wholeData')
+  let labelsAndQuestionCode = map(({ questionCode, name, attributeCode }) => ({
     label: name,
     code: questionCode,
-    attributeCode: attributeCode,
+    attributeCode,
   }))(wholeData || [])
 
-  const sourceCode = useSelector(selectCode(questionCode, 'sourceCode'))
-  const targetCode = useSelector(selectCode(questionCode, 'targetCode'))
-  const processId = useSelector(selectCode(questionCode, 'processId'))
+  const getAskInformationBasedOnKey = compose(useSelector, selectCodeUnary(questionCode))
+  const sourceCode = getAskInformationBasedOnKey('sourceCode')
+  const targetCode = getAskInformationBasedOnKey('targetCode')
+  const processId = getAskInformationBasedOnKey('processId')
 
   const isMobile = useIsMobile()
 
-  if (!data?.length) return null
+  if (!wholeData?.length) return null
   return (
     <Box>
       <Menu>
