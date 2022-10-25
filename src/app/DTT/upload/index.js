@@ -17,6 +17,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ImageType from './Image'
 import useApi from 'api'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
+import { type } from 'os'
 
 const Read = ({ code, data, dttData, parentCode, variant, config = {} }) => {
   const typeName = dttData?.typeName
@@ -75,7 +76,6 @@ const Write = ({ questionCode, data, dttData, onSendAnswer, video, name }) => {
   const { getImageSrc } = useApi()
   const src = getImageSrc(data?.value, { height: '500', width: '500' })
   const typeName = dttData?.typeName
-
   const [fileName, setFileName] = useState('')
   const [dropzone, setDropzone] = useState(!!video)
   const [loading, setLoading] = useState(false)
@@ -108,7 +108,6 @@ const Write = ({ questionCode, data, dttData, onSendAnswer, video, name }) => {
     } catch (err) {
       console.error(err)
     }
-
     setLoading(false)
     dispatchFieldMessage({ payload: questionCode })
   }
@@ -116,7 +115,7 @@ const Write = ({ questionCode, data, dttData, onSendAnswer, video, name }) => {
   return (
     <div>
       <div hidden={loading}>
-        {typeName === 'Image' ? (
+        {typeName === 'Imaffge' ? (
           <ImageType.Write
             handleSave={handleSave}
             openDropzone={openDropzone}
@@ -128,7 +127,7 @@ const Write = ({ questionCode, data, dttData, onSendAnswer, video, name }) => {
           />
         ) : data?.value ? (
           <VStack>
-            {!!src && <Image src={src} />}
+            {!!src && <Image src={src} w="30rem" borderRadius="md" />}
             <HStack>
               <Button leftIcon={<FontAwesomeIcon icon={faCheck} />} colorScheme="green">{`${
                 fileName || 'File'
