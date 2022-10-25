@@ -114,7 +114,7 @@ const Write = ({ questionCode, data, dttData, onSendAnswer, video, name }) => {
   return (
     <div>
       <div hidden={loading}>
-        {typeName === 'Imaffge' ? (
+        {typeName === 'Image' ? (
           <ImageType.Write
             handleSave={handleSave}
             openDropzone={openDropzone}
