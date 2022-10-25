@@ -7,6 +7,7 @@ import {
   Text,
   Tooltip,
   VStack,
+  Image,
 } from '@chakra-ui/react'
 import { faArrowDown, faCheck, faFileDownload, faUpload } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useState } from 'react'
@@ -71,6 +72,8 @@ const Read = ({ code, data, dttData, parentCode, variant, config = {} }) => {
 
 const Write = ({ questionCode, data, dttData, onSendAnswer, video, name }) => {
   const api = useApi()
+  const { getImageSrc } = useApi()
+  const src = getImageSrc(data?.value, { height: '500', width: '500' })
   const typeName = dttData?.typeName
 
   const [fileName, setFileName] = useState('')
@@ -124,14 +127,21 @@ const Write = ({ questionCode, data, dttData, onSendAnswer, video, name }) => {
             name={name}
           />
         ) : data?.value ? (
-          <HStack>
-            <Button leftIcon={<FontAwesomeIcon icon={faCheck} />} colorScheme="green">{`${
-              fileName || 'File'
-            } Uploaded`}</Button>
-            <Tooltip label="Click to remove">
-              <CloseButton cursor="pointer" test-id={questionCode} onClick={() => onSendAnswer()} />
-            </Tooltip>
-          </HStack>
+          <VStack>
+            {!!src && <Image src={src} />}
+            <HStack>
+              <Button leftIcon={<FontAwesomeIcon icon={faCheck} />} colorScheme="green">{`${
+                fileName || 'File'
+              } Uploaded`}</Button>
+              <Tooltip label="Click to remove">
+                <CloseButton
+                  cursor="pointer"
+                  test-id={questionCode}
+                  onClick={() => onSendAnswer()}
+                />
+              </Tooltip>
+            </HStack>
+          </VStack>
         ) : (
           <Button
             id={questionCode}
