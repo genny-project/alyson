@@ -36,6 +36,7 @@ const useApi = () => {
       onUploadProgress,
       data,
     })
+
     if (response.data.files)
       return {
         uuid: `${response.data.files[0].uuid}`,

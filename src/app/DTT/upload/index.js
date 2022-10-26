@@ -99,10 +99,14 @@ const Write = ({ questionCode, data, dttData, onSendAnswer, video, name }) => {
 
     closeDropzone()
     let data = new FormData()
-    data.append('file', files[0])
+
+    data.append('file', files)
+
+    files.map(individualFile => data.append('file', individualFile))
 
     try {
       const resp = await api.postMediaFile({ data, onUploadProgress: setProgress })
+
       onSendAnswer(resp?.uuid)
     } catch (err) {
       console.error(err)

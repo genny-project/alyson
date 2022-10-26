@@ -1,21 +1,23 @@
 import { Box, Button, Center, Flex, Image, Input, Text, useToast } from '@chakra-ui/react'
 import { compose, includes, isEmpty, map, pathOr, split } from 'ramda'
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useCallback } from 'react'
 
 import { isImageField } from 'utils/functions'
 import { useDropzone } from 'react-dropzone'
 
-const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 1, questionCode }) => {
+const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 5, questionCode }) => {
   const [files, setFiles] = useState([])
   const toast = useToast()
   const checkIfImage = compose(includes('image'), split('/'))
 
-  useEffect(() => {
-    if (files.length) {
-      handleSave(files)
-      closeDropzone()
-    }
-  }, [closeDropzone, files, handleSave])
+  const handleOnSubmit = () => {
+    handleSave(files)
+    closeDropzone()
+  }
+
+  const handleOnClose = () => {
+    closeDropzone()
+  }
 
   const showErrorMessage = file => {
     const errorMessage = pathOr('', ['errors', 0, 'message'])(file)
@@ -89,13 +91,13 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 1, questionCode
         <Button
           mr="2"
           variant="ghost"
-          onClick={closeDropzone}
+          onClick={handleOnClose}
           test-id={`${questionCode}-CANCEL`}
         >{`Cancel`}</Button>
         <Button
           variant="solid"
           isDisabled={!!isEmpty(files)}
-          onClick={() => handleSave(files)}
+          onClick={handleOnSubmit}
           test-id={`${questionCode}-SUBMIT`}
         >{`Submit`}</Button>
       </Flex>
