@@ -41,6 +41,22 @@ const Rep = ({ sbeCode, targetCode, userType }) => {
   const digitalJobsValidation = useSelector(selectCode(targetCode, 'PRI_DJP_DOCUMENT_ACCEPTED'))
     ?.value
 
+  const hasOHSDoc = useSelector(selectCode(targetCode, 'PRI_DOC_OHS'))?.value
+  const OHSDocStatus = useSelector(selectCode(targetCode, 'PRI_DOC_OHS_STATUS'))?.value
+  const isOHSDocAgreed = equals(OHSDocStatus)('Complete')
+
+  const hasDJPDoc = useSelector(selectCode(targetCode, 'PRI_DOC_DJP'))?.value
+  const DJPDocStatus = useSelector(selectCode(targetCode, 'PRI_DOC_DJP_STATUS'))?.value
+  const isDJPDocAgreed = equals(DJPDocStatus)('Complete')
+
+  const hasHCSDoc = useSelector(selectCode(targetCode, 'PRI_DOC_OHS'))?.value
+  const HCSDocStatus = useSelector(selectCode(targetCode, 'PRI_DOC_OHS_STATUS'))?.value
+  const isHCSDocAgreed = equals(HCSDocStatus)('Complete')
+
+  const hasHCRIDoc = useSelector(selectCode(targetCode, 'PRI_DOC_HCRI'))?.value
+  const HCRIDocStatus = useSelector(selectCode(targetCode, 'PRI_DOC_HCRI_STATUS'))?.value
+  const isHCRIDocAgreed = equals(HCRIDocStatus)('Complete')
+
   const internships = (
     <Lane
       width={tileWidth}
@@ -48,79 +64,92 @@ const Rep = ({ sbeCode, targetCode, userType }) => {
     />
   )
 
-  const ohs =
-    validation?.value === 'OHS' ||
-    validation?.value === 'Ready' ||
-    validation?.value === 'Validated' ? (
+  const DocButtons = ({ actionCode = '', buttonName = '', icon = faEdit, colorScheme = 'red' }) => {
+    return (
       <Button
-        colorScheme="green"
-        onClick={() => onSendMessage({ targetCode, parentCode: sbeCode, code: 'ACT_OHS_DOC' })}
-        leftIcon={<FontAwesomeIcon icon={faDownload} />}
+        size="sm"
+        leftIcon={<FontAwesomeIcon icon={icon} />}
+        onClick={() => onSendMessage({ targetCode, parentCode: sbeCode, code: actionCode })}
+        colorScheme={colorScheme}
       >
-        {`OH&S Declaration`}
-      </Button>
-    ) : (
-      <Button
-        colorScheme="red"
-        onClick={() => onSendMessage({ targetCode, parentCode: sbeCode, code: 'ACT_OHS_DOC' })}
-        leftIcon={<FontAwesomeIcon icon={faEdit} />}
-      >
-        {`OH&S Declaration`}
+        {buttonName}
       </Button>
     )
+  }
 
-  const hcs =
-    validation?.value === 'HCS' ||
-    validation?.value === 'Ready' ||
-    validation?.value === 'Validated' ? (
-      <Button
-        colorScheme="green"
-        leftIcon={<FontAwesomeIcon icon={faDownload} />}
-        onClick={() => onSendMessage({ targetCode, parentCode: sbeCode, code: 'ACT_HCS_DOC' })}
-      >
-        {`Host Company Placement Agreement`}
-      </Button>
-    ) : (
-      <Button
-        colorScheme="red"
-        leftIcon={<FontAwesomeIcon icon={faEdit} />}
-        onClick={() => onSendMessage({ targetCode, parentCode: sbeCode, code: 'ACT_HCS_DOC' })}
-      >
-        {`Host Company Placement Agreement`}
-      </Button>
-    )
+  // const ohs =
+  //   validation?.value === 'OHS' ||
+  //   validation?.value === 'Ready' ||
+  //   validation?.value === 'Validated' ? (
+  //     <Button
+  //       colorScheme="green"
+  //       onClick={() => onSendMessage({ targetCode, parentCode: sbeCode, code: 'ACT_OHS_DOC' })}
+  //       leftIcon={<FontAwesomeIcon icon={faDownload} />}
+  //     >
+  //       {`OH&S Declaration`}
+  //     </Button>
+  //   ) : (
+  //     <Button
+  //       colorScheme="red"
+  //       onClick={() => onSendMessage({ targetCode, parentCode: sbeCode, code: 'ACT_OHS_DOC' })}
+  //       leftIcon={<FontAwesomeIcon icon={faEdit} />}
+  //     >
+  //       {`OH&S Declaration`}
+  //     </Button>
+  //   )
 
-  const hcValidationButton = !!hcValidationUrl && equals(userType)('AGENT') && (
-    <Button
-      variant="secondary"
-      colorScheme="green"
-      onClick={() => onSendMessage({ targetCode, parentCode: sbeCode, code: 'ACT_HCV_DOC' })}
-      leftIcon={<FontAwesomeIcon icon={faDownload} />}
-    >
-      {`Host Company Validation`}
-    </Button>
-  )
+  // const hcs =
+  //   validation?.value === 'HCS' ||
+  //   validation?.value === 'Ready' ||
+  //   validation?.value === 'Validated' ? (
+  //     <Button
+  //       colorScheme="green"
+  //       leftIcon={<FontAwesomeIcon icon={faDownload} />}
+  //       onClick={() => onSendMessage({ targetCode, parentCode: sbeCode, code: 'ACT_HCS_DOC' })}
+  //     >
+  //       {`Host Company Placement Agreement`}
+  //     </Button>
+  //   ) : (
+  //     <Button
+  //       colorScheme="red"
+  //       leftIcon={<FontAwesomeIcon icon={faEdit} />}
+  //       onClick={() => onSendMessage({ targetCode, parentCode: sbeCode, code: 'ACT_HCS_DOC' })}
+  //     >
+  //       {`Host Company Placement Agreement`}
+  //     </Button>
+  //   )
 
-  const digitalJobsButton =
-    digitalJobsAgreement === 'true' && digitalJobsValidation ? (
-      <Button
-        onClick={() => onSendMessage({ targetCode, parentCode: sbeCode, code: 'ACT_DJP_DOC' })}
-        leftIcon={<FontAwesomeIcon icon={faDownload} />}
-        colorScheme={'green'}
-      >
-        {`Digital Jobs Program Host Employer Subsidy Agreement`}
-      </Button>
-    ) : digitalJobsAgreement === 'true' ? (
-      <Button
-        onClick={() => onSendMessage({ targetCode, parentCode: sbeCode, code: 'ACT_DJP_DOC' })}
-        leftIcon={<FontAwesomeIcon icon={faEdit} />}
-        colorScheme={'red'}
-      >
-        {`Digital Jobs Program Host Employer Subsidy Agreement`}
-      </Button>
-    ) : (
-      <></>
-    )
+  // const hcValidationButton = !!hcValidationUrl && equals(userType)('AGENT') && (
+  //   <Button
+  //     variant="secondary"
+  //     colorScheme="green"
+  //     onClick={() => onSendMessage({ targetCode, parentCode: sbeCode, code: 'ACT_HCV_DOC' })}
+  //     leftIcon={<FontAwesomeIcon icon={faDownload} />}
+  //   >
+  //     {`Host Company Validation`}
+  //   </Button>
+  // )
+
+  // const digitalJobsButton =
+  //   digitalJobsAgreement === 'true' && digitalJobsValidation ? (
+  //     <Button
+  //       onClick={() => onSendMessage({ targetCode, parentCode: sbeCode, code: 'ACT_DJP_DOC' })}
+  //       leftIcon={<FontAwesomeIcon icon={faDownload} />}
+  //       colorScheme={'green'}
+  //     >
+  //       {`Digital Jobs Program Host Employer Subsidy Agreement`}
+  //     </Button>
+  //   ) : digitalJobsAgreement === 'true' ? (
+  //     <Button
+  //       onClick={() => onSendMessage({ targetCode, parentCode: sbeCode, code: 'ACT_DJP_DOC' })}
+  //       leftIcon={<FontAwesomeIcon icon={faEdit} />}
+  //       colorScheme={'red'}
+  //     >
+  //       {`Digital Jobs Program Host Employer Subsidy Agreement`}
+  //     </Button>
+  //   ) : (
+  //     <></>
+  //   )
 
   const documents = (
     <Card variant="card0" w={tileWidth}>
@@ -130,10 +159,45 @@ const Rep = ({ sbeCode, targetCode, userType }) => {
             ? 'Please complete documents'
             : 'Documents'}
         </Text>
-        {ohs}
+
+        {hasOHSDoc && (
+          <DocButtons
+            actionCode="ACT_OHS_DOC"
+            buttonName="OH&S Declaration"
+            icon={isOHSDocAgreed ? faDownload : faEdit}
+            colorScheme={isOHSDocAgreed ? 'green' : 'red'}
+          />
+        )}
+        {hasHCSDoc && (
+          <DocButtons
+            actionCode="ACT_HCS_DOC"
+            buttonName="Host Company Placement Agreement"
+            icon={isHCSDocAgreed ? faDownload : faEdit}
+            colorScheme={isHCSDocAgreed ? 'green' : 'red'}
+          />
+        )}
+
+        {hasDJPDoc && (
+          <DocButtons
+            actionCode="ACT_DJP_DOC"
+            buttonName="Digital Jobs Program Host Employer Subsidy Agreement"
+            icon={isDJPDocAgreed ? faDownload : faEdit}
+            colorScheme={isDJPDocAgreed ? 'green' : 'red'}
+          />
+        )}
+        {hasHCRIDoc && (
+          <DocButtons
+            actionCode="ACT_HCRI_DOC"
+            buttonName="Host Company Remote Internship"
+            icon={isHCRIDocAgreed ? faDownload : faEdit}
+            colorScheme={isHCRIDocAgreed ? 'green' : 'red'}
+          />
+        )}
+
+        {/* {ohs}
         {hcs}
         {hcValidationButton}
-        {digitalJobsButton}
+        {digitalJobsButton} */}
       </VStack>
     </Card>
   )
