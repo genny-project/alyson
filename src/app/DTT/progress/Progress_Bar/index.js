@@ -1,31 +1,28 @@
-import { Progress, Text, VStack } from '@chakra-ui/react'
-
-import React from 'react'
+import { Progress, VStack, Text } from '@chakra-ui/react'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
+import { multiply } from 'ramda'
 
-const ProgressBar = props => {
-  const { value } = props
-
-  const { completedPercentage = 0, completedJournals = 0 } = safelyParseJson(value)
+const ProgressBar = ({ data }) => {
+  const { internshipProgress = 0, completedJournals = 0 } = safelyParseJson(data?.value)
 
   const completedJournalsPercentage = (() => {
-    try {
-      // eslint-disable-next-line no-eval
-      return eval(completedJournals) * 100
-    } catch (e) {
-      console.error(e)
-    }
+    return multiply(completedJournals, 10)
   })()
 
-  return completedJournals || completedPercentage ? (
-    <VStack alignItems="start" w="40">
-      <Text mb={1}>{`Internship progress`}</Text>
-      <Progress w="full" colorScheme="green" size="sm" value={completedPercentage} />
-      <Text mb={1}>{`Journal progress ${completedJournals || ''}`}</Text>
-      <Progress w="full" colorScheme="secondary" size="sm" value={completedJournalsPercentage} />
+  return internshipProgress || completedJournals ? (
+    <VStack alignItems="start">
+      <Text> {`Internship Progress`}</Text>
+      <Progress w="full" colorScheme="green" borderRadius="md" value={internshipProgress} />
+      <Text>{`Journals Completed: ${completedJournals}`} </Text>
+      <Progress
+        w="full"
+        colorScheme="green"
+        borderRadius="md"
+        value={completedJournalsPercentage}
+      />
     </VStack>
   ) : (
-    <Progress w="full" colorScheme="green" size="sm" value="20" />
+    <Progress w="full" colorScheme="green" borderRadius="md" value={50} />
   )
 }
 

@@ -1,21 +1,19 @@
-import ProgressBar from './Progress_Bar'
-import { Progress, Text, VStack } from '@chakra-ui/react'
+import { Progress, VStack, Text } from '@chakra-ui/react'
 
-const Read = ({ data }) => <ProgressBar value={data?.value} />
+const Read = ({ data }) => <Progress colorScheme="green" borderRadius="md" value={data?.value} />
+
 const Write = ({ data, placeholderName: label }) => {
   return (
     <VStack alignItems="start">
-      <Text color="gray.700" alignSelf="start">
-        {label}
-      </Text>
-      <Progress w="full" colorScheme="green" size="sm" value="20" />
+      <Text>{label}</Text>
+      <Progress w="full" colorScheme="green" borderRadius="md" value={90} />
     </VStack>
   )
 }
 
 const ProgressComponent = {
-  Read,
   Write,
+  Read,
 }
 
 export default ProgressComponent

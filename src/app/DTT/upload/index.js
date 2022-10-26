@@ -12,7 +12,6 @@ import {
 } from '@chakra-ui/react'
 import { faArrowDown, faCheck, faFileDownload } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useState } from 'react'
-
 import DropZone from './Dropzone'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ImageType from './Image'
