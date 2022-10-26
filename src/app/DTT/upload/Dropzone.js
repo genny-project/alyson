@@ -1,6 +1,6 @@
 import { Box, Button, Center, Flex, Image, Input, Text, useToast } from '@chakra-ui/react'
 import { compose, includes, isEmpty, map, pathOr, split } from 'ramda'
-import { useEffect, useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 
 import { isImageField } from 'utils/functions'
 import { useDropzone } from 'react-dropzone'
@@ -28,14 +28,16 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 1, questionCode
     })
   }
 
+  let acceptProps = video
+    ? 'video/*'
+    : isImageField(questionCode)
+    ? 'image/*,'
+    : 'application/pdf, .doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.dot,.rtf,.odt'
+
   const { getRootProps, getInputProps } = useDropzone({
-    accept: video
-      ? 'video/*'
-      : isImageField(questionCode)
-      ? 'image/*,'
-      : 'application/pdf, .doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.dot,.rtf,.odt',
-    maxFiles: maxFiles,
-    onDrop: (acceptedFiles, rejectedFiles) => {
+    accept: acceptProps,
+    maxFiles,
+    onDrop: useCallback((acceptedFiles, rejectedFiles) => {
       setFiles(
         acceptedFiles.map(file =>
           Object.assign(file, {
@@ -44,7 +46,8 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 1, questionCode
         ),
         !isEmpty(rejectedFiles) && showErrorMessage(rejectedFiles[0]),
       )
-    },
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []),
   })
 
   const preview = map(({ name, preview, type }) => {
