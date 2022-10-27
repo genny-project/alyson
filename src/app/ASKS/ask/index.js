@@ -23,7 +23,7 @@ import HtmlDisplay from 'app/DTT/html_display'
 import HtmlEditor from 'app/DTT/html-editor'
 import LogRocketSession from 'app/DTT/log_rocket_session'
 import Phone from 'app/DTT/phone'
-import ProgressBar from 'app/DTT/progress'
+import ProgressBar from 'app/DTT/progress/progress-bar'
 import Radio from 'app/DTT/radio'
 import Rating from 'app/DTT/rating'
 import RichText from 'app/DTT/rich_text'
@@ -629,7 +629,7 @@ const Ask = ({
         />
       )}
       {component === 'progress' && (
-        <ProgressBar.Write
+        <ProgressBar
           data={data}
           questionCode={questionCode}
           onSendAnswer={onSendAnswer}
