@@ -6,7 +6,7 @@ const Write = ({ data, placeholderName: label }) => {
   return (
     <VStack alignItems="start">
       <Text>{label}</Text>
-      <Progress w="full" colorScheme="green" borderRadius="md" value={90} />
+      <Progress w="full" colorScheme="green" borderRadius="md" value={data?.value} />
     </VStack>
   )
 }
