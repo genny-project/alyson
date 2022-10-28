@@ -1,5 +1,5 @@
 import { Progress, VStack, Text } from '@chakra-ui/react'
-import safelyParseJson from 'utils/helpers/safely-parse-json'
+import safelyParseJson from 'utils/helpers/safely-parse-json pull'
 import { multiply } from 'ramda'
 
 const ProgressBar = ({ data }) => {
