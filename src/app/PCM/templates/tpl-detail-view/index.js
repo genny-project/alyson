@@ -4,7 +4,7 @@ import DetailField from './detail-field'
 import useGetDetailData from './get-detail-data'
 import notIncludesAny from 'utils/helpers/not-includes-any'
 
-const TemplateDetailView = ({ mappedPcm, depth }) => {
+const TemplateDetailView = ({ mappedPcm }) => {
   const { baseEntityCode, fields } = useGetDetailData(mappedPcm)
 
   //This is not a good way to check this but it was the best I could come up with short term
