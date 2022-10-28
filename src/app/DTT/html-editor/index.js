@@ -45,14 +45,14 @@ const Write = ({
         </tt>
       </Box>
       <Box width={'49%'}>
-        <HtmlEditorPreview html={userInput} />
+        <HtmlEditorPreview html={userInput} inModal={true} />
       </Box>
     </HStack>
   )
 }
 
 const Read = ({ data, config }) => {
-  return <HtmlEditorPreview html={data?.value || ''} />
+  return <HtmlEditorPreview html={data?.value || ''} inModal={config?.inModal} />
 }
 
 const HtmlEditor = {

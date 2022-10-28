@@ -1,23 +1,18 @@
-import { useGetActionsFromCode } from 'app/SBE/utils/get-actions'
-import { filter, map } from 'ramda'
-import useGetMappedBaseEntity from 'app/PCM/helpers/use-get-mapped-base-entity'
-import { getFields, getColumnDefs } from '../../helpers/sbe-utils'
+import { map } from 'ramda'
+import { useSelector } from 'react-redux'
+import { selectCode } from 'redux/db/selectors'
 
 const useGetDetailData = mappedPcm => {
-  const sbeCode = mappedPcm?.PRI_LOC1 || ''
-  const mappedSbe = useGetMappedBaseEntity(sbeCode)
-  const baseEntityCode = mappedSbe.PRI_CODE?.value || ''
-  const mappedValues = getFields(getColumnDefs(mappedSbe))
-  const actions = filter(e => e)(
-    map(act => act?.attributeCode)(useGetActionsFromCode(sbeCode) || []),
-  )
+  const questionCode = mappedPcm.PRI_QUESTION_CODE || ''
+
+  const baseEntityCode = useSelector(selectCode(questionCode, 'targetCode')) || ''
+
+  const childAsks = useSelector(selectCode(questionCode, 'wholeData')) || []
+  const fields = map(childAsk => childAsk.attributeCode)(childAsks)
 
   return {
-    sbeCode,
-    mappedSbe,
     baseEntityCode,
-    mappedValues,
-    actions,
+    fields,
   }
 }
 

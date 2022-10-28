@@ -6,7 +6,6 @@ import { equals } from 'ramda'
 import { onSendMessage } from 'vertx'
 import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
-import { isNullOrUndefinedOrFalse } from 'utils/helpers/is-null-or-undefined'
 
 const Read = ({ data = {} }) => {
   const sourceCode = useSelector(selectCode('USER'))
@@ -23,6 +22,7 @@ const Read = ({ data = {} }) => {
 const Write = ({ questionCode, data, onSendAnswer, placeholderName: label }) => {
   const [isChecked, setIsChecked] = useState(false)
   const clientId = apiConfig?.clientId
+  const dataValue = data?.value
 
   const handleToggle = () => {
     onSendAnswer(isChecked ? 'false' : 'true')
@@ -30,11 +30,7 @@ const Write = ({ questionCode, data, onSendAnswer, placeholderName: label }) => 
   }
 
   useEffect(() => {
-    if (isNullOrUndefinedOrFalse(data?.value)) {
-      onSendAnswer('false')
-    } else {
-      setIsChecked(true)
-    }
+    !!dataValue && setIsChecked(true)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data?.value])
 

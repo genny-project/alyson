@@ -5,8 +5,6 @@ import axios from 'axios'
 import getProductTheme from './get-product-theme'
 import getTheme from 'config/theme'
 import getTokenFromURL from 'keycloak/get-token-from-url'
-import { includes } from 'ramda'
-import loginAsGuest from '../keycloak/login-as-guest'
 import setupGoogleApi from './setup-google-api'
 import setupLogRocketReact from 'logrocket-react'
 
@@ -47,10 +45,6 @@ const getApiConfig = async () => {
     url: apiConfig.ENV_KEYCLOAK_REDIRECTURI,
     clientId: apiConfig.clientId || clientId, // We can't afford to default this
   })
-
-  if (includes('public', window.location.pathname)) {
-    guestKeycloak = await loginAsGuest()
-  }
 
   tokenFromUrl = getTokenFromURL(keycloak)
 
