@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+import { map } from 'ramda'
 import {
   Box,
   Button,
@@ -11,11 +13,10 @@ import {
   Image,
 } from '@chakra-ui/react'
 import { faArrowDown, faCheck, faFileDownload } from '@fortawesome/free-solid-svg-icons'
-import { useEffect, useState } from 'react'
 
-import DropZone from './Dropzone'
+import DropZone from 'app/DTT/upload/Dropzone'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import ImageType from './Image'
+import ImageType from 'app/DTT/upload/Image'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import useApi from 'api'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
@@ -114,8 +115,8 @@ const Write = ({
 
     closeDropzone()
     let data = new FormData()
-    data.append('file', files[0])
-
+    data.append('file', files)
+    map(individualFile => data.append('file', individualFile))(files)
     try {
       const resp = await api.postMediaFile({ data, onUploadProgress: setProgress })
       onSendAnswer(resp?.uuid)

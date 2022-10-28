@@ -9,7 +9,6 @@ const TemplateDetailView = ({ mappedPcm, depth }) => {
 
   //This is not a good way to check this but it was the best I could come up with short term
   const titleIndex = findIndex(notIncludesAny('_IMAGE', '_PICTURE'))(fields)
-  console.log(fields)
   return (
     <VStack padding={'10px'} align="start">
       {fields.map((attributeCode, index) => {
