@@ -33,13 +33,6 @@ const about = {
 const Rep = ({ sbeCode, targetCode, userType }) => {
   const tileWidth = useIsMobile() ? '90vw' : '33vw'
   const validation = useSelector(selectCode(targetCode, 'PRI_VALIDATION'))
-  const hcValidation = useSelector(selectCode(targetCode, 'PRI_HC_VALIDATION_DOC_URL')) || ''
-  const hcValidationUrl = hcValidation?.value
-
-  const digitalJobsAgreement = useSelector(selectCode(targetCode, 'LNK_VIC_GOV_DIGITAL_JOBS'))
-    ?.value
-  const digitalJobsValidation = useSelector(selectCode(targetCode, 'PRI_DJP_DOCUMENT_ACCEPTED'))
-    ?.value
 
   const hasOHSDoc = useSelector(selectCode(targetCode, 'PRI_DOC_OHS'))?.value
   const OHSDocStatus = useSelector(selectCode(targetCode, 'PRI_DOC_OHS_STATUS'))?.value
@@ -49,8 +42,8 @@ const Rep = ({ sbeCode, targetCode, userType }) => {
   const DJPDocStatus = useSelector(selectCode(targetCode, 'PRI_DOC_DJP_STATUS'))?.value
   const isDJPDocAgreed = equals(DJPDocStatus)('Complete')
 
-  const hasHCSDoc = useSelector(selectCode(targetCode, 'PRI_DOC_OHS'))?.value
-  const HCSDocStatus = useSelector(selectCode(targetCode, 'PRI_DOC_OHS_STATUS'))?.value
+  const hasHCSDoc = useSelector(selectCode(targetCode, 'PRI_DOC_HCS'))?.value
+  const HCSDocStatus = useSelector(selectCode(targetCode, 'PRI_DOC_HCS_STATUS'))?.value
   const isHCSDocAgreed = equals(HCSDocStatus)('Complete')
 
   const hasHCRIDoc = useSelector(selectCode(targetCode, 'PRI_DOC_HCRI'))?.value
@@ -77,80 +70,6 @@ const Rep = ({ sbeCode, targetCode, userType }) => {
     )
   }
 
-  // const ohs =
-  //   validation?.value === 'OHS' ||
-  //   validation?.value === 'Ready' ||
-  //   validation?.value === 'Validated' ? (
-  //     <Button
-  //       colorScheme="green"
-  //       onClick={() => onSendMessage({ targetCode, parentCode: sbeCode, code: 'ACT_OHS_DOC' })}
-  //       leftIcon={<FontAwesomeIcon icon={faDownload} />}
-  //     >
-  //       {`OH&S Declaration`}
-  //     </Button>
-  //   ) : (
-  //     <Button
-  //       colorScheme="red"
-  //       onClick={() => onSendMessage({ targetCode, parentCode: sbeCode, code: 'ACT_OHS_DOC' })}
-  //       leftIcon={<FontAwesomeIcon icon={faEdit} />}
-  //     >
-  //       {`OH&S Declaration`}
-  //     </Button>
-  //   )
-
-  // const hcs =
-  //   validation?.value === 'HCS' ||
-  //   validation?.value === 'Ready' ||
-  //   validation?.value === 'Validated' ? (
-  //     <Button
-  //       colorScheme="green"
-  //       leftIcon={<FontAwesomeIcon icon={faDownload} />}
-  //       onClick={() => onSendMessage({ targetCode, parentCode: sbeCode, code: 'ACT_HCS_DOC' })}
-  //     >
-  //       {`Host Company Placement Agreement`}
-  //     </Button>
-  //   ) : (
-  //     <Button
-  //       colorScheme="red"
-  //       leftIcon={<FontAwesomeIcon icon={faEdit} />}
-  //       onClick={() => onSendMessage({ targetCode, parentCode: sbeCode, code: 'ACT_HCS_DOC' })}
-  //     >
-  //       {`Host Company Placement Agreement`}
-  //     </Button>
-  //   )
-
-  // const hcValidationButton = !!hcValidationUrl && equals(userType)('AGENT') && (
-  //   <Button
-  //     variant="secondary"
-  //     colorScheme="green"
-  //     onClick={() => onSendMessage({ targetCode, parentCode: sbeCode, code: 'ACT_HCV_DOC' })}
-  //     leftIcon={<FontAwesomeIcon icon={faDownload} />}
-  //   >
-  //     {`Host Company Validation`}
-  //   </Button>
-  // )
-
-  // const digitalJobsButton =
-  //   digitalJobsAgreement === 'true' && digitalJobsValidation ? (
-  //     <Button
-  //       onClick={() => onSendMessage({ targetCode, parentCode: sbeCode, code: 'ACT_DJP_DOC' })}
-  //       leftIcon={<FontAwesomeIcon icon={faDownload} />}
-  //       colorScheme={'green'}
-  //     >
-  //       {`Digital Jobs Program Host Employer Subsidy Agreement`}
-  //     </Button>
-  //   ) : digitalJobsAgreement === 'true' ? (
-  //     <Button
-  //       onClick={() => onSendMessage({ targetCode, parentCode: sbeCode, code: 'ACT_DJP_DOC' })}
-  //       leftIcon={<FontAwesomeIcon icon={faEdit} />}
-  //       colorScheme={'red'}
-  //     >
-  //       {`Digital Jobs Program Host Employer Subsidy Agreement`}
-  //     </Button>
-  //   ) : (
-  //     <></>
-  //   )
-
   const documents = (
     <Card variant="card0" w={tileWidth}>
       <VStack align="start">
@@ -171,7 +90,7 @@ const Rep = ({ sbeCode, targetCode, userType }) => {
         {hasHCSDoc && (
           <DocButtons
             actionCode="ACT_HCS_DOC"
-            buttonName="Host Company Placement Agreement"
+            buttonName="Student & Graduate Host Company Agreement"
             icon={isHCSDocAgreed ? faDownload : faEdit}
             colorScheme={isHCSDocAgreed ? 'green' : 'red'}
           />

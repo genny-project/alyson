@@ -28,8 +28,8 @@ const HostCompanyRep = ({ userCode }) => {
   const DJPDocStatus = useSelector(selectCode(companyCode, 'PRI_DOC_DJP_STATUS'))?.value
   const isDJPDocAgreed = equals(DJPDocStatus)('Complete')
 
-  const hasHCSDoc = useSelector(selectCode(companyCode, 'PRI_DOC_OHS'))?.value
-  const HCSDocStatus = useSelector(selectCode(companyCode, 'PRI_DOC_OHS_STATUS'))?.value
+  const hasHCSDoc = useSelector(selectCode(companyCode, 'PRI_DOC_HCS'))?.value
+  const HCSDocStatus = useSelector(selectCode(companyCode, 'PRI_DOC_HCS_STATUS'))?.value
   const isHCSDocAgreed = equals(HCSDocStatus)('Complete')
 
   const hasHCRIDoc = useSelector(selectCode(companyCode, 'PRI_DOC_HCRI'))?.value
@@ -74,7 +74,7 @@ const HostCompanyRep = ({ userCode }) => {
         {hasHCSDoc && (
           <DocButtons
             actionCode="ACT_HCS_DOC"
-            buttonName="Host Company Placement Agreement"
+            buttonName="Student & Graduate Host Company Agreement"
             icon={isHCSDocAgreed ? faDownload : faEdit}
             colorScheme={isHCSDocAgreed ? 'green' : 'red'}
           />
