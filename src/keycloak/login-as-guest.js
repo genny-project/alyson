@@ -4,7 +4,7 @@ import axios from 'axios'
 const data = new URLSearchParams()
 const keycloakUrl = process.env.ENV_KEYCLOAK_REDIRECTURI
 const realm = process.env.GENNY_KEYCLOAK_REALM
-const url = 'https://' + keycloakUrl + '/auth/realms/' + realm + '/protocol/openid-connect/token'
+const url = 'https://' + keycloakUrl + '/realms/' + realm + '/protocol/openid-connect/token'
 const headers = {
   Accept: 'application/json',
   'Content-Type': 'application/x-www-form-urlencoded',
