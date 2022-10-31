@@ -29,6 +29,7 @@ export const Write = ({
   const [userInput, setuserInput] = useState(data?.value || '')
   const [isFocused, setIsFocused] = useState(false)
   const inputRef = useRef()
+
   // const retrySendingAnswerRef = useRef(0)
 
   const theme = useTheme()

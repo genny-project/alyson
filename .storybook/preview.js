@@ -1,3 +1,4 @@
+import { Box } from '@chakra-ui/react'
 import { Provider } from 'react-redux'
 import { defaultProjectTheme } from 'config/theme'
 import store from 'redux/store'
@@ -7,7 +8,9 @@ const theme = defaultProjectTheme
 export const decorators = [
   Story => (
     <Provider store={store}>
-      <Story />
+      <Box width="min(100%, 30rem)" margin={'auto'}>
+        <Story />
+      </Box>
     </Provider>
   ),
 ]
