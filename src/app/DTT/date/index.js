@@ -35,13 +35,13 @@ import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
 
 const Read = ({ data, typeName, config }) => {
-  const includeTime = includes('LocalDateTime', typeName)
+  const includeTime = includes('LocalDateTime')(typeName)
   const onlyYear = typeName === 'year'
 
   if (!data.value) return null
 
   const date = timeBasedOnTimeZone(
-    includes('Z', data.value || '') ? new Date(data.value) : new Date(data.value + 'Z'),
+    includes('Z')(data.value || '') ? new Date(data.value) : new Date(data.value + 'Z'),
     { includeTime, onlyYear },
   )
 
@@ -64,7 +64,6 @@ const Write = ({
   mandatory,
 }) => {
   let initialErrorMsg = 'You can only valid date.'
-
   const theme = useTheme()
   const {
     fieldBackgroundColor,
@@ -75,7 +74,7 @@ const Write = ({
     borderRadius,
   } = useProductColors()
 
-  const includeTime = includes('LocalDateTime', typeName)
+  const includeTime = includes('LocalDateTime')(typeName)
   const themeSecondary = useGetAttributeFromProjectBaseEntity('PRI_COLOR')?.value
 
   const { dispatch } = useError()
