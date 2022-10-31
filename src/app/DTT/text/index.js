@@ -23,6 +23,7 @@ export const Write = ({
   BorderColor,
   BorderHoverColor,
   PlaceholderColor,
+  LabelTextColor,
 }) => {
   let regex
 
@@ -134,7 +135,7 @@ export const Write = ({
         <MandatorySymbol
           placeholderName={placeholderName}
           mandatory={mandatory}
-          labelTextColor={labelTextColor}
+          LabelTextColor={LabelTextColor}
           PlaceholderColor={PlaceholderColor}
         />
         {/* <AnswerAcknowledge

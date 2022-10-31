@@ -8,10 +8,13 @@ export default {
 const questionCode = ''
 const data = ''
 const onSendAnswer = ''
-const regexPattern = ''
+const regexPattern = '/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:.[a-zA-Z0-9-]+)*$/'
 const errorMessage = 'Please enter valid data.'
 const parentCode = ''
 const placeholderName = 'Enter email address'
+const readData = {
+  value: 'digesh.bajracharya@gada.io',
+}
 
 const TemplateWrite = args => {
   return (
@@ -32,4 +35,34 @@ export const Write = TemplateWrite.bind({})
 Write.args = {
   mandatory: false,
   isInvalid: false,
+}
+Write.argTypes = {
+  BackgroundColor: {
+    control: 'color',
+  },
+  BorderColor: {
+    control: 'color',
+  },
+  BorderHoverColor: {
+    control: 'color',
+  },
+  PlaceholderColor: {
+    control: 'color',
+  },
+  LabelTextColor: {
+    control: 'color',
+  },
+}
+
+const TemplateRead = args => {
+  return <Email.Read data={readData} {...args} />
+}
+export const Read = TemplateRead.bind({})
+Read.argTypes = {
+  TextContent: {
+    control: 'text',
+  },
+  TextColor: {
+    control: 'color',
+  },
 }

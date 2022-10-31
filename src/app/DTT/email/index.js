@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Write } from 'app/DTT/text'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 
-const Read = ({ data }) => {
+const Read = ({ data, TextColor, TextContent }) => {
   const { onCopy } = useClipboard(data.value)
   const toast = useToast()
 
@@ -31,8 +31,8 @@ const Read = ({ data }) => {
     })
   }
   return (
-    <Text cursor="pointer" onClick={onClick}>
-      {data?.value}
+    <Text color={TextColor} cursor="pointer" onClick={onClick}>
+      {TextContent || data?.value}
     </Text>
   )
 }

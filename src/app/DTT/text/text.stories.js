@@ -48,6 +48,9 @@ Write.argTypes = {
   PlaceholderColor: {
     control: 'color',
   },
+  LabelTextColor: {
+    control: 'color',
+  },
 }
 
 const HeaderText = args => {
