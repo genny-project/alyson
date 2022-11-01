@@ -209,7 +209,8 @@ const Write = ({
             h="1rem"
             colorScheme={'green'}
             borderRadius="md"
-            value={progress ? Math.floor((progress.loaded / progress.total) * 100) : 0}
+            // value={progress ? Math.floor((progress.loaded / progress.total) * 100) : 0}
+            isIndeterminate
           />
         </VStack>
       </Box>
