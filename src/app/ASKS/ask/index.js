@@ -389,7 +389,7 @@ const Ask = ({
           clientId={clientId}
         />
       )}
-      {component === 'upload' && (
+      {(component === 'upload' || component === 'multi_upload') && (
         <Upload.Write
           questionCode={questionCode}
           dttData={dataType}
@@ -403,6 +403,7 @@ const Ask = ({
           targetCode={targetCode}
           mandatory={mandatory}
           clientId={clientId}
+          component={component}
         />
       )}
       {(component === 'date' || component === 'year') && (
