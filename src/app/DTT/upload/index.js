@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { map } from 'ramda'
+import { map, equals } from 'ramda'
 import {
   Box,
   Button,
@@ -85,6 +85,7 @@ const Write = ({
   placeholderName: label,
   clientId,
   mandatory,
+  component: type,
 }) => {
   const api = useApi()
   const typeName = dttData?.typeName
@@ -98,6 +99,7 @@ const Write = ({
   const closeDropzone = () => setDropzone(false)
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
   const { labelTextColor } = useProductColors()
+  const maxFiles = equals(type, 'multi_upload') ? 10 : 1
 
   useEffect(() => {
     const getFileName = async uuid => {
@@ -115,7 +117,6 @@ const Write = ({
 
     closeDropzone()
     let data = new FormData()
-    data.append('file', files)
     map(individualFile => data.append('file', individualFile))(files)
     try {
       const resp = await api.postMediaFile({ data, onUploadProgress: setProgress })
@@ -136,7 +137,6 @@ const Write = ({
           mandatory={mandatory}
           labelTextColor={labelTextColor}
         />
-
         {data?.value ? <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} /> : null}
       </HStack>
       <Box w={'full'} hidden={loading}>
@@ -195,6 +195,7 @@ const Write = ({
             questionCode={questionCode}
             id={questionCode}
             clientId={clientId}
+            maxFiles={maxFiles}
           />
         )}
       </Box>
