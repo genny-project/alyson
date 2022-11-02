@@ -25,7 +25,7 @@ import useGetFieldMessage from 'utils/fieldMessage'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
 
-const Read = ({ data, config = {} }) => {
+const Read = ({ data, config = {}, IsDisabled }) => {
   const attributeName = data?.attributeName
 
   if (!data?.value) return null
@@ -40,7 +40,7 @@ const Read = ({ data, config = {} }) => {
           icon={faLinkedin}
           test-id={data?.baseEntityCode}
           {...config}
-          isDisabled={!data?.value}
+          isDisabled={IsDisabled || !data?.value}
           color="#3182CE"
         />
       </a>
@@ -65,6 +65,11 @@ const Write = ({
   parentCode,
   placeholderName,
   mandatory,
+  BackgroundColor,
+  BorderColor,
+  BorderHoverColor,
+  PlaceholderColor,
+  LabelTextColor,
 }) => {
   const theme = useTheme()
 
@@ -132,7 +137,12 @@ const Write = ({
         transition="all 0.25s ease"
       >
         {placeholderName && (
-          <ChakraText as="label" fontSize={'sm'} fontWeight={'medium'} color={labelTextColor}>
+          <ChakraText
+            as="label"
+            fontSize={'sm'}
+            fontWeight={'medium'}
+            color={LabelTextColor || labelTextColor}
+          >
             {placeholderName}
             {mandatory ? (
               <ChakraText as="span" color={'red.500'} ml={1}>
@@ -151,16 +161,16 @@ const Write = ({
 
       <HStack justifyContent={'space-between'}>
         <InputGroup
-          bg={fieldBackgroundColor}
+          bg={BackgroundColor || fieldBackgroundColor}
           borderRadius={borderRadius}
           borderWidth="1px"
           borderStyle="solid"
-          borderColor={fieldBorderColor}
+          borderColor={BorderColor || fieldBorderColor}
           overflow={'hidden'}
           onClick={() => setIsFocused(true)}
           role="group"
           _hover={{
-            borderColor: fieldHoverBorderColor,
+            borderColor: BorderHoverColor || fieldHoverBorderColor,
             boxShadow: 'lg',
           }}
           _focusVisible={{
@@ -183,6 +193,7 @@ const Write = ({
         >
           <InputLeftAddon
             h={'auto'}
+            bg={BackgroundColor || 'transparent'}
             border={0}
             borderRadius={0}
             paddingInlineStart={6}
@@ -214,7 +225,7 @@ const Write = ({
             border={0}
             fontSize={'sm'}
             fontWeight={'medium'}
-            color={fieldTextColor}
+            color={PlaceholderColor || fieldTextColor}
             _focusVisible={{
               border: '0',
             }}

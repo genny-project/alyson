@@ -5,8 +5,7 @@ export default {
   component: Social,
 }
 
-const SocialWrite = args => {
-  const { mandatory, placeholderName } = args
+const TemplateWrite = args => {
   return (
     <Social.Write
       questionCode={''}
@@ -15,13 +14,12 @@ const SocialWrite = args => {
       regexPattern={''}
       errorMessage={''}
       parentCode={''}
-      placeholderName={placeholderName}
-      mandatory={mandatory}
+      {...args}
     />
   )
 }
 
-export const Write = SocialWrite.bind({})
+export const Write = TemplateWrite.bind({})
 Write.args = {
   mandatory: true,
   placeholderName: 'Enter a value',
@@ -42,4 +40,12 @@ Write.argTypes = {
   LabelTextColor: {
     control: 'color',
   },
+}
+
+const TemplateRead = args => {
+  return <Social.Read data={{ value: 'https://www.linkedin.com/' }} config={{}} {...args} />
+}
+export const Read = TemplateRead.bind({})
+Read.args = {
+  IsDisabled: false,
 }

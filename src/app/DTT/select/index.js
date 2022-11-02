@@ -1,7 +1,7 @@
 import './styles.css'
 
 import { Box, HStack, Text, VStack, useTheme } from '@chakra-ui/react'
-import { compose, includes, isEmpty, pathOr, equals } from 'ramda'
+import { compose, equals, includes, isEmpty, pathOr } from 'ramda'
 import { selectCode, selectRows } from 'redux/db/selectors'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
@@ -33,6 +33,8 @@ const Write = ({
   mandatory,
   clientId,
   config,
+  options,
+  openOptionAlways,
 }) => {
   const dropdownData =
     useSelector(
@@ -42,7 +44,7 @@ const Write = ({
       (left, right) => (left?.length || -1) === (right?.length || -2),
     ) || []
 
-  const options = mapOptions(dropdownData)
+  const optionsData = mapOptions(dropdownData)
   const isMulti = includes('multiple', dataType.typeName || '') || component === 'tag'
   const processId = useSelector(selectCode(questionCode, 'processId'))
   const sourceCode = useSelector(selectCode('USER'))
@@ -50,6 +52,8 @@ const Write = ({
   const [value, setValue] = useState(getValue(data, options))
   const [updated, setUpdated] = useState(false)
   const [isFocused, setIsFocused] = useState(true)
+
+  console.log({ optionsData })
 
   const [askedForDropDownData, setAskedForDropDownData] = useState(false)
 
@@ -186,7 +190,7 @@ const Write = ({
       <CSelect
         useBasicStyles
         isMulti={isMulti}
-        options={options}
+        options={options || optionsData}
         onChange={onChange}
         onInputChange={value => ddEvent(value)}
         onFocus={() => {
@@ -199,6 +203,7 @@ const Write = ({
         classNamePrefix={clientId + '_dd'}
         selectedOptionStyle="check"
         placeholder=""
+        menuIsOpen={openOptionAlways}
         chakraStyles={{
           container: provided => ({
             ...provided,
