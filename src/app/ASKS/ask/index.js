@@ -629,7 +629,7 @@ const Ask = ({
         />
       )}
       {component === 'progress' && (
-        <ProgressBar.Write
+        <ProgressBar
           data={data}
           questionCode={questionCode}
           onSendAnswer={onSendAnswer}
