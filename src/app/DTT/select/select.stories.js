@@ -8,13 +8,13 @@ export default {
 const TemplateWrite = args => {
   return (
     <Select.Write
-      questionCode={''}
-      attributeCode={''}
+      questionCode={'QUE_SELECT_COUNTRY'}
+      attributeCode={'LNK_SELECT_COUNTRY'}
       onSendAnswer={() => {}}
       data={''}
       dataType={''}
-      targetCode={''}
-      parentCode={''}
+      targetCode={'PER_1F543240-C312-4CC8-829D-6BF0D3CEDA0D'}
+      parentCode={'QUE_QA_INTERN_GRP'}
       component={''}
       {...args}
     />
@@ -24,35 +24,63 @@ export const Write = TemplateWrite.bind({})
 Write.args = {
   placeholderName: 'Select any',
   mandatory: true,
-  openOptionAlways: true,
-  options: [
+  openOptionAlways: false,
+  noOptions: false,
+  dataOptions: [
     {
-      label: 'SEL_AUSTRALIA',
+      label: 'Australia',
       value: 'SEL_AUSTRALIA',
     },
     {
-      label: 'SEL_AUSTRALIA',
+      label: 'Nepal',
+      value: 'SEL_NEPAL',
+    },
+    {
+      label: 'India',
+      value: 'SEL_INDIA',
+    },
+    {
+      label: 'Indonesia',
+      value: 'SEL_INDONESIA',
+    },
+    {
+      label: 'Canada',
+      value: 'SEL_CANADA',
+    },
+  ],
+}
+Write.argTypes = {
+  DropdownHoverBackground: {
+    control: 'color',
+  },
+}
+
+const TemplateRead = args => {
+  const { dataOptions } = args
+  return <Select.Read data={dataOptions} />
+}
+export const Read = TemplateRead.bind({})
+Read.args = {
+  dataOptions: [
+    {
+      label: 'Australia',
       value: 'SEL_AUSTRALIA',
     },
     {
-      label: 'SEL_AUSTRALIA',
-      value: 'SEL_AUSTRALIA',
+      label: 'Nepal',
+      value: 'SEL_NEPAL',
     },
     {
-      label: 'SEL_AUSTRALIA',
-      value: 'SEL_AUSTRALIA',
+      label: 'India',
+      value: 'SEL_INDIA',
     },
     {
-      label: 'SEL_AUSTRALIA',
-      value: 'SEL_AUSTRALIA',
+      label: 'Indonesia',
+      value: 'SEL_INDONESIA',
     },
     {
-      label: 'SEL_AUSTRALIA',
-      value: 'SEL_AUSTRALIA',
-    },
-    {
-      label: 'SEL_AUSTRALIA',
-      value: 'SEL_AUSTRALIA',
+      label: 'Canada',
+      value: 'SEL_CANADA',
     },
   ],
 }

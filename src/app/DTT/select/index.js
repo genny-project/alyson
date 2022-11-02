@@ -33,9 +33,13 @@ const Write = ({
   mandatory,
   clientId,
   config,
-  options,
+  dataOptions,
   openOptionAlways,
+  DropdownHoverBackground,
+  noOptions,
 }) => {
+  const dropDownOptions = useSelector(selectCode('QUE_QA_INTERN_GRP-QUE_SELECT_COUNTRY-options'))
+
   const dropdownData =
     useSelector(
       selectCode(`${parentCode}-${questionCode}-options`),
@@ -44,16 +48,16 @@ const Write = ({
       (left, right) => (left?.length || -1) === (right?.length || -2),
     ) || []
 
-  const optionsData = mapOptions(dropdownData)
+  const options = mapOptions(dropdownData)
   const isMulti = includes('multiple', dataType.typeName || '') || component === 'tag'
   const processId = useSelector(selectCode(questionCode, 'processId'))
   const sourceCode = useSelector(selectCode('USER'))
 
+  console.log({ dropDownOptions }, parentCode, questionCode)
+
   const [value, setValue] = useState(getValue(data, options))
   const [updated, setUpdated] = useState(false)
   const [isFocused, setIsFocused] = useState(true)
-
-  console.log({ optionsData })
 
   const [askedForDropDownData, setAskedForDropDownData] = useState(false)
 
@@ -190,7 +194,7 @@ const Write = ({
       <CSelect
         useBasicStyles
         isMulti={isMulti}
-        options={options || optionsData}
+        options={(!noOptions && dataOptions) || options}
         onChange={onChange}
         onInputChange={value => ddEvent(value)}
         onFocus={() => {
@@ -255,7 +259,7 @@ const Write = ({
             fontWeight: '500',
             color: fieldTextColor,
             _hover: {
-              bg: 'product.secondary',
+              bg: DropdownHoverBackground || 'product.secondary',
               color: '#fff',
             },
           }),
