@@ -33,27 +33,24 @@ const Write = ({
   mandatory,
   clientId,
   config,
-  dataOptions,
-  openOptionAlways,
-  DropdownHoverBackground,
+  passedDropdownData,
   noOptions,
+  DropdownHoverBackground,
 }) => {
-  const dropDownOptions = useSelector(selectCode('QUE_QA_INTERN_GRP-QUE_SELECT_COUNTRY-options'))
-
   const dropdownData =
     useSelector(
       selectCode(`${parentCode}-${questionCode}-options`),
       /// Checking this way means that if left or right is undefined, the comparison still works as expected.
       /// Without the length checks I found this comparison didn't tend to behave as expected
       (left, right) => (left?.length || -1) === (right?.length || -2),
-    ) || []
+    ) ||
+    passedDropdownData ||
+    []
 
-  const options = mapOptions(dropdownData)
+  const options = !noOptions ? mapOptions(dropdownData) : []
   const isMulti = includes('multiple', dataType.typeName || '') || component === 'tag'
   const processId = useSelector(selectCode(questionCode, 'processId'))
   const sourceCode = useSelector(selectCode('USER'))
-
-  console.log({ dropDownOptions }, parentCode, questionCode)
 
   const [value, setValue] = useState(getValue(data, options))
   const [updated, setUpdated] = useState(false)
@@ -134,6 +131,7 @@ const Write = ({
   }, [])
 
   useEffect(() => {
+    console.log(value)
     value?.length ? setIsFocused(true) : setIsFocused(false)
   }, [value])
 
@@ -146,7 +144,6 @@ const Write = ({
         newValue = [newValue]
       }
     }
-    setValue(newValue)
     setUpdated(true)
     newValue ? setIsFocused(true) : setIsFocused(false)
     onSendAnswer(prepareValueForSendingAnswer(newValue))
@@ -194,7 +191,7 @@ const Write = ({
       <CSelect
         useBasicStyles
         isMulti={isMulti}
-        options={(!noOptions && dataOptions) || options}
+        options={options}
         onChange={onChange}
         onInputChange={value => ddEvent(value)}
         onFocus={() => {
@@ -207,7 +204,6 @@ const Write = ({
         classNamePrefix={clientId + '_dd'}
         selectedOptionStyle="check"
         placeholder=""
-        menuIsOpen={openOptionAlways}
         chakraStyles={{
           container: provided => ({
             ...provided,

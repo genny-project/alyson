@@ -1,4 +1,5 @@
 import Select from 'app/DTT/select'
+import makeStoryOptions from './make-story-options'
 
 export default {
   title: 'Components/Select',
@@ -6,17 +7,22 @@ export default {
 }
 
 const TemplateWrite = args => {
+  const { placeholderName, mandatory, noOptions, dataOptions } = args
+
   return (
     <Select.Write
-      questionCode={'QUE_SELECT_COUNTRY'}
-      attributeCode={'LNK_SELECT_COUNTRY'}
+      questionCode={''}
+      attributeCode={''}
       onSendAnswer={() => {}}
       data={''}
       dataType={''}
-      targetCode={'PER_1F543240-C312-4CC8-829D-6BF0D3CEDA0D'}
-      parentCode={'QUE_QA_INTERN_GRP'}
+      targetCode={''}
+      parentCode={''}
       component={''}
-      {...args}
+      mandatory={mandatory}
+      placeholderName={placeholderName}
+      noOptions={noOptions}
+      passedDropdownData={makeStoryOptions(dataOptions)}
     />
   )
 }
