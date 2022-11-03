@@ -10,9 +10,9 @@ import {
   Text,
   Tooltip,
   VStack,
-  Image,
 } from '@chakra-ui/react'
 import { faArrowDown, faCheck, faFileDownload } from '@fortawesome/free-solid-svg-icons'
+import DocViewer, { PDFRenderer } from 'react-doc-viewer'
 
 import DropZone from 'app/DTT/upload/Dropzone'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -129,6 +129,12 @@ const Write = ({
     dispatchFieldMessage({ payload: questionCode })
   }
 
+  const docs = [
+    {
+      uri: src,
+    },
+  ]
+
   return (
     <VStack>
       <HStack justifyContent={'space-between'} w={'full'}>
@@ -152,7 +158,7 @@ const Write = ({
           />
         ) : data?.value ? (
           <VStack>
-            {!!src && <Image src={src} borderRadius="md" />}
+            {!!src && <DocViewer documents={docs} pluginRenderers={[PDFRenderer]} />}
             <HStack>
               <Button leftIcon={<FontAwesomeIcon icon={faCheck} />} colorScheme="green">{`${
                 fileName || 'File'
