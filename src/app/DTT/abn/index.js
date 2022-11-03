@@ -114,7 +114,7 @@ const Write = ({
         zIndex={theme.zIndices.docked}
         top={isFocused ? '-1.5rem' : 3}
         left={0}
-        paddingStart={6}
+        paddingStart={isFocused ? 6 : 36}
         w="full"
         justifyContent={'space-between'}
         pointerEvents={'none'}
@@ -162,7 +162,7 @@ const Write = ({
         <Input
           id={questionCode}
           test-id={questionCode}
-          placeholder={placeholderName}
+          // placeholder={placeholderName}
           value={value}
           onFocus={() => {
             setIsFocused(true)

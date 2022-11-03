@@ -6,6 +6,7 @@ export interface AttributeProps {
   config?: {}
   styles?: any
   hasIndicatorIcon?: any
+  readonly?: boolean
 }
 
 export interface PcmFieldParameters {

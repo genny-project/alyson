@@ -1,7 +1,7 @@
 import { Box, Button, Center, Flex, HStack, Image, Input, Text, useToast } from '@chakra-ui/react'
 import { compose, equals, includes, isEmpty, map, pathOr, split } from 'ramda'
 import { faCloudUploadAlt, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { isImageField } from 'utils/functions'
@@ -9,7 +9,7 @@ import { lojing } from 'utils/constants'
 import { useDropzone } from 'react-dropzone'
 import useProductColors from 'utils/productColors'
 
-const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 1, questionCode, clientId }) => {
+const DropZone = ({ video, handleSave, closeDropzone, maxFiles, questionCode, clientId }) => {
   const [files, setFiles] = useState([])
   const [hover, setHover] = useState(false)
   const toast = useToast()
@@ -22,12 +22,14 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 1, questionCode
     dropZoneTextHoverColor,
   } = useProductColors()
 
-  useEffect(() => {
-    if (files.length) {
-      handleSave(files)
-      closeDropzone()
-    }
-  }, [closeDropzone, files, handleSave])
+  const handleOnSubmit = () => {
+    handleSave(files)
+    closeDropzone()
+  }
+
+  const handleOnClose = () => {
+    closeDropzone()
+  }
 
   const showErrorMessage = file => {
     const errorMessage = pathOr('', ['errors', 0, 'message'])(file)
@@ -186,7 +188,7 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 1, questionCode
                 <Button
                   mr="2"
                   variant="ghost"
-                  onClick={closeDropzone}
+                  onClick={handleOnClose}
                   test-id={`${questionCode}-CANCEL`}
                   borderRadius="full"
                   paddingInline={10}
@@ -196,7 +198,7 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 1, questionCode
                 <Button
                   variant="solid"
                   isDisabled={!!isEmpty(files)}
-                  onClick={() => handleSave(files)}
+                  onClick={handleOnSubmit}
                   test-id={`${questionCode}-SUBMIT`}
                   borderRadius="full"
                   paddingInline={10}

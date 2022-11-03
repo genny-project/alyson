@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+import { map, equals } from 'ramda'
 import {
   Box,
   Button,
@@ -8,13 +10,13 @@ import {
   Text,
   Tooltip,
   VStack,
+  Image,
 } from '@chakra-ui/react'
 import { faArrowDown, faCheck, faFileDownload } from '@fortawesome/free-solid-svg-icons'
-import { useEffect, useState } from 'react'
 
-import DropZone from './Dropzone'
+import DropZone from 'app/DTT/upload/Dropzone'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import ImageType from './Image'
+import ImageType from 'app/DTT/upload/Image'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import useApi from 'api'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
@@ -83,10 +85,12 @@ const Write = ({
   placeholderName: label,
   clientId,
   mandatory,
+  component: type,
 }) => {
   const api = useApi()
   const typeName = dttData?.typeName
-
+  const { getImageSrc } = useApi()
+  const src = getImageSrc(data?.value, { height: '500', width: '500' })
   const [fileName, setFileName] = useState('')
   const [dropzone, setDropzone] = useState(!!video)
   const [loading, setLoading] = useState(false)
@@ -95,6 +99,7 @@ const Write = ({
   const closeDropzone = () => setDropzone(false)
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
   const { labelTextColor } = useProductColors()
+  const maxFiles = equals(type, 'multi_upload') ? 10 : 1
 
   useEffect(() => {
     const getFileName = async uuid => {
@@ -112,8 +117,7 @@ const Write = ({
 
     closeDropzone()
     let data = new FormData()
-    data.append('file', files[0])
-
+    map(individualFile => data.append('file', individualFile))(files)
     try {
       const resp = await api.postMediaFile({ data, onUploadProgress: setProgress })
       onSendAnswer(resp?.uuid)
@@ -133,7 +137,6 @@ const Write = ({
           mandatory={mandatory}
           labelTextColor={labelTextColor}
         />
-
         {data?.value ? <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} /> : null}
       </HStack>
       <Box w={'full'} hidden={loading}>
@@ -148,14 +151,21 @@ const Write = ({
             name={name}
           />
         ) : data?.value ? (
-          <HStack>
-            <Button leftIcon={<FontAwesomeIcon icon={faCheck} />} colorScheme="green">{`${
-              fileName || 'File'
-            } Uploaded`}</Button>
-            <Tooltip label="Click to remove">
-              <CloseButton cursor="pointer" test-id={questionCode} onClick={() => onSendAnswer()} />
-            </Tooltip>
-          </HStack>
+          <VStack>
+            {!!src && <Image src={src} borderRadius="md" />}
+            <HStack>
+              <Button leftIcon={<FontAwesomeIcon icon={faCheck} />} colorScheme="green">{`${
+                fileName || 'File'
+              } Uploaded`}</Button>
+              <Tooltip label="Click to remove">
+                <CloseButton
+                  cursor="pointer"
+                  test-id={questionCode}
+                  onClick={() => onSendAnswer()}
+                />
+              </Tooltip>
+            </HStack>
+          </VStack>
         ) : (
           <Button
             id={questionCode}
@@ -185,6 +195,7 @@ const Write = ({
             questionCode={questionCode}
             id={questionCode}
             clientId={clientId}
+            maxFiles={maxFiles}
           />
         )}
       </Box>
