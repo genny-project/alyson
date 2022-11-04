@@ -1,21 +1,30 @@
-import ProgressBar from './Progress_Bar'
-import { Progress, Text, VStack } from '@chakra-ui/react'
+import { Progress, VStack, Text } from '@chakra-ui/react'
+import safelyParseJson from 'utils/helpers/safely-parse-json'
+import { multiply } from 'ramda'
 
-const Read = ({ data }) => <ProgressBar value={data?.value} />
-const Write = ({ data, placeholderName: label }) => {
-  return (
+const ProgressBar = props => {
+  const { value } = props
+  const { internshipProgress = 0, completedJournals = 0 } = safelyParseJson(value)
+
+  const completedJournalsPercentage = (() => {
+    return multiply(completedJournals, 10)
+  })()
+
+  return internshipProgress || completedJournals ? (
     <VStack alignItems="start">
-      <Text color="gray.700" alignSelf="start">
-        {label}
-      </Text>
-      <Progress w="full" colorScheme="green" size="sm" value="20" />
+      <Text> {`Internship Progress`} </Text>
+      <Progress w="full" colorScheme="green" borderRadius="md" value={internshipProgress} />
+      <Text>{`Journals Completed: ${completedJournals}`} </Text>
+      <Progress
+        w="full"
+        colorScheme="green"
+        borderRadius="md"
+        value={completedJournalsPercentage}
+      />
     </VStack>
+  ) : (
+    <Progress w="full" colorScheme="green" borderRadius="md" value={value} />
   )
 }
 
-const ProgressComponent = {
-  Read,
-  Write,
-}
-
-export default ProgressComponent
+export default ProgressBar
