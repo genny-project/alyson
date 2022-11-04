@@ -20,6 +20,9 @@ const HostCompanyRep = ({ userCode }) => {
   const companyCode = useSelector(selectCode('COMPANY'))
   const validation = useSelector(selectCode(companyCode, 'PRI_VALIDATION'))
 
+  const hcValidation = useSelector(selectCode(companyCode, 'PRI_HC_VALIDATION_DOC_URL')) || ''
+  const hcValidationUrl = hcValidation?.value
+
   const hasOHSDoc = useSelector(selectCode(companyCode, 'PRI_DOC_OHS'))?.value
   const OHSDocStatus = useSelector(selectCode(companyCode, 'PRI_DOC_OHS_STATUS'))?.value
   const isOHSDocAgreed = equals(OHSDocStatus)('Complete')
@@ -43,8 +46,14 @@ const HostCompanyRep = ({ userCode }) => {
         leftIcon={<FontAwesomeIcon icon={icon} />}
         onClick={() => onSendMessage({ targetCode: companyCode, code: actionCode })}
         colorScheme={colorScheme}
+        height={'auto'}
+        paddingBlock={3}
+        whiteSpace={'normal'}
+        textAlign={'left'}
+        alignItems={'flex-start'}
+        justifyContent={'flex-start'}
       >
-        {buttonName}
+        <Text as="span">{buttonName}</Text>
       </Button>
     )
   }
@@ -62,7 +71,6 @@ const HostCompanyRep = ({ userCode }) => {
             <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
           )}
         </HStack>
-
         {hasOHSDoc && (
           <DocButtons
             actionCode="ACT_OHS_DOC"
@@ -94,6 +102,22 @@ const HostCompanyRep = ({ userCode }) => {
             icon={isHCRIDocAgreed ? faDownload : faEdit}
             colorScheme={isHCRIDocAgreed ? 'green' : 'red'}
           />
+        )}
+        {!!hcValidationUrl && (
+          <Button
+            size="sm"
+            onClick={() => window.open(hcValidationUrl)}
+            leftIcon={<FontAwesomeIcon icon={faDownload} />}
+            colorScheme={'green'}
+            height={'auto'}
+            paddingBlock={3}
+            whiteSpace={'normal'}
+            textAlign={'left'}
+            alignItems={'flex-start'}
+            justifyContent={'flex-start'}
+          >
+            {`Host Company Validation`}
+          </Button>
         )}
       </VStack>
     </Card>
