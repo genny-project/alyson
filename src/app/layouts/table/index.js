@@ -6,13 +6,18 @@ import { includes } from 'ramda'
 import { selectCode } from 'redux/db/selectors'
 import { selectTable } from 'redux/app/selectors'
 import { useSelector } from 'react-redux'
+import debugOut from 'utils/debug-out'
 
-const TableWrapper = ({ mapSearch, passedComponents = [] }) => {
-  const table = useSelector(selectTable)
+const TableWrapper = ({ mapSearch, passedTable, passedComponents = [] }) => {
+  const selectedTable = useSelector(selectTable)
+  const table = passedTable || selectedTable
   const userCode = useSelector(selectCode('USER'))
   const userType = getUserType(useSelector(selectCode(userCode)))
 
-  if (!table) return null
+  if (!table) {
+    debugOut.error('Got null table!')
+    return null
+  }
 
   if (includes('_INTERNSHIPS_', table) && userType === 'INTERN')
     return <InternInternshipSearch sbeCode={table} />

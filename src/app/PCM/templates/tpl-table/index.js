@@ -13,8 +13,13 @@ const TemplateTable = ({ parentCode, mappedPcm, depth }) => {
   ))(spillLocs)
   const tableObject = useSelector(selectCode(parentCode, tableSbeLocation))
   const tableCode = tableObject?.value || ''
-
-  return <TableWrapper tableCode={tableCode} passedComponents={passedComponents} />
+  return (
+    <TableWrapper
+      tableCode={tableCode}
+      passedTable={mappedPcm.PRI_LOC1}
+      passedComponents={passedComponents}
+    />
+  )
 }
 
 export default TemplateTable

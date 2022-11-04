@@ -14,7 +14,6 @@ const TemplatePopup = ({ mappedPcm, depth }) => {
 
   const theme = useTheme()
   const { buttonBackgroundColor } = useProductColors()
-
   return (
     <Popover>
       <PopoverTrigger>
