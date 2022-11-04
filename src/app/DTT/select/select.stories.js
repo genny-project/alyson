@@ -7,7 +7,7 @@ export default {
 }
 
 const TemplateWrite = args => {
-  const { placeholderName, mandatory, noOptions, dataOptions } = args
+  const { placeholderName, mandatory, noOptions, dataOptions, DropdownHoverBackground } = args
 
   return (
     <Select.Write
@@ -23,6 +23,7 @@ const TemplateWrite = args => {
       placeholderName={placeholderName}
       noOptions={noOptions}
       passedDropdownData={makeStoryOptions(dataOptions)}
+      DropdownHoverBackground={DropdownHoverBackground}
     />
   )
 }
@@ -32,6 +33,7 @@ Write.args = {
   mandatory: true,
   openOptionAlways: false,
   noOptions: false,
+  DropdownHoverBackground: '#FFFFFF',
   dataOptions: [
     {
       label: 'Australia',
