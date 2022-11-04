@@ -34,6 +34,9 @@ const Rep = ({ sbeCode, targetCode, userType }) => {
   const tileWidth = useIsMobile() ? '90vw' : '33vw'
   const validation = useSelector(selectCode(targetCode, 'PRI_VALIDATION'))
 
+  const hcValidation = useSelector(selectCode(targetCode, 'PRI_HC_VALIDATION_DOC_URL')) || ''
+  const hcValidationUrl = hcValidation?.value
+
   const hasOHSDoc = useSelector(selectCode(targetCode, 'PRI_DOC_OHS'))?.value
   const OHSDocStatus = useSelector(selectCode(targetCode, 'PRI_DOC_OHS_STATUS'))?.value
   const isOHSDocAgreed = equals(OHSDocStatus)('Complete')
@@ -64,8 +67,14 @@ const Rep = ({ sbeCode, targetCode, userType }) => {
         leftIcon={<FontAwesomeIcon icon={icon} />}
         onClick={() => onSendMessage({ targetCode, parentCode: sbeCode, code: actionCode })}
         colorScheme={colorScheme}
+        height={'auto'}
+        paddingBlock={3}
+        whiteSpace={'normal'}
+        textAlign={'left'}
+        alignItems={'flex-start'}
+        justifyContent={'flex-start'}
       >
-        {buttonName}
+        <Text as="span">{buttonName}</Text>
       </Button>
     )
   }
@@ -113,10 +122,22 @@ const Rep = ({ sbeCode, targetCode, userType }) => {
           />
         )}
 
-        {/* {ohs}
-        {hcs}
-        {hcValidationButton}
-        {digitalJobsButton} */}
+        {!!hcValidationUrl && (
+          <Button
+            size="sm"
+            onClick={() => window.open(hcValidationUrl)}
+            leftIcon={<FontAwesomeIcon icon={faDownload} />}
+            colorScheme={'green'}
+            height={'auto'}
+            paddingBlock={3}
+            whiteSpace={'normal'}
+            textAlign={'left'}
+            alignItems={'flex-start'}
+            justifyContent={'flex-start'}
+          >
+            {`Host Company Validation`}
+          </Button>
+        )}
       </VStack>
     </Card>
   )
