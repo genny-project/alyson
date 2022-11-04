@@ -90,12 +90,7 @@ export const Write = ({
   }
 
   const onChange = value => option => {
-    const out = {
-      userInput: value,
-      selectedOption: option,
-    }
-
-    onSendAnswer(JSON.stringify(out))
+    onSendAnswer(option || value)
 
     setUpdated(true)
     inputRef.current.blur()
