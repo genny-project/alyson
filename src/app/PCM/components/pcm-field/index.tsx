@@ -4,6 +4,7 @@ import NonPcmPcmField from 'app/PCM/components/pcm-field/non-pcm-field'
 import { PcmFieldProps } from 'app/PCM/components/pcm-field/types'
 
 import getPrefixFromCode from 'app/PCM/helpers/get-prefix-from-code'
+import debugOut from 'utils/debug-out'
 
 const PcmField: React.FC<PcmFieldProps> = ({
   code,
@@ -14,6 +15,9 @@ const PcmField: React.FC<PcmFieldProps> = ({
   depth,
 }): JSX.Element => {
   let prefixCode
+  if (!code) {
+    debugOut.warn('PCM field got empty code!')
+  }
   prefixCode = code ?? ''
   const pcm = 'PCM'
   const prefix: any = getPrefixFromCode(prefixCode) || 'NONE'

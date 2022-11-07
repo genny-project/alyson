@@ -16,9 +16,11 @@ const TemplateText = ({ mappedPcm, depth }) => {
   const wholeData = useSelector(selectCode(questionCode, 'wholeData'))
 
   const attributeCodes = reduce((acc, elem) => {
-    if (elem.attributeCode) acc = append(elem.attributeCode)(acc)
+    if (elem?.attributeCode) {
+      acc = append(elem?.attributeCode)(acc)
+    }
     return acc
-  }, [])(wholeData)
+  }, [])(wholeData || [])
 
   const attributes = useSelector(selectAttributes(targetCode, attributeCodes))
   const attributesFiltered = filter(elem => elem)(attributes)
