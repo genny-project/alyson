@@ -125,7 +125,7 @@ const Rep = ({ sbeCode, targetCode, userType }) => {
         {!!hcValidationUrl && (
           <Button
             size="sm"
-            onClick={() => window.open(hcValidationUrl)}
+            onClick={() => onSendMessage({ targetCode, parentCode: sbeCode, code: 'ACT_HCV_DOC' })}
             leftIcon={<FontAwesomeIcon icon={faDownload} />}
             colorScheme={'green'}
             height={'auto'}
