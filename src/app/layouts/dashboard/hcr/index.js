@@ -106,7 +106,7 @@ const HostCompanyRep = ({ userCode }) => {
         {!!hcValidationUrl && (
           <Button
             size="sm"
-            onClick={() => window.open(hcValidationUrl)}
+            onClick={() => onSendMessage({ targetCode: companyCode, code: 'ACT_HCV_DOC' })}
             leftIcon={<FontAwesomeIcon icon={faDownload} />}
             colorScheme={'green'}
             height={'auto'}
