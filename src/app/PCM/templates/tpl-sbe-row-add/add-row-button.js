@@ -12,8 +12,6 @@ const AddRowButton = ({ mappedPcm }) => {
 
   const mappedRow = useMapSbeRow(questionCode)
 
-  console.log(mappedRow)
-
   if (!attributeCode || !askData) {
     return null
   }
