@@ -82,7 +82,9 @@ const Ask = ({
   } = askData || {}
 
   const clientId = apiConfig?.clientId
-  const data = useSelector(selectCode(passedTargetCode || targetCode, attributeCode)) || {}
+
+  const trueTargetCode = passedTargetCode || targetCode
+  const data = useSelector(selectCode(trueTargetCode, attributeCode)) || {}
 
   const highlightedQuestion = useSelector(selectHighlightedQuestion)
   const labelWidth = useMobileValue(['full', '25vw'])
@@ -122,7 +124,7 @@ const Ask = ({
 
   const onSendAnswer = handleUpadateReduxStore(onSendAnswerWithNovalue)(onNewMsg)({
     attributeCode,
-    targetCode,
+    targetCode: trueTargetCode,
   })
 
   if (readonly) {
@@ -131,7 +133,11 @@ const Ask = ({
         <CText id={attributeCode} w={labelWidth} textStyle="body.1">
           {name}
         </CText>
-        <Attribute config={{ textStyle: 'body.1' }} code={targetCode} attribute={attributeCode} />
+        <Attribute
+          config={{ textStyle: 'body.1' }}
+          code={trueTargetCode}
+          attribute={attributeCode}
+        />
       </HStack>
     )
   }
@@ -160,7 +166,7 @@ const Ask = ({
         errorMessage={errorMessage}
         parentCode={parentCode}
         attributeCode={attributeCode}
-        targetCode={targetCode}
+        targetCode={trueTargetCode}
         clientId={clientId}
       />
     )
@@ -174,7 +180,7 @@ const Ask = ({
       regexPattern={regexPattern}
       errorMessage={errorMessage}
       attributeCode={attributeCode}
-      targetCode={targetCode}
+      targetCode={trueTargetCode}
       sourceCode={sourceCode}
       clientId={clientId}
     />
@@ -217,7 +223,7 @@ const Ask = ({
           attributeCode={attributeCode}
           parentCode={parentCode}
           placeholderName={placeholderName}
-          targetCode={targetCode}
+          targetCode={trueTargetCode}
           mandatory={mandatory}
           clientId={clientId}
         />
@@ -232,7 +238,7 @@ const Ask = ({
           attributeCode={attributeCode}
           parentCode={parentCode}
           placeholderName={placeholderName}
-          targetCode={targetCode}
+          targetCode={trueTargetCode}
           mandatory={mandatory}
           clientId={clientId}
           inputmask={inputmask}
@@ -248,7 +254,7 @@ const Ask = ({
           parentCode={parentCode}
           placeholderName={placeholderName}
           attributeCode={attributeCode}
-          targetCode={targetCode}
+          targetCode={trueTargetCode}
           mandatory={mandatory}
           clientId={clientId}
         />
@@ -256,7 +262,7 @@ const Ask = ({
       {(component === 'dropdown' || component === 'tag') && (
         <Select.Write
           config={config}
-          targetCode={targetCode}
+          targetCode={trueTargetCode}
           questionCode={questionCode}
           groupCode={groupCode}
           attributeCode={attributeCode}
@@ -278,7 +284,7 @@ const Ask = ({
       {component === 'searchable_text' && (
         <SearchableText.Write
           config={config}
-          targetCode={targetCode}
+          targetCode={trueTargetCode}
           questionCode={questionCode}
           groupCode={groupCode}
           attributeCode={attributeCode}
@@ -308,7 +314,7 @@ const Ask = ({
           regexPattern={regexPattern}
           errorMessage={errorMessage}
           placeholderName={placeholderName}
-          targetCode={targetCode}
+          targetCode={trueTargetCode}
           clientId={clientId}
         />
       )}
@@ -321,7 +327,7 @@ const Ask = ({
           regexPattern={regexPattern}
           errorMessage={errorMessage}
           attributeCode={attributeCode}
-          targetCode={targetCode}
+          targetCode={trueTargetCode}
           parentCode={parentCode}
           placeholderName={placeholderName}
           clientId={clientId}
@@ -337,7 +343,7 @@ const Ask = ({
           regexPattern={regexPattern}
           errorMessage={errorMessage}
           attributeCode={attributeCode}
-          targetCode={targetCode}
+          targetCode={trueTargetCode}
           parentCode={parentCode}
           placeholderName={placeholderName}
           clientId={clientId}
@@ -353,7 +359,7 @@ const Ask = ({
           regexPattern={regexPattern}
           errorMessage={errorMessage}
           attributeCode={attributeCode}
-          targetCode={targetCode}
+          targetCode={trueTargetCode}
           parentCode={parentCode}
           placeholderName={placeholderName}
         />
@@ -370,7 +376,7 @@ const Ask = ({
           secondaryColor={secondaryColor}
           placeholderName={placeholderName}
           attributeCode={attributeCode}
-          targetCode={targetCode}
+          targetCode={trueTargetCode}
           clientId={clientId}
         />
       )}
@@ -385,7 +391,7 @@ const Ask = ({
           parentCode={parentCode}
           placeholderName={placeholderName}
           attributeCode={attributeCode}
-          targetCode={targetCode}
+          targetCode={trueTargetCode}
           clientId={clientId}
         />
       )}
@@ -400,7 +406,7 @@ const Ask = ({
           placeholderName={placeholderName}
           parentCode={parentCode}
           attributeCode={attributeCode}
-          targetCode={targetCode}
+          targetCode={trueTargetCode}
           mandatory={mandatory}
           clientId={clientId}
           component={component}
@@ -419,7 +425,7 @@ const Ask = ({
           realm={projectTitle}
           placeholderName={placeholderName}
           attributeCode={attributeCode}
-          targetCode={targetCode}
+          targetCode={trueTargetCode}
           mandatory={mandatory}
           clientId={clientId}
         />
@@ -437,7 +443,7 @@ const Ask = ({
           parentCode={parentCode}
           placeholderName={placeholderName}
           attributeCode={attributeCode}
-          targetCode={targetCode}
+          targetCode={trueTargetCode}
           mandatory={mandatory}
           clientId={clientId}
         />
@@ -453,7 +459,7 @@ const Ask = ({
           parentCode={parentCode}
           placeholderName={placeholderName}
           attributeCode={attributeCode}
-          targetCode={targetCode}
+          targetCode={trueTargetCode}
           mandatory={mandatory}
           clientId={clientId}
         />
@@ -469,7 +475,7 @@ const Ask = ({
           parentCode={parentCode}
           placeholderName={placeholderName}
           attributeCode={attributeCode}
-          targetCode={targetCode}
+          targetCode={trueTargetCode}
           clientId={clientId}
         />
       )}
@@ -483,7 +489,7 @@ const Ask = ({
           parentCode={parentCode}
           placeholderName={placeholderName}
           attributeCode={attributeCode}
-          targetCode={targetCode}
+          targetCode={trueTargetCode}
           mandatory={mandatory}
           clientId={clientId}
         />
@@ -497,7 +503,7 @@ const Ask = ({
           parentCode={parentCode}
           placeholderName={placeholderName}
           attributeCode={attributeCode}
-          targetCode={targetCode}
+          targetCode={trueTargetCode}
           clientId={clientId}
         />
       )}
@@ -511,7 +517,7 @@ const Ask = ({
           parentCode={parentCode}
           placeholderName={placeholderName}
           attributeCode={attributeCode}
-          targetCode={targetCode}
+          targetCode={trueTargetCode}
           clientId={clientId}
         />
       )}
@@ -525,7 +531,7 @@ const Ask = ({
           parentCode={parentCode}
           placeholderName={placeholderName}
           attributeCode={attributeCode}
-          targetCode={targetCode}
+          targetCode={trueTargetCode}
           mandatory={mandatory}
           clientId={clientId}
         />
@@ -541,7 +547,7 @@ const Ask = ({
           parentCode={parentCode}
           placeholderName={placeholderName}
           attributeCode={attributeCode}
-          targetCode={targetCode}
+          targetCode={trueTargetCode}
           mandatory={mandatory}
           clientId={clientId}
           inputmask={inputmask}
@@ -557,7 +563,7 @@ const Ask = ({
           parentCode={parentCode}
           placeholderName={placeholderName}
           attributeCode={attributeCode}
-          targetCode={targetCode}
+          targetCode={trueTargetCode}
           clientId={clientId}
         />
       )}
@@ -571,7 +577,7 @@ const Ask = ({
           parentCode={parentCode}
           placeholderName={placeholderName}
           attributeCode={attributeCode}
-          targetCode={targetCode}
+          targetCode={trueTargetCode}
           clientId={clientId}
         />
       )}
@@ -585,7 +591,7 @@ const Ask = ({
           parentCode={parentCode}
           placeholderName={placeholderName}
           attributeCode={attributeCode}
-          targetCode={targetCode}
+          targetCode={trueTargetCode}
           clientId={clientId}
         />
       )}
@@ -599,7 +605,7 @@ const Ask = ({
           parentCode={parentCode}
           placeholderName={placeholderName}
           attributeCode={attributeCode}
-          targetCode={targetCode}
+          targetCode={trueTargetCode}
           clientId={clientId}
         />
       )}
@@ -611,7 +617,7 @@ const Ask = ({
           parentCode={parentCode}
           placeholderName={placeholderName}
           attributeCode={attributeCode}
-          targetCode={targetCode}
+          targetCode={trueTargetCode}
           clientId={clientId}
         />
       )}
@@ -625,7 +631,7 @@ const Ask = ({
           parentCode={parentCode}
           placeholderName={placeholderName}
           attributeCode={attributeCode}
-          targetCode={targetCode}
+          targetCode={trueTargetCode}
           clientId={clientId}
         />
       )}
@@ -639,7 +645,7 @@ const Ask = ({
           parentCode={parentCode}
           placeholderName={placeholderName}
           attributeCode={attributeCode}
-          targetCode={targetCode}
+          targetCode={trueTargetCode}
           clientId={clientId}
         />
       )}

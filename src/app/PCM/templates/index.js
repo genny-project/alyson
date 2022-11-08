@@ -26,6 +26,7 @@ import showTemplateNames from 'utils/helpers/show-template-names'
 import { Box, Text } from '@chakra-ui/react'
 import TemplatePopup from './tpl_popup'
 import TemplateSBEDetailView from './tpl-detail-view/tpl-sbe-detail-view'
+import TemplateSBERowAdd from './tpl-sbe-row-add'
 
 /**
  * Takes in a mappedPcm, a templateCode and some misc properties and returns a template component.
@@ -46,7 +47,7 @@ const templateHandlerMachine = depth => mappedPcm => templateCode => parentCode 
     TPL_ROOT: <TemplateRoot {...mandatoryProps} />,
     TPL_SIDEBAR_1: <TemplateSidebarOne {...mandatoryProps} />,
     TPL_VERT: <TemplateVert {...mandatoryProps} />,
-    TPL_HORI: <TemplateHori {...mandatoryProps} />,
+    TPL_HORI: <TemplateSBERowAdd {...mandatoryProps} />,
     TPL_HEADER_1: <TemplateHeader {...mandatoryProps} />,
     TPL_DISPLAY: <TemplateDisplay {...mandatoryProps} />,
     TPL_LOGO: <TemplateLogo {...mandatoryProps} />,
@@ -73,6 +74,7 @@ const templateHandlerMachine = depth => mappedPcm => templateCode => parentCode 
     TPL_APPLICATION_DETAIL_VIEW: <TemplateApplicationDetailView {...mandatoryProps} />,
     TPL_SBE_DETAIL_VIEW: <TemplateSBEDetailView {...mandatoryProps} />,
     TPL_POPUP: <TemplatePopup {...mandatoryProps} />,
+    TPL_SBE_ROW_ADD: <TemplateSBERowAdd {...mandatoryProps} />,
   }
 
   let noMatchingTemplates = hasNot(templateCode)(listOfTemplates)
