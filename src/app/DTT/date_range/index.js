@@ -20,7 +20,6 @@ const Write = ({
   data,
   html,
   regexPattern,
-
   placeholder,
   mandatory,
 }) => {
@@ -34,6 +33,8 @@ const Write = ({
   } = useProductColors()
 
   const config = safelyParseJson(html, {})
+
+  console.log({ html }, { config })
   const { maxDate, granularity = 'date' } = config
   const { startDate, endDate } = data?.value ? safelyParseJson(data.value, {}) : {}
 
