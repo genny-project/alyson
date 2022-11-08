@@ -9,7 +9,7 @@ import { lojing } from 'utils/constants'
 import { useDropzone } from 'react-dropzone'
 import useProductColors from 'utils/productColors'
 
-const DropZone = ({ video, handleSave, closeDropzone, maxFiles, questionCode, clientId }) => {
+const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 10, questionCode, clientId }) => {
   const [files, setFiles] = useState([])
   const [hover, setHover] = useState(false)
   const toast = useToast()
