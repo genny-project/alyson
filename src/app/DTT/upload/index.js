@@ -10,9 +10,9 @@ import {
   Text,
   Tooltip,
   VStack,
-  Image,
 } from '@chakra-ui/react'
 import { faArrowDown, faCheck, faFileDownload } from '@fortawesome/free-solid-svg-icons'
+import DocViewer, { DocViewerRenderers } from 'react-doc-viewer'
 
 import DropZone from 'app/DTT/upload/Dropzone'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -89,8 +89,8 @@ const Write = ({
 }) => {
   const api = useApi()
   const typeName = dttData?.typeName
-  const { getImageSrc } = useApi()
-  const src = getImageSrc(data?.value, { height: '500', width: '500' })
+  const { getSrc } = useApi()
+  const documentSource = getSrc(data?.value)
   const [fileName, setFileName] = useState('')
   const [dropzone, setDropzone] = useState(!!video)
   const [loading, setLoading] = useState(false)
@@ -129,6 +129,12 @@ const Write = ({
     dispatchFieldMessage({ payload: questionCode })
   }
 
+  const docs = [
+    {
+      uri: documentSource,
+    },
+  ]
+
   return (
     <VStack>
       <HStack justifyContent={'space-between'} w={'full'}>
@@ -152,7 +158,9 @@ const Write = ({
           />
         ) : data?.value ? (
           <VStack>
-            {!!src && <Image src={src} borderRadius="md" />}
+            {!!documentSource && (
+              <DocViewer documents={docs} pluginRenderers={DocViewerRenderers} />
+            )}
             <HStack>
               <Button leftIcon={<FontAwesomeIcon icon={faCheck} />} colorScheme="green">{`${
                 fileName || 'File'

@@ -10,9 +10,9 @@ import PcmField from 'app/PCM/components/pcm-field'
 const TemplateVert = ({ mappedPcm, depth }) => {
   return (
     <VStack alignItems="flex-start" spacing="5">
-      {mapSpillLocs(getSpillLocs(mappedPcm)())(loc => (
-        <PcmField key={loc} code={loc} mappedPcm={mappedPcm} depth={depth} />
-      ))}
+      {mapSpillLocs(loc => <PcmField key={loc} code={loc} mappedPcm={mappedPcm} depth={depth} />)(
+        getSpillLocs(mappedPcm)(),
+      )}
     </VStack>
   )
 }

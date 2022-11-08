@@ -203,6 +203,7 @@ const Write = ({
           container: provided => ({
             ...provided,
             w: 'full',
+            minW: `${placeholderName.length + 10}ch`,
           }),
           control: provided => ({
             ...provided,

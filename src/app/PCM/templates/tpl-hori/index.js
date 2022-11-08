@@ -1,4 +1,4 @@
-import { HStack } from '@chakra-ui/react'
+import { HStack, Box } from '@chakra-ui/react'
 import getSpillLocs from 'app/PCM/helpers/get-spill-locs'
 import mapSpillLocs from 'app/PCM/helpers/map-spill-locs'
 import PcmField from 'app/PCM/components/pcm-field'
@@ -10,9 +10,11 @@ import PcmField from 'app/PCM/components/pcm-field'
 const TemplateHori = ({ mappedPcm, depth }) => {
   return (
     <HStack alignSelf="flex-start">
-      {mapSpillLocs(getSpillLocs(mappedPcm)())(loc => (
-        <PcmField key={loc} code={loc} mappedPcm={mappedPcm} depth={depth} />
-      ))}
+      {mapSpillLocs(loc => (
+        <Box width="auto" key={loc}>
+          <PcmField code={loc} mappedPcm={mappedPcm} depth={depth} />
+        </Box>
+      ))(getSpillLocs(mappedPcm)())}
     </HStack>
   )
 }
