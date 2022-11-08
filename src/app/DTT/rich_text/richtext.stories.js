@@ -35,5 +35,5 @@ const RichTextRead = args => {
 export const Read = RichTextRead.bind({})
 Read.args = {
   Mini: true,
-  Data: { value: 'this is some text' },
+  Data: { value: '<h1>Header Text Goes Here</h1>' },
 }

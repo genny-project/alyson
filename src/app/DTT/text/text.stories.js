@@ -15,7 +15,7 @@ const placeholderName = 'Enter Value'
 const readData = { value: 'Some Text Here..' }
 const config = {}
 
-const Template = args => {
+const TextWriteTemplate = args => {
   return (
     <Text.Write
       questionCode={questionCode}
@@ -30,7 +30,7 @@ const Template = args => {
   )
 }
 
-export const Write = Template.bind({})
+export const Write = TextWriteTemplate.bind({})
 Write.args = {
   mandatory: false,
   isInvalid: false,
@@ -53,10 +53,10 @@ Write.argTypes = {
   },
 }
 
-const HeaderText = args => {
+const TextReadTemplate = args => {
   return <Text.Read data={readData} config={config} {...args} />
 }
-export const Read = HeaderText.bind({})
+export const Read = TextReadTemplate.bind({})
 Read.argTypes = {
   TextContent: {
     control: 'text',

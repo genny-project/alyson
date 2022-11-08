@@ -51,12 +51,12 @@ const Read = ({ data, config = {} }) => {
       </HStack>
       <Card zIndex="banner" bg="transparent" variant="card3" p="0">
         <Collapse in={isOpen} unmountOnExit>
-          <StreetView address={data.value} style={{ width: '60vw', height: '30rem' }} />
+          <StreetView address={data?.value} style={{ width: '60vw', height: '30rem' }} />
         </Collapse>
       </Card>
     </VStack>
   ) : hideIcon ? (
-    <Text minW="8rem">{data.value}</Text>
+    <Text minW="8rem">{data?.value}</Text>
   ) : (
     <HStack>
       <Popover isLazy>

@@ -1,10 +1,13 @@
-import { useRef, useEffect } from 'react'
+import { useEffect, useRef } from 'react'
+
 import { Stack } from '@chakra-ui/react'
 import { useIsMobile } from 'utils/hooks'
 
 const StreetView = ({ address, style = { width: '45rem', height: '35rem' } }) => {
   const panoRef = useRef(null)
   const mapRef = useRef(null)
+
+  console.log({ address })
 
   useEffect(() => {
     const geocoder = new window.google.maps.Geocoder()
