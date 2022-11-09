@@ -53,6 +53,8 @@ const Rep = ({ sbeCode, targetCode, userType }) => {
   const HCRIDocStatus = useSelector(selectCode(targetCode, 'PRI_DOC_HCRI_STATUS'))?.value
   const isHCRIDocAgreed = equals(HCRIDocStatus)('Complete')
 
+  const isAgent = equals(userType)('AGENT')
+
   const internships = (
     <Lane
       width={tileWidth}
@@ -122,7 +124,7 @@ const Rep = ({ sbeCode, targetCode, userType }) => {
           />
         )}
 
-        {!!hcValidationUrl && (
+        {isAgent && !!hcValidationUrl && (
           <Button
             size="sm"
             onClick={() => onSendMessage({ targetCode, parentCode: sbeCode, code: 'ACT_HCV_DOC' })}
