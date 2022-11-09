@@ -17,6 +17,7 @@ import { selectCode } from 'redux/db/selectors'
 import useApi from 'api'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
+import { isEmpty, map } from 'ramda'
 
 const Write = ({
   questionCode,
@@ -27,18 +28,27 @@ const Write = ({
   setLoading,
   name,
 }) => {
-  const { getImageSrc } = useApi()
-  const src = getImageSrc(data?.value)
+  const { getImageSrcList } = useApi()
+  const src = getImageSrcList(data?.value)
+  const displayImages = !!src && Array.isArray(src) && !isEmpty(src)
+  console.log(
+    '%c 🙀🙀🙀🙀🙀🙀 Testing 🙀🙀🙀🙀🙀🙀🙀 ',
+    'background: silver; color: black; padding: 0.5rem',
+    { displayImages, src, data },
+  )
 
   const [openSnap, setOpenSnap] = useState(false)
   const onRemoveImage = () => {
     onSendAnswer('')
   }
 
-  if (src)
+  if (displayImages)
     return (
       <HStack>
-        <Avatar size="xl" src={src} />
+        <HStack>
+          {map(individualImageSrc => <Avatar size="xl" src={individualImageSrc} />)(src)}
+        </HStack>
+
         <Tooltip label="Click to remove">
           <CloseButton cursor="pointer" onClick={onRemoveImage} />
         </Tooltip>

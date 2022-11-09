@@ -4,7 +4,7 @@ import { useKeycloak } from '@react-keycloak/web'
 import debounce from 'lodash.debounce'
 import { tokenFromUrl, guestKeycloak } from 'config/get-api-config'
 import selectToken from 'keycloak/utils/select-token'
-import { identity } from 'ramda'
+import { identity, map } from 'ramda'
 
 const useApi = () => {
   const { keycloak } = useKeycloak()
@@ -35,11 +35,7 @@ const useApi = () => {
       onUploadProgress,
       data,
     })
-    if (response.data.files)
-      return {
-        uuid: `${response.data.files[0].uuid}`,
-        name: response.data.files[0].name,
-      }
+    if (response?.data?.files) return response?.data?.files
     return {}
   }
 
@@ -59,6 +55,13 @@ const useApi = () => {
     uuid && uuid !== '[]'
       ? `${IMAGE_URL}/${dim ? `${dim.width}x${dim.height || ''},fit/` : ''}${MEDIA_URL}/${uuid}`
       : null
+
+  const getImageSrcList = (uuidList, dim) =>
+    map(uuid =>
+      uuid
+        ? `${IMAGE_URL}/${dim ? `${dim.width}x${dim.height || ''},fit/` : ''}${MEDIA_URL}/${uuid}`
+        : null,
+    )(uuidList || [])
 
   const getSrc = uuid => (uuid ? `${MEDIA_URL}/${uuid}` : null)
 
@@ -84,6 +87,7 @@ const useApi = () => {
 
   return {
     getImageSrc,
+    getImageSrcList,
     postMediaFile,
     getSrc,
     getVideoSrc,

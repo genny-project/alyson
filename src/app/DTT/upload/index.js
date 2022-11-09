@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { map } from 'ramda'
+import { map, reduce } from 'ramda'
 import {
   Box,
   Button,
@@ -98,6 +98,8 @@ const Write = ({
   const closeDropzone = () => setDropzone(false)
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
   const { labelTextColor } = useProductColors()
+  const isSrcArray = Array.isArray(src)
+  const displayDocuments = !!src && isSrcArray
 
   useEffect(() => {
     const getFileName = async uuid => {
@@ -118,7 +120,10 @@ const Write = ({
     map(individualFile => data.append('file', individualFile))(files)
     try {
       const resp = await api.postMediaFile({ data, onUploadProgress: setProgress })
-      onSendAnswer(resp?.uuid)
+      const uuidList = reduce((acc, { uuid }) => {
+        return (acc = acc.concat(uuid))
+      }, [])(resp || [])
+      onSendAnswer(uuidList)
     } catch (err) {
       console.error(err)
     }
