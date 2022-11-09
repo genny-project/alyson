@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { map, reduce, isEmpty } from 'ramda'
+import { map, reduce } from 'ramda'
 import {
   Box,
   Button,
@@ -10,9 +10,9 @@ import {
   Text,
   Tooltip,
   VStack,
-  Image,
 } from '@chakra-ui/react'
 import { faArrowDown, faCheck, faFileDownload } from '@fortawesome/free-solid-svg-icons'
+import DocViewer, { PDFRenderer } from 'react-doc-viewer'
 
 import DropZone from 'app/DTT/upload/Dropzone'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -89,8 +89,9 @@ const Write = ({
 }) => {
   const api = useApi()
   const typeName = dttData?.typeName
-  const { getImageSrcList } = useApi()
-  const src = getImageSrcList(data?.value, { height: '500', width: '500' })
+  const { getImageSrc } = useApi()
+  const dataValue = data?.value ? data.value[0] : null
+  const src = getImageSrc(dataValue, { height: '500', width: '500' })
   const [fileName, setFileName] = useState('')
   const [dropzone, setDropzone] = useState(!!video)
   const [loading, setLoading] = useState(false)
@@ -99,9 +100,13 @@ const Write = ({
   const closeDropzone = () => setDropzone(false)
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
   const { labelTextColor } = useProductColors()
-  const isSrcArray = Array.isArray(src)
-  const displayDocuments = !!src && isSrcArray && !isEmpty(src)
   let maxFiles = component === 'multi_upload' ? 10 : 1
+
+  const docs = [
+    {
+      uri: src,
+    },
+  ]
 
   useEffect(() => {
     const getFileName = async uuid => {
@@ -158,7 +163,7 @@ const Write = ({
           />
         ) : data?.value ? (
           <VStack>
-            {!!src && <Image src={src} borderRadius="md" />}
+            {!!src && <DocViewer documents={docs} pluginRenderers={[PDFRenderer]} />}
             <HStack>
               <Button leftIcon={<FontAwesomeIcon icon={faCheck} />} colorScheme="green">{`${
                 fileName || 'File'
