@@ -148,7 +148,7 @@ const Write = ({
         {data?.value ? <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} /> : null}
       </HStack>
       <Box w={'full'} hidden={loading}>
-        {typeName === 'Image' ? (
+        {equals(typeName, 'Image') || equals(component, 'multi_upload') ? (
           <ImageType.Write
             handleSave={handleSave}
             openDropzone={openDropzone}
