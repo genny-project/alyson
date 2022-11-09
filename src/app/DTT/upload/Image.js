@@ -17,7 +17,7 @@ import { selectCode } from 'redux/db/selectors'
 import useApi from 'api'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
-import { isEmpty, map } from 'ramda'
+import { compose, map, isEmpty, not } from 'ramda'
 
 const Write = ({
   questionCode,
@@ -30,7 +30,7 @@ const Write = ({
 }) => {
   const { getImageSrcList } = useApi()
   const src = getImageSrcList(data?.value)
-  const displayImages = !!src && Array.isArray(src) && !isEmpty(src)
+  const displayImages = !!src && Array.isArray(src) && compose(not, isEmpty)(src)
 
   const [openSnap, setOpenSnap] = useState(false)
   const onRemoveImage = () => {
@@ -65,7 +65,7 @@ const Write = ({
             {name}
           </Button>
           <Button onClick={() => setOpenSnap(true)} leftIcon={<FontAwesomeIcon icon={faCamera} />}>
-            Take Photo
+            {`Take Photo`}
           </Button>
         </ButtonGroup>
       </div>
