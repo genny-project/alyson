@@ -31,11 +31,6 @@ const Write = ({
   const { getImageSrcList } = useApi()
   const src = getImageSrcList(data?.value)
   const displayImages = !!src && Array.isArray(src) && !isEmpty(src)
-  console.log(
-    '%c 🙀🙀🙀🙀🙀🙀 Testing 🙀🙀🙀🙀🙀🙀🙀 ',
-    'background: silver; color: black; padding: 0.5rem',
-    { displayImages, src, data },
-  )
 
   const [openSnap, setOpenSnap] = useState(false)
   const onRemoveImage = () => {

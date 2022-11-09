@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { map, reduce } from 'ramda'
+import { map, reduce, isEmpty } from 'ramda'
 import {
   Box,
   Button,
@@ -85,11 +85,12 @@ const Write = ({
   placeholderName: label,
   clientId,
   mandatory,
+  component,
 }) => {
   const api = useApi()
   const typeName = dttData?.typeName
-  const { getImageSrc } = useApi()
-  const src = getImageSrc(data?.value, { height: '500', width: '500' })
+  const { getImageSrcList } = useApi()
+  const src = getImageSrcList(data?.value, { height: '500', width: '500' })
   const [fileName, setFileName] = useState('')
   const [dropzone, setDropzone] = useState(!!video)
   const [loading, setLoading] = useState(false)
@@ -99,7 +100,8 @@ const Write = ({
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
   const { labelTextColor } = useProductColors()
   const isSrcArray = Array.isArray(src)
-  const displayDocuments = !!src && isSrcArray
+  const displayDocuments = !!src && isSrcArray && !isEmpty(src)
+  let maxFiles = component === 'multi_upload' ? 10 : 1
 
   useEffect(() => {
     const getFileName = async uuid => {
@@ -199,6 +201,7 @@ const Write = ({
             questionCode={questionCode}
             id={questionCode}
             clientId={clientId}
+            maxFiles={maxFiles}
           />
         )}
       </Box>
