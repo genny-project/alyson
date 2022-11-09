@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { map } from 'ramda'
+import { equals, map, reduce } from 'ramda'
 import {
   Box,
   Button,
@@ -10,9 +10,9 @@ import {
   Text,
   Tooltip,
   VStack,
-  Image,
 } from '@chakra-ui/react'
 import { faArrowDown, faCheck, faFileDownload } from '@fortawesome/free-solid-svg-icons'
+import DocViewer, { PDFRenderer } from 'react-doc-viewer'
 
 import DropZone from 'app/DTT/upload/Dropzone'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -85,11 +85,13 @@ const Write = ({
   placeholderName: label,
   clientId,
   mandatory,
+  component,
 }) => {
   const api = useApi()
   const typeName = dttData?.typeName
   const { getImageSrc } = useApi()
-  const src = getImageSrc(data?.value, { height: '500', width: '500' })
+  const dataValue = data?.value ? data.value[0] : null
+  const src = getImageSrc(dataValue, { height: '500', width: '500' })
   const [fileName, setFileName] = useState('')
   const [dropzone, setDropzone] = useState(!!video)
   const [loading, setLoading] = useState(false)
@@ -98,6 +100,13 @@ const Write = ({
   const closeDropzone = () => setDropzone(false)
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
   const { labelTextColor } = useProductColors()
+  let maxFiles = equals(component, 'multi_upload') ? 10 : 1
+
+  const docs = [
+    {
+      uri: src,
+    },
+  ]
 
   useEffect(() => {
     const getFileName = async uuid => {
@@ -118,7 +127,8 @@ const Write = ({
     map(individualFile => data.append('file', individualFile))(files)
     try {
       const resp = await api.postMediaFile({ data, onUploadProgress: setProgress })
-      onSendAnswer(resp?.uuid)
+      const uuidList = reduce((acc, { uuid }) => (acc = acc.concat(uuid)), [])(resp || [])
+      onSendAnswer(uuidList)
     } catch (err) {
       console.error(err)
     }
@@ -135,11 +145,10 @@ const Write = ({
           mandatory={mandatory}
           labelTextColor={labelTextColor}
         />
-
         {data?.value ? <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} /> : null}
       </HStack>
       <Box w={'full'} hidden={loading}>
-        {typeName === 'Image' ? (
+        {equals(typeName, 'Image') || equals(component, 'multi_upload') ? (
           <ImageType.Write
             handleSave={handleSave}
             openDropzone={openDropzone}
@@ -151,7 +160,7 @@ const Write = ({
           />
         ) : data?.value ? (
           <VStack>
-            {!!src && <Image src={src} borderRadius="md" />}
+            {!!src && <DocViewer documents={docs} pluginRenderers={[PDFRenderer]} />}
             <HStack>
               <Button leftIcon={<FontAwesomeIcon icon={faCheck} />} colorScheme="green">{`${
                 fileName || 'File'
@@ -194,6 +203,7 @@ const Write = ({
             questionCode={questionCode}
             id={questionCode}
             clientId={clientId}
+            maxFiles={maxFiles}
           />
         )}
       </Box>
