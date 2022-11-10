@@ -22,7 +22,7 @@ import useApi from 'api'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import { useSelector } from 'react-redux'
 
-const EvtButton = ({ questionCode, childCode, iconId, vert }) => {
+const EvtButton = ({ questionCode, childCode, iconId, vert, isNotChildAsk = false }) => {
   const theme = useTheme()
   const data = useSelector(selectCode(questionCode, childCode))
 
@@ -32,6 +32,8 @@ const EvtButton = ({ questionCode, childCode, iconId, vert }) => {
   const attrCode = useSelector(selectCode(questionCode, 'attributeCode'))
 
   const bgColor = useGetAttributeFromProjectBaseEntity('PRI_COLOR')?.valueString || '#234371'
+
+  const trueQuestionCode = isNotChildAsk ? questionCode : childCode
 
   const color = theme.colors.text.dark
 
@@ -54,8 +56,8 @@ const EvtButton = ({ questionCode, childCode, iconId, vert }) => {
     sendEvtClick({
       targetCode: targetCode,
       sourceCode: sourceCode,
-      parentCode: questionCode,
-      code: childCode,
+      parentCode: isNotChildAsk ? undefined : questionCode,
+      code: trueQuestionCode,
       attributeCode: attrCode,
       processId: processId,
     })
@@ -66,8 +68,8 @@ const EvtButton = ({ questionCode, childCode, iconId, vert }) => {
       <Box display="flex" alignItems="center" justifyContent="center" cursor={'pointer'}>
         {iconId ? (
           <Image boxSize="35px" objectFit={'contain'} src={src} alt="" />
-        ) : !!icons[childCode] ? (
-          <FontAwesomeIcon icon={icons[childCode]} size="2x" color="#AAE3E2" />
+        ) : !!icons[trueQuestionCode] ? (
+          <FontAwesomeIcon icon={icons[trueQuestionCode]} size="2x" color="#AAE3E2" />
         ) : (
           <Box />
         )}
@@ -84,7 +86,7 @@ const EvtButton = ({ questionCode, childCode, iconId, vert }) => {
         spacing={2}
         role="group"
         p="0"
-        test-id={childCode}
+        test-id={trueQuestionCode}
         onClick={handleClick}
         as="button"
         w={'full'}
@@ -95,10 +97,10 @@ const EvtButton = ({ questionCode, childCode, iconId, vert }) => {
     ) : (
       <Box padding={1} borderRadius="lg" background={bgColor}>
         <HStack
-          spacing={iconId || icons[childCode] ? 2 : 0}
+          spacing={iconId || icons[trueQuestionCode] ? 2 : 0}
           role="group"
           p="1"
-          test-id={childCode}
+          test-id={trueQuestionCode}
           onClick={handleClick}
           as="button"
           w={'full'}
@@ -111,13 +113,13 @@ const EvtButton = ({ questionCode, childCode, iconId, vert }) => {
   }
   return (
     <Menu placement="right-start">
-      <MenuButton test-id={childCode}>
-        <VStack spacing="4" role="group" test-id={childCode}>
+      <MenuButton test-id={trueQuestionCode}>
+        <VStack spacing="4" role="group" test-id={trueQuestionCode}>
           <Box display="flex" alignItems="center" justifyContent="center" cursor={'pointer'}>
             {iconId ? (
               <Image boxSize="35px" objectFit={'contain'} src={src} alt="" />
             ) : (
-              <FontAwesomeIcon icon={icons[childCode]} size="2x" color="#AAE3E2" />
+              <FontAwesomeIcon icon={icons[trueQuestionCode]} size="2x" color="#AAE3E2" />
             )}
           </Box>
           <HStack mt={'5px !important'}>

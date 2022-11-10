@@ -2,7 +2,6 @@ import { equals, isEmpty, not } from 'ramda'
 
 import Attribute from 'app/BE/attribute'
 import EvtButton from '../evt-button'
-import React from 'react'
 import debugOut from 'utils/debug-out'
 import getAskFromAttribute from 'app/PCM/helpers/get-ask-from-attribute'
 import showTemplateNames from 'utils/helpers/show-template-names'
@@ -12,7 +11,7 @@ import QuestionEvents from 'app/ASKS/question-events'
 const NonPcmPcmField = props => {
   const { prefix, child, code, mappedPcm, config } = props
   const questionGroupCode = mappedPcm?.PRI_QUESTION_CODE || ''
-  const ask = getAskFromAttribute(questionGroupCode)(code)
+  const { ask, isChildAsk } = getAskFromAttribute(questionGroupCode)(code)
   const isEvt = equals(prefix, 'EVT')
   const isQueEvent = equals(code, 'QUE_EVENTS')
   const renderEventButton = isEvt && !child
@@ -34,9 +33,10 @@ const NonPcmPcmField = props => {
     <EvtButton
       key={code}
       questionCode={questionGroupCode}
-      childCode={ask?.questionCode}
+      childCode={isChildAsk ? ask?.questionCode : 'raw'}
       iconId={ask?.question?.icon}
       vert={false}
+      isNotChildAsk={!isChildAsk}
     />
   ) : renderChild ? (
     child({
@@ -61,7 +61,7 @@ const NonPcmPcmField = props => {
   ) : renderAsk ? (
     <Ask
       key={code}
-      parentCode={questionGroupCode ?? ask?.parentCode}
+      parentCode={isChildAsk ? questionGroupCode ?? ask?.parentCode : undefined}
       questionCode={ask?.questionCode}
       config={config?.config}
       noLabel={undefined}

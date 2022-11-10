@@ -61,7 +61,12 @@ const Ask = ({
 }) => {
   const projectTitle = useGetAttributeFromProjectBaseEntity('PRI_NAME')?.valueString.toLowerCase()
 
-  const selectedAskData = useSelector(selectCode(parentCode, passedQuestionCode))
+  const selectedAskData = useSelector(
+    selectCode(
+      !parentCode ? passedQuestionCode : parentCode,
+      !parentCode ? 'raw' : passedQuestionCode,
+    ),
+  )
 
   const askData = passedAskData || selectedAskData
 
