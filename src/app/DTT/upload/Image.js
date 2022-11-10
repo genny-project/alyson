@@ -8,6 +8,7 @@ import {
   Tooltip,
   useColorModeValue,
 } from '@chakra-ui/react'
+import { compose, isEmpty, map, not } from 'ramda'
 import { faCamera, faUpload, faUserAlt } from '@fortawesome/free-solid-svg-icons'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -27,18 +28,22 @@ const Write = ({
   setLoading,
   name,
 }) => {
-  const { getImageSrc } = useApi()
-  const src = getImageSrc(data?.value)
+  const { getImageSrcList } = useApi()
+  const src = getImageSrcList(data?.value)
+  const displayImages = !!src && Array.isArray(src) && compose(not, isEmpty)(src)
 
   const [openSnap, setOpenSnap] = useState(false)
   const onRemoveImage = () => {
     onSendAnswer('')
   }
 
-  if (src)
+  if (displayImages)
     return (
       <HStack>
-        <Avatar size="xl" src={src} />
+        <HStack>
+          {map(individualImageSrc => <Avatar size="xl" src={individualImageSrc} />)(src)}
+        </HStack>
+
         <Tooltip label="Click to remove">
           <CloseButton cursor="pointer" onClick={onRemoveImage} />
         </Tooltip>
@@ -60,7 +65,7 @@ const Write = ({
             {name}
           </Button>
           <Button onClick={() => setOpenSnap(true)} leftIcon={<FontAwesomeIcon icon={faCamera} />}>
-            Take Photo
+            {`Take Photo`}
           </Button>
         </ButtonGroup>
       </div>
