@@ -8,6 +8,7 @@ import {
   Tooltip,
   useColorModeValue,
 } from '@chakra-ui/react'
+import { compose, isEmpty, map, not } from 'ramda'
 import { faCamera, faUpload, faUserAlt } from '@fortawesome/free-solid-svg-icons'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -17,7 +18,6 @@ import { selectCode } from 'redux/db/selectors'
 import useApi from 'api'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
-import { compose, map, isEmpty, not } from 'ramda'
 
 const Write = ({
   questionCode,
