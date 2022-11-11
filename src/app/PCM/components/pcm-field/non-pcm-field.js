@@ -2,7 +2,6 @@ import { equals, isEmpty, not } from 'ramda'
 
 import Attribute from 'app/BE/attribute'
 import EvtButton from '../evt-button'
-import React from 'react'
 import debugOut from 'utils/debug-out'
 import getAskFromAttribute from 'app/PCM/helpers/get-ask-from-attribute'
 import showTemplateNames from 'utils/helpers/show-template-names'
@@ -69,6 +68,7 @@ const NonPcmPcmField = props => {
       onFinish={undefined}
       passedAskData={undefined}
       passedTargetCode={config?.parentCode ?? ask?.targetCode}
+      answerCallback={config?.answerCallback}
     />
   ) : (
     <div />

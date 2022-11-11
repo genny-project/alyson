@@ -193,6 +193,7 @@ export const Write = ({
         borderColor={fieldBorderColor}
         fontSize={'sm'}
         fontWeight={'medium'}
+        autoComplete={'off'}
         color={fieldTextColor}
         cursor={'pointer'}
         _hover={{

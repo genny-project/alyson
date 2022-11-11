@@ -5,17 +5,23 @@ import {
   PopoverContent,
   PopoverArrow,
   useTheme,
+  Box,
 } from '@chakra-ui/react'
 import PcmField from 'app/PCM/components/pcm-field'
+import { useState } from 'react'
 import useProductColors from 'utils/productColors'
+import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const TemplatePopup = ({ mappedPcm, depth }) => {
   const { PRI_LOC1, PRI_LOC2 } = mappedPcm
 
+  const [isOpen, setIsOpen] = useState(false)
+
   const theme = useTheme()
   const { buttonBackgroundColor } = useProductColors()
   return (
-    <Popover>
+    <Popover closeOnBlur={false}>
       <PopoverTrigger>
         <Button
           id={`${mappedPcm.code}-trigger`}
@@ -26,6 +32,7 @@ const TemplatePopup = ({ mappedPcm, depth }) => {
           paddingInline="1.25rem"
           mr={2}
           mb="5"
+          onClick={() => setIsOpen(!isOpen)}
           background={buttonBackgroundColor}
           borderRadius={'0.5rem'}
           fontSize={'sm'}
@@ -44,6 +51,8 @@ const TemplatePopup = ({ mappedPcm, depth }) => {
           ) : (
             mappedPcm.code
           )}
+          <Box paddingX={1} />
+          <FontAwesomeIcon icon={isOpen ? faChevronUp : faChevronDown} />
         </Button>
       </PopoverTrigger>
       <PopoverContent width="auto" paddingX={2}>

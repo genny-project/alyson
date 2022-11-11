@@ -27,6 +27,7 @@ import { Box, Text } from '@chakra-ui/react'
 import TemplatePopup from './tpl_popup'
 import TemplateSBEDetailView from './tpl-detail-view/tpl-sbe-detail-view'
 import TemplateSBERowAdd from './tpl-sbe-row-add'
+import TemplateSBESelect from './tpl-sbe-select'
 
 /**
  * Takes in a mappedPcm, a templateCode and some misc properties and returns a template component.
@@ -75,6 +76,7 @@ const templateHandlerMachine = depth => mappedPcm => templateCode => parentCode 
     TPL_SBE_DETAIL_VIEW: <TemplateSBEDetailView {...mandatoryProps} />,
     TPL_POPUP: <TemplatePopup {...mandatoryProps} />,
     TPL_SBE_ROW_ADD: <TemplateSBERowAdd {...mandatoryProps} />,
+    TPL_SBE_SELECT: <TemplateSBESelect {...mandatoryProps} />,
   }
 
   let noMatchingTemplates = hasNot(templateCode)(listOfTemplates)

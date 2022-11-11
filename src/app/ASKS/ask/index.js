@@ -58,6 +58,7 @@ const Ask = ({
   config,
   noLabel,
   secondaryColor,
+  answerCallback,
 }) => {
   const projectTitle = useGetAttributeFromProjectBaseEntity('PRI_NAME')?.valueString.toLowerCase()
 
@@ -109,8 +110,12 @@ const Ask = ({
   const { component = forcedComponent || 'text', typeName, inputmask } = dataType
 
   const feedback = data?.feedback
-  const onSendAnswerWithNovalue = createSendAnswer(askData, { passedTargetCode })
-
+  const onSendAnswerWithNovalue = value => {
+    if (!!answerCallback) {
+      answerCallback(askData, value)
+    }
+    createSendAnswer(askData, { passedTargetCode })(value)
+  }
   const handleUpadateReduxStore = onSendFn => storeUpdateFn => infoObject => userInput => {
     const { attributeCode, targetCode } = infoObject
     onSendFn(userInput)
