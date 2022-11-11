@@ -1,15 +1,26 @@
-import { Box, Button, Center, Flex, HStack, Image, Input, Text, useToast } from '@chakra-ui/react'
+import {
+  Box,
+  Button,
+  Center,
+  Flex,
+  Grid,
+  HStack,
+  Image,
+  Input,
+  Text,
+  useToast,
+} from '@chakra-ui/react'
 import { compose, equals, includes, isEmpty, map, pathOr, split } from 'ramda'
 import { faCloudUploadAlt, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
-import { useState } from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { isImageField } from 'utils/functions'
 import { lojing } from 'utils/constants'
 import { useDropzone } from 'react-dropzone'
 import useProductColors from 'utils/productColors'
+import { useState } from 'react'
 
-const DropZone = ({ video, handleSave, closeDropzone, maxFiles, questionCode, clientId }) => {
+const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 10, questionCode, clientId }) => {
   const [files, setFiles] = useState([])
   const [hover, setHover] = useState(false)
   const toast = useToast()
@@ -80,8 +91,8 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles, questionCode, cl
   const preview = map(({ name, preview, type }) => {
     if (checkIfImage(type)) {
       return (
-        <Box w="200px" h="200px" key={name} r="5">
-          <Image src={preview} alt="drag and drop" boxSize="200px" objectFit="cover" />
+        <Box key={name} borderRadius={4} overflow={'hidden'}>
+          <Image src={preview} alt={`Thumb ${name}`} objectFit="cover" />
         </Box>
       )
     }
@@ -165,8 +176,10 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles, questionCode, cl
           </Center>
           <Input {...getInputProps()} id={questionCode} test-id={questionCode} />
         </Box>
-        <Flex mt={'1rem'}>
-          <Flex direction="row">{preview}</Flex>
+        <Flex mt={'1rem'} direction="column">
+          <Grid mb={4} gap={3} templateColumns={'repeat(auto-fit, 100px)'}>
+            {preview}
+          </Grid>
           <Flex justify="center" w={'full'}>
             {equals(clientId)(lojing) ? (
               <Button
