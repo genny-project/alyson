@@ -16,7 +16,7 @@ const getAskFromAttribute = (questionCode: string) => (attributeCode: string) =>
     equals(individualObject?.attributeCode)(attributeCode),
   )(wholeObjectList || [])
 
-  let rawObjectHasCorrectAttribute = propEq('attributeCode', attributeCode)(rawObject)
+  let rawObjectHasCorrectAttribute = propEq('attributeCode', attributeCode)(rawObject || {})
 
   if (isWholeObjectListFalsy && isRawObjectFalsy) {
     debugOut.error(`Got empty from ${questionCode}@wholeData and ${questionCode}@raw!`)
