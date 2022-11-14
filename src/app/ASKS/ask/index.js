@@ -94,12 +94,6 @@ const Ask = ({
 
   const onNewMsg = compose(dispatchBeInformation, newMsg)
 
-  console.log(
-    '%c 🙀🙀🙀🙀🙀🙀 Testing 🙀🙀🙀🙀🙀🙀🙀 ',
-    'background: silver; color: black; padding: 0.5rem',
-    { question, askData, questionCode, parentCode, passedQuestionCode },
-  )
-
   if (!question) return null
 
   const dataTypeFromReduxStore = compose(useSelector, selectCode)(attributeCode) || ''
