@@ -9,7 +9,7 @@ import Ask from 'app/ASKS/ask'
 import QuestionEvents from 'app/ASKS/question-events'
 
 const NonPcmPcmField = props => {
-  const { prefix, child, code, mappedPcm, config } = props
+  const { prefix, child, code, mappedPcm, config, evtValue } = props
   const questionGroupCode = mappedPcm?.PRI_QUESTION_CODE || ''
   const ask = getAskFromAttribute(questionGroupCode)(code)
   const isEvt = equals(prefix, 'EVT')
@@ -36,6 +36,7 @@ const NonPcmPcmField = props => {
       childCode={ask?.questionCode}
       iconId={ask?.question?.icon}
       vert={false}
+      value={evtValue}
     />
   ) : renderChild ? (
     child({

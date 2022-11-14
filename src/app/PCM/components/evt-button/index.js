@@ -22,7 +22,7 @@ import useApi from 'api'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import { useSelector } from 'react-redux'
 
-const EvtButton = ({ questionCode, childCode, iconId, vert }) => {
+const EvtButton = ({ questionCode, childCode, iconId, vert, value }) => {
   const theme = useTheme()
   const data = useSelector(selectCode(questionCode, childCode))
 
@@ -58,6 +58,7 @@ const EvtButton = ({ questionCode, childCode, iconId, vert }) => {
       code: childCode,
       attributeCode: attrCode,
       processId: processId,
+      value: value,
     })
   }
 
