@@ -97,8 +97,6 @@ const Ask = ({
 
   const onNewMsg = compose(dispatchBeInformation, newMsg)
 
-  if (!question) return null
-
   const dataTypeFromReduxStore = compose(useSelector, selectCode)(attributeCode) || ''
   const dataType = compose(useSelector, selectCode)(dataTypeFromReduxStore) || ''
   const description = compose(useSelector, selectCode)(`${attributeCode}@description`) || ''
@@ -107,7 +105,7 @@ const Ask = ({
     dataType,
   )
 
-  const { html = '', helper = '' } = question
+  const { html = '', helper = '' } = question || {}
   const { component = forcedComponent || 'text', typeName, inputmask } = dataType
 
   const feedback = data?.feedback
@@ -132,6 +130,8 @@ const Ask = ({
     attributeCode,
     targetCode: trueTargetCode,
   })
+
+  if (!question) return null
 
   if (readonly) {
     return (

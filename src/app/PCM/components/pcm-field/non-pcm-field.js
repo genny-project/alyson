@@ -11,7 +11,7 @@ import QuestionEvents from 'app/ASKS/question-events'
 const NonPcmPcmField = props => {
   const { prefix, child, code, mappedPcm, config, evtValue } = props
   const questionGroupCode = mappedPcm?.PRI_QUESTION_CODE || ''
-  const ask = getAskFromAttribute(questionGroupCode)(code)
+  const { ask, isChildAsk } = getAskFromAttribute(questionGroupCode)(code)
   const isEvt = equals(prefix, 'EVT') || equals(prefix, 'QQQ')
   const isQueEvent = equals(code, 'QUE_EVENTS')
   const renderEventButton = isEvt && !child
@@ -32,10 +32,11 @@ const NonPcmPcmField = props => {
     <EvtButton
       key={code}
       questionCode={questionGroupCode}
-      childCode={ask?.questionCode}
+      childCode={isChildAsk ? ask?.questionCode : 'raw'}
       iconId={ask?.question?.icon}
       vert={false}
       value={evtValue}
+      isNotChildAsk={!isChildAsk}
     />
   ) : renderChild ? (
     child({
@@ -60,7 +61,7 @@ const NonPcmPcmField = props => {
   ) : renderAsk ? (
     <Ask
       key={code}
-      parentCode={questionGroupCode ?? ask?.parentCode}
+      parentCode={isChildAsk ? questionGroupCode ?? ask?.parentCode : undefined}
       questionCode={ask?.questionCode}
       config={config?.config}
       noLabel={undefined}

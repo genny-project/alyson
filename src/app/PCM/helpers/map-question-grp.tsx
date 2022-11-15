@@ -30,6 +30,7 @@ const mapQuestionGroup = (
           iconId={question?.icon || ''}
           vert={false}
           value={undefined}
+          isNotChildAsk={false}
         />,
         out,
       )
