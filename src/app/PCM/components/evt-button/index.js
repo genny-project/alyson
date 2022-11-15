@@ -59,7 +59,7 @@ const EvtButton = ({ questionCode, childCode, iconId, vert, isNotChildAsk = fals
       parentCode: isNotChildAsk ? undefined : questionCode,
       code: trueQuestionCode,
       attributeCode: attrCode,
-      processId: processId,
+      processId: data['processId'] || processId,
     })
   }
 
