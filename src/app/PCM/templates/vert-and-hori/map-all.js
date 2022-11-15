@@ -7,7 +7,7 @@ import notIncludesAny from 'utils/helpers/not-includes-any'
 import { filter, keys, union } from 'ramda'
 
 const mapAll = (mappedPcm, depth) => {
-  const spillLocs = getSpillLocs(mappedPcm)()
+  const spillLocs = getSpillLocs(mappedPcm)
 
   const questionGrp = mapQuestionGroup((ask, question) => {
     const attributeCode =
