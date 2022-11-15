@@ -200,7 +200,7 @@ const Write = ({
             </MenuButton>
             <MenuList zIndex={100} overflow={'auto'} maxH={'20rem'}>
               {map(({ code, icon, name }) => (
-                <MenuItem onClick={() => handleSelectCountry(code, icon)}>
+                <MenuItem key={`${code}-${name}`} onClick={() => handleSelectCountry(code, icon)}>
                   {`${icon} ${code} ${name}`}
                 </MenuItem>
               ))(countryList)}
