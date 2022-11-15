@@ -13,14 +13,12 @@ const TemplateVertAll = ({ mappedPcm, depth }) => {
     const attributeCode =
       ask?.attributeCode ?? ask?.question?.attributeCode ?? question?.attributeCode ?? ''
 
-    if (notIncludesAny(keys(spillLocs))()) {
+    if (notIncludesAny(keys(spillLocs))(attributeCode)) {
       return (
         <Box key={attributeCode}>
           <PcmField code={attributeCode} mappedPcm={mappedPcm} depth={depth} />
         </Box>
       )
-    } else {
-      return undefined
     }
   })(mappedPcm.PRI_QUESTION_CODE)
 
@@ -30,7 +28,7 @@ const TemplateVertAll = ({ mappedPcm, depth }) => {
         <Box key={loc}>
           <PcmField code={loc} mappedPcm={mappedPcm} depth={depth} />
         </Box>
-      ))}
+      ))(spillLocs)}
       {map(box => box)(filter(box => !!box)(questionGrp))}
     </VStack>
   )
