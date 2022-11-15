@@ -5,6 +5,8 @@ import getAskFromAttribute from 'app/PCM/helpers/get-ask-from-attribute'
 import { useState } from 'react'
 import deArrayifyValue from 'utils/helpers/de-arrayify-value'
 
+import { removeKey } from 'redux/db/utils/update-keys'
+
 const TemplateSBERowAdd = ({ mappedPcm, depth }) => {
   const { PRI_LOC1, PRI_LOC2, PRI_LOC3, PRI_LOC4, PRI_QUESTION_CODE } = mappedPcm
 
@@ -45,7 +47,6 @@ const TemplateSBERowAdd = ({ mappedPcm, depth }) => {
 
     const outputAskData = { ...addAskData, attributeCode: outputAttributeCode }
     createSendAnswer(outputAskData)(outputValue)
-
     setValue(locColumn)('')
     setValue(locOperator)('')
     setValue(locValue)('')

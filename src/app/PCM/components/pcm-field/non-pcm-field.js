@@ -19,10 +19,9 @@ const NonPcmPcmField = props => {
   const isReadOnly = config?.readonly ?? ask?.readonly ?? true
   const renderAttribute = not(renderChild) && !isEvt && !child && isReadOnly
   const renderAsk = not(renderChild) && !isEvt && !child && not(isReadOnly)
-
   if (isEmpty(ask)) {
     debugOut.error(`NonPcmPcmField got an empty ask for ${props.code}! Returning a blank div`)
-    return showTemplateNames ? <div>Empty ask for ${props.code}</div> : <div />
+    return showTemplateNames ? <div>Empty ask for {props.code}</div> : <div />
   }
 
   if (isQueEvent) {
