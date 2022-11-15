@@ -53,7 +53,7 @@ const EvtButton = ({ questionCode, childCode, iconId, vert, isNotChildAsk = fals
   const { name, childAsks } = data
 
   const handleClick = () => {
-    const pid = equals(data['processId'] || '')('no-idq') ? processId : data['processId']
+    const pid = equals(data['processId'] || 'no-idq')('no-idq') ? processId : data['processId']
 
     sendEvtClick({
       targetCode: targetCode,
