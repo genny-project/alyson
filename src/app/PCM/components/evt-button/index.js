@@ -17,7 +17,7 @@ import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import icons from 'utils/icons'
 import { selectCode } from 'redux/db/selectors'
 import sendEvtClick from 'app/ASKS/utils/send-evt-click'
-import { startsWith } from 'ramda'
+import { equals, startsWith } from 'ramda'
 import useApi from 'api'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import { useSelector } from 'react-redux'
@@ -53,13 +53,15 @@ const EvtButton = ({ questionCode, childCode, iconId, vert, isNotChildAsk = fals
   const { name, childAsks } = data
 
   const handleClick = () => {
+    const pid = equals(data['processId'] || '')('no-idq') ? processId : data['processId']
+
     sendEvtClick({
       targetCode: targetCode,
       sourceCode: sourceCode,
       parentCode: isNotChildAsk ? undefined : questionCode,
       code: trueQuestionCode,
       attributeCode: attrCode,
-      processId: data['processId'] || processId,
+      processId: pid,
     })
   }
 
