@@ -27,7 +27,7 @@ const HtmlEditorPreview = ({ html, inModal }) => {
   }
   const clean = purify(html)
 
-  if (!inModal) {
+  if (inModal) {
     return (
       <Box>
         <VStack width={'100%'} align="flex-start">
