@@ -126,7 +126,7 @@ const AvatarMenu = ({ code: QUE_AVATAR_GRP }) => {
               ))}
 
             <a
-              href={`${keycloak?.authServerUrl}/realms/${keycloak?.realm}/account/`}
+              href={`${keycloak?.authServerUrl}/realms/${apiConfig?.realm}/account/`}
               target="_blank"
               rel="noreferrer"
             >
