@@ -126,7 +126,7 @@ const AvatarMenu = ({ code: QUE_AVATAR_GRP }) => {
               ))}
 
             <a
-              href={`https://keycloak.gada.io/auth/realms/${apiConfig?.realm}/account/`}
+              href={`${apiConfig?.ENV_KEYCLOAK_REDIRECTURI}/realms/${apiConfig?.realm}/account/`}
               target="_blank"
               rel="noreferrer"
             >
