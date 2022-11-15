@@ -5,12 +5,12 @@ import { includes, keys, reduce } from 'ramda'
  */
 const getSpillLocs = (mappedPcm, ...definedFields) =>
   reduce((acc, attributeCode) => {
-    if (
+    acc =
       includes('PRI_LOC')(attributeCode) ||
       (includes('PRI_QUESTION_CODE')(attributeCode) && !includes(attributeCode)(definedFields))
-    ) {
-      acc = { ...acc, [attributeCode]: mappedPcm[attributeCode] }
-    }
+        ? { ...acc, [attributeCode]: mappedPcm[attributeCode] }
+        : acc
+
     return acc
   }, {})(keys(mappedPcm) || [])
 
