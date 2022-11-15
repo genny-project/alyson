@@ -23,6 +23,7 @@ const AskGroup = ({ questionCode, level, properties }) => {
           key={`${questionCode}-${code}`}
           parentCode={questionCode}
           questionCode={code}
+          level={level}
           properties={properties}
         />
       ))}
