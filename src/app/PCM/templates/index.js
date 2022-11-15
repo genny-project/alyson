@@ -8,7 +8,6 @@ import TemplateDefault from 'app/PCM/templates/tpl-default'
 import TemplateDisplay from 'app/PCM/templates/tpl-display'
 import TemplateForm from 'app/PCM/templates/tpl-form'
 import TemplateHeader from 'app/PCM/templates/tpl-header'
-import TemplateHori from 'app/PCM/templates/tpl-hori'
 import TemplateHorizontalCards from './tpl_horizontal_cards'
 import TemplateLogo from 'app/PCM/templates/tpl-logo'
 import TemplateProcess from './tpl-process'
@@ -18,7 +17,6 @@ import TemplateRoot from 'app/PCM/templates/tpl-root'
 import TemplateSidebarOne from 'app/PCM/templates/tpl-sidebar-one'
 import TemplateTable from './tpl-table'
 import TemplateText from './text-templates'
-import TemplateVert from 'app/PCM/templates/tpl-vert'
 import debugOut from 'utils/debug-out'
 import hasNot from 'utils/helpers/has-not.js'
 import TemplateDetailView from './tpl-detail-view'
@@ -26,6 +24,7 @@ import showTemplateNames from 'utils/helpers/show-template-names'
 import { Box, Text } from '@chakra-ui/react'
 import TemplatePopup from './tpl_popup'
 import TemplateSBEDetailView from './tpl-detail-view/tpl-sbe-detail-view'
+import { TemplateHori, TemplateHoriAll, TemplateVert, TemplateVertAll } from './vert-and-hori'
 
 /**
  * Takes in a mappedPcm, a templateCode and some misc properties and returns a template component.
@@ -46,7 +45,9 @@ const templateHandlerMachine = depth => mappedPcm => templateCode => parentCode 
     TPL_ROOT: <TemplateRoot {...mandatoryProps} />,
     TPL_SIDEBAR_1: <TemplateSidebarOne {...mandatoryProps} />,
     TPL_VERT: <TemplateVert {...mandatoryProps} />,
+    TPL_VERT_ALL: <TemplateVertAll {...mandatoryProps} />,
     TPL_HORI: <TemplateHori {...mandatoryProps} />,
+    TPL_HORI_ALL: <TemplateHoriAll {...mandatoryProps} />,
     TPL_HEADER_1: <TemplateHeader {...mandatoryProps} />,
     TPL_DISPLAY: <TemplateDisplay {...mandatoryProps} />,
     TPL_LOGO: <TemplateLogo {...mandatoryProps} />,
