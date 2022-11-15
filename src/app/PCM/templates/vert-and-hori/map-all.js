@@ -1,12 +1,12 @@
-import { Box, HStack } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 import PcmField from 'app/PCM/components/pcm-field'
 import mapSpillLocs from 'app/PCM/helpers/map-spill-locs'
 import getSpillLocs from 'app/PCM/helpers/get-spill-locs'
 import mapQuestionGroup from 'app/PCM/helpers/map-question-grp'
 import notIncludesAny from 'utils/helpers/not-includes-any'
-import { filter, keys, map } from 'ramda'
+import { filter, keys, union } from 'ramda'
 
-const TemplateHoriAll = ({ mappedPcm, depth }) => {
+const mapAll = (mappedPcm, depth) => {
   const spillLocs = getSpillLocs(mappedPcm)()
 
   const questionGrp = mapQuestionGroup((ask, question) => {
@@ -22,16 +22,15 @@ const TemplateHoriAll = ({ mappedPcm, depth }) => {
     }
   })(mappedPcm.PRI_QUESTION_CODE)
 
-  return (
-    <HStack margin={'auto'} width="min(100%, 38.75rem)">
-      {mapSpillLocs(loc => (
-        <Box key={loc}>
-          <PcmField code={loc} mappedPcm={mappedPcm} depth={depth} />
-        </Box>
-      ))(spillLocs)}
-      {map(box => box)(filter(box => !!box)(questionGrp))}
-    </HStack>
-  )
+  const filteredUndefinedQuestionGroup = filter(item => !!item)(questionGrp)
+
+  const mappedDefinedLocs = mapSpillLocs(loc => (
+    <Box key={loc}>
+      <PcmField code={loc} mappedPcm={mappedPcm} depth={depth} />
+    </Box>
+  ))(spillLocs)
+
+  return union(mappedDefinedLocs)(filteredUndefinedQuestionGroup)
 }
 
-export default TemplateHoriAll
+export default mapAll
