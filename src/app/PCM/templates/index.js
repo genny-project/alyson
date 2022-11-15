@@ -24,7 +24,7 @@ import showTemplateNames from 'utils/helpers/show-template-names'
 import { Box, Text } from '@chakra-ui/react'
 import TemplatePopup from './tpl_popup'
 import TemplateSBEDetailView from './tpl-detail-view/tpl-sbe-detail-view'
-import { TemplateHori, TemplateHoriAll, TemplateVert, TemplateVertAll } from './vert-and-hori'
+import { TemplateHori, TemplateVert, TemplateVertAll } from './vert-and-hori'
 
 /**
  * Takes in a mappedPcm, a templateCode and some misc properties and returns a template component.
