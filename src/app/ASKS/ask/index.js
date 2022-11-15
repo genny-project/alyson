@@ -62,8 +62,9 @@ const Ask = ({
   const projectTitle = useGetAttributeFromProjectBaseEntity('PRI_NAME')?.valueString.toLowerCase()
 
   const selectedAskData = useSelector(selectCode(parentCode, passedQuestionCode))
+  const singleAskData = useSelector(selectCode(parentCode, 'raw'))
 
-  const askData = passedAskData || selectedAskData
+  const askData = passedAskData || selectedAskData || singleAskData
 
   const {
     questionCode,
@@ -389,7 +390,7 @@ const Ask = ({
           clientId={clientId}
         />
       )}
-      {component === 'upload' && (
+      {(component === 'upload' || component === 'multi_upload') && (
         <Upload.Write
           questionCode={questionCode}
           dttData={dataType}
@@ -403,6 +404,7 @@ const Ask = ({
           targetCode={targetCode}
           mandatory={mandatory}
           clientId={clientId}
+          component={component}
         />
       )}
       {(component === 'date' || component === 'year') && (
@@ -629,7 +631,7 @@ const Ask = ({
         />
       )}
       {component === 'progress' && (
-        <ProgressBar.Write
+        <ProgressBar
           data={data}
           questionCode={questionCode}
           onSendAnswer={onSendAnswer}

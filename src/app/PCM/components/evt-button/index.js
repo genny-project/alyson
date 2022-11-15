@@ -66,8 +66,10 @@ const EvtButton = ({ questionCode, childCode, iconId, vert }) => {
       <Box display="flex" alignItems="center" justifyContent="center" cursor={'pointer'}>
         {iconId ? (
           <Image boxSize="35px" objectFit={'contain'} src={src} alt="" />
-        ) : (
+        ) : !!icons[childCode] ? (
           <FontAwesomeIcon icon={icons[childCode]} size="2x" color="#AAE3E2" />
+        ) : (
+          <Box />
         )}
       </Box>
     )
@@ -93,9 +95,9 @@ const EvtButton = ({ questionCode, childCode, iconId, vert }) => {
     ) : (
       <Box padding={1} borderRadius="lg" background={bgColor}>
         <HStack
-          spacing={2}
+          spacing={iconId || icons[childCode] ? 2 : 0}
           role="group"
-          p="0"
+          p="1"
           test-id={childCode}
           onClick={handleClick}
           as="button"

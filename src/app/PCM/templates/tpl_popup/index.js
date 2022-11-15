@@ -14,7 +14,6 @@ const TemplatePopup = ({ mappedPcm, depth }) => {
 
   const theme = useTheme()
   const { buttonBackgroundColor } = useProductColors()
-
   return (
     <Popover>
       <PopoverTrigger>
@@ -40,10 +39,14 @@ const TemplatePopup = ({ mappedPcm, depth }) => {
             variant: 'outline',
           }}
         >
-          <PcmField code={PRI_LOC1} mappedPcm={mappedPcm} depth={depth} />
+          {!!PRI_LOC1 ? (
+            <PcmField code={PRI_LOC1} mappedPcm={mappedPcm} depth={depth} />
+          ) : (
+            mappedPcm.code
+          )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent>
+      <PopoverContent width="auto" paddingX={2}>
         <PopoverArrow />
         <PcmField code={PRI_LOC2} mappedPcm={mappedPcm} depth={depth} />
       </PopoverContent>

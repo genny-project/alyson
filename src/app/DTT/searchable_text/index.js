@@ -90,12 +90,7 @@ export const Write = ({
   }
 
   const onChange = value => option => {
-    const out = {
-      userInput: value,
-      selectedOption: option,
-    }
-
-    onSendAnswer(JSON.stringify(out))
+    onSendAnswer(option || value)
 
     setUpdated(true)
     inputRef.current.blur()
@@ -150,6 +145,7 @@ export const Write = ({
   return (
     <Box
       position={'relative'}
+      w={'auto'}
       mt={isFocused || (userInput ?? '').length > 0 ? 6 : 0}
       transition="all 0.25s ease"
     >
@@ -181,7 +177,7 @@ export const Write = ({
         ref={inputRef}
         test-id={questionCode}
         id={questionCode}
-        w="full"
+        w={'full'}
         h={'auto'}
         onFocus={() => {
           ddEvent('')

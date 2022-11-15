@@ -1,7 +1,7 @@
-import { VStack } from '@chakra-ui/react'
+import { Grid } from '@chakra-ui/react'
+import PcmField from 'app/PCM/components/pcm-field'
 import getSpillLocs from 'app/PCM/helpers/get-spill-locs'
 import mapSpillLocs from 'app/PCM/helpers/map-spill-locs'
-import PcmField from 'app/PCM/components/pcm-field'
 
 /**
  * Returns all mapped attributes in a vertical list.
@@ -9,11 +9,11 @@ import PcmField from 'app/PCM/components/pcm-field'
  */
 const TemplateVert = ({ mappedPcm, depth }) => {
   return (
-    <VStack alignItems="flex-start" spacing="5">
-      {mapSpillLocs(getSpillLocs(mappedPcm)())(loc => (
-        <PcmField key={loc} code={loc} mappedPcm={mappedPcm} depth={depth} />
-      ))}
-    </VStack>
+    <Grid alignItems="start" spacing="5">
+      {mapSpillLocs(loc => <PcmField key={loc} code={loc} mappedPcm={mappedPcm} depth={depth} />)(
+        getSpillLocs(mappedPcm)(),
+      )}
+    </Grid>
   )
 }
 
