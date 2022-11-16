@@ -122,60 +122,62 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 10, questionCod
       }}
     >
       <Flex w="100%" direction="column">
-        <Box {...getRootProps()}>
-          <Center
-            cursor="pointer"
-            borderRadius={12}
-            borderColor={'blackAlpha.20'}
-            borderWidth={1}
-            borderStyle={'dashed'}
-            _groupHover={{
-              borderColor: fieldHoverBorderColor,
-              bg: fieldHoverBackgroundColor,
-            }}
-          >
-            <Box
-              paddingBlock={'12'}
-              maxW={'16rem'}
-              textAlign={'center'}
-              color={'gray.600'}
+        {isEmpty(preview) && (
+          <Box {...getRootProps()}>
+            <Center
+              cursor="pointer"
+              borderRadius={12}
+              borderColor={'blackAlpha.20'}
+              borderWidth={1}
+              borderStyle={'dashed'}
               _groupHover={{
-                color: fieldHoverTextColor,
+                borderColor: fieldHoverBorderColor,
+                bg: fieldHoverBackgroundColor,
               }}
             >
-              <FontAwesomeIcon
-                icon={faCloudUploadAlt}
-                size={80}
-                color={'inherit'}
-                style={{
-                  width: 80,
-                  height: 80,
-                  filter: hover ? 'drop-shadow(0px 4px 4px rgba(26, 59, 100, 0.35)' : '',
-                }}
-              />
-              <Text
-                fontSize={13}
-                fontWeight={500}
+              <Box
+                paddingBlock={'12'}
+                maxW={'16rem'}
+                textAlign={'center'}
+                color={'gray.600'}
                 _groupHover={{
-                  color: dropZoneTextHoverColor,
+                  color: fieldHoverTextColor,
                 }}
               >
-                {`Drag and drop images and videos`}
-                <br />
-                {`OR `}
+                <FontAwesomeIcon
+                  icon={faCloudUploadAlt}
+                  size={80}
+                  color={'inherit'}
+                  style={{
+                    width: 80,
+                    height: 80,
+                    filter: hover ? 'drop-shadow(0px 4px 4px rgba(26, 59, 100, 0.35)' : '',
+                  }}
+                />
                 <Text
-                  as="span"
+                  fontSize={13}
+                  fontWeight={500}
                   _groupHover={{
-                    color: fieldHoverTextColor,
+                    color: dropZoneTextHoverColor,
                   }}
                 >
-                  {`browse files from your computer`}
+                  {`Drag and drop images and videos`}
+                  <br />
+                  {`OR `}
+                  <Text
+                    as="span"
+                    _groupHover={{
+                      color: fieldHoverTextColor,
+                    }}
+                  >
+                    {`browse files from your computer`}
+                  </Text>
                 </Text>
-              </Text>
-            </Box>
-          </Center>
-          <Input {...getInputProps()} id={questionCode} test-id={questionCode} />
-        </Box>
+              </Box>
+            </Center>
+            <Input {...getInputProps()} id={questionCode} test-id={questionCode} />
+          </Box>
+        )}
         <Flex mt={'1rem'} direction="column">
           <Grid mb={4} gap={3} templateColumns={'repeat(auto-fit, 100px)'}>
             {preview}
