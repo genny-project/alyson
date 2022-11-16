@@ -66,7 +66,7 @@ const useProductColors = () => {
   const labelTextColor = labelTextColors[clientId] || theme.colors.gray['600']
   const borderRadius = borderRadiuses[clientId] || '0.5rem'
 
-  const buttonBackgroundColor = buttonBackgroundColors[clientId] || theme.colors.primary
+  const buttonBackgroundColor = buttonBackgroundColors[clientId] || theme.colors.primary['100']
   const dropZoneTextHoverColor = dropZoneTextHoverColors[clientId] || theme.colors.text.dark
 
   const lightColor = lightColors[clientId] || theme.colors.background['light']
