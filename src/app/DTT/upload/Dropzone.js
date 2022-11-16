@@ -184,20 +184,36 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 10, questionCod
           </Grid>
           <Flex justify="center" w={'full'}>
             {equals(clientId)(lojing) ? (
-              <Button
-                variant="outline"
-                isDisabled={!!isEmpty(files)}
-                onClick={() => handleSave(files)}
-                test-id={`${questionCode}-SUBMIT`}
-                paddingInline={10}
-                paddingBlock={2}
-                fontSize={'sm'}
-                color={'product.secondary'}
-                borderRadius="full"
-                borderColor={'product.secondary'}
-              >
-                {`Upload`}
-              </Button>
+              <HStack>
+                <Button
+                  variant="outline"
+                  isDisabled={!!isEmpty(files)}
+                  onClick={() => handleSave(files)}
+                  test-id={`${questionCode}-SUBMIT`}
+                  paddingInline={10}
+                  paddingBlock={2}
+                  fontSize={'sm'}
+                  color={'product.secondary'}
+                  borderRadius="full"
+                  borderColor={'product.secondary'}
+                >
+                  {`Upload`}
+                </Button>
+                <Button
+                  variant="outline"
+                  isDisabled={!!isEmpty(files)}
+                  onClick={() => closeDropzone()}
+                  test-id={`${questionCode}-SUBMIT`}
+                  paddingInline={10}
+                  paddingBlock={2}
+                  fontSize={'sm'}
+                  color={'product.secondary'}
+                  borderRadius="full"
+                  borderColor={'product.secondary'}
+                >
+                  {`Cancel`}
+                </Button>
+              </HStack>
             ) : (
               <>
                 <Button
