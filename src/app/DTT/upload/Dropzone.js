@@ -9,6 +9,7 @@ import {
   Input,
   Text,
   useToast,
+  VStack,
 } from '@chakra-ui/react'
 import { compose, equals, includes, isEmpty, map, pathOr, split } from 'ramda'
 import { faCloudUploadAlt, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
@@ -78,11 +79,14 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 10, questionCod
     maxFiles: maxFiles,
     onDrop: (acceptedFiles, rejectedFiles) => {
       setFiles(
-        acceptedFiles.map(file =>
-          Object.assign(file, {
-            preview: URL.createObjectURL(file),
-          }),
-        ),
+        files =>
+          files.concat(
+            acceptedFiles.map(file =>
+              Object.assign(file, {
+                preview: URL.createObjectURL(file),
+              }),
+            ),
+          ),
         !isEmpty(rejectedFiles) && showErrorMessage(rejectedFiles[0]),
       )
     },
@@ -91,9 +95,10 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 10, questionCod
   const preview = map(({ name, preview, type }) => {
     if (checkIfImage(type)) {
       return (
-        <Box key={name} borderRadius={4} overflow={'hidden'}>
+        <VStack key={name} borderRadius={4} overflow={'hidden'}>
           <Image src={preview} alt={`Thumb ${name}`} objectFit="cover" />
-        </Box>
+          <Button onClick={() => console.log('deleted the file!!')}>{`Delete`}</Button>
+        </VStack>
       )
     }
 
@@ -122,7 +127,7 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 10, questionCod
       }}
     >
       <Flex w="100%" direction="column">
-        {isEmpty(preview) && (
+        {
           <Box {...getRootProps()}>
             <Center
               cursor="pointer"
@@ -177,7 +182,8 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 10, questionCod
             </Center>
             <Input {...getInputProps()} id={questionCode} test-id={questionCode} />
           </Box>
-        )}
+        }
+
         <Flex mt={'1rem'} direction="column">
           <Grid mb={4} gap={3} templateColumns={'repeat(auto-fit, 100px)'}>
             {preview}
