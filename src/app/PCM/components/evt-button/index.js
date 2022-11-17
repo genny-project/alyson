@@ -44,7 +44,7 @@ const EvtButton = ({ questionCode, childCode, iconId, vert, isNotChildAsk = fals
     if (!startsWith('http', iconId)) {
       src = getImageSrc(iconId)
     }
-  } else {
+  } else if (vert) {
     debugOut.error(`${questionCode}@${childCode} doesn't have an iconId!`)
   }
 
