@@ -92,12 +92,21 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 10, questionCod
     },
   })
 
-  const preview = map(({ name, preview, type }) => {
+  const removeSelectedFile = file => {
+    console.log('files=====>', file)
+
+    const newFiles = [...files]
+    newFiles.splice(newFiles.indexOf(file), 1)
+    setFiles(newFiles)
+  }
+
+  const preview = map(file => {
+    const { name, preview, type } = file
     if (checkIfImage(type)) {
       return (
         <VStack key={name} borderRadius={4} overflow={'hidden'}>
           <Image src={preview} alt={`Thumb ${name}`} objectFit="cover" />
-          <Button onClick={() => console.log('deleted the file!!')}>{`Delete`}</Button>
+          <Button onClick={() => removeSelectedFile(file)}>{`Delete`}</Button>
         </VStack>
       )
     }
