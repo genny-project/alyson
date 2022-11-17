@@ -160,7 +160,7 @@ const Write = ({
           />
         ) : data?.value ? (
           <VStack>
-            {!!src && <DocViewer documents={docs} pluginRenderers={[DocViewerRenderers]} />}
+            {!!src && <DocViewer documents={docs} pluginRenderers={DocViewerRenderers} />}
             <HStack>
               <Button leftIcon={<FontAwesomeIcon icon={faCheck} />} colorScheme="green">{`${
                 fileName || 'File'
