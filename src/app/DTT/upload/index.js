@@ -12,7 +12,7 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { faArrowDown, faCheck, faFileDownload } from '@fortawesome/free-solid-svg-icons'
-import DocViewer, { PDFRenderer } from 'react-doc-viewer'
+import DocViewer, { DocViewerRenderers } from 'react-doc-viewer'
 
 import DropZone from 'app/DTT/upload/Dropzone'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -160,7 +160,7 @@ const Write = ({
           />
         ) : data?.value ? (
           <VStack>
-            {!!src && <DocViewer documents={docs} pluginRenderers={[PDFRenderer]} />}
+            {!!src && <DocViewer documents={docs} pluginRenderers={[DocViewerRenderers]} />}
             <HStack>
               <Button leftIcon={<FontAwesomeIcon icon={faCheck} />} colorScheme="green">{`${
                 fileName || 'File'
