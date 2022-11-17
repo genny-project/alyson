@@ -25,6 +25,7 @@ const HtmlEditorPreview = ({ html, inModal }) => {
   if (!html) {
     return <Center>No HTML!</Center>
   }
+
   const clean = purify(html)
 
   if (inModal) {
@@ -55,7 +56,8 @@ const HtmlEditorPreview = ({ html, inModal }) => {
       </Box>
     )
   } else {
-    return <iframe ref={ref} title={'iframe-modal'} width="100%" srcDoc={clean} />
+    // Suprisingly, this removes scrollbars from long chunks of html, without making it too big
+    return <iframe height="10000%" ref={ref} title={'iframe-modal'} width="100%" srcDoc={clean} />
   }
 }
 

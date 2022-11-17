@@ -10,7 +10,7 @@ const TemplateText = ({ mappedPcm, depth }) => {
   const questionCode = mappedPcm.PRI_QUESTION_CODE || ''
   const mainString = mappedPcm.PRI_LOC1 || ''
 
-  const spillLocs = getSpillLocs(mappedPcm)(['PRI_LOC1'])
+  const spillLocs = getSpillLocs(mappedPcm, ['PRI_LOC1'])
 
   const targetCode = useSelector(selectCode(questionCode, 'targetCode'))
   const wholeData = useSelector(selectCode(questionCode, 'wholeData'))

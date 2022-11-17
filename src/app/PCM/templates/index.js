@@ -24,7 +24,7 @@ import showTemplateNames from 'utils/helpers/show-template-names'
 import { Box, Text } from '@chakra-ui/react'
 import TemplatePopup from './tpl_popup'
 import TemplateSBEDetailView from './tpl-detail-view/tpl-sbe-detail-view'
-import { TemplateHori, TemplateHoriAll, TemplateVert, TemplateVertAll } from './vert-and-hori'
+import { TemplateHori, TemplateVert, TemplateVertAll } from './vert-and-hori'
 import TemplateSBERowAdd from './tpl-sbe-row-add'
 import TemplateSBESelect from './tpl-sbe-select'
 
@@ -49,7 +49,7 @@ const templateHandlerMachine = depth => mappedPcm => templateCode => parentCode 
     TPL_VERT: <TemplateVert {...mandatoryProps} />,
     TPL_VERT_ALL: <TemplateVertAll {...mandatoryProps} />,
     TPL_HORI: <TemplateHori {...mandatoryProps} />,
-    TPL_HORI_ALL: <TemplateHoriAll {...mandatoryProps} />,
+    TPL_HORI_ALL: <TemplateHori {...mandatoryProps} />,
     TPL_HEADER_1: <TemplateHeader {...mandatoryProps} />,
     TPL_DISPLAY: <TemplateDisplay {...mandatoryProps} />,
     TPL_LOGO: <TemplateLogo {...mandatoryProps} />,
