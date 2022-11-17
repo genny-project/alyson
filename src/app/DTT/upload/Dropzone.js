@@ -96,17 +96,16 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 10, questionCod
     },
   })
 
-  const removeSelectedFile = file => {
-    const newFiles = [...files]
-    newFiles.splice(newFiles.indexOf(file), 1)
-    setFiles(newFiles)
+  const removeSelectedFile = fileToBeRemoved => {
+    const filteredFiles = files.filter(file => !equals(file)(fileToBeRemoved))
+    setFiles(filteredFiles)
   }
 
-  const preview = map(file => {
+  const preview = map((file, idx) => {
     const { name, preview, type } = file
     if (checkIfImage(type)) {
       return (
-        <HStack borderRadius={4} key={name} position="relative">
+        <HStack borderRadius={4} position="relative" key={`${preview}-${idx}`}>
           <AspectRatio
             bg={'#f4f5f5'}
             border={'1px solid #f7f7f7'}
@@ -135,7 +134,7 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 10, questionCod
     }
 
     return (
-      <Flex key={name} p="4">
+      <Flex key={`${preview}-${idx}`} p="4">
         <Text>{`Uploaded File:`}</Text>
         <Text ml="2">{name}</Text>
       </Flex>
