@@ -1,32 +1,47 @@
 import CheckBox from 'app/DTT/check_box'
+import { useState } from 'react'
 
 export default {
   title: 'Components/CheckBox',
   component: CheckBox,
 }
 
-const questionCode = ''
-const data = ''
-const onSendAnswer = ''
-const isRequired = ''
+const WriteTemplate = args => {
+  const { Required, Label, ColorScheme } = args
+  const [checked, setChecked] = useState(false)
 
-const Template = args => {
-  console.log('args', { args })
   return (
     <CheckBox.Write
-      {...args}
-      questionCode={questionCode}
-      data={data}
-      onSendAnswer={onSendAnswer}
-      isRequired={isRequired}
-      label="Checkbox"
+      questionCode={''}
+      data={{ value: checked.toString() }}
+      onSendAnswer={() => {
+        setChecked(!checked)
+      }}
+      isRequired={Required}
+      label={Label}
+      colorScheme={ColorScheme}
     />
   )
 }
 
-export const Primary = Template.bind({})
-Primary.args = {
-  autoFocus: true,
-  label: 'Name',
-  fullwidth: false,
+export const Write = WriteTemplate.bind({})
+Write.args = {
+  Label: 'Checkbox',
+  Required: true,
+  ColorScheme: 'primary',
+}
+Write.argTypes = {
+  ColorScheme: {
+    control: {
+      type: 'inline-radio',
+      options: ['primary', 'secondary', 'green', 'red', 'orange'],
+      mapping: {
+        Primary: 'primary',
+        Secondary: 'secondary',
+        Green: 'green',
+        Red: 'red',
+        Orange: 'orange',
+      },
+    },
+  },
 }

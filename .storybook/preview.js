@@ -12,7 +12,7 @@ export const decorators = [
     <ErrorContextProvider>
       <IsFieldNotEmptyProvider>
         <Provider store={store}>
-          <Box width="min(100%, 30rem)" margin={'auto'}>
+          <Box width="min(100%, 48rem)" margin={'auto'}>
             <Story />
           </Box>
         </Provider>

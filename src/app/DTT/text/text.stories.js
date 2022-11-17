@@ -5,51 +5,83 @@ export default {
   component: Text,
 }
 
-const questionCode = ''
-const data = ''
-const onSendAnswer = ''
-const regexPattern = ''
-const errorMessage = 'Please enter valid data.'
-const parentCode = ''
-const placeholderName = 'Enter Value'
 const readData = { value: 'Some Text Here..' }
 const config = {}
 
 const TextWriteTemplate = args => {
+  const {
+    mandatory,
+    isInvalid,
+    BackgroundColor,
+    BorderColor,
+    BorderHoverColor,
+    PlaceholderColor,
+    LabelTextColor,
+    ErrorMessage,
+    Placeholder,
+  } = args
   return (
     <Text.Write
-      questionCode={questionCode}
-      data={data}
-      onSendAnswer={onSendAnswer}
-      regexPattern={regexPattern}
-      errorMessage={errorMessage}
-      parentCode={parentCode}
-      placeholderName={placeholderName}
-      {...args}
+      questionCode={''}
+      data={''}
+      onSendAnswer={() => {}}
+      regexPattern={''}
+      errorMessage={ErrorMessage}
+      parentCode={''}
+      placeholderName={Placeholder}
+      BackgroundColor={BackgroundColor}
+      BorderColor={BorderColor}
+      BorderHoverColor={BorderHoverColor}
+      PlaceholderColor={PlaceholderColor}
+      LabelTextColor={LabelTextColor}
+      mandatory={mandatory}
+      isInvalid={isInvalid}
     />
   )
 }
 
 export const Write = TextWriteTemplate.bind({})
 Write.args = {
+  Placeholder: 'Some Text Here..',
   mandatory: false,
   isInvalid: false,
+  ErrorMessage: 'Please enter valid data.',
+  BackgroundColor: '#FFFFFF',
+  BorderColor: '#979797',
+  BorderHoverColor: '#00AFAB',
+  PlaceholderColor: '#000000',
+  LabelTextColor: '#808080',
 }
 Write.argTypes = {
   BackgroundColor: {
-    control: 'color',
+    control: {
+      type: 'color',
+      presetColors: ['#FFFFFF', '#F4F5F5'],
+    },
   },
   BorderColor: {
-    control: 'color',
+    control: {
+      type: 'color',
+      presetColors: ['#979797', '#F4F5F5'],
+    },
   },
   BorderHoverColor: {
-    control: 'color',
+    control: {
+      type: 'color',
+      presetColors: ['#00AFAB', '#EF8567'],
+    },
   },
   PlaceholderColor: {
-    control: 'color',
+    control: {
+      type: 'color',
+      presetColors: ['#000000', '#33475B'],
+    },
   },
   LabelTextColor: {
-    control: 'color',
+    control: {
+      type: 'color',
+      presetColors: ['#808080', '#7D7D7D'],
+    },
   },
 }
 

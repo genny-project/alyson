@@ -16,7 +16,6 @@ const DateRangeWriteTemplate = args => {
       placeholder={Placeholder}
       mandatory={Mandatory}
       html={{ granularity: Granularity, maxDate: MaxDate }}
-      {...args}
     />
   )
 }

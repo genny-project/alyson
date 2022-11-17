@@ -286,14 +286,16 @@ export const Write = ({
     borderRadius,
   } = useProductColors()
 
+  console.log(isInvalid)
+
   // let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMessage)
 
   const [showErrorMessage, setShowErrorMessage] = useState(false)
 
   // const failedValidation = errorState[questionCode]
   const failedValidation = false
-  // const errorStatus = isInvalid
-  const [errorStatus, setErrorStatus] = useState(isInvalid)
+  const errorStatus = isInvalid
+  // const [errorStatus, setErrorStatus] = useState(isInvalid)
 
   // const isInvalid = getIsInvalid(userInput)(regex)
   // const debouncedSendAnswer = debounce(onSendAnswer, 500)
@@ -314,13 +316,13 @@ export const Write = ({
   //   return filteredValue ? filteredValue.substring(0, inputmask.length) : value
   // }
 
-  // try {
-  //   regexPattern = regexPattern.replaceAll('\\\\', '\\')
-  //   regex = RegExp(regexPattern)
-  // } catch (err) {
-  //   console.error('There is an error with the regex', questionCode, err)
-  //   regex = undefined
-  // }
+  try {
+    regexPattern = regexPattern.replaceAll('\\\\', '\\')
+    regex = RegExp(regexPattern)
+  } catch (err) {
+    console.error('There is an error with the regex', questionCode, err)
+    regex = undefined
+  }
 
   useEffect(() => {
     userInput ? setIsFocused(true) : setIsFocused(false)
@@ -347,7 +349,7 @@ export const Write = ({
   const onBlur = () => {
     userInput ? setIsFocused(true) : setIsFocused(false)
     userInput ? setShowErrorMessage(false) : setShowErrorMessage(true)
-    userInput ? setErrorStatus(false) : setErrorStatus(true)
+    // userInput ? setErrorStatus(false) : setErrorStatus(true)
   }
 
   // useEffect(() => {
@@ -405,6 +407,7 @@ export const Write = ({
         fontWeight={'medium'}
         color={PlaceholderColor || fieldTextColor}
         cursor={'pointer'}
+        isRequired={mandatory}
         _hover={{
           borderColor: BorderHoverColor || fieldHoverBorderColor,
           boxShadow: 'lg',

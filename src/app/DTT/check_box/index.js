@@ -8,20 +8,19 @@ import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 const Read = ({ data }) => {
   return (
     <HStack spacing={2}>
-      <Checkbox
-        colorScheme="green"
-        isChecked={data?.value === 'true'}
-        isDisabled="true"
-      >{`Yes`}</Checkbox>
+      <Checkbox colorScheme="green" isChecked={data?.value === 'true'} isDisabled="true">
+        {`Yes`}
+      </Checkbox>
     </HStack>
   )
 }
 
-const Write = ({ questionCode, data, onSendAnswer, isRequired, label }) => {
+const Write = ({ questionCode, data, onSendAnswer, isRequired, label, colorScheme }) => {
   const { dispatchFieldMessage } = useIsFieldNotEmpty() || {}
   let answer = data?.value === 'true' ? 'false' : 'true'
 
-  const colorScheme = useGetAttributeFromProjectBaseEntity('PRI_COLOR')?.valueString
+  const checkBoxColor = colorScheme
+  const prdColorScheme = useGetAttributeFromProjectBaseEntity('PRI_COLOR')?.valueString
 
   const toggle = () => {
     onSendAnswer(answer)
@@ -34,7 +33,7 @@ const Write = ({ questionCode, data, onSendAnswer, isRequired, label }) => {
         m="1"
         id={questionCode}
         test-id={questionCode}
-        colorScheme={colorScheme}
+        colorScheme={checkBoxColor || prdColorScheme}
         isChecked={data?.value === 'true'}
         onChange={toggle}
       />
