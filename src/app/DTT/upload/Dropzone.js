@@ -1,4 +1,5 @@
 import {
+  AspectRatio,
   Box,
   Button,
   Center,
@@ -11,7 +12,11 @@ import {
   useToast,
 } from '@chakra-ui/react'
 import { compose, equals, includes, isEmpty, map, pathOr, split } from 'ramda'
-import { faCloudUploadAlt, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
+import {
+  faCloudUploadAlt,
+  faExclamationTriangle,
+  faTimesCircle,
+} from '@fortawesome/free-solid-svg-icons'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { isImageField } from 'utils/functions'
@@ -78,22 +83,54 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 10, questionCod
     maxFiles: maxFiles,
     onDrop: (acceptedFiles, rejectedFiles) => {
       setFiles(
-        acceptedFiles.map(file =>
-          Object.assign(file, {
-            preview: URL.createObjectURL(file),
-          }),
-        ),
+        files =>
+          files.concat(
+            acceptedFiles.map(file =>
+              Object.assign(file, {
+                preview: URL.createObjectURL(file),
+              }),
+            ),
+          ),
         !isEmpty(rejectedFiles) && showErrorMessage(rejectedFiles[0]),
       )
     },
   })
 
-  const preview = map(({ name, preview, type }) => {
+  const removeSelectedFile = file => {
+    const newFiles = [...files]
+    newFiles.splice(newFiles.indexOf(file), 1)
+    setFiles(newFiles)
+  }
+
+  const preview = map(file => {
+    const { name, preview, type } = file
     if (checkIfImage(type)) {
       return (
-        <Box key={name} borderRadius={4} overflow={'hidden'}>
-          <Image src={preview} alt={`Thumb ${name}`} objectFit="cover" />
-        </Box>
+        <HStack borderRadius={4} key={name} position="relative">
+          <AspectRatio
+            bg={'#f4f5f5'}
+            border={'1px solid #f7f7f7'}
+            height={'100%'}
+            borderRadius={4}
+            width={'100%'}
+            overflow={'hidden'}
+          >
+            <Image src={preview} alt={`Thumb ${name}`} />
+          </AspectRatio>
+          <Text
+            position="absolute"
+            top="-10px"
+            right="-10px"
+            lineHeight="1px"
+            borderRadius="50%"
+            background="white"
+            cursor="pointer"
+            color="red.400"
+            onClick={() => removeSelectedFile(file)}
+          >
+            <FontAwesomeIcon icon={faTimesCircle} size="lg" />
+          </Text>
+        </HStack>
       )
     }
 
@@ -122,7 +159,7 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 10, questionCod
       }}
     >
       <Flex w="100%" direction="column">
-        {isEmpty(preview) && (
+        {
           <Box {...getRootProps()}>
             <Center
               cursor="pointer"
@@ -177,7 +214,8 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 10, questionCod
             </Center>
             <Input {...getInputProps()} id={questionCode} test-id={questionCode} />
           </Box>
-        )}
+        }
+
         <Flex mt={'1rem'} direction="column">
           <Grid mb={4} gap={3} templateColumns={'repeat(auto-fit, 100px)'}>
             {preview}
