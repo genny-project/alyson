@@ -9,10 +9,13 @@ import {
   Input,
   Text,
   useToast,
-  VStack,
 } from '@chakra-ui/react'
 import { compose, equals, includes, isEmpty, map, pathOr, split } from 'ramda'
-import { faCloudUploadAlt, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
+import {
+  faCloudUploadAlt,
+  faExclamationTriangle,
+  faTimesCircle,
+} from '@fortawesome/free-solid-svg-icons'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { isImageField } from 'utils/functions'
@@ -93,8 +96,6 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 10, questionCod
   })
 
   const removeSelectedFile = file => {
-    console.log('files=====>', file)
-
     const newFiles = [...files]
     newFiles.splice(newFiles.indexOf(file), 1)
     setFiles(newFiles)
@@ -104,10 +105,17 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 10, questionCod
     const { name, preview, type } = file
     if (checkIfImage(type)) {
       return (
-        <VStack key={name} borderRadius={4} overflow={'hidden'}>
+        <HStack key={name} borderRadius={4} position="relative">
           <Image src={preview} alt={`Thumb ${name}`} objectFit="cover" />
-          <Button onClick={() => removeSelectedFile(file)}>{`Delete`}</Button>
-        </VStack>
+          <Text
+            position="absolute"
+            top="-10px"
+            right="-10px"
+            onClick={() => removeSelectedFile(file)}
+          >
+            <FontAwesomeIcon icon={faTimesCircle} size="lg" />
+          </Text>
+        </HStack>
       )
     }
 
