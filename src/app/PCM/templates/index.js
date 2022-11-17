@@ -25,7 +25,7 @@ import { Box, Text } from '@chakra-ui/react'
 import TemplatePopup from './tpl_popup'
 import TemplateSBEDetailView from './tpl-detail-view/tpl-sbe-detail-view'
 import { TemplateHori, TemplateVert, TemplateVertAll } from './vert-and-hori'
-import TemplateSBERowAdd from './tpl-sbe-row-add'
+import TemplateSBERowAdd from './tpl-sbe-row-add/'
 import TemplateSBESelect from './tpl-sbe-select'
 
 /**

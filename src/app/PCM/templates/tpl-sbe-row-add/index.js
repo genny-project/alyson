@@ -1,75 +1,72 @@
-import { Box, Button, HStack } from '@chakra-ui/react'
-import createSendAnswer from 'app/ASKS/utils/create-send-answer'
-import PcmField from 'app/PCM/components/pcm-field'
-import getAskFromAttribute from 'app/PCM/helpers/get-ask-from-attribute'
 import { useState } from 'react'
-import deArrayifyValue from 'utils/helpers/de-arrayify-value'
+import getAskFromAttribute from 'app/PCM/helpers/get-ask-from-attribute'
+import { Box, Button, HStack } from '@chakra-ui/react'
+import SBEAddElement from './sbe-add-element'
+import createSendAnswer from 'app/ASKS/utils/create-send-answer'
 
-const TemplateSBERowAdd = ({ mappedPcm, depth }) => {
+const TemplateSBERowAdd = ({ mappedPcm }) => {
   const { PRI_LOC1, PRI_LOC2, PRI_LOC3, PRI_LOC4, PRI_QUESTION_CODE } = mappedPcm
 
   const addAskData = getAskFromAttribute(PRI_QUESTION_CODE)(PRI_LOC4)?.ask || {}
 
   const buttonName = addAskData?.name || addAskData?.attributeCode
 
-  const locColumn = 0
-  const locOperator = 1
-  const locValue = 2
-
   const [columnValue, setColumnValue] = useState()
   const [operatorValue, setOperatorValue] = useState()
   const [valueValue, setValueValue] = useState()
 
-  const getSetter = loc => {
-    return loc === locColumn
-      ? setColumnValue
-      : loc === locOperator
-      ? setOperatorValue
-      : loc === locValue
-      ? setValueValue
-      : () => {}
+  const onColumnUpdate = value => {
+    setColumnValue(value)
+    setOperatorValue('')
+    setValueValue('')
   }
 
-  const setValue = loc => getSetter(loc)
-
-  const answerCallback = loc => (askData, value) => {
-    setValue(loc)(deArrayifyValue(value))
+  const onOperatorUpdate = value => {
+    setOperatorValue(value)
   }
-  const fieldConfig = loc => {
-    return { parentCode: 'VBE_ADD_ROW', answerCallback: answerCallback(loc) }
+
+  const onValueUpdate = value => {
+    setValueValue(value)
   }
 
   const onAdd = () => {
-    const outputAttributeCode = `FLC_${columnValue}`
-    const outputValue = `${operatorValue}:${valueValue}`
+    const outputAttributeCode = `FLC_${columnValue?.value}`
+    const outputValue = `${operatorValue?.value}:${valueValue?.value}`
 
     const outputAskData = { ...addAskData, attributeCode: outputAttributeCode }
     createSendAnswer(outputAskData)(outputValue)
-    setValue(locColumn)('')
-    setValue(locOperator)('')
-    setValue(locValue)('')
+
+    setColumnValue('')
+    setOperatorValue('')
+    setValueValue('')
   }
 
   return (
     <Box>
       <HStack>
-        <PcmField
-          code={PRI_LOC1}
-          mappedPcm={mappedPcm}
-          config={fieldConfig(locColumn)}
-          depth={depth}
+        <SBEAddElement
+          parentCode={PRI_QUESTION_CODE}
+          attributeCode={PRI_LOC1}
+          value={columnValue}
+          sourceCode={addAskData.sourceCode}
+          onChange={onColumnUpdate}
+          targetCode={'VBE_ADD_ROW'}
         />
-        <PcmField
-          code={PRI_LOC2}
-          mappedPcm={mappedPcm}
-          config={fieldConfig(locOperator)}
-          depth={depth}
+        <SBEAddElement
+          parentCode={PRI_QUESTION_CODE}
+          attributeCode={PRI_LOC2}
+          value={operatorValue}
+          sourceCode={addAskData.sourceCode}
+          onChange={onOperatorUpdate}
+          targetCode={'VBE_ADD_ROW'}
         />
-        <PcmField
-          code={PRI_LOC3}
-          mappedPcm={mappedPcm}
-          config={fieldConfig(locValue)}
-          depth={depth}
+        <SBEAddElement
+          parentCode={PRI_QUESTION_CODE}
+          attributeCode={PRI_LOC3}
+          value={valueValue}
+          sourceCode={addAskData.sourceCode}
+          onChange={onValueUpdate}
+          targetCode={'VBE_ADD_ROW'}
         />
         <Button onClick={onAdd} disabled={!columnValue || !operatorValue || !valueValue}>
           {buttonName}
