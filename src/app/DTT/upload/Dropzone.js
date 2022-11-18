@@ -224,7 +224,7 @@ const DropZone = ({
                       color: dropZoneTextHoverColor,
                     }}
                   >
-                    {`Drag and drop images and videos`}
+                    {`Drag and drop image and video`}
                     <br />
                     {`OR `}
                     <Text
