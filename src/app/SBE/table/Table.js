@@ -35,7 +35,7 @@ const DataTable = ({ parentCode, mapSearch, passedComponents = [] }) => {
       <HStack align="flex-end" mb="3" justify="space-between">
         <Stack align="center" spacing="5" direction={isMobile ? 'column' : 'row'} w={'full'}>
           <Title sbeCode={parentCode} />
-          {/* <Search sbeCode={parentCode} /> */}
+          <Search sbeCode={parentCode} />
           {/* <Filters sbeCode={parentCode} /> */}
 
           {passedComponents.map((component, index) => (
