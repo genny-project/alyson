@@ -17,6 +17,7 @@ const SBEAddSelect = ({
   onChange,
   sourceCode,
   targetCode,
+  disabled,
 }) => {
   const {
     fieldBackgroundColor,
@@ -87,6 +88,7 @@ const SBEAddSelect = ({
       options={options}
       placeholder={askData?.name}
       value={value}
+      isDisabled={disabled}
       chakraStyles={{
         container: provided => ({
           ...provided,

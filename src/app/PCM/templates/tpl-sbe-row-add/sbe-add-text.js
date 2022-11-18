@@ -1,7 +1,7 @@
 import { Input } from '@chakra-ui/react'
 import useProductColors from 'utils/productColors'
 
-const SBEAddText = ({ askData, value, onChange }) => {
+const SBEAddText = ({ askData, value, onChange, disabled }) => {
   const questionCode = askData?.questionCode || ''
 
   const {
@@ -21,10 +21,11 @@ const SBEAddText = ({ askData, value, onChange }) => {
       h={'auto'}
       paddingBlock={3}
       paddingInline={6}
+      isDisabled={disabled}
       autoComplete={'off'}
       bg={fieldBackgroundColor}
       borderRadius={borderRadius}
-      placeholder={askData?.name}
+      placeholder={askData?.name || 'Filter Value'}
       borderColor={fieldBorderColor}
       fontSize={'sm'}
       fontWeight={'medium'}

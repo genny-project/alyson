@@ -31,7 +31,9 @@ const TemplateSBERowAdd = ({ mappedPcm }) => {
 
   const onAdd = () => {
     const outputAttributeCode = `FLC_${columnValue?.value}`
-    const outputValue = `${operatorValue?.value}:${valueValue?.value || valueValue || ''}`
+    const outputValue = `${operatorValue?.value}:${
+      valueValue?.value || valueValue?.parsed || valueValue || ''
+    }`
 
     const outputAskData = { ...addAskData, attributeCode: outputAttributeCode }
     createSendAnswer(outputAskData)(outputValue)
@@ -51,6 +53,7 @@ const TemplateSBERowAdd = ({ mappedPcm }) => {
           sourceCode={addAskData.sourceCode}
           onChange={onColumnUpdate}
           targetCode={'VBE_ADD_ROW'}
+          disabled={false}
         />
         <SBEAddElement
           parentCode={PRI_QUESTION_CODE}
@@ -59,6 +62,7 @@ const TemplateSBERowAdd = ({ mappedPcm }) => {
           sourceCode={addAskData.sourceCode}
           onChange={onOperatorUpdate}
           targetCode={'VBE_ADD_ROW'}
+          disabled={!columnValue}
         />
         <SBEAddElement
           parentCode={PRI_QUESTION_CODE}
@@ -67,6 +71,7 @@ const TemplateSBERowAdd = ({ mappedPcm }) => {
           sourceCode={addAskData.sourceCode}
           onChange={onValueUpdate}
           targetCode={'VBE_ADD_ROW'}
+          disabled={!operatorValue}
         />
         <Button onClick={onAdd} disabled={!columnValue || !operatorValue || !valueValue}>
           {buttonName}
