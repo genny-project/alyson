@@ -1,15 +1,11 @@
 import { Box, HStack, IconButton } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useSelector } from 'react-redux'
-import { selectCode } from 'redux/db/selectors'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
-const FieldRow = ({ baseEntityCode, attributeCode, index }) => {
-  const data = useSelector(selectCode(baseEntityCode, attributeCode))
-
+const FieldRow = ({ baseEntityCode, data, index }) => {
   const rowColour = index % 2 === 0 ? '#F4F5F5' : '#FFFFFF'
 
-  const name = data?.attributeName ?? attributeCode
+  const name = data?.attributeName ?? ''
   const value = data?.value ?? ''
 
   return (

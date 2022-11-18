@@ -1,14 +1,16 @@
 import { Box, VStack } from '@chakra-ui/react'
-import useGetDetailData from '../get-detail-data'
+import { useSelector } from 'react-redux'
+import { selectCode } from 'redux/db/selectors'
 import FieldRow from './field-row'
 
 const TemplateSBEDetailView = ({ mappedPcm }) => {
-  const { baseEntityCode, fields } = useGetDetailData(mappedPcm)
+  const baseEntityCode = mappedPcm?.PRI_LOC1 || ''
+  const attributes = useSelector(selectCode(baseEntityCode, 'allAttributes')) || []
 
   return (
     <Box>
       <VStack>
-        {fields.map((field, index) => (
+        {attributes.map((field, index) => (
           <FieldRow
             key={`detailview-${baseEntityCode}-${index}`}
             baseEntityCode={baseEntityCode}
