@@ -11,7 +11,7 @@ import MapSearch from 'app/SBE/display_modes/map_view'
 import Pagination from './Pagination'
 import Title from './Title'
 import { apiConfig } from 'config/get-api-config'
-import Filters from '../filters'
+// import Filters from '../filters'
 import Search from 'app/SBE/search/Search'
 import getColumns from '../utils/get-columns'
 import { selectCode } from 'redux/db/selectors'
@@ -36,11 +36,11 @@ const DataTable = ({ parentCode, mapSearch, passedComponents = [] }) => {
         <Stack align="center" spacing="5" direction={isMobile ? 'column' : 'row'} w={'full'}>
           <Title sbeCode={parentCode} />
           <Search sbeCode={parentCode} />
-          <Filters sbeCode={parentCode} />
-
-          {passedComponents.map((component, index) => (
+          {/* <Filters sbeCode={parentCode} /> */}
+          {/* Commented out until it is ready */}
+          {/* {passedComponents.map((component, index) => (
             <Box key={`TABLE-${parentCode}-CHILD-${index}`}>{component}</Box>
-          ))}
+          ))} */}
 
           <Download sbeCode={parentCode} />
         </Stack>

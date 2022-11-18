@@ -90,7 +90,8 @@ export const Write = ({
   }
 
   const onChange = value => option => {
-    onSendAnswer(option || value)
+    const optionSelected = !!selectedOption
+    onSendAnswer({ value: optionSelected ? option : value, isCode: optionSelected })
 
     setUpdated(true)
     inputRef.current.blur()

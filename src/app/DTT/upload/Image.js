@@ -1,4 +1,5 @@
 import {
+  AspectRatio,
   Avatar,
   Button,
   ButtonGroup,
@@ -23,6 +24,7 @@ const Write = ({
   questionCode,
   data,
   openDropzone,
+  dropzone,
   onSendAnswer,
   handleSave,
   setLoading,
@@ -37,24 +39,22 @@ const Write = ({
     onSendAnswer('')
   }
 
-  if (displayImages)
-    return (
-      <HStack>
-        <HStack>
-          {map(individualImageSrc => <Avatar size="xl" src={individualImageSrc} />)(src)}
-        </HStack>
-        <Tooltip label="Click to remove your selections.">
-          <CloseButton cursor="pointer" onClick={onRemoveImage} />
-        </Tooltip>
-      </HStack>
-    )
-
   return (
     <div id={questionCode}>
       {openSnap && (
         <Snap handleSave={handleSave} setOpenSnap={setOpenSnap} setLoading={setLoading} />
       )}
-      <div hidden={openSnap}>
+      {displayImages && (
+        <HStack mb="2">
+          <HStack>
+            {map(individualImageSrc => <Avatar size="xl" src={individualImageSrc} />)(src)}
+          </HStack>
+          <Tooltip label="Click to remove your selections.">
+            <CloseButton cursor="pointer" onClick={onRemoveImage} />
+          </Tooltip>
+        </HStack>
+      )}
+      <div hidden={dropzone}>
         <ButtonGroup>
           <Button
             test-id={questionCode}
@@ -92,16 +92,17 @@ const Read = ({ code, data, parentCode, variant, config }) => {
 
   if (!!cardDisplay) {
     return (
-      <Avatar
-        name={name?.value || assocName?.value}
-        {...config}
-        cursor="pointer"
-        onClick={viewDetail}
-        src={src}
-        height="35vh"
-        width="35vw"
-        borderRadius="none"
-      />
+      <AspectRatio>
+        <Avatar
+          name={name?.value || assocName?.value}
+          {...config}
+          cursor="pointer"
+          onClick={viewDetail}
+          src={src}
+          w={'full'}
+          borderRadius={4}
+        />
+      </AspectRatio>
     )
   }
 

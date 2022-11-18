@@ -41,6 +41,13 @@ const DropZone = ({
   const toast = useToast()
   const checkIfImage = compose(includes('image'), split('/'))
 
+  const uploaderText = multiUpload
+    ? `Drag and drop images and videos`
+    : `Drag and drop image and video`
+  const uploaderFileText = multiUpload
+    ? `browse files from your computer`
+    : `browse file from your computer`
+
   const {
     fieldHoverBorderColor,
     fieldHoverBackgroundColor,
@@ -224,7 +231,7 @@ const DropZone = ({
                       color: dropZoneTextHoverColor,
                     }}
                   >
-                    {`Drag and drop images and videos`}
+                    {uploaderText}
                     <br />
                     {`OR `}
                     <Text
@@ -233,7 +240,7 @@ const DropZone = ({
                         color: fieldHoverTextColor,
                       }}
                     >
-                      {`browse files from your computer`}
+                      {uploaderFileText}
                     </Text>
                   </Text>
                 </Box>

@@ -151,6 +151,7 @@ const Write = ({
         {equals(typeName, 'Image') || equals(component, 'multi_upload') ? (
           <ImageType.Write
             handleSave={handleSave}
+            dropzone={dropzone}
             openDropzone={openDropzone}
             data={data}
             onSendAnswer={onSendAnswer}
