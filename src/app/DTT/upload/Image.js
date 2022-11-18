@@ -9,7 +9,7 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react'
 import { compose, isEmpty, map, not } from 'ramda'
-import { faCamera, faUpload, faUserAlt } from '@fortawesome/free-solid-svg-icons'
+import { faUpload, faUserAlt } from '@fortawesome/free-solid-svg-icons'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Snap from './Snap'
@@ -62,9 +62,6 @@ const Write = ({
             leftIcon={<FontAwesomeIcon icon={faUpload} />}
           >
             {name}
-          </Button>
-          <Button onClick={() => setOpenSnap(true)} leftIcon={<FontAwesomeIcon icon={faCamera} />}>
-            {`Take Photo`}
           </Button>
         </ButtonGroup>
       </div>

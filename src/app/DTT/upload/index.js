@@ -101,6 +101,7 @@ const Write = ({
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
   const { labelTextColor } = useProductColors()
   let maxFiles = equals(component, 'multi_upload') ? 10 : 1
+  let multiUpload = equals(component, 'multi_upload') ? true : false
 
   const docs = [
     {
@@ -203,6 +204,7 @@ const Write = ({
             id={questionCode}
             clientId={clientId}
             maxFiles={maxFiles}
+            multiUpload={multiUpload}
           />
         )}
       </Box>
