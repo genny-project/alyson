@@ -43,8 +43,7 @@ const Write = ({
         <HStack>
           {map(individualImageSrc => <Avatar size="xl" src={individualImageSrc} />)(src)}
         </HStack>
-
-        <Tooltip label="Click to remove">
+        <Tooltip label="Click to remove your selections.">
           <CloseButton cursor="pointer" onClick={onRemoveImage} />
         </Tooltip>
       </HStack>

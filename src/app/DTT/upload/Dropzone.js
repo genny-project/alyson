@@ -10,6 +10,8 @@ import {
   Input,
   Text,
   useToast,
+  VStack,
+  Tooltip,
 } from '@chakra-ui/react'
 import { compose, equals, includes, isEmpty, map, pathOr, split } from 'ramda'
 import {
@@ -142,143 +144,148 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 10, questionCod
   })(files)
 
   return (
-    <Box
-      w="100%"
-      p={4}
-      mt={'1rem'}
-      borderWidth={'1px'}
-      borderRadius={16}
-      borderColor={'product.grayMedium'}
-      color={'gray.600'}
-      role="group"
-      onPointerOver={() => setHover(true)}
-      onPointerOut={() => setHover(false)}
-      _hover={{
-        boxShadow: '0px 4px 20px 5px rgba(51, 71, 91, 0.06)',
-      }}
-    >
-      <Flex w="100%" direction="column">
-        {
-          <Box {...getRootProps()}>
-            <Center
-              cursor="pointer"
-              borderRadius={12}
-              borderColor={'blackAlpha.20'}
-              borderWidth={1}
-              borderStyle={'dashed'}
-              _groupHover={{
-                borderColor: fieldHoverBorderColor,
-                bg: fieldHoverBackgroundColor,
-              }}
-            >
-              <Box
-                paddingBlock={'12'}
-                maxW={'16rem'}
-                textAlign={'center'}
-                color={'gray.600'}
+    <VStack>
+      <Tooltip label="Click to close the file uploader">
+        <Button mt="2" alignSelf="flex-end" onClick={() => closeDropzone()}>{`Close`}</Button>
+      </Tooltip>
+      <Box
+        w="100%"
+        p={4}
+        mt={'1rem'}
+        borderWidth={'1px'}
+        borderRadius={16}
+        borderColor={'product.grayMedium'}
+        color={'gray.600'}
+        role="group"
+        onPointerOver={() => setHover(true)}
+        onPointerOut={() => setHover(false)}
+        _hover={{
+          boxShadow: '0px 4px 20px 5px rgba(51, 71, 91, 0.06)',
+        }}
+      >
+        <Flex w="100%" direction="column">
+          {
+            <Box {...getRootProps()}>
+              <Center
+                cursor="pointer"
+                borderRadius={12}
+                borderColor={'blackAlpha.20'}
+                borderWidth={1}
+                borderStyle={'dashed'}
                 _groupHover={{
-                  color: fieldHoverTextColor,
+                  borderColor: fieldHoverBorderColor,
+                  bg: fieldHoverBackgroundColor,
                 }}
               >
-                <FontAwesomeIcon
-                  icon={faCloudUploadAlt}
-                  size={80}
-                  color={'inherit'}
-                  style={{
-                    width: 80,
-                    height: 80,
-                    filter: hover ? 'drop-shadow(0px 4px 4px rgba(26, 59, 100, 0.35)' : '',
-                  }}
-                />
-                <Text
-                  fontSize={13}
-                  fontWeight={500}
+                <Box
+                  paddingBlock={'12'}
+                  maxW={'16rem'}
+                  textAlign={'center'}
+                  color={'gray.600'}
                   _groupHover={{
-                    color: dropZoneTextHoverColor,
+                    color: fieldHoverTextColor,
                   }}
                 >
-                  {`Drag and drop images and videos`}
-                  <br />
-                  {`OR `}
+                  <FontAwesomeIcon
+                    icon={faCloudUploadAlt}
+                    size={80}
+                    color={'inherit'}
+                    style={{
+                      width: 80,
+                      height: 80,
+                      filter: hover ? 'drop-shadow(0px 4px 4px rgba(26, 59, 100, 0.35)' : '',
+                    }}
+                  />
                   <Text
-                    as="span"
+                    fontSize={13}
+                    fontWeight={500}
                     _groupHover={{
-                      color: fieldHoverTextColor,
+                      color: dropZoneTextHoverColor,
                     }}
                   >
-                    {`browse files from your computer`}
+                    {`Drag and drop images and videos`}
+                    <br />
+                    {`OR `}
+                    <Text
+                      as="span"
+                      _groupHover={{
+                        color: fieldHoverTextColor,
+                      }}
+                    >
+                      {`browse files from your computer`}
+                    </Text>
                   </Text>
-                </Text>
-              </Box>
-            </Center>
-            <Input {...getInputProps()} id={questionCode} test-id={questionCode} />
-          </Box>
-        }
+                </Box>
+              </Center>
+              <Input {...getInputProps()} id={questionCode} test-id={questionCode} />
+            </Box>
+          }
 
-        <Flex mt={'1rem'} direction="column">
-          <Grid mb={4} gap={3} templateColumns={'repeat(auto-fit, 100px)'}>
-            {preview}
-          </Grid>
-          <Flex justify="center" w={'full'}>
-            {equals(clientId)(lojing) ? (
-              <HStack>
-                <Button
-                  variant="outline"
-                  isDisabled={!!isEmpty(files)}
-                  onClick={() => handleSave(files)}
-                  test-id={`${questionCode}-SUBMIT`}
-                  paddingInline={10}
-                  paddingBlock={2}
-                  fontSize={'sm'}
-                  color={'product.secondary'}
-                  borderRadius="full"
-                  borderColor={'product.secondary'}
-                >
-                  {`Upload`}
-                </Button>
-                <Button
-                  variant="outline"
-                  isDisabled={!!isEmpty(files)}
-                  onClick={() => closeDropzone()}
-                  test-id={`${questionCode}-SUBMIT`}
-                  paddingInline={10}
-                  paddingBlock={2}
-                  fontSize={'sm'}
-                  color={'product.secondary'}
-                  borderRadius="full"
-                  borderColor={'product.secondary'}
-                >
-                  {`Cancel`}
-                </Button>
-              </HStack>
-            ) : (
-              <>
-                <Button
-                  mr="2"
-                  variant="ghost"
-                  onClick={handleOnClose}
-                  test-id={`${questionCode}-CANCEL`}
-                  borderRadius="full"
-                  paddingInline={10}
-                >
-                  {`Cancel`}
-                </Button>
-                <Button
-                  variant="solid"
-                  isDisabled={!!isEmpty(files)}
-                  onClick={handleOnSubmit}
-                  test-id={`${questionCode}-SUBMIT`}
-                  borderRadius="full"
-                  paddingInline={10}
-                >
-                  {`Submit`}
-                </Button>
-              </>
-            )}
+          <Flex mt={'1rem'} direction="column">
+            <Grid mb={4} gap={3} templateColumns={'repeat(auto-fit, 100px)'}>
+              {preview}
+            </Grid>
+            <Flex justify="center" w={'full'}>
+              {equals(clientId)(lojing) ? (
+                <HStack>
+                  <Button
+                    variant="outline"
+                    isDisabled={!!isEmpty(files)}
+                    onClick={() => handleSave(files)}
+                    test-id={`${questionCode}-SUBMIT`}
+                    paddingInline={10}
+                    paddingBlock={2}
+                    fontSize={'sm'}
+                    color={'product.secondary'}
+                    borderRadius="full"
+                    borderColor={'product.secondary'}
+                  >
+                    {`Upload`}
+                  </Button>
+                  <Button
+                    variant="outline"
+                    isDisabled={!!isEmpty(files)}
+                    onClick={() => closeDropzone()}
+                    test-id={`${questionCode}-SUBMIT`}
+                    paddingInline={10}
+                    paddingBlock={2}
+                    fontSize={'sm'}
+                    color={'product.secondary'}
+                    borderRadius="full"
+                    borderColor={'product.secondary'}
+                  >
+                    {`Cancel`}
+                  </Button>
+                </HStack>
+              ) : (
+                <>
+                  <Button
+                    mr="2"
+                    variant="ghost"
+                    onClick={handleOnClose}
+                    test-id={`${questionCode}-CANCEL`}
+                    borderRadius="full"
+                    paddingInline={10}
+                  >
+                    {`Cancel`}
+                  </Button>
+                  <Button
+                    variant="solid"
+                    isDisabled={!!isEmpty(files)}
+                    onClick={handleOnSubmit}
+                    test-id={`${questionCode}-SUBMIT`}
+                    borderRadius="full"
+                    paddingInline={10}
+                  >
+                    {`Submit`}
+                  </Button>
+                </>
+              )}
+            </Flex>
           </Flex>
         </Flex>
-      </Flex>
-    </Box>
+      </Box>
+    </VStack>
   )
 }
 
