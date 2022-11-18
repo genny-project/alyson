@@ -158,6 +158,7 @@ const Write = ({
             setLoading={setLoading}
             questionCode={questionCode}
             name={name}
+            multiUpload={multiUpload}
           />
         ) : data?.value ? (
           <VStack>
