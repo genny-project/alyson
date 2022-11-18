@@ -1,26 +1,44 @@
 import {
   Box,
-  Text as ChakraText,
   Center,
-  VStack,
+  Text as ChakraText,
   HStack,
   IconButton,
   Modal,
-  useDisclosure,
-  ModalOverlay,
+  ModalBody,
+  ModalCloseButton,
   ModalContent,
   ModalHeader,
-  ModalCloseButton,
-  ModalBody,
+  ModalOverlay,
+  VStack,
+  useDisclosure,
 } from '@chakra-ui/react'
+import { useEffect, useRef, useState } from 'react'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import purify from './purify'
 import { faExpandArrowsAlt } from '@fortawesome/free-solid-svg-icons'
-import { useRef } from 'react'
+import purify from './purify'
 
 const HtmlEditorPreview = ({ html, inModal }) => {
   const ref = useRef(null)
+  const [frameHeight, setFrameHeight] = useState(0)
   const { isOpen, onOpen, onClose } = useDisclosure()
+  let frameInnerHeight
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const onLoad = () => {
+    frameInnerHeight = ref?.current?.contentWindow?.document?.body?.scrollHeight
+    setFrameHeight(frameInnerHeight + 44 + 'px')
+  }
+
+  useEffect(() => {
+    const resizeHeight = () => {
+      setTimeout(() => {
+        onLoad()
+      }, 100)
+    }
+    window.addEventListener('resize', resizeHeight)
+  }, [onLoad])
 
   if (!html) {
     return <Center>No HTML!</Center>
@@ -57,7 +75,16 @@ const HtmlEditorPreview = ({ html, inModal }) => {
     )
   } else {
     // Suprisingly, this removes scrollbars from long chunks of html, without making it too big
-    return <iframe height="10000%" ref={ref} title={'iframe-modal'} width="100%" srcDoc={clean} />
+    return (
+      <iframe
+        onLoad={onLoad}
+        height={frameHeight}
+        ref={ref}
+        title={'iframe-modal'}
+        width="100%"
+        srcDoc={clean}
+      />
+    )
   }
 }
 
