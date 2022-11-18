@@ -122,7 +122,6 @@ const Write = ({
 
     setLoading(true)
 
-    closeDropzone()
     let data = new FormData()
     map(individualFile => data.append('file', individualFile))(files)
     try {
