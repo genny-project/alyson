@@ -14,7 +14,7 @@ const TemplateSBEDetailView = ({ mappedPcm }) => {
           <FieldRow
             key={`detailview-${baseEntityCode}-${index}`}
             baseEntityCode={baseEntityCode}
-            attributeCode={field}
+            data={field}
             index={index}
           />
         ))}
