@@ -100,7 +100,7 @@ const Read = ({ code, data, parentCode, variant, config }) => {
           onClick={viewDetail}
           src={src}
           w={'full'}
-          borderRadius={4}
+          borderRadius={'xl'}
         />
       </AspectRatio>
     )

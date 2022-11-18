@@ -13,7 +13,7 @@ import {
   VStack,
   useDisclosure,
 } from '@chakra-ui/react'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faExpandArrowsAlt } from '@fortawesome/free-solid-svg-icons'
@@ -23,11 +23,22 @@ const HtmlEditorPreview = ({ html, inModal }) => {
   const ref = useRef(null)
   const [frameHeight, setFrameHeight] = useState(0)
   const { isOpen, onOpen, onClose } = useDisclosure()
+  let frameInnerHeight
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const onLoad = () => {
-    const frameInnerHeight = ref?.current?.contentWindow?.document?.body?.scrollHeight
-    setFrameHeight(frameInnerHeight + 70 + 'px')
+    frameInnerHeight = ref?.current?.contentWindow?.document?.body?.scrollHeight
+    setFrameHeight(frameInnerHeight + 44 + 'px')
   }
+
+  useEffect(() => {
+    const resizeHeight = () => {
+      setTimeout(() => {
+        onLoad()
+      }, 100)
+    }
+    window.addEventListener('resize', resizeHeight)
+  }, [onLoad])
 
   if (!html) {
     return <Center>No HTML!</Center>
