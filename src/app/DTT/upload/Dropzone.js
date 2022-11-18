@@ -27,7 +27,15 @@ import { useDropzone } from 'react-dropzone'
 import useProductColors from 'utils/productColors'
 import { useState } from 'react'
 
-const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 10, questionCode, clientId }) => {
+const DropZone = ({
+  video,
+  handleSave,
+  closeDropzone,
+  maxFiles,
+  questionCode,
+  clientId,
+  multiUpload,
+}) => {
   const [files, setFiles] = useState([])
   const [hover, setHover] = useState(false)
   const toast = useToast()
@@ -76,6 +84,31 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 10, questionCod
     })
   }
 
+  const singleDropile = (acceptedFiles, rejectedFiles) => {
+    setFiles(
+      acceptedFiles.map(file =>
+        Object.assign(file, {
+          preview: URL.createObjectURL(file),
+        }),
+      ),
+      !isEmpty(rejectedFiles) && showErrorMessage(rejectedFiles[0]),
+    )
+  }
+
+  const multiDropFile = (acceptedFiles, rejectedFiles) => {
+    setFiles(
+      files =>
+        files.concat(
+          acceptedFiles.map(file =>
+            Object.assign(file, {
+              preview: URL.createObjectURL(file),
+            }),
+          ),
+        ),
+      !isEmpty(rejectedFiles) && showErrorMessage(rejectedFiles[0]),
+    )
+  }
+
   const { getRootProps, getInputProps } = useDropzone({
     accept: video
       ? 'video/*'
@@ -83,19 +116,7 @@ const DropZone = ({ video, handleSave, closeDropzone, maxFiles = 10, questionCod
       ? 'image/*,'
       : 'application/pdf, .doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.dot,.rtf,.odt',
     maxFiles: maxFiles,
-    onDrop: (acceptedFiles, rejectedFiles) => {
-      setFiles(
-        files =>
-          files.concat(
-            acceptedFiles.map(file =>
-              Object.assign(file, {
-                preview: URL.createObjectURL(file),
-              }),
-            ),
-          ),
-        !isEmpty(rejectedFiles) && showErrorMessage(rejectedFiles[0]),
-      )
-    },
+    onDrop: multiUpload ? multiDropFile : singleDropile,
   })
 
   const removeSelectedFile = fileToBeRemoved => {
