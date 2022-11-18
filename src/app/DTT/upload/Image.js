@@ -23,6 +23,7 @@ const Write = ({
   questionCode,
   data,
   openDropzone,
+  dropzone,
   onSendAnswer,
   handleSave,
   setLoading,
@@ -37,24 +38,22 @@ const Write = ({
     onSendAnswer('')
   }
 
-  if (displayImages)
-    return (
-      <HStack>
-        <HStack>
-          {map(individualImageSrc => <Avatar size="xl" src={individualImageSrc} />)(src)}
-        </HStack>
-        <Tooltip label="Click to remove your selections.">
-          <CloseButton cursor="pointer" onClick={onRemoveImage} />
-        </Tooltip>
-      </HStack>
-    )
-
   return (
     <div id={questionCode}>
       {openSnap && (
         <Snap handleSave={handleSave} setOpenSnap={setOpenSnap} setLoading={setLoading} />
       )}
-      <div hidden={openSnap}>
+      {displayImages && (
+        <HStack mb="2">
+          <HStack>
+            {map(individualImageSrc => <Avatar size="xl" src={individualImageSrc} />)(src)}
+          </HStack>
+          <Tooltip label="Click to remove your selections.">
+            <CloseButton cursor="pointer" onClick={onRemoveImage} />
+          </Tooltip>
+        </HStack>
+      )}
+      <div hidden={dropzone}>
         <ButtonGroup>
           <Button
             test-id={questionCode}
