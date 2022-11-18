@@ -31,7 +31,7 @@ const TemplateSBERowAdd = ({ mappedPcm }) => {
 
   const onAdd = () => {
     const outputAttributeCode = `FLC_${columnValue?.value}`
-    const outputValue = `${operatorValue?.value}:${valueValue?.value}`
+    const outputValue = `${operatorValue?.value}:${valueValue?.value || valueValue || ''}`
 
     const outputAskData = { ...addAskData, attributeCode: outputAttributeCode }
     createSendAnswer(outputAskData)(outputValue)
