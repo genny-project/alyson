@@ -1,4 +1,5 @@
 import {
+  AspectRatio,
   Avatar,
   Button,
   ButtonGroup,
@@ -91,16 +92,17 @@ const Read = ({ code, data, parentCode, variant, config }) => {
 
   if (!!cardDisplay) {
     return (
-      <Avatar
-        name={name?.value || assocName?.value}
-        {...config}
-        cursor="pointer"
-        onClick={viewDetail}
-        src={src}
-        height="35vh"
-        width="35vw"
-        borderRadius="none"
-      />
+      <AspectRatio>
+        <Avatar
+          name={name?.value || assocName?.value}
+          {...config}
+          cursor="pointer"
+          onClick={viewDetail}
+          src={src}
+          w={'full'}
+          borderRadius={4}
+        />
+      </AspectRatio>
     )
   }
 
