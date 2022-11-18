@@ -9,7 +9,7 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react'
 import { compose, isEmpty, map, not } from 'ramda'
-import { faUpload, faUserAlt } from '@fortawesome/free-solid-svg-icons'
+import { faUpload, faUserAlt, faCamera } from '@fortawesome/free-solid-svg-icons'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Snap from './Snap'
@@ -28,6 +28,7 @@ const Write = ({
   handleSave,
   setLoading,
   name,
+  multiUpload,
 }) => {
   const { getImageSrcList } = useApi()
   const src = getImageSrcList(data?.value)
@@ -53,7 +54,7 @@ const Write = ({
           </Tooltip>
         </HStack>
       )}
-      <div hidden={dropzone}>
+      <div hidden={dropzone || openSnap}>
         <ButtonGroup>
           <Button
             test-id={questionCode}
@@ -62,6 +63,15 @@ const Write = ({
           >
             {name}
           </Button>
+          {!multiUpload && (
+            <Button
+              onClick={() => setOpenSnap(true)}
+              leftIcon={<FontAwesomeIcon icon={faCamera} />}
+              hidden={dropzone}
+            >
+              {`Take Photo`}
+            </Button>
+          )}
         </ButtonGroup>
       </div>
     </div>
