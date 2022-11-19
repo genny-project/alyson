@@ -21,7 +21,7 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
   const textColor = 'product.primary'
   const buttonColor = 'product.secondary'
 
-  const headingCode = findCode('PRI_PROPERTY_HEADING')
+  const headingCode = findCode('PRI_NAME')
   const suburbCode = findCode('PRI_ADDRESS_SUBURB')
   const stateCode = findCode('PRI_ADDRESS_STATE')
 
