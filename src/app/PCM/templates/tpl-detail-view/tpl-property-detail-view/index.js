@@ -15,14 +15,6 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
 
   let showApllyButton = compose(not, isEmpty)(applyButtonData)
 
-  console.log('this is a test====>', {
-    mappedPcm,
-    questionCode,
-    applyButtonData,
-    sourceCode,
-    showApllyButton,
-  })
-
   const findCode = code => find(equals(code))(fields) || ''
 
   const textColor = 'product.primary'
