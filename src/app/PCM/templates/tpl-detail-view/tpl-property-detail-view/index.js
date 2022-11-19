@@ -5,9 +5,16 @@ import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
 import AmenityField from './amenity-field'
 import useGetDetailData from '../get-detail-data'
+import Button from 'app/DTT/event_button'
 
 const TemplatePropertyDetailView = ({ mappedPcm }) => {
   const { baseEntityCode, fields } = useGetDetailData(mappedPcm)
+  const { PRI_QUESTION_CODE: questionCode } = mappedPcm
+  const applyButtonData = useSelector(selectCode(questionCode, 'QUE_IMAGES')) || {}
+
+  let showApllyButton = true
+
+  console.log('this is a test====>', { mappedPcm, questionCode, applyButtonData })
 
   const findCode = code => find(equals(code))(fields) || ''
 
@@ -108,6 +115,8 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
               <Box height={'200pt'}></Box>
             </VStack>
           </Box>
+          {/* <Button askData={applyButtonData} onFinish={``} parentCode={``} sourceCode={``} /> */}
+          <div>cyrus</div>
         </VStack>
       </HStack>
     </VStack>
