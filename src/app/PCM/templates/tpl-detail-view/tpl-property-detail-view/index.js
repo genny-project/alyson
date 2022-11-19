@@ -10,7 +10,7 @@ import Button from 'app/DTT/event_button'
 const TemplatePropertyDetailView = ({ mappedPcm }) => {
   const { baseEntityCode, fields } = useGetDetailData(mappedPcm)
   const { PRI_QUESTION_CODE: questionCode } = mappedPcm
-  const applyButtonData = useSelector(selectCode(questionCode, 'QUE_IMAGES')) || {}
+  const applyButtonData = useSelector(selectCode(questionCode, 'QUE_APPLY')) || {}
   const { sourceCode } = applyButtonData || {}
 
   let showApllyButton = compose(not, isEmpty)(applyButtonData)
