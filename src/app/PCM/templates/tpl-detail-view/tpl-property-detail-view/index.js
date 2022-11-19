@@ -13,7 +13,8 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
   const applyButtonData = useSelector(selectCode(questionCode, 'QUE_APPLY')) || {}
   const { sourceCode } = applyButtonData || {}
 
-  let showApllyButton = compose(not, isEmpty)(applyButtonData)
+  let showApllyButton =
+    equals(typeof applyButtonData, 'object') && compose(not, isEmpty)(applyButtonData)
 
   const findCode = code => find(equals(code))(fields) || ''
 
