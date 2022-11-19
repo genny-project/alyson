@@ -1,4 +1,4 @@
-import { filter, find, equals, includes } from 'ramda'
+import { filter, find, equals, includes, compose, not, isEmpty } from 'ramda'
 import Attribute from 'app/BE/attribute'
 import { VStack, Wrap, WrapItem, Text, HStack, Box } from '@chakra-ui/react'
 import { selectCode } from 'redux/db/selectors'
@@ -10,11 +10,18 @@ import Button from 'app/DTT/event_button'
 const TemplatePropertyDetailView = ({ mappedPcm }) => {
   const { baseEntityCode, fields } = useGetDetailData(mappedPcm)
   const { PRI_QUESTION_CODE: questionCode } = mappedPcm
-  const applyButtonData = useSelector(selectCode(questionCode, 'QUE_IMAGES')) || {}
+  const applyButtonData = useSelector(selectCode(questionCode, 'QUE_APPLY')) || {}
+  const { sourceCode } = applyButtonData || {}
 
-  let showApllyButton = true
+  let showApllyButton = compose(not, isEmpty)(applyButtonData)
 
-  console.log('this is a test====>', { mappedPcm, questionCode, applyButtonData })
+  console.log('this is a test====>', {
+    mappedPcm,
+    questionCode,
+    applyButtonData,
+    sourceCode,
+    showApllyButton,
+  })
 
   const findCode = code => find(equals(code))(fields) || ''
 
@@ -115,8 +122,9 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
               <Box height={'200pt'}></Box>
             </VStack>
           </Box>
-          {/* <Button askData={applyButtonData} onFinish={``} parentCode={``} sourceCode={``} /> */}
-          <div>cyrus</div>
+          {showApllyButton && (
+            <Button askData={applyButtonData} parentCode={questionCode} sourceCode={sourceCode} />
+          )}
         </VStack>
       </HStack>
     </VStack>
