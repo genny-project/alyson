@@ -10,7 +10,7 @@ import Button from 'app/DTT/event_button'
 const TemplatePropertyDetailView = ({ mappedPcm }) => {
   const { baseEntityCode, fields } = useGetDetailData(mappedPcm)
   const { PRI_QUESTION_CODE: questionCode } = mappedPcm
-  const applyButtonData = useSelector(selectCode(questionCode, 'QUE_APPLY')) || {}
+  const applyButtonData = useSelector(selectCode(questionCode, 'QUE_IMAGES')) || {}
   const { sourceCode } = applyButtonData || {}
 
   let showApllyButton = compose(not, isEmpty)(applyButtonData)
@@ -18,6 +18,7 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
   const findCode = code => find(equals(code))(fields) || ''
 
   const textColor = 'product.primary'
+  const buttonColor = 'product.secondary'
 
   const headingCode = findCode('PRI_PROPERTY_HEADING')
   const suburbCode = findCode('PRI_ADDRESS_SUBURB')
@@ -42,6 +43,14 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
 
   //Get suburb, state if both not null, otherwise just the one that isn't null
   const location = !!suburb && !!state ? `${suburb}, ${state}` : suburb || state
+
+  const buttonConfig = {
+    variant: 'solid',
+    bg: buttonColor,
+    color: '#ffffff',
+    borderRadius: '3xl',
+    w: 'full',
+  }
 
   return (
     <VStack w={'100%'} alignItems="flex-start">
@@ -115,7 +124,12 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
             </VStack>
           </Box>
           {showApllyButton && (
-            <Button askData={applyButtonData} parentCode={questionCode} sourceCode={sourceCode} />
+            <Button
+              askData={applyButtonData}
+              parentCode={questionCode}
+              sourceCode={sourceCode}
+              config={buttonConfig}
+            />
           )}
         </VStack>
       </HStack>
