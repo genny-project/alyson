@@ -1,13 +1,19 @@
-import { filter, find, equals, includes } from 'ramda'
+import { filter, find, equals, includes, compose, not, isEmpty } from 'ramda'
 import Attribute from 'app/BE/attribute'
 import { VStack, Wrap, WrapItem, Text, HStack, Box } from '@chakra-ui/react'
 import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
 import AmenityField from './amenity-field'
 import useGetDetailData from '../get-detail-data'
+import Button from 'app/DTT/event_button'
 
 const TemplatePropertyDetailView = ({ mappedPcm }) => {
   const { baseEntityCode, fields } = useGetDetailData(mappedPcm)
+  const { PRI_QUESTION_CODE: questionCode } = mappedPcm
+  const applyButtonData = useSelector(selectCode(questionCode, 'QUE_APPLY')) || {}
+  const { sourceCode } = applyButtonData || {}
+
+  let showApllyButton = compose(not, isEmpty)(applyButtonData)
 
   const findCode = code => find(equals(code))(fields) || ''
 
@@ -108,6 +114,9 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
               <Box height={'200pt'}></Box>
             </VStack>
           </Box>
+          {showApllyButton && (
+            <Button askData={applyButtonData} parentCode={questionCode} sourceCode={sourceCode} />
+          )}
         </VStack>
       </HStack>
     </VStack>
