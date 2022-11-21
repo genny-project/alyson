@@ -6,6 +6,8 @@ import FieldRow from './field-row'
 const TemplateSBEDetailView = ({ mappedPcm }) => {
   const baseEntityCode = mappedPcm?.PRI_LOC1 || ''
   const attributes = useSelector(selectCode(baseEntityCode, 'allAttributes')) || []
+  const sourceCode = useSelector(selectCode(mappedPcm?.PRI_QUESTION_CODE, 'sourceCode')) || ''
+  const processId = useSelector(selectCode(mappedPcm?.PRI_QUESTION_CODE, 'processId')) || ''
 
   return (
     <Box>
@@ -16,6 +18,9 @@ const TemplateSBEDetailView = ({ mappedPcm }) => {
             baseEntityCode={baseEntityCode}
             data={field}
             index={index}
+            processId={processId}
+            sourceCode={sourceCode}
+            mappedPcm={mappedPcm}
           />
         ))}
       </VStack>
