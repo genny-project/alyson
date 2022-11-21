@@ -78,7 +78,7 @@ export const Write = ({
 
   const onSelect = option => {
     setSelectedOption(option.value)
-    setUserInput(null)
+    setUserInput(option.label)
     onChange(null)(option.value)
   }
 
