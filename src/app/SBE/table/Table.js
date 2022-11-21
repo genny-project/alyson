@@ -37,10 +37,9 @@ const DataTable = ({ parentCode, mapSearch, passedComponents = [] }) => {
           <Title sbeCode={parentCode} />
           <Search sbeCode={parentCode} />
           {/* <Filters sbeCode={parentCode} /> */}
-          {/* Commented out until it is ready */}
-          {/* {passedComponents.map((component, index) => (
+          {passedComponents.map((component, index) => (
             <Box key={`TABLE-${parentCode}-CHILD-${index}`}>{component}</Box>
-          ))} */}
+          ))}
 
           <Download sbeCode={parentCode} />
         </Stack>
