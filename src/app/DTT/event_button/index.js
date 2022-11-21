@@ -5,7 +5,7 @@ import isSubmitButton from 'app/DTT/event_button/helpers/is-submit.js'
 import { onSendMessage } from 'vertx'
 import useProductColors from 'utils/productColors'
 
-const EventButton = ({ askData, onFinish, parentCode, sourceCode, clientId }) => {
+const EventButton = ({ askData, onFinish, parentCode, sourceCode, clientId, config }) => {
   const { questionCode, targetCode, name, disabled, processId, attributeCode } = askData
   const theme = useTheme()
 
@@ -32,8 +32,8 @@ const EventButton = ({ askData, onFinish, parentCode, sourceCode, clientId }) =>
       test-id={questionCode}
       isDisabled={disabled}
       onClick={onClick}
-      variant="outline"
-      bg={theme.colors.background.light}
+      variant="solid"
+      bg={'theme.colors.background.light'}
       borderWidth="1px"
       borderStyle={'solid'}
       borderColor={buttonBackgroundColor}
@@ -47,6 +47,7 @@ const EventButton = ({ askData, onFinish, parentCode, sourceCode, clientId }) =>
         background: buttonBackgroundColor,
         color: theme.colors.text.dark,
       }}
+      {...config}
     >
       {name}
     </Button>

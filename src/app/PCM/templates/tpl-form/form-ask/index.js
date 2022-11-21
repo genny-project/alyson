@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import { equals } from 'ramda'
 import AskGroup from 'app/PCM/templates/tpl-form/ask-group'
 
-const FormAsk = ({ parentCode, questionCode, level, properties }) => {
+const FormAsk = ({ parentCode, questionCode, level, properties, first = false }) => {
   const attributeCode = useSelector(selectCode(questionCode, 'attributeCode'))
   const targetCode = useSelector(selectCode(questionCode, 'targetCode'))
 
@@ -14,6 +14,7 @@ const FormAsk = ({ parentCode, questionCode, level, properties }) => {
         key={`${parentCode}-${questionCode}`}
         questionCode={questionCode}
         level={level + 1}
+        first={first}
         targetCode={targetCode}
         properties={properties}
       />
