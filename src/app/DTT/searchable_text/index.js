@@ -77,7 +77,6 @@ export const Write = ({
   )
 
   const onSelect = option => {
-    console.log(option)
     setSelectedOption(option.value)
     setUserInput(null)
     onChange(null)(option.value)

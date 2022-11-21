@@ -9,7 +9,7 @@ const TemplateSBESelect = ({ mappedPcm, depth }) => {
   const [savedSearch, setSavedSearch] = useState()
 
   const answerCallback = (askData, value) => {
-    setSavedSearch(deArrayifyValue(value))
+    setSavedSearch(deArrayifyValue(value?.value || ''))
   }
 
   const selectFieldConfig = {
