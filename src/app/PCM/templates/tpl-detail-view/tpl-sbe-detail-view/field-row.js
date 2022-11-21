@@ -27,7 +27,8 @@ const FieldRow = ({ baseEntityCode, sourceCode, processId, data, index, mappedPc
     sendEvtClick({
       targetCode: baseEntityCode,
       sourceCode: sourceCode,
-      parentCode: eventAsk?.questionCode,
+      parentCode: mappedPcm?.PRI_QUESTION_CODE,
+      code: eventAsk?.questionCode,
       attributeCode: deleteEventCode,
       value: columnCode,
       processId: processId,
