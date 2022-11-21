@@ -9,6 +9,7 @@ const Display = () => {
     try {
       onSendMessage(event.state.state.data)
     } catch (err) {
+      console.error('There was a display error')
       console.error(err)
     }
   }

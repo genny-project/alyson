@@ -37,6 +37,7 @@ const initialiseApp = async () => {
       document.getElementById('root'),
     )
   } catch (err) {
+    console.error('An error occured on initApp')
     console.error(err)
     ReactDOM.render(
       <React.StrictMode>

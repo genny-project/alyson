@@ -89,6 +89,7 @@ const VertxContainer = () => {
         else messageHandler(onNewMsg)(body)
       })
     } catch (err) {
+      console.error('Vertx error! Reloading!')
       console.error(err)
       window.location.reload()
     }

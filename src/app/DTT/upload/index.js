@@ -140,6 +140,7 @@ const Write = ({
       const uuidList = reduce((acc, { uuid }) => (acc = acc.concat(uuid)), [])(resp || [])
       onSendAnswer(uuidList)
     } catch (err) {
+      console.error('There was an upload error')
       console.error(err)
     }
 

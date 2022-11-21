@@ -43,6 +43,7 @@ const PlacesAutocomplete = ({ onSelect, questionCode, clientId }) => {
         })
       }
     } catch (error) {
+      console.error('There was a timezone error')
       console.error(error)
     }
   }, [onSelect])

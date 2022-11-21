@@ -24,6 +24,7 @@ const readParams = compose(
             try {
               return atob(param)
             } catch (err) {
+              console.error('Pathname error')
               console.error(err)
               return ''
             }

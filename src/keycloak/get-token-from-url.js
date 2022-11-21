@@ -13,6 +13,7 @@ export const getSessionIdFromToken = token => {
   try {
     return jwt_decode(token)?.session_state || ''
   } catch (err) {
+    console.error('Error occured in getSessionIdFromToken')
     console.error(err)
     return ''
   }
