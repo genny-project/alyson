@@ -8,7 +8,7 @@ import getAskFromAttribute from 'app/PCM/helpers/get-ask-from-attribute'
 const FieldRow = ({ baseEntityCode, sourceCode, processId, data, index, mappedPcm }) => {
   const deleteEventCode = mappedPcm?.PRI_LOC2 || ''
 
-  const eventAsk = getAskFromAttribute(mappedPcm?.PRI_QUESTION_CODE)(deleteEventCode)
+  const eventAsk = getAskFromAttribute(mappedPcm?.PRI_QUESTION_CODE)(deleteEventCode)?.ask
 
   const rowColour = index % 2 === 0 ? '#F4F5F5' : '#FFFFFF'
 
