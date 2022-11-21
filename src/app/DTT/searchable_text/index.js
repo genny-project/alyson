@@ -77,9 +77,10 @@ export const Write = ({
   )
 
   const onSelect = option => {
+    console.log(option)
     setSelectedOption(option.value)
-    setUserInput(option.label)
-    onChange(option.label)(option.value)
+    setUserInput(null)
+    onChange(null)(option.value)
   }
 
   const onInputChange = e => {
@@ -90,7 +91,7 @@ export const Write = ({
   }
 
   const onChange = value => option => {
-    const optionSelected = !!selectedOption
+    const optionSelected = !!option
     onSendAnswer({ value: optionSelected ? option : value, isCode: optionSelected })
 
     setUpdated(true)
