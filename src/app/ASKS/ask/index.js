@@ -199,7 +199,7 @@ const Ask = ({
       borderRadius="md"
       p={highlightedQuestion === attributeCode ? '3' : '0'}
       transition="all 0.5s ease"
-      mt={5}
+      mt={config?.mt ?? 5}
     >
       {
         <HStack

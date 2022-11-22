@@ -10,10 +10,15 @@ const TemplateTable = ({ parentCode, mappedPcm, depth }) => {
   const spillLocs = getSpillLocs(mappedPcm, 'PRI_LOC1')
   console.log(spillLocs)
   const passedComponents = mapSpillLocs(loc => (
-    <PcmField key={loc} code={loc} mappedPcm={mappedPcm} depth={depth} />
+    <PcmField
+      key={loc}
+      code={loc}
+      mappedPcm={mappedPcm}
+      depth={depth}
+      config={{ config: { mt: 0 } }}
+    />
   ))(spillLocs)
 
-  console.log(passedComponents)
   const tableObject = useSelector(selectCode(parentCode, tableSbeLocation))
   const tableCode = tableObject?.value || ''
   return (
