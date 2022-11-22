@@ -8,7 +8,6 @@ import PcmField from 'app/PCM/components/pcm-field'
 
 const TemplateTable = ({ parentCode, mappedPcm, depth }) => {
   const spillLocs = getSpillLocs(mappedPcm, 'PRI_LOC1')
-  console.log(spillLocs)
   const passedComponents = mapSpillLocs(loc => (
     <PcmField
       key={loc}
