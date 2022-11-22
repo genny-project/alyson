@@ -31,7 +31,6 @@ const TemplatePopup = ({ mappedPcm, depth }) => {
           paddingBlock="0.38rem"
           paddingInline="1.25rem"
           mr={2}
-          mb="5"
           onClick={() => setIsOpen(!isOpen)}
           background={buttonBackgroundColor}
           borderRadius={'0.5rem'}
