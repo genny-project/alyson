@@ -18,11 +18,17 @@ const TemplateSBESelect = ({ mappedPcm, depth }) => {
 
   return (
     <Box>
-      <HStack>
+      <HStack alignItems={'flex-end'}>
         <PcmField code={PRI_LOC1} mappedPcm={mappedPcm} config={selectFieldConfig} />
-        <PcmField code={PRI_LOC2} mappedPcm={mappedPcm} evtValue={savedSearch} />
-        <PcmField code={PRI_LOC3} mappedPcm={mappedPcm} evtValue={savedSearch} />
-        <PcmField code={PRI_LOC4} mappedPcm={mappedPcm} evtValue={savedSearch} />
+        <Box paddingBottom={2}>
+          <PcmField code={PRI_LOC2} mappedPcm={mappedPcm} evtValue={savedSearch} />
+        </Box>
+        <Box paddingBottom={2}>
+          <PcmField code={PRI_LOC3} mappedPcm={mappedPcm} evtValue={savedSearch} />
+        </Box>
+        <Box paddingBottom={2}>
+          <PcmField code={PRI_LOC4} mappedPcm={mappedPcm} evtValue={savedSearch} />
+        </Box>
       </HStack>
     </Box>
   )
