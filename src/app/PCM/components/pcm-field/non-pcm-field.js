@@ -61,8 +61,8 @@ const NonPcmPcmField = props => {
   ) : renderAsk ? (
     <Ask
       key={code}
-      parentCode={isChildAsk ? questionGroupCode ?? ask?.parentCode : undefined}
-      questionCode={ask?.questionCode}
+      parentCode={isChildAsk ? questionGroupCode ?? ask?.parentCode : ask?.questionCode}
+      questionCode={isChildAsk ? ask?.questionCode : 'raw'}
       config={config?.config}
       noLabel={undefined}
       secondaryColor={undefined}

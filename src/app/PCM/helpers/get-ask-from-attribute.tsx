@@ -28,7 +28,7 @@ const getAskFromAttribute = (questionCode: string) => (attributeCode: string) =>
 
   return {
     ask: isWholeObjectListFalsy
-      ? isRawObjectFalsy || !rawObjectHasCorrectAttribute
+      ? isRawObjectFalsy //|| !rawObjectHasCorrectAttribute
         ? {}
         : rawObject
       : matchingObjectBasedOnAttributeCode,
