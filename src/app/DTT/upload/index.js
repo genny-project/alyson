@@ -10,6 +10,7 @@ import {
   Text,
   Tooltip,
   VStack,
+  Spinner,
 } from '@chakra-ui/react'
 import { faArrowDown, faCheck, faFileDownload } from '@fortawesome/free-solid-svg-icons'
 import DocViewer, { DocViewerRenderers } from 'react-doc-viewer'
@@ -93,6 +94,7 @@ const Write = ({
   const dataValue = data?.value ? data.value[0] : null
   const src = getImageSrc(dataValue, { height: '500', width: '500' })
   const [fileName, setFileName] = useState('')
+  const [showDocument, setShowDocument] = useState(false)
   const [dropzone, setDropzone] = useState(!!video)
   const [loading, setLoading] = useState(false)
   const [progress, setProgress] = useState(null)
@@ -108,6 +110,14 @@ const Write = ({
       uri: src,
     },
   ]
+
+  useEffect(() => {
+    setShowDocument(false)
+    const delayInvoke = setTimeout(() => !!src && setShowDocument(true), 3000)
+    return () => {
+      clearTimeout(delayInvoke)
+    }
+  }, [src])
 
   useEffect(() => {
     const getFileName = async uuid => {
@@ -162,11 +172,17 @@ const Write = ({
           />
         ) : data?.value ? (
           <VStack>
-            {!!src && <DocViewer documents={docs} pluginRenderers={DocViewerRenderers} />}
+            {!!src && !showDocument && <Spinner />}
+
+            {!!src && showDocument && (
+              <DocViewer documents={docs} pluginRenderers={DocViewerRenderers} />
+            )}
             <HStack>
-              <Button leftIcon={<FontAwesomeIcon icon={faCheck} />} colorScheme="green">{`${
-                fileName || 'File'
-              } Uploaded`}</Button>
+              {
+                <Button leftIcon={<FontAwesomeIcon icon={faCheck} />} colorScheme="green">{`${
+                  fileName || 'File'
+                } Uploaded`}</Button>
+              }
               <Tooltip label="Click to remove">
                 <CloseButton
                   cursor="pointer"

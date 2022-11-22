@@ -23,7 +23,7 @@ const Pagination = ({ sbeCode }) => {
   if (!(pageSize && totalResults && pageStart && pageNumber)) return null
 
   const hasNextPage = pageSize.value + pageStart.value < totalResults.value
-  const hasPrevPage = pageNumber.value > 1
+  const hasPrevPage = pageNumber.value > 0
 
   return (
     <HStack justify="flex-end" align="flex-end">
