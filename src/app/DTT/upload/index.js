@@ -90,9 +90,10 @@ const Write = ({
 }) => {
   const api = useApi()
   const typeName = dttData?.typeName
-  const { getImageSrc } = useApi()
+  const isImageType = equals(typeName, 'Image') || equals(component, 'multi_upload')
+  const { getImageSrc, getDocumentSrc } = useApi()
   const dataValue = data?.value ? data.value[0] : null
-  const src = getImageSrc(dataValue, { height: '500', width: '500' })
+  const src = isImageType ? getImageSrc(dataValue) : getDocumentSrc(dataValue)
   const [fileName, setFileName] = useState('')
   const [showDocument, setShowDocument] = useState(false)
   const [dropzone, setDropzone] = useState(!!video)
@@ -158,7 +159,7 @@ const Write = ({
         {data?.value ? <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} /> : null}
       </HStack>
       <Box w={'full'} hidden={loading}>
-        {equals(typeName, 'Image') || equals(component, 'multi_upload') ? (
+        {isImageType ? (
           <ImageType.Write
             handleSave={handleSave}
             dropzone={dropzone}
@@ -176,6 +177,7 @@ const Write = ({
 
             {!!src && showDocument && (
               <DocViewer documents={docs} pluginRenderers={DocViewerRenderers} />
+              // <Button onClick={() => window.open(src)}>{`Preview Document`}</Button>
             )}
             <HStack>
               {
