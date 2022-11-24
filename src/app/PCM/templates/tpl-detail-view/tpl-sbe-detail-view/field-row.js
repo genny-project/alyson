@@ -11,9 +11,9 @@ const FieldRow = ({ baseEntityCode, sourceCode, processId, data, index, mappedPc
   const eventAsk = getAskFromAttribute(mappedPcm?.PRI_QUESTION_CODE)(deleteEventCode)?.ask
 
   const rowColour = index % 2 === 0 ? '#F4F5F5' : '#FFFFFF'
-
-  const names = split(':', data?.attributeName ?? '') || []
-  const values = split(':', data?.value ?? '') || []
+  const seperator = ';'
+  const names = split(seperator, data?.attributeName ?? '') || []
+  const values = split(seperator, data?.value ?? '') || []
 
   const columnCode = values[0] ?? ''
   const operatorCode = values[1] ?? ''

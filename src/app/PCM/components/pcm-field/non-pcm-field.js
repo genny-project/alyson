@@ -23,7 +23,6 @@ const NonPcmPcmField = props => {
     debugOut.error(`NonPcmPcmField got an empty ask for ${props.code}! Returning a blank div`)
     return showTemplateNames ? <div>Empty ask for {props.code}</div> : <div />
   }
-
   if (isQueEvent) {
     return <QuestionEvents mappedPcm={mappedPcm} />
   }
@@ -70,6 +69,7 @@ const NonPcmPcmField = props => {
       passedAskData={undefined}
       passedTargetCode={config?.parentCode ?? ask?.targetCode}
       answerCallback={config?.answerCallback}
+      skipRedux={config?.skipRedux ?? false}
     />
   ) : (
     <div />

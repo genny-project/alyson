@@ -31,7 +31,7 @@ const TemplateSBERowAdd = ({ mappedPcm }) => {
 
   const onAdd = () => {
     const outputAttributeCode = `FLC_${columnValue?.value}`
-    const outputValue = `${operatorValue?.value}:${
+    const outputValue = `${operatorValue?.value};${
       valueValue?.value || valueValue?.parsed || valueValue || ''
     }`
 

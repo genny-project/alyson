@@ -14,6 +14,7 @@ const TemplateSBESelect = ({ mappedPcm, depth }) => {
 
   const selectFieldConfig = {
     answerCallback: answerCallback,
+    skipRedux: true,
   }
 
   return (

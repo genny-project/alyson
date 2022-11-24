@@ -59,6 +59,7 @@ const Ask = ({
   noLabel,
   secondaryColor,
   answerCallback,
+  skipRedux = false,
 }) => {
   const projectTitle = useGetAttributeFromProjectBaseEntity('PRI_NAME')?.valueString.toLowerCase()
   const selectedAskData = useSelector(selectCode(parentCode, passedQuestionCode))
@@ -115,19 +116,26 @@ const Ask = ({
     createSendAnswer(askData, { passedTargetCode })(value)
   }
   const handleUpadateReduxStore = onSendFn => storeUpdateFn => infoObject => userInput => {
-    const { attributeCode, targetCode } = infoObject
+    const { attributeCode, targetCode, skipRedux } = infoObject
     onSendFn(userInput)
-    dispatchBaseEntityUpdates(storeUpdateFn)(attributeCode, targetCode, userInput)
-    console.log('%c Local Update - Redux Store', ' color: tomato; padding: 4px; font-size: 25px', {
-      targetCode,
-      attributeCode,
-      userInput,
-    })
+    if (!skipRedux) {
+      dispatchBaseEntityUpdates(storeUpdateFn)(attributeCode, targetCode, userInput)
+      console.log(
+        '%c Local Update - Redux Store',
+        ' color: tomato; padding: 4px; font-size: 25px',
+        {
+          targetCode,
+          attributeCode,
+          userInput,
+        },
+      )
+    }
   }
 
   const onSendAnswer = handleUpadateReduxStore(onSendAnswerWithNovalue)(onNewMsg)({
     attributeCode,
     targetCode: trueTargetCode,
+    skipRedux,
   })
 
   if (!question) return null
