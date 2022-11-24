@@ -13,8 +13,7 @@ const FieldRow = ({ baseEntityCode, sourceCode, processId, data, index, mappedPc
   const rowColour = index % 2 === 0 ? '#F4F5F5' : '#FFFFFF'
   const seperator = ';'
   const names = split(seperator, data?.attributeName ?? '') || []
-  const values = split(seperator, data?.value ?? '') || []
-
+  const values = split(seperator, data?.valueString ?? '') || []
   const columnCode = values[0] ?? ''
   const operatorCode = values[1] ?? ''
   const valueCode = values[2] ?? ''
@@ -30,7 +29,7 @@ const FieldRow = ({ baseEntityCode, sourceCode, processId, data, index, mappedPc
       parentCode: mappedPcm?.PRI_QUESTION_CODE,
       code: eventAsk?.question?.code || '',
       attributeCode: deleteEventCode,
-      value: data?.value,
+      value: data?.valueString,
       processId: processId,
     })
   }
