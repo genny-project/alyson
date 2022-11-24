@@ -65,8 +65,6 @@ const onSendSearch = ({
     ...(sbeCode ? { targetCode: sbeCode } : {}),
   })
 
-//hack for the duration of christmas break, need to remove it
-
 const VertxContainer = () => {
   const { keycloak } = useKeycloak()
   const { login } = keycloak
@@ -81,10 +79,15 @@ const VertxContainer = () => {
   const onNewMsg = compose(dispatch, newMsg)
   const onSendMsg = compose(dispatch, sendMessage)
 
+  eventBus.onerror = error => {
+    console.error('There was an error trying to connect to the event bus!', error)
+  }
+
   if (!(token && sessionId)) login({ redirectUri: `${window.location.href}` })
   if (token && sessionId && !eventBus.handlers[sessionId]) {
     try {
-      eventBus.registerHandler(`${sessionId}`, (_, { body }) => {
+      eventBus.registerHandler(`${sessionId}`, (error, { body }) => {
+        console.error('An error occurred, please try again!', error)
         if (body.msg_type === 'CMD_MSG') onNewCmd(body)
         else messageHandler(onNewMsg)(body)
       })
