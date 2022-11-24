@@ -2,13 +2,14 @@ import { Box, Text } from '@chakra-ui/react'
 import { isEmpty } from 'ramda'
 
 import debugOut from 'utils/debug-out'
-import { selectCode } from 'redux/db/selectors'
+import { selectCodeUnary, selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
+import { compose } from 'ramda'
 import FormAsk from 'app/PCM/templates/tpl-form/form-ask'
 
 const AskGroup = ({ questionCode, level, properties, first = false }) => {
   const childAsks = useSelector(selectCode(questionCode)) || []
-  const title = useSelector(selectCode(questionCode, 'title')) || ''
+  const title = compose(useSelector, selectCodeUnary(questionCode))('title') || ''
 
   if (isEmpty(childAsks)) {
     debugOut.error(`${questionCode} has no child asks! (AskGroup in TPL_FORM)`)
