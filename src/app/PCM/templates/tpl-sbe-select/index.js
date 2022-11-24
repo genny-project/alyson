@@ -15,6 +15,9 @@ const TemplateSBESelect = ({ mappedPcm, depth }) => {
   const selectFieldConfig = {
     answerCallback: answerCallback,
     skipRedux: true,
+    config: {
+      searchPrefix: 'Create new search',
+    },
   }
 
   return (
@@ -22,12 +25,15 @@ const TemplateSBESelect = ({ mappedPcm, depth }) => {
       <HStack alignItems={'flex-end'}>
         <PcmField code={PRI_LOC1} mappedPcm={mappedPcm} config={selectFieldConfig} />
         <Box paddingBottom={2}>
+          {/* Delete */}
           <PcmField code={PRI_LOC2} mappedPcm={mappedPcm} evtValue={savedSearch} />
         </Box>
         <Box paddingBottom={2}>
+          {/* Apply */}
           <PcmField code={PRI_LOC3} mappedPcm={mappedPcm} evtValue={savedSearch} />
         </Box>
         <Box paddingBottom={2}>
+          {/* Save */}
           <PcmField code={PRI_LOC4} mappedPcm={mappedPcm} evtValue={savedSearch} />
         </Box>
       </HStack>
