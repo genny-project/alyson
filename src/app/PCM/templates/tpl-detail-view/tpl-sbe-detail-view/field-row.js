@@ -30,7 +30,7 @@ const FieldRow = ({ baseEntityCode, sourceCode, processId, data, index, mappedPc
       parentCode: mappedPcm?.PRI_QUESTION_CODE,
       code: eventAsk?.question?.code || '',
       attributeCode: deleteEventCode,
-      value: columnCode,
+      value: data?.value,
       processId: processId,
     })
   }
