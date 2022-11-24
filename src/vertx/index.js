@@ -87,7 +87,9 @@ const VertxContainer = () => {
   if (token && sessionId && !eventBus.handlers[sessionId]) {
     try {
       eventBus.registerHandler(`${sessionId}`, (error, { body }) => {
-        console.error('An error occurred, please try again!', error)
+        if (error) {
+          console.error('An error occured, please try again!', error)
+        }
         if (body.msg_type === 'CMD_MSG') onNewCmd(body)
         else messageHandler(onNewMsg)(body)
       })
