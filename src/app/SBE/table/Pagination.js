@@ -15,7 +15,7 @@ const Pagination = ({ sbeCode }) => {
   const pageNumber = useSelector(selectCode(sbeCode, 'PRI_INDEX'))
 
   let allItemsInTable = useSelector(selectRows(sbeCode))
-  let allItemsInTableLength = allItemsInTable.length
+  let allItemsInTableLength = allItemsInTable?.length
 
   useHotkeys('shift+left', paginationActions().previous)
   useHotkeys('shift+right', paginationActions().next)
@@ -27,9 +27,9 @@ const Pagination = ({ sbeCode }) => {
 
   return (
     <HStack justify="flex-end" align="flex-end">
-      <Text textStyle="body.2" w="max-content">{`${pageStart.value + 1} - ${
-        pageStart.value + allItemsInTableLength
-      } of ${totalResults.value}`}</Text>
+      <Text textStyle="body.2" w="max-content">{`${
+        !!totalResults?.value ? pageStart?.value + 1 : pageStart?.value
+      } - ${pageStart.value + allItemsInTableLength} of ${totalResults.value}`}</Text>
       <IconButton
         onClick={paginationActions().previous}
         isDisabled={!hasPrevPage}
