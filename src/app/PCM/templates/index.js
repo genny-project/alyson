@@ -77,9 +77,7 @@ const templateHandlerMachine = depth => mappedPcm => templateCode => parentCode 
   }
 
   let noMatchingTemplates = hasNot(templateCode)(listOfTemplates)
-  const defaultTemplate = <TemplateDefault />
-  let matchingTemplate = listOfTemplates[templateCode]
-  let template = noMatchingTemplates ? defaultTemplate : matchingTemplate
+  let template = noMatchingTemplates ? <TemplateDefault /> : listOfTemplates[templateCode]
 
   if (noMatchingTemplates) {
     debugOut.warn(`No template exists for code: ${templateCode}! Falling back on default tempalte!`)

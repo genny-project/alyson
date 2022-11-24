@@ -23,7 +23,8 @@ const useGetProjectInformation = attributeCode => {
  */
 const useGetAttributeFromProjectBaseEntity = attributeCode => {
   const { projectCode } = useGetProjectInformation()
-  return useSelector(selectCode(projectCode, attributeCode))
+
+  return compose(useSelector, selectCodeUnary(projectCode))(attributeCode)
 }
 
 export { useGetAttributeFromProjectBaseEntity, useGetProjectInformation }
