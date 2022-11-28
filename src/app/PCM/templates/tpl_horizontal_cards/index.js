@@ -25,7 +25,9 @@ const TemplateHorizontalCards = ({ mappedPcm, depth }) => {
 
   return (
     <Box padding={'10px'}>
-      <Title sbeCode={sbeCode} />
+      <Box paddingBottom={3}>
+        <Title sbeCode={sbeCode} />
+      </Box>
       <Grid templateColumns={'repeat(auto-fit, minmax(12.5rem, 1fr))'} gap={4}>
         {rows.map(item => (
           <Card
