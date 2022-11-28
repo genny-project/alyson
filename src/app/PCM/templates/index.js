@@ -25,6 +25,7 @@ import { Box, Text } from '@chakra-ui/react'
 import TemplatePopup from './tpl_popup'
 import TemplateSBEDetailView from './tpl-detail-view/tpl-sbe-detail-view'
 import { TemplateHori, TemplateVert, TemplateVertAll } from './vert-and-hori'
+import TemplateVerticalCards from './tpl-vertical-cards'
 
 /**
  * Takes in a mappedPcm, a templateCode and some misc properties and returns a template component.
@@ -74,6 +75,7 @@ const templateHandlerMachine = depth => mappedPcm => templateCode => parentCode 
     TPL_APPLICATION_DETAIL_VIEW: <TemplateApplicationDetailView {...mandatoryProps} />,
     TPL_SBE_DETAIL_VIEW: <TemplateSBEDetailView {...mandatoryProps} />,
     TPL_POPUP: <TemplatePopup {...mandatoryProps} />,
+    TPL_VERTICAL_CARDS: <TemplateVerticalCards {...mandatoryProps} />,
   }
 
   let noMatchingTemplates = hasNot(templateCode)(listOfTemplates)
