@@ -1,10 +1,10 @@
 import { reduce } from 'ramda'
 
-const getMappedPcm = pcmObject => {
+const getMappedPcm = pcmObjectArray => {
   return reduce((acc, { attributeCode, valueString, baseEntityCode }) => {
     acc = { ...acc, [attributeCode]: valueString, parentCode: baseEntityCode }
     return acc
-  }, {})(pcmObject || [])
+  }, {})(pcmObjectArray || [])
 }
 
 export default getMappedPcm
