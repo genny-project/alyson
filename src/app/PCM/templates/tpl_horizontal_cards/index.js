@@ -7,6 +7,7 @@ import Attribute from 'app/BE/attribute'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import useGetMappedBaseEntity from 'app/PCM/helpers/use-get-mapped-base-entity'
 import { useSelector } from 'react-redux'
+import Title from 'app/SBE/table/Title'
 
 const TemplateHorizontalCards = ({ mappedPcm, depth }) => {
   const sbeCodePrefix = mappedPcm.PRI_LOC1
@@ -24,6 +25,7 @@ const TemplateHorizontalCards = ({ mappedPcm, depth }) => {
 
   return (
     <Box padding={'10px'}>
+      <Title sbeCode={sbeCode} />
       <Grid templateColumns={'repeat(auto-fit, minmax(12.5rem, 1fr))'} gap={4}>
         {rows.map(item => (
           <Card
