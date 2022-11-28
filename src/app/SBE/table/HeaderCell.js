@@ -15,7 +15,7 @@ const Cell = ({ attribute, parentCode }) => {
       <HStack>
         <Text textStyle="tail.1">{data?.attributeName}</Text>
         <IconButton
-          hidden={!sort}
+          hidden={!!sort}
           variant="ghost"
           cursor={'pointer'}
           onClick={() =>
