@@ -1,4 +1,4 @@
-import { replace } from 'ramda'
+import { isEmpty, replace } from 'ramda'
 import { HStack, IconButton, Text, Th } from '@chakra-ui/react'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
@@ -9,13 +9,12 @@ import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons'
 const Cell = ({ attribute, parentCode }) => {
   const data = useSelector(selectCode(parentCode, attribute))
   const sort = useSelector(selectCode(parentCode, replace('COL_', 'SRT_', attribute))) || {}
-
   return (
     <Th>
       <HStack>
         <Text textStyle="tail.1">{data?.attributeName}</Text>
         <IconButton
-          hidden={!!sort}
+          hidden={isEmpty(sort)}
           variant="ghost"
           cursor={'pointer'}
           onClick={() =>
