@@ -39,7 +39,7 @@ const useApi = () => {
     return {}
   }
 
-  const getMediaFileName = async ({ uuid }) => {
+  const getMediaFileName = async uuid => {
     if (!uuid) return ''
     const resp = await axios({
       method: 'GET',
