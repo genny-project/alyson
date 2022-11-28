@@ -27,6 +27,7 @@ import TemplateSBEDetailView from './tpl-detail-view/tpl-sbe-detail-view'
 import { TemplateHori, TemplateVert, TemplateVertAll } from './vert-and-hori'
 import TemplateSBERowAdd from './tpl-sbe-row-add/'
 import TemplateSBESelect from './tpl-sbe-select'
+import TemplateVerticalCards from './tpl-vertical-cards'
 
 /**
  * Takes in a mappedPcm, a templateCode and some misc properties and returns a template component.
@@ -78,6 +79,7 @@ const templateHandlerMachine = depth => mappedPcm => templateCode => parentCode 
     TPL_POPUP: <TemplatePopup {...mandatoryProps} />,
     TPL_SBE_ROW_ADD: <TemplateSBERowAdd {...mandatoryProps} />,
     TPL_SBE_SELECT: <TemplateSBESelect {...mandatoryProps} />,
+    TPL_VERTICAL_CARDS: <TemplateVerticalCards {...mandatoryProps} />,
   }
 
   let noMatchingTemplates = hasNot(templateCode)(listOfTemplates)
