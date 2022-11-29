@@ -14,11 +14,10 @@ const Cell = ({ attribute, parentCode }) => {
   const onClick = () => {
     sendEvtClick({
       processId: 'no-idq', //Not sure this is great but I don't know if we'll get this from anywhere
-      parentCode: parentCode,
       attributeCode: sort.attributeCode,
-      code: attribute,
+      code: 'ACT_SRT',
       sourceCode: userCode,
-      targetCode: userCode,
+      targetCode: parentCode,
       value: sort.value === 'ASC' ? 'DESC' : 'ASC',
     })
   }
