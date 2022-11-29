@@ -79,7 +79,7 @@ const Write = ({
   )
 }
 
-const Read = ({ code, data, parentCode, variant, config }) => {
+const Read = ({ code, data, parentCode, variant, config, multiUpload }) => {
   const { getImageSrc } = useApi()
   const src = getImageSrc(data?.value, { height: '500', width: '500' })
   const { cardDisplay } = config || ''
@@ -98,6 +98,10 @@ const Read = ({ code, data, parentCode, variant, config }) => {
   const bg = useColorModeValue('gray.300', 'gray.600')
   if (variant === 'profile_image') {
     return <Image {...config} src={src} alt="profile-picture" w="10rem" borderRadius="xl" />
+  }
+
+  if (multiUpload) {
+    return <HStack></HStack>
   }
 
   if (!!cardDisplay) {
