@@ -1,14 +1,13 @@
 import { Box, Text } from '@chakra-ui/react'
-import { isEmpty } from 'ramda'
+import { isEmpty, compose } from 'ramda'
+import { useSelector } from 'react-redux'
 
 import debugOut from 'utils/debug-out'
 import { selectCodeUnary, selectCode } from 'redux/db/selectors'
-import { useSelector } from 'react-redux'
-import { compose } from 'ramda'
 import FormAsk from 'app/PCM/templates/tpl-form/form-ask'
 
 const AskGroup = ({ questionCode, level, properties, first = false }) => {
-  const childAsks = useSelector(selectCode(questionCode)) || []
+  const childAsks = compose(useSelector, selectCode)(questionCode) || []
   const title = compose(useSelector, selectCodeUnary(questionCode))('title') || ''
 
   if (isEmpty(childAsks)) {
