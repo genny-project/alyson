@@ -6,6 +6,7 @@ import { equals } from 'ramda'
 import { onSendMessage } from 'vertx'
 import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
+import { isNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined'
 
 const Read = ({ data = {} }) => {
   const sourceCode = useSelector(selectCode('USER'))
@@ -22,15 +23,18 @@ const Read = ({ data = {} }) => {
 const Write = ({ questionCode, data, onSendAnswer, placeholderName: label }) => {
   const [isChecked, setIsChecked] = useState(false)
   const clientId = apiConfig?.clientId
-  const dataValue = data?.value
-
   const handleToggle = () => {
-    onSendAnswer(isChecked ? 'false' : 'true')
+    onSendAnswer(`${!isChecked}`)
     setIsChecked(isChecked => !isChecked)
   }
 
   useEffect(() => {
-    !!dataValue && setIsChecked(true)
+    if (isNullOrUndefinedOrEmpty(data?.value)) {
+      setIsChecked(false)
+      onSendAnswer(false)
+    } else {
+      setIsChecked(data?.value)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data?.value])
 
@@ -41,8 +45,8 @@ const Write = ({ questionCode, data, onSendAnswer, placeholderName: label }) => 
         <Switch
           colorScheme={equals(clientId)('lojing') ? 'orange' : 'primary'}
           test-id={questionCode}
-          isChecked={isChecked}
           onChange={handleToggle}
+          value={isChecked}
         />
       </Box>
     </HStack>
