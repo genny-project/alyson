@@ -1,4 +1,5 @@
 import { Box, HStack, VStack } from '@chakra-ui/react'
+import { compose } from 'ramda'
 
 import Ask from 'app/ASKS/ask'
 import Lane from 'app/SBE/lane'
@@ -9,7 +10,7 @@ import { useSelector } from 'react-redux'
 
 const Process = ({ dashboard, processCodes }) => {
   const userType = getUserType()
-  const bucketSearch = useSelector(selectCode('QUE_BUCKET_INTERNS_GRP')) || []
+  const bucketSearch = compose(useSelector, selectCode)('QUE_BUCKET_INTERNS_GRP') || []
 
   if (!processCodes) return null
   return (

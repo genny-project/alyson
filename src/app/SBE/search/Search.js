@@ -15,7 +15,7 @@ import { useRef, useState } from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { onSendSearch } from 'vertx'
-import { selectCode } from 'redux/db/selectors'
+import { selectCodeUnary } from 'redux/db/selectors'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import { useHotkeys } from 'react-hotkeys-hook'
 import { useIsMobile } from 'utils/hooks'
@@ -27,7 +27,7 @@ const ProcessSearch = ({ sbeCode, process, placeholder }) => {
   const inputRef = useRef(null)
   const clearRef = useRef(null)
 
-  const search = useSelector(selectCode(process || sbeCode, 'SCH_WILDCARD'))
+  const search = compose(useSelector, selectCodeUnary(process || sbeCode))('SCH_WILDCARD')
 
   const handleSubmit = e => {
     e.preventDefault()
