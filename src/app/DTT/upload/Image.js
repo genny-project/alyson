@@ -106,7 +106,7 @@ const Read = ({ code, data, parentCode, variant, config, multiUpload }) => {
 
   if (multiUpload) {
     return (
-      <HStack>
+      <HStack justifyItems={'flex-start'}>
         {srcList.map(value => (
           <Image key={value} {...config} src={value} />
         ))}
