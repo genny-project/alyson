@@ -22,7 +22,6 @@ const TemplateHorizontalCards = ({ mappedPcm, depth }) => {
   const rows = useSelector(selectCode(sbeCode, 'rows')) || []
 
   const primaryColor = useGetAttributeFromProjectBaseEntity('PRI_COLOR')?.valueString || ''
-
   return (
     <Box padding={'10px'}>
       <Box paddingBottom={3}>
@@ -31,7 +30,7 @@ const TemplateHorizontalCards = ({ mappedPcm, depth }) => {
       <Grid templateColumns={'repeat(auto-fit, minmax(12.5rem, 1fr))'} gap={4}>
         {rows.map(item => (
           <Card
-            key={`CARD-${item['code'] || ''}`}
+            key={`CARD-${item || ''}`}
             mappedValues={mappedValues}
             baseEntityCode={item}
             primaryColor={primaryColor}
@@ -59,7 +58,7 @@ const Card = ({ mappedValues, baseEntityCode, primaryColor }) => {
               fontWeight="400"
               w={'full'}
             >
-              <Attribute code={baseEntityCode} attribute={value} config={{ cardDisplay: true }} />
+              <Attribute code={baseEntityCode} attribute={value} config={{ carddisplay: 'true' }} />
             </Box>
           )
         })}
