@@ -176,7 +176,11 @@ const Write = ({
             {!!src && !showDocument && <Spinner />}
 
             {!!src && showDocument && (
-              <DocViewer documents={docs} pluginRenderers={DocViewerRenderers} />
+              <DocViewer
+                documents={docs}
+                pluginRenderers={DocViewerRenderers}
+                config={{ header: { disableFileName: true } }}
+              />
               // <Button onClick={() => window.open(src)}>{`Preview Document`}</Button>
             )}
             <HStack>
