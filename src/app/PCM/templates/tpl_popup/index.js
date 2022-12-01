@@ -45,6 +45,7 @@ const TemplatePopup = ({ mappedPcm, depth }) => {
             variant: 'outline',
           }}
         >
+          <Box paddingX={1} />
           {!!PRI_LOC1 ? (
             <PcmField code={PRI_LOC1} mappedPcm={mappedPcm} depth={depth} />
           ) : (
