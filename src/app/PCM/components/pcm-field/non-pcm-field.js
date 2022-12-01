@@ -6,7 +6,6 @@ import debugOut from 'utils/debug-out'
 import getAskFromAttribute from 'app/PCM/helpers/get-ask-from-attribute'
 import showTemplateNames from 'utils/helpers/show-template-names'
 import Ask from 'app/ASKS/ask'
-import QuestionEvents from 'app/ASKS/question-events'
 
 const NonPcmPcmField = props => {
   const { prefix, child, code, mappedPcm, config } = props
@@ -25,11 +24,7 @@ const NonPcmPcmField = props => {
     return showTemplateNames ? <div>Empty ask for ${props.code}</div> : <div />
   }
 
-  if (isQueEvent) {
-    return <QuestionEvents mappedPcm={mappedPcm} />
-  }
-
-  return renderEventButton ? (
+  return renderEventButton && !isQueEvent ? (
     <EvtButton
       key={code}
       questionCode={questionGroupCode}
@@ -58,7 +53,7 @@ const NonPcmPcmField = props => {
       styles={config?.styles}
       hasIndicatorIcon={config?.hasIndicatorIcon}
     />
-  ) : renderAsk ? (
+  ) : renderAsk || isQueEvent ? (
     <Ask
       key={code}
       parentCode={isChildAsk ? questionGroupCode ?? ask?.parentCode : undefined}
