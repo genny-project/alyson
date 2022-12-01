@@ -4,12 +4,10 @@ import { selectCodes, selectRows } from 'redux/db/selectors'
 import { onSendMessage } from 'vertx'
 import useGetMarkers from 'app/SBE/display_modes/map_view/useGetMarkers'
 
-const Pins = ({ parentCode, gMap }) => {
+const Pins = ({ parentCode, googleMap }) => {
   const rows = useSelector(selectRows(parentCode))
   const lats = useSelector(selectCodes(rows, 'PRI_ADDRESS_LATITUDE'))
   const lngs = useSelector(selectCodes(rows, 'PRI_ADDRESS_LONGITUDE'))
-  const assocs = useSelector(selectCodes(rows, 'PRI_ASSOC_HC'))
-  const names = useSelector(selectCodes(rows, 'PRI_NAME'))
 
   const pins = useGetMarkers(parentCode)
 
@@ -29,7 +27,7 @@ const Pins = ({ parentCode, gMap }) => {
 
       const marker = new window.google.maps.Marker({
         position,
-        map: gMap,
+        map: googleMap,
       })
 
       currentMarkers.push(marker)
@@ -41,10 +39,10 @@ const Pins = ({ parentCode, gMap }) => {
           parentCode,
         })
       })
-      gMap?.setCenter(position)
+      googleMap?.setCenter(position)
     })
     markerRef.current = currentMarkers
-  }, [assocs, gMap, lats, lngs, names, parentCode, pins])
+  }, [googleMap, lats, lngs, parentCode, pins])
 
   return null
 }
