@@ -6,7 +6,7 @@ import mapQuestionGroup from 'app/PCM/helpers/map-question-grp'
 import notIncludesAny from 'utils/helpers/not-includes-any'
 import { filter, keys, union } from 'ramda'
 
-const mapAll = (mappedPcm, depth) => {
+const mapAll = (mappedPcm, depth, config = {}) => {
   const spillLocs = getSpillLocs(mappedPcm)
 
   const questionGrp = mapQuestionGroup((ask, question) => {
@@ -26,7 +26,7 @@ const mapAll = (mappedPcm, depth) => {
 
   const mappedDefinedLocs = mapSpillLocs(loc => (
     <Box key={loc}>
-      <PcmField code={loc} mappedPcm={mappedPcm} depth={depth} />
+      <PcmField code={loc} mappedPcm={mappedPcm} depth={depth} config={config} />
     </Box>
   ))(spillLocs)
 
