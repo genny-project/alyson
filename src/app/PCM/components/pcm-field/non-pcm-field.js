@@ -12,8 +12,7 @@ const NonPcmPcmField = props => {
   const questionGroupCode = mappedPcm?.PRI_QUESTION_CODE || ''
   const { ask, isChildAsk } = getAskFromAttribute(questionGroupCode)(code)
   const isEvt = equals(prefix, 'EVT') || equals(prefix, 'QQQ')
-  const isQueEvent =
-    equals(code, 'QUE_EVENTS') || equals(mappedPcm?.PRI_QUESTION_CODE, 'QUE_EVENTS')
+  const isQueEvent = equals(questionGroupCode, 'QUE_EVENTS')
   const renderEventButton = isEvt && !child
   const renderChild = not(renderEventButton) && !!child
   const isReadOnly = config?.readonly ?? ask?.readonly ?? true

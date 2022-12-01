@@ -13,7 +13,7 @@ import {
   Spinner,
 } from '@chakra-ui/react'
 import { faArrowDown, faCheck, faFileDownload } from '@fortawesome/free-solid-svg-icons'
-import DocViewer, { DocViewerRenderers } from 'react-doc-viewer'
+import DocViewer, { DocViewerRenderers } from '@cyntler/react-doc-viewer'
 
 import DropZone from 'app/DTT/upload/Dropzone'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -173,10 +173,12 @@ const Write = ({
           />
         ) : data?.value ? (
           <VStack>
+            <Text fontWeight={'bold'}>{fileName}</Text>
             {!!src && !showDocument && <Spinner />}
 
             {!!src && showDocument && (
               <DocViewer
+                prefetchMethod="GET"
                 documents={docs}
                 pluginRenderers={DocViewerRenderers}
                 config={{ header: { disableFileName: true } }}
@@ -185,9 +187,9 @@ const Write = ({
             )}
             <HStack>
               {
-                <Button leftIcon={<FontAwesomeIcon icon={faCheck} />} colorScheme="green">{`${
-                  fileName || 'File'
-                } Uploaded`}</Button>
+                <Button leftIcon={<FontAwesomeIcon icon={faCheck} />} colorScheme="green">
+                  File Uploaded
+                </Button>
               }
               <Tooltip label="Click to remove">
                 <CloseButton
