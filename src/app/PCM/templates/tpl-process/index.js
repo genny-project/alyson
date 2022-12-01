@@ -7,7 +7,7 @@ const TemplateProcess = ({ mappedPcm }) => {
   const spillLocs = getSpillLocs(mappedPcm, 'PRI_LOC1')
 
   return (
-    <VStack align="start" spacing={0} px="5">
+    <VStack align="flex-start" spacing={0} px="5">
       <PcmField code={mappedPcm.PRI_LOC1} />
       <HStack
         spacing={5}
