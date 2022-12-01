@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from 'react'
 import { Box } from '@chakra-ui/react'
-import Pins from './Pins'
+import Pins from 'app/layouts/map_view/Pins.js'
 
 const Map = ({ parentCode }) => {
   const mapRef = useRef(null)

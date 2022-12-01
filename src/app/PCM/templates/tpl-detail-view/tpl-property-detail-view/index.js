@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux'
 import AmenityField from './amenity-field'
 import useGetDetailData from '../get-detail-data'
 import Button from 'app/DTT/event_button'
-import MapSearch from 'app/layouts/map_view'
+import MapView from 'app/layouts/map_view'
 
 const TemplatePropertyDetailView = ({ mappedPcm }) => {
   const { baseEntityCode, fields } = useGetDetailData(mappedPcm)
@@ -122,7 +122,7 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
                   ${rentAmount}/{rentFreq}
                 </Box>
               </HStack>
-              <MapSearch />
+              <MapView />
             </VStack>
           </Box>
           {showApllyButton && (
