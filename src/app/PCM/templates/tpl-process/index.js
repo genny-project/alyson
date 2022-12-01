@@ -11,7 +11,7 @@ const TemplateProcess = ({ mappedPcm }) => {
       <PcmField code={mappedPcm.PRI_LOC1} />
       <HStack
         spacing={5}
-        // paddingBlock="5"
+        paddingBlock="5"
         align="flex-start"
         justify="space-between"
         overflow={'auto'}
