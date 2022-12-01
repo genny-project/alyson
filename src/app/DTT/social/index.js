@@ -13,8 +13,8 @@ import { useEffect, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
-import { faLinkedin } from '@fortawesome/free-brands-svg-icons'
+import { faCheckCircle, faGlobe } from '@fortawesome/free-solid-svg-icons'
+import { faLinkedinIn } from '@fortawesome/free-brands-svg-icons'
 import { getIsInvalid } from 'utils/functions'
 import { includes } from 'ramda'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
@@ -37,7 +37,7 @@ const Read = ({ data, config = {} }) => {
       <a href={href}>
         <FontAwesomeIcon
           size="lg"
-          icon={faLinkedin}
+          icon={faLinkedinIn}
           test-id={data?.baseEntityCode}
           {...config}
           isDisabled={!data?.value}
@@ -50,7 +50,7 @@ const Read = ({ data, config = {} }) => {
   return (
     <a href={href}>
       <IconButton test-id={data?.baseEntityCode} colorScheme="linkedin" isDisabled={!data?.value}>
-        <FontAwesomeIcon size="lg" icon={faLinkedin} />
+        <FontAwesomeIcon size="lg" icon={faGlobe} />
       </IconButton>
     </a>
   )
@@ -185,7 +185,7 @@ const Write = ({
             h={'auto'}
             border={0}
             borderRadius={0}
-            paddingInlineStart={6}
+            paddingInlineStart={4}
             color={isFocused ? iconColor : 'gray.600'}
             _groupHover={{
               color: iconColor,
@@ -197,7 +197,7 @@ const Write = ({
               color: iconColor,
             }}
           >
-            <FontAwesomeIcon size="lg" icon={faLinkedin} color={'inherit'} />
+            <FontAwesomeIcon size="md" icon={faGlobe} color={'inherit'} />
           </InputLeftAddon>
 
           <Input
