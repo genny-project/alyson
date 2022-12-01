@@ -1,9 +1,12 @@
 import { Progress, VStack, Text } from '@chakra-ui/react'
+import { multiply } from 'ramda'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 
 const ProgressBar = props => {
-  const { value } = props
+  const { data, value } = props
   const { internshipProgress = 0, completedJournals = 0 } = safelyParseJson(value)
+  const dataValue = data?.value || data?.valueDouble || 0
+  const dataValueInPercentage = multiply(100)(dataValue)
 
   const completedJournalsPercentage = (() => {
     try {
@@ -27,7 +30,7 @@ const ProgressBar = props => {
       />
     </VStack>
   ) : (
-    <Progress w="full" colorScheme="green" borderRadius="md" value={value} />
+    <Progress w="full" colorScheme="green" borderRadius="md" value={dataValueInPercentage} />
   )
 }
 
