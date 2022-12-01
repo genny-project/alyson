@@ -20,8 +20,8 @@ const Map = ({ parentCode, addressCoordinates }) => {
     if (!googleMap) {
       setGoogleMap(
         new window.google.maps.Map(mapRef.current, {
-          zoom: 5,
-          center: { lat: latitude || -34.397, lng: longitude || 150.644 },
+          zoom: 15,
+          center: { lat: Number(latitude) || -37.82097, lng: Number(longitude) || 144.94179 },
         }),
       )
 
@@ -41,7 +41,7 @@ const Map = ({ parentCode, addressCoordinates }) => {
   return (
     <Box w="inherit" h="inherit">
       <div style={{ width: 'auto', height: 'inherit' }} ref={mapRef} id="map" />
-      <Pins googleMap={googleMap} parentCode={parentCode} />
+      <Pins googleMap={googleMap} />
     </Box>
   )
 }
