@@ -66,7 +66,6 @@ const Ask = ({
   const singleAskData = useSelector(selectCode(parentCode, 'raw'))
 
   const askData = passedAskData || selectedAskData || singleAskData
-
   const {
     questionCode,
     attributeCode,
