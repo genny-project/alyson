@@ -121,7 +121,7 @@ const DropZone = ({
       ? 'video/*'
       : isImageField(questionCode)
       ? 'image/*,'
-      : 'application/pdf, .doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.dot,.rtf,.odt',
+      : 'application/pdf, .doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.dot,.rtf,.odt, image/*',
     maxFiles: maxFiles,
     onDrop: multiUpload ? multiDropFile : singleDropile,
   })
