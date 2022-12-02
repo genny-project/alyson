@@ -7,7 +7,7 @@ const TemplateProcess = ({ mappedPcm }) => {
   const spillLocs = getSpillLocs(mappedPcm, 'PRI_LOC1')
 
   return (
-    <VStack justifyContent="flex-start" spacing={0} px="5" width={'100vw'}>
+    <VStack justifyContent="flex-start" spacing={0} px="5">
       <Box alignSelf={'flex-start'}>
         <PcmField code={mappedPcm.PRI_LOC1} />
       </Box>
@@ -17,6 +17,7 @@ const TemplateProcess = ({ mappedPcm }) => {
         paddingBlock="5"
         align="flex-start"
         justify="space-between"
+        height={'auto'}
         overflow={'auto'}
       >
         {mapSpillLocs(loc => <PcmField key={loc} code={loc} />)(spillLocs)}
