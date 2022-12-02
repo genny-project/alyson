@@ -15,6 +15,12 @@ import getApiConfig from 'config/get-api-config'
 
 LogRocket.init('geop13/internmatch')
 
+const onKeycloakError = error => {
+  if (!!error) {
+    window.location.reload()
+  }
+}
+
 const initialiseApp = async () => {
   try {
     // initLog()
@@ -25,7 +31,11 @@ const initialiseApp = async () => {
         <ChakraProvider theme={theme}>
           <Fonts />
           <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-          <ReactKeycloakProvider authClient={keycloak} LoadingComponent={<Loading />}>
+          <ReactKeycloakProvider
+            authClient={keycloak}
+            LoadingComponent={<Loading />}
+            onEvent={(event, error) => onKeycloakError(error)}
+          >
             <ErrorContextProvider>
               <IsFieldNotEmptyProvider>
                 <App title={title} />

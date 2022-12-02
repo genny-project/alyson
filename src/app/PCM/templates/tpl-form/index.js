@@ -29,6 +29,7 @@ const TemplateForm = ({ mappedPcm, depth, ...rest }) => {
       <Flex justifyContent={isMobile ? 'flex-start' : 'center'}>
         {/* By using a form ask here, it means the form will work even if the question code passed is not a question group */}
         <FormAsk
+          first={true}
           questionCode={questionCode}
           parentCode={questionCode}
           level={0}

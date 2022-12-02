@@ -39,7 +39,7 @@ const useApi = () => {
     return {}
   }
 
-  const getMediaFileName = async ({ uuid }) => {
+  const getMediaFileName = async uuid => {
     if (!uuid) return ''
     const resp = await axios({
       method: 'GET',
@@ -55,6 +55,8 @@ const useApi = () => {
     uuid && uuid !== '[]'
       ? `${IMAGE_URL}/${dim ? `${dim.width}x${dim.height || ''},fit/` : ''}${MEDIA_URL}/${uuid}`
       : null
+
+  const getDocumentSrc = (uuid, dim) => (uuid && uuid !== '[]' ? `${MEDIA_URL}/${uuid}` : null)
 
   const getImageSrcList = (uuidList, dim) =>
     map(uuid =>
@@ -87,6 +89,7 @@ const useApi = () => {
 
   return {
     getImageSrc,
+    getDocumentSrc,
     getImageSrcList,
     postMediaFile,
     getSrc,

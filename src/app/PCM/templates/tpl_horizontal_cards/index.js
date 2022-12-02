@@ -1,12 +1,13 @@
-import { getFields, getColumnDefs } from '../../helpers/sbe-utils'
+import { Box, Grid, VStack } from '@chakra-ui/react'
+import { filter, includes } from 'ramda'
+import { getColumnDefs, getFields } from '../../helpers/sbe-utils'
+import { selectCode, selectKeys } from 'redux/db/selectors'
 
-import { Box, HStack, Text, VStack } from '@chakra-ui/react'
+import Attribute from 'app/BE/attribute'
+import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import useGetMappedBaseEntity from 'app/PCM/helpers/use-get-mapped-base-entity'
 import { useSelector } from 'react-redux'
-import { selectKeys, selectCode } from 'redux/db/selectors'
-import { includes, filter } from 'ramda'
-import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
-import Attribute from 'app/BE/attribute'
+import Title from 'app/SBE/table/Title'
 
 const TemplateHorizontalCards = ({ mappedPcm, depth }) => {
   const sbeCodePrefix = mappedPcm.PRI_LOC1
@@ -21,19 +22,21 @@ const TemplateHorizontalCards = ({ mappedPcm, depth }) => {
   const rows = useSelector(selectCode(sbeCode, 'rows')) || []
 
   const primaryColor = useGetAttributeFromProjectBaseEntity('PRI_COLOR')?.valueString || ''
-
   return (
     <Box padding={'10px'}>
-      <HStack spacing="10">
+      <Box paddingBottom={3}>
+        <Title sbeCode={sbeCode} />
+      </Box>
+      <Grid templateColumns={'repeat(auto-fit, minmax(12.5rem, 1fr))'} gap={4}>
         {rows.map(item => (
           <Card
-            key={`CARD-${item['code'] || ''}`}
+            key={`CARD-${item || ''}`}
             mappedValues={mappedValues}
             baseEntityCode={item}
             primaryColor={primaryColor}
           />
         ))}
-      </HStack>
+      </Grid>
     </Box>
   )
 }
@@ -47,15 +50,16 @@ const Card = ({ mappedValues, baseEntityCode, primaryColor }) => {
         {mappedValues.map((value, index) => {
           const fontSize = index === 0 ? 'xl' : 'md'
           return (
-            <Text
+            <Box
               fontSize={fontSize}
               key={`CARD-ATTRIBUTE-${baseEntityCode}-${value}`}
               alignSelf="start"
               color="#004654"
               fontWeight="400"
+              w={'full'}
             >
-              <Attribute code={baseEntityCode} attribute={value} config={{ cardDisplay: true }} />
-            </Text>
+              <Attribute code={baseEntityCode} attribute={value} config={{ carddisplay: 'true' }} />
+            </Box>
           )
         })}
       </VStack>

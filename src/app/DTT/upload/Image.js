@@ -1,4 +1,5 @@
 import {
+  AspectRatio,
   Avatar,
   Button,
   ButtonGroup,
@@ -9,7 +10,7 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react'
 import { compose, isEmpty, map, not } from 'ramda'
-import { faCamera, faUpload, faUserAlt } from '@fortawesome/free-solid-svg-icons'
+import { faUpload, faUserAlt, faCamera } from '@fortawesome/free-solid-svg-icons'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Snap from './Snap'
@@ -23,10 +24,12 @@ const Write = ({
   questionCode,
   data,
   openDropzone,
+  dropzone,
   onSendAnswer,
   handleSave,
   setLoading,
   name,
+  multiUpload,
 }) => {
   const { getImageSrcList } = useApi()
   const src = getImageSrcList(data?.value)
@@ -37,25 +40,22 @@ const Write = ({
     onSendAnswer('')
   }
 
-  if (displayImages)
-    return (
-      <HStack>
-        <HStack>
-          {map(individualImageSrc => <Avatar size="xl" src={individualImageSrc} />)(src)}
-        </HStack>
-
-        <Tooltip label="Click to remove">
-          <CloseButton cursor="pointer" onClick={onRemoveImage} />
-        </Tooltip>
-      </HStack>
-    )
-
   return (
     <div id={questionCode}>
       {openSnap && (
         <Snap handleSave={handleSave} setOpenSnap={setOpenSnap} setLoading={setLoading} />
       )}
-      <div hidden={openSnap}>
+      {displayImages && (
+        <HStack mb="2">
+          <HStack>
+            {map(individualImageSrc => <Avatar size="xl" src={individualImageSrc} />)(src)}
+          </HStack>
+          <Tooltip label="Click to remove your selections.">
+            <CloseButton cursor="pointer" onClick={onRemoveImage} />
+          </Tooltip>
+        </HStack>
+      )}
+      <div hidden={dropzone || openSnap}>
         <ButtonGroup>
           <Button
             test-id={questionCode}
@@ -64,9 +64,15 @@ const Write = ({
           >
             {name}
           </Button>
-          <Button onClick={() => setOpenSnap(true)} leftIcon={<FontAwesomeIcon icon={faCamera} />}>
-            {`Take Photo`}
-          </Button>
+          {!multiUpload && (
+            <Button
+              onClick={() => setOpenSnap(true)}
+              leftIcon={<FontAwesomeIcon icon={faCamera} />}
+              hidden={dropzone}
+            >
+              {`Take Photo`}
+            </Button>
+          )}
         </ButtonGroup>
       </div>
     </div>
@@ -76,7 +82,8 @@ const Write = ({
 const Read = ({ code, data, parentCode, variant, config }) => {
   const { getImageSrc } = useApi()
   const src = getImageSrc(data?.value, { height: '500', width: '500' })
-  const { cardDisplay } = config || ''
+  //Custom attributes must be lower case
+  const { carddisplay } = config || ''
 
   const name = useSelector(selectCode(data?.baseEntityCode, 'PRI_NAME'))
   const assocName = useSelector(selectCode(data?.baseEntityCode, 'PRI_INTERN_NAME'))
@@ -94,18 +101,19 @@ const Read = ({ code, data, parentCode, variant, config }) => {
     return <Image {...config} src={src} alt="profile-picture" w="10rem" borderRadius="xl" />
   }
 
-  if (!!cardDisplay) {
+  if (!!carddisplay) {
     return (
-      <Avatar
-        name={name?.value || assocName?.value}
-        {...config}
-        cursor="pointer"
-        onClick={viewDetail}
-        src={src}
-        height="35vh"
-        width="35vw"
-        borderRadius="none"
-      />
+      <AspectRatio>
+        <Avatar
+          name={name?.value || assocName?.value}
+          {...config}
+          cursor="pointer"
+          onClick={viewDetail}
+          src={src}
+          w={'full'}
+          borderRadius={'xl'}
+        />
+      </AspectRatio>
     )
   }
 

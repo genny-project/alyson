@@ -12,24 +12,24 @@ const Pagination = ({ sbeCode }) => {
   const pageSize = useSelector(selectCode(sbeCode, 'SCH_PAGE_SIZE'))
   const pageStart = useSelector(selectCode(sbeCode, 'SCH_PAGE_START'))
   const totalResults = useSelector(selectCode(sbeCode, 'PRI_TOTAL_RESULTS'))
-  const pageNumber = useSelector(selectCode(sbeCode, 'PRI_INDEX'))
+  const pageIndex = useSelector(selectCode(sbeCode, 'PRI_INDEX'))
 
   let allItemsInTable = useSelector(selectRows(sbeCode))
-  let allItemsInTableLength = allItemsInTable.length
+  let allItemsInTableLength = allItemsInTable?.length
 
   useHotkeys('shift+left', paginationActions().previous)
   useHotkeys('shift+right', paginationActions().next)
 
-  if (!(pageSize && totalResults && pageStart && pageNumber)) return null
+  if (!(pageSize && totalResults && pageStart && pageIndex)) return null
 
   const hasNextPage = pageSize.value + pageStart.value < totalResults.value
-  const hasPrevPage = pageNumber.value > 1
+  const hasPrevPage = pageIndex.value > 0
 
   return (
     <HStack justify="flex-end" align="flex-end">
-      <Text textStyle="body.2" w="max-content">{`${pageStart.value + 1} - ${
-        pageStart.value + allItemsInTableLength
-      } of ${totalResults.value}`}</Text>
+      <Text textStyle="body.2" w="max-content">{`${
+        !!totalResults?.value ? pageStart?.value + 1 : pageStart?.value
+      } - ${pageStart.value + allItemsInTableLength} of ${totalResults.value}`}</Text>
       <IconButton
         onClick={paginationActions().previous}
         isDisabled={!hasPrevPage}

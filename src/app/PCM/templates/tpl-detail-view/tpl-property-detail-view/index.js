@@ -1,19 +1,27 @@
-import { filter, find, equals, includes } from 'ramda'
+import { filter, find, equals, includes, compose, not, isEmpty } from 'ramda'
 import Attribute from 'app/BE/attribute'
 import { VStack, Wrap, WrapItem, Text, HStack, Box } from '@chakra-ui/react'
 import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
 import AmenityField from './amenity-field'
 import useGetDetailData from '../get-detail-data'
+import Button from 'app/DTT/event_button'
 
 const TemplatePropertyDetailView = ({ mappedPcm }) => {
   const { baseEntityCode, fields } = useGetDetailData(mappedPcm)
+  const { PRI_QUESTION_CODE: questionCode } = mappedPcm
+  const applyButtonData = useSelector(selectCode(questionCode, 'QUE_APPLY')) || {}
+  const { sourceCode } = applyButtonData || {}
+
+  let showApllyButton =
+    equals(typeof applyButtonData, 'object') && compose(not, isEmpty)(applyButtonData)
 
   const findCode = code => find(equals(code))(fields) || ''
 
   const textColor = 'product.primary'
+  const buttonColor = 'product.secondary'
 
-  const headingCode = findCode('PRI_PROPERTY_HEADING')
+  const headingCode = findCode('PRI_NAME')
   const suburbCode = findCode('PRI_ADDRESS_SUBURB')
   const stateCode = findCode('PRI_ADDRESS_STATE')
 
@@ -36,6 +44,14 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
 
   //Get suburb, state if both not null, otherwise just the one that isn't null
   const location = !!suburb && !!state ? `${suburb}, ${state}` : suburb || state
+
+  const buttonConfig = {
+    variant: 'solid',
+    bg: buttonColor,
+    color: '#ffffff',
+    borderRadius: '3xl',
+    w: 'full',
+  }
 
   return (
     <VStack w={'100%'} alignItems="flex-start">
@@ -108,6 +124,14 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
               <Box height={'200pt'}></Box>
             </VStack>
           </Box>
+          {showApllyButton && (
+            <Button
+              askData={applyButtonData}
+              parentCode={questionCode}
+              sourceCode={sourceCode}
+              config={buttonConfig}
+            />
+          )}
         </VStack>
       </HStack>
     </VStack>
