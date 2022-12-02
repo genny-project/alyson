@@ -1,7 +1,8 @@
-import { useRef, useEffect, useState } from 'react'
+import { pathOr, split } from 'ramda'
+import { useEffect, useRef, useState } from 'react'
+
 import { Box } from '@chakra-ui/react'
 import Pins from 'app/layouts/map_view/Pins.js'
-import { split, pathOr } from 'ramda'
 
 const getLatitudeAndLongitude = addressCoordinates => {
   const splittedAddress = split(',')(addressCoordinates || '')
@@ -39,8 +40,8 @@ const Map = ({ parentCode, addressCoordinates }) => {
   }, [googleMap, parentCode, latitude, longitude])
 
   return (
-    <Box w="inherit" h="inherit">
-      <div style={{ width: 'auto', height: 'inherit' }} ref={mapRef} id="map" />
+    <Box w="full" h="full">
+      <Box w="full" h="full" ref={mapRef} id="map" />
       <Pins googleMap={googleMap} />
     </Box>
   )

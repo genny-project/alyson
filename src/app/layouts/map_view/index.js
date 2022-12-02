@@ -1,11 +1,11 @@
-import { Flex } from '@chakra-ui/react'
+import { AspectRatio } from '@chakra-ui/react'
 import Map from 'app/layouts/map_view/Map.js'
 
 const MapView = ({ parentCode, addressCoordinates }) => {
   return (
-    <Flex h="40vh" w="40vw" border="1px gray solid" position="absolute" mt="2">
+    <AspectRatio ratio={3 / 4} w="full" borderRadius={'1rem'} overflow="hidden">
       <Map parentCode={parentCode} addressCoordinates={addressCoordinates} />
-    </Flex>
+    </AspectRatio>
   )
 }
 
