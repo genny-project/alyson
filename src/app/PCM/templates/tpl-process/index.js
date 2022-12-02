@@ -1,5 +1,5 @@
 import getSpillLocs from 'app/PCM/helpers/get-spill-locs'
-import { HStack, VStack } from '@chakra-ui/react'
+import { HStack, VStack, Box } from '@chakra-ui/react'
 import mapSpillLocs from 'app/PCM/helpers/map-spill-locs'
 import PcmField from 'app/PCM/components/pcm-field'
 
@@ -7,8 +7,11 @@ const TemplateProcess = ({ mappedPcm }) => {
   const spillLocs = getSpillLocs(mappedPcm, 'PRI_LOC1')
 
   return (
-    <VStack align="flex-start" spacing={0} px="5">
-      <PcmField code={mappedPcm.PRI_LOC1} />
+    <VStack justifyContent="flex-start" spacing={0} px="5" width={'100vw'}>
+      <Box alignSelf={'flex-start'}>
+        <PcmField code={mappedPcm.PRI_LOC1} />
+      </Box>
+
       <HStack
         spacing={5}
         paddingBlock="5"

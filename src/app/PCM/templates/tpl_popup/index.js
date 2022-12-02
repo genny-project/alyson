@@ -45,7 +45,7 @@ const TemplatePopup = ({ mappedPcm, depth }) => {
             variant: 'outline',
           }}
         >
-          <Box paddingX={1} />
+          <Box paddingX={3} />
           {!!PRI_LOC1 ? (
             <PcmField code={PRI_LOC1} mappedPcm={mappedPcm} depth={depth} />
           ) : (
@@ -53,6 +53,7 @@ const TemplatePopup = ({ mappedPcm, depth }) => {
           )}
           <Box paddingX={1} />
           <FontAwesomeIcon icon={isOpen ? faChevronUp : faChevronDown} />
+          <Box paddingX={3} />
         </Button>
       </PopoverTrigger>
       <PopoverContent width="auto" paddingX={2}>
