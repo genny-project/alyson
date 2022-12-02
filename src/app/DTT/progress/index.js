@@ -1,6 +1,6 @@
 import { Box, Progress, Text, VStack } from '@chakra-ui/react'
 
-import { multiply } from 'ramda'
+import { multiply, pathOr } from 'ramda'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 
 const ProgressBar = props => {
@@ -8,6 +8,8 @@ const ProgressBar = props => {
   const { internshipProgress = 0, completedJournals = 0 } = safelyParseJson(value)
   const dataValue = data?.value || data?.valueDouble || 0
   const dataValueInPercentage = multiply(100)(dataValue)
+
+  const label = pathOr('', ['attribute', 'name'])(data)
 
   const completedJournalsPercentage = (() => {
     try {
@@ -31,8 +33,11 @@ const ProgressBar = props => {
       />
     </VStack>
   ) : (
-    <Box flex={'1 1 100%'} w="full" margin={'.25rem 0 0 0 !important'}>
-      <Progress w="full" colorScheme="green" borderRadius="md" value={dataValueInPercentage} />
+    <Box flex={'1 1 100%'} w="full" margin={'1rem 0 0 0 !important'}>
+      <Progress w="full" colorScheme="orange" borderRadius="md" value={dataValueInPercentage} />
+      <Text as="label" fontSize={'sm'} fontWeight={500} color={'#EF8567'} fontFamily="Roboto">
+        {label}
+      </Text>
     </Box>
   )
 }
