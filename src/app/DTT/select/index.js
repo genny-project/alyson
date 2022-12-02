@@ -1,7 +1,7 @@
 import './styles.css'
 
 import { Box, HStack, Text, VStack, useTheme } from '@chakra-ui/react'
-import { compose, includes, isEmpty, pathOr, equals } from 'ramda'
+import { compose, equals, includes, isEmpty, pathOr } from 'ramda'
 import { selectCode, selectRows } from 'redux/db/selectors'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
@@ -203,7 +203,7 @@ const Write = ({
           container: provided => ({
             ...provided,
             w: 'full',
-            minW: `${placeholderName.length + 10}ch`,
+            // minW: `${placeholderName.length + 10}ch`,
           }),
           control: provided => ({
             ...provided,
