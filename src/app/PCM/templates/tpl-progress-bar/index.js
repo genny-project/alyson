@@ -1,7 +1,7 @@
 import PcmField from 'app/PCM/components/pcm-field'
-import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
+import { useSelector } from 'react-redux'
 
 const TemplateProgressBar = ({ mappedPcm, depth }) => {
   const { PRI_LOC1 } = mappedPcm
