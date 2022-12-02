@@ -85,7 +85,7 @@ const Attribute = ({
   ) : component === 'date' ? (
     <Date.Read config={config} data={data} size={size} typeName={dttData.typeName} />
   ) : component === 'progress' ? (
-    <JournalProgress.Read data={data} />
+    <JournalProgress data={data} />
   ) : component === 'html_display' ? (
     <HtmlDisplay.Read data={data} />
   ) : component === 'richtext_editor' ? (
