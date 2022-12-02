@@ -1,4 +1,5 @@
-import { Progress, VStack, Text } from '@chakra-ui/react'
+import { Box, Progress, Text, VStack } from '@chakra-ui/react'
+
 import { multiply } from 'ramda'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 
@@ -30,7 +31,9 @@ const ProgressBar = props => {
       />
     </VStack>
   ) : (
-    <Progress w="full" colorScheme="green" borderRadius="md" value={dataValueInPercentage} />
+    <Box flex={'1 1 100%'} w="full" margin={'.25rem 0 0 0 !important'}>
+      <Progress w="full" colorScheme="green" borderRadius="md" value={dataValueInPercentage} />
+    </Box>
   )
 }
 
