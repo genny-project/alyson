@@ -1,12 +1,13 @@
-import { filter, find, equals, includes, compose, not, isEmpty } from 'ramda'
-import Attribute from 'app/BE/attribute'
-import { VStack, Wrap, WrapItem, Text, HStack, Box } from '@chakra-ui/react'
-import { selectCode } from 'redux/db/selectors'
-import { useSelector } from 'react-redux'
+import { Box, Grid, HStack, Text, VStack, Wrap, WrapItem } from '@chakra-ui/react'
+import { compose, equals, filter, find, includes, isEmpty, not } from 'ramda'
+
 import AmenityField from './amenity-field'
-import useGetDetailData from '../get-detail-data'
+import Attribute from 'app/BE/attribute'
 import Button from 'app/DTT/event_button'
 import MapView from 'app/layouts/map_view'
+import { selectCode } from 'redux/db/selectors'
+import useGetDetailData from '../get-detail-data'
+import { useSelector } from 'react-redux'
 
 const TemplatePropertyDetailView = ({ mappedPcm }) => {
   const { baseEntityCode, fields } = useGetDetailData(mappedPcm)
@@ -61,7 +62,12 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
   return (
     <VStack w={'100%'} alignItems="flex-start">
       <Attribute code={baseEntityCode} attribute={imageCode} />
-      <HStack justify="space-between" w={'100%'}>
+      <Grid
+        templateColumns={'repeat(auto-fit, minmax(min(100%, 20rem), 1fr))'}
+        gap={'clamp(1rem, 5vw, 10rem)'}
+        justify="space-between"
+        w={'100%'}
+      >
         <VStack alignItems="flex-start" maxWidth={'50%'}>
           <Attribute
             code={baseEntityCode}
@@ -102,13 +108,19 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
             ))}
           </Wrap>
         </VStack>
-        <VStack w={'400px'}>
-          <Box border={'1px'} borderColor="lightgray" borderRadius="3xl" width={'100%'} padding={2}>
-            <VStack>
+        <VStack w={'min(100%, 25rem)'} spacing={0}>
+          <Box
+            width={'100%'}
+            padding={5}
+            boxShadow={'0 0 2rem rgb(0 0 0 / .1)'}
+            borderRadius={'2rem'}
+            marginBlockEnd={'1.1rem'}
+          >
+            <Grid gap={'1.1rem'}>
               <Box
                 borderRadius="3xl"
                 backgroundColor={'product.secondaryLight'}
-                p={1}
+                paddingY={3}
                 paddingX={3}
                 width={'100%'}
                 textAlign="center"
@@ -127,7 +139,7 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
                 </Box>
               </HStack>
               <MapView addressCoordinates={addressCoordinates} />
-            </VStack>
+            </Grid>
           </Box>
           {showApllyButton && (
             <Button
@@ -138,7 +150,7 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
             />
           )}
         </VStack>
-      </HStack>
+      </Grid>
     </VStack>
   )
 }
