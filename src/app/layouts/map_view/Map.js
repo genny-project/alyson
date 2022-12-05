@@ -2,10 +2,15 @@ import { useEffect, useRef, useState } from 'react'
 
 import { Box } from '@chakra-ui/react'
 import Pins from 'app/layouts/map_view/Pins.js'
+import { compose, not, isEmpty } from 'ramda'
 
-const Map = ({ parentCode, latitude, longitude }) => {
+const Map = ({ parentCode, coordinates }) => {
   const mapRef = useRef(null)
   const [googleMap, setGoogleMap] = useState(null)
+  const { latitude, longitude } = coordinates || {}
+  const coordinatesArr = [coordinates]
+  const notEmpty = compose(not, isEmpty)
+  const showPinsInMap = notEmpty(latitude) && notEmpty(longitude)
 
   useEffect(() => {
     if (!googleMap) {
@@ -32,7 +37,7 @@ const Map = ({ parentCode, latitude, longitude }) => {
   return (
     <Box w="full" h="full">
       <Box w="full" h="full" ref={mapRef} id="map" />
-      <Pins googleMap={googleMap} latitude={latitude} longitude={longitude} />
+      {showPinsInMap && <Pins googleMap={googleMap} coordinatesArr={coordinatesArr} />}
     </Box>
   )
 }

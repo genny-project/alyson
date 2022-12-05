@@ -19,6 +19,7 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
   const longitude = longitudeObject?.value || ''
   const latitudeObject = useSelector(selectCode(baseEntityCode, 'PRI_ADDRESS_LATITUDE')) || {}
   const latitude = latitudeObject?.value || ''
+  const coordinates = { latitude, longitude }
 
   let showApllyButton =
     equals(typeof applyButtonData, 'object') && compose(not, isEmpty)(applyButtonData)
@@ -139,7 +140,7 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
                   ${rentAmount}/{rentFreq}
                 </Box>
               </HStack>
-              <MapView latitude={latitude} longitude={longitude} />
+              <MapView coordinates={coordinates} />
             </Grid>
           </Box>
           {showApllyButton && (

@@ -1,16 +1,6 @@
 import { useEffect, useRef } from 'react'
-import { useSelector } from 'react-redux'
-import { selectCodes, selectRows } from 'redux/db/selectors'
-import { onSendMessage } from 'vertx'
-import useGetMarkers from 'app/SBE/display_modes/map_view/useGetMarkers'
 
-const Pins = ({ parentCode, googleMap }) => {
-  const rows = useSelector(selectRows(parentCode))
-  const lats = useSelector(selectCodes(rows, 'PRI_ADDRESS_LATITUDE'))
-  const lngs = useSelector(selectCodes(rows, 'PRI_ADDRESS_LONGITUDE'))
-
-  const pins = useGetMarkers(parentCode)
-
+const Pins = ({ googleMap, coordinatesArr }) => {
   const markerRef = useRef([])
   let markers = markerRef?.current
 
@@ -22,8 +12,8 @@ const Pins = ({ parentCode, googleMap }) => {
 
   useEffect(() => {
     let currentMarkers = []
-    pins?.forEach(({ lat, lng, targetCode }) => {
-      const position = { lat, lng }
+    coordinatesArr?.forEach(({ latitude, longitude }) => {
+      const position = { lat: latitude, lng: longitude }
 
       const marker = new window.google.maps.Marker({
         position,
@@ -32,17 +22,10 @@ const Pins = ({ parentCode, googleMap }) => {
 
       currentMarkers.push(marker)
 
-      marker.addListener('click', () => {
-        onSendMessage({
-          code: 'ACT_PRI_EVENT_VIEW',
-          targetCode,
-          parentCode,
-        })
-      })
       googleMap?.setCenter(position)
     })
     markerRef.current = currentMarkers
-  }, [googleMap, lats, lngs, parentCode, pins])
+  }, [coordinatesArr, googleMap])
 
   return null
 }
