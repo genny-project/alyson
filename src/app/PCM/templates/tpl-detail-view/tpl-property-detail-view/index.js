@@ -15,9 +15,10 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
   const applyButtonData = useSelector(selectCode(questionCode, 'QUE_APPLY')) || {}
   const { sourceCode } = applyButtonData || {}
 
-  const addressCoordinatesObject =
-    useSelector(selectCode(baseEntityCode, 'PRI_ADDRESS_COORDINATES')) || {}
-  const addressCoordinates = addressCoordinatesObject?.value || ''
+  const longitudeObject = useSelector(selectCode(baseEntityCode, 'PRI_ADDRESS_LONGITUDE')) || {}
+  const longitude = longitudeObject?.value || ''
+  const latitudeObject = useSelector(selectCode(baseEntityCode, 'PRI_ADDRESS_LATITUDE')) || {}
+  const latitude = latitudeObject?.value || ''
 
   let showApllyButton =
     equals(typeof applyButtonData, 'object') && compose(not, isEmpty)(applyButtonData)
@@ -138,7 +139,7 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
                   ${rentAmount}/{rentFreq}
                 </Box>
               </HStack>
-              <MapView addressCoordinates={addressCoordinates} />
+              <MapView latitude={latitude} longitude={longitude} />
             </Grid>
           </Box>
           {showApllyButton && (
