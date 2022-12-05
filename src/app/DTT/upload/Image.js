@@ -160,9 +160,9 @@ const Read = ({ code, data, parentCode, variant, config, multiUpload }) => {
               color: theme.colors.background.light,
             }}
           >
-            <FontAwesomeIcon icon={faImages} />
-            <Box mr={1} />
             {`View ${srcList.length} photos`}
+            <Box mr={2} />
+            <FontAwesomeIcon icon={faImages} />
           </Button>
           <HStack justifyItems={'flex-start'} zIndex={1}>
             {srcList.slice(0, imagePreviewCount).map((value, index) => (
