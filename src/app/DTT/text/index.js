@@ -51,6 +51,13 @@ export const Write = ({
     borderRadius,
   } = useProductColors()
 
+  try {
+    regex = RegExp(regexPattern)
+  } catch (err) {
+    console.error('There is an error with the regex', questionCode, err)
+    regex = undefined
+  }
+
   let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMessage)
   const failedValidation = errorState[questionCode]
   const isInvalid = getIsInvalid(userInput)(regex)
@@ -62,14 +69,6 @@ export const Write = ({
     e.target.value ? setIsFocused(true) : setIsFocused(false)
     !errorStatus && debouncedSendAnswer(userInput)
     dispatchFieldMessage({ payload: questionCode })
-  }
-
-  try {
-    regexPattern = regexPattern.replaceAll('\\\\', '\\')
-    regex = RegExp(regexPattern)
-  } catch (err) {
-    console.error('There is an error with the regex', questionCode, err)
-    regex = undefined
   }
 
   useEffect(() => {

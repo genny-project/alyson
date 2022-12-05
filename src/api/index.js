@@ -58,7 +58,7 @@ const useApi = () => {
         }${MEDIA_URL}/${uuid}`
       : null
 
-  const getDocumentSrc = (uuid, dim) => (uuid && uuid !== '[]' ? `${MEDIA_URL}/${uuid}` : null)
+  const getDocumentSrc = uuid => (uuid && uuid !== '[]' ? `${MEDIA_URL}/${uuid}` : null)
 
   const getImageSrcList = (uuidList, dim, scale = 'fit') =>
     map(uuid =>

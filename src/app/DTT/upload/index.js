@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react'
-import { equals, map, reduce } from 'ramda'
 import {
   Box,
   Button,
@@ -7,21 +5,23 @@ import {
   HStack,
   Link,
   Progress,
+  Spinner,
   Text,
   Tooltip,
   VStack,
-  Spinner,
 } from '@chakra-ui/react'
-import { faArrowDown, faCheck, faFileDownload } from '@fortawesome/free-solid-svg-icons'
 import DocViewer, { DocViewerRenderers } from '@cyntler/react-doc-viewer'
+import { equals, map, reduce } from 'ramda'
+import { faArrowDown, faCheck, faFileDownload } from '@fortawesome/free-solid-svg-icons'
+import { useEffect, useState } from 'react'
 
 import DropZone from 'app/DTT/upload/Dropzone'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ImageType from 'app/DTT/upload/Image'
+import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import useApi from 'api'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
-import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
 import useProductColors from 'utils/productColors'
 
 const Read = ({ code, data, dttData, parentCode, variant, config = {} }) => {
@@ -92,7 +92,7 @@ const Write = ({
   const api = useApi()
   const typeName = dttData?.typeName
   const isImageType = equals(typeName, 'Image') || equals(component, 'multi_upload')
-  const { getImageSrc, getDocumentSrc } = useApi()
+  const { getImageSrc, getDocumentSrc } = api
   const dataValue = data?.value ? data.value[0] : null
   const src = isImageType ? getImageSrc(dataValue) : getDocumentSrc(dataValue)
   const [fileName, setFileName] = useState('')
@@ -184,6 +184,7 @@ const Write = ({
                 pluginRenderers={DocViewerRenderers}
                 config={{ header: { disableFileName: true } }}
               />
+
               // <Button onClick={() => window.open(src)}>{`Preview Document`}</Button>
             )}
             <HStack>
