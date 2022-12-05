@@ -1,39 +1,59 @@
-import { AspectRatio, Avatar, Box, Button, Grid, Stack, Text, useTheme } from '@chakra-ui/react'
-import { faCheckCircle, faHourglass } from '@fortawesome/free-solid-svg-icons'
-import { filter, map, slice } from 'ramda'
-import { getColumnDefs, getFields } from '../../../helpers/sbe-utils'
+import {
+  AspectRatio,
+  Avatar,
+  Box,
+  Button,
+  Flex,
+  Grid,
+  Stack,
+  Text,
+  useTheme,
+} from '@chakra-ui/react'
+import {
+  faCheckCircle,
+  faEnvelope,
+  faGraduationCap,
+  faHourglass,
+  faMapPin,
+  faPhone,
+} from '@fortawesome/free-solid-svg-icons'
 
 import AcceptedRejectedLists from './acceptedRejectedLists'
-import DetailField from '../detail-field'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import TenantInformation from './tenantInformation'
 import UploadedDocuments from './uploadedDocuments'
+import { map } from 'ramda'
 import { selectCode } from 'redux/db/selectors'
-import { useGetActionsFromCode } from 'app/SBE/utils/get-actions'
-import useGetMappedBaseEntity from 'app/PCM/helpers/use-get-mapped-base-entity'
 import { useIsMobile } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 
 const TemplateApplicationDetailView = ({ mappedPcm, depth }) => {
-  const userCode = useSelector(selectCode('USER'))
-  const userFirstName = useSelector(selectCode(userCode, 'PRI_FIRSTNAME'))?.value
   const theme = useTheme()
   const isMobile = useIsMobile()
 
+  const userCode = useSelector(selectCode('USER'))
+  const userFirstName = useSelector(selectCode(userCode, 'PRI_FIRSTNAME'))?.value
+
   const sbeCode = mappedPcm.PRI_LOC1
+  const targetCode = useSelector(selectCode(sbeCode, 'PRI_TARGET_CODE'))?.value
 
-  const mappedSbe = useGetMappedBaseEntity(sbeCode)
-  const baseEntityCode = mappedSbe.PRI_CODE?.value || ''
-  const mappedValues = getFields(getColumnDefs(mappedSbe))
+  const tenantFullName = useSelector(selectCode(targetCode, 'PRI_NAME'))?.value
 
-  const actions = filter(e => e)(
-    map(act => act?.attributeCode)(useGetActionsFromCode(sbeCode) || []),
-  )
+  const tenantImage = useSelector(selectCode(targetCode, 'PRI_IMAGE'))?.value
+  const tenantJobRole = useSelector(selectCode(targetCode, 'PRI_ROLE_AT_COMPANY'))?.value
+  const reasonToMove = useSelector(selectCode(targetCode, 'LNK_MOVE_REASON'))?.value
 
-  const tenantName = mappedValues[0]
-  const tenantDetails = slice(1, mappedValues.length - 1)(mappedValues)
+  const tenantContact = useSelector(selectCode(targetCode, 'PRI_PHONE'))?.value
+  const tenantEmail = useSelector(selectCode(targetCode, 'PRI_EMAIL'))?.value
+  const tenantAddress = useSelector(selectCode(targetCode, 'PRI_CURRENT_ADDRESS'))?.value
+  const tenantCompanyName = useSelector(selectCode(targetCode, 'PRI_COMPANY_NAME'))?.value
 
-  const tenantNameValue = useSelector(selectCode(baseEntityCode, tenantName))?.value
+  const tenantInformation = [
+    { icon: faPhone, attr: tenantContact },
+    { icon: faEnvelope, attr: tenantEmail },
+    { icon: faMapPin, attr: tenantAddress },
+    { icon: faGraduationCap, attr: tenantCompanyName },
+  ]
 
   return (
     <>
@@ -50,35 +70,33 @@ const TemplateApplicationDetailView = ({ mappedPcm, depth }) => {
         marginBlockStart={isMobile ? 12 : 0}
       >
         <AspectRatio w={'clamp(6rem, 10vw, 12rem)'} ratio={1}>
-          <Avatar name={tenantNameValue} src="" />
+          <Avatar name={tenantFullName} src={tenantImage} />
         </AspectRatio>
 
-        <Grid
-          templateColumns={isMobile ? '1fr' : '1fr 2fr'}
-          paddingBlockStart={isMobile ? '0' : '2rem'}
-        >
-          <Box>
-            <DetailField
-              sbeCode={sbeCode}
-              code={baseEntityCode}
-              attributeCode={tenantName}
-              index={0}
-            />
-          </Box>
+        <Grid templateColumns={isMobile ? '1fr' : '1fr 2fr'}>
+          <Grid gap={'0.5rem'} alignContent={'center'}>
+            <Text as="h2" fontSize={'1.5rem'} fontWeight={'bold'}>
+              {tenantFullName}
+            </Text>
+            <Text fontSize={'1.1rem'} fontWeight={'normal'}>
+              {tenantJobRole}
+            </Text>
+            <Text opacity={0.5}>{reasonToMove}</Text>
+          </Grid>
 
-          <Grid gap={isMobile ? '0' : '1rem'} placeContent={'start'} color="product.primary">
-            {tenantDetails.map((attributeCode, index) => {
-              return (
-                <DetailField
-                  key={`${attributeCode}-${index}`}
-                  sbeCode={sbeCode}
-                  code={baseEntityCode}
-                  attributeCode={attributeCode}
-                  index={index}
-                  actions={actions}
-                />
-              )
-            })}
+          <Grid gap={isMobile ? '0' : '0.75rem'} placeContent={'start'} color="product.primary">
+            {map(({ icon, attr, index }) => (
+              <>
+                {!!attr && (
+                  <Flex key={`${icon}-${index}`}>
+                    <Text as="p" marginInlineEnd={3}>
+                      <FontAwesomeIcon icon={icon} />
+                    </Text>
+                    <Text>{attr}</Text>
+                  </Flex>
+                )}
+              </>
+            ))(tenantInformation)}
           </Grid>
         </Grid>
 
@@ -100,7 +118,7 @@ const TemplateApplicationDetailView = ({ mappedPcm, depth }) => {
         </Text>
       </Grid>
 
-      <UploadedDocuments />
+      <UploadedDocuments code={targetCode} />
 
       <Grid
         templateColumns={isMobile ? '1fr' : '1fr 1fr'}
@@ -108,10 +126,10 @@ const TemplateApplicationDetailView = ({ mappedPcm, depth }) => {
         marginBlockStart={'clamp(1rem, 3vw, 3.75rem)'}
       >
         <Box>
-          <TenantInformation />
+          <TenantInformation code={targetCode} />
         </Box>
 
-        <Box>
+        <Box display={'none'}>
           <AcceptedRejectedLists />
         </Box>
       </Grid>
