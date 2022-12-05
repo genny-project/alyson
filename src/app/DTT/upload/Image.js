@@ -9,6 +9,13 @@ import {
   Image,
   Tooltip,
   useColorModeValue,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  useDisclosure,
 } from '@chakra-ui/react'
 import { compose, isEmpty, map, min, not } from 'ramda'
 import { faUpload, faUserAlt, faCamera } from '@fortawesome/free-solid-svg-icons'
@@ -21,6 +28,10 @@ import useApi from 'api'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
+import useProductColors from 'utils/productColors'
+import { useTheme } from '@emotion/react'
+
+import { faImages } from '@fortawesome/free-solid-svg-icons'
 
 const Write = ({
   questionCode,
@@ -84,11 +95,12 @@ const Write = ({
 const Read = ({ code, data, parentCode, variant, config, multiUpload }) => {
   const { getImageSrc, getImageSrcList } = useApi()
 
+  const { isOpen, onOpen, onClose } = useDisclosure()
+
   const src = getImageSrc(data?.value, { height: '500', width: '500' })
   const srcList =
-    getImageSrcList(safelyParseJson(data?.value), { height: '300', width: '500' }, 'cover') || []
+    getImageSrcList(safelyParseJson(data?.value), { height: '500', width: '500' }, 'cover') || []
 
-  console.log(srcList)
   const { cardDisplay } = config || ''
 
   const name = useSelector(selectCode(data?.baseEntityCode, 'PRI_NAME'))
@@ -101,6 +113,9 @@ const Read = ({ code, data, parentCode, variant, config, multiUpload }) => {
           code: 'ACT_PRI_EVENT_VIEW',
         })
       : null
+
+  const theme = useTheme()
+  const { buttonBackgroundColor } = useProductColors()
 
   const bg = useColorModeValue('gray.300', 'gray.600')
   if (variant === 'profile_image') {
@@ -120,23 +135,49 @@ const Read = ({ code, data, parentCode, variant, config, multiUpload }) => {
 
   if (multiUpload) {
     return (
-      <Box width={'100%'} position={'relative'}>
-        <Button zIndex={5} position={'absolute'} right={'8px'} bottom={'8px'}>
-          {`View ${srcList.length} photos`}
-        </Button>
-        <HStack justifyItems={'flex-start'} zIndex={1}>
-          {srcList.slice(0, imagePreviewCount).map((value, index) => (
-            <Image
-              maxH={'250px'}
-              fit={'cover'}
-              width={`${100 / imagePreviewCount}%`}
-              key={value}
-              {...config}
-              src={value}
-              {...getMultiImageStyling(index)}
-            />
-          ))}
-        </HStack>
+      <Box>
+        <Modal isOpen={isOpen} onClose={onClose} size={'4xl'}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>Images</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>"Hi!"</ModalBody>
+          </ModalContent>
+        </Modal>
+
+        <Box width={'100%'} position={'relative'}>
+          <Button
+            onClick={onOpen}
+            zIndex={5}
+            position={'absolute'}
+            right={'8px'}
+            bottom={'8px'}
+            rounded={100}
+            backgroundColor={buttonBackgroundColor}
+            color={theme.colors.background.light}
+            _hover={{
+              background: theme.colors.background.light,
+              color: buttonBackgroundColor,
+            }}
+          >
+            <FontAwesomeIcon icon={faImages} />
+            <Box mr={1} />
+            {`View ${srcList.length} photos`}
+          </Button>
+          <HStack justifyItems={'flex-start'} zIndex={1}>
+            {srcList.slice(0, imagePreviewCount).map((value, index) => (
+              <Image
+                maxH={'250px'}
+                fit={'cover'}
+                width={`${100 / imagePreviewCount}%`}
+                key={value}
+                {...config}
+                src={value}
+                {...getMultiImageStyling(index)}
+              />
+            ))}
+          </HStack>
+        </Box>
       </Box>
     )
   }
