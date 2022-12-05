@@ -153,11 +153,11 @@ const Read = ({ code, data, parentCode, variant, config, multiUpload }) => {
             right={'8px'}
             bottom={'8px'}
             rounded={100}
-            backgroundColor={buttonBackgroundColor}
-            color={theme.colors.background.light}
+            backgroundColor={theme.colors.background.light}
+            color={buttonBackgroundColor}
             _hover={{
-              background: theme.colors.background.light,
-              color: buttonBackgroundColor,
+              background: buttonBackgroundColor,
+              color: theme.colors.background.light,
             }}
           >
             <FontAwesomeIcon icon={faImages} />
