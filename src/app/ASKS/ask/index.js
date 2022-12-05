@@ -27,6 +27,7 @@ import ProgressBar from 'app/DTT/progress'
 import Radio from 'app/DTT/radio'
 import Rating from 'app/DTT/rating'
 import RichText from 'app/DTT/rich_text'
+import SearchableText from 'app/DTT/searchable_text'
 import Select from 'app/DTT/select'
 import Signature from 'app/DTT/signature'
 import Social from 'app/DTT/social'
@@ -47,7 +48,6 @@ import { selectCode } from 'redux/db/selectors'
 import { selectHighlightedQuestion } from 'redux/app/selectors'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import { useMobileValue } from 'utils/hooks'
-import SearchableText from 'app/DTT/searchable_text'
 
 const Ask = ({
   parentCode,
@@ -141,7 +141,7 @@ const Ask = ({
 
   if (readonly) {
     return (
-      <HStack>
+      <HStack flexWrap={'wrap'}>
         <CText id={attributeCode} w={labelWidth} textStyle="body.1">
           {name}
         </CText>
@@ -219,6 +219,7 @@ const Ask = ({
           visibility={'hidden'}
           transform={'scale(0)'}
           overflow={'hidden'}
+          flexWrap={'wrap '}
         >
           <FormLabel id={attributeCode} />
         </HStack>
