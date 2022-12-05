@@ -10,7 +10,7 @@ import {
   Tooltip,
   useColorModeValue,
 } from '@chakra-ui/react'
-import { compose, isEmpty, map, not } from 'ramda'
+import { compose, isEmpty, map, min, not } from 'ramda'
 import { faUpload, faUserAlt, faCamera } from '@fortawesome/free-solid-svg-icons'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -107,12 +107,14 @@ const Read = ({ code, data, parentCode, variant, config, multiUpload }) => {
     return <Image {...config} src={src} alt="profile-picture" w="10rem" borderRadius="xl" />
   }
 
+  const imagePreviewCount = min(srcList.length, 3)
+
   const getMultiImageStyling = index => {
     return {
       roundedBottomLeft: index === 0 ? 25 : 0,
       roundedTopLeft: index === 0 ? 25 : 0,
-      roundedBottomRight: index === 2 ? 25 : 0,
-      roundedTopRight: index === 2 ? 25 : 0,
+      roundedBottomRight: index === imagePreviewCount - 1 ? 25 : 0,
+      roundedTopRight: index === imagePreviewCount - 1 ? 25 : 0,
     }
   }
 
@@ -123,9 +125,11 @@ const Read = ({ code, data, parentCode, variant, config, multiUpload }) => {
           {`View ${srcList.length} photos`}
         </Button>
         <HStack justifyItems={'flex-start'} zIndex={1}>
-          {srcList.slice(0, 3).map((value, index) => (
+          {srcList.slice(0, imagePreviewCount).map((value, index) => (
             <Image
-              width="33%"
+              maxH={'250px'}
+              fit={'cover'}
+              width={`${100 / imagePreviewCount}%`}
               key={value}
               {...config}
               src={value}
