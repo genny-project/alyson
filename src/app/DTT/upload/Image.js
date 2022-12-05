@@ -5,6 +5,7 @@ import {
   ButtonGroup,
   CloseButton,
   HStack,
+  Box,
   Image,
   Tooltip,
   useColorModeValue,
@@ -85,7 +86,9 @@ const Read = ({ code, data, parentCode, variant, config, multiUpload }) => {
 
   const src = getImageSrc(data?.value, { height: '500', width: '500' })
   const srcList =
-    getImageSrcList(safelyParseJson(data?.value, { height: '500', width: '500' })) || []
+    getImageSrcList(safelyParseJson(data?.value), { height: '300', width: '500' }, 'cover') || []
+
+  console.log(srcList)
   const { cardDisplay } = config || ''
 
   const name = useSelector(selectCode(data?.baseEntityCode, 'PRI_NAME'))
@@ -104,13 +107,33 @@ const Read = ({ code, data, parentCode, variant, config, multiUpload }) => {
     return <Image {...config} src={src} alt="profile-picture" w="10rem" borderRadius="xl" />
   }
 
+  const getMultiImageStyling = index => {
+    return {
+      roundedBottomLeft: index === 0 ? 25 : 0,
+      roundedTopLeft: index === 0 ? 25 : 0,
+      roundedBottomRight: index === 2 ? 25 : 0,
+      roundedTopRight: index === 2 ? 25 : 0,
+    }
+  }
+
   if (multiUpload) {
     return (
-      <HStack justifyItems={'flex-start'}>
-        {srcList.map(value => (
-          <Image key={value} {...config} src={value} />
-        ))}
-      </HStack>
+      <Box width={'100%'} position={'relative'}>
+        <Button zIndex={5} position={'absolute'} right={'8px'} bottom={'8px'}>
+          {`View ${srcList.length} photos`}
+        </Button>
+        <HStack justifyItems={'flex-start'} zIndex={1}>
+          {srcList.slice(0, 3).map((value, index) => (
+            <Image
+              width="33%"
+              key={value}
+              {...config}
+              src={value}
+              {...getMultiImageStyling(index)}
+            />
+          ))}
+        </HStack>
+      </Box>
     )
   }
 

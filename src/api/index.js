@@ -51,17 +51,21 @@ const useApi = () => {
     return resp?.data?.data?.name || ''
   }
 
-  const getImageSrc = (uuid, dim) =>
+  const getImageSrc = (uuid, dim, scale = 'fit') =>
     uuid && uuid !== '[]'
-      ? `${IMAGE_URL}/${dim ? `${dim.width}x${dim.height || ''},fit/` : ''}${MEDIA_URL}/${uuid}`
+      ? `${IMAGE_URL}/${
+          dim ? `${dim.width}x${dim.height || ''},${scale}/` : ''
+        }${MEDIA_URL}/${uuid}`
       : null
 
   const getDocumentSrc = (uuid, dim) => (uuid && uuid !== '[]' ? `${MEDIA_URL}/${uuid}` : null)
 
-  const getImageSrcList = (uuidList, dim) =>
+  const getImageSrcList = (uuidList, dim, scale = 'fit') =>
     map(uuid =>
       uuid
-        ? `${IMAGE_URL}/${dim ? `${dim.width}x${dim.height || ''},fit/` : ''}${MEDIA_URL}/${uuid}`
+        ? `${IMAGE_URL}/${
+            dim ? `${dim.width}x${dim.height || ''},${scale}/` : ''
+          }${MEDIA_URL}/${uuid}`
         : null,
     )(uuidList || [])
 
