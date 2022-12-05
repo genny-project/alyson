@@ -19,6 +19,7 @@ import { selectCode } from 'redux/db/selectors'
 import useApi from 'api'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
+import safelyParseJson from 'utils/helpers/safely-parse-json'
 
 const Write = ({
   questionCode,
@@ -79,11 +80,13 @@ const Write = ({
   )
 }
 
-const Read = ({ code, data, parentCode, variant, config }) => {
-  const { getImageSrc } = useApi()
+const Read = ({ code, data, parentCode, variant, config, multiUpload }) => {
+  const { getImageSrc, getImageSrcList } = useApi()
+
   const src = getImageSrc(data?.value, { height: '500', width: '500' })
-  //Custom attributes must be lower case
-  const { carddisplay } = config || ''
+  const srcList =
+    getImageSrcList(safelyParseJson(data?.value, { height: '500', width: '500' })) || []
+  const { cardDisplay } = config || ''
 
   const name = useSelector(selectCode(data?.baseEntityCode, 'PRI_NAME'))
   const assocName = useSelector(selectCode(data?.baseEntityCode, 'PRI_INTERN_NAME'))
@@ -101,7 +104,17 @@ const Read = ({ code, data, parentCode, variant, config }) => {
     return <Image {...config} src={src} alt="profile-picture" w="10rem" borderRadius="xl" />
   }
 
-  if (!!carddisplay) {
+  if (multiUpload) {
+    return (
+      <HStack justifyItems={'flex-start'}>
+        {srcList.map(value => (
+          <Image key={value} {...config} src={value} />
+        ))}
+      </HStack>
+    )
+  }
+
+  if (!!cardDisplay) {
     return (
       <AspectRatio>
         <Avatar
