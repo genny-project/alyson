@@ -135,7 +135,7 @@ const Read = ({ code, data, parentCode, variant, config, multiUpload }) => {
 
   if (multiUpload) {
     return (
-      <Box>
+      <Box width={'100%'}>
         <Modal isOpen={isOpen} onClose={onClose} size={'4xl'}>
           <ModalOverlay />
           <ModalContent>
