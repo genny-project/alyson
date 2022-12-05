@@ -14,16 +14,18 @@ import {
   faEnvelope,
   faGraduationCap,
   faHourglass,
-  faMapPin,
-  faPhone,
+  faMapMarkerAlt,
+  faPhoneAlt,
 } from '@fortawesome/free-solid-svg-icons'
 
 import AcceptedRejectedLists from './acceptedRejectedLists'
+import Attribute from 'app/BE/attribute'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import TenantInformation from './tenantInformation'
 import UploadedDocuments from './uploadedDocuments'
 import { map } from 'ramda'
 import { selectCode } from 'redux/db/selectors'
+import useApi from 'api'
 import { useIsMobile } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 
@@ -43,16 +45,13 @@ const TemplateApplicationDetailView = ({ mappedPcm, depth }) => {
   const tenantJobRole = useSelector(selectCode(targetCode, 'PRI_ROLE_AT_COMPANY'))?.value
   const reasonToMove = useSelector(selectCode(targetCode, 'LNK_MOVE_REASON'))?.value
 
-  const tenantContact = useSelector(selectCode(targetCode, 'PRI_PHONE'))?.value
-  const tenantEmail = useSelector(selectCode(targetCode, 'PRI_EMAIL'))?.value
-  const tenantAddress = useSelector(selectCode(targetCode, 'PRI_CURRENT_ADDRESS'))?.value
-  const tenantCompanyName = useSelector(selectCode(targetCode, 'PRI_COMPANY_NAME'))?.value
+  const { getImageSrc } = useApi()
 
   const tenantInformation = [
-    { icon: faPhone, attr: tenantContact },
-    { icon: faEnvelope, attr: tenantEmail },
-    { icon: faMapPin, attr: tenantAddress },
-    { icon: faGraduationCap, attr: tenantCompanyName },
+    { icon: faPhoneAlt, attr: 'PRI_MOBILE' },
+    { icon: faEnvelope, attr: 'PRI_EMAIL' },
+    { icon: faMapMarkerAlt, attr: 'PRI_ADDRESS_COUNTRY' },
+    { icon: faGraduationCap, attr: 'LNK_CAMPUS_SELECTION' },
   ]
 
   return (
@@ -70,7 +69,7 @@ const TemplateApplicationDetailView = ({ mappedPcm, depth }) => {
         marginBlockStart={isMobile ? 12 : 0}
       >
         <AspectRatio w={'clamp(6rem, 10vw, 12rem)'} ratio={1}>
-          <Avatar name={tenantFullName} src={tenantImage} />
+          <Avatar name={tenantFullName} src={getImageSrc(tenantImage)} />
         </AspectRatio>
 
         <Grid templateColumns={isMobile ? '1fr' : '1fr 2fr'}>
@@ -85,17 +84,13 @@ const TemplateApplicationDetailView = ({ mappedPcm, depth }) => {
           </Grid>
 
           <Grid gap={isMobile ? '0' : '0.75rem'} placeContent={'start'} color="product.primary">
-            {map(({ icon, attr, index }) => (
-              <>
-                {!!attr && (
-                  <Flex key={`${icon}-${index}`}>
-                    <Text as="p" marginInlineEnd={3}>
-                      <FontAwesomeIcon icon={icon} />
-                    </Text>
-                    <Text>{attr}</Text>
-                  </Flex>
-                )}
-              </>
+            {map(({ icon, attr }, index) => (
+              <Flex key={`${icon}-${index}`}>
+                <Text as="p" marginInlineEnd={3}>
+                  <FontAwesomeIcon icon={icon} />
+                </Text>
+                <Attribute code={targetCode} attribute={attr} />
+              </Flex>
             ))(tenantInformation)}
           </Grid>
         </Grid>
