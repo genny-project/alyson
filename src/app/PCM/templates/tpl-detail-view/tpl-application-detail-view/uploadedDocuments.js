@@ -34,7 +34,7 @@ const UploadedDocuments = ({ code }) => {
           gap={'clamp(1rem, 2vw, 3.25rem)'}
         >
           {map(({ title, attr }) => (
-            <>
+            <Box key={title}>
               {!!attr && (
                 <VStack
                   key={title}
@@ -77,7 +77,7 @@ const UploadedDocuments = ({ code }) => {
                   </Text>
                 </VStack>
               )}
-            </>
+            </Box>
           ))(documents)}
         </Grid>
       </Box>
