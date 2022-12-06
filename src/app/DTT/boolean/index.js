@@ -1,19 +1,21 @@
 import { Radio, RadioGroup, Stack, Text } from '@chakra-ui/react'
 import { equals, split } from 'ramda'
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
+import { selectCode } from 'redux/db/selectors'
 import isNullOrUndefined from 'utils/helpers/is-null-or-undefined'
 
 const Read = ({ data }) => {
   const labels = split(';')(data?.html?.labels || 'Yes;No')
+  const name = useSelector(selectCode(data?.attributeCode, 'attributeName')) || ''
   if (isNullOrUndefined(data?.value)) {
     return null
   }
-  console.log(data?.value)
 
   return (
     <Stack ml={1} direction={'row'} spacing={5} justifyContent={'flex-start'}>
       <Text as="label" color="gray.700">
-        {data?.placeholder}
+        {name}
       </Text>
       <Text>{labels[data?.value ? 0 : 1]}</Text>
     </Stack>
