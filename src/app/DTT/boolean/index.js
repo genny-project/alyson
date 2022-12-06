@@ -49,8 +49,12 @@ const Write = ({ questionCode, data, onSendAnswer, placeholderName, html, isRequ
       </Text>
       <RadioGroup value={value} onChange={onChange}>
         <Stack direction={vertical ? 'column' : 'row'}>
-          <Radio value={true}>{labels[0]}</Radio>
-          <Radio value={false}>{labels[1]}</Radio>
+          <Radio borderColor={'grey'} value={true}>
+            {labels[0]}
+          </Radio>
+          <Radio borderColor={'grey'} value={false}>
+            {labels[1]}
+          </Radio>
         </Stack>
       </RadioGroup>
     </Stack>
