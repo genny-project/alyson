@@ -20,6 +20,7 @@ const Write = ({ questionCode, data, onSendAnswer, placeholderName, html, isRequ
 
   return (
     <Stack
+      ml={1}
       direction={vertical ? 'column' : 'row'}
       spacing={5}
       justifyContent={vertical ? 'flex-start' : 'space-between'}
