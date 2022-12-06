@@ -33,6 +33,7 @@ import useProductColors from 'utils/productColors'
 import { useTheme } from '@emotion/react'
 
 import { faImages } from '@fortawesome/free-solid-svg-icons'
+import MultiImageViewer from './multi-image-viewer'
 
 const Write = ({
   questionCode,
@@ -140,13 +141,15 @@ const Read = ({ code, data, parentCode, variant, config, multiUpload }) => {
 
   if (multiUpload) {
     return (
-      <Box width={'100%'}>
+      <Box width={`${(100 / 3) * imagePreviewCount}%`}>
         <Modal isOpen={isOpen} onClose={onClose} size={'4xl'}>
           <ModalOverlay />
           <ModalContent>
             <ModalHeader>Images</ModalHeader>
             <ModalCloseButton />
-            <ModalBody>"Hi!"</ModalBody>
+            <ModalBody>
+              <MultiImageViewer uuidList={safelyParseJson(data?.value)} />
+            </ModalBody>
           </ModalContent>
         </Modal>
 
