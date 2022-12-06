@@ -48,6 +48,7 @@ import { selectCode } from 'redux/db/selectors'
 import { selectHighlightedQuestion } from 'redux/app/selectors'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import { useMobileValue } from 'utils/hooks'
+import Boolean from 'app/DTT/boolean'
 
 const Ask = ({
   parentCode,
@@ -618,7 +619,7 @@ const Ask = ({
         />
       )}
       {component === 'flag' && (
-        <Flag.Write
+        <Boolean.Write
           data={data}
           questionCode={questionCode}
           onSendAnswer={onSendAnswer}
@@ -629,6 +630,8 @@ const Ask = ({
           attributeCode={attributeCode}
           targetCode={targetCode}
           clientId={clientId}
+          html={html}
+          isRequired={mandatory}
         />
       )}
       {component === 'progress' && (
