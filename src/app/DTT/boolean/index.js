@@ -1,11 +1,23 @@
 import { Radio, RadioGroup, Stack, Text } from '@chakra-ui/react'
 import { equals, split } from 'ramda'
 import { useState } from 'react'
+import isNullOrUndefined from 'utils/helpers/is-null-or-undefined'
 
 const Read = ({ data }) => {
-  if (!data?.value) return null
+  const labels = split(';')(data?.html?.labels || 'Yes;No')
+  if (isNullOrUndefined(data?.value)) {
+    return null
+  }
+  console.log(data?.value)
 
-  return <Text>{data?.value}</Text>
+  return (
+    <Stack ml={1} direction={'row'} spacing={5} justifyContent={'flex-start'}>
+      <Text as="label" color="gray.700">
+        {data?.placeholder}
+      </Text>
+      <Text>{labels[data?.value ? 0 : 1]}</Text>
+    </Stack>
+  )
 }
 
 const Write = ({ questionCode, data, onSendAnswer, placeholderName, html, isRequired }) => {

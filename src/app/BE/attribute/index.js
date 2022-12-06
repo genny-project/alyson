@@ -26,6 +26,7 @@ import { useSelector } from 'react-redux'
 import HtmlEditor from 'app/DTT/html-editor'
 import Favourites from 'app/DTT/favourites'
 import ProgressBar from 'app/DTT/progress'
+import Boolean from 'app/DTT/boolean'
 
 const Attribute = ({
   code,
@@ -107,7 +108,7 @@ const Attribute = ({
   ) : component === 'checkbox' ? (
     <CheckBox.Read data={data} />
   ) : component === 'flag' ? (
-    <Flag.Read data={data} />
+    <Boolean.Read data={data} />
   ) : component === 'html_editor' ? (
     <HtmlEditor.Read data={data} />
   ) : component === 'favourites' ? (
