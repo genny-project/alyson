@@ -121,9 +121,7 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
                   ${rentAmount}/{rentFreq}
                 </Box>
               </HStack>
-              <Box height={'17em'} bg="red">
-                hello world
-              </Box>
+              <Box height={'17em'}></Box>
             </VStack>
           </Box>
           {showApllyButton && (
