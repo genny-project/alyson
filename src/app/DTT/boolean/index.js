@@ -1,4 +1,4 @@
-import { HStack, Radio, RadioGroup, Stack, Text } from '@chakra-ui/react'
+import { Radio, RadioGroup, Stack, Text } from '@chakra-ui/react'
 import { equals, split } from 'ramda'
 import { useState } from 'react'
 
@@ -19,7 +19,11 @@ const Write = ({ questionCode, data, onSendAnswer, placeholderName, html, isRequ
   }
 
   return (
-    <HStack spacing={5} justifyContent={'space-between'}>
+    <Stack
+      direction={vertical ? 'column' : 'row'}
+      spacing={5}
+      justifyContent={vertical ? 'flex-start' : 'space-between'}
+    >
       <Text as="label" color="gray.700">
         {placeholderName}
         {isRequired && (
@@ -34,7 +38,7 @@ const Write = ({ questionCode, data, onSendAnswer, placeholderName, html, isRequ
           <Radio value={false}>{labels[1]}</Radio>
         </Stack>
       </RadioGroup>
-    </HStack>
+    </Stack>
   )
 }
 
