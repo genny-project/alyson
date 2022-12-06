@@ -41,7 +41,6 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
   const rooms = filter(includes('ROOM'))(fields) || []
 
   const descriptionCode = findCode('PRI_DESCRIPTION') || findCode('PRI_PROPERTY_DESCRIPTION')
-
   const rentAmountCode = findCode('PRI_RENTAL_AMOUNT')
   const rentAmount = useSelector(selectCode(baseEntityCode, rentAmountCode))?.value || ''
 
