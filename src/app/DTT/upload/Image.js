@@ -4,13 +4,13 @@ import {
   Button,
   ButtonGroup,
   CloseButton,
-  HStack,
+  Grid,
   Image,
   Tooltip,
   useColorModeValue,
 } from '@chakra-ui/react'
 import { compose, isEmpty, map, not } from 'ramda'
-import { faUpload, faUserAlt, faCamera } from '@fortawesome/free-solid-svg-icons'
+import { faCamera, faUpload, faUserAlt } from '@fortawesome/free-solid-svg-icons'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Snap from './Snap'
@@ -46,14 +46,18 @@ const Write = ({
         <Snap handleSave={handleSave} setOpenSnap={setOpenSnap} setLoading={setLoading} />
       )}
       {displayImages && (
-        <HStack mb="2">
-          <HStack>
-            {map(individualImageSrc => <Avatar size="xl" src={individualImageSrc} />)(src)}
-          </HStack>
+        <Grid templateColumns={'1fr auto'} gap={'1rem'} mb="2">
+          <Grid templateColumns={'repeat(auto-fit, minmax(min(100%, 5.5rem), 1fr))'} gap="1rem">
+            {map(individualImageSrc => (
+              <AspectRatio ratio={1}>
+                <Avatar w={'100%'} src={individualImageSrc} />
+              </AspectRatio>
+            ))(src)}
+          </Grid>
           <Tooltip label="Click to remove your selections.">
             <CloseButton cursor="pointer" onClick={onRemoveImage} />
           </Tooltip>
-        </HStack>
+        </Grid>
       )}
       <div hidden={dropzone || openSnap}>
         <ButtonGroup>

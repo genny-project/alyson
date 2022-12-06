@@ -62,6 +62,7 @@ const Submit = ({ askData, onFinish, parentCode, clientId }) => {
 
   return (
     <>
+      {/* need to find another way to notify the users about mandatory questions, top on priority.
       {!isLoj && (
         <VStack
           pb="1rem"
@@ -92,7 +93,7 @@ const Submit = ({ askData, onFinish, parentCode, clientId }) => {
             ))}
           </Wrap>
         </VStack>
-      )}
+      )} */}
       <Button
         isLoading={loading}
         test-id={questionCode}
