@@ -1,16 +1,61 @@
-import { Radio as CRadio, RadioGroup, Stack } from '@chakra-ui/react'
-import { compose, includes, map } from 'ramda'
+import { Radio as CRadio, RadioGroup, Stack, Text } from '@chakra-ui/react'
+import { compose, equals, includes, map, split } from 'ramda'
 
-import { Read } from 'app/DTT/text'
+import { Read as TextRead } from 'app/DTT/text'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { selectCode } from 'redux/db/selectors'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
+import isNullOrUndefined from 'utils/helpers/is-null-or-undefined'
 
-const Write = ({ questionCode, data, onSendAnswer, groupCode, parentCode }) => {
-  const radioData = useSelector(selectCode(`${parentCode}-${questionCode}-options`)) || []
-  const options = compose(map(({ code, name }) => ({ label: name, value: code })))(radioData)
+const Read = ({ data, boolean }) => {
+  const labels = split(';')(data?.html?.labels || 'Yes;No')
+  const name = useSelector(selectCode(data?.attributeCode, 'attributeName')) || ''
+
+  if (boolean) {
+    return <TextRead data={data} />
+  }
+
+  if (isNullOrUndefined(data?.value)) {
+    return null
+  }
+
+  return (
+    <Stack ml={1} direction={'row'} spacing={5} justifyContent={'flex-start'}>
+      <Text as="label" color="gray.700">
+        {name}
+      </Text>
+      <Text>{labels[data?.value ? 0 : 1]}</Text>
+    </Stack>
+  )
+}
+
+const Write = ({
+  questionCode,
+  data,
+  onSendAnswer,
+  groupCode,
+  parentCode,
+  placeholderName,
+  html,
+  isRequired,
+  boolean,
+}) => {
+  const labels = split(';')(html?.labels || 'Yes;No')
+  const vertical = html?.vertical || false
+
+  const selectedRadioData = useSelector(selectCode(`${parentCode}-${questionCode}-options`)) || []
+
+  const selectedOptions = compose(map(({ code, name }) => ({ label: name, value: code })))(
+    selectedRadioData,
+  )
+  const booleanOptions = [
+    { label: labels[0], value: true },
+    { label: labels[1], value: false },
+  ]
+
+  const options = boolean ? booleanOptions : selectedOptions
 
   // This checks if it is an Stringified Array
   const arrayValue = includes('[', data?.value || '') ? safelyParseJson(data?.value, []) : []
@@ -20,30 +65,51 @@ const Write = ({ questionCode, data, onSendAnswer, groupCode, parentCode }) => {
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
 
   const onChange = value => {
-    setValue(value)
-    onSendAnswer([value])
+    const newValue = boolean ? equals(value)('true') : value
+    setValue(newValue)
+    onSendAnswer(boolean ? newValue : [newValue])
     dispatchFieldMessage({ payload: questionCode })
   }
-
   return (
-    <RadioGroup colorScheme="green" test-id={questionCode} value={value} onChange={onChange}>
-      <Stack test-id={groupCode} direction="row">
-        {options &&
-          map(
-            option =>
-              option && (
-                <CRadio
-                  id={questionCode}
-                  key={option.value}
-                  test-id={`${option.value}-${parentCode}`}
-                  value={option.value}
-                >
-                  {option.label}
-                </CRadio>
-              ),
-          )(options)}
-      </Stack>
-    </RadioGroup>
+    <Stack
+      ml={1}
+      direction={vertical ? 'column' : 'row'}
+      spacing={5}
+      justifyContent={vertical ? 'flex-start' : 'space-between'}
+    >
+      <Text as="label" color="gray.700">
+        {placeholderName}
+        {isRequired && (
+          <Text as="span" color={'red.500'} ml={1}>
+            *
+          </Text>
+        )}
+      </Text>
+      <RadioGroup value={value} onChange={onChange}>
+        <Stack direction={vertical ? 'column' : 'row'}>
+          {options &&
+            map(
+              option =>
+                option && (
+                  <CRadio
+                    id={questionCode}
+                    key={option.value}
+                    test-id={`${option.value}-${parentCode}`}
+                    value={option.value}
+                  >
+                    {option.label}
+                  </CRadio>
+                ),
+            )(options)}
+          <CRadio borderColor={'grey'} value={true}>
+            {labels[0]}
+          </CRadio>
+          <Radio borderColor={'grey'} value={false}>
+            {labels[1]}
+          </Radio>
+        </Stack>
+      </RadioGroup>
+    </Stack>
   )
 }
 

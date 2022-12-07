@@ -27,6 +27,7 @@ import HtmlEditor from 'app/DTT/html-editor'
 import Favourites from 'app/DTT/favourites'
 import ProgressBar from 'app/DTT/progress'
 import Boolean from 'app/DTT/boolean'
+import Radio from 'app/DTT/radio'
 
 const Attribute = ({
   code,
@@ -107,7 +108,7 @@ const Attribute = ({
     <TimeZonePicker.Read data={data} />
   ) : component === 'checkbox' ? (
     <CheckBox.Read data={data} />
-  ) : component === 'flag' ? (
+  ) : component === 'flag-disabled' ? ( //TODO: Renable
     <Boolean.Read data={data} />
   ) : component === 'html_editor' ? (
     <HtmlEditor.Read data={data} />
@@ -115,6 +116,8 @@ const Attribute = ({
     <Favourites.Read data={data} />
   ) : component === 'progress' ? (
     <ProgressBar data={data} />
+  ) : component === 'radio' || component === 'flag' ? (
+    <Radio.Read data={data} boolean={component === 'flag'} />
   ) : (
     <CText>{data?.value}</CText>
   )
