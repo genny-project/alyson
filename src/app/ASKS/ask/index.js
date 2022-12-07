@@ -632,8 +632,7 @@ const Ask = ({
           attributeCode={attributeCode}
           targetCode={targetCode}
           clientId={clientId}
-          html={html}
-          isRequired={mandatory}
+          mandatory={mandatory}
         />
       )} */}
       {component === 'progress' && (
