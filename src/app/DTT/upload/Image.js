@@ -47,7 +47,7 @@ const Write = ({
       )}
       {displayImages && (
         <Grid templateColumns={'1fr auto'} gap={'1rem'} mb="2">
-          <Grid templateColumns={'repeat(auto-fit, minmax(min(100%, 5.5rem), 1fr))'} gap="1rem">
+          <Grid templateColumns={'repeat(auto-fill, minmax(min(100%, 5.5rem), 1fr))'} gap="1rem">
             {map(individualImageSrc => (
               <AspectRatio ratio={1}>
                 <Avatar w={'100%'} src={individualImageSrc} />
