@@ -20,7 +20,7 @@ const Read = ({ data = {} }) => {
   return <Switch isChecked={data.value} onChange={toggle} />
 }
 
-const Write = ({ questionCode, data, onSendAnswer, placeholderName: label }) => {
+const Write = ({ questionCode, data, onSendAnswer, placeholderName: label, mandatory }) => {
   const [isChecked, setIsChecked] = useState(false)
   const clientId = apiConfig?.clientId
   const handleToggle = () => {
@@ -40,7 +40,17 @@ const Write = ({ questionCode, data, onSendAnswer, placeholderName: label }) => 
 
   return (
     <HStack spacing={5} justifyContent={'space-between'}>
-      <Text color="gray.700">{label}</Text>
+      <HStack>
+        <Text color="gray.700">{label}</Text>
+        {mandatory ? (
+          <Text as="span" color={'red.500'} ml={1}>
+            *
+          </Text>
+        ) : (
+          <></>
+        )}
+      </HStack>
+
       <Box>
         <Switch
           colorScheme={equals(clientId)('lojing') ? 'orange' : 'primary'}

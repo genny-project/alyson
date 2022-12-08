@@ -40,7 +40,7 @@ import { useRef } from 'react'
  *
  * `PRI_LOC3` -> The Main content being displayed
  */
-const TemplateRoot = ({ mappedPcm, depth }) => {
+const TemplateRoot = ({ mappedPcm, depth, showTemplateNames }) => {
   const theme = useTheme()
   const btnRef = useRef()
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -142,7 +142,13 @@ const TemplateRoot = ({ mappedPcm, depth }) => {
         backgroundColor={lightColor}
         id="main-display"
         pb={1}
-        h={isMobile ? 'calc(100vh - 80px)' : 'calc(100vh - 86px)'}
+        h={
+          showTemplateNames
+            ? 'calc(100vh - 170px)'
+            : isMobile
+            ? 'calc(100vh - 80px)'
+            : 'calc(100vh - 86px)'
+        }
         overflow="auto"
         area={'main'}
       >
