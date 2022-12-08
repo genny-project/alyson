@@ -48,7 +48,6 @@ import { selectCode } from 'redux/db/selectors'
 import { selectHighlightedQuestion } from 'redux/app/selectors'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import { useMobileValue } from 'utils/hooks'
-import Boolean from 'app/DTT/boolean'
 
 const Ask = ({
   parentCode,
@@ -300,7 +299,7 @@ const Ask = ({
         />
       )}
       {component === 'radio' ||
-        (component === 'flag' && (
+        (component === 'boolean' && (
           <Radio.Write
             questionCode={questionCode}
             groupCode={groupCode}
@@ -314,7 +313,7 @@ const Ask = ({
             placeholderName={placeholderName}
             targetCode={targetCode}
             clientId={clientId}
-            boolean={equals('flag')(component)}
+            boolean={equals('boolean')(component)}
           />
         ))}
       {component === 'text' && (
@@ -620,8 +619,8 @@ const Ask = ({
           clientId={clientId}
         />
       )}
-      {/* {component === 'flag' && (
-        <Boolean.Write
+      {component === 'flag' && (
+        <Flag.Write
           data={data}
           questionCode={questionCode}
           onSendAnswer={onSendAnswer}
@@ -634,7 +633,7 @@ const Ask = ({
           clientId={clientId}
           mandatory={mandatory}
         />
-      )} */}
+      )}
       {component === 'progress' && (
         <ProgressBar
           data={data}

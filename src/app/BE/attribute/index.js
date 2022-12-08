@@ -26,7 +26,6 @@ import { useSelector } from 'react-redux'
 import HtmlEditor from 'app/DTT/html-editor'
 import Favourites from 'app/DTT/favourites'
 import ProgressBar from 'app/DTT/progress'
-import Boolean from 'app/DTT/boolean'
 import Radio from 'app/DTT/radio'
 
 const Attribute = ({
@@ -108,16 +107,16 @@ const Attribute = ({
     <TimeZonePicker.Read data={data} />
   ) : component === 'checkbox' ? (
     <CheckBox.Read data={data} />
-  ) : component === 'flag-disabled' ? ( //TODO: Renable
-    <Boolean.Read data={data} />
+  ) : component === 'flag' ? (
+    <Flag.Read data={data} />
   ) : component === 'html_editor' ? (
     <HtmlEditor.Read data={data} />
   ) : component === 'favourites' ? (
     <Favourites.Read data={data} />
   ) : component === 'progress' ? (
     <ProgressBar data={data} />
-  ) : component === 'radio' || component === 'flag' ? (
-    <Radio.Read data={data} boolean={component === 'flag'} />
+  ) : component === 'radio' || component === 'boolean' ? (
+    <Radio.Read data={data} boolean={component === 'boolean'} />
   ) : (
     <CText>{data?.value}</CText>
   )

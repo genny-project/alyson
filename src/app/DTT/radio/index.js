@@ -39,7 +39,7 @@ const Write = ({
   parentCode,
   placeholderName,
   html,
-  isRequired,
+  mandatory,
   boolean,
 }) => {
   const labels = split(';')(html?.labels || 'Yes;No')
@@ -79,7 +79,7 @@ const Write = ({
     >
       <Text as="label" color="gray.700">
         {placeholderName}
-        {isRequired && (
+        {mandatory && (
           <Text as="span" color={'red.500'} ml={1}>
             *
           </Text>
@@ -93,20 +93,14 @@ const Write = ({
                 option && (
                   <CRadio
                     id={questionCode}
-                    key={option.value}
+                    key={`${option.value}`}
                     test-id={`${option.value}-${parentCode}`}
                     value={option.value}
                   >
-                    {option.label}
+                    {`${option.label}`}
                   </CRadio>
                 ),
             )(options)}
-          <CRadio borderColor={'grey'} value={true}>
-            {labels[0]}
-          </CRadio>
-          <Radio borderColor={'grey'} value={false}>
-            {labels[1]}
-          </Radio>
         </Stack>
       </RadioGroup>
     </Stack>
