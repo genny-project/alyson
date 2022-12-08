@@ -73,9 +73,9 @@ const Write = ({
   return (
     <Stack
       ml={1}
-      direction={vertical ? 'column' : 'row'}
+      direction={vertical || options?.length || 0 > 2 ? 'column' : 'row'} // just making sure that longer sets of options don't end up weirdly arranged
       spacing={5}
-      justifyContent={vertical ? 'flex-start' : 'space-between'}
+      justifyContent={vertical || options?.length || 0 ? 'flex-start' : 'space-between'}
     >
       <Text as="label" color="gray.700">
         {placeholderName}
