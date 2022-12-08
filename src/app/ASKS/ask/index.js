@@ -646,6 +646,7 @@ const Ask = ({
           attributeCode={attributeCode}
           targetCode={trueTargetCode}
           clientId={clientId}
+          mandatory={mandatory}
         />
       )}
       {component === 'progress' && (
