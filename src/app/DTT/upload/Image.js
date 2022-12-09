@@ -105,7 +105,7 @@ const Read = ({ code, data, parentCode, variant, config, multiUpload }) => {
 
   const src = getImageSrc(data?.value, { height: '500', width: '500' })
   const srcList =
-    getImageSrcList(safelyParseJson(data?.value), { height: '500', width: '500' }, 'cover') || []
+    getImageSrcList(safelyParseJson(data?.value), { height: '500', width: '600' }, 'cover') || []
   const { cardDisplay } = config || ''
 
   const name = useSelector(selectCode(data?.baseEntityCode, 'PRI_NAME'))
@@ -173,7 +173,7 @@ const Read = ({ code, data, parentCode, variant, config, multiUpload }) => {
           </Button>
           <HStack justifyItems={'flex-start'} zIndex={1}>
             {srcList.slice(0, imagePreviewCount).map((value, index) => (
-              <AspectRatio key={value} width={`${100 / imagePreviewCount}%`}>
+              <AspectRatio key={value} width={`${100 / imagePreviewCount}%`} maxHeight={350}>
                 <Box {...getMultiImageStyling(index)}>
                   <Image fit={'cover'} {...config} src={value} overflow="hidden" />
                 </Box>
