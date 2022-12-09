@@ -1,3 +1,6 @@
+import { Box, Text } from '@chakra-ui/react'
+import { TemplateHori, TemplateHoriAll, TemplateVert, TemplateVertAll } from './vert-and-hori'
+
 import TemplateAddItems from './tpl-add-items'
 import TemplateApplicationDetailView from './tpl-detail-view/tpl-application-detail-view'
 import TemplateAvatar from './tpl-avatar'
@@ -5,26 +8,24 @@ import TemplateBell from './tpl-bell'
 import TemplateCard from './tpl-card'
 import TemplateContent from './tpl-content'
 import TemplateDefault from 'app/PCM/templates/tpl-default'
+import TemplateDetailView from './tpl-detail-view'
 import TemplateDisplay from 'app/PCM/templates/tpl-display'
 import TemplateForm from 'app/PCM/templates/tpl-form'
 import TemplateHeader from 'app/PCM/templates/tpl-header'
 import TemplateHorizontalCards from './tpl_horizontal_cards'
 import TemplateLogo from 'app/PCM/templates/tpl-logo'
+import TemplatePopup from './tpl_popup'
 import TemplateProcess from './tpl-process'
 import TemplateProgressBar from 'app/PCM/templates/tpl-progress-bar'
 import TemplatePropertyDetailView from './tpl-detail-view/tpl-property-detail-view'
 import TemplateRoot from 'app/PCM/templates/tpl-root'
+import TemplateSBEDetailView from './tpl-detail-view/tpl-sbe-detail-view'
 import TemplateSidebarOne from 'app/PCM/templates/tpl-sidebar-one'
 import TemplateTable from './tpl-table'
 import TemplateText from './text-templates'
 import debugOut from 'utils/debug-out'
 import hasNot from 'utils/helpers/has-not.js'
-import TemplateDetailView from './tpl-detail-view'
 import showTemplateNames from 'utils/helpers/show-template-names'
-import { Box, Text } from '@chakra-ui/react'
-import TemplatePopup from './tpl_popup'
-import TemplateSBEDetailView from './tpl-detail-view/tpl-sbe-detail-view'
-import { TemplateHori, TemplateHoriAll, TemplateVert, TemplateVertAll } from './vert-and-hori'
 
 /**
  * Takes in a mappedPcm, a templateCode and some misc properties and returns a template component.
@@ -42,7 +43,7 @@ const templateHandlerMachine = depth => mappedPcm => templateCode => parentCode 
 
   const listOfTemplates = {
     TPL_DEFAULT: <TemplateDefault />,
-    TPL_ROOT: <TemplateRoot {...mandatoryProps} />,
+    TPL_ROOT: <TemplateRoot showTemplateNames={showTemplateNames} {...mandatoryProps} />,
     TPL_SIDEBAR_1: <TemplateSidebarOne {...mandatoryProps} />,
     TPL_VERT: <TemplateVert {...mandatoryProps} />,
     TPL_VERT_ALL: <TemplateVertAll {...mandatoryProps} />,
@@ -85,12 +86,25 @@ const templateHandlerMachine = depth => mappedPcm => templateCode => parentCode 
     debugOut.warn(`No template exists for code: ${templateCode}! Falling back on default tempalte!`)
   }
 
+  const color = Math.random().toString(16).substr(-6)
+
   return showTemplateNames ? (
-    <Box>
-      <Text>
+    <Box position={'relative'}>
+      <Text
+        position={'absolute'}
+        top={0}
+        left={0}
+        fontSize={'sm'}
+        bg={`#${color}` || 'red'}
+        color={'white'}
+        px={3}
+        wordBreak={'break-word'}
+      >
         {noMatchingTemplates ? `TPL_DEFAULT (Couldn't find ${templateCode})` : templateCode}
       </Text>
-      <Box border="solid 2px red">{template}</Box>
+      <Box pt={7} pb={4} px={4} outline={`1px solid #${color || 'red'}`} outlineOffset={-1}>
+        {template}
+      </Box>
     </Box>
   ) : (
     template
