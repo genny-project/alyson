@@ -41,7 +41,7 @@ const Read = ({ code, data, dttData, parentCode, variant, config = {} }) => {
     }
   }, [api, data?.value])
 
-  if (typeName === 'Image')
+  if (typeName === 'Image' || typeName === 'Multi Image')
     return (
       <ImageType.Read
         code={code}
@@ -49,6 +49,7 @@ const Read = ({ code, data, dttData, parentCode, variant, config = {} }) => {
         parentCode={parentCode}
         variant={variant}
         config={config}
+        multiUpload={typeName === 'Multi Image'}
       />
     )
   if (!data?.value) return null
