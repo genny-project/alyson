@@ -4,13 +4,22 @@ import {
   Button,
   ButtonGroup,
   CloseButton,
+  HStack,
+  Box,
   Grid,
   Image,
   Tooltip,
   useColorModeValue,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  useDisclosure,
 } from '@chakra-ui/react'
-import { compose, isEmpty, map, not } from 'ramda'
-import { faCamera, faUpload, faUserAlt } from '@fortawesome/free-solid-svg-icons'
+import { compose, isEmpty, map, min, not } from 'ramda'
+import { faUpload, faUserAlt, faCamera } from '@fortawesome/free-solid-svg-icons'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Snap from './Snap'
@@ -19,6 +28,12 @@ import { selectCode } from 'redux/db/selectors'
 import useApi from 'api'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
+import safelyParseJson from 'utils/helpers/safely-parse-json'
+import useProductColors from 'utils/productColors'
+import { useTheme } from '@emotion/react'
+
+import { faImages } from '@fortawesome/free-solid-svg-icons'
+import MultiImageViewer from './multi-image-viewer'
 
 const Write = ({
   questionCode,
@@ -83,11 +98,15 @@ const Write = ({
   )
 }
 
-const Read = ({ code, data, parentCode, variant, config }) => {
-  const { getImageSrc } = useApi()
+const Read = ({ code, data, parentCode, variant, config, multiUpload }) => {
+  const { getImageSrc, getImageSrcList } = useApi()
+
+  const { isOpen, onOpen, onClose } = useDisclosure()
+
   const src = getImageSrc(data?.value, { height: '500', width: '500' })
-  //Custom attributes must be lower case
-  const { carddisplay } = config || ''
+  const srcList =
+    getImageSrcList(safelyParseJson(data?.value), { height: '500', width: '600' }, 'cover') || []
+  const { cardDisplay } = config || ''
 
   const name = useSelector(selectCode(data?.baseEntityCode, 'PRI_NAME'))
   const assocName = useSelector(selectCode(data?.baseEntityCode, 'PRI_INTERN_NAME'))
@@ -100,12 +119,73 @@ const Read = ({ code, data, parentCode, variant, config }) => {
         })
       : null
 
+  const theme = useTheme()
+  const { buttonBackgroundColor } = useProductColors()
+
   const bg = useColorModeValue('gray.300', 'gray.600')
   if (variant === 'profile_image') {
     return <Image {...config} src={src} alt="profile-picture" w="10rem" borderRadius="xl" />
   }
 
-  if (!!carddisplay) {
+  const imagePreviewCount = min(srcList.length, 3)
+
+  const getMultiImageStyling = index => {
+    return {
+      roundedBottomLeft: index === 0 ? 25 : 0,
+      roundedTopLeft: index === 0 ? 25 : 0,
+      roundedBottomRight: index === imagePreviewCount - 1 ? 25 : 0,
+      roundedTopRight: index === imagePreviewCount - 1 ? 25 : 0,
+    }
+  }
+
+  if (multiUpload) {
+    return (
+      <Box width={`${(100 / 3) * imagePreviewCount}%`}>
+        <Modal isOpen={isOpen} onClose={onClose} size={'4xl'}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>Images</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <MultiImageViewer uuidList={safelyParseJson(data?.value)} />
+            </ModalBody>
+          </ModalContent>
+        </Modal>
+
+        <Box width={'100%'} position={'relative'}>
+          <Button
+            onClick={onOpen}
+            zIndex={5}
+            position={'absolute'}
+            right={'8px'}
+            bottom={'8px'}
+            rounded={100}
+            backgroundColor={theme.colors.background.light}
+            color={buttonBackgroundColor}
+            _hover={{
+              background: buttonBackgroundColor,
+              color: theme.colors.background.light,
+            }}
+          >
+            {`View ${srcList.length} photos`}
+            <Box mr={2} />
+            <FontAwesomeIcon icon={faImages} />
+          </Button>
+          <HStack justifyItems={'flex-start'} zIndex={1}>
+            {srcList.slice(0, imagePreviewCount).map((value, index) => (
+              <AspectRatio key={value} width={`${100 / imagePreviewCount}%`} maxHeight={350}>
+                <Box {...getMultiImageStyling(index)}>
+                  <Image fit={'cover'} {...config} src={value} overflow="hidden" />
+                </Box>
+              </AspectRatio>
+            ))}
+          </HStack>
+        </Box>
+      </Box>
+    )
+  }
+
+  if (!!cardDisplay) {
     return (
       <AspectRatio>
         <Avatar
