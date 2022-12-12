@@ -32,7 +32,7 @@ const Read = ({ data, config = {} }) => {
 
   const href = includes('http', data.value) ? data.value : `https://${data.value}`
 
-  if (attributeName === 'LinkedIn URL') {
+  if (attributeName === 'LinkedIn') {
     return (
       <a href={href}>
         <FontAwesomeIcon
@@ -97,6 +97,7 @@ const Write = ({
 
   const failedValidation = errorState[questionCode]
   const fieldNotEmpty = fieldState[questionCode]
+  const attributeName = data?.attributeName
 
   const onBlur = e => {
     e.target.value ? setIsFocused(true) : setIsFocused(false)
@@ -197,7 +198,11 @@ const Write = ({
               color: iconColor,
             }}
           >
-            <FontAwesomeIcon size="md" icon={faGlobe} color={'inherit'} />
+            {attributeName === 'LinkedIn' ? (
+              <FontAwesomeIcon size="md" icon={faLinkedinIn} color={'inherit'} />
+            ) : (
+              <FontAwesomeIcon size="md" icon={faGlobe} color={'inherit'} />
+            )}
           </InputLeftAddon>
 
           <Input
