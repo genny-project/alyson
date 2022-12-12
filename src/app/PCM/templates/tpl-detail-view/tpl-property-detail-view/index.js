@@ -16,7 +16,6 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
   const { sourceCode } = applyButtonData || {}
   const longitudeObject =
     compose(useSelector, selectCodeUnary(baseEntityCode))('PRI_ADDRESS_LONGITUDE') || {}
-
   const longitude = longitudeObject?.value || ''
   const latitudeObject =
     compose(useSelector, selectCodeUnary(baseEntityCode))('PRI_ADDRESS_LATITUDE') || {}
