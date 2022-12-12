@@ -5,7 +5,6 @@ import PcmField from 'app/PCM/components/pcm-field'
 
 const TemplateProcess = ({ mappedPcm }) => {
   const spillLocs = getSpillLocs(mappedPcm, 'PRI_LOC1')
-  console.log(spillLocs)
   return (
     <VStack justifyContent="flex-start" spacing={0}>
       <Box alignSelf={'flex-start'} px="5">
