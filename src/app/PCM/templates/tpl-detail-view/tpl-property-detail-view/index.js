@@ -5,36 +5,36 @@ import AmenityField from './amenity-field'
 import Attribute from 'app/BE/attribute'
 import Button from 'app/DTT/event_button'
 import MapView from 'app/layouts/map_view'
-import { selectCode } from 'redux/db/selectors'
+import { selectCodeUnary } from 'redux/db/selectors'
 import useGetDetailData from '../get-detail-data'
 import { useSelector } from 'react-redux'
 
 const TemplatePropertyDetailView = ({ mappedPcm }) => {
   const { baseEntityCode, fields } = useGetDetailData(mappedPcm)
   const { PRI_QUESTION_CODE: questionCode } = mappedPcm
-  const applyButtonData = useSelector(selectCode(questionCode, 'QUE_APPLY')) || {}
+  const applyButtonData = compose(useSelector, selectCodeUnary(questionCode))('QUE_APPLY') || {}
   const { sourceCode } = applyButtonData || {}
+  const longitudeObject =
+    compose(useSelector, selectCodeUnary(baseEntityCode))('PRI_ADDRESS_LONGITUDE') || {}
 
-  const longitudeObject = useSelector(selectCode(baseEntityCode, 'PRI_ADDRESS_LONGITUDE')) || {}
   const longitude = longitudeObject?.value || ''
-  const latitudeObject = useSelector(selectCode(baseEntityCode, 'PRI_ADDRESS_LATITUDE')) || {}
+  const latitudeObject =
+    compose(useSelector, selectCodeUnary(baseEntityCode))('PRI_ADDRESS_LATITUDE') || {}
   const latitude = latitudeObject?.value || ''
   const coordinates = { latitude, longitude }
 
   let showApllyButton =
     equals(typeof applyButtonData, 'object') && compose(not, isEmpty)(applyButtonData)
-
   const findCode = code => find(equals(code))(fields) || ''
-
   const textColor = 'product.primary'
   const buttonColor = 'product.secondary'
-
   const headingCode = findCode('PRI_NAME')
   const suburbCode = findCode('PRI_ADDRESS_SUBURB')
   const stateCode = findCode('PRI_ADDRESS_STATE')
 
-  const suburb = useSelector(selectCode(baseEntityCode, suburbCode))?.valueString || ''
-  const state = useSelector(selectCode(baseEntityCode, stateCode))?.valueString || ''
+  const suburb =
+    compose(useSelector, selectCodeUnary(baseEntityCode))(suburbCode)?.valueString || ''
+  const state = compose(useSelector, selectCodeUnary(baseEntityCode))(stateCode)?.valueString || ''
 
   const amentities = filter(includes('PRI_NUMBER_OF_'))(fields) || []
 
@@ -42,13 +42,13 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
 
   const descriptionCode = findCode('PRI_DESCRIPTION') || findCode('PRI_PROPERTY_DESCRIPTION')
   const rentAmountCode = findCode('PRI_RENTAL_AMOUNT')
-  const rentAmount = useSelector(selectCode(baseEntityCode, rentAmountCode))?.value || ''
+  const rentAmount =
+    compose(useSelector, selectCodeUnary(baseEntityCode))(rentAmountCode)?.value || ''
 
   const rentFreqCode = findCode('_LNK_RENTAL_FREQUENCY__PRI_NAME')
-  const rentFreq = useSelector(selectCode(baseEntityCode, rentFreqCode))?.value || ''
+  const rentFreq = compose(useSelector, selectCodeUnary(baseEntityCode))(rentFreqCode)?.value || ''
 
-  const imageCode = findCode('PRI_IMAGES') || findCode('PRI_IMAGE_URL')
-
+  const imageCode = findCode('PRI_IMAGE_URL')
   //Get suburb, state if both not null, otherwise just the one that isn't null
   const location = !!suburb && !!state ? `${suburb}, ${state}` : suburb || state
 
