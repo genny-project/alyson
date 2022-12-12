@@ -8,14 +8,14 @@ import CheckLists from './checkLists'
 import TenantAdditionalInformation from './tenantAdditionalInformation'
 import TenantBasicInformation from './tenantBasicInformation'
 import UploadedDocuments from './uploadedDocuments'
-import { selectCodeUnary } from 'redux/db/selectors'
+import { selectCodeUnary, selectCode } from 'redux/db/selectors'
 import { useIsMobile } from 'utils/hooks'
 
 const TemplateApplicationDetailView = ({ mappedPcm, depth }) => {
   const theme = useTheme()
   const isMobile = useIsMobile()
 
-  const userCode = compose(useSelector, selectCodeUnary)('USER')
+  const userCode = compose(useSelector, selectCode)('USER')
   const userFirstName = compose(useSelector, selectCodeUnary(userCode))('PRI_FIRSTNAME')?.value
 
   const sbeCode = mappedPcm.PRI_LOC1
