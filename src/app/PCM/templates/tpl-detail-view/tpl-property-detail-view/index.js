@@ -22,7 +22,7 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
   const latitude = latitudeObject?.value || ''
   const coordinates = { latitude, longitude }
 
-  let showApllyButton =
+  let showApplyButton =
     equals(typeof applyButtonData, 'object') && compose(not, isEmpty)(applyButtonData)
   const findCode = code => find(equals(code))(fields) || ''
   const textColor = 'product.primary'
@@ -141,7 +141,7 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
               <MapView coordinates={coordinates} />
             </Grid>
           </Box>
-          {showApllyButton && (
+          {showApplyButton && (
             <Button
               askData={applyButtonData}
               parentCode={questionCode}
