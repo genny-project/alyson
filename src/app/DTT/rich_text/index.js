@@ -40,6 +40,7 @@ import { useError } from 'utils/contexts/ErrorContext'
 import useGetFieldMessage from 'utils/fieldMessage'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
+import { useIsMobile } from 'utils/hooks'
 
 const Write = ({
   questionCode,
@@ -147,7 +148,7 @@ const Write = ({
       <HStack
         position={'absolute'}
         zIndex={theme.zIndices.docked}
-        top={isFocused ? '-1.5rem' : 14}
+        top={isFocused ? '-1.5rem' : '5rem'}
         left={0}
         paddingStart={6}
         w="full"
