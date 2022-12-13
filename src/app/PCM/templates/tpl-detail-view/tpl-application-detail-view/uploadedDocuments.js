@@ -34,7 +34,7 @@ const UploadedDocuments = ({ code }) => {
           gap={'clamp(1rem, 2vw, 3.25rem)'}
         >
           {map(({ title, attr }) => (
-            <Box key={title}>
+            <Box key={title} _empty={{ display: 'none' }}>
               {!!attr && (
                 <VStack
                   key={title}
