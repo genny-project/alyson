@@ -11,7 +11,7 @@ import {
 import Attribute from 'app/BE/attribute'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { compose, map } from 'ramda'
-import { selectCode, selectCodeUnary } from 'redux/db/selectors'
+import { selectCodeUnary } from 'redux/db/selectors'
 import useApi from 'api'
 import { useIsMobile } from 'utils/hooks'
 import { useSelector } from 'react-redux'
