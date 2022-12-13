@@ -69,7 +69,7 @@ const Attribute = ({
     <Text.Read size={size} data={data} config={config} hasIndicatorIcon={hasIndicatorIcon} />
   ) : component === 'textarea' ? (
     <TextArea.Read size={size} data={data} config={config} />
-  ) : component === 'upload' ? (
+  ) : component === 'upload' || component === 'multi_upload' ? (
     <Upload.Read
       code={code}
       parentCode={parentCode}
