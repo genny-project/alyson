@@ -19,8 +19,14 @@ const TemplateApplicationDetailView = ({ mappedPcm, depth }) => {
 
   const sbeCode = mappedPcm.PRI_LOC1
   const targetCode = useSelector(selectCode(sbeCode, 'PRI_TARGET_CODE'))?.value
-
   const isStudent = useSelector(selectCode(targetCode, 'LNK_CAMPUS_SELECTION'))?.value
+
+  const questionCode = mappedPcm.PRI_QUESTION_CODE
+
+  const markCompleteButtonData = useSelector(selectCode(questionCode, 'QUE_MARK_AS_COMPLETE')) || {}
+  const { sourceCode } = markCompleteButtonData || {}
+  const markCompleteButtonName =
+    useSelector(selectCode(questionCode, 'QUE_MARK_AS_COMPLETE'))?.name || ''
 
   return (
     <>
@@ -38,7 +44,7 @@ const TemplateApplicationDetailView = ({ mappedPcm, depth }) => {
       >
         <TenantAdditionalInformation code={targetCode} isStudent={isStudent} />
 
-        <CheckLists code={targetCode} />
+        <CheckLists mappedPcm={mappedPcm} code={questionCode} />
       </Grid>
 
       <Stack
@@ -47,6 +53,9 @@ const TemplateApplicationDetailView = ({ mappedPcm, depth }) => {
         justifyContent={'flex-end'}
       >
         <Button
+          askData={markCompleteButtonData}
+          parentCode={questionCode}
+          sourceCode={sourceCode}
           borderRadius={20}
           background={'product.secondary'}
           paddingBlock={'1.15rem'}
@@ -66,7 +75,7 @@ const TemplateApplicationDetailView = ({ mappedPcm, depth }) => {
         >
           <FontAwesomeIcon icon={faCheckCircle} />
           <Text as="span" marginInlineStart={4}>
-            Mark this as complete
+            {markCompleteButtonName}
           </Text>
         </Button>
       </Stack>

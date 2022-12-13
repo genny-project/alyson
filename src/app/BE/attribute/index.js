@@ -26,6 +26,7 @@ import { useSelector } from 'react-redux'
 import HtmlEditor from 'app/DTT/html-editor'
 import Favourites from 'app/DTT/favourites'
 import ProgressBar from 'app/DTT/progress'
+import Radio from 'app/DTT/radio'
 
 const Attribute = ({
   code,
@@ -114,6 +115,8 @@ const Attribute = ({
     <Favourites.Read data={data} />
   ) : component === 'progress' ? (
     <ProgressBar data={data} />
+  ) : component === 'radio' || component === 'boolean' ? (
+    <Radio.Read data={data} boolean={component === 'boolean'} />
   ) : (
     <CText>{data?.value}</CText>
   )

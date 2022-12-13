@@ -6,7 +6,7 @@ import {
   FormLabel,
   HStack,
 } from '@chakra-ui/react'
-import { compose, pathOr } from 'ramda'
+import { compose, equals, pathOr } from 'ramda'
 import { useDispatch, useSelector } from 'react-redux'
 
 import ABN from 'app/DTT/abn'
@@ -315,22 +315,24 @@ const Ask = ({
           clientId={clientId}
         />
       )}
-      {component === 'radio' && (
-        <Radio.Write
-          questionCode={questionCode}
-          groupCode={groupCode}
-          attributeCode={attributeCode}
-          onSendAnswer={onSendAnswer}
-          data={data}
-          mandatory={mandatory}
-          parentCode={parentCode}
-          regexPattern={regexPattern}
-          errorMessage={errorMessage}
-          placeholderName={placeholderName}
-          targetCode={trueTargetCode}
-          clientId={clientId}
-        />
-      )}
+      {component === 'radio' ||
+        (component === 'boolean' && (
+          <Radio.Write
+            questionCode={questionCode}
+            groupCode={groupCode}
+            attributeCode={attributeCode}
+            onSendAnswer={onSendAnswer}
+            data={data}
+            mandatory={mandatory}
+            parentCode={parentCode}
+            regexPattern={regexPattern}
+            errorMessage={errorMessage}
+            placeholderName={placeholderName}
+            targetCode={targetCode}
+            clientId={clientId}
+            boolean={equals('boolean')(component)}
+          />
+        ))}
       {component === 'text' && (
         <Text.Write
           questionCode={questionCode}
