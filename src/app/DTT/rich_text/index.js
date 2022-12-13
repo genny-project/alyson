@@ -40,7 +40,6 @@ import { useError } from 'utils/contexts/ErrorContext'
 import useGetFieldMessage from 'utils/fieldMessage'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
-import { useIsMobile } from 'utils/hooks'
 
 const Write = ({
   questionCode,
