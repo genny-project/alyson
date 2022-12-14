@@ -16,7 +16,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle, faGlobe } from '@fortawesome/free-solid-svg-icons'
 import { faLinkedinIn } from '@fortawesome/free-brands-svg-icons'
 import { getIsInvalid } from 'utils/functions'
-import { includes } from 'ramda'
+import { includes, toLower } from 'ramda'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
 import { useError } from 'utils/contexts/ErrorContext'
@@ -32,7 +32,7 @@ const Read = ({ data, config = {} }) => {
 
   const href = includes('http', data.value) ? data.value : `https://${data.value}`
 
-  if (attributeName === 'LinkedIn') {
+  if (includes('linkedin')(toLower(attributeName || ''))) {
     return (
       <a href={href}>
         <FontAwesomeIcon
@@ -198,7 +198,7 @@ const Write = ({
               color: iconColor,
             }}
           >
-            {attributeName === 'LinkedIn' ? (
+            {includes('linkedin')(toLower(attributeName || '')) ? (
               <FontAwesomeIcon size="md" icon={faLinkedinIn} color={'inherit'} />
             ) : (
               <FontAwesomeIcon size="md" icon={faGlobe} color={'inherit'} />
