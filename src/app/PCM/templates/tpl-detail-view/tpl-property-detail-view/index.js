@@ -61,15 +61,16 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
   }
 
   return (
-    <VStack w={'100%'} alignItems="flex-start">
+    <Grid w={'100%'} alignItems="flex-start" spacing={0} gap={'clamp(1rem, 1vw + 1rem, 2.4rem)'}>
       <Attribute code={baseEntityCode} attribute={imageCode} />
+
       <Grid
         templateColumns={'repeat(auto-fit, minmax(min(100%, 20rem), 1fr))'}
-        gap={'clamp(1rem, 5vw, 10rem)'}
+        gap={'clamp(1rem, 4.75vw + 0.75rem, 12.5rem)'}
         justify="space-between"
         w={'100%'}
       >
-        <VStack alignItems="flex-start" maxWidth={'50%'}>
+        <VStack alignItems="flex-start" spacing={0}>
           <Attribute
             code={baseEntityCode}
             attribute={headingCode}
@@ -93,11 +94,18 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
           <Text color={textColor} fontSize="2xl" paddingTop={8}>
             About this home
           </Text>
-          <Attribute code={baseEntityCode} attribute={descriptionCode} />
-          <Text color={textColor} fontSize="1xl" paddingTop={8}>
+
+          <Attribute
+            code={baseEntityCode}
+            attribute={descriptionCode}
+            config={{ wordBreak: 'break-all' }}
+          />
+
+          <Text color={textColor} fontSize="xl" paddingTop={8} paddingBlockEnd={'1.8rem'}>
             Amenities
           </Text>
-          <Wrap>
+
+          <Wrap spacing={5}>
             {amentities.map((item, index) => (
               <WrapItem key={`${baseEntityCode}-${index}-amentity-wrapitem`}>
                 <AmenityField
@@ -134,9 +142,9 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
                   backgroundColor={'product.secondary'}
                   textColor={'white'}
                   p={1}
-                  paddingX={3}
+                  paddingX={7}
                 >
-                  ${rentAmount}/{rentFreq}
+                  ${rentAmount} / {rentFreq}
                 </Box>
               </HStack>
               <MapView coordinates={coordinates} />
@@ -152,7 +160,7 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
           )}
         </VStack>
       </Grid>
-    </VStack>
+    </Grid>
   )
 }
 
