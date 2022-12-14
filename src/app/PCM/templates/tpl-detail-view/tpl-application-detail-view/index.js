@@ -1,15 +1,15 @@
 import { Button, Grid, Stack, Text, useTheme } from '@chakra-ui/react'
-import { useSelector } from 'react-redux'
+import { selectCode, selectCodeUnary } from 'redux/db/selectors'
+
+import AdditionalInformation from './additionalInformation'
+import BasicInformation from './basicInformation'
+import CheckLists from './checkLists'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import UploadedDocuments from './uploadedDocuments'
 import { compose } from 'ramda'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
-
-import CheckLists from './checkLists'
-import TenantAdditionalInformation from './tenantAdditionalInformation'
-import TenantBasicInformation from './tenantBasicInformation'
-import UploadedDocuments from './uploadedDocuments'
-import { selectCodeUnary, selectCode } from 'redux/db/selectors'
 import { useIsMobile } from 'utils/hooks'
+import { useSelector } from 'react-redux'
 
 const TemplateApplicationDetailView = ({ mappedPcm, depth }) => {
   const theme = useTheme()
@@ -34,7 +34,7 @@ const TemplateApplicationDetailView = ({ mappedPcm, depth }) => {
       <Text fontSize="2.25rem" fontWeight={'400'}>{`Hi ${userFirstName}`}</Text>
       <Text marginBlock={5}>{'Please review these pending Pre-Approval Applications'}</Text>
 
-      <TenantBasicInformation code={targetCode} isStudent={isStudent} />
+      <BasicInformation code={targetCode} isStudent={isStudent} />
 
       <UploadedDocuments code={targetCode} />
 
@@ -43,8 +43,7 @@ const TemplateApplicationDetailView = ({ mappedPcm, depth }) => {
         gap={'1rem'}
         marginBlockStart={'clamp(1rem, 3vw, 3.75rem)'}
       >
-        <TenantAdditionalInformation code={targetCode} isStudent={isStudent} />
-
+        <AdditionalInformation code={targetCode} isStudent={isStudent} />
         <CheckLists mappedPcm={mappedPcm} code={questionCode} />
       </Grid>
 

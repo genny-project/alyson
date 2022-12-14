@@ -10,21 +10,26 @@ import {
 
 import Attribute from 'app/BE/attribute'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { compose, map } from 'ramda'
-import { selectCodeUnary } from 'redux/db/selectors'
+import { map } from 'ramda'
+import { selectCode } from 'redux/db/selectors'
 import useApi from 'api'
 import { useIsMobile } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 
-const TenantBasicInformation = ({ code, isStudent }) => {
+const BasicInformation = ({ code, isStudent }) => {
   const theme = useTheme()
   const isMobile = useIsMobile()
   const { getImageSrc } = useApi()
 
-  const tenantFullName = compose(useSelector, selectCodeUnary(code))('PRI_NAME')?.value
-  const tenantImage = compose(useSelector, selectCodeUnary(code))('PRI_IMAGE')?.value
-  const tenantJobRole = compose(useSelector, selectCodeUnary(code))('PRI_ROLE_AT_COMPANY')?.value
-  const reasonToMove = compose(useSelector, selectCodeUnary(code))('LNK_MOVE_REASON')?.value
+  const tenantFullName = useSelector(selectCode(code, 'PRI_NAME'))?.value || ''
+  const tenantImage = useSelector(selectCode(code, 'PRI_IMAGE'))?.value || ''
+  const tenantJobRole = useSelector(selectCode(code, 'PRI_ROLE_AT_COMPANY'))?.value || ''
+  const reasonToMoveCode = useSelector(selectCode(code, 'LNK_MOVE_REASON'))?.value || ''
+  const reasonToMoveCodeFormatted = reasonToMoveCode.replace(/[[\]']+/g, '').replace(/"/g, '')
+  const campusSelectionCode = useSelector(selectCode(code, 'LNK_CAMPUS_SELECTION'))?.value || ''
+  const campusSelectionCodeFormatted = campusSelectionCode.replace(/[[\]']+/g, '').replace(/"/g, '')
+
+  const reasonToMove = useSelector(selectCode(reasonToMoveCodeFormatted, 'PRI_NAME'))?.value || ''
 
   const tenantInformation = [
     { icon: faPhoneAlt, attr: 'PRI_MOBILE' },
@@ -72,8 +77,8 @@ const TenantBasicInformation = ({ code, isStudent }) => {
               <FontAwesomeIcon icon={isStudent ? faGraduationCap : faBriefcase} />
             </Text>
             <Attribute
-              code={code}
-              attribute={isStudent ? 'LNK_CAMPUS_SELECTION' : 'PRI_COMPANY_NAME'}
+              code={isStudent ? campusSelectionCodeFormatted : code}
+              attribute={isStudent ? 'PRI_NAME' : 'PRI_COMPANY_NAME'}
             />
           </Flex>
         </Grid>
@@ -99,4 +104,4 @@ const TenantBasicInformation = ({ code, isStudent }) => {
   )
 }
 
-export default TenantBasicInformation
+export default BasicInformation

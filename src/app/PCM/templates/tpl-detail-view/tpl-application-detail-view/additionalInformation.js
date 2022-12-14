@@ -1,34 +1,34 @@
 import { Box, Flex, Grid } from '@chakra-ui/react'
 
 import Attribute from 'app/BE/attribute'
-import { compose, map } from 'ramda'
-import { selectCodeUnary } from 'redux/db/selectors'
+import { map } from 'ramda'
+import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
 
-const TenantAdditionalInformation = ({ code, isStudent }) => {
-  const companyName = compose(useSelector, selectCodeUnary(code))('PRI_COMPANY_NAME')?.value
-  const conmmencementDate = compose(useSelector, selectCodeUnary(code))('PRI_COMMENCEMENT_DATE')
-    ?.value
-  const name = compose(useSelector, selectCodeUnary(code))('PRI_NAME')?.value
+const AdditionalInformation = ({ code, isStudent }) => {
+  const companyName = useSelector(selectCode(code, 'PRI_COMPANY_NAME'))?.value || ''
+  const conmmencementDate = useSelector(selectCode(code, 'PRI_COMMENCEMENT_DATE'))?.value || ''
+  const name = useSelector(selectCode(code, 'PRI_NAME'))?.value || ''
 
-  const arrivalDateLabel = compose(useSelector, selectCodeUnary(code))('PRI_ARRIVAL_DATE')
-    ?.attributeName
-  const familySizeLabel = compose(useSelector, selectCodeUnary(code))('LNK_FAMILY_SIZE')
-    ?.attributeName
-  const companyNameLabel = compose(useSelector, selectCodeUnary(code))('PRI_COMPANY_NAME')
-    ?.attributeName
+  const arrivalDateLabel = useSelector(selectCode(code, 'PRI_ARRIVAL_DATE'))?.attributeName || ''
+  const familySizeLabel = useSelector(selectCode(code, 'LNK_FAMILY_SIZE'))?.attributeName || ''
+  const companyNameLabel = useSelector(selectCode(code, 'PRI_COMPANY_NAME'))?.attributeName || ''
+  const familySizeCode = useSelector(selectCode(code, 'LNK_FAMILY_SIZE'))?.value || ''
+  const familySizeCodeFormatted = familySizeCode.replace(/[[\]']+/g, '').replace(/"/g, '')
 
   const companyExists = companyName ? 'Yes' : 'No'
   const confirmEmployment = conmmencementDate ? 'Yes' : 'No'
 
   const tenantInformationLists = [
     {
+      code: code,
       label: arrivalDateLabel,
       attr: 'PRI_ARRIVAL_DATE',
     },
     {
+      code: familySizeCodeFormatted,
       label: familySizeLabel,
-      attr: 'LNK_FAMILY_SIZE',
+      attr: 'PRI_NAME',
     },
   ]
 
@@ -41,7 +41,7 @@ const TenantAdditionalInformation = ({ code, isStudent }) => {
   return (
     <Box>
       <Grid gap={'1rem'}>
-        {map(({ label, attr }) => (
+        {map(({ code, label, attr }) => (
           <Flex
             paddingBlock={'1rem'}
             paddingInline={'clamp(1rem, 3vw, 2.88rem)'}
@@ -80,4 +80,4 @@ const TenantAdditionalInformation = ({ code, isStudent }) => {
   )
 }
 
-export default TenantAdditionalInformation
+export default AdditionalInformation
