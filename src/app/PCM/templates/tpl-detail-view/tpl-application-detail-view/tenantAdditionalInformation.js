@@ -1,18 +1,22 @@
 import { Box, Flex, Grid } from '@chakra-ui/react'
 
 import Attribute from 'app/BE/attribute'
-import { map } from 'ramda'
-import { selectCode } from 'redux/db/selectors'
+import { compose, map } from 'ramda'
+import { selectCodeUnary } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
 
 const TenantAdditionalInformation = ({ code, isStudent }) => {
-  const companyName = useSelector(selectCode(code, 'PRI_COMPANY_NAME'))?.value
-  const conmmencementDate = useSelector(selectCode(code, 'PRI_COMMENCEMENT_DATE'))?.value
-  const name = useSelector(selectCode(code, 'PRI_NAME'))?.value
+  const companyName = compose(useSelector, selectCodeUnary(code))('PRI_COMPANY_NAME')?.value
+  const conmmencementDate = compose(useSelector, selectCodeUnary(code))('PRI_COMMENCEMENT_DATE')
+    ?.value
+  const name = compose(useSelector, selectCodeUnary(code))('PRI_NAME')?.value
 
-  const arrivalDateLabel = useSelector(selectCode(code, 'PRI_ARRIVAL_DATE'))?.attributeName
-  const familySizeLabel = useSelector(selectCode(code, 'LNK_FAMILY_SIZE'))?.attributeName
-  const companyNameLabel = useSelector(selectCode(code, 'PRI_COMPANY_NAME'))?.attributeName
+  const arrivalDateLabel = compose(useSelector, selectCodeUnary(code))('PRI_ARRIVAL_DATE')
+    ?.attributeName
+  const familySizeLabel = compose(useSelector, selectCodeUnary(code))('LNK_FAMILY_SIZE')
+    ?.attributeName
+  const companyNameLabel = compose(useSelector, selectCodeUnary(code))('PRI_COMPANY_NAME')
+    ?.attributeName
 
   const companyExists = companyName ? 'Yes' : 'No'
   const confirmEmployment = conmmencementDate ? 'Yes' : 'No'

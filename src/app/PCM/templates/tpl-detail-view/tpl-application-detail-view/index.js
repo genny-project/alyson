@@ -1,21 +1,22 @@
 import { Button, Grid, Stack, Text, useTheme } from '@chakra-ui/react'
+import { useSelector } from 'react-redux'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { compose } from 'ramda'
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 
 import CheckLists from './checkLists'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import TenantAdditionalInformation from './tenantAdditionalInformation'
 import TenantBasicInformation from './tenantBasicInformation'
 import UploadedDocuments from './uploadedDocuments'
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
-import { selectCode } from 'redux/db/selectors'
+import { selectCodeUnary, selectCode } from 'redux/db/selectors'
 import { useIsMobile } from 'utils/hooks'
-import { useSelector } from 'react-redux'
 
 const TemplateApplicationDetailView = ({ mappedPcm, depth }) => {
   const theme = useTheme()
   const isMobile = useIsMobile()
 
-  const userCode = useSelector(selectCode('USER'))
-  const userFirstName = useSelector(selectCode(userCode, 'PRI_FIRSTNAME'))?.value
+  const userCode = compose(useSelector, selectCode)('USER')
+  const userFirstName = compose(useSelector, selectCodeUnary(userCode))('PRI_FIRSTNAME')?.value
 
   const sbeCode = mappedPcm.PRI_LOC1
   const targetCode = useSelector(selectCode(sbeCode, 'PRI_TARGET_CODE'))?.value

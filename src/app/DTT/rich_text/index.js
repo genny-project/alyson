@@ -147,7 +147,7 @@ const Write = ({
       <HStack
         position={'absolute'}
         zIndex={theme.zIndices.docked}
-        top={isFocused ? '-1.5rem' : 14}
+        top={isFocused ? '-1.5rem' : '4.5rem'}
         left={0}
         paddingStart={6}
         w="full"

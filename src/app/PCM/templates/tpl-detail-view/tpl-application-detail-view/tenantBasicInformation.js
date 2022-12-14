@@ -10,8 +10,8 @@ import {
 
 import Attribute from 'app/BE/attribute'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { map } from 'ramda'
-import { selectCode } from 'redux/db/selectors'
+import { compose, map } from 'ramda'
+import { selectCodeUnary } from 'redux/db/selectors'
 import useApi from 'api'
 import { useIsMobile } from 'utils/hooks'
 import { useSelector } from 'react-redux'
@@ -21,10 +21,10 @@ const TenantBasicInformation = ({ code, isStudent }) => {
   const isMobile = useIsMobile()
   const { getImageSrc } = useApi()
 
-  const tenantFullName = useSelector(selectCode(code, 'PRI_NAME'))?.value
-  const tenantImage = useSelector(selectCode(code, 'PRI_IMAGE'))?.value
-  const tenantJobRole = useSelector(selectCode(code, 'PRI_ROLE_AT_COMPANY'))?.value
-  const reasonToMove = useSelector(selectCode(code, 'LNK_MOVE_REASON'))?.value
+  const tenantFullName = compose(useSelector, selectCodeUnary(code))('PRI_NAME')?.value
+  const tenantImage = compose(useSelector, selectCodeUnary(code))('PRI_IMAGE')?.value
+  const tenantJobRole = compose(useSelector, selectCodeUnary(code))('PRI_ROLE_AT_COMPANY')?.value
+  const reasonToMove = compose(useSelector, selectCodeUnary(code))('LNK_MOVE_REASON')?.value
 
   const tenantInformation = [
     { icon: faPhoneAlt, attr: 'PRI_MOBILE' },

@@ -2,8 +2,8 @@ import { Box, Grid, Text, VStack, useTheme } from '@chakra-ui/react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCloudDownloadAlt } from '@fortawesome/free-solid-svg-icons'
-import { map } from 'ramda'
-import { selectCode } from 'redux/db/selectors'
+import { compose, map } from 'ramda'
+import { selectCodeUnary } from 'redux/db/selectors'
 import useProductColors from 'utils/productColors'
 import { useSelector } from 'react-redux'
 
@@ -11,9 +11,9 @@ const UploadedDocuments = ({ code }) => {
   const theme = useTheme()
   const { fieldHoverBackgroundColor } = useProductColors()
 
-  const bankStatement = useSelector(selectCode(code, 'PRI_BANK_STATEMENT'))?.value
-  const visaStatus = useSelector(selectCode(code, 'PRI_VISA'))?.value
-  const passport = useSelector(selectCode(code, 'PRI_PASSPORT'))?.value
+  const bankStatement = compose(useSelector, selectCodeUnary(code))('PRI_BANK_STATEMENT')?.value
+  const visaStatus = compose(useSelector, selectCodeUnary(code))('PRI_VISA')?.value
+  const passport = compose(useSelector, selectCodeUnary(code))('PRI_PASSPORT')?.value
 
   const documents = [
     { title: 'Bank Statement', attr: bankStatement },
