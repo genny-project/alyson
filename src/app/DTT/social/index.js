@@ -16,7 +16,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle, faGlobe } from '@fortawesome/free-solid-svg-icons'
 import { faLinkedinIn } from '@fortawesome/free-brands-svg-icons'
 import { getIsInvalid } from 'utils/functions'
-import { includes } from 'ramda'
+import { includes, toLower } from 'ramda'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
 import { useError } from 'utils/contexts/ErrorContext'
@@ -32,7 +32,7 @@ const Read = ({ data, config = {} }) => {
 
   const href = includes('http', data.value) ? data.value : `https://${data.value}`
 
-  if (attributeName === 'LinkedIn URL') {
+  if (includes('linkedin')(toLower(attributeName || ''))) {
     return (
       <a href={href}>
         <FontAwesomeIcon
@@ -97,6 +97,7 @@ const Write = ({
 
   const failedValidation = errorState[questionCode]
   const fieldNotEmpty = fieldState[questionCode]
+  const attributeName = data?.attributeName
 
   const onBlur = e => {
     e.target.value ? setIsFocused(true) : setIsFocused(false)
@@ -197,7 +198,11 @@ const Write = ({
               color: iconColor,
             }}
           >
-            <FontAwesomeIcon size="md" icon={faGlobe} color={'inherit'} />
+            {includes('linkedin')(toLower(attributeName || '')) ? (
+              <FontAwesomeIcon size="md" icon={faLinkedinIn} color={'inherit'} />
+            ) : (
+              <FontAwesomeIcon size="md" icon={faGlobe} color={'inherit'} />
+            )}
           </InputLeftAddon>
 
           <Input

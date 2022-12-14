@@ -1,11 +1,12 @@
 import { Box, HStack, Text } from '@chakra-ui/react'
-import { selectCode } from 'redux/db/selectors'
-import { useSelector } from 'react-redux'
-import { replace, includes, find, keys, toUpper, equals } from 'ramda'
-import { faBed, faBath, faDoorOpen, faToilet } from '@fortawesome/free-solid-svg-icons'
+import { equals, find, includes, keys, replace, toUpper } from 'ramda'
+import { faBath, faBed, faDoorOpen, faToilet } from '@fortawesome/free-solid-svg-icons'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import debugOut from 'utils/debug-out'
 import firstUpper from 'utils/helpers/first-upper'
+import { selectCode } from 'redux/db/selectors'
+import { useSelector } from 'react-redux'
 
 const AmenityField = ({ attributeCode, code }) => {
   const entityAttribute = useSelector(selectCode(code, attributeCode))
@@ -35,9 +36,11 @@ const AmenityField = ({ attributeCode, code }) => {
   const icon = iconSet[find(a => includes(a)(title))(keys(iconSet))] || faDoorOpen
 
   return (
-    <Box borderWidth="1px" borderColor="product.primary" borderRadius="3xl" p={1} paddingX={3}>
+    <Box borderWidth="1px" borderColor="product.primary" borderRadius="3xl" py={1} px={3}>
       <HStack>
-        <FontAwesomeIcon icon={icon} />
+        <Text as="span" color="product.primary">
+          <FontAwesomeIcon icon={icon} />
+        </Text>
         <Text color="product.primary">
           {value} {title}
         </Text>

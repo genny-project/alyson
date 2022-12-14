@@ -5,36 +5,35 @@ import AmenityField from './amenity-field'
 import Attribute from 'app/BE/attribute'
 import Button from 'app/DTT/event_button'
 import MapView from 'app/layouts/map_view'
-import { selectCode } from 'redux/db/selectors'
+import { selectCodeUnary } from 'redux/db/selectors'
 import useGetDetailData from '../get-detail-data'
 import { useSelector } from 'react-redux'
 
 const TemplatePropertyDetailView = ({ mappedPcm }) => {
   const { baseEntityCode, fields } = useGetDetailData(mappedPcm)
   const { PRI_QUESTION_CODE: questionCode } = mappedPcm
-  const applyButtonData = useSelector(selectCode(questionCode, 'QUE_APPLY')) || {}
+  const applyButtonData = compose(useSelector, selectCodeUnary(questionCode))('QUE_APPLY') || {}
   const { sourceCode } = applyButtonData || {}
-
-  const longitudeObject = useSelector(selectCode(baseEntityCode, 'PRI_ADDRESS_LONGITUDE')) || {}
+  const longitudeObject =
+    compose(useSelector, selectCodeUnary(baseEntityCode))('PRI_ADDRESS_LONGITUDE') || {}
   const longitude = longitudeObject?.value || ''
-  const latitudeObject = useSelector(selectCode(baseEntityCode, 'PRI_ADDRESS_LATITUDE')) || {}
+  const latitudeObject =
+    compose(useSelector, selectCodeUnary(baseEntityCode))('PRI_ADDRESS_LATITUDE') || {}
   const latitude = latitudeObject?.value || ''
   const coordinates = { latitude, longitude }
 
-  let showApllyButton =
+  let showApplyButton =
     equals(typeof applyButtonData, 'object') && compose(not, isEmpty)(applyButtonData)
-
   const findCode = code => find(equals(code))(fields) || ''
-
   const textColor = 'product.primary'
   const buttonColor = 'product.secondary'
-
   const headingCode = findCode('PRI_NAME')
   const suburbCode = findCode('PRI_ADDRESS_SUBURB')
   const stateCode = findCode('PRI_ADDRESS_STATE')
 
-  const suburb = useSelector(selectCode(baseEntityCode, suburbCode))?.valueString || ''
-  const state = useSelector(selectCode(baseEntityCode, stateCode))?.valueString || ''
+  const suburb =
+    compose(useSelector, selectCodeUnary(baseEntityCode))(suburbCode)?.valueString || ''
+  const state = compose(useSelector, selectCodeUnary(baseEntityCode))(stateCode)?.valueString || ''
 
   const amentities = filter(includes('PRI_NUMBER_OF_'))(fields) || []
 
@@ -42,13 +41,13 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
 
   const descriptionCode = findCode('PRI_DESCRIPTION') || findCode('PRI_PROPERTY_DESCRIPTION')
   const rentAmountCode = findCode('PRI_RENTAL_AMOUNT')
-  const rentAmount = useSelector(selectCode(baseEntityCode, rentAmountCode))?.value || ''
+  const rentAmount =
+    compose(useSelector, selectCodeUnary(baseEntityCode))(rentAmountCode)?.value || ''
 
   const rentFreqCode = findCode('_LNK_RENTAL_FREQUENCY__PRI_NAME')
-  const rentFreq = useSelector(selectCode(baseEntityCode, rentFreqCode))?.value || ''
+  const rentFreq = compose(useSelector, selectCodeUnary(baseEntityCode))(rentFreqCode)?.value || ''
 
-  const imageCode = findCode('PRI_IMAGES') || findCode('PRI_IMAGE_URL')
-
+  const imageCode = findCode('PRI_IMAGE_URL')
   //Get suburb, state if both not null, otherwise just the one that isn't null
   const location = !!suburb && !!state ? `${suburb}, ${state}` : suburb || state
 
@@ -61,15 +60,16 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
   }
 
   return (
-    <VStack w={'100%'} alignItems="flex-start">
+    <Grid w={'100%'} alignItems="flex-start" spacing={0} gap={'clamp(1rem, 1vw + 1rem, 2.4rem)'}>
       <Attribute code={baseEntityCode} attribute={imageCode} />
+
       <Grid
         templateColumns={'repeat(auto-fit, minmax(min(100%, 20rem), 1fr))'}
-        gap={'clamp(1rem, 5vw, 10rem)'}
+        gap={'clamp(1rem, 4.75vw + 0.75rem, 12.5rem)'}
         justify="space-between"
         w={'100%'}
       >
-        <VStack alignItems="flex-start" maxWidth={'50%'}>
+        <VStack alignItems="flex-start" spacing={0}>
           <Attribute
             code={baseEntityCode}
             attribute={headingCode}
@@ -93,11 +93,18 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
           <Text color={textColor} fontSize="2xl" paddingTop={8}>
             About this home
           </Text>
-          <Attribute code={baseEntityCode} attribute={descriptionCode} />
-          <Text color={textColor} fontSize="1xl" paddingTop={8}>
+
+          <Attribute
+            code={baseEntityCode}
+            attribute={descriptionCode}
+            config={{ wordBreak: 'break-all' }}
+          />
+
+          <Text color={textColor} fontSize="xl" paddingTop={8} paddingBlockEnd={'1.8rem'}>
             Amenities
           </Text>
-          <Wrap>
+
+          <Wrap spacing={5}>
             {amentities.map((item, index) => (
               <WrapItem key={`${baseEntityCode}-${index}-amentity-wrapitem`}>
                 <AmenityField
@@ -134,15 +141,15 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
                   backgroundColor={'product.secondary'}
                   textColor={'white'}
                   p={1}
-                  paddingX={3}
+                  paddingX={7}
                 >
-                  ${rentAmount}/{rentFreq}
+                  ${rentAmount} / {rentFreq}
                 </Box>
               </HStack>
               <MapView coordinates={coordinates} />
             </Grid>
           </Box>
-          {showApllyButton && (
+          {showApplyButton && (
             <Button
               askData={applyButtonData}
               parentCode={questionCode}
@@ -152,7 +159,7 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
           )}
         </VStack>
       </Grid>
-    </VStack>
+    </Grid>
   )
 }
 
