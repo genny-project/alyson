@@ -3,7 +3,7 @@ import { Center, CircularProgress, Flex } from '@chakra-ui/react'
 import { compose } from 'ramda'
 import { useSelector } from 'react-redux'
 
-import { selectCode } from 'redux/db/selectors'
+import { selectCodeUnary } from 'redux/db/selectors'
 import { useIsMobile } from 'utils/hooks'
 import FormAsk from 'app/PCM/templates/tpl-form/form-ask'
 import { setCurrentFormQuestions } from 'redux/app'
@@ -13,7 +13,7 @@ import getCurrentFormQuestions from 'app/PCM/templates/helpers/get-current-form-
 const TemplateForm = ({ mappedPcm, depth, ...rest }) => {
   const questionCode = mappedPcm?.PRI_QUESTION_CODE || ''
   const isMobile = useIsMobile()
-  const completeAskData = useSelector(selectCode(questionCode, 'wholeData'))
+  const completeAskData = compose(useSelector, selectCodeUnary(questionCode))('wholeData')
 
   const currentFormQuestions = getCurrentFormQuestions(completeAskData)
 
