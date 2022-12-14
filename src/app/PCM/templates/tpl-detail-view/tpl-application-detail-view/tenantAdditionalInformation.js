@@ -50,7 +50,7 @@ const TenantAdditionalInformation = ({ code, isStudent }) => {
             fontSize={12}
             fontWeight={600}
             color={'#7d7d7d'}
-            key={label}
+            key={attr}
           >
             {`${label}:`}&nbsp;
             <Attribute code={code} attribute={attr} />
@@ -68,7 +68,7 @@ const TenantAdditionalInformation = ({ code, isStudent }) => {
                 fontSize={12}
                 fontWeight={600}
                 color={'#7d7d7d'}
-                key={label}
+                key={attr}
               >
                 {`${label}: ${attr}`}
               </Flex>
