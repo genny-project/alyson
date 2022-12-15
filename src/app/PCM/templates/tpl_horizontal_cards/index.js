@@ -14,12 +14,12 @@ import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 import { useGetActionsFromCode } from 'app/SBE/utils/get-actions'
 
 const TemplateHorizontalCards = ({ mappedPcm, depth }) => {
-  const sbeCodePrefix = mappedPcm.PRI_LOC1
+  const sbeCodePrefix = mappedPcm?.PRI_LOC1 || ''
   const keys = useSelector(selectKeys)
   const sbeCode = (filter(key => includes(sbeCodePrefix)(key) && !includes('@')(key))(keys) || [
     '',
   ])[0]
-  const actions = useGetActionsFromCode(sbeCode)
+  const actions = useGetActionsFromCode(sbeCode) || []
   const actionCodes = map(act => act?.attributeCode || '')(actions)
   const mappedSbe = useGetMappedBaseEntity(sbeCode)
   const mappedValues = getFields(getColumnDefs(mappedSbe))
