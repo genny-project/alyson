@@ -70,7 +70,7 @@ const Card = ({ mappedValues, baseEntityCode, primaryColor, actions, sbeCode }) 
               {index === 0 && (
                 <ContextMenu
                   actions={actions}
-                  // code={baseEntityCode} commented out to hide title
+                  code={baseEntityCode}
                   parentCode={sbeCode}
                   button={
                     <Box
