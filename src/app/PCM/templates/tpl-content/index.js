@@ -6,9 +6,8 @@ import TemplateDefault from 'app/PCM/templates/tpl-default'
  */
 const TemplateContent = ({ mappedPcm, depth, parentCode, ...rest }) => {
   const { PRI_LOC1 } = mappedPcm || {}
-
   if (!PRI_LOC1) {
-    console.warn(`PRI_LOC1 is missing from the list of BaseEntity Attributes`)
+    console.warn(`PRI_LOC1 is missing from the list of BaseEntity Attributes for ${parentCode}`)
     return <TemplateDefault />
   }
 
