@@ -1,5 +1,5 @@
-import { Button, Tag, Text, VStack, Wrap, WrapItem, useTheme } from '@chakra-ui/react'
-import { compose, equals, filter, identity, includes, map, prop } from 'ramda'
+import { Button, useTheme } from '@chakra-ui/react'
+import { compose, filter, identity, includes, map, prop } from 'ramda'
 import { selectAttributes, selectCode, selectWholeQuestionData } from 'redux/db/selectors'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -57,43 +57,8 @@ const Submit = ({ askData, onFinish, parentCode, clientId }) => {
     }
   }
 
-  // Buttons in Tenant Form lojing is misaligned because of the VStack block. So, clientId check has been hardcoded as other forms across Alyson doesn't have Cancel button.
-  const isLoj = equals(clientId)('lojing')
-
   return (
     <>
-      {/* need to find another way to notify the users about mandatory questions, top on priority.
-      {!isLoj && (
-        <VStack
-          pb="1rem"
-          align="start"
-          display={disabledFromBackEnd && mandatoryQuestionsNoValue.length ? 'block' : 'none'}
-        >
-          <Text textStyle="tail.error">{`Please complete all questions marked as mandatory with *`}</Text>
-          <Text textStyle="tail.3">{`These questions still need to be answered, click to scroll.`}</Text>
-          <Wrap align="start">
-            {mandatoryQuestionsNoValue.map(question => (
-              <WrapItem key={question.attributeCode}>
-                <Tag
-                  size="sm"
-                  opacity="0.7"
-                  _hover={{ opacity: '1' }}
-                  colorScheme="red"
-                  cursor="pointer"
-                  onClick={() => {
-                    const element = document.getElementById(question.attributeCode)
-                    if (!element) return
-                    onHighlightQuestion(question?.attributeCode)
-                    element.scrollIntoView({ behavior: 'smooth', block: 'center' })
-                  }}
-                >
-                  {question.name}
-                </Tag>
-              </WrapItem>
-            ))}
-          </Wrap>
-        </VStack>
-      )} */}
       <Button
         isLoading={loading}
         test-id={questionCode}
