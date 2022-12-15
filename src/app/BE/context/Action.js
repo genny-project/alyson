@@ -9,7 +9,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 const Action = ({ parentCode, code, targetCode, noMenu, icon, customAction, name }) => {
   const needsToBeConfirmed = useSelector(selectCode(parentCode, code))?.confirmationFlag
   const data = useSelector(selectCode(parentCode, code))
-
   if (!data) return null
 
   const handleClick = (code, data) => {
