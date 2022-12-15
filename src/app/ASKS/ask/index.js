@@ -315,24 +315,23 @@ const Ask = ({
           clientId={clientId}
         />
       )}
-      {component === 'radio' ||
-        (component === 'boolean' && (
-          <Radio.Write
-            questionCode={questionCode}
-            groupCode={groupCode}
-            attributeCode={attributeCode}
-            onSendAnswer={onSendAnswer}
-            data={data}
-            mandatory={mandatory}
-            parentCode={parentCode}
-            regexPattern={regexPattern}
-            errorMessage={errorMessage}
-            placeholderName={placeholderName}
-            targetCode={targetCode}
-            clientId={clientId}
-            boolean={equals('boolean')(component)}
-          />
-        ))}
+      {(component === 'radio' || component === 'boolean') && (
+        <Radio.Write
+          questionCode={questionCode}
+          groupCode={groupCode}
+          attributeCode={attributeCode}
+          onSendAnswer={onSendAnswer}
+          data={data}
+          mandatory={mandatory}
+          parentCode={parentCode}
+          regexPattern={regexPattern}
+          errorMessage={errorMessage}
+          placeholderName={placeholderName}
+          targetCode={targetCode}
+          clientId={clientId}
+          boolean={equals('boolean')(component)}
+        />
+      )}
       {component === 'text' && (
         <Text.Write
           questionCode={questionCode}
