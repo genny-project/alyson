@@ -47,7 +47,8 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
   const rentFreqCode = findCode('_LNK_RENTAL_FREQUENCY__PRI_NAME')
   const rentFreq = compose(useSelector, selectCodeUnary(baseEntityCode))(rentFreqCode)?.value || ''
 
-  const imageCode = findCode('PRI_IMAGE_URL')
+  //PRI_IMAGES is now used for the multi image display
+  const imageCode = findCode('PRI_IMAGES') || findCode('PRI_IMAGE_URL')
   //Get suburb, state if both not null, otherwise just the one that isn't null
   const location = !!suburb && !!state ? `${suburb}, ${state}` : suburb || state
 
