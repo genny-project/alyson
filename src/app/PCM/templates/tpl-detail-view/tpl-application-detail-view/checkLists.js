@@ -20,21 +20,26 @@ const CheckLists = ({ mappedPcm }) => {
     ]),
   )
 
-  const matchesVisaLabel = matchesVISACodeObject?.attributeName || ''
+  const getLabelAndValueFromObject = obj => {
+    const label = obj?.attributeName || ''
+    const value = obj?.value || false
 
-  const matchesEmpContractLabel = matchesEmpContractCodeObject?.attributeName || ''
+    return { label, value }
+  }
 
-  const websiteInvestigatedLabel = websiteInvestigatedCodeObject?.attributeName || ''
-
-  const adminConfirmedLabel = adminConfirmedCodeObject?.attributeName || ''
-
-  const matchesVISA = matchesVISACodeObject?.value || false
-
-  const matchesEmpContract = matchesEmpContractCodeObject?.value || false
-
-  const websiteInvestigated = websiteInvestigatedCodeObject?.value || false
-
-  const adminConfirmed = adminConfirmedCodeObject?.value || false
+  const { label: matchesVisaLabel, value: matchesVisa } = getLabelAndValueFromObject(
+    matchesVISACodeObject,
+  )
+  const { label: matchesEmpContractLabel, value: matchesEmpContract } = getLabelAndValueFromObject(
+    matchesEmpContractCodeObject,
+  )
+  const {
+    label: websiteInvestigatedLabel,
+    value: websiteInvestigated,
+  } = getLabelAndValueFromObject(websiteInvestigatedCodeObject)
+  const { label: adminConfirmedLabel, value: adminConfirmed } = getLabelAndValueFromObject(
+    adminConfirmedCodeObject,
+  )
 
   const CheckListItem = ({ label, isChecked }) => {
     return (
@@ -48,7 +53,7 @@ const CheckLists = ({ mappedPcm }) => {
   return (
     <Box>
       <Grid gap="1rem">
-        <CheckListItem label={matchesVisaLabel} isChecked={matchesVISA} />
+        <CheckListItem label={matchesVisaLabel} isChecked={matchesVisa} />
         <CheckListItem label={matchesEmpContractLabel} isChecked={matchesEmpContract} />
         <CheckListItem label={websiteInvestigatedLabel} isChecked={websiteInvestigated} />
         <CheckListItem label={adminConfirmedLabel} isChecked={adminConfirmed} />
