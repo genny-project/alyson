@@ -1,17 +1,10 @@
 import { Box, Grid, HStack, Switch, Text } from '@chakra-ui/react'
-import { compose, equals, find } from 'ramda'
-
-import { selectCode, selectCodeUnary, selectAttributes } from 'redux/db/selectors'
+import { selectAttributes } from 'redux/db/selectors'
 import useGetDetailData from '../get-detail-data'
 import { useSelector } from 'react-redux'
 
-const CheckLists = ({ code, mappedPcm }) => {
-  const { baseEntityCode, fields } = useGetDetailData(mappedPcm)
-
-  const matchesVISACode = 'PRI_MATCHES_VISA'
-  const matchesEmpContractCode = 'PRI_MATCHES_EMPLOYMENT_CONTRACT'
-  const websiteInvestigatedCode = 'PRI_WEBSITE_INVESTIGATED'
-  const adminConfirmedCode = 'PRI_ADMIN_CONFIRMED'
+const CheckLists = ({ mappedPcm }) => {
+  const { baseEntityCode } = useGetDetailData(mappedPcm)
 
   const [
     matchesVISACodeObject,
@@ -26,9 +19,6 @@ const CheckLists = ({ code, mappedPcm }) => {
       'PRI_ADMIN_CONFIRMED',
     ]),
   )
-
-  // console.log("REFACTORING==>",{code, matchesVISACode, matchesVISACodeObject, matchesEmpContractCode, matchesEmpContractCodeObject,
-  // websiteInvestigatedCode, websiteInvestigatedCodeObject, adminConfirmedCode, adminConfirmedCodeObject})
 
   const matchesVisaLabel = matchesVISACodeObject?.attributeName || ''
 
