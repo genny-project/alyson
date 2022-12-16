@@ -1,3 +1,3 @@
-const convertToUppercase = str => str?.toUpperCase()
+const convertToUppercase = str => str?.toUpperCase() || ''
 
 export default convertToUppercase
