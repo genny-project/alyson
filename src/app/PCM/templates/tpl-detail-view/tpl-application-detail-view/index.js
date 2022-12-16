@@ -19,15 +19,15 @@ const TemplateApplicationDetailView = ({ mappedPcm, depth }) => {
   const userFirstName = compose(useSelector, selectCodeUnary(userCode))('PRI_FIRSTNAME')?.value
 
   const sbeCode = mappedPcm.PRI_LOC1
-  const targetCode = useSelector(selectCode(sbeCode, 'PRI_TARGET_CODE'))?.value
-  const isStudent = useSelector(selectCode(targetCode, 'LNK_CAMPUS_SELECTION'))?.value
-
+  const targetCode = compose(useSelector, selectCodeUnary(sbeCode))('PRI_TARGET_CODE')?.value
+  const isStudent = compose(useSelector, selectCodeUnary(targetCode))('LNK_CAMPUS_SELECTION')?.value
   const questionCode = mappedPcm.PRI_QUESTION_CODE
 
-  const markCompleteButtonData = useSelector(selectCode(questionCode, 'QUE_MARK_AS_COMPLETE')) || {}
+  const markCompleteButtonData =
+    compose(useSelector, selectCodeUnary(questionCode))('QUE_MARK_AS_COMPLETE') || {}
   const { sourceCode } = markCompleteButtonData || {}
   const markCompleteButtonName =
-    useSelector(selectCode(questionCode, 'QUE_MARK_AS_COMPLETE'))?.name || ''
+    compose(useSelector, selectCodeUnary(questionCode))('QUE_MARK_AS_COMPLETE')?.name || ''
 
   return (
     <>
