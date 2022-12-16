@@ -2,6 +2,7 @@ import { Box, Grid, HStack, Switch, Text } from '@chakra-ui/react'
 import { selectAttributes } from 'redux/db/selectors'
 import useGetDetailData from '../get-detail-data'
 import { useSelector } from 'react-redux'
+import getLabelAndValueFromObject from 'app/PCM/helpers/get-label-and-value-from-object'
 
 const CheckLists = ({ mappedPcm }) => {
   const { baseEntityCode } = useGetDetailData(mappedPcm)
@@ -19,13 +20,6 @@ const CheckLists = ({ mappedPcm }) => {
       'PRI_ADMIN_CONFIRMED',
     ]),
   )
-
-  const getLabelAndValueFromObject = obj => {
-    const label = obj?.attributeName || ''
-    const value = obj?.value || false
-
-    return { label, value }
-  }
 
   const { label: matchesVisaLabel, value: matchesVisa } = getLabelAndValueFromObject(
     matchesVISACodeObject,
