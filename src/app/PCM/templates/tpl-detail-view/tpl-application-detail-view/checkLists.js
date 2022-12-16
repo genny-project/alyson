@@ -30,54 +30,21 @@ const CheckLists = ({ code, mappedPcm }) => {
   // console.log("REFACTORING==>",{code, matchesVISACode, matchesVISACodeObject, matchesEmpContractCode, matchesEmpContractCodeObject,
   // websiteInvestigatedCode, websiteInvestigatedCodeObject, adminConfirmedCode, adminConfirmedCodeObject})
 
-  const matchesVISALabel =
-    useSelector(selectCode(baseEntityCode, matchesVISACode))?.attributeName || ''
-  const matchesVisaLabelCopy = matchesVISACodeObject?.attributeName || ''
+  const matchesVisaLabel = matchesVISACodeObject?.attributeName || ''
 
-  const matchesEmpContractLabel =
-    compose(useSelector, selectCodeUnary(matchesEmpContractCode))('attributeName') || ''
-  const matchesEmpContractLabelCopy = matchesEmpContractCodeObject?.attributeName || ''
+  const matchesEmpContractLabel = matchesEmpContractCodeObject?.attributeName || ''
 
-  const websiteInvestigatedLabel =
-    useSelector(selectCode(baseEntityCode, websiteInvestigatedCode))?.attributeName || ''
-  const websiteInvestigatedLabelCopy = websiteInvestigatedCodeObject?.attributeName || ''
+  const websiteInvestigatedLabel = websiteInvestigatedCodeObject?.attributeName || ''
 
-  const adminConfirmedLabel =
-    useSelector(selectCode(baseEntityCode, adminConfirmedCode))?.attributeName || ''
-  const adminConfirmedLabelCopy = adminConfirmedCodeObject?.attributeName || ''
+  const adminConfirmedLabel = adminConfirmedCodeObject?.attributeName || ''
 
-  const matchesVISA = useSelector(selectCode(baseEntityCode, matchesVISACode))?.value || false
-  const matchesVISACopy = matchesVISACodeObject?.value || false
+  const matchesVISA = matchesVISACodeObject?.value || false
 
-  const matchesEmpContract =
-    useSelector(selectCode(baseEntityCode, matchesEmpContractCode))?.value || false
-  const matchesEmpContractCopy = matchesEmpContractCodeObject?.value || false
+  const matchesEmpContract = matchesEmpContractCodeObject?.value || false
 
-  const websiteInvestigated =
-    useSelector(selectCode(baseEntityCode, websiteInvestigatedCode))?.value || false
-  const websiteInvestigatedCopy = websiteInvestigatedCodeObject?.value || false
+  const websiteInvestigated = websiteInvestigatedCodeObject?.value || false
 
-  const adminConfirmed = useSelector(selectCode(baseEntityCode, adminConfirmedCode))?.value || false
-  const adminConfirmedCopy = adminConfirmedCodeObject?.value || false
-
-  console.log({
-    matchesVISALabel,
-    matchesVisaLabelCopy,
-    matchesEmpContractLabel,
-    matchesEmpContractLabelCopy,
-    websiteInvestigatedLabel,
-    websiteInvestigatedLabelCopy,
-    adminConfirmedLabel,
-    adminConfirmedLabelCopy,
-    matchesVISA,
-    matchesVISACopy,
-    matchesEmpContract,
-    matchesEmpContractCopy,
-    websiteInvestigated,
-    websiteInvestigatedCopy,
-    adminConfirmed,
-    adminConfirmedCopy,
-  })
+  const adminConfirmed = adminConfirmedCodeObject?.value || false
 
   const CheckListItem = ({ label, isChecked }) => {
     return (
@@ -91,9 +58,9 @@ const CheckLists = ({ code, mappedPcm }) => {
   return (
     <Box>
       <Grid gap="1rem">
-        <CheckListItem label={matchesVISALabel} isChecked={matchesVISA} />
+        <CheckListItem label={matchesVisaLabel} isChecked={matchesVISA} />
         <CheckListItem label={matchesEmpContractLabel} isChecked={matchesEmpContract} />
-        <CheckListItem label={websiteInvestigatedLabelCopy} isChecked={websiteInvestigated} />
+        <CheckListItem label={websiteInvestigatedLabel} isChecked={websiteInvestigated} />
         <CheckListItem label={adminConfirmedLabel} isChecked={adminConfirmed} />
       </Grid>
     </Box>
