@@ -1,13 +1,12 @@
-import { Button, Grid, Stack, Text, useTheme } from '@chakra-ui/react'
+import { Grid, Stack, Text, useTheme } from '@chakra-ui/react'
 import { selectCode, selectCodeUnary } from 'redux/db/selectors'
 
 import AdditionalInformation from './additionalInformation'
 import BasicInformation from './basicInformation'
 import CheckLists from './checkLists'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import EventButton from 'app/DTT/event_button'
 import UploadedDocuments from './uploadedDocuments'
 import { compose } from 'ramda'
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { useIsMobile } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 
@@ -26,8 +25,25 @@ const TemplateApplicationDetailView = ({ mappedPcm, depth }) => {
 
   const markCompleteButtonData = useSelector(selectCode(questionCode, 'QUE_MARK_AS_COMPLETE')) || {}
   const { sourceCode } = markCompleteButtonData || {}
-  const markCompleteButtonName =
-    useSelector(selectCode(questionCode, 'QUE_MARK_AS_COMPLETE'))?.name || ''
+
+  const buttonStyles = {
+    width: 'auto !important',
+    borderRadius: 20,
+    background: 'product.secondary',
+    paddingBlock: '1.15rem',
+    paddingInline: '2rem',
+    height: 'auto',
+    color: 'product.white',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: 'product.secondary',
+    _hover: {
+      background: theme.colors.background.light,
+      color: 'product.secondary',
+      borderColor: 'product.secondary',
+      variant: 'outline',
+    },
+  }
 
   return (
     <>
@@ -52,32 +68,12 @@ const TemplateApplicationDetailView = ({ mappedPcm, depth }) => {
         alignItems={'flex-end'}
         justifyContent={'flex-end'}
       >
-        <Button
+        <EventButton
           askData={markCompleteButtonData}
           parentCode={questionCode}
           sourceCode={sourceCode}
-          borderRadius={20}
-          background={'product.secondary'}
-          paddingBlock={'1.15rem'}
-          paddingInline={'2rem'}
-          height={'auto'}
-          color={'product.white'}
-          borderWidth="1px"
-          borderStyle="solid"
-          borderColor="product.secondary"
-          _hover={{
-            background: theme.colors.background.light,
-            color: 'product.secondary',
-
-            borderColor: 'product.secondary',
-            variant: 'outline',
-          }}
-        >
-          <FontAwesomeIcon icon={faCheckCircle} />
-          <Text as="span" marginInlineStart={4}>
-            {markCompleteButtonName}
-          </Text>
-        </Button>
+          config={buttonStyles}
+        />
       </Stack>
     </>
   )

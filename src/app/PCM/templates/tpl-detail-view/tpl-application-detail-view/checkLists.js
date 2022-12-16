@@ -1,11 +1,12 @@
-import { Box, Grid, HStack, Switch, Text } from '@chakra-ui/react'
+import { Box, Grid, HStack, Text } from '@chakra-ui/react'
 import { equals, find } from 'ramda'
 
+import Attribute from 'app/BE/attribute'
 import { selectCode } from 'redux/db/selectors'
 import useGetDetailData from '../get-detail-data'
 import { useSelector } from 'react-redux'
 
-const CheckLists = ({ code, mappedPcm }) => {
+const CheckLists = ({ mappedPcm }) => {
   const { baseEntityCode, fields } = useGetDetailData(mappedPcm)
 
   const findCode = code => find(equals(code))(fields) || ''
@@ -24,18 +25,11 @@ const CheckLists = ({ code, mappedPcm }) => {
   const adminConfirmedLabel =
     useSelector(selectCode(baseEntityCode, adminConfirmedCode))?.attributeName || ''
 
-  const matchesVISA = useSelector(selectCode(baseEntityCode, matchesVISACode))?.value || false
-  const matchesEmpContract =
-    useSelector(selectCode(baseEntityCode, matchesEmpContractCode))?.value || false
-  const websiteInvestigated =
-    useSelector(selectCode(baseEntityCode, websiteInvestigatedCode))?.value || false
-  const adminConfirmed = useSelector(selectCode(baseEntityCode, adminConfirmedCode))?.value || false
-
-  const CheckListItem = ({ label, isChecked }) => {
+  const CheckListItem = ({ label, attribute }) => {
     return (
-      <HStack key={label} justifyContent={'space-between'}>
+      <HStack justifyContent={'space-between'}>
         <Text>{label}</Text>
-        <Switch isChecked={isChecked} />
+        <Attribute code={baseEntityCode} attribute={attribute} />
       </HStack>
     )
   }
@@ -43,10 +37,10 @@ const CheckLists = ({ code, mappedPcm }) => {
   return (
     <Box>
       <Grid gap="1rem">
-        <CheckListItem label={matchesVISALabel} isChecked={matchesVISA} />
-        <CheckListItem label={matchesEmpContractLabel} isChecked={matchesEmpContract} />
-        <CheckListItem label={websiteInvestigatedLabel} isChecked={websiteInvestigated} />
-        <CheckListItem label={adminConfirmedLabel} isChecked={adminConfirmed} />
+        <CheckListItem label={matchesVISALabel} attribute={matchesVISACode} />
+        <CheckListItem label={matchesEmpContractLabel} attribute={matchesEmpContractCode} />
+        <CheckListItem label={websiteInvestigatedLabel} attribute={websiteInvestigatedCode} />
+        <CheckListItem label={adminConfirmedLabel} attribute={adminConfirmedCode} />
       </Grid>
     </Box>
   )

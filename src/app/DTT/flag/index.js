@@ -3,21 +3,22 @@ import { useEffect, useState } from 'react'
 
 import { apiConfig } from 'config/get-api-config'
 import { equals } from 'ramda'
+import { isNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined'
 import { onSendMessage } from 'vertx'
 import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
-import { isNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined'
 
 const Read = ({ data = {} }) => {
   const sourceCode = useSelector(selectCode('USER'))
 
-  const toggle = () =>
+  const toggle = () => {
     onSendMessage({
       code: `ACT_${data.attributeCode}`,
       sourceCode,
       targetCode: data.baseEntityCode,
     })
-  return <Switch isChecked={data.value} onChange={toggle} />
+  }
+  return <Switch isChecked={data?.value} onChange={toggle} />
 }
 
 const Write = ({ questionCode, data, onSendAnswer, placeholderName: label, mandatory }) => {
