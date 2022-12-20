@@ -1,7 +1,7 @@
 import { Box, HStack, IconButton } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
-import { split } from 'ramda'
+import { split, pathOr } from 'ramda'
 import sendEvtClick from 'app/ASKS/utils/send-evt-click'
 import getAskFromAttribute from 'app/PCM/helpers/get-ask-from-attribute'
 
@@ -14,13 +14,20 @@ const FieldRow = ({ baseEntityCode, sourceCode, processId, data, index, mappedPc
   const seperator = ';'
   const names = split(seperator, data?.attributeName ?? '') || []
   const values = split(seperator, data?.valueString ?? '') || []
-  const columnCode = values[0] ?? ''
-  const operatorCode = values[1] ?? ''
-  const valueCode = values[2] ?? ''
 
-  const columnName = names[0] ?? columnCode
-  const operatorName = names[1] ?? operatorCode
-  const valueName = names[2] ?? valueCode
+  const getArrayData = (names, values, index) => pathOr(pathOr('', index, values), index, names)
+
+  const deconstruct = (names, values) => {
+    const columnName = getArrayData(names, values, 0)
+    const operatorName = getArrayData(names, values, 1)
+    const valueName = getArrayData(names, values, 2)
+    return {
+      columnName,
+      operatorName,
+      valueName,
+    }
+  }
+  const { columnName, operatorName, valueName } = deconstruct(names, values)
 
   const onDelete = () => {
     sendEvtClick({
