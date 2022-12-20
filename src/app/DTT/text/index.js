@@ -147,7 +147,6 @@ export const Write = ({
         h={'auto'}
         paddingBlock={3}
         paddingInline={6}
-        autoComplete={'off'}
         bg={fieldBackgroundColor}
         borderRadius={borderRadius}
         borderColor={fieldBorderColor}
