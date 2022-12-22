@@ -1,39 +1,38 @@
 import {
   AspectRatio,
   Avatar,
+  Box,
   Button,
   ButtonGroup,
   CloseButton,
-  HStack,
-  Box,
   Grid,
+  HStack,
   Image,
-  Tooltip,
-  useColorModeValue,
   Modal,
-  ModalOverlay,
+  ModalBody,
+  ModalCloseButton,
   ModalContent,
   ModalHeader,
-  ModalCloseButton,
-  ModalBody,
+  ModalOverlay,
+  Tooltip,
+  useColorModeValue,
   useDisclosure,
 } from '@chakra-ui/react'
 import { compose, isEmpty, map, min, not } from 'ramda'
-import { faUpload, faUserAlt, faCamera } from '@fortawesome/free-solid-svg-icons'
+import { faCamera, faUpload, faUserAlt } from '@fortawesome/free-solid-svg-icons'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import MultiImageViewer from './multi-image-viewer'
 import Snap from './Snap'
+import { faImages } from '@fortawesome/free-solid-svg-icons'
 import { onSendMessage } from 'vertx'
+import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { selectCode } from 'redux/db/selectors'
 import useApi from 'api'
+import useProductColors from 'utils/productColors'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
-import safelyParseJson from 'utils/helpers/safely-parse-json'
-import useProductColors from 'utils/productColors'
 import { useTheme } from '@emotion/react'
-
-import { faImages } from '@fortawesome/free-solid-svg-icons'
-import MultiImageViewer from './multi-image-viewer'
 
 const Write = ({
   questionCode,
@@ -123,6 +122,7 @@ const Read = ({ code, data, parentCode, variant, config, multiUpload }) => {
   const { buttonBackgroundColor } = useProductColors()
 
   const bg = useColorModeValue('gray.300', 'gray.600')
+
   if (variant === 'profile_image') {
     return <Image {...config} src={src} alt="profile-picture" w="10rem" borderRadius="xl" />
   }
@@ -190,12 +190,12 @@ const Read = ({ code, data, parentCode, variant, config, multiUpload }) => {
       <AspectRatio>
         <Avatar
           name={name?.value || assocName?.value}
-          {...config}
           cursor="pointer"
           onClick={viewDetail}
           src={src}
           w={'full'}
           borderRadius={'xl'}
+          {...config}
         />
       </AspectRatio>
     )
