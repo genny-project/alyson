@@ -39,3 +39,8 @@ export const mentorMatchedMsg = 'Mentor has already been invited.'
 export const completePrevStepsMsg = 'Please complete the previous steps.'
 export const careerNavigatorText = 'Take the career navigator quiz'
 export const careerNavigatorLink = 'https://www.careernavigator.io/'
+
+export const matchesVisaQuestionCode = 'QUE_MATCHES_VISA'
+export const matchesEmpContractQuestionCode = 'QUE_MATCHES_EMPLOYMENT_CONTRACT'
+export const websiteInvestigatedQuestionCode = 'QUE_WEBSITE_INVESTIGATED'
+export const adminConfirmedQuestionCode = 'QUE_ADMIN_CONFIRMED'
