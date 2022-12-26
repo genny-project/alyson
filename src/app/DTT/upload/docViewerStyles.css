@@ -1,0 +1,9 @@
+#react-doc-viewer #image-renderer {
+  background-image: none;
+}
+
+#react-doc-viewer #image-renderer img {
+  max-width: 20rem;
+  height: auto;
+  max-height: inherit;
+}

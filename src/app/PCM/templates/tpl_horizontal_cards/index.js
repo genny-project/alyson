@@ -1,17 +1,17 @@
 import { Box, Grid, HStack, VStack } from '@chakra-ui/react'
-import { filter, includes, map } from 'ramda'
+import { equals, filter, includes, map } from 'ramda'
 import { getColumnDefs, getFields } from '../../helpers/sbe-utils'
 import { selectCode, selectKeys } from 'redux/db/selectors'
 
 import Attribute from 'app/BE/attribute'
+import ContextMenu from 'app/BE/context'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Title from 'app/SBE/table/Title'
+import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
+import { useGetActionsFromCode } from 'app/SBE/utils/get-actions'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import useGetMappedBaseEntity from 'app/PCM/helpers/use-get-mapped-base-entity'
 import { useSelector } from 'react-redux'
-import Title from 'app/SBE/table/Title'
-import ContextMenu from 'app/BE/context'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
-import { useGetActionsFromCode } from 'app/SBE/utils/get-actions'
 
 const TemplateHorizontalCards = ({ mappedPcm, depth }) => {
   const sbeCodePrefix = mappedPcm?.PRI_LOC1 || ''
@@ -56,6 +56,7 @@ const Card = ({ mappedValues, baseEntityCode, primaryColor, actions, sbeCode }) 
       <VStack>
         {mappedValues.map((value, index) => {
           const fontSize = index === 0 ? 'xl' : 'md'
+
           return (
             <HStack
               justify={'space-between'}
@@ -65,25 +66,46 @@ const Card = ({ mappedValues, baseEntityCode, primaryColor, actions, sbeCode }) 
               color="#004654"
               fontWeight="400"
               w={'full'}
+              position={'relative'}
             >
-              <Attribute code={baseEntityCode} attribute={value} config={{ carddisplay: 'true' }} />
+              <Attribute
+                code={baseEntityCode}
+                attribute={value}
+                config={
+                  equals(value)('PRI_IMAGE_URL')
+                    ? {
+                        carddisplay: 'true',
+                        w: 'min(100%, 20rem)',
+                        h: 'auto',
+                        borderRadius: 0,
+                        borderTopLeftRadius: 'xl',
+                        borderTopRightRadius: 'xl',
+                        overflow: 'hidden',
+                      }
+                    : { carddisplay: 'true' }
+                }
+              />
+
               {index === 0 && (
-                <ContextMenu
-                  actions={actions}
-                  code={baseEntityCode}
-                  parentCode={sbeCode}
-                  button={
-                    <Box
-                      align="start"
-                      border="1px"
-                      borderColor="gray.200"
-                      borderRadius="6px"
-                      px="2"
-                    >
-                      <FontAwesomeIcon icon={faEllipsisV} size="xs" />
-                    </Box>
-                  }
-                />
+                <Box position={'absolute'} top={2} right={2}>
+                  <ContextMenu
+                    actions={actions}
+                    code={baseEntityCode}
+                    parentCode={sbeCode}
+                    button={
+                      <Box
+                        align="start"
+                        border="1px"
+                        borderColor="gray.200"
+                        borderRadius="6px"
+                        px="2"
+                        bg="white"
+                      >
+                        <FontAwesomeIcon icon={faEllipsisV} size="xs" />
+                      </Box>
+                    }
+                  />
+                </Box>
               )}
             </HStack>
           )

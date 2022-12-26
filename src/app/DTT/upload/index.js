@@ -1,3 +1,5 @@
+import './docViewerStyles.css'
+
 import {
   Box,
   Button,
