@@ -2,12 +2,12 @@ import { Radio as CRadio, RadioGroup, Stack, Text } from '@chakra-ui/react'
 import { compose, equals, includes, map, split } from 'ramda'
 
 import { Read as TextRead } from 'app/DTT/text'
+import isNullOrUndefined from 'utils/helpers/is-null-or-undefined'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { selectCode } from 'redux/db/selectors'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
-import isNullOrUndefined from 'utils/helpers/is-null-or-undefined'
 
 const Read = ({ data, boolean }) => {
   const labels = split(';')(data?.html?.labels || 'Yes;No')
@@ -70,12 +70,13 @@ const Write = ({
     onSendAnswer(boolean ? newValue : [newValue])
     dispatchFieldMessage({ payload: questionCode })
   }
+
   return (
     <Stack
       ml={1}
-      direction={vertical || options?.length || 0 > 2 ? 'column' : 'row'} // just making sure that longer sets of options don't end up weirdly arranged
-      spacing={5}
-      justifyContent={vertical || options?.length || 0 ? 'flex-start' : 'space-between'}
+      direction={vertical || options?.length || 0 > 2 ? 'row' : 'column'} // just making sure that longer sets of options don't end up weirdly arranged
+      spacing={0}
+      justifyContent={vertical || options?.length || 0 ? 'space-between' : 'flex-start'}
     >
       <Text as="label" color="gray.700">
         {placeholderName}

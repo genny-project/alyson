@@ -64,7 +64,7 @@ const BasicInformation = ({ code, isStudent }) => {
 
         <Grid gap={isMobile ? '0' : '0.75rem'} placeContent={'start'} color="product.primary">
           {map(({ icon, attr }) => (
-            <Flex key={icon}>
+            <Flex key={attr}>
               <Text as="p" marginInlineEnd={3}>
                 <FontAwesomeIcon icon={icon} />
               </Text>
