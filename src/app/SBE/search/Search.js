@@ -6,6 +6,12 @@ import {
   InputGroup,
   InputLeftElement,
   InputRightElement,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverTrigger,
   Stack,
   theme,
 } from '@chakra-ui/react'
@@ -22,7 +28,7 @@ import { useIsMobile } from 'utils/hooks'
 import useProductColors from 'utils/productColors'
 import { useSelector } from 'react-redux'
 
-const ProcessSearch = ({ sbeCode, process, placeholder }) => {
+const ProcessSearchContent = ({ sbeCode, process, placeholder }) => {
   const [searchValue, setSearchValue] = useState('')
   const inputRef = useRef(null)
   const clearRef = useRef(null)
@@ -168,6 +174,30 @@ const ProcessSearch = ({ sbeCode, process, placeholder }) => {
         </Button>
       )}
     </Stack>
+  )
+}
+
+const ProcessSearch = () => {
+  const isMobile = useIsMobile()
+  return (
+    <>
+      {isMobile ? (
+        <Popover>
+          <PopoverTrigger>
+            <IconButton aria-label="Search " icon={<FontAwesomeIcon icon={faSearch} />} />
+          </PopoverTrigger>
+          <PopoverContent>
+            <PopoverArrow />
+            <PopoverCloseButton />
+            <PopoverBody>
+              <ProcessSearchContent />
+            </PopoverBody>
+          </PopoverContent>
+        </Popover>
+      ) : (
+        <ProcessSearchContent />
+      )}
+    </>
   )
 }
 export default ProcessSearch

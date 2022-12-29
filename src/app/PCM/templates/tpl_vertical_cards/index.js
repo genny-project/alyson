@@ -1,4 +1,4 @@
-import { Box, Grid, HStack, VStack, theme } from '@chakra-ui/react'
+import { Box, Grid, HStack, VStack } from '@chakra-ui/react'
 import { equals, filter, includes, map } from 'ramda'
 import { getColumnDefs, getFields } from '../../helpers/sbe-utils'
 import { selectCode, selectKeys } from 'redux/db/selectors'
@@ -13,7 +13,7 @@ import useGetMappedBaseEntity from 'app/PCM/helpers/use-get-mapped-base-entity'
 import useProductColors from 'utils/productColors'
 import { useSelector } from 'react-redux'
 
-const TemplateHorizontalCards = ({ mappedPcm, depth }) => {
+const TemplateVerticalCards = ({ mappedPcm, depth }) => {
   const sbeCodePrefix = mappedPcm?.PRI_LOC1 || ''
   const keys = useSelector(selectKeys)
   const sbeCode = (filter(key => includes(sbeCodePrefix)(key) && !includes('@')(key))(keys) || [
@@ -28,23 +28,28 @@ const TemplateHorizontalCards = ({ mappedPcm, depth }) => {
   const { buttonBackgroundColor } = useProductColors()
 
   return (
-    <Box padding={'10px'}>
-      <Box paddingBottom={3}>
-        <Title sbeCode={sbeCode} />
-      </Box>
-      <Grid templateColumns={'repeat(auto-fit, minmax(12.5rem, 1fr))'} gap={4}>
-        {rows.map(item => (
-          <Card
-            actions={actionCodes}
-            key={`CARD-${item || ''}`}
-            mappedValues={mappedValues}
-            baseEntityCode={item}
-            primaryColor={buttonBackgroundColor}
-            sbeCode={sbeCode}
-          />
-        ))}
-      </Grid>
-    </Box>
+    <>
+      {!!rows.length && (
+        <Box padding={'10px'}>
+          <Box paddingBottom={3}>
+            <Title sbeCode={sbeCode} />
+          </Box>
+
+          <Grid gap={4}>
+            {rows.map(item => (
+              <Card
+                actions={actionCodes}
+                key={`CARD-${item || ''}`}
+                mappedValues={mappedValues}
+                baseEntityCode={item}
+                primaryColor={buttonBackgroundColor}
+                sbeCode={sbeCode}
+              />
+            ))}
+          </Grid>
+        </Box>
+      )}
+    </>
   )
 }
 
@@ -102,7 +107,7 @@ const Card = ({ mappedValues, baseEntityCode, actions, sbeCode, primaryColor }) 
               />
 
               {index === 0 && (
-                <Box position={'absolute'} top={2} right={2} zIndex={theme.zIndices.modal}>
+                <Box position={'absolute'} top={2} right={2}>
                   <ContextMenu
                     actions={actions}
                     code={baseEntityCode}
@@ -131,4 +136,4 @@ const Card = ({ mappedValues, baseEntityCode, actions, sbeCode, primaryColor }) 
   )
 }
 
-export default TemplateHorizontalCards
+export default TemplateVerticalCards

@@ -9,6 +9,8 @@ const EventButton = ({ askData, onFinish, parentCode, sourceCode, clientId, conf
   const { questionCode, targetCode, name, disabled, processId, attributeCode } = askData
   const theme = useTheme()
 
+  console.log('first here')
+
   const { buttonBackgroundColor } = useProductColors()
 
   const onClick = () =>
