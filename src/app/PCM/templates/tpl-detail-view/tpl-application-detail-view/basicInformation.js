@@ -21,21 +21,18 @@ const BasicInformation = ({ code, isStudent }) => {
   const isMobile = useIsMobile()
   const { getImageSrc } = useApi()
 
-  const escapeChars = string => {
-    return string.replace(/[[\]']+/g, '').replace(/"/g, '')
-  }
+  const escapeChars = str => str.replace(/[[\]']+/g, '').replace(/"/g, '')
 
   const tenantFullName = useSelector(selectCode(code, 'PRI_NAME'))?.value || ''
   const tenantImageCode = useSelector(selectCode(code, 'PRI_IMAGE'))?.value || ''
   const tenantImage = escapeChars(tenantImageCode)
 
   const tenantJobRole = useSelector(selectCode(code, 'PRI_ROLE_AT_COMPANY'))?.value || ''
+
   const reasonToMoveCode = useSelector(selectCode(code, 'LNK_MOVE_REASON'))?.value || ''
-  // const reasonToMoveCodeFormatted = reasonToMoveCode.replace(/[[\]']+/g, '').replace(/"/g, '')
   const reasonToMoveCodeFormatted = escapeChars(reasonToMoveCode)
 
   const campusSelectionCode = useSelector(selectCode(code, 'LNK_CAMPUS_SELECTION'))?.value || ''
-  // const campusSelectionCodeFormatted = campusSelectionCode.replace(/[[\]']+/g, '').replace(/"/g, '')
   const campusSelectionCodeFormatted = escapeChars(campusSelectionCode)
 
   const reasonToMove = useSelector(selectCode(reasonToMoveCodeFormatted, 'PRI_NAME'))?.value || ''
