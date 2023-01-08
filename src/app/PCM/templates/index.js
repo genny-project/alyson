@@ -23,6 +23,7 @@ import TemplateSBEDetailView from './tpl-detail-view/tpl-sbe-detail-view'
 import TemplateSidebarOne from 'app/PCM/templates/tpl-sidebar-one'
 import TemplateTable from './tpl-table'
 import TemplateText from './text-templates'
+import TemplateVerticalCards from './tpl_vertical_cards'
 import debugOut from 'utils/debug-out'
 import hasNot from 'utils/helpers/has-not.js'
 import showTemplateNames from 'utils/helpers/show-template-names'
@@ -75,6 +76,7 @@ const templateHandlerMachine = depth => mappedPcm => templateCode => parentCode 
     TPL_APPLICATION_DETAIL_VIEW: <TemplateApplicationDetailView {...mandatoryProps} />,
     TPL_SBE_DETAIL_VIEW: <TemplateSBEDetailView {...mandatoryProps} />,
     TPL_POPUP: <TemplatePopup {...mandatoryProps} />,
+    TPL_VERTICAL_CARDS: <TemplateVerticalCards {...mandatoryProps} />,
   }
 
   let noMatchingTemplates = hasNot(templateCode)(listOfTemplates)

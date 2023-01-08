@@ -10,6 +10,7 @@ const productBasedDefaultColors = {
     secondary100: '#FFF6F0',
     secondary200: '#F8DFC8',
     secondaryAccent: '#EF8567',
+    secondary400: '#EF8567',
     secondaryLight: '#FFF6F0',
 
     gray: '#F4F5F5',
@@ -22,6 +23,8 @@ const productBasedDefaultColors = {
 
     white: '#FFFFFF',
     dark: '#000000',
+
+    gradient100: 'linear-gradient(340deg, #EF8567, #F18B32)',
   },
 
   alyson: {
