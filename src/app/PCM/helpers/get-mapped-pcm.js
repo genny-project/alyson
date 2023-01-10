@@ -7,12 +7,19 @@ import getMappedPcm from 'app/PCM/helpers/get-mapped-pcm-from-pcm-object'
 
 const useGetMappedPcm = (code, pcmKey = pcmKeyDefault, getterFn = getMappedPcm) => {
   const allPcmCode = compose(useSelector, selectCode)(pcmKey) || []
-  const selectedPcmCode = find(equals(code))(allPcmCode)
-  const selectedPcm = useSelector(selectCode(selectedPcmCode, 'allAttributes'), (prev, current) =>
-    shallowEqual(prev, current),
+  const matchingPcmCode = find(equals(code))(allPcmCode)
+  const matchingPcmAttributes = useSelector(
+    selectCode(matchingPcmCode, 'allAttributes'),
+    (prev, current) => shallowEqual(prev, current),
   )
 
-  return getterFn(selectedPcm)
+  console.log(
+    '%c 🙀🙀🙀🙀🙀🙀 Testing 🙀🙀🙀🙀🙀🙀🙀 ',
+    'background: silver; color: black; padding: 0.5rem',
+    { code, pcmKey, getterFn, allPcmCode, matchingPcmCode, matchingPcmAttributes },
+  )
+
+  return getterFn(matchingPcmAttributes)
 }
 
 export default useGetMappedPcm

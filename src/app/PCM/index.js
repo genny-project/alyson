@@ -4,10 +4,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
 
 import templateHandlerMachine from 'app/PCM/templates'
-import useGetMappedPcm from './helpers/get-mapped-pcm'
+import useGetMappedPcm from 'app/PCM/helpers/get-mapped-pcm'
+
 import addOne from 'utils/helpers/add-one'
 import debugOut from 'utils/debug-out'
 import { maxRecursiveDepth } from 'utils/constants'
+
 /**
  * Given a Pcm Code `code`, will attempt to render a PCM template based on
  * `PRI_TEMPLATE_CODE`, using the pcm stored at `code` in the redux store.
