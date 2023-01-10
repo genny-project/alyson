@@ -25,7 +25,7 @@ import TemplateTable from 'app/PCM/templates/tpl-table'
 import TemplateText from 'app/PCM/templates/text-templates'
 import TemplateVerticalCards from 'app/PCM/templates/tpl_vertical_cards'
 import debugOut from 'utils/debug-out'
-import hasNot from 'utils/helpers/has-not.js'
+import hasNot from 'utils/helpers/has-not'
 import showTemplateNames from 'utils/helpers/show-template-names'
 import TemplateSBERowAdd from 'app/PCM/templates/tpl-sbe-row-add'
 import TemplateSBESelect from 'app/PCM/templates/tpl-sbe-select'
@@ -91,6 +91,7 @@ const templateHandlerMachine = depth => mappedPcm => parentCode => rest => {
 
   if (noMatchingTemplates) {
     debugOut.warn(`No template exists for code: ${templateCode}! Falling back on default tempalte!`)
+    return undefined
   }
 
   const color = Math.random().toString(16).substr(-6)
