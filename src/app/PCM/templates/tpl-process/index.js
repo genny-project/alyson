@@ -1,5 +1,5 @@
 import getSpillLocs from 'app/PCM/helpers/get-spill-locs'
-import useGetSbeCodeFromPcm from '../helpers/get-sbe-code-from-pcm'
+import useGetSbeCodeFromPcm from 'app/PCM/templates/helpers/get-sbe-code-from-pcm.js'
 import getBeObjectFromMappedPcm from 'app/PCM/templates/helpers/get-be-object-from-mappedPcm'
 import Process from 'app/layouts/process'
 import { map, compose, keys } from 'ramda'
