@@ -29,7 +29,7 @@ const TemplateLogo = ({ mappedPcm, depth }) => {
             alignItems="center"
             justifyContent="center"
             cursor={'pointer'}
-            onClick={() => handleClick(paramaters.ask.questionCode)}
+            onClick={() => handleClick(paramaters?.ask?.questionCode)}
           >
             {/* This is the actual logo attribute */}
             <PcmField
