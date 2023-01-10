@@ -23,12 +23,12 @@ import TemplateSBEDetailView from './tpl-detail-view/tpl-sbe-detail-view'
 import TemplateSidebarOne from 'app/PCM/templates/tpl-sidebar-one'
 import TemplateTable from './tpl-table'
 import TemplateText from './text-templates'
+import TemplateVerticalCards from './tpl_vertical_cards'
 import debugOut from 'utils/debug-out'
 import hasNot from 'utils/helpers/has-not.js'
 import showTemplateNames from 'utils/helpers/show-template-names'
 import TemplateSBERowAdd from './tpl-sbe-row-add/'
 import TemplateSBESelect from './tpl-sbe-select'
-import TemplateVerticalCards from './tpl-vertical-cards'
 
 /**
  * Takes in a mappedPcm, a templateCode and some misc properties and returns a template component.

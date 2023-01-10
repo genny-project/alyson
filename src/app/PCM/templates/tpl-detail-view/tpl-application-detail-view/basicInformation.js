@@ -21,13 +21,19 @@ const BasicInformation = ({ code, isStudent }) => {
   const isMobile = useIsMobile()
   const { getImageSrc } = useApi()
 
+  const escapeChars = str => str.replace(/[[\]']+/g, '').replace(/"/g, '')
+
   const tenantFullName = useSelector(selectCode(code, 'PRI_NAME'))?.value || ''
-  const tenantImage = useSelector(selectCode(code, 'PRI_IMAGE'))?.value || ''
+  const tenantImageCode = useSelector(selectCode(code, 'PRI_IMAGE'))?.value || ''
+  const tenantImage = escapeChars(tenantImageCode)
+
   const tenantJobRole = useSelector(selectCode(code, 'PRI_ROLE_AT_COMPANY'))?.value || ''
+
   const reasonToMoveCode = useSelector(selectCode(code, 'LNK_MOVE_REASON'))?.value || ''
-  const reasonToMoveCodeFormatted = reasonToMoveCode.replace(/[[\]']+/g, '').replace(/"/g, '')
+  const reasonToMoveCodeFormatted = escapeChars(reasonToMoveCode)
+
   const campusSelectionCode = useSelector(selectCode(code, 'LNK_CAMPUS_SELECTION'))?.value || ''
-  const campusSelectionCodeFormatted = campusSelectionCode.replace(/[[\]']+/g, '').replace(/"/g, '')
+  const campusSelectionCodeFormatted = escapeChars(campusSelectionCode)
 
   const reasonToMove = useSelector(selectCode(reasonToMoveCodeFormatted, 'PRI_NAME'))?.value || ''
 
@@ -64,7 +70,7 @@ const BasicInformation = ({ code, isStudent }) => {
 
         <Grid gap={isMobile ? '0' : '0.75rem'} placeContent={'start'} color="product.primary">
           {map(({ icon, attr }) => (
-            <Flex key={icon}>
+            <Flex key={attr}>
               <Text as="p" marginInlineEnd={3}>
                 <FontAwesomeIcon icon={icon} />
               </Text>

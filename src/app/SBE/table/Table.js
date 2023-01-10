@@ -1,21 +1,19 @@
-import { Box, HStack, Stack, Table, useColorModeValue } from '@chakra-ui/react'
-import { equals } from 'ramda'
-import { useSelector } from 'react-redux'
-
+import { Box, HStack, Table, useColorModeValue } from '@chakra-ui/react'
 import getActions, { getTableActions } from '../utils/get-actions'
+
 import Action from 'app/BE/action'
-import Body from './Body'
-import Download from '../download'
-import Header from './Header'
+import Body from 'app/SBE/table/Body'
+import Download from 'app/SBE/download'
+import Header from 'app/SBE/table/Header'
 import MapSearch from 'app/SBE/display_modes/map_view'
-import Pagination from './Pagination'
-import Title from './Title'
+import Pagination from 'app/SBE/table/Pagination'
+import Title from 'app/SBE/table/Title'
 import { apiConfig } from 'config/get-api-config'
-// import Filters from '../filters'
-// import Search from 'app/SBE/search/Search'
-import getColumns from '../utils/get-columns'
+import { equals } from 'ramda'
+import getColumns from 'app/SBE/utils/get-columns'
 import { selectCode } from 'redux/db/selectors'
 import { useIsMobile } from 'utils/hooks'
+import { useSelector } from 'react-redux'
 
 const DataTable = ({ parentCode, mapSearch, passedComponents = [] }) => {
   const tableData = useSelector(selectCode(parentCode))
@@ -32,8 +30,21 @@ const DataTable = ({ parentCode, mapSearch, passedComponents = [] }) => {
 
   return (
     <Box mx={'5'}>
-      <HStack align="flex-end" mb="3" justify="space-between">
-        <Stack align="center" spacing="5" direction={isMobile ? 'column' : 'row'} w={'full'}>
+      <HStack
+        spacing={5}
+        mb={3}
+        pb={5}
+        align="center"
+        justifyContent={isMobile ? 'space-between' : 'flex-start'}
+        borderBottom={'1px solid'}
+        borderColor={'gray.200'}
+      >
+        <HStack
+          spacing="5"
+          align="center"
+          w={'full'}
+          justifyContent={isMobile ? 'space-between' : 'flex-start'}
+        >
           <Title sbeCode={parentCode} />
           {/* <Search sbeCode={parentCode} /> */}
           {/* <Filters sbeCode={parentCode} /> */}
@@ -42,7 +53,7 @@ const DataTable = ({ parentCode, mapSearch, passedComponents = [] }) => {
           ))}
 
           <Download sbeCode={parentCode} />
-        </Stack>
+        </HStack>
         <Pagination sbeCode={parentCode} />
       </HStack>
 
