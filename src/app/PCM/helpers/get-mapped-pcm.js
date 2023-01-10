@@ -13,12 +13,6 @@ const useGetMappedPcm = (code, pcmKey = pcmKeyDefault, getterFn = getMappedPcm) 
     (prev, current) => shallowEqual(prev, current),
   )
 
-  console.log(
-    '%c 🙀🙀🙀🙀🙀🙀 Testing 🙀🙀🙀🙀🙀🙀🙀 ',
-    'background: silver; color: black; padding: 0.5rem',
-    { code, pcmKey, getterFn, allPcmCode, matchingPcmCode, matchingPcmAttributes },
-  )
-
   return getterFn(matchingPcmAttributes)
 }
 
