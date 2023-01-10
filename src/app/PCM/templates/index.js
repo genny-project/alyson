@@ -36,7 +36,7 @@ import TemplateSBESelect from 'app/PCM/templates/tpl-sbe-select'
  * If the template does not exist, it will return the default template
  *
  */
-const templateHandlerMachine = depth => mappedPcm => templateCode => parentCode => rest => {
+const templateHandlerMachine = depth => mappedPcm => parentCode => rest => {
   const mandatoryProps = {
     mappedPcm,
     depth,
@@ -83,6 +83,7 @@ const templateHandlerMachine = depth => mappedPcm => templateCode => parentCode 
     TPL_VERTICAL_CARDS: <TemplateVerticalCards {...mandatoryProps} />,
   }
 
+  const { PRI_TEMPLATE_CODE: templateCode } = mappedPcm
   let noMatchingTemplates = hasNot(templateCode)(listOfTemplates)
   const defaultTemplate = <TemplateDefault />
   let matchingTemplate = listOfTemplates[templateCode]
