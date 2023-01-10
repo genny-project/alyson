@@ -109,9 +109,7 @@ const Ask = ({
   const { component = forcedComponent || 'text', typeName, inputmask } = dataType
 
   const feedback = data?.feedback
-  const onSendAnswerWithNovalue = () => {
-    createSendAnswer(askData, { passedTargetCode })
-  }
+  const onSendAnswerWithNovalue = createSendAnswer(askData, { passedTargetCode })
 
   const callAnswerCallback = value => {
     if (!!answerCallback) {
