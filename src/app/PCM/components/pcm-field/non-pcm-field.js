@@ -8,7 +8,7 @@ import showTemplateNames from 'utils/helpers/show-template-names'
 import Ask from 'app/ASKS/ask'
 
 const NonPcmPcmField = props => {
-  const { prefix, child, code, mappedPcm, config } = props
+  const { prefix, child, code, mappedPcm, config, evtValue } = props
   const questionGroupCode = mappedPcm?.PRI_QUESTION_CODE || ''
   const { ask, isChildAsk } = getAskFromAttribute(questionGroupCode)(code)
   const isEvt = equals(prefix, 'EVT') || equals(prefix, 'QQQ')
@@ -18,10 +18,9 @@ const NonPcmPcmField = props => {
   const isReadOnly = config?.readonly ?? ask?.readonly ?? true
   const renderAttribute = not(renderChild) && !isEvt && !child && isReadOnly
   const renderAsk = not(renderChild) && !isEvt && !child && not(isReadOnly)
-
   if (isEmpty(ask)) {
     debugOut.error(`NonPcmPcmField got an empty ask for ${props.code}! Returning a blank div`)
-    return showTemplateNames ? <div>Empty ask for ${props.code}</div> : <div />
+    return showTemplateNames ? <div>Empty ask for {props.code}</div> : <div />
   }
 
   return renderEventButton && !isQueEvent ? (
@@ -31,6 +30,7 @@ const NonPcmPcmField = props => {
       childCode={isChildAsk ? ask?.questionCode : 'raw'}
       iconId={ask?.question?.icon}
       vert={false}
+      value={evtValue}
       isNotChildAsk={!isChildAsk}
     />
   ) : renderChild ? (
@@ -56,14 +56,16 @@ const NonPcmPcmField = props => {
   ) : renderAsk || isQueEvent ? (
     <Ask
       key={code}
-      parentCode={isChildAsk ? questionGroupCode ?? ask?.parentCode : undefined}
-      questionCode={ask?.questionCode}
+      parentCode={isChildAsk ? questionGroupCode ?? ask?.parentCode : ask?.questionCode}
+      questionCode={isChildAsk ? ask?.questionCode : 'raw'}
       config={config?.config}
       noLabel={undefined}
       secondaryColor={undefined}
       onFinish={undefined}
       passedAskData={undefined}
       passedTargetCode={config?.parentCode ?? ask?.targetCode}
+      answerCallback={config?.answerCallback}
+      skipRedux={config?.skipRedux ?? false}
     />
   ) : (
     <div />

@@ -7,6 +7,7 @@ export interface AttributeProps {
   styles?: any
   hasIndicatorIcon?: any
   readonly?: boolean
+  answerCallback?: any
 }
 
 export interface PcmFieldParameters {
@@ -22,6 +23,7 @@ export interface PcmFieldProps {
   config?: AttributeProps
   properties?: any
   depth: number
+  evtValue?: string
   child: (parameters: PcmFieldParameters) => JSX.Element
 }
 
@@ -31,5 +33,6 @@ export interface NonPcmPcmFieldProps {
   config?: AttributeProps
   properties?: any
   prefix: string
+  evtValue?: string
   child: (parameters: PcmFieldParameters) => JSX.Element
 }

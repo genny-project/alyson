@@ -22,6 +22,7 @@ export const Write = ({
   mandatory,
   targetCode,
   attributeCode,
+  config = {},
 }) => {
   const dropdownData =
     useSelector(
@@ -79,7 +80,7 @@ export const Write = ({
   const onSelect = option => {
     setSelectedOption(option.value)
     setUserInput(option.label)
-    onChange(option.label)(option.value)
+    onChange(null)(option.value)
   }
 
   const onInputChange = e => {
@@ -90,7 +91,7 @@ export const Write = ({
   }
 
   const onChange = value => option => {
-    const optionSelected = !!selectedOption
+    const optionSelected = !!option
     onSendAnswer({ value: optionSelected ? option : value, isCode: optionSelected })
 
     setUpdated(true)
@@ -194,6 +195,7 @@ export const Write = ({
         borderColor={fieldBorderColor}
         fontSize={'sm'}
         fontWeight={'medium'}
+        autoComplete={'off'}
         color={fieldTextColor}
         cursor={'pointer'}
         _hover={{
@@ -252,7 +254,7 @@ export const Write = ({
                   rightIcon={<div>⏎</div>}
                   key={`${questionCode}-typed-input`}
                 >
-                  {`Search for: ${userInput}`}
+                  {`${config?.searchPrefix || 'Search for'}: ${userInput}`}
                 </Button>
               ) : null}
               {options.map(option => {

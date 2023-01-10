@@ -6,8 +6,7 @@ import { includes, keys, reduce } from 'ramda'
 const getSpillLocs = (mappedPcm, ...definedFields) =>
   reduce((acc, attributeCode) => {
     acc =
-      includes('PRI_LOC')(attributeCode) ||
-      (includes('PRI_QUESTION_CODE')(attributeCode) && !includes(attributeCode)(definedFields))
+      includes('PRI_LOC')(attributeCode) && !includes(attributeCode)(definedFields)
         ? { ...acc, [attributeCode]: mappedPcm[attributeCode] }
         : acc
 

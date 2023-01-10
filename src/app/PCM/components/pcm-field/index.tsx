@@ -13,6 +13,7 @@ const PcmField: React.FC<PcmFieldProps> = ({
   child,
   config,
   depth,
+  evtValue,
 }): JSX.Element => {
   let prefixCode
   if (!code) {
@@ -33,6 +34,7 @@ const PcmField: React.FC<PcmFieldProps> = ({
       properties={properties}
       prefix={prefix}
       child={child}
+      evtValue={evtValue}
     />
   )
 }

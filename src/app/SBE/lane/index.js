@@ -27,7 +27,7 @@ const Lane = ({ sbeCode, dashboard, width }) => {
         variant="card0"
         p={[2, 2, 2, 3]}
         width={width}
-        maxH={isMobile ? '73vh' : '78vh'}
+        maxH={isMobile ? '73vh' : '71vh'}
         className="nobar"
         h="full"
         overflowY="scroll"

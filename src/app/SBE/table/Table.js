@@ -7,8 +7,6 @@ import Download from 'app/SBE/download'
 import Header from 'app/SBE/table/Header'
 import MapSearch from 'app/SBE/display_modes/map_view'
 import Pagination from 'app/SBE/table/Pagination'
-// import Filters from '../filters'
-import Search from 'app/SBE/search/Search'
 import Title from 'app/SBE/table/Title'
 import { apiConfig } from 'config/get-api-config'
 import { equals } from 'ramda'
@@ -48,12 +46,11 @@ const DataTable = ({ parentCode, mapSearch, passedComponents = [] }) => {
           justifyContent={isMobile ? 'space-between' : 'flex-start'}
         >
           <Title sbeCode={parentCode} />
-          <Search sbeCode={parentCode} />
+          {/* <Search sbeCode={parentCode} /> */}
           {/* <Filters sbeCode={parentCode} /> */}
-          {/* Commented out until it is ready */}
-          {/* {passedComponents.map((component, index) => (
+          {passedComponents.map((component, index) => (
             <Box key={`TABLE-${parentCode}-CHILD-${index}`}>{component}</Box>
-          ))} */}
+          ))}
 
           <Download sbeCode={parentCode} />
         </HStack>

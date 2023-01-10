@@ -7,7 +7,7 @@ import mapQuestionGroup from 'app/PCM/helpers/map-question-grp'
 import mapSpillLocs from 'app/PCM/helpers/map-spill-locs'
 import notIncludesAny from 'utils/helpers/not-includes-any'
 
-const mapAll = (mappedPcm, depth) => {
+const mapAll = (mappedPcm, depth, config = {}) => {
   const spillLocs = getSpillLocs(mappedPcm)
 
   const questionGrp = mapQuestionGroup((ask, question) => {
@@ -27,7 +27,7 @@ const mapAll = (mappedPcm, depth) => {
 
   const mappedDefinedLocs = mapSpillLocs(loc => (
     <Box key={loc}>
-      <PcmField code={loc} mappedPcm={mappedPcm} depth={depth} />
+      <PcmField code={loc} mappedPcm={mappedPcm} depth={depth} config={config} />
     </Box>
   ))(spillLocs)
 

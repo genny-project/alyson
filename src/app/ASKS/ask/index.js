@@ -58,18 +58,17 @@ const Ask = ({
   config,
   noLabel,
   secondaryColor,
+  answerCallback,
+  skipRedux = false,
 }) => {
   const projectTitle = useGetAttributeFromProjectBaseEntity('PRI_NAME')?.valueString.toLowerCase()
-
   const selectedAskData = useSelector(selectCode(parentCode, passedQuestionCode))
   const singleAskData = useSelector(selectCode(parentCode, 'raw'))
 
   const askData = passedAskData || selectedAskData || singleAskData
-
   const {
     questionCode,
     attributeCode,
-    targetCode,
     name,
     question,
     mandatory,
@@ -82,8 +81,12 @@ const Ask = ({
     forcedComponent,
   } = askData || {}
 
+  const selectedTargetCode = askData?.targetCode || ''
+
   const clientId = apiConfig?.clientId
-  const data = useSelector(selectCode(passedTargetCode || targetCode, attributeCode)) || {}
+
+  const targetCode = passedTargetCode || selectedTargetCode
+  const data = useSelector(selectCode(targetCode, attributeCode)) || {}
 
   const highlightedQuestion = useSelector(selectHighlightedQuestion)
   const labelWidth = useMobileValue(['full', '25vw'])
@@ -108,20 +111,34 @@ const Ask = ({
   const feedback = data?.feedback
   const onSendAnswerWithNovalue = createSendAnswer(askData, { passedTargetCode })
 
+  const callAnswerCallback = value => {
+    if (!!answerCallback) {
+      answerCallback(askData, value)
+    }
+  }
+
   const handleUpadateReduxStore = onSendFn => storeUpdateFn => infoObject => userInput => {
-    const { attributeCode, targetCode } = infoObject
+    const { attributeCode, targetCode, skipRedux } = infoObject
     onSendFn(userInput)
-    dispatchBaseEntityUpdates(storeUpdateFn)(attributeCode, targetCode, userInput)
-    console.log('%c Local Update - Redux Store', ' color: tomato; padding: 4px; font-size: 25px', {
-      targetCode,
-      attributeCode,
-      userInput,
-    })
+    callAnswerCallback(userInput)
+    if (!skipRedux) {
+      dispatchBaseEntityUpdates(storeUpdateFn)(attributeCode, targetCode, userInput)
+      console.log(
+        '%c Local Update - Redux Store',
+        ' color: tomato; padding: 4px; font-size: 25px',
+        {
+          targetCode,
+          attributeCode,
+          userInput,
+        },
+      )
+    }
   }
 
   const onSendAnswer = handleUpadateReduxStore(onSendAnswerWithNovalue)(onNewMsg)({
     attributeCode,
-    targetCode,
+    targetCode: targetCode,
+    skipRedux,
   })
 
   if (!question) return null
@@ -189,7 +206,7 @@ const Ask = ({
       borderRadius="md"
       p={highlightedQuestion === attributeCode ? '3' : '0'}
       transition="all 0.5s ease"
-      mt={5}
+      mt={config?.mt ?? 5}
     >
       {
         <HStack

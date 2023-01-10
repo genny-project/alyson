@@ -22,7 +22,7 @@ import useApi from 'api'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import { useSelector } from 'react-redux'
 
-const EvtButton = ({ questionCode, childCode, iconId, vert, isNotChildAsk = false }) => {
+const EvtButton = ({ questionCode, childCode, iconId, vert, isNotChildAsk = false, value }) => {
   const theme = useTheme()
   const data = useSelector(selectCode(questionCode, childCode))
 
@@ -44,7 +44,7 @@ const EvtButton = ({ questionCode, childCode, iconId, vert, isNotChildAsk = fals
     if (!startsWith('http', iconId)) {
       src = getImageSrc(iconId)
     }
-  } else {
+  } else if (vert) {
     debugOut.error(`${questionCode}@${childCode} doesn't have an iconId!`)
   }
 
@@ -61,6 +61,7 @@ const EvtButton = ({ questionCode, childCode, iconId, vert, isNotChildAsk = fals
       parentCode: isNotChildAsk ? undefined : questionCode,
       code: trueQuestionCode,
       attributeCode: attrCode,
+      value: value,
       processId: pid,
     })
   }
