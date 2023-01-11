@@ -25,7 +25,7 @@ import TemplateTable from 'app/PCM/templates/tpl-table'
 import TemplateText from 'app/PCM/templates/text-templates'
 import TemplateVerticalCards from 'app/PCM/templates/tpl_vertical_cards'
 import debugOut from 'utils/debug-out'
-import hasNot from 'utils/helpers/has-not.js'
+import hasNot from 'utils/helpers/has-not'
 import showTemplateNames from 'utils/helpers/show-template-names'
 import TemplateSBERowAdd from 'app/PCM/templates/tpl-sbe-row-add'
 import TemplateSBESelect from 'app/PCM/templates/tpl-sbe-select'
@@ -36,7 +36,7 @@ import TemplateSBESelect from 'app/PCM/templates/tpl-sbe-select'
  * If the template does not exist, it will return the default template
  *
  */
-const templateHandlerMachine = depth => mappedPcm => templateCode => parentCode => rest => {
+const templateHandlerMachine = depth => mappedPcm => parentCode => rest => {
   const mandatoryProps = {
     mappedPcm,
     depth,
@@ -83,6 +83,7 @@ const templateHandlerMachine = depth => mappedPcm => templateCode => parentCode 
     TPL_VERTICAL_CARDS: <TemplateVerticalCards {...mandatoryProps} />,
   }
 
+  const { PRI_TEMPLATE_CODE: templateCode } = mappedPcm
   let noMatchingTemplates = hasNot(templateCode)(listOfTemplates)
   const defaultTemplate = <TemplateDefault />
   let matchingTemplate = listOfTemplates[templateCode]
@@ -90,6 +91,7 @@ const templateHandlerMachine = depth => mappedPcm => templateCode => parentCode 
 
   if (noMatchingTemplates) {
     debugOut.warn(`No template exists for code: ${templateCode}! Falling back on default tempalte!`)
+    return undefined
   }
 
   const color = Math.random().toString(16).substr(-6)

@@ -12,11 +12,7 @@ const TemplateContent = ({ mappedPcm, depth, parentCode, ...rest }) => {
     return <TemplateDefault />
   }
 
-  return (
-    <>
-      <PcmField code={PRI_LOC1} mappedPcm={mappedPcm} properties={rest} depth={depth} />
-    </>
-  )
+  return <PcmField code={PRI_LOC1} mappedPcm={mappedPcm} properties={rest} depth={depth} />
 }
 
 export default TemplateContent
