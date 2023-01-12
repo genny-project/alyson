@@ -26,6 +26,7 @@ const Pcm = ({ code, properties, depth }) => {
     debugOut.warn(
       `Falling back on default template for PCM: ${code} as template: ${templateCode} could not be found!`,
     )
+    return null
   }
 
   if (isEmpty(mappedPcm) || !templateCode) {
