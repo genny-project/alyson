@@ -8,10 +8,10 @@ import IsFieldNotEmptyProvider from 'utils/contexts/IsFieldNotEmptyContext'
 import Loading from 'keycloak/loading'
 import LogRocket from 'logrocket'
 import React from 'react'
-import ReactDOM from 'react-dom'
 // import { initLog } from 'utils/log'
 import { ReactKeycloakProvider } from '@react-keycloak/web'
 import getApiConfig from 'config/get-api-config'
+import { createRoot } from 'react-dom/client'
 
 LogRocket.init('geop13/internmatch')
 
@@ -22,37 +22,38 @@ const onKeycloakError = error => {
 }
 
 const initialiseApp = async () => {
+  const container = document.getElementById('app')
+  const root = createRoot(container)
   try {
     // initLog()
     const { keycloak, theme, title } = await getApiConfig()
 
-    ReactDOM.render(
-      <React.StrictMode>
-        <ChakraProvider theme={theme}>
-          <Fonts />
-          <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-          <ReactKeycloakProvider
-            authClient={keycloak}
-            LoadingComponent={<Loading />}
-            onEvent={(event, error) => onKeycloakError(error)}
-          >
+    root.render(
+      <ReactKeycloakProvider
+        authClient={keycloak}
+        LoadingComponent={<Loading />}
+        onEvent={(__, error) => onKeycloakError(error)}
+      >
+        <React.StrictMode>
+          <ChakraProvider theme={theme}>
+            <Fonts />
+            <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+
             <ErrorContextProvider>
               <IsFieldNotEmptyProvider>
                 <App title={title} />
               </IsFieldNotEmptyProvider>
             </ErrorContextProvider>
-          </ReactKeycloakProvider>
-        </ChakraProvider>
-      </React.StrictMode>,
-      document.getElementById('root'),
+          </ChakraProvider>
+        </React.StrictMode>
+      </ReactKeycloakProvider>,
     )
   } catch (err) {
     console.error(err)
-    ReactDOM.render(
+    root.render(
       <React.StrictMode>
         <Error />
       </React.StrictMode>,
-      document.getElementById('root'),
     )
   }
 }

@@ -1,6 +1,6 @@
 {
-  "name": "alyson-internmatch",
-  "version": "10.2.0",
+  "name": "alyson",
+  "version": "10.3.0",
   "private": true,
   "dependencies": {
     "@chakra-ui/react": "^1.6.3",
@@ -37,9 +37,9 @@
     "logrocket": "^1.0.14",
     "logrocket-react": "^4.0.1",
     "ramda": "^0.27.1",
-    "react": "^17.0.1",
+    "react": "^18.2.0",
     "react-datepicker": "^4.7.0",
-    "react-dom": "^17.0.1",
+    "react-dom": "^18.2.0",
     "react-draft-wysiwyg": "^1.14.5",
     "react-dropzone": "^11.3.1",
     "react-hotkeys-hook": "^3.1.0",
