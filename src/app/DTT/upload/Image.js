@@ -6,7 +6,6 @@ import {
   ButtonGroup,
   CloseButton,
   Grid,
-  HStack,
   Image,
   Modal,
   ModalBody,
@@ -29,6 +28,7 @@ import { onSendMessage } from 'vertx'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { selectCode } from 'redux/db/selectors'
 import useApi from 'api'
+import { useIsMobile } from 'utils/hooks'
 import useProductColors from 'utils/productColors'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
@@ -99,6 +99,7 @@ const Write = ({
 
 const Read = ({ code, data, parentCode, variant, config, multiUpload }) => {
   const { getImageSrc, getImageSrcList } = useApi()
+  const isMobile = useIsMobile()
 
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -127,7 +128,7 @@ const Read = ({ code, data, parentCode, variant, config, multiUpload }) => {
     return <Image {...config} src={src} alt="profile-picture" w="10rem" borderRadius="xl" />
   }
 
-  const imagePreviewCount = min(srcList.length, 3)
+  const imagePreviewCount = isMobile ? 1 : min(srcList.length, 3)
 
   const getMultiImageStyling = index => {
     return {
@@ -157,7 +158,7 @@ const Read = ({ code, data, parentCode, variant, config, multiUpload }) => {
 
   if (multiUpload) {
     return (
-      <Box width={`${(100 / 3) * imagePreviewCount}%`}>
+      <Box w={'full'}>
         <Modal isOpen={isOpen} onClose={onClose} size={'4xl'}>
           <ModalOverlay />
           <ModalContent>
@@ -169,7 +170,7 @@ const Read = ({ code, data, parentCode, variant, config, multiUpload }) => {
           </ModalContent>
         </Modal>
 
-        <Box width={'100%'} position={'relative'}>
+        <Box width={'full'} position={'relative'}>
           <Button
             onClick={onOpen}
             zIndex={5}
@@ -188,15 +189,26 @@ const Read = ({ code, data, parentCode, variant, config, multiUpload }) => {
             <Box mr={2} />
             <FontAwesomeIcon icon={faImages} />
           </Button>
-          <HStack justifyItems={'flex-start'} zIndex={1}>
+
+          <Grid
+            justifyItems={'flex-start'}
+            zIndex={1}
+            templateColumns={`repeat(${imagePreviewCount}, 1fr)`}
+            gap={3}
+          >
             {srcList.slice(0, imagePreviewCount).map((value, index) => (
-              <AspectRatio key={value} width={`${100 / imagePreviewCount}%`} maxHeight={350}>
-                <Box {...getMultiImageStyling(index)}>
-                  <Image fit={'cover'} {...config} src={value} overflow="hidden" alt={value} />
-                </Box>
+              <AspectRatio
+                key={value}
+                w={'full'}
+                maxHeight={350}
+                overflow={'hidden'}
+                _first={{ borderTopLeftRadius: '2rem', borderBottomLeftRadius: '2rem' }}
+                _last={{ borderTopRightRadius: '2rem', borderBottomRightRadius: '2rem' }}
+              >
+                <Image fit={'cover'} {...config} src={value} overflow="hidden" />
               </AspectRatio>
             ))}
-          </HStack>
+          </Grid>
         </Box>
       </Box>
     )

@@ -38,6 +38,10 @@ const HtmlEditorPreview = ({ html, inModal }) => {
       }, 100)
     }
     window.addEventListener('resize', resizeHeight)
+
+    return () => {
+      window.removeEventListener('resize', resizeHeight)
+    }
   }, [onLoad])
 
   if (!html) {
@@ -74,7 +78,6 @@ const HtmlEditorPreview = ({ html, inModal }) => {
       </Box>
     )
   } else {
-    // Suprisingly, this removes scrollbars from long chunks of html, without making it too big
     return (
       <iframe
         onLoad={onLoad}
