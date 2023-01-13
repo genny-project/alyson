@@ -105,7 +105,7 @@ const Read = ({ code, data, parentCode, variant, config, multiUpload }) => {
   const src = getImageSrc(data?.value, { height: '500', width: '500' })
   const srcList =
     getImageSrcList(safelyParseJson(data?.value), { height: '500', width: '600' }, 'cover') || []
-  const { cardDisplay } = config || ''
+  const { cardDisplay, showSingleImgOnly } = config || ''
 
   const name = useSelector(selectCode(data?.baseEntityCode, 'PRI_NAME'))
   const assocName = useSelector(selectCode(data?.baseEntityCode, 'PRI_INTERN_NAME'))
@@ -136,6 +136,23 @@ const Read = ({ code, data, parentCode, variant, config, multiUpload }) => {
       roundedBottomRight: index === imagePreviewCount - 1 ? 25 : 0,
       roundedTopRight: index === imagePreviewCount - 1 ? 25 : 0,
     }
+  }
+
+  if (!!showSingleImgOnly) {
+    const imgSrc = srcList[0]
+
+    return (
+      <AspectRatio
+        w={'min(100%, 20rem)'}
+        h={'auto'}
+        borderRadius={0}
+        borderTopLeftRadius={'xl'}
+        borderTopRightRadius={'xl'}
+        overflow={'hidden'}
+      >
+        <Image fit={'cover'} {...config} src={imgSrc} overflow="hidden" />
+      </AspectRatio>
+    )
   }
 
   if (multiUpload) {
@@ -175,7 +192,7 @@ const Read = ({ code, data, parentCode, variant, config, multiUpload }) => {
             {srcList.slice(0, imagePreviewCount).map((value, index) => (
               <AspectRatio key={value} width={`${100 / imagePreviewCount}%`} maxHeight={350}>
                 <Box {...getMultiImageStyling(index)}>
-                  <Image fit={'cover'} {...config} src={value} overflow="hidden" />
+                  <Image fit={'cover'} {...config} src={value} overflow="hidden" alt={value} />
                 </Box>
               </AspectRatio>
             ))}

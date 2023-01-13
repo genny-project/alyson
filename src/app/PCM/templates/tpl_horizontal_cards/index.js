@@ -1,5 +1,5 @@
 import { Box, Grid, HStack, VStack, theme } from '@chakra-ui/react'
-import { equals, filter, includes, map } from 'ramda'
+import { filter, includes, map } from 'ramda'
 import { getColumnDefs, getFields } from '../../helpers/sbe-utils'
 import { selectCode, selectKeys } from 'redux/db/selectors'
 
@@ -86,19 +86,7 @@ const Card = ({ mappedValues, baseEntityCode, actions, sbeCode, primaryColor }) 
               <Attribute
                 code={baseEntityCode}
                 attribute={value}
-                config={
-                  equals(value)('PRI_IMAGE_URL')
-                    ? {
-                        carddisplay: 'true',
-                        w: 'min(100%, 20rem)',
-                        h: 'auto',
-                        borderRadius: 0,
-                        borderTopLeftRadius: 'xl',
-                        borderTopRightRadius: 'xl',
-                        overflow: 'hidden',
-                      }
-                    : { carddisplay: 'true' }
-                }
+                config={{ carddisplay: 'true', showSingleImgOnly: 'true' }}
               />
 
               {index === 0 && (
