@@ -164,7 +164,7 @@ const DropZone = ({
     }
 
     return (
-      <Flex key={`${preview}-${idx}`} p="4">
+      <Flex key={`${preview}-${idx}`} p="4" w="max-content">
         <Text>{`Uploaded File:`}</Text>
         <Text ml="2">{name}</Text>
       </Flex>
