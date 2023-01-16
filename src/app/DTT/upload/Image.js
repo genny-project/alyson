@@ -106,7 +106,7 @@ const Read = ({ code, data, parentCode, variant, config, multiUpload }) => {
   const src = getImageSrc(data?.value, { height: '500', width: '500' })
   const srcList =
     getImageSrcList(safelyParseJson(data?.value), { height: '500', width: '600' }, 'cover') || []
-  const { cardDisplay, showSingleImgOnly } = config || ''
+  const { cardDisplay, showsingleimgonly } = config || ''
 
   const name = useSelector(selectCode(data?.baseEntityCode, 'PRI_NAME'))
   const assocName = useSelector(selectCode(data?.baseEntityCode, 'PRI_INTERN_NAME'))
@@ -130,7 +130,7 @@ const Read = ({ code, data, parentCode, variant, config, multiUpload }) => {
 
   const imagePreviewCount = isMobile ? 1 : min(srcList.length, 3)
 
-  if (!!showSingleImgOnly) {
+  if (!!showsingleimgonly) {
     const imgSrc = srcList[0]
 
     return (
@@ -142,7 +142,7 @@ const Read = ({ code, data, parentCode, variant, config, multiUpload }) => {
         borderTopRightRadius={'xl'}
         overflow={'hidden'}
       >
-        <Image fit={'cover'} {...config} src={imgSrc} overflow="hidden" />
+        <Image fit={'cover'} {...config} src={imgSrc} overflow="hidden" alt={''} />
       </AspectRatio>
     )
   }

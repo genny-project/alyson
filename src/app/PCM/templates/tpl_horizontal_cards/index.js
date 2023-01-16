@@ -86,7 +86,7 @@ const Card = ({ mappedValues, baseEntityCode, actions, sbeCode, primaryColor }) 
               <Attribute
                 code={baseEntityCode}
                 attribute={value}
-                config={{ carddisplay: 'true', showSingleImgOnly: 'true' }}
+                config={{ carddisplay: 'true', showsingleimgonly: 'true' }}
               />
 
               {index === 0 && (

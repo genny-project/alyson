@@ -50,6 +50,7 @@ const Write = ({
   const selectedOptions = compose(map(({ code, name }) => ({ label: name, value: code })))(
     selectedRadioData,
   )
+
   const booleanOptions = [
     { label: labels[0], value: true },
     { label: labels[1], value: false },
