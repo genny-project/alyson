@@ -67,7 +67,7 @@ const Write = ({
   const onChange = value => {
     const newValue = boolean ? equals(value)('true') : value
     setValue(newValue)
-    onSendAnswer(boolean ? newValue : [newValue])
+    onSendAnswer(boolean ? value : [value])
     dispatchFieldMessage({ payload: questionCode })
   }
 
