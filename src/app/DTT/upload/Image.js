@@ -130,15 +130,6 @@ const Read = ({ code, data, parentCode, variant, config, multiUpload }) => {
 
   const imagePreviewCount = isMobile ? 1 : min(srcList.length, 3)
 
-  const getMultiImageStyling = index => {
-    return {
-      roundedBottomLeft: index === 0 ? 25 : 0,
-      roundedTopLeft: index === 0 ? 25 : 0,
-      roundedBottomRight: index === imagePreviewCount - 1 ? 25 : 0,
-      roundedTopRight: index === imagePreviewCount - 1 ? 25 : 0,
-    }
-  }
-
   if (!!showSingleImgOnly) {
     const imgSrc = srcList[0]
 
