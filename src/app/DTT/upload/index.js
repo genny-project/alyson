@@ -27,6 +27,7 @@ import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
 import isArray from 'utils/helpers/is-array'
 import isString from 'utils/helpers/is-string'
+import isJson from 'utils/helpers/is-json'
 
 const Read = ({ code, data, dttData, parentCode, variant, config = {} }) => {
   const typeName = dttData?.typeName
@@ -99,8 +100,17 @@ const Write = ({
   const { getImageSrc, getDocumentSrc } = api
   const isDataValueArray = isArray(data?.value)
   const isDataValueString = isString(data?.value)
+  const isJsonifiedArray = isJson(data?.value)
+  const parsedArray = isJsonifiedArray && JSON.parse(data?.value)
+  const parsedArrayValue = (isJsonifiedArray && parsedArray && parsedArray[0]) || ''
   const dataValue =
-    data?.value && isDataValueArray ? data.value[0] : isDataValueString ? data?.value : null
+    data?.value && isDataValueArray
+      ? data.value[0]
+      : isJsonifiedArray
+      ? parsedArrayValue
+      : isDataValueString
+      ? data?.value
+      : null
   const src = isImageType ? getImageSrc(dataValue) : getDocumentSrc(dataValue)
   const [fileName, setFileName] = useState('')
   const [showDocument, setShowDocument] = useState(false)
