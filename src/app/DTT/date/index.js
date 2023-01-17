@@ -270,6 +270,16 @@ const Write = ({
         date={getDate(selectedDateInIsoFormat || '')}
       />
     </Box>
+  ) : data?.value ? (
+    <DateChip
+      onlyYear={onlyYear}
+      includeTime={includeTime}
+      onClick={() => {
+        onSendAnswer('')
+        setDateValue('')
+      }}
+      date={getDate(data?.value || '')}
+    />
   ) : (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
       <HStack
