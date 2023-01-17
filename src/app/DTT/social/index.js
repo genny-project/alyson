@@ -199,9 +199,9 @@ const Write = ({
             }}
           >
             {includes('linkedin')(toLower(attributeName || '')) ? (
-              <FontAwesomeIcon size="md" icon={faLinkedinIn} color={'inherit'} />
+              <FontAwesomeIcon size="lg" icon={faLinkedinIn} color={'inherit'} />
             ) : (
-              <FontAwesomeIcon size="md" icon={faGlobe} color={'inherit'} />
+              <FontAwesomeIcon size="lg" icon={faGlobe} color={'inherit'} />
             )}
           </InputLeftAddon>
 

@@ -1,10 +1,12 @@
 import axios from 'axios'
-import { apiConfig } from 'config/get-api-config'
 import { useKeycloak } from '@react-keycloak/web'
 import debounce from 'lodash.debounce'
+import { identity, map } from 'ramda'
+
+import { apiConfig } from 'config/get-api-config'
 import { tokenFromUrl, guestKeycloak } from 'config/get-api-config'
 import selectToken from 'keycloak/utils/select-token'
-import { identity, map } from 'ramda'
+import isJson from 'utils/helpers/is-json'
 
 const useApi = () => {
   const { keycloak } = useKeycloak()
@@ -60,14 +62,17 @@ const useApi = () => {
 
   const getDocumentSrc = uuid => (uuid && uuid !== '[]' ? `${MEDIA_URL}/${uuid}` : null)
 
-  const getImageSrcList = (uuidList, dim, scale) =>
-    map(uuid =>
+  const getImageSrcList = (uuidList, dim, scale) => {
+    let srcList = isJson(uuidList) ? JSON.parse(uuidList) : uuidList
+
+    return map(uuid =>
       uuid
         ? `${IMAGE_URL}/${dim ? `${dim.width}x${dim.height || ''}` : ''}${
             scale ? `,${scale}` : ''
           }/${MEDIA_URL}/${uuid}`
         : null,
-    )(uuidList || [])
+    )(srcList || [])
+  }
 
   const getSrc = uuid => (uuid ? `${MEDIA_URL}/${uuid}` : null)
 
