@@ -53,12 +53,15 @@ const useApi = () => {
     return resp?.data?.data?.name || ''
   }
 
-  const getImageSrc = (uuid, dim, scale) =>
-    uuid && uuid !== '[]'
+  const getImageSrc = (uuidValue, dim, scale) => {
+    let uuid = isJson(uuidValue) ? JSON.parse(uuidValue) : uuidValue
+
+    return uuid && uuid !== '[]'
       ? `${IMAGE_URL}/${dim ? `${dim.width}x${dim.height || ''}` : ''}${
           scale ? `,${scale}` : ''
         }/${MEDIA_URL}/${uuid}`
       : null
+  }
 
   const getDocumentSrc = uuid => (uuid && uuid !== '[]' ? `${MEDIA_URL}/${uuid}` : null)
 

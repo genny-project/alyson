@@ -25,6 +25,8 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import useApi from 'api'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
+import isArray from 'utils/helpers/is-array'
+import isString from 'utils/helpers/is-string'
 
 const Read = ({ code, data, dttData, parentCode, variant, config = {} }) => {
   const typeName = dttData?.typeName
@@ -95,7 +97,10 @@ const Write = ({
   const typeName = dttData?.typeName
   const isImageType = equals(typeName, 'Image') || equals(component, 'multi_upload')
   const { getImageSrc, getDocumentSrc } = api
-  const dataValue = data?.value ? data.value[0] : null
+  const isDataValueArray = isArray(data?.value)
+  const isDataValueString = isString(data?.value)
+  const dataValue =
+    data?.value && isDataValueArray ? data.value[0] : isDataValueString ? data?.value : null
   const src = isImageType ? getImageSrc(dataValue) : getDocumentSrc(dataValue)
   const [fileName, setFileName] = useState('')
   const [showDocument, setShowDocument] = useState(false)
