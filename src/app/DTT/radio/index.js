@@ -1,15 +1,15 @@
 import { Radio as CRadio, RadioGroup, Stack, Text } from '@chakra-ui/react'
-import { compose, equals, includes, map, split } from 'ramda'
+import { compose, equals, map, split } from 'ramda'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
 
 import { Read as TextRead } from 'app/DTT/text'
 import isNullOrUndefined from 'utils/helpers/is-null-or-undefined'
-import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { selectCode } from 'redux/db/selectors'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
 import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
+import isJson from 'utils/helpers/is-json'
 
 const Read = ({ data, boolean }) => {
   const labels = split(';')(data?.html?.labels || 'Yes;No')
@@ -44,12 +44,18 @@ const Write = ({
   mandatory,
   boolean,
 }) => {
-  const labels = split(';')(html?.labels || 'Yes;No')
-  const vertical = html?.vertical || false
-  const selectedRadioData = useSelector(selectCode(`${parentCode}-${questionCode}-options`)) || []
-  const selectedOptions = compose(map(({ code, name }) => ({ label: name, value: code })))(
-    selectedRadioData,
-  )
+  let dataValue = isJson(data?.value) ? JSON.parse(data.value) : data.value || ''
+
+  const [value, setValue] = useState(dataValue)
+
+  const defaultBooleanLabel = 'Yes;No'
+  const { labels: htmlLabels, vertical } = html || {}
+  const labels = split(';')(htmlLabels || defaultBooleanLabel)
+  const verticalAligned = vertical || false
+  const selectedRadioData =
+    compose(useSelector, selectCode)(`${parentCode}-${questionCode}-options`) || []
+
+  const selectedOptions = map(({ code, name }) => ({ label: name, value: code }))(selectedRadioData)
   const booleanOptions = [
     { label: labels[0], value: true },
     { label: labels[1], value: false },
@@ -59,9 +65,6 @@ const Write = ({
   const { labelTextColor } = useProductColors()
 
   // This checks if it is an Stringified Array
-  const arrayValue = includes('[', data?.value || '') ? safelyParseJson(data?.value, []) : []
-
-  const [value, setValue] = useState(arrayValue.length ? arrayValue[0] : data?.value || null)
 
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
 
@@ -72,27 +75,12 @@ const Write = ({
     dispatchFieldMessage({ payload: questionCode })
   }
 
-  console.log(
-    '%c 🙀🙀🙀🙀🙀🙀 Testing 🙀🙀🙀🙀🙀🙀🙀 ',
-    'background: silver; color: black; padding: 0.5rem',
-    {
-      labels,
-      vertical,
-      selectedRadioData,
-      selectedOptions,
-      booleanOptions,
-      options,
-      arrayValue,
-      value,
-    },
-  )
-
   return (
     <Stack
       ml={1}
-      direction={vertical || options?.length || 0 > 2 ? 'row' : 'column'} // just making sure that longer sets of options don't end up weirdly arranged
+      direction={verticalAligned || options?.length || 0 > 2 ? 'row' : 'column'} // just making sure that longer sets of options don't end up weirdly arranged
       spacing={0}
-      justifyContent={vertical || options?.length || 0 ? 'space-between' : 'flex-start'}
+      justifyContent={verticalAligned || options?.length || 0 ? 'space-between' : 'flex-start'}
     >
       <MandatorySymbol
         placeholderName={placeholderName}
@@ -100,7 +88,7 @@ const Write = ({
         labelTextColor={labelTextColor}
       />
       <RadioGroup value={value} onChange={onChange}>
-        <Stack direction={vertical ? 'column' : 'row'}>
+        <Stack direction={verticalAligned ? 'column' : 'row'}>
           {options &&
             map(
               option =>
