@@ -54,11 +54,15 @@ const onSendSearch = ({
   sbeCode,
   code = 'QUE_SEARCH',
   attributeCode = 'PRI_SEARCH_TEXT',
+  sourceCode,
+  targetCode,
 }) =>
   onSendAnswer({
     askId: 272,
-    attributeCode: attributeCode,
-    code: code,
+    attributeCode,
+    sourceCode,
+    targetCode,
+    code,
     identifier: 'QUE_SEARCH',
     weight: 1,
     value: `${searchType}${searchValue}`,
