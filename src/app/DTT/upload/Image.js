@@ -134,16 +134,15 @@ const Read = ({ code, data, parentCode, variant, config, multiUpload }) => {
     const imgSrc = srcList[0]
 
     return (
-      <AspectRatio
-        w={'min(100%, 50rem)'}
-        h={'auto'}
-        borderRadius={0}
-        borderTopLeftRadius={'xl'}
-        borderTopRightRadius={'xl'}
-        overflow={'hidden'}
-      >
-        <Image fit={'cover'} {...config} src={imgSrc} overflow="hidden" />
-      </AspectRatio>
+      <Image
+        fit={'cover'}
+        w={'full'}
+        h={'full'}
+        {...config}
+        src={imgSrc}
+        overflow="hidden"
+        alt={''}
+      />
     )
   }
 

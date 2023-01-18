@@ -83,11 +83,20 @@ const Card = ({ mappedValues, baseEntityCode, actions, sbeCode, primaryColor }) 
                 color: 'white',
               }}
             >
-              <Attribute
-                code={baseEntityCode}
-                attribute={value}
-                config={{ carddisplay: 'true', showSingleImgOnly: 'true' }}
-              />
+              <Box
+                w={'min(100%, 40rem)'}
+                h={'auto'}
+                borderRadius={0}
+                borderTopLeftRadius={'xl'}
+                borderTopRightRadius={'xl'}
+                overflow={'hidden'}
+              >
+                <Attribute
+                  code={baseEntityCode}
+                  attribute={value}
+                  config={{ carddisplay: 'true', showSingleImgOnly: 'true' }}
+                />
+              </Box>
 
               {index === 0 && (
                 <Box position={'absolute'} top={2} right={2} zIndex={theme.zIndices.modal}>
