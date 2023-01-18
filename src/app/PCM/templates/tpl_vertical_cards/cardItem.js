@@ -1,89 +1,117 @@
-import { Box, HStack, VStack } from '@chakra-ui/react'
-import { equals, map } from 'ramda'
+import { Box, HStack, Text } from '@chakra-ui/react'
+import { filter, includes, isEmpty, map, not } from 'ramda'
 
+import AmenityField from 'app/PCM/templates/tpl-detail-view/tpl-property-detail-view/amenity-field.js'
 import Attribute from 'app/BE/attribute'
-import ContextMenu from 'app/BE/context'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
+import { selectCode } from 'redux/db/selectors'
+import { useIsMobile } from 'utils/hooks'
+import { useSelector } from 'react-redux'
 
-const CardItem = ({ mappedValues, baseEntityCode, actions, sbeCode, primaryColor }) => {
+const CardItem = ({ mappedValues, baseEntityCode, primaryColor }) => {
+  const isMobile = useIsMobile()
+
+  const attrName = useSelector(selectCode(baseEntityCode, 'PRI_CREATED'))?.attributeName || ''
+
+  const suburb =
+    useSelector(selectCode(baseEntityCode, '_LNK_PROPERTY__PRI_ADDRESS_SUBURB'))?.value || ''
+  const state =
+    useSelector(selectCode(baseEntityCode, '_LNK_PROPERTY__PRI_ADDRESS_STATE'))?.value || ''
+
+  const location = !!suburb && !!state ? `${suburb}, ${state}` : suburb || state || ''
+
+  const amenities = filter(includes('PRI_NUMBER_OF_'))(mappedValues) || []
+  const displayImages =
+    useSelector(selectCode(baseEntityCode, '_LNK_PROPERTY__PRI_IMAGES'))?.value || []
+  const hasDisplayImage = not(isEmpty(displayImages))
+
   return (
-    <Box
-      p={3}
-      bg={'white'}
-      border={`1px solid`}
-      borderRadius="3xl"
-      borderColor={primaryColor}
-      cursor={'pointer'}
-      transition={'all 0.25s ease-in-out'}
-      role="group"
-      _hover={{
-        background: 'product.gradient100',
-      }}
-    >
-      <VStack spacing={2}>
-        {map((value, index) => {
-          const fontSize = index === 0 ? 'xl' : 'md'
+    <>
+      <Box
+        paddingBlock={3}
+        paddingInlineStart={isMobile || !hasDisplayImage ? 3 : '21.5rem'}
+        paddingInlineEnd={3}
+        bg={'white'}
+        border={`1px solid`}
+        borderRadius="3xl"
+        borderColor={primaryColor}
+        fontWeight="400"
+        color={primaryColor}
+        position={'relative'}
+        cursor={'pointer'}
+        minH={!isMobile && !!hasDisplayImage ? '18.5rem' : 'inherit'}
+      >
+        {!!hasDisplayImage && (
+          <Box
+            bg={'gray.100'}
+            position={isMobile ? 'static' : 'absolute'}
+            top={3}
+            left={3}
+            h={isMobile ? 'auto' : 'calc(100% - 1.5rem)'}
+            w={isMobile ? 'full' : '20rem'}
+            borderRadius={'xl'}
+            overflow={'hidden'}
+            maxH={'18.5rem'}
+          >
+            <Attribute
+              code={baseEntityCode}
+              attribute={'_LNK_PROPERTY__PRI_IMAGES'}
+              config={{ carddisplay: 'true', showSingleImgOnly: 'true' }}
+            />
+          </Box>
+        )}
 
-          return (
-            <HStack
-              justify={'space-between'}
-              fontSize={fontSize}
-              key={`CARD-ATTRIBUTE-${baseEntityCode}-${value}`}
-              alignSelf="start"
-              color="product.primary"
-              fontWeight="400"
-              w={'full'}
-              position={'relative'}
-              _groupHover={{
-                color: 'white',
-              }}
-            >
-              <Attribute
-                code={baseEntityCode}
-                attribute={value}
-                config={
-                  equals(value)('PRI_IMAGE_URL')
-                    ? {
-                        carddisplay: 'true',
-                        w: 'min(100%, 20rem)',
-                        h: 'auto',
-                        borderRadius: 0,
-                        borderTopLeftRadius: 'xl',
-                        borderTopRightRadius: 'xl',
-                        overflow: 'hidden',
-                      }
-                    : { carddisplay: 'true' }
-                }
-              />
+        <HStack
+          position={isMobile ? 'static' : 'absolute'}
+          top={8}
+          right={3}
+          fontSize={'sm'}
+          paddingBlockEnd={1}
+          borderBottom={`1px solid `}
+          borderBottomColor={primaryColor}
+          w={'fit-content'}
+          marginBlock={isMobile ? 3 : 0}
+        >
+          <Text>{attrName}</Text>
+          <Attribute code={baseEntityCode} attribute={'PRI_CREATED'} />
+        </HStack>
 
-              {index === 0 && (
-                <Box position={'absolute'} top={2} right={2}>
-                  <ContextMenu
-                    actions={actions}
-                    code={baseEntityCode}
-                    parentCode={sbeCode}
-                    button={
-                      <Box
-                        align="start"
-                        border="1px"
-                        borderColor="gray.200"
-                        borderRadius="6px"
-                        px="2"
-                        bg="white"
-                        color={'#004654 !important'}
-                      >
-                        <FontAwesomeIcon icon={faEllipsisV} size="xs" />
-                      </Box>
-                    }
-                  />
-                </Box>
-              )}
-            </HStack>
-          )
-        })(mappedValues)}
-      </VStack>
-    </Box>
+        <Box mt={isMobile ? 3 : 16}>
+          <Attribute
+            code={baseEntityCode}
+            attribute={'_LNK_PROPERTY__PRI_NAME'}
+            config={{
+              carddisplay: 'true',
+              fontSize: 'xl',
+              _empty: {
+                display: 'none',
+              },
+            }}
+          />
+
+          <Text>{location}</Text>
+
+          <HStack mt={5}>
+            {map(itemCode => (
+              <AmenityField key={itemCode} code={baseEntityCode} attributeCode={itemCode} />
+            ))(amenities)}
+          </HStack>
+
+          <Attribute
+            code={baseEntityCode}
+            attribute={'_LNK_PROPERTY__PRI_DESCRIPTION'}
+            config={{
+              carddisplay: 'true',
+              mt: 5,
+              noOfLines: 3,
+              alignSelf: 'flex-start',
+              _empty: {
+                display: 'none',
+              },
+            }}
+          />
+        </Box>
+      </Box>
+    </>
   )
 }
 

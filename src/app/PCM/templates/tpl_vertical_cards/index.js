@@ -22,7 +22,7 @@ const TemplateVerticalCards = ({ mappedPcm, depth }) => {
   const mappedValues = getFields(getColumnDefs(mappedSbe))
 
   const rows = useSelector(selectCode(sbeCode, 'rows')) || []
-  const { buttonBackgroundColor } = useProductColors()
+  const { fieldTextColor } = useProductColors()
 
   return (
     <>
@@ -39,7 +39,7 @@ const TemplateVerticalCards = ({ mappedPcm, depth }) => {
                 key={`CARD-${item || ''}`}
                 mappedValues={mappedValues}
                 baseEntityCode={item}
-                primaryColor={buttonBackgroundColor}
+                primaryColor={fieldTextColor}
                 sbeCode={sbeCode}
               />
             ))(rows)}
