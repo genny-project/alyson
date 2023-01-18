@@ -32,7 +32,7 @@ const TemplateHorizontalCards = ({ mappedPcm, depth }) => {
       <Box paddingBottom={3}>
         <Title sbeCode={sbeCode} />
       </Box>
-      <Grid templateColumns={'repeat(auto-fit, minmax(12.5rem, 1fr))'} gap={4}>
+      <Grid templateColumns={'repeat(auto-fill, minmax(min(100%, 16.5rem), 1fr))'} gap={8}>
         {rows.map(item => (
           <Card
             actions={actionCodes}
@@ -84,7 +84,7 @@ const Card = ({ mappedValues, baseEntityCode, actions, sbeCode, primaryColor }) 
               }}
             >
               <Box
-                w={'min(100%, 20rem)'}
+                w={'min(100%, 40rem)'}
                 h={'auto'}
                 borderRadius={0}
                 borderTopLeftRadius={'xl'}
