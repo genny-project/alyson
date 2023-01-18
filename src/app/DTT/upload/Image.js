@@ -135,7 +135,7 @@ const Read = ({ code, data, parentCode, variant, config, multiUpload }) => {
 
     return (
       <AspectRatio
-        w={'min(100%, 20rem)'}
+        w={'min(100%, 50rem)'}
         h={'auto'}
         borderRadius={0}
         borderTopLeftRadius={'xl'}
