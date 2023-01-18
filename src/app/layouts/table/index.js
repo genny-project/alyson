@@ -24,7 +24,14 @@ const TableWrapper = ({ mapSearch, passedTable, passedComponents = [] }) => {
 
   if (includes('_JNLS_', table) || includes('_LOGBOOK_', table)) return <Journals sbeCode={table} />
 
-  return <Table parentCode={table} mapSearch={mapSearch} passedComponents={passedComponents} />
+  return (
+    <Table
+      parentCode={table}
+      mapSearch={mapSearch}
+      passedComponents={passedComponents}
+      userCode={userCode}
+    />
+  )
 }
 
 export default TableWrapper
