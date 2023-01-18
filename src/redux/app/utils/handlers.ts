@@ -58,8 +58,9 @@ const cmdMachine: {
     state['DRAWER'] = 'NOTES'
     state['NOTES'] = code
   },
-  FIELDMSG: (state: AppState, { code, questionCode, message }: CmdPayload) => {
-    const fieldMsgKey = `${questionCode}@${code}`
+  FIELDMSG: (state: AppState, properties: CmdPayload) => {
+    const { code: parentQuestionCode, questionCode: individualQuestionCode, message } = properties
+    const fieldMsgKey = `${parentQuestionCode}@${individualQuestionCode}`
     state['FIELDMSG'] = {
       ...state['FIELDMSG'],
       [fieldMsgKey]: message?.value,
