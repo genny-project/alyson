@@ -48,7 +48,7 @@ const DataTable = ({ parentCode, mapSearch, passedComponents = [] }) => {
           justifyContent={isMobile ? 'space-between' : 'flex-start'}
         >
           <Title sbeCode={parentCode} />
-          {<Search sbeCode={parentCode} />}
+          {<Search sbeCode={parentCode} sourceCode={parentCode} targetCode={parentCode} />}
           {<Filters sbeCode={parentCode} />}
           {passedComponents.map((component, index) => (
             <Box key={`TABLE-${parentCode}-CHILD-${index}`}>{component}</Box>

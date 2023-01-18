@@ -22,7 +22,7 @@ import { useIsMobile } from 'utils/hooks'
 import useProductColors from 'utils/productColors'
 import { useSelector } from 'react-redux'
 
-const ProcessSearchDefaultView = ({ sbeCode, process, placeholder }) => {
+const ProcessSearchDefaultView = ({ sbeCode, process, placeholder, sourceCode, targetCode }) => {
   const [searchValue, setSearchValue] = useState('')
   const inputRef = useRef(null)
   const clearRef = useRef(null)
@@ -31,7 +31,7 @@ const ProcessSearchDefaultView = ({ sbeCode, process, placeholder }) => {
 
   const handleSubmit = e => {
     e.preventDefault()
-    onSendSearch({ searchValue, sbeCode, searchType: '!' })
+    onSendSearch({ searchValue, sbeCode, searchType: '!', sourceCode, targetCode })
     inputRef.current.blur()
   }
 
