@@ -11,7 +11,6 @@ import {
   MenuItem,
   MenuList,
   Text,
-  VStack,
   useClipboard,
   useTheme,
   useToast,
@@ -37,6 +36,7 @@ import useGetFieldMessage from 'utils/fieldMessage'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
 import { getCountryInfoFromCountryList, getCountryObjectFromUserInput } from './helpers'
+import ErrorDisplay from 'app/DTT/helpers/error-display'
 
 const Write = ({
   questionCode,
@@ -254,15 +254,13 @@ const Write = ({
           }}
         />
 
-        {errorStatus && (
-          <VStack alignItems="start">
-            {(hasFieldMessage || hasErrorMessage) && (
-              <Text textStyle="product.errorText">
-                {hasFieldMessage ? fieldMessage : errorMessage}
-              </Text>
-            )}
-          </VStack>
-        )}
+        <ErrorDisplay
+          hasErrorMessage={hasErrorMessage}
+          errorStatus={errorStatus}
+          errorMessage={errorMessage}
+          fieldMessage={fieldMessage}
+          hasFieldMessage={hasFieldMessage}
+        />
       </HStack>
     </Box>
   )

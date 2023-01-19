@@ -6,7 +6,6 @@ import {
   InputGroup,
   InputLeftElement,
   Text,
-  VStack,
   useTheme,
 } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
@@ -23,6 +22,7 @@ import { useError } from 'utils/contexts/ErrorContext'
 import useGetFieldMessage from 'utils/fieldMessage'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
+import ErrorDisplay from 'app/DTT/helpers/error-display'
 
 const Write = ({
   questionCode,
@@ -199,15 +199,13 @@ const Write = ({
         />
       </InputGroup>
 
-      {errorStatus && (
-        <VStack alignItems="start">
-          {(hasFieldMessage || hasErrorMessage) && (
-            <Text textStyle="product.errorText">
-              {hasFieldMessage ? fieldMessage : errorMessage}
-            </Text>
-          )}
-        </VStack>
-      )}
+      <ErrorDisplay
+        hasErrorMessage={hasErrorMessage}
+        errorStatus={errorStatus}
+        errorMessage={errorMessage}
+        fieldMessage={fieldMessage}
+        hasFieldMessage={hasFieldMessage}
+      />
     </Box>
   )
 }

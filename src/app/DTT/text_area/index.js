@@ -1,4 +1,4 @@
-import { Box, HStack, Text, Textarea, VStack, useTheme } from '@chakra-ui/react'
+import { Box, HStack, Text, Textarea, useTheme } from '@chakra-ui/react'
 import { useEffect, useRef, useState } from 'react'
 
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
@@ -12,6 +12,7 @@ import { useError } from 'utils/contexts/ErrorContext'
 import useGetFieldMessage from 'utils/fieldMessage'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
+import ErrorDisplay from 'app/DTT/helpers/error-display'
 
 export const Read = ({ data, config = {} }) => {
   return <Textarea {...config}>{data?.value || config.defaultValue}</Textarea>
@@ -166,15 +167,13 @@ export const Write = ({
           boxShadow: 'initial',
         }}
       />
-      {errorStatus && (
-        <VStack alignItems="start">
-          {(hasFieldMessage || hasErrorMessage) && (
-            <Text textStyle="product.errorText">
-              {hasFieldMessage ? fieldMessage : errorMessage}
-            </Text>
-          )}
-        </VStack>
-      )}
+      <ErrorDisplay
+        hasErrorMessage={hasErrorMessage}
+        errorStatus={errorStatus}
+        errorMessage={errorMessage}
+        fieldMessage={fieldMessage}
+        hasFieldMessage={hasFieldMessage}
+      />
     </Box>
   )
 }

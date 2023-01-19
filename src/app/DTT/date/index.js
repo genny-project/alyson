@@ -1,16 +1,7 @@
 import 'react-datepicker/dist/react-datepicker.css'
 import './datePickerStyles.css'
 
-import {
-  Box,
-  HStack,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  Text,
-  VStack,
-  useTheme,
-} from '@chakra-ui/react'
+import { Box, HStack, Input, InputGroup, InputLeftElement, Text, useTheme } from '@chakra-ui/react'
 import { dateOfBirthQuestionCode, eligibleAge } from 'utils/constants'
 import { differenceInYears, format, isBefore, parseISO, startOfTomorrow } from 'date-fns'
 import { faCalendarDay, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
@@ -33,6 +24,7 @@ import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import useGetFieldMessage from 'utils/fieldMessage'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
+import ErrorDisplay from 'app/DTT/helpers/error-display'
 
 const Read = ({ data, typeName, config }) => {
   const includeTime = includes('LocalDateTime', typeName)
@@ -87,7 +79,7 @@ const Write = ({
   const today = format(current, 'yyyy-MM-dd')
 
   const [isPreviousDate, setIsPreviousDate] = useState(true)
-  const [errorMsg, setErrorMsg] = useState(initialErrorMsg)
+  const [errorMessage, setErrorMessage] = useState(initialErrorMsg)
 
   const [dateValue, setDateValue] = useState(null)
   const [isFocused, setIsFocused] = useState(false)
@@ -96,7 +88,7 @@ const Write = ({
 
   const availabilityQuestions = includes('_AVAILABILITY')(questionCode)
 
-  let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMsg)
+  let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMessage)
 
   const { hasFieldMessage, fieldMessage } = useGetFieldMessage(parentCode, questionCode)
 
@@ -152,7 +144,7 @@ const Write = ({
   useEffect(() => {
     if (!isPreviousDate) {
       setErrorStatus(true)
-      setErrorMsg('You cannot choose future date.')
+      setErrorMessage('You cannot choose future date.')
     }
   }, [isPreviousDate])
 
@@ -160,7 +152,7 @@ const Write = ({
     if (questionCode === dateOfBirthQuestionCode) {
       if (diffInYears < eligibleAge) {
         setErrorStatus(true)
-        setErrorMsg(`Age cannot be less than ${eligibleAge} years.`)
+        setErrorMessage(`Age cannot be less than ${eligibleAge} years.`)
       } else {
         setErrorStatus(false)
       }
@@ -327,13 +319,13 @@ const Write = ({
         calendarClassName={`${prodocutBasedDatepickerClass}__calendar`}
       />
 
-      {errorStatus && (
-        <VStack alignItems="start">
-          {(hasFieldMessage || hasErrorMessage) && (
-            <Text textStyle="product.errorText">{hasFieldMessage ? fieldMessage : errorMsg}</Text>
-          )}
-        </VStack>
-      )}
+      <ErrorDisplay
+        hasErrorMessage={hasErrorMessage}
+        errorStatus={errorStatus}
+        errorMessage={errorMessage}
+        fieldMessage={fieldMessage}
+        hasFieldMessage={hasFieldMessage}
+      />
     </Box>
   )
 }
