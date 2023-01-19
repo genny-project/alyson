@@ -174,11 +174,11 @@ export const Write = ({
       />
 
       <VStack alignItems="start">
-        {hasFieldMessage ? (
-          <ChakraText textStyle="product.errorText">{fieldMessage}</ChakraText>
-        ) : errorStatus ? (
-          <ChakraText textStyle="product.errorText">{errorMessage}</ChakraText>
-        ) : null}
+        {(hasFieldMessage || (errorStatus && hasErrorMessage)) && (
+          <ChakraText textStyle="product.errorText">
+            {hasFieldMessage ? fieldMessage : errorMessage}
+          </ChakraText>
+        )}
       </VStack>
     </Box>
   )

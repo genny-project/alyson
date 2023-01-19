@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 
 const useGetFieldMessage = (parentQuestionCode, individualQuestionCode) => {
   const fieldMessageObject = useSelector(selectFieldMessage)
-  const fieldMessage = fieldMessageObject[`QUE_ADD_HOST_CPY@${individualQuestionCode}`]
+  const fieldMessage = fieldMessageObject[`${parentQuestionCode}@${individualQuestionCode}`]
   let hasFieldMessage = isNotNullOrUndefinedOrEmpty(fieldMessage)
 
   return { hasFieldMessage, fieldMessage }
