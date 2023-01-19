@@ -1,6 +1,6 @@
 import './styles.css'
 
-import { Box, HStack, Text, VStack, useTheme } from '@chakra-ui/react'
+import { Box, HStack, Text, useTheme } from '@chakra-ui/react'
 import { compose, equals, includes, isEmpty, pathOr } from 'ramda'
 import { selectCode, selectRows } from 'redux/db/selectors'
 import { useDispatch, useSelector } from 'react-redux'
@@ -19,6 +19,7 @@ import { useError } from 'utils/contexts/ErrorContext'
 import useGetFieldMessage from 'utils/fieldMessage'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
+import ErrorDisplay from '../helpers/error-display'
 
 const Write = ({
   questionCode,
@@ -262,11 +263,7 @@ const Write = ({
           }),
         }}
       />
-      {hasFieldMessage && (
-        <VStack alignItems="start">
-          <Text textStyle="product.errorText">{fieldMessage}</Text>)
-        </VStack>
-      )}
+      <ErrorDisplay fieldMessage={fieldMessage} hasFieldMessage={hasFieldMessage} />
     </Box>
   )
 }

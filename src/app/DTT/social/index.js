@@ -6,7 +6,6 @@ import {
   Input,
   InputGroup,
   InputLeftAddon,
-  VStack,
   useTheme,
 } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
@@ -24,6 +23,7 @@ import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import useGetFieldMessage from 'utils/fieldMessage'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
+import ErrorDisplay from '../helpers/error-display'
 
 const Read = ({ data, config = {} }) => {
   const attributeName = data?.attributeName
@@ -229,15 +229,13 @@ const Write = ({
           />
         </InputGroup>
       </HStack>
-      {errorStatus && (
-        <VStack alignItems="start">
-          {(hasFieldMessage || hasErrorMessage) && (
-            <ChakraText textStyle="product.errorText">
-              {hasFieldMessage ? fieldMessage : errorMessage}
-            </ChakraText>
-          )}
-        </VStack>
-      )}
+      <ErrorDisplay
+        hasErrorMessage={hasErrorMessage}
+        errorStatus={errorStatus}
+        errorMessage={errorMessage}
+        fieldMessage={fieldMessage}
+        hasFieldMessage={hasFieldMessage}
+      />
     </Box>
   )
 }

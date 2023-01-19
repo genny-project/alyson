@@ -1,5 +1,5 @@
 import { ACKMESSAGEKEY, maxNumberOfRetries } from 'utils/constants'
-import { Box, Text as ChakraText, HStack, Input, VStack, useTheme } from '@chakra-ui/react'
+import { Box, Text as ChakraText, HStack, Input, useTheme } from '@chakra-ui/react'
 import { faCalendar, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useRef, useState } from 'react'
 
@@ -18,6 +18,7 @@ import useGetFieldMessage from 'utils/fieldMessage'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
 import { useSelector } from 'react-redux'
+import ErrorDisplay from '../helpers/error-display'
 
 export const Write = ({
   questionCode,
@@ -42,6 +43,8 @@ export const Write = ({
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
   const { errorState } = useError()
   const { hasFieldMessage, fieldMessage } = useGetFieldMessage(parentCode, questionCode)
+  let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMessage)
+
   const {
     fieldBackgroundColor,
     fieldBorderColor,
@@ -57,8 +60,6 @@ export const Write = ({
     console.error('There is an error with the regex', questionCode, err)
     regex = undefined
   }
-
-  let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMessage)
   const failedValidation = errorState[questionCode]
   const isInvalid = getIsInvalid(userInput)(regex)
   const debouncedSendAnswer = debounce(onSendAnswer, 500)
@@ -172,14 +173,13 @@ export const Write = ({
           background: 'gray.100',
         }}
       />
-
-      <VStack alignItems="start">
-        {(hasFieldMessage || (errorStatus && hasErrorMessage)) && (
-          <ChakraText textStyle="product.errorText">
-            {hasFieldMessage ? fieldMessage : errorMessage}
-          </ChakraText>
-        )}
-      </VStack>
+      <ErrorDisplay
+        hasErrorMessage={hasErrorMessage}
+        errorStatus={errorStatus}
+        errorMessage={errorMessage}
+        fieldMessage={fieldMessage}
+        hasFieldMessage={hasFieldMessage}
+      />
     </Box>
   )
 }
