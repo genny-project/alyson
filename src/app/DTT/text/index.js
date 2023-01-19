@@ -103,13 +103,6 @@ export const Write = ({
     retrySendingAnswerRef.current = 0
   }, [userInput])
 
-  console.log('%c field message ==>', 'background: grey; color: black; padding: 18px', {
-    hasFieldMessage,
-    fieldMessage,
-    errorStatus,
-    errorMessage,
-  })
-
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
       <HStack
@@ -180,19 +173,6 @@ export const Write = ({
         }}
       />
 
-      {/* <VStack alignItems="start">
-          {hasFieldMessage && (
-            <ChakraText textStyle="product.errorText">
-              {fieldMessage}
-            </ChakraText>
-          )}
-          {errorStatus && !hasFieldMessage && (
-            <ChakraText textStyle="product.errorText">
-              {errorMessage}
-            </ChakraText>
-          )}
-        </VStack> */}
-
       <VStack alignItems="start">
         {hasFieldMessage ? (
           <ChakraText textStyle="product.errorText">{fieldMessage}</ChakraText>
@@ -200,24 +180,6 @@ export const Write = ({
           <ChakraText textStyle="product.errorText">{errorMessage}</ChakraText>
         ) : null}
       </VStack>
-
-      {/* <VStack alignItems="start">
-          {errorStatus && !hasFieldMessage && (
-            <ChakraText textStyle="product.errorText">
-              {errorMessage}
-            </ChakraText>
-          )}
-        </VStack> */}
-
-      {/* {errorStatus && (
-        <VStack alignItems="start">
-          {(hasFieldMessage || hasErrorMessage) && (
-            <ChakraText textStyle="product.errorText">
-              {hasFieldMessage ? fieldMessage : errorMessage}
-            </ChakraText>
-          )}
-        </VStack>
-      )} */}
     </Box>
   )
 }

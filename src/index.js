@@ -34,18 +34,18 @@ const initialiseApp = async () => {
         LoadingComponent={<Loading />}
         onEvent={(__, error) => onKeycloakError(error)}
       >
-        {/* <React.StrictMode> */}
-        <ChakraProvider theme={theme}>
-          <Fonts />
-          <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+        <React.StrictMode>
+          <ChakraProvider theme={theme}>
+            <Fonts />
+            <ColorModeScript initialColorMode={theme.config.initialColorMode} />
 
-          <ErrorContextProvider>
-            <IsFieldNotEmptyProvider>
-              <App title={title} />
-            </IsFieldNotEmptyProvider>
-          </ErrorContextProvider>
-        </ChakraProvider>
-        {/* </React.StrictMode> */}
+            <ErrorContextProvider>
+              <IsFieldNotEmptyProvider>
+                <App title={title} />
+              </IsFieldNotEmptyProvider>
+            </ErrorContextProvider>
+          </ChakraProvider>
+        </React.StrictMode>
       </ReactKeycloakProvider>,
     )
   } catch (err) {
