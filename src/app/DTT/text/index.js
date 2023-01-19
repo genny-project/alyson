@@ -18,7 +18,7 @@ import useGetFieldMessage from 'utils/fieldMessage'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
 import { useSelector } from 'react-redux'
-import ErrorDisplay from '../helpers/error-display'
+import ErrorDisplay from 'app/DTT/helpers/error-display'
 
 export const Write = ({
   questionCode,

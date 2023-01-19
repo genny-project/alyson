@@ -19,7 +19,7 @@ import { useError } from 'utils/contexts/ErrorContext'
 import useGetFieldMessage from 'utils/fieldMessage'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
-import ErrorDisplay from '../helpers/error-display'
+import ErrorDisplay from 'app/DTT/helpers/error-display'
 
 const Write = ({
   questionCode,
