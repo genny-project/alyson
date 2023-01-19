@@ -2,7 +2,6 @@ import { Radio as CRadio, RadioGroup, Stack, Text } from '@chakra-ui/react'
 import { compose, equals, map, split } from 'ramda'
 
 import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
-import { Read as TextRead } from 'app/DTT/text'
 import isJson from 'utils/helpers/is-json'
 import isNullOrUndefined from 'utils/helpers/is-null-or-undefined'
 import { selectCode } from 'redux/db/selectors'
@@ -15,8 +14,15 @@ const Read = ({ data, boolean }) => {
   const labels = split(';')(data?.html?.labels || 'Yes;No')
   const name = useSelector(selectCode(data?.attributeCode, 'attributeName')) || ''
 
+  const dataValue = data?.value
+  const displayDataValue = equals(dataValue)(true)
+    ? 'Yes'
+    : equals(dataValue)(false)
+    ? 'No'
+    : dataValue
+
   if (boolean) {
-    return <TextRead data={data} />
+    return <Text>{displayDataValue}</Text>
   }
 
   if (isNullOrUndefined(data?.value)) {
