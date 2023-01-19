@@ -123,15 +123,6 @@ const Ask = ({
     callAnswerCallback(userInput)
     if (!skipRedux) {
       dispatchBaseEntityUpdates(storeUpdateFn)(attributeCode, targetCode, userInput)
-      console.log(
-        '%c Local Update - Redux Store',
-        ' color: tomato; padding: 4px; font-size: 25px',
-        {
-          targetCode,
-          attributeCode,
-          userInput,
-        },
-      )
     }
   }
 
