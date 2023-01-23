@@ -1,6 +1,16 @@
 import { Box, HStack, Text } from '@chakra-ui/react'
 import { equals, find, includes, keys, replace, toUpper } from 'ramda'
-import { faBath, faBed, faDoorOpen, faToilet } from '@fortawesome/free-solid-svg-icons'
+import {
+  faArchway,
+  faBath,
+  faBed,
+  faCar,
+  faDoorOpen,
+  faShower,
+  faStoreAlt,
+  faToilet,
+  faWarehouse,
+} from '@fortawesome/free-solid-svg-icons'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import debugOut from 'utils/debug-out'
@@ -14,7 +24,9 @@ const AmenityField = ({ attributeCode, code }) => {
   const titleUpper = toUpper(
     replace('Number of ')('')(entityAttribute?.attribute?.name || '') || attributeCode,
   )
+
   const title = firstUpper(titleUpper)
+  const key = firstUpper(title.split(' ').pop())
 
   // https://plainenglish.io/blog/javascript-operator <- explandation of the "Nullish" operator,
   // but basically if foo = a ?? b then
@@ -29,11 +41,16 @@ const AmenityField = ({ attributeCode, code }) => {
 
   const iconSet = {
     Toilet: faToilet,
-    Bath: faBath,
+    Bath: faShower,
     Bed: faBed,
+    Ensuite: faBath,
+    Space: faCar,
+    Garage: faWarehouse,
+    Carport: faArchway,
+    Room: faStoreAlt,
   }
 
-  const icon = iconSet[find(a => includes(a)(title))(keys(iconSet))] || faDoorOpen
+  const icon = iconSet[find(a => includes(a)(key))(keys(iconSet))] || faDoorOpen
 
   return (
     <Box borderWidth="1px" borderColor="product.primary" borderRadius="3xl" py={1} px={3}>
