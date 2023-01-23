@@ -19,6 +19,7 @@ import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
 import { useSelector } from 'react-redux'
 import ErrorDisplay from 'app/DTT/helpers/error-display'
+import useClearFieldMessage from 'app/DTT/helpers/clear-field-message'
 
 export const Write = ({
   questionCode,
@@ -66,10 +67,19 @@ export const Write = ({
   const ackMessageObject = useSelector(selectCode(ACKMESSAGEKEY))
   const ackMessageValue = ackMessageObject?.[questionCode] || ''
 
+  const { handleClearFieldMessage } = useClearFieldMessage()
+
   const onBlur = e => {
+    console.log('%c BEFORE HANDLE CLEAR==>', 'background: pink; color: black; padding: 18px', {
+      fieldMessage,
+    })
     e.target.value ? setIsFocused(true) : setIsFocused(false)
     !errorStatus && debouncedSendAnswer(userInput)
     dispatchFieldMessage({ payload: questionCode })
+    hasFieldMessage && handleClearFieldMessage()
+    console.log('%c AFTER HANDLE CLEAR==>', 'background: tomato; color: black; padding: 18px', {
+      fieldMessage,
+    })
   }
 
   useEffect(() => {
