@@ -28,6 +28,7 @@ export const Write = ({
   regexPattern,
   errorMessage,
   parentCode,
+  attributeCode,
   placeholderName,
   mandatory,
   inputmask,
@@ -67,19 +68,13 @@ export const Write = ({
   const ackMessageObject = useSelector(selectCode(ACKMESSAGEKEY))
   const ackMessageValue = ackMessageObject?.[questionCode] || ''
 
-  const { handleClearFieldMessage } = useClearFieldMessage()
+  const handleClearFieldMessage = useClearFieldMessage(parentCode, attributeCode, questionCode)
 
   const onBlur = e => {
-    console.log('%c BEFORE HANDLE CLEAR==>', 'background: pink; color: black; padding: 18px', {
-      fieldMessage,
-    })
     e.target.value ? setIsFocused(true) : setIsFocused(false)
     !errorStatus && debouncedSendAnswer(userInput)
     dispatchFieldMessage({ payload: questionCode })
     hasFieldMessage && handleClearFieldMessage()
-    console.log('%c AFTER HANDLE CLEAR==>', 'background: tomato; color: black; padding: 18px', {
-      fieldMessage,
-    })
   }
 
   useEffect(() => {

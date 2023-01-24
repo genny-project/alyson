@@ -13,6 +13,7 @@ import useGetFieldMessage from 'utils/fieldMessage'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
 import ErrorDisplay from 'app/DTT/helpers/error-display'
+import useClearFieldMessage from 'app/DTT/helpers/clear-field-message'
 
 export const Read = ({ data, config = {} }) => {
   return <Textarea {...config}>{data?.value || config.defaultValue}</Textarea>
@@ -25,6 +26,7 @@ export const Write = ({
   regexPattern,
   errorMessage,
   parentCode,
+  attributeCode,
   placeholderName,
   mandatory,
   onChange,
@@ -67,6 +69,7 @@ export const Write = ({
   const fieldNotEmpty = fieldState[questionCode]
 
   const { hasFieldMessage, fieldMessage } = useGetFieldMessage(parentCode, questionCode)
+  const handleClearFieldMessage = useClearFieldMessage(parentCode, attributeCode, questionCode)
 
   const handleChange = e => {
     setuserInput(e.target.value)
@@ -103,6 +106,7 @@ export const Write = ({
     !errorStatus && debouncedSendAnswer(clean)
 
     dispatchFieldMessage({ payload: questionCode })
+    hasFieldMessage && handleClearFieldMessage()
   }
 
   return (

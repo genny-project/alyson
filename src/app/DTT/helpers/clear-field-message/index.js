@@ -18,7 +18,7 @@ const useClearFieldMessage = (parentCode, attributeCode, questionCode) => {
     })
   }
 
-  return { handleClearFieldMessage }
+  return handleClearFieldMessage
 }
 
 export default useClearFieldMessage

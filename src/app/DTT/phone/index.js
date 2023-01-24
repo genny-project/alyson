@@ -37,6 +37,7 @@ import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
 import { getCountryInfoFromCountryList, getCountryObjectFromUserInput } from './helpers'
 import ErrorDisplay from 'app/DTT/helpers/error-display'
+import useClearFieldMessage from 'app/DTT/helpers/clear-field-message'
 
 const Write = ({
   questionCode,
@@ -45,6 +46,7 @@ const Write = ({
   regexPattern,
   errorMessage,
   parentCode,
+  attributeCode,
   placeholderName,
   mandatory,
   inputmask,
@@ -77,6 +79,7 @@ const Write = ({
     labelTextColor,
     borderRadius,
   } = useProductColors()
+  const handleClearFieldMessage = useClearFieldMessage(parentCode, attributeCode, questionCode)
 
   let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMessage)
   const failedValidation = errorState[questionCode]
@@ -96,6 +99,7 @@ const Write = ({
     e.target.value ? setIsFocused(true) : setIsFocused(false)
     !errorStatus && debouncedSendAnswer(userInput)
     dispatchFieldMessage({ payload: questionCode })
+    hasFieldMessage && handleClearFieldMessage()
   }
 
   const handleSelectCountry = (code, icon) => {
