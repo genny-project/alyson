@@ -7,6 +7,7 @@ import { isNotStringifiedEmptyArray } from 'utils/functionals'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
+import isJson from 'utils/helpers/is-json'
 
 let autocomplete
 
@@ -23,6 +24,11 @@ const AddressPicker = ({ onSendAnswer, data, questionCode, placeholder, mandator
   const failedValidation = errorState[questionCode]
   const fieldNotEmpty = fieldState[questionCode]
 
+  const dataValue = data?.value
+  const isValueJson = isJson(dataValue)
+  const parsedDataValueObject = isValueJson ? JSON.parse(dataValue) : undefined
+  const parsedDataValue = parsedDataValueObject?.full_address
+
   const {
     fieldBackgroundColor,
     fieldBorderColor,
@@ -37,8 +43,8 @@ const AddressPicker = ({ onSendAnswer, data, questionCode, placeholder, mandator
   }, [userInput])
 
   useEffect(() => {
-    setuserInput(data?.value)
-  }, [data])
+    isValueJson && !!parsedDataValue ? setuserInput(parsedDataValue) : setuserInput(dataValue)
+  }, [dataValue, isValueJson, parsedDataValue])
 
   const onPlaceChange = () => {
     const place = autocomplete.getPlace()
