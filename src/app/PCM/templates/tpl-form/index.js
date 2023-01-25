@@ -4,11 +4,12 @@ import { compose } from 'ramda'
 import { useSelector } from 'react-redux'
 
 import { selectCodeUnary } from 'redux/db/selectors'
-import { useIsMobileView } from 'utils/hooks'
+import { useIsMobile } from 'utils/hooks'
 import FormAsk from 'app/PCM/templates/tpl-form/form-ask'
 import { setCurrentFormQuestions } from 'redux/app'
 import { useDispatch } from 'react-redux'
 import getCurrentFormQuestions from 'app/PCM/templates/helpers/get-current-form-questions'
+import useIsMobileView from 'utils/helpers/is-mobile-view'
 
 const TemplateForm = ({ mappedPcm, depth, ...rest }) => {
   const questionCode = mappedPcm?.PRI_QUESTION_CODE || ''

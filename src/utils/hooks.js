@@ -55,22 +55,6 @@ export const useUserMedia = (requestedMedia, setError = identity) => {
   return mediaStream
 }
 
-export const useIsMobileView = () => {
-  const [width, setWidth] = useState(window.innerWidth)
-
-  useEffect(() => {
-    const handleResize = () => setWidth(window.innerWidth)
-    window.addEventListener('resize', handleResize)
-    return () => {
-      window.removeEventListener('resize', handleResize)
-    }
-  }, [])
-
-  return {
-    isMobileView: width < 768,
-  }
-}
-
 export const useIsMobile = () => {
   const isMobile = useBreakpointValue({ base: true, sm: true, md: false, lg: false, xl: false })
 
