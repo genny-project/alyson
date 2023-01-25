@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
-import makeAddressData from './make-address-data'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
@@ -14,7 +13,7 @@ let autocomplete
 const AddressPicker = ({ onSendAnswer, data, questionCode, placeholder, mandatory }) => {
   const theme = useTheme()
   const autoCompleteRef = useRef(null)
-  const [userInput, setuserInput] = useState(data?.value)
+  const [userInput, setuserInput] = useState(null)
   const [isFocused, setIsFocused] = useState(false)
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
 
@@ -38,17 +37,24 @@ const AddressPicker = ({ onSendAnswer, data, questionCode, placeholder, mandator
   }, [userInput])
 
   useEffect(() => {
+    setuserInput(data?.value)
+  }, [data])
+
+  const onPlaceChange = () => {
+    const place = autocomplete.getPlace()
+    if (!place.geometry) {
+      console.error('Invalid address selected')
+    }
+  }
+
+  useEffect(() => {
     try {
       if (autoCompleteRef?.current) {
         autocomplete = new window.google.maps.places.Autocomplete(autoCompleteRef.current, {
           types: ['geocode'],
         })
 
-        autocomplete.addListener('place_changed', () => {
-          const place = autocomplete.getPlace()
-          onSendAnswer(makeAddressData([place]))
-          dispatchFieldMessage({ payload: questionCode })
-        })
+        autocomplete.addListener('place_changed', onPlaceChange)
 
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(position => {
@@ -113,7 +119,7 @@ const AddressPicker = ({ onSendAnswer, data, questionCode, placeholder, mandator
       <Input
         id={questionCode}
         test-id={questionCode}
-        defaultValue={data?.value}
+        defaultValue={userInput}
         ref={autoCompleteRef}
         onBlur={onBlur}
         onFocus={() => {
