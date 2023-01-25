@@ -1,22 +1,26 @@
-import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api'
-import { compose, isEmpty, not } from 'ramda'
-import { useRef, useState } from 'react'
+import './styles.css'
+
+import { GoogleMap, MarkerF, useLoadScript } from '@react-google-maps/api'
 
 import { Box } from '@chakra-ui/react'
+import { useRef } from 'react'
+
+// import { compose, isEmpty, not } from 'ramda'
 
 const Map = ({ parentCode, coordinates }) => {
   const mapRef = useRef(null)
-  const [googleMap, setGoogleMap] = useState(null)
   const { latitude, longitude } = coordinates || {}
-  const coordinatesArr = [coordinates]
-  const notEmpty = compose(not, isEmpty)
-  const showPinsInMap = notEmpty(latitude) && notEmpty(longitude)
+  // const [googleMap, setGoogleMap] = useState(null)
+
+  // const coordinatesArr = [coordinates]
+  // const notEmpty = compose(not, isEmpty)
+  // const showPinsInMap = notEmpty(latitude) && notEmpty(longitude)
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY,
   })
 
-  console.log('first')
+  // THE CODES HAVE BEEN COMMENTED OUT FOR NOW. A SEPARATE PLUGIN HAS BEEN USED FOR MAPS. IF EVERYTHING WORKS, THE COMMENTED CODEDS WILL BE DELETED.
 
   // useEffect(() => {
   //   if (!googleMap) {
@@ -43,11 +47,15 @@ const Map = ({ parentCode, coordinates }) => {
   return (
     <>
       {isLoaded ? (
-        <GoogleMap zoom={15} center={{ lat: -37.82097, lng: 144.94179 }}>
-          <Marker position={{ lat: -37.82097, lng: 144.94179 }} />
-          {/* <Box w="full" h="full" ref={mapRef} id="map" />
-          {showPinsInMap && <Pins googleMap={googleMap} coordinatesArr={coordinatesArr} />} */}
-        </GoogleMap>
+        <Box ref={mapRef}>
+          <GoogleMap
+            zoom={15}
+            center={{ lat: latitude, lng: longitude }}
+            mapContainerClassName={'map-container'}
+          >
+            <MarkerF position={{ lat: latitude, lng: longitude }} />
+          </GoogleMap>
+        </Box>
       ) : (
         <Box hidden />
       )}

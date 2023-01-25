@@ -60,7 +60,9 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
   const availableFromDate =
     useSelector(selectCode(baseEntityCode, 'PRI_AVAILABLE_DATE'))?.value || ''
 
-  const availableFromDateReadableFormat = format(new Date(availableFromDate), 'dd MMM yyyy')
+  const availableFromDateReadableFormat = availableFromDate
+    ? format(new Date(availableFromDate), 'dd MMM yyyy')
+    : null
 
   //PRI_IMAGES is now used for the multi image display
   const imageCode = findCode('PRI_IMAGES') || findCode('PRI_IMAGE_URL')
