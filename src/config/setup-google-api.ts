@@ -1,5 +1,5 @@
-import axios from 'axios'
 import { HOST } from 'config/genny'
+import axios from 'axios'
 
 const setupGoogleApi = async () => {
   const maps = document.createElement('script')
