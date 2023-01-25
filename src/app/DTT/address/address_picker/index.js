@@ -26,6 +26,7 @@ const AddressPicker = ({
   const [isFocused, setIsFocused] = useState(false)
   const [isInputValidated, setIsInputValidated] = useState(false)
   const [hasError, setHasError] = useState(false)
+  const [fromComponent, setFromComponent] = useState(false)
   const { errorState } = useError()
   const { fieldState, dispatchFieldMessage } = useIsFieldNotEmpty()
 
@@ -56,21 +57,8 @@ const AddressPicker = ({
   }, [dataValue, isValueJson, parsedDataValue])
 
   useEffect(() => {
-    !!userInput && not(isInputValidated) ? setHasError(true) : setHasError(false)
-  }, [userInput, isInputValidated])
-
-  const onPlaceChange = () => {
-    const place = autocomplete.getPlace()
-    const placeGeometry = place?.geometry
-    if (!place?.geometry) {
-      console.error(
-        'Invalid address selected, please choose one of the options from the suggestion!',
-      )
-      setIsInputValidated(false)
-    }
-
-    placeGeometry && setIsInputValidated(true)
-  }
+    !!userInput && not(isInputValidated) && !!fromComponent ? setHasError(true) : setHasError(false)
+  }, [userInput, isInputValidated, fromComponent])
 
   useEffect(() => {
     try {
@@ -103,6 +91,19 @@ const AddressPicker = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const onPlaceChange = () => {
+    const place = autocomplete.getPlace()
+    const placeGeometry = place?.geometry
+    if (!place?.geometry) {
+      console.error(
+        'Invalid address selected, please choose one of the options from the suggestion!',
+      )
+      setIsInputValidated(false)
+    }
+
+    placeGeometry && setIsInputValidated(true)
+  }
+
   const onBlur = e => {
     e.target.value ? setIsFocused(true) : setIsFocused(false)
     setuserInput(e.target.value)
@@ -113,6 +114,7 @@ const AddressPicker = ({
   const onClick = () => {
     setHasError(false)
     setIsInputValidated(false)
+    setFromComponent(true)
   }
 
   return (
