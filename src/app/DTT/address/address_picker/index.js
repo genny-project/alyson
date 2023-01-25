@@ -1,4 +1,4 @@
-import { Box, HStack, Input, Text, useTheme } from '@chakra-ui/react'
+import { Box, HStack, Input, Text, useTheme, VStack } from '@chakra-ui/react'
 import { useState, useEffect, useRef } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
@@ -12,7 +12,14 @@ import isJson from 'utils/helpers/is-json'
 
 let autocomplete
 
-const AddressPicker = ({ onSendAnswer, data, questionCode, placeholder, mandatory }) => {
+const AddressPicker = ({
+  onSendAnswer,
+  data,
+  questionCode,
+  placeholder,
+  mandatory,
+  errorMessage: errormsg,
+}) => {
   const theme = useTheme()
   const autoCompleteRef = useRef(null)
   const [userInput, setuserInput] = useState(null)
@@ -29,6 +36,7 @@ const AddressPicker = ({ onSendAnswer, data, questionCode, placeholder, mandator
   const isValueJson = isJson(dataValue)
   const parsedDataValueObject = isValueJson ? JSON.parse(dataValue) : undefined
   const parsedDataValue = parsedDataValueObject?.full_address
+  let errorMessage = errormsg || `Please choose one of the options from the suggestion list`
 
   const {
     fieldBackgroundColor,
@@ -102,6 +110,11 @@ const AddressPicker = ({ onSendAnswer, data, questionCode, placeholder, mandator
     dispatchFieldMessage({ payload: questionCode })
   }
 
+  const onClick = () => {
+    setHasError(false)
+    setIsInputValidated(false)
+  }
+
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
       <HStack
@@ -145,7 +158,7 @@ const AddressPicker = ({ onSendAnswer, data, questionCode, placeholder, mandator
         onFocus={() => {
           setIsFocused(true)
         }}
-        onClick={() => setIsInputValidated(false)}
+        onClick={onClick}
         w="full"
         paddingBlock={3}
         paddingInline={5}
@@ -155,6 +168,7 @@ const AddressPicker = ({ onSendAnswer, data, questionCode, placeholder, mandator
         borderRadius={borderRadius}
         borderColor={fieldBorderColor}
         bg={fieldBackgroundColor}
+        isInvalid={hasError}
         placeholder=""
         _hover={{
           borderColor: fieldHoverBorderColor,
@@ -174,6 +188,9 @@ const AddressPicker = ({ onSendAnswer, data, questionCode, placeholder, mandator
           background: 'gray.100',
         }}
       />
+      <VStack alignItems="start">
+        {hasError && <Text textStyle="product.errorText">{errorMessage}</Text>}
+      </VStack>
     </Box>
   )
 }
