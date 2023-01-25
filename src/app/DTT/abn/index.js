@@ -23,6 +23,7 @@ import useGetFieldMessage from 'utils/fieldMessage'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
 import ErrorDisplay from 'app/DTT/helpers/error-display'
+import useClearFieldMessage from 'app/DTT/helpers/clear-field-message'
 
 const Write = ({
   questionCode,
@@ -33,6 +34,7 @@ const Write = ({
   errorMessage,
   parentCode,
   placeholderName,
+  attributeCode,
   mandatory,
   inputmask,
 }) => {
@@ -61,6 +63,7 @@ const Write = ({
   } = useProductColors()
 
   const { hasFieldMessage, fieldMessage } = useGetFieldMessage(parentCode, questionCode)
+  const handleClearFieldMessage = useClearFieldMessage(parentCode, attributeCode, questionCode)
 
   useEffect(() => {
     setValue(data?.value)
@@ -81,6 +84,7 @@ const Write = ({
   const handleOnBlur = e => {
     e.target.value ? setIsFocused(true) : setIsFocused(false)
     onSendAnswer(e.target.value)
+    hasFieldMessage && handleClearFieldMessage()
   }
 
   useEffect(() => {

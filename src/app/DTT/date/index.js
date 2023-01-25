@@ -25,6 +25,7 @@ import useGetFieldMessage from 'utils/fieldMessage'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
 import ErrorDisplay from 'app/DTT/helpers/error-display'
+import useClearFieldMessage from 'app/DTT/helpers/clear-field-message'
 
 const Read = ({ data, typeName, config }) => {
   const includeTime = includes('LocalDateTime', typeName)
@@ -52,6 +53,7 @@ const Write = ({
   typeName,
   regexPattern,
   parentCode,
+  attributeCode,
   placeholderName,
   mandatory,
 }) => {
@@ -94,6 +96,7 @@ const Write = ({
 
   const { errorState } = useError()
   const { fieldState } = useIsFieldNotEmpty()
+  const handleClearFieldMessage = useClearFieldMessage(parentCode, attributeCode, questionCode)
 
   const failedValidation = errorState[questionCode]
   const fieldNotEmpty = fieldState[questionCode]
@@ -107,6 +110,7 @@ const Write = ({
 
       !errorStatus && onSendAnswer(safelyParseDate(dateTimeValue).toISOString())
       dispatchFieldMessage({ payload: questionCode })
+      hasFieldMessage && handleClearFieldMessage()
     } else {
       setIsFocused(false)
     }

@@ -24,6 +24,7 @@ import useGetFieldMessage from 'utils/fieldMessage'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
 import ErrorDisplay from 'app/DTT/helpers/error-display'
+import useClearFieldMessage from 'app/DTT/helpers/clear-field-message'
 
 const Read = ({ data, config = {} }) => {
   const attributeName = data?.attributeName
@@ -63,6 +64,7 @@ const Write = ({
   regexPattern,
   errorMessage,
   parentCode,
+  attributeCode,
   placeholderName,
   mandatory,
 }) => {
@@ -94,6 +96,7 @@ const Write = ({
 
   const { errorState } = useError()
   const { fieldState } = useIsFieldNotEmpty()
+  const handleClearFieldMessage = useClearFieldMessage(parentCode, attributeCode, questionCode)
 
   const failedValidation = errorState[questionCode]
   const fieldNotEmpty = fieldState[questionCode]
@@ -103,6 +106,7 @@ const Write = ({
     e.target.value ? setIsFocused(true) : setIsFocused(false)
     !errorStatus && onSendAnswer(e.target.value)
     dispatchFieldMessage({ payload: questionCode })
+    hasFieldMessage && handleClearFieldMessage()
   }
 
   useEffect(() => {
