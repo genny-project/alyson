@@ -1,8 +1,9 @@
 import { Box, HStack, Input, Text, useTheme } from '@chakra-ui/react'
-import { useEffect, useRef, useState } from 'react'
-
+import { useState, useEffect, useRef } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import { not } from 'ramda'
+
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
@@ -16,10 +17,10 @@ const AddressPicker = ({ onSendAnswer, data, questionCode, placeholder, mandator
   const autoCompleteRef = useRef(null)
   const [userInput, setuserInput] = useState(null)
   const [isFocused, setIsFocused] = useState(false)
-  const { dispatchFieldMessage } = useIsFieldNotEmpty()
-
+  const [isInputValidated, setIsInputValidated] = useState(false)
+  const [hasError, setHasError] = useState(false)
   const { errorState } = useError()
-  const { fieldState } = useIsFieldNotEmpty()
+  const { fieldState, dispatchFieldMessage } = useIsFieldNotEmpty()
 
   const failedValidation = errorState[questionCode]
   const fieldNotEmpty = fieldState[questionCode]
@@ -46,11 +47,21 @@ const AddressPicker = ({ onSendAnswer, data, questionCode, placeholder, mandator
     isValueJson && !!parsedDataValue ? setuserInput(parsedDataValue) : setuserInput(dataValue)
   }, [dataValue, isValueJson, parsedDataValue])
 
+  useEffect(() => {
+    !!userInput && not(isInputValidated) ? setHasError(true) : setHasError(false)
+  }, [userInput, isInputValidated])
+
   const onPlaceChange = () => {
     const place = autocomplete.getPlace()
-    if (!place.geometry) {
-      console.error('Invalid address selected')
+    const placeGeometry = place?.geometry
+    if (!place?.geometry) {
+      console.error(
+        'Invalid address selected, please choose one of the options from the suggestion!',
+      )
+      setIsInputValidated(false)
     }
+
+    placeGeometry && setIsInputValidated(true)
   }
 
   useEffect(() => {
@@ -116,8 +127,11 @@ const AddressPicker = ({ onSendAnswer, data, questionCode, placeholder, mandator
             )}
           </Text>
         )}
-        {(!failedValidation && fieldNotEmpty) ||
-        (!failedValidation && userInput && isNotStringifiedEmptyArray(userInput)) ? (
+        {(!failedValidation && fieldNotEmpty && not(hasError)) ||
+        (!failedValidation &&
+          userInput &&
+          isNotStringifiedEmptyArray(userInput) &&
+          not(hasError)) ? (
           <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
         ) : null}
       </HStack>
@@ -131,6 +145,7 @@ const AddressPicker = ({ onSendAnswer, data, questionCode, placeholder, mandator
         onFocus={() => {
           setIsFocused(true)
         }}
+        onClick={() => setIsInputValidated(false)}
         w="full"
         paddingBlock={3}
         paddingInline={5}
