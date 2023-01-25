@@ -1,12 +1,16 @@
-import { Box, Grid, HStack, Text, VStack, Wrap, WrapItem } from '@chakra-ui/react'
+import { Box, Divider, Grid, HStack, Text, VStack, Wrap, WrapItem } from '@chakra-ui/react'
 import { compose, equals, filter, find, includes, isEmpty, not } from 'ramda'
+import { selectCode, selectCodeUnary } from 'redux/db/selectors'
 
 import AmenityField from './amenity-field'
 import Attribute from 'app/BE/attribute'
 import Button from 'app/DTT/event_button'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MapView from 'app/layouts/map_view'
-import { selectCodeUnary } from 'redux/db/selectors'
+import { faCalendarDay } from '@fortawesome/free-solid-svg-icons'
+import { format } from 'date-fns'
 import useGetDetailData from '../get-detail-data'
+import { useIsMobile } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 
 const TemplatePropertyDetailView = ({ mappedPcm }) => {
@@ -22,11 +26,16 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
   const latitude = latitudeObject?.value || ''
   const coordinates = { latitude, longitude }
 
+  const isMobile = useIsMobile()
+
   let showApplyButton =
     equals(typeof applyButtonData, 'object') && compose(not, isEmpty)(applyButtonData)
-  const findCode = code => find(equals(code))(fields) || ''
-  const textColor = 'product.primary'
+
+  const textColor = 'product.primary500'
   const buttonColor = 'product.secondary'
+
+  const findCode = code => find(equals(code))(fields) || ''
+
   const headingCode = findCode('PRI_NAME')
   const suburbCode = findCode('PRI_ADDRESS_SUBURB')
   const stateCode = findCode('PRI_ADDRESS_STATE')
@@ -45,7 +54,13 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
     compose(useSelector, selectCodeUnary(baseEntityCode))(rentAmountCode)?.value || ''
 
   const rentFreqCode = findCode('_LNK_RENTAL_FREQUENCY__PRI_NAME')
-  const rentFreq = compose(useSelector, selectCodeUnary(baseEntityCode))(rentFreqCode)?.value || ''
+  const rentFreq =
+    compose(useSelector, selectCodeUnary(baseEntityCode))(rentFreqCode)?.value || 'week'
+
+  const availableFromDate =
+    useSelector(selectCode(baseEntityCode, 'PRI_AVAILABLE_DATE'))?.value || ''
+
+  const availableFromDateReadableFormat = format(new Date(availableFromDate), 'dd MMM yyyy')
 
   //PRI_IMAGES is now used for the multi image display
   const imageCode = findCode('PRI_IMAGES') || findCode('PRI_IMAGE_URL')
@@ -57,7 +72,7 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
     bg: buttonColor,
     color: '#ffffff',
     borderRadius: '3xl',
-    w: 'full',
+    w: isMobile ? 'full' : '15rem',
   }
 
   return (
@@ -74,12 +89,19 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
           <Attribute
             code={baseEntityCode}
             attribute={headingCode}
-            config={{ fontSize: '4xl', color: textColor }}
+            config={{
+              fontSize: '4xl',
+              color: textColor,
+              fontWeight: 'medium',
+              textTransform: 'capitalize',
+            }}
           />
-          <Text color={textColor} fontSize="2xl">
+
+          <Text color={textColor} fontSize={'2xl'} fontWeight={'normal'} paddingBlockStart={2}>
             {location}
           </Text>
-          <Wrap>
+
+          <Wrap paddingBlockStart={3}>
             {rooms.map((room, index) => (
               <WrapItem key={`${baseEntityCode}-${index}-room-wrapitem`}>
                 <AmenityField
@@ -91,7 +113,13 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
             ))}
           </Wrap>
 
-          <Text color={textColor} fontSize="2xl" paddingTop={8}>
+          <Text
+            as="h2"
+            color={textColor}
+            fontSize="2xl"
+            fontWeight={'medium'}
+            paddingBlockStart={'clamp(4.25rem, 5vw, 1.5rem)'}
+          >
             About this home
           </Text>
 
@@ -101,7 +129,19 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
             config={{ wordBreak: 'break-all' }}
           />
 
-          <Text color={textColor} fontSize="xl" paddingTop={8} paddingBlockEnd={'1.8rem'}>
+          <Divider
+            borderColor={'#FCE7E1'}
+            paddingBlockStart={'clamp(2rem, 5vw, 4rem)'}
+            w={'min(100%, 22rem)'}
+          />
+
+          <Text
+            as="h3"
+            color={textColor}
+            fontSize="xl"
+            paddingBlockStart={'clamp(1.5rem, 5vw, 4.25rem)'}
+            paddingBlockEnd={'clamp(0.9rem, 2vw, 1.8rem)'}
+          >
             Amenities
           </Text>
 
@@ -126,16 +166,20 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
             marginBlockEnd={'1.1rem'}
           >
             <Grid gap={'1.1rem'}>
-              <Box
+              <HStack
                 borderRadius="3xl"
                 backgroundColor={'product.secondaryLight'}
                 paddingY={3}
                 paddingX={3}
                 width={'100%'}
                 textAlign="center"
+                color={textColor}
+                alignItems={'center'}
+                justifyContent={'center'}
               >
-                Available From
-              </Box>
+                <FontAwesomeIcon icon={faCalendarDay} />
+                <Text as="p">{`Available From ${availableFromDateReadableFormat}`}</Text>
+              </HStack>
               <HStack paddingTop={'4pt'}>
                 <Box
                   borderRadius={'3xl'}
@@ -145,6 +189,25 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
                   paddingX={7}
                 >
                   ${rentAmount} / {rentFreq}
+                </Box>
+
+                <Box
+                  borderRadius={'3xl'}
+                  backgroundColor={'product.secondary'}
+                  textColor={'white'}
+                  p={1}
+                  paddingX={7}
+                  flex={1}
+                  textAlign={'center'}
+                >
+                  {rentFreq === 'week'
+                    ? `$${rentAmount * 52}`
+                    : rentFreq === 'month'
+                    ? `$${rentAmount * 12}`
+                    : rentFreq === 'fortnight'
+                    ? `$${rentAmount * 26}`
+                    : `$${rentAmount}`}
+                  / {'annum'}
                 </Box>
               </HStack>
               <MapView coordinates={coordinates} />

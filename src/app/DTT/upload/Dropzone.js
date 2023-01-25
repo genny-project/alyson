@@ -8,10 +8,11 @@ import {
   HStack,
   Image,
   Input,
+  Stack,
   Text,
-  useToast,
-  VStack,
   Tooltip,
+  VStack,
+  useToast,
 } from '@chakra-ui/react'
 import { compose, equals, includes, isEmpty, map, pathOr, split } from 'ramda'
 import {
@@ -24,6 +25,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { isImageField } from 'utils/functions'
 import { lojing } from 'utils/constants'
 import { useDropzone } from 'react-dropzone'
+import { useIsMobile } from 'utils/hooks'
 import useProductColors from 'utils/productColors'
 import { useState } from 'react'
 
@@ -40,6 +42,7 @@ const DropZone = ({
   const [hover, setHover] = useState(false)
   const toast = useToast()
   const checkIfImage = compose(includes('image'), split('/'))
+  const isMobile = useIsMobile()
 
   const uploaderText = multiUpload
     ? `Drag and drop images and videos`
@@ -164,10 +167,12 @@ const DropZone = ({
     }
 
     return (
-      <Flex key={`${preview}-${idx}`} p="4" w="max-content">
+      <Stack direction={isMobile ? 'column' : 'row'} key={`${preview}-${idx}`} p="4" spacing={2}>
         <Text>{`Uploaded File:`}</Text>
-        <Text ml="2">{name}</Text>
-      </Flex>
+        <Text ml="2" noOfLines={'2'} flex={1}>
+          {name}
+        </Text>
+      </Stack>
     )
   })(files)
 
@@ -250,7 +255,11 @@ const DropZone = ({
           }
 
           <Flex mt={'1rem'} direction="column">
-            <Grid mb={4} gap={3} templateColumns={'repeat(auto-fit, 100px)'}>
+            <Grid
+              mb={4}
+              gap={3}
+              templateColumns={preview.length === 1 ? '1fr' : 'repeat(auto-fit, 100px)'}
+            >
               {preview}
             </Grid>
             <Flex justify="center" w={'full'}>
