@@ -5,6 +5,7 @@ const productBasedDefaultColors = {
     primary: '#024754',
     primary100: '#E6F3F4',
     primary400: '#00596D',
+    primary500: '#004654',
 
     secondary: '#F18B32',
     secondary100: '#FFF6F0',

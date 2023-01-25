@@ -1,9 +1,9 @@
 import './styles.css'
 
 import { Box, HStack, Text, useTheme } from '@chakra-ui/react'
-import { compose, equals, includes, isEmpty, pathOr } from 'ramda'
+import { equals, includes, isEmpty, pathOr } from 'ramda'
 import { selectCode, selectRows } from 'redux/db/selectors'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 
 import { Select as CSelect } from 'chakra-react-select'
@@ -13,13 +13,13 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { getValue } from './get-value'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
 import mapOptions from './map-options'
-import { newCmd } from 'redux/app'
 import { onSendMessage } from 'vertx'
 import { useError } from 'utils/contexts/ErrorContext'
 import useGetFieldMessage from 'utils/fieldMessage'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
 import ErrorDisplay from 'app/DTT/helpers/error-display'
+import useClearFieldMessage from 'app/DTT/helpers/clear-field-message'
 
 const Write = ({
   questionCode,
@@ -69,23 +69,9 @@ const Write = ({
 
   const failedValidation = errorState[questionCode]
   const fieldNotEmpty = fieldState[questionCode]
-
-  const dispatchPushMessage = useDispatch()
-  const onNewCmd = compose(dispatchPushMessage, newCmd)
-
   const { hasFieldMessage, fieldMessage } = useGetFieldMessage(parentCode, questionCode)
 
-  const handleClearFieldMessage = () => {
-    onNewCmd({
-      cmd_type: 'FIELDMSG',
-      code: questionCode,
-      attributeCode,
-      questionCode: parentCode,
-      message: {
-        value: '',
-      },
-    })
-  }
+  const handleClearFieldMessage = useClearFieldMessage(parentCode, attributeCode, questionCode)
 
   const ddEvent = debounce(
     value =>
