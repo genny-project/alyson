@@ -48,6 +48,19 @@ const AddressPicker = ({
     borderRadius,
   } = useProductColors()
 
+  const onPlaceChange = () => {
+    const place = autocomplete.getPlace()
+    const placeGeometry = place?.geometry
+    if (!place?.geometry) {
+      console.error(
+        'Invalid address selected, please choose one of the options from the suggestion!',
+      )
+      setIsInputValidated(false)
+    }
+
+    placeGeometry && setIsInputValidated(true)
+  }
+
   useEffect(() => {
     userInput ? setIsFocused(true) : setIsFocused(false)
   }, [userInput])
@@ -90,19 +103,6 @@ const AddressPicker = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  const onPlaceChange = () => {
-    const place = autocomplete.getPlace()
-    const placeGeometry = place?.geometry
-    if (!place?.geometry) {
-      console.error(
-        'Invalid address selected, please choose one of the options from the suggestion!',
-      )
-      setIsInputValidated(false)
-    }
-
-    placeGeometry && setIsInputValidated(true)
-  }
 
   const onBlur = e => {
     e.target.value ? setIsFocused(true) : setIsFocused(false)
