@@ -1,28 +1,43 @@
-import { Box, HStack, Input, Text, useTheme } from '@chakra-ui/react'
-import { useEffect, useRef, useState } from 'react'
-
+import { Box, HStack, Input, Text, useTheme, VStack } from '@chakra-ui/react'
+import { useState, useEffect, useRef } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import { not } from 'ramda'
+
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
-import makeAddressData from './make-address-data'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
+import isJson from 'utils/helpers/is-json'
 
 let autocomplete
 
-const AddressPicker = ({ onSendAnswer, data, questionCode, placeholder, mandatory }) => {
+const AddressPicker = ({
+  onSendAnswer,
+  data,
+  questionCode,
+  placeholder,
+  mandatory,
+  errorMessage: errormsg,
+}) => {
   const theme = useTheme()
   const autoCompleteRef = useRef(null)
-  const [userInput, setuserInput] = useState(data?.value)
+  const [userInput, setuserInput] = useState(null)
   const [isFocused, setIsFocused] = useState(false)
-  const { dispatchFieldMessage } = useIsFieldNotEmpty()
-
+  const [isInputValidated, setIsInputValidated] = useState(false)
+  const [hasError, setHasError] = useState(false)
+  const [fromComponent, setFromComponent] = useState(false)
   const { errorState } = useError()
-  const { fieldState } = useIsFieldNotEmpty()
+  const { fieldState, dispatchFieldMessage } = useIsFieldNotEmpty()
 
   const failedValidation = errorState[questionCode]
   const fieldNotEmpty = fieldState[questionCode]
+
+  const dataValue = data?.value
+  const isValueJson = isJson(dataValue)
+  const parsedDataValueObject = isValueJson ? JSON.parse(dataValue) : undefined
+  const parsedDataValue = parsedDataValueObject?.full_address
+  let errorMessage = errormsg || `Please choose one of the options from the suggestion list`
 
   const {
     fieldBackgroundColor,
@@ -33,9 +48,30 @@ const AddressPicker = ({ onSendAnswer, data, questionCode, placeholder, mandator
     borderRadius,
   } = useProductColors()
 
+  const onPlaceChange = () => {
+    const place = autocomplete.getPlace()
+    const placeGeometry = place?.geometry
+    if (!place?.geometry) {
+      console.error(
+        'Invalid address selected, please choose one of the options from the suggestion!',
+      )
+      setIsInputValidated(false)
+    }
+
+    placeGeometry && setIsInputValidated(true)
+  }
+
   useEffect(() => {
     userInput ? setIsFocused(true) : setIsFocused(false)
   }, [userInput])
+
+  useEffect(() => {
+    isValueJson && !!parsedDataValue ? setuserInput(parsedDataValue) : setuserInput(dataValue)
+  }, [dataValue, isValueJson, parsedDataValue])
+
+  useEffect(() => {
+    !!userInput && not(isInputValidated) && !!fromComponent ? setHasError(true) : setHasError(false)
+  }, [userInput, isInputValidated, fromComponent])
 
   useEffect(() => {
     try {
@@ -44,11 +80,7 @@ const AddressPicker = ({ onSendAnswer, data, questionCode, placeholder, mandator
           types: ['geocode'],
         })
 
-        autocomplete.addListener('place_changed', () => {
-          const place = autocomplete.getPlace()
-          onSendAnswer(makeAddressData([place]))
-          dispatchFieldMessage({ payload: questionCode })
-        })
+        autocomplete.addListener('place_changed', onPlaceChange)
 
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(position => {
@@ -79,6 +111,12 @@ const AddressPicker = ({ onSendAnswer, data, questionCode, placeholder, mandator
     dispatchFieldMessage({ payload: questionCode })
   }
 
+  const onClick = () => {
+    setHasError(false)
+    setIsInputValidated(false)
+    setFromComponent(true)
+  }
+
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
       <HStack
@@ -104,8 +142,11 @@ const AddressPicker = ({ onSendAnswer, data, questionCode, placeholder, mandator
             )}
           </Text>
         )}
-        {(!failedValidation && fieldNotEmpty) ||
-        (!failedValidation && userInput && isNotStringifiedEmptyArray(userInput)) ? (
+        {(!failedValidation && fieldNotEmpty && not(hasError)) ||
+        (!failedValidation &&
+          userInput &&
+          isNotStringifiedEmptyArray(userInput) &&
+          not(hasError)) ? (
           <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
         ) : null}
       </HStack>
@@ -113,12 +154,13 @@ const AddressPicker = ({ onSendAnswer, data, questionCode, placeholder, mandator
       <Input
         id={questionCode}
         test-id={questionCode}
-        defaultValue={data?.value}
+        defaultValue={userInput}
         ref={autoCompleteRef}
         onBlur={onBlur}
         onFocus={() => {
           setIsFocused(true)
         }}
+        onClick={onClick}
         w="full"
         paddingBlock={3}
         paddingInline={5}
@@ -128,6 +170,7 @@ const AddressPicker = ({ onSendAnswer, data, questionCode, placeholder, mandator
         borderRadius={borderRadius}
         borderColor={fieldBorderColor}
         bg={fieldBackgroundColor}
+        isInvalid={hasError}
         placeholder=""
         _hover={{
           borderColor: fieldHoverBorderColor,
@@ -147,6 +190,9 @@ const AddressPicker = ({ onSendAnswer, data, questionCode, placeholder, mandator
           background: 'gray.100',
         }}
       />
+      <VStack alignItems="start">
+        {hasError && <Text textStyle="product.errorText">{errorMessage}</Text>}
+      </VStack>
     </Box>
   )
 }

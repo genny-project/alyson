@@ -1,5 +1,7 @@
+import { useState, useEffect } from 'react'
 import { Radio as CRadio, RadioGroup, Stack, Text } from '@chakra-ui/react'
 import { compose, equals, map, split } from 'ramda'
+import { useSelector } from 'react-redux'
 
 import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
 import isJson from 'utils/helpers/is-json'
@@ -7,8 +9,6 @@ import isNullOrUndefined from 'utils/helpers/is-null-or-undefined'
 import { selectCode } from 'redux/db/selectors'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
-import { useSelector } from 'react-redux'
-import { useState } from 'react'
 
 const Read = ({ data, boolean }) => {
   const labels = split(';')(data?.html?.labels || 'Yes;No')
@@ -73,6 +73,10 @@ const Write = ({
   // This checks if it is an Stringified Array
 
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
+
+  useEffect(() => {
+    setValue(dataValue)
+  }, [dataValue])
 
   const onChange = value => {
     const newValue = boolean ? equals(value)('true') : value
