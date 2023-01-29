@@ -12,7 +12,7 @@ import { format } from 'date-fns'
 import useGetDetailData from '../get-detail-data'
 import { useIsMobile } from 'utils/hooks'
 import { useSelector } from 'react-redux'
-import { isNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined'
+import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined'
 
 const TemplatePropertyDetailView = ({ mappedPcm }) => {
   const { baseEntityCode, fields } = useGetDetailData(mappedPcm)
@@ -61,7 +61,7 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
   const availableFromDate =
     useSelector(selectCode(baseEntityCode, 'PRI_AVAILABLE_DATE'))?.value || ''
 
-  const availableFromDateReadableFormat = not(isNullOrUndefinedOrEmpty(availableFromDate))
+  const availableFromDateReadableFormat = isNotNullOrUndefinedOrEmpty(availableFromDate)
     ? format(new Date(availableFromDate), 'dd MMM yyyy')
     : ' '
 
