@@ -61,7 +61,7 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
   const availableFromDate =
     useSelector(selectCode(baseEntityCode, 'PRI_AVAILABLE_DATE'))?.value || ''
 
-  const availableFromDateReadableFormat = isNullOrUndefinedOrEmpty(availableFromDate)
+  const availableFromDateReadableFormat = not(isNullOrUndefinedOrEmpty(availableFromDate))
     ? format(new Date(availableFromDate), 'dd MMM yyyy')
     : ' '
 
