@@ -14,10 +14,15 @@ import getColumns from 'app/SBE/utils/get-columns'
 import { selectCode } from 'redux/db/selectors'
 import { useIsMobile } from 'utils/hooks'
 import { useSelector } from 'react-redux'
-import Filters from 'app/SBE/filters'
 import Search from 'app/SBE/search/Search'
 
-const DataTable = ({ parentCode, mapSearch, passedComponents = [], userCode }) => {
+const DataTable = ({
+  parentCode,
+  mapSearch,
+  passedComponents = [],
+  userCode,
+  showSearch = true,
+}) => {
   const tableData = useSelector(selectCode(parentCode))
   const bgColor = useColorModeValue('white', 'gray.700')
   const isMobile = useIsMobile()
@@ -48,8 +53,9 @@ const DataTable = ({ parentCode, mapSearch, passedComponents = [], userCode }) =
           justifyContent={isMobile ? 'space-between' : 'flex-start'}
         >
           <Title sbeCode={parentCode} />
-          {<Search sbeCode={parentCode} sourceCode={userCode} targetCode={parentCode} />}
-          {<Filters sbeCode={parentCode} />}
+          {showSearch && (
+            <Search sbeCode={parentCode} sourceCode={userCode} targetCode={parentCode} />
+          )}
           {passedComponents.map((component, index) => (
             <Box key={`TABLE-${parentCode}-CHILD-${index}`}>{component}</Box>
           ))}
