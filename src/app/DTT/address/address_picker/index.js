@@ -24,9 +24,8 @@ const AddressPicker = ({
   const autoCompleteRef = useRef(null)
   const [userInput, setuserInput] = useState(null)
   const [isFocused, setIsFocused] = useState(false)
-  const [isInputValidated, setIsInputValidated] = useState(false)
+  const [isInputValidated, setIsInputValidated] = useState(true)
   const [hasError, setHasError] = useState(false)
-  const [fromComponent, setFromComponent] = useState(false)
   const { errorState } = useError()
   const { fieldState, dispatchFieldMessage } = useIsFieldNotEmpty()
 
@@ -61,6 +60,18 @@ const AddressPicker = ({
     placeGeometry && setIsInputValidated(true)
   }
 
+  const onChange = () => {
+    setIsInputValidated(false)
+    setHasError(true)
+  }
+
+  const onBlur = e => {
+    e.target.value ? setIsFocused(true) : setIsFocused(false)
+    setuserInput(e.target.value)
+    onSendAnswer(e.target.value)
+    dispatchFieldMessage({ payload: questionCode })
+  }
+
   useEffect(() => {
     userInput ? setIsFocused(true) : setIsFocused(false)
   }, [userInput])
@@ -70,8 +81,8 @@ const AddressPicker = ({
   }, [dataValue, isValueJson, parsedDataValue])
 
   useEffect(() => {
-    !!userInput && not(isInputValidated) && !!fromComponent ? setHasError(true) : setHasError(false)
-  }, [userInput, isInputValidated, fromComponent])
+    !!userInput && not(isInputValidated) ? setHasError(true) : setHasError(false)
+  }, [userInput, isInputValidated])
 
   useEffect(() => {
     try {
@@ -103,19 +114,6 @@ const AddressPicker = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  const onBlur = e => {
-    e.target.value ? setIsFocused(true) : setIsFocused(false)
-    setuserInput(e.target.value)
-    onSendAnswer(e.target.value)
-    dispatchFieldMessage({ payload: questionCode })
-  }
-
-  const onClick = () => {
-    setHasError(false)
-    setIsInputValidated(false)
-    setFromComponent(true)
-  }
 
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
@@ -157,10 +155,10 @@ const AddressPicker = ({
         defaultValue={userInput}
         ref={autoCompleteRef}
         onBlur={onBlur}
+        onChange={onChange}
         onFocus={() => {
           setIsFocused(true)
         }}
-        onClick={onClick}
         w="full"
         paddingBlock={3}
         paddingInline={5}
