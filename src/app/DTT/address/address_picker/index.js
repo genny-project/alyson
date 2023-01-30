@@ -63,6 +63,8 @@ const AddressPicker = ({
 
   useEffect(() => {
     userInput ? setIsFocused(true) : setIsFocused(false)
+    setIsInputValidated(false)
+    setHasError(true)
   }, [userInput])
 
   useEffect(() => {
@@ -111,11 +113,7 @@ const AddressPicker = ({
     dispatchFieldMessage({ payload: questionCode })
   }
 
-  const onClick = () => {
-    setHasError(false)
-    setIsInputValidated(false)
-    setFromComponent(true)
-  }
+  const onClick = () => setFromComponent(true)
 
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
