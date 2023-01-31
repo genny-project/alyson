@@ -6,6 +6,7 @@ import Search from 'app/SBE/search/Search'
 import getUserType from 'utils/helpers/get-user'
 import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
+import { SIDEBAR_WIDTH } from 'utils/constants'
 
 const Process = ({ dashboard, processCodes }) => {
   const userType = getUserType()
@@ -13,9 +14,9 @@ const Process = ({ dashboard, processCodes }) => {
 
   if (!processCodes) return null
   return (
-    <VStack align="start" spacing={0} px="5">
+    <VStack align="start" spacing={0} overflow={'auto'}>
       {!dashboard && userType !== 'INTERN' && (
-        <HStack w={'full'} mb={`4`} align="end">
+        <HStack w={'full'} mb={`4`} align="end" px={5}>
           {bucketSearch &&
             bucketSearch.map((childAsk, index) => (
               <Box key={`${index}-${childAsk}`} width={'20rem'}>
@@ -34,7 +35,7 @@ const Process = ({ dashboard, processCodes }) => {
       <HStack
         spacing={5}
         paddingBlock="5"
-        w="95vw"
+        w={`100vw - ${SIDEBAR_WIDTH}px`}
         align="flex-start"
         justify="space-between"
         overflow={'auto'}
