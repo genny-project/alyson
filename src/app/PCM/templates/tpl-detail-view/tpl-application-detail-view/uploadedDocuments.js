@@ -1,15 +1,19 @@
 import { Box, Grid, Text, VStack, useTheme } from '@chakra-ui/react'
-
+import { useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCloudDownloadAlt } from '@fortawesome/free-solid-svg-icons'
 import { compose, map } from 'ramda'
+
 import { selectCodeUnary } from 'redux/db/selectors'
 import useProductColors from 'utils/productColors'
-import { useSelector } from 'react-redux'
+import useApi from 'api'
+import isJson from 'utils/helpers/is-json'
 
 const UploadedDocuments = ({ code }) => {
   const theme = useTheme()
   const { fieldHoverBackgroundColor } = useProductColors()
+  const api = useApi()
+  const { getDocumentSrc } = api
 
   const bankStatement = compose(useSelector, selectCodeUnary(code))('PRI_BANK_STATEMENT')?.value
   const visaStatus = compose(useSelector, selectCodeUnary(code))('PRI_VISA')?.value
@@ -21,8 +25,11 @@ const UploadedDocuments = ({ code }) => {
     { title: 'Passport', attr: passport },
   ]
 
-  const onClick = e => {
-    e.preventDefault()
+  const onClick = attribute => {
+    const uuidArray = isJson(attribute) ? JSON.parse(attribute) : attribute
+    const uuid = uuidArray[0]
+    const src = getDocumentSrc(uuid)
+    window.open(src)
   }
 
   return (
@@ -38,7 +45,7 @@ const UploadedDocuments = ({ code }) => {
               {!!attr && (
                 <VStack
                   key={title}
-                  onClick={onClick}
+                  onClick={() => onClick(attr)}
                   role="group"
                   padding={'1.25rem 1.75rem'}
                   borderRadius={20}
