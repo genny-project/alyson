@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Radio as CRadio, RadioGroup, Stack, Text } from '@chakra-ui/react'
-import { compose, equals, map, split } from 'ramda'
+import { compose, equals, map, path, split } from 'ramda'
 import { useSelector } from 'react-redux'
 
 import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
@@ -50,7 +50,9 @@ const Write = ({
   mandatory,
   boolean,
 }) => {
-  let dataValue = isJson(data?.value) ? JSON.parse(data.value) : data.value || ''
+  let dataValueFromBackend = isJson(data?.value) ? JSON.parse(data.value) : data.value || ''
+  const isDataValueArray = Array.isArray(dataValueFromBackend)
+  const dataValue = isDataValueArray ? path([0])(dataValueFromBackend) : dataValueFromBackend
 
   const [value, setValue] = useState(dataValue)
 

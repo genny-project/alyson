@@ -8,7 +8,7 @@ const useGetDetailData = mappedPcm => {
 
   const baseEntityCode = compose(useSelector, selectCodeUnary(questionCode))('targetCode') || ''
 
-  const childAsks = compose(useSelector, selectCodeUnary(baseEntityCode))('allAttributes') || []
+  const childAsks = compose(useSelector, selectCodeUnary(questionCode))('wholeData') || []
   const fields = map(childAsk => childAsk.attributeCode)(childAsks)
 
   return {
