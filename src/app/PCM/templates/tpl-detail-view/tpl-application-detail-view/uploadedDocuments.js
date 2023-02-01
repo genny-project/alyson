@@ -12,7 +12,6 @@ import isJson from 'utils/helpers/is-json'
 const UploadedDocuments = ({ code }) => {
   const theme = useTheme()
   const { fieldHoverBackgroundColor } = useProductColors()
-
   const api = useApi()
   const { getDocumentSrc } = api
 
