@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Radio as CRadio, RadioGroup, Stack, Text } from '@chakra-ui/react'
+import { HStack, Radio as CRadio, RadioGroup, Stack, Text } from '@chakra-ui/react'
 import { compose, equals, map, split } from 'ramda'
 import { useSelector } from 'react-redux'
 
@@ -97,7 +97,7 @@ const Write = ({
         mandatory={mandatory}
         labelTextColor={labelTextColor}
       />
-      <RadioGroup value={value} onChange={onChange}>
+      <RadioGroup onChange={onChange}>
         <Stack direction={verticalAligned ? 'column' : 'row'}>
           {options &&
             map(
