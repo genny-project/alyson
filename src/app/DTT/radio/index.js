@@ -97,7 +97,7 @@ const Write = ({
         mandatory={mandatory}
         labelTextColor={labelTextColor}
       />
-      <RadioGroup onChange={onChange}>
+      <RadioGroup value={String(value)} onChange={onChange}>
         <Stack direction={verticalAligned ? 'column' : 'row'}>
           {options &&
             map(
@@ -107,7 +107,7 @@ const Write = ({
                     id={questionCode}
                     key={`${option.value}`}
                     test-id={`${option.value}-${parentCode}`}
-                    value={option.value}
+                    value={String(option.value)}
                   >
                     {`${option.label}`}
                   </CRadio>
