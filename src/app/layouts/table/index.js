@@ -8,7 +8,7 @@ import { selectTable } from 'redux/app/selectors'
 import { useSelector } from 'react-redux'
 import debugOut from 'utils/debug-out'
 
-const TableWrapper = ({ mapSearch, passedTable, passedComponents = [], showSearch = true }) => {
+const TableWrapper = ({ mapSearch, passedTable, passedComponents = [] }) => {
   const selectedTable = useSelector(selectTable)
   const table = passedTable || selectedTable
   const userCode = useSelector(selectCode('USER'))
@@ -30,7 +30,6 @@ const TableWrapper = ({ mapSearch, passedTable, passedComponents = [], showSearc
       mapSearch={mapSearch}
       passedComponents={passedComponents}
       userCode={userCode}
-      showSearch={showSearch}
     />
   )
 }
