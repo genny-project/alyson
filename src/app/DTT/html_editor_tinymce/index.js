@@ -42,8 +42,6 @@ const Write = ({
 }) => {
   const editorRef = useRef(null)
 
-  console.log(data)
-
   const [userInput, setUserInput] = useState(data?.value)
 
   const [errorStatus, setErrorStatus] = useState(false)
@@ -91,15 +89,16 @@ const Write = ({
         <Editor
           apiKey="tonka5x5oam6nkqq5ydmzivkgkctew1ifpk4sy8zff3ilco8"
           onInit={(evt, editor) => (editorRef.current = editor)}
-          initialValue={userInput ? userInput : ''}
+          value={userInput ? userInput : ''}
           id={questionCode}
           onBlur={handleSave}
-          onChange={handleEditorChange}
+          onEditorChange={handleEditorChange}
           spellCheck={true}
           lang="en"
           placeholder={placeholder || ' '}
           init={{
             height: 500,
+            newline_behavior: 'block',
             plugins: [
               'preview',
               'searchreplace',
