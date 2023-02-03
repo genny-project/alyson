@@ -35,7 +35,7 @@ const SBEAddElement = ({
       attributeCode={attributeCode}
       disabled={disabled}
     />
-  ) : isComponent('date') && !disabled ? (
+  ) : isComponent('date') ? (
     <SBEAddDate askData={askData} value={value} onChange={onChange} disabled={disabled} />
   ) : (
     <SBEAddText askData={askData} value={value} onChange={onChange} disabled={disabled} />
