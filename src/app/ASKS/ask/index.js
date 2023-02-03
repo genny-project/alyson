@@ -365,7 +365,7 @@ const Ask = ({
           inputmask={inputmask}
         />
       )}
-      {component === 'html_editor' && (
+      {component === 'html_editor_tinymce' && (
         <HtmlEditor.Write
           questionCode={questionCode}
           mandatory={mandatory}
@@ -379,19 +379,18 @@ const Ask = ({
           placeholderName={placeholderName}
         />
       )}
-      {component ===
-        'html_editor_tinymce'(
-          <HTMLEditorTinyMCE.Write
-            questionCode={questionCode}
-            data={data}
-            onSendAnswer={onSendAnswer}
-            description={description}
-            html={html}
-            regexPattern={regexPattern}
-            errorMessage={errorMessage}
-            placeholder={placeholder}
-          />,
-        )}
+      {component === 'html_editor' && (
+        <HTMLEditorTinyMCE.Write
+          questionCode={questionCode}
+          data={data}
+          onSendAnswer={onSendAnswer}
+          description={description}
+          html={html}
+          regexPattern={regexPattern}
+          errorMessage={errorMessage}
+          placeholder={placeholder}
+        />
+      )}
       {component === 'textarea' && (
         <TextArea.Write
           questionCode={questionCode}

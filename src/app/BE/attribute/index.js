@@ -110,9 +110,9 @@ const Attribute = ({
     <CheckBox.Read data={data} />
   ) : component === 'flag' ? (
     <Flag.Read data={data} />
-  ) : component === 'html_editor' ? (
-    <HtmlEditor.Read data={data} />
   ) : component === 'html_editor_tinymce' ? (
+    <HtmlEditor.Read data={data} />
+  ) : component === 'html_editor' ? (
     <HTMLEditorTinyMCE.Read data={data} />
   ) : component === 'favourites' ? (
     <Favourites.Read data={data} />
