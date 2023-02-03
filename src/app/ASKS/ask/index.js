@@ -379,8 +379,8 @@ const Ask = ({
           placeholderName={placeholderName}
         />
       )}
-      {component === 'html_editor_tinymce' ||
-        (component === 'text' && (
+      {component ===
+        'html_editor_tinymce'(
           <HTMLEditorTinyMCE.Write
             questionCode={questionCode}
             data={data}
@@ -390,8 +390,8 @@ const Ask = ({
             regexPattern={regexPattern}
             errorMessage={errorMessage}
             placeholder={placeholder}
-          />
-        ))}
+          />,
+        )}
       {component === 'textarea' && (
         <TextArea.Write
           questionCode={questionCode}
