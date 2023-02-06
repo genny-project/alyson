@@ -14,12 +14,15 @@ import { maxRecursiveDepth } from 'utils/constants'
  * `PRI_TEMPLATE_CODE`, using the pcm stored at `code` in the redux store.
  */
 
-const Pcm = ({ code, properties, depth }) => {
+const Pcm = ({ code, properties, depth, config }) => {
   const depthPlusOne = addOne(depth)
   const mappedPcm = useGetMappedPcm(code)
   const { PRI_TEMPLATE_CODE: templateCode } = mappedPcm
   const parentCode = code
-  const template = templateHandlerMachine(depthPlusOne)(mappedPcm)(parentCode)(properties)
+  const template = templateHandlerMachine(depthPlusOne)(mappedPcm)(parentCode)({
+    properties,
+    config,
+  })
 
   if (!template) {
     debugOut.warn(
