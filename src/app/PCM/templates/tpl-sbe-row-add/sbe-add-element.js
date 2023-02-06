@@ -1,5 +1,5 @@
 import getAskFromAttribute from 'app/PCM/helpers/get-ask-from-attribute'
-import { compose, equals, and } from 'ramda'
+import { compose, equals, and, not } from 'ramda'
 import debugOut from 'utils/debug-out'
 import SBEAddDate from './sbe-add-date'
 import SBEAddSelect from './sbe-add-select'
@@ -18,8 +18,8 @@ const SBEAddElement = ({
 
   const component = askData?.question?.attribute?.dataType.component || ''
 
-  if (component === '') {
-    debugOut.warn(`Component for ${attributeCode} was empty! Defaulting to a text component`)
+  if (not(component)) {
+    debugOut.warn(`Component for ${attributeCode} was falsy! Defaulting to a text component`)
   }
 
   const isComponent = compose(and(!disabled), equals(component))

@@ -29,7 +29,7 @@ import hasNot from 'utils/helpers/has-not'
 import showTemplateNames from 'utils/helpers/show-template-names'
 import TemplateSBERowAdd from 'app/PCM/templates/tpl-sbe-row-add'
 import TemplateSBESelect from 'app/PCM/templates/tpl-sbe-select'
-import TemplateSearchBar from './tpl-search-bar'
+import TemplateSearchBar from 'app/PCM/templates/tpl-search-bar'
 
 /**
  * Takes in a mappedPcm, a templateCode and some misc properties and returns a template component.
