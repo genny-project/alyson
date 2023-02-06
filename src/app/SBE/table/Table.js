@@ -4,9 +4,11 @@ import getActions, { getTableActions } from '../utils/get-actions'
 import Action from 'app/BE/action'
 import Body from 'app/SBE/table/Body'
 import Download from 'app/SBE/download'
+import Filters from 'app/SBE/filters'
 import Header from 'app/SBE/table/Header'
 import MapSearch from 'app/SBE/display_modes/map_view'
 import Pagination from 'app/SBE/table/Pagination'
+import Search from 'app/SBE/search/Search'
 import Title from 'app/SBE/table/Title'
 import { apiConfig } from 'config/get-api-config'
 import { equals } from 'ramda'
@@ -14,10 +16,8 @@ import getColumns from 'app/SBE/utils/get-columns'
 import { selectCode } from 'redux/db/selectors'
 import { useIsMobile } from 'utils/hooks'
 import { useSelector } from 'react-redux'
-import Filters from 'app/SBE/filters'
-import Search from 'app/SBE/search/Search'
 
-const DataTable = ({ parentCode, mapSearch, passedComponents = [], userCode }) => {
+const DataTable = ({ pcmCode, parentCode, mapSearch, passedComponents = [], userCode }) => {
   const tableData = useSelector(selectCode(parentCode))
   const bgColor = useColorModeValue('white', 'gray.700')
   const isMobile = useIsMobile()
@@ -47,8 +47,15 @@ const DataTable = ({ parentCode, mapSearch, passedComponents = [], userCode }) =
           w={'full'}
           justifyContent={isMobile ? 'space-between' : 'flex-start'}
         >
-          <Title sbeCode={parentCode} />
-          {<Search sbeCode={parentCode} sourceCode={userCode} targetCode={parentCode} />}
+          {pcmCode !== 'PCM_TABLE_PROPERTIES' && <Title sbeCode={parentCode} />}
+          {
+            <Search
+              pcmCode={pcmCode}
+              sbeCode={parentCode}
+              sourceCode={userCode}
+              targetCode={parentCode}
+            />
+          }
           {<Filters sbeCode={parentCode} />}
           {passedComponents.map((component, index) => (
             <Box key={`TABLE-${parentCode}-CHILD-${index}`}>{component}</Box>
@@ -56,7 +63,7 @@ const DataTable = ({ parentCode, mapSearch, passedComponents = [], userCode }) =
 
           <Download sbeCode={parentCode} />
         </HStack>
-        <Pagination sbeCode={parentCode} />
+        {pcmCode !== 'PCM_TABLE_PROPERTIES' && <Pagination sbeCode={parentCode} />}
       </HStack>
 
       {!mapSearch && tableActions && (

@@ -1,5 +1,5 @@
-import { apiConfig } from 'config/get-api-config'
 import { useTheme } from '@chakra-ui/react'
+import { apiConfig } from 'config/get-api-config'
 
 const fieldBackgroundColors = {
   lojing: 'product.gray',

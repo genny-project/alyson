@@ -1,14 +1,14 @@
 import InternInternshipSearch from './intern_internship'
 import Journals from './journals'
 import Table from 'app/SBE/table/Table'
+import debugOut from 'utils/debug-out'
 import getUserType from 'utils/helpers/get-user-type'
 import { includes } from 'ramda'
 import { selectCode } from 'redux/db/selectors'
 import { selectTable } from 'redux/app/selectors'
 import { useSelector } from 'react-redux'
-import debugOut from 'utils/debug-out'
 
-const TableWrapper = ({ mapSearch, passedTable, passedComponents = [] }) => {
+const TableWrapper = ({ pcmCode, mapSearch, passedTable, passedComponents = [] }) => {
   const selectedTable = useSelector(selectTable)
   const table = passedTable || selectedTable
   const userCode = useSelector(selectCode('USER'))
@@ -30,6 +30,7 @@ const TableWrapper = ({ mapSearch, passedTable, passedComponents = [] }) => {
       mapSearch={mapSearch}
       passedComponents={passedComponents}
       userCode={userCode}
+      pcmCode={pcmCode}
     />
   )
 }

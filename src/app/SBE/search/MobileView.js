@@ -12,7 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ProcessSearchDefaultView from 'app/SBE/search/DefaultView'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
-const ProcessSearchMobileView = () => {
+const ProcessSearchMobileView = ({ pcmCode }) => {
   return (
     <Popover>
       <PopoverTrigger>
@@ -22,7 +22,7 @@ const ProcessSearchMobileView = () => {
         <PopoverArrow />
         <PopoverCloseButton />
         <PopoverBody>
-          <ProcessSearchDefaultView />
+          <ProcessSearchDefaultView pcmCode={pcmCode} />
         </PopoverBody>
       </PopoverContent>
     </Popover>

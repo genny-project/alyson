@@ -1,3 +1,5 @@
+export const lojing = 'lojing'
+
 export const DAY_IN_MS = 24 * 60 * 60 * 1000
 export const DATE_FORMAT = 'DD MMM YY'
 export const WITH_TIME = DATE_FORMAT + ' h:mm A'
@@ -10,19 +12,12 @@ export const ACKMESSAGEKEY = 'ACKMESSAGE'
 export const maxNumberOfRetries = 5
 export const maxRecursiveDepth = 50
 
-export const tableSearchCode = 'QUE_TABLE_FILTER_GRP'
 export const complete = 'COMPLETE'
-export const addItemsQuestionCode = 'QUE_ADD_ITEMS_GRP'
-export const quickAddItemsQuestionCode = 'QUE_QUICK_ADD_ITEMS_GRP'
-export const dashboardViewQuestion = 'QUE_DASHBOARD_VIEW'
-export const dateOfBirthQuestionCode = 'QUE_DATE_OF_BIRTH'
-export const journalDateQuestionCode = 'QUE_JOURNAL_DATE'
 export const eligibleAge = 18
 export const processView = 'Process View'
 export const mentees = 'Mentees'
 export const mentors = 'Mentors'
 export const agents = 'Agents'
-export const lojing = 'lojing'
 export const projectCodeString = 'PROJECT'
 export const pcmKeyDefault = `PCMINFORMATION`
 export const tableSbeLocation = 'PRI_LOC1'
@@ -40,6 +35,12 @@ export const completePrevStepsMsg = 'Please complete the previous steps.'
 export const careerNavigatorText = 'Take the career navigator quiz'
 export const careerNavigatorLink = 'https://www.careernavigator.io/'
 
+export const tableSearchCode = 'QUE_TABLE_FILTER_GRP'
+export const addItemsQuestionCode = 'QUE_ADD_ITEMS_GRP'
+export const quickAddItemsQuestionCode = 'QUE_QUICK_ADD_ITEMS_GRP'
+export const dashboardViewQuestion = 'QUE_DASHBOARD_VIEW'
+export const dateOfBirthQuestionCode = 'QUE_DATE_OF_BIRTH'
+export const journalDateQuestionCode = 'QUE_JOURNAL_DATE'
 export const matchesVisaQuestionCode = 'QUE_MATCHES_VISA'
 export const matchesEmpContractQuestionCode = 'QUE_MATCHES_EMPLOYMENT_CONTRACT'
 export const websiteInvestigatedQuestionCode = 'QUE_WEBSITE_INVESTIGATED'
