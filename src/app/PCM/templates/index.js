@@ -29,6 +29,7 @@ import hasNot from 'utils/helpers/has-not'
 import showTemplateNames from 'utils/helpers/show-template-names'
 import TemplateSBERowAdd from 'app/PCM/templates/tpl-sbe-row-add'
 import TemplateSBESelect from 'app/PCM/templates/tpl-sbe-select'
+import TemplateSearchBar from 'app/PCM/templates/tpl-search-bar'
 
 /**
  * Takes in a mappedPcm, a templateCode and some misc properties and returns a template component.
@@ -81,6 +82,7 @@ const templateHandlerMachine = depth => mappedPcm => parentCode => rest => {
     TPL_SBE_ROW_ADD: <TemplateSBERowAdd {...mandatoryProps} />,
     TPL_SBE_SELECT: <TemplateSBESelect {...mandatoryProps} />,
     TPL_VERTICAL_CARDS: <TemplateVerticalCards {...mandatoryProps} />,
+    TPL_SEARCH_BAR: <TemplateSearchBar {...mandatoryProps} />,
   }
 
   const { PRI_TEMPLATE_CODE: templateCode } = mappedPcm

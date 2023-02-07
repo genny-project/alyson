@@ -1,9 +1,11 @@
 import { Box, HStack, IconButton } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
-import { split, pathOr } from 'ramda'
+import { split, length } from 'ramda'
 import sendEvtClick from 'app/ASKS/utils/send-evt-click'
 import getAskFromAttribute from 'app/PCM/helpers/get-ask-from-attribute'
+import { format } from 'date-fns'
+import isNotEmpty from 'utils/helpers/is-not-empty'
 
 const FieldRow = ({ baseEntityCode, sourceCode, processId, data, index, mappedPcm }) => {
   const deleteEventCode = mappedPcm?.PRI_LOC2 || ''
@@ -15,12 +17,19 @@ const FieldRow = ({ baseEntityCode, sourceCode, processId, data, index, mappedPc
   const names = split(seperator, data?.attributeName ?? '') || []
   const values = split(seperator, data?.valueString ?? '') || []
 
-  const getArrayData = (names, values, index) => pathOr(pathOr('', index, values), index, names)
+  const component = data?.attribute?.dataType?.component || ''
+
+  const getArrayData = (names, values, index) =>
+    length(names) >= index + 1 ? names[index] : length(values) >= index + 1 ? values[index] : ''
 
   const deconstruct = (names, values) => {
     const columnName = getArrayData(names, values, 0)
     const operatorName = getArrayData(names, values, 1)
-    const valueName = getArrayData(names, values, 2)
+    const valueNameData = getArrayData(names, values, 2)
+    const valueName =
+      component === 'date' && isNotEmpty(valueNameData)
+        ? format(new Date(valueNameData), 'dd MMM yyyy')
+        : valueNameData
     return {
       columnName,
       operatorName,
