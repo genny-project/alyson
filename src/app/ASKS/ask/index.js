@@ -6,7 +6,7 @@ import {
   FormLabel,
   HStack,
 } from '@chakra-ui/react'
-import { compose, equals, pathOr } from 'ramda'
+import { compose, equals, lensProp, pathOr, set } from 'ramda'
 import { useDispatch, useSelector } from 'react-redux'
 
 import ABN from 'app/DTT/abn'
@@ -59,6 +59,7 @@ const Ask = ({
   noLabel,
   secondaryColor,
   answerCallback,
+  passedValue,
   skipRedux = false,
   skipSendAnswer = false,
 }) => {
@@ -87,7 +88,8 @@ const Ask = ({
   const clientId = apiConfig?.clientId
 
   const targetCode = passedTargetCode || selectedTargetCode
-  const data = useSelector(selectCode(targetCode, attributeCode)) || {}
+  const selectedData = useSelector(selectCode(targetCode, attributeCode)) || {}
+  const data = set(lensProp('value'), passedValue || selectedData?.value)(selectedData)
 
   const highlightedQuestion = useSelector(selectHighlightedQuestion)
   const labelWidth = useMobileValue(['full', '25vw'])

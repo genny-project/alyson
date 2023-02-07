@@ -1,10 +1,8 @@
+import { Box } from '@chakra-ui/react'
 import Ask from 'app/ASKS/ask'
 import getAskFromAttribute from 'app/PCM/helpers/get-ask-from-attribute'
-import { compose, equals, and, not, set, lensProp } from 'ramda'
+import { not, set, lensProp } from 'ramda'
 import debugOut from 'utils/debug-out'
-import SBEAddDate from './sbe-add-date'
-import SBEAddSelect from './sbe-add-select'
-import SBEAddText from './sbe-add-text'
 
 const SBEAddElement = ({
   parentCode,
@@ -23,37 +21,24 @@ const SBEAddElement = ({
     debugOut.warn(`Component for ${attributeCode} was falsy! Defaulting to a text component`)
   }
 
-  const isComponent = compose(and(!disabled), equals(component))
-
   const askDataWithDisabled = set(lensProp('disabled'), disabled, askData)
 
   return (
-    <Ask
-      passedAskData={askDataWithDisabled}
-      answerCallback={onChange}
-      sourceCode={sourceCode}
-      passedTargetCode={targetCode}
-      parentCode={parentCode}
-      skipRedux={true}
-    />
+    <Box width="25ch">
+      <Ask
+        passedAskData={askDataWithDisabled}
+        answerCallback={(askData, value) => {
+          onChange(typeof value === 'object' ? value[0] : value)
+        }}
+        passedValue={value}
+        sourceCode={sourceCode}
+        passedTargetCode={targetCode}
+        parentCode={parentCode}
+        skipRedux={true}
+        config={{ mt: 0 }}
+      />
+    </Box>
   )
-
-  // return isComponent('dropdown') ? (
-  //   <SBEAddSelect
-  //     askData={askData}
-  //     value={value}
-  //     onChange={onChange}
-  //     sourceCode={sourceCode}
-  //     targetCode={targetCode}
-  //     parentCode={parentCode}
-  //     attributeCode={attributeCode}
-  //     disabled={disabled}
-  //   />
-  // ) : isComponent('date') ? (
-  //   <SBEAddDate askData={askData} value={value} onChange={onChange} disabled={disabled} />
-  // ) : (
-  //   <SBEAddText askData={askData} value={value} onChange={onChange} disabled={disabled} />
-  // )
 }
 
 export default SBEAddElement

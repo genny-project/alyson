@@ -102,6 +102,10 @@ const Write = ({
     if (!updated) {
       setValue(getValue(data, options))
     }
+    // Clear out the field if the dropdown is cleared
+    if (!data?.value) {
+      setValue([])
+    }
     // I found that adding options on its own to this array just caused infinite re-renders
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
