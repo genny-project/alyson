@@ -15,32 +15,31 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import debugOut from 'utils/debug-out'
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import icons from 'utils/icons'
-import { selectCode } from 'redux/db/selectors'
+import { selectCodeUnary } from 'redux/db/selectors'
 import sendEvtClick from 'app/ASKS/utils/send-evt-click'
-import { equals, startsWith } from 'ramda'
+import { equals, startsWith, compose } from 'ramda'
 import useApi from 'api'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import { useSelector } from 'react-redux'
 
 const EvtButton = ({ questionCode, childCode, iconId, vert, isNotChildAsk = false, value }) => {
+  const data = compose(useSelector, selectCodeUnary(questionCode))(childCode)
+
   const theme = useTheme()
-  const data = useSelector(selectCode(questionCode, childCode))
-
-  const targetCode = useSelector(selectCode(questionCode, 'targetCode'))
-  const sourceCode = useSelector(selectCode(questionCode, 'sourceCode'))
-  const processId = useSelector(selectCode(questionCode, 'processId'))
-  const attrCode = useSelector(selectCode(questionCode, 'attributeCode'))
-
   const bgColor = useGetAttributeFromProjectBaseEntity('PRI_COLOR')?.valueString || '#234371'
+  const color = theme.colors.text.dark
+
+  const targetCode = compose(useSelector, selectCodeUnary(questionCode))('targetCode')
+  const sourceCode = compose(useSelector, selectCodeUnary(questionCode))('sourceCode')
+  const processId = compose(useSelector, selectCodeUnary(questionCode))('processId')
+  const attrCode = compose(useSelector, selectCodeUnary(questionCode))('attributeCode')
 
   const trueQuestionCode = isNotChildAsk ? questionCode : childCode
-
-  const color = theme.colors.text.dark
 
   const { getImageSrc } = useApi()
   let src = iconId
 
-  if (iconId) {
+  if (!!iconId) {
     if (!startsWith('http', iconId)) {
       src = getImageSrc(iconId)
     }
@@ -69,9 +68,7 @@ const EvtButton = ({ questionCode, childCode, iconId, vert, isNotChildAsk = fals
   if (!childAsks) {
     let box = (
       <Box display="flex" alignItems="center" justifyContent="center" cursor={'pointer'}>
-        {iconId ? (
-          <Image boxSize="35px" objectFit={'contain'} src={src} alt="" />
-        ) : !!icons[trueQuestionCode] ? (
+        {!!iconId || !!icons[trueQuestionCode] ? (
           <FontAwesomeIcon icon={icons[trueQuestionCode]} size="2x" color="#AAE3E2" />
         ) : (
           <Box />
