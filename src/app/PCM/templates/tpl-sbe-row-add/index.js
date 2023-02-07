@@ -9,6 +9,8 @@ const TemplateSBERowAdd = ({ mappedPcm }) => {
 
   const addAskData = getAskFromAttribute(PRI_QUESTION_CODE)(PRI_LOC4)?.ask || {}
 
+  const virtualTargetCode = 'VBE_ADD_ROW'
+
   const buttonName = addAskData?.name || addAskData?.attributeCode
 
   const [columnValue, setColumnValue] = useState()
@@ -52,7 +54,7 @@ const TemplateSBERowAdd = ({ mappedPcm }) => {
           value={columnValue}
           sourceCode={addAskData.sourceCode}
           onChange={onColumnUpdate}
-          targetCode={'VBE_ADD_ROW'}
+          targetCode={virtualTargetCode}
           disabled={false}
         />
         <SBEAddElement
@@ -61,7 +63,7 @@ const TemplateSBERowAdd = ({ mappedPcm }) => {
           value={operatorValue}
           sourceCode={addAskData.sourceCode}
           onChange={onOperatorUpdate}
-          targetCode={'VBE_ADD_ROW'}
+          targetCode={virtualTargetCode}
           disabled={!columnValue}
         />
         <SBEAddElement
@@ -70,7 +72,7 @@ const TemplateSBERowAdd = ({ mappedPcm }) => {
           value={valueValue}
           sourceCode={addAskData.sourceCode}
           onChange={onValueUpdate}
-          targetCode={'VBE_ADD_ROW'}
+          targetCode={virtualTargetCode}
           disabled={!operatorValue}
         />
         <Button onClick={onAdd} disabled={!columnValue || !operatorValue || !valueValue}>

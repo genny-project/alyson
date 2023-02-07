@@ -60,6 +60,7 @@ const Ask = ({
   secondaryColor,
   answerCallback,
   skipRedux = false,
+  skipSendAnswer = false,
 }) => {
   const projectTitle = useGetAttributeFromProjectBaseEntity('PRI_NAME')?.valueString.toLowerCase()
   const selectedAskData = useSelector(selectCode(parentCode, passedQuestionCode))
@@ -119,7 +120,9 @@ const Ask = ({
 
   const handleUpadateReduxStore = onSendFn => storeUpdateFn => infoObject => userInput => {
     const { attributeCode, targetCode, skipRedux } = infoObject
-    onSendFn(userInput)
+    if (!skipSendAnswer) {
+      onSendFn(userInput)
+    }
     callAnswerCallback(userInput)
     if (!skipRedux) {
       dispatchBaseEntityUpdates(storeUpdateFn)(attributeCode, targetCode, userInput)
