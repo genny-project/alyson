@@ -1,7 +1,7 @@
 import { Box, HStack, IconButton } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
-import { split, length } from 'ramda'
+import { split, length, includes } from 'ramda'
 import sendEvtClick from 'app/ASKS/utils/send-evt-click'
 import getAskFromAttribute from 'app/PCM/helpers/get-ask-from-attribute'
 import { format } from 'date-fns'
@@ -18,6 +18,7 @@ const FieldRow = ({ baseEntityCode, sourceCode, processId, data, index, mappedPc
   const values = split(seperator, data?.valueString ?? '') || []
 
   const component = data?.attribute?.dataType?.component || ''
+  const typeName = data?.attribute?.dataType?.typeName || ''
 
   const getArrayData = (names, values, index) =>
     length(names) >= index + 1 ? names[index] : length(values) >= index + 1 ? values[index] : ''
@@ -26,10 +27,12 @@ const FieldRow = ({ baseEntityCode, sourceCode, processId, data, index, mappedPc
     const columnName = getArrayData(names, values, 0)
     const operatorName = getArrayData(names, values, 1)
     const valueNameData = getArrayData(names, values, 2)
-    const valueName =
-      component === 'date' && isNotEmpty(valueNameData)
-        ? format(new Date(valueNameData), 'dd MMM yyyy')
-        : valueNameData
+
+    const isDate = component === 'date' && isNotEmpty(valueNameData)
+    const includeTime = isDate && includes('LocalDateTime', typeName)
+    const valueName = isDate
+      ? format(new Date(valueNameData), includeTime ? 'dd MMM yyyy, hh:mm' : 'dd MMM yyyy')
+      : valueNameData
     return {
       columnName,
       operatorName,
