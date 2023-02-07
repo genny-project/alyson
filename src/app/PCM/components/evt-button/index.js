@@ -68,8 +68,10 @@ const EvtButton = ({ questionCode, childCode, iconId, vert, isNotChildAsk = fals
   if (!childAsks) {
     let box = (
       <Box display="flex" alignItems="center" justifyContent="center" cursor={'pointer'}>
-        {!!iconId || !!icons[trueQuestionCode] ? (
+        {icons[trueQuestionCode] ? (
           <FontAwesomeIcon icon={icons[trueQuestionCode]} size="2x" color="#AAE3E2" />
+        ) : iconId ? (
+          <Image boxSize="35px" objectFit={'contain'} src={src} alt="" />
         ) : (
           <Box />
         )}
