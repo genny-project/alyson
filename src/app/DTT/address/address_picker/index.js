@@ -33,10 +33,18 @@ const AddressPicker = ({
   const fieldNotEmpty = fieldState[questionCode]
 
   const dataValue = data?.value
-  const isValueJson = isJson(dataValue)
-  const parsedDataValueObject = isValueJson ? JSON.parse(dataValue) : undefined
-  const parsedDataValue = parsedDataValueObject?.full_address
+
   let errorMessage = errormsg || `Please choose one of the options from the suggestion list`
+
+  const getReturnValue = dataValue => {
+    const isValueJson = isJson(dataValue)
+    const parsedDataValueObject = isValueJson ? JSON.parse(dataValue) : undefined
+    const parsedDataValue = parsedDataValueObject?.full_address
+    if (isValueJson) return parsedDataValue
+    return dataValue
+  }
+
+  const returnValue = getReturnValue(dataValue)
 
   const {
     fieldBackgroundColor,
@@ -77,8 +85,8 @@ const AddressPicker = ({
   }, [userInput])
 
   useEffect(() => {
-    isValueJson && !!parsedDataValue ? setuserInput(parsedDataValue) : setuserInput(dataValue)
-  }, [dataValue, isValueJson, parsedDataValue])
+    setuserInput(returnValue)
+  }, [returnValue])
 
   useEffect(() => {
     !!userInput && not(isInputValidated) ? setHasError(true) : setHasError(false)
