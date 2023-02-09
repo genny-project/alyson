@@ -9,6 +9,8 @@ const TemplateSBERowAdd = ({ mappedPcm }) => {
 
   const addAskData = getAskFromAttribute(PRI_QUESTION_CODE)(PRI_LOC4)?.ask || {}
 
+  const virtualTargetCode = 'VBE_ADD_ROW'
+
   const buttonName = addAskData?.name || addAskData?.attributeCode
 
   const [columnValue, setColumnValue] = useState()
@@ -30,8 +32,8 @@ const TemplateSBERowAdd = ({ mappedPcm }) => {
   }
 
   const onAdd = () => {
-    const outputAttributeCode = `FLC_${columnValue?.value}`
-    const outputValue = `${operatorValue?.value};${
+    const outputAttributeCode = `FLC_${columnValue}`
+    const outputValue = `${operatorValue};${
       valueValue?.value || valueValue?.parsed || valueValue || ''
     }`
 
@@ -45,14 +47,14 @@ const TemplateSBERowAdd = ({ mappedPcm }) => {
 
   return (
     <Box>
-      <HStack>
+      <HStack alignItems={'flex-start'}>
         <SBEAddElement
           parentCode={PRI_QUESTION_CODE}
           attributeCode={PRI_LOC1}
           value={columnValue}
           sourceCode={addAskData.sourceCode}
           onChange={onColumnUpdate}
-          targetCode={'VBE_ADD_ROW'}
+          targetCode={virtualTargetCode}
           disabled={false}
         />
         <SBEAddElement
@@ -61,7 +63,7 @@ const TemplateSBERowAdd = ({ mappedPcm }) => {
           value={operatorValue}
           sourceCode={addAskData.sourceCode}
           onChange={onOperatorUpdate}
-          targetCode={'VBE_ADD_ROW'}
+          targetCode={virtualTargetCode}
           disabled={!columnValue}
         />
         <SBEAddElement
@@ -70,12 +72,14 @@ const TemplateSBERowAdd = ({ mappedPcm }) => {
           value={valueValue}
           sourceCode={addAskData.sourceCode}
           onChange={onValueUpdate}
-          targetCode={'VBE_ADD_ROW'}
+          targetCode={virtualTargetCode}
           disabled={!operatorValue}
         />
-        <Button onClick={onAdd} disabled={!columnValue || !operatorValue || !valueValue}>
-          {buttonName}
-        </Button>
+        <Box alignSelf={'center'}>
+          <Button onClick={onAdd} disabled={!columnValue || !operatorValue || !valueValue}>
+            {buttonName}
+          </Button>
+        </Box>
       </HStack>
     </Box>
   )
