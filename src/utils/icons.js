@@ -15,6 +15,13 @@ import {
   faSatellite,
   faThLarge,
   faUserFriends,
+  faUser,
+  faComment,
+  faCalendarCheck,
+  faLaptop,
+  faEnvelope,
+  faFolderOpen,
+  faLaptopCode,
 } from '@fortawesome/free-solid-svg-icons'
 
 const icons = {
@@ -38,6 +45,19 @@ const icons = {
   QUE_TREE_ITEM_DEV_UI: faRobot,
   // Lojing Temporary Icons
   QUE_TREE_ITEM_PROPERTIES: faBuilding,
+
+  QUE_PROCESS: faColumns,
+  QUE_DASHBOARD: faThLarge,
+  QUE_PROFILE: faUser,
+  QUE_MESSAGE: faComment,
+  QUE_TABLE_HOST_COMPANIES: faCity,
+  QUE_TABLE_MESSAGE: faEnvelope,
+  QUE_TABLE_EDU_PROVIDERS: faBuilding,
+  QUE_TABLE_APPOINTMENTS: faCalendarCheck,
+  QUE_TABLE_INTERNSHIPS: faLaptop,
+  QUE_TABLE_COMMUNICATIONS: faColumns,
+  QUE_TABLE_DOCUMENTS: faFolderOpen,
+  QUE_TABLE_DEV_UI: faLaptopCode,
 }
 
 export default icons
