@@ -116,6 +116,14 @@ export const defaultProjectTheme = {
       800: 'linear-gradient(135deg, #4FD1C5, #4299E1)',
       900: 'linear-gradient(135deg, #38B2AC, #3182CE)',
     },
+    internmatch: {
+      red: '#EA5024',
+      nordic: '#063231',
+      blue: '#96D5D3',
+      white: '#FFFFFF',
+      pink: '#E4BAC8',
+      green: '#55B748',
+    },
   },
   shadows: {
     md:
