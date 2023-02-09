@@ -82,7 +82,7 @@ const TemplateRoot = ({ mappedPcm, depth, showTemplateNames }) => {
           code={PRI_LOC1}
           mappedPcm={mappedPcm}
           depth={depth}
-          properties={{ bg: lightColor, color: color }}
+          properties={{ bg: 'lightColor', color: color }}
         />
 
         {isMobile && (
@@ -123,7 +123,7 @@ const TemplateRoot = ({ mappedPcm, depth, showTemplateNames }) => {
           id="sideNav"
           area={'nav'}
           w={SIDEBAR_WIDTH}
-          bg="product.primary"
+          bg="sidebar.background"
           h={isMobile ? 'calc(100vh - 80px)' : 'calc(100vh - 86px)'}
           paddingTop={14}
         >
