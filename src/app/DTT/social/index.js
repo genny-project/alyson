@@ -85,6 +85,7 @@ const Write = ({
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value)
   const [isFocused, setIsFocused] = useState(false)
+  const [socialMediaIcon, setSocialMediaIcon] = useState()
 
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
 
@@ -122,6 +123,13 @@ const Write = ({
       ? dispatch({ type: ACTIONS.SET_TO_TRUE, payload: questionCode })
       : dispatch({ type: ACTIONS.SET_TO_FALSE, payload: questionCode })
   }, [dispatch, isInvalid, questionCode])
+
+  useEffect(() => {
+    includes('linkedin')(toLower(attributeName || ''))
+      ? setSocialMediaIcon(faLinkedinIn)
+      : setSocialMediaIcon(faGlobe)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
@@ -202,11 +210,7 @@ const Write = ({
               color: iconColor,
             }}
           >
-            {includes('linkedin')(toLower(attributeName || '')) ? (
-              <FontAwesomeIcon size="lg" icon={faLinkedinIn} color={'inherit'} />
-            ) : (
-              <FontAwesomeIcon size="lg" icon={faGlobe} color={'inherit'} />
-            )}
+            <FontAwesomeIcon size="lg" icon={socialMediaIcon} color={'inherit'} />
           </InputLeftAddon>
 
           <Input
