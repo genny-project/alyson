@@ -184,6 +184,9 @@ const Write = ({
           setIsFocused(true)
           ddEvent('')
         }}
+        onBlur={() => {
+          setIsFocused(isNotStringifiedEmptyArray(value) && value.length > 0)
+        }}
         test-id={questionCode}
         id={questionCode}
         value={value}
