@@ -47,7 +47,7 @@ const TemplateSBERowAdd = ({ mappedPcm }) => {
 
   return (
     <Box>
-      <HStack>
+      <HStack alignItems={'flex-start'}>
         <SBEAddElement
           parentCode={PRI_QUESTION_CODE}
           attributeCode={PRI_LOC1}
@@ -75,9 +75,11 @@ const TemplateSBERowAdd = ({ mappedPcm }) => {
           targetCode={virtualTargetCode}
           disabled={!operatorValue}
         />
-        <Button onClick={onAdd} disabled={!columnValue || !operatorValue || !valueValue}>
-          {buttonName}
-        </Button>
+        <Box alignSelf={'center'}>
+          <Button onClick={onAdd} disabled={!columnValue || !operatorValue || !valueValue}>
+            {buttonName}
+          </Button>
+        </Box>
       </HStack>
     </Box>
   )

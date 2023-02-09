@@ -88,12 +88,14 @@ const Write = ({
     dispatchFieldMessage({ payload: questionCode })
   }
 
+  const outerStackVertical = verticalAligned || (options?.length || 0) > 2
+
   return (
     <Stack
       ml={1}
-      direction={verticalAligned || (options?.length || 0) > 2 ? 'row' : 'column'} // just making sure that longer sets of options don't end up weirdly arranged
-      spacing={0}
-      justifyContent={verticalAligned || options?.length || 0 ? 'space-between' : 'flex-start'}
+      direction={outerStackVertical ? 'row' : 'column'} // just making sure that longer sets of options don't end up weirdly arranged
+      spacing={outerStackVertical ? 0 : 1}
+      justifyContent={outerStackVertical ? 'space-between' : 'flex-start'}
     >
       <MandatorySymbol
         placeholderName={placeholderName}
