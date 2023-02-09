@@ -1,4 +1,4 @@
-import { Box, useColorModeValue } from '@chakra-ui/react'
+import { Box, HStack, useColorModeValue } from '@chakra-ui/react'
 import DeveloperConsole, { isDev } from 'utils/developer'
 
 import Dashboard from 'app/layouts/dashboard'
@@ -21,6 +21,7 @@ import { onSendMessage } from 'vertx'
 import { selectCode } from 'redux/db/selectors'
 import { selectDisplay } from 'redux/app/selectors'
 import { useSelector } from 'react-redux'
+import ReduxConsole from 'utils/reduxConsole'
 
 const Display = ({ title }) => {
   const display = useSelector(selectDisplay)
@@ -71,7 +72,12 @@ const Display = ({ title }) => {
           <Dialog />
           <Toast />
         </Box>
-        {isDev ? <DeveloperConsole /> : null}
+        {isDev ? (
+          <HStack position="fixed" bottom="0" left="0">
+            <DeveloperConsole />
+            <ReduxConsole />
+          </HStack>
+        ) : null}
         <LogrocketIdentifier />
       </Box>
     </ErrorBoundary>

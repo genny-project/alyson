@@ -35,7 +35,7 @@ const DeveloperConsole = () => {
 
   return (
     <VStack>
-      <Button size="xs" onClick={onOpen} position="fixed" bottom="0" left="0">
+      <Button size="xs" onClick={onOpen}>
         db search
       </Button>
 
