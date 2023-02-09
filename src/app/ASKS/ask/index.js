@@ -335,6 +335,7 @@ const Ask = ({
           targetCode={targetCode}
           clientId={clientId}
           boolean={equals('boolean')(component)}
+          config={config}
         />
       )}
       {component === 'text' && (

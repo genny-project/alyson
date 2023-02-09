@@ -35,7 +35,7 @@ const SBEAddElement = ({
         passedTargetCode={targetCode}
         parentCode={parentCode}
         skipRedux={true}
-        config={{ mt: 0 }}
+        config={{ mt: 0, vertical: false }}
       />
     </Box>
   )
