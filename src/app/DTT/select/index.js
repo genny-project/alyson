@@ -191,10 +191,14 @@ const Write = ({
         selectedOptionStyle="check"
         placeholder=""
         chakraStyles={{
+          input: provided => ({
+            ...provided,
+            w: 'full',
+            paddingInline: 12,
+          }),
           container: provided => ({
             ...provided,
             w: 'full',
-            // minW: `${placeholderName.length + 10}ch`,
           }),
           control: provided => ({
             ...provided,
@@ -219,7 +223,7 @@ const Write = ({
           menu: provided => ({
             ...provided,
             marginBlock: 0,
-            paddingBlock: 0,
+            paddingBlock: 3,
             border: 0,
             borderRadius: '0.25rem 0.25rem 1.25rem 1.25rem',
             boxShadow: '0px 4px 15px -2px rgba(0, 0, 0, 0.25)',
