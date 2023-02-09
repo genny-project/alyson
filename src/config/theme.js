@@ -221,6 +221,62 @@ export const defaultProjectTheme = {
         opacity: 0.9,
       },
     },
+    internmatch: {
+      heading1: {
+        fontSize: '110px',
+        fontWeight: 200,
+        fonts: 'PP Editorial New',
+        lineHeight: '141px',
+      },
+      heading2: {
+        fontSize: '68px',
+        fontWeight: 200,
+        fonts: 'PP Editorial New',
+        lineHeight: '87px',
+      },
+      heading3: {
+        fontSize: '42px',
+        fontWeight: 200,
+        fonts: 'PP Editorial New',
+        lineHeight: '54px',
+      },
+      heading4: {
+        fontSize: '26px',
+        fontWeight: 200,
+        fonts: 'PP Editorial New',
+        lineHeight: '33px',
+      },
+      subHeading: {
+        fontSize: '26px',
+        fontWeight: 500,
+        fonts: 'PP Neue Montreal',
+        lineHeight: '31px',
+      },
+      body: {
+        fontSize: '16px',
+        fontWeight: 400,
+        fonts: 'PP Neue Montreal',
+        lineHeight: '19px',
+      },
+      strongText: {
+        fontSize: '16px',
+        fontWeight: 700,
+        fonts: 'PP Neue Montreal',
+        lineHeight: '19px',
+      },
+      buttonText: {
+        fontSize: '16px',
+        fontWeight: 400,
+        fonts: 'PP Neue Montreal',
+        lineHeight: '19px',
+      },
+      speechBubble: {
+        fontSize: '16px',
+        fontWeight: 200,
+        fonts: 'Good Mono',
+        lineHeight: '19px',
+      },
+    },
   },
 }
 
