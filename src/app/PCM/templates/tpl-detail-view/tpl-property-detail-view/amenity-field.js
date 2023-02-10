@@ -1,5 +1,4 @@
 import { Box, HStack, Text } from '@chakra-ui/react'
-import { equals, find, includes, keys, replace, toUpper } from 'ramda'
 import {
   faArchway,
   faBath,
@@ -11,12 +10,13 @@ import {
   faToilet,
   faWarehouse,
 } from '@fortawesome/free-solid-svg-icons'
+import { equals, find, includes, keys, replace, toUpper } from 'ramda'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useSelector } from 'react-redux'
+import { selectCode } from 'redux/db/selectors'
 import debugOut from 'utils/debug-out'
 import firstUpper from 'utils/helpers/first-upper'
-import { selectCode } from 'redux/db/selectors'
-import { useSelector } from 'react-redux'
 
 const AmenityField = ({ attributeCode, code }) => {
   const entityAttribute = useSelector(selectCode(code, attributeCode))
@@ -53,7 +53,14 @@ const AmenityField = ({ attributeCode, code }) => {
   const icon = iconSet[find(a => includes(a)(key))(keys(iconSet))] || faDoorOpen
 
   return (
-    <Box borderWidth="1px" borderColor="product.primary" borderRadius="3xl" py={1} px={3}>
+    <Box
+      borderWidth="1px"
+      borderColor="product.primary"
+      borderRadius="3xl"
+      py={1}
+      px={3}
+      fontSize={'sm'}
+    >
       <HStack>
         <Text as="span" color="product.primary">
           <FontAwesomeIcon icon={icon} />
