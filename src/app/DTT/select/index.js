@@ -1,7 +1,7 @@
 import './styles.css'
 
 import { Box, HStack, Text, useTheme } from '@chakra-ui/react'
-import { equals, includes, isEmpty, pathOr } from 'ramda'
+import { equals, includes, isEmpty, or, pathOr } from 'ramda'
 import { selectCode, selectRows } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
@@ -49,6 +49,7 @@ const Write = ({
   const sourceCode = useSelector(selectCode('USER'))
 
   const [value, setValue] = useState(getValue(data, options))
+  const [inputValue, setInputValue] = useState('')
   const [updated, setUpdated] = useState(false)
   const [isFocused, setIsFocused] = useState(true)
 
@@ -117,8 +118,8 @@ const Write = ({
   }, [])
 
   useEffect(() => {
-    value?.length ? setIsFocused(true) : setIsFocused(false)
-  }, [value])
+    or(!isEmpty(inputValue), !isEmpty(value)) ? setIsFocused(true) : setIsFocused(false)
+  }, [value, inputValue])
 
   const onChange = newValue => {
     handleClearFieldMessage()
@@ -179,14 +180,23 @@ const Write = ({
         isMulti={isMulti}
         options={options}
         onChange={onChange}
-        onInputChange={value => ddEvent(value)}
+        onInputChange={value => {
+          setInputValue(value)
+          ddEvent(value)
+        }}
         onFocus={() => {
           setIsFocused(true)
           ddEvent('')
         }}
+        onBlur={() => {
+          if (isEmpty(value)) {
+            setIsFocused(false)
+          }
+        }}
         test-id={questionCode}
         id={questionCode}
         value={value}
+        inputValue={inputValue}
         classNamePrefix={clientId + '_dd'}
         selectedOptionStyle="check"
         placeholder=""
@@ -194,11 +204,12 @@ const Write = ({
           input: provided => ({
             ...provided,
             w: 'full',
-            paddingInline: 12,
           }),
           container: provided => ({
             ...provided,
             w: 'full',
+            //Minimum width for the save search fields
+            minW: 24,
           }),
           control: provided => ({
             ...provided,
