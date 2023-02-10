@@ -62,7 +62,7 @@ const TemplateRoot = ({ mappedPcm, depth, showTemplateNames }) => {
       templateAreas={`"header header"
     "nav main"`}
       gridTemplateColumns={isMobile ? '1fr' : `${SIDEBAR_WIDTH} 1fr`}
-      gridTemplateRows={'auto 1fr'}
+      gridTemplateRows={'1fr'}
       fontFamily={'product.bodyFont'}
     >
       {/* HEADER WRAPPER */}
@@ -70,11 +70,9 @@ const TemplateRoot = ({ mappedPcm, depth, showTemplateNames }) => {
         style={{
           gridArea: 'header',
           color,
-          width: '100vw',
           backgroundColor: lightColor,
           boxShadow: '0px 4px 32px -16px rgba(0, 0, 0, 0.25)',
           position: 'relative',
-          zIndex: theme.zIndices.sticky,
         }}
       >
         {/* Header PCM*/}
@@ -119,14 +117,7 @@ const TemplateRoot = ({ mappedPcm, depth, showTemplateNames }) => {
           </DrawerContent>
         </Drawer>
       ) : (
-        <Box
-          id="sideNav"
-          area={'nav'}
-          w={SIDEBAR_WIDTH}
-          bg="sidebar.background"
-          h={isMobile ? 'calc(100vh - 80px)' : 'calc(100vh - 86px)'}
-          paddingTop={14}
-        >
+        <Box id="sideNav" area={'nav'} w={SIDEBAR_WIDTH} bg="sidebar.background">
           {/* Sidebar Pcm */}
           <PcmField
             code={PRI_LOC2}

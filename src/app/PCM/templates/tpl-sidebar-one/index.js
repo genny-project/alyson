@@ -28,6 +28,12 @@ const TemplateSidebarOne = ({ mappedPcm, maxItemCount }) => {
     )
   })(mappedPcm.PRI_QUESTION_CODE)
 
+  console.log(
+    '%c 🙀🙀🙀🙀🙀🙀 Testing 🙀🙀🙀🙀🙀🙀🙀 ',
+    'background: silver; color: black; padding: 0.5rem',
+    { maxItems, evtButtons },
+  )
+
   return (
     <Grid
       test-id={mappedPcm.PRI_QUESTION_CODE}
