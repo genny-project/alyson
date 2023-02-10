@@ -1,6 +1,7 @@
 import { includes } from 'ramda'
 import { Link } from '@chakra-ui/react'
-import { Write } from '../text'
+import { Write as TextWrite } from '../text'
+import { faGlobe } from '@fortawesome/free-solid-svg-icons'
 
 export const Read = ({ data, size }) => {
   if (!data?.value) return null
@@ -13,6 +14,33 @@ export const Read = ({ data, size }) => {
     </Link>
   )
 }
+
+export const Write = ({
+  questionCode,
+  data,
+  onSendAnswer,
+  regexPattern,
+  errorMessage,
+  parentCode,
+  attributeCode,
+  placeholderName,
+  mandatory,
+  inputmask,
+}) => (
+  <TextWrite
+    icon={faGlobe}
+    questionCode={questionCode}
+    onSendAnswer={onSendAnswer}
+    data={data}
+    regexPattern={regexPattern}
+    attributeCode={attributeCode}
+    parentCode={parentCode}
+    errorMessage={errorMessage}
+    placeholderName={placeholderName}
+    mandatory={mandatory}
+    inputmask={inputmask}
+  />
+)
 
 const URL = {
   Write,
