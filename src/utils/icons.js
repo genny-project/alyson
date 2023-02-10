@@ -22,6 +22,7 @@ import {
   faEnvelope,
   faFolderOpen,
   faLaptopCode,
+  faUsers,
 } from '@fortawesome/free-solid-svg-icons'
 
 const icons = {
@@ -58,6 +59,8 @@ const icons = {
   QUE_TABLE_COMMUNICATIONS: faColumns,
   QUE_TABLE_DOCUMENTS: faFolderOpen,
   QUE_TABLE_DEV_UI: faLaptopCode,
+
+  QUE_CONTACTS: faUsers,
 }
 
 export default icons

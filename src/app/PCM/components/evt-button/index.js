@@ -1,33 +1,13 @@
-import {
-  Box,
-  HStack,
-  Image,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-  Text,
-  VStack,
-  useTheme,
-} from '@chakra-ui/react'
+import { Box, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
+import { equals, compose } from 'ramda'
+import { useSelector } from 'react-redux'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import debugOut from 'utils/debug-out'
-import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
-import icons from 'utils/icons'
 import { selectCodeUnary } from 'redux/db/selectors'
 import sendEvtClick from 'app/ASKS/utils/send-evt-click'
-import { equals, startsWith, compose } from 'ramda'
-import useApi from 'api'
-import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
-import { useSelector } from 'react-redux'
+import SidebarItems from 'app/PCM/components/sidebar-items'
 
 const EvtButton = ({ questionCode, childCode, iconId, vert, isNotChildAsk = false, value }) => {
   const data = compose(useSelector, selectCodeUnary(questionCode))(childCode)
-
-  const theme = useTheme()
-  const bgColor = useGetAttributeFromProjectBaseEntity('PRI_COLOR')?.valueString || '#234371'
-  const color = theme.colors.text.dark
 
   const targetCode = compose(useSelector, selectCodeUnary(questionCode))('targetCode')
   const sourceCode = compose(useSelector, selectCodeUnary(questionCode))('sourceCode')
@@ -35,17 +15,6 @@ const EvtButton = ({ questionCode, childCode, iconId, vert, isNotChildAsk = fals
   const attrCode = compose(useSelector, selectCodeUnary(questionCode))('attributeCode')
 
   const trueQuestionCode = isNotChildAsk ? questionCode : childCode
-
-  const { getImageSrc } = useApi()
-  let src = iconId
-
-  if (!!iconId) {
-    if (!startsWith('http', iconId)) {
-      src = getImageSrc(iconId)
-    }
-  } else if (vert) {
-    debugOut.error(`${questionCode}@${childCode} doesn't have an iconId!`)
-  }
 
   if (!data) return null
 
@@ -55,92 +24,30 @@ const EvtButton = ({ questionCode, childCode, iconId, vert, isNotChildAsk = fals
     const pid = equals(data['processId'] || 'no-idq')('no-idq') ? processId : data['processId']
 
     sendEvtClick({
-      targetCode: targetCode,
-      sourceCode: sourceCode,
+      targetCode,
+      sourceCode,
       parentCode: isNotChildAsk ? undefined : questionCode,
       code: trueQuestionCode,
       attributeCode: attrCode,
-      value: value,
+      value,
       processId: pid,
     })
   }
 
-  let box = (
-    <Box display="flex" alignItems="center" justifyContent="center" cursor={'pointer'}>
-      {icons[trueQuestionCode] ? (
-        <FontAwesomeIcon icon={icons[trueQuestionCode]} size="2x" color="#AAE3E2" />
-      ) : iconId ? (
-        <Image boxSize="35px" objectFit={'contain'} src={src} alt="" />
-      ) : (
-        <Box />
-      )}
-    </Box>
-  )
-  let text = (
-    <Text color={color} fontSize={vert ? 12 : 15} fontWeight="700">
-      {name}
-    </Text>
-  )
-
-  if (!childAsks) {
-    return vert ? (
-      <Box
-        role="group"
-        p="0"
-        test-id={trueQuestionCode}
-        onClick={handleClick}
-        as="button"
-        minW="70%"
-        justifyContent="center"
-      >
-        <HStack spacing={5}>
-          {box}
-          {text}
-        </HStack>
-      </Box>
-    ) : (
-      <Box padding={1} borderRadius="lg" background={bgColor}>
-        <HStack
-          spacing={iconId || icons[trueQuestionCode] ? 2 : 0}
-          role="group"
-          p="1"
-          test-id={trueQuestionCode}
-          onClick={handleClick}
-          as="button"
-          w={'full'}
-        >
-          {box}
-          {text}
-        </HStack>
-      </Box>
+  if (!childAsks)
+    return (
+      <SidebarItems trueQuestionCode={trueQuestionCode} handleClick={handleClick} name={name} />
     )
-  }
   return (
     <Box minW="70%">
       <Menu placement="right-start">
         <MenuButton test-id={trueQuestionCode}>
-          <Box
-            role="group"
-            p="0"
-            test-id={trueQuestionCode}
-            onClick={handleClick}
-            as="button"
-            justifyContent="center"
-          >
-            <HStack spacing={5}>
-              {iconId ? (
-                <Image boxSize="35px" objectFit={'contain'} src={src} alt="" />
-              ) : (
-                <FontAwesomeIcon icon={icons[trueQuestionCode]} size="2x" color="#AAE3E2" />
-              )}
-              <HStack>
-                <Text fontSize="12px" fontWeight="400" color={color}>
-                  {name}
-                </Text>
-                <FontAwesomeIcon icon={faAngleDown} color="#BDC5CD" />
-              </HStack>
-            </HStack>
-          </Box>
+          <SidebarItems
+            trueQuestionCode={trueQuestionCode}
+            handleClick={handleClick}
+            name={name}
+            hasChildIcons={true}
+          />
         </MenuButton>
 
         <MenuList minW="350px">

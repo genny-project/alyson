@@ -276,6 +276,13 @@ export const defaultProjectTheme = {
         fonts: 'Good Mono',
         lineHeight: '19px',
       },
+      iconText: {
+        fontSize: '16px',
+        fontWeight: 400,
+        fonts: 'PP Neue Montreal',
+        lineHeight: '19px',
+        color: '#FFFFFF',
+      },
     },
   },
 }
