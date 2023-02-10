@@ -1,5 +1,13 @@
 import { ACKMESSAGEKEY, maxNumberOfRetries } from 'utils/constants'
-import { Box, Text as ChakraText, HStack, Input, useTheme } from '@chakra-ui/react'
+import {
+  Box,
+  Text as ChakraText,
+  HStack,
+  Input,
+  useTheme,
+  InputGroup,
+  InputLeftAddon,
+} from '@chakra-ui/react'
 import { faCalendar, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useRef, useState } from 'react'
 
@@ -20,6 +28,8 @@ import useProductColors from 'utils/productColors'
 import { useSelector } from 'react-redux'
 import ErrorDisplay from 'app/DTT/helpers/error-display'
 import useClearFieldMessage from 'app/DTT/helpers/clear-field-message'
+import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
+import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
 
 export const Write = ({
   questionCode,
@@ -32,6 +42,7 @@ export const Write = ({
   placeholderName,
   mandatory,
   inputmask,
+  icon,
 }) => {
   let regex
   const [errorStatus, setErrorStatus] = useState(false)
@@ -39,6 +50,7 @@ export const Write = ({
   const [isFocused, setIsFocused] = useState(false)
   const inputRef = useRef()
   const retrySendingAnswerRef = useRef(0)
+  const iconColor = useGetAttributeFromProjectBaseEntity('PRI_COLOR_SECONDARY')?.valueString
 
   const theme = useTheme()
   const { dispatch } = useError()
@@ -108,7 +120,6 @@ export const Write = ({
   useEffect(() => {
     retrySendingAnswerRef.current = 0
   }, [userInput])
-
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
       <HStack
@@ -116,7 +127,7 @@ export const Write = ({
         zIndex={theme.zIndices.docked}
         top={isFocused ? '-1.5rem' : 3}
         left={0}
-        paddingStart={6}
+        paddingStart={isFocused ? 6 : !!icon ? 12 : 6}
         w="full"
         justifyContent={'space-between'}
         pointerEvents={'none'}
@@ -134,32 +145,15 @@ export const Write = ({
           questionCode={questionCode}
         />
       </HStack>
-
-      <Input
-        as={InputMask}
-        mask={inputmask}
-        maskChar={null}
-        test-id={questionCode}
-        id={questionCode}
-        ref={inputRef}
-        onFocus={() => {
-          setIsFocused(true)
-        }}
-        onBlur={onBlur}
-        onChange={e => setuserInput(e.target.value)}
-        value={userInput || ''}
-        isInvalid={isInvalid}
-        w="full"
-        h={'auto'}
-        paddingBlock={3}
-        paddingInline={6}
+      <InputGroup
+        onClick={() => setIsFocused(true)}
         bg={fieldBackgroundColor}
         borderRadius={borderRadius}
         borderColor={fieldBorderColor}
-        fontSize={'sm'}
-        fontWeight={'medium'}
-        color={fieldTextColor}
-        cursor={'pointer'}
+        borderWidth="1px"
+        borderStyle="solid"
+        overflow={'hidden'}
+        role="group"
         _hover={{
           borderColor: fieldHoverBorderColor,
           boxShadow: 'lg',
@@ -177,7 +171,55 @@ export const Write = ({
           borderColor: 'gray.300',
           background: 'gray.100',
         }}
-      />
+      >
+        {!!icon && (
+          <InputLeftAddon
+            h={'auto'}
+            border={0}
+            borderRadius={0}
+            paddingInlineStart={4}
+            color={isFocused ? iconColor : 'gray.600'}
+            _groupHover={{
+              color: iconColor,
+            }}
+            _groupfocusvisible={{
+              color: iconColor,
+            }}
+            _groupfocuswithin={{
+              color: iconColor,
+            }}
+          >
+            <FontAwesomeIcon size="lg" icon={icon || faQuestionCircle} color={'inherit'} />
+          </InputLeftAddon>
+        )}
+        <Input
+          as={InputMask}
+          mask={inputmask}
+          maskChar={null}
+          test-id={questionCode}
+          id={questionCode}
+          ref={inputRef}
+          onBlur={onBlur}
+          onChange={e => setuserInput(e.target.value)}
+          value={userInput || ''}
+          w="full"
+          h={'auto'}
+          paddingBlock={3}
+          paddingInlineEnd={6}
+          paddingInlineStart={!!icon ? 1 : 6}
+          border={0}
+          fontSize={'sm'}
+          fontWeight={'medium'}
+          color={fieldTextColor}
+          _focusVisible={{
+            border: '0',
+          }}
+          _focus={{
+            border: '0',
+          }}
+          cursor={'pointer'}
+        />
+      </InputGroup>
       <ErrorDisplay
         hasErrorMessage={hasErrorMessage}
         errorStatus={errorStatus}
