@@ -40,7 +40,7 @@ import {
   toPairs,
   zipObj,
 } from 'ramda'
-import { useCallback, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { selectCodes, selectKeys } from 'redux/db/selectors'
 
@@ -49,14 +49,15 @@ const ReduxConsole = () => {
   const firstField = useRef()
   const [query, setQuery] = useState('')
   const [loadCount, setLoadCount] = useState(3)
+
   const keys = useSelector(selectKeys)
   const allObjects = useSelector(selectCodes(keys))
+
   const objectMap = zipObj(keys, allObjects)
-  var displayQuery
+  const searchType = includes(':')(query)
 
   ///allows search for partial keys
   const hasLike = key => compose(any(includes(key)), rKeys)
-
   ///filters empty items so the search results dont blank out
   const multiSearch = compose(
     map(split(':')),
@@ -64,7 +65,6 @@ const ReduxConsole = () => {
     split(','),
     replace(/, /g, ','),
   )(query)
-  const searchType = includes(':')(query) ? 'attribute' : 'code'
 
   const matchAttribute = item => attribute => {
     ///returns true if value not present, to allow searching for key
@@ -80,21 +80,19 @@ const ReduxConsole = () => {
     return includes(query)(item[0])
   }
   const resultFilter = item => {
-    if (searchType == 'code') {
-      return matchingKey(item)
-    } else {
+    if (searchType) {
       return matchingAttributes(item)
+    } else {
+      return matchingKey(item)
     }
   }
   const allResults = filter(resultFilter)(toPairs(objectMap))
   const searchResults = slice(0, loadCount)(allResults)
-  const updateSearch = useCallback(
-    debounce(e => {
-      setQuery(e.target.value)
-    }, 300),
-    [],
-  )
+  const updateSearch = debounce(e => {
+    setQuery(e.target.value)
+  }, 300)
 
+  var displayQuery
   return (
     <VStack>
       <Button size="xs" onClick={onOpen}>
@@ -138,13 +136,6 @@ const ReduxConsole = () => {
 
 export default ReduxConsole
 
-export const isDev =
-  process.env.NODE_ENV === 'development' ||
-  localStorage.getItem('useDev') === 'true' ||
-  (window &&
-    (window.location.hostname.indexOf('dev') !== -1 ||
-      window.location.hostname.indexOf('staging') !== -1))
-
 /**The parent Search Object Component, contains the object title and children*/
 const SearchObjectComponent = ({ searchResults, setLoadCount, loadCount }) => {
   return (
@@ -172,7 +163,7 @@ const SearchObjectComponent = ({ searchResults, setLoadCount, loadCount }) => {
         >
           Show All
         </Button>
-        {loadCount != 3 ? (
+        {loadCount !== 3 ? (
           <Button
             onClick={() => {
               setLoadCount(3)
@@ -192,7 +183,7 @@ const SearchItemComponent = ({ item }) => {
   return (
     <Box px="5">
       {is(Object, item) ? (
-        Object.keys(item).map(key => (
+        map(key => (
           <Stack
             direction={is(Object, item[key]) ? 'column' : 'row'}
             key={key}
@@ -206,7 +197,7 @@ const SearchItemComponent = ({ item }) => {
               <Text>{String(item[key])}</Text>
             )}
           </Stack>
-        ))
+        ))(rKeys(item))
       ) : (
         <Text>{item}</Text>
       )}
