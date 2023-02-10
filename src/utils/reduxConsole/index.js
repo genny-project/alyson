@@ -28,7 +28,6 @@ import {
   compose,
   equals,
   filter,
-  head,
   includes,
   is,
   isEmpty,
@@ -38,6 +37,8 @@ import {
   replace,
   slice,
   split,
+  toPairs,
+  zipObj,
 } from 'ramda'
 import { useCallback, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -50,6 +51,7 @@ const ReduxConsole = () => {
   const [loadCount, setLoadCount] = useState(3)
   const keys = useSelector(selectKeys)
   const allObjects = useSelector(selectCodes(keys))
+  const objectMap = zipObj(keys, allObjects)
   var displayQuery
 
   ///allows search for partial keys
@@ -70,20 +72,22 @@ const ReduxConsole = () => {
       hasLike(attribute[0])(item),
     )
   }
-  const matchingAttributes = item => {
-    return all(equals(true))(map(matchAttribute(item), multiSearch))
-  }
-  const searchWithAttributes = filter(matchingAttributes)(allObjects)
-  const allResults = filter(includes(query))(keys)
-  const searchResults = slice(0, loadCount)(allResults)
-  const searchObjects = compose(useSelector, selectCodes)(searchResults)
-  const searchDisplayObjects =
-    searchType == 'code'
-      ? searchObjects
-      : searchWithAttributes.length
-      ? slice(0, loadCount)(searchWithAttributes)
-      : searchObjects
 
+  const matchingAttributes = item => {
+    return all(equals(true))(map(matchAttribute(item[1]), multiSearch))
+  }
+  const matchingKey = item => {
+    return includes(query)(item[0])
+  }
+  const resultFilter = item => {
+    if (searchType == 'code') {
+      return matchingKey(item)
+    } else {
+      return matchingAttributes(item)
+    }
+  }
+  const allResults = filter(resultFilter)(toPairs(objectMap))
+  const searchResults = slice(0, loadCount)(allResults)
   const updateSearch = useCallback(
     debounce(e => {
       setQuery(e.target.value)
@@ -104,10 +108,8 @@ const ReduxConsole = () => {
               <FormControl w="40rem">
                 <FormLabel>
                   Search - Displaying{' '}
-                  {loadCount < searchDisplayObjects.length
-                    ? loadCount
-                    : searchDisplayObjects.length}{' '}
-                  of {searchType == 'code' ? allResults.length : searchWithAttributes.length}
+                  {loadCount < searchResults.length ? loadCount : searchResults.length} of{' '}
+                  {allResults.length}
                 </FormLabel>
                 <Input
                   ref={firstField}
@@ -122,7 +124,6 @@ const ReduxConsole = () => {
             <DrawerCloseButton />
             <DrawerBody>
               <SearchObjectComponent
-                searchObjects={searchDisplayObjects}
                 searchResults={searchResults}
                 setLoadCount={setLoadCount}
                 loadCount={loadCount}
@@ -145,21 +146,20 @@ export const isDev =
       window.location.hostname.indexOf('staging') !== -1))
 
 /**The parent Search Object Component, contains the object title and children*/
-const SearchObjectComponent = ({ searchObjects, searchResults, setLoadCount, loadCount }) => {
+const SearchObjectComponent = ({ searchResults, setLoadCount, loadCount }) => {
   return (
     <VStack alignItems="left" w="40rem" align="stretch">
-      {searchObjects
-        ? searchObjects.map((item, index) => (
-            <VStack align="start">
-              <Text>{String(rKeys(head(searchObjects)))}</Text>
-              <SearchItemComponent item={item} />
+      {searchResults
+        ? searchResults.map((item, index) => (
+            <VStack align="start" key={item}>
+              <Text>{item[0]}</Text>
+              <SearchItemComponent item={item[1]} />
             </VStack>
           ))
         : []}
       <HStack>
         <Button
           onClick={() => {
-            console.log(loadCount)
             setLoadCount(loadCount + 3)
           }}
         >
@@ -194,7 +194,7 @@ const SearchItemComponent = ({ item }) => {
       {is(Object, item) ? (
         Object.keys(item).map(key => (
           <Stack
-            direction={is(Object, item[1]) ? 'column' : 'row'}
+            direction={is(Object, item[key]) ? 'column' : 'row'}
             key={key}
             alignItems="flex-start"
             spacing={0}
