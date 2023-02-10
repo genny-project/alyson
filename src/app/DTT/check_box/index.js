@@ -21,7 +21,7 @@ const Write = ({ questionCode, data, onSendAnswer, isRequired, label }) => {
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
   let answer = data?.value === 'true' ? 'false' : 'true'
 
-  const colorScheme = useGetAttributeFromProjectBaseEntity('PRI_COLOR')?.valueString
+  const colorScheme = useGetAttributeFromProjectBaseEntity('PRI_SECONDARY_COLOR')?.valueString
 
   const toggle = () => {
     onSendAnswer(answer)
