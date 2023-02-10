@@ -10,8 +10,6 @@ import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
 import isJson from 'utils/helpers/is-json'
 
-let autocomplete
-
 const AddressPicker = ({
   onSendAnswer,
   data,
@@ -28,6 +26,8 @@ const AddressPicker = ({
   const [hasError, setHasError] = useState(false)
   const { errorState } = useError()
   const { fieldState, dispatchFieldMessage } = useIsFieldNotEmpty()
+
+  const autocomplete = useRef(null)
 
   const failedValidation = errorState[questionCode]
   const fieldNotEmpty = fieldState[questionCode]
@@ -56,7 +56,7 @@ const AddressPicker = ({
   } = useProductColors()
 
   const onPlaceChange = () => {
-    const place = autocomplete.getPlace()
+    const place = autocomplete.current.getPlace()
     const placeGeometry = place?.geometry
     if (!place?.geometry) {
       console.error(
@@ -94,12 +94,12 @@ const AddressPicker = ({
 
   useEffect(() => {
     try {
-      if (autoCompleteRef?.current) {
-        autocomplete = new window.google.maps.places.Autocomplete(autoCompleteRef.current, {
+      if (autoCompleteRef?.current && !autocomplete?.current) {
+        autocomplete.current = new window.google.maps.places.Autocomplete(autoCompleteRef.current, {
           types: ['geocode'],
         })
 
-        autocomplete.addListener('place_changed', onPlaceChange)
+        autocomplete.current.addListener('place_changed', onPlaceChange)
 
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(position => {
@@ -111,7 +111,7 @@ const AddressPicker = ({
               center: geolocation,
               radius: position.coords.accuracy,
             })
-            autocomplete.setBounds(circle.getBounds())
+            autocomplete.current.setBounds(circle.getBounds())
           })
         }
       }
