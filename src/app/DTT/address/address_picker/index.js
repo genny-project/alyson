@@ -94,7 +94,7 @@ const AddressPicker = ({
 
   useEffect(() => {
     try {
-      if (autoCompleteRef?.current) {
+      if (autoCompleteRef?.current && !autocomplete?.current) {
         autocomplete.current = new window.google.maps.places.Autocomplete(autoCompleteRef.current, {
           types: ['geocode'],
         })
