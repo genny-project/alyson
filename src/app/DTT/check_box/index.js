@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
+import { useState } from 'react'
+import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined'
 
 const Read = ({ data }) => {
   return (
@@ -19,12 +21,15 @@ const Read = ({ data }) => {
 
 const Write = ({ questionCode, data, onSendAnswer, isRequired, label }) => {
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
-  let answer = data?.value === 'true' ? 'false' : 'true'
 
-  const colorScheme = useGetAttributeFromProjectBaseEntity('PRI_COLOR')?.valueString
+  const colorScheme = useGetAttributeFromProjectBaseEntity('PRI_SURFACE_COLOR')?.valueString
+
+  const [checked, setChecked] = useState(data?.value)
 
   const toggle = () => {
-    onSendAnswer(answer)
+    const newValue = data?.value === 'true' ? 'false' : 'true'
+    onSendAnswer(newValue)
+    setChecked(newValue)
     dispatchFieldMessage({ payload: questionCode })
   }
 
@@ -35,13 +40,15 @@ const Write = ({ questionCode, data, onSendAnswer, isRequired, label }) => {
         id={questionCode}
         test-id={questionCode}
         colorScheme={colorScheme}
-        isChecked={data?.value === 'true'}
+        isChecked={checked === 'true'}
         onChange={toggle}
       />
       <FormControl onClick={toggle} isRequired={isRequired}>
         <FormLabel cursor="pointer">{label}</FormLabel>
       </FormControl>
-      {answer && <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />}
+      {isNotNullOrUndefinedOrEmpty(checked) && (
+        <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
+      )}
     </HStack>
   )
 }
