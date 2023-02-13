@@ -5,7 +5,7 @@ import { faStar } from '@fortawesome/free-solid-svg-icons'
 import debounce from 'lodash.debounce'
 import sendEvtClick from 'app/ASKS/utils/send-evt-click'
 
-const FavouriteComponent = ({ starred, sourceCode, targetCode, onToggle }) => {
+const FavouriteComponent = ({ starred, sourceCode, targetCode }) => {
   const [isStarred, setIsStarred] = useState(starred)
 
   const sendEvt = value => {
@@ -26,12 +26,7 @@ const FavouriteComponent = ({ starred, sourceCode, targetCode, onToggle }) => {
   }
 
   return (
-    <FontAwesomeIcon
-      onClick={onClick}
-      icon={faStar}
-      size="lg"
-      color={!isStarred ? '' : '#C0C0C0'}
-    />
+    <FontAwesomeIcon onClick={onClick} icon={faStar} size="lg" color={isStarred ? '' : '#C0C0C0'} />
   )
 }
 
