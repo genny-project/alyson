@@ -281,7 +281,7 @@ export const defaultProjectTheme = {
         fontWeight: 400,
         fonts: 'PP Neue Montreal',
         lineHeight: '19px',
-        color: '#EA5024',
+        color: '#FFFFFF',
       },
       iconTextOnHighlight: {
         fontSize: '16px',
