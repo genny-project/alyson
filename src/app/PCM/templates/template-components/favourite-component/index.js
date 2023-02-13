@@ -27,11 +27,12 @@ const FavouriteComponent = ({ starred, sourceCode, targetCode }) => {
 
   return (
     <FontAwesomeIcon
+      position="absolute"
       cursor={'pointer'}
       onClick={onClick}
       icon={faStar}
       size="lg"
-      color={isStarred ? '' : '#C0C0C0'}
+      color={isStarred ? '#ffd700' : '#C0C0C0'}
     />
   )
 }
