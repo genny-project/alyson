@@ -13,7 +13,7 @@ import {
 import mapQuestionGroup from 'app/PCM/helpers/map-question-grp'
 import { slice } from 'ramda'
 
-const TemplateSidebarOne = ({ mappedPcm, depth, maxItemCount }) => {
+const TemplateSidebarOne = ({ mappedPcm, maxItemCount }) => {
   const maxItems = maxItemCount || Math.floor((window.innerHeight - 86) / 130)
 
   const evtButtons = mapQuestionGroup((ask, question) => {
@@ -32,7 +32,7 @@ const TemplateSidebarOne = ({ mappedPcm, depth, maxItemCount }) => {
     <Grid
       test-id={mappedPcm.PRI_QUESTION_CODE}
       placeItems="center"
-      gap={12}
+      gap={7}
       paddingInline={4}
       maxH={'full'}
       wordBreak={'break-word'}

@@ -1,7 +1,7 @@
 export const DAY_IN_MS = 24 * 60 * 60 * 1000
 export const DATE_FORMAT = 'DD MMM YY'
 export const WITH_TIME = DATE_FORMAT + ' h:mm A'
-export const SIDEBAR_WIDTH = '112px'
+export const SIDEBAR_WIDTH = '250px'
 export const SIDEBAR_WIDTH_SM = '80px'
 export const SIDEBAR_QUESTION_CODE = 'QUE_PROJECT_SIDEBAR_GRP'
 export const LOGO_WIDTH = '120px'
@@ -44,3 +44,7 @@ export const matchesVisaQuestionCode = 'QUE_MATCHES_VISA'
 export const matchesEmpContractQuestionCode = 'QUE_MATCHES_EMPLOYMENT_CONTRACT'
 export const websiteInvestigatedQuestionCode = 'QUE_WEBSITE_INVESTIGATED'
 export const adminConfirmedQuestionCode = 'QUE_ADMIN_CONFIRMED'
+
+export const iconColor = '#FFFFFF'
+export const selectedSidebarBoxColor = '#CDD6D6'
+export const iconColorOnHighlight = '#EA5024'
