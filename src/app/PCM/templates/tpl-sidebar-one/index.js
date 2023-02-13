@@ -1,20 +1,24 @@
-import EvtButton from 'app/PCM/components/evt-button'
 import {
+  Button,
   Grid,
   Popover,
-  PopoverTrigger,
-  Button,
   PopoverArrow,
   PopoverBody,
   PopoverContent,
+  PopoverTrigger,
   Wrap,
   WrapItem,
 } from '@chakra-ui/react'
+import { equals, slice } from 'ramda'
+
+import EvtButton from 'app/PCM/components/evt-button'
 import mapQuestionGroup from 'app/PCM/helpers/map-question-grp'
-import { slice } from 'ramda'
+import { lojing } from 'utils/constants'
+import useGetProductName from 'utils/helpers/get-product-name'
 
 const TemplateSidebarOne = ({ mappedPcm, maxItemCount }) => {
   const maxItems = maxItemCount || Math.floor((window.innerHeight - 86) / 130)
+  const productName = useGetProductName()
 
   const evtButtons = mapQuestionGroup((ask, question) => {
     return (
@@ -32,7 +36,7 @@ const TemplateSidebarOne = ({ mappedPcm, maxItemCount }) => {
     <Grid
       test-id={mappedPcm.PRI_QUESTION_CODE}
       placeItems="center"
-      gap={7}
+      gap={equals(productName)(lojing) ? 7 : 0}
       paddingInline={4}
       maxH={'full'}
       wordBreak={'break-word'}

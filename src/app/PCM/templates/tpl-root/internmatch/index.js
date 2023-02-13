@@ -10,14 +10,14 @@ import {
 } from '@chakra-ui/react'
 import DeveloperConsole, { isDev } from 'utils/developer'
 
-import Dialog from 'app/layouts/display/dialog'
-import DisplayDrawer from 'app/layouts/display/drawer'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import LogrocketIdentifier from 'app/layouts/components/logrocket_identifier'
+import Dialog from 'app/layouts/display/dialog'
+import DisplayDrawer from 'app/layouts/display/drawer'
+import Toast from 'app/layouts/display/toast'
 import PcmField from 'app/PCM/components/pcm-field'
 import { SIDEBAR_WIDTH } from 'utils/constants'
-import Toast from 'app/layouts/display/toast'
-import { faBars } from '@fortawesome/free-solid-svg-icons'
 
 const InternmatchRoot = ({
   isMobile,
@@ -39,7 +39,7 @@ const InternmatchRoot = ({
   return (
     <Grid
       h={'100vh'}
-      templateAreas={`"header header"
+      templateAreas={`"nav header"
     "nav main"`}
       gridTemplateColumns={isMobile ? '1fr' : `${SIDEBAR_WIDTH} 1fr`}
       gridTemplateRows={'1fr'}
@@ -48,7 +48,7 @@ const InternmatchRoot = ({
       {/* HEADER WRAPPER */}
       <header
         style={{
-          gridArea: 'header',
+          gridArea: isMobile ? 'header/nav' : 'header',
           color,
           backgroundColor: lightColor,
           boxShadow: '0px 4px 32px -16px rgba(0, 0, 0, 0.25)',
@@ -97,7 +97,7 @@ const InternmatchRoot = ({
           </DrawerContent>
         </Drawer>
       ) : (
-        <Box id="sideNav" area={'nav'} w={SIDEBAR_WIDTH} bg="sidebar.background">
+        <Box id="sideNav" gridArea={'nav'} w={SIDEBAR_WIDTH} bg="sidebar.background">
           {/* Sidebar Pcm */}
           <PcmField
             code={PRI_LOC2}
@@ -121,7 +121,7 @@ const InternmatchRoot = ({
             : 'calc(100vh - 86px)'
         }
         overflow="auto"
-        area={'main'}
+        gridArea={isMobile ? 'main/nav' : 'main'}
       >
         <Box paddingTop="2.25rem" paddingInline={appWrapperInlinePadding}>
           {/* Main Page Content */}
