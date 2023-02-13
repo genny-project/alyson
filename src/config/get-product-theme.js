@@ -26,6 +26,8 @@ const productBasedDefaultColors = {
     dark: '#000000',
 
     gradient100: 'linear-gradient(340deg, #EF8567, #F18B32)',
+
+    sidebar: '#024754',
   },
 
   alyson: {
@@ -42,6 +44,8 @@ const productBasedDefaultColors = {
 
     white: '#FFFFFF',
     dark: '#000000',
+
+    sidebar: '#063231',
   },
 }
 
@@ -101,6 +105,9 @@ const getProductTheme = (
   const productThemes = {
     colors: {
       product: { ...productBasedDefaultColors[realm], ...defaultProductColours },
+      sidebar: {
+        background: productBasedDefaultColors[realm]?.sidebar,
+      },
       ...defaultThemeColours,
     },
 
