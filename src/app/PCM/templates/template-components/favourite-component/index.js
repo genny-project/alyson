@@ -4,6 +4,7 @@ import { faStar } from '@fortawesome/free-solid-svg-icons'
 
 import debounce from 'lodash.debounce'
 import sendEvtClick from 'app/ASKS/utils/send-evt-click'
+import { Button } from '@chakra-ui/react'
 
 const FavouriteComponent = ({ starred, sourceCode, targetCode }) => {
   const [isStarred, setIsStarred] = useState(starred)
@@ -26,14 +27,14 @@ const FavouriteComponent = ({ starred, sourceCode, targetCode }) => {
   }
 
   return (
-    <FontAwesomeIcon
-      position="absolute"
-      cursor={'pointer'}
-      onClick={onClick}
-      icon={faStar}
-      size="lg"
-      color={isStarred ? '#ffd700' : '#C0C0C0'}
-    />
+    <Button onClick={onClick} m={0} p={0} bg="#00000000">
+      <FontAwesomeIcon
+        position="absolute"
+        icon={faStar}
+        size="lg"
+        color={isStarred ? '#ffd700' : '#C0C0C0'}
+      />
+    </Button>
   )
 }
 
