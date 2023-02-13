@@ -19,6 +19,7 @@ import DateRange from 'app/DTT/date_range'
 import Email from 'app/DTT/email'
 import Favourites from 'app/DTT/favourites'
 import Flag from 'app/DTT/flag'
+import HTMLEditorTinyMCE from 'app/DTT/html_editor_tinymce'
 import HtmlDisplay from 'app/DTT/html_display'
 import HtmlEditor from 'app/DTT/html-editor'
 import LogRocketSession from 'app/DTT/log_rocket_session'
@@ -338,7 +339,7 @@ const Ask = ({
           config={config}
         />
       )}
-      {component === 'text' && (
+      {component === 'texteee' && (
         <Text.Write
           questionCode={questionCode}
           mandatory={mandatory}
@@ -370,7 +371,7 @@ const Ask = ({
           inputmask={inputmask}
         />
       )}
-      {component === 'html_editor' && (
+      {component === 'html_editor_tinymce' && (
         <HtmlEditor.Write
           questionCode={questionCode}
           mandatory={mandatory}
@@ -382,6 +383,18 @@ const Ask = ({
           targetCode={targetCode}
           parentCode={parentCode}
           placeholderName={placeholderName}
+        />
+      )}
+      {component === 'html_editor' && (
+        <HTMLEditorTinyMCE.Write
+          questionCode={questionCode}
+          data={data}
+          onSendAnswer={onSendAnswer}
+          description={description}
+          html={html}
+          regexPattern={regexPattern}
+          errorMessage={errorMessage}
+          placeholder={placeholder}
         />
       )}
       {component === 'textarea' && (
