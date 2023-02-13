@@ -32,7 +32,7 @@ const TemplateSidebarOne = ({ mappedPcm, maxItemCount }) => {
     <Grid
       test-id={mappedPcm.PRI_QUESTION_CODE}
       placeItems="center"
-      gap={12}
+      gap={7}
       paddingInline={4}
       maxH={'full'}
       wordBreak={'break-word'}

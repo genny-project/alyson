@@ -19,7 +19,6 @@ const SideBarItem = ({ trueQuestionCode, handleClick, name, hasChildIcons }) => 
       h="64px"
       bg={isSelected && selectedSidebarBoxColor}
       borderRadius="20px"
-      minW="70%"
     >
       <HStack spacing={5} justifyContent="center">
         <Box display="flex" cursor={'pointer'}>
@@ -35,8 +34,15 @@ const SideBarItem = ({ trueQuestionCode, handleClick, name, hasChildIcons }) => 
         </Box>
         {hasChildIcons ? (
           <HStack>
-            <Text textStyle="internmatch.iconText">{name}</Text>
-            <FontAwesomeIcon icon={faAngleDown} color="#FFFFFF" />
+            <Text
+              textStyle={isSelected ? 'internmatch.iconTextOnHighlight' : 'internmatch.iconText'}
+            >
+              {name}
+            </Text>
+            <FontAwesomeIcon
+              icon={faAngleDown}
+              color={isSelected ? iconColorOnHighlight : iconColor}
+            />
           </HStack>
         ) : (
           <Text textStyle={isSelected ? 'internmatch.iconTextOnHighlight' : 'internmatch.iconText'}>

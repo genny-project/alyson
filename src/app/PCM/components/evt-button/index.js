@@ -39,7 +39,7 @@ const EvtButton = ({ questionCode, childCode, iconId, vert, isNotChildAsk = fals
       <SidebarItems trueQuestionCode={trueQuestionCode} handleClick={handleClick} name={name} />
     )
   return (
-    <Box minW="70%">
+    <Box>
       <Menu placement="right-start">
         <MenuButton test-id={trueQuestionCode}>
           <SidebarItems
