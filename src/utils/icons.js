@@ -23,6 +23,8 @@ import {
   faFolderOpen,
   faLaptopCode,
   faUsers,
+  faSearch,
+  faCheckCircle,
 } from '@fortawesome/free-solid-svg-icons'
 
 const icons = {
@@ -46,6 +48,8 @@ const icons = {
   QUE_TREE_ITEM_DEV_UI: faRobot,
   // Lojing Temporary Icons
   QUE_TREE_ITEM_PROPERTIES: faBuilding,
+  QUE_TABLE_APPLICATIONS: faCheckCircle,
+  QUE_TABLE_PROPERTIES: faSearch,
 
   QUE_PROCESS: faColumns,
   QUE_DASHBOARD: faThLarge,
