@@ -1,11 +1,11 @@
+import { useRef } from 'react'
+import { equals } from 'ramda'
 import { useColorModeValue, useDisclosure, useTheme } from '@chakra-ui/react'
 
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import { useIsMobile } from 'utils/hooks'
 import useProductColors from 'utils/productColors'
-import { useRef } from 'react'
 import useGetProductName from 'utils/helpers/get-product-name'
-import { equals } from 'ramda'
 import InternmatchRoot from 'app/PCM/templates/tpl-root/internmatch'
 import LojingRoot from 'app/PCM/templates/tpl-root/lojing'
 import { lojing } from 'utils/constants'
