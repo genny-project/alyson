@@ -5,13 +5,12 @@ import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import icons from 'utils/icons'
 
-const isSelected = false
+const isSelected = true
 
 const InternmatchSideBarItem = ({ trueQuestionCode, handleClick, name, hasChildIcons }) => {
   return (
     <Box
       role="group"
-      p="0"
       test-id={trueQuestionCode}
       onClick={handleClick}
       as="button"
@@ -19,6 +18,7 @@ const InternmatchSideBarItem = ({ trueQuestionCode, handleClick, name, hasChildI
       h="64px"
       bg={isSelected && selectedSidebarBoxColor}
       borderRadius="20px"
+      paddingX="1.5rem"
     >
       <HStack spacing={5}>
         <Box display="flex" cursor={'pointer'} width={'1.38rem'} height={'1.38rem'}>
