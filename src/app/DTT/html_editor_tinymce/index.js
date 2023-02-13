@@ -35,15 +35,7 @@ import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { getIsInvalid } from 'utils/functions'
 import removeHtmlTags from 'utils/helpers/remove-html-tags'
 
-const Write = ({
-  questionCode,
-  data,
-  onSendAnswer,
-  html,
-  regexPattern,
-  errorMessage,
-  placeholder,
-}) => {
+const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMessage, placeholder }) => {
   const projectCode = compose(useSelector, selectCode)(projectCodeString)
   const tinyMCEKEY = useSelector(selectCode(projectCode, 'ENV_TINY_MCE_API_KEY'))?.value || ''
 
