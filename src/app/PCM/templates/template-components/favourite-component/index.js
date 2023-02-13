@@ -21,12 +21,18 @@ const FavouriteComponent = ({ starred, sourceCode, targetCode }) => {
   const onClick = () => {
     const newStarred = !isStarred
 
-    debouncedEvt(newStarred ? 'true' : 'false')
+    debouncedEvt(newStarred)
     setIsStarred(newStarred)
   }
 
   return (
-    <FontAwesomeIcon onClick={onClick} icon={faStar} size="lg" color={isStarred ? '' : '#C0C0C0'} />
+    <FontAwesomeIcon
+      cursor={'pointer'}
+      onClick={onClick}
+      icon={faStar}
+      size="lg"
+      color={isStarred ? '' : '#C0C0C0'}
+    />
   )
 }
 
