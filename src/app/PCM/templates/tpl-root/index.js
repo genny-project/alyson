@@ -25,6 +25,7 @@ import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import { useIsMobile } from 'utils/hooks'
 import useProductColors from 'utils/productColors'
 import { useRef } from 'react'
+import useGetProductName from 'utils/helpers/get-product-name'
 
 /**
  * The root template for an application. Contains a sidebar, header and a body content.
@@ -39,12 +40,16 @@ import { useRef } from 'react'
  * `PRI_LOC2` -> The Sidebar <br/>
  *
  * `PRI_LOC3` -> The Main content being displayed
+ *
  */
+
 const TemplateRoot = ({ mappedPcm, depth, showTemplateNames }) => {
   const theme = useTheme()
   const btnRef = useRef()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { PRI_LOC1, PRI_LOC2, PRI_LOC3 } = mappedPcm
+
+  const productName = useGetProductName()
 
   // THEME COLORS
   //need to fix this, we cannot get colours this way

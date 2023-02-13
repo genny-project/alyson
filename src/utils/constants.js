@@ -22,8 +22,9 @@ export const processView = 'Process View'
 export const mentees = 'Mentees'
 export const mentors = 'Mentors'
 export const agents = 'Agents'
-export const lojing = 'lojing'
+export const lojing = 'LOJING'
 export const projectCodeString = 'PROJECT'
+export const internmatch = 'INTERNMATCH'
 export const pcmKeyDefault = `PCMINFORMATION`
 export const tableSbeLocation = 'PRI_LOC1'
 
