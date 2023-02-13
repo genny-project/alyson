@@ -57,17 +57,19 @@ const EvtButton = ({ questionCode, childCode, iconId, vert, isNotChildAsk = fals
     <Box>
       <Menu placement="right-start">
         <MenuButton test-id={trueQuestionCode}>
-          equals(productName)(lojing) ?{' '}
+          equals(productName)(lojing) ?
           <LojingSideBarItem
             trueQuestionCode={trueQuestionCode}
             handleClick={handleClick}
             name={name}
-          />{' '}
-          :{' '}
+            hasChildIcons={true}
+          />
+          :
           <InternmatchSideBarItem
             trueQuestionCode={trueQuestionCode}
             handleClick={handleClick}
             name={name}
+            hasChildIcons={true}
           />
         </MenuButton>
 

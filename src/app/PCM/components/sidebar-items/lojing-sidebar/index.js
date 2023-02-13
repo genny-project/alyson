@@ -1,56 +1,33 @@
-import { Box, HStack, Text } from '@chakra-ui/react'
+import { Box, Text, VStack } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 
 import icons from 'utils/icons'
-import { iconColor, iconColorOnHighlight, selectedSidebarBoxColor } from 'utils/constants'
 
-const isSelected = false
-
-const LojingSideBarItem = ({ trueQuestionCode, handleClick, name, hasChildIcons }) => {
-  console.log('questionCOde ======>', { trueQuestionCode })
+const LojingSideBarItem = ({ trueQuestionCode, handleClick, name, color, hasChildIcons }) => {
   return (
-    <Box
-      role="group"
-      p="0"
-      test-id={trueQuestionCode}
-      onClick={handleClick}
-      as="button"
-      w="204px"
-      h="64px"
-      bg={isSelected && selectedSidebarBoxColor}
-      borderRadius="20px"
-    >
-      <HStack spacing={5} justifyContent="center">
+    <Box role="group" p="0" test-id={trueQuestionCode} onClick={handleClick} as="button">
+      <VStack spacing={5} justifyContent="flex-start">
         <Box display="flex" cursor={'pointer'}>
           {icons[trueQuestionCode] ? (
-            <FontAwesomeIcon
-              icon={icons[trueQuestionCode]}
-              size="lg"
-              color={isSelected ? iconColorOnHighlight : iconColor}
-            />
+            <FontAwesomeIcon icon={icons[trueQuestionCode]} size="2x" color="#AAE3E2" />
           ) : (
             <Box />
           )}
         </Box>
         {hasChildIcons ? (
-          <HStack>
-            <Text
-              textStyle={isSelected ? 'internmatch.iconTextOnHighlight' : 'internmatch.iconText'}
-            >
+          <VStack>
+            <Text color="#FFFFFF" fontSize="15" fontWeight="700">
               {name}
             </Text>
-            <FontAwesomeIcon
-              icon={faAngleDown}
-              color={isSelected ? iconColorOnHighlight : iconColor}
-            />
-          </HStack>
+            <FontAwesomeIcon icon={faAngleDown} color="#BDC5CD" />
+          </VStack>
         ) : (
-          <Text textStyle={isSelected ? 'internmatch.iconTextOnHighlight' : 'internmatch.iconText'}>
+          <Text color="#FFFFFF" fontSize="15" fontWeight="700">
             {name}
           </Text>
         )}
-      </HStack>
+      </VStack>
     </Box>
   )
 }
