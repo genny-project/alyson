@@ -1,9 +1,9 @@
 import { Box, HStack, Text } from '@chakra-ui/react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
-
-import icons from 'utils/icons'
 import { iconColor, iconColorOnHighlight, selectedSidebarBoxColor } from 'utils/constants'
+
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import icons from 'utils/icons'
 
 const isSelected = false
 
@@ -20,12 +20,12 @@ const InternmatchSideBarItem = ({ trueQuestionCode, handleClick, name, hasChildI
       bg={isSelected && selectedSidebarBoxColor}
       borderRadius="20px"
     >
-      <HStack spacing={5} justifyContent="center">
-        <Box display="flex" cursor={'pointer'}>
+      <HStack spacing={5}>
+        <Box display="flex" cursor={'pointer'} width={'1.38rem'} height={'1.38rem'}>
           {icons[trueQuestionCode] ? (
             <FontAwesomeIcon
+              size={'lg'}
               icon={icons[trueQuestionCode]}
-              size="lg"
               color={isSelected ? iconColorOnHighlight : iconColor}
             />
           ) : (
