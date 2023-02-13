@@ -15,9 +15,10 @@ import DisplayDrawer from 'app/layouts/display/drawer'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import LogrocketIdentifier from 'app/layouts/components/logrocket_identifier'
 import PcmField from 'app/PCM/components/pcm-field'
-import { SIDEBAR_WIDTH } from 'utils/constants'
 import Toast from 'app/layouts/display/toast'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
+
+const SIDEBAR_WIDTH = '112px'
 
 const LojingRoot = ({
   isMobile,

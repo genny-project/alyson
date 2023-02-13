@@ -7,7 +7,7 @@ import icons from 'utils/icons'
 const LojingSideBarItem = ({ trueQuestionCode, handleClick, name, color, hasChildIcons }) => {
   return (
     <Box role="group" p="0" test-id={trueQuestionCode} onClick={handleClick} as="button">
-      <VStack spacing={5} justifyContent="flex-start">
+      <VStack spacing={2} justifyContent="flex-start">
         <Box display="flex" cursor={'pointer'}>
           {icons[trueQuestionCode] ? (
             <FontAwesomeIcon icon={icons[trueQuestionCode]} size="2x" color="#AAE3E2" />
@@ -17,13 +17,13 @@ const LojingSideBarItem = ({ trueQuestionCode, handleClick, name, color, hasChil
         </Box>
         {hasChildIcons ? (
           <VStack>
-            <Text color="#FFFFFF" fontSize="15" fontWeight="700">
+            <Text color="#FFFFFF" fontSize="12" fontWeight="700">
               {name}
             </Text>
             <FontAwesomeIcon icon={faAngleDown} color="#BDC5CD" />
           </VStack>
         ) : (
-          <Text color="#FFFFFF" fontSize="15" fontWeight="700">
+          <Text color="#FFFFFF" fontSize="12" fontWeight="700">
             {name}
           </Text>
         )}
