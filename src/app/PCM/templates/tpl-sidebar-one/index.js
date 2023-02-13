@@ -8,14 +8,21 @@ import {
   PopoverTrigger,
   Wrap,
   WrapItem,
+  Box,
+  Image,
 } from '@chakra-ui/react'
-import { slice } from 'ramda'
+import { slice, equals } from 'ramda'
 
 import EvtButton from 'app/PCM/components/evt-button'
 import mapQuestionGroup from 'app/PCM/helpers/map-question-grp'
+import { internmatch } from 'utils/constants'
+import useGetProductName from 'utils/helpers/get-product-name'
+import { onSendMessage } from 'vertx'
+import { INTERNMATCH_LOGO_WIDTH } from 'utils/constants'
 
 const TemplateSidebarOne = ({ mappedPcm, maxItemCount }) => {
   const maxItems = maxItemCount || Math.floor((window.innerHeight - 86) / 130)
+  const productName = useGetProductName()
 
   const evtButtons = mapQuestionGroup((ask, question) => {
     return (
@@ -38,6 +45,20 @@ const TemplateSidebarOne = ({ mappedPcm, maxItemCount }) => {
       maxH={'full'}
       wordBreak={'break-word'}
     >
+      {equals(productName)(internmatch) && (
+        <Box
+          onClick={() =>
+            onSendMessage({ code: 'QUE_DASHBOARD_VIEW', parentCode: 'QUE_DASHBOARD_VIEW' })
+          }
+        >
+          <Image
+            marginY="10"
+            src={'/internmatch.png'}
+            w={INTERNMATCH_LOGO_WIDTH}
+            cursor="pointer"
+          />
+        </Box>
+      )}
       {slice(0)(maxItems)(evtButtons).map(button => button)}
       {evtButtons.length > maxItems && (
         <Popover placement="auto" isLazy offset={[0, 25]}>
