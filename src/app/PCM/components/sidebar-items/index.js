@@ -3,9 +3,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 
 import icons from 'utils/icons'
-import { iconColour } from 'utils/constants'
+import { iconColor, iconColorOnHighlight, selectedSidebarBoxColor } from 'utils/constants'
 
-const SidebarItems = ({ trueQuestionCode, handleClick, name, hasChildIcons }) => {
+const isSelected = false
+
+const SideBarItem = ({ trueQuestionCode, handleClick, name, hasChildIcons }) => {
   return (
     <Box
       role="group"
@@ -13,13 +15,20 @@ const SidebarItems = ({ trueQuestionCode, handleClick, name, hasChildIcons }) =>
       test-id={trueQuestionCode}
       onClick={handleClick}
       as="button"
+      w="204px"
+      h="64px"
+      bg={isSelected && selectedSidebarBoxColor}
+      borderRadius="20px"
       minW="70%"
-      justifyContent="center"
     >
-      <HStack spacing={5}>
-        <Box display="flex" alignItems="center" justifyContent="center" cursor={'pointer'}>
+      <HStack spacing={5} justifyContent="center">
+        <Box display="flex" cursor={'pointer'}>
           {icons[trueQuestionCode] ? (
-            <FontAwesomeIcon icon={icons[trueQuestionCode]} size="lg" color={iconColour} />
+            <FontAwesomeIcon
+              icon={icons[trueQuestionCode]}
+              size="lg"
+              color={isSelected ? iconColorOnHighlight : iconColor}
+            />
           ) : (
             <Box />
           )}
@@ -30,11 +39,13 @@ const SidebarItems = ({ trueQuestionCode, handleClick, name, hasChildIcons }) =>
             <FontAwesomeIcon icon={faAngleDown} color="#FFFFFF" />
           </HStack>
         ) : (
-          <Text textStyle="internmatch.iconText">{name}</Text>
+          <Text textStyle={isSelected ? 'internmatch.iconTextOnHighlight' : 'internmatch.iconText'}>
+            {name}
+          </Text>
         )}
       </HStack>
     </Box>
   )
 }
 
-export default SidebarItems
+export default SideBarItem

@@ -44,4 +44,7 @@ export const matchesVisaQuestionCode = 'QUE_MATCHES_VISA'
 export const matchesEmpContractQuestionCode = 'QUE_MATCHES_EMPLOYMENT_CONTRACT'
 export const websiteInvestigatedQuestionCode = 'QUE_WEBSITE_INVESTIGATED'
 export const adminConfirmedQuestionCode = 'QUE_ADMIN_CONFIRMED'
-export const iconColour = '#FFFFFF'
+
+export const iconColor = '#FFFFFF'
+export const selectedSidebarBoxColor = '#CDD6D6'
+export const iconColorOnHighlight = '#EA5024'
