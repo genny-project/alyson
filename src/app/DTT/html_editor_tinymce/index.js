@@ -1,4 +1,4 @@
-import './style.css'
+import 'app/DTT/html_editor_tinymce/style.css'
 
 import {
   Box,
