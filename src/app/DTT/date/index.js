@@ -1,7 +1,16 @@
 import 'react-datepicker/dist/react-datepicker.css'
 import './datePickerStyles.css'
 
-import { Box, HStack, Input, InputGroup, InputLeftElement, Text, useTheme } from '@chakra-ui/react'
+import {
+  Box,
+  HStack,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  Text,
+  useTheme,
+  VStack,
+} from '@chakra-ui/react'
 import { dateOfBirthQuestionCode, eligibleAge } from 'utils/constants'
 import { differenceInYears, format, isBefore, parseISO, startOfTomorrow } from 'date-fns'
 import { faCalendarDay, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
@@ -267,15 +276,29 @@ const Write = ({
       />
     </Box>
   ) : data?.value ? (
-    <DateChip
-      onlyYear={onlyYear}
-      includeTime={includeTime}
-      onClick={() => {
-        onSendAnswer('')
-        setDateValue('')
-      }}
-      date={getDate(data?.value || '')}
-    />
+    <VStack alignItems={'flex-start'}>
+      {placeholderName && (
+        <Text as="label" fontSize={'sm'} fontWeight={'medium'} color={labelTextColor}>
+          {placeholderName}
+          {mandatory ? (
+            <Text as="span" color={'red.500'} ml={1}>
+              *
+            </Text>
+          ) : (
+            <></>
+          )}
+        </Text>
+      )}
+      <DateChip
+        onlyYear={onlyYear}
+        includeTime={includeTime}
+        onClick={() => {
+          onSendAnswer('')
+          setDateValue('')
+        }}
+        date={getDate(data?.value || '')}
+      />
+    </VStack>
   ) : (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
       <HStack
