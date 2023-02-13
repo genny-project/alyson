@@ -5,7 +5,7 @@ import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import icons from 'utils/icons'
 
-const isSelected = true
+const isSelected = false
 
 const InternmatchSideBarItem = ({ trueQuestionCode, handleClick, name, hasChildIcons }) => {
   return (

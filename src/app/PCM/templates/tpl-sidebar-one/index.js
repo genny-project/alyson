@@ -9,16 +9,13 @@ import {
   Wrap,
   WrapItem,
 } from '@chakra-ui/react'
-import { equals, slice } from 'ramda'
+import { slice } from 'ramda'
 
 import EvtButton from 'app/PCM/components/evt-button'
 import mapQuestionGroup from 'app/PCM/helpers/map-question-grp'
-import { lojing } from 'utils/constants'
-import useGetProductName from 'utils/helpers/get-product-name'
 
 const TemplateSidebarOne = ({ mappedPcm, maxItemCount }) => {
   const maxItems = maxItemCount || Math.floor((window.innerHeight - 86) / 130)
-  const productName = useGetProductName()
 
   const evtButtons = mapQuestionGroup((ask, question) => {
     return (
