@@ -13,10 +13,20 @@ import useGetDetailData from '../get-detail-data'
 import { useIsMobile } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined'
+import FavouriteComponent from '../../template-components/favourite-component'
+import safelyParseJson from 'utils/helpers/safely-parse-json'
 
 const TemplatePropertyDetailView = ({ mappedPcm }) => {
   const { baseEntityCode, fields } = useGetDetailData(mappedPcm)
   const { PRI_QUESTION_CODE: questionCode } = mappedPcm
+
+  const userCode = compose(useSelector, selectCode)('USER')
+
+  const userFavouritesAttribute =
+    compose(useSelector, selectCodeUnary(userCode))('LNK_FAV_PROPS') || {}
+  const userFavourites = safelyParseJson(userFavouritesAttribute?.value, [])
+  const isStarred = includes(baseEntityCode)(userFavourites)
+
   const applyButtonData = compose(useSelector, selectCodeUnary(questionCode))('QUE_APPLY') || {}
   const { sourceCode } = applyButtonData || {}
   const longitudeObject =
@@ -89,16 +99,23 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
         w={'100%'}
       >
         <VStack alignItems="flex-start" spacing={0}>
-          <Attribute
-            code={baseEntityCode}
-            attribute={headingCode}
-            config={{
-              fontSize: '4xl',
-              color: textColor,
-              fontWeight: 'medium',
-              textTransform: 'capitalize',
-            }}
-          />
+          <HStack>
+            <Attribute
+              code={baseEntityCode}
+              attribute={headingCode}
+              config={{
+                fontSize: '4xl',
+                color: textColor,
+                fontWeight: 'medium',
+                textTransform: 'capitalize',
+              }}
+            />
+            <FavouriteComponent
+              starred={isStarred}
+              sourceCode={userCode}
+              targetCode={baseEntityCode}
+            />
+          </HStack>
 
           <Text color={textColor} fontSize={'2xl'} fontWeight={'normal'} paddingBlockStart={2}>
             {location}
