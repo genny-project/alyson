@@ -5,21 +5,38 @@ import {
   DrawerCloseButton,
   DrawerContent,
   DrawerOverlay,
-  Grid,
-  IconButton,
 } from '@chakra-ui/react'
-import DeveloperConsole, { isDev } from 'utils/developer'
 
-import { faBars } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import LogrocketIdentifier from 'app/layouts/components/logrocket_identifier'
-import Dialog from 'app/layouts/display/dialog'
-import DisplayDrawer from 'app/layouts/display/drawer'
-import Toast from 'app/layouts/display/toast'
 import PcmField from 'app/PCM/components/pcm-field'
 import { SIDEBAR_WIDTH } from 'utils/constants'
-const Sidebar = () => {
-  return <div>Sidebar</div>
+
+const Sidebar = ({ isMobile, isOpen, onClose, theme, PRI_LOC2, mappedPcm, depth, lightColor }) => {
+  return isMobile ? (
+    <Drawer placement="left" isOpen={isOpen} onClose={onClose}>
+      <DrawerOverlay />
+      <DrawerContent>
+        <DrawerCloseButton color={theme.colors.text.dark} />
+        <DrawerBody paddingTop={14} paddingInline={0} bg="product.primary">
+          <PcmField
+            code={PRI_LOC2}
+            mappedPcm={mappedPcm}
+            depth={depth}
+            properties={{ color: lightColor }}
+          />
+        </DrawerBody>
+      </DrawerContent>
+    </Drawer>
+  ) : (
+    <Box id="sideNav" gridArea={'nav'} w={SIDEBAR_WIDTH} bg="sidebar.background">
+      {/* Sidebar Pcm */}
+      <PcmField
+        code={PRI_LOC2}
+        mappedPcm={mappedPcm}
+        depth={depth}
+        properties={{ color: lightColor }}
+      />
+    </Box>
+  )
 }
 
 export default Sidebar
