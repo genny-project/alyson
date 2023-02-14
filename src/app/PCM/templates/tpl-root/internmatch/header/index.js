@@ -3,8 +3,11 @@ import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import PcmField from 'app/PCM/components/pcm-field'
+import getUserAttribute from 'utils/helpers/get-user-information'
+import { nameAttributeKey } from 'utils/constants'
 
 const Header = ({ isMobile, color, PRI_LOC1, mappedPcm, depth, btnRef, onOpen }) => {
+  const userName = getUserAttribute(nameAttributeKey)
   return (
     <header
       style={{
