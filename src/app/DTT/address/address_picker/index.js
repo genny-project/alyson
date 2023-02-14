@@ -86,6 +86,8 @@ const AddressPicker = ({
     dispatchFieldMessage({ payload: questionCode })
   }
 
+  const hasValidData = userInput
+
   useEffect(() => {
     userInput ? setIsFocused(true) : setIsFocused(false)
   }, [userInput])
@@ -187,21 +189,33 @@ const AddressPicker = ({
         color={isProductIM ? `${realm}.primary` : fieldTextColor}
         borderRadius={isProductIM ? `full` : borderRadius}
         borderColor={isProductIM ? `${realm}.primary` : fieldBorderColor}
-        bg={isProductIM ? `${realm}.primaryLight` : fieldBackgroundColor}
+        bg={
+          isProductIM && hasValidData
+            ? `${realm}.primaryLight`
+            : isProductIM
+            ? `${realm}.secondaryLight`
+            : fieldBackgroundColor
+        }
         isInvalid={hasError}
         placeholder=""
         _hover={{
+          bg: isProductIM ? `${realm}.primaryLight` : fieldBackgroundColor,
           borderColor: isProductIM ? `${realm}.primary` : fieldHoverBorderColor,
           boxShadow: 'lg',
         }}
         _focusVisible={{
+          bg: isProductIM ? `${realm}.primaryLight` : fieldBackgroundColor,
           borderColor: isProductIM ? `${realm}.primary` : 'product.secondary',
           boxShadow: 'initial',
         }}
+        _valid={{
+          bg: isProductIM ? `${realm}.primaryLight` : fieldBackgroundColor,
+          borderColor: isProductIM ? `${realm}.primary` : fieldHoverBorderColor,
+        }}
         _invalid={{
-          background: isProductIM ? `${realm}.secondaryLight` : 'error.50',
-          borderColor: isProductIM ? `${realm}.primary` : 'error.500',
-          color: isProductIM ? `${realm}.primary` : 'error.500',
+          background: isProductIM ? `${realm}.secondaryLightAlpha20` : 'error.50',
+          borderColor: isProductIM ? `${realm}.secondary` : 'error.500',
+          color: isProductIM ? `${realm}.secondary` : 'error.500',
         }}
         _disabled={{
           borderColor: isProductIM ? `${realm}.primary` : 'gray.300',
@@ -210,7 +224,14 @@ const AddressPicker = ({
         }}
       />
       <VStack alignItems="start">
-        {hasError && <Text textStyle="product.errorText">{errorMessage}</Text>}
+        {hasError && (
+          <Text
+            textStyle="product.errorText"
+            color={isProductIM ? `${realm}.secondary` : 'error.50'}
+          >
+            {errorMessage}
+          </Text>
+        )}
       </VStack>
     </Box>
   )

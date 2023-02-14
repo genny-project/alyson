@@ -86,6 +86,8 @@ export const Write = ({
   const ackMessageObject = useSelector(selectCode(ACKMESSAGEKEY))
   const ackMessageValue = ackMessageObject?.[questionCode] || ''
 
+  const hasValidData = userInput && !isInvalid
+
   const handleClearFieldMessage = useClearFieldMessage(parentCode, attributeCode, questionCode)
 
   const onBlur = e => {
@@ -154,7 +156,13 @@ export const Write = ({
       </HStack>
       <InputGroup
         onClick={() => setIsFocused(true)}
-        bg={isProductIM ? `${realm}.primaryLight` : fieldBackgroundColor}
+        bg={
+          isProductIM && hasValidData
+            ? `${realm}.primaryLight`
+            : isProductIM
+            ? `${realm}.secondaryLight`
+            : fieldBackgroundColor
+        }
         borderRadius={isProductIM ? 'full' : borderRadius}
         borderColor={isProductIM ? `${realm}.primary` : fieldBorderColor}
         borderWidth="1px"
@@ -162,17 +170,23 @@ export const Write = ({
         overflow={'hidden'}
         role="group"
         _hover={{
+          bg: isProductIM ? `${realm}.primaryLight` : fieldBackgroundColor,
           borderColor: isProductIM ? `${realm}.primary` : fieldHoverBorderColor,
           boxShadow: 'lg',
         }}
         _focusVisible={{
+          bg: isProductIM ? `${realm}.primaryLight` : fieldBackgroundColor,
           borderColor: isProductIM ? `${realm}.primary` : 'product.secondary',
           boxShadow: 'initial',
         }}
+        _valid={{
+          bg: isProductIM ? `${realm}.primaryLight` : fieldBackgroundColor,
+          borderColor: isProductIM ? `${realm}.primary` : fieldHoverBorderColor,
+        }}
         _invalid={{
-          background: isProductIM ? `${realm}.secondaryLight` : 'error.50',
-          borderColor: isProductIM ? `${realm}.primary` : 'error.500',
-          color: isProductIM ? `${realm}.primaryLight` : 'error.500',
+          background: isProductIM ? `${realm}.secondaryLightAlpha20` : 'error.50',
+          borderColor: isProductIM ? `${realm}.secondary` : 'error.500',
+          color: isProductIM ? `${realm}.secondary` : 'error.500',
         }}
         _disabled={{
           borderColor: isProductIM ? `${realm}.primary` : 'gray.300',
@@ -235,6 +249,8 @@ export const Write = ({
         errorMessage={errorMessage}
         fieldMessage={fieldMessage}
         hasFieldMessage={hasFieldMessage}
+        realm={realm}
+        isProductIM={isProductIM}
       />
     </Box>
   )

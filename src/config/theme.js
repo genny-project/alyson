@@ -128,6 +128,7 @@ export const defaultProjectTheme = {
       primaryLight: '#96D5D3',
       secondary: '#EA5024',
       secondaryLight: '#E4BAC8',
+      secondaryLightAlpha20: 'rgb(228 186 200 / .2)',
       accent: '#55B748',
       light: '#FFFFFF',
     },
