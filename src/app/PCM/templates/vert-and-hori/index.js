@@ -1,6 +1,5 @@
 import hori from './hori'
 import mapAll from './map-all'
-import mapStandard from './map-standard'
 import vert from './vert'
 
 /**
