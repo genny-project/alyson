@@ -20,6 +20,7 @@ export const initialState = {
   highlightedQuestion: '',
   bufferDropdownOptions: [],
   currentFormQuestions: [],
+  currentSidebarItem: '',
 }
 
 const appSlice = createSlice({
@@ -76,6 +77,9 @@ const appSlice = createSlice({
     setCurrentFormQuestions: (state, { payload }) => {
       state.currentFormQuestions = payload
     },
+    setCurrentSidebarItem: (state, { payload }) => {
+      state.currentSidebarItem = payload
+    },
   },
 })
 
@@ -89,5 +93,6 @@ export const {
   highlightQuestion,
   bufferDropdownOption,
   setCurrentFormQuestions,
+  setCurrentSidebarItem,
 } = appSlice.actions
 export default appSlice.reducer

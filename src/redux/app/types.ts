@@ -12,7 +12,8 @@ export interface AppState {
   FIELDMSG: object
   lastSentMessage: any
   lastReceivedMessage: any
-  highlightedQuestion: String
+  highlightedQuestion: string
+  currentSidebarItem: string
 }
 
 export interface BaseEntityAttribute {
@@ -20,7 +21,7 @@ export interface BaseEntityAttribute {
   attributeName: string
   baseEntityCode: string
   created: string
-  index: Number
+  index: number
   inferred: boolean
   privacyFlag: boolean
   readOnly: boolean

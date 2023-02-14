@@ -1,18 +1,31 @@
+import { compose, equals } from 'ramda'
 import { Box, HStack, Text } from '@chakra-ui/react'
 import { iconColor, iconColorOnHighlight, selectedSidebarBoxColor } from 'utils/constants'
-
+import { useDispatch, useSelector } from 'react-redux'
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 import icons from 'utils/icons'
+import { selectCurrentSidebarItem } from 'redux/app/selectors'
+import { setCurrentSidebarItem } from 'redux/app'
 
 const InternmatchSideBarItem = ({ trueQuestionCode, handleClick, name, hasChildIcons }) => {
-  const isSelected = trueQuestionCode === 'QUE_DASHBOARD'
+  const currentSidebarItem = useSelector(selectCurrentSidebarItem)
+  const isSelected = equals(trueQuestionCode)(currentSidebarItem)
+
+  const dispatch = useDispatch()
+  const dispatchSetCurrentSidebarItem = compose(dispatch, setCurrentSidebarItem)
+
+  const onClick = trueQuestionCode => {
+    dispatchSetCurrentSidebarItem(trueQuestionCode)
+    handleClick()
+  }
 
   return (
     <Box
       role="group"
       test-id={trueQuestionCode}
-      onClick={handleClick}
+      onClick={() => onClick(trueQuestionCode)}
       as="button"
       w="204px"
       h="64px"
@@ -41,7 +54,7 @@ const InternmatchSideBarItem = ({ trueQuestionCode, handleClick, name, hasChildI
             </Text>
             <FontAwesomeIcon
               icon={faAngleDown}
-              color={trueQuestionCode === 'QUE_DASHBOARD' ? iconColorOnHighlight : iconColor}
+              color={isSelected ? iconColorOnHighlight : iconColor}
             />
           </HStack>
         ) : (
