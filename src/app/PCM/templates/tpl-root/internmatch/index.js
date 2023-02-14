@@ -34,7 +34,6 @@ const InternmatchRoot = ({
   PRI_LOC2,
   showTemplateNames,
   PRI_LOC3,
-  appWrapperInlinePadding,
 }) => {
   return (
     <Grid
@@ -123,7 +122,11 @@ const InternmatchRoot = ({
         overflow="auto"
         gridArea={isMobile ? 'main/nav' : 'main'}
       >
-        <Box paddingTop="2.25rem" paddingInline={appWrapperInlinePadding}>
+        <Box
+          paddingTop="2.25rem"
+          paddingInlineStart={'clamp(1rem, 5vw + 1rem, 6.69rem)'}
+          paddingInlineEnd={'1rem'}
+        >
           {/* Main Page Content */}
           <PcmField code={PRI_LOC3} mappedPcm={mappedPcm} depth={depth} />
           <DisplayDrawer />

@@ -5,7 +5,7 @@ const hori = mappingFunction => (mappedPcm, depth, config) => {
   const isMobile = useIsMobile()
 
   return (
-    <HStack margin={'auto'} direction={isMobile ? 'column' : 'row'} width="min(100%, 38.75rem)">
+    <HStack spacing={5} direction={isMobile ? 'column' : 'row'} w={'full'}>
       {mappingFunction(mappedPcm, depth, config ?? { config: { mt: 0 } })}
     </HStack>
   )

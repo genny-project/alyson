@@ -1,13 +1,12 @@
-import { useEffect } from 'react'
 import { Center, CircularProgress, Flex } from '@chakra-ui/react'
-import { compose } from 'ramda'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
-import { selectCodeUnary } from 'redux/db/selectors'
-import FormAsk from 'app/PCM/templates/tpl-form/form-ask'
-import { setCurrentFormQuestions } from 'redux/app'
-import { useDispatch } from 'react-redux'
 import getCurrentFormQuestions from 'app/PCM/templates/helpers/get-current-form-questions'
+import FormAsk from 'app/PCM/templates/tpl-form/form-ask'
+import { compose } from 'ramda'
+import { useEffect } from 'react'
+import { setCurrentFormQuestions } from 'redux/app'
+import { selectCodeUnary } from 'redux/db/selectors'
 import useIsMobileView from 'utils/helpers/is-mobile-view'
 
 const TemplateForm = ({ mappedPcm, depth, ...rest }) => {

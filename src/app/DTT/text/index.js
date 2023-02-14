@@ -1,35 +1,37 @@
-import { ACKMESSAGEKEY, maxNumberOfRetries } from 'utils/constants'
 import {
   Box,
-  Text as ChakraText,
   HStack,
   Input,
-  useTheme,
   InputGroup,
   InputLeftAddon,
+  Text as ChakraText,
+  useTheme,
 } from '@chakra-ui/react'
 import { faCalendar, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useRef, useState } from 'react'
+import { ACKMESSAGEKEY, internmatch, maxNumberOfRetries } from 'utils/constants'
 
-import { ACTIONS } from 'utils/contexts/ErrorReducer'
-import AnswerAcknowledge from 'app/layouts/components/form/answer_acknowledge'
-import DetailViewTags from 'app/DTT/text/detailview_tags'
+import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import InputMask from 'react-input-mask'
+import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
+import useClearFieldMessage from 'app/DTT/helpers/clear-field-message'
+import ErrorDisplay from 'app/DTT/helpers/error-display'
+import DetailViewTags from 'app/DTT/text/detailview_tags'
+import AnswerAcknowledge from 'app/layouts/components/form/answer_acknowledge'
 import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
 import debounce from 'lodash.debounce'
-import { getIsInvalid } from 'utils/functions'
-import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined'
+import { equals } from 'ramda'
+import InputMask from 'react-input-mask'
+import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import { useError } from 'utils/contexts/ErrorContext'
-import useGetFieldMessage from 'utils/fieldMessage'
+import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
+import useGetFieldMessage from 'utils/fieldMessage'
+import { getIsInvalid } from 'utils/functions'
+import useGetProductName from 'utils/helpers/get-product-name'
+import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined'
 import useProductColors from 'utils/productColors'
-import { useSelector } from 'react-redux'
-import ErrorDisplay from 'app/DTT/helpers/error-display'
-import useClearFieldMessage from 'app/DTT/helpers/clear-field-message'
-import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
-import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
 
 export const Write = ({
   questionCode,
@@ -45,6 +47,10 @@ export const Write = ({
   icon,
 }) => {
   let regex
+  const productName = useGetProductName()
+  const realm = productName.toLowerCase()
+  const isProductIM = equals(productName, internmatch)
+
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value || '')
   const [isFocused, setIsFocused] = useState(false)
@@ -136,7 +142,8 @@ export const Write = ({
         <MandatorySymbol
           placeholderName={placeholderName}
           mandatory={mandatory}
-          labelTextColor={labelTextColor}
+          labelTextColor={isProductIM ? `${realm}.primary` : labelTextColor}
+          realm={realm}
         />
         <AnswerAcknowledge
           failedValidation={failedValidation}
@@ -147,29 +154,30 @@ export const Write = ({
       </HStack>
       <InputGroup
         onClick={() => setIsFocused(true)}
-        bg={fieldBackgroundColor}
-        borderRadius={borderRadius}
-        borderColor={fieldBorderColor}
+        bg={isProductIM ? `${realm}.primaryLight` : fieldBackgroundColor}
+        borderRadius={isProductIM ? 'full' : borderRadius}
+        borderColor={isProductIM ? `${realm}.primary` : fieldBorderColor}
         borderWidth="1px"
         borderStyle="solid"
         overflow={'hidden'}
         role="group"
         _hover={{
-          borderColor: fieldHoverBorderColor,
+          borderColor: isProductIM ? `${realm}.primary` : fieldHoverBorderColor,
           boxShadow: 'lg',
         }}
         _focusVisible={{
-          borderColor: 'product.secondary',
+          borderColor: isProductIM ? `${realm}.primary` : 'product.secondary',
           boxShadow: 'initial',
         }}
         _invalid={{
-          background: 'error.50',
-          borderColor: 'error.500',
-          color: 'error.500',
+          background: isProductIM ? `${realm}.secondaryLight` : 'error.50',
+          borderColor: isProductIM ? `${realm}.primary` : 'error.500',
+          color: isProductIM ? `${realm}.primaryLight` : 'error.500',
         }}
         _disabled={{
-          borderColor: 'gray.300',
-          background: 'gray.100',
+          borderColor: isProductIM ? `${realm}.primary` : 'gray.300',
+          background: isProductIM ? `${realm}.primary` : 'gray.100',
+          color: isProductIM ? `${realm}.primaryLight` : 'inherit',
         }}
       >
         {!!icon && (
@@ -208,9 +216,10 @@ export const Write = ({
           paddingInlineEnd={6}
           paddingInlineStart={!!icon ? 1 : 6}
           border={0}
+          borderRadius={'full'}
           fontSize={'sm'}
           fontWeight={'medium'}
-          color={fieldTextColor}
+          color={isProductIM ? `${realm}.primary` : fieldTextColor}
           _focusVisible={{
             border: '0',
           }}

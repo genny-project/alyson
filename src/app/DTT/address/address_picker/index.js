@@ -1,14 +1,16 @@
 import { Box, HStack, Input, Text, useTheme, VStack } from '@chakra-ui/react'
-import { useState, useEffect, useRef } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
-import { not } from 'ramda'
+import { equals, not } from 'ramda'
+import { useEffect, useRef, useState } from 'react'
 
-import { isNotStringifiedEmptyArray } from 'utils/functionals'
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { internmatch } from 'utils/constants'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
-import useProductColors from 'utils/productColors'
+import { isNotStringifiedEmptyArray } from 'utils/functionals'
+import useGetProductName from 'utils/helpers/get-product-name'
 import isJson from 'utils/helpers/is-json'
+import useProductColors from 'utils/productColors'
 
 const AddressPicker = ({
   onSendAnswer,
@@ -18,6 +20,10 @@ const AddressPicker = ({
   mandatory,
   errorMessage: errormsg,
 }) => {
+  const productName = useGetProductName()
+  const realm = productName.toLowerCase()
+  const isProductIM = equals(productName, internmatch)
+
   const theme = useTheme()
   const autoCompleteRef = useRef(null)
   const [userInput, setuserInput] = useState(null)
@@ -137,10 +143,15 @@ const AddressPicker = ({
         transition="all 0.25s ease"
       >
         {placeholder && (
-          <Text as="label" fontSize={'sm'} fontWeight={'medium'} color={labelTextColor}>
+          <Text
+            as="label"
+            fontSize={'sm'}
+            fontWeight={isProductIM ? `normal` : 'medium'}
+            color={isProductIM ? `${realm}.primary` : labelTextColor}
+          >
             {placeholder}
             {mandatory ? (
-              <Text as="span" color={'red.500'} ml={1}>
+              <Text as="span" color={isProductIM ? `${realm}.secondary` : 'red.500'} ml={1}>
                 *
               </Text>
             ) : (
@@ -168,32 +179,34 @@ const AddressPicker = ({
           setIsFocused(true)
         }}
         w="full"
+        h={'auto'}
         paddingBlock={3}
         paddingInline={5}
-        fontWeight={'medium'}
+        fontWeight={isProductIM ? `normal` : 'medium'}
         fontSize={'sm'}
-        color={fieldTextColor}
-        borderRadius={borderRadius}
-        borderColor={fieldBorderColor}
-        bg={fieldBackgroundColor}
+        color={isProductIM ? `${realm}.primary` : fieldTextColor}
+        borderRadius={isProductIM ? `full` : borderRadius}
+        borderColor={isProductIM ? `${realm}.primary` : fieldBorderColor}
+        bg={isProductIM ? `${realm}.primaryLight` : fieldBackgroundColor}
         isInvalid={hasError}
         placeholder=""
         _hover={{
-          borderColor: fieldHoverBorderColor,
+          borderColor: isProductIM ? `${realm}.primary` : fieldHoverBorderColor,
           boxShadow: 'lg',
         }}
         _focusVisible={{
-          borderColor: 'product.secondary',
+          borderColor: isProductIM ? `${realm}.primary` : 'product.secondary',
           boxShadow: 'initial',
         }}
         _invalid={{
-          background: 'error.50',
-          borderColor: 'error.500',
-          color: 'error.500',
+          background: isProductIM ? `${realm}.secondaryLight` : 'error.50',
+          borderColor: isProductIM ? `${realm}.primary` : 'error.500',
+          color: isProductIM ? `${realm}.primary` : 'error.500',
         }}
         _disabled={{
-          borderColor: 'gray.300',
-          background: 'gray.100',
+          borderColor: isProductIM ? `${realm}.primary` : 'gray.300',
+          background: isProductIM ? `${realm}.primary` : 'gray.100',
+          color: isProductIM ? `${realm}.primaryLight` : 'initial',
         }}
       />
       <VStack alignItems="start">
