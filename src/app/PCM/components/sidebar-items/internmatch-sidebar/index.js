@@ -5,9 +5,9 @@ import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import icons from 'utils/icons'
 
-const isSelected = false
-
 const InternmatchSideBarItem = ({ trueQuestionCode, handleClick, name, hasChildIcons }) => {
+  const isSelected = trueQuestionCode === 'QUE_DASHBOARD'
+
   return (
     <Box
       role="group"
@@ -41,7 +41,7 @@ const InternmatchSideBarItem = ({ trueQuestionCode, handleClick, name, hasChildI
             </Text>
             <FontAwesomeIcon
               icon={faAngleDown}
-              color={isSelected ? iconColorOnHighlight : iconColor}
+              color={trueQuestionCode === 'QUE_DASHBOARD' ? iconColorOnHighlight : iconColor}
             />
           </HStack>
         ) : (
