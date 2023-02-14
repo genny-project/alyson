@@ -1,17 +1,27 @@
-import { Box, Flex, HStack, Spacer } from '@chakra-ui/react'
+import { Box, Flex, HStack, Text, Divider } from '@chakra-ui/react'
+
 import PcmField from 'app/PCM/components/pcm-field'
+import getUserAttribute from 'utils/helpers/get-user-information'
+import { nameAttributeKey } from 'utils/constants'
+import getFirstName from 'utils/helpers/get-first-name'
 
 const TemplateHeaderDesktop = ({ mappedPcm, depth }) => {
-  const { PRI_LOC1, PRI_LOC2, PRI_LOC3, PRI_LOC4 } = mappedPcm
+  const userName = getUserAttribute(nameAttributeKey)
+  const userFirstName = getFirstName(userName)
+  const { PRI_LOC2, PRI_LOC3, PRI_LOC4 } = mappedPcm
 
   return (
     <nav>
       <Flex align="center" paddingBlock="4" paddingInline={12}>
-        <Box mx={5} alignItems="center" m="auto">
-          <PcmField code={PRI_LOC1} mappedPcm={mappedPcm} depth={depth} />
+        <Box w="100%" maxW="14rem">
+          <Text
+            fontSize="1.25rem"
+            fontWeight="400"
+            color="#063231"
+          >{`Welcome back, ${userFirstName}!`}</Text>
         </Box>
-        <Spacer />
-        <HStack spacing={8} marginRight="5">
+        <Divider marginRight="2rem" borderColor="#96D5D3" />
+        <HStack spacing={9} marginRight="5">
           <PcmField code={PRI_LOC2} mappedPcm={mappedPcm} depth={depth} />
           <PcmField code={PRI_LOC3} mappedPcm={mappedPcm} depth={depth} />
           <PcmField code={PRI_LOC4} mappedPcm={mappedPcm} depth={depth} />
