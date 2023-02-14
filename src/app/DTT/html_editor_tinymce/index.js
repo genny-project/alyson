@@ -138,8 +138,6 @@ const Read = ({ data, mini, config = {} }) => {
   if (!data?.value) return null
   const cleanHtml = DOMPurify.sanitize(data.value)
 
-  console.log('HERERE', { data })
-
   return mini ? (
     <Popover>
       <PopoverTrigger>

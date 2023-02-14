@@ -1,23 +1,23 @@
-import { compose, equals } from 'ramda'
+import { equals } from 'ramda'
 import { Box, HStack, Text } from '@chakra-ui/react'
 import { iconColor, iconColorOnHighlight, selectedSidebarBoxColor } from 'utils/constants'
-import { useDispatch, useSelector } from 'react-redux'
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import icons from 'utils/icons'
-import { selectCurrentSidebarItem } from 'redux/app/selectors'
-import { setCurrentSidebarItem } from 'redux/app'
 
-const InternmatchSideBarItem = ({ trueQuestionCode, handleClick, name, hasChildIcons }) => {
-  const currentSidebarItem = useSelector(selectCurrentSidebarItem)
+const InternmatchSideBarItem = ({
+  trueQuestionCode,
+  handleClick,
+  name,
+  hasChildIcons,
+  currentSidebarItem,
+  dispatchSetCurrentSidebarItem,
+}) => {
   const isSelected = equals(trueQuestionCode)(currentSidebarItem)
 
-  const dispatch = useDispatch()
-  const dispatchSetCurrentSidebarItem = compose(dispatch, setCurrentSidebarItem)
-
-  const onClick = trueQuestionCode => {
-    dispatchSetCurrentSidebarItem(trueQuestionCode)
+  const onClick = questionCode => {
+    dispatchSetCurrentSidebarItem(questionCode)
     handleClick()
   }
 

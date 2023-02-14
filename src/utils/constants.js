@@ -28,6 +28,7 @@ export const projectCodeString = 'PROJECT'
 export const internmatch = 'INTERNMATCH'
 export const pcmKeyDefault = `PCMINFORMATION`
 export const tableSbeLocation = 'PRI_LOC1'
+export const defaultSidebarItem = 'QUE_DASHBOARD'
 
 export const alreadyRegisteredMsg = 'You have already registered!'
 export const mentorAlreadySelectedMsg = 'You have already selected a Mentor!'
