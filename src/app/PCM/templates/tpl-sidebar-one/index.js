@@ -63,15 +63,15 @@ const TemplateSidebarOne = ({ mappedPcm, maxItemCount }) => {
       {evtButtons.length > maxItems && (
         <Popover placement="auto" isLazy offset={[0, 25]}>
           <PopoverTrigger>
-            <Button color="#AAE3E2" variant="outline" w="full">
+            <Button color="#FFFFFF" variant="outline" w="full">
               {`More`}
             </Button>
           </PopoverTrigger>
-          <PopoverContent bg="product.primary" borderRadius={'2xl'}>
+          <PopoverContent bg="sidebar.background" borderRadius={'2xl'}>
             <PopoverBody>
               <Wrap spacing={5} padding={5} justify={'center'}>
                 {slice(maxItems)(evtButtons.length)(evtButtons).map((button, index) => (
-                  <WrapItem w={'110px'} key={`SIDEBAR-WRAP-${index}`}>
+                  <WrapItem w={'1100px'} key={`SIDEBAR-WRAP-${index}`}>
                     {button}
                   </WrapItem>
                 ))}
