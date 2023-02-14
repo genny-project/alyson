@@ -339,7 +339,7 @@ const Ask = ({
           config={config}
         />
       )}
-      {component === 'texteee' && (
+      {component === 'text' && (
         <Text.Write
           questionCode={questionCode}
           mandatory={mandatory}
