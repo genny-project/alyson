@@ -147,8 +147,6 @@ const Ask = ({
     skipRedux,
   })
 
-  console.log(questionCode, component)
-
   if (!question) return null
 
   if (readonly) {
