@@ -84,7 +84,7 @@ const InternmatchRoot = ({
       {isMobile ? (
         <Drawer placement="left" isOpen={isOpen} onClose={onClose}>
           <DrawerOverlay />
-          <DrawerContent width={'9rem !important'}>
+          <DrawerContent>
             <DrawerCloseButton color={theme.colors.text.dark} />
             <DrawerBody paddingTop={14} paddingInline={0} bg="product.primary">
               <PcmField

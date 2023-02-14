@@ -1,18 +1,31 @@
+import { equals } from 'ramda'
 import { Box, HStack, Text } from '@chakra-ui/react'
 import { iconColor, iconColorOnHighlight, selectedSidebarBoxColor } from 'utils/constants'
-
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 import icons from 'utils/icons'
 
-const isSelected = false
+const InternmatchSideBarItem = ({
+  trueQuestionCode,
+  handleClick,
+  name,
+  hasChildIcons,
+  currentSidebarItem,
+  dispatchSetCurrentSidebarItem,
+}) => {
+  const isSelected = equals(trueQuestionCode)(currentSidebarItem)
 
-const InternmatchSideBarItem = ({ trueQuestionCode, handleClick, name, hasChildIcons }) => {
+  const onClick = questionCode => {
+    dispatchSetCurrentSidebarItem(questionCode)
+    handleClick()
+  }
+
   return (
     <Box
       role="group"
       test-id={trueQuestionCode}
-      onClick={handleClick}
+      onClick={() => onClick(trueQuestionCode)}
       as="button"
       w="204px"
       h="64px"

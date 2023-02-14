@@ -5,6 +5,7 @@ import setDisplayCode from './utils/set-display-code'
 import { cmdMachine, handleSendMessage } from './utils/handlers'
 import { AppState } from './types'
 import { CmdPayload, MsgPayload } from 'redux/types'
+import { defaultSidebarItem } from 'utils/constants'
 
 export const initialState = {
   DISPLAY: 'DASHBOARD',
@@ -20,6 +21,7 @@ export const initialState = {
   highlightedQuestion: '',
   bufferDropdownOptions: [],
   currentFormQuestions: [],
+  currentSidebarItem: defaultSidebarItem,
 }
 
 const appSlice = createSlice({
@@ -76,6 +78,9 @@ const appSlice = createSlice({
     setCurrentFormQuestions: (state, { payload }) => {
       state.currentFormQuestions = payload
     },
+    setCurrentSidebarItem: (state, { payload }) => {
+      state.currentSidebarItem = payload
+    },
   },
 })
 
@@ -89,5 +94,6 @@ export const {
   highlightQuestion,
   bufferDropdownOption,
   setCurrentFormQuestions,
+  setCurrentSidebarItem,
 } = appSlice.actions
 export default appSlice.reducer
