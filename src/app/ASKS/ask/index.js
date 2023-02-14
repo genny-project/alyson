@@ -147,6 +147,8 @@ const Ask = ({
     skipRedux,
   })
 
+  console.log(questionCode, component)
+
   if (!question) return null
 
   if (readonly) {
@@ -339,7 +341,7 @@ const Ask = ({
           config={config}
         />
       )}
-      {component === 'texteee' && (
+      {component === 'text' && (
         <Text.Write
           questionCode={questionCode}
           mandatory={mandatory}
