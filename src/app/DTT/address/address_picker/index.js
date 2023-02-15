@@ -187,7 +187,7 @@ const AddressPicker = ({
         fontWeight={isProductIM ? `normal` : 'medium'}
         fontSize={'sm'}
         color={isProductIM ? `${realm}.primary` : fieldTextColor}
-        borderRadius={isProductIM ? `full` : borderRadius}
+        borderRadius={isProductIM ? `lg` : borderRadius}
         borderColor={isProductIM ? `${realm}.primary` : fieldBorderColor}
         bg={
           isProductIM && hasValidData

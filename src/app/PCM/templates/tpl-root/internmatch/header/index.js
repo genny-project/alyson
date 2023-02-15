@@ -1,18 +1,21 @@
 import { IconButton } from '@chakra-ui/react'
+import { useTheme } from '@emotion/react'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
 import PcmField from 'app/PCM/components/pcm-field'
 
 const Header = ({ isMobile, color, PRI_LOC1, mappedPcm, depth, btnRef, onOpen }) => {
+  const theme = useTheme()
   return (
     <header
       style={{
         gridArea: isMobile ? 'header/nav' : 'header',
         color,
-        backgroundColor: '#FFFFFF',
-        boxShadow: '0px 4px 32px -16px rgba(0, 0, 0, 0.25)',
         position: 'relative',
+        zIndex: theme.zIndices.dropdown,
+        paddingInlineStart: 'clamp(1rem, 5vw, 6.69rem)',
+        paddingInlineEnd: '1rem',
+        paddingBlock: '1.25rem',
       }}
     >
       {/* Header PCM*/}
