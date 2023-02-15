@@ -22,7 +22,12 @@ import { useIsMobile } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 import { compose } from 'ramda'
 
-const AsksMenu = ({ questionCode, hideLabel }) => {
+const AsksMenu = ({
+  questionCode,
+  hideLabel,
+  productSpecificIconBackgroundColour,
+  productSpecificIconColour,
+}) => {
   let theme = useTheme()
   let wholeData = compose(useSelector, selectCodeUnary(questionCode))('wholeData')
   let labelsAndQuestionCode = map(({ questionCode, name, attributeCode }) => ({
@@ -45,13 +50,16 @@ const AsksMenu = ({ questionCode, hideLabel }) => {
         <MenuButton opacity={0.8} _hover={{ opacity: 1 }} test-id={questionCode}>
           <VStack color="grey" test-id={questionCode}>
             <Center
-              bg={'product.secondary'}
+              bg={productSpecificIconBackgroundColour || 'product.secondary'}
               color={theme.colors.background.light}
               h="8"
               w="8"
               borderRadius="50%"
             >
-              <FontAwesomeIcon icon={icons[questionCode]} color={'inherit'} />
+              <FontAwesomeIcon
+                icon={icons[questionCode]}
+                color={productSpecificIconColour || 'inherit'}
+              />
             </Center>
             {!isMobile && !hideLabel && (
               <HStack spacing={1}>
