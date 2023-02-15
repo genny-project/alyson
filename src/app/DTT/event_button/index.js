@@ -31,7 +31,13 @@ const EventButton = ({ askData, onFinish, parentCode, sourceCode, clientId, conf
 
   if (isSubmitButton(name))
     return (
-      <Submit askData={askData} onFinish={onFinish} parentCode={parentCode} clientId={clientId} />
+      <Submit
+        askData={askData}
+        onFinish={onFinish}
+        parentCode={parentCode}
+        realm={realm}
+        isProductIM={isProductIM}
+      />
     )
 
   return (
