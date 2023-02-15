@@ -46,6 +46,7 @@ const productBasedDefaultColors = {
     dark: '#000000',
 
     sidebar: '#063231',
+    header: '#red',
   },
 }
 
@@ -107,6 +108,9 @@ const getProductTheme = (
       product: { ...productBasedDefaultColors[realm], ...defaultProductColours },
       sidebar: {
         background: productBasedDefaultColors[realm]?.sidebar,
+      },
+      header: {
+        background: productBasedDefaultColors[realm]?.header,
       },
       ...defaultThemeColours,
     },

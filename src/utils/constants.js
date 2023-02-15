@@ -29,6 +29,10 @@ export const internmatch = 'INTERNMATCH'
 export const pcmKeyDefault = `PCMINFORMATION`
 export const tableSbeLocation = 'PRI_LOC1'
 export const defaultSidebarItem = 'QUE_DASHBOARD'
+export const userKey = 'USER'
+export const nameAttributeKey = 'PRI_NAME'
+export const addItemBackgroundColourInternmatch = '#96D5D3'
+export const addItemIconColourInternmatch = '#063231'
 
 export const alreadyRegisteredMsg = 'You have already registered!'
 export const mentorAlreadySelectedMsg = 'You have already selected a Mentor!'

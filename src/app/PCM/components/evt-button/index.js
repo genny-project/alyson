@@ -4,12 +4,11 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { selectCodeUnary } from 'redux/db/selectors'
 import sendEvtClick from 'app/ASKS/utils/send-evt-click'
-import { lojing } from 'utils/constants'
-import useGetProductName from 'utils/helpers/get-product-name'
 import InternmatchSideBarItem from 'app/PCM/components/sidebar-items/internmatch-sidebar'
 import LojingSideBarItem from 'app/PCM/components/sidebar-items/lojing-sidebar'
 import { selectCurrentSidebarItem } from 'redux/app/selectors'
 import { setCurrentSidebarItem } from 'redux/app'
+import { useIsProductLojing } from 'utils/helpers/check-product-name'
 
 const EvtButton = ({ questionCode, childCode, iconId, vert, isNotChildAsk = false, value }) => {
   const data = compose(useSelector, selectCodeUnary(questionCode))(childCode)
@@ -20,10 +19,10 @@ const EvtButton = ({ questionCode, childCode, iconId, vert, isNotChildAsk = fals
   const attrCode = compose(useSelector, selectCodeUnary(questionCode))('attributeCode')
 
   const trueQuestionCode = isNotChildAsk ? questionCode : childCode
-  const productName = useGetProductName()
   const currentSidebarItem = useSelector(selectCurrentSidebarItem)
   const dispatch = useDispatch()
   const dispatchSetCurrentSidebarItem = compose(dispatch, setCurrentSidebarItem)
+  const isProductLojing = useIsProductLojing()
 
   if (!data) return null
 
@@ -44,7 +43,7 @@ const EvtButton = ({ questionCode, childCode, iconId, vert, isNotChildAsk = fals
   }
 
   if (!childAsks)
-    return equals(productName)(lojing) ? (
+    return isProductLojing ? (
       <LojingSideBarItem
         trueQuestionCode={trueQuestionCode}
         handleClick={handleClick}
@@ -66,7 +65,7 @@ const EvtButton = ({ questionCode, childCode, iconId, vert, isNotChildAsk = fals
     <Box>
       <Menu placement="right-start">
         <MenuButton test-id={trueQuestionCode}>
-          {equals(productName)(lojing) ? (
+          {isProductLojing ? (
             <LojingSideBarItem
               trueQuestionCode={trueQuestionCode}
               name={name}

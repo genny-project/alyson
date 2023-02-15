@@ -1,7 +1,7 @@
 import { Box, Flex, HStack, Spacer } from '@chakra-ui/react'
 import PcmField from 'app/PCM/components/pcm-field'
 
-const TemplateHeaderDesktop = ({ mappedPcm, depth }) => {
+const TemplateHeaderDesktopLojing = ({ mappedPcm, depth }) => {
   const { PRI_LOC1, PRI_LOC2, PRI_LOC3, PRI_LOC4 } = mappedPcm
 
   return (
@@ -21,4 +21,4 @@ const TemplateHeaderDesktop = ({ mappedPcm, depth }) => {
   )
 }
 
-export default TemplateHeaderDesktop
+export default TemplateHeaderDesktopLojing
