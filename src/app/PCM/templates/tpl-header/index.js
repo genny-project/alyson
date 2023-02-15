@@ -1,9 +1,11 @@
 import { always, cond, equals } from 'ramda'
 
-import TemplateHeaderDesktop from './tpl-header-desktop'
-import TemplateHeaderMobile from './tpl-header-mobile'
+import TemplateHeaderMobile from 'app/PCM/templates/tpl-header/tpl-header-mobile'
 import { apiConfig } from 'config/get-api-config'
 import { useIsMobile } from 'utils/hooks'
+import { useIsProductLojing } from 'utils/helpers/check-product-name'
+import TemplateHeaderDesktopInternmatch from 'app/PCM/templates/tpl-header/tpl-header-desktop/internmatch'
+import TemplateHeaderDesktopLojing from 'app/PCM/templates/tpl-header/tpl-header-desktop/lojing'
 
 const TemplateHeader = ({ mappedPcm, depth }) => {
   const { clientId, realm } = apiConfig
@@ -21,11 +23,14 @@ const TemplateHeader = ({ mappedPcm, depth }) => {
   const logoSrc = logoSrcFromRealm || logoSrcFromClientId
 
   const isMobile = useIsMobile()
+  const isProductLojing = useIsProductLojing()
 
   return isMobile ? (
     <TemplateHeaderMobile mappedPcm={mappedPcm} logoSrc={logoSrc} depth={depth} />
+  ) : isProductLojing ? (
+    <TemplateHeaderDesktopLojing mappedPcm={mappedPcm} logoSrc={logoSrc} depth={depth} />
   ) : (
-    <TemplateHeaderDesktop mappedPcm={mappedPcm} logoSrc={logoSrc} depth={depth} />
+    <TemplateHeaderDesktopInternmatch mappedPcm={mappedPcm} depth={depth} />
   )
 }
 

@@ -11,18 +11,18 @@ import {
   Box,
   Image,
 } from '@chakra-ui/react'
-import { slice, equals } from 'ramda'
+import { slice } from 'ramda'
 
 import EvtButton from 'app/PCM/components/evt-button'
 import mapQuestionGroup from 'app/PCM/helpers/map-question-grp'
-import { internmatch } from 'utils/constants'
-import useGetProductName from 'utils/helpers/get-product-name'
+
 import { onSendMessage } from 'vertx'
 import { INTERNMATCH_LOGO_WIDTH } from 'utils/constants'
+import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
 
 const TemplateSidebarOne = ({ mappedPcm, maxItemCount }) => {
   const maxItems = maxItemCount || Math.floor((window.innerHeight - 86) / 130)
-  const productName = useGetProductName()
+  const isProductInternmatch = useIsProductInternmatch()
 
   const evtButtons = mapQuestionGroup((ask, question) => {
     return (
@@ -45,7 +45,7 @@ const TemplateSidebarOne = ({ mappedPcm, maxItemCount }) => {
       maxH={'full'}
       wordBreak={'break-word'}
     >
-      {equals(productName)(internmatch) && (
+      {isProductInternmatch && (
         <Box
           onClick={() =>
             onSendMessage({ code: 'QUE_DASHBOARD_VIEW', parentCode: 'QUE_DASHBOARD_VIEW' })
