@@ -1,7 +1,7 @@
 import { Grid } from '@chakra-ui/react'
 
 const vert = mappingFunction => (mappedPcm, depth, config) => (
-  <Grid alignItems="start" gap={4} justifyContent="center">
+  <Grid alignItems="start" gap={3}>
     {mappingFunction(mappedPcm, depth, config)}
   </Grid>
 )

@@ -1,9 +1,8 @@
 import { Grid } from '@chakra-ui/react'
-
-import { SIDEBAR_WIDTH } from 'utils/constants'
+import Content from 'app/PCM/templates/tpl-root/internmatch/content'
 import Header from 'app/PCM/templates/tpl-root/internmatch/header'
 import Sidebar from 'app/PCM/templates/tpl-root/internmatch/sidebar'
-import Content from 'app/PCM/templates/tpl-root/internmatch/content'
+import { SIDEBAR_WIDTH } from 'utils/constants'
 
 const InternmatchRoot = ({
   isMobile,
@@ -20,7 +19,6 @@ const InternmatchRoot = ({
   PRI_LOC2,
   showTemplateNames,
   PRI_LOC3,
-  appWrapperInlinePadding,
 }) => {
   return (
     <Grid
@@ -28,7 +26,7 @@ const InternmatchRoot = ({
       templateAreas={`"nav header"
     "nav main"`}
       gridTemplateColumns={isMobile ? '1fr' : `${SIDEBAR_WIDTH} 1fr`}
-      gridTemplateRows={'1fr'}
+      gridTemplateRows={'auto 1fr'}
       fontFamily={'product.bodyFont'}
     >
       {/* HEADER WRAPPER */}
@@ -60,7 +58,6 @@ const InternmatchRoot = ({
         isMobile={isMobile}
         lightColor={lightColor}
         showTemplateNames={showTemplateNames}
-        appWrapperInlinePadding={appWrapperInlinePadding}
         PRI_LOC3={PRI_LOC3}
         mappedPcm={mappedPcm}
         depth={depth}

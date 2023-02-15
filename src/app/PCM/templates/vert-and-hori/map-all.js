@@ -16,7 +16,7 @@ const mapAll = (mappedPcm, depth, config = {}) => {
 
     if (notIncludesAny(keys(spillLocs))(attributeCode)) {
       return (
-        <Box key={attributeCode}>
+        <Box w={'min(100%, 24rem)'} key={attributeCode}>
           <PcmField code={attributeCode} mappedPcm={mappedPcm} depth={depth} />
         </Box>
       )

@@ -1,9 +1,8 @@
-import { equals } from 'ramda'
 import Pcm from 'app/PCM'
 import NonPcmPcmField from 'app/PCM/components/pcm-field/non-pcm-field'
 import { PcmFieldProps } from 'app/PCM/components/pcm-field/types'
-
 import getPrefixFromCode from 'app/PCM/helpers/get-prefix-from-code'
+import { equals } from 'ramda'
 import debugOut from 'utils/debug-out'
 
 const PcmField: React.FC<PcmFieldProps> = ({

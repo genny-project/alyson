@@ -123,6 +123,14 @@ export const defaultProjectTheme = {
       white: '#FFFFFF',
       pink: '#E4BAC8',
       green: '#55B748',
+
+      primary: '#063231',
+      primaryLight: '#96D5D3',
+      secondary: '#EA5024',
+      secondaryLight: '#E4BAC8',
+      secondaryLightAlpha20: 'rgb(228 186 200 / .2)',
+      accent: '#55B748',
+      light: '#FFFFFF',
     },
   },
   shadows: {
