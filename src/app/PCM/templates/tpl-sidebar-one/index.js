@@ -1,8 +1,6 @@
 import {
-  Box,
   Button,
   Grid,
-  Image,
   Popover,
   PopoverArrow,
   PopoverBody,
@@ -10,38 +8,21 @@ import {
   PopoverTrigger,
   Wrap,
   WrapItem,
+  Box,
+  Image,
 } from '@chakra-ui/react'
-import { useEffect, useState } from 'react'
+import { slice } from 'ramda'
 
 import EvtButton from 'app/PCM/components/evt-button'
 import mapQuestionGroup from 'app/PCM/helpers/map-question-grp'
-import { slice } from 'ramda'
+
+import { onSendMessage } from 'vertx'
 import { INTERNMATCH_LOGO_WIDTH } from 'utils/constants'
 import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
-import { onSendMessage } from 'vertx'
 
 const TemplateSidebarOne = ({ mappedPcm, maxItemCount }) => {
+  const maxItems = maxItemCount || Math.floor((window.innerHeight - 86) / 130)
   const isProductInternmatch = useIsProductInternmatch()
-  const [maxItems, setMaxItems] = useState(maxItemCount || 8)
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const loadMaxItems = () => {
-    const maxItemCount = Math.floor(window.innerHeight - 150) / 70
-    setMaxItems(maxItemCount)
-  }
-
-  useEffect(() => {
-    const resizeHeight = () => {
-      setTimeout(() => {
-        loadMaxItems()
-      }, 100)
-    }
-    window.addEventListener('resize', resizeHeight)
-
-    return () => {
-      window.removeEventListener('resize', resizeHeight)
-    }
-  }, [loadMaxItems])
 
   const evtButtons = mapQuestionGroup((ask, question) => {
     return (
@@ -59,7 +40,7 @@ const TemplateSidebarOne = ({ mappedPcm, maxItemCount }) => {
     <Grid
       test-id={mappedPcm.PRI_QUESTION_CODE}
       placeItems="center"
-      gap={isProductInternmatch ? 1 : 7}
+      gap={7}
       paddingInline={4}
       maxH={'full'}
       wordBreak={'break-word'}
@@ -78,9 +59,7 @@ const TemplateSidebarOne = ({ mappedPcm, maxItemCount }) => {
           />
         </Box>
       )}
-
       {slice(0)(maxItems)(evtButtons).map(button => button)}
-
       {evtButtons.length > maxItems && (
         <Popover placement="auto" isLazy offset={[0, 25]}>
           <PopoverTrigger>
