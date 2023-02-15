@@ -37,7 +37,6 @@
     "lodash.throttle": "^4.1.1",
     "logrocket": "^1.0.14",
     "logrocket-react": "^4.0.1",
-    "process": "^0.11.10",
     "ramda": "^0.27.1",
     "react": "^18.2.0",
     "react-datepicker": "^4.7.0",
@@ -45,7 +44,6 @@
     "react-draft-wysiwyg": "^1.14.5",
     "react-dropzone": "^11.3.1",
     "react-hotkeys-hook": "^3.1.0",
-    "react-iconly": "^2.2.5",
     "react-input-mask": "^2.0.4",
     "react-pdf": "^5.3.0",
     "react-player": "^2.9.0",
@@ -58,9 +56,9 @@
     "web-vitals": "^1.1.0"
   },
   "scripts": {
-    "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
-    "test": "react-app-rewired test",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prepare": "husky install"
   },
@@ -81,14 +79,12 @@
     "@types/lodash.throttle": "^4.1.6",
     "@types/ramda": "^0.27.39",
     "@types/react-redux": "^7.1.16",
-    "dotenv-webpack": "^8.0.1",
     "eslint": "^7.25.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-react": "^7.23.2",
     "husky": "^6.0.0",
     "lint-staged": "^10.5.4",
     "prettier": "2.2.1",
-    "react-app-rewired": "^2.2.1",
     "react-git-info": "^2.0.0",
     "react-meta-tags": "^1.0.1"
   },
