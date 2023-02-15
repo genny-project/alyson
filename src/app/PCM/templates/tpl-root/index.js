@@ -1,14 +1,12 @@
 import { useRef } from 'react'
-import { equals } from 'ramda'
 import { useColorModeValue, useDisclosure, useTheme } from '@chakra-ui/react'
 
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import { useIsMobile } from 'utils/hooks'
 import useProductColors from 'utils/productColors'
-import useGetProductName from 'utils/helpers/get-product-name'
 import InternmatchRoot from 'app/PCM/templates/tpl-root/internmatch'
 import LojingRoot from 'app/PCM/templates/tpl-root/lojing'
-import { lojing } from 'utils/constants'
+import { useIsProductLojing } from 'utils/helpers/check-product-name'
 
 /**
  * The root template for an application. Contains a sidebar, header and a body content.
@@ -32,7 +30,7 @@ const TemplateRoot = ({ mappedPcm, depth, showTemplateNames }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { PRI_LOC1, PRI_LOC2, PRI_LOC3 } = mappedPcm
 
-  const productName = useGetProductName()
+  const isProductLojing = useIsProductLojing()
 
   // THEME COLORS
   //need to fix this, we cannot get colours this way
@@ -60,7 +58,7 @@ const TemplateRoot = ({ mappedPcm, depth, showTemplateNames }) => {
     PRI_LOC3,
     appWrapperInlinePadding,
   }
-  return equals(productName)(lojing) ? <LojingRoot {...props} /> : <InternmatchRoot {...props} />
+  return isProductLojing ? <LojingRoot {...props} /> : <InternmatchRoot {...props} />
 }
 
 export default TemplateRoot

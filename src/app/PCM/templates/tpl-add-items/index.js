@@ -3,11 +3,10 @@ import { Button } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { addItemBackgroundColourInternmatch, addItemIconColourInternmatch } from 'utils/constants'
-import { useIsProductInternmatch, useIsProductLojing } from 'utils/helpers/check-product-name'
+import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
 
 const TemplateAddItems = ({ mappedPcm }) => {
   const isProductInternmatch = useIsProductInternmatch()
-  const isProductLojing = useIsProductLojing()
 
   const { PRI_QUESTION_CODE } = mappedPcm
   return (
