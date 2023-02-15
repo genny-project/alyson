@@ -1,13 +1,13 @@
-import { equals, compose } from 'ramda'
 import { Box, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
-import { useSelector, useDispatch } from 'react-redux'
+import { compose, equals } from 'ramda'
+import { useDispatch, useSelector } from 'react-redux'
 
-import { selectCodeUnary } from 'redux/db/selectors'
 import sendEvtClick from 'app/ASKS/utils/send-evt-click'
 import InternmatchSideBarItem from 'app/PCM/components/sidebar-items/internmatch-sidebar'
 import LojingSideBarItem from 'app/PCM/components/sidebar-items/lojing-sidebar'
-import { selectCurrentSidebarItem } from 'redux/app/selectors'
 import { setCurrentSidebarItem } from 'redux/app'
+import { selectCurrentSidebarItem } from 'redux/app/selectors'
+import { selectCodeUnary } from 'redux/db/selectors'
 import { useIsProductLojing } from 'utils/helpers/check-product-name'
 
 const EvtButton = ({ questionCode, childCode, iconId, vert, isNotChildAsk = false, value }) => {
@@ -62,7 +62,7 @@ const EvtButton = ({ questionCode, childCode, iconId, vert, isNotChildAsk = fals
     )
 
   return (
-    <Box>
+    <Box w={'full'}>
       <Menu placement="right-start">
         <MenuButton test-id={trueQuestionCode}>
           {isProductLojing ? (
@@ -98,9 +98,9 @@ const EvtButton = ({ questionCode, childCode, iconId, vert, isNotChildAsk = fals
               }}
               test-id={childAsk.questionCode}
               key={childAsk.questionCode}
-              _focus={{ bg: '#3AB8B5', color: '#ffffff' }}
               fontSize="14px"
               fontWeight="400"
+              _focus={{ bg: '#3AB8B5', color: '#ffffff' }}
             >
               {childAsk.name}
             </MenuItem>
