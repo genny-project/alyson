@@ -6,7 +6,7 @@ import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
 import FormAsk from 'app/PCM/templates/tpl-form/form-ask'
 
-const AskGroup = ({ questionCode, level, properties, first = false }) => {
+const AskGroup = ({ questionCode, level, properties, config, first = false }) => {
   const childAsks = useSelector(selectCode(questionCode)) || []
   const title = useSelector(selectCode(questionCode, 'title')) || ''
 
@@ -30,6 +30,7 @@ const AskGroup = ({ questionCode, level, properties, first = false }) => {
           questionCode={code}
           level={level}
           properties={properties}
+          config={config}
         />
       ))}
     </Box>

@@ -9,12 +9,13 @@ import { setCurrentFormQuestions } from 'redux/app'
 import { useDispatch } from 'react-redux'
 import getCurrentFormQuestions from 'app/PCM/templates/helpers/get-current-form-questions'
 import useIsMobileView from 'utils/helpers/is-mobile-view'
+import useGetFieldConfig from 'utils/helpers/get-field-config'
 
 const TemplateForm = ({ mappedPcm, depth, ...rest }) => {
   const questionCode = mappedPcm?.PRI_QUESTION_CODE || ''
   const { isMobileView } = useIsMobileView()
   const completeAskData = compose(useSelector, selectCodeUnary(questionCode))('wholeData')
-
+  const config = useGetFieldConfig()
   const currentFormQuestions = getCurrentFormQuestions(completeAskData)
 
   const dispatch = useDispatch()
@@ -34,6 +35,7 @@ const TemplateForm = ({ mappedPcm, depth, ...rest }) => {
           parentCode={questionCode}
           level={0}
           properties={rest}
+          config={config}
         />
       </Flex>
     )

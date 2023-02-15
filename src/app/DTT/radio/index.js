@@ -58,9 +58,9 @@ const Write = ({
   const [value, setValue] = useState(dataValue)
 
   const defaultBooleanLabel = 'Yes;No'
-  const { labels: htmlLabels, vertical } = config || {}
+  const { labels: htmlLabels, radioVertical } = config || {}
   const labels = split(';')(htmlLabels || defaultBooleanLabel)
-  const verticalAligned = vertical || false
+  const verticalAligned = radioVertical || false
   const selectedRadioData =
     compose(useSelector, selectCode)(`${parentCode}-${questionCode}-options`) || []
 
@@ -103,7 +103,7 @@ const Write = ({
         labelTextColor={labelTextColor}
       />
       <RadioGroup value={value} onChange={onChange}>
-        <Stack direction={verticalAligned ? 'column' : 'row'}>
+        <Stack direction={verticalAligned ? 'row' : 'column'}>
           {options &&
             map(
               option =>
