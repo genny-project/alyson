@@ -36,7 +36,6 @@ const appSlice = createSlice({
       state.lastReceivedMessage = { time: new Date(), ...payload }
       state.lastEvent = new Date()
       state.waitingForBackendResponse = 'false'
-      console.log('hello')
 
       cmdMachine[cmd_type]
         ? cmdMachine[cmd_type](state, payload)
@@ -48,7 +47,6 @@ const appSlice = createSlice({
       state.lastReceivedMessage = { time: new Date(), ...payload }
       state.lastEvent = new Date()
       state.waitingForBackendResponse = 'false'
-      console.log('world')
 
       if (data_type === 'BaseEntity') setDisplayCode(state)(items)
       // if (data_type === 'Note') state.NOTES = payload
