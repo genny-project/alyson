@@ -30,6 +30,9 @@ export const pcmKeyDefault = `PCMINFORMATION`
 export const tableSbeLocation = 'PRI_LOC1'
 export const defaultSidebarItem = 'QUE_DASHBOARD'
 
+export const lojingConfig = { radioVertical: true }
+export const internmatchConfig = {}
+
 export const alreadyRegisteredMsg = 'You have already registered!'
 export const mentorAlreadySelectedMsg = 'You have already selected a Mentor!'
 export const mentorSelectionMsg = 'Please select a mentor to proceed.'
