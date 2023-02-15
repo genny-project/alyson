@@ -55,14 +55,13 @@ const Drafts = ({ code: DRAFT_GROUP, textColor }) => {
                 <Text textStyle="tail.2">{drafts.length - 1}</Text>
               </Center>
             </Box>
-            {!isMobile && (
+            {!isMobile && isProductLojing && (
               <HStack spacing={1}>
-                {isProductLojing && (
-                  <Text fontSize="xs" textStyle="tail.2" color={textColor}>
-                    {label}
-                  </Text>
-                )}
-                {isProductLojing && <FontAwesomeIcon icon={faCaretDown} color={iconColor} />}
+                <Text fontSize="xs" textStyle="tail.2" color={textColor}>
+                  {label}
+                </Text>
+
+                <FontAwesomeIcon icon={faCaretDown} color={iconColor} />
               </HStack>
             )}
           </VStack>

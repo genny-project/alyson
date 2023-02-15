@@ -50,7 +50,11 @@ const AsksMenu = ({
   return (
     <Box>
       <Menu>
-        <MenuButton opacity={0.8} _hover={{ opacity: 1 }} test-id={questionCode}>
+        <MenuButton
+          opacity={isProductInternmatch ? 1 : 0.8}
+          _hover={{ opacity: 1 }}
+          test-id={questionCode}
+        >
           <VStack color="grey" test-id={questionCode}>
             <Center
               bg={productSpecificIconBackgroundColour || 'product.secondary'}
