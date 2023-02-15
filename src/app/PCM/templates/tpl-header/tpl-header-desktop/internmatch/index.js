@@ -5,7 +5,7 @@ import getUserAttribute from 'utils/helpers/get-user-information'
 import { nameAttributeKey } from 'utils/constants'
 import getFirstName from 'utils/helpers/get-first-name'
 
-const TemplateHeaderDesktop = ({ mappedPcm, depth }) => {
+const TemplateHeaderDesktopInternmatch = ({ mappedPcm, depth }) => {
   const userName = getUserAttribute(nameAttributeKey)
   const userFirstName = getFirstName(userName)
   const { PRI_LOC2, PRI_LOC3, PRI_LOC4 } = mappedPcm
@@ -31,4 +31,4 @@ const TemplateHeaderDesktop = ({ mappedPcm, depth }) => {
   )
 }
 
-export default TemplateHeaderDesktop
+export default TemplateHeaderDesktopInternmatch
