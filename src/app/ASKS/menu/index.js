@@ -17,10 +17,11 @@ import icons from 'utils/icons'
 import labels from 'utils/labels'
 import { map } from 'ramda'
 import { selectCodeUnary } from 'redux/db/selectors'
-import sendEvtClick from '../utils/send-evt-click'
+import sendEvtClick from 'app/ASKS/utils/send-evt-click'
 import { useIsMobile } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 import { compose } from 'ramda'
+import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
 
 const AsksMenu = ({
   questionCode,
@@ -43,6 +44,8 @@ const AsksMenu = ({
 
   const isMobile = useIsMobile()
 
+  const isProductInternmatch = useIsProductInternmatch()
+
   if (!wholeData?.length) return null
   return (
     <Box>
@@ -52,8 +55,8 @@ const AsksMenu = ({
             <Center
               bg={productSpecificIconBackgroundColour || 'product.secondary'}
               color={theme.colors.background.light}
-              h="8"
-              w="8"
+              h={isProductInternmatch ? '10' : '8'}
+              w={isProductInternmatch ? '10' : '8'}
               borderRadius="50%"
             >
               <FontAwesomeIcon
