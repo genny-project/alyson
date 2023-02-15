@@ -7,7 +7,7 @@ import sendEvtClick from 'app/ASKS/utils/send-evt-click'
 import InternmatchSideBarItem from 'app/PCM/components/sidebar-items/internmatch-sidebar'
 import LojingSideBarItem from 'app/PCM/components/sidebar-items/lojing-sidebar'
 import { selectCurrentSidebarItem } from 'redux/app/selectors'
-import { setCurrentSidebarItem } from 'redux/app'
+import { setCurrentSidebarItem, setCurrentWaitingForBackendResponse } from 'redux/app'
 import { useIsProductLojing } from 'utils/helpers/check-product-name'
 
 const EvtButton = ({ questionCode, childCode, iconId, vert, isNotChildAsk = false, value }) => {
@@ -22,6 +22,10 @@ const EvtButton = ({ questionCode, childCode, iconId, vert, isNotChildAsk = fals
   const currentSidebarItem = useSelector(selectCurrentSidebarItem)
   const dispatch = useDispatch()
   const dispatchSetCurrentSidebarItem = compose(dispatch, setCurrentSidebarItem)
+  const dispatchSetCurrentWaitingForBackendResponse = compose(
+    dispatch,
+    setCurrentWaitingForBackendResponse,
+  )
   const isProductLojing = useIsProductLojing()
 
   if (!data) return null
@@ -50,6 +54,7 @@ const EvtButton = ({ questionCode, childCode, iconId, vert, isNotChildAsk = fals
         name={name}
         currentSidebarItem={currentSidebarItem}
         dispatchSetCurrentSidebarItem={dispatchSetCurrentSidebarItem}
+        dispatchSetCurrentWaitingForBackendResponse={dispatchSetCurrentWaitingForBackendResponse}
       />
     ) : (
       <InternmatchSideBarItem
@@ -58,6 +63,7 @@ const EvtButton = ({ questionCode, childCode, iconId, vert, isNotChildAsk = fals
         name={name}
         currentSidebarItem={currentSidebarItem}
         dispatchSetCurrentSidebarItem={dispatchSetCurrentSidebarItem}
+        dispatchSetCurrentWaitingForBackendResponse={dispatchSetCurrentWaitingForBackendResponse}
       />
     )
 
@@ -87,6 +93,7 @@ const EvtButton = ({ questionCode, childCode, iconId, vert, isNotChildAsk = fals
             <MenuItem
               onClick={() => {
                 dispatchSetCurrentSidebarItem(trueQuestionCode)
+                dispatchSetCurrentWaitingForBackendResponse('true')
                 sendEvtClick({
                   code: childAsk.questionCode,
                   parentCode: childAsk.questionCode,

@@ -14,6 +14,7 @@ export interface AppState {
   lastReceivedMessage: any
   highlightedQuestion: string
   currentSidebarItem: string
+  waitingForBackendResponse: any
 }
 
 export interface BaseEntityAttribute {

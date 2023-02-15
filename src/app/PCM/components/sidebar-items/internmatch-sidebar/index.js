@@ -13,11 +13,13 @@ const InternmatchSideBarItem = ({
   hasChildIcons,
   currentSidebarItem,
   dispatchSetCurrentSidebarItem,
+  dispatchSetCurrentWaitingForBackendResponse,
 }) => {
   const isSelected = equals(trueQuestionCode)(currentSidebarItem)
 
   const onClick = questionCode => {
     dispatchSetCurrentSidebarItem(questionCode)
+    dispatchSetCurrentWaitingForBackendResponse('true')
     handleClick()
   }
 

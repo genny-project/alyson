@@ -22,6 +22,7 @@ export const initialState = {
   bufferDropdownOptions: [],
   currentFormQuestions: [],
   currentSidebarItem: defaultSidebarItem,
+  waitingForBackendResponse: null,
 }
 
 const appSlice = createSlice({
@@ -34,6 +35,8 @@ const appSlice = createSlice({
       const { cmd_type } = payload
       state.lastReceivedMessage = { time: new Date(), ...payload }
       state.lastEvent = new Date()
+      state.waitingForBackendResponse = 'false'
+      console.log('hello')
 
       cmdMachine[cmd_type]
         ? cmdMachine[cmd_type](state, payload)
@@ -44,6 +47,9 @@ const appSlice = createSlice({
 
       state.lastReceivedMessage = { time: new Date(), ...payload }
       state.lastEvent = new Date()
+      state.waitingForBackendResponse = 'false'
+      console.log('world')
+
       if (data_type === 'BaseEntity') setDisplayCode(state)(items)
       // if (data_type === 'Note') state.NOTES = payload
 
@@ -81,6 +87,9 @@ const appSlice = createSlice({
     setCurrentSidebarItem: (state, { payload }) => {
       state.currentSidebarItem = payload
     },
+    setCurrentWaitingForBackendResponse: (state, { payload }) => {
+      state.waitingForBackendResponse = payload
+    },
   },
 })
 
@@ -95,5 +104,6 @@ export const {
   bufferDropdownOption,
   setCurrentFormQuestions,
   setCurrentSidebarItem,
+  setCurrentWaitingForBackendResponse,
 } = appSlice.actions
 export default appSlice.reducer
