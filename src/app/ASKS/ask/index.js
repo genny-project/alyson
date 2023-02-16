@@ -49,6 +49,7 @@ import { selectHighlightedQuestion } from 'redux/app/selectors'
 import { selectCode } from 'redux/db/selectors'
 import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
 import { useMobileValue } from 'utils/hooks'
+import RepeatableWrapper from '../repeatable-wrapper'
 
 const Ask = ({
   parentCode,
@@ -265,7 +266,7 @@ const Ask = ({
         />
       )}
       {component === 'address' && (
-        <Address.Write
+        <RepeatableWrapper
           questionCode={questionCode}
           onSendAnswer={onSendAnswer}
           data={data}
@@ -277,7 +278,9 @@ const Ask = ({
           targetCode={targetCode}
           mandatory={mandatory}
           clientId={clientId}
-        />
+        >
+          {props => <Address.Write {...props} />}
+        </RepeatableWrapper>
       )}
       {(component === 'dropdown' || component === 'tag') && (
         <Select.Write
