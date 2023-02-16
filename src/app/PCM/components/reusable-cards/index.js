@@ -1,24 +1,24 @@
-import { Box, Avatar } from '@chakra-ui/react'
-import { Text as ChakraText } from '@chakra-ui/react'
+import { Box, Avatar, Text as ChakraText } from '@chakra-ui/react'
 
 const ReusableCard = props => {
-  // const { header, subHeader, indicatorColor,src, description } = props
-  // hardcoding the props for now as this logic has not been implemented in the backend.
+  // const { header, subHeader, indicatorColor, src, description, agentFieldColor } = props
+  // hardcoding the props for now as this logic has not been implemented in the backend yet.
 
   const header = 'Internship Title'
   const subHeader = 'Host Company'
   const indicatorColor = '#55B748'
+  const agentFieldColor = '#E4BAC8'
   const src = 'https://i.pinimg.com/736x/ba/92/7f/ba927ff34cd961ce2c184d47e8ead9f6.jpg'
   const description =
     'Lorem ipsum dolor sit amet, consectetur adipscing elit, sed do elusmod tempr.'
 
-  const onClick = () => {
-    console.log('hello')
+  const onClick = e => {
+    e.preventDefault()
   }
 
   return (
     <>
-      <Box h={'177px'} float={'left'} bg={indicatorColor} w={'9px'} />
+      <Box h={'173px'} float={'left'} bg={indicatorColor} w={'9px'} />
       <Box
         bg="#063231"
         w={'272px'}
@@ -31,7 +31,26 @@ const ReusableCard = props => {
         borderTopRightRadius={25}
         fontFamily={'PP Neue Montreal'}
       >
-        <Avatar float={'left'} borderRadius="full" boxSize="31px" marginLeft={'5'} src={src} />
+        <Box
+          float={'right'}
+          bg={agentFieldColor}
+          borderBottomLeftRadius={25}
+          borderTopRightRadius={25}
+          width={'65px'}
+          height={'23px'}
+          marginTop={'-16px'}
+          marginRight={'-20.5px'}
+          textAlign={'center'}
+          fontSize={'9px'}
+          fontWeight={'bold'}
+          paddingTop={'5px'}
+          color={'#000000'}
+        >
+          AGENT
+        </Box>
+
+        <Avatar float={'left'} borderRadius="full" boxSize="31px" marginLeft={5} src={src} />
+
         <Box paddingLeft={20}>
           <ChakraText fontWeight={'bold'} fontSize={'16px'}>
             {header}
@@ -45,13 +64,13 @@ const ReusableCard = props => {
         <Box
           bg={'#074740'}
           w={'272px'}
-          h={'39px'}
+          h={'35px'}
           fontSize={'12px'}
-          letterSpacing={'5px'}
-          marginLeft={'-5'}
+          letterSpacing={'4px'}
+          marginLeft={-5}
           paddingTop={'10px'}
           borderBottomRightRadius={25}
-          paddingInline={'12'}
+          paddingInline={'14'}
           onClick={onClick}
         >
           View application
