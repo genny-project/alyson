@@ -8,27 +8,31 @@ import {
   MenuList,
   Text,
   VStack,
+  useTheme,
 } from '@chakra-ui/react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import icons from 'utils/icons'
 import sendEvtClick from 'app/ASKS/utils/send-evt-click'
+import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 
 const DefaultEventButton = ({
   childAsks,
   trueQuestionCode,
   iconId,
   src,
-  color,
   vert,
   name,
   handleClick,
-  bgColor,
   sourceCode,
   targetCode,
   processId,
 }) => {
+  const theme = useTheme()
+  const bgColor = useGetAttributeFromProjectBaseEntity('PRI_COLOR')?.valueString || '#234371'
+  const color = theme.colors.text.dark
+
   if (!childAsks) {
     let box = (
       <Box display="flex" alignItems="center" justifyContent="center" cursor={'pointer'}>
