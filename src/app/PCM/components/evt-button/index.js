@@ -9,8 +9,16 @@ import LojingSideBarItem from 'app/PCM/components/sidebar-items/lojing-sidebar'
 import { selectCurrentSidebarItem } from 'redux/app/selectors'
 import { setCurrentSidebarItem } from 'redux/app'
 import { useIsProductLojing } from 'utils/helpers/check-product-name'
+import DefaultEvtButton from './default-evt-button'
 
-const EvtButton = ({ questionCode, childCode, iconId, vert, isNotChildAsk = false, value }) => {
+const EvtButton = ({
+  questionCode,
+  childCode,
+  isSidebarButton,
+  isNotChildAsk = false,
+  vert = false,
+  value,
+}) => {
   const data = compose(useSelector, selectCodeUnary(questionCode))(childCode)
 
   const targetCode = compose(useSelector, selectCodeUnary(questionCode))('targetCode')
@@ -21,7 +29,9 @@ const EvtButton = ({ questionCode, childCode, iconId, vert, isNotChildAsk = fals
   const trueQuestionCode = isNotChildAsk ? questionCode : childCode
   const currentSidebarItem = useSelector(selectCurrentSidebarItem)
   const dispatch = useDispatch()
-  const dispatchSetCurrentSidebarItem = compose(dispatch, setCurrentSidebarItem)
+  const dispatchSetCurrentSidebarItem = isSidebarButton
+    ? compose(dispatch, setCurrentSidebarItem)
+    : () => {}
   const isProductLojing = useIsProductLojing()
 
   if (!data) return null
@@ -42,8 +52,8 @@ const EvtButton = ({ questionCode, childCode, iconId, vert, isNotChildAsk = fals
     })
   }
 
-  if (!childAsks)
-    return isProductLojing ? (
+  const buttonObject = isSidebarButton ? (
+    isProductLojing ? (
       <LojingSideBarItem
         trueQuestionCode={trueQuestionCode}
         handleClick={handleClick}
@@ -60,27 +70,21 @@ const EvtButton = ({ questionCode, childCode, iconId, vert, isNotChildAsk = fals
         dispatchSetCurrentSidebarItem={dispatchSetCurrentSidebarItem}
       />
     )
+  ) : (
+    <DefaultEvtButton
+      name={name}
+      questionCode={questionCode}
+      vert={vert}
+      handleClick={handleClick}
+    />
+  )
+
+  if (!childAsks) return buttonObject
 
   return (
     <Box>
       <Menu placement="right-start">
-        <MenuButton test-id={trueQuestionCode}>
-          {isProductLojing ? (
-            <LojingSideBarItem
-              trueQuestionCode={trueQuestionCode}
-              name={name}
-              hasChildIcons={true}
-              currentSidebarItem={currentSidebarItem}
-            />
-          ) : (
-            <InternmatchSideBarItem
-              trueQuestionCode={trueQuestionCode}
-              name={name}
-              hasChildIcons={true}
-              currentSidebarItem={currentSidebarItem}
-            />
-          )}
-        </MenuButton>
+        <MenuButton test-id={trueQuestionCode}>{buttonObject}</MenuButton>
 
         <MenuList minW="350px">
           {childAsks.map(childAsk => (
