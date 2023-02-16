@@ -1,7 +1,9 @@
 import { Button, HStack, VStack, Box } from '@chakra-ui/react'
-import { lensProp, set, assoc, append, remove, compose, adjust } from 'ramda'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { lensProp, set, assoc, append, remove, compose, adjust, length } from 'ramda'
 import { useState } from 'react'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
 const RepeatableWrapper = ({
   children,
@@ -18,23 +20,32 @@ const RepeatableWrapper = ({
   clientId,
   ...props
 }) => {
+  const [values, setValues] = useState(safelyParseJson(data?.value || '[]'))
+
   const makeChildData = value => set(lensProp('value'), value)(data)
+
+  const onUpdateValue = index => value => {
+    setValues(adjust(index, () => value, values))
+  }
   const makeChildProps = value => index =>
     compose(
       assoc('onSendAnswer', answer => onUpdateValue(index)(answer)),
       assoc('data', makeChildData(value)),
     )(childProps)
+
+  const onRemove = index => {
+    setValues(remove(index, 1, values))
+  }
   const makeChildComponents = values =>
     values.map((value, index) => (
       <ChildWrapper
-        key={`${questionCode}-${index}`}
+        key={`${questionCode}-${index}-${value}`}
         index={index}
         onRemove={onRemove}
         generatorFunction={() => children(makeChildProps(value)(index))}
       />
     ))
-  const [values, setValues] = useState(safelyParseJson(data?.value || '[]'))
-  const [childComponents, setChildComponents] = useState(makeChildComponents(values))
+
   const childProps = {
     questionCode,
     regexPattern,
@@ -48,28 +59,14 @@ const RepeatableWrapper = ({
     skipSendAnswer: true,
   }
 
-  const updateValues = newValues => {
-    setValues(newValues)
-    setChildComponents(makeChildComponents(newValues))
-  }
-
-  const onUpdateValue = index => value => {
-    updateValues(adjust(index, () => value, values))
-  }
-
   const onAddAnother = () => {
-    updateValues(append('')(values))
-  }
-
-  const onRemove = index => {
-    console.log(index)
-    updateValues(remove(index, 1, values))
+    setValues(append('')(values))
   }
 
   return (
     <VStack alignItems={'stretch'}>
-      {childComponents}
-      <Button onClick={onAddAnother}>Add Another</Button>
+      {makeChildComponents(values)}
+      <Box>{length(values) < 9 && <Button onClick={onAddAnother}>Add Another</Button>}</Box>
     </VStack>
   )
 }
@@ -78,7 +75,9 @@ const ChildWrapper = ({ generatorFunction, index, onRemove }) => {
   return (
     <HStack>
       <Box width="full">{generatorFunction()}</Box>
-      <Button onClick={() => onRemove(index)}></Button>
+      <Button onClick={() => onRemove(index)}>
+        <FontAwesomeIcon icon={faTrash} size="lg" />
+      </Button>
     </HStack>
   )
 }
