@@ -1,7 +1,6 @@
 import { equals } from 'ramda'
 import { useSelector } from 'react-redux'
-import { Box } from '@chakra-ui/react'
-import { Center } from '@chakra-ui/layout'
+import { Box, Text, VStack } from '@chakra-ui/react'
 import { CircularProgress } from '@chakra-ui/progress'
 
 import DeveloperConsole, { isDev } from 'utils/developer'
@@ -12,24 +11,18 @@ import Toast from 'app/layouts/display/toast'
 import PcmField from 'app/PCM/components/pcm-field'
 import { selectWaitingForBackendResponse } from 'redux/app/selectors'
 
-const Content = ({ isMobile, lightColor, PRI_LOC3, mappedPcm, depth }) => {
+const Content = ({ isMobile, PRI_LOC3, mappedPcm, depth }) => {
   const waitingForBackendResponse = useSelector(selectWaitingForBackendResponse)
-
   return equals(waitingForBackendResponse)('true') ? (
-    <Center h="100vh">
+    <VStack m="auto" spacing="10">
+      <Text>{`Please hold on tight, we are fetching the latest data for you!`}</Text>
       <CircularProgress isIndeterminate trackColor="teal.400" color="blue.500" />
-    </Center>
+    </VStack>
   ) : (
-    <Box
-      backgroundColor={lightColor}
-      id="main-display"
-      pb={1}
-      overflow="auto"
-      gridArea={isMobile ? 'main/nav' : 'main'}
-    >
+    <Box id="main-display" pb={1} overflow="auto" gridArea={isMobile ? 'main/nav' : 'main'}>
       <Box
-        paddingTop="2.25rem"
-        paddingInlineStart={'clamp(1rem, 5vw + 1rem, 6.69rem)'}
+        paddingTop="1.63rem"
+        paddingInlineStart={'clamp(1rem, 5vw, 6.69rem)'}
         paddingInlineEnd={'1rem'}
       >
         {/* Main Page Content */}

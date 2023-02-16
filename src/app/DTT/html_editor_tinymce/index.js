@@ -1,4 +1,4 @@
-import './style.css'
+import 'app/DTT/html_editor_tinymce/style.css'
 
 import {
   Box,
@@ -16,30 +16,29 @@ import {
   PopoverHeader,
   PopoverTrigger,
   Text,
-  VStack,
   useDisclosure,
+  VStack,
 } from '@chakra-ui/react'
 import { useEffect, useRef, useState } from 'react'
 
-import { ACTIONS } from 'utils/contexts/ErrorReducer'
-import DOMPurify from 'dompurify'
-import { Editor } from '@tinymce/tinymce-react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faExpand } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Editor } from '@tinymce/tinymce-react'
+import DOMPurify from 'dompurify'
+import { compose } from 'ramda'
+import { useSelector } from 'react-redux'
+import { selectCode } from 'redux/db/selectors'
+import { projectCodeString } from 'utils/constants'
+import { useError } from 'utils/contexts/ErrorContext'
+import { ACTIONS } from 'utils/contexts/ErrorReducer'
+import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { getIsInvalid } from 'utils/functions'
 import removeHtmlTags from 'utils/helpers/remove-html-tags'
-import { useError } from 'utils/contexts/ErrorContext'
-import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 
-const Write = ({
-  questionCode,
-  data,
-  onSendAnswer,
-  html,
-  regexPattern,
-  errorMessage,
-  placeholder,
-}) => {
+const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMessage, placeholder }) => {
+  const projectCode = compose(useSelector, selectCode)(projectCodeString)
+  const tinyMCEKEY = useSelector(selectCode(projectCode, 'ENV_TINY_MCE_API_KEY'))?.value || ''
+
   const editorRef = useRef(null)
 
   const [userInput, setUserInput] = useState(data?.value)
@@ -87,7 +86,7 @@ const Write = ({
         p="1rem"
       >
         <Editor
-          apiKey="tonka5x5oam6nkqq5ydmzivkgkctew1ifpk4sy8zff3ilco8"
+          apiKey={tinyMCEKEY}
           onInit={(evt, editor) => (editorRef.current = editor)}
           value={userInput ? userInput : ''}
           id={questionCode}
