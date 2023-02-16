@@ -80,6 +80,7 @@ export const defaultProjectTheme = {
       50: 'rgba(0, 0, 0, 0.5)',
     },
     whiteAlpha: {
+      40: 'rgba(255, 255, 255, 0.4)',
       80: 'rgba(255, 255, 255, 0.8)',
     },
     info: {
@@ -116,23 +117,51 @@ export const defaultProjectTheme = {
       800: 'linear-gradient(135deg, #4FD1C5, #4299E1)',
       900: 'linear-gradient(135deg, #38B2AC, #3182CE)',
     },
-    internmatch: {
-      red: '#EA5024',
-      nordic: '#063231',
-      blue: '#96D5D3',
-      white: '#FFFFFF',
-      pink: '#E4BAC8',
-      green: '#55B748',
 
+    internmatch: {
+      primary300: '#E0F2F2',
+      primary400: '#96D5D3',
       primary: '#063231',
-      primaryLight: '#96D5D3',
-      primaryLightAlpha40: 'rgb(150 213 211 / .4)',
+      primary400Alpha40: 'rgb(150 213 211 / .4)',
+
       secondary: '#EA5024',
-      secondaryLight: '#E4BAC8',
-      secondaryLightAlpha20: 'rgb(228 186 200 / .2)',
+      secondary400: '#E4BAC8',
+      secondary400Alpha20: 'rgb(228 186 200 / .2)',
+
       accent: '#55B748',
+
       light: '#FFFFFF',
       lightAlpha40: 'rgb(255 255 255 / .4)',
+    },
+
+    lojing: {
+      primary: '#024754',
+      primary100: '#E6F3F4',
+      primary400: '#00596D',
+      primary500: '#004654',
+
+      secondary: '#F18B32',
+      secondary100: '#FFF6F0',
+      secondary200: '#F8DFC8',
+      secondaryAccent: '#EF8567',
+      secondary400: '#EF8567',
+      secondaryLight: '#FFF6F0',
+
+      gray: '#F4F5F5',
+      gray50: '#F6F6F6',
+      gray100: '#F4F5F5',
+      gray700: '#33475B',
+      gray800: '#4D4D4D',
+      grayMedium: '#C4C4C4',
+      darkGray: '#33475B',
+
+      white: '#FFFFFF',
+      light: '#FFFFFF',
+      dark: '#000000',
+
+      gradient100: 'linear-gradient(340deg, #EF8567, #F18B32)',
+
+      sidebar: '#024754',
     },
   },
   shadows: {

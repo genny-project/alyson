@@ -158,9 +158,9 @@ export const Write = ({
         onClick={() => setIsFocused(true)}
         bg={
           isProductIM && hasValidData
-            ? `${realm}.primaryLight`
+            ? `${realm}.primary400`
             : isProductIM
-            ? `${realm}.secondaryLight`
+            ? `${realm}.secondary400`
             : fieldBackgroundColor
         }
         borderRadius={isProductIM ? 'lg' : borderRadius}
@@ -170,28 +170,28 @@ export const Write = ({
         overflow={'hidden'}
         role="group"
         _hover={{
-          bg: isProductIM ? `${realm}.primaryLight` : fieldBackgroundColor,
+          bg: isProductIM ? `${realm}.primary400` : fieldBackgroundColor,
           borderColor: isProductIM ? `${realm}.primary` : fieldHoverBorderColor,
           boxShadow: 'lg',
         }}
         _focusVisible={{
-          bg: isProductIM ? `${realm}.primaryLight` : fieldBackgroundColor,
+          bg: isProductIM ? `${realm}.primary400` : fieldBackgroundColor,
           borderColor: isProductIM ? `${realm}.primary` : 'product.secondary',
           boxShadow: 'initial',
         }}
         _valid={{
-          bg: isProductIM ? `${realm}.primaryLight` : fieldBackgroundColor,
+          bg: isProductIM ? `${realm}.primary400` : fieldBackgroundColor,
           borderColor: isProductIM ? `${realm}.primary` : fieldHoverBorderColor,
         }}
         _invalid={{
-          background: isProductIM ? `${realm}.secondaryLightAlpha20` : 'error.50',
+          background: isProductIM ? `${realm}.secondary400Alpha20` : 'error.50',
           borderColor: isProductIM ? `${realm}.secondary` : 'error.500',
           color: isProductIM ? `${realm}.secondary` : 'error.500',
         }}
         _disabled={{
           borderColor: isProductIM ? `${realm}.primary` : 'gray.300',
           background: isProductIM ? `${realm}.primary` : 'gray.100',
-          color: isProductIM ? `${realm}.primaryLight` : 'inherit',
+          color: isProductIM ? `${realm}.primary400` : 'inherit',
         }}
       >
         {!!icon && (

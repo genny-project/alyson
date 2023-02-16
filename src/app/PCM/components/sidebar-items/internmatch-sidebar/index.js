@@ -1,4 +1,4 @@
-import { Box, HStack, Text } from '@chakra-ui/react'
+import { Box, HStack, Text, useTheme } from '@chakra-ui/react'
 import { iconColor, iconColorOnHighlight, selectedSidebarBoxColor } from 'utils/constants'
 
 import { equals } from 'ramda'
@@ -17,7 +17,10 @@ const InternmatchSideBarItem = ({
   const [isHovered, setIsHovered] = useState(false)
 
   const imQuestionCode = trueQuestionCode + '_IM'
-  const isSelected = equals(imQuestionCode)(currentSidebarItem)
+
+  const isSelected = equals(trueQuestionCode)(currentSidebarItem)
+
+  const theme = useTheme()
 
   const onClick = questionCode => {
     dispatchSetCurrentSidebarItem(questionCode)
@@ -28,7 +31,7 @@ const InternmatchSideBarItem = ({
     <Box
       role="group"
       test-id={imQuestionCode}
-      onClick={() => onClick(imQuestionCode)}
+      onClick={() => onClick(trueQuestionCode)}
       onMouseOver={() => {
         setIsHovered(true)
       }}
@@ -36,11 +39,11 @@ const InternmatchSideBarItem = ({
         setIsHovered(false)
       }}
       as={hasChildIcons ? 'div' : 'button'}
-      w="204px"
-      h="64px"
+      w="full"
+      paddingBlock={'1.13rem'}
+      paddingInline={'1.75rem'}
       bg={isSelected && selectedSidebarBoxColor}
       borderRadius="20px"
-      paddingX="1.5rem"
     >
       <HStack spacing={5}>
         <Box display="flex" cursor={'pointer'} width={'1.38rem'} height={'1.38rem'}>
@@ -51,17 +54,17 @@ const InternmatchSideBarItem = ({
                 set="two-tone"
                 primaryColor={
                   isSelected
-                    ? 'var(--chakra-colors-internmatch-secondary)'
+                    ? theme.colors.internmatch.secondary
                     : isHovered
-                    ? 'var(--chakra-colors-internmatch-primaryLight)'
-                    : 'var(--chakra-colors-internmatch-light)'
+                    ? theme.colors.internmatch.primary400
+                    : theme.colors.internmatch.light
                 }
                 secondaryColor={
                   isSelected
-                    ? 'var(--chakra-colors-internmatch-secondaryLight)'
+                    ? theme.colors.internmatch.secondary400
                     : isHovered
-                    ? 'var(--chakra-colors-internmatch-primaryLightAlpha40)'
-                    : 'var(--chakra-colors-internmatch-lightAlpha40)'
+                    ? theme.colors.internmatch.primary400Alpha40
+                    : theme.colors.internmatch.lightAlpha40
                 }
                 stroke="bold"
                 size="medium"
@@ -76,10 +79,10 @@ const InternmatchSideBarItem = ({
             <Text
               color={
                 isSelected
-                  ? 'var(--chakra-colors-internmatch-secondary)'
+                  ? theme.colors.internmatch.secondary
                   : isHovered
-                  ? 'var(--chakra-colors-internmatch-primaryLight)'
-                  : 'var(--chakra-colors-internmatch-light)'
+                  ? theme.colors.internmatch.primary400
+                  : theme.colors.internmatch.light
               }
             >
               {name}
@@ -97,13 +100,9 @@ const InternmatchSideBarItem = ({
           <Text
             textStyle={isSelected ? 'internmatch.iconTextOnHighlight' : 'internmatch.iconText'}
             textAlign={'left'}
-            color={
-              isSelected
-                ? 'var(--chakra-colors-internmatch-secondary)'
-                : 'var(--chakra-colors-internmatch-light)'
-            }
+            color={isSelected ? theme.colors.internmatch.secondary : theme.colors.internmatch.light}
             _groupHover={{
-              color: !isSelected && 'var(--chakra-colors-internmatch-primaryLight)',
+              color: !isSelected && theme.colors.internmatch.primary400,
             }}
           >
             {name}

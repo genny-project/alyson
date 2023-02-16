@@ -1,19 +1,22 @@
 import { Box, Center, HStack, Text, VStack } from '@chakra-ui/layout'
 import { Menu, MenuButton, MenuList } from '@chakra-ui/menu'
-import { useSelector } from 'react-redux'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
+import { useGetLabel, useIsMobile } from 'utils/hooks'
 
+import { useTheme } from '@chakra-ui/react'
+import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import Draft from 'app/layouts/navigation/drafts/Draft'
+import { equals } from 'ramda'
+import { Iconly } from 'react-iconly'
+import { useSelector } from 'react-redux'
+import { selectCode } from 'redux/db/selectors'
+import { useIsProductLojing } from 'utils/helpers/check-product-name'
 import getUserType from 'utils/helpers/get-user-type'
 import icons from 'utils/icons'
-import { selectCode } from 'redux/db/selectors'
-import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
-import { useIsProductLojing } from 'utils/helpers/check-product-name'
-import { useGetLabel, useIsMobile } from 'utils/hooks'
-import { equals } from 'ramda'
 
 const Drafts = ({ code: DRAFT_GROUP, textColor }) => {
+  const theme = useTheme()
   const userCode = useSelector(selectCode('USER'))
   const userType = getUserType(useSelector(selectCode(userCode)))
   const drafts = (useSelector(selectCode(DRAFT_GROUP)) || []).filter(
@@ -34,13 +37,22 @@ const Drafts = ({ code: DRAFT_GROUP, textColor }) => {
         <MenuButton fontSize={'sm'}>
           <VStack color="grey" test-id={DRAFT_GROUP}>
             <Box>
-              <FontAwesomeIcon
-                size={isProductLojing ? 'lg' : '2x'}
-                w="8"
-                h="8"
-                icon={icons[DRAFT_GROUP]}
-                color={iconColor}
-              />
+              {isProductLojing ? (
+                <FontAwesomeIcon
+                  size={isProductLojing ? 'lg' : '2x'}
+                  w="8"
+                  h="8"
+                  icon={icons[DRAFT_GROUP]}
+                  color={iconColor}
+                />
+              ) : (
+                <Iconly
+                  name="Notification"
+                  set="two-tone"
+                  size="large"
+                  primaryColor={theme.colors.internmatch.primary}
+                />
+              )}
               <Center
                 ml={`0.5rem`}
                 mt="-1.7rem"

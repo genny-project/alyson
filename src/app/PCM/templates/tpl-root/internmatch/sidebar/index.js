@@ -16,7 +16,7 @@ const Sidebar = ({ isMobile, isOpen, onClose, theme, PRI_LOC2, mappedPcm, depth,
       <DrawerOverlay />
       <DrawerContent>
         <DrawerCloseButton color={theme.colors.text.dark} />
-        <DrawerBody paddingTop={14} paddingInline={0} bg="product.primary">
+        <DrawerBody paddingTop={14} paddingInline={0} bg="internmatch.primary">
           <PcmField
             code={PRI_LOC2}
             mappedPcm={mappedPcm}
