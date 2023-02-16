@@ -1,4 +1,4 @@
-import { Box, Avatar, Text as ChakraText } from '@chakra-ui/react'
+import { Box, Avatar, Text } from '@chakra-ui/react'
 
 const ReusableCard = props => {
   // const { header, subHeader, indicatorColor, src, description, agentFieldColor } = props
@@ -52,13 +52,13 @@ const ReusableCard = props => {
         <Avatar float={'left'} borderRadius="full" boxSize="31px" marginLeft={5} src={src} />
 
         <Box paddingLeft={20}>
-          <ChakraText fontWeight={'bold'} fontSize={'16px'}>
+          <Text fontWeight={'bold'} fontSize={'16px'}>
             {header}
-          </ChakraText>
-          <ChakraText fontSize={'10px'}> {subHeader} </ChakraText>
-          <ChakraText paddingBlock={4} fontSize={'11px'} lineHeight={'17.6px'}>
+          </Text>
+          <Text fontSize={'10px'}> {subHeader} </Text>
+          <Text paddingBlock={4} fontSize={'11px'} lineHeight={'17.6px'}>
             {description}
-          </ChakraText>
+          </Text>
         </Box>
 
         <Box
