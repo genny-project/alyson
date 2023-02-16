@@ -32,13 +32,11 @@ const ReusableCard = props => {
       <Image float={'left'} borderRadius="full" boxSize="31px" marginLeft={'5'} src={src} />
       <Box paddingLeft={20}>
         <ChakraText fontWeight={'bold'} fontSize={'16px'}>
-          {' '}
-          {header}{' '}
+          {header}
         </ChakraText>
         <ChakraText fontSize={'10px'}> {subHeader} </ChakraText>
         <ChakraText paddingBlock={4} fontSize={'11px'} lineHeight={'17.6px'}>
-          {' '}
-          {description}{' '}
+          {description}
         </ChakraText>
       </Box>
 
