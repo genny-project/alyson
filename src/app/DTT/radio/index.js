@@ -9,6 +9,7 @@ import isNullOrUndefined from 'utils/helpers/is-null-or-undefined'
 import { selectCode } from 'redux/db/selectors'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
+import { useIsProductLojing } from 'utils/helpers/check-product-name'
 
 const Read = ({ data, boolean }) => {
   const labels = split(';')(data?.html?.labels || 'Yes;No')
@@ -54,13 +55,14 @@ const Write = ({
   let dataValueFromBackend = isJson(data?.value) ? JSON.parse(data.value) : data.value || ''
   const isDataValueArray = Array.isArray(dataValueFromBackend)
   const dataValue = isDataValueArray ? path([0])(dataValueFromBackend) : dataValueFromBackend
-
+  const isProductLojing = useIsProductLojing()
   const [value, setValue] = useState(dataValue)
 
   const defaultBooleanLabel = 'Yes;No'
   const { labels: htmlLabels, vertical } = config || {}
   const labels = split(';')(htmlLabels || defaultBooleanLabel)
-  const verticalAligned = vertical || false
+  //change default orientation for lojing while preserving config functionality
+  const verticalAligned = vertical || isProductLojing ? true : false
   const selectedRadioData =
     compose(useSelector, selectCode)(`${parentCode}-${questionCode}-options`) || []
 
@@ -93,9 +95,9 @@ const Write = ({
   return (
     <Stack
       ml={1}
-      direction={outerStackVertical ? 'row' : 'column'} // just making sure that longer sets of options don't end up weirdly arranged
+      direction={verticalAligned ? 'row' : 'column'} // just making sure that longer sets of options don't end up weirdly arranged
       spacing={outerStackVertical ? 0 : 1}
-      justifyContent={outerStackVertical ? 'space-between' : 'flex-start'}
+      justifyContent={verticalAligned ? 'space-between' : 'flex-start'}
     >
       <MandatorySymbol
         placeholderName={placeholderName}
@@ -103,7 +105,7 @@ const Write = ({
         labelTextColor={labelTextColor}
       />
       <RadioGroup value={value} onChange={onChange}>
-        <Stack direction={verticalAligned ? 'column' : 'row'}>
+        <Stack direction={verticalAligned ? 'row' : 'column'}>
           {options &&
             map(
               option =>
