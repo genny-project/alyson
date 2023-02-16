@@ -23,7 +23,7 @@ import { onSendMessage } from 'vertx'
 const TemplateSidebarOne = ({ mappedPcm, maxItemCount }) => {
   const isProductInternmatch = useIsProductInternmatch()
 
-  const [maxItems, setMaxItems] = useState(maxItemCount || 8)
+  const [maxItems, setMaxItems] = useState(maxItemCount || 6)
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const loadMaxItems = () => {
@@ -61,7 +61,7 @@ const TemplateSidebarOne = ({ mappedPcm, maxItemCount }) => {
     <Grid
       test-id={mappedPcm.PRI_QUESTION_CODE}
       placeItems="center"
-      gap={isProductInternmatch ? 1 : 7}
+      gap={7}
       paddingInline={4}
       maxH={'full'}
       wordBreak={'break-word'}
