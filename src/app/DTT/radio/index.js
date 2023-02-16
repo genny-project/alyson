@@ -95,9 +95,9 @@ const Write = ({
   return (
     <Stack
       ml={1}
-      direction={verticalAligned ? 'row' : 'column'} // just making sure that longer sets of options don't end up weirdly arranged
+      direction={outerStackVertical ? 'row' : 'column'} // just making sure that longer sets of options don't end up weirdly arranged
       spacing={outerStackVertical ? 0 : 1}
-      justifyContent={verticalAligned ? 'space-between' : 'flex-start'}
+      justifyContent={outerStackVertical ? 'space-between' : 'flex-start'}
     >
       <MandatorySymbol
         placeholderName={placeholderName}
