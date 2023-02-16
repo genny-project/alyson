@@ -27,7 +27,7 @@ const InternmatchRoot = ({
     "nav main"`}
       gridTemplateColumns={isMobile ? '1fr' : `${SIDEBAR_WIDTH} 1fr`}
       gridTemplateRows={'auto 1fr'}
-      fontFamily={'product.bodyFont'}
+      fontFamily={`product.bodyFont`}
     >
       {/* HEADER WRAPPER */}
       <Header

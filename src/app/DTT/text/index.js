@@ -163,7 +163,7 @@ export const Write = ({
             ? `${realm}.secondaryLight`
             : fieldBackgroundColor
         }
-        borderRadius={isProductIM ? 'full' : borderRadius}
+        borderRadius={isProductIM ? 'lg' : borderRadius}
         borderColor={isProductIM ? `${realm}.primary` : fieldBorderColor}
         borderWidth="1px"
         borderStyle="solid"
@@ -230,7 +230,7 @@ export const Write = ({
           paddingInlineEnd={6}
           paddingInlineStart={!!icon ? 1 : 6}
           border={0}
-          borderRadius={'full'}
+          borderRadius={'lg'}
           fontSize={'sm'}
           fontWeight={'medium'}
           color={isProductIM ? `${realm}.primary` : fieldTextColor}

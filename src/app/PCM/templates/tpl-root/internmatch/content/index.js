@@ -7,18 +7,12 @@ import DisplayDrawer from 'app/layouts/display/drawer'
 import Toast from 'app/layouts/display/toast'
 import PcmField from 'app/PCM/components/pcm-field'
 
-const Content = ({ isMobile, lightColor, PRI_LOC3, mappedPcm, depth }) => {
+const Content = ({ isMobile, PRI_LOC3, mappedPcm, depth }) => {
   return (
-    <Box
-      backgroundColor={lightColor}
-      id="main-display"
-      pb={1}
-      overflow="auto"
-      gridArea={isMobile ? 'main/nav' : 'main'}
-    >
+    <Box id="main-display" pb={1} overflow="auto" gridArea={isMobile ? 'main/nav' : 'main'}>
       <Box
-        paddingTop="2.25rem"
-        paddingInlineStart={'clamp(1rem, 5vw + 1rem, 6.69rem)'}
+        paddingTop="1.63rem"
+        paddingInlineStart={'clamp(1rem, 5vw, 6.69rem)'}
         paddingInlineEnd={'1rem'}
       >
         {/* Main Page Content */}
