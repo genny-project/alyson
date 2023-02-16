@@ -1,10 +1,6 @@
-import { compose, equals, not, pathOr, split } from 'ramda'
+import { compose, ifElse, head, split } from 'ramda'
+import { isString } from 'utils/helpers/is-type'
 
-const getFirstName = fullName => {
-  if (compose(not, equals(typeof fullName))('string')) return null
-  const splittedName = split(' ')(fullName)
-  const firstName = pathOr('', [0])(splittedName)
-  return firstName
-}
+const getFirstName = ifElse(isString, compose(head, split(' ')), () => undefined)
 
 export default getFirstName
