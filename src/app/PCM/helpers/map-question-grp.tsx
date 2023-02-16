@@ -30,6 +30,7 @@ const mapQuestionGroup = (
           vert={false}
           value={undefined}
           isNotChildAsk={false}
+          sidebarItem={false}
         />,
         out,
       )

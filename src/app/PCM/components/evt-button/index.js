@@ -1,4 +1,4 @@
-import { equals, compose } from 'ramda'
+import { equals, compose, not } from 'ramda'
 import { Box, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -9,16 +9,16 @@ import LojingSideBarItem from 'app/PCM/components/sidebar-items/lojing-sidebar'
 import { selectCurrentSidebarItem } from 'redux/app/selectors'
 import { setCurrentSidebarItem } from 'redux/app'
 import { useIsProductLojing } from 'utils/helpers/check-product-name'
-import DefaultEvtButton from './default-evt-button'
+import DefaultEventButton from 'app/PCM/components/evt-button/default-event-button'
 
 const EvtButton = ({
   questionCode,
   childCode,
-  isSidebarButton = false,
-  isNotChildAsk = false,
-  vert = false,
   iconId,
+  vert,
+  isNotChildAsk = false,
   value,
+  sidebarItem,
 }) => {
   const data = compose(useSelector, selectCodeUnary(questionCode))(childCode)
 
@@ -30,12 +30,8 @@ const EvtButton = ({
   const trueQuestionCode = isNotChildAsk ? questionCode : childCode
   const currentSidebarItem = useSelector(selectCurrentSidebarItem)
   const dispatch = useDispatch()
-  const dispatchSetCurrentSidebarItem = isSidebarButton
-    ? compose(dispatch, setCurrentSidebarItem)
-    : () => {}
+  const dispatchSetCurrentSidebarItem = compose(dispatch, setCurrentSidebarItem)
   const isProductLojing = useIsProductLojing()
-
-  if (!data) return null
 
   const { name, childAsks } = data
 
@@ -53,8 +49,25 @@ const EvtButton = ({
     })
   }
 
-  const buttonObject = isSidebarButton ? (
-    isProductLojing ? (
+  if (!data) return null
+
+  if (not(sidebarItem))
+    return (
+      <DefaultEventButton
+        childAsks={childAsks}
+        trueQuestionCode={trueQuestionCode}
+        iconId={iconId}
+        vert={vert}
+        name={name}
+        handleClick={handleClick}
+        sourceCode={sourceCode}
+        targetCode={targetCode}
+        processId={processId}
+      />
+    )
+
+  if (!childAsks)
+    return isProductLojing ? (
       <LojingSideBarItem
         trueQuestionCode={trueQuestionCode}
         handleClick={handleClick}
@@ -71,21 +84,27 @@ const EvtButton = ({
         dispatchSetCurrentSidebarItem={dispatchSetCurrentSidebarItem}
       />
     )
-  ) : (
-    <DefaultEvtButton
-      name={name}
-      questionCode={questionCode}
-      vert={vert}
-      handleClick={handleClick}
-    />
-  )
-
-  if (!childAsks) return buttonObject
 
   return (
     <Box>
       <Menu placement="right-start">
-        <MenuButton test-id={trueQuestionCode}>{buttonObject}</MenuButton>
+        <MenuButton test-id={trueQuestionCode}>
+          {isProductLojing ? (
+            <LojingSideBarItem
+              trueQuestionCode={trueQuestionCode}
+              name={name}
+              hasChildIcons={true}
+              currentSidebarItem={currentSidebarItem}
+            />
+          ) : (
+            <InternmatchSideBarItem
+              trueQuestionCode={trueQuestionCode}
+              name={name}
+              hasChildIcons={true}
+              currentSidebarItem={currentSidebarItem}
+            />
+          )}
+        </MenuButton>
 
         <MenuList minW="350px">
           {childAsks.map(childAsk => (
