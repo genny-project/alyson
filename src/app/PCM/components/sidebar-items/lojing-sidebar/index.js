@@ -4,7 +4,7 @@ import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 
 import icons from 'utils/icons'
 
-const LojingSideBarItem = ({ trueQuestionCode, handleClick, name, color, hasChildIcons }) => {
+const LojingSideBarItem = ({ trueQuestionCode, handleClick, name, hasChildIcons }) => {
   return (
     <Box role="group" p="0" test-id={trueQuestionCode} onClick={handleClick} as="button">
       <VStack spacing={2} justifyContent="flex-start">
