@@ -32,7 +32,7 @@ const TemplateSidebarOne = ({ mappedPcm, maxItemCount }) => {
         childCode={ask?.questionCode || ''}
         iconId={question?.icon || ''}
         vert={true}
-        isSidebarButton={true}
+        isSidebarItem={true}
       />
     )
   })(mappedPcm.PRI_QUESTION_CODE)

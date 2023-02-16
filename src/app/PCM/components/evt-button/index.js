@@ -1,5 +1,5 @@
 import { equals, compose } from 'ramda'
-import { Box, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
+import { Box, Menu, MenuButton, MenuItem, MenuList, useTheme } from '@chakra-ui/react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { selectCodeUnary } from 'redux/db/selectors'
@@ -9,16 +9,17 @@ import LojingSideBarItem from 'app/PCM/components/sidebar-items/lojing-sidebar'
 import { selectCurrentSidebarItem } from 'redux/app/selectors'
 import { setCurrentSidebarItem } from 'redux/app'
 import { useIsProductLojing } from 'utils/helpers/check-product-name'
-import DefaultEvtButton from './default-evt-button'
+import DefaultEventButton from 'app/PCM/components/evt-button/default-event-button'
+import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 
 const EvtButton = ({
   questionCode,
   childCode,
-  isSidebarButton = false,
-  isNotChildAsk = false,
-  vert = false,
   iconId,
+  vert,
+  isNotChildAsk = false,
   value,
+  isSidebarItem,
 }) => {
   const data = compose(useSelector, selectCodeUnary(questionCode))(childCode)
 
@@ -30,10 +31,12 @@ const EvtButton = ({
   const trueQuestionCode = isNotChildAsk ? questionCode : childCode
   const currentSidebarItem = useSelector(selectCurrentSidebarItem)
   const dispatch = useDispatch()
-  const dispatchSetCurrentSidebarItem = isSidebarButton
-    ? compose(dispatch, setCurrentSidebarItem)
-    : () => {}
+  const dispatchSetCurrentSidebarItem = compose(dispatch, setCurrentSidebarItem)
   const isProductLojing = useIsProductLojing()
+  const theme = useTheme()
+
+  const bgColor = useGetAttributeFromProjectBaseEntity('PRI_COLOR')?.valueString || '#234371'
+  const color = theme.colors.text.dark
 
   if (!data) return null
 
@@ -53,39 +56,63 @@ const EvtButton = ({
     })
   }
 
-  const buttonObject = isSidebarButton ? (
-    isProductLojing ? (
-      <LojingSideBarItem
-        trueQuestionCode={trueQuestionCode}
-        handleClick={handleClick}
-        name={name}
-        currentSidebarItem={currentSidebarItem}
-        dispatchSetCurrentSidebarItem={dispatchSetCurrentSidebarItem}
-      />
+  console.log('isSidebarItem=====>', { isSidebarItem })
+
+  if (!childAsks)
+    return isSidebarItem ? (
+      isProductLojing ? (
+        <LojingSideBarItem
+          trueQuestionCode={trueQuestionCode}
+          handleClick={handleClick}
+          name={name}
+          currentSidebarItem={currentSidebarItem}
+          dispatchSetCurrentSidebarItem={dispatchSetCurrentSidebarItem}
+        />
+      ) : (
+        <InternmatchSideBarItem
+          trueQuestionCode={trueQuestionCode}
+          handleClick={handleClick}
+          name={name}
+          currentSidebarItem={currentSidebarItem}
+          dispatchSetCurrentSidebarItem={dispatchSetCurrentSidebarItem}
+        />
+      )
     ) : (
-      <InternmatchSideBarItem
+      <DefaultEventButton
+        childAsks={childAsks}
         trueQuestionCode={trueQuestionCode}
-        handleClick={handleClick}
+        iconId={iconId}
+        vert={vert}
         name={name}
-        currentSidebarItem={currentSidebarItem}
-        dispatchSetCurrentSidebarItem={dispatchSetCurrentSidebarItem}
+        handleClick={handleClick}
+        sourceCode={sourceCode}
+        targetCode={targetCode}
+        processId={processId}
+        bgColor={bgColor}
+        color={color}
       />
     )
-  ) : (
-    <DefaultEvtButton
-      name={name}
-      questionCode={questionCode}
-      vert={vert}
-      handleClick={handleClick}
-    />
-  )
-
-  if (!childAsks) return buttonObject
 
   return (
     <Box>
       <Menu placement="right-start">
-        <MenuButton test-id={trueQuestionCode}>{buttonObject}</MenuButton>
+        <MenuButton test-id={trueQuestionCode}>
+          {isProductLojing ? (
+            <LojingSideBarItem
+              trueQuestionCode={trueQuestionCode}
+              name={name}
+              hasChildIcons={true}
+              currentSidebarItem={currentSidebarItem}
+            />
+          ) : (
+            <InternmatchSideBarItem
+              trueQuestionCode={trueQuestionCode}
+              name={name}
+              hasChildIcons={true}
+              currentSidebarItem={currentSidebarItem}
+            />
+          )}
+        </MenuButton>
 
         <MenuList minW="350px">
           {childAsks.map(childAsk => (
