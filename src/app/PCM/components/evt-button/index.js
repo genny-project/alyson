@@ -14,9 +14,10 @@ import DefaultEvtButton from './default-evt-button'
 const EvtButton = ({
   questionCode,
   childCode,
-  isSidebarButton,
+  isSidebarButton = false,
   isNotChildAsk = false,
   vert = false,
+  iconId,
   value,
 }) => {
   const data = compose(useSelector, selectCodeUnary(questionCode))(childCode)

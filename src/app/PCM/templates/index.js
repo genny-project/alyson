@@ -96,6 +96,8 @@ const templateHandlerMachine = depth => mappedPcm => parentCode => rest => {
     return undefined
   }
 
+  const name = mappedPcm['PRI_NAME'] || ''
+
   const color = Math.random().toString(16).substr(-6)
 
   return showTemplateNames ? (
@@ -110,7 +112,9 @@ const templateHandlerMachine = depth => mappedPcm => parentCode => rest => {
         px={3}
         wordBreak={'break-word'}
       >
-        {noMatchingTemplates ? `TPL_DEFAULT (Couldn't find ${templateCode})` : templateCode}
+        {noMatchingTemplates
+          ? `TPL_DEFAULT (Couldn't find ${templateCode})`
+          : `${templateCode}-${name}`}
       </Text>
       <Box pt={7} pb={4} px={4} outline={`1px solid #${color || 'red'}`} outlineOffset={-1}>
         {template}
