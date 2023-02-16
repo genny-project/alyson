@@ -20,7 +20,7 @@ const EvtButton = ({
   value,
   sidebarItem,
 }) => {
-  const data = compose(useSelector, selectCodeUnary(questionCode))(childCode)
+  const data = compose(useSelector, selectCodeUnary(questionCode))(childCode) || {}
 
   const targetCode = compose(useSelector, selectCodeUnary(questionCode))('targetCode')
   const sourceCode = compose(useSelector, selectCodeUnary(questionCode))('sourceCode')
