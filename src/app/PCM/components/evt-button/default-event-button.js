@@ -77,6 +77,7 @@ const DefaultEventButton = ({
       </Box>
     )
   }
+
   return (
     <Menu placement="right-start">
       <MenuButton test-id={trueQuestionCode}>

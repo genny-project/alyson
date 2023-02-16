@@ -1,5 +1,5 @@
-import { equals, compose } from 'ramda'
-import { Box, Menu, MenuButton, MenuItem, MenuList, useTheme } from '@chakra-ui/react'
+import { equals, compose, not } from 'ramda'
+import { Box, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { selectCodeUnary } from 'redux/db/selectors'
@@ -10,7 +10,6 @@ import { selectCurrentSidebarItem } from 'redux/app/selectors'
 import { setCurrentSidebarItem } from 'redux/app'
 import { useIsProductLojing } from 'utils/helpers/check-product-name'
 import DefaultEventButton from 'app/PCM/components/evt-button/default-event-button'
-import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 
 const EvtButton = ({
   questionCode,
@@ -19,7 +18,7 @@ const EvtButton = ({
   vert,
   isNotChildAsk = false,
   value,
-  isSidebarItem,
+  sidebarItem,
 }) => {
   const data = compose(useSelector, selectCodeUnary(questionCode))(childCode)
 
@@ -33,12 +32,6 @@ const EvtButton = ({
   const dispatch = useDispatch()
   const dispatchSetCurrentSidebarItem = compose(dispatch, setCurrentSidebarItem)
   const isProductLojing = useIsProductLojing()
-  const theme = useTheme()
-
-  const bgColor = useGetAttributeFromProjectBaseEntity('PRI_COLOR')?.valueString || '#234371'
-  const color = theme.colors.text.dark
-
-  if (!data) return null
 
   const { name, childAsks } = data
 
@@ -56,28 +49,10 @@ const EvtButton = ({
     })
   }
 
-  console.log('isSidebarItem=====>', { isSidebarItem })
+  if (!data) return null
 
-  if (!childAsks)
-    return isSidebarItem ? (
-      isProductLojing ? (
-        <LojingSideBarItem
-          trueQuestionCode={trueQuestionCode}
-          handleClick={handleClick}
-          name={name}
-          currentSidebarItem={currentSidebarItem}
-          dispatchSetCurrentSidebarItem={dispatchSetCurrentSidebarItem}
-        />
-      ) : (
-        <InternmatchSideBarItem
-          trueQuestionCode={trueQuestionCode}
-          handleClick={handleClick}
-          name={name}
-          currentSidebarItem={currentSidebarItem}
-          dispatchSetCurrentSidebarItem={dispatchSetCurrentSidebarItem}
-        />
-      )
-    ) : (
+  if (not(sidebarItem))
+    return (
       <DefaultEventButton
         childAsks={childAsks}
         trueQuestionCode={trueQuestionCode}
@@ -88,8 +63,25 @@ const EvtButton = ({
         sourceCode={sourceCode}
         targetCode={targetCode}
         processId={processId}
-        bgColor={bgColor}
-        color={color}
+      />
+    )
+
+  if (!childAsks)
+    return isProductLojing ? (
+      <LojingSideBarItem
+        trueQuestionCode={trueQuestionCode}
+        handleClick={handleClick}
+        name={name}
+        currentSidebarItem={currentSidebarItem}
+        dispatchSetCurrentSidebarItem={dispatchSetCurrentSidebarItem}
+      />
+    ) : (
+      <InternmatchSideBarItem
+        trueQuestionCode={trueQuestionCode}
+        handleClick={handleClick}
+        name={name}
+        currentSidebarItem={currentSidebarItem}
+        dispatchSetCurrentSidebarItem={dispatchSetCurrentSidebarItem}
       />
     )
 
