@@ -2,12 +2,13 @@ import { Box, Image } from '@chakra-ui/react'
 import { Text as ChakraText } from '@chakra-ui/react'
 
 const ReusableCard = props => {
-  // const {header, subHeader, indicatorColor, description } = props
-  // hardcoded the props for now as this logic has not been implemented in the backend.
+  // const { header, subHeader, indicatorColor,src, description } = props
+  // hardcoding the props for now as this logic has not been implemented in the backend.
 
   const header = 'Internship Title'
   const subHeader = 'Host Company'
   const indicatorcolor = ''
+  const src = 'https://i.pinimg.com/736x/ba/92/7f/ba927ff34cd961ce2c184d47e8ead9f6.jpg'
   const description =
     'Lorem ipsum dolor sit amet, consectetur adipscing elit, sed do elusmod tempr.'
 
@@ -28,13 +29,7 @@ const ReusableCard = props => {
       borderTopRightRadius={25}
       fontFamily={'PP Neue Montreal'}
     >
-      <Image
-        float={'left'}
-        borderRadius="full"
-        boxSize="31px"
-        marginLeft={'5'}
-        src="https://bit.ly/dan-abramov"
-      />
+      <Image float={'left'} borderRadius="full" boxSize="31px" marginLeft={'5'} src={src} />
       <Box paddingLeft={20}>
         <ChakraText fontWeight={'bold'} fontSize={'16px'}>
           {' '}
@@ -49,15 +44,14 @@ const ReusableCard = props => {
 
       <Box
         bg={'#074740'}
-        position={'absolute'}
         w={'272px'}
         h={'39px'}
         fontSize={'12px'}
         letterSpacing={'5px'}
         marginLeft={'-5'}
-        marginTop={'1'}
+        paddingTop={'10px'}
         borderBottomRightRadius={25}
-        paddingInline={'10'}
+        paddingInline={'12'}
         onClick={onClick}
       >
         {' '}
