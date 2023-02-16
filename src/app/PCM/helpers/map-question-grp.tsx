@@ -12,11 +12,11 @@ const mapQuestionGroup = (
   fn: (ask: { [x: string]: any }, question: { [x: string]: any }) => JSX.Element | undefined,
 ) => (code: string) => {
   let out: JSX.Element[] = []
-  const asks = useSelector(selectCode(code, 'wholeData'))
-  const raw = useSelector(selectCode(code, 'raw'))
+  const asks = useSelector(selectCode(code, 'wholeData')) || []
+  const raw = useSelector(selectCode(code, 'raw')) || {}
   const list = length(asks) > 0 ? asks : !!raw ? [raw] : [] // If the question is not a question group, return just the one question
   forEach((x: string) => {
-    const ask = asks[x]
+    const ask = list[x]
     const question = ask.question
     if (fn) {
       out = append(fn(ask, question)!, out)
