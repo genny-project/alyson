@@ -1,5 +1,4 @@
-import { join } from 'path'
-import { toUpper, toLower, split, compose, map, adjust } from 'ramda'
+import { toUpper, toLower, split, compose, map, adjust, join } from 'ramda'
 
 /**
  * Takes a string like HELlo WORld and returns Hello World
