@@ -68,9 +68,9 @@ const ReusableCard = props => {
           fontSize={'12px'}
           letterSpacing={'4px'}
           marginLeft={-5}
-          paddingTop={'10px'}
+          paddingTop={'9px'}
+          textAlign={'center'}
           borderBottomRightRadius={25}
-          paddingInline={'14'}
           onClick={onClick}
         >
           View application
