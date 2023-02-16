@@ -1,4 +1,4 @@
-import { isEmpty } from 'ramda'
+import { inc, isEmpty } from 'ramda'
 import { VStack, Text } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
@@ -6,7 +6,6 @@ import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
 import templateHandlerMachine from 'app/PCM/templates'
 import useGetMappedPcm from 'app/PCM/helpers/get-mapped-pcm'
 
-import addOne from 'utils/helpers/add-one'
 import debugOut from 'utils/debug-out'
 import { maxRecursiveDepth } from 'utils/constants'
 /**
@@ -15,7 +14,7 @@ import { maxRecursiveDepth } from 'utils/constants'
  */
 
 const Pcm = ({ code, properties, depth, config }) => {
-  const depthPlusOne = addOne(depth)
+  const depthPlusOne = inc(depth)
   const mappedPcm = useGetMappedPcm(code)
   const { PRI_TEMPLATE_CODE: templateCode } = mappedPcm
   const parentCode = code
