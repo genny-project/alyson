@@ -14,13 +14,14 @@ import {
   reduce,
   includes,
 } from 'ramda'
+import { isArray } from 'utils/helpers/is-type'
 
 export const isTypeOf = typeOf => compose(equals(typeOf), type)
 export const maybeThisOrType = fallback =>
   ifElse(isTypeOf(type(fallback)), identity, always(fallback))
 export const maybeThisOrString = maybeThisOrType('')
 export const maybeThisOrObject = maybeThisOrType({})
-export const arrayOrMakeArray = ifElse(Array.isArray, identity, of)
+export const arrayOrMakeArray = ifElse(isArray, identity, of)
 export const getPrefixFromCode = compose(head, split('_'), maybeThisOrString)
 export const anyEquals = compose(any, equals)
 export const isNotStringifiedEmptyArray = compose(not, equals('[]'))

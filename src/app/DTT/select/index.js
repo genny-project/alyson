@@ -20,6 +20,7 @@ import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
 import ErrorDisplay from 'app/DTT/helpers/error-display'
 import useClearFieldMessage from 'app/DTT/helpers/clear-field-message'
+import { isArray } from 'utils/helpers/is-type'
 
 const Write = ({
   questionCode,
@@ -136,8 +137,7 @@ const Write = ({
   }
 
   // the backend accepts array only when sending dropdown values regardless of multi or single select
-  const prepareValueForSendingAnswer = value =>
-    value && Array.isArray(value) && value.map(i => i.value)
+  const prepareValueForSendingAnswer = value => value && isArray(value) && value.map(i => i.value)
 
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">

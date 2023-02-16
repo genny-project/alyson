@@ -9,6 +9,7 @@ import isNullOrUndefined from 'utils/helpers/is-null-or-undefined'
 import { selectCode } from 'redux/db/selectors'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
+import { isArray } from 'utils/helpers/is-type'
 
 const Read = ({ data, boolean }) => {
   const labels = split(';')(data?.html?.labels || 'Yes;No')
@@ -52,7 +53,7 @@ const Write = ({
   config,
 }) => {
   let dataValueFromBackend = isJson(data?.value) ? JSON.parse(data.value) : data.value || ''
-  const isDataValueArray = Array.isArray(dataValueFromBackend)
+  const isDataValueArray = isArray(dataValueFromBackend)
   const dataValue = isDataValueArray ? path([0])(dataValueFromBackend) : dataValueFromBackend
 
   const [value, setValue] = useState(dataValue)

@@ -25,9 +25,8 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import useApi from 'api'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
-import isArray from 'utils/helpers/is-array'
-import isString from 'utils/helpers/is-string'
 import isJson from 'utils/helpers/is-json'
+import { isArray, isString } from 'utils/helpers/is-type'
 
 const Read = ({ code, data, dttData, parentCode, variant, config = {} }) => {
   const typeName = dttData?.typeName

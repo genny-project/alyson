@@ -1,6 +1,13 @@
-import { toUpper, slice, toLower } from 'ramda'
+import { join } from 'path'
+import { toUpper, toLower, split, compose, map, adjust } from 'ramda'
 
-const firstUpper = value =>
-  `${toUpper(slice(0, 1, value))}${toLower(slice(1, value.length, value))}`
+/**
+ * Takes a string like HELlo WORld and returns Hello World
+ */
+const firstUpper = compose(
+  join(' '),
+  map(compose(join(''), adjust(0, toUpper), toLower)),
+  split(' '),
+)
 
 export default firstUpper
