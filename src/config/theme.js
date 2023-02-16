@@ -126,11 +126,13 @@ export const defaultProjectTheme = {
 
       primary: '#063231',
       primaryLight: '#96D5D3',
+      primaryLightAlpha40: 'rgb(150 213 211 / .4)',
       secondary: '#EA5024',
       secondaryLight: '#E4BAC8',
       secondaryLightAlpha20: 'rgb(228 186 200 / .2)',
       accent: '#55B748',
       light: '#FFFFFF',
+      lightAlpha40: 'rgb(255 255 255 / .4)',
     },
   },
   shadows: {
@@ -287,16 +289,12 @@ export const defaultProjectTheme = {
       iconText: {
         fontSize: '1rem',
         fontWeight: 400,
-        // fontFamily: 'Neue Montreal',
         lineHeight: '1.19',
-        color: '#FFFFFF',
       },
       iconTextOnHighlight: {
         fontSize: '1rem',
         fontWeight: 400,
-        // fontFamily: 'Neue Montreal',
         lineHeight: '1.19',
-        color: '#EA5024',
       },
     },
   },
