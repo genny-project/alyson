@@ -1,8 +1,7 @@
-import { append, forEach, keys } from 'ramda'
+import { append, forEach, keys, length } from 'ramda'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import EvtButton from '../components/evt-button'
-
 /**
  * Returns a list of JSX.Elements, mapped entirely from a question group.
  * The Element return is based on fn, but if nothing is provided, will return an EvtButton
@@ -14,11 +13,11 @@ const mapQuestionGroup = (
 ) => (code: string) => {
   let out: JSX.Element[] = []
   const asks = useSelector(selectCode(code, 'wholeData'))
-
+  const raw = useSelector(selectCode(code, 'raw'))
+  const list = length(asks) > 0 ? asks : !!raw ? [raw] : [] // If the question is not a question group, return just the one question
   forEach((x: string) => {
     const ask = asks[x]
     const question = ask.question
-
     if (fn) {
       out = append(fn(ask, question)!, out)
     } else {
@@ -35,9 +34,7 @@ const mapQuestionGroup = (
         out,
       )
     }
-  }, keys(asks) as string[])
-
+  }, keys(list) as string[])
   return out
 }
-
 export default mapQuestionGroup
