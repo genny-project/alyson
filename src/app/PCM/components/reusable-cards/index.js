@@ -1,7 +1,7 @@
 import { Box, Avatar, Text } from '@chakra-ui/react'
 
 const ReusableCard = props => {
-  // const { header, subHeader, indicatorColor, src, description, agentFieldColor } = props
+  // const { header, subHeader, indicatorColor, src, description} = props
   // hardcoding the props for now as this logic has not been implemented in the backend yet.
 
   const header = 'Internship Title'
@@ -62,7 +62,7 @@ const ReusableCard = props => {
         </Box>
 
         <Box
-          bg={'#074740'}
+          bg="#085755"
           w={'272px'}
           h={'35px'}
           fontSize={'12px'}
