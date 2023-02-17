@@ -10,13 +10,17 @@ const TemplateSidebarOne = ({ mappedPcm, maxItemCount }) => {
   const [maxItems, setMaxItems] = useState(maxItemCount || 6)
   const [collapseSidebar, setCollapseSidebar] = useState(false)
 
+  const isProductInternmatch = useIsProductInternmatch()
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const loadMaxItems = () => {
     const maxItemCount = Math.floor(window.innerHeight - 150) / 70
     setMaxItems(maxItemCount)
   }
 
-  const isProductInternmatch = useIsProductInternmatch()
+  const toggleSidebar = () => {
+    setCollapseSidebar(collapseSidebar => !collapseSidebar)
+  }
 
   useEffect(() => {
     const resizeHeight = () => {
@@ -40,6 +44,7 @@ const TemplateSidebarOne = ({ mappedPcm, maxItemCount }) => {
         iconId={question?.icon || ''}
         vert={true}
         sidebarItem={true}
+        collapseSidebar={collapseSidebar}
       />
     )
   })(mappedPcm.PRI_QUESTION_CODE)
@@ -51,7 +56,7 @@ const TemplateSidebarOne = ({ mappedPcm, maxItemCount }) => {
         maxItems={maxItems}
         evtButtons={evtButtons}
         collapseSidebar={collapseSidebar}
-        setCollapseSidebar={setCollapseSidebar}
+        toggleSidebar={toggleSidebar}
       />
     )
   return <DefaultSidebar mappedPcm={mappedPcm} maxItems={maxItems} evtButtons={evtButtons} />

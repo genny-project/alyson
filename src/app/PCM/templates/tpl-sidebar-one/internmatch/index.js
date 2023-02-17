@@ -24,10 +24,45 @@ const InternmatchSidebar = ({
   maxItems,
   evtButtons,
   collapseSidebar,
-  setCollapseSidebar,
+  toggleSidebar,
 }) => {
   return collapseSidebar ? (
-    <div>collpased</div>
+    <Grid
+      test-id={mappedPcm.PRI_QUESTION_CODE}
+      placeItems="center"
+      gap={7}
+      paddingInline={4}
+      maxH={'full'}
+      wordBreak={'break-word'}
+    >
+      <HStack marginY="10" spacing={5} justifyContent="space-between">
+        <FontAwesomeIcon icon={faBars} color="#FFFFFF" onClick={toggleSidebar} cursor="pointer" />
+      </HStack>
+
+      {slice(0)(maxItems)(evtButtons).map(button => button)}
+
+      {evtButtons.length > maxItems && (
+        <Popover placement="auto" isLazy offset={[0, 25]}>
+          <PopoverTrigger>
+            <Button color="#FFFFFF" variant="outline" w="full">
+              {`More`}
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent bg="sidebar.background" borderRadius={'2xl'}>
+            <PopoverBody>
+              <Wrap spacing={5} padding={5} justify={'center'}>
+                {slice(maxItems)(evtButtons.length)(evtButtons).map((button, index) => (
+                  <WrapItem w={'1100px'} key={`SIDEBAR-WRAP-${index}`}>
+                    {button}
+                  </WrapItem>
+                ))}
+              </Wrap>
+            </PopoverBody>
+            <PopoverArrow />
+          </PopoverContent>
+        </Popover>
+      )}
+    </Grid>
   ) : (
     <Grid
       test-id={mappedPcm.PRI_QUESTION_CODE}
@@ -37,7 +72,7 @@ const InternmatchSidebar = ({
       maxH={'full'}
       wordBreak={'break-word'}
     >
-      <HStack marginY="8" spacing={5} justifyContent="space-between">
+      <HStack marginY="10" spacing={5} justifyContent="space-between">
         <Box
           onClick={() =>
             onSendMessage({ code: 'QUE_DASHBOARD_VIEW', parentCode: 'QUE_DASHBOARD_VIEW' })
@@ -45,12 +80,7 @@ const InternmatchSidebar = ({
         >
           <Image src={'/internmatch.png'} w={INTERNMATCH_LOGO_WIDTH} cursor="pointer" />
         </Box>
-        <FontAwesomeIcon
-          icon={faBars}
-          color="#FFFFFF"
-          onClick={() => setCollapseSidebar(true)}
-          cursor="pointer"
-        />
+        <FontAwesomeIcon icon={faBars} color="#FFFFFF" onClick={toggleSidebar} cursor="pointer" />
       </HStack>
 
       {slice(0)(maxItems)(evtButtons).map(button => button)}
