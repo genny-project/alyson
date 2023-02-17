@@ -104,6 +104,7 @@ const EvtButton = ({
               name={name}
               hasChildIcons={true}
               currentSidebarItem={currentSidebarItem}
+              collapseSidebar={collapseSidebar}
             />
           )}
         </MenuButton>

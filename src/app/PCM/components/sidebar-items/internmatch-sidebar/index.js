@@ -47,7 +47,7 @@ const InternmatchSideBarItem = ({
       bg={isSelected && selectedSidebarBoxColor}
       borderRadius="20px"
     >
-      <HStack spacing={5}>
+      <HStack spacing={5} justifyContent="center">
         <Box display="flex" cursor={'pointer'} width={'1.38rem'} height={'1.38rem'}>
           {icons[imQuestionCode] ? (
             <>
@@ -76,6 +76,15 @@ const InternmatchSideBarItem = ({
             <Box />
           )}
         </Box>
+        {hasChildIcons && (
+          <Iconly
+            set="two-tone"
+            name="ChevronDown"
+            primaryColor={isSelected ? iconColorOnHighlight : iconColor}
+            stroke="bold"
+            size="small"
+          />
+        )}
       </HStack>
     </Box>
   ) : (
