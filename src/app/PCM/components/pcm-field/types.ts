@@ -25,6 +25,7 @@ export interface PcmFieldProps {
   depth: number
   evtValue?: string
   child: (parameters: PcmFieldParameters) => JSX.Element
+  derivedState: object
 }
 
 export interface NonPcmPcmFieldProps {

@@ -19,6 +19,7 @@ const EvtButton = ({
   isNotChildAsk = false,
   value,
   sidebarItem,
+  collapseSidebar,
 }) => {
   const data = compose(useSelector, selectCodeUnary(questionCode))(childCode) || {}
 
@@ -82,6 +83,7 @@ const EvtButton = ({
         name={name}
         currentSidebarItem={currentSidebarItem}
         dispatchSetCurrentSidebarItem={dispatchSetCurrentSidebarItem}
+        collapseSidebar={collapseSidebar}
       />
     )
 
@@ -102,6 +104,7 @@ const EvtButton = ({
               name={name}
               hasChildIcons={true}
               currentSidebarItem={currentSidebarItem}
+              collapseSidebar={collapseSidebar}
             />
           )}
         </MenuButton>

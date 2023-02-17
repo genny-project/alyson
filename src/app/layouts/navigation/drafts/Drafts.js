@@ -46,12 +46,14 @@ const Drafts = ({ code: DRAFT_GROUP, textColor }) => {
                   color={iconColor}
                 />
               ) : (
-                <Iconly
-                  name="Notification"
-                  set="two-tone"
-                  size="large"
-                  primaryColor={theme.colors.internmatch.primary}
-                />
+                <Box mt="2">
+                  <Iconly
+                    name="Notification"
+                    set="two-tone"
+                    size="large"
+                    primaryColor={theme.colors.internmatch.primary}
+                  />
+                </Box>
               )}
               <Center
                 ml={`0.5rem`}

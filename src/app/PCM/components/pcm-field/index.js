@@ -1,11 +1,10 @@
 import Pcm from 'app/PCM'
 import NonPcmPcmField from 'app/PCM/components/pcm-field/non-pcm-field'
-import { PcmFieldProps } from 'app/PCM/components/pcm-field/types'
 import getPrefixFromCode from 'app/PCM/helpers/get-prefix-from-code'
 import { equals } from 'ramda'
 import debugOut from 'utils/debug-out'
 
-const PcmField: React.FC<PcmFieldProps> = ({
+const PcmField = ({
   code,
   mappedPcm,
   properties,
@@ -13,17 +12,24 @@ const PcmField: React.FC<PcmFieldProps> = ({
   config,
   depth,
   evtValue,
-}): JSX.Element => {
+  derivedState,
+}) => {
   let prefixCode
   if (!code) {
     debugOut.warn('PCM field got empty code!')
   }
   prefixCode = code ?? ''
   const pcm = 'PCM'
-  const prefix: any = getPrefixFromCode(prefixCode) || 'NONE'
+  const prefix = getPrefixFromCode(prefixCode) || 'NONE'
   const isPrefixPcm = equals(prefix)(pcm)
   return isPrefixPcm ? (
-    <Pcm code={code} properties={properties} depth={depth} config={config} />
+    <Pcm
+      code={code}
+      properties={properties}
+      depth={depth}
+      config={config}
+      derivedState={derivedState}
+    />
   ) : (
     <NonPcmPcmField
       code={code}
