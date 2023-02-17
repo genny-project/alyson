@@ -34,6 +34,7 @@ const InternmatchSidebar = ({
       paddingInline={4}
       maxH={'full'}
       wordBreak={'break-word'}
+      w="min-content"
     >
       <HStack marginY="10" spacing={5} justifyContent="space-between">
         <FontAwesomeIcon icon={faBars} color="#FFFFFF" onClick={toggleSidebar} cursor="pointer" />

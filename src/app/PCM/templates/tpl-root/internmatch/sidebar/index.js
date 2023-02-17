@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
   Box,
   Drawer,
@@ -8,9 +9,13 @@ import {
 } from '@chakra-ui/react'
 
 import PcmField from 'app/PCM/components/pcm-field'
-import { SIDEBAR_WIDTH } from 'utils/constants'
+import { SIDEBAR_WIDTH, SIDEBAR_WIDTH_SM } from 'utils/constants'
 
 const Sidebar = ({ isMobile, isOpen, onClose, theme, PRI_LOC2, mappedPcm, depth, lightColor }) => {
+  const [collapseSidebar, setCollapseSidebar] = useState(false)
+
+  const derivedState = { collapseSidebar, setCollapseSidebar }
+
   return isMobile ? (
     <Drawer placement="left" isOpen={isOpen} onClose={onClose}>
       <DrawerOverlay />
@@ -27,13 +32,19 @@ const Sidebar = ({ isMobile, isOpen, onClose, theme, PRI_LOC2, mappedPcm, depth,
       </DrawerContent>
     </Drawer>
   ) : (
-    <Box id="sideNav" gridArea={'nav'} w={SIDEBAR_WIDTH} bg="sidebar.background">
+    <Box
+      id="sideNav"
+      gridArea={'nav'}
+      w={collapseSidebar ? SIDEBAR_WIDTH_SM : SIDEBAR_WIDTH}
+      bg="sidebar.background"
+    >
       {/* Sidebar Pcm */}
       <PcmField
         code={PRI_LOC2}
         mappedPcm={mappedPcm}
         depth={depth}
         properties={{ color: lightColor }}
+        derivedState={derivedState}
       />
     </Box>
   )
