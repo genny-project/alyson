@@ -266,6 +266,21 @@ const Ask = ({
         />
       )}
       {component === 'address' && (
+        <Address.Write
+          questionCode={questionCode}
+          onSendAnswer={onSendAnswer}
+          data={data}
+          regexPattern={regexPattern}
+          errorMessage={errorMessage}
+          parentCode={parentCode}
+          placeholderName={placeholderName}
+          attributeCode={attributeCode}
+          targetCode={targetCode}
+          mandatory={mandatory}
+          clientId={clientId}
+        />
+      )}
+      {component === 'repeatable_address' && (
         <RepeatableWrapper
           questionCode={questionCode}
           onSendAnswer={onSendAnswer}
