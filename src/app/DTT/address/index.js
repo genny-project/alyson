@@ -31,6 +31,7 @@ const Write = ({
   mandatory,
   clientId,
   errorMessage,
+  repeated = '',
 }) => {
   return (
     <AddressPicker
@@ -42,6 +43,7 @@ const Write = ({
       mandatory={mandatory}
       clientId={clientId}
       errorMessage={errorMessage}
+      repeated={repeated}
     />
   )
 }

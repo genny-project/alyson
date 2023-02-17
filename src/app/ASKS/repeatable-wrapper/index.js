@@ -1,9 +1,11 @@
 import { Button, HStack, VStack, Box } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { lensProp, set, assoc, append, remove, compose, adjust, length } from 'ramda'
+import { lensProp, set, assoc, append, remove, compose, adjust, length, filter } from 'ramda'
 import { useState } from 'react'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
-import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import useProductColors from 'utils/productColors'
+import isNotEmpty from 'utils/helpers/is-not-empty'
 
 const RepeatableWrapper = ({
   children,
@@ -18,24 +20,31 @@ const RepeatableWrapper = ({
   targetCode,
   mandatory,
   clientId,
-  ...props
 }) => {
+  const { borderRadius } = useProductColors()
   const [values, setValues] = useState(safelyParseJson(data?.value || '[]'))
-
   const makeChildData = value => set(lensProp('value'), value)(data)
 
+  const updateValues = fn => {
+    const newValues = fn()
+    setValues(newValues)
+    onSendAnswer(filter(isNotEmpty)(newValues || []))
+  }
+
+  const onRemove = index => {
+    updateValues(() => remove(index, 1, values))
+  }
+
   const onUpdateValue = index => value => {
-    setValues(adjust(index, () => value, values))
+    updateValues(() => adjust(index, () => value, values))
   }
   const makeChildProps = value => index =>
     compose(
       assoc('onSendAnswer', answer => onUpdateValue(index)(answer)),
       assoc('data', makeChildData(value)),
+      assoc('repeated', `${index}`),
     )(childProps)
 
-  const onRemove = index => {
-    setValues(remove(index, 1, values))
-  }
   const makeChildComponents = values =>
     values.map((value, index) => (
       <ChildWrapper
@@ -65,19 +74,37 @@ const RepeatableWrapper = ({
 
   return (
     <VStack alignItems={'stretch'}>
-      {makeChildComponents(values)}
-      <Box>{length(values) < 9 && <Button onClick={onAddAnother}>Add Another</Button>}</Box>
+      {makeChildComponents(values || [])}
+      <Box>
+        {length(values) < 9 && (
+          <AddButton
+            onClick={onAddAnother}
+            borderRadius={borderRadius}
+            bg={'product.secondaryLight'}
+            color={'product.secondary'}
+          />
+        )}
+      </Box>
     </VStack>
   )
 }
 
+const AddButton = ({ onClick, borderRadius, bg, color }) => (
+  <Button fontWeight={'normal'} bg={bg} borderRadius={borderRadius} onClick={onClick} color={color}>
+    <Box paddingRight={3}>Add Another</Box>
+    <FontAwesomeIcon icon={faPlus} />
+  </Button>
+)
+
 const ChildWrapper = ({ generatorFunction, index, onRemove }) => {
   return (
     <HStack>
-      <Box width="full">{generatorFunction()}</Box>
-      <Button onClick={() => onRemove(index)}>
-        <FontAwesomeIcon icon={faTrash} size="lg" />
-      </Button>
+      <Box width="full" paddingRight={2}>
+        {generatorFunction()}
+      </Box>
+      <Box onClick={() => onRemove(index)} cursor="pointer" color={'product.secondary'}>
+        <FontAwesomeIcon transform={{ rotate: 45 }} icon={faPlus} size="lg" />
+      </Box>
     </HStack>
   )
 }
