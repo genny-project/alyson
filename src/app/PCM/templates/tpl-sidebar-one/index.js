@@ -1,41 +1,15 @@
-import { useEffect, useState } from 'react'
-
 import EvtButton from 'app/PCM/components/evt-button'
 import mapQuestionGroup from 'app/PCM/helpers/map-question-grp'
-import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
 import DefaultSidebar from 'app/PCM/templates/tpl-sidebar-one/default'
 import InternmatchSidebar from 'app/PCM/templates/tpl-sidebar-one/internmatch'
+import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
 
-const TemplateSidebarOne = ({ mappedPcm, maxItemCount, derivedState }) => {
-  const [maxItems, setMaxItems] = useState(maxItemCount || 6)
-  const { collapseSidebar, setCollapseSidebar } = derivedState || {}
+const TemplateSidebarOne = ({ mappedPcm, maxItemCount, isSidebarCollapsed }) => {
+  const maxItems = maxItemCount || Math.floor(window.innerHeight - 150) / 130
 
   const isProductInternmatch = useIsProductInternmatch()
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const loadMaxItems = () => {
-    const maxItemCount = Math.floor(window.innerHeight - 150) / 70
-    setMaxItems(maxItemCount)
-  }
-
-  const toggleSidebar = () => {
-    setCollapseSidebar(collapseSidebar => !collapseSidebar)
-  }
-
-  useEffect(() => {
-    const resizeHeight = () => {
-      setTimeout(() => {
-        loadMaxItems()
-      }, 100)
-    }
-    window.addEventListener('resize', resizeHeight)
-
-    return () => {
-      window.removeEventListener('resize', resizeHeight)
-    }
-  }, [loadMaxItems])
-
-  const evtButtons = mapQuestionGroup((ask, question) => {
+  const evtButtons = mapQuestionGroup((ask, question, index) => {
     return (
       <EvtButton
         key={ask?.attributeCode || ''}
@@ -44,7 +18,9 @@ const TemplateSidebarOne = ({ mappedPcm, maxItemCount, derivedState }) => {
         iconId={question?.icon || ''}
         vert={true}
         sidebarItem={true}
-        collapseSidebar={collapseSidebar}
+        isSidebarCollapsed={isSidebarCollapsed}
+        maxItemCount={maxItemCount}
+        index={index}
       />
     )
   })(mappedPcm.PRI_QUESTION_CODE)
@@ -55,8 +31,7 @@ const TemplateSidebarOne = ({ mappedPcm, maxItemCount, derivedState }) => {
         mappedPcm={mappedPcm}
         maxItems={maxItems}
         evtButtons={evtButtons}
-        collapseSidebar={collapseSidebar}
-        toggleSidebar={toggleSidebar}
+        isSidebarCollapsed={isSidebarCollapsed}
       />
     )
   return <DefaultSidebar mappedPcm={mappedPcm} maxItems={maxItems} evtButtons={evtButtons} />

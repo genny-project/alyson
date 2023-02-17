@@ -12,7 +12,7 @@ const PcmField = ({
   config,
   depth,
   evtValue,
-  derivedState,
+  isSidebarCollapsed,
 }) => {
   let prefixCode
   if (!code) {
@@ -28,7 +28,7 @@ const PcmField = ({
       properties={properties}
       depth={depth}
       config={config}
-      derivedState={derivedState}
+      isSidebarCollapsed={isSidebarCollapsed}
     />
   ) : (
     <NonPcmPcmField
