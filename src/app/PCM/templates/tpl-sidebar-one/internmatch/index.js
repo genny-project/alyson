@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Grid,
+  HStack,
   Image,
   Popover,
   PopoverArrow,
@@ -11,13 +12,23 @@ import {
   Wrap,
   WrapItem,
 } from '@chakra-ui/react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
 
 import { slice } from 'ramda'
 import { INTERNMATCH_LOGO_WIDTH } from 'utils/constants'
 import { onSendMessage } from 'vertx'
 
-const InternmatchSidebar = ({ mappedPcm, maxItems, evtButtons }) => {
-  return (
+const InternmatchSidebar = ({
+  mappedPcm,
+  maxItems,
+  evtButtons,
+  collapseSidebar,
+  setCollapseSidebar,
+}) => {
+  return collapseSidebar ? (
+    <div>collpased</div>
+  ) : (
     <Grid
       test-id={mappedPcm.PRI_QUESTION_CODE}
       placeItems="center"
@@ -26,13 +37,21 @@ const InternmatchSidebar = ({ mappedPcm, maxItems, evtButtons }) => {
       maxH={'full'}
       wordBreak={'break-word'}
     >
-      <Box
-        onClick={() =>
-          onSendMessage({ code: 'QUE_DASHBOARD_VIEW', parentCode: 'QUE_DASHBOARD_VIEW' })
-        }
-      >
-        <Image marginY="10" src={'/internmatch.png'} w={INTERNMATCH_LOGO_WIDTH} cursor="pointer" />
-      </Box>
+      <HStack marginY="8" spacing={5} justifyContent="space-between">
+        <Box
+          onClick={() =>
+            onSendMessage({ code: 'QUE_DASHBOARD_VIEW', parentCode: 'QUE_DASHBOARD_VIEW' })
+          }
+        >
+          <Image src={'/internmatch.png'} w={INTERNMATCH_LOGO_WIDTH} cursor="pointer" />
+        </Box>
+        <FontAwesomeIcon
+          icon={faBars}
+          color="#FFFFFF"
+          onClick={() => setCollapseSidebar(true)}
+          cursor="pointer"
+        />
+      </HStack>
 
       {slice(0)(maxItems)(evtButtons).map(button => button)}
 
