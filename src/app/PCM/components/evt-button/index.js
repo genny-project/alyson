@@ -75,6 +75,7 @@ const EvtButton = ({
         name={name}
         currentSidebarItem={currentSidebarItem}
         dispatchSetCurrentSidebarItem={dispatchSetCurrentSidebarItem}
+        collapseSidebar={collapseSidebar}
       />
     ) : (
       <InternmatchSideBarItem

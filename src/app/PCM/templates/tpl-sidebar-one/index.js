@@ -8,7 +8,7 @@ import InternmatchSidebar from 'app/PCM/templates/tpl-sidebar-one/internmatch'
 
 const TemplateSidebarOne = ({ mappedPcm, maxItemCount, derivedState }) => {
   const [maxItems, setMaxItems] = useState(maxItemCount || 6)
-  const { collapseSidebar, setCollapseSidebar } = derivedState
+  const { collapseSidebar, setCollapseSidebar } = derivedState || {}
 
   const isProductInternmatch = useIsProductInternmatch()
 
