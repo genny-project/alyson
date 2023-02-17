@@ -28,8 +28,6 @@ const InternmatchSideBarItem = ({
     handleClick()
   }
 
-  console.log('insideInternmatch sidebarItems=====>', { collapseSidebar })
-
   return !!collapseSidebar ? (
     <Box
       role="group"

@@ -13,7 +13,7 @@ import {
   WrapItem,
 } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faPlus } from '@fortawesome/free-solid-svg-icons'
 
 import { slice } from 'ramda'
 import { INTERNMATCH_LOGO_WIDTH } from 'utils/constants'
@@ -44,9 +44,7 @@ const InternmatchSidebar = ({
       {evtButtons.length > maxItems && (
         <Popover placement="auto" isLazy offset={[0, 25]}>
           <PopoverTrigger>
-            <Button color="#FFFFFF" variant="outline" w="full">
-              {`More`}
-            </Button>
+            <FontAwesomeIcon icon={faPlus} color="#FFFFFF" cursor="pointer" />
           </PopoverTrigger>
           <PopoverContent bg="sidebar.background" borderRadius={'2xl'}>
             <PopoverBody>
