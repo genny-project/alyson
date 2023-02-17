@@ -270,7 +270,7 @@ const Write = ({
         includeTime={includeTime}
         onClick={() => {
           onSendAnswer('')
-          setDateValue('')
+          setDateValue(null)
         }}
         date={getDate(selectedDateInIsoFormat || '')}
       />
@@ -294,7 +294,7 @@ const Write = ({
         includeTime={includeTime}
         onClick={() => {
           onSendAnswer('')
-          setDateValue('')
+          setDateValue(null)
         }}
         date={getDate(data?.value || '')}
       />
