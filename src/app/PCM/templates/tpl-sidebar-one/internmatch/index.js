@@ -16,7 +16,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faPlus } from '@fortawesome/free-solid-svg-icons'
 
 import { slice } from 'ramda'
-import { INTERNMATCH_LOGO_WIDTH } from 'utils/constants'
+import { INTERNMATCH_LOGO_WIDTH, SIDEBAR_WIDTH_SM } from 'utils/constants'
 import { onSendMessage } from 'vertx'
 
 const InternmatchSidebar = ({
@@ -51,7 +51,7 @@ const InternmatchSidebar = ({
             <PopoverBody>
               <Wrap spacing={5} padding={5} justify={'center'}>
                 {slice(maxItems)(evtButtons.length)(evtButtons).map((button, index) => (
-                  <WrapItem w={'1100px'} key={`SIDEBAR-WRAP-${index}`}>
+                  <WrapItem w={SIDEBAR_WIDTH_SM} key={`SIDEBAR-WRAP-${index}`}>
                     {button}
                   </WrapItem>
                 ))}
