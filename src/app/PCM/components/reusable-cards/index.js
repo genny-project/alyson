@@ -18,7 +18,7 @@ const ReusableCard = props => {
 
   return (
     <>
-      <Box h={'173px'} float={'left'} bg={indicatorColor} w={'9px'} />
+      <Box h={'175px'} float={'left'} bg={indicatorColor} w={'9px'} />
       <Box
         bg="#063231"
         w={'272px'}

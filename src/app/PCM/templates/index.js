@@ -30,6 +30,8 @@ import showTemplateNames from 'utils/helpers/show-template-names'
 import TemplateSBERowAdd from 'app/PCM/templates/tpl-sbe-row-add'
 import TemplateSBESelect from 'app/PCM/templates/tpl-sbe-select'
 import TemplateSearchBar from 'app/PCM/templates/tpl-search-bar'
+import TodoList from '../components/todo-list'
+import ReusableCard from '../components/reusable-cards'
 
 /**
  * Takes in a mappedPcm, a templateCode and some misc properties and returns a template component.
@@ -71,7 +73,7 @@ const templateHandlerMachine = depth => mappedPcm => parentCode => rest => {
     TPL_CARD: <TemplateCard {...mandatoryProps} />,
     TPL_DETAIL_VIEW: <TemplateDetailView {...mandatoryProps} />,
     TPL_HORIZONTAL_CARDS: <TemplateHorizontalCards {...mandatoryProps} />,
-    TPL_PROCESS: <TemplateProcess {...mandatoryProps} />,
+    TPL_PROCESS: <ReusableCard />,
     TPL_ADD_ITEMS: <TemplateAddItems {...mandatoryProps} />,
     TPL_BELL: <TemplateBell {...mandatoryProps} />,
     TPL_AVATAR: <TemplateAvatar {...mandatoryProps} />,
@@ -96,8 +98,6 @@ const templateHandlerMachine = depth => mappedPcm => parentCode => rest => {
     return undefined
   }
 
-  const name = mappedPcm['PRI_NAME'] || ''
-
   const color = Math.random().toString(16).substr(-6)
 
   return showTemplateNames ? (
@@ -112,9 +112,7 @@ const templateHandlerMachine = depth => mappedPcm => parentCode => rest => {
         px={3}
         wordBreak={'break-word'}
       >
-        {noMatchingTemplates
-          ? `TPL_DEFAULT (Couldn't find ${templateCode})`
-          : `${templateCode}-${name}`}
+        {noMatchingTemplates ? `TPL_DEFAULT (Couldn't find ${templateCode})` : templateCode}
       </Text>
       <Box pt={7} pb={4} px={4} outline={`1px solid #${color || 'red'}`} outlineOffset={-1}>
         {template}
