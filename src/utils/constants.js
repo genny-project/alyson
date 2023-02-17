@@ -1,12 +1,12 @@
 export const DAY_IN_MS = 24 * 60 * 60 * 1000
 export const DATE_FORMAT = 'DD MMM YY'
 export const WITH_TIME = DATE_FORMAT + ' h:mm A'
-export const SIDEBAR_WIDTH = '250px'
-export const SIDEBAR_WIDTH_SM = '150px'
-export const INTERNMATCH_LOGO_WIDTH = '150px'
+export const SIDEBAR_WIDTH = '15.63rem'
+export const SIDEBAR_WIDTH_SM = '6.75rem'
+export const INTERNMATCH_LOGO_WIDTH = '15.63rem'
 export const SIDEBAR_QUESTION_CODE = 'QUE_PROJECT_SIDEBAR_GRP'
-export const LOGO_WIDTH = '120px'
-export const LOGO_WIDTH_SM = '100px'
+export const LOGO_WIDTH = '7.5rem'
+export const LOGO_WIDTH_SM = '6.25rem'
 export const ACKMESSAGEKEY = 'ACKMESSAGE'
 export const maxNumberOfRetries = 5
 export const maxRecursiveDepth = 50

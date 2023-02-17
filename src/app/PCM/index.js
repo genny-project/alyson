@@ -1,25 +1,25 @@
-import { isEmpty } from 'ramda'
-import { VStack, Text } from '@chakra-ui/react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Text, VStack } from '@chakra-ui/react'
+
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
-
-import templateHandlerMachine from 'app/PCM/templates'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useGetMappedPcm from 'app/PCM/helpers/get-mapped-pcm'
-
-import addOne from 'utils/helpers/add-one'
-import debugOut from 'utils/debug-out'
+import templateHandlerMachine from 'app/PCM/templates'
+import { isEmpty } from 'ramda'
 import { maxRecursiveDepth } from 'utils/constants'
+import debugOut from 'utils/debug-out'
+import addOne from 'utils/helpers/add-one'
+
 /**
  * Given a Pcm Code `code`, will attempt to render a PCM template based on
  * `PRI_TEMPLATE_CODE`, using the pcm stored at `code` in the redux store.
  */
 
-const Pcm = ({ code, properties, depth, config, derivedState }) => {
+const Pcm = ({ code, properties, depth, config, isSidebarCollapsed }) => {
   const depthPlusOne = addOne(depth)
   const mappedPcm = useGetMappedPcm(code)
   const { PRI_TEMPLATE_CODE: templateCode } = mappedPcm
   const parentCode = code
-  const rest = { properties, config, derivedState }
+  const rest = { properties, config, isSidebarCollapsed }
   const template = templateHandlerMachine(depthPlusOne)(mappedPcm)(parentCode)(rest)
 
   if (!template) {
