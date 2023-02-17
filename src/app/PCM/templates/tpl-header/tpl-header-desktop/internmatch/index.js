@@ -20,7 +20,7 @@ const TemplateHeaderDesktopInternmatch = ({ mappedPcm, depth }) => {
         <Divider marginInline={'1.5rem'} borderColor="#96D5D3" flex={1} />
 
         <HStack spacing={9}>
-          <PcmField code={PRI_LOC3} mappedPcm={mappedPcm} depth={depth} config={{ bg: 'red' }} />
+          <PcmField code={PRI_LOC3} mappedPcm={mappedPcm} depth={depth} />
           <PcmField code={PRI_LOC2} mappedPcm={mappedPcm} depth={depth} />
           <PcmField code={PRI_LOC4} mappedPcm={mappedPcm} depth={depth} />
         </HStack>

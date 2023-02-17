@@ -1,9 +1,9 @@
-import { equals } from 'ramda'
-import { Box, HStack, Text } from '@chakra-ui/react'
+import { Box, HStack, Text, useTheme } from '@chakra-ui/react'
 import { iconColor, iconColorOnHighlight, selectedSidebarBoxColor } from 'utils/constants'
-import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+import { equals } from 'ramda'
+import { useState } from 'react'
+import { Iconly } from 'react-iconly'
 import icons from 'utils/icons'
 
 const InternmatchSideBarItem = ({
@@ -14,7 +14,13 @@ const InternmatchSideBarItem = ({
   currentSidebarItem,
   dispatchSetCurrentSidebarItem,
 }) => {
+  const [isHovered, setIsHovered] = useState(false)
+
+  const imQuestionCode = trueQuestionCode + '_IM'
+
   const isSelected = equals(trueQuestionCode)(currentSidebarItem)
+
+  const theme = useTheme()
 
   const onClick = questionCode => {
     dispatchSetCurrentSidebarItem(questionCode)
@@ -24,41 +30,81 @@ const InternmatchSideBarItem = ({
   return (
     <Box
       role="group"
-      test-id={trueQuestionCode}
+      test-id={imQuestionCode}
       onClick={() => onClick(trueQuestionCode)}
-      as="button"
-      w="204px"
-      h="64px"
+      onMouseOver={() => {
+        setIsHovered(true)
+      }}
+      onMouseLeave={() => {
+        setIsHovered(false)
+      }}
+      as={hasChildIcons ? 'div' : 'button'}
+      w="full"
+      paddingBlock={'1.13rem'}
+      paddingInline={'1.75rem'}
       bg={isSelected && selectedSidebarBoxColor}
       borderRadius="20px"
-      paddingX="1.5rem"
     >
       <HStack spacing={5}>
         <Box display="flex" cursor={'pointer'} width={'1.38rem'} height={'1.38rem'}>
-          {icons[trueQuestionCode] ? (
-            <FontAwesomeIcon
-              size={'lg'}
-              icon={icons[trueQuestionCode]}
-              color={isSelected ? iconColorOnHighlight : iconColor}
-            />
+          {icons[imQuestionCode] ? (
+            <>
+              <Iconly
+                name={icons[imQuestionCode]}
+                set="two-tone"
+                primaryColor={
+                  isSelected
+                    ? theme.colors.internmatch.secondary
+                    : isHovered
+                    ? theme.colors.internmatch.primary400
+                    : theme.colors.internmatch.light
+                }
+                secondaryColor={
+                  isSelected
+                    ? theme.colors.internmatch.secondary400
+                    : isHovered
+                    ? theme.colors.internmatch.primary400Alpha40
+                    : theme.colors.internmatch.lightAlpha40
+                }
+                stroke="bold"
+                size="medium"
+              />
+            </>
           ) : (
             <Box />
           )}
         </Box>
         {hasChildIcons ? (
-          <HStack>
+          <HStack w={'full'}>
             <Text
-              textStyle={isSelected ? 'internmatch.iconTextOnHighlight' : 'internmatch.iconText'}
+              color={
+                isSelected
+                  ? theme.colors.internmatch.secondary
+                  : isHovered
+                  ? theme.colors.internmatch.primary400
+                  : theme.colors.internmatch.light
+              }
             >
               {name}
             </Text>
-            <FontAwesomeIcon
-              icon={faAngleDown}
-              color={isSelected ? iconColorOnHighlight : iconColor}
+
+            <Iconly
+              set="two-tone"
+              name="ChevronDown"
+              primaryColor={isSelected ? iconColorOnHighlight : iconColor}
+              stroke="bold"
+              size="small"
             />
           </HStack>
         ) : (
-          <Text textStyle={isSelected ? 'internmatch.iconTextOnHighlight' : 'internmatch.iconText'}>
+          <Text
+            textStyle={isSelected ? 'internmatch.iconTextOnHighlight' : 'internmatch.iconText'}
+            textAlign={'left'}
+            color={isSelected ? theme.colors.internmatch.secondary : theme.colors.internmatch.light}
+            _groupHover={{
+              color: !isSelected && theme.colors.internmatch.primary400,
+            }}
+          >
             {name}
           </Text>
         )}
