@@ -24,8 +24,8 @@ export interface PcmFieldProps {
   properties?: any
   depth: number
   evtValue?: string
-  child: (parameters: PcmFieldParameters) => JSX.Element
   isSidebarCollapsed: boolean
+  child: (parameters: PcmFieldParameters) => JSX.Element
 }
 
 export interface NonPcmPcmFieldProps {
