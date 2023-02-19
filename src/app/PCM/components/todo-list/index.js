@@ -1,22 +1,20 @@
-import { Box, Text, Checkbox, VStack, Divider } from '@chakra-ui/react'
+import { Box, Text, Checkbox, VStack, Divider, Button, HStack } from '@chakra-ui/react'
 import { useState } from 'react'
 
 const TodoList = () => {
   const checklistItems = [
     'Complete internmatch profile',
     'Search for internships',
-    'See contacts list',
+    'See contact list',
     'Save internship to favourites',
     'Check notifications',
   ]
-
-  const [checked, setChecked] = useState()
 
   return (
     <>
       <Box
         w={'494px'}
-        bg={'pink'}
+        bg={'#EDF8F8'}
         borderRadius={'40px'}
         paddingBlock={'81px'}
         paddingInline={'81px'}
@@ -27,21 +25,41 @@ const TodoList = () => {
           TO DO LIST
         </Text>
         <VStack paddingBlock={'20px'}>
-          {checklistItems.map(items => (
+          {checklistItems.map((item, index) => (
             <VStack alignItems={'flex-start'}>
-              <Checkbox
-                fontSize={'8px'}
-                key={checklistItems}
-                size="md"
-                colorScheme={'green'}
-                borderColor={'#829998'}
-              >
-                {items}
-              </Checkbox>
-              <Divider width={'351px'} color="#D3E3E2" />
+              <HStack>
+                <Checkbox
+                  fontSize={'8px'}
+                  key={index}
+                  size="md"
+                  spacing={'25px'}
+                  colorScheme={'green'}
+                  borderColor={'#829998'}
+                >
+                  {item}
+                </Checkbox>
+                <Button fontSize={'12px'} variant={'ghost'} size={'sm'}>
+                  x
+                </Button>
+              </HStack>
+              <Divider width={'351px'} bg="#D3E3E2" />
             </VStack>
           ))}
         </VStack>
+        <Button
+          _hover={'#EA5024'}
+          float={'right'}
+          marginRight={'-15px'}
+          w={'110px'}
+          h={'46px'}
+          borderRadius={'50px'}
+          marginTop={'-45px'}
+          fontSize={'16px'}
+          bg="#EA5024"
+          color="#FFFFFF"
+        >
+          Add task
+        </Button>
       </Box>
     </>
   )
