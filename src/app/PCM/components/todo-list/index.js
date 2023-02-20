@@ -1,18 +1,31 @@
-import { Box, Text, Checkbox, VStack, Divider, Button, HStack, Input } from '@chakra-ui/react'
+import {
+  Box,
+  Text,
+  Checkbox,
+  VStack,
+  Divider,
+  Button,
+  HStack,
+  Input,
+  Wrap,
+  WrapItem,
+} from '@chakra-ui/react'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react'
 
 const TodoList = () => {
   const [userInput, setUserInput] = useState()
   const [todoList, setTodoList] = useState([])
-  const [checked, setChecked] = useState()
 
   const handleAddTask = () => {
     setTodoList([...todoList, userInput])
     setUserInput('')
   }
 
-  const handleCheck = individualTask => {
-    setChecked()
+  const handleDelete = indexToBeDeleted => {
+    const newTodoList = todoList.filter((__, index) => index !== indexToBeDeleted)
+    setTodoList(newTodoList)
   }
 
   return (
@@ -39,14 +52,17 @@ const TodoList = () => {
                   key={index}
                   size="md"
                   spacing={'25px'}
-                  onChange={() => handleCheck(individualTask)}
-                  isChecked={checked}
                   colorScheme={'green'}
                   borderColor={'#829998'}
-                  opacity={checked ? '50%' : '100%'}
                 >
                   {individualTask}
                 </Checkbox>
+                <FontAwesomeIcon
+                  icon={faTrash}
+                  size={'xs'}
+                  cursor={'pointer'}
+                  onClick={() => handleDelete(index)}
+                />
               </HStack>
               <Divider width={'351px'} bg="#D3E3E2" />
             </VStack>
@@ -71,7 +87,7 @@ const TodoList = () => {
 
         <Input
           value={userInput}
-          onChange={e => setUserInput(e.target.value)}
+          onChange={event => setUserInput(event.target.value)}
           placeholder={'Enter task here'}
           position={'absolute'}
           size={'sm'}
