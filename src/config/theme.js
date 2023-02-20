@@ -119,6 +119,7 @@ export const defaultProjectTheme = {
     },
 
     internmatch: {
+      primary100: 'E6EAEA',
       primary300: '#E0F2F2',
       primary400: '#96D5D3',
       primary: '#063231',

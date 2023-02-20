@@ -1,5 +1,5 @@
 import 'react-datepicker/dist/react-datepicker.css'
-import './datePickerStyles.css'
+import './datePickerStyles.scss'
 
 import {
   Box,
@@ -7,34 +7,36 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
+  InputRightElement,
   Text,
   useTheme,
   VStack,
 } from '@chakra-ui/react'
-import { dateOfBirthQuestionCode, eligibleAge } from 'utils/constants'
-import { differenceInYears, format, isBefore, parseISO, startOfTomorrow } from 'date-fns'
 import { faCalendarDay, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import { differenceInYears, format, isBefore, parseISO, startOfTomorrow } from 'date-fns'
 import { forwardRef, useEffect, useState } from 'react'
+import { dateOfBirthQuestionCode, eligibleAge } from 'utils/constants'
 
-import { ACTIONS } from 'utils/contexts/ErrorReducer'
-import DateChip from './DateChip'
-import DatePicker from 'react-datepicker'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { apiConfig } from 'config/get-api-config'
-import getDate from 'utils/helpers/timezone_magic/get-date'
-import { getIsInvalid } from 'utils/functions'
-import { includes } from 'ramda'
-import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
-import { isNotStringifiedEmptyArray } from 'utils/functionals'
-import safelyParseDate from 'utils/helpers/safely-parse-date'
-import timeBasedOnTimeZone from 'utils/helpers/timezone_magic/time-based-on-timezone'
-import { useError } from 'utils/contexts/ErrorContext'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
-import useGetFieldMessage from 'utils/fieldMessage'
-import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
-import useProductColors from 'utils/productColors'
-import ErrorDisplay from 'app/DTT/helpers/error-display'
 import useClearFieldMessage from 'app/DTT/helpers/clear-field-message'
+import ErrorDisplay from 'app/DTT/helpers/error-display'
+import { includes } from 'ramda'
+import DatePicker from 'react-datepicker'
+import { useError } from 'utils/contexts/ErrorContext'
+import { ACTIONS } from 'utils/contexts/ErrorReducer'
+import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
+import useGetFieldMessage from 'utils/fieldMessage'
+import { isNotStringifiedEmptyArray } from 'utils/functionals'
+import { getIsInvalid } from 'utils/functions'
+import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
+import useGetProductName from 'utils/helpers/get-product-name'
+import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
+import safelyParseDate from 'utils/helpers/safely-parse-date'
+import getDate from 'utils/helpers/timezone_magic/get-date'
+import timeBasedOnTimeZone from 'utils/helpers/timezone_magic/time-based-on-timezone'
+import useProductColors from 'utils/productColors'
+import DateChip from './DateChip'
 
 const Read = ({ data, typeName, config }) => {
   const includeTime = includes('LocalDateTime', typeName)
@@ -69,6 +71,9 @@ const Write = ({
   let initialErrorMsg = 'You can only valid date.'
 
   const theme = useTheme()
+  const realm = useGetProductName().toLowerCase()
+  const isProductInternMatch = useIsProductInternmatch()
+
   const {
     fieldBackgroundColor,
     fieldBorderColor,
@@ -132,8 +137,9 @@ const Write = ({
   const formatInputDate = dateValue ? format(inputDate, 'yyyy-MM-dd') : today
   const diffInYears = differenceInYears(parseISO(today), parseISO(formatInputDate))
 
-  const prodocutBasedDatepickerClass = apiConfig?.clientId
   const selectedDateInIsoFormat = !!dateValue ? safelyParseDate(dateValue).toISOString() : ''
+
+  const hasValidData = dateValue && !isInvalid
 
   useEffect(() => {
     isInvalid ? setErrorStatus(true) : setErrorStatus(false)
@@ -190,47 +196,77 @@ const Write = ({
         w="full"
         h={'auto'}
         paddingBlock={3}
-        paddingStart={isFocused ? 6 : 12}
-        paddingEnd={6}
-        bg={fieldBackgroundColor}
-        borderRadius={borderRadius}
-        borderColor={fieldBorderColor}
+        paddingInlineStart={isFocused || isProductInternMatch ? 6 : 12}
+        paddingInlineEnd={6}
+        bg={
+          isProductInternMatch && hasValidData
+            ? `${realm}.primary400`
+            : isProductInternMatch
+            ? `${realm}.secondary400`
+            : fieldBackgroundColor
+        }
+        borderRadius={isProductInternMatch ? 'lg' : borderRadius}
+        borderColor={isProductInternMatch ? `${realm}.primary` : fieldBorderColor}
         fontSize={'sm'}
         fontWeight={'medium'}
         color={fieldTextColor}
         cursor={'pointer'}
         _hover={{
-          borderColor: fieldHoverBorderColor,
+          bg: isProductInternMatch ? `${realm}.primary400` : fieldBackgroundColor,
+          borderColor: isProductInternMatch ? `${realm}.primary` : fieldHoverBorderColor,
           boxShadow: 'lg',
         }}
         _focusVisible={{
-          borderColor: 'product.secondary',
+          bg: isProductInternMatch ? `${realm}.primary400` : fieldBackgroundColor,
+          borderColor: isProductInternMatch ? `${realm}.primary` : 'product.secondary',
           boxShadow: 'initial',
         }}
+        _valid={{
+          bg: isProductInternMatch ? `${realm}.primary400` : fieldBackgroundColor,
+          borderColor: isProductInternMatch ? `${realm}.primary` : fieldHoverBorderColor,
+        }}
         _invalid={{
-          background: 'error.50',
-          borderColor: 'error.500',
-          color: 'error.500',
+          background: isProductInternMatch ? `${realm}.secondary400Alpha20` : 'error.50',
+          borderColor: isProductInternMatch ? `${realm}.secondary` : 'error.500',
+          color: isProductInternMatch ? `${realm}.secondary` : 'error.500',
         }}
         _disabled={{
-          borderColor: 'transparent',
-          background: 'gray.100',
+          borderColor: isProductInternMatch ? `${realm}.primary` : 'gray.300',
+          background: isProductInternMatch ? `${realm}.primary` : 'gray.100',
+          color: isProductInternMatch ? `${realm}.primary400` : 'inherit',
         }}
         required={true}
       />
-      <InputLeftElement
-        mt="2px"
-        ml={3}
-        color={value ? themeSecondary : 'gray.600'}
-        pointerEvents="none"
-        _groupHover={{
-          color: themeSecondary,
-        }}
-        _groupfocusvisible={{
-          color: themeSecondary,
-        }}
-        children={<FontAwesomeIcon icon={faCalendarDay} color={'inherit'} />}
-      />
+
+      {isProductInternMatch ? (
+        <InputRightElement
+          mt="2px"
+          ml={3}
+          color={`${realm}.primary`}
+          pointerEvents="none"
+          _groupHover={{
+            color: themeSecondary,
+          }}
+          _groupfocusvisible={{
+            color: themeSecondary,
+          }}
+          children={<FontAwesomeIcon icon={faCalendarDay} color={'inherit'} />}
+        />
+      ) : (
+        <InputLeftElement
+          mt="2px"
+          ml={3}
+          color={value ? themeSecondary : 'gray.600'}
+          pointerEvents="none"
+          _groupHover={{
+            color: themeSecondary,
+          }}
+          _groupfocusvisible={{
+            color: themeSecondary,
+          }}
+          children={<FontAwesomeIcon icon={faCalendarDay} color={'inherit'} />}
+        />
+      )}
     </InputGroup>
   ))
 
@@ -241,17 +277,26 @@ const Write = ({
         zIndex={theme.zIndices.docked}
         top={isFocused ? '-1.5rem' : 3}
         left={0}
-        paddingStart={isFocused ? 6 : 12}
+        paddingStart={isFocused || isProductInternMatch ? 6 : 12}
         w="full"
         justifyContent={'space-between'}
         pointerEvents={'none'}
         transition="all 0.25s ease"
       >
         {placeholderName && (
-          <Text as="label" fontSize={'sm'} fontWeight={'medium'} color={labelTextColor}>
+          <Text
+            as="label"
+            fontSize={'sm'}
+            fontWeight={'medium'}
+            color={isProductInternMatch ? `${realm}.primary` : labelTextColor}
+          >
             {placeholderName}
             {mandatory ? (
-              <Text as="span" color={'red.500'} ml={1}>
+              <Text
+                as="span"
+                color={isProductInternMatch ? `${realm}.secondary` : 'red.500'}
+                ml={1}
+              >
                 *
               </Text>
             ) : (
@@ -273,15 +318,22 @@ const Write = ({
           setDateValue(null)
         }}
         date={getDate(selectedDateInIsoFormat || '')}
+        realm={realm}
+        isProductInternMatch={isProductInternMatch}
       />
     </Box>
   ) : data?.value ? (
     <VStack alignItems={'flex-start'}>
       {placeholderName && (
-        <Text as="label" fontSize={'sm'} fontWeight={'medium'} color={labelTextColor}>
+        <Text
+          as="label"
+          fontSize={'sm'}
+          fontWeight={'medium'}
+          color={isProductInternMatch ? `${realm}.primary` : labelTextColor}
+        >
           {placeholderName}
           {mandatory ? (
-            <Text as="span" color={'red.500'} ml={1}>
+            <Text as="span" color={isProductInternMatch ? `${realm}.secondary` : 'red.500'} ml={1}>
               *
             </Text>
           ) : (
@@ -306,17 +358,26 @@ const Write = ({
         zIndex={theme.zIndices.docked}
         top={isFocused ? '-1.5rem' : 3}
         left={0}
-        paddingStart={12}
+        paddingStart={isProductInternMatch ? 6 : 12}
         w="full"
         justifyContent={'space-between'}
         pointerEvents={'none'}
         transition="all 0.25s ease"
       >
         {placeholderName && (
-          <Text as="label" fontSize={'sm'} fontWeight={'medium'} color={labelTextColor}>
+          <Text
+            as="label"
+            fontSize={'sm'}
+            fontWeight={'medium'}
+            color={isProductInternMatch ? `${realm}.primary` : labelTextColor}
+          >
             {placeholderName}
             {mandatory ? (
-              <Text as="span" color={'red.500'} ml={1}>
+              <Text
+                as="span"
+                color={isProductInternMatch ? `${realm}.secondary` : 'red.500'}
+                ml={1}
+              >
                 *
               </Text>
             ) : (
@@ -343,7 +404,7 @@ const Write = ({
         showYearDropdown
         dropdownMode="select"
         showYearPicker={onlyYear}
-        calendarClassName={`${prodocutBasedDatepickerClass}__calendar`}
+        calendarClassName={`${realm}__calendar`}
       />
 
       <ErrorDisplay
@@ -352,6 +413,8 @@ const Write = ({
         errorMessage={errorMessage}
         fieldMessage={fieldMessage}
         hasFieldMessage={hasFieldMessage}
+        realm={realm}
+        isProductIM={isProductInternMatch}
       />
     </Box>
   )
