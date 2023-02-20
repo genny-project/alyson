@@ -51,6 +51,14 @@ const tableStyles = {
   lojing: 'striped',
 }
 
+const tplVertJustifies = {
+  lojing: 'center',
+}
+
+const tplHoriJustifies = {
+  lojing: 'center',
+}
+
 const useProductColors = () => {
   const clientId = apiConfig?.clientId
   const theme = useTheme()
@@ -75,6 +83,9 @@ const useProductColors = () => {
 
   const tableStyle = tableStyles[clientId] || 'simple'
 
+  const tplVertJustify = tplVertJustifies[clientId] || 'flex-start'
+  const tplHoriJustify = tplHoriJustifies[clientId] || 'flex-start'
+
   return {
     fieldBackgroundColor,
     fieldBorderColor,
@@ -90,6 +101,8 @@ const useProductColors = () => {
     appWrapperInlinePadding,
     switchColor,
     tableStyle,
+    tplVertJustify,
+    tplHoriJustify,
   }
 }
 
