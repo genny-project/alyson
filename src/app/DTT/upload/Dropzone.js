@@ -11,23 +11,25 @@ import {
   Stack,
   Text,
   Tooltip,
-  VStack,
   useToast,
+  VStack,
 } from '@chakra-ui/react'
-import { compose, equals, includes, isEmpty, map, pathOr, split } from 'ramda'
 import {
   faCloudUploadAlt,
   faExclamationTriangle,
   faTimesCircle,
 } from '@fortawesome/free-solid-svg-icons'
+import { compose, equals, includes, isEmpty, map, pathOr, split } from 'ramda'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { isImageField } from 'utils/functions'
-import { lojing } from 'utils/constants'
+import { useState } from 'react'
 import { useDropzone } from 'react-dropzone'
+import { lojing } from 'utils/constants'
+import { isImageField } from 'utils/functions'
+import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
+import useGetProductName from 'utils/helpers/get-product-name'
 import { useIsMobile } from 'utils/hooks'
 import useProductColors from 'utils/productColors'
-import { useState } from 'react'
 
 const DropZone = ({
   video,
@@ -43,6 +45,9 @@ const DropZone = ({
   const toast = useToast()
   const checkIfImage = compose(includes('image'), split('/'))
   const isMobile = useIsMobile()
+
+  const isProductInternmatch = useIsProductInternmatch()
+  const productName = useGetProductName().toLocaleLowerCase()
 
   const uploaderText = multiUpload
     ? `Drag and drop images and videos`
@@ -135,20 +140,40 @@ const DropZone = ({
   }
 
   const preview = map((file, idx) => {
-    const { name, preview, type } = file
+    const { name, preview, type, size } = file
+    const fileType = type.split('/')
+    const fileSizeBytes = size
+    const fileSize = fileSizeBytes / 1024 ** 2
+    const fileSizeRounded = fileSize.toFixed(2) + 'MB'
+
     if (checkIfImage(type)) {
       return (
-        <HStack borderRadius={4} position="relative" key={`${preview}-${idx}`}>
+        <Grid
+          borderRadius={4}
+          position="relative"
+          key={`${preview}-${idx}`}
+          templateColumns={'5rem 1fr'}
+          gap={'.5rem'}
+          placeItems={'center'}
+        >
           <AspectRatio
             bg={'#f4f5f5'}
             border={'1px solid #f7f7f7'}
-            height={'100%'}
+            height={'3rem'}
             borderRadius={4}
-            width={'100%'}
+            width={'5rem'}
             overflow={'hidden'}
           >
             <Image src={preview} alt={`Thumb ${name}`} />
           </AspectRatio>
+
+          <Box flex={1} paddingInlineEnd={3}>
+            <Text noOfLines={1} fontSize={'sm'} fontWeight={'500'}>
+              {name}
+            </Text>
+            <Text fontSize={'sm'}>{`${fileType[0]} | ${fileSizeRounded} | ${fileType[1]}`}</Text>
+          </Box>
+
           <Text
             position="absolute"
             top="-10px"
@@ -162,7 +187,7 @@ const DropZone = ({
           >
             <FontAwesomeIcon icon={faTimesCircle} size="lg" />
           </Text>
-        </HStack>
+        </Grid>
       )
     }
 
@@ -185,9 +210,10 @@ const DropZone = ({
         w="100%"
         p={4}
         mt={'1rem'}
+        bg={'white'}
         borderWidth={'1px'}
         borderRadius={16}
-        borderColor={'product.grayMedium'}
+        borderColor={isProductInternmatch ? 'gray.500' : 'product.grayMedium'}
         color={'gray.600'}
         role="group"
         onPointerOver={() => setHover(true)}
@@ -206,8 +232,8 @@ const DropZone = ({
                 borderWidth={1}
                 borderStyle={'dashed'}
                 _groupHover={{
-                  borderColor: fieldHoverBorderColor,
-                  bg: fieldHoverBackgroundColor,
+                  borderColor: isProductInternmatch ? 'white' : fieldHoverBorderColor,
+                  bg: isProductInternmatch ? `${productName}.primary` : fieldHoverBackgroundColor,
                 }}
               >
                 <Box
@@ -242,7 +268,9 @@ const DropZone = ({
                     <Text
                       as="span"
                       _groupHover={{
-                        color: fieldHoverTextColor,
+                        color: isProductInternmatch
+                          ? `${productName}.primary400`
+                          : fieldHoverTextColor,
                       }}
                     >
                       {uploaderFileText}
@@ -303,6 +331,7 @@ const DropZone = ({
                     test-id={`${questionCode}-CANCEL`}
                     borderRadius="full"
                     paddingInline={10}
+                    fontWeight="normal"
                   >
                     {`Cancel`}
                   </Button>
@@ -313,6 +342,10 @@ const DropZone = ({
                     test-id={`${questionCode}-SUBMIT`}
                     borderRadius="full"
                     paddingInline={10}
+                    bg={isProductInternmatch && `${productName}.secondary`}
+                    color={isProductInternmatch && 'white'}
+                    fontWeight="normal"
+                    _disabled={{ pointerEvents: 'none', opacity: '.4' }}
                   >
                     {`Submit`}
                   </Button>

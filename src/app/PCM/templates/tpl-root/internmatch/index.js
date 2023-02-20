@@ -36,29 +36,35 @@ const InternmatchRoot = ({
       bg={'internmatch.primary300'}
       transition={'all 0.25s ease'}
     >
-      <Tooltip label={isSidebarCollapsed ? 'Expand Sidebar' : 'Collapse Sidebar'}>
-        <Box
-          as="button"
-          position={'absolute'}
-          left={gridColWidth}
-          top={5}
-          zIndex={'10000'}
-          onClick={() => {
-            setIsSidebarCollapsed(!isSidebarCollapsed)
-          }}
-          marginInlineStart={'-1.25rem'}
-          borderRadius={'full'}
-          paddingBlock={3}
-          paddingInline={3}
-          border={`1px solid`}
-          borderColor={'internmatch.primary300'}
-          bg={'internmatch.primary'}
-          color={'internmatch.light'}
-          transition={'all 0.25s ease'}
-        >
-          <Iconly name={isSidebarCollapsed ? 'ArrowRight' : 'ArrowLeft'} set="light" size="small" />
-        </Box>
-      </Tooltip>
+      {!isMobile && (
+        <Tooltip label={isSidebarCollapsed ? 'Expand Sidebar' : 'Collapse Sidebar'}>
+          <Box
+            as="button"
+            position={'absolute'}
+            left={gridColWidth}
+            top={5}
+            zIndex={'10000'}
+            onClick={() => {
+              setIsSidebarCollapsed(!isSidebarCollapsed)
+            }}
+            marginInlineStart={'-1.25rem'}
+            borderRadius={'full'}
+            paddingBlock={3}
+            paddingInline={3}
+            border={`1px solid`}
+            borderColor={'internmatch.primary300'}
+            bg={'internmatch.primary'}
+            color={'internmatch.light'}
+            transition={'all 0.25s ease'}
+          >
+            <Iconly
+              name={isSidebarCollapsed ? 'ArrowRight' : 'ArrowLeft'}
+              set="light"
+              size="small"
+            />
+          </Box>
+        </Tooltip>
+      )}
 
       {/* HEADER WRAPPER */}
       <Header

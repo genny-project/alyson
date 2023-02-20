@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
-import { ACKMESSAGEKEY, maxNumberOfRetries } from 'utils/constants'
 import {
   Box,
   Button,
@@ -15,29 +14,32 @@ import {
   useTheme,
   useToast,
 } from '@chakra-ui/react'
-import { equals, map, pathOr, compose } from 'ramda'
 import { faAngleDown, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
-import { useEffect, useRef, useState, useMemo } from 'react'
-import { useSelector } from 'react-redux'
-import debounce from 'lodash.debounce'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import InputMask from 'react-input-mask'
+import { compose, equals, map, pathOr } from 'ramda'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { ACKMESSAGEKEY, maxNumberOfRetries } from 'utils/constants'
+import { getCountryInfoFromCountryList, getCountryObjectFromUserInput } from './helpers'
 
-import { ACTIONS } from 'utils/contexts/ErrorReducer'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import useClearFieldMessage from 'app/DTT/helpers/clear-field-message'
+import ErrorDisplay from 'app/DTT/helpers/error-display'
 import AnswerAcknowledge from 'app/layouts/components/form/answer_acknowledge'
 import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
-import countryList from './helpers/country-list'
-import { getIsInvalid } from 'utils/functions'
-import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined'
-import phoneNumberFormatter from 'utils/formatters/phone-number'
+import debounce from 'lodash.debounce'
+import InputMask from 'react-input-mask'
+import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import { useError } from 'utils/contexts/ErrorContext'
-import useGetFieldMessage from 'utils/fieldMessage'
+import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
+import useGetFieldMessage from 'utils/fieldMessage'
+import phoneNumberFormatter from 'utils/formatters/phone-number'
+import { getIsInvalid } from 'utils/functions'
+import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
+import useGetProductName from 'utils/helpers/get-product-name'
+import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined'
 import useProductColors from 'utils/productColors'
-import { getCountryInfoFromCountryList, getCountryObjectFromUserInput } from './helpers'
-import ErrorDisplay from 'app/DTT/helpers/error-display'
-import useClearFieldMessage from 'app/DTT/helpers/clear-field-message'
+import countryList from './helpers/country-list'
 
 const Write = ({
   questionCode,
@@ -88,12 +90,17 @@ const Write = ({
   const ackMessageObject = compose(useSelector, selectCode)(ACKMESSAGEKEY)
   const ackMessageValue = ackMessageObject?.[questionCode] || ''
 
+  const realm = useGetProductName().toLowerCase()
+  const isProductInternMatch = useIsProductInternmatch()
+
   let countryObject = useMemo(() => getCountryObjectFromUserInput(userInput), [userInput])
   let getSpecificCountryInfo = useMemo(() => getCountryInfoFromCountryList(userInput), [userInput])
   let countryObjectFromUserInput = pathOr({}, [0])(countryObject)
   let { code, icon } = countryObjectFromUserInput
   let countryCodeFromUserInput = !!code ? code : ''
   let countryFlagFromUserInput = !!icon ? icon : ''
+
+  const hasValidData = userInput && !isInvalid
 
   const onBlur = e => {
     e.target.value ? setIsFocused(true) : setIsFocused(false)
@@ -178,7 +185,8 @@ const Write = ({
         <MandatorySymbol
           placeholderName={placeholderName}
           mandatory={mandatory}
-          labelTextColor={labelTextColor}
+          labelTextColor={isProductInternMatch ? `${realm}.primary` : labelTextColor}
+          realm={realm}
         />
         <AnswerAcknowledge
           failedValidation={failedValidation}
@@ -187,6 +195,7 @@ const Write = ({
           questionCode={questionCode}
         />
       </HStack>
+
       <HStack spacing={0}>
         {
           <Menu>
@@ -195,11 +204,13 @@ const Write = ({
               bg="transparent"
               position={'absolute'}
               zIndex={10}
+              _hover={{ background: 'transparent', color: `${realm}.primary` }}
               _active={{ background: 'transparent' }}
+              _focusVisible={{ background: 'transparent' }}
             >
               <HStack>
-                <Text>{!!countryFlag ? `${countryFlag}` : 'Code'}</Text>
-                <FontAwesomeIcon color="gray" icon={faAngleDown} size="sm" />
+                <Text fontSize={'md'}>{!!countryFlag ? `${countryFlag}` : 'Code'}</Text>
+                <FontAwesomeIcon color={`${realm}.primary`} icon={faAngleDown} size="sm" />
               </HStack>
             </MenuButton>
             <MenuList zIndex={100} overflow={'auto'} maxH={'20rem'}>
@@ -232,40 +243,55 @@ const Write = ({
           paddingBlock={3}
           paddingInlineStart={20}
           paddingInlineEnd={6}
-          bg={fieldBackgroundColor}
-          borderRadius={borderRadius}
-          borderColor={fieldBorderColor}
+          bg={
+            isProductInternMatch && hasValidData
+              ? `${realm}.primary400`
+              : isProductInternMatch
+              ? `${realm}.secondary400`
+              : fieldBackgroundColor
+          }
+          borderRadius={isProductInternMatch ? 'lg' : borderRadius}
+          borderColor={isProductInternMatch ? `${realm}.primary` : fieldBorderColor}
           fontSize={'sm'}
           fontWeight={'medium'}
-          color={fieldTextColor}
+          color={isProductInternMatch ? `${realm}.primary` : fieldTextColor}
           cursor={'pointer'}
           _hover={{
-            borderColor: fieldHoverBorderColor,
+            bg: isProductInternMatch ? `${realm}.primary400` : fieldBackgroundColor,
+            borderColor: isProductInternMatch ? `${realm}.primary` : fieldHoverBorderColor,
             boxShadow: 'lg',
           }}
           _focusVisible={{
-            borderColor: 'product.secondary',
+            bg: isProductInternMatch ? `${realm}.primary400` : fieldBackgroundColor,
+            borderColor: isProductInternMatch ? `${realm}.primary` : 'product.secondary',
             boxShadow: 'initial',
           }}
+          _valid={{
+            bg: isProductInternMatch ? `${realm}.primary400` : fieldBackgroundColor,
+            borderColor: isProductInternMatch ? `${realm}.primary` : fieldHoverBorderColor,
+          }}
           _invalid={{
-            background: 'error.50',
-            borderColor: 'error.500',
-            color: 'error.500',
+            background: isProductInternMatch ? `${realm}.secondary400Alpha20` : 'error.50',
+            borderColor: isProductInternMatch ? `${realm}.secondary` : 'error.500',
+            color: isProductInternMatch ? `${realm}.secondary` : 'error.500',
           }}
           _disabled={{
-            borderColor: 'gray.300',
-            background: 'gray.100',
+            borderColor: isProductInternMatch ? `${realm}.primary` : 'gray.300',
+            background: isProductInternMatch ? `${realm}.primary` : 'gray.100',
+            color: isProductInternMatch ? `${realm}.primary400` : 'inherit',
           }}
         />
-
-        <ErrorDisplay
-          hasErrorMessage={hasErrorMessage}
-          errorStatus={errorStatus}
-          errorMessage={errorMessage}
-          fieldMessage={fieldMessage}
-          hasFieldMessage={hasFieldMessage}
-        />
       </HStack>
+
+      <ErrorDisplay
+        hasErrorMessage={hasErrorMessage}
+        errorStatus={errorStatus}
+        errorMessage={errorMessage}
+        fieldMessage={fieldMessage}
+        hasFieldMessage={hasFieldMessage}
+        realm={realm}
+        isProductIM={isProductInternMatch}
+      />
     </Box>
   )
 }

@@ -264,7 +264,7 @@ const Ask = ({
           inputmask={inputmask}
         />
       )}
-      {component === 'address' && (
+      {(component === 'address' || component === 'repeatable_address') && (
         <Address.Write
           questionCode={questionCode}
           onSendAnswer={onSendAnswer}
@@ -277,6 +277,7 @@ const Ask = ({
           targetCode={targetCode}
           mandatory={mandatory}
           clientId={clientId}
+          repeatable={component === 'repeatable_address'}
         />
       )}
       {(component === 'dropdown' || component === 'tag') && (

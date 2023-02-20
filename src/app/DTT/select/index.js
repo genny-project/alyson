@@ -2,24 +2,26 @@ import './styles.css'
 
 import { Box, HStack, Text, useTheme } from '@chakra-ui/react'
 import { equals, includes, isEmpty, pathOr } from 'ramda'
-import { selectCode, selectRows } from 'redux/db/selectors'
-import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
+import { selectCode, selectRows } from 'redux/db/selectors'
 
-import { Select as CSelect } from 'chakra-react-select'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import debounce from 'lodash.debounce'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
-import { getValue } from './get-value'
-import { isNotStringifiedEmptyArray } from 'utils/functionals'
-import mapOptions from './map-options'
-import { onSendMessage } from 'vertx'
-import { useError } from 'utils/contexts/ErrorContext'
-import useGetFieldMessage from 'utils/fieldMessage'
-import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
-import useProductColors from 'utils/productColors'
-import ErrorDisplay from 'app/DTT/helpers/error-display'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useClearFieldMessage from 'app/DTT/helpers/clear-field-message'
+import ErrorDisplay from 'app/DTT/helpers/error-display'
+import { Select as CSelect } from 'chakra-react-select'
+import debounce from 'lodash.debounce'
+import { useSelector } from 'react-redux'
+import { useError } from 'utils/contexts/ErrorContext'
+import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
+import useGetFieldMessage from 'utils/fieldMessage'
+import { isNotStringifiedEmptyArray } from 'utils/functionals'
+import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
+import useGetProductName from 'utils/helpers/get-product-name'
+import useProductColors from 'utils/productColors'
+import { onSendMessage } from 'vertx'
+import { getValue } from './get-value'
+import mapOptions from './map-options'
 
 const Write = ({
   questionCode,
@@ -35,6 +37,9 @@ const Write = ({
   clientId,
   config,
 }) => {
+  const realm = useGetProductName().toLowerCase()
+  const isProductInternMatch = useIsProductInternmatch()
+
   const dropdownData =
     useSelector(
       selectCode(`${parentCode}-${questionCode}-options`),
@@ -153,10 +158,19 @@ const Write = ({
         transition="all 0.25s ease"
       >
         {placeholderName && (
-          <Text as="label" fontSize={'sm'} fontWeight={'medium'} color={labelTextColor}>
+          <Text
+            as="label"
+            fontSize={'sm'}
+            fontWeight={'medium'}
+            color={isProductInternMatch ? `${realm}.primary` : labelTextColor}
+          >
             {placeholderName}
             {mandatory ? (
-              <Text as="span" color={'red.500'} ml={1}>
+              <Text
+                as="span"
+                color={isProductInternMatch ? `${realm}.secondary` : 'red.500'}
+                ml={1}
+              >
                 *
               </Text>
             ) : (
@@ -175,6 +189,7 @@ const Write = ({
       </HStack>
 
       <CSelect
+        // menuIsOpen={false}
         useBasicStyles
         isMulti={isMulti}
         options={options}
@@ -187,7 +202,7 @@ const Write = ({
         test-id={questionCode}
         id={questionCode}
         value={value}
-        classNamePrefix={clientId + '_dd'}
+        classNamePrefix={realm + '_dd'}
         selectedOptionStyle="check"
         placeholder=""
         chakraStyles={{
@@ -204,30 +219,47 @@ const Write = ({
             ...provided,
             paddingInline: '0.5rem',
             paddingBlock: '0.5rem',
-            bg: fieldBackgroundColor,
-            borderRadius: borderRadius,
-            borderColor: fieldBorderColor,
+            bg:
+              isProductInternMatch && value
+                ? `${realm}.primary400`
+                : isProductInternMatch
+                ? `${realm}.secondary400`
+                : fieldBackgroundColor,
+            borderRadius: isProductInternMatch ? 'lg' : borderRadius,
+            borderColor: isProductInternMatch ? `${realm}.primary` : fieldBorderColor,
             fontSize: '0.875rem',
             fontWeight: '500',
-            color: fieldTextColor,
+            color: isProductInternMatch ? `${realm}.primary` : fieldTextColor,
             cursor: 'pointer',
             _hover: {
-              borderColor: fieldHoverBorderColor,
+              bg: isProductInternMatch ? `${realm}.primary400` : fieldBackgroundColor,
+              borderColor: isProductInternMatch ? `${realm}.primary` : fieldHoverBorderColor,
               boxShadow: 'lg',
             },
             _focus: {
-              borderColor: 'product.secondary',
+              bg: isProductInternMatch ? `${realm}.primary400` : fieldBackgroundColor,
+              borderColor: isProductInternMatch ? `${realm}.primary` : 'product.secondary',
               boxShadow: 'inherit',
+            },
+            _valid: {
+              bg: isProductInternMatch ? `${realm}.primary400` : fieldBackgroundColor,
+              borderColor: isProductInternMatch ? `${realm}.primary` : fieldHoverBorderColor,
+            },
+            _invalid: {
+              background: isProductInternMatch ? `${realm}.secondary400Alpha20` : 'error.50',
+              borderColor: isProductInternMatch ? `${realm}.secondary` : 'error.500',
+              color: isProductInternMatch ? `${realm}.secondary` : 'error.500',
             },
           }),
           menu: provided => ({
             ...provided,
             marginBlock: 0,
-            paddingBlock: 3,
+            paddingBlock: isProductInternMatch ? 0 : 3,
             border: 0,
             borderRadius: '0.25rem 0.25rem 1.25rem 1.25rem',
             boxShadow: '0px 4px 15px -2px rgba(0, 0, 0, 0.25)',
             zIndex: 100,
+            bg: isProductInternMatch ? `${realm}.primary` : 'initial',
           }),
           menuList: provided => ({
             ...provided,
@@ -240,24 +272,35 @@ const Write = ({
             paddingInlineStart: 10,
             paddingInlineEnd: 3,
             paddingBlock: 2,
-            borderRadius: '1.25rem',
-            bg: '#fff',
+            borderRadius: isProductInternMatch ? 0 : '1.25rem',
+            bg: isProductInternMatch ? `${realm}.primary` : '#fff',
             fontSize: '0.875rem',
             fontWeight: '500',
-            color: fieldTextColor,
+            color: isProductInternMatch ? `${realm}.light` : fieldTextColor,
             _hover: {
-              bg: 'product.secondary',
-              color: '#fff',
+              bg: isProductInternMatch ? `${realm}.secondary` : 'product.secondary',
+              color: isProductInternMatch ? `${realm}.dark` : '#fff',
+            },
+            _disabled: {
+              color: isProductInternMatch ? `${realm}.primary400` : '#fff',
+              opacity: '.55',
             },
           }),
           noOptionsMessage: provided => ({
             ...provided,
             fontSize: '0.875rem',
             fontWeight: '500',
+            bg: isProductInternMatch ? `${realm}.primary` : '#fff',
+            color: isProductInternMatch ? `${realm}.light` : fieldTextColor,
           }),
         }}
       />
-      <ErrorDisplay fieldMessage={fieldMessage} hasFieldMessage={hasFieldMessage} />
+      <ErrorDisplay
+        fieldMessage={fieldMessage}
+        hasFieldMessage={hasFieldMessage}
+        realm={realm}
+        isProductIM={isProductInternMatch}
+      />
     </Box>
   )
 }
