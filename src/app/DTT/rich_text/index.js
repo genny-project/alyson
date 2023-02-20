@@ -176,7 +176,7 @@ const Write = ({
 
       <Box
         test-id={questionCode}
-        w="full"
+        w="24rem"
         border="1px"
         borderColor={fieldBorderColor}
         borderRadius={borderRadius}
