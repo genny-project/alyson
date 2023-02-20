@@ -39,7 +39,14 @@ const Sidebar = ({
       </DrawerContent>
     </Drawer>
   ) : (
-    <Box id="sideNav" gridArea={'nav'} w={sidebarWidth} bg="sidebar.background">
+    <Box
+      id="sideNav"
+      gridArea={'nav'}
+      w={sidebarWidth}
+      bg="sidebar.background"
+      zIndex={theme.zIndices.popover}
+      transition={'all 0.25s ease'}
+    >
       {/* Sidebar Pcm */}
       <PcmField
         code={PRI_LOC2}
