@@ -9,10 +9,7 @@ import {
 import { compose, equals, lensProp, pathOr, set } from 'ramda'
 import { useDispatch, useSelector } from 'react-redux'
 
-import createSendAnswer from 'app/ASKS/utils/create-send-answer'
-import getGroupCode from 'app/ASKS/utils/get-group-code'
 import Attribute from 'app/BE/attribute'
-import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import ABN from 'app/DTT/abn'
 import Address from 'app/DTT/address'
 import CheckBox from 'app/DTT/check_box'
@@ -35,7 +32,10 @@ import SearchableText from 'app/DTT/searchable_text'
 import Select from 'app/DTT/select'
 import Signature from 'app/DTT/signature'
 import Social from 'app/DTT/social'
-import Text from 'app/DTT/text'
+// import Text from 'app/DTT/text'
+import createSendAnswer from 'app/ASKS/utils/create-send-answer'
+import getGroupCode from 'app/ASKS/utils/get-group-code'
+import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import TextArea from 'app/DTT/text_area'
 import ThirdPartyVideo from 'app/DTT/third_party_video'
 import TimeRange from 'app/DTT/time_range'
@@ -341,19 +341,40 @@ const Ask = ({
         />
       )}
       {component === 'text' && (
-        <Text.Write
+        // <Text.Write
+        //   questionCode={questionCode}
+        //   mandatory={mandatory}
+        //   data={data}
+        //   onSendAnswer={onSendAnswer}
+        //   regexPattern={regexPattern}
+        //   errorMessage={errorMessage}
+        //   attributeCode={attributeCode}
+        //   targetCode={targetCode}
+        //   parentCode={parentCode}
+        //   placeholderName={placeholderName}
+        //   clientId={clientId}
+        //   inputmask={inputmask}
+        // />
+
+        <Select.Write
+          config={config}
+          targetCode={targetCode}
           questionCode={questionCode}
-          mandatory={mandatory}
-          data={data}
+          groupCode={groupCode}
+          attributeCode={attributeCode}
           onSendAnswer={onSendAnswer}
+          placeholder={description}
+          mandatory={mandatory}
+          component={component}
+          dataType={dataType}
+          data={data}
+          label={name}
+          parentCode={parentCode}
           regexPattern={regexPattern}
           errorMessage={errorMessage}
-          attributeCode={attributeCode}
-          targetCode={targetCode}
-          parentCode={parentCode}
+          processId={processId}
           placeholderName={placeholderName}
           clientId={clientId}
-          inputmask={inputmask}
         />
       )}
       {component === 'favourites' && (
