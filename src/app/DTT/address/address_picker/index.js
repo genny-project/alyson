@@ -72,8 +72,8 @@ const AddressPicker = ({
     } else {
       setIsInputValidated(true)
       setHasError(false)
-      setuserInput(autoCompleteRef.current.value)
-      onSendAnswer(autoCompleteRef.current.value)
+      setuserInput(place?.formatted_address)
+      onSendAnswer(place?.formatted_address)
       dispatchFieldMessage({ payload: questionCode })
     }
   }
