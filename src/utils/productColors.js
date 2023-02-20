@@ -49,6 +49,39 @@ const appWrapperInlinePaddings = {
 }
 const tableStyles = {
   lojing: 'striped',
+  alyson: 'striped',
+}
+const tableDropShadows = {
+  lojing: '0',
+  alyson: '5px 8px 0.75rem #aaa',
+}
+const tableBorderRadii = {
+  lojing: 'none',
+  alyson: '2.5rem',
+}
+const tableHeaderTextStyles = {
+  lojing: 'tail.1',
+  alyson: 'internmatch.strongText',
+}
+
+const tableMarginXValues = {
+  lojing: '5',
+  alyson: '0',
+}
+
+const tableBackgroundLightColors = {
+  lojing: 'white',
+  alyson: '#EDF8F8',
+}
+
+const tableBackgroundDarkColors = {
+  lojing: 'gray.700',
+  alyson: '#E0F2F2',
+}
+
+const tableDividerColors = {
+  lojing: 'white',
+  alyson: '#DAE9E9',
 }
 
 const useProductColors = () => {
@@ -74,6 +107,13 @@ const useProductColors = () => {
   const switchColor = switchColors[clientId] || 'primary'
 
   const tableStyle = tableStyles[clientId] || 'simple'
+  const tableDropShadow = tableDropShadows[clientId] || '0 0 0 white'
+  const tableBorderRadius = tableBorderRadii[clientId] || 'none'
+  const tableHeaderTextStyle = tableHeaderTextStyles[clientId] || 'tail.1'
+  const tableMarginX = tableMarginXValues[clientId] || '5'
+  const tableBackgroundLightColor = tableBackgroundLightColors[clientId] || 'white'
+  const tableBackgroundDarkColor = tableBackgroundDarkColors[clientId] || 'gray.700'
+  const tableDividerColor = tableDividerColors[clientId] || 'white'
 
   return {
     fieldBackgroundColor,
@@ -90,6 +130,13 @@ const useProductColors = () => {
     appWrapperInlinePadding,
     switchColor,
     tableStyle,
+    tableDropShadow,
+    tableBorderRadius,
+    tableHeaderTextStyle,
+    tableMarginX,
+    tableBackgroundDarkColor,
+    tableBackgroundLightColor,
+    tableDividerColor,
   }
 }
 

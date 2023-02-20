@@ -5,11 +5,13 @@ import { selectCode } from 'redux/db/selectors'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons'
 import sendEvtClick from 'app/ASKS/utils/send-evt-click'
+import useProductColors from 'utils/productColors'
 
 const Cell = ({ attribute, parentCode }) => {
   const userCode = useSelector(selectCode('USER'))
   const data = useSelector(selectCode(parentCode, attribute))
   const sort = useSelector(selectCode(parentCode, replace('COL_', 'SRT_', attribute))) || {}
+  const { tableHeaderTextStyle, tableDividerColor } = useProductColors()
 
   const onClick = () => {
     sendEvtClick({
@@ -23,9 +25,9 @@ const Cell = ({ attribute, parentCode }) => {
   }
 
   return (
-    <Th>
+    <Th borderColor={tableDividerColor}>
       <HStack>
-        <Text textStyle="tail.1">{data?.attributeName}</Text>
+        <Text textStyle={tableHeaderTextStyle}>{data?.attributeName}</Text>
         <IconButton
           hidden={isEmpty(sort)}
           variant="ghost"

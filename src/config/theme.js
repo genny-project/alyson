@@ -302,6 +302,7 @@ export const defaultProjectTheme = {
         fontWeight: 700,
         // fontFamily: 'Neue Montreal',
         lineHeight: '1.19',
+        color: '#406462',
       },
       buttonText: {
         fontSize: '1rem',

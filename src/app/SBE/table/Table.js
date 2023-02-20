@@ -8,16 +8,21 @@ import Header from 'app/SBE/table/Header'
 import MapSearch from 'app/SBE/display_modes/map_view'
 import Pagination from 'app/SBE/table/Pagination'
 import Title from 'app/SBE/table/Title'
-import { apiConfig } from 'config/get-api-config'
-import { equals } from 'ramda'
 import getColumns from 'app/SBE/utils/get-columns'
 import { selectCode } from 'redux/db/selectors'
 import { useIsMobile } from 'utils/hooks'
 import { useSelector } from 'react-redux'
+import useProductColors from 'utils/productColors'
 
 const DataTable = ({ parentCode, mapSearch, passedComponents = [], userCode }) => {
+  const {
+    tableMarginX,
+    tableBackgroundDarkColor,
+    tableBackgroundLightColor,
+    tableDividerColor,
+  } = useProductColors()
   const tableData = useSelector(selectCode(parentCode))
-  const bgColor = useColorModeValue('white', 'gray.700')
+  const bgColor = useColorModeValue(tableBackgroundLightColor, tableBackgroundDarkColor)
   const isMobile = useIsMobile()
 
   if (!tableData) return null
@@ -26,12 +31,11 @@ const DataTable = ({ parentCode, mapSearch, passedComponents = [], userCode }) =
   const actions = getActions(tableData)
   const tableActions = getTableActions(tableData)
 
-  const clientId = apiConfig?.clientId || 'alyson'
-
   return (
-    <Box mx={'5'}>
+    <Box mx={tableMarginX}>
       <HStack
         spacing={5}
+        mx={5}
         mb={3}
         pb={5}
         align="center"
@@ -73,19 +77,28 @@ const DataTable = ({ parentCode, mapSearch, passedComponents = [], userCode }) =
       ) : (
         <Box maxW={'full'} overflow={'auto'}>
           <Table
-            variant={equals(clientId)('lojing') ? 'striped' : 'simple'}
-            bg={bgColor}
+            variant={'simple'}
+            bgColor={bgColor}
             color="product.darkAlpha50"
             borderRadius="md"
             shadow="xs"
             size="sm"
           >
-            <Header columns={columns} parentCode={parentCode} actions={actions} />
+            <Header
+              columns={columns}
+              parentCode={parentCode}
+              actions={actions}
+              dividerColor={tableDividerColor}
+              bgColor={tableBackgroundDarkColor}
+            />
             <Body
               columns={columns}
               parentCode={parentCode}
               actions={actions}
               colSpan={columns.length}
+              dividerColor={tableDividerColor}
+              bgColorLight={tableBackgroundLightColor}
+              bgColorDark={tableBackgroundDarkColor}
             />
           </Table>
         </Box>
