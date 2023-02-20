@@ -51,6 +51,11 @@ const tableStyles = {
   lojing: 'striped',
 }
 
+const askWidths = {
+  lojing: 'max(24rem, 30vw)',
+  alyson: '24rem',
+}
+
 const tplVertJustifies = {
   lojing: 'center',
 }
@@ -86,6 +91,8 @@ const useProductColors = () => {
   const tplVertJustify = tplVertJustifies[clientId] || 'flex-start'
   const tplHoriJustify = tplHoriJustifies[clientId] || 'flex-start'
 
+  const askWidth = askWidths[clientId] || '100%'
+
   return {
     fieldBackgroundColor,
     fieldBorderColor,
@@ -103,6 +110,7 @@ const useProductColors = () => {
     tableStyle,
     tplVertJustify,
     tplHoriJustify,
+    askWidth,
   }
 }
 
