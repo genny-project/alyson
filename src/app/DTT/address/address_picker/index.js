@@ -19,6 +19,7 @@ const AddressPicker = ({
   placeholder,
   mandatory,
   errorMessage: errormsg,
+  repeated = '',
 }) => {
   const productName = useGetProductName()
   const realm = productName.toLowerCase()
@@ -63,27 +64,31 @@ const AddressPicker = ({
 
   const onPlaceChange = () => {
     const place = autocomplete.current.getPlace()
-    const placeGeometry = place?.geometry
     if (!place?.geometry) {
       console.error(
         'Invalid address selected, please choose one of the options from the suggestion!',
       )
       setIsInputValidated(false)
+    } else {
+      setIsInputValidated(true)
+      setHasError(false)
+      setuserInput(autoCompleteRef.current.value)
+      onSendAnswer(autoCompleteRef.current.value)
+      dispatchFieldMessage({ payload: questionCode })
     }
-
-    placeGeometry && setIsInputValidated(true)
   }
 
-  const onChange = () => {
+  const onChange = e => {
     setIsInputValidated(false)
     setHasError(true)
+    setuserInput(e.target.value)
   }
 
   const onBlur = e => {
     e.target.value ? setIsFocused(true) : setIsFocused(false)
-    setuserInput(e.target.value)
-    onSendAnswer(e.target.value)
-    dispatchFieldMessage({ payload: questionCode })
+    // setuserInput(e.target.value)
+    // onSendAnswer(e.target.value)
+    // dispatchFieldMessage({ payload: questionCode })
   }
 
   const hasValidData = userInput
@@ -171,9 +176,9 @@ const AddressPicker = ({
       </HStack>
 
       <Input
-        id={questionCode}
-        test-id={questionCode}
-        defaultValue={userInput}
+        id={`${questionCode}${repeated}`}
+        test-id={`${questionCode}${repeated}`}
+        value={userInput || ''}
         ref={autoCompleteRef}
         onBlur={onBlur}
         onChange={onChange}

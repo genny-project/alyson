@@ -34,7 +34,8 @@ const productBasedDefaultColors = {
     primary: '#224371',
     primary100: '#AAE3E2',
 
-    secondary: '#00AFAB',
+    secondary: '#EA5024',
+    secondaryLight: '#fdede9',
 
     gray: '#808080',
     gray50: '#F6F6F6',
