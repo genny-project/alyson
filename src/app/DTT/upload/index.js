@@ -13,21 +13,23 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import DocViewer, { DocViewerRenderers } from '@cyntler/react-doc-viewer'
-import { equals, map, reduce } from 'ramda'
 import { faArrowDown, faCheck, faFileDownload } from '@fortawesome/free-solid-svg-icons'
+import { equals, map, reduce } from 'ramda'
 import { useEffect, useState } from 'react'
 
-import DropZone from 'app/DTT/upload/Dropzone'
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import useApi from 'api'
+import DropZone from 'app/DTT/upload/Dropzone'
 import ImageType from 'app/DTT/upload/Image'
 import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
-import useApi from 'api'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
-import useProductColors from 'utils/productColors'
+import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
+import useGetProductName from 'utils/helpers/get-product-name'
 import isArray from 'utils/helpers/is-array'
-import isString from 'utils/helpers/is-string'
 import isJson from 'utils/helpers/is-json'
+import isString from 'utils/helpers/is-string'
+import useProductColors from 'utils/productColors'
 
 const Read = ({ code, data, dttData, parentCode, variant, config = {} }) => {
   const typeName = dttData?.typeName
@@ -124,6 +126,9 @@ const Write = ({
   let maxFiles = equals(component, 'multi_upload') ? 10 : 1
   let multiUpload = equals(component, 'multi_upload') ? true : false
 
+  const realm = useGetProductName().toLowerCase()
+  const isProductInternmatch = useIsProductInternmatch()
+
   const docs = [
     {
       uri: src,
@@ -188,6 +193,8 @@ const Write = ({
             questionCode={questionCode}
             name={name}
             multiUpload={multiUpload}
+            realm={realm}
+            isProductInternmatch={isProductInternmatch}
           />
         ) : data?.value ? (
           <VStack>
