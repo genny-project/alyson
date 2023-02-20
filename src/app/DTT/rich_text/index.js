@@ -316,7 +316,13 @@ const Read = ({ data, mini, config = {} }) => {
       </PopoverContent>
     </Popover>
   ) : noOfLines ? (
-    <VStack onClick={onOpen}>
+    <VStack
+      onClick={e => {
+        //Prevents onClick from being caught by the onClick of a parent
+        e.stopPropagation()
+        onOpen()
+      }}
+    >
       <Box p="0px" dangerouslySetInnerHTML={{ __html: cleanHtml }} {...config} />
       <Modal isOpen={isOpen} onClose={onClose} isCentered size="xl">
         <ModalOverlay />
