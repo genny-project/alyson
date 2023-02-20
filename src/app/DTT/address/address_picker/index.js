@@ -78,9 +78,10 @@ const AddressPicker = ({
     }
   }
 
-  const onChange = () => {
+  const onChange = e => {
     setIsInputValidated(false)
     setHasError(true)
+    setuserInput(e.target.value)
   }
 
   const onBlur = e => {
@@ -177,7 +178,7 @@ const AddressPicker = ({
       <Input
         id={`${questionCode}${repeated}`}
         test-id={`${questionCode}${repeated}`}
-        defaultValue={userInput}
+        value={userInput || ''}
         ref={autoCompleteRef}
         onBlur={onBlur}
         onChange={onChange}

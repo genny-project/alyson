@@ -22,6 +22,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import HeroIconButton from 'app/layouts/components/hero_icon_button'
 import StreetView from './street_view'
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
+import { not } from 'ramda'
+import RepeatableAddressPicker from './address_picker/repeatable-picker'
 
 const Write = ({
   questionCode,
@@ -31,21 +33,35 @@ const Write = ({
   mandatory,
   clientId,
   errorMessage,
-  repeated = '',
+  repeatable = false,
 }) => {
-  return (
-    <AddressPicker
-      id={questionCode}
-      questionCode={questionCode}
-      onSendAnswer={onSendAnswer}
-      data={data}
-      placeholder={placeholderName}
-      mandatory={mandatory}
-      clientId={clientId}
-      errorMessage={errorMessage}
-      repeated={repeated}
-    />
-  )
+  if (not(repeatable)) {
+    return (
+      <AddressPicker
+        id={questionCode}
+        questionCode={questionCode}
+        onSendAnswer={onSendAnswer}
+        data={data}
+        placeholder={placeholderName}
+        mandatory={mandatory}
+        clientId={clientId}
+        errorMessage={errorMessage}
+      />
+    )
+  } else {
+    return (
+      <RepeatableAddressPicker
+        id={questionCode}
+        questionCode={questionCode}
+        onSendAnswer={onSendAnswer}
+        data={data}
+        placeholder={placeholderName}
+        mandatory={mandatory}
+        clientId={clientId}
+        errorMessage={errorMessage}
+      />
+    )
+  }
 }
 
 const Read = ({ data, config = {} }) => {
