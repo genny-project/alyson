@@ -1,14 +1,19 @@
-import { Box, Text, Checkbox, VStack, Divider, Button, HStack } from '@chakra-ui/react'
+import { Box, Text, Checkbox, VStack, Divider, Button, HStack, Input } from '@chakra-ui/react'
 import { useState } from 'react'
 
 const TodoList = () => {
-  const checklistItems = [
-    'Complete internmatch profile',
-    'Search for internships',
-    'See contact list',
-    'Save internship to favourites',
-    'Check notifications',
-  ]
+  const [userInput, setUserInput] = useState()
+  const [todoList, setTodoList] = useState([])
+  const [checked, setChecked] = useState()
+
+  const handleAddTask = () => {
+    setTodoList([...todoList, userInput])
+    setUserInput('')
+  }
+
+  const handleCheck = individualTask => {
+    setChecked()
+  }
 
   return (
     <>
@@ -24,8 +29,9 @@ const TodoList = () => {
           {' '}
           TO DO LIST
         </Text>
+
         <VStack paddingBlock={'20px'}>
-          {checklistItems.map((item, index) => (
+          {todoList.map((individualTask, index) => (
             <VStack alignItems={'flex-start'}>
               <HStack>
                 <Checkbox
@@ -33,19 +39,20 @@ const TodoList = () => {
                   key={index}
                   size="md"
                   spacing={'25px'}
+                  onChange={() => handleCheck(individualTask)}
+                  isChecked={checked}
                   colorScheme={'green'}
                   borderColor={'#829998'}
+                  opacity={checked ? '50%' : '100%'}
                 >
-                  {item}
+                  {individualTask}
                 </Checkbox>
-                <Button fontSize={'12px'} variant={'ghost'} size={'sm'}>
-                  x
-                </Button>
               </HStack>
               <Divider width={'351px'} bg="#D3E3E2" />
             </VStack>
           ))}
         </VStack>
+
         <Button
           _hover={'#EA5024'}
           float={'right'}
@@ -57,9 +64,21 @@ const TodoList = () => {
           fontSize={'16px'}
           bg="#EA5024"
           color="#FFFFFF"
+          onClick={handleAddTask}
         >
           Add task
         </Button>
+
+        <Input
+          value={userInput}
+          onChange={e => setUserInput(e.target.value)}
+          placeholder={'Enter task here'}
+          position={'absolute'}
+          size={'sm'}
+          w={'351px'}
+          borderColor={'black'}
+          variant={'flushed'}
+        />
       </Box>
     </>
   )
