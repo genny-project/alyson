@@ -1,7 +1,9 @@
 import { append, forEach, keys, length } from 'ramda'
+
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import EvtButton from '../components/evt-button'
+
 /**
  * Returns a list of JSX.Elements, mapped entirely from a question group.
  * The Element return is based on fn, but if nothing is provided, will return an EvtButton
@@ -31,6 +33,7 @@ const mapQuestionGroup = (
           value={undefined}
           isNotChildAsk={false}
           sidebarItem={false}
+          isSidebarCollapsed={false}
         />,
         out,
       )

@@ -1,4 +1,4 @@
-import { Box, HStack, Text, useTheme } from '@chakra-ui/react'
+import { Box, HStack, Text, Tooltip, useTheme } from '@chakra-ui/react'
 import { iconColor, iconColorOnHighlight, selectedSidebarBoxColor } from 'utils/constants'
 
 import { equals } from 'ramda'
@@ -13,6 +13,7 @@ const InternmatchSideBarItem = ({
   hasChildIcons,
   currentSidebarItem,
   dispatchSetCurrentSidebarItem,
+  isSidebarCollapsed,
 }) => {
   const [isHovered, setIsHovered] = useState(false)
 
@@ -28,27 +29,28 @@ const InternmatchSideBarItem = ({
   }
 
   return (
-    <Box
-      role="group"
-      test-id={imQuestionCode}
-      onClick={() => onClick(trueQuestionCode)}
-      onMouseOver={() => {
-        setIsHovered(true)
-      }}
-      onMouseLeave={() => {
-        setIsHovered(false)
-      }}
-      as={hasChildIcons ? 'div' : 'button'}
-      w="full"
-      paddingBlock={'1.13rem'}
-      paddingInline={'1.75rem'}
-      bg={isSelected && selectedSidebarBoxColor}
-      borderRadius="20px"
-    >
-      <HStack spacing={5}>
-        <Box display="flex" cursor={'pointer'} width={'1.38rem'} height={'1.38rem'}>
-          {icons[imQuestionCode] ? (
-            <>
+    <Tooltip label={isSidebarCollapsed ? name : ''}>
+      <Box
+        role="group"
+        test-id={imQuestionCode}
+        onClick={() => onClick(trueQuestionCode)}
+        onMouseOver={() => {
+          setIsHovered(true)
+        }}
+        onMouseLeave={() => {
+          setIsHovered(false)
+        }}
+        as={hasChildIcons ? 'div' : 'button'}
+        w="full"
+        paddingBlock={'1.13rem'}
+        paddingInlineStart={'1.75rem'}
+        paddingInlineEnd={isSidebarCollapsed ? '.5rem' : '1.75rem'}
+        bg={isSelected && selectedSidebarBoxColor}
+        borderRadius="20px"
+      >
+        <HStack spacing={isSidebarCollapsed ? 0 : 5}>
+          <Box display="flex" cursor={'pointer'} width={'1.38rem'} height={'1.38rem'}>
+            {icons[imQuestionCode] ? (
               <Iconly
                 name={icons[imQuestionCode]}
                 set="two-tone"
@@ -69,47 +71,52 @@ const InternmatchSideBarItem = ({
                 stroke="bold"
                 size="medium"
               />
-            </>
+            ) : (
+              <Box />
+            )}
+          </Box>
+          {hasChildIcons ? (
+            <HStack w={'full'}>
+              <Text
+                id={name}
+                color={
+                  isSelected
+                    ? theme.colors.internmatch.secondary
+                    : isHovered
+                    ? theme.colors.internmatch.primary400
+                    : theme.colors.internmatch.light
+                }
+                display={isSidebarCollapsed ? 'none' : 'inline-flex'}
+              >
+                {name}
+              </Text>
+
+              <Iconly
+                set="two-tone"
+                name="ChevronDown"
+                primaryColor={isSelected ? iconColorOnHighlight : iconColor}
+                stroke="bold"
+                size="small"
+              />
+            </HStack>
           ) : (
-            <Box />
-          )}
-        </Box>
-        {hasChildIcons ? (
-          <HStack w={'full'}>
             <Text
+              display={isSidebarCollapsed ? 'none' : 'inline-flex'}
+              textStyle={isSelected ? 'internmatch.iconTextOnHighlight' : 'internmatch.iconText'}
+              textAlign={'left'}
               color={
-                isSelected
-                  ? theme.colors.internmatch.secondary
-                  : isHovered
-                  ? theme.colors.internmatch.primary400
-                  : theme.colors.internmatch.light
+                isSelected ? theme.colors.internmatch.secondary : theme.colors.internmatch.light
               }
+              _groupHover={{
+                color: !isSelected && theme.colors.internmatch.primary400,
+              }}
             >
               {name}
             </Text>
-
-            <Iconly
-              set="two-tone"
-              name="ChevronDown"
-              primaryColor={isSelected ? iconColorOnHighlight : iconColor}
-              stroke="bold"
-              size="small"
-            />
-          </HStack>
-        ) : (
-          <Text
-            textStyle={isSelected ? 'internmatch.iconTextOnHighlight' : 'internmatch.iconText'}
-            textAlign={'left'}
-            color={isSelected ? theme.colors.internmatch.secondary : theme.colors.internmatch.light}
-            _groupHover={{
-              color: !isSelected && theme.colors.internmatch.primary400,
-            }}
-          >
-            {name}
-          </Text>
-        )}
-      </HStack>
-    </Box>
+          )}
+        </HStack>
+      </Box>
+    </Tooltip>
   )
 }
 
