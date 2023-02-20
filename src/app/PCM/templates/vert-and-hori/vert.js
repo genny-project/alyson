@@ -4,7 +4,7 @@ import useProductColors from 'utils/productColors'
 const vert = mappingFunction => (mappedPcm, depth, config) => {
   const { tplVertJustify } = useProductColors()
   return (
-    <Grid alignItems="start" justifyContent={tplVertJustify} gap={3}>
+    <Grid alignItems="start" justifyItems={tplVertJustify} gap={3}>
       {mappingFunction(mappedPcm, depth, config)}
     </Grid>
   )

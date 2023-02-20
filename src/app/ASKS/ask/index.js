@@ -213,7 +213,7 @@ const Ask = ({
       p={highlightedQuestion === attributeCode ? '3' : '0'}
       transition="all 0.5s ease"
       mt={config?.mt ?? 5}
-      w={'min(100%, 24rem)'}
+      w={'24rem'}
     >
       {
         <HStack
