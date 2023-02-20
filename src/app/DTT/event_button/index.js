@@ -59,8 +59,8 @@ const EventButton = ({ askData, onFinish, parentCode, sourceCode, clientId, conf
       marginBlock="5"
       _hover={{
         variant: 'solid',
-        background: isProductIM ? `${realm}.primaryLight` : buttonBackgroundColor,
-        borderColor: isProductIM ? `${realm}.primaryLight` : buttonBackgroundColor,
+        background: isProductIM ? `${realm}.primary400` : buttonBackgroundColor,
+        borderColor: isProductIM ? `${realm}.primary` : buttonBackgroundColor,
         color: isProductIM ? `${realm}.primary` : theme.colors.text.dark,
       }}
       {...config}

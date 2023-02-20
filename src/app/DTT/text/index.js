@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react'
 import { faCalendar, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useRef, useState } from 'react'
-import { ACKMESSAGEKEY, internmatch, maxNumberOfRetries } from 'utils/constants'
+import { ACKMESSAGEKEY, maxNumberOfRetries } from 'utils/constants'
 
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -20,7 +20,6 @@ import DetailViewTags from 'app/DTT/text/detailview_tags'
 import AnswerAcknowledge from 'app/layouts/components/form/answer_acknowledge'
 import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
 import debounce from 'lodash.debounce'
-import { equals } from 'ramda'
 import InputMask from 'react-input-mask'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
@@ -29,6 +28,7 @@ import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useGetFieldMessage from 'utils/fieldMessage'
 import { getIsInvalid } from 'utils/functions'
+import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
 import useGetProductName from 'utils/helpers/get-product-name'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined'
 import useProductColors from 'utils/productColors'
@@ -49,7 +49,7 @@ export const Write = ({
   let regex
   const productName = useGetProductName()
   const realm = productName.toLowerCase()
-  const isProductIM = equals(productName, internmatch)
+  const isProductInternMatch = useIsProductInternmatch()
 
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value || '')
@@ -144,7 +144,7 @@ export const Write = ({
         <MandatorySymbol
           placeholderName={placeholderName}
           mandatory={mandatory}
-          labelTextColor={isProductIM ? `${realm}.primary` : labelTextColor}
+          labelTextColor={isProductInternMatch ? `${realm}.primary` : labelTextColor}
           realm={realm}
         />
         <AnswerAcknowledge
@@ -157,41 +157,41 @@ export const Write = ({
       <InputGroup
         onClick={() => setIsFocused(true)}
         bg={
-          isProductIM && hasValidData
+          isProductInternMatch && hasValidData
             ? `${realm}.primary400`
-            : isProductIM
+            : isProductInternMatch
             ? `${realm}.secondary400`
             : fieldBackgroundColor
         }
-        borderRadius={isProductIM ? 'lg' : borderRadius}
-        borderColor={isProductIM ? `${realm}.primary` : fieldBorderColor}
+        borderRadius={isProductInternMatch ? 'lg' : borderRadius}
+        borderColor={isProductInternMatch ? `${realm}.primary` : fieldBorderColor}
         borderWidth="1px"
         borderStyle="solid"
         overflow={'hidden'}
         role="group"
         _hover={{
-          bg: isProductIM ? `${realm}.primary400` : fieldBackgroundColor,
-          borderColor: isProductIM ? `${realm}.primary` : fieldHoverBorderColor,
+          bg: isProductInternMatch ? `${realm}.primary400` : fieldBackgroundColor,
+          borderColor: isProductInternMatch ? `${realm}.primary` : fieldHoverBorderColor,
           boxShadow: 'lg',
         }}
         _focusVisible={{
-          bg: isProductIM ? `${realm}.primary400` : fieldBackgroundColor,
-          borderColor: isProductIM ? `${realm}.primary` : 'product.secondary',
+          bg: isProductInternMatch ? `${realm}.primary400` : fieldBackgroundColor,
+          borderColor: isProductInternMatch ? `${realm}.primary` : 'product.secondary',
           boxShadow: 'initial',
         }}
         _valid={{
-          bg: isProductIM ? `${realm}.primary400` : fieldBackgroundColor,
-          borderColor: isProductIM ? `${realm}.primary` : fieldHoverBorderColor,
+          bg: isProductInternMatch ? `${realm}.primary400` : fieldBackgroundColor,
+          borderColor: isProductInternMatch ? `${realm}.primary` : fieldHoverBorderColor,
         }}
         _invalid={{
-          background: isProductIM ? `${realm}.secondary400Alpha20` : 'error.50',
-          borderColor: isProductIM ? `${realm}.secondary` : 'error.500',
-          color: isProductIM ? `${realm}.secondary` : 'error.500',
+          background: isProductInternMatch ? `${realm}.secondary400Alpha20` : 'error.50',
+          borderColor: isProductInternMatch ? `${realm}.secondary` : 'error.500',
+          color: isProductInternMatch ? `${realm}.secondary` : 'error.500',
         }}
         _disabled={{
-          borderColor: isProductIM ? `${realm}.primary` : 'gray.300',
-          background: isProductIM ? `${realm}.primary` : 'gray.100',
-          color: isProductIM ? `${realm}.primary400` : 'inherit',
+          borderColor: isProductInternMatch ? `${realm}.primary` : 'gray.300',
+          background: isProductInternMatch ? `${realm}.primary` : 'gray.100',
+          color: isProductInternMatch ? `${realm}.primary400` : 'inherit',
         }}
       >
         {!!icon && (
@@ -200,15 +200,17 @@ export const Write = ({
             border={0}
             borderRadius={0}
             paddingInlineStart={4}
-            color={isFocused ? iconColor : 'gray.600'}
+            bg={'transparent'}
+            color={isFocused ? iconColor : isProductInternMatch ? `${realm}.primary` : 'gray.600'}
             _groupHover={{
-              color: iconColor,
+              bg: 'transparent',
+              color: isProductInternMatch ? `${realm}.primary` : iconColor,
             }}
             _groupfocusvisible={{
-              color: iconColor,
+              color: isProductInternMatch ? `${realm}.primary` : iconColor,
             }}
             _groupfocuswithin={{
-              color: iconColor,
+              color: isProductInternMatch ? `${realm}.primary` : iconColor,
             }}
           >
             <FontAwesomeIcon size="lg" icon={icon || faQuestionCircle} color={'inherit'} />
@@ -233,7 +235,7 @@ export const Write = ({
           borderRadius={'lg'}
           fontSize={'sm'}
           fontWeight={'medium'}
-          color={isProductIM ? `${realm}.primary` : fieldTextColor}
+          color={isProductInternMatch ? `${realm}.primary` : fieldTextColor}
           _focusVisible={{
             border: '0',
           }}
@@ -250,7 +252,7 @@ export const Write = ({
         fieldMessage={fieldMessage}
         hasFieldMessage={hasFieldMessage}
         realm={realm}
-        isProductIM={isProductIM}
+        isProductIM={isProductInternMatch}
       />
     </Box>
   )

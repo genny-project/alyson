@@ -15,6 +15,6 @@
   transform: rotateX(180deg);
 }
 
-[class*='_dd__option--is-selected']:not(:hover) {
+[class*='_dd__option--is-selected']:not(.internmatch_dd__option--is-selected):not(:hover) {
   background-color: transparent !important;
 }

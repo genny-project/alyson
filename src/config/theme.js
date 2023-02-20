@@ -132,6 +132,8 @@ export const defaultProjectTheme = {
 
       light: '#FFFFFF',
       lightAlpha40: 'rgb(255 255 255 / .4)',
+
+      dark: '#000',
     },
 
     lojing: {
