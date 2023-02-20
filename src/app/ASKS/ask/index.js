@@ -49,6 +49,7 @@ import { selectHighlightedQuestion } from 'redux/app/selectors'
 import { selectCode } from 'redux/db/selectors'
 import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
 import { useMobileValue } from 'utils/hooks'
+import useProductColors from 'utils/productColors'
 
 const Ask = ({
   parentCode,
@@ -67,6 +68,8 @@ const Ask = ({
   const projectTitle = useGetAttributeFromProjectBaseEntity('PRI_NAME')?.valueString.toLowerCase()
   const selectedAskData = useSelector(selectCode(parentCode, passedQuestionCode))
   const singleAskData = useSelector(selectCode(parentCode, 'raw'))
+
+  const { askWidth } = useProductColors()
 
   const askData = passedAskData || selectedAskData || singleAskData
   const {
@@ -213,7 +216,7 @@ const Ask = ({
       p={highlightedQuestion === attributeCode ? '3' : '0'}
       transition="all 0.5s ease"
       mt={config?.mt ?? 5}
-      w={'24rem'}
+      w={askWidth}
     >
       {
         <HStack
