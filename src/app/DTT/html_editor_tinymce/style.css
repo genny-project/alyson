@@ -1,3 +1,28 @@
+.tox-tinymce {
+  border: 0 none !important;
+  border-radius: 0.4rem !important;
+}
+
 .tox-statusbar {
   display: none !important;
+}
+
+.tox .tox-edit-area__iframe {
+  background: transparent !important;
+}
+
+.editor-internmatch .tox:not(.tox-tinymce-inline) .tox-editor-header,
+.editor-internmatch .tox .tox-menubar,
+.editor-internmatch .tox .tox-toolbar-overlord,
+.editor-internmatch .tox .tox-toolbar {
+  background-color: #063231;
+}
+
+.editor-internmatch .tox .tox-mbtn,
+.editor-internmatch .tox .tox-tbtn {
+  color: #fff;
+}
+
+.editor-internmatch .tox .tox-tbtn svg {
+  fill: currentColor;
 }
