@@ -61,7 +61,7 @@ const tplVertJustifies = {
 }
 
 const tplHoriJustifies = {
-  lojing: 'center',
+  lojing: 'flex-start',
 }
 
 const useProductColors = () => {
