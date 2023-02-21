@@ -10,11 +10,7 @@ const DateInMonth = ({
   maxDate = currentMonthInIsoFormat,
   handleDateChange,
   errorStatus,
-  fieldBackgroundColor,
-  fieldBorderColor,
-  fieldHoverBorderColor,
-  fieldTextColor,
-  borderRadius,
+  inputStyles,
 }) => {
   return (
     <>
@@ -34,33 +30,9 @@ const DateInMonth = ({
               onBlur={e => handleDateChange(e, 'startDate')}
               min={setYearForMonth('2000')}
               max={maxDate}
-              w="full"
-              h={'auto'}
               paddingBlock={3}
               paddingInline={6}
-              bg={fieldBackgroundColor}
-              borderRadius={borderRadius}
-              borderColor={fieldBorderColor}
-              fontSize={'sm'}
-              fontWeight={'medium'}
-              color={fieldTextColor}
-              _hover={{
-                borderColor: fieldHoverBorderColor,
-                boxShadow: 'lg',
-              }}
-              _focusVisible={{
-                borderColor: 'product.secondary',
-                boxShadow: 'initial',
-              }}
-              _invalid={{
-                background: 'error.50',
-                borderColor: 'error.500',
-                color: 'error.500',
-              }}
-              _disabled={{
-                borderColor: 'gray.300',
-                background: 'gray.100',
-              }}
+              {...inputStyles}
             />
           )}
         </VStack>
@@ -79,33 +51,9 @@ const DateInMonth = ({
               onBlur={e => handleDateChange(e, 'endDate')}
               min={setYearForMonth()}
               max={maxDate}
-              w="full"
-              h={'auto'}
               paddingBlock={3}
               paddingInline={6}
-              bg={fieldBackgroundColor}
-              borderRadius={borderRadius}
-              borderColor={fieldBorderColor}
-              fontSize={'sm'}
-              fontWeight={'medium'}
-              color={fieldTextColor}
-              _hover={{
-                borderColor: fieldHoverBorderColor,
-                boxShadow: 'lg',
-              }}
-              _focusVisible={{
-                borderColor: 'product.secondary',
-                boxShadow: 'initial',
-              }}
-              _invalid={{
-                background: 'error.50',
-                borderColor: 'error.500',
-                color: 'error.500',
-              }}
-              _disabled={{
-                borderColor: 'gray.300',
-                background: 'gray.100',
-              }}
+              {...inputStyles}
             />
           )}
         </VStack>

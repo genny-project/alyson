@@ -87,8 +87,6 @@ export const Write = ({
   const ackMessageObject = useSelector(selectCode(ACKMESSAGEKEY))
   const ackMessageValue = ackMessageObject?.[questionCode] || ''
 
-  const hasValidData = userInput && !isInvalid
-
   const handleClearFieldMessage = useClearFieldMessage(parentCode, attributeCode, questionCode)
 
   const onBlur = e => {
@@ -130,7 +128,8 @@ export const Write = ({
     retrySendingAnswerRef.current = 0
   }, [userInput])
 
-  const { inputStyles } = useStyles()
+  const hasValidData = userInput && !isInvalid
+  const { inputStyles } = useStyles(hasValidData)
 
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
@@ -158,6 +157,7 @@ export const Write = ({
           questionCode={questionCode}
         />
       </HStack>
+
       <InputGroup onClick={() => setIsFocused(true)} role="group" {...inputStyles}>
         {!!icon && (
           <InputLeftAddon
@@ -181,6 +181,7 @@ export const Write = ({
             <FontAwesomeIcon size="lg" icon={icon || faQuestionCircle} color={'inherit'} />
           </InputLeftAddon>
         )}
+
         <Input
           as={InputMask}
           mask={inputmask}
@@ -191,11 +192,10 @@ export const Write = ({
           onBlur={onBlur}
           onChange={e => setuserInput(e.target.value)}
           value={userInput || ''}
-          w="full"
-          h={'auto'}
           paddingBlock={3}
           paddingInlineEnd={6}
           paddingInlineStart={!!icon ? 1 : 6}
+          h={'auto'}
           border={0}
           borderRadius={'lg'}
           fontSize={'sm'}

@@ -23,6 +23,7 @@ import { getCountryInfoFromCountryList, getCountryObjectFromUserInput } from './
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useClearFieldMessage from 'app/DTT/helpers/clear-field-message'
 import ErrorDisplay from 'app/DTT/helpers/error-display'
+import useStyles from 'app/DTT/inputStyles'
 import AnswerAcknowledge from 'app/layouts/components/form/answer_acknowledge'
 import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
 import debounce from 'lodash.debounce'
@@ -73,14 +74,7 @@ const Write = ({
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
   const { errorState } = useError()
   const { hasFieldMessage, fieldMessage } = useGetFieldMessage(parentCode, questionCode)
-  const {
-    fieldBackgroundColor,
-    fieldBorderColor,
-    fieldHoverBorderColor,
-    fieldTextColor,
-    labelTextColor,
-    borderRadius,
-  } = useProductColors()
+  const { labelTextColor } = useProductColors()
   const handleClearFieldMessage = useClearFieldMessage(parentCode, attributeCode, questionCode)
 
   let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMessage)
@@ -101,6 +95,7 @@ const Write = ({
   let countryFlagFromUserInput = !!icon ? icon : ''
 
   const hasValidData = userInput && !isInvalid
+  const { inputStyles } = useStyles(hasValidData)
 
   const onBlur = e => {
     e.target.value ? setIsFocused(true) : setIsFocused(false)
@@ -238,48 +233,10 @@ const Write = ({
           onChange={e => setuserInput(e.target.value)}
           value={userInput || ''}
           isInvalid={isInvalid}
-          w="full"
-          h={'auto'}
           paddingBlock={3}
           paddingInlineStart={20}
           paddingInlineEnd={6}
-          bg={
-            isProductInternMatch && hasValidData
-              ? `${realm}.primary400`
-              : isProductInternMatch
-              ? `${realm}.secondary400`
-              : fieldBackgroundColor
-          }
-          borderRadius={isProductInternMatch ? 'lg' : borderRadius}
-          borderColor={isProductInternMatch ? `${realm}.primary` : fieldBorderColor}
-          fontSize={'sm'}
-          fontWeight={'medium'}
-          color={isProductInternMatch ? `${realm}.primary` : fieldTextColor}
-          cursor={'pointer'}
-          _hover={{
-            bg: isProductInternMatch ? `${realm}.primary400` : fieldBackgroundColor,
-            borderColor: isProductInternMatch ? `${realm}.primary` : fieldHoverBorderColor,
-            boxShadow: 'lg',
-          }}
-          _focusVisible={{
-            bg: isProductInternMatch ? `${realm}.primary400` : fieldBackgroundColor,
-            borderColor: isProductInternMatch ? `${realm}.primary` : 'product.secondary',
-            boxShadow: 'initial',
-          }}
-          _valid={{
-            bg: isProductInternMatch ? `${realm}.primary400` : fieldBackgroundColor,
-            borderColor: isProductInternMatch ? `${realm}.primary` : fieldHoverBorderColor,
-          }}
-          _invalid={{
-            background: isProductInternMatch ? `${realm}.secondary400Alpha20` : 'error.50',
-            borderColor: isProductInternMatch ? `${realm}.secondary` : 'error.500',
-            color: isProductInternMatch ? `${realm}.secondary` : 'error.500',
-          }}
-          _disabled={{
-            borderColor: isProductInternMatch ? `${realm}.primary` : 'gray.300',
-            background: isProductInternMatch ? `${realm}.primary` : 'gray.100',
-            color: isProductInternMatch ? `${realm}.primary400` : 'inherit',
-          }}
+          {...inputStyles}
         />
       </HStack>
 

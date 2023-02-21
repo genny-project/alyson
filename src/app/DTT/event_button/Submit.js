@@ -49,9 +49,9 @@ const Submit = ({ askData, onFinish, parentCode, realm, isProductIM }) => {
         paddingBlock="0.38rem"
         paddingInline="1.25rem"
         mr={2}
-        mb="5"
+        marginBlock="5"
         background={isProductIM ? `${realm}.secondary` : buttonBackgroundColor}
-        borderRadius={'0.5rem'}
+        borderRadius={isProductIM ? 'full' : '0.5rem'}
         fontSize={'sm'}
         fontWeight={isProductIM ? 400 : 600}
         color={theme.colors.text.dark}

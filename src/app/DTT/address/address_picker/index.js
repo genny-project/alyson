@@ -93,8 +93,6 @@ const AddressPicker = ({
     // dispatchFieldMessage({ payload: questionCode })
   }
 
-  const hasValidData = userInput
-
   useEffect(() => {
     userInput ? setIsFocused(true) : setIsFocused(false)
   }, [userInput])
@@ -138,7 +136,9 @@ const AddressPicker = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const { inputStyles } = useStyles()
+  const hasValidData = userInput
+
+  const { inputStyles } = useStyles(hasValidData)
 
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
@@ -182,8 +182,6 @@ const AddressPicker = ({
         }}
         isInvalid={hasError}
         placeholder=""
-        w="full"
-        h={'auto'}
         paddingBlock={3}
         paddingInline={5}
         {...inputStyles}

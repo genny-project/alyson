@@ -2,7 +2,7 @@ import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
 import useGetProductName from 'utils/helpers/get-product-name'
 import useProductColors from 'utils/productColors'
 
-const useStyles = () => {
+const useStyles = hasValidData => {
   const realm = useGetProductName().toLowerCase()
   const isProductInternMatch = useIsProductInternmatch()
 
@@ -15,19 +15,23 @@ const useStyles = () => {
   } = useProductColors()
 
   const inputStyles = {
+    w: 'full',
+    h: 'auto',
     fontWeight: isProductInternMatch ? `normal` : 'medium',
     fontSize: 'sm',
     color: isProductInternMatch ? `${realm}.primary` : fieldTextColor,
-    bg: isProductInternMatch
-      ? `${realm}.primary400`
-      : isProductInternMatch
-      ? `${realm}.secondary400`
-      : fieldBackgroundColor,
+    bg:
+      isProductInternMatch && hasValidData
+        ? `${realm}.primary400`
+        : isProductInternMatch
+        ? `${realm}.secondary400`
+        : fieldBackgroundColor,
     borderRadius: isProductInternMatch ? 'lg' : borderRadius,
     borderColor: isProductInternMatch ? `${realm}.primary` : fieldBorderColor,
     borderWidth: '1px',
     borderStyle: 'solid',
     overflow: 'hidden',
+    cursor: 'pointer',
     _hover: {
       bg: isProductInternMatch ? `${realm}.primary400` : fieldBackgroundColor,
       borderColor: isProductInternMatch ? `${realm}.primary` : fieldHoverBorderColor,
