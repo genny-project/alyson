@@ -21,6 +21,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import useClearFieldMessage from 'app/DTT/helpers/clear-field-message'
 import ErrorDisplay from 'app/DTT/helpers/error-display'
+import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
 import { includes } from 'ramda'
 import DatePicker from 'react-datepicker'
 import { useError } from 'utils/contexts/ErrorContext'
@@ -284,25 +285,12 @@ const Write = ({
         transition="all 0.25s ease"
       >
         {placeholderName && (
-          <Text
-            as="label"
-            fontSize={'sm'}
-            fontWeight={'medium'}
-            color={isProductInternMatch ? `${realm}.primary` : labelTextColor}
-          >
-            {placeholderName}
-            {mandatory ? (
-              <Text
-                as="span"
-                color={isProductInternMatch ? `${realm}.secondary` : 'red.500'}
-                ml={1}
-              >
-                *
-              </Text>
-            ) : (
-              <></>
-            )}
-          </Text>
+          <MandatorySymbol
+            placeholderName={placeholderName}
+            labelTextColor={isProductInternMatch ? `${realm}.primary` : labelTextColor}
+            realm={realm}
+            mandatory={mandatory}
+          />
         )}
 
         {(!failedValidation && fieldNotEmpty) ||
@@ -325,21 +313,12 @@ const Write = ({
   ) : data?.value ? (
     <VStack alignItems={'flex-start'}>
       {placeholderName && (
-        <Text
-          as="label"
-          fontSize={'sm'}
-          fontWeight={'medium'}
-          color={isProductInternMatch ? `${realm}.primary` : labelTextColor}
-        >
-          {placeholderName}
-          {mandatory ? (
-            <Text as="span" color={isProductInternMatch ? `${realm}.secondary` : 'red.500'} ml={1}>
-              *
-            </Text>
-          ) : (
-            <></>
-          )}
-        </Text>
+        <MandatorySymbol
+          placeholderName={placeholderName}
+          labelTextColor={isProductInternMatch ? `${realm}.primary` : labelTextColor}
+          realm={realm}
+          mandatory={mandatory}
+        />
       )}
       <DateChip
         onlyYear={onlyYear}
@@ -365,25 +344,12 @@ const Write = ({
         transition="all 0.25s ease"
       >
         {placeholderName && (
-          <Text
-            as="label"
-            fontSize={'sm'}
-            fontWeight={'medium'}
-            color={isProductInternMatch ? `${realm}.primary` : labelTextColor}
-          >
-            {placeholderName}
-            {mandatory ? (
-              <Text
-                as="span"
-                color={isProductInternMatch ? `${realm}.secondary` : 'red.500'}
-                ml={1}
-              >
-                *
-              </Text>
-            ) : (
-              <></>
-            )}
-          </Text>
+          <MandatorySymbol
+            placeholderName={placeholderName}
+            labelTextColor={isProductInternMatch ? `${realm}.primary` : labelTextColor}
+            realm={realm}
+            mandatory={mandatory}
+          />
         )}
 
         {(!failedValidation && fieldNotEmpty) ||

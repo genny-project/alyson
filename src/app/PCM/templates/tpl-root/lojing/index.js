@@ -10,13 +10,13 @@ import {
 } from '@chakra-ui/react'
 import DeveloperConsole, { isDev } from 'utils/developer'
 
-import Dialog from 'app/layouts/display/dialog'
-import DisplayDrawer from 'app/layouts/display/drawer'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import LogrocketIdentifier from 'app/layouts/components/logrocket_identifier'
-import PcmField from 'app/PCM/components/pcm-field'
+import Dialog from 'app/layouts/display/dialog'
+import DisplayDrawer from 'app/layouts/display/drawer'
 import Toast from 'app/layouts/display/toast'
-import { faBars } from '@fortawesome/free-solid-svg-icons'
+import PcmField from 'app/PCM/components/pcm-field'
 
 const SIDEBAR_WIDTH = '112px'
 
@@ -104,7 +104,7 @@ const LojingRoot = ({
           id="sideNav"
           area={'nav'}
           w={SIDEBAR_WIDTH}
-          bg="product.primary"
+          bg="lojing.primary"
           h={isMobile ? 'calc(100vh - 80px)' : 'calc(100vh - 86px)'}
           paddingTop={14}
         >

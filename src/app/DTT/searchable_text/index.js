@@ -1,16 +1,20 @@
-import Select from '../select'
-import { selectCode } from 'redux/db/selectors'
-import { useSelector } from 'react-redux'
-import { useRef, useState, useEffect } from 'react'
-import { Box, VStack, HStack, Button, Input, Text as ChakraText, useTheme } from '@chakra-ui/react'
-import { onSendMessage } from 'vertx'
-import debounce from 'lodash.debounce'
-import { isEmpty, equals } from 'ramda'
-import mapOptions from '../select/map-options'
-import useProductColors from 'utils/productColors'
-import { getValueSearchableText } from './get-value-searchable-text'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Box, Button, HStack, Input, useTheme, VStack } from '@chakra-ui/react'
+import { equals, isEmpty } from 'ramda'
+import { useEffect, useRef, useState } from 'react'
+
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
+import debounce from 'lodash.debounce'
+import { useSelector } from 'react-redux'
+import { selectCode } from 'redux/db/selectors'
+import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
+import useGetProductName from 'utils/helpers/get-product-name'
+import useProductColors from 'utils/productColors'
+import { onSendMessage } from 'vertx'
+import Select from '../select'
+import mapOptions from '../select/map-options'
+import { getValueSearchableText } from './get-value-searchable-text'
 
 export const Write = ({
   questionCode,
@@ -24,6 +28,8 @@ export const Write = ({
   attributeCode,
   config = {},
 }) => {
+  const realm = useGetProductName().toLowerCase()
+  const isProductInternMatch = useIsProductInternmatch()
   const dropdownData =
     useSelector(
       selectCode(`${parentCode}-${questionCode}-options`),
@@ -163,16 +169,12 @@ export const Write = ({
         transition="all 0.25s ease"
       >
         {placeholderName && (
-          <ChakraText as="label" fontSize={'sm'} fontWeight={'medium'} color={labelTextColor}>
-            {placeholderName}
-            {mandatory ? (
-              <ChakraText as="span" color={'red.500'} ml={1}>
-                *
-              </ChakraText>
-            ) : (
-              <></>
-            )}
-          </ChakraText>
+          <MandatorySymbol
+            placeholderName={placeholderName}
+            labelTextColor={isProductInternMatch ? `${realm}.primary` : labelTextColor}
+            realm={realm}
+            mandatory={mandatory}
+          />
         )}
       </HStack>
       <Input
