@@ -178,7 +178,7 @@ const Write = ({
 
       <Box
         test-id={questionCode}
-        w="full"
+        w="24rem"
         border="1px"
         borderColor={isProductInternmatch ? `${realm}.primary` : fieldBorderColor}
         borderRadius={isProductInternmatch ? 'lg' : borderRadius}
