@@ -9,6 +9,7 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useClearFieldMessage from 'app/DTT/helpers/clear-field-message'
 import ErrorDisplay from 'app/DTT/helpers/error-display'
+import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
 import { Select as CSelect } from 'chakra-react-select'
 import debounce from 'lodash.debounce'
 import { useSelector } from 'react-redux'
@@ -158,25 +159,12 @@ const Write = ({
         transition="all 0.25s ease"
       >
         {placeholderName && (
-          <Text
-            as="label"
-            fontSize={'sm'}
-            fontWeight={'medium'}
-            color={isProductInternMatch ? `${realm}.primary` : labelTextColor}
-          >
-            {placeholderName}
-            {mandatory ? (
-              <Text
-                as="span"
-                color={isProductInternMatch ? `${realm}.secondary` : 'red.500'}
-                ml={1}
-              >
-                *
-              </Text>
-            ) : (
-              <></>
-            )}
-          </Text>
+          <MandatorySymbol
+            placeholderName={placeholderName}
+            labelTextColor={isProductInternMatch ? `${realm}.primary` : labelTextColor}
+            realm={realm}
+            mandatory={mandatory}
+          />
         )}
 
         {(!failedValidation && fieldNotEmpty) ||

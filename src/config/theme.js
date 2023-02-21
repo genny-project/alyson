@@ -2,8 +2,8 @@ import { extendTheme } from '@chakra-ui/react'
 
 export const defaultProjectTheme = {
   fonts: {
-    heading: 'Proxima Nova, Nunito, Roboto, sans-serif',
-    body: 'Proxima Nova, Nunito, Roboto, sans-serif',
+    internMatchHeader: `'Inconsolata', monospace`,
+    internMatchBody: `'Almarai', sans-serif`,
   },
   colors: {
     background: {
@@ -267,55 +267,53 @@ export const defaultProjectTheme = {
       heading1: {
         fontSize: '6.88rem',
         fontWeight: 200,
-        // fontFamily: 'Editorial New',
+        fontFamily: 'Editorial New',
         lineHeight: '1.28',
       },
       heading2: {
         fontSize: '4.25rem',
         fontWeight: 200,
-        // fontFamily: 'Editorial New',
+        fontFamily: 'Editorial New',
         lineHeight: '1.28',
       },
       heading3: {
         fontSize: '2.63rem',
         fontWeight: 200,
-        // fontFamily: 'Editorial New',
+        fontFamily: 'Editorial New',
         lineHeight: '1.29',
       },
       heading4: {
         fontSize: '1.63rem',
         fontWeight: 200,
-        // fontFamily: 'Editorial New',
+        fontFamily: 'Editorial New',
         lineHeight: '1.27',
       },
       subHeading: {
         fontSize: '1.63rem',
         fontWeight: 500,
-        // fontFamily: 'Neue Montreal',
+        fontFamily: 'Neue Montreal',
         lineHeight: '1.19',
       },
       body: {
         fontSize: '1rem',
         fontWeight: 400,
-        // fontFamily: 'Neue Montreal',
+        fontFamily: 'Neue Montreal',
         lineHeight: '19px',
       },
       strongText: {
         fontSize: '16px',
         fontWeight: 700,
-        // fontFamily: 'Neue Montreal',
+        fontFamily: 'Neue Montreal',
         lineHeight: '1.19',
       },
       buttonText: {
         fontSize: '1rem',
         fontWeight: 400,
-        // fontFamily: 'Neue Montreal',
         lineHeight: '1.19',
       },
       speechBubble: {
         fontSize: '1rem',
         fontWeight: 200,
-        // fontFamily: 'Good Mono',
         lineHeight: '1.19',
       },
       iconText: {
@@ -327,6 +325,12 @@ export const defaultProjectTheme = {
         fontSize: '1rem',
         fontWeight: 400,
         lineHeight: '1.19',
+      },
+      labelStyles: {
+        fontSize: '.88rem',
+        fontWeight: '200',
+        lineHeight: '1.2',
+        fontFamily: `'Inconsolata', sans-serif`,
       },
     },
   },

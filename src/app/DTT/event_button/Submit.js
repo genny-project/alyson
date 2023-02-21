@@ -53,6 +53,7 @@ const Submit = ({ askData, onFinish, parentCode, realm, isProductIM }) => {
         background={isProductIM ? `${realm}.secondary` : buttonBackgroundColor}
         borderRadius={'0.5rem'}
         fontSize={'sm'}
+        fontWeight={isProductIM ? 400 : 600}
         color={theme.colors.text.dark}
         _hover={{
           background: isProductIM ? `${realm}.primaryLight` : theme.colors.background.light,

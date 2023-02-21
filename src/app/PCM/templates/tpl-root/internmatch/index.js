@@ -35,6 +35,7 @@ const InternmatchRoot = ({
       gridTemplateRows={'auto 1fr'}
       bg={'internmatch.primary300'}
       transition={'all 0.25s ease'}
+      fontFamily={'internMatchBody'}
     >
       {!isMobile && (
         <Tooltip label={isSidebarCollapsed ? 'Expand Sidebar' : 'Collapse Sidebar'}>

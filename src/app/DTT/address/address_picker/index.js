@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
 import { internmatch } from 'utils/constants'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
@@ -150,21 +151,12 @@ const AddressPicker = ({
         transition="all 0.25s ease"
       >
         {placeholder && (
-          <Text
-            as="label"
-            fontSize={'sm'}
-            fontWeight={isProductIM ? `normal` : 'medium'}
-            color={isProductIM ? `${realm}.primary` : labelTextColor}
-          >
-            {placeholder}
-            {mandatory ? (
-              <Text as="span" color={isProductIM ? `${realm}.secondary` : 'red.500'} ml={1}>
-                *
-              </Text>
-            ) : (
-              <></>
-            )}
-          </Text>
+          <MandatorySymbol
+            placeholderName={placeholder}
+            mandatory={mandatory}
+            labelTextColor={isProductIM ? `${realm}.primary` : labelTextColor}
+            realm={realm}
+          />
         )}
         {(!failedValidation && fieldNotEmpty && not(hasError)) ||
         (!failedValidation &&
