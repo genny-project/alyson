@@ -12,7 +12,10 @@ const ErrorDisplay = ({
   return (
     <VStack alignItems="start">
       {(hasFieldMessage || (errorStatus && hasErrorMessage)) && (
-        <Text textStyle="product.errorText" color={isProductIM ? `${realm}.secondary` : 'error.50'}>
+        <Text
+          textStyle="product.errorText"
+          color={isProductIM ? `${realm}.secondary` : 'error.500'}
+        >
           {hasFieldMessage ? fieldMessage : errorMessage}
         </Text>
       )}
