@@ -13,7 +13,7 @@ const TodoList = () => {
   const isInvalid = isNullOrUndefinedOrEmpty(userInput)
 
   const handleAddTask = () => {
-    const userInputObject = { name: userInput, isChecked: false }
+    const userInputObject = { value: userInput, isChecked: false }
     setTodoList([...todoList, userInputObject])
     setUserInput('')
   }
@@ -46,7 +46,7 @@ const TodoList = () => {
           TO DO LIST
         </Text>
 
-        {todoList.map(({ name, isChecked }, index) => (
+        {todoList.map(({ value, isChecked }, index) => (
           <VStack alignItems={'flex-start'} paddingBlock={'6px'}>
             <HStack justifyContent={'space-between'} w="full">
               <Checkbox
@@ -58,7 +58,7 @@ const TodoList = () => {
                 colorScheme={'green'}
                 borderColor={'#829998'}
               >
-                {name}
+                {value}
               </Checkbox>
               <FontAwesomeIcon
                 icon={faTrash}

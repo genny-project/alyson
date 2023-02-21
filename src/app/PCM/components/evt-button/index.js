@@ -19,6 +19,7 @@ const EvtButton = ({
   isNotChildAsk = false,
   value,
   sidebarItem,
+  isSidebarCollapsed,
 }) => {
   const data = compose(useSelector, selectCodeUnary(questionCode))(childCode) || {}
 
@@ -74,6 +75,7 @@ const EvtButton = ({
         name={name}
         currentSidebarItem={currentSidebarItem}
         dispatchSetCurrentSidebarItem={dispatchSetCurrentSidebarItem}
+        isSidebarCollapsed={isSidebarCollapsed}
       />
     ) : (
       <InternmatchSideBarItem
@@ -82,6 +84,7 @@ const EvtButton = ({
         name={name}
         currentSidebarItem={currentSidebarItem}
         dispatchSetCurrentSidebarItem={dispatchSetCurrentSidebarItem}
+        isSidebarCollapsed={isSidebarCollapsed}
       />
     )
 
@@ -102,6 +105,7 @@ const EvtButton = ({
               name={name}
               hasChildIcons={true}
               currentSidebarItem={currentSidebarItem}
+              isSidebarCollapsed={isSidebarCollapsed}
             />
           )}
         </MenuButton>

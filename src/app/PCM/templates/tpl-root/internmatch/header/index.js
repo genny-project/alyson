@@ -12,7 +12,7 @@ const Header = ({ isMobile, color, PRI_LOC1, mappedPcm, depth, btnRef, onOpen })
         gridArea: isMobile ? 'header/nav' : 'header',
         color,
         position: 'relative',
-        zIndex: theme.zIndices.dropdown,
+        zIndex: theme.zIndices.modal,
         paddingInlineStart: 'clamp(1rem, 5vw, 6.69rem)',
         paddingInlineEnd: '1rem',
         paddingBlock: '1.25rem',

@@ -10,6 +10,8 @@ import {
   VStack,
   useTheme,
 } from '@chakra-ui/react'
+import { useDispatch, useSelector } from 'react-redux'
+import { setCurrentSidebarItem } from 'redux/app'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
@@ -19,7 +21,6 @@ import { map } from 'ramda'
 import { selectCodeUnary } from 'redux/db/selectors'
 import sendEvtClick from 'app/ASKS/utils/send-evt-click'
 import { useIsMobile } from 'utils/hooks'
-import { useSelector } from 'react-redux'
 import { compose } from 'ramda'
 import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
 
@@ -43,7 +44,8 @@ const AsksMenu = ({
   const processId = getAskInformationBasedOnKey('processId')
 
   const isMobile = useIsMobile()
-
+  const dispatch = useDispatch()
+  const dispatchSetCurrentSidebarItem = compose(dispatch, setCurrentSidebarItem)
   const isProductInternmatch = useIsProductInternmatch()
 
   if (!wholeData?.length) return null
@@ -82,6 +84,7 @@ const AsksMenu = ({
           {map(({ label, code, attributeCode }) => (
             <MenuItem
               onClick={() => {
+                dispatchSetCurrentSidebarItem(null)
                 sendEvtClick({
                   code: code,
                   parentCode: questionCode,

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
 import { internmatch } from 'utils/constants'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
@@ -19,6 +20,7 @@ const AddressPicker = ({
   placeholder,
   mandatory,
   errorMessage: errormsg,
+  repeated = '',
 }) => {
   const productName = useGetProductName()
   const realm = productName.toLowerCase()
@@ -63,27 +65,31 @@ const AddressPicker = ({
 
   const onPlaceChange = () => {
     const place = autocomplete.current.getPlace()
-    const placeGeometry = place?.geometry
     if (!place?.geometry) {
       console.error(
         'Invalid address selected, please choose one of the options from the suggestion!',
       )
       setIsInputValidated(false)
+    } else {
+      setIsInputValidated(true)
+      setHasError(false)
+      setuserInput(place?.formatted_address)
+      onSendAnswer(place?.formatted_address)
+      dispatchFieldMessage({ payload: questionCode })
     }
-
-    placeGeometry && setIsInputValidated(true)
   }
 
-  const onChange = () => {
+  const onChange = e => {
     setIsInputValidated(false)
     setHasError(true)
+    setuserInput(e.target.value)
   }
 
   const onBlur = e => {
     e.target.value ? setIsFocused(true) : setIsFocused(false)
-    setuserInput(e.target.value)
-    onSendAnswer(e.target.value)
-    dispatchFieldMessage({ payload: questionCode })
+    // setuserInput(e.target.value)
+    // onSendAnswer(e.target.value)
+    // dispatchFieldMessage({ payload: questionCode })
   }
 
   const hasValidData = userInput
@@ -145,21 +151,12 @@ const AddressPicker = ({
         transition="all 0.25s ease"
       >
         {placeholder && (
-          <Text
-            as="label"
-            fontSize={'sm'}
-            fontWeight={isProductIM ? `normal` : 'medium'}
-            color={isProductIM ? `${realm}.primary` : labelTextColor}
-          >
-            {placeholder}
-            {mandatory ? (
-              <Text as="span" color={isProductIM ? `${realm}.secondary` : 'red.500'} ml={1}>
-                *
-              </Text>
-            ) : (
-              <></>
-            )}
-          </Text>
+          <MandatorySymbol
+            placeholderName={placeholder}
+            mandatory={mandatory}
+            labelTextColor={isProductIM ? `${realm}.primary` : labelTextColor}
+            realm={realm}
+          />
         )}
         {(!failedValidation && fieldNotEmpty && not(hasError)) ||
         (!failedValidation &&
@@ -171,9 +168,9 @@ const AddressPicker = ({
       </HStack>
 
       <Input
-        id={questionCode}
-        test-id={questionCode}
-        defaultValue={userInput}
+        id={`${questionCode}${repeated}`}
+        test-id={`${questionCode}${repeated}`}
+        value={userInput || ''}
         ref={autoCompleteRef}
         onBlur={onBlur}
         onChange={onChange}

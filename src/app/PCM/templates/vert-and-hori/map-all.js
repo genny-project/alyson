@@ -1,4 +1,4 @@
-import { filter, values, union } from 'ramda'
+import { filter, union, values } from 'ramda'
 
 import { Box } from '@chakra-ui/react'
 import PcmField from 'app/PCM/components/pcm-field'
@@ -15,7 +15,7 @@ const mapAll = (mappedPcm, depth, config = {}) => {
 
     if (notIncludes(attributeCode)(values(spillLocs))) {
       return (
-        <Box w={'min(100%, 24rem)'} key={attributeCode}>
+        <Box key={attributeCode}>
           <PcmField code={attributeCode} mappedPcm={mappedPcm} depth={depth} />
         </Box>
       )

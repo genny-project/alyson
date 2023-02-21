@@ -1,13 +1,15 @@
-import { useState, useEffect } from 'react'
 import { Radio as CRadio, RadioGroup, Stack, Text } from '@chakra-ui/react'
 import { compose, equals, map, path, split } from 'ramda'
-import { useSelector } from 'react-redux'
+import { useEffect, useState } from 'react'
+import { useIsProductInternmatch, useIsProductLojing } from 'utils/helpers/check-product-name'
 
 import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
-import isJson from 'utils/helpers/is-json'
-import isNullOrUndefined from 'utils/helpers/is-null-or-undefined'
+import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
+import useGetProductName from 'utils/helpers/get-product-name'
+import isJson from 'utils/helpers/is-json'
+import isNullOrUndefined from 'utils/helpers/is-null-or-undefined'
 import useProductColors from 'utils/productColors'
 
 const Read = ({ data, boolean }) => {
@@ -51,16 +53,20 @@ const Write = ({
   boolean,
   config,
 }) => {
+  const realm = useGetProductName().toLowerCase()
+  const isProductInternmatch = useIsProductInternmatch()
+
   let dataValueFromBackend = isJson(data?.value) ? JSON.parse(data.value) : data.value || ''
   const isDataValueArray = Array.isArray(dataValueFromBackend)
   const dataValue = isDataValueArray ? path([0])(dataValueFromBackend) : dataValueFromBackend
-
+  const isProductLojing = useIsProductLojing()
   const [value, setValue] = useState(dataValue)
 
   const defaultBooleanLabel = 'Yes;No'
   const { labels: htmlLabels, vertical } = config || {}
   const labels = split(';')(htmlLabels || defaultBooleanLabel)
-  const verticalAligned = vertical || false
+  //change default orientation for lojing while preserving config functionality
+  const verticalAligned = vertical || isProductLojing ? true : false
   const selectedRadioData =
     compose(useSelector, selectCode)(`${parentCode}-${questionCode}-options`) || []
 
@@ -100,10 +106,10 @@ const Write = ({
       <MandatorySymbol
         placeholderName={placeholderName}
         mandatory={mandatory}
-        labelTextColor={labelTextColor}
+        labelTextColor={isProductInternmatch ? `${realm}.primary` : labelTextColor}
       />
       <RadioGroup value={value} onChange={onChange}>
-        <Stack direction={verticalAligned ? 'column' : 'row'}>
+        <Stack direction={verticalAligned ? 'row' : 'column'}>
           {options &&
             map(
               option =>

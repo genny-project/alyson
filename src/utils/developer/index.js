@@ -35,7 +35,7 @@ const DeveloperConsole = () => {
 
   return (
     <VStack>
-      <Button size="xs" onClick={onOpen} position="fixed" bottom="0" left="0">
+      <Button size="xs" onClick={onOpen} position="fixed" bottom="0" left="0" zIndex={10000}>
         db search
       </Button>
 
@@ -46,7 +46,7 @@ const DeveloperConsole = () => {
         isOpen={isOpen}
         onClose={onClose}
       >
-        <DrawerOverlay>
+        <DrawerOverlay zIndex={100000}>
           <DrawerContent>
             <DrawerHeader>
               <FormControl w="40rem">

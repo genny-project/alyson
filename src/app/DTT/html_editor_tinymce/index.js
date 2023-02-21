@@ -33,9 +33,23 @@ import { useError } from 'utils/contexts/ErrorContext'
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { getIsInvalid } from 'utils/functions'
+import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
+import useGetProductName from 'utils/helpers/get-product-name'
 import removeHtmlTags from 'utils/helpers/remove-html-tags'
+import useProductColors from 'utils/productColors'
 
 const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMessage, placeholder }) => {
+  const realm = useGetProductName().toLowerCase()
+  const isProductInternMatch = useIsProductInternmatch()
+
+  const {
+    fieldBackgroundColor,
+    fieldBorderColor,
+    fieldHoverBorderColor,
+    labelTextColor,
+    borderRadius,
+  } = useProductColors()
+
   const projectCode = compose(useSelector, selectCode)(projectCodeString)
   const tinyMCEKEY = useSelector(selectCode(projectCode, 'ENV_TINY_MCE_API_KEY'))?.value || ''
 
@@ -55,6 +69,7 @@ const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMessage, p
     ?.replace(/^.*\s{2,}.*$/, '')
 
   const isInvalid = getIsInvalid(userInputWithoutLineBreaks, questionCode)(RegExp(regexPattern))
+  const hasValidData = userInput && !isInvalid
 
   useEffect(() => {
     isInvalid ? setErrorStatus(true) : setErrorStatus(false)
@@ -79,11 +94,43 @@ const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMessage, p
   return (
     <>
       <Box
+        className={`editor-${realm}`}
         test-id={questionCode}
         w="full"
-        border="1px solid #E2E8F0"
-        borderRadius="0.375rem"
-        p="1rem"
+        border="1px solid "
+        borderColor={isProductInternMatch ? `${realm}.primary` : '#E2E8F0'}
+        borderRadius={isProductInternMatch ? 'lg' : '0.375rem'}
+        bg={
+          isProductInternMatch && hasValidData
+            ? `${realm}.primary400`
+            : isProductInternMatch
+            ? `${realm}.secondary400`
+            : isProductInternMatch
+        }
+        _hover={{
+          bg: isProductInternMatch ? `${realm}.primary400` : fieldBackgroundColor,
+          borderColor: isProductInternMatch ? `${realm}.primary` : fieldHoverBorderColor,
+          boxShadow: 'lg',
+        }}
+        _focusVisible={{
+          bg: isProductInternMatch ? `${realm}.primary400` : fieldBackgroundColor,
+          borderColor: isProductInternMatch ? `${realm}.primary` : 'product.secondary',
+          boxShadow: 'initial',
+        }}
+        _valid={{
+          bg: isProductInternMatch ? `${realm}.primary400` : fieldBackgroundColor,
+          borderColor: isProductInternMatch ? `${realm}.primary` : fieldHoverBorderColor,
+        }}
+        _invalid={{
+          background: isProductInternMatch ? `${realm}.secondary400Alpha20` : 'error.50',
+          borderColor: isProductInternMatch ? `${realm}.secondary` : 'error.500',
+          color: isProductInternMatch ? `${realm}.secondary` : 'error.500',
+        }}
+        _disabled={{
+          borderColor: isProductInternMatch ? `${realm}.primary` : 'gray.300',
+          background: isProductInternMatch ? `${realm}.primary` : 'gray.100',
+          color: isProductInternMatch ? `${realm}.primary400` : 'inherit',
+        }}
       >
         <Editor
           apiKey={tinyMCEKEY}
@@ -114,6 +161,7 @@ const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMessage, p
               'lists',
               'fullpage',
             ],
+            valid_children: '+body[style],+head[style]',
             toolbar: [
               'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor | ltr rtl',
             ],
@@ -122,7 +170,11 @@ const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMessage, p
       </Box>
 
       {errorStatus && (
-        <Text textStyle="tail.error" mt={2}>
+        <Text
+          textStyle="tail.error"
+          color={isProductInternMatch ? `${realm}.secondary` : 'error.500'}
+          mt={2}
+        >
           {errorMessage}
         </Text>
       )}
