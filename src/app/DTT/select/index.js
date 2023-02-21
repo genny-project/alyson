@@ -2,7 +2,6 @@ import './styles.css'
 
 import { Box, HStack, Text, useTheme } from '@chakra-ui/react'
 import { equals, includes, isEmpty, or, pathOr } from 'ramda'
-import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { selectCode, selectRows } from 'redux/db/selectors'
 
