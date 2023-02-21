@@ -51,7 +51,6 @@ const TodoList = () => {
             <HStack justifyContent={'space-between'} w="full">
               <Checkbox
                 fontSize={'8px'}
-                key={index}
                 size="md"
                 spacing={'25px'}
                 onChange={() => handleOnCheckChange(index)}
