@@ -4,6 +4,7 @@ import { Box, HStack, Text, useTheme } from '@chakra-ui/react'
 import { equals, includes, isEmpty, or, pathOr } from 'ramda'
 import { useEffect, useState } from 'react'
 import { selectCode, selectRows } from 'redux/db/selectors'
+import { useSelector } from 'react-redux'
 
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
