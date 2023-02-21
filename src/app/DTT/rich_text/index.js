@@ -27,6 +27,7 @@ import { ContentState, convertFromHTML, convertToRaw, EditorState } from 'draft-
 import { useEffect, useState } from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import useStyles from 'app/DTT/inputStyles'
 import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
 import DOMPurify from 'dompurify'
 import { stateToHTML } from 'draft-js-export-html'
@@ -103,6 +104,8 @@ const Write = ({
   const fieldNotEmpty = fieldState[questionCode]
   const hasValidData = userInput && !isInvalid
 
+  const { inputStyles } = useStyles(hasValidData)
+
   const handleEditorChange = () => {
     const blocks = convertToRaw(editor.getCurrentContent()).blocks
     const value = blocks.map(block => (!block.text.trim() && '\n') || block.text).join('')
@@ -176,48 +179,7 @@ const Write = ({
         ) : null}
       </HStack>
 
-      <Box
-        test-id={questionCode}
-        w="24rem"
-        border="1px"
-        borderColor={isProductInternmatch ? `${realm}.primary` : fieldBorderColor}
-        borderRadius={isProductInternmatch ? 'lg' : borderRadius}
-        paddingBlock={3}
-        paddingInline={6}
-        bg={
-          isProductInternmatch && hasValidData
-            ? `${realm}.primary400`
-            : isProductInternmatch
-            ? `${realm}.secondary400`
-            : fieldBackgroundColor
-        }
-        fontSize={'sm'}
-        fontWeight={'medium'}
-        _hover={{
-          bg: isProductInternmatch ? `${realm}.primary400` : fieldBackgroundColor,
-          borderColor: isProductInternmatch ? `${realm}.primary` : fieldHoverBorderColor,
-          boxShadow: 'lg',
-        }}
-        _focusVisible={{
-          bg: isProductInternmatch ? `${realm}.primary400` : fieldBackgroundColor,
-          borderColor: isProductInternmatch ? `${realm}.primary` : 'product.secondary',
-          boxShadow: 'initial',
-        }}
-        _valid={{
-          bg: isProductInternmatch ? `${realm}.primary400` : fieldBackgroundColor,
-          borderColor: isProductInternmatch ? `${realm}.primary` : fieldHoverBorderColor,
-        }}
-        _invalid={{
-          background: isProductInternmatch ? `${realm}.secondary400Alpha20` : 'error.50',
-          borderColor: isProductInternmatch ? `${realm}.secondary` : 'error.500',
-          color: isProductInternmatch ? `${realm}.secondary` : 'error.500',
-        }}
-        _disabled={{
-          borderColor: isProductInternmatch ? `${realm}.primary` : 'gray.300',
-          background: isProductInternmatch ? `${realm}.primary` : 'gray.100',
-          color: isProductInternmatch ? `${realm}.primary400` : 'inherit',
-        }}
-      >
+      <Box test-id={questionCode} paddingBlock={3} paddingInline={6} {...inputStyles}>
         {minCharacterCount || maxCharacterCount ? (
           !minCharacterCount ? (
             <HStack>

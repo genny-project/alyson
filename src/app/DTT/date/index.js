@@ -21,6 +21,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import useClearFieldMessage from 'app/DTT/helpers/clear-field-message'
 import ErrorDisplay from 'app/DTT/helpers/error-display'
+import useStyles from 'app/DTT/inputStyles'
 import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
 import { includes } from 'ramda'
 import DatePicker from 'react-datepicker'
@@ -141,6 +142,7 @@ const Write = ({
   const selectedDateInIsoFormat = !!dateValue ? safelyParseDate(dateValue).toISOString() : ''
 
   const hasValidData = dateValue && !isInvalid
+  const { inputStyles } = useStyles(hasValidData)
 
   useEffect(() => {
     isInvalid ? setErrorStatus(true) : setErrorStatus(false)
@@ -194,49 +196,11 @@ const Write = ({
           setIsFocused(true)
           onClick()
         }}
-        w="full"
-        h={'auto'}
+        required={true}
         paddingBlock={3}
         paddingInlineStart={isFocused || isProductInternMatch ? 6 : 12}
         paddingInlineEnd={6}
-        bg={
-          isProductInternMatch && hasValidData
-            ? `${realm}.primary400`
-            : isProductInternMatch
-            ? `${realm}.secondary400`
-            : fieldBackgroundColor
-        }
-        borderRadius={isProductInternMatch ? 'lg' : borderRadius}
-        borderColor={isProductInternMatch ? `${realm}.primary` : fieldBorderColor}
-        fontSize={'sm'}
-        fontWeight={'medium'}
-        color={fieldTextColor}
-        cursor={'pointer'}
-        _hover={{
-          bg: isProductInternMatch ? `${realm}.primary400` : fieldBackgroundColor,
-          borderColor: isProductInternMatch ? `${realm}.primary` : fieldHoverBorderColor,
-          boxShadow: 'lg',
-        }}
-        _focusVisible={{
-          bg: isProductInternMatch ? `${realm}.primary400` : fieldBackgroundColor,
-          borderColor: isProductInternMatch ? `${realm}.primary` : 'product.secondary',
-          boxShadow: 'initial',
-        }}
-        _valid={{
-          bg: isProductInternMatch ? `${realm}.primary400` : fieldBackgroundColor,
-          borderColor: isProductInternMatch ? `${realm}.primary` : fieldHoverBorderColor,
-        }}
-        _invalid={{
-          background: isProductInternMatch ? `${realm}.secondary400Alpha20` : 'error.50',
-          borderColor: isProductInternMatch ? `${realm}.secondary` : 'error.500',
-          color: isProductInternMatch ? `${realm}.secondary` : 'error.500',
-        }}
-        _disabled={{
-          borderColor: isProductInternMatch ? `${realm}.primary` : 'gray.300',
-          background: isProductInternMatch ? `${realm}.primary` : 'gray.100',
-          color: isProductInternMatch ? `${realm}.primary400` : 'inherit',
-        }}
-        required={true}
+        {...inputStyles}
       />
 
       {isProductInternMatch ? (

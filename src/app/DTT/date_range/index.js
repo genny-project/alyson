@@ -4,6 +4,7 @@ import { DateInDay, DateInMonth, DateInYear } from './granularity'
 
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import useStyles from 'app/DTT/inputStyles'
 import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
 import { useError } from 'utils/contexts/ErrorContext'
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
@@ -26,14 +27,7 @@ const Write = ({
   placeholder,
   mandatory,
 }) => {
-  const {
-    fieldBackgroundColor,
-    fieldBorderColor,
-    fieldHoverBorderColor,
-    fieldTextColor,
-    labelTextColor,
-    borderRadius,
-  } = useProductColors()
+  const { labelTextColor } = useProductColors()
 
   const realm = useGetProductName().toLowerCase()
   const isProductInternMatch = useIsProductInternmatch()
@@ -58,6 +52,8 @@ const Write = ({
 
   const failedValidation = errorState[questionCode]
   const fieldNotEmpty = fieldState[questionCode]
+  const hasValidData = dates && !isInvalid
+  const { inputStyles } = useStyles(hasValidData)
 
   const handleDateChange = (e, date) => {
     if (!e) {
@@ -128,11 +124,7 @@ const Write = ({
           maxDate={maxDate}
           handleDateChange={handleDateChange}
           errorStatus={errorStatus}
-          fieldBackgroundColor={fieldBackgroundColor}
-          fieldBorderColor={fieldBorderColor}
-          fieldHoverBorderColor={fieldHoverBorderColor}
-          fieldTextColor={fieldTextColor}
-          borderRadius={borderRadius}
+          inputStyles={inputStyles}
         />
       </Box>
     )
@@ -149,11 +141,7 @@ const Write = ({
           maxDate={maxDate}
           handleDateChange={handleDateChange}
           errorStatus={errorStatus}
-          fieldBackgroundColor={fieldBackgroundColor}
-          fieldBorderColor={fieldBorderColor}
-          fieldHoverBorderColor={fieldHoverBorderColor}
-          fieldTextColor={fieldTextColor}
-          borderRadius={borderRadius}
+          inputStyles={inputStyles}
         />
       </Box>
     )
@@ -168,11 +156,7 @@ const Write = ({
         maxDate={maxDate}
         handleDateChange={handleDateChange}
         errorStatus={errorStatus}
-        fieldBackgroundColor={fieldBackgroundColor}
-        fieldBorderColor={fieldBorderColor}
-        fieldHoverBorderColor={fieldHoverBorderColor}
-        fieldTextColor={fieldTextColor}
-        borderRadius={borderRadius}
+        inputStyles={inputStyles}
       />
     </Box>
   )

@@ -1,9 +1,10 @@
 import { Box, Button, HStack, Input, useTheme, VStack } from '@chakra-ui/react'
-import { equals, isEmpty } from 'ramda'
+import { empty, equals, isEmpty, not } from 'ramda'
 import { useEffect, useRef, useState } from 'react'
 
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import useStyles from 'app/DTT/inputStyles'
 import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
 import debounce from 'lodash.debounce'
 import { useSelector } from 'react-redux'
@@ -54,6 +55,9 @@ export const Write = ({
   const [selectedOption, setSelectedOption] = useState(selectedValue)
 
   const [askedForDropDownData, setAskedForDropDownData] = useState(false)
+
+  const hasValidData = not(empty(userInput))
+  const { inputStyles } = useStyles(hasValidData)
 
   const {
     fieldBackgroundColor,
@@ -181,42 +185,17 @@ export const Write = ({
         ref={inputRef}
         test-id={questionCode}
         id={questionCode}
-        w={'full'}
-        h={'auto'}
         onFocus={() => {
           ddEvent('')
           setIsFocused(true)
         }}
         onBlur={onBlur}
+        autoComplete={'off'}
         paddingBlock={3}
         paddingInline={6}
         onChange={onInputChange}
         value={userInput || ''}
-        bg={fieldBackgroundColor}
-        borderRadius={borderRadius}
-        borderColor={fieldBorderColor}
-        fontSize={'sm'}
-        fontWeight={'medium'}
-        autoComplete={'off'}
-        color={fieldTextColor}
-        cursor={'pointer'}
-        _hover={{
-          borderColor: fieldHoverBorderColor,
-          boxShadow: 'lg',
-        }}
-        _focusVisible={{
-          borderColor: 'product.secondary',
-          boxShadow: 'initial',
-        }}
-        _invalid={{
-          background: 'error.50',
-          borderColor: 'error.500',
-          color: 'error.500',
-        }}
-        _disabled={{
-          borderColor: 'gray.300',
-          background: 'gray.100',
-        }}
+        {...inputStyles}
       />
       {isFocused && (
         <div

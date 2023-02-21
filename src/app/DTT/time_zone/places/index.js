@@ -4,6 +4,7 @@ import { Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/menu'
 import { useEffect, useRef, useState } from 'react'
 
 import { useTheme } from '@chakra-ui/react'
+import useStyles from 'app/DTT/inputStyles'
 import defaultTimeZones from 'utils/helpers/time-zone.json'
 import { fromLatLng } from 'utils/helpers/timezone_magic/get-timezone-name'
 import useProductColors from 'utils/productColors'
@@ -16,14 +17,10 @@ const PlacesAutocomplete = ({ onSelect, questionCode, realm, isProductInternMatc
   const [input, setInput] = useState('')
   const [isFocused, setIsFocused] = useState(false)
 
-  const {
-    fieldBackgroundColor,
-    fieldBorderColor,
-    fieldHoverBorderColor,
-    fieldTextColor,
-    labelTextColor,
-    borderRadius,
-  } = useProductColors()
+  const { fieldTextColor, labelTextColor, borderRadius } = useProductColors()
+
+  const hasValidData = input
+  const { inputStyles } = useStyles(hasValidData)
 
   useEffect(() => {
     try {
@@ -67,45 +64,7 @@ const PlacesAutocomplete = ({ onSelect, questionCode, realm, isProductInternMatc
         </HStack>
       </Box>
 
-      <InputGroup
-        onClick={() => setIsFocused(true)}
-        role="group"
-        w="full"
-        h={'auto'}
-        bg={isProductInternMatch ? `${realm}.secondary400` : fieldBackgroundColor}
-        borderWidth="1px"
-        borderStyle="solid"
-        borderRadius={isProductInternMatch ? 'lg' : borderRadius}
-        borderColor={isProductInternMatch ? `${realm}.primary` : fieldBorderColor}
-        fontSize={'sm'}
-        fontWeight={'medium'}
-        color={isProductInternMatch ? `${realm}.primary` : fieldTextColor}
-        cursor={'pointer'}
-        _hover={{
-          bg: isProductInternMatch ? `${realm}.primary400` : fieldBackgroundColor,
-          borderColor: isProductInternMatch ? `${realm}.primary` : fieldHoverBorderColor,
-          boxShadow: 'lg',
-        }}
-        _focusVisible={{
-          bg: isProductInternMatch ? `${realm}.primary400` : fieldBackgroundColor,
-          borderColor: isProductInternMatch ? `${realm}.primary` : 'product.secondary',
-          boxShadow: 'initial',
-        }}
-        _valid={{
-          bg: isProductInternMatch ? `${realm}.primary400` : fieldBackgroundColor,
-          borderColor: isProductInternMatch ? `${realm}.primary` : fieldHoverBorderColor,
-        }}
-        _invalid={{
-          background: isProductInternMatch ? `${realm}.secondary400Alpha20` : 'error.50',
-          borderColor: isProductInternMatch ? `${realm}.secondary` : 'error.500',
-          color: isProductInternMatch ? `${realm}.secondary` : 'error.500',
-        }}
-        _disabled={{
-          borderColor: isProductInternMatch ? `${realm}.primary` : 'gray.300',
-          background: isProductInternMatch ? `${realm}.primary` : 'gray.100',
-          color: isProductInternMatch ? `${realm}.primary400` : 'inherit',
-        }}
-      >
+      <InputGroup onClick={() => setIsFocused(true)} role="group" {...inputStyles}>
         <Input
           test-id={questionCode}
           ref={inputRef}

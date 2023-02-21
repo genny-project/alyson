@@ -24,6 +24,7 @@ import { useEffect, useRef, useState } from 'react'
 import { faExpand } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Editor } from '@tinymce/tinymce-react'
+import useStyles from 'app/DTT/inputStyles'
 import DOMPurify from 'dompurify'
 import { compose } from 'ramda'
 import { useSelector } from 'react-redux'
@@ -71,6 +72,8 @@ const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMessage, p
   const isInvalid = getIsInvalid(userInputWithoutLineBreaks, questionCode)(RegExp(regexPattern))
   const hasValidData = userInput && !isInvalid
 
+  const { inputStyles } = useStyles(hasValidData)
+
   useEffect(() => {
     isInvalid ? setErrorStatus(true) : setErrorStatus(false)
   }, [isInvalid])
@@ -93,45 +96,7 @@ const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMessage, p
 
   return (
     <>
-      <Box
-        className={`editor-${realm}`}
-        test-id={questionCode}
-        w="full"
-        border="1px solid "
-        borderColor={isProductInternMatch ? `${realm}.primary` : '#E2E8F0'}
-        borderRadius={isProductInternMatch ? 'lg' : '0.375rem'}
-        bg={
-          isProductInternMatch && hasValidData
-            ? `${realm}.primary400`
-            : isProductInternMatch
-            ? `${realm}.secondary400`
-            : isProductInternMatch
-        }
-        _hover={{
-          bg: isProductInternMatch ? `${realm}.primary400` : fieldBackgroundColor,
-          borderColor: isProductInternMatch ? `${realm}.primary` : fieldHoverBorderColor,
-          boxShadow: 'lg',
-        }}
-        _focusVisible={{
-          bg: isProductInternMatch ? `${realm}.primary400` : fieldBackgroundColor,
-          borderColor: isProductInternMatch ? `${realm}.primary` : 'product.secondary',
-          boxShadow: 'initial',
-        }}
-        _valid={{
-          bg: isProductInternMatch ? `${realm}.primary400` : fieldBackgroundColor,
-          borderColor: isProductInternMatch ? `${realm}.primary` : fieldHoverBorderColor,
-        }}
-        _invalid={{
-          background: isProductInternMatch ? `${realm}.secondary400Alpha20` : 'error.50',
-          borderColor: isProductInternMatch ? `${realm}.secondary` : 'error.500',
-          color: isProductInternMatch ? `${realm}.secondary` : 'error.500',
-        }}
-        _disabled={{
-          borderColor: isProductInternMatch ? `${realm}.primary` : 'gray.300',
-          background: isProductInternMatch ? `${realm}.primary` : 'gray.100',
-          color: isProductInternMatch ? `${realm}.primary400` : 'inherit',
-        }}
-      >
+      <Box className={`editor-${realm}`} test-id={questionCode} {...inputStyles}>
         <Editor
           apiKey={tinyMCEKEY}
           onInit={(evt, editor) => (editorRef.current = editor)}

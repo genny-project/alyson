@@ -1,5 +1,5 @@
-import { apiConfig } from 'config/get-api-config'
 import { useTheme } from '@chakra-ui/react'
+import { apiConfig } from 'config/get-api-config'
 
 const fieldBackgroundColors = {
   lojing: 'product.gray',
@@ -53,7 +53,7 @@ const tableStyles = {
 
 const askWidths = {
   lojing: 'max(24rem, 30vw)',
-  alyson: '24rem',
+  alyson: 'min(100%, 24rem)',
 }
 
 const tplVertFormJustifies = {
