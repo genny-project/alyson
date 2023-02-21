@@ -36,14 +36,7 @@ export const Write = ({
   let regex
   const theme = useTheme()
 
-  const {
-    fieldBackgroundColor,
-    fieldBorderColor,
-    fieldHoverBorderColor,
-    fieldTextColor,
-    labelTextColor,
-    borderRadius,
-  } = useProductColors()
+  const { labelTextColor } = useProductColors()
 
   const { dispatch } = useError()
   const [errorStatus, setErrorStatus] = useState(false)

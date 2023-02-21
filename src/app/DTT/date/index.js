@@ -76,14 +76,7 @@ const Write = ({
   const realm = useGetProductName().toLowerCase()
   const isProductInternMatch = useIsProductInternmatch()
 
-  const {
-    fieldBackgroundColor,
-    fieldBorderColor,
-    fieldHoverBorderColor,
-    fieldTextColor,
-    labelTextColor,
-    borderRadius,
-  } = useProductColors()
+  const { labelTextColor } = useProductColors()
 
   const includeTime = includes('LocalDateTime', typeName)
   const themeSecondary = useGetAttributeFromProjectBaseEntity('PRI_COLOR')?.value

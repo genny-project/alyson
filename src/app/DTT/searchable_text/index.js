@@ -21,7 +21,6 @@ export const Write = ({
   questionCode,
   data,
   onSendAnswer,
-  errorMessage,
   parentCode,
   placeholderName,
   mandatory,
@@ -59,14 +58,7 @@ export const Write = ({
   const hasValidData = not(empty(userInput))
   const { inputStyles } = useStyles(hasValidData)
 
-  const {
-    fieldBackgroundColor,
-    fieldBorderColor,
-    fieldHoverBorderColor,
-    fieldTextColor,
-    labelTextColor,
-    borderRadius,
-  } = useProductColors()
+  const { fieldTextColor, labelTextColor } = useProductColors()
 
   const inputRef = useRef()
 
