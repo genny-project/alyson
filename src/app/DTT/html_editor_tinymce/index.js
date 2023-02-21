@@ -37,19 +37,10 @@ import { getIsInvalid } from 'utils/functions'
 import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
 import useGetProductName from 'utils/helpers/get-product-name'
 import removeHtmlTags from 'utils/helpers/remove-html-tags'
-import useProductColors from 'utils/productColors'
 
 const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMessage, placeholder }) => {
   const realm = useGetProductName().toLowerCase()
   const isProductInternMatch = useIsProductInternmatch()
-
-  const {
-    fieldBackgroundColor,
-    fieldBorderColor,
-    fieldHoverBorderColor,
-    labelTextColor,
-    borderRadius,
-  } = useProductColors()
 
   const projectCode = compose(useSelector, selectCode)(projectCodeString)
   const tinyMCEKEY = useSelector(selectCode(projectCode, 'ENV_TINY_MCE_API_KEY'))?.value || ''

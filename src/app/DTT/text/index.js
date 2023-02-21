@@ -66,14 +66,7 @@ export const Write = ({
   const { hasFieldMessage, fieldMessage } = useGetFieldMessage(parentCode, questionCode)
   let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMessage)
 
-  const {
-    fieldBackgroundColor,
-    fieldBorderColor,
-    fieldHoverBorderColor,
-    fieldTextColor,
-    labelTextColor,
-    borderRadius,
-  } = useProductColors()
+  const { fieldTextColor, labelTextColor } = useProductColors()
 
   try {
     regex = RegExp(regexPattern)

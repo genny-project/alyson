@@ -55,14 +55,7 @@ const AddressPicker = ({
 
   const returnValue = getReturnValue(dataValue)
 
-  const {
-    fieldBackgroundColor,
-    fieldBorderColor,
-    fieldHoverBorderColor,
-    fieldTextColor,
-    labelTextColor,
-    borderRadius,
-  } = useProductColors()
+  const { labelTextColor } = useProductColors()
 
   const onPlaceChange = () => {
     const place = autocomplete.current.getPlace()
