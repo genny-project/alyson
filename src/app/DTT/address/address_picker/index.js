@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import useStyles from 'app/DTT/inputStyles'
 import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
 import { internmatch } from 'utils/constants'
 import { useError } from 'utils/contexts/ErrorContext'
@@ -137,6 +138,8 @@ const AddressPicker = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const { inputStyles } = useStyles()
+
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
       <HStack
@@ -177,48 +180,13 @@ const AddressPicker = ({
         onFocus={() => {
           setIsFocused(true)
         }}
+        isInvalid={hasError}
+        placeholder=""
         w="full"
         h={'auto'}
         paddingBlock={3}
         paddingInline={5}
-        fontWeight={isProductIM ? `normal` : 'medium'}
-        fontSize={'sm'}
-        color={isProductIM ? `${realm}.primary` : fieldTextColor}
-        borderRadius={isProductIM ? `lg` : borderRadius}
-        borderColor={isProductIM ? `${realm}.primary` : fieldBorderColor}
-        bg={
-          isProductIM && hasValidData
-            ? `${realm}.primary400`
-            : isProductIM
-            ? `${realm}.secondary400`
-            : fieldBackgroundColor
-        }
-        isInvalid={hasError}
-        placeholder=""
-        _hover={{
-          bg: isProductIM ? `${realm}.primary400` : fieldBackgroundColor,
-          borderColor: isProductIM ? `${realm}.primary` : fieldHoverBorderColor,
-          boxShadow: 'lg',
-        }}
-        _focusVisible={{
-          bg: isProductIM ? `${realm}.primary400` : fieldBackgroundColor,
-          borderColor: isProductIM ? `${realm}.primary` : 'product.secondary',
-          boxShadow: 'initial',
-        }}
-        _valid={{
-          bg: isProductIM ? `${realm}.primary400` : fieldBackgroundColor,
-          borderColor: isProductIM ? `${realm}.primary` : fieldHoverBorderColor,
-        }}
-        _invalid={{
-          background: isProductIM ? `${realm}.secondary400Alpha20` : 'error.50',
-          borderColor: isProductIM ? `${realm}.secondary` : 'error.500',
-          color: isProductIM ? `${realm}.secondary` : 'error.500',
-        }}
-        _disabled={{
-          borderColor: isProductIM ? `${realm}.primary` : 'gray.300',
-          background: isProductIM ? `${realm}.primary` : 'gray.100',
-          color: isProductIM ? `${realm}.primary400` : 'initial',
-        }}
+        {...inputStyles}
       />
       <VStack alignItems="start">
         {hasError && (
