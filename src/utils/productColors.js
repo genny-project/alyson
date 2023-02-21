@@ -56,12 +56,16 @@ const askWidths = {
   alyson: 'min(100%, 24rem)',
 }
 
-const tplVertJustifies = {
+const tplVertFormJustifies = {
   lojing: 'center',
 }
 
+const tplVertJustifies = {
+  lojing: 'flex-start',
+}
+
 const tplHoriJustifies = {
-  lojing: 'center',
+  lojing: 'flex-start',
 }
 
 const useProductColors = () => {
@@ -89,6 +93,7 @@ const useProductColors = () => {
   const tableStyle = tableStyles[clientId] || 'simple'
 
   const tplVertJustify = tplVertJustifies[clientId] || 'flex-start'
+  const tplVertFormJustify = tplVertFormJustifies[clientId] || 'flex-start'
   const tplHoriJustify = tplHoriJustifies[clientId] || 'flex-start'
 
   const askWidth = askWidths[clientId] || '100%'
@@ -109,6 +114,7 @@ const useProductColors = () => {
     switchColor,
     tableStyle,
     tplVertJustify,
+    tplVertFormJustify,
     tplHoriJustify,
     askWidth,
   }

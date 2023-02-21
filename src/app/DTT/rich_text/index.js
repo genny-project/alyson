@@ -27,6 +27,7 @@ import { ContentState, convertFromHTML, convertToRaw, EditorState } from 'draft-
 import { useEffect, useState } from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
 import DOMPurify from 'dompurify'
 import { stateToHTML } from 'draft-js-export-html'
 import { Editor } from 'react-draft-wysiwyg'
@@ -161,25 +162,12 @@ const Write = ({
         transition="all 0.25s ease"
       >
         {placeholderName && (
-          <Text
-            as="label"
-            fontSize={'sm'}
-            fontWeight={'medium'}
-            color={isProductInternmatch ? `${realm}.primary` : labelTextColor}
-          >
-            {placeholderName}
-            {mandatory ? (
-              <Text
-                as="span"
-                color={isProductInternmatch ? `${realm}.secondary` : 'red.500'}
-                ml={1}
-              >
-                *
-              </Text>
-            ) : (
-              <></>
-            )}
-          </Text>
+          <MandatorySymbol
+            placeholderName={placeholderName}
+            labelTextColor={isProductInternmatch ? `${realm}.primary` : labelTextColor}
+            realm={realm}
+            mandatory={mandatory}
+          />
         )}
 
         {(!failedValidation && fieldNotEmpty) ||

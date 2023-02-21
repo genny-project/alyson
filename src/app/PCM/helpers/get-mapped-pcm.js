@@ -1,4 +1,4 @@
-import { find, equals, compose } from 'ramda'
+import { find, equals, compose, assoc } from 'ramda'
 import { useSelector, shallowEqual } from 'react-redux'
 
 import { selectCode } from 'redux/db/selectors'
@@ -13,7 +13,7 @@ const useGetMappedPcm = (code, pcmKey = pcmKeyDefault, getterFn = getMappedPcm) 
     (prev, current) => shallowEqual(prev, current),
   )
 
-  return getterFn(matchingPcmAttributes)
+  return assoc('code', code)(getterFn(matchingPcmAttributes))
 }
 
 export default useGetMappedPcm

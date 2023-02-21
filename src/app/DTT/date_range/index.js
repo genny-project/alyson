@@ -1,18 +1,21 @@
-import { Box, HStack, Text, useTheme } from '@chakra-ui/react'
-import { DateInDay, DateInMonth, DateInYear } from './granularity'
+import { Box, HStack, useTheme } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
+import { DateInDay, DateInMonth, DateInYear } from './granularity'
 
-import { ACTIONS } from 'utils/contexts/ErrorReducer'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Read } from '../text'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
-import { getIsInvalid } from 'utils/functions'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
+import { useError } from 'utils/contexts/ErrorContext'
+import { ACTIONS } from 'utils/contexts/ErrorReducer'
+import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
+import { getIsInvalid } from 'utils/functions'
+import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
+import useGetProductName from 'utils/helpers/get-product-name'
 import safelyParseDate from 'utils/helpers/safely-parse-date'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
-import { useError } from 'utils/contexts/ErrorContext'
-import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
+import { Read } from '../text'
 
 const Write = ({
   questionCode,
@@ -20,7 +23,6 @@ const Write = ({
   data,
   html,
   regexPattern,
-
   placeholder,
   mandatory,
 }) => {
@@ -32,6 +34,9 @@ const Write = ({
     labelTextColor,
     borderRadius,
   } = useProductColors()
+
+  const realm = useGetProductName().toLowerCase()
+  const isProductInternMatch = useIsProductInternmatch()
 
   const config = safelyParseJson(html, {})
   const { maxDate, granularity = 'date' } = config
@@ -97,16 +102,12 @@ const Write = ({
         transition="all 0.25s ease"
       >
         {placeholder && (
-          <Text as="label" fontSize={'sm'} fontWeight={'medium'} color={labelTextColor}>
-            {placeholder}
-            {mandatory ? (
-              <Text as="span" color={'red.500'} ml={1}>
-                *
-              </Text>
-            ) : (
-              <></>
-            )}
-          </Text>
+          <MandatorySymbol
+            placeholderName={placeholder}
+            labelTextColor={isProductInternMatch ? `${realm}.primary` : labelTextColor}
+            realm={realm}
+            mandatory={mandatory}
+          />
         )}
         {(!failedValidation && fieldNotEmpty) ||
         (!failedValidation && dates && isNotStringifiedEmptyArray(dates)) ? (
