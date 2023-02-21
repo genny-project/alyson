@@ -8,7 +8,13 @@ const hori = mappingFunction => (mappedPcm, depth, config) => {
   const { tplHoriJustify } = useProductColors()
 
   return (
-    <HStack spacing={5} direction={isMobile ? 'column' : 'row'} w={'full'} justify={tplHoriJustify}>
+    <HStack
+      spacing={5}
+      direction={isMobile ? 'column' : 'row'}
+      w={'full'}
+      justifySelf={'flex-start'}
+      justifyItems={tplHoriJustify}
+    >
       {mappingFunction(mappedPcm, depth, config ?? { config: { mt: 0 } })}
     </HStack>
   )

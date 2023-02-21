@@ -96,7 +96,7 @@ const templateHandlerMachine = depth => mappedPcm => parentCode => rest => {
     return undefined
   }
 
-  const name = mappedPcm['PRI_NAME'] || ''
+  const code = mappedPcm?.code || mappedPcm?.PRI_NAME || 'No code or name'
 
   const color = Math.random().toString(16).substr(-6)
 
@@ -114,7 +114,7 @@ const templateHandlerMachine = depth => mappedPcm => parentCode => rest => {
       >
         {noMatchingTemplates
           ? `TPL_DEFAULT (Couldn't find ${templateCode})`
-          : `${templateCode}-${name}`}
+          : `${templateCode}-${code}`}
       </Text>
       <Box pt={7} pb={4} px={4} outline={`1px solid #${color || 'red'}`} outlineOffset={-1}>
         {template}
