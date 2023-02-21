@@ -1,22 +1,15 @@
 import EvtButton from 'app/PCM/components/evt-button'
-import {
-  Grid,
-  Popover,
-  PopoverTrigger,
-  Button,
-  PopoverArrow,
-  PopoverBody,
-  PopoverContent,
-  Wrap,
-  WrapItem,
-} from '@chakra-ui/react'
 import mapQuestionGroup from 'app/PCM/helpers/map-question-grp'
-import { slice } from 'ramda'
+import DefaultSidebar from 'app/PCM/templates/tpl-sidebar-one/default'
+import InternmatchSidebar from 'app/PCM/templates/tpl-sidebar-one/internmatch'
+import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
 
-const TemplateSidebarOne = ({ mappedPcm, depth, maxItemCount }) => {
-  const maxItems = maxItemCount || Math.floor((window.innerHeight - 86) / 130)
+const TemplateSidebarOne = ({ mappedPcm, maxItemCount, isSidebarCollapsed }) => {
+  const maxItems = maxItemCount || Math.floor(window.innerHeight - 60) / 105
 
-  const evtButtons = mapQuestionGroup((ask, question) => {
+  const isProductInternmatch = useIsProductInternmatch()
+
+  const evtButtons = mapQuestionGroup((ask, question, index) => {
     return (
       <EvtButton
         key={ask?.attributeCode || ''}
@@ -24,43 +17,24 @@ const TemplateSidebarOne = ({ mappedPcm, depth, maxItemCount }) => {
         childCode={ask?.questionCode || ''}
         iconId={question?.icon || ''}
         vert={true}
+        sidebarItem={true}
+        isSidebarCollapsed={isSidebarCollapsed}
+        maxItemCount={maxItemCount}
+        index={index}
       />
     )
   })(mappedPcm.PRI_QUESTION_CODE)
 
-  return (
-    <Grid
-      test-id={mappedPcm.PRI_QUESTION_CODE}
-      placeItems="center"
-      gap={12}
-      paddingInline={4}
-      maxH={'full'}
-      wordBreak={'break-word'}
-    >
-      {slice(0)(maxItems)(evtButtons).map(button => button)}
-      {evtButtons.length > maxItems && (
-        <Popover placement="auto" isLazy offset={[0, 25]}>
-          <PopoverTrigger>
-            <Button color="#AAE3E2" variant="outline" w="full">
-              {`More`}
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent bg="product.primary" borderRadius={'2xl'}>
-            <PopoverBody>
-              <Wrap spacing={5} padding={5} justify={'center'}>
-                {slice(maxItems)(evtButtons.length)(evtButtons).map((button, index) => (
-                  <WrapItem w={'110px'} key={`SIDEBAR-WRAP-${index}`}>
-                    {button}
-                  </WrapItem>
-                ))}
-              </Wrap>
-            </PopoverBody>
-            <PopoverArrow />
-          </PopoverContent>
-        </Popover>
-      )}
-    </Grid>
-  )
+  if (isProductInternmatch)
+    return (
+      <InternmatchSidebar
+        mappedPcm={mappedPcm}
+        maxItems={maxItems}
+        evtButtons={evtButtons}
+        isSidebarCollapsed={isSidebarCollapsed}
+      />
+    )
+  return <DefaultSidebar mappedPcm={mappedPcm} maxItems={maxItems} evtButtons={evtButtons} />
 }
 
 export default TemplateSidebarOne

@@ -1,26 +1,30 @@
 import {
-  Text as CText,
   FormControl,
   FormErrorMessage,
   FormHelperText,
   FormLabel,
   HStack,
+  Text as CText,
 } from '@chakra-ui/react'
 import { compose, equals, lensProp, pathOr, set } from 'ramda'
 import { useDispatch, useSelector } from 'react-redux'
 
+import createSendAnswer from 'app/ASKS/utils/create-send-answer'
+import getGroupCode from 'app/ASKS/utils/get-group-code'
+import Attribute from 'app/BE/attribute'
+import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import ABN from 'app/DTT/abn'
 import Address from 'app/DTT/address'
-import Attribute from 'app/BE/attribute'
-import Button from 'app/DTT/event_button'
 import CheckBox from 'app/DTT/check_box'
 import Date from 'app/DTT/date'
 import DateRange from 'app/DTT/date_range'
 import Email from 'app/DTT/email'
+import Button from 'app/DTT/event_button'
 import Favourites from 'app/DTT/favourites'
 import Flag from 'app/DTT/flag'
-import HtmlDisplay from 'app/DTT/html_display'
 import HtmlEditor from 'app/DTT/html-editor'
+import HtmlDisplay from 'app/DTT/html_display'
+import HTMLEditorTinyMCE from 'app/DTT/html_editor_tinymce'
 import LogRocketSession from 'app/DTT/log_rocket_session'
 import Phone from 'app/DTT/phone'
 import ProgressBar from 'app/DTT/progress'
@@ -36,18 +40,18 @@ import TextArea from 'app/DTT/text_area'
 import ThirdPartyVideo from 'app/DTT/third_party_video'
 import TimeRange from 'app/DTT/time_range'
 import TimeZonePicker from 'app/DTT/time_zone'
-import URL from 'app/DTT/url'
 import Upload from 'app/DTT/upload'
+import URL from 'app/DTT/url'
 import Video from 'app/DTT/video'
 import { apiConfig } from 'config/get-api-config.js'
-import createSendAnswer from 'app/ASKS/utils/create-send-answer'
-import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
-import getGroupCode from 'app/ASKS/utils/get-group-code'
 import { newMsg } from 'redux/app'
-import { selectCode } from 'redux/db/selectors'
 import { selectHighlightedQuestion } from 'redux/app/selectors'
-import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
+import { selectCode } from 'redux/db/selectors'
+import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
+import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
+import useGetProductName from 'utils/helpers/get-product-name'
 import { useMobileValue } from 'utils/hooks'
+import useProductColors from 'utils/productColors'
 
 const Ask = ({
   parentCode,
@@ -66,6 +70,11 @@ const Ask = ({
   const projectTitle = useGetAttributeFromProjectBaseEntity('PRI_NAME')?.valueString.toLowerCase()
   const selectedAskData = useSelector(selectCode(parentCode, passedQuestionCode))
   const singleAskData = useSelector(selectCode(parentCode, 'raw'))
+
+  const isProductInternMatch = useIsProductInternmatch()
+  const realm = useGetProductName()
+
+  const { askWidth } = useProductColors()
 
   const askData = passedAskData || selectedAskData || singleAskData
   const {
@@ -150,7 +159,7 @@ const Ask = ({
 
   if (readonly) {
     return (
-      <HStack flexWrap={'wrap'}>
+      <HStack flexWrap={'wrap'} w={'min(100%, 24rem)'}>
         <CText id={attributeCode} w={labelWidth} textStyle="body.1">
           {name}
         </CText>
@@ -161,9 +170,13 @@ const Ask = ({
 
   if (!!disabled && component !== 'button')
     return (
-      <FormControl isDisabled isRequired={mandatory}>
+      <FormControl isDisabled isRequired={mandatory} w={'min(100%, 24rem)'}>
         <HStack display={noLabel ? 'none' : 'flex'} justify="space-between">
-          <FormLabel id={attributeCode} textStyle="body.1">
+          <FormLabel
+            id={attributeCode}
+            textStyle="body.1"
+            fontFamily={!!isProductInternMatch && `${realm}Body`}
+          >
             {name}
           </FormLabel>
           <FormHelperText>{helper}</FormHelperText>
@@ -212,6 +225,7 @@ const Ask = ({
       p={highlightedQuestion === attributeCode ? '3' : '0'}
       transition="all 0.5s ease"
       mt={config?.mt ?? 5}
+      w={askWidth}
     >
       {
         <HStack
@@ -225,6 +239,7 @@ const Ask = ({
           transform={'scale(0)'}
           overflow={'hidden'}
           flexWrap={'wrap '}
+          fontFamily={!!isProductInternMatch && `${realm}Body`}
         >
           <FormLabel id={attributeCode} />
         </HStack>
@@ -262,7 +277,7 @@ const Ask = ({
           inputmask={inputmask}
         />
       )}
-      {component === 'address' && (
+      {(component === 'address' || component === 'repeatable_address') && (
         <Address.Write
           questionCode={questionCode}
           onSendAnswer={onSendAnswer}
@@ -275,6 +290,7 @@ const Ask = ({
           targetCode={targetCode}
           mandatory={mandatory}
           clientId={clientId}
+          repeatable={component === 'repeatable_address'}
         />
       )}
       {(component === 'dropdown' || component === 'tag') && (
@@ -370,7 +386,7 @@ const Ask = ({
           inputmask={inputmask}
         />
       )}
-      {component === 'html_editor' && (
+      {component === 'html_editor_tinymce' && (
         <HtmlEditor.Write
           questionCode={questionCode}
           mandatory={mandatory}
@@ -382,6 +398,18 @@ const Ask = ({
           targetCode={targetCode}
           parentCode={parentCode}
           placeholderName={placeholderName}
+        />
+      )}
+      {component === 'html_editor' && (
+        <HTMLEditorTinyMCE.Write
+          questionCode={questionCode}
+          data={data}
+          onSendAnswer={onSendAnswer}
+          description={description}
+          html={html}
+          regexPattern={regexPattern}
+          errorMessage={errorMessage}
+          placeholder={placeholder}
         />
       )}
       {component === 'textarea' && (

@@ -16,6 +16,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 const MultiImageViewer = ({ uuidList }) => {
   const { getImageSrcList } = useApi()
 
+  const [imageVisible, setImageVisible] = useState(true)
+
   const srcList = getImageSrcList(uuidList, { width: 1000, height: 500 }, 'fit') || []
 
   const [imageIndex, setImageIndex] = useState(0)
@@ -25,7 +27,10 @@ const MultiImageViewer = ({ uuidList }) => {
     <Button
       rounded={100}
       disabled={left ? imageIndex <= 0 : imageIndex >= imageCount - 1}
-      onClick={() => setImageIndex(imageIndex + (left ? -1 : 1))}
+      onClick={() => {
+        setImageIndex(imageIndex + (left ? -1 : 1))
+        setImageVisible(false)
+      }}
     >
       <FontAwesomeIcon icon={left ? faChevronLeft : faChevronRight} />
     </Button>
@@ -44,8 +49,15 @@ const MultiImageViewer = ({ uuidList }) => {
             height="100%"
             width="100%"
           >
-            <CircularProgress position={'absolute'} zIndex={1} isIndeterminate />
-            <Image src={srcList[imageIndex]} position={'relative'} zIndex={2} left={-1} />
+            <CircularProgress position={'absolute'} zIndex={-1} isIndeterminate />
+            <Image
+              hidden={!imageVisible}
+              src={srcList[imageIndex]}
+              onLoad={() => setImageVisible(true)}
+              position={'relative'}
+              zIndex={1}
+              left={-1}
+            />
           </HStack>
         </VStack>
         <Divider />

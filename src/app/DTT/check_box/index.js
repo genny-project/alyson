@@ -1,9 +1,13 @@
+import './styles.scss'
+
 import { Checkbox, FormControl, FormLabel, HStack } from '@chakra-ui/react'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
+import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
+import useGetProductName from 'utils/helpers/get-product-name'
 
 const Read = ({ data }) => {
   return (
@@ -18,10 +22,13 @@ const Read = ({ data }) => {
 }
 
 const Write = ({ questionCode, data, onSendAnswer, isRequired, label }) => {
+  const realm = useGetProductName().toLowerCase()
+  const isProductInternmatch = useIsProductInternmatch()
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
+
   let answer = data?.value === 'true' ? 'false' : 'true'
 
-  const colorScheme = useGetAttributeFromProjectBaseEntity('PRI_COLOR')?.valueString
+  const colorScheme = useGetAttributeFromProjectBaseEntity('PRI_SECONDARY_COLOR')?.valueString
 
   const toggle = () => {
     onSendAnswer(answer)
@@ -29,18 +36,43 @@ const Write = ({ questionCode, data, onSendAnswer, isRequired, label }) => {
   }
 
   return (
-    <HStack w="full" spacing={2} align="start">
+    <HStack w="full" spacing={2} align="start" role="group">
       <Checkbox
         m="1"
         id={questionCode}
         test-id={questionCode}
-        colorScheme={colorScheme}
         isChecked={data?.value === 'true'}
         onChange={toggle}
+        borderRadius={'2px'}
+        border={'2px solid'}
+        borderColor={isProductInternmatch ? `${realm}.primary` : colorScheme}
+        _checked={{
+          bg: isProductInternmatch ? `${realm}.secondary` : colorScheme,
+          borderColor: isProductInternmatch ? `${realm}.secondary` : colorScheme,
+        }}
+        _disabled={{
+          opacity: '.4',
+        }}
+        _groupHover={{
+          borderColor: isProductInternmatch ? `${realm}.secondary` : colorScheme,
+        }}
       />
-      <FormControl onClick={toggle} isRequired={isRequired}>
+      <FormControl
+        onClick={toggle}
+        isRequired={isRequired}
+        color={
+          data?.value === 'true'
+            ? `${realm}.secondary`
+            : isProductInternmatch
+            ? `${realm}.primary`
+            : 'gray[800]'
+        }
+        _groupHover={{ color: isProductInternmatch ? `${realm}.secondary` : 'gray[800]' }}
+        _groupChecked={{ color: isProductInternmatch ? `${realm}.secondary` : 'gray[800]' }}
+      >
         <FormLabel cursor="pointer">{label}</FormLabel>
       </FormControl>
+
       {answer && <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />}
     </HStack>
   )

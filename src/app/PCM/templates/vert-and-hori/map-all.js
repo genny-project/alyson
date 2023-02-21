@@ -1,20 +1,19 @@
-import { filter, keys, union } from 'ramda'
+import { filter, union, values } from 'ramda'
 
 import { Box } from '@chakra-ui/react'
 import PcmField from 'app/PCM/components/pcm-field'
 import getSpillLocs from 'app/PCM/helpers/get-spill-locs'
 import mapQuestionGroup from 'app/PCM/helpers/map-question-grp'
 import mapSpillLocs from 'app/PCM/helpers/map-spill-locs'
-import notIncludesAny from 'utils/helpers/not-includes-any'
+import notIncludes from 'utils/helpers/not-includes'
 
 const mapAll = (mappedPcm, depth, config = {}) => {
   const spillLocs = getSpillLocs(mappedPcm)
-
   const questionGrp = mapQuestionGroup((ask, question) => {
     const attributeCode =
       ask?.attributeCode ?? ask?.question?.attributeCode ?? question?.attributeCode ?? ''
 
-    if (notIncludesAny(keys(spillLocs))(attributeCode)) {
+    if (notIncludes(attributeCode)(values(spillLocs))) {
       return (
         <Box key={attributeCode}>
           <PcmField code={attributeCode} mappedPcm={mappedPcm} depth={depth} />

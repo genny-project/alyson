@@ -1,33 +1,27 @@
-import {
-  Box,
-  HStack,
-  Image,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-  Text,
-  VStack,
-  useTheme,
-} from '@chakra-ui/react'
+import { Box, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
+import { compose, equals, not } from 'ramda'
+import { useDispatch, useSelector } from 'react-redux'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import debugOut from 'utils/debug-out'
-import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
-import icons from 'utils/icons'
-import { selectCodeUnary } from 'redux/db/selectors'
 import sendEvtClick from 'app/ASKS/utils/send-evt-click'
-import { equals, startsWith, compose } from 'ramda'
-import useApi from 'api'
-import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
-import { useSelector } from 'react-redux'
+import DefaultEventButton from 'app/PCM/components/evt-button/default-event-button'
+import InternmatchSideBarItem from 'app/PCM/components/sidebar-items/internmatch-sidebar'
+import LojingSideBarItem from 'app/PCM/components/sidebar-items/lojing-sidebar'
+import { setCurrentSidebarItem } from 'redux/app'
+import { selectCurrentSidebarItem } from 'redux/app/selectors'
+import { selectCodeUnary } from 'redux/db/selectors'
+import { useIsProductLojing } from 'utils/helpers/check-product-name'
 
-const EvtButton = ({ questionCode, childCode, iconId, vert, isNotChildAsk = false, value }) => {
-  const data = compose(useSelector, selectCodeUnary(questionCode))(childCode)
-
-  const theme = useTheme()
-  const bgColor = useGetAttributeFromProjectBaseEntity('PRI_COLOR')?.valueString || '#234371'
-  const color = theme.colors.text.dark
+const EvtButton = ({
+  questionCode,
+  childCode,
+  iconId,
+  vert,
+  isNotChildAsk = false,
+  value,
+  sidebarItem,
+  isSidebarCollapsed,
+}) => {
+  const data = compose(useSelector, selectCodeUnary(questionCode))(childCode) || {}
 
   const targetCode = compose(useSelector, selectCodeUnary(questionCode))('targetCode')
   const sourceCode = compose(useSelector, selectCodeUnary(questionCode))('sourceCode')
@@ -35,19 +29,10 @@ const EvtButton = ({ questionCode, childCode, iconId, vert, isNotChildAsk = fals
   const attrCode = compose(useSelector, selectCodeUnary(questionCode))('attributeCode')
 
   const trueQuestionCode = isNotChildAsk ? questionCode : childCode
-
-  const { getImageSrc } = useApi()
-  let src = iconId
-
-  if (!!iconId) {
-    if (!startsWith('http', iconId)) {
-      src = getImageSrc(iconId)
-    }
-  } else if (vert) {
-    debugOut.error(`${questionCode}@${childCode} doesn't have an iconId!`)
-  }
-
-  if (!data) return null
+  const currentSidebarItem = useSelector(selectCurrentSidebarItem)
+  const dispatch = useDispatch()
+  const dispatchSetCurrentSidebarItem = compose(dispatch, setCurrentSidebarItem)
+  const isProductLojing = useIsProductLojing()
 
   const { name, childAsks } = data
 
@@ -55,108 +40,102 @@ const EvtButton = ({ questionCode, childCode, iconId, vert, isNotChildAsk = fals
     const pid = equals(data['processId'] || 'no-idq')('no-idq') ? processId : data['processId']
 
     sendEvtClick({
-      targetCode: targetCode,
-      sourceCode: sourceCode,
+      targetCode,
+      sourceCode,
       parentCode: isNotChildAsk ? undefined : questionCode,
       code: trueQuestionCode,
       attributeCode: attrCode,
-      value: value,
+      value,
       processId: pid,
     })
   }
 
-  if (!childAsks) {
-    let box = (
-      <Box display="flex" alignItems="center" justifyContent="center" cursor={'pointer'}>
-        {icons[trueQuestionCode] ? (
-          <FontAwesomeIcon icon={icons[trueQuestionCode]} size="2x" color="#AAE3E2" />
-        ) : iconId ? (
-          <Image boxSize="35px" objectFit={'contain'} src={src} alt="" />
-        ) : (
-          <Box />
-        )}
-      </Box>
-    )
-    let text = (
-      <Text color={color} fontSize={vert ? 12 : 15} fontWeight="700">
-        {name}
-      </Text>
+  if (!data) return null
+
+  if (not(sidebarItem))
+    return (
+      <DefaultEventButton
+        childAsks={childAsks}
+        trueQuestionCode={trueQuestionCode}
+        iconId={iconId}
+        vert={vert}
+        name={name}
+        handleClick={handleClick}
+        sourceCode={sourceCode}
+        targetCode={targetCode}
+        processId={processId}
+      />
     )
 
-    return vert ? (
-      <VStack
-        spacing={2}
-        role="group"
-        p="0"
-        test-id={trueQuestionCode}
-        onClick={handleClick}
-        as="button"
-        w={'full'}
-      >
-        {box}
-        {text}
-      </VStack>
+  if (!childAsks)
+    return isProductLojing ? (
+      <LojingSideBarItem
+        trueQuestionCode={trueQuestionCode}
+        handleClick={handleClick}
+        name={name}
+        currentSidebarItem={currentSidebarItem}
+        dispatchSetCurrentSidebarItem={dispatchSetCurrentSidebarItem}
+        isSidebarCollapsed={isSidebarCollapsed}
+      />
     ) : (
-      <Box padding={1} borderRadius="lg" background={bgColor}>
-        <HStack
-          spacing={iconId || icons[trueQuestionCode] ? 2 : 0}
-          role="group"
-          p="1"
-          test-id={trueQuestionCode}
-          onClick={handleClick}
-          as="button"
-          w={'full'}
-        >
-          {box}
-          {text}
-        </HStack>
-      </Box>
+      <InternmatchSideBarItem
+        trueQuestionCode={trueQuestionCode}
+        handleClick={handleClick}
+        name={name}
+        currentSidebarItem={currentSidebarItem}
+        dispatchSetCurrentSidebarItem={dispatchSetCurrentSidebarItem}
+        isSidebarCollapsed={isSidebarCollapsed}
+      />
     )
-  }
-  return (
-    <Menu placement="right-start">
-      <MenuButton test-id={trueQuestionCode}>
-        <VStack spacing="4" role="group" test-id={trueQuestionCode}>
-          <Box display="flex" alignItems="center" justifyContent="center" cursor={'pointer'}>
-            {iconId ? (
-              <Image boxSize="35px" objectFit={'contain'} src={src} alt="" />
-            ) : (
-              <FontAwesomeIcon icon={icons[trueQuestionCode]} size="2x" color="#AAE3E2" />
-            )}
-          </Box>
-          <HStack mt={'5px !important'}>
-            <Text fontSize="12px" fontWeight="400" color={color}>
-              {name}
-            </Text>
-            <FontAwesomeIcon icon={faAngleDown} color="#BDC5CD" />
-          </HStack>
-        </VStack>
-      </MenuButton>
 
-      <MenuList minW="350px" margin="40px 0px 0px 12px">
-        {childAsks.map(childAsk => (
-          <MenuItem
-            onClick={() => {
-              sendEvtClick({
-                code: childAsk.questionCode,
-                parentCode: childAsk.questionCode,
-                attributeCode: childAsk.attributeCode,
-                sourceCode: sourceCode,
-                targetCode: targetCode,
-                processId: processId,
-              })
-            }}
-            test-id={childAsk.questionCode}
-            key={childAsk.questionCode}
-            _focus={{ bg: '#3AB8B5', color: '#ffffff' }}
-            fontSize="14px"
-            fontWeight="400"
-          >
-            {childAsk.name}
-          </MenuItem>
-        ))}
-      </MenuList>
-    </Menu>
+  return (
+    <Box w={isProductLojing ? 'auto' : 'full'}>
+      <Menu placement="right-start">
+        <MenuButton w={'full'} test-id={trueQuestionCode}>
+          {isProductLojing ? (
+            <LojingSideBarItem
+              trueQuestionCode={trueQuestionCode}
+              name={name}
+              hasChildIcons={true}
+              currentSidebarItem={currentSidebarItem}
+            />
+          ) : (
+            <InternmatchSideBarItem
+              trueQuestionCode={trueQuestionCode}
+              name={name}
+              hasChildIcons={true}
+              currentSidebarItem={currentSidebarItem}
+              isSidebarCollapsed={isSidebarCollapsed}
+            />
+          )}
+        </MenuButton>
+
+        <MenuList minW="350px">
+          {childAsks.map(childAsk => (
+            <MenuItem
+              onClick={() => {
+                dispatchSetCurrentSidebarItem(trueQuestionCode)
+                sendEvtClick({
+                  code: childAsk.questionCode,
+                  parentCode: childAsk.questionCode,
+                  attributeCode: childAsk.attributeCode,
+                  sourceCode: sourceCode,
+                  targetCode: targetCode,
+                  processId: processId,
+                })
+              }}
+              test-id={childAsk.questionCode}
+              key={childAsk.questionCode}
+              _focus={{ bg: '#3AB8B5', color: '#ffffff' }}
+              fontSize="14px"
+              fontWeight="400"
+            >
+              {childAsk.name}
+            </MenuItem>
+          ))}
+        </MenuList>
+      </Menu>
+    </Box>
   )
 }
 

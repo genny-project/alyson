@@ -4,6 +4,8 @@ import { faStar } from '@fortawesome/free-solid-svg-icons'
 import debounce from 'lodash.debounce'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 
+/// Leaving this component in place, however the new favourites component is
+/// not a question, it is just an action
 export const Write = ({ questionCode, onSendAnswer }) => {
   const [starred, setStarred] = useState(false)
   const debouncedSendAnswer = debounce(onSendAnswer, 500)

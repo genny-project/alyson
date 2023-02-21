@@ -1,13 +1,20 @@
 import { Button, useTheme } from '@chakra-ui/react'
 
-import Submit from './Submit'
 import isSubmitButton from 'app/DTT/event_button/helpers/is-submit.js'
-import { onSendMessage } from 'vertx'
+import { equals } from 'ramda'
+import { internmatch } from 'utils/constants'
+import useGetProductName from 'utils/helpers/get-product-name'
 import useProductColors from 'utils/productColors'
+import { onSendMessage } from 'vertx'
+import Submit from './Submit'
 
 const EventButton = ({ askData, onFinish, parentCode, sourceCode, clientId, config }) => {
   const { questionCode, targetCode, name, disabled, processId, attributeCode } = askData
   const theme = useTheme()
+
+  const productName = useGetProductName()
+  const realm = productName.toLocaleLowerCase()
+  const isProductIM = equals(productName, internmatch)
 
   const { buttonBackgroundColor } = useProductColors()
 
@@ -24,7 +31,13 @@ const EventButton = ({ askData, onFinish, parentCode, sourceCode, clientId, conf
 
   if (isSubmitButton(name))
     return (
-      <Submit askData={askData} onFinish={onFinish} parentCode={parentCode} clientId={clientId} />
+      <Submit
+        askData={askData}
+        onFinish={onFinish}
+        parentCode={parentCode}
+        realm={realm}
+        isProductIM={isProductIM}
+      />
     )
 
   return (
@@ -33,21 +46,29 @@ const EventButton = ({ askData, onFinish, parentCode, sourceCode, clientId, conf
       isDisabled={disabled}
       onClick={onClick}
       variant="solid"
-      bg={'theme.colors.background.light'}
+      bg={isProductIM ? `${realm}.secondary` : 'theme.colors.background.light'}
       borderWidth="1px"
       borderStyle={'solid'}
-      borderColor={buttonBackgroundColor}
+      borderColor={isProductIM ? `${realm}.secondary` : buttonBackgroundColor}
+      borderRadius={'full'}
+      paddingInline={isProductIM ? 6 : 4}
       // w={'6.5rem'}
       fontSize={'sm'}
-      color={buttonBackgroundColor}
+      fontWeight={isProductIM ? 400 : 600}
+      color={isProductIM ? `${realm}.light` : buttonBackgroundColor}
       mr={2}
-      mb="5"
+      marginBlock="5"
       _hover={{
         variant: 'solid',
-        background: buttonBackgroundColor,
-        color: theme.colors.text.dark,
+        background: isProductIM ? `${realm}.primary400` : buttonBackgroundColor,
+        borderColor: isProductIM ? `${realm}.primary` : buttonBackgroundColor,
+        color: isProductIM ? `${realm}.primary` : theme.colors.text.dark,
       }}
       {...config}
+      _disabled={{
+        pointerEvents: 'none',
+        opacity: '0.4',
+      }}
     >
       {name}
     </Button>

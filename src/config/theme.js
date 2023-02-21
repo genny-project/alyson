@@ -2,8 +2,8 @@ import { extendTheme } from '@chakra-ui/react'
 
 export const defaultProjectTheme = {
   fonts: {
-    heading: 'Proxima Nova, Nunito, Roboto, sans-serif',
-    body: 'Proxima Nova, Nunito, Roboto, sans-serif',
+    internMatchHeader: `'Inconsolata', monospace`,
+    internMatchBody: `'Almarai', sans-serif`,
   },
   colors: {
     background: {
@@ -80,6 +80,7 @@ export const defaultProjectTheme = {
       50: 'rgba(0, 0, 0, 0.5)',
     },
     whiteAlpha: {
+      40: 'rgba(255, 255, 255, 0.4)',
       80: 'rgba(255, 255, 255, 0.8)',
     },
     info: {
@@ -115,6 +116,55 @@ export const defaultProjectTheme = {
       700: 'linear-gradient(135deg, #319795, #2B6CB0)',
       800: 'linear-gradient(135deg, #4FD1C5, #4299E1)',
       900: 'linear-gradient(135deg, #38B2AC, #3182CE)',
+    },
+
+    internmatch: {
+      primary100: 'E6EAEA',
+      primary300: '#E0F2F2',
+      primary400: '#96D5D3',
+      primary: '#063231',
+      primary400Alpha40: 'rgb(150 213 211 / .4)',
+
+      secondary: '#EA5024',
+      secondary400: '#E4BAC8',
+      secondary400Alpha20: 'rgb(228 186 200 / .2)',
+
+      accent: '#55B748',
+
+      light: '#FFFFFF',
+      lightAlpha40: 'rgb(255 255 255 / .4)',
+
+      dark: '#000',
+    },
+
+    lojing: {
+      primary: '#024754',
+      primary100: '#E6F3F4',
+      primary400: '#00596D',
+      primary500: '#004654',
+
+      secondary: '#F18B32',
+      secondary100: '#FFF6F0',
+      secondary200: '#F8DFC8',
+      secondaryAccent: '#EF8567',
+      secondary400: '#EF8567',
+      secondaryLight: '#FFF6F0',
+
+      gray: '#F4F5F5',
+      gray50: '#F6F6F6',
+      gray100: '#F4F5F5',
+      gray700: '#33475B',
+      gray800: '#4D4D4D',
+      grayMedium: '#C4C4C4',
+      darkGray: '#33475B',
+
+      white: '#FFFFFF',
+      light: '#FFFFFF',
+      dark: '#000000',
+
+      gradient100: 'linear-gradient(340deg, #EF8567, #F18B32)',
+
+      sidebar: '#024754',
     },
   },
   shadows: {
@@ -213,6 +263,76 @@ export const defaultProjectTheme = {
         opacity: 0.9,
       },
     },
+    internmatch: {
+      heading1: {
+        fontSize: '6.88rem',
+        fontWeight: 200,
+        fontFamily: 'Editorial New',
+        lineHeight: '1.28',
+      },
+      heading2: {
+        fontSize: '4.25rem',
+        fontWeight: 200,
+        fontFamily: 'Editorial New',
+        lineHeight: '1.28',
+      },
+      heading3: {
+        fontSize: '2.63rem',
+        fontWeight: 200,
+        fontFamily: 'Editorial New',
+        lineHeight: '1.29',
+      },
+      heading4: {
+        fontSize: '1.63rem',
+        fontWeight: 200,
+        fontFamily: 'Editorial New',
+        lineHeight: '1.27',
+      },
+      subHeading: {
+        fontSize: '1.63rem',
+        fontWeight: 500,
+        fontFamily: 'Neue Montreal',
+        lineHeight: '1.19',
+      },
+      body: {
+        fontSize: '1rem',
+        fontWeight: 400,
+        fontFamily: 'Neue Montreal',
+        lineHeight: '19px',
+      },
+      strongText: {
+        fontSize: '16px',
+        fontWeight: 700,
+        fontFamily: 'Neue Montreal',
+        lineHeight: '1.19',
+      },
+      buttonText: {
+        fontSize: '1rem',
+        fontWeight: 400,
+        lineHeight: '1.19',
+      },
+      speechBubble: {
+        fontSize: '1rem',
+        fontWeight: 200,
+        lineHeight: '1.19',
+      },
+      iconText: {
+        fontSize: '1rem',
+        fontWeight: 400,
+        lineHeight: '1.19',
+      },
+      iconTextOnHighlight: {
+        fontSize: '1rem',
+        fontWeight: 400,
+        lineHeight: '1.19',
+      },
+      labelStyles: {
+        fontSize: '.88rem',
+        fontWeight: '200',
+        lineHeight: '1.2',
+        fontFamily: `'Inconsolata', sans-serif`,
+      },
+    },
   },
 }
 
@@ -222,9 +342,6 @@ const getTheme = (projectTheme = defaultProjectTheme) =>
       global: {
         '*': {
           textRendering: 'optimizespeed !important',
-        },
-        body: {
-          lineHeight: '1.43',
         },
       },
     },

@@ -17,22 +17,22 @@ import {
   useColorModeValue,
   useDisclosure,
 } from '@chakra-ui/react'
-import { compose, isEmpty, map, min, not } from 'ramda'
 import { faCamera, faUpload, faUserAlt } from '@fortawesome/free-solid-svg-icons'
+import { compose, isEmpty, map, min, not } from 'ramda'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import MultiImageViewer from './multi-image-viewer'
-import Snap from './Snap'
+import { useTheme } from '@emotion/react'
 import { faImages } from '@fortawesome/free-solid-svg-icons'
-import { onSendMessage } from 'vertx'
-import safelyParseJson from 'utils/helpers/safely-parse-json'
-import { selectCode } from 'redux/db/selectors'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useApi from 'api'
+import { useState } from 'react'
+import { useSelector } from 'react-redux'
+import { selectCode } from 'redux/db/selectors'
+import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { useIsMobile } from 'utils/hooks'
 import useProductColors from 'utils/productColors'
-import { useSelector } from 'react-redux'
-import { useState } from 'react'
-import { useTheme } from '@emotion/react'
+import { onSendMessage } from 'vertx'
+import MultiImageViewer from './multi-image-viewer'
+import Snap from './Snap'
 
 const Write = ({
   questionCode,
@@ -44,6 +44,8 @@ const Write = ({
   setLoading,
   name,
   multiUpload,
+  realm,
+  isProductInternmatch,
 }) => {
   const { getImageSrcList } = useApi()
   const src = getImageSrcList(data?.value)
@@ -79,6 +81,12 @@ const Write = ({
             test-id={questionCode}
             onClick={openDropzone}
             leftIcon={<FontAwesomeIcon icon={faUpload} />}
+            bg={!!isProductInternmatch && `${realm}.secondary`}
+            color={!!isProductInternmatch && `${realm}.light`}
+            _hover={{
+              bg: !!isProductInternmatch && `${realm}.primary400`,
+              color: !!isProductInternmatch && `${realm}.primary`,
+            }}
           >
             {name}
           </Button>
@@ -87,6 +95,12 @@ const Write = ({
               onClick={() => setOpenSnap(true)}
               leftIcon={<FontAwesomeIcon icon={faCamera} />}
               hidden={dropzone}
+              bg={!!isProductInternmatch && `${realm}.secondary`}
+              color={!!isProductInternmatch && `${realm}.light`}
+              _hover={{
+                bg: !!isProductInternmatch && `${realm}.primary400`,
+                color: !!isProductInternmatch && `${realm}.primary`,
+              }}
             >
               {`Take Photo`}
             </Button>

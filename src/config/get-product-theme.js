@@ -26,13 +26,16 @@ const productBasedDefaultColors = {
     dark: '#000000',
 
     gradient100: 'linear-gradient(340deg, #EF8567, #F18B32)',
+
+    sidebar: '#024754',
   },
 
   alyson: {
     primary: '#224371',
     primary100: '#AAE3E2',
 
-    secondary: '#00AFAB',
+    secondary: '#EA5024',
+    secondaryLight: '#fdede9',
 
     gray: '#808080',
     gray50: '#F6F6F6',
@@ -42,6 +45,9 @@ const productBasedDefaultColors = {
 
     white: '#FFFFFF',
     dark: '#000000',
+
+    sidebar: '#063231',
+    header: '#red',
   },
 }
 
@@ -101,6 +107,12 @@ const getProductTheme = (
   const productThemes = {
     colors: {
       product: { ...productBasedDefaultColors[realm], ...defaultProductColours },
+      sidebar: {
+        background: productBasedDefaultColors[realm]?.sidebar,
+      },
+      header: {
+        background: productBasedDefaultColors[realm]?.header,
+      },
       ...defaultThemeColours,
     },
 
