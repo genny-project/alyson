@@ -38,7 +38,7 @@ const TodoList = () => {
         w={'494px'}
         bg={'#EDF8F8'}
         borderRadius={'40px'}
-        paddingBlock={'81px'}
+        paddingBlock={'50px'}
         paddingInline={'81px'}
         fontFamily={'PP Neue Montreal'}
       >
