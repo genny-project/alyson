@@ -1,14 +1,16 @@
-import AskMenu from 'app/ASKS/menu'
-import { Button } from '@chakra-ui/react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { addItemBackgroundColourInternmatch, addItemIconColourInternmatch } from 'utils/constants'
+
+import { Button } from '@chakra-ui/react'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import AskMenu from 'app/ASKS/menu'
 import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
 
 const TemplateAddItems = ({ mappedPcm }) => {
   const isProductInternmatch = useIsProductInternmatch()
 
   const { PRI_QUESTION_CODE } = mappedPcm
+
   return (
     <AskMenu
       questionCode={PRI_QUESTION_CODE}
