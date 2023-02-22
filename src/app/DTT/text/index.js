@@ -20,7 +20,6 @@ import DetailViewTags from 'app/DTT/text/detailview_tags'
 import AnswerAcknowledge from 'app/layouts/components/form/answer_acknowledge'
 import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
 import debounce from 'lodash.debounce'
-import InputMask from 'react-input-mask'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import { useError } from 'utils/contexts/ErrorContext'
@@ -151,7 +150,7 @@ export const Write = ({
         />
       </HStack>
 
-      <InputGroup onClick={() => setIsFocused(true)} role="group" {...inputStyles}>
+      <InputGroup onClick={() => setIsFocused(true)} role="group">
         {!!icon && (
           <InputLeftAddon
             h={'auto'}
@@ -176,9 +175,7 @@ export const Write = ({
         )}
 
         <Input
-          as={InputMask}
-          mask={inputmask}
-          maskChar={null}
+          isInvalid={isInvalid}
           test-id={questionCode}
           id={questionCode}
           ref={inputRef}
@@ -188,21 +185,10 @@ export const Write = ({
           paddingBlock={3}
           paddingInlineEnd={6}
           paddingInlineStart={!!icon ? 1 : 6}
-          h={'auto'}
-          border={0}
-          borderRadius={'lg'}
-          fontSize={'sm'}
-          fontWeight={'medium'}
-          color={isProductInternMatch ? `${realm}.primary` : fieldTextColor}
-          _focusVisible={{
-            border: '0',
-          }}
-          _focus={{
-            border: '0',
-          }}
-          cursor={'pointer'}
+          {...inputStyles}
         />
       </InputGroup>
+
       <ErrorDisplay
         hasErrorMessage={hasErrorMessage}
         errorStatus={errorStatus}
