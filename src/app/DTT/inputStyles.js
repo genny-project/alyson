@@ -30,8 +30,11 @@ const useStyles = hasValidData => {
     borderColor: isProductInternMatch ? `${realm}.primary` : fieldBorderColor,
     borderWidth: '1px',
     borderStyle: 'solid',
+    outline: 0,
+    outlineOffset: 0,
     overflow: 'hidden',
     cursor: 'pointer',
+    errorBorderColor: 'red',
     _hover: {
       bg: isProductInternMatch ? `${realm}.primary400` : fieldBackgroundColor,
       borderColor: isProductInternMatch ? `${realm}.primary` : fieldHoverBorderColor,
