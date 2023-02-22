@@ -1,4 +1,4 @@
-import { Box, HStack, Input, Text, useTheme, VStack } from '@chakra-ui/react'
+import { Box, HStack, Input, Text, VStack } from '@chakra-ui/react'
 import { equals, not } from 'ramda'
 import { useEffect, useRef, useState } from 'react'
 
@@ -27,7 +27,6 @@ const AddressPicker = ({
   const realm = productName.toLowerCase()
   const isProductIM = equals(productName, internmatch)
 
-  const theme = useTheme()
   const autoCompleteRef = useRef(null)
   const [userInput, setuserInput] = useState(null)
   const [isFocused, setIsFocused] = useState(false)
@@ -131,21 +130,11 @@ const AddressPicker = ({
 
   const hasValidData = userInput
 
-  const { inputStyles } = useStyles(hasValidData)
+  const { inputStyles, labelStyles } = useStyles(hasValidData, isFocused)
 
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
-      <HStack
-        position={'absolute'}
-        zIndex={theme.zIndices.docked}
-        top={isFocused ? '-1.5rem' : 3}
-        left={0}
-        paddingStart={6}
-        w="full"
-        justifyContent={'space-between'}
-        pointerEvents={'none'}
-        transition="all 0.25s ease"
-      >
+      <HStack paddingStart={6} {...labelStyles}>
         {placeholder && (
           <MandatorySymbol
             placeholderName={placeholder}

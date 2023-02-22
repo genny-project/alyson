@@ -9,7 +9,6 @@ import {
   InputLeftElement,
   InputRightElement,
   Text,
-  useTheme,
   VStack,
 } from '@chakra-ui/react'
 import { faCalendarDay, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
@@ -72,7 +71,6 @@ const Write = ({
 }) => {
   let initialErrorMsg = 'You can only valid date.'
 
-  const theme = useTheme()
   const realm = useGetProductName().toLowerCase()
   const isProductInternMatch = useIsProductInternmatch()
 
@@ -135,7 +133,7 @@ const Write = ({
   const selectedDateInIsoFormat = !!dateValue ? safelyParseDate(dateValue).toISOString() : ''
 
   const hasValidData = dateValue && !isInvalid
-  const { inputStyles } = useStyles(hasValidData)
+  const { inputStyles, labelStyles } = useStyles(hasValidData, isFocused)
 
   useEffect(() => {
     isInvalid ? setErrorStatus(true) : setErrorStatus(false)
@@ -230,17 +228,7 @@ const Write = ({
 
   return isPreviousDate && data?.value && dateValue ? (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
-      <HStack
-        position={'absolute'}
-        zIndex={theme.zIndices.docked}
-        top={isFocused ? '-1.5rem' : 3}
-        left={0}
-        paddingStart={isFocused || isProductInternMatch ? 6 : 12}
-        w="full"
-        justifyContent={'space-between'}
-        pointerEvents={'none'}
-        transition="all 0.25s ease"
-      >
+      <HStack paddingStart={isFocused || isProductInternMatch ? 6 : 12} {...labelStyles}>
         {placeholderName && (
           <MandatorySymbol
             placeholderName={placeholderName}
@@ -289,17 +277,7 @@ const Write = ({
     </VStack>
   ) : (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
-      <HStack
-        position={'absolute'}
-        zIndex={theme.zIndices.docked}
-        top={isFocused ? '-1.5rem' : 3}
-        left={0}
-        paddingStart={isProductInternMatch ? 6 : 12}
-        w="full"
-        justifyContent={'space-between'}
-        pointerEvents={'none'}
-        transition="all 0.25s ease"
-      >
+      <HStack paddingStart={isProductInternMatch ? 6 : 12} {...labelStyles}>
         {placeholderName && (
           <MandatorySymbol
             placeholderName={placeholderName}

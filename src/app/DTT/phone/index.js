@@ -11,7 +11,6 @@ import {
   MenuList,
   Text,
   useClipboard,
-  useTheme,
   useToast,
 } from '@chakra-ui/react'
 import { faAngleDown, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
@@ -69,7 +68,6 @@ const Write = ({
   const inputRef = useRef()
   const retrySendingAnswerRef = useRef(0)
 
-  const theme = useTheme()
   const { dispatch } = useError()
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
   const { errorState } = useError()
@@ -95,7 +93,7 @@ const Write = ({
   let countryFlagFromUserInput = !!icon ? icon : ''
 
   const hasValidData = userInput && !isInvalid
-  const { inputStyles } = useStyles(hasValidData)
+  const { inputStyles, labelStyles } = useStyles(hasValidData, isFocused)
 
   const onBlur = e => {
     e.target.value ? setIsFocused(true) : setIsFocused(false)
@@ -166,17 +164,7 @@ const Write = ({
 
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
-      <HStack
-        position={'absolute'}
-        zIndex={theme.zIndices.docked}
-        top={isFocused ? '-1.5rem' : 3}
-        left={0}
-        paddingStart={isFocused ? 6 : 20}
-        w="full"
-        justifyContent={'space-between'}
-        pointerEvents={'none'}
-        transition="all 0.25s ease"
-      >
+      <HStack paddingStart={isFocused ? 6 : 20} {...labelStyles}>
         <MandatorySymbol
           placeholderName={placeholderName}
           mandatory={mandatory}

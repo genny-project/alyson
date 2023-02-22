@@ -20,7 +20,7 @@ const PlacesAutocomplete = ({ onSelect, questionCode, realm, isProductInternMatc
   const { fieldTextColor, labelTextColor, borderRadius } = useProductColors()
 
   const hasValidData = input
-  const { inputStyles } = useStyles(hasValidData)
+  const { inputStyles, labelStyles } = useStyles(hasValidData, isFocused)
 
   useEffect(() => {
     try {
@@ -47,17 +47,7 @@ const PlacesAutocomplete = ({ onSelect, questionCode, realm, isProductInternMatc
   return (
     <div>
       <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
-        <HStack
-          position={'absolute'}
-          zIndex={theme.zIndices.docked}
-          top={isFocused ? '-1.5rem' : 3}
-          left={0}
-          paddingStart={6}
-          w="full"
-          justifyContent={'space-between'}
-          pointerEvents={'none'}
-          transition="all 0.25s ease"
-        >
+        <HStack paddingStart={6} {...labelStyles}>
           <Text as="label" fontSize={'sm'} fontWeight={'medium'} color={labelTextColor}>
             What is a city inside your preferred timezone?
           </Text>

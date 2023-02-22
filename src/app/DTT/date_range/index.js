@@ -1,4 +1,4 @@
-import { Box, HStack, useTheme } from '@chakra-ui/react'
+import { Box, HStack } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { DateInDay, DateInMonth, DateInYear } from './granularity'
 
@@ -53,7 +53,7 @@ const Write = ({
   const failedValidation = errorState[questionCode]
   const fieldNotEmpty = fieldState[questionCode]
   const hasValidData = dates && !isInvalid
-  const { inputStyles } = useStyles(hasValidData)
+  const { inputStyles, labelStyles } = useStyles(hasValidData, isFocused)
 
   const handleDateChange = (e, date) => {
     if (!e) {
@@ -84,19 +84,8 @@ const Write = ({
   }, [dates])
 
   const FieldLabel = ({ placeholder, mandatory, isFocused }) => {
-    const theme = useTheme()
     return (
-      <HStack
-        position={'absolute'}
-        zIndex={theme.zIndices.docked}
-        top={isFocused ? '-1.5rem' : 3}
-        left={0}
-        paddingStart={6}
-        w="full"
-        justifyContent={'space-between'}
-        pointerEvents={'none'}
-        transition="all 0.25s ease"
-      >
+      <HStack paddingStart={6} {...labelStyles}>
         {placeholder && (
           <MandatorySymbol
             placeholderName={placeholder}
