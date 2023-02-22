@@ -1,8 +1,8 @@
-import ErrorBoundary from 'utils/developer/ErrorBoundary'
-import { MetaTags } from 'react-meta-tags'
-import { onSendMessage } from 'vertx'
-import Pcm from 'app/PCM'
 import { useGetProjectInformation } from 'app/BE/project-be'
+import Pcm from 'app/PCM'
+import { useEffect } from 'react'
+import ErrorBoundary from 'utils/developer/ErrorBoundary'
+import { onSendMessage } from 'vertx'
 
 const Display = () => {
   window.onpopstate = event => {
@@ -22,12 +22,24 @@ const Display = () => {
   const { attributeObject: rootObject } = useGetProjectInformation('PRI_ROOT_PCM')
   const rootPcmCode = rootObject?.valueString || 'PCM_ROOT'
 
+  const usePageMeta = (title, icon) => {
+    const defaultTitle = 'Alyson'
+    const defaultIcon = ''
+
+    useEffect(() => {
+      document.title = title || defaultTitle
+      let favIconURL = document.querySelector("link[rel~='icon]")
+      if (!favIconURL) {
+        favIconURL = document.createElement('link')
+        favIconURL.rel = 'icon'
+        document.getElementsByTagName('head')[0].appendChild(favIconURL)
+      }
+      favIconURL.href = defaultIcon || icon
+    }, [defaultTitle, title, icon])
+  }
   return (
     <ErrorBoundary>
-      <MetaTags>
-        <title>{projectTitle}</title>
-        <link rel="icon" href={projectIcon} type="image/x-icon"></link>
-      </MetaTags>
+      {usePageMeta(projectTitle, projectIcon)}
       <Pcm code={rootPcmCode} depth={0} />
     </ErrorBoundary>
   )
