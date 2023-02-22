@@ -409,7 +409,7 @@ const Ask = ({
           html={html}
           regexPattern={regexPattern}
           errorMessage={errorMessage}
-          placeholder={placeholder}
+          placeholderName={placeholderName}
         />
       )}
       {component === 'textarea' && (

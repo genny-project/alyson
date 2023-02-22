@@ -1,10 +1,9 @@
 import './styles.css'
 
-import { Box, HStack, Text, useTheme } from '@chakra-ui/react'
+import { Box, HStack, Text } from '@chakra-ui/react'
 import { equals, includes, isEmpty, or, pathOr } from 'ramda'
 import { useEffect, useState } from 'react'
 import { selectCode, selectRows } from 'redux/db/selectors'
-import { useSelector } from 'react-redux'
 
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -14,6 +13,7 @@ import useStyles from 'app/DTT/inputStyles'
 import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
 import { Select as CSelect } from 'chakra-react-select'
 import debounce from 'lodash.debounce'
+import { useSelector } from 'react-redux'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useGetFieldMessage from 'utils/fieldMessage'
@@ -62,7 +62,6 @@ const Write = ({
 
   const [askedForDropDownData, setAskedForDropDownData] = useState(false)
 
-  const theme = useTheme()
   const { fieldTextColor, labelTextColor } = useProductColors()
 
   const { errorState } = useError()
@@ -74,7 +73,7 @@ const Write = ({
 
   const handleClearFieldMessage = useClearFieldMessage(parentCode, attributeCode, questionCode)
   const hasValidData = value
-  const { inputStyles } = useStyles(hasValidData)
+  const { inputStyles, labelStyles } = useStyles(hasValidData, isFocused)
 
   const ddEvent = debounce(
     value =>
@@ -144,17 +143,7 @@ const Write = ({
 
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
-      <HStack
-        position={'absolute'}
-        zIndex={theme.zIndices.docked}
-        top={isFocused ? '-1.5rem' : 3}
-        left={0}
-        paddingStart={6}
-        w="full"
-        justifyContent={'space-between'}
-        pointerEvents={'none'}
-        transition="all 0.25s ease"
-      >
+      <HStack paddingStart={6} {...labelStyles}>
         {placeholderName && (
           <MandatorySymbol
             placeholderName={placeholderName}

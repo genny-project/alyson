@@ -1,4 +1,4 @@
-import { Box, Button, HStack, Input, useTheme, VStack } from '@chakra-ui/react'
+import { Box, Button, HStack, Input, VStack } from '@chakra-ui/react'
 import { empty, equals, isEmpty, not } from 'ramda'
 import { useEffect, useRef, useState } from 'react'
 
@@ -45,7 +45,6 @@ export const Write = ({
 
   const [isFocused, setIsFocused] = useState(false)
   const [mouseEntered, setMouseEntered] = useState(false)
-  const theme = useTheme()
 
   const [updated, setUpdated] = useState(false)
   const { selectedValue, value } = getValueSearchableText(data?.value || '')
@@ -56,7 +55,7 @@ export const Write = ({
   const [askedForDropDownData, setAskedForDropDownData] = useState(false)
 
   const hasValidData = not(empty(userInput))
-  const { inputStyles } = useStyles(hasValidData)
+  const { inputStyles, labelStyles } = useStyles(hasValidData, isFocused)
 
   const { fieldTextColor, labelTextColor } = useProductColors()
 
@@ -154,15 +153,9 @@ export const Write = ({
       transition="all 0.25s ease"
     >
       <HStack
-        position={'absolute'}
-        zIndex={theme.zIndices.docked}
-        top={isFocused || (userInput ?? '').length > 0 ? '-1.5rem' : 3}
-        left={0}
         paddingStart={6}
-        w="full"
-        justifyContent={'space-between'}
-        pointerEvents={'none'}
-        transition="all 0.25s ease"
+        top={isFocused || (userInput ?? '').length > 0 ? '-1.5rem' : 3}
+        {...labelStyles}
       >
         {placeholderName && (
           <MandatorySymbol

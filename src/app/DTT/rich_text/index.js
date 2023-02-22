@@ -19,7 +19,6 @@ import {
   PopoverTrigger,
   Text,
   useDisclosure,
-  useTheme,
   VStack,
 } from '@chakra-ui/react'
 import { faCheckCircle, faExpand } from '@fortawesome/free-solid-svg-icons'
@@ -59,7 +58,6 @@ const Write = ({
 }) => {
   const realm = useGetProductName().toLowerCase()
   const isProductInternmatch = useIsProductInternmatch()
-  const theme = useTheme()
 
   const { labelTextColor } = useProductColors()
 
@@ -98,7 +96,7 @@ const Write = ({
   const fieldNotEmpty = fieldState[questionCode]
   const hasValidData = userInput && !isInvalid
 
-  const { inputStyles } = useStyles(hasValidData)
+  const { inputStyles, labelStyles } = useStyles(hasValidData, isFocused)
 
   const handleEditorChange = () => {
     const blocks = convertToRaw(editor.getCurrentContent()).blocks
@@ -147,17 +145,7 @@ const Write = ({
 
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
-      <HStack
-        position={'absolute'}
-        zIndex={theme.zIndices.docked}
-        top={isFocused ? '-1.5rem' : '4.5rem'}
-        left={0}
-        paddingStart={6}
-        w="full"
-        justifyContent={'space-between'}
-        pointerEvents={'none'}
-        transition="all 0.25s ease"
-      >
+      <HStack {...labelStyles} paddingStart={6} top={isFocused ? '-1.5rem' : '4.5rem'}>
         {placeholderName && (
           <MandatorySymbol
             placeholderName={placeholderName}

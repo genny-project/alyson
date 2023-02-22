@@ -56,11 +56,11 @@ const Submit = ({ askData, onFinish, parentCode, realm, isProductIM }) => {
         fontWeight={isProductIM ? 400 : 600}
         color={theme.colors.text.dark}
         _hover={{
-          background: isProductIM ? `${realm}.primaryLight` : theme.colors.background.light,
+          background: isProductIM ? `${realm}.primary400` : theme.colors.background.light,
           color: isProductIM ? `${realm}.primary` : buttonBackgroundColor,
           borderWidth: '1px',
           borderStyle: 'solid',
-          borderColor: isProductIM ? `${realm}.primaryLight` : buttonBackgroundColor,
+          borderColor: isProductIM ? `${realm}.primary` : buttonBackgroundColor,
           variant: 'outline',
         }}
         _disabled={{

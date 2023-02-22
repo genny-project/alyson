@@ -5,7 +5,6 @@ import {
   InputGroup,
   InputLeftAddon,
   Text as ChakraText,
-  useTheme,
 } from '@chakra-ui/react'
 import { faCalendar, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useRef, useState } from 'react'
@@ -58,14 +57,13 @@ export const Write = ({
   const retrySendingAnswerRef = useRef(0)
   const iconColor = useGetAttributeFromProjectBaseEntity('PRI_COLOR_SECONDARY')?.valueString
 
-  const theme = useTheme()
   const { dispatch } = useError()
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
   const { errorState } = useError()
   const { hasFieldMessage, fieldMessage } = useGetFieldMessage(parentCode, questionCode)
   let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMessage)
 
-  const { fieldTextColor, labelTextColor } = useProductColors()
+  const { labelTextColor } = useProductColors()
 
   try {
     regex = RegExp(regexPattern)
@@ -121,21 +119,11 @@ export const Write = ({
   }, [userInput])
 
   const hasValidData = userInput && !isInvalid
-  const { inputStyles } = useStyles(hasValidData)
+  const { inputStyles, labelStyles } = useStyles(hasValidData, isFocused)
 
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
-      <HStack
-        position={'absolute'}
-        zIndex={theme.zIndices.docked}
-        top={isFocused ? '-1.5rem' : 3}
-        left={0}
-        paddingStart={isFocused ? 6 : !!icon ? 12 : 6}
-        w="full"
-        justifyContent={'space-between'}
-        pointerEvents={'none'}
-        transition="all 0.25s ease"
-      >
+      <HStack paddingStart={isFocused ? 6 : !!icon ? 12 : 6} {...labelStyles}>
         <MandatorySymbol
           placeholderName={placeholderName}
           mandatory={mandatory}
