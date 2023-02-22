@@ -40,20 +40,25 @@ const ProfileStatisticsCard = () => {
           {data.map(({ title, value }, index) => (
             <HStack marginLeft={'2.5rem'} w={'25rem'} h={'3rem'} marginTop={'1.5rem'}>
               <VStack>
-                <Text fontSize={'1.6rem'} textAlign={'center'} color={'#55B748'}>
+                <Text
+                  fontSize={'1.6rem'}
+                  textAlign={'center'}
+                  color={'#55B748'}
+                  marginBottom={'-5px'}
+                >
                   {value}
                 </Text>
                 <Text
                   fontSize={'0.75rem'}
-                  maxW={'7rem'}
+                  maxW={'6.5rem'}
                   textAlign={'center'}
                   marginRight={'1.9rem'}
+                  wordBreak={'break-word'}
                 >
-                  {' '}
-                  {title}{' '}
+                  {title}
                 </Text>
               </VStack>
-              {lt(index, 2) === true ? (
+              {lt(index, 2) ? (
                 <Divider orientation={'vertical'} h={'3.1rem'} borderColor={'#06323161'} />
               ) : null}
             </HStack>
