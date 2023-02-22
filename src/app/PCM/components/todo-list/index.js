@@ -1,21 +1,23 @@
 import { Box, Text, Checkbox, VStack, Divider, Button, HStack, Input } from '@chakra-ui/react'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { lt } from 'ramda'
 import { useState } from 'react'
 
-import { isNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined'
-
 const TodoList = () => {
-  const [userInput, setUserInput] = useState(null)
+  const [userInput, setUserInput] = useState('')
   const [todoList, setTodoList] = useState([])
 
-  const errorMessage = 'Please enter valid text.'
-  const isInvalid = isNullOrUndefinedOrEmpty(userInput)
+  let userInputLength = userInput.length
 
-  const handleAddTask = () => {
-    const userInputObject = { value: userInput, isChecked: false }
-    setTodoList([...todoList, userInputObject])
-    setUserInput('')
+  const handleAddTask = event => {
+    if (lt(userInputLength, 1) === true) {
+      event.preventDefault()
+    } else {
+      const userInputObject = { value: userInput, isChecked: false }
+      setTodoList([...todoList, userInputObject])
+      setUserInput('')
+    }
   }
 
   const handleDeleteTask = indexToBeDeleted => {
@@ -50,6 +52,7 @@ const TodoList = () => {
           <VStack alignItems={'flex-start'} paddingBlock={'6px'}>
             <HStack justifyContent={'space-between'} w="full">
               <Checkbox
+                key={`${index}-${value}`}
                 fontSize={'8px'}
                 size="md"
                 spacing={'25px'}
@@ -88,20 +91,13 @@ const TodoList = () => {
           marginTop={'-25px'}
           borderRadius={'50px'}
           fontSize={'16px'}
-          disabled={isInvalid ? true : false}
+          disabled={false}
           bg="#EA5024"
           color="#FFFFFF"
           onClick={handleAddTask}
         >
           Add task
         </Button>
-        {isInvalid ? (
-          <VStack alignItems="start">
-            <Text color={'red'} fontSize={'12px'}>
-              {errorMessage}
-            </Text>
-          </VStack>
-        ) : null}
       </Box>
     </>
   )
