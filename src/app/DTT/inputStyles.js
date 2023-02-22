@@ -43,20 +43,24 @@ const useStyles = (hasValidData, isFocused) => {
       borderColor: isProductInternMatch ? `${realm}.primary` : fieldHoverBorderColor,
       boxShadow: 'lg',
     },
+
     _focusVisible: {
       bg: isProductInternMatch ? `${realm}.primary400` : fieldBackgroundColor,
       borderColor: isProductInternMatch ? `${realm}.primary` : 'product.secondary',
       boxShadow: 'initial',
     },
+
     _valid: {
       bg: isProductInternMatch ? `${realm}.primary400` : fieldBackgroundColor,
       borderColor: isProductInternMatch ? `${realm}.primary` : fieldHoverBorderColor,
     },
+
     _invalid: {
       background: isProductInternMatch ? `${realm}.secondary400Alpha20` : 'error.50',
       borderColor: isProductInternMatch ? `${realm}.secondary` : 'error.500',
       color: isProductInternMatch ? `${realm}.secondary` : 'error.500',
     },
+
     _disabled: {
       borderColor: isProductInternMatch ? `${realm}.primary` : 'gray.300',
       background: isProductInternMatch ? `${realm}.primary` : 'gray.100',

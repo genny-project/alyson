@@ -138,7 +138,7 @@ export const Write = ({
         />
       </HStack>
 
-      <InputGroup onClick={() => setIsFocused(true)} role="group">
+      <InputGroup onClick={() => setIsFocused(true)} role="group" {...inputStyles}>
         {!!icon && (
           <InputLeftAddon
             h={'auto'}
@@ -173,7 +173,11 @@ export const Write = ({
           paddingBlock={3}
           paddingInlineEnd={6}
           paddingInlineStart={!!icon ? 1 : 6}
-          {...inputStyles}
+          h={'auto'}
+          border={0}
+          fontWeight={isProductInternMatch ? `normal` : 'medium'}
+          fontSize={'sm'}
+          _focus={{ border: 0 }}
         />
       </InputGroup>
 
