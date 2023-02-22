@@ -64,8 +64,10 @@ const Submit = ({ askData, onFinish, parentCode, realm, isProductIM }) => {
           variant: 'outline',
         }}
         _disabled={{
+          bg: isProductIM ? `${realm}.neutralGray` : buttonBackgroundColor,
+          borderColor: isProductIM ? `${realm}.neutralGray` : buttonBackgroundColor,
           pointerEvents: 'none',
-          opacity: '0.4',
+          opacity: isProductIM ? 1 : '0.4',
         }}
       >
         {name}
