@@ -1,7 +1,7 @@
 import './styles.css'
 
 import { Box, HStack, Text } from '@chakra-ui/react'
-import { equals, includes, isEmpty, or, pathOr } from 'ramda'
+import { equals, includes, isEmpty, not, or, pathOr } from 'ramda'
 import { useEffect, useState } from 'react'
 import { selectCode, selectRows } from 'redux/db/selectors'
 
@@ -72,7 +72,8 @@ const Write = ({
   const { hasFieldMessage, fieldMessage } = useGetFieldMessage(parentCode, questionCode)
 
   const handleClearFieldMessage = useClearFieldMessage(parentCode, attributeCode, questionCode)
-  const hasValidData = value
+  const hasValidData = not(equals(value.length, 0))
+
   const { inputStyles, labelStyles } = useStyles(hasValidData, isFocused)
 
   const ddEvent = debounce(
