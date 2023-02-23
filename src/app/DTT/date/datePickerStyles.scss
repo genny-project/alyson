@@ -99,6 +99,15 @@ $projects: 'internmatch', 'lojing';
         &__year-select {
           background-color: transparent;
         }
+
+        &__year-wrapper {
+          flex-direction: column;
+
+          .react-datepicker__year-text {
+            width: 9rem;
+            padding-block: 0.5rem;
+          }
+        }
       }
     }
   } @else if ($project == 'lojing') {

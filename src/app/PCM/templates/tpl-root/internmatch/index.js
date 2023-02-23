@@ -1,11 +1,11 @@
 import { Box, Grid, Tooltip } from '@chakra-ui/react'
-import { SIDEBAR_WIDTH, SIDEBAR_WIDTH_SM } from 'utils/constants'
 
 import Content from 'app/PCM/templates/tpl-root/internmatch/content'
 import Header from 'app/PCM/templates/tpl-root/internmatch/header'
 import Sidebar from 'app/PCM/templates/tpl-root/internmatch/sidebar'
 import { useState } from 'react'
 import { Iconly } from 'react-iconly'
+import { SIDEBAR_WIDTH_SM } from 'utils/constants'
 
 const InternmatchRoot = ({
   isMobile,
@@ -24,7 +24,7 @@ const InternmatchRoot = ({
   PRI_LOC3,
 }) => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false)
-  const gridColWidth = isSidebarCollapsed ? SIDEBAR_WIDTH_SM : SIDEBAR_WIDTH
+  const gridColWidth = isSidebarCollapsed ? SIDEBAR_WIDTH_SM : '14rem'
 
   return (
     <Grid
@@ -43,15 +43,15 @@ const InternmatchRoot = ({
             as="button"
             position={'absolute'}
             left={gridColWidth}
-            top={5}
+            top={9}
             zIndex={'10000'}
             onClick={() => {
               setIsSidebarCollapsed(!isSidebarCollapsed)
             }}
             marginInlineStart={'-1.25rem'}
             borderRadius={'full'}
-            paddingBlock={3}
-            paddingInline={3}
+            paddingBlock={2}
+            paddingInline={2}
             border={`1px solid`}
             borderColor={'internmatch.primary300'}
             bg={'internmatch.primary'}
@@ -59,7 +59,7 @@ const InternmatchRoot = ({
             transition={'all 0.25s ease'}
           >
             <Iconly
-              name={isSidebarCollapsed ? 'ArrowRight' : 'ArrowLeft'}
+              name={isSidebarCollapsed ? 'ChevronRight' : 'ChevronLeft'}
               set="light"
               size="small"
             />

@@ -15,9 +15,9 @@ import {
   Wrap,
   WrapItem,
 } from '@chakra-ui/react'
+import { INTERNMATCH_LOGO_WIDTH, INTERNMATCH_LOGO_WIDTH_SM } from 'utils/constants'
 
 import { slice } from 'ramda'
-import { INTERNMATCH_LOGO_WIDTH } from 'utils/constants'
 import { onSendMessage } from 'vertx'
 
 const InternmatchSidebar = ({ mappedPcm, maxItems, evtButtons, isSidebarCollapsed }) => {
@@ -38,8 +38,8 @@ const InternmatchSidebar = ({ mappedPcm, maxItems, evtButtons, isSidebarCollapse
           }
         >
           <Image
-            src={'/internmatch.png'}
-            w={isSidebarCollapsed ? INTERNMATCH_LOGO_WIDTH : INTERNMATCH_LOGO_WIDTH}
+            src={isSidebarCollapsed ? '/internmatch-sm.png' : '/internmatch.png'}
+            w={isSidebarCollapsed ? INTERNMATCH_LOGO_WIDTH_SM : INTERNMATCH_LOGO_WIDTH}
             cursor="pointer"
             transition={'all 0.25s ease'}
           />
