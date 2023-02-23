@@ -68,6 +68,7 @@ const Write = ({
   attributeCode,
   placeholderName,
   mandatory,
+  type,
 }) => {
   let initialErrorMsg = 'You can only valid date.'
 
@@ -93,7 +94,7 @@ const Write = ({
   const [dateValue, setDateValue] = useState(null)
   const [isFocused, setIsFocused] = useState(false)
 
-  const onlyYear = typeName === 'year'
+  const onlyYear = type === 'year'
 
   const availabilityQuestions = includes('_AVAILABILITY')(questionCode)
 
