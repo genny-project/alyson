@@ -18,27 +18,30 @@ import {
   PopoverHeader,
   PopoverTrigger,
   Text,
-  VStack,
   useDisclosure,
-  useTheme,
+  VStack,
 } from '@chakra-ui/react'
-import { ContentState, EditorState, convertFromHTML, convertToRaw } from 'draft-js'
 import { faCheckCircle, faExpand } from '@fortawesome/free-solid-svg-icons'
+import { ContentState, convertFromHTML, convertToRaw, EditorState } from 'draft-js'
 import { useEffect, useState } from 'react'
 
-import { ACTIONS } from 'utils/contexts/ErrorReducer'
-import DOMPurify from 'dompurify'
-import { Editor } from 'react-draft-wysiwyg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { getIsInvalid } from 'utils/functions'
-import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
+import useStyles from 'app/DTT/inputStyles'
+import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
+import DOMPurify from 'dompurify'
+import { stateToHTML } from 'draft-js-export-html'
+import { Editor } from 'react-draft-wysiwyg'
+import { useError } from 'utils/contexts/ErrorContext'
+import { ACTIONS } from 'utils/contexts/ErrorReducer'
+import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
+import useGetFieldMessage from 'utils/fieldMessage'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
+import { getIsInvalid } from 'utils/functions'
+import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
+import useGetProductName from 'utils/helpers/get-product-name'
+import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
 import removeHtmlTags from 'utils/helpers/remove-html-tags'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
-import { stateToHTML } from 'draft-js-export-html'
-import { useError } from 'utils/contexts/ErrorContext'
-import useGetFieldMessage from 'utils/fieldMessage'
-import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
 
 const Write = ({
@@ -53,15 +56,10 @@ const Write = ({
 
   mandatory,
 }) => {
-  const theme = useTheme()
+  const realm = useGetProductName().toLowerCase()
+  const isProductInternmatch = useIsProductInternmatch()
 
-  const {
-    fieldBackgroundColor,
-    fieldBorderColor,
-    fieldHoverBorderColor,
-    labelTextColor,
-    borderRadius,
-  } = useProductColors()
+  const { labelTextColor } = useProductColors()
 
   const { minCharacterCount = 0, maxCharacterCount } = safelyParseJson(html, {})
   const blocksFromHTML = convertFromHTML(data?.value || '')
@@ -96,6 +94,9 @@ const Write = ({
 
   const failedValidation = errorState[questionCode]
   const fieldNotEmpty = fieldState[questionCode]
+  const hasValidData = userInput && !isInvalid
+
+  const { inputStyles, labelStyles } = useStyles(hasValidData, isFocused)
 
   const handleEditorChange = () => {
     const blocks = convertToRaw(editor.getCurrentContent()).blocks
@@ -144,28 +145,14 @@ const Write = ({
 
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
-      <HStack
-        position={'absolute'}
-        zIndex={theme.zIndices.docked}
-        top={isFocused ? '-1.5rem' : '4.5rem'}
-        left={0}
-        paddingStart={6}
-        w="full"
-        justifyContent={'space-between'}
-        pointerEvents={'none'}
-        transition="all 0.25s ease"
-      >
+      <HStack {...labelStyles} paddingStart={6} top={isFocused ? '-1.5rem' : '4.5rem'}>
         {placeholderName && (
-          <Text as="label" fontSize={'sm'} fontWeight={'medium'} color={labelTextColor}>
-            {placeholderName}
-            {mandatory ? (
-              <Text as="span" color={'red.500'} ml={1}>
-                *
-              </Text>
-            ) : (
-              <></>
-            )}
-          </Text>
+          <MandatorySymbol
+            placeholderName={placeholderName}
+            labelTextColor={isProductInternmatch ? `${realm}.primary` : labelTextColor}
+            realm={realm}
+            mandatory={mandatory}
+          />
         )}
 
         {(!failedValidation && fieldNotEmpty) ||
@@ -174,26 +161,7 @@ const Write = ({
         ) : null}
       </HStack>
 
-      <Box
-        test-id={questionCode}
-        w="full"
-        border="1px"
-        borderColor={fieldBorderColor}
-        borderRadius={borderRadius}
-        paddingBlock={3}
-        paddingInline={6}
-        bg={fieldBackgroundColor}
-        fontSize={'sm'}
-        fontWeight={'medium'}
-        _hover={{
-          borderColor: fieldHoverBorderColor,
-          boxShadow: 'lg',
-        }}
-        _focusWithin={{
-          borderColor: 'product.secondary',
-          boxShadow: 'lg',
-        }}
-      >
+      <Box test-id={questionCode} paddingBlock={3} paddingInline={6} {...inputStyles}>
         {minCharacterCount || maxCharacterCount ? (
           !minCharacterCount ? (
             <HStack>
@@ -280,7 +248,13 @@ const Read = ({ data, mini, config = {} }) => {
       </PopoverContent>
     </Popover>
   ) : noOfLines ? (
-    <VStack onClick={onOpen}>
+    <VStack
+      onClick={e => {
+        //Prevents onClick from being caught by the onClick of a parent
+        e.stopPropagation()
+        onOpen()
+      }}
+    >
       <Box p="0px" dangerouslySetInnerHTML={{ __html: cleanHtml }} {...config} />
       <Modal isOpen={isOpen} onClose={onClose} isCentered size="xl">
         <ModalOverlay />

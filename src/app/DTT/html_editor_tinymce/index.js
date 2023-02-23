@@ -3,6 +3,7 @@ import 'app/DTT/html_editor_tinymce/style.css'
 import {
   Box,
   Button,
+  HStack,
   Modal,
   ModalBody,
   ModalContent,
@@ -19,11 +20,13 @@ import {
   useDisclosure,
   VStack,
 } from '@chakra-ui/react'
+import { faCheckCircle, faExpand } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useRef, useState } from 'react'
 
-import { faExpand } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Editor } from '@tinymce/tinymce-react'
+import useStyles from 'app/DTT/inputStyles'
+import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
 import DOMPurify from 'dompurify'
 import { compose } from 'ramda'
 import { useSelector } from 'react-redux'
@@ -32,10 +35,28 @@ import { projectCodeString } from 'utils/constants'
 import { useError } from 'utils/contexts/ErrorContext'
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
+import { isNotStringifiedEmptyArray } from 'utils/functionals'
 import { getIsInvalid } from 'utils/functions'
+import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
+import useGetProductName from 'utils/helpers/get-product-name'
 import removeHtmlTags from 'utils/helpers/remove-html-tags'
+import useProductColors from 'utils/productColors'
 
-const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMessage, placeholder }) => {
+const Write = ({
+  questionCode,
+  data,
+  onSendAnswer,
+  regexPattern,
+  errorMessage,
+  placeholderName,
+  mandatory,
+}) => {
+  const realm = useGetProductName().toLowerCase()
+  const isProductInternMatch = useIsProductInternmatch()
+  const [isFocused, setIsFocused] = useState(false)
+
+  const { labelTextColor } = useProductColors()
+
   const projectCode = compose(useSelector, selectCode)(projectCodeString)
   const tinyMCEKEY = useSelector(selectCode(projectCode, 'ENV_TINY_MCE_API_KEY'))?.value || ''
 
@@ -55,6 +76,15 @@ const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMessage, p
     ?.replace(/^.*\s{2,}.*$/, '')
 
   const isInvalid = getIsInvalid(userInputWithoutLineBreaks, questionCode)(RegExp(regexPattern))
+
+  const { errorState } = useError()
+  const { fieldState } = useIsFieldNotEmpty()
+
+  const failedValidation = errorState[questionCode]
+  const fieldNotEmpty = fieldState[questionCode]
+  const hasValidData = userInput && !isInvalid
+
+  const { inputStyles, labelStyles } = useStyles(hasValidData, isFocused)
 
   useEffect(() => {
     isInvalid ? setErrorStatus(true) : setErrorStatus(false)
@@ -77,24 +107,35 @@ const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMessage, p
   }
 
   return (
-    <>
-      <Box
-        test-id={questionCode}
-        w="full"
-        border="1px solid #E2E8F0"
-        borderRadius="0.375rem"
-        p="1rem"
-      >
+    <Box position={'relative'} mt={6} transition="all 0.25s ease">
+      <HStack paddingStart={isProductInternMatch ? 6 : 12} {...labelStyles} top={'-1.5rem'}>
+        {placeholderName && (
+          <MandatorySymbol
+            placeholderName={placeholderName}
+            labelTextColor={isProductInternMatch ? `${realm}.primary` : labelTextColor}
+            realm={realm}
+            mandatory={mandatory}
+          />
+        )}
+
+        {(!failedValidation && fieldNotEmpty) ||
+        (!failedValidation && userInput && isNotStringifiedEmptyArray(userInput)) ? (
+          <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
+        ) : null}
+      </HStack>
+
+      <Box className={`editor-${realm}`} test-id={questionCode} {...inputStyles}>
         <Editor
           apiKey={tinyMCEKEY}
           onInit={(evt, editor) => (editorRef.current = editor)}
           value={userInput ? userInput : ''}
           id={questionCode}
+          onFocus={() => setIsFocused(true)}
           onBlur={handleSave}
           onEditorChange={handleEditorChange}
           spellCheck={true}
           lang="en"
-          placeholder={placeholder || ' '}
+          placeholder={placeholderName || ' '}
           init={{
             height: 500,
             newline_behavior: 'block',
@@ -114,6 +155,7 @@ const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMessage, p
               'lists',
               'fullpage',
             ],
+            valid_children: '+body[style],+head[style]',
             toolbar: [
               'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor | ltr rtl',
             ],
@@ -122,11 +164,15 @@ const Write = ({ questionCode, data, onSendAnswer, regexPattern, errorMessage, p
       </Box>
 
       {errorStatus && (
-        <Text textStyle="tail.error" mt={2}>
+        <Text
+          textStyle="tail.error"
+          color={isProductInternMatch ? `${realm}.secondary` : 'error.500'}
+          mt={2}
+        >
           {errorMessage}
         </Text>
       )}
-    </>
+    </Box>
   )
 }
 

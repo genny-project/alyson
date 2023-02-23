@@ -54,9 +54,11 @@ const EventButton = ({ askData, onFinish, parentCode, sourceCode, clientId, conf
       paddingInline={isProductIM ? 6 : 4}
       // w={'6.5rem'}
       fontSize={'sm'}
+      fontWeight={isProductIM ? 400 : 600}
       color={isProductIM ? `${realm}.light` : buttonBackgroundColor}
       mr={2}
       marginBlock="5"
+      cursor="pointer"
       _hover={{
         variant: 'solid',
         background: isProductIM ? `${realm}.primary400` : buttonBackgroundColor,
@@ -65,8 +67,10 @@ const EventButton = ({ askData, onFinish, parentCode, sourceCode, clientId, conf
       }}
       {...config}
       _disabled={{
+        bg: isProductIM ? `${realm}.neutralGray` : buttonBackgroundColor,
+        borderColor: isProductIM ? `${realm}.neutralGray` : buttonBackgroundColor,
         pointerEvents: 'none',
-        opacity: '0.4',
+        opacity: isProductIM ? 1 : '0.4',
       }}
     >
       {name}

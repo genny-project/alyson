@@ -11,7 +11,6 @@ import {
   MenuList,
   Text,
   useClipboard,
-  useTheme,
   useToast,
 } from '@chakra-ui/react'
 import { faAngleDown, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
@@ -23,6 +22,7 @@ import { getCountryInfoFromCountryList, getCountryObjectFromUserInput } from './
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useClearFieldMessage from 'app/DTT/helpers/clear-field-message'
 import ErrorDisplay from 'app/DTT/helpers/error-display'
+import useStyles from 'app/DTT/inputStyles'
 import AnswerAcknowledge from 'app/layouts/components/form/answer_acknowledge'
 import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
 import debounce from 'lodash.debounce'
@@ -68,19 +68,11 @@ const Write = ({
   const inputRef = useRef()
   const retrySendingAnswerRef = useRef(0)
 
-  const theme = useTheme()
   const { dispatch } = useError()
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
   const { errorState } = useError()
   const { hasFieldMessage, fieldMessage } = useGetFieldMessage(parentCode, questionCode)
-  const {
-    fieldBackgroundColor,
-    fieldBorderColor,
-    fieldHoverBorderColor,
-    fieldTextColor,
-    labelTextColor,
-    borderRadius,
-  } = useProductColors()
+  const { labelTextColor } = useProductColors()
   const handleClearFieldMessage = useClearFieldMessage(parentCode, attributeCode, questionCode)
 
   let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMessage)
@@ -101,6 +93,7 @@ const Write = ({
   let countryFlagFromUserInput = !!icon ? icon : ''
 
   const hasValidData = userInput && !isInvalid
+  const { inputStyles, labelStyles } = useStyles(hasValidData, isFocused)
 
   const onBlur = e => {
     e.target.value ? setIsFocused(true) : setIsFocused(false)
@@ -171,17 +164,7 @@ const Write = ({
 
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
-      <HStack
-        position={'absolute'}
-        zIndex={theme.zIndices.docked}
-        top={isFocused ? '-1.5rem' : 3}
-        left={0}
-        paddingStart={isFocused ? 6 : 20}
-        w="full"
-        justifyContent={'space-between'}
-        pointerEvents={'none'}
-        transition="all 0.25s ease"
-      >
+      <HStack paddingStart={isFocused ? 6 : 20} {...labelStyles}>
         <MandatorySymbol
           placeholderName={placeholderName}
           mandatory={mandatory}
@@ -238,48 +221,10 @@ const Write = ({
           onChange={e => setuserInput(e.target.value)}
           value={userInput || ''}
           isInvalid={isInvalid}
-          w="full"
-          h={'auto'}
           paddingBlock={3}
           paddingInlineStart={20}
           paddingInlineEnd={6}
-          bg={
-            isProductInternMatch && hasValidData
-              ? `${realm}.primary400`
-              : isProductInternMatch
-              ? `${realm}.secondary400`
-              : fieldBackgroundColor
-          }
-          borderRadius={isProductInternMatch ? 'lg' : borderRadius}
-          borderColor={isProductInternMatch ? `${realm}.primary` : fieldBorderColor}
-          fontSize={'sm'}
-          fontWeight={'medium'}
-          color={isProductInternMatch ? `${realm}.primary` : fieldTextColor}
-          cursor={'pointer'}
-          _hover={{
-            bg: isProductInternMatch ? `${realm}.primary400` : fieldBackgroundColor,
-            borderColor: isProductInternMatch ? `${realm}.primary` : fieldHoverBorderColor,
-            boxShadow: 'lg',
-          }}
-          _focusVisible={{
-            bg: isProductInternMatch ? `${realm}.primary400` : fieldBackgroundColor,
-            borderColor: isProductInternMatch ? `${realm}.primary` : 'product.secondary',
-            boxShadow: 'initial',
-          }}
-          _valid={{
-            bg: isProductInternMatch ? `${realm}.primary400` : fieldBackgroundColor,
-            borderColor: isProductInternMatch ? `${realm}.primary` : fieldHoverBorderColor,
-          }}
-          _invalid={{
-            background: isProductInternMatch ? `${realm}.secondary400Alpha20` : 'error.50',
-            borderColor: isProductInternMatch ? `${realm}.secondary` : 'error.500',
-            color: isProductInternMatch ? `${realm}.secondary` : 'error.500',
-          }}
-          _disabled={{
-            borderColor: isProductInternMatch ? `${realm}.primary` : 'gray.300',
-            background: isProductInternMatch ? `${realm}.primary` : 'gray.100',
-            color: isProductInternMatch ? `${realm}.primary400` : 'inherit',
-          }}
+          {...inputStyles}
         />
       </HStack>
 

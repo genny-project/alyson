@@ -1,7 +1,7 @@
 import './styles.css'
 
-import { Box, HStack, Text, useTheme } from '@chakra-ui/react'
-import { equals, includes, isEmpty, pathOr } from 'ramda'
+import { Box, HStack, Text } from '@chakra-ui/react'
+import { equals, includes, isEmpty, or, pathOr } from 'ramda'
 import { useEffect, useState } from 'react'
 import { selectCode, selectRows } from 'redux/db/selectors'
 
@@ -9,6 +9,8 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useClearFieldMessage from 'app/DTT/helpers/clear-field-message'
 import ErrorDisplay from 'app/DTT/helpers/error-display'
+import useStyles from 'app/DTT/inputStyles'
+import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
 import { Select as CSelect } from 'chakra-react-select'
 import debounce from 'lodash.debounce'
 import { useSelector } from 'react-redux'
@@ -54,20 +56,13 @@ const Write = ({
   const sourceCode = useSelector(selectCode('USER'))
 
   const [value, setValue] = useState(getValue(data, options))
+  const [inputValue, setInputValue] = useState('')
   const [updated, setUpdated] = useState(false)
   const [isFocused, setIsFocused] = useState(true)
 
   const [askedForDropDownData, setAskedForDropDownData] = useState(false)
 
-  const theme = useTheme()
-  const {
-    fieldBackgroundColor,
-    fieldBorderColor,
-    fieldHoverBorderColor,
-    fieldTextColor,
-    labelTextColor,
-    borderRadius,
-  } = useProductColors()
+  const { fieldTextColor, labelTextColor } = useProductColors()
 
   const { errorState } = useError()
   const { fieldState } = useIsFieldNotEmpty()
@@ -77,6 +72,8 @@ const Write = ({
   const { hasFieldMessage, fieldMessage } = useGetFieldMessage(parentCode, questionCode)
 
   const handleClearFieldMessage = useClearFieldMessage(parentCode, attributeCode, questionCode)
+  const hasValidData = value
+  const { inputStyles, labelStyles } = useStyles(hasValidData, isFocused)
 
   const ddEvent = debounce(
     value =>
@@ -122,8 +119,8 @@ const Write = ({
   }, [])
 
   useEffect(() => {
-    value?.length ? setIsFocused(true) : setIsFocused(false)
-  }, [value])
+    or(!isEmpty(inputValue), !isEmpty(value)) ? setIsFocused(true) : setIsFocused(false)
+  }, [value, inputValue])
 
   const onChange = newValue => {
     handleClearFieldMessage()
@@ -146,37 +143,14 @@ const Write = ({
 
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
-      <HStack
-        position={'absolute'}
-        zIndex={theme.zIndices.docked}
-        top={isFocused ? '-1.5rem' : 3}
-        left={0}
-        paddingStart={6}
-        w="full"
-        justifyContent={'space-between'}
-        pointerEvents={'none'}
-        transition="all 0.25s ease"
-      >
+      <HStack paddingStart={6} {...labelStyles}>
         {placeholderName && (
-          <Text
-            as="label"
-            fontSize={'sm'}
-            fontWeight={'medium'}
-            color={isProductInternMatch ? `${realm}.primary` : labelTextColor}
-          >
-            {placeholderName}
-            {mandatory ? (
-              <Text
-                as="span"
-                color={isProductInternMatch ? `${realm}.secondary` : 'red.500'}
-                ml={1}
-              >
-                *
-              </Text>
-            ) : (
-              <></>
-            )}
-          </Text>
+          <MandatorySymbol
+            placeholderName={placeholderName}
+            labelTextColor={isProductInternMatch ? `${realm}.primary` : labelTextColor}
+            realm={realm}
+            mandatory={mandatory}
+          />
         )}
 
         {(!failedValidation && fieldNotEmpty) ||
@@ -194,14 +168,23 @@ const Write = ({
         isMulti={isMulti}
         options={options}
         onChange={onChange}
-        onInputChange={value => ddEvent(value)}
+        onInputChange={value => {
+          setInputValue(value)
+          ddEvent(value)
+        }}
         onFocus={() => {
           setIsFocused(true)
           ddEvent('')
         }}
+        onBlur={() => {
+          if (isEmpty(value)) {
+            setIsFocused(false)
+          }
+        }}
         test-id={questionCode}
         id={questionCode}
         value={value}
+        inputValue={inputValue}
         classNamePrefix={realm + '_dd'}
         selectedOptionStyle="check"
         placeholder=""
@@ -209,47 +192,18 @@ const Write = ({
           input: provided => ({
             ...provided,
             w: 'full',
-            paddingInline: 12,
           }),
           container: provided => ({
             ...provided,
             w: 'full',
+            //Minimum width for the save search fields
+            minW: 24,
           }),
           control: provided => ({
             ...provided,
             paddingInline: '0.5rem',
             paddingBlock: '0.5rem',
-            bg:
-              isProductInternMatch && value
-                ? `${realm}.primary400`
-                : isProductInternMatch
-                ? `${realm}.secondary400`
-                : fieldBackgroundColor,
-            borderRadius: isProductInternMatch ? 'lg' : borderRadius,
-            borderColor: isProductInternMatch ? `${realm}.primary` : fieldBorderColor,
-            fontSize: '0.875rem',
-            fontWeight: '500',
-            color: isProductInternMatch ? `${realm}.primary` : fieldTextColor,
-            cursor: 'pointer',
-            _hover: {
-              bg: isProductInternMatch ? `${realm}.primary400` : fieldBackgroundColor,
-              borderColor: isProductInternMatch ? `${realm}.primary` : fieldHoverBorderColor,
-              boxShadow: 'lg',
-            },
-            _focus: {
-              bg: isProductInternMatch ? `${realm}.primary400` : fieldBackgroundColor,
-              borderColor: isProductInternMatch ? `${realm}.primary` : 'product.secondary',
-              boxShadow: 'inherit',
-            },
-            _valid: {
-              bg: isProductInternMatch ? `${realm}.primary400` : fieldBackgroundColor,
-              borderColor: isProductInternMatch ? `${realm}.primary` : fieldHoverBorderColor,
-            },
-            _invalid: {
-              background: isProductInternMatch ? `${realm}.secondary400Alpha20` : 'error.50',
-              borderColor: isProductInternMatch ? `${realm}.secondary` : 'error.500',
-              color: isProductInternMatch ? `${realm}.secondary` : 'error.500',
-            },
+            ...inputStyles,
           }),
           menu: provided => ({
             ...provided,

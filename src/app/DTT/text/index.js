@@ -5,7 +5,6 @@ import {
   InputGroup,
   InputLeftAddon,
   Text as ChakraText,
-  useTheme,
 } from '@chakra-ui/react'
 import { faCalendar, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useRef, useState } from 'react'
@@ -20,7 +19,6 @@ import DetailViewTags from 'app/DTT/text/detailview_tags'
 import AnswerAcknowledge from 'app/layouts/components/form/answer_acknowledge'
 import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
 import debounce from 'lodash.debounce'
-import InputMask from 'react-input-mask'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import { useError } from 'utils/contexts/ErrorContext'
@@ -32,6 +30,7 @@ import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
 import useGetProductName from 'utils/helpers/get-product-name'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined'
 import useProductColors from 'utils/productColors'
+import useStyles from '../inputStyles'
 
 export const Write = ({
   questionCode,
@@ -58,21 +57,13 @@ export const Write = ({
   const retrySendingAnswerRef = useRef(0)
   const iconColor = useGetAttributeFromProjectBaseEntity('PRI_COLOR_SECONDARY')?.valueString
 
-  const theme = useTheme()
   const { dispatch } = useError()
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
   const { errorState } = useError()
   const { hasFieldMessage, fieldMessage } = useGetFieldMessage(parentCode, questionCode)
   let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMessage)
 
-  const {
-    fieldBackgroundColor,
-    fieldBorderColor,
-    fieldHoverBorderColor,
-    fieldTextColor,
-    labelTextColor,
-    borderRadius,
-  } = useProductColors()
+  const { labelTextColor } = useProductColors()
 
   try {
     regex = RegExp(regexPattern)
@@ -85,8 +76,6 @@ export const Write = ({
   const debouncedSendAnswer = debounce(onSendAnswer, 500)
   const ackMessageObject = useSelector(selectCode(ACKMESSAGEKEY))
   const ackMessageValue = ackMessageObject?.[questionCode] || ''
-
-  const hasValidData = userInput && !isInvalid
 
   const handleClearFieldMessage = useClearFieldMessage(parentCode, attributeCode, questionCode)
 
@@ -128,19 +117,13 @@ export const Write = ({
   useEffect(() => {
     retrySendingAnswerRef.current = 0
   }, [userInput])
+
+  const hasValidData = userInput && !isInvalid
+  const { inputStyles, labelStyles } = useStyles(hasValidData, isFocused)
+
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
-      <HStack
-        position={'absolute'}
-        zIndex={theme.zIndices.docked}
-        top={isFocused ? '-1.5rem' : 3}
-        left={0}
-        paddingStart={isFocused ? 6 : !!icon ? 12 : 6}
-        w="full"
-        justifyContent={'space-between'}
-        pointerEvents={'none'}
-        transition="all 0.25s ease"
-      >
+      <HStack paddingStart={isFocused ? 6 : !!icon ? 12 : 6} {...labelStyles}>
         <MandatorySymbol
           placeholderName={placeholderName}
           mandatory={mandatory}
@@ -154,46 +137,8 @@ export const Write = ({
           questionCode={questionCode}
         />
       </HStack>
-      <InputGroup
-        onClick={() => setIsFocused(true)}
-        bg={
-          isProductInternMatch && hasValidData
-            ? `${realm}.primary400`
-            : isProductInternMatch
-            ? `${realm}.secondary400`
-            : fieldBackgroundColor
-        }
-        borderRadius={isProductInternMatch ? 'lg' : borderRadius}
-        borderColor={isProductInternMatch ? `${realm}.primary` : fieldBorderColor}
-        borderWidth="1px"
-        borderStyle="solid"
-        overflow={'hidden'}
-        role="group"
-        _hover={{
-          bg: isProductInternMatch ? `${realm}.primary400` : fieldBackgroundColor,
-          borderColor: isProductInternMatch ? `${realm}.primary` : fieldHoverBorderColor,
-          boxShadow: 'lg',
-        }}
-        _focusVisible={{
-          bg: isProductInternMatch ? `${realm}.primary400` : fieldBackgroundColor,
-          borderColor: isProductInternMatch ? `${realm}.primary` : 'product.secondary',
-          boxShadow: 'initial',
-        }}
-        _valid={{
-          bg: isProductInternMatch ? `${realm}.primary400` : fieldBackgroundColor,
-          borderColor: isProductInternMatch ? `${realm}.primary` : fieldHoverBorderColor,
-        }}
-        _invalid={{
-          background: isProductInternMatch ? `${realm}.secondary400Alpha20` : 'error.50',
-          borderColor: isProductInternMatch ? `${realm}.secondary` : 'error.500',
-          color: isProductInternMatch ? `${realm}.secondary` : 'error.500',
-        }}
-        _disabled={{
-          borderColor: isProductInternMatch ? `${realm}.primary` : 'gray.300',
-          background: isProductInternMatch ? `${realm}.primary` : 'gray.100',
-          color: isProductInternMatch ? `${realm}.primary400` : 'inherit',
-        }}
-      >
+
+      <InputGroup onClick={() => setIsFocused(true)} role="group" {...inputStyles}>
         {!!icon && (
           <InputLeftAddon
             h={'auto'}
@@ -216,35 +161,26 @@ export const Write = ({
             <FontAwesomeIcon size="lg" icon={icon || faQuestionCircle} color={'inherit'} />
           </InputLeftAddon>
         )}
+
         <Input
-          as={InputMask}
-          mask={inputmask}
-          maskChar={null}
+          isInvalid={isInvalid}
           test-id={questionCode}
           id={questionCode}
           ref={inputRef}
           onBlur={onBlur}
           onChange={e => setuserInput(e.target.value)}
           value={userInput || ''}
-          w="full"
-          h={'auto'}
           paddingBlock={3}
           paddingInlineEnd={6}
           paddingInlineStart={!!icon ? 1 : 6}
+          h={'auto'}
           border={0}
-          borderRadius={'lg'}
+          fontWeight={isProductInternMatch ? `normal` : 'medium'}
           fontSize={'sm'}
-          fontWeight={'medium'}
-          color={isProductInternMatch ? `${realm}.primary` : fieldTextColor}
-          _focusVisible={{
-            border: '0',
-          }}
-          _focus={{
-            border: '0',
-          }}
-          cursor={'pointer'}
+          _focus={{ border: 0 }}
         />
       </InputGroup>
+
       <ErrorDisplay
         hasErrorMessage={hasErrorMessage}
         errorStatus={errorStatus}

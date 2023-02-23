@@ -2,8 +2,8 @@ import { extendTheme } from '@chakra-ui/react'
 
 export const defaultProjectTheme = {
   fonts: {
-    heading: 'Proxima Nova, Nunito, Roboto, sans-serif',
-    body: 'Proxima Nova, Nunito, Roboto, sans-serif',
+    internMatchHeader: `'Inconsolata', monospace`,
+    internMatchBody: `'Almarai', sans-serif`,
   },
   colors: {
     background: {
@@ -119,6 +119,7 @@ export const defaultProjectTheme = {
     },
 
     internmatch: {
+      primary100: 'E6EAEA',
       primary300: '#E0F2F2',
       primary400: '#96D5D3',
       primary: '#063231',
@@ -126,6 +127,7 @@ export const defaultProjectTheme = {
 
       secondary: '#EA5024',
       secondary400: '#E4BAC8',
+      secondaryAlpha10: 'rgb(234 80 36 / .1)',
       secondary400Alpha20: 'rgb(228 186 200 / .2)',
 
       accent: '#55B748',
@@ -133,6 +135,7 @@ export const defaultProjectTheme = {
       light: '#FFFFFF',
       lightAlpha40: 'rgb(255 255 255 / .4)',
 
+      neutralGray: '#C2C2C2',
       dark: '#000',
     },
 
@@ -266,56 +269,54 @@ export const defaultProjectTheme = {
       heading1: {
         fontSize: '6.88rem',
         fontWeight: 200,
-        // fontFamily: 'Editorial New',
+        fontFamily: 'Editorial New',
         lineHeight: '1.28',
       },
       heading2: {
         fontSize: '4.25rem',
         fontWeight: 200,
-        // fontFamily: 'Editorial New',
+        fontFamily: 'Editorial New',
         lineHeight: '1.28',
       },
       heading3: {
         fontSize: '2.63rem',
         fontWeight: 200,
-        // fontFamily: 'Editorial New',
+        fontFamily: 'Editorial New',
         lineHeight: '1.29',
       },
       heading4: {
         fontSize: '1.63rem',
         fontWeight: 200,
-        // fontFamily: 'Editorial New',
+        fontFamily: 'Editorial New',
         lineHeight: '1.27',
       },
       subHeading: {
         fontSize: '1.63rem',
         fontWeight: 500,
-        // fontFamily: 'Neue Montreal',
+        fontFamily: 'Neue Montreal',
         lineHeight: '1.19',
       },
       body: {
         fontSize: '1rem',
         fontWeight: 400,
-        // fontFamily: 'Neue Montreal',
+        fontFamily: 'Neue Montreal',
         lineHeight: '19px',
       },
       strongText: {
         fontSize: '16px',
         fontWeight: 700,
-        // fontFamily: 'Neue Montreal',
+        fontFamily: 'Neue Montreal',
         lineHeight: '1.19',
         color: '#406462',
       },
       buttonText: {
         fontSize: '1rem',
         fontWeight: 400,
-        // fontFamily: 'Neue Montreal',
         lineHeight: '1.19',
       },
       speechBubble: {
         fontSize: '1rem',
         fontWeight: 200,
-        // fontFamily: 'Good Mono',
         lineHeight: '1.19',
       },
       iconText: {
@@ -327,6 +328,12 @@ export const defaultProjectTheme = {
         fontSize: '1rem',
         fontWeight: 400,
         lineHeight: '1.19',
+      },
+      labelStyles: {
+        fontSize: '.88rem',
+        fontWeight: '200',
+        lineHeight: '1.2',
+        fontFamily: `'Inconsolata', sans-serif`,
       },
     },
   },

@@ -1,29 +1,26 @@
-import { Box, HStack, Text } from '@chakra-ui/layout'
 import { Input, InputGroup, InputRightAddon } from '@chakra-ui/input'
+import { Box, HStack, Text } from '@chakra-ui/layout'
 import { Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/menu'
 import { useEffect, useRef, useState } from 'react'
 
+import { useTheme } from '@chakra-ui/react'
+import useStyles from 'app/DTT/inputStyles'
 import defaultTimeZones from 'utils/helpers/time-zone.json'
 import { fromLatLng } from 'utils/helpers/timezone_magic/get-timezone-name'
 import useProductColors from 'utils/productColors'
-import { useTheme } from '@chakra-ui/react'
 
 let places
 
-const PlacesAutocomplete = ({ onSelect, questionCode, clientId }) => {
+const PlacesAutocomplete = ({ onSelect, questionCode, realm, isProductInternMatch }) => {
   const theme = useTheme()
   const inputRef = useRef(null)
   const [input, setInput] = useState('')
   const [isFocused, setIsFocused] = useState(false)
 
-  const {
-    fieldBackgroundColor,
-    fieldBorderColor,
-    fieldHoverBorderColor,
-    fieldTextColor,
-    labelTextColor,
-    borderRadius,
-  } = useProductColors()
+  const { fieldTextColor, labelTextColor, borderRadius } = useProductColors()
+
+  const hasValidData = input
+  const { inputStyles, labelStyles } = useStyles(hasValidData, isFocused)
 
   useEffect(() => {
     try {
@@ -50,58 +47,14 @@ const PlacesAutocomplete = ({ onSelect, questionCode, clientId }) => {
   return (
     <div>
       <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
-        <HStack
-          position={'absolute'}
-          zIndex={theme.zIndices.docked}
-          top={isFocused ? '-1.5rem' : 3}
-          left={0}
-          paddingStart={6}
-          w="full"
-          justifyContent={'space-between'}
-          pointerEvents={'none'}
-          transition="all 0.25s ease"
-        >
+        <HStack paddingStart={6} {...labelStyles}>
           <Text as="label" fontSize={'sm'} fontWeight={'medium'} color={labelTextColor}>
             What is a city inside your preferred timezone?
           </Text>
         </HStack>
       </Box>
 
-      <InputGroup
-        onClick={() => setIsFocused(true)}
-        role="group"
-        w="full"
-        h={'auto'}
-        bg={fieldBackgroundColor}
-        borderWidth="1px"
-        borderStyle="solid"
-        borderColor={fieldBorderColor}
-        fontSize={'sm'}
-        fontWeight={'medium'}
-        color={fieldTextColor}
-        cursor={'pointer'}
-        _hover={{
-          borderColor: fieldHoverBorderColor,
-          boxShadow: 'lg',
-        }}
-        _focusVisible={{
-          borderColor: 'product.secondary',
-          boxShadow: 'initial',
-        }}
-        _focusWithin={{
-          borderColor: 'product.secondary',
-          boxShadow: 'initial',
-        }}
-        _invalid={{
-          background: 'error.50',
-          borderColor: 'error.500',
-          color: 'error.500',
-        }}
-        _disabled={{
-          borderColor: 'gray.300',
-          background: 'gray.100',
-        }}
-      >
+      <InputGroup onClick={() => setIsFocused(true)} role="group" {...inputStyles}>
         <Input
           test-id={questionCode}
           ref={inputRef}
@@ -117,7 +70,7 @@ const PlacesAutocomplete = ({ onSelect, questionCode, clientId }) => {
           border={0}
           fontSize={'sm'}
           fontWeight={'medium'}
-          color={fieldTextColor}
+          color={isProductInternMatch ? `${realm}.primary` : fieldTextColor}
           placeholder=""
           role="peer"
           _focusVisible={{
@@ -139,7 +92,7 @@ const PlacesAutocomplete = ({ onSelect, questionCode, clientId }) => {
               paddingBlock={3}
               paddingInline={3}
               _groupHover={{
-                bg: 'product.secondaryAccent',
+                bg: isProductInternMatch ? `${realm}.primary400` : 'product.secondaryAccent',
               }}
             >
               Select From A List

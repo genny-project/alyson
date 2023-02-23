@@ -1,12 +1,12 @@
-import { Button, HStack, VStack, Box } from '@chakra-ui/react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { lensProp, set, append, remove, adjust, length, filter } from 'ramda'
-import { useState } from 'react'
-import safelyParseJson from 'utils/helpers/safely-parse-json'
+import { Box, Button, HStack, VStack } from '@chakra-ui/react'
+import { adjust, append, filter, length, lensProp, remove, set } from 'ramda'
+
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import useProductColors from 'utils/productColors'
-import isNotEmpty from 'utils/helpers/is-not-empty'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import AddressPicker from 'app/DTT/address/address_picker'
+import { useState } from 'react'
+import isNotEmpty from 'utils/helpers/is-not-empty'
+import safelyParseJson from 'utils/helpers/safely-parse-json'
 
 const RepeatableAddressPicker = ({
   questionCode,
@@ -21,7 +21,6 @@ const RepeatableAddressPicker = ({
   mandatory,
   clientId,
 }) => {
-  const { borderRadius } = useProductColors()
   const [values, setValues] = useState(safelyParseJson(data?.value || '[]'))
   const makeChildData = value => set(lensProp('value'), value)(data)
 
@@ -46,7 +45,7 @@ const RepeatableAddressPicker = ({
     <VStack alignItems={'stretch'}>
       {(values || []).map((value, index) => (
         <HStack>
-          <Box key={`${questionCode}-${index}`} width="full" paddingRight={2}>
+          <Box key={`${questionCode}-${index}`} width="full">
             <AddressPicker
               questionCode={questionCode}
               regexPattern={regexPattern}
@@ -62,7 +61,14 @@ const RepeatableAddressPicker = ({
               onSendAnswer={onUpdateValue(index)}
             />
           </Box>
-          <Box onClick={() => onRemove(index)} cursor="pointer" color={'product.secondary'}>
+          <Box
+            position="absolute"
+            right="-1.6rem"
+            onClick={() => onRemove(index)}
+            cursor="pointer"
+            color={'product.secondary'}
+            borderRadius={'full'}
+          >
             <FontAwesomeIcon transform={{ rotate: 45 }} icon={faPlus} size="lg" />
           </Box>
         </HStack>
@@ -72,10 +78,13 @@ const RepeatableAddressPicker = ({
         {length(values) < 9 && (
           <Button
             fontWeight={'normal'}
-            bg={'product.secondaryLight'}
-            borderRadius={borderRadius}
+            bg={'internmatch.secondaryAlpha10'}
             onClick={onAddAnother}
             color={'product.secondary'}
+            borderRadius={'full'}
+            fontSize={'sm'}
+            paddingInline={8}
+            w={'auto'}
           >
             <Box paddingRight={3}>Add Another</Box>
             <FontAwesomeIcon icon={faPlus} />

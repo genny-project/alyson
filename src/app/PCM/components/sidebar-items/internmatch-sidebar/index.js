@@ -102,11 +102,13 @@ const InternmatchSideBarItem = ({
           ) : (
             <Text
               display={isSidebarCollapsed ? 'none' : 'inline-flex'}
+              opacity={isSidebarCollapsed ? '0' : '1'}
               textStyle={isSelected ? 'internmatch.iconTextOnHighlight' : 'internmatch.iconText'}
               textAlign={'left'}
               color={
                 isSelected ? theme.colors.internmatch.secondary : theme.colors.internmatch.light
               }
+              transition={'all 0.25s ease'}
               _groupHover={{
                 color: !isSelected && theme.colors.internmatch.primary400,
               }}

@@ -47,8 +47,11 @@ import { apiConfig } from 'config/get-api-config.js'
 import { newMsg } from 'redux/app'
 import { selectHighlightedQuestion } from 'redux/app/selectors'
 import { selectCode } from 'redux/db/selectors'
+import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
 import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates'
+import useGetProductName from 'utils/helpers/get-product-name'
 import { useMobileValue } from 'utils/hooks'
+import useProductColors from 'utils/productColors'
 
 const Ask = ({
   parentCode,
@@ -67,6 +70,11 @@ const Ask = ({
   const projectTitle = useGetAttributeFromProjectBaseEntity('PRI_NAME')?.valueString.toLowerCase()
   const selectedAskData = useSelector(selectCode(parentCode, passedQuestionCode))
   const singleAskData = useSelector(selectCode(parentCode, 'raw'))
+
+  const isProductInternMatch = useIsProductInternmatch()
+  const realm = useGetProductName()
+
+  const { askWidth } = useProductColors()
 
   const askData = passedAskData || selectedAskData || singleAskData
   const {
@@ -110,7 +118,7 @@ const Ask = ({
   )
 
   const { html = '', helper = '' } = question || {}
-  const { component = forcedComponent || 'text', typeName, inputmask } = dataType
+  const { component = forcedComponent || 'text', className: typeName, inputmask } = dataType
 
   const feedback = data?.feedback
   const onSendAnswerWithNovalue = createSendAnswer(askData, { passedTargetCode })
@@ -164,7 +172,11 @@ const Ask = ({
     return (
       <FormControl isDisabled isRequired={mandatory} w={'min(100%, 24rem)'}>
         <HStack display={noLabel ? 'none' : 'flex'} justify="space-between">
-          <FormLabel id={attributeCode} textStyle="body.1">
+          <FormLabel
+            id={attributeCode}
+            textStyle="body.1"
+            fontFamily={!!isProductInternMatch && `${realm}Body`}
+          >
             {name}
           </FormLabel>
           <FormHelperText>{helper}</FormHelperText>
@@ -213,7 +225,7 @@ const Ask = ({
       p={highlightedQuestion === attributeCode ? '3' : '0'}
       transition="all 0.5s ease"
       mt={config?.mt ?? 5}
-      w={'min(100%, 24rem)'}
+      w={askWidth}
     >
       {
         <HStack
@@ -227,6 +239,7 @@ const Ask = ({
           transform={'scale(0)'}
           overflow={'hidden'}
           flexWrap={'wrap '}
+          fontFamily={!!isProductInternMatch && `${realm}Body`}
         >
           <FormLabel id={attributeCode} />
         </HStack>
@@ -396,7 +409,7 @@ const Ask = ({
           html={html}
           regexPattern={regexPattern}
           errorMessage={errorMessage}
-          placeholder={placeholder}
+          placeholderName={placeholderName}
         />
       )}
       {component === 'textarea' && (

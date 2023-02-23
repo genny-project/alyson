@@ -1,9 +1,11 @@
-import { Box, HStack, Input, Text, useTheme, VStack } from '@chakra-ui/react'
+import { Box, HStack, Input, Text, VStack } from '@chakra-ui/react'
 import { equals, not } from 'ramda'
 import { useEffect, useRef, useState } from 'react'
 
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import useStyles from 'app/DTT/inputStyles'
+import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
 import { internmatch } from 'utils/constants'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
@@ -25,7 +27,6 @@ const AddressPicker = ({
   const realm = productName.toLowerCase()
   const isProductIM = equals(productName, internmatch)
 
-  const theme = useTheme()
   const autoCompleteRef = useRef(null)
   const [userInput, setuserInput] = useState(null)
   const [isFocused, setIsFocused] = useState(false)
@@ -53,14 +54,7 @@ const AddressPicker = ({
 
   const returnValue = getReturnValue(dataValue)
 
-  const {
-    fieldBackgroundColor,
-    fieldBorderColor,
-    fieldHoverBorderColor,
-    fieldTextColor,
-    labelTextColor,
-    borderRadius,
-  } = useProductColors()
+  const { labelTextColor } = useProductColors()
 
   const onPlaceChange = () => {
     const place = autocomplete.current.getPlace()
@@ -72,8 +66,8 @@ const AddressPicker = ({
     } else {
       setIsInputValidated(true)
       setHasError(false)
-      setuserInput(autoCompleteRef.current.value)
-      onSendAnswer(autoCompleteRef.current.value)
+      setuserInput(place?.formatted_address)
+      onSendAnswer(place?.formatted_address)
       dispatchFieldMessage({ payload: questionCode })
     }
   }
@@ -90,8 +84,6 @@ const AddressPicker = ({
     // onSendAnswer(e.target.value)
     // dispatchFieldMessage({ payload: questionCode })
   }
-
-  const hasValidData = userInput
 
   useEffect(() => {
     userInput ? setIsFocused(true) : setIsFocused(false)
@@ -136,35 +128,20 @@ const AddressPicker = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const hasValidData = userInput
+
+  const { inputStyles, labelStyles } = useStyles(hasValidData, isFocused)
+
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
-      <HStack
-        position={'absolute'}
-        zIndex={theme.zIndices.docked}
-        top={isFocused ? '-1.5rem' : 3}
-        left={0}
-        paddingStart={6}
-        w="full"
-        justifyContent={'space-between'}
-        pointerEvents={'none'}
-        transition="all 0.25s ease"
-      >
+      <HStack paddingStart={6} {...labelStyles}>
         {placeholder && (
-          <Text
-            as="label"
-            fontSize={'sm'}
-            fontWeight={isProductIM ? `normal` : 'medium'}
-            color={isProductIM ? `${realm}.primary` : labelTextColor}
-          >
-            {placeholder}
-            {mandatory ? (
-              <Text as="span" color={isProductIM ? `${realm}.secondary` : 'red.500'} ml={1}>
-                *
-              </Text>
-            ) : (
-              <></>
-            )}
-          </Text>
+          <MandatorySymbol
+            placeholderName={placeholder}
+            mandatory={mandatory}
+            labelTextColor={isProductIM ? `${realm}.primary` : labelTextColor}
+            realm={realm}
+          />
         )}
         {(!failedValidation && fieldNotEmpty && not(hasError)) ||
         (!failedValidation &&
@@ -185,48 +162,11 @@ const AddressPicker = ({
         onFocus={() => {
           setIsFocused(true)
         }}
-        w="full"
-        h={'auto'}
-        paddingBlock={3}
-        paddingInline={5}
-        fontWeight={isProductIM ? `normal` : 'medium'}
-        fontSize={'sm'}
-        color={isProductIM ? `${realm}.primary` : fieldTextColor}
-        borderRadius={isProductIM ? `lg` : borderRadius}
-        borderColor={isProductIM ? `${realm}.primary` : fieldBorderColor}
-        bg={
-          isProductIM && hasValidData
-            ? `${realm}.primary400`
-            : isProductIM
-            ? `${realm}.secondary400`
-            : fieldBackgroundColor
-        }
         isInvalid={hasError}
         placeholder=""
-        _hover={{
-          bg: isProductIM ? `${realm}.primary400` : fieldBackgroundColor,
-          borderColor: isProductIM ? `${realm}.primary` : fieldHoverBorderColor,
-          boxShadow: 'lg',
-        }}
-        _focusVisible={{
-          bg: isProductIM ? `${realm}.primary400` : fieldBackgroundColor,
-          borderColor: isProductIM ? `${realm}.primary` : 'product.secondary',
-          boxShadow: 'initial',
-        }}
-        _valid={{
-          bg: isProductIM ? `${realm}.primary400` : fieldBackgroundColor,
-          borderColor: isProductIM ? `${realm}.primary` : fieldHoverBorderColor,
-        }}
-        _invalid={{
-          background: isProductIM ? `${realm}.secondary400Alpha20` : 'error.50',
-          borderColor: isProductIM ? `${realm}.secondary` : 'error.500',
-          color: isProductIM ? `${realm}.secondary` : 'error.500',
-        }}
-        _disabled={{
-          borderColor: isProductIM ? `${realm}.primary` : 'gray.300',
-          background: isProductIM ? `${realm}.primary` : 'gray.100',
-          color: isProductIM ? `${realm}.primary400` : 'initial',
-        }}
+        paddingBlock={3}
+        paddingInline={5}
+        {...inputStyles}
       />
       <VStack alignItems="start">
         {hasError && (

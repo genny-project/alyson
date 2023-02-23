@@ -1,18 +1,22 @@
-import { Box, HStack, Text, useTheme } from '@chakra-ui/react'
-import { DateInDay, DateInMonth, DateInYear } from './granularity'
+import { Box, HStack } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
+import { DateInDay, DateInMonth, DateInYear } from './granularity'
 
-import { ACTIONS } from 'utils/contexts/ErrorReducer'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Read } from '../text'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
-import { getIsInvalid } from 'utils/functions'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import useStyles from 'app/DTT/inputStyles'
+import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
+import { useError } from 'utils/contexts/ErrorContext'
+import { ACTIONS } from 'utils/contexts/ErrorReducer'
+import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
+import { getIsInvalid } from 'utils/functions'
+import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
+import useGetProductName from 'utils/helpers/get-product-name'
 import safelyParseDate from 'utils/helpers/safely-parse-date'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
-import { useError } from 'utils/contexts/ErrorContext'
-import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
+import { Read } from '../text'
 
 const Write = ({
   questionCode,
@@ -20,18 +24,13 @@ const Write = ({
   data,
   html,
   regexPattern,
-
   placeholder,
   mandatory,
 }) => {
-  const {
-    fieldBackgroundColor,
-    fieldBorderColor,
-    fieldHoverBorderColor,
-    fieldTextColor,
-    labelTextColor,
-    borderRadius,
-  } = useProductColors()
+  const { labelTextColor } = useProductColors()
+
+  const realm = useGetProductName().toLowerCase()
+  const isProductInternMatch = useIsProductInternmatch()
 
   const config = safelyParseJson(html, {})
   const { maxDate, granularity = 'date' } = config
@@ -53,6 +52,8 @@ const Write = ({
 
   const failedValidation = errorState[questionCode]
   const fieldNotEmpty = fieldState[questionCode]
+  const hasValidData = dates && !isInvalid
+  const { inputStyles, labelStyles } = useStyles(hasValidData, isFocused)
 
   const handleDateChange = (e, date) => {
     if (!e) {
@@ -83,30 +84,15 @@ const Write = ({
   }, [dates])
 
   const FieldLabel = ({ placeholder, mandatory, isFocused }) => {
-    const theme = useTheme()
     return (
-      <HStack
-        position={'absolute'}
-        zIndex={theme.zIndices.docked}
-        top={isFocused ? '-1.5rem' : 3}
-        left={0}
-        paddingStart={6}
-        w="full"
-        justifyContent={'space-between'}
-        pointerEvents={'none'}
-        transition="all 0.25s ease"
-      >
+      <HStack paddingStart={6} {...labelStyles}>
         {placeholder && (
-          <Text as="label" fontSize={'sm'} fontWeight={'medium'} color={labelTextColor}>
-            {placeholder}
-            {mandatory ? (
-              <Text as="span" color={'red.500'} ml={1}>
-                *
-              </Text>
-            ) : (
-              <></>
-            )}
-          </Text>
+          <MandatorySymbol
+            placeholderName={placeholder}
+            labelTextColor={isProductInternMatch ? `${realm}.primary` : labelTextColor}
+            realm={realm}
+            mandatory={mandatory}
+          />
         )}
         {(!failedValidation && fieldNotEmpty) ||
         (!failedValidation && dates && isNotStringifiedEmptyArray(dates)) ? (
@@ -127,11 +113,7 @@ const Write = ({
           maxDate={maxDate}
           handleDateChange={handleDateChange}
           errorStatus={errorStatus}
-          fieldBackgroundColor={fieldBackgroundColor}
-          fieldBorderColor={fieldBorderColor}
-          fieldHoverBorderColor={fieldHoverBorderColor}
-          fieldTextColor={fieldTextColor}
-          borderRadius={borderRadius}
+          inputStyles={inputStyles}
         />
       </Box>
     )
@@ -148,11 +130,7 @@ const Write = ({
           maxDate={maxDate}
           handleDateChange={handleDateChange}
           errorStatus={errorStatus}
-          fieldBackgroundColor={fieldBackgroundColor}
-          fieldBorderColor={fieldBorderColor}
-          fieldHoverBorderColor={fieldHoverBorderColor}
-          fieldTextColor={fieldTextColor}
-          borderRadius={borderRadius}
+          inputStyles={inputStyles}
         />
       </Box>
     )
@@ -167,11 +145,7 @@ const Write = ({
         maxDate={maxDate}
         handleDateChange={handleDateChange}
         errorStatus={errorStatus}
-        fieldBackgroundColor={fieldBackgroundColor}
-        fieldBorderColor={fieldBorderColor}
-        fieldHoverBorderColor={fieldHoverBorderColor}
-        fieldTextColor={fieldTextColor}
-        borderRadius={borderRadius}
+        inputStyles={inputStyles}
       />
     </Box>
   )

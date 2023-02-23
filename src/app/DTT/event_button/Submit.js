@@ -49,22 +49,25 @@ const Submit = ({ askData, onFinish, parentCode, realm, isProductIM }) => {
         paddingBlock="0.38rem"
         paddingInline="1.25rem"
         mr={2}
-        mb="5"
+        marginBlock="5"
         background={isProductIM ? `${realm}.secondary` : buttonBackgroundColor}
-        borderRadius={'0.5rem'}
+        borderRadius={isProductIM ? 'full' : '0.5rem'}
         fontSize={'sm'}
+        fontWeight={isProductIM ? 400 : 600}
         color={theme.colors.text.dark}
         _hover={{
-          background: isProductIM ? `${realm}.primaryLight` : theme.colors.background.light,
+          background: isProductIM ? `${realm}.primary400` : theme.colors.background.light,
           color: isProductIM ? `${realm}.primary` : buttonBackgroundColor,
           borderWidth: '1px',
           borderStyle: 'solid',
-          borderColor: isProductIM ? `${realm}.primaryLight` : buttonBackgroundColor,
+          borderColor: isProductIM ? `${realm}.primary` : buttonBackgroundColor,
           variant: 'outline',
         }}
         _disabled={{
+          bg: isProductIM ? `${realm}.neutralGray` : buttonBackgroundColor,
+          borderColor: isProductIM ? `${realm}.neutralGray` : buttonBackgroundColor,
           pointerEvents: 'none',
-          opacity: '0.4',
+          opacity: isProductIM ? 1 : '0.4',
         }}
       >
         {name}

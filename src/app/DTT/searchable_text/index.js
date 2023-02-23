@@ -1,22 +1,26 @@
-import Select from '../select'
-import { selectCode } from 'redux/db/selectors'
-import { useSelector } from 'react-redux'
-import { useRef, useState, useEffect } from 'react'
-import { Box, VStack, HStack, Button, Input, Text as ChakraText, useTheme } from '@chakra-ui/react'
-import { onSendMessage } from 'vertx'
-import debounce from 'lodash.debounce'
-import { isEmpty, equals } from 'ramda'
-import mapOptions from '../select/map-options'
-import useProductColors from 'utils/productColors'
-import { getValueSearchableText } from './get-value-searchable-text'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Box, Button, HStack, Input, VStack } from '@chakra-ui/react'
+import { empty, equals, isEmpty, not } from 'ramda'
+import { useEffect, useRef, useState } from 'react'
+
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import useStyles from 'app/DTT/inputStyles'
+import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
+import debounce from 'lodash.debounce'
+import { useSelector } from 'react-redux'
+import { selectCode } from 'redux/db/selectors'
+import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
+import useGetProductName from 'utils/helpers/get-product-name'
+import useProductColors from 'utils/productColors'
+import { onSendMessage } from 'vertx'
+import Select from '../select'
+import mapOptions from '../select/map-options'
+import { getValueSearchableText } from './get-value-searchable-text'
 
 export const Write = ({
   questionCode,
   data,
   onSendAnswer,
-  errorMessage,
   parentCode,
   placeholderName,
   mandatory,
@@ -24,6 +28,8 @@ export const Write = ({
   attributeCode,
   config = {},
 }) => {
+  const realm = useGetProductName().toLowerCase()
+  const isProductInternMatch = useIsProductInternmatch()
   const dropdownData =
     useSelector(
       selectCode(`${parentCode}-${questionCode}-options`),
@@ -39,7 +45,6 @@ export const Write = ({
 
   const [isFocused, setIsFocused] = useState(false)
   const [mouseEntered, setMouseEntered] = useState(false)
-  const theme = useTheme()
 
   const [updated, setUpdated] = useState(false)
   const { selectedValue, value } = getValueSearchableText(data?.value || '')
@@ -49,14 +54,10 @@ export const Write = ({
 
   const [askedForDropDownData, setAskedForDropDownData] = useState(false)
 
-  const {
-    fieldBackgroundColor,
-    fieldBorderColor,
-    fieldHoverBorderColor,
-    fieldTextColor,
-    labelTextColor,
-    borderRadius,
-  } = useProductColors()
+  const hasValidData = not(empty(userInput))
+  const { inputStyles, labelStyles } = useStyles(hasValidData, isFocused)
+
+  const { fieldTextColor, labelTextColor } = useProductColors()
 
   const inputRef = useRef()
 
@@ -152,69 +153,34 @@ export const Write = ({
       transition="all 0.25s ease"
     >
       <HStack
-        position={'absolute'}
-        zIndex={theme.zIndices.docked}
-        top={isFocused || (userInput ?? '').length > 0 ? '-1.5rem' : 3}
-        left={0}
         paddingStart={6}
-        w="full"
-        justifyContent={'space-between'}
-        pointerEvents={'none'}
-        transition="all 0.25s ease"
+        top={isFocused || (userInput ?? '').length > 0 ? '-1.5rem' : 3}
+        {...labelStyles}
       >
         {placeholderName && (
-          <ChakraText as="label" fontSize={'sm'} fontWeight={'medium'} color={labelTextColor}>
-            {placeholderName}
-            {mandatory ? (
-              <ChakraText as="span" color={'red.500'} ml={1}>
-                *
-              </ChakraText>
-            ) : (
-              <></>
-            )}
-          </ChakraText>
+          <MandatorySymbol
+            placeholderName={placeholderName}
+            labelTextColor={isProductInternMatch ? `${realm}.primary` : labelTextColor}
+            realm={realm}
+            mandatory={mandatory}
+          />
         )}
       </HStack>
       <Input
         ref={inputRef}
         test-id={questionCode}
         id={questionCode}
-        w={'full'}
-        h={'auto'}
         onFocus={() => {
           ddEvent('')
           setIsFocused(true)
         }}
         onBlur={onBlur}
+        autoComplete={'off'}
         paddingBlock={3}
         paddingInline={6}
         onChange={onInputChange}
         value={userInput || ''}
-        bg={fieldBackgroundColor}
-        borderRadius={borderRadius}
-        borderColor={fieldBorderColor}
-        fontSize={'sm'}
-        fontWeight={'medium'}
-        autoComplete={'off'}
-        color={fieldTextColor}
-        cursor={'pointer'}
-        _hover={{
-          borderColor: fieldHoverBorderColor,
-          boxShadow: 'lg',
-        }}
-        _focusVisible={{
-          borderColor: 'product.secondary',
-          boxShadow: 'initial',
-        }}
-        _invalid={{
-          background: 'error.50',
-          borderColor: 'error.500',
-          color: 'error.500',
-        }}
-        _disabled={{
-          borderColor: 'gray.300',
-          background: 'gray.100',
-        }}
+        {...inputStyles}
       />
       {isFocused && (
         <div

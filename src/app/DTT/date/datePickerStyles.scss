@@ -1,0 +1,115 @@
+$projects: 'internmatch', 'lojing';
+
+.react-datepicker {
+  box-shadow: 0px 4px 15px rgba(0, 70, 84, 0.29);
+  border: 0 none;
+  padding-block-start: 0.5rem;
+}
+
+.react-datepicker-popper {
+  z-index: 100;
+}
+
+.react-datepicker__triangle {
+  margin-left: -16px !important;
+  display: none;
+}
+
+.react-datepicker__navigation {
+  top: 1rem;
+}
+
+.react-datepicker__header__dropdown {
+  margin-block: 0.5rem;
+}
+
+.react-datepicker__header__dropdown > [class*='-dropdown-container'] {
+  border: 1px solid #e5e5e5;
+  border-radius: 0.25rem;
+  padding: 0.25rem;
+}
+
+.react-datepicker__day:hover,
+.react-datepicker__month-text:hover,
+.react-datepicker__quarter-text:hover,
+.react-datepicker__year-text:hover {
+  border-radius: 2.25rem;
+}
+
+.react-datepicker__day-name,
+.react-datepicker__day,
+.react-datepicker__time-name {
+  width: 2.25rem;
+  height: 2.25rem;
+  line-height: 2.25rem;
+  border-radius: 2.25rem;
+}
+
+.lojing__calendar .react-datepicker__day--keyboard-selected {
+  background-color: #f18b32;
+}
+.lojing__calendar
+  .react-datepicker__day--in-range:not(.react-datepicker__day--range-start):not(.react-datepicker__day--range-end) {
+  background-color: #f8dfc8;
+}
+
+.react-datepicker__header {
+  border: 0;
+}
+
+@each $project in $projects {
+  @if ($project == 'internmatch') {
+    .#{$project}__calendar {
+      background-color: var(--chakra-colors-#{$project}-primary);
+
+      .react-datepicker {
+        &__day,
+        &__month-text,
+        &__quarter-text,
+        &__year-text {
+          color: var(--chakra-colors-#{$project}-light);
+
+          &:hover {
+            background-color: var(--chakra-colors-#{$project}-secondary);
+          }
+
+          &--keyboard-selected {
+            background-color: var(--chakra-colors-#{$project}-secondary);
+          }
+        }
+
+        &__day--today {
+          background-color: transparent;
+          color: var(--chakra-colors-#{$project}-secondary);
+        }
+
+        &__header {
+          background-color: var(--chakra-colors-#{$project}-primary);
+          color: var(--chakra-colors-#{$project}-light);
+        }
+
+        &__current-month,
+        &-time__header,
+        &-year-header,
+        &__day-name {
+          color: var(--chakra-colors-#{$project}-light);
+        }
+
+        &__month-select,
+        &__year-select {
+          background-color: transparent;
+        }
+      }
+    }
+  } @else if ($project == 'lojing') {
+    .#{$project}__calendar {
+      .react-datepicker {
+        &__header {
+          background-color: #fff;
+        }
+      }
+    }
+  } @else {
+    @error "Unknown project #{$project}";
+  }
+}

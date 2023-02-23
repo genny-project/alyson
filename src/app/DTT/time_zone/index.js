@@ -1,14 +1,18 @@
 import { Button, HStack, Text, VStack } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import PlacesAutocomplete from './places'
-import { Read } from 'app/DTT/text'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Read } from 'app/DTT/text'
+import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
+import useGetProductName from 'utils/helpers/get-product-name'
 import timeZone from 'utils/helpers/timezone_magic/time-zone-from-browser'
+import PlacesAutocomplete from './places'
 
 const Write = ({ questionCode, onSendAnswer, data, clientId }) => {
   const [confirm, setConfirm] = useState(null)
+  const realm = useGetProductName().toLowerCase()
+  const isProductInternMatch = useIsProductInternmatch()
 
   useEffect(() => {
     if (!data?.value) {
@@ -36,7 +40,10 @@ const Write = ({ questionCode, onSendAnswer, data, clientId }) => {
         <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
       </HStack>
     ) : (
-      <Text textStyle="body.error">
+      <Text
+        textStyle="body.error"
+        color={isProductInternMatch ? `${realm}.secondary` : 'error.500'}
+      >
         {`Sorry, there is some issue we are working at the moment.`}
       </Text>
     )
@@ -48,6 +55,8 @@ const Write = ({ questionCode, onSendAnswer, data, clientId }) => {
         onSendAnswer(selection)
         setConfirm(true)
       }}
+      isProductInternMatch={isProductInternMatch}
+      realm={realm}
     />
   )
 }

@@ -1,19 +1,20 @@
 import { Box, HStack, Text, Textarea, useTheme } from '@chakra-ui/react'
 import { useEffect, useRef, useState } from 'react'
 
-import { ACTIONS } from 'utils/contexts/ErrorReducer'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import debounce from 'lodash.debounce'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import useClearFieldMessage from 'app/DTT/helpers/clear-field-message'
+import ErrorDisplay from 'app/DTT/helpers/error-display'
+import useStyles from 'app/DTT/inputStyles'
+import debounce from 'lodash.debounce'
+import { useError } from 'utils/contexts/ErrorContext'
+import { ACTIONS } from 'utils/contexts/ErrorReducer'
+import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
+import useGetFieldMessage from 'utils/fieldMessage'
+import { isNotStringifiedEmptyArray } from 'utils/functionals'
 import { getIsInvalid } from 'utils/functions'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
-import { isNotStringifiedEmptyArray } from 'utils/functionals'
-import { useError } from 'utils/contexts/ErrorContext'
-import useGetFieldMessage from 'utils/fieldMessage'
-import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useProductColors from 'utils/productColors'
-import ErrorDisplay from 'app/DTT/helpers/error-display'
-import useClearFieldMessage from 'app/DTT/helpers/clear-field-message'
 
 export const Read = ({ data, config = {} }) => {
   return <Textarea {...config}>{data?.value || config.defaultValue}</Textarea>
@@ -35,14 +36,7 @@ export const Write = ({
   let regex
   const theme = useTheme()
 
-  const {
-    fieldBackgroundColor,
-    fieldBorderColor,
-    fieldHoverBorderColor,
-    fieldTextColor,
-    labelTextColor,
-    borderRadius,
-  } = useProductColors()
+  const { labelTextColor } = useProductColors()
 
   const { dispatch } = useError()
   const [errorStatus, setErrorStatus] = useState(false)
@@ -109,6 +103,9 @@ export const Write = ({
     hasFieldMessage && handleClearFieldMessage()
   }
 
+  const hasValidData = userInput && !isInvalid
+  const { inputStyles } = useStyles(hasValidData)
+
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
       <HStack
@@ -154,22 +151,7 @@ export const Write = ({
         isInvalid={isInvalid}
         paddingBlock={2}
         paddingInline={6}
-        h={'auto'}
-        minH={'5.13rem'}
-        bg={fieldBackgroundColor}
-        borderRadius={borderRadius}
-        borderColor={fieldBorderColor}
-        fontSize={'sm'}
-        fontWeight={'medium'}
-        color={fieldTextColor}
-        _hover={{
-          borderColor: fieldHoverBorderColor,
-          boxShadow: 'lg',
-        }}
-        _focusVisible={{
-          borderColor: 'product.secondary',
-          boxShadow: 'initial',
-        }}
+        {...inputStyles}
       />
       <ErrorDisplay
         hasErrorMessage={hasErrorMessage}
