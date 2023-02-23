@@ -45,7 +45,7 @@ const RepeatableAddressPicker = ({
     <VStack alignItems={'stretch'}>
       {(values || []).map((value, index) => (
         <HStack>
-          <Box key={`${questionCode}-${index}`} width="full" paddingRight={2}>
+          <Box key={`${questionCode}-${index}`} width="full">
             <AddressPicker
               questionCode={questionCode}
               regexPattern={regexPattern}
@@ -62,6 +62,8 @@ const RepeatableAddressPicker = ({
             />
           </Box>
           <Box
+            position="absolute"
+            right="-1.6rem"
             onClick={() => onRemove(index)}
             cursor="pointer"
             color={'product.secondary'}
