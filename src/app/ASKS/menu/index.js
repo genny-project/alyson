@@ -11,7 +11,7 @@ import {
   useTheme,
 } from '@chakra-ui/react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setCurrentSidebarItem } from 'redux/app'
+import { setCurrentSidebarItem, setLoading } from 'redux/app'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
@@ -85,6 +85,7 @@ const AsksMenu = ({
             <MenuItem
               onClick={() => {
                 dispatchSetCurrentSidebarItem(null)
+                compose(dispatch, setLoading)(true)
                 sendEvtClick({
                   code: code,
                   parentCode: questionCode,

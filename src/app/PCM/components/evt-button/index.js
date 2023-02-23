@@ -6,7 +6,7 @@ import sendEvtClick from 'app/ASKS/utils/send-evt-click'
 import DefaultEventButton from 'app/PCM/components/evt-button/default-event-button'
 import InternmatchSideBarItem from 'app/PCM/components/sidebar-items/internmatch-sidebar'
 import LojingSideBarItem from 'app/PCM/components/sidebar-items/lojing-sidebar'
-import { setCurrentSidebarItem } from 'redux/app'
+import { setCurrentSidebarItem, setLoading } from 'redux/app'
 import { selectCurrentSidebarItem } from 'redux/app/selectors'
 import { selectCodeUnary } from 'redux/db/selectors'
 import { useIsProductLojing } from 'utils/helpers/check-product-name'
@@ -38,6 +38,9 @@ const EvtButton = ({
 
   const handleClick = () => {
     const pid = equals(data['processId'] || 'no-idq')('no-idq') ? processId : data['processId']
+    if (sidebarItem) {
+      compose(dispatch, setLoading)(true)
+    }
 
     sendEvtClick({
       targetCode,
@@ -115,6 +118,7 @@ const EvtButton = ({
             <MenuItem
               onClick={() => {
                 dispatchSetCurrentSidebarItem(trueQuestionCode)
+                compose(dispatch, setLoading)(true)
                 sendEvtClick({
                   code: childAsk.questionCode,
                   parentCode: childAsk.questionCode,

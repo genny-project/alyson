@@ -81,6 +81,9 @@ const appSlice = createSlice({
     setCurrentSidebarItem: (state, { payload }) => {
       state.currentSidebarItem = payload
     },
+    setLoading: (state, { payload }) => {
+      state.isLoading = payload
+    },
   },
 })
 
@@ -95,5 +98,6 @@ export const {
   bufferDropdownOption,
   setCurrentFormQuestions,
   setCurrentSidebarItem,
+  setLoading,
 } = appSlice.actions
 export default appSlice.reducer

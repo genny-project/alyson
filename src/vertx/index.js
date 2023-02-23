@@ -5,7 +5,7 @@ import { useKeycloak } from '@react-keycloak/web'
 import sendAuthInit from 'config/send-auth-init'
 import { messageHandler } from './handlers'
 import { useDispatch } from 'react-redux'
-import { newCmd, newMsg, sendMessage } from 'redux/app'
+import { newCmd, newMsg, sendMessage, setLoading } from 'redux/app'
 import makeAuthInitData from './utils/make-auth-init-data'
 import createSendMessage from './utils/create-send-message'
 import urlStateManager from 'utils/url-state-manager'
@@ -95,7 +95,12 @@ const VertxContainer = () => {
           console.error('An error occured, please try again!', error)
         }
         if (body.msg_type === 'CMD_MSG') onNewCmd(body)
-        else messageHandler(onNewMsg)(body)
+        else {
+          if (body?.data_type === 'BaseEntity') {
+            compose(dispatch, setLoading)(false)
+          }
+          messageHandler(onNewMsg)(body)
+        }
       })
     } catch (err) {
       console.error(err)
