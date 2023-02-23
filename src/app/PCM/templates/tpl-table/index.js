@@ -24,7 +24,7 @@ const TemplateTable = ({ parentCode, mappedPcm, depth }) => {
 
   const tableCode = tableObject?.value || ''
   return (
-    <Box shadow={tableDropShadow} borderRadius={tableBorderRadius} overflow={'hidden'} pb={5}>
+    <Box shadow={tableDropShadow} borderRadius={tableBorderRadius} overflow={'hidden'} py={5}>
       <TableWrapper
         tableCode={tableCode}
         passedTable={mappedPcm.PRI_LOC1}

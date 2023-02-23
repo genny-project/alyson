@@ -61,7 +61,7 @@ const tableBorderRadii = {
 }
 const tableHeaderTextStyles = {
   lojing: 'tail.1',
-  alyson: 'internmatch.strongText',
+  alyson: 'internmatch.tableHeader',
 }
 
 const tableMarginXValues = {
@@ -82,6 +82,10 @@ const tableBackgroundDarkColors = {
 const tableDividerColors = {
   lojing: 'white',
   alyson: '#DAE9E9',
+}
+
+const tableHeaderMargins = {
+  alyson: 4,
 }
 
 const askWidths = {
@@ -131,6 +135,7 @@ const useProductColors = () => {
   const tableBackgroundLightColor = tableBackgroundLightColors[clientId] || 'white'
   const tableBackgroundDarkColor = tableBackgroundDarkColors[clientId] || 'gray.700'
   const tableDividerColor = tableDividerColors[clientId] || 'white'
+  const tableHeaderMargin = tableHeaderMargins[clientId] || 0
 
   const tplVertJustify = tplVertJustifies[clientId] || 'flex-start'
   const tplVertFormJustify = tplVertFormJustifies[clientId] || 'flex-start'
@@ -160,6 +165,7 @@ const useProductColors = () => {
     tableBackgroundDarkColor,
     tableBackgroundLightColor,
     tableDividerColor,
+    tableHeaderMargin,
     tplVertJustify,
     tplVertFormJustify,
     tplHoriJustify,

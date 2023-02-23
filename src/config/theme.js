@@ -241,6 +241,7 @@ export const defaultProjectTheme = {
         fontSize: 'xs',
         fontWeight: 700,
         opacity: 0.9,
+        fontFamily: 'Calibri',
       },
       2: {
         fontSize: 'xs',
@@ -307,6 +308,13 @@ export const defaultProjectTheme = {
         fontWeight: 700,
         fontFamily: 'Neue Montreal',
         lineHeight: '1.19',
+        color: '#375555',
+      },
+      tableHeader: {
+        fontSize: '16px',
+        fontWeight: 800,
+        lineHeight: '1.19',
+        fontFamily: `'Almarai', sans-serif`,
         color: '#406462',
       },
       buttonText: {
