@@ -1,4 +1,4 @@
-import { equals, filter, includes, union, values } from 'ramda'
+import { filter, includes, union, values } from 'ramda'
 
 import { Box } from '@chakra-ui/react'
 import PcmField from 'app/PCM/components/pcm-field'
@@ -28,7 +28,7 @@ const mapAll = (mappedPcm, depth, config = {}) => {
   const filteredUndefinedQuestionGroup = filter(item => !!item)(questionGrp)
 
   const mappedDefinedLocs = mapSpillLocs(loc => (
-    <Box key={loc} w={equals(loc, 'PCM_EVENTS') ? 'auto' : 'full'}>
+    <Box key={loc} w={includes('EVENTS', loc) ? 'auto' : 'full'}>
       <PcmField code={loc} mappedPcm={mappedPcm} depth={depth} config={config} />
     </Box>
   ))(spillLocs)
