@@ -57,7 +57,25 @@ const RepeatableAddressPicker = ({
 
   return (
     <VStack alignItems={'stretch'}>
-      {(values || []).map((value, index) => (
+      <Box pb={3}>
+        {length(values) < 9 && (
+          <Button
+            disabled={!validAnswer}
+            fontWeight={'normal'}
+            bg={'internmatch.secondaryAlpha10'}
+            onClick={onAddAnother}
+            color={'product.secondary'}
+            borderRadius={'full'}
+            fontSize={'sm'}
+            paddingInline={8}
+            w={'auto'}
+          >
+            <Box paddingRight={3}>Add Another</Box>
+            <FontAwesomeIcon icon={faPlus} />
+          </Button>
+        )}
+      </Box>
+      {(values ?? []).map((value, index) => (
         <HStack>
           <Box key={`${questionCode}-${index}`} width="full">
             <AddressPicker
@@ -89,25 +107,6 @@ const RepeatableAddressPicker = ({
           </Box>
         </HStack>
       ))}
-
-      <Box>
-        {length(values) < 9 && (
-          <Button
-            disabled={!validAnswer}
-            fontWeight={'normal'}
-            bg={'internmatch.secondaryAlpha10'}
-            onClick={onAddAnother}
-            color={'product.secondary'}
-            borderRadius={'full'}
-            fontSize={'sm'}
-            paddingInline={8}
-            w={'auto'}
-          >
-            <Box paddingRight={3}>Add Another</Box>
-            <FontAwesomeIcon icon={faPlus} />
-          </Button>
-        )}
-      </Box>
     </VStack>
   )
 }
