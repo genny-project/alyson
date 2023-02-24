@@ -137,7 +137,9 @@ const Write = ({
     newValue ? setIsFocused(true) : setIsFocused(false)
     onSendAnswer(prepareValueForSendingAnswer(newValue))
   }
-
+  const formatOptionLabel = ({ label, value }) => (
+    <Text test-id={`${questionCode}-${value}`}>{label}</Text>
+  )
   // the backend accepts array only when sending dropdown values regardless of multi or single select
   const prepareValueForSendingAnswer = value =>
     value && Array.isArray(value) && value.map(i => i.value)
@@ -168,6 +170,7 @@ const Write = ({
         useBasicStyles
         isMulti={isMulti}
         options={options}
+        formatOptionLabel={formatOptionLabel}
         onChange={onChange}
         onInputChange={value => {
           setInputValue(value)
