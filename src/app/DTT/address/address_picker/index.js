@@ -22,6 +22,7 @@ const AddressPicker = ({
   mandatory,
   errorMessage: errormsg,
   repeated = '',
+  trailing,
 }) => {
   const productName = useGetProductName()
   const realm = productName.toLowerCase()
@@ -151,23 +152,25 @@ const AddressPicker = ({
           <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
         ) : null}
       </HStack>
-
-      <Input
-        id={`${questionCode}${repeated}`}
-        test-id={`${questionCode}${repeated}`}
-        value={userInput || ''}
-        ref={autoCompleteRef}
-        onBlur={onBlur}
-        onChange={onChange}
-        onFocus={() => {
-          setIsFocused(true)
-        }}
-        isInvalid={hasError}
-        placeholder=""
-        paddingBlock={3}
-        paddingInline={5}
-        {...inputStyles}
-      />
+      <HStack w="100%" justifyItems={'flex-end'}>
+        <Input
+          id={`${questionCode}${repeated}`}
+          test-id={`${questionCode}${repeated}`}
+          value={userInput || ''}
+          ref={autoCompleteRef}
+          onBlur={onBlur}
+          onChange={onChange}
+          onFocus={() => {
+            setIsFocused(true)
+          }}
+          isInvalid={hasError}
+          placeholder=""
+          paddingBlock={3}
+          paddingInline={5}
+          {...inputStyles}
+        />
+        {!!trailing && trailing}
+      </HStack>
       <VStack alignItems="start">
         {hasError && (
           <Text

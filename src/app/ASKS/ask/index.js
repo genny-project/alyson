@@ -164,7 +164,7 @@ const Ask = ({
 
   if (readonly) {
     return (
-      <HStack flexWrap={'wrap'} w={'min(100%, 24rem)'}>
+      <HStack flexWrap={'wrap'} w={askWidth}>
         <CText id={attributeCode} w={labelWidth} textStyle="body.1">
           {name}
         </CText>
@@ -175,7 +175,7 @@ const Ask = ({
 
   if (!!disabled && component !== 'button')
     return (
-      <FormControl isDisabled isRequired={mandatory} w={'min(100%, 24rem)'}>
+      <FormControl isDisabled isRequired={mandatory} w={askWidth}>
         <HStack display={noLabel ? 'none' : 'flex'} justify="space-between">
           <FormLabel
             id={attributeCode}
