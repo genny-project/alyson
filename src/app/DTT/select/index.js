@@ -137,9 +137,7 @@ const Write = ({
     onSendAnswer(prepareValueForSendingAnswer(newValue))
   }
   const formatOptionLabel = ({ label, value }) => (
-    <div test-id={`${questionCode}-${value}`}>
-      <Text>{label}</Text>
-    </div>
+    <Text test-id={`${questionCode}-${value}`}>{label}</Text>
   )
   // the backend accepts array only when sending dropdown values regardless of multi or single select
   const prepareValueForSendingAnswer = value =>
