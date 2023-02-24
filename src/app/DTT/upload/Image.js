@@ -95,6 +95,7 @@ const Write = ({
               onClick={() => setOpenSnap(true)}
               leftIcon={<FontAwesomeIcon icon={faCamera} />}
               hidden={dropzone}
+              test-id={questionCode}
               bg={!!isProductInternmatch && `${realm}.secondary`}
               color={!!isProductInternmatch && `${realm}.light`}
               _hover={{
