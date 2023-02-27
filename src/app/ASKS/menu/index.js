@@ -7,28 +7,29 @@ import {
   MenuItem,
   MenuList,
   Text,
-  VStack,
   useTheme,
+  VStack,
 } from '@chakra-ui/react'
+import { compose, map } from 'ramda'
 import { useDispatch, useSelector } from 'react-redux'
-import { setCurrentSidebarItem } from 'redux/app'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import sendEvtClick from 'app/ASKS/utils/send-evt-click'
+import { setCurrentSidebarItem } from 'redux/app'
+import { selectCodeUnary } from 'redux/db/selectors'
+import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
+import { useIsMobile } from 'utils/hooks'
 import icons from 'utils/icons'
 import labels from 'utils/labels'
-import { map } from 'ramda'
-import { selectCodeUnary } from 'redux/db/selectors'
-import sendEvtClick from 'app/ASKS/utils/send-evt-click'
-import { useIsMobile } from 'utils/hooks'
-import { compose } from 'ramda'
-import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
 
 const AsksMenu = ({
   questionCode,
   hideLabel,
   productSpecificIconBackgroundColour,
   productSpecificIconColour,
+  iconBorder,
+  iconShadow,
 }) => {
   let theme = useTheme()
   let wholeData = compose(useSelector, selectCodeUnary(questionCode))('wholeData')
@@ -64,6 +65,8 @@ const AsksMenu = ({
               h={isProductInternmatch ? '10' : '8'}
               w={isProductInternmatch ? '10' : '8'}
               borderRadius="50%"
+              border={iconBorder}
+              filter={iconShadow}
             >
               <FontAwesomeIcon
                 icon={icons[questionCode]}

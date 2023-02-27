@@ -7,15 +7,15 @@ import {
   MenuItem,
   MenuList,
   Text,
-  VStack,
   useTheme,
+  VStack,
 } from '@chakra-ui/react'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
-import icons from 'utils/icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import sendEvtClick from 'app/ASKS/utils/send-evt-click'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
+import icons from 'utils/icons'
 
 const DefaultEventButton = ({
   childAsks,
