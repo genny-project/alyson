@@ -36,12 +36,13 @@ const InternmatchSidebar = ({ mappedPcm, maxItems, evtButtons, isSidebarCollapse
           onClick={() =>
             onSendMessage({ code: 'QUE_DASHBOARD_VIEW', parentCode: 'QUE_DASHBOARD_VIEW' })
           }
+          w={isSidebarCollapsed ? INTERNMATCH_LOGO_WIDTH_SM : INTERNMATCH_LOGO_WIDTH}
+          transform={isSidebarCollapsed ? 'translateX(-1.25rem)' : '0'}
+          transition={'all .25s ease'}
         >
           <Image
             src={isSidebarCollapsed ? '/internmatch-sm.png' : '/internmatch.png'}
-            w={isSidebarCollapsed ? INTERNMATCH_LOGO_WIDTH_SM : INTERNMATCH_LOGO_WIDTH}
             cursor="pointer"
-            transition={'all 0.25s ease'}
           />
         </Box>
       </HStack>
