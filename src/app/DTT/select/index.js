@@ -2,7 +2,7 @@ import './styles.css'
 
 import { Box, HStack, Text } from '@chakra-ui/react'
 import { equals, includes, isEmpty, not, or, pathOr } from 'ramda'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { selectCode, selectRows } from 'redux/db/selectors'
 
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
@@ -41,6 +41,7 @@ const Write = ({
 }) => {
   const realm = useGetProductName().toLowerCase()
   const isProductInternMatch = useIsProductInternmatch()
+  const labelRef = useRef()
 
   const dropdownData =
     useSelector(
@@ -146,7 +147,12 @@ const Write = ({
 
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
-      <HStack paddingStart={6} {...labelStyles}>
+      <HStack
+        ref={labelRef}
+        paddingStart={6}
+        {...labelStyles}
+        top={isFocused ? `calc(-${labelRef?.current?.clientHeight}px - .25rem)` : 4}
+      >
         {placeholderName && (
           <MandatorySymbol
             placeholderName={placeholderName}

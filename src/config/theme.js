@@ -2,8 +2,8 @@ import { extendTheme } from '@chakra-ui/react'
 
 export const defaultProjectTheme = {
   fonts: {
-    internMatchHeader: `'Inconsolata', monospace`,
-    internMatchBody: `'Almarai', sans-serif`,
+    internmatchHeader: `'Inconsolata', monospace`,
+    internmatchBody: `'Almarai', sans-serif`,
   },
   colors: {
     background: {

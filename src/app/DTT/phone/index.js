@@ -66,6 +66,7 @@ const Write = ({
   const [countryFlag, setCountryFlag] = useState(null)
   const [isDuplicatedCountryCode, setIsDuplicatedCountryCode] = useState(false)
   const inputRef = useRef()
+  const labelRef = useRef()
   const retrySendingAnswerRef = useRef(0)
 
   const { dispatch } = useError()
@@ -164,7 +165,12 @@ const Write = ({
 
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
-      <HStack paddingStart={isFocused ? 6 : 20} {...labelStyles}>
+      <HStack
+        ref={labelRef}
+        paddingStart={isFocused ? 6 : 20}
+        {...labelStyles}
+        top={isFocused ? `calc(-${labelRef?.current?.clientHeight}px - .25rem)` : 4}
+      >
         <MandatorySymbol
           placeholderName={placeholderName}
           mandatory={mandatory}

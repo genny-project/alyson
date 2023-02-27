@@ -72,7 +72,7 @@ const Ask = ({
   const singleAskData = useSelector(selectCode(parentCode, 'raw'))
 
   const isProductInternMatch = useIsProductInternmatch()
-  const realm = useGetProductName()
+  const realm = useGetProductName().toLowerCase()
 
   const { askWidth } = useProductColors()
 

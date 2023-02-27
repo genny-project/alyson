@@ -18,8 +18,6 @@ const EventButton = ({ askData, onFinish, parentCode, sourceCode, config }) => {
 
   const { buttonBackgroundColor } = useProductColors()
 
-  console.log(askData)
-
   const onClick = () =>
     onSendMessage({
       code: questionCode,

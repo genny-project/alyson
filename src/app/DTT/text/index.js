@@ -54,6 +54,7 @@ export const Write = ({
   const [userInput, setuserInput] = useState(data?.value || '')
   const [isFocused, setIsFocused] = useState(false)
   const inputRef = useRef()
+  const labelRef = useRef()
   const retrySendingAnswerRef = useRef(0)
   const iconColor = useGetAttributeFromProjectBaseEntity('PRI_COLOR_SECONDARY')?.valueString
 
@@ -127,7 +128,12 @@ export const Write = ({
 
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
-      <HStack paddingStart={isFocused ? 6 : !!icon ? 12 : 6} {...labelStyles}>
+      <HStack
+        ref={labelRef}
+        paddingStart={isFocused ? 6 : !!icon ? 12 : 6}
+        {...labelStyles}
+        top={isFocused ? `calc(-${labelRef?.current?.clientHeight}px - .25rem)` : 4}
+      >
         <MandatorySymbol
           placeholderName={placeholderName}
           mandatory={mandatory}
@@ -192,6 +198,7 @@ export const Write = ({
           test-id={questionCode}
           id={questionCode}
           ref={inputRef}
+          onClick={() => setIsFocused(true)}
           onBlur={onBlur}
           onChange={e => setuserInput(e.target.value)}
           value={userInput || ''}

@@ -1,4 +1,4 @@
-import { Box, HStack, Text, Textarea, useTheme } from '@chakra-ui/react'
+import { Box, HStack, Textarea, useTheme } from '@chakra-ui/react'
 import { useEffect, useRef, useState } from 'react'
 
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useClearFieldMessage from 'app/DTT/helpers/clear-field-message'
 import ErrorDisplay from 'app/DTT/helpers/error-display'
 import useStyles from 'app/DTT/inputStyles'
+import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
 import debounce from 'lodash.debounce'
 import { useError } from 'utils/contexts/ErrorContext'
 import { ACTIONS } from 'utils/contexts/ErrorReducer'
@@ -13,6 +14,8 @@ import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useGetFieldMessage from 'utils/fieldMessage'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
 import { getIsInvalid } from 'utils/functions'
+import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
+import useGetProductName from 'utils/helpers/get-product-name'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.js'
 import useProductColors from 'utils/productColors'
 
@@ -35,6 +38,9 @@ export const Write = ({
 }) => {
   let regex
   const theme = useTheme()
+  const labelRef = useRef()
+  const realm = useGetProductName().toLowerCase()
+  const isProductInternMatch = useIsProductInternmatch()
 
   const { labelTextColor } = useProductColors()
 
@@ -104,32 +110,23 @@ export const Write = ({
   }
 
   const hasValidData = userInput && !isInvalid
-  const { inputStyles } = useStyles(hasValidData)
+  const { inputStyles, labelStyles } = useStyles(hasValidData, isFocused)
 
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
       <HStack
-        position={'absolute'}
-        zIndex={theme.zIndices.docked}
-        top={isFocused ? '-1.5rem' : 3}
-        left={0}
-        paddingStart={6}
-        w="full"
-        justifyContent={'space-between'}
-        pointerEvents={'none'}
-        transition="all 0.25s ease"
+        ref={labelRef}
+        paddingStart={isFocused || isProductInternMatch ? 6 : 12}
+        {...labelStyles}
+        top={isFocused ? `calc(-${labelRef?.current?.clientHeight}px - .25rem)` : 4}
       >
         {placeholderName && (
-          <Text as="label" fontSize={'sm'} fontWeight={'medium'} color={labelTextColor}>
-            {placeholderName}
-            {mandatory ? (
-              <Text as="span" color={'red.500'} ml={1}>
-                *
-              </Text>
-            ) : (
-              <></>
-            )}
-          </Text>
+          <MandatorySymbol
+            placeholderName={placeholderName}
+            labelTextColor={isProductInternMatch ? `${realm}.primary` : labelTextColor}
+            realm={realm}
+            mandatory={mandatory}
+          />
         )}
 
         {(!failedValidation && fieldNotEmpty) ||
