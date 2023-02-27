@@ -27,7 +27,6 @@ const ProfileStatisticsCard = () => {
           Your Statistics
         </Text>
         <Box
-          bg={''}
           w={'30rem'}
           h={'6rem'}
           marginTop={'1rem'}
