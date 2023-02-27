@@ -1,13 +1,13 @@
 import { Box, Progress, Text } from '@chakra-ui/react'
+import { lt } from 'ramda'
 
 const ProfileStatusCard = props => {
-  const { value = 75 } = props
+  const { value = '75' } = props
 
   return (
     <>
       <Box bg={'#EDF8F8'} h={'13rem'} w={'27rem'} borderRadius={'2.5rem'} paddingBlock={'2rem'}>
         <Text paddingLeft={'2.5rem'} fontSize={'1.25rem'} paddingBottom={'0.75rem'}>
-          {' '}
           Your Profile Status
         </Text>
         <Text color={'red'} fontSize={'0.8rem'} marginLeft={'19rem'} marginBottom={'-1rem'}>
@@ -23,10 +23,11 @@ const ProfileStatusCard = props => {
           colorScheme="green"
           bg={'#CCE9C8'}
         />
-        <Text color={'red'} marginLeft={'2.5rem'} marginTop={'-1rem'}>
-          {' '}
-          COMPLETE YOUR PROFILE{' '}
-        </Text>
+        {lt(value, 100) ? (
+          <Text color={'red'} marginLeft={'2.5rem'} marginTop={'-1rem'}>
+            COMPLETE YOUR PROFILE
+          </Text>
+        ) : null}
       </Box>
     </>
   )
