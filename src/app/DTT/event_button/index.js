@@ -71,6 +71,7 @@ const EventButton = ({ askData, onFinish, parentCode, sourceCode, config }) => {
         borderColor: isProductIM ? `${realm}.neutralGray` : buttonBackgroundColor,
         pointerEvents: 'none',
         opacity: isProductIM ? 1 : '0.4',
+        color: isProductIM ? `${realm}.light` : theme.colors.text.dark,
       }}
       _active={{
         variant: 'solid',

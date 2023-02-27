@@ -68,6 +68,7 @@ const Submit = ({ askData, onFinish, parentCode, realm, isProductIM }) => {
           borderColor: isProductIM ? `${realm}.neutralGray` : buttonBackgroundColor,
           pointerEvents: 'none',
           opacity: isProductIM ? 1 : '0.4',
+          color: isProductIM ? `${realm}.light` : theme.colors.text.dark,
         }}
       >
         {name}
