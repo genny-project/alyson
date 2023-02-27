@@ -5,12 +5,7 @@ const urlStateManager = onSendMessage => pathname => {
   if (includes('/home', pathname || '')) {
     const params = tail(split('/', pathname))
 
-    if (length(params) === 1) {
-      onSendMessage({
-        code: 'QUE_DASHBOARD_VIEW',
-        parentCode: 'QUE_DASHBOARD_VIEW',
-      })
-    } else if (length(params) > 1) {
+    if (length(params) > 1) {
       onSendMessage(readParams(params))
     }
   }
