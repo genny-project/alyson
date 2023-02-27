@@ -13,7 +13,7 @@ import {
 } from '@chakra-ui/react'
 import { faCalendarDay, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { differenceInYears, format, isBefore, parseISO, startOfTomorrow } from 'date-fns'
-import { forwardRef, useEffect, useState } from 'react'
+import { forwardRef, useEffect, useRef, useState } from 'react'
 import { dateOfBirthQuestionCode, eligibleAge } from 'utils/constants'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -79,6 +79,8 @@ const Write = ({
 
   const includeTime = includes('LocalDateTime', typeName)
   const themeSecondary = useGetAttributeFromProjectBaseEntity('PRI_COLOR')?.value
+
+  const labelRef = useRef()
 
   const { dispatch } = useError()
 
@@ -229,7 +231,12 @@ const Write = ({
 
   return isPreviousDate && data?.value && dateValue ? (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
-      <HStack paddingStart={isFocused || isProductInternMatch ? 6 : 12} {...labelStyles}>
+      <HStack
+        ref={labelRef}
+        paddingStart={isFocused || isProductInternMatch ? 6 : 12}
+        {...labelStyles}
+        top={isFocused ? `calc(-${labelRef?.current?.clientHeight}px - .25rem)` : 4}
+      >
         {placeholderName && (
           <MandatorySymbol
             placeholderName={placeholderName}
@@ -278,7 +285,12 @@ const Write = ({
     </VStack>
   ) : (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
-      <HStack paddingStart={isProductInternMatch ? 6 : 12} {...labelStyles}>
+      <HStack
+        ref={labelRef}
+        paddingStart={isProductInternMatch ? 6 : 12}
+        {...labelStyles}
+        top={isFocused ? `calc(-${labelRef?.current?.clientHeight}px - .25rem)` : 4}
+      >
         {placeholderName && (
           <MandatorySymbol
             placeholderName={placeholderName}

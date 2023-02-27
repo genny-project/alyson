@@ -23,7 +23,7 @@ import {
 } from '@chakra-ui/react'
 import { faCheckCircle, faExpand } from '@fortawesome/free-solid-svg-icons'
 import { ContentState, convertFromHTML, convertToRaw, EditorState } from 'draft-js'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useStyles from 'app/DTT/inputStyles'
@@ -58,6 +58,7 @@ const Write = ({
 }) => {
   const realm = useGetProductName().toLowerCase()
   const isProductInternmatch = useIsProductInternmatch()
+  const labelRef = useRef()
 
   const { labelTextColor } = useProductColors()
 
@@ -145,7 +146,12 @@ const Write = ({
 
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
-      <HStack {...labelStyles} paddingStart={6} top={isFocused ? '-1.5rem' : '4.5rem'}>
+      <HStack
+        ref={labelRef}
+        {...labelStyles}
+        paddingStart={6}
+        top={isFocused ? `calc(-${labelRef?.current?.clientHeight}px - .25rem)` : '4.5rem'}
+      >
         {placeholderName && (
           <MandatorySymbol
             placeholderName={placeholderName}
