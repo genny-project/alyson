@@ -130,10 +130,12 @@ export const defaultProjectTheme = {
       secondaryAlpha10: 'rgb(234 80 36 / .1)',
       secondary400Alpha20: 'rgb(228 186 200 / .2)',
 
+      accent100: '#829998',
       accent: '#55B748',
 
       light: '#FFFFFF',
       lightAlpha40: 'rgb(255 255 255 / .4)',
+      light300: '#F0F1EB',
 
       neutralGray: '#C2C2C2',
       dark: '#000',

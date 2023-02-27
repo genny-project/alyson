@@ -5,7 +5,6 @@ import Header from 'app/PCM/templates/tpl-root/internmatch/header'
 import Sidebar from 'app/PCM/templates/tpl-root/internmatch/sidebar'
 import { useState } from 'react'
 import { Iconly } from 'react-iconly'
-import { SIDEBAR_WIDTH_SM } from 'utils/constants'
 
 const InternmatchRoot = ({
   isMobile,
@@ -24,7 +23,7 @@ const InternmatchRoot = ({
   PRI_LOC3,
 }) => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false)
-  const gridColWidth = isSidebarCollapsed ? SIDEBAR_WIDTH_SM : '14rem'
+  const gridColWidth = isSidebarCollapsed ? '5.2rem' : '14rem'
 
   return (
     <Grid
@@ -33,7 +32,7 @@ const InternmatchRoot = ({
     "nav main"`}
       gridTemplateColumns={isMobile ? '1fr' : `${gridColWidth} 1fr`}
       gridTemplateRows={'auto 1fr'}
-      bg={'internmatch.primary300'}
+      bg={'internmatch.light300'}
       transition={'all 0.25s ease'}
       fontFamily={'internMatchBody'}
     >
@@ -43,15 +42,15 @@ const InternmatchRoot = ({
             as="button"
             position={'absolute'}
             left={gridColWidth}
-            top={9}
+            top={10}
             zIndex={'10000'}
             onClick={() => {
               setIsSidebarCollapsed(!isSidebarCollapsed)
             }}
             marginInlineStart={'-1.25rem'}
             borderRadius={'full'}
-            paddingBlock={2}
-            paddingInline={2}
+            paddingBlock={1}
+            paddingInline={1}
             border={`1px solid`}
             borderColor={'internmatch.primary300'}
             bg={'internmatch.primary'}

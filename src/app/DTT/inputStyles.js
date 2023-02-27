@@ -3,7 +3,7 @@ import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
 import useGetProductName from 'utils/helpers/get-product-name'
 import useProductColors from 'utils/productColors'
 
-const useStyles = (hasValidData, isFocused) => {
+const useStyles = (hasValidData, isFocused, isInvalid = false) => {
   const realm = useGetProductName().toLowerCase()
   const isProductInternMatch = useIsProductInternmatch()
   const theme = useTheme()
@@ -15,6 +15,59 @@ const useStyles = (hasValidData, isFocused) => {
     borderRadius,
     fieldTextColor,
   } = useProductColors()
+
+  const inputGroupStyles = {
+    w: 'full',
+    h: 'auto',
+    fontWeight: isProductInternMatch ? `normal` : 'medium',
+    fontSize: 'sm',
+    color:
+      isInvalid && isProductInternMatch
+        ? `${realm}.secondary`
+        : isInvalid
+        ? 'error.500'
+        : isProductInternMatch
+        ? `${realm}.primary`
+        : fieldTextColor,
+    bg:
+      isInvalid && isProductInternMatch
+        ? `${realm}.secondary400Alpha20`
+        : isInvalid
+        ? 'error.500'
+        : isProductInternMatch && hasValidData
+        ? `${realm}.primary400`
+        : isProductInternMatch
+        ? `${realm}.secondary400`
+        : fieldBackgroundColor,
+    border: 0,
+    borderRadius: isProductInternMatch ? 'lg' : borderRadius,
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor:
+      isInvalid && isProductInternMatch
+        ? `${realm}.secondary`
+        : isInvalid
+        ? 'error.50'
+        : isProductInternMatch
+        ? `${realm}.primary`
+        : fieldBorderColor,
+    outline: '0px',
+    outlineOffset: 0,
+    overflow: 'hidden',
+    cursor: 'pointer',
+
+    _hover: {
+      bg: isProductInternMatch ? `${realm}.primary400` : fieldBackgroundColor,
+      borderColor: isProductInternMatch ? `${realm}.primary` : fieldHoverBorderColor,
+      boxShadow: 'lg',
+    },
+
+    _focusVisible: {
+      bg: isProductInternMatch ? `${realm}.primary400` : fieldBackgroundColor,
+      borderColor: isProductInternMatch ? `${realm}.primary` : 'product.secondary',
+      boxShadow: 'initial',
+    },
+  }
 
   const inputStyles = {
     w: 'full',
@@ -79,7 +132,7 @@ const useStyles = (hasValidData, isFocused) => {
     transition: 'all 0.25s ease',
   }
 
-  return { inputStyles, labelStyles }
+  return { inputStyles, labelStyles, inputGroupStyles }
 }
 
 export default useStyles

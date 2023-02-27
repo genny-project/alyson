@@ -8,7 +8,7 @@ import useProductColors from 'utils/productColors'
 import { onSendMessage } from 'vertx'
 import Submit from './Submit'
 
-const EventButton = ({ askData, onFinish, parentCode, sourceCode, clientId, config }) => {
+const EventButton = ({ askData, onFinish, parentCode, sourceCode, config }) => {
   const { questionCode, targetCode, name, disabled, processId, attributeCode } = askData
   const theme = useTheme()
 
@@ -17,6 +17,8 @@ const EventButton = ({ askData, onFinish, parentCode, sourceCode, clientId, conf
   const isProductIM = equals(productName, internmatch)
 
   const { buttonBackgroundColor } = useProductColors()
+
+  console.log(askData)
 
   const onClick = () =>
     onSendMessage({
@@ -46,24 +48,24 @@ const EventButton = ({ askData, onFinish, parentCode, sourceCode, clientId, conf
       isDisabled={disabled}
       onClick={onClick}
       variant="solid"
-      bg={isProductIM ? `${realm}.secondary` : 'theme.colors.background.light'}
+      bg={isProductIM ? `${realm}.primary400` : 'theme.colors.background.light'}
       borderWidth="1px"
       borderStyle={'solid'}
-      borderColor={isProductIM ? `${realm}.secondary` : buttonBackgroundColor}
+      borderColor={isProductIM ? `${realm}.primary` : buttonBackgroundColor}
       borderRadius={'full'}
       paddingInline={isProductIM ? 6 : 4}
       // w={'6.5rem'}
       fontSize={'sm'}
       fontWeight={isProductIM ? 400 : 600}
-      color={isProductIM ? `${realm}.light` : buttonBackgroundColor}
+      color={isProductIM ? `${realm}.primary` : buttonBackgroundColor}
       mr={2}
       marginBlock="5"
       cursor="pointer"
       _hover={{
         variant: 'solid',
-        background: isProductIM ? `${realm}.primary400` : buttonBackgroundColor,
-        borderColor: isProductIM ? `${realm}.primary` : buttonBackgroundColor,
-        color: isProductIM ? `${realm}.primary` : theme.colors.text.dark,
+        background: isProductIM ? `${realm}.primary` : buttonBackgroundColor,
+        color: isProductIM ? `${realm}.light` : theme.colors.text.dark,
+        boxShadow: '0 .25rem .5rem rgb(0 0 0 / .5)',
       }}
       {...config}
       _disabled={{
@@ -71,6 +73,11 @@ const EventButton = ({ askData, onFinish, parentCode, sourceCode, clientId, conf
         borderColor: isProductIM ? `${realm}.neutralGray` : buttonBackgroundColor,
         pointerEvents: 'none',
         opacity: isProductIM ? 1 : '0.4',
+      }}
+      _active={{
+        variant: 'solid',
+        background: isProductIM ? `${realm}.primary` : buttonBackgroundColor,
+        color: isProductIM ? `${realm}.light` : theme.colors.text.dark,
       }}
     >
       {name}

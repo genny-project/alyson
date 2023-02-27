@@ -119,7 +119,11 @@ export const Write = ({
   }, [userInput])
 
   const hasValidData = userInput && !isInvalid
-  const { inputStyles, labelStyles } = useStyles(hasValidData, isFocused)
+  const { inputStyles, labelStyles, inputGroupStyles } = useStyles(
+    hasValidData,
+    isFocused,
+    isInvalid,
+  )
 
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
@@ -137,9 +141,8 @@ export const Write = ({
           questionCode={questionCode}
         />
       </HStack>
-
-      <InputGroup onClick={() => setIsFocused(true)} role="group" {...inputStyles}>
-        {!!icon && (
+      {!!icon ? (
+        <InputGroup onClick={() => setIsFocused(true)} role="group" {...inputGroupStyles}>
           <InputLeftAddon
             h={'auto'}
             border={0}
@@ -160,8 +163,30 @@ export const Write = ({
           >
             <FontAwesomeIcon size="lg" icon={icon || faQuestionCircle} color={'inherit'} />
           </InputLeftAddon>
-        )}
 
+          <Input
+            isInvalid={isInvalid}
+            test-id={questionCode}
+            id={questionCode}
+            ref={inputRef}
+            onBlur={onBlur}
+            onChange={e => setuserInput(e.target.value)}
+            value={userInput || ''}
+            paddingBlock={3}
+            paddingInlineEnd={6}
+            paddingInlineStart={!!icon ? 1 : 6}
+            h={'auto'}
+            border={0}
+            fontWeight={isProductInternMatch ? `normal` : 'medium'}
+            fontSize={'sm'}
+            _focus={{ border: 0 }}
+            _invalid={{
+              background: 'transparent',
+              borderColor: 'transparent',
+            }}
+          />
+        </InputGroup>
+      ) : (
         <Input
           isInvalid={isInvalid}
           test-id={questionCode}
@@ -173,14 +198,9 @@ export const Write = ({
           paddingBlock={3}
           paddingInlineEnd={6}
           paddingInlineStart={!!icon ? 1 : 6}
-          h={'auto'}
-          border={0}
-          fontWeight={isProductInternMatch ? `normal` : 'medium'}
-          fontSize={'sm'}
-          _focus={{ border: 0 }}
+          {...inputStyles}
         />
-      </InputGroup>
-
+      )}
       <ErrorDisplay
         hasErrorMessage={hasErrorMessage}
         errorStatus={errorStatus}
