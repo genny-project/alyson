@@ -481,7 +481,7 @@ const Ask = ({
           targetCode={targetCode}
           mandatory={mandatory}
           clientId={clientId}
-          type={type}
+          dataType={dataType}
         />
       )}
       {component === 'richtext_editor' && (
