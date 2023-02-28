@@ -1,9 +1,9 @@
+import { useState } from 'react'
+import { equals, not } from 'ramda'
 import { Box, HStack, Text, Tooltip, useTheme } from '@chakra-ui/react'
 import { iconColor, iconColorOnHighlight, selectedSidebarBoxColor } from 'utils/constants'
-
-import { equals } from 'ramda'
-import { useState } from 'react'
 import { Iconly } from 'react-iconly'
+
 import icons from 'utils/icons'
 
 const InternmatchSideBarItem = ({
@@ -76,20 +76,22 @@ const InternmatchSideBarItem = ({
             )}
           </Box>
           {hasChildIcons ? (
-            <HStack w={'full'}>
-              <Text
-                id={name}
-                color={
-                  isSelected
-                    ? theme.colors.internmatch.secondary
-                    : isHovered
-                    ? theme.colors.internmatch.primary400
-                    : theme.colors.internmatch.light
-                }
-                display={isSidebarCollapsed ? 'none' : 'inline-flex'}
-              >
-                {name}
-              </Text>
+            <HStack>
+              {not(isSidebarCollapsed) && (
+                <Text
+                  id={name}
+                  color={
+                    isSelected
+                      ? theme.colors.internmatch.secondary
+                      : isHovered
+                      ? theme.colors.internmatch.primary400
+                      : theme.colors.internmatch.light
+                  }
+                  display={isSidebarCollapsed ? 'none' : 'inline-flex'}
+                >
+                  {name}
+                </Text>
+              )}
 
               <Iconly
                 set="two-tone"
