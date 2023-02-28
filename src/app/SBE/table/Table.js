@@ -37,10 +37,8 @@ const DataTable = ({ parentCode, mapSearch, passedComponents = [], userCode }) =
         spacing={5}
         mx={5}
         mb={3}
-        pb={5}
         align="center"
         justifyContent={isMobile ? 'space-between' : 'flex-start'}
-        borderBottom={'1px solid'}
         borderColor={'gray.200'}
       >
         <HStack
@@ -89,7 +87,7 @@ const DataTable = ({ parentCode, mapSearch, passedComponents = [], userCode }) =
               parentCode={parentCode}
               actions={actions}
               dividerColor={tableDividerColor}
-              bgColor={tableBackgroundDarkColor}
+              bgColor={tableBackgroundLightColor}
             />
             <Body
               columns={columns}

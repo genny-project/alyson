@@ -10,7 +10,7 @@ import useProductColors from 'utils/productColors'
 
 const TemplateTable = ({ parentCode, mappedPcm, depth }) => {
   const tableObject = useSelector(selectCode(parentCode, tableSbeLocation))
-  const { tableDropShadow, tableBorderRadius } = useProductColors()
+  const { tableDropShadow, tableBorderRadius, tableBackgroundLightColor } = useProductColors()
   const spillLocs = getSpillLocs(mappedPcm, 'PRI_LOC1')
   const passedComponents = mapSpillLocs(loc => (
     <PcmField
@@ -24,7 +24,13 @@ const TemplateTable = ({ parentCode, mappedPcm, depth }) => {
 
   const tableCode = tableObject?.value || ''
   return (
-    <Box shadow={tableDropShadow} borderRadius={tableBorderRadius} overflow={'hidden'} py={5}>
+    <Box
+      shadow={tableDropShadow}
+      borderRadius={tableBorderRadius}
+      overflow={'hidden'}
+      py={5}
+      bg={tableBackgroundLightColor}
+    >
       <TableWrapper
         tableCode={tableCode}
         passedTable={mappedPcm.PRI_LOC1}

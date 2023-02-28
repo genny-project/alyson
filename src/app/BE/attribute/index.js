@@ -43,7 +43,7 @@ const Attribute = ({
 }) => {
   const data = useSelector(selectCode(code, attribute))
   const dtt = useSelector(selectCode(fixLnkAndPri(data?.attributeCode)))
-  const dttData = useSelector(selectCode(dtt))
+  const dttData = useSelector(selectCode(dtt)) || {}
   const component = dttData?.component
   const typeName = dttData.typeName || ''
 
