@@ -39,7 +39,7 @@ import timeBasedOnTimeZone from 'utils/helpers/timezone_magic/time-based-on-time
 import useProductColors from 'utils/productColors'
 import DateChip from './DateChip'
 
-const Read = ({ data, typeName, config }) => {
+const Read = ({ data, typeName = '', config }) => {
   const includeTime = includes('LocalDateTime', typeName)
   const onlyYear = typeName === 'year'
 
@@ -62,13 +62,12 @@ const Write = ({
   questionCode,
   data,
   onSendAnswer,
-  typeName,
+  typeName = '',
   regexPattern,
   parentCode,
   attributeCode,
   placeholderName,
   mandatory,
-  type,
 }) => {
   let initialErrorMsg = 'You can only valid date.'
 
@@ -96,7 +95,7 @@ const Write = ({
   const [dateValue, setDateValue] = useState(null)
   const [isFocused, setIsFocused] = useState(false)
 
-  const onlyYear = type === 'year'
+  const onlyYear = typeName === 'year'
 
   const availabilityQuestions = includes('_AVAILABILITY')(questionCode)
 

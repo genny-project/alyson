@@ -45,6 +45,7 @@ const Attribute = ({
   const dtt = useSelector(selectCode(fixLnkAndPri(data?.attributeCode)))
   const dttData = useSelector(selectCode(dtt))
   const component = dttData?.component
+  const typeName = dttData.typeName || ''
 
   if (attribute === 'PRI_IMAGE_URL' && !!data) {
     return <ImageType.Read config={config} code={code} data={data} parentCode={parentCode} />
@@ -85,7 +86,7 @@ const Attribute = ({
   ) : component === 'status' ? (
     <Status.Read data={data} size={size} />
   ) : component === 'date' ? (
-    <Date.Read config={config} data={data} size={size} typeName={dttData.className} />
+    <Date.Read config={config} data={data} size={size} typeName={typeName} />
   ) : component === 'progress' ? (
     <JournalProgress data={data} />
   ) : component === 'html_display' ? (

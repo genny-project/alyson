@@ -118,12 +118,7 @@ const Ask = ({
   )
 
   const { html = '', helper = '' } = question || {}
-  const {
-    component = forcedComponent || 'text',
-    className: typeName,
-    inputmask,
-    typeName: type,
-  } = dataType
+  const { component = forcedComponent || 'text', typeName, inputmask } = dataType
 
   const feedback = data?.feedback
   const onSendAnswerWithNovalue = createSendAnswer(askData, { passedTargetCode })
@@ -481,7 +476,6 @@ const Ask = ({
           targetCode={targetCode}
           mandatory={mandatory}
           clientId={clientId}
-          type={type}
         />
       )}
       {component === 'richtext_editor' && (
