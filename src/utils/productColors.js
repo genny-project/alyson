@@ -53,7 +53,7 @@ const tableStyles = {
 
 const askWidths = {
   lojing: 'max(24rem, 30vw)',
-  alyson: '25rem',
+  alyson: 'min(100%, 50rem)',
 }
 
 const tplVertFormJustifies = {

@@ -1,4 +1,5 @@
 import { Box, Grid, Tooltip } from '@chakra-ui/react'
+import { SIDEBAR_WIDTH, SIDEBAR_WIDTH_SM } from 'utils/constants'
 
 import Content from 'app/PCM/templates/tpl-root/internmatch/content'
 import Header from 'app/PCM/templates/tpl-root/internmatch/header'
@@ -23,7 +24,7 @@ const InternmatchRoot = ({
   PRI_LOC3,
 }) => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false)
-  const gridColWidth = isSidebarCollapsed ? '5.2rem' : '14rem'
+  const gridColWidth = isSidebarCollapsed ? SIDEBAR_WIDTH_SM : SIDEBAR_WIDTH
 
   return (
     <Grid
@@ -32,7 +33,7 @@ const InternmatchRoot = ({
     "nav main"`}
       gridTemplateColumns={isMobile ? '1fr' : `${gridColWidth} 1fr`}
       gridTemplateRows={'auto 1fr'}
-      bg={'internmatch.light300'}
+      bg={'internmatch.primary300'}
       transition={'all 0.25s ease'}
       fontFamily={'internmatchBody'}
     >
@@ -41,8 +42,8 @@ const InternmatchRoot = ({
           <Box
             as="button"
             position={'absolute'}
-            left={gridColWidth}
-            top={10}
+            left={isSidebarCollapsed ? '5.75rem' : '14.69rem'}
+            top={'2.4rem'}
             zIndex={'10000'}
             onClick={() => {
               setIsSidebarCollapsed(!isSidebarCollapsed)
@@ -51,16 +52,18 @@ const InternmatchRoot = ({
             borderRadius={'full'}
             paddingBlock={1}
             paddingInline={1}
-            border={`1px solid`}
-            borderColor={'internmatch.primary300'}
+            border={`2px solid`}
+            borderColor={'internmatch.lightAlpha40'}
             bg={'internmatch.primary'}
             color={'internmatch.light'}
             transition={'all 0.25s ease'}
           >
             <Iconly
               name={isSidebarCollapsed ? 'ChevronRight' : 'ChevronLeft'}
-              set="light"
+              set="two-tone"
               size="small"
+              primaryColor="white"
+              secondaryColor="rgb(255 255 255 / .5)"
             />
           </Box>
         </Tooltip>

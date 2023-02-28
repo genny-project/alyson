@@ -15,7 +15,7 @@ const Header = ({ isMobile, color, PRI_LOC1, mappedPcm, depth, btnRef, onOpen })
         zIndex: theme.zIndices.overlay,
         paddingInlineStart: 'clamp(1rem, 5vw, 6.69rem)',
         paddingInlineEnd: '1rem',
-        paddingBlock: '1.25rem',
+        paddingBlock: '1.75rem',
         backgroundColor: isMobile ? theme.colors.internmatch.primary : 'transparent',
       }}
     >

@@ -75,7 +75,7 @@ const AvatarMenu = ({ code: QUE_AVATAR_GRP }) => {
                 }
               />
               {isProductInternMatch ? (
-                <Iconly name="ChevronDown" set="two-tone" primaryColor="#063231" />
+                <Iconly name="ChevronDown" set="two-tone" primaryColor="#063231" size={'small'} />
               ) : (
                 <FontAwesomeIcon icon={faCaretDown} />
               )}
@@ -136,7 +136,7 @@ const AvatarMenu = ({ code: QUE_AVATAR_GRP }) => {
             />
 
             {isProductInternMatch ? (
-              <Iconly name="ChevronDown" set="two-tone" primaryColor="#063231" />
+              <Iconly name="ChevronDown" set="two-tone" primaryColor="#063231" size={'small'} />
             ) : (
               <FontAwesomeIcon icon={faCaretDown} />
             )}

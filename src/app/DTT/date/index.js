@@ -36,6 +36,7 @@ import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined.
 import safelyParseDate from 'utils/helpers/safely-parse-date'
 import getDate from 'utils/helpers/timezone_magic/get-date'
 import timeBasedOnTimeZone from 'utils/helpers/timezone_magic/time-based-on-timezone'
+import { useIsMobile } from 'utils/hooks'
 import useProductColors from 'utils/productColors'
 import DateChip from './DateChip'
 
@@ -73,6 +74,8 @@ const Write = ({
 
   const realm = useGetProductName().toLowerCase()
   const isProductInternMatch = useIsProductInternmatch()
+
+  const isMobile = useIsMobile()
 
   const { labelTextColor } = useProductColors()
 
@@ -179,7 +182,7 @@ const Write = ({
   }, [dateValue])
 
   const DateInput = forwardRef(({ value, onClick }, ref) => (
-    <InputGroup role="group">
+    <InputGroup role="group" maxW={isMobile ? 'inherit' : '24.25rem'}>
       <Input
         id={questionCode}
         test-id={questionCode}

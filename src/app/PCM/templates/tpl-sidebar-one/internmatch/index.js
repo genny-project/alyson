@@ -26,7 +26,7 @@ const InternmatchSidebar = ({ mappedPcm, maxItems, evtButtons, isSidebarCollapse
     <Grid
       test-id={mappedPcm.PRI_QUESTION_CODE}
       placeItems="center"
-      gap={7}
+      gap={5}
       paddingInline={4}
       maxH={'full'}
       wordBreak={'break-word'}

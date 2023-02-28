@@ -48,10 +48,13 @@ const Submit = ({ askData, onFinish, parentCode, realm, isProductIM }) => {
         minW={`6.5rem`}
         paddingBlock="0.38rem"
         paddingInline="1.25rem"
-        mr={2}
+        mr={isProductIM ? 0 : 2}
         marginBlock="5"
         background={isProductIM ? `${realm}.secondary` : buttonBackgroundColor}
         borderRadius={isProductIM ? 'full' : '0.5rem'}
+        borderWidth="1px"
+        borderStyle={'solid'}
+        borderColor={isProductIM ? `${realm}.secondary` : buttonBackgroundColor}
         fontSize={'sm'}
         fontWeight={isProductIM ? 400 : 600}
         color={theme.colors.text.dark}
@@ -69,6 +72,12 @@ const Submit = ({ askData, onFinish, parentCode, realm, isProductIM }) => {
           pointerEvents: 'none',
           opacity: isProductIM ? 1 : '0.4',
           color: isProductIM ? `${realm}.light` : theme.colors.text.dark,
+        }}
+        _active={{
+          variant: 'solid',
+          background: isProductIM ? `${realm}.primary400` : buttonBackgroundColor,
+          borderColor: isProductIM ? `${realm}.primary400` : buttonBackgroundColor,
+          color: isProductIM ? `${realm}.primary` : theme.colors.text.dark,
         }}
       >
         {name}
