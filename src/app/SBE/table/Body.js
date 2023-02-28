@@ -22,7 +22,7 @@ const Body = ({
       {rows.map((row, index) => (
         <Row
           key={row}
-          bgColor={index % 2 === 1 ? bgColorLight : bgColorDark}
+          bgColor={index % 2 === 0 ? bgColorLight : bgColorDark}
           dividerColor={dividerColor}
           parentCode={parentCode}
           code={row}

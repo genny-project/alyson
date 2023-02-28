@@ -9,7 +9,7 @@ import { getAttribute } from 'app/SBE/utils/get-columns'
 const Row = ({ parentCode, code, columns, actions, bgColor, dividerColor }) => (
   <Tr bgColor={bgColor}>
     {actions?.length ? (
-      <Td borderColor={dividerColor}>
+      <Td borderColor={dividerColor} w="auto" pr={0}>
         <ContextMenu
           actions={actions}
           code={code}

@@ -1,4 +1,4 @@
-import { Box, HStack, Table, useColorModeValue } from '@chakra-ui/react'
+import { Box, HStack, Table, Text, useColorModeValue } from '@chakra-ui/react'
 import getActions, { getTableActions } from '../utils/get-actions'
 
 import Action from 'app/BE/action'
@@ -48,12 +48,14 @@ const DataTable = ({ parentCode, mapSearch, passedComponents = [], userCode }) =
           justifyContent={isMobile ? 'space-between' : 'flex-start'}
         >
           <Title sbeCode={parentCode} />
-          {passedComponents.map((component, index) => (
+          {/* {passedComponents.map((component, index) => (
             <Box key={`TABLE-${parentCode}-CHILD-${index}`}>{component}</Box>
-          ))}
+          ))} */}
 
           <Download sbeCode={parentCode} />
         </HStack>
+        <Text>Search</Text>
+        <Text>Filter By</Text>
         <Pagination sbeCode={parentCode} />
       </HStack>
 

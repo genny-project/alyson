@@ -28,7 +28,8 @@ const TemplateTable = ({ parentCode, mappedPcm, depth }) => {
       shadow={tableDropShadow}
       borderRadius={tableBorderRadius}
       overflow={'hidden'}
-      py={5}
+      pt={5}
+      pb={10}
       bg={tableBackgroundLightColor}
     >
       <TableWrapper
