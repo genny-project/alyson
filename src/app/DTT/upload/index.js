@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/react'
 import DocViewer, { DocViewerRenderers } from '@cyntler/react-doc-viewer'
 import { faArrowDown, faCheck, faFileDownload } from '@fortawesome/free-solid-svg-icons'
-import { equals, map, reduce } from 'ramda'
+import { equals, keys, map, reduce, values } from 'ramda'
 import { useEffect, useState } from 'react'
 
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
@@ -32,7 +32,6 @@ import isString from 'utils/helpers/is-string'
 import useProductColors from 'utils/productColors'
 
 const Read = ({ code, data, dttData, parentCode, variant, config = {} }) => {
-  const typeName = dttData?.typeName
   const api = useApi()
 
   const [fileName, setFileName] = useState('')
@@ -48,7 +47,10 @@ const Read = ({ code, data, dttData, parentCode, variant, config = {} }) => {
     }
   }, [api, data?.value])
 
-  if (typeName === 'Image' || typeName === 'Multi Image')
+  //This used to discern from dttData.typeName, but the backend isnt providing
+  //typeName anymore, so images were being displayed as upload buttons instead
+  //of an image preview.
+  if (dttData.component === 'upload' || dttData.component === 'multi_upload')
     return (
       <ImageType.Read
         code={code}
@@ -56,7 +58,7 @@ const Read = ({ code, data, dttData, parentCode, variant, config = {} }) => {
         parentCode={parentCode}
         variant={variant}
         config={config}
-        multiUpload={typeName === 'Multi Image'}
+        multiUpload={dttData.component === 'multi_upload'}
       />
     )
   if (!data?.value) return null
