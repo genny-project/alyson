@@ -45,7 +45,7 @@ const Attribute = ({
   const dtt = useSelector(selectCode(fixLnkAndPri(data?.attributeCode)))
   const dttData = useSelector(selectCode(dtt))
   const component = dttData?.component
-  const typeName = dttData.typeName || ''
+  const typeName = dttData?.typeName || ''
 
   if (attribute === 'PRI_IMAGE_URL' && !!data) {
     return <ImageType.Read config={config} code={code} data={data} parentCode={parentCode} />
