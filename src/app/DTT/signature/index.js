@@ -53,6 +53,7 @@ const Write = ({ questionCode, data, onSendAnswer }) => {
         }}
         w="500px"
         value={text}
+        test-id={`${questionCode}-text`}
         onChange={e => setText(e.target.value)}
       />
 
@@ -68,7 +69,7 @@ const Write = ({ questionCode, data, onSendAnswer }) => {
           onClick={handleClear}
         />
         <SignatureCanvas
-          test-id={questionCode}
+          test-id={`${questionCode}-canvas`}
           ref={ref => (signatureRef.current = ref)}
           onEnd={() => onSendAnswer(signatureRef.current.toDataURL())}
           canvasProps={{

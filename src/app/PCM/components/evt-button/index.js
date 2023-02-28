@@ -1,6 +1,7 @@
 import { Box, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
 import { compose, equals, not } from 'ramda'
 import { useDispatch, useSelector } from 'react-redux'
+import { useIsProductLojing } from 'utils/helpers/check-product-name'
 
 import sendEvtClick from 'app/ASKS/utils/send-evt-click'
 import DefaultEventButton from 'app/PCM/components/evt-button/default-event-button'
@@ -9,7 +10,6 @@ import LojingSideBarItem from 'app/PCM/components/sidebar-items/lojing-sidebar'
 import { setCurrentSidebarItem } from 'redux/app'
 import { selectCurrentSidebarItem } from 'redux/app/selectors'
 import { selectCodeUnary } from 'redux/db/selectors'
-import { useIsProductLojing } from 'utils/helpers/check-product-name'
 
 const EvtButton = ({
   questionCode,
@@ -110,7 +110,7 @@ const EvtButton = ({
           )}
         </MenuButton>
 
-        <MenuList minW="350px">
+        <MenuList minW="350px" p={0} borderRadius={'md'} overflow={'hidden'} border={0}>
           {childAsks.map(childAsk => (
             <MenuItem
               onClick={() => {
@@ -128,7 +128,8 @@ const EvtButton = ({
               key={childAsk.questionCode}
               _focus={{ bg: '#3AB8B5', color: '#ffffff' }}
               fontSize="14px"
-              fontWeight="400"
+              fontWeight="500"
+              paddingBlock={3}
             >
               {childAsk.name}
             </MenuItem>

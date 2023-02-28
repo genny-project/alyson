@@ -7,15 +7,15 @@ import {
   MenuItem,
   MenuList,
   Text,
-  VStack,
   useTheme,
+  VStack,
 } from '@chakra-ui/react'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
-import icons from 'utils/icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import sendEvtClick from 'app/ASKS/utils/send-evt-click'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
+import icons from 'utils/icons'
 
 const DefaultEventButton = ({
   childAsks,
@@ -46,7 +46,7 @@ const DefaultEventButton = ({
       </Box>
     )
     let text = (
-      <Text color={color} fontSize={vert ? 12 : 15} fontWeight="700">
+      <Text color={color} fontSize={vert ? 12 : 15} fontWeight="700" textAlign={'center'} w="full">
         {name}
       </Text>
     )
@@ -65,15 +65,16 @@ const DefaultEventButton = ({
         {text}
       </VStack>
     ) : (
-      <Box padding={1} borderRadius="lg" background={bgColor}>
+      <Box padding={1} borderRadius="lg" background={bgColor} width={`${name.length + 2}ch`}>
         <HStack
           spacing={iconId || icons[trueQuestionCode] ? 2 : 0}
           role="group"
           p="1"
           test-id={trueQuestionCode}
           onClick={handleClick}
+          alignItems={'center'}
           as="button"
-          w={'full'}
+          w="full"
         >
           {box}
           {text}

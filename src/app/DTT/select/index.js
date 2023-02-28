@@ -1,8 +1,8 @@
 import './styles.css'
 
 import { Box, HStack, Text } from '@chakra-ui/react'
-import { equals, includes, isEmpty, or, pathOr } from 'ramda'
-import { useEffect, useState } from 'react'
+import { equals, includes, isEmpty, not, or, pathOr } from 'ramda'
+import { useEffect, useRef, useState } from 'react'
 import { selectCode, selectRows } from 'redux/db/selectors'
 
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
@@ -41,6 +41,7 @@ const Write = ({
 }) => {
   const realm = useGetProductName().toLowerCase()
   const isProductInternMatch = useIsProductInternmatch()
+  const labelRef = useRef()
 
   const dropdownData =
     useSelector(
@@ -72,7 +73,8 @@ const Write = ({
   const { hasFieldMessage, fieldMessage } = useGetFieldMessage(parentCode, questionCode)
 
   const handleClearFieldMessage = useClearFieldMessage(parentCode, attributeCode, questionCode)
-  const hasValidData = value
+  const hasValidData = not(equals(value.length, 0))
+
   const { inputStyles, labelStyles } = useStyles(hasValidData, isFocused)
 
   const ddEvent = debounce(
@@ -136,14 +138,21 @@ const Write = ({
     newValue ? setIsFocused(true) : setIsFocused(false)
     onSendAnswer(prepareValueForSendingAnswer(newValue))
   }
-
+  const formatOptionLabel = ({ label, value }) => (
+    <Text test-id={`${questionCode}-${value}`}>{label}</Text>
+  )
   // the backend accepts array only when sending dropdown values regardless of multi or single select
   const prepareValueForSendingAnswer = value =>
     value && Array.isArray(value) && value.map(i => i.value)
 
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
-      <HStack paddingStart={6} {...labelStyles}>
+      <HStack
+        ref={labelRef}
+        paddingStart={6}
+        {...labelStyles}
+        top={isFocused ? `calc(-${labelRef?.current?.clientHeight}px - .25rem)` : 4}
+      >
         {placeholderName && (
           <MandatorySymbol
             placeholderName={placeholderName}
@@ -167,6 +176,7 @@ const Write = ({
         useBasicStyles
         isMulti={isMulti}
         options={options}
+        formatOptionLabel={formatOptionLabel}
         onChange={onChange}
         onInputChange={value => {
           setInputValue(value)

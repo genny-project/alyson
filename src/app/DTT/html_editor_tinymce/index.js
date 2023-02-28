@@ -54,6 +54,7 @@ const Write = ({
   const realm = useGetProductName().toLowerCase()
   const isProductInternMatch = useIsProductInternmatch()
   const [isFocused, setIsFocused] = useState(false)
+  const labelRef = useRef()
 
   const { labelTextColor } = useProductColors()
 
@@ -108,7 +109,12 @@ const Write = ({
 
   return (
     <Box position={'relative'} mt={6} transition="all 0.25s ease">
-      <HStack paddingStart={isProductInternMatch ? 6 : 12} {...labelStyles} top={'-1.5rem'}>
+      <HStack
+        ref={labelRef}
+        paddingStart={isProductInternMatch ? 6 : 12}
+        {...labelStyles}
+        top={`calc(-${labelRef?.current?.clientHeight}px - .25rem)`}
+      >
         {placeholderName && (
           <MandatorySymbol
             placeholderName={placeholderName}

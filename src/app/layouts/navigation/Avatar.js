@@ -8,21 +8,27 @@ import {
   MenuItem,
   MenuList,
 } from '@chakra-ui/react'
+import { useGetRealm, useIsMobile } from 'utils/hooks'
 
-import ChildMenuItem from 'app/ASKS/menu/ChildMenuItem'
+import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useKeycloak } from '@react-keycloak/web'
+import useApi from 'api'
+import ChildMenuItem from 'app/ASKS/menu/ChildMenuItem'
 import { apiConfig } from 'config/get-api-config'
 import { equals } from 'ramda'
-import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
-import { onSendMessage } from 'vertx'
-import { selectCode } from 'redux/db/selectors'
-import useApi from 'api'
-import { useGetRealm } from 'utils/hooks'
-import { useKeycloak } from '@react-keycloak/web'
+import { Iconly } from 'react-iconly'
 import { useSelector } from 'react-redux'
+import { selectCode } from 'redux/db/selectors'
+import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
+import useGetProductName from 'utils/helpers/get-product-name'
+import { onSendMessage } from 'vertx'
 
 const AvatarMenu = ({ code: QUE_AVATAR_GRP }) => {
   const userCode = useSelector(selectCode('USER'))
+  const isProductInternMatch = useIsProductInternmatch()
+  const productName = useGetProductName().toLowerCase()
+  const isMobile = useIsMobile()
 
   const realm = useGetRealm()
   const imageAttr = equals('mentormatch', realm) ? 'PRI_USER_PROFILE_PICTURE' : 'PRI_IMAGE_URL'
@@ -54,12 +60,25 @@ const AvatarMenu = ({ code: QUE_AVATAR_GRP }) => {
             <HStack spacing={1} color="grey">
               <Avatar
                 color="white"
-                bg="gradient.400"
+                bg={isProductInternMatch ? 'internmatch.primary' : 'gradient.400'}
                 name={name?.value || userName?.value}
                 src={getImageSrc(userImage?.value)}
                 size="md"
+                borderWidth={isProductInternMatch ? '1px' : '0'}
+                borderStyle={isProductInternMatch ? 'solid' : 'none'}
+                borderColor={
+                  isMobile && isProductInternMatch
+                    ? `${productName}.white`
+                    : isProductInternMatch
+                    ? `${productName}.primary`
+                    : 'transparent'
+                }
               />
-              <FontAwesomeIcon icon={faCaretDown} />
+              {isProductInternMatch ? (
+                <Iconly name="ChevronDown" set="two-tone" primaryColor="#063231" />
+              ) : (
+                <FontAwesomeIcon icon={faCaretDown} />
+              )}
             </HStack>
           </MenuButton>
           <MenuList>
@@ -102,11 +121,25 @@ const AvatarMenu = ({ code: QUE_AVATAR_GRP }) => {
             <Avatar
               size={'md'}
               color="white"
-              bg={'gradient.400'}
+              bg={isProductInternMatch ? 'internmatch.primary' : 'gradient.400'}
               name={name?.value || userName?.value}
               src={getImageSrc(userImage?.value)}
+              borderWidth={isProductInternMatch ? '1px' : '0'}
+              borderStyle={isProductInternMatch ? 'solid' : 'none'}
+              borderColor={
+                isMobile && isProductInternMatch
+                  ? `${productName}.white`
+                  : isProductInternMatch
+                  ? `${productName}.primary`
+                  : 'transparent'
+              }
             />
-            <FontAwesomeIcon icon={faCaretDown} />
+
+            {isProductInternMatch ? (
+              <Iconly name="ChevronDown" set="two-tone" primaryColor="#063231" />
+            ) : (
+              <FontAwesomeIcon icon={faCaretDown} />
+            )}
           </HStack>
         </MenuButton>
         <MenuList>

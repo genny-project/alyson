@@ -72,7 +72,7 @@ const Ask = ({
   const singleAskData = useSelector(selectCode(parentCode, 'raw'))
 
   const isProductInternMatch = useIsProductInternmatch()
-  const realm = useGetProductName()
+  const realm = useGetProductName().toLowerCase()
 
   const { askWidth } = useProductColors()
 
@@ -118,7 +118,7 @@ const Ask = ({
   )
 
   const { html = '', helper = '' } = question || {}
-  const { component = forcedComponent || 'text', className: typeName, inputmask } = dataType
+  const { component = forcedComponent || 'text', typeName, inputmask } = dataType
 
   const feedback = data?.feedback
   const onSendAnswerWithNovalue = createSendAnswer(askData, { passedTargetCode })
@@ -159,7 +159,7 @@ const Ask = ({
 
   if (readonly) {
     return (
-      <HStack flexWrap={'wrap'} w={'min(100%, 24rem)'}>
+      <HStack flexWrap={'wrap'} w={askWidth}>
         <CText id={attributeCode} w={labelWidth} textStyle="body.1">
           {name}
         </CText>
@@ -170,7 +170,7 @@ const Ask = ({
 
   if (!!disabled && component !== 'button')
     return (
-      <FormControl isDisabled isRequired={mandatory} w={'min(100%, 24rem)'}>
+      <FormControl isDisabled isRequired={mandatory} w={askWidth}>
         <HStack display={noLabel ? 'none' : 'flex'} justify="space-between">
           <FormLabel
             id={attributeCode}

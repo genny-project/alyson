@@ -1,15 +1,14 @@
 import EventBus from '@vertx/eventbus-bridge-client.js'
 import { compose, identity } from 'ramda'
-import { VERTX_URL } from 'config/genny'
 import { useKeycloak } from '@react-keycloak/web'
-import sendAuthInit from 'config/send-auth-init'
-import { messageHandler } from './handlers'
 import { useDispatch } from 'react-redux'
-import { newCmd, newMsg, sendMessage } from 'redux/app'
-import makeAuthInitData from './utils/make-auth-init-data'
-import createSendMessage from './utils/create-send-message'
-import urlStateManager from 'utils/url-state-manager'
 
+import { VERTX_URL } from 'config/genny'
+import sendAuthInit from 'config/send-auth-init'
+import { messageHandler } from 'vertx/handlers'
+import { newCmd, newMsg, sendMessage } from 'redux/app'
+import makeAuthInitData from 'vertx/utils/make-auth-init-data'
+import createSendMessage from 'vertx/utils/create-send-message'
 import { tokenFromUrl } from 'config/get-api-config'
 import { getSessionIdFromToken } from 'keycloak/get-token-from-url'
 import selectToken from 'keycloak/utils/select-token'
@@ -113,8 +112,6 @@ const VertxContainer = () => {
     )
 
     onSendMessage = createSendMessage(token, onSendMsg)
-
-    urlStateManager(onSendMessage)(window.location.pathname)
   }
 
   return null

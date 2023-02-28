@@ -2,8 +2,8 @@ import { extendTheme } from '@chakra-ui/react'
 
 export const defaultProjectTheme = {
   fonts: {
-    internMatchHeader: `'Inconsolata', monospace`,
-    internMatchBody: `'Almarai', sans-serif`,
+    internmatchHeader: `'Inconsolata', monospace`,
+    internmatchBody: `'Almarai', sans-serif`,
   },
   colors: {
     background: {
@@ -119,7 +119,7 @@ export const defaultProjectTheme = {
     },
 
     internmatch: {
-      primary100: 'E6EAEA',
+      primary100: '#E6EAEA',
       primary300: '#E0F2F2',
       primary400: '#96D5D3',
       primary: '#063231',
@@ -130,10 +130,12 @@ export const defaultProjectTheme = {
       secondaryAlpha10: 'rgb(234 80 36 / .1)',
       secondary400Alpha20: 'rgb(228 186 200 / .2)',
 
+      accent100: '#829998',
       accent: '#55B748',
 
       light: '#FFFFFF',
       lightAlpha40: 'rgb(255 255 255 / .4)',
+      light300: '#F0F1EB',
 
       neutralGray: '#C2C2C2',
       dark: '#000',

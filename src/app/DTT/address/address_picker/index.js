@@ -22,10 +22,12 @@ const AddressPicker = ({
   mandatory,
   errorMessage: errormsg,
   repeated = '',
+  trailing,
 }) => {
   const productName = useGetProductName()
   const realm = productName.toLowerCase()
   const isProductIM = equals(productName, internmatch)
+  const labelRef = useRef()
 
   const autoCompleteRef = useRef(null)
   const [userInput, setuserInput] = useState(null)
@@ -134,7 +136,12 @@ const AddressPicker = ({
 
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
-      <HStack paddingStart={6} {...labelStyles}>
+      <HStack
+        ref={labelRef}
+        paddingStart={6}
+        {...labelStyles}
+        top={isFocused ? `calc(-${labelRef?.current?.clientHeight}px - .25rem)` : 4}
+      >
         {placeholder && (
           <MandatorySymbol
             placeholderName={placeholder}
@@ -151,23 +158,25 @@ const AddressPicker = ({
           <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
         ) : null}
       </HStack>
-
-      <Input
-        id={`${questionCode}${repeated}`}
-        test-id={`${questionCode}${repeated}`}
-        value={userInput || ''}
-        ref={autoCompleteRef}
-        onBlur={onBlur}
-        onChange={onChange}
-        onFocus={() => {
-          setIsFocused(true)
-        }}
-        isInvalid={hasError}
-        placeholder=""
-        paddingBlock={3}
-        paddingInline={5}
-        {...inputStyles}
-      />
+      <HStack w="100%" justifyItems={'flex-end'}>
+        <Input
+          id={`${questionCode}${repeated}`}
+          test-id={`${questionCode}${repeated}`}
+          value={userInput || ''}
+          ref={autoCompleteRef}
+          onBlur={onBlur}
+          onChange={onChange}
+          onFocus={() => {
+            setIsFocused(true)
+          }}
+          isInvalid={hasError}
+          placeholder=""
+          paddingBlock={3}
+          paddingInline={5}
+          {...inputStyles}
+        />
+        {!!trailing && trailing}
+      </HStack>
       <VStack alignItems="start">
         {hasError && (
           <Text

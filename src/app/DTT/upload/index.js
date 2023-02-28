@@ -32,7 +32,7 @@ import isString from 'utils/helpers/is-string'
 import useProductColors from 'utils/productColors'
 
 const Read = ({ code, data, dttData, parentCode, variant, config = {} }) => {
-  const typeName = dttData?.typeName
+  const typeName = dttData?.typeName || ''
   const api = useApi()
 
   const [fileName, setFileName] = useState('')
@@ -97,7 +97,7 @@ const Write = ({
   component,
 }) => {
   const api = useApi()
-  const typeName = dttData?.typeName
+  const typeName = dttData?.typeName || ''
   const isImageType = equals(typeName, 'Image') || equals(component, 'multi_upload')
   const { getImageSrc, getDocumentSrc } = api
   const isDataValueArray = isArray(data?.value)

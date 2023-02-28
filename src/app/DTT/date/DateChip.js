@@ -12,8 +12,8 @@ const DateChip = ({ onClick, date, includeTime, onlyYear, month, isProductIntern
       paddingInline={2}
       paddingBlock={1}
       onClick={onClick}
-      bg={isProductInternMatch ? `${realm}.primary100` : 'initial'}
-      color={isProductInternMatch ? `${realm}.primary` : 'initial'}
+      bg={isProductInternMatch ? `${realm}.primary400` : 'initial'}
+      color={isProductInternMatch ? `${realm}.accent100` : 'initial'}
       border={'1px solid'}
       borderColor={isProductInternMatch ? `${realm}.primary400` : 'initial'}
     >
