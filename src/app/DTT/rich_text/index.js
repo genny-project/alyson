@@ -162,7 +162,10 @@ const Write = ({
         )}
 
         {(!failedValidation && fieldNotEmpty) ||
-        (!failedValidation && userInput && isNotStringifiedEmptyArray(userInput)) ? (
+        (!failedValidation &&
+          userInput &&
+          isNotStringifiedEmptyArray(userInput) &&
+          isNotNullOrUndefinedOrEmpty(userInputWithoutLineBreaks)) ? (
           <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
         ) : null}
       </HStack>
