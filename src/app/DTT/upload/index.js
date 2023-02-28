@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/react'
 import DocViewer, { DocViewerRenderers } from '@cyntler/react-doc-viewer'
 import { faArrowDown, faCheck, faFileDownload } from '@fortawesome/free-solid-svg-icons'
-import { equals, keys, map, reduce, values } from 'ramda'
+import { equals, map, reduce } from 'ramda'
 import { useEffect, useState } from 'react'
 
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
