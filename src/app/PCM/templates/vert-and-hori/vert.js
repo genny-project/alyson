@@ -6,7 +6,12 @@ const vert = mappingFunction => (mappedPcm, depth, config) => {
   const isForm = includes('FORM', mappedPcm?.code || '') || includes('_ADD_', mappedPcm?.code || '')
   const { tplVertJustify, tplVertFormJustify } = useProductColors()
   return (
-    <Grid alignItems="start" justifyItems={isForm ? tplVertFormJustify : tplVertJustify} gap={3}>
+    <Grid
+      w={'min(100%, 50rem)'}
+      alignItems="start"
+      justifyItems={isForm ? tplVertFormJustify : tplVertJustify}
+      gap={3}
+    >
       {mappingFunction(mappedPcm, depth, config)}
     </Grid>
   )

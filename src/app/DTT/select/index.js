@@ -20,6 +20,7 @@ import useGetFieldMessage from 'utils/fieldMessage'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
 import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
 import useGetProductName from 'utils/helpers/get-product-name'
+import { useIsMobile } from 'utils/hooks'
 import useProductColors from 'utils/productColors'
 import { onSendMessage } from 'vertx'
 import { getValue } from './get-value'
@@ -36,12 +37,11 @@ const Write = ({
   parentCode,
   attributeCode,
   mandatory,
-  clientId,
-  config,
 }) => {
   const realm = useGetProductName().toLowerCase()
   const isProductInternMatch = useIsProductInternmatch()
   const labelRef = useRef()
+  const isMobile = useIsMobile()
 
   const dropdownData =
     useSelector(
@@ -60,6 +60,7 @@ const Write = ({
   const [inputValue, setInputValue] = useState('')
   const [updated, setUpdated] = useState(false)
   const [isFocused, setIsFocused] = useState(true)
+  const [labelHeight, setLabelHeight] = useState(17)
 
   const [askedForDropDownData, setAskedForDropDownData] = useState(false)
 
@@ -124,6 +125,19 @@ const Write = ({
     or(!isEmpty(inputValue), !isEmpty(value)) ? setIsFocused(true) : setIsFocused(false)
   }, [value, inputValue])
 
+  useEffect(() => {
+    const resizeWindow = () => {
+      setTimeout(() => {
+        setLabelHeight(labelRef?.current?.clientHeight)
+      }, 100)
+    }
+    window.addEventListener('resize', resizeWindow)
+
+    return () => {
+      window.removeEventListener('resize', resizeWindow)
+    }
+  }, [])
+
   const onChange = newValue => {
     handleClearFieldMessage()
     if (!isMulti) {
@@ -138,6 +152,7 @@ const Write = ({
     newValue ? setIsFocused(true) : setIsFocused(false)
     onSendAnswer(prepareValueForSendingAnswer(newValue))
   }
+
   const formatOptionLabel = ({ label, value }) => (
     <Text test-id={`${questionCode}-${value}`}>{label}</Text>
   )
@@ -146,12 +161,17 @@ const Write = ({
     value && Array.isArray(value) && value.map(i => i.value)
 
   return (
-    <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
+    <Box
+      maxW={isMobile ? 'inherit' : '24.25rem'}
+      position={'relative'}
+      mt={isFocused ? 6 : 0}
+      transition="all 0.25s ease"
+    >
       <HStack
         ref={labelRef}
         paddingStart={6}
         {...labelStyles}
-        top={isFocused ? `calc(-${labelRef?.current?.clientHeight}px - .25rem)` : 4}
+        top={isFocused ? `calc(-${labelHeight}px - .25rem)` : 4}
       >
         {placeholderName && (
           <MandatorySymbol

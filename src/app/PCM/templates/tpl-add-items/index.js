@@ -17,11 +17,7 @@ const TemplateAddItems = ({ mappedPcm }) => {
     <AskMenu
       questionCode={PRI_QUESTION_CODE}
       icon={
-        <Button
-          colorScheme="primary"
-          border={`1px solid red`}
-          leftIcon={<FontAwesomeIcon icon={faPlus} />}
-        >
+        <Button colorScheme="primary" leftIcon={<FontAwesomeIcon icon={faPlus} />}>
           {`Add`}
         </Button>
       }
@@ -38,9 +34,9 @@ const TemplateAddItems = ({ mappedPcm }) => {
       }
       iconBorder={
         isMobile && isProductInternmatch
-          ? `1px solid white`
+          ? `0px solid white`
           : isProductInternmatch
-          ? `2px solid ${addItemIconColourInternmatch}`
+          ? `0px solid ${addItemIconColourInternmatch}`
           : '0 none'
       }
       iconShadow={isProductInternmatch ? 'drop-shadow(0px 2px 6px rgb(0 0 0 / 0.14))' : 'initial'}

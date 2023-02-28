@@ -1,11 +1,11 @@
 import { Divider, Flex, HStack, Text } from '@chakra-ui/react'
-import { useTheme } from '@chakra-ui/react'
 
+import { useTheme } from '@chakra-ui/react'
 import PcmField from 'app/PCM/components/pcm-field'
+import { Iconly } from 'react-iconly'
 import { nameAttributeKey } from 'utils/constants'
 import getFirstName from 'utils/helpers/get-first-name'
 import getUserAttribute from 'utils/helpers/get-user-information'
-import { Iconly } from 'react-iconly'
 
 const TemplateHeaderDesktopInternmatch = ({ mappedPcm, depth }) => {
   const userName = getUserAttribute(nameAttributeKey)
@@ -23,17 +23,17 @@ const TemplateHeaderDesktopInternmatch = ({ mappedPcm, depth }) => {
 
         <Divider marginInline={'1.5rem'} borderColor="#96D5D3" flex={1} />
 
-        <HStack spacing={9}>
+        <HStack spacing={8}>
           <Iconly
             name="Search"
             set="two-tone"
-            size="large"
+            size="medium"
             primaryColor={theme.colors.internmatch.primary}
           />
           <Iconly
             name="Bookmark"
             set="two-tone"
-            size="large"
+            size="medium"
             primaryColor={theme.colors.internmatch.primary}
           />
           <PcmField code={PRI_LOC3} mappedPcm={mappedPcm} depth={depth} />
