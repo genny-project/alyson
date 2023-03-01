@@ -1,4 +1,5 @@
 .sidebar-popover-body-collapsed .chakra-text {
   display: inline-flex !important;
   margin-inline-start: 1.25rem;
+  opacity: 1;
 }
