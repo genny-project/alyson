@@ -13,6 +13,7 @@ import {
   PopoverTrigger,
   useTheme,
   Wrap,
+  WrapItem,
 } from '@chakra-ui/react'
 import { INTERNMATCH_LOGO_WIDTH, INTERNMATCH_LOGO_WIDTH_SM } from 'utils/constants'
 
@@ -64,18 +65,18 @@ const InternmatchSidebar = ({ mappedPcm, maxItems, evtButtons, isSidebarCollapse
               {`More`}
             </Button>
           </PopoverTrigger>
-          <PopoverContent
-            bg="sidebar.background"
-            borderRadius={'2xl'}
-            w={isSidebarCollapsed ? '250px' : INTERNMATCH_LOGO_WIDTH}
-          >
+          <PopoverContent bg="sidebar.background" borderRadius={'2xl'}>
             <PopoverBody
               className={
                 isSidebarCollapsed ? 'sidebar-popover-body-collapsed' : 'sidebar-popover-body'
               }
             >
               <Wrap spacing={5} padding={5} justify={'center'}>
-                {slice(maxItems)(evtButtons.length)(evtButtons).map(button => button)}
+                {slice(maxItems)(evtButtons.length)(evtButtons).map((button, index) => (
+                  <WrapItem w={'1100px'} key={`SIDEBAR-WRAP-${index}`}>
+                    {button}
+                  </WrapItem>
+                ))}
               </Wrap>
             </PopoverBody>
             <PopoverArrow />
