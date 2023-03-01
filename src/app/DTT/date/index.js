@@ -316,8 +316,9 @@ const Write = ({
         customInput={<DateInput />}
         onCalendarClose={handleOnBlur}
         minDate={availabilityQuestions ? current : ''}
-        showMonthDropdown
-        showYearDropdown
+        peekNextMonth={false}
+        calendarStartDay={1}
+        useWeekdaysShort
         dropdownMode="select"
         showYearPicker={onlyYear}
         calendarClassName={`${realm}__calendar`}

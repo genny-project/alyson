@@ -61,18 +61,20 @@ $projects: 'internmatch', 'lojing';
   @if ($project == 'internmatch') {
     .#{$project}__calendar {
       background-color: var(--chakra-colors-#{$project}-primary);
-
+      text-transform: uppercase;
       .react-datepicker {
         &__day,
         &__month-text,
         &__quarter-text,
         &__year-text {
-          color: var(--chakra-colors-#{$project}-light);
-
           &:hover {
             background-color: var(--chakra-colors-#{$project}-secondary);
           }
-
+          &--outside-month {
+            visibility:hidden
+          }
+          color: var(--chakra-colors-#{$project}-light);
+     
           &--keyboard-selected {
             background-color: var(--chakra-colors-#{$project}-secondary);
           }
