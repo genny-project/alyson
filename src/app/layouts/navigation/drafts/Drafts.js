@@ -50,7 +50,7 @@ const Drafts = ({ code: DRAFT_GROUP, textColor }) => {
                   <Iconly
                     name="Notification"
                     set="two-tone"
-                    size={isMobile ? 'medium' : 'large'}
+                    size={'medium'}
                     primaryColor={
                       isMobile ? theme.colors.internmatch.light : theme.colors.internmatch.primary
                     }

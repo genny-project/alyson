@@ -5,7 +5,7 @@ import InternmatchSidebar from 'app/PCM/templates/tpl-sidebar-one/internmatch'
 import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
 
 const TemplateSidebarOne = ({ mappedPcm, maxItemCount, isSidebarCollapsed }) => {
-  const maxItems = maxItemCount || Math.floor(window.innerHeight - 60) / 105
+  const maxItems = maxItemCount || Math.floor(window.innerHeight - 60) / 100
 
   const isProductInternmatch = useIsProductInternmatch()
 

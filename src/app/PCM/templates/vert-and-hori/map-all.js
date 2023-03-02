@@ -1,4 +1,4 @@
-import { filter, includes, union, values } from 'ramda'
+import { equals, filter, includes, union, values } from 'ramda'
 
 import { Box } from '@chakra-ui/react'
 import PcmField from 'app/PCM/components/pcm-field'
@@ -16,9 +16,15 @@ const mapAll = (mappedPcm, depth, config = {}) => {
 
     if (notIncludes(attributeCode)(values(spillLocs))) {
       const evtAttrCode = includes(attributeCode, 'EVT_')
+      const isEvtNext = equals(attributeCode, 'EVT_NEXT')
+      const isEvtSubmit = equals(attributeCode, 'EVT_SUBMIT')
 
       return (
-        <Box key={attributeCode} w={evtAttrCode ? 'auto' : 'full'}>
+        <Box
+          key={attributeCode}
+          w={evtAttrCode ? '100%' : 'full'}
+          textAlign={evtAttrCode || isEvtNext || isEvtSubmit ? 'end' : 'start'}
+        >
           <PcmField code={attributeCode} mappedPcm={mappedPcm} depth={depth} />
         </Box>
       )
@@ -28,7 +34,11 @@ const mapAll = (mappedPcm, depth, config = {}) => {
   const filteredUndefinedQuestionGroup = filter(item => !!item)(questionGrp)
 
   const mappedDefinedLocs = mapSpillLocs(loc => (
-    <Box key={loc} w={includes('EVENTS', loc) ? 'auto' : 'full'}>
+    <Box
+      key={loc}
+      w={includes('EVENTS', loc) ? '100%' : 'full'}
+      textAlign={includes('EVENTS', loc) ? 'end' : 'start'}
+    >
       <PcmField code={loc} mappedPcm={mappedPcm} depth={depth} config={config} />
     </Box>
   ))(spillLocs)
