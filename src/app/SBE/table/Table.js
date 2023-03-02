@@ -64,7 +64,7 @@ const DataTable = ({ parentCode, mapSearch, passedComponents = [], userCode }) =
         {isInternmatch && (
           <HStack>
             <HStack
-              borderRadius={'md'}
+              borderRadius={'full'}
               border="solid #063231 1px"
               paddingInline="3"
               paddingBlock="2"
