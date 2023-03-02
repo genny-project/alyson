@@ -42,7 +42,6 @@ export const Write = ({
   attributeCode,
   placeholderName,
   mandatory,
-  inputmask,
   icon,
 }) => {
   let regex
