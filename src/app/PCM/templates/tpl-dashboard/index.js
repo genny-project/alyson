@@ -1,23 +1,45 @@
-import { TabList, Tabs, Tab, TabPanels, TabPanel } from '@chakra-ui/react'
+import { TabList, Tabs, Tab, TabPanels, TabPanel, HStack } from '@chakra-ui/react'
+import ProfileStatisticsCard from 'app/PCM/components/profile-statistics-card'
+import ProfileStatusCard from 'app/PCM/components/profile-status'
+import ApplicationsPanel from 'app/PCM/templates/tpl-dashboard/tab-panels/applications-panel'
+import EventsPanel from 'app/PCM/templates/tpl-dashboard/tab-panels/events-panel'
+import TrainingPanel from 'app/PCM/templates/tpl-dashboard/tab-panels/training-panel'
 
 const TemplateDashboard = () => {
   return (
     <>
-      <Tabs variant={'enclosed'} borderColor={'#D3E3E2'} border>
+      <HStack marginLeft={'4rem'}>
+        <ProfileStatusCard />
+        <ProfileStatisticsCard />
+      </HStack>
+      <Tabs variant={'enclosed'}>
         <TabList>
-          <Tab _selected={{ color: 'black', bg: '#96D5D3' }}> Events </Tab>
-          <Tab _selected={{ color: 'black', bg: '#96D5D3' }}> Training </Tab>
-          <Tab _selected={{ color: 'black', bg: '#96D5D3' }}> Applications </Tab>
+          <Tab _selected={{ color: 'black', bg: '#96D5D3' }} fontSize={'20px'}>
+            {' '}
+            Events{' '}
+          </Tab>
+          <Tab _selected={{ color: 'black', bg: '#96D5D3' }} fontSize={'20px'}>
+            {' '}
+            Training{' '}
+          </Tab>
+          <Tab _selected={{ color: 'black', bg: '#96D5D3' }} fontSize={'20px'}>
+            {' '}
+            Applications{' '}
+          </Tab>
         </TabList>
 
         <TabPanels>
-          <TabPanel bg={'#CAEAE9'} maxW={'100vw'} maxH={'100vh'}>
-            {'events tab panel'}
+          <TabPanel>
+            <EventsPanel />
           </TabPanel>
 
-          <TabPanel>{'Training tab panel'}</TabPanel>
+          <TabPanel>
+            <TrainingPanel />
+          </TabPanel>
 
-          <TabPanel>{'Application tab panel'}</TabPanel>
+          <TabPanel>
+            <ApplicationsPanel />
+          </TabPanel>
         </TabPanels>
       </Tabs>
     </>
