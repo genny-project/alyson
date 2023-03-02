@@ -5,8 +5,9 @@ const ApplicationsPanel = () => {
     <>
       <Box
         bg={'#CAEAE9'}
-        maxW={'100vw'}
-        h={'100vh'}
+        mainW={'100vw'}
+        minHeight={'100vh'}
+        marginBottom={'-1.5rem'}
         marginRight={'-4rem'}
         marginLeft={'-5.5rem'}
         marginTop={'-1rem'}
@@ -14,7 +15,7 @@ const ApplicationsPanel = () => {
         paddingBlock={'2rem'}
         paddingInline={'4rem'}
       >
-        <Text> ApplicationsPanel</Text>
+        <Text> Applications Panel Placeholder</Text>
       </Box>
     </>
   )

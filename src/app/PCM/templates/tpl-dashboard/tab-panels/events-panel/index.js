@@ -1,4 +1,6 @@
-import { Text, Box, Wrap, WrapItem } from '@chakra-ui/react'
+import { Text, Box, Wrap, WrapItem, HStack } from '@chakra-ui/react'
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import EventsCard from 'app/PCM/components/events-card'
 import TodoList from 'app/PCM/components/todo-list'
 
@@ -7,8 +9,9 @@ const EventsPanel = () => {
     <>
       <Box
         bg={'#CAEAE9'}
-        maxW={'100vw'}
-        h={'100vh'}
+        minW={'100vw'}
+        minHeight={'100vh'}
+        marginBottom={'-1.5rem'}
         marginRight={'-4rem'}
         marginLeft={'-5.5rem'}
         marginTop={'-1rem'}
@@ -16,13 +19,30 @@ const EventsPanel = () => {
         paddingBlock={'2rem'}
         paddingInline={'4rem'}
       >
-        <Wrap spacing={'2.25rem'}>
+        <Wrap spacing={'2.25rem'} alignItems={'center'}>
           <WrapItem>
             <TodoList />
           </WrapItem>
           <WrapItem>
-            <Box>
-              <EventsCard />
+            <Box
+              bg={'#FFFFFF'}
+              w={'33.5rem'}
+              h={'17rem'}
+              paddingBlock={'2rem'}
+              paddingInline={'2.25rem'}
+              borderRadius={'2.5rem'}
+            >
+              <Text fontSize={'20px'} marginBottom={'1rem'}>
+                {' '}
+                Next Events
+              </Text>
+              <HStack spacing={'1.25rem'}>
+                <EventsCard />
+              </HStack>
+              <HStack paddingBlock={'1.5rem'} justifyContent={'flex-end'}>
+                <Text color={'#EA5024'}> View all events </Text>
+                <FontAwesomeIcon icon={faArrowRight} color={'#EA5024'} />
+              </HStack>
             </Box>
           </WrapItem>
         </Wrap>

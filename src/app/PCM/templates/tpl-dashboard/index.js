@@ -1,4 +1,4 @@
-import { TabList, Tabs, Tab, TabPanels, TabPanel, HStack } from '@chakra-ui/react'
+import { TabList, Tabs, Tab, TabPanels, TabPanel, HStack, Text, Box } from '@chakra-ui/react'
 import ProfileStatisticsCard from 'app/PCM/components/profile-statistics-card'
 import ProfileStatusCard from 'app/PCM/components/profile-status'
 import ApplicationsPanel from 'app/PCM/templates/tpl-dashboard/tab-panels/applications-panel'
@@ -7,42 +7,39 @@ import TrainingPanel from 'app/PCM/templates/tpl-dashboard/tab-panels/training-p
 
 const TemplateDashboard = () => {
   return (
-    <>
-      <HStack marginLeft={'4rem'}>
+    <Box>
+      <Text fontSize={'36px'} marginLeft={'1.5rem'} marginTop={'-1.5rem'}>
+        Dashboard
+      </Text>
+      <HStack marginLeft={'1rem'} marginTop={'2rem'} spacing={'2rem'}>
         <ProfileStatusCard />
         <ProfileStatisticsCard />
       </HStack>
-      <Tabs variant={'enclosed'}>
+      <Tabs variant={'enclosed'} marginTop={'5rem'}>
         <TabList>
           <Tab _selected={{ color: 'black', bg: '#96D5D3' }} fontSize={'20px'}>
-            {' '}
-            Events{' '}
+            Events
           </Tab>
           <Tab _selected={{ color: 'black', bg: '#96D5D3' }} fontSize={'20px'}>
-            {' '}
-            Training{' '}
+            Training
           </Tab>
           <Tab _selected={{ color: 'black', bg: '#96D5D3' }} fontSize={'20px'}>
-            {' '}
-            Applications{' '}
+            Applications
           </Tab>
         </TabList>
-
         <TabPanels>
           <TabPanel>
             <EventsPanel />
           </TabPanel>
-
           <TabPanel>
             <TrainingPanel />
           </TabPanel>
-
           <TabPanel>
             <ApplicationsPanel />
           </TabPanel>
         </TabPanels>
       </Tabs>
-    </>
+    </Box>
   )
 }
 
