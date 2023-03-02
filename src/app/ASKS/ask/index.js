@@ -112,7 +112,7 @@ const Ask = ({
   const dataTypeFromReduxStore = compose(useSelector, selectCode)(attributeCode) || ''
   const dataType = compose(useSelector, selectCode)(dataTypeFromReduxStore) || ''
   const description = compose(useSelector, selectCode)(`${attributeCode}@description`) || ''
-  const regexPattern = pathOr(null, ['validationList', 0, 'regex'])(dataType)
+  const regexPattern = pathOr('.*', ['validationList', 0, 'regex'])(dataType)
   const errorMessage = pathOr('Please enter valid data', ['validationList', 0, 'errormsg'])(
     dataType,
   )
