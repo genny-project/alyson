@@ -62,10 +62,10 @@ const RepeatableAddressPicker = ({
           <Button
             disabled={!validAnswer}
             fontWeight={'normal'}
-            bg={'internmatch.secondaryAlpha10'}
+            bg={'#FDEDE9'}
             onClick={onAddAnother}
             color={'product.secondary'}
-            borderRadius={'full'}
+            borderRadius={'md'}
             fontSize={'sm'}
             paddingInline={8}
             w={'auto'}
