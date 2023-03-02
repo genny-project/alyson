@@ -14,8 +14,6 @@ import { useIsMobile } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 import useProductColors from 'utils/productColors'
 import { Iconly } from 'react-iconly'
-import { faFilter } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
 
 const DataTable = ({ parentCode, mapSearch, passedComponents = [], userCode }) => {
@@ -90,7 +88,12 @@ const DataTable = ({ parentCode, mapSearch, passedComponents = [], userCode }) =
             </HStack>
 
             <HStack w="7rem" color="#063231">
-              <FontAwesomeIcon icon={faFilter} />
+              <Iconly
+                name="Filter2"
+                set="two-tone"
+                size="medium"
+                primaryColor={theme.colors.internmatch.primary}
+              />
               <Text fontSize="1.0rem" fontWeight="400">
                 Filter By
               </Text>
