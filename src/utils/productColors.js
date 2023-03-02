@@ -71,12 +71,12 @@ const tableMarginXValues = {
 
 const tableBackgroundLightColors = {
   lojing: 'white',
-  alyson: '#FFFFFF',
+  alyson: '#EDF8F8',
 }
 
 const tableBackgroundDarkColors = {
   lojing: 'gray.700',
-  alyson: '#E6EAEA',
+  alyson: '#E0F2F2',
 }
 
 const tableDividerColors = {
