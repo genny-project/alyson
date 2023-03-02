@@ -1,4 +1,4 @@
-import { Box, HStack, Table, Text, useColorModeValue } from '@chakra-ui/react'
+import { Box, HStack, Table, Text, useColorModeValue, useTheme } from '@chakra-ui/react'
 import getActions, { getTableActions } from '../utils/get-actions'
 
 import Action from 'app/BE/action'
@@ -13,6 +13,10 @@ import { selectCode } from 'redux/db/selectors'
 import { useIsMobile } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 import useProductColors from 'utils/productColors'
+import { Iconly } from 'react-iconly'
+import { faFilter } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
 
 const DataTable = ({ parentCode, mapSearch, passedComponents = [], userCode }) => {
   const {
@@ -21,10 +25,12 @@ const DataTable = ({ parentCode, mapSearch, passedComponents = [], userCode }) =
     tableBackgroundLightColor,
     tableDividerColor,
   } = useProductColors()
+
+  const isInternmatch = useIsProductInternmatch()
   const tableData = useSelector(selectCode(parentCode))
   const bgColor = useColorModeValue(tableBackgroundLightColor, tableBackgroundDarkColor)
   const isMobile = useIsMobile()
-
+  const theme = useTheme()
   if (!tableData) return null
 
   const columns = getColumns(tableData)
@@ -48,15 +54,50 @@ const DataTable = ({ parentCode, mapSearch, passedComponents = [], userCode }) =
           justifyContent={isMobile ? 'space-between' : 'flex-start'}
         >
           <Title sbeCode={parentCode} />
-          {/* {passedComponents.map((component, index) => (
-            <Box key={`TABLE-${parentCode}-CHILD-${index}`}>{component}</Box>
-          ))} */}
+          {!isInternmatch &&
+            passedComponents.map((component, index) => (
+              <Box key={`TABLE-${parentCode}-CHILD-${index}`}>{component}</Box>
+            ))}
 
           <Download sbeCode={parentCode} />
         </HStack>
-        <Text>Search</Text>
-        <Text>Filter By</Text>
-        <Pagination sbeCode={parentCode} />
+        {isInternmatch && (
+          <HStack>
+            <HStack
+              borderRadius={'md'}
+              border="solid #063231 1px"
+              paddingInline="3"
+              paddingBlock="2"
+              bg="#EDF8F8"
+              color="#063231"
+              w="15rem"
+              mr={10}
+            >
+              <Iconly
+                name="Search"
+                set="two-tone"
+                size="small"
+                primaryColor={theme.colors.internmatch.primary}
+              />
+              <Text
+                fontSize="1rem"
+                fontWeight="300"
+                lineHeight="1.2"
+                fontFamily="'Inconsolata', sans-serif"
+              >
+                Search
+              </Text>
+            </HStack>
+
+            <HStack w="7rem" color="#063231">
+              <FontAwesomeIcon icon={faFilter} />
+              <Text fontSize="1.0rem" fontWeight="400">
+                Filter By
+              </Text>
+            </HStack>
+          </HStack>
+        )}
+        {!isInternmatch && <Pagination sbeCode={parentCode} />}
       </HStack>
 
       {!mapSearch && tableActions && (
