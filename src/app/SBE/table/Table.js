@@ -39,8 +39,8 @@ const DataTable = ({ parentCode, mapSearch, passedComponents = [], userCode }) =
     <Box mx={tableMarginX} my={5}>
       <HStack
         spacing={5}
-        mx={5}
         mb={3}
+        paddingX="14"
         align="center"
         justifyContent={isMobile ? 'space-between' : 'flex-start'}
         borderColor={'gray.200'}
