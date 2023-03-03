@@ -5,7 +5,7 @@ const ApplicationsPanel = () => {
     <>
       <Box
         bg={'#CAEAE9'}
-        mainW={'100vw'}
+        minW={'100vw'}
         minHeight={'100vh'}
         marginBottom={'-1.5rem'}
         marginRight={'-4rem'}

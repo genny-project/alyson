@@ -11,7 +11,7 @@ const TemplateDashboard = () => {
       <Text fontSize={'36px'} marginLeft={'1.5rem'} marginTop={'-1.5rem'}>
         Dashboard
       </Text>
-      <HStack marginLeft={'1rem'} marginTop={'2rem'} spacing={'2rem'}>
+      <HStack marginLeft={'1rem'} marginTop={'2rem'} spacing={'2rem'} marginRight={'-5rem'}>
         <ProfileStatusCard />
         <ProfileStatisticsCard />
       </HStack>

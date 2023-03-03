@@ -83,7 +83,7 @@ const TodoList = () => {
           variant={'flushed'}
         />
         <Button
-          _hover={'#EA5024'}
+          _hover={'disabled'}
           float={'right'}
           marginRight={'-30px'}
           w={'110px'}
