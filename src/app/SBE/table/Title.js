@@ -1,11 +1,21 @@
-import { Text } from '@chakra-ui/react'
+import { Text, VStack } from '@chakra-ui/react'
 import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
 
 const TableTitle = ({ sbeCode }) => {
   const title = useSelector(selectCode(sbeCode, 'SCH_TITLE'))
+  const description = useSelector(selectCode(sbeCode, 'SCH_DESC'))
 
-  return <Text textStyle="product.bodyText100">{title?.value}</Text>
+  return (
+    <VStack alignItems={'flex-start'}>
+      <Text fontSize="1.2rem" fontWeight="400" color="#063231">
+        {title?.value}
+      </Text>
+      <Text fontSize="1.0rem" fontWeight="400" color="#063231">
+        {description?.value}
+      </Text>
+    </VStack>
+  )
 }
 
 export default TableTitle
