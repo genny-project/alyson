@@ -38,8 +38,15 @@ const ProfileStatisticsCard = () => {
           borderColor={'#06323117'}
         >
           {data.map(({ title, value }, index) => (
-            <HStack marginLeft={'2.5rem'} w={'25rem'} h={'3rem'} marginTop={'1.5rem'}>
-              <VStack>
+            <HStack
+              key={`${index}-${title}`}
+              w={'25rem'}
+              h={'3rem'}
+              marginTop={'1.5rem'}
+              justifyContent={'center'}
+              paddingInline={'1rem'}
+            >
+              <Box marginRight={'0.75rem'}>
                 <Text
                   fontSize={'1.6rem'}
                   textAlign={'center'}
@@ -52,12 +59,11 @@ const ProfileStatisticsCard = () => {
                   fontSize={'0.75rem'}
                   maxW={'6.5rem'}
                   textAlign={'center'}
-                  marginRight={'1.9rem'}
                   wordBreak={'break-word'}
                 >
                   {title}
                 </Text>
-              </VStack>
+              </Box>
               {lt(index, 2) ? (
                 <Divider orientation={'vertical'} h={'3.1rem'} borderColor={'#06323161'} />
               ) : null}
