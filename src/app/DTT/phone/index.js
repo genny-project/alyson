@@ -5,20 +5,22 @@ import {
   Button,
   HStack,
   Input,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverContent,
+  Portal,
   Text,
   useClipboard,
+  useDisclosure,
   useToast,
 } from '@chakra-ui/react'
 import { faAngleDown, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
-import { compose, equals, map, pathOr } from 'ramda'
+import { compose, equals, pathOr } from 'ramda'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { ACKMESSAGEKEY, maxNumberOfRetries } from 'utils/constants'
 import { getCountryInfoFromCountryList, getCountryObjectFromUserInput } from './helpers'
-
+import { FixedSizeList } from 'react-window'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useClearFieldMessage from 'app/DTT/helpers/clear-field-message'
 import ErrorDisplay from 'app/DTT/helpers/error-display'
@@ -55,8 +57,9 @@ const Write = ({
 }) => {
   let regex
   const formatChars = {
+    //- is included due to certain island nations using them
     P: '[+0123456789]',
-    0: '[0123456789]',
+    0: '[-0123456789]',
   }
   const mask = `P00000000000`
   const [errorStatus, setErrorStatus] = useState(false)
@@ -75,7 +78,7 @@ const Write = ({
   const { hasFieldMessage, fieldMessage } = useGetFieldMessage(parentCode, questionCode)
   const { labelTextColor } = useProductColors()
   const handleClearFieldMessage = useClearFieldMessage(parentCode, attributeCode, questionCode)
-
+  const { isOpen, onToggle, onClose } = useDisclosure()
   let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMessage)
   const failedValidation = errorState[questionCode]
   const isInvalid = getIsInvalid(userInput)(regex)
@@ -92,7 +95,6 @@ const Write = ({
   let { code, icon } = countryObjectFromUserInput
   let countryCodeFromUserInput = !!code ? code : ''
   let countryFlagFromUserInput = !!icon ? icon : ''
-
   const hasValidData = userInput && !isInvalid
   const { inputStyles, labelStyles } = useStyles(hasValidData, isFocused)
 
@@ -107,6 +109,7 @@ const Write = ({
     setCountryCode(code)
     setCountryFlag(icon)
     setuserInput(code)
+    onToggle()
     equals(code)('+1') && setIsDuplicatedCountryCode(true)
   }
 
@@ -163,6 +166,26 @@ const Write = ({
     !!countryCodeFromUserInput ? setCountryCode(countryCodeFromUserInput) : setCountryCode('')
   }, [countryCode])
 
+  const countryItem = ({ index, style }) => {
+    const { icon, code, name } = countryList[index]
+    return (
+      <div style={style}>
+        <Button
+          w="full"
+          h={'2rem'}
+          textTransform={'none'}
+          fontWeight={300}
+          justifyContent="flex-start"
+          bg="transparent"
+          key={`${code}-${name}`}
+          onClick={() => handleSelectCountry(code, icon)}
+        >
+          {`${icon} ${code} ${name}`}
+        </Button>
+      </div>
+    )
+  }
+
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
       <HStack
@@ -186,32 +209,43 @@ const Write = ({
       </HStack>
 
       <HStack spacing={0}>
-        {
-          <Menu>
-            <MenuButton
-              as={Button}
-              bg="transparent"
-              position={'absolute'}
-              zIndex={10}
-              _hover={{ background: 'transparent', color: `${realm}.primary` }}
-              _active={{ background: 'transparent' }}
-              _focusVisible={{ background: 'transparent' }}
-            >
-              <HStack>
-                <Text fontSize={'md'}>{!!countryFlag ? `${countryFlag}` : 'Code'}</Text>
-                <FontAwesomeIcon color={`${realm}.primary`} icon={faAngleDown} size="sm" />
-              </HStack>
-            </MenuButton>
-            <MenuList zIndex={100} overflow={'auto'} maxH={'20rem'}>
-              {map(({ code, icon, name }) => (
-                <MenuItem key={`${code}-${name}`} onClick={() => handleSelectCountry(code, icon)}>
-                  {`${icon} ${code} ${name}`}
-                </MenuItem>
-              ))(countryList)}
-            </MenuList>
-          </Menu>
-        }
-
+        <Popover
+          isOpen={isOpen}
+          placement="bottom-start"
+          returnFocusOnClose={false}
+          onClose={onClose}
+        >
+          <Button
+            as={Button}
+            bg="transparent"
+            position={'absolute'}
+            zIndex={10}
+            onClick={onToggle}
+            _hover={{ background: 'transparent', color: `${realm}.primary` }}
+            _active={{ background: 'transparent' }}
+            _focusVisible={{ background: 'transparent' }}
+          >
+            <HStack>
+              <Text fontSize={'md'}>{!!countryFlag ? `${countryFlag}` : 'Code'}</Text>
+              <FontAwesomeIcon color={`${realm}.primary`} icon={faAngleDown} size="sm" />
+            </HStack>
+          </Button>
+          <Portal>
+            <PopoverContent zIndex={'popover'}>
+              <PopoverArrow />
+              <PopoverBody padding={0}>
+                <FixedSizeList
+                  //cannot supply REM value, so have to calculate integer value
+                  height={parseInt(window.getComputedStyle(document.documentElement).fontSize) * 20}
+                  itemSize={parseInt(getComputedStyle(document.documentElement).fontSize) * 2}
+                  itemCount={countryList.length}
+                >
+                  {countryItem}
+                </FixedSizeList>
+              </PopoverBody>
+            </PopoverContent>
+          </Portal>
+        </Popover>
         <Input
           as={InputMask}
           mask={mask}
