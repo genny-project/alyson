@@ -25,7 +25,7 @@ const Cell = ({ attribute, parentCode }) => {
   }
 
   return (
-    <Th borderColor={tableDividerColor} borderTopWidth="1px">
+    <Th borderColor={tableDividerColor} borderTopWidth="1px" paddingX={10}>
       <HStack marginY={tableHeaderMargin}>
         <Text textTransform={'none'} textStyle={tableHeaderTextStyle}>
           {data?.attributeName}

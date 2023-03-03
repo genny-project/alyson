@@ -36,7 +36,7 @@ const DataTable = ({ parentCode, mapSearch, passedComponents = [], userCode }) =
   const tableActions = getTableActions(tableData)
 
   return (
-    <Box mx={tableMarginX}>
+    <Box mx={tableMarginX} my={5}>
       <HStack
         spacing={5}
         mx={5}
@@ -62,7 +62,7 @@ const DataTable = ({ parentCode, mapSearch, passedComponents = [], userCode }) =
         {isInternmatch && (
           <HStack>
             <HStack
-              borderRadius={'full'}
+              borderRadius={'md'}
               border="solid #063231 1px"
               paddingInline="3"
               paddingBlock="2"

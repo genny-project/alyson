@@ -7,7 +7,7 @@ const TableTitle = ({ sbeCode }) => {
   const description = useSelector(selectCode(sbeCode, 'SCH_DESC'))
 
   return (
-    <VStack alignItems={'flex-start'}>
+    <VStack alignItems={'flex-start'} paddingX="5">
       <Text fontSize="1.2rem" fontWeight="400" color="#063231">
         {title?.value}
       </Text>
