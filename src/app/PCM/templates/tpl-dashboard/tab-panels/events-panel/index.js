@@ -33,7 +33,6 @@ const EventsPanel = () => {
               borderRadius={'2.5rem'}
             >
               <Text fontSize={'20px'} marginBottom={'1rem'}>
-                {' '}
                 Next Events
               </Text>
               <HStack spacing={'1.25rem'}>
