@@ -44,7 +44,6 @@ const EventButton = ({ askData, onFinish, parentCode, sourceCode, config }) => {
         isOutlineButton={isOutlineButton}
       />
     )
-
   return (
     <Button
       test-id={questionCode}
