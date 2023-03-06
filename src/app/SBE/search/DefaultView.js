@@ -2,16 +2,17 @@ import { Button, Input, InputGroup, InputLeftElement, Stack } from '@chakra-ui/r
 import { compose, isEmpty, not } from 'ramda'
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { useRef, useState } from 'react'
-
+import { useSelector } from 'react-redux'
+import { Iconly } from 'react-iconly'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 import { onSendSearch } from 'vertx'
 import { selectCode } from 'redux/db/selectors'
 import { useHotkeys } from 'react-hotkeys-hook'
 import { useIsMobile } from 'utils/hooks'
 import useProductColors from 'utils/productColors'
-import { useSelector } from 'react-redux'
-import { Iconly } from 'react-iconly'
 import useStyles from 'app/DTT/inputStyles'
+import { isNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined'
 
 const ProcessSearchDefaultView = ({ sbeCode, process, placeholder, sourceCode, targetCode }) => {
   const [searchValue, setSearchValue] = useState('')
@@ -37,8 +38,11 @@ const ProcessSearchDefaultView = ({ sbeCode, process, placeholder, sourceCode, t
 
   const isMobile = useIsMobile()
 
+  const isInvalid = isNullOrUndefinedOrEmpty(searchValue)
+  const hasValidData = searchValue && !isInvalid
+
   const { borderRadius } = useProductColors()
-  const { inputStyles } = useStyles()
+  const { inputStyles } = useStyles(hasValidData, isInvalid)
 
   return (
     <Stack spacing="5" direction={isMobile ? 'column' : 'row'} w={isMobile ? 'full' : 'auto'}>
@@ -60,7 +64,6 @@ const ProcessSearchDefaultView = ({ sbeCode, process, placeholder, sourceCode, t
             width={'15rem'}
             fontSize={'sm'}
             fontWeight={'medium'}
-            bg={'#E4BAC8'}
             borderRadius={borderRadius}
             {...inputStyles}
           />
