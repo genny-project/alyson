@@ -188,7 +188,7 @@ const AddressPicker = ({
         {hasError && (
           <Text
             textStyle="product.errorText"
-            color={isProductIM ? `${realm}.secondary` : 'error.50'}
+            color={isProductIM ? `${realm}.secondary` : 'red.500'}
           >
             {errorMessage}
           </Text>
