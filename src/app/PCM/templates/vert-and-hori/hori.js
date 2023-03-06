@@ -8,7 +8,7 @@ import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
 const hori = mappingFunction => (mappedPcm, depth, config) => {
   const isMobile = useIsMobile()
 
-  const { tplHoriJustify } = useProductColors()
+  const { tplHoriJustify, askWidth } = useProductColors()
   const { PRI_NAME: pcmName, code: pcmCode } = mappedPcm
   const isPCMEvents = equals(pcmName, 'PCM Events')
   const isFormsPcm = includes('_FORM', pcmCode)
@@ -19,7 +19,7 @@ const hori = mappingFunction => (mappedPcm, depth, config) => {
     <Stack
       spacing={isMobile ? 1 : 5}
       direction={isMobile && !isPCMEvents ? 'column' : 'row'}
-      w={'min(100%, 50rem)'}
+      w={isPCMEvents && !isInternmatch ? askWidth : 'min(100%,50rem)'}
       justifySelf={'flex-start'}
       justifyItems={tplHoriJustify}
       alignItems={isFormsPcm ? 'flex-end' : 'flex-start'}

@@ -23,11 +23,13 @@ const mapAll = (mappedPcm, depth, isInternmatch = false, config = {}) => {
           key={attributeCode}
           w={'full'}
           textAlign={
-            (evtAttrCode || isEvtNext || isEvtSubmit) &&
             isInternmatch &&
+            (evtAttrCode || isEvtNext || isEvtSubmit) &&
             (index !== 0 || count === 1)
               ? 'end'
-              : 'start'
+              : isInternmatch
+              ? 'start'
+              : 'center'
           }
         >
           <PcmField code={attributeCode} mappedPcm={mappedPcm} depth={depth} />
