@@ -15,13 +15,16 @@ import { useSelector } from 'react-redux'
 import useProductColors from 'utils/productColors'
 import { Iconly } from 'react-iconly'
 import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
+import './table.css'
 
 const DataTable = ({ parentCode, mapSearch, passedComponents = [], userCode }) => {
   const {
     tableMarginX,
+    tableMarginY,
     tableBackgroundDarkColor,
     tableBackgroundLightColor,
     tableDividerColor,
+    tableHeaderCSS,
   } = useProductColors()
 
   const isInternmatch = useIsProductInternmatch()
@@ -36,11 +39,11 @@ const DataTable = ({ parentCode, mapSearch, passedComponents = [], userCode }) =
   const tableActions = getTableActions(tableData)
 
   return (
-    <Box mx={tableMarginX} my={5}>
+    <Box mx={tableMarginX} my={tableMarginY}>
       <HStack
         spacing={5}
         mb={3}
-        paddingX="14"
+        className={tableHeaderCSS}
         align="center"
         justifyContent={isMobile ? 'space-between' : 'flex-start'}
         borderColor={'gray.200'}
