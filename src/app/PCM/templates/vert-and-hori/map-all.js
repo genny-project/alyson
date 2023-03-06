@@ -9,7 +9,7 @@ import notIncludes from 'utils/helpers/not-includes'
 
 const mapAll = (mappedPcm, depth, isInternmatch = false, config = {}) => {
   const spillLocs = getSpillLocs(mappedPcm)
-
+  let i = 0
   const questionGrp = mapQuestionGroup((ask, question) => {
     const attributeCode =
       ask?.attributeCode ?? ask?.question?.attributeCode ?? question?.attributeCode ?? ''
@@ -18,12 +18,14 @@ const mapAll = (mappedPcm, depth, isInternmatch = false, config = {}) => {
       const evtAttrCode = includes('EVT_', attributeCode)
       const isEvtNext = equals(attributeCode, 'EVT_NEXT')
       const isEvtSubmit = equals(attributeCode, 'EVT_SUBMIT')
-
+      i++
       return (
         <Box
           key={attributeCode}
           w={'full'}
-          textAlign={(evtAttrCode || isEvtNext || isEvtSubmit) && isInternmatch ? 'end' : 'start'}
+          textAlign={
+            (evtAttrCode || isEvtNext || isEvtSubmit) && isInternmatch && i !== 1 ? 'end' : 'start'
+          }
         >
           <PcmField code={attributeCode} mappedPcm={mappedPcm} depth={depth} />
         </Box>
@@ -32,16 +34,19 @@ const mapAll = (mappedPcm, depth, isInternmatch = false, config = {}) => {
   })(mappedPcm.PRI_QUESTION_CODE)
 
   const filteredUndefinedQuestionGroup = filter(item => !!item)(questionGrp)
-
-  const mappedDefinedLocs = mapSpillLocs(loc => (
-    <Box
-      key={loc}
-      w={'full'}
-      textAlign={includes('EVENTS', loc) && isInternmatch ? 'end' : 'start'}
-    >
-      <PcmField code={loc} mappedPcm={mappedPcm} depth={depth} config={config} />
-    </Box>
-  ))(spillLocs)
+  i = 0
+  const mappedDefinedLocs = mapSpillLocs(loc => {
+    i++
+    return (
+      <Box
+        key={loc}
+        w={'full'}
+        textAlign={includes('EVENTS', loc) && isInternmatch && i !== 1 ? 'end' : 'start'}
+      >
+        <PcmField code={loc} mappedPcm={mappedPcm} depth={depth} config={config} />
+      </Box>
+    )
+  })(spillLocs)
 
   return union(mappedDefinedLocs)(filteredUndefinedQuestionGroup)
 }
