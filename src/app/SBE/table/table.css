@@ -1,4 +1,31 @@
-.cell {
+.im-cell {
   padding-left: 3.5rem;
   padding-right: 3.5rem;
+}
+
+.lj-cell {
+  padding-left: 0rem;
+  padding-right: 1rem;
+}
+
+.im-header {
+  padding-left: 3.5rem;
+  padding-right: 3.5rem;
+}
+
+.lj-header {
+  padding-left: 0rem;
+  padding-right: 0rem;
+}
+
+.im-title {
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #063231;
+}
+
+.lj-title {
+  font-size: 1rem;
+  font-weight: 700;
+  opacity: 0.9;
 }
