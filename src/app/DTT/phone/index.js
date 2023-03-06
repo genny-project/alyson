@@ -5,19 +5,25 @@ import {
   Button,
   HStack,
   Input,
+  InputAddon,
+  InputGroup,
+  InputLeftAddon,
+  Modal,
   Popover,
   PopoverArrow,
   PopoverBody,
   PopoverContent,
+  PopoverTrigger,
   Portal,
   Text,
   useClipboard,
   useDisclosure,
+  useTheme,
   useToast,
 } from '@chakra-ui/react'
 import { faAngleDown, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
-import { compose, equals, pathOr } from 'ramda'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { compose, equals, forEach, map, pathOr, slice } from 'ramda'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { ACKMESSAGEKEY, maxNumberOfRetries } from 'utils/constants'
 import { getCountryInfoFromCountryList, getCountryObjectFromUserInput } from './helpers'
 import { FixedSizeList } from 'react-window'
@@ -42,6 +48,8 @@ import useGetProductName from 'utils/helpers/get-product-name'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined'
 import useProductColors from 'utils/productColors'
 import countryList from './helpers/country-list'
+import { Select } from 'chakra-react-select'
+import ReactSelect from 'react-select'
 
 const Write = ({
   questionCode,
@@ -67,11 +75,12 @@ const Write = ({
   const [isFocused, setIsFocused] = useState(false)
   const [countryCode, setCountryCode] = useState(null)
   const [countryFlag, setCountryFlag] = useState(null)
+  const [countryMenuList, setCountryMenuList] = useState(null)
+  const [inputValue, setInputValue] = useState(countryFlag)
   const [isDuplicatedCountryCode, setIsDuplicatedCountryCode] = useState(false)
   const inputRef = useRef()
   const labelRef = useRef()
   const retrySendingAnswerRef = useRef(0)
-
   const { dispatch } = useError()
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
   const { errorState } = useError()
@@ -97,7 +106,7 @@ const Write = ({
   let countryFlagFromUserInput = !!icon ? icon : ''
   const hasValidData = userInput && !isInvalid
   const { inputStyles, labelStyles } = useStyles(hasValidData, isFocused)
-
+  const theme = useTheme()
   const onBlur = e => {
     e.target.value ? setIsFocused(true) : setIsFocused(false)
     !errorStatus && debouncedSendAnswer(userInput)
@@ -106,9 +115,10 @@ const Write = ({
   }
 
   const handleSelectCountry = (code, icon) => {
+    setuserInput(code)
     setCountryCode(code)
     setCountryFlag(icon)
-    setuserInput(code)
+    setInputValue(icon)
     onToggle()
     equals(code)('+1') && setIsDuplicatedCountryCode(true)
   }
@@ -168,30 +178,41 @@ const Write = ({
 
   const countryItem = ({ index, style }) => {
     const { icon, code, name } = countryList[index]
+    console.log('style ', style)
     return (
       <div style={style}>
         <Button
           w="full"
-          h={'2rem'}
           textTransform={'none'}
           fontWeight={300}
           justifyContent="flex-start"
           bg="transparent"
+          h={'2rem'}
+          // padding={0}
           key={`${code}-${name}`}
           onClick={() => handleSelectCountry(code, icon)}
         >
-          {`${icon} ${code} ${name}`}
+          {`rrr ${icon} ${code} ${name}`}
         </Button>
       </div>
     )
   }
-
+  const countryOptions = []
+  const onInputChange = input => {
+    setInputValue(countryFlag)
+    console.log('Input change ', input, countryFlag)
+  }
+  forEach(
+    i => countryOptions.push({ value: i, label: `${i.icon} ${i.code} ${i.name}` }),
+    countryList,
+  )
+  console.log('Country flag is ', countryFlag)
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
       <HStack
         ref={labelRef}
         paddingStart={isFocused ? 6 : 20}
-        {...labelStyles}
+        // {...labelStyles}
         top={isFocused ? `calc(-${labelRef?.current?.clientHeight}px - .25rem)` : 4}
       >
         <MandatorySymbol
@@ -209,63 +230,103 @@ const Write = ({
       </HStack>
 
       <HStack spacing={0}>
-        <Popover
+        {/* <Select 
+      components={<Portal ><FixedSizeList
+        zIndex={"popover"}
+              //cannot supply REM value 
+              height={parseInt(window.getComputedStyle(document.documentElement).fontSize) * 20}
+              itemSize={parseInt(getComputedStyle(document.documentElement).fontSize) * 2}
+              itemCount={countryList.length}
+            >
+              {countryItem}
+            </FixedSizeList></Portal>} options={countryOptions} /> */}
+        {/* <Popover 
           isOpen={isOpen}
-          placement="bottom-start"
+          placement='bottom-start'
           returnFocusOnClose={false}
           onClose={onClose}
+          preventOverflow={true}
         >
-          <Button
-            as={Button}
-            bg="transparent"
-            position={'absolute'}
-            zIndex={10}
-            onClick={onToggle}
-            _hover={{ background: 'transparent', color: `${realm}.primary` }}
-            _active={{ background: 'transparent' }}
-            _focusVisible={{ background: 'transparent' }}
-          >
-            <HStack>
-              <Text fontSize={'md'}>{!!countryFlag ? `${countryFlag}` : 'Code'}</Text>
-              <FontAwesomeIcon color={`${realm}.primary`} icon={faAngleDown} size="sm" />
-            </HStack>
-          </Button>
+          <PopoverTrigger>
+            <Button
+              _focus={{borderColor:'transparent'}}
+              as={Button}
+              bg="transparent"
+              position={'absolute'}
+              zIndex={10}
+              onClick={onToggle}
+              _hover={{ background: 'transparent', color: `${realm}.primary` }}
+              _active={{ background: 'transparent' }}
+              _focusVisible={{ background: 'transparent' }}
+            >
+              <HStack>
+                <Text fontSize={'md'}>{!!countryFlag ? `${countryFlag}` : 'Code'}</Text>
+                <FontAwesomeIcon color={`${realm}.primary`} icon={faAngleDown} size="sm" />
+              </HStack>
+            </Button>
+          </PopoverTrigger>
           <Portal>
-            <PopoverContent zIndex={'popover'}>
-              <PopoverArrow />
-              <PopoverBody padding={0}>
-                <FixedSizeList
-                  //cannot supply REM value, so have to calculate integer value
-                  height={parseInt(window.getComputedStyle(document.documentElement).fontSize) * 20}
-                  itemSize={parseInt(getComputedStyle(document.documentElement).fontSize) * 2}
-                  itemCount={countryList.length}
-                >
-                  {countryItem}
-                </FixedSizeList>
-              </PopoverBody>
-            </PopoverContent>
+          <PopoverContent  
+          zIndex={"popover"}>
+            <PopoverArrow/>
+            <PopoverBody
+            
+            padding={0}>
+            <FixedSizeList
+              //cannot supply REM value 
+              height={parseInt(window.getComputedStyle(document.documentElement).fontSize) * 20}
+              itemSize={parseInt(getComputedStyle(document.documentElement).fontSize) * 2}
+              itemCount={countryList.length}
+            >
+              {countryItem}
+            </FixedSizeList>
+            </PopoverBody>
+          </PopoverContent>
           </Portal>
-        </Popover>
-        <Input
-          as={InputMask}
-          mask={mask}
-          formatChars={formatChars}
-          maskChar={null}
-          test-id={questionCode}
-          id={questionCode}
-          ref={inputRef}
-          onFocus={() => {
-            setIsFocused(true)
-          }}
-          onBlur={onBlur}
-          onChange={e => setuserInput(e.target.value)}
-          value={userInput || ''}
-          isInvalid={isInvalid}
-          paddingBlock={3}
-          paddingInlineStart={20}
-          paddingInlineEnd={6}
-          {...inputStyles}
-        />
+        </Popover> */}
+        <InputGroup>
+          <InputAddon>
+            <ReactSelect
+              // onMenuOpen={()=>{}}
+              inputValue={inputValue}
+              blurInputOnSelect={false}
+              filterOption={() => true}
+              onChange={selection =>
+                handleSelectCountry(selection.value.code, selection.value.icon)
+              }
+              styles={{
+                control: base => ({ ...base, zIndex: 66 }),
+                menu: base => ({ ...base, zIndex: 294999, width: 'full' }),
+              }}
+              // position={'absolute'}
+              onInputChange={onInputChange}
+              left={0}
+              top={0}
+              // menuIsOpen={false}
+              options={countryOptions}
+            />
+          </InputAddon>
+          <Input
+            zIndex={'5'}
+            as={InputMask}
+            mask={mask}
+            formatChars={formatChars}
+            maskChar={null}
+            test-id={questionCode}
+            id={questionCode}
+            ref={inputRef}
+            onFocus={() => {
+              setIsFocused(true)
+            }}
+            onBlur={onBlur}
+            onChange={e => setuserInput(e.target.value)}
+            value={userInput || ''}
+            isInvalid={isInvalid}
+            paddingBlock={3}
+            paddingInlineEnd={6}
+            {...inputStyles}
+          />
+        </InputGroup>
       </HStack>
 
       <ErrorDisplay
