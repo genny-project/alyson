@@ -9,8 +9,7 @@ import notIncludes from 'utils/helpers/not-includes'
 
 const mapAll = (mappedPcm, depth, isInternmatch = false, config = {}) => {
   const spillLocs = getSpillLocs(mappedPcm)
-
-  const questionGrp = mapQuestionGroup((ask, question) => {
+  const questionGrp = mapQuestionGroup((ask, question, index, count) => {
     const attributeCode =
       ask?.attributeCode ?? ask?.question?.attributeCode ?? question?.attributeCode ?? ''
 
@@ -18,12 +17,18 @@ const mapAll = (mappedPcm, depth, isInternmatch = false, config = {}) => {
       const evtAttrCode = includes('EVT_', attributeCode)
       const isEvtNext = equals(attributeCode, 'EVT_NEXT')
       const isEvtSubmit = equals(attributeCode, 'EVT_SUBMIT')
-
+      console.log(index, count)
       return (
         <Box
           key={attributeCode}
           w={'full'}
-          textAlign={(evtAttrCode || isEvtNext || isEvtSubmit) && isInternmatch ? 'end' : 'start'}
+          textAlign={
+            (evtAttrCode || isEvtNext || isEvtSubmit) &&
+            isInternmatch &&
+            (index !== 0 || count === 1)
+              ? 'end'
+              : 'start'
+          }
         >
           <PcmField code={attributeCode} mappedPcm={mappedPcm} depth={depth} />
         </Box>
@@ -32,16 +37,17 @@ const mapAll = (mappedPcm, depth, isInternmatch = false, config = {}) => {
   })(mappedPcm.PRI_QUESTION_CODE)
 
   const filteredUndefinedQuestionGroup = filter(item => !!item)(questionGrp)
-
-  const mappedDefinedLocs = mapSpillLocs(loc => (
-    <Box
-      key={loc}
-      w={'full'}
-      textAlign={includes('EVENTS', loc) && isInternmatch ? 'end' : 'start'}
-    >
-      <PcmField code={loc} mappedPcm={mappedPcm} depth={depth} config={config} />
-    </Box>
-  ))(spillLocs)
+  const mappedDefinedLocs = mapSpillLocs(loc => {
+    return (
+      <Box
+        key={loc}
+        w={'full'}
+        textAlign={includes('EVENTS', loc) && isInternmatch ? 'end' : 'start'}
+      >
+        <PcmField code={loc} mappedPcm={mappedPcm} depth={depth} config={config} />
+      </Box>
+    )
+  })(spillLocs)
 
   return union(mappedDefinedLocs)(filteredUndefinedQuestionGroup)
 }
