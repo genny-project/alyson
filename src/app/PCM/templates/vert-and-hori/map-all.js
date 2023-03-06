@@ -22,7 +22,7 @@ const mapAll = (mappedPcm, depth, isInternmatch = false, config = {}) => {
       return (
         <Box
           key={attributeCode}
-          w={evtAttrCode ? '100%' : 'full'}
+          w={'full'}
           textAlign={(evtAttrCode || isEvtNext || isEvtSubmit) && isInternmatch ? 'end' : 'start'}
         >
           <PcmField code={attributeCode} mappedPcm={mappedPcm} depth={depth} />
@@ -36,7 +36,7 @@ const mapAll = (mappedPcm, depth, isInternmatch = false, config = {}) => {
   const mappedDefinedLocs = mapSpillLocs(loc => (
     <Box
       key={loc}
-      w={includes('EVENTS', loc) && isInternmatch ? '100%' : 'full'}
+      w={'full'}
       textAlign={includes('EVENTS', loc) && isInternmatch ? 'end' : 'start'}
     >
       <PcmField code={loc} mappedPcm={mappedPcm} depth={depth} config={config} />

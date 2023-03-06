@@ -22,7 +22,7 @@ const hori = mappingFunction => (mappedPcm, depth, config) => {
       w={'min(100%, 50rem)'}
       justifySelf={'flex-start'}
       justifyItems={tplHoriJustify}
-      alignItems={isFormsPcm ? 'flex-start' : 'flex-start'}
+      alignItems={isFormsPcm ? 'flex-end' : 'flex-start'}
     >
       {mappingFunction(mappedPcm, depth, isInternmatch, config ?? { config: { mt: 0 } })}
     </Stack>
