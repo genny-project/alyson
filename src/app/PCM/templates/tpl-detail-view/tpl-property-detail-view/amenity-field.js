@@ -21,12 +21,10 @@ import firstUpper from 'utils/helpers/first-upper'
 const AmenityField = ({ attributeCode, code }) => {
   const entityAttribute = useSelector(selectCode(code, attributeCode))
 
-  const titleUpper = toUpper(
-    replace('Number of ')('')(entityAttribute?.attribute?.name || '') || attributeCode,
-  )
+  const titleUpper = toUpper(replace('NUMBER_OF')('')(attributeCode))
 
   const title = firstUpper(titleUpper)
-  const key = firstUpper(title.split(' ').pop())
+  const key = firstUpper(title.split('_').pop())
 
   // https://plainenglish.io/blog/javascript-operator <- explandation of the "Nullish" operator,
   // but basically if foo = a ?? b then
@@ -66,7 +64,7 @@ const AmenityField = ({ attributeCode, code }) => {
           <FontAwesomeIcon icon={icon} />
         </Text>
         <Text color="product.primary">
-          {value} {title}
+          {value} {key}
         </Text>
       </HStack>
     </Box>

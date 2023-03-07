@@ -1,3 +1,5 @@
+import { toUpper } from 'ramda'
+
 import { useGetProjectInformation } from 'app/BE/project-be'
 import Pcm from 'app/PCM'
 import { useEffect } from 'react'
@@ -27,14 +29,14 @@ const Display = () => {
     const defaultIcon = ''
 
     useEffect(() => {
-      document.title = title || defaultTitle
+      document.title = toUpper(title || defaultTitle)
       let favIconURL = document.querySelector("link[rel~='icon]")
       if (!favIconURL) {
         favIconURL = document.createElement('link')
         favIconURL.rel = 'icon'
         document.getElementsByTagName('head')[0].appendChild(favIconURL)
       }
-      favIconURL.href = defaultIcon || icon
+      favIconURL.href = defaultIcon || `/${title}-favicon.png` || icon
     }, [defaultTitle, title, icon])
   }
   return (

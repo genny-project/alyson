@@ -26,7 +26,7 @@ const Pagination = ({ sbeCode }) => {
   const hasPrevPage = pageIndex.value > 0
 
   return (
-    <HStack justify="flex-end" align="flex-end">
+    <HStack justify="flex-end" align="center">
       <Text textStyle="body.2" w="max-content">{`${
         !!totalResults?.value ? pageStart?.value + 1 : pageStart?.value
       } - ${pageStart.value + allItemsInTableLength} of ${totalResults.value}`}</Text>

@@ -1,7 +1,7 @@
+import { Button } from '@chakra-ui/react'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import { onSendMessage } from 'vertx'
-import { Button } from '@chakra-ui/react'
 
 const PropAction = ({ parentCode, code, targetCode }) => {
   const data = useSelector(selectCode(parentCode, code))
@@ -21,7 +21,7 @@ const PropAction = ({ parentCode, code, targetCode }) => {
       fontWeight={'normal'}
       borderRadius="3xl"
     >
-      {data.attributeName}
+      {data.attributeName || ''}
     </Button>
   )
 }

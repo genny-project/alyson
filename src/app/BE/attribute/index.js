@@ -60,7 +60,7 @@ const Attribute = ({
 
   if (!component && fallback) return fallback
 
-  if ((data && data.attributeName === 'ImageUrl') || data.attributeName === 'Images')
+  if ((data && data?.attributeName === 'ImageUrl') || data?.attributeName === 'Images')
     return <ImageType.Read config={config} code={code} data={data} parentCode={parentCode} />
 
   return component === 'email' ? (

@@ -12,7 +12,12 @@ const Cell = ({ attribute, parentCode }) => {
   const userCode = useSelector(selectCode('USER'))
   const data = useSelector(selectCode(parentCode, attribute))
   const sort = useSelector(selectCode(parentCode, replace('COL_', 'SRT_', attribute))) || {}
-  const { tableHeaderTextStyle, tableDividerColor, tableHeaderMargin } = useProductColors()
+  const {
+    tableHeaderTextStyle,
+    tableDividerColor,
+    tableHeaderMargin,
+    tableCellCSS,
+  } = useProductColors()
 
   const onClick = () => {
     sendEvtClick({
@@ -26,7 +31,7 @@ const Cell = ({ attribute, parentCode }) => {
   }
 
   return (
-    <Th borderColor={tableDividerColor} borderTopWidth="1px" className="cell">
+    <Th borderColor={tableDividerColor} borderTopWidth="1px" className={tableCellCSS}>
       <HStack marginY={tableHeaderMargin}>
         <Text textTransform={'none'} textStyle={tableHeaderTextStyle}>
           {data?.attributeName}

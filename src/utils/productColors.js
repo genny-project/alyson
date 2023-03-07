@@ -60,7 +60,7 @@ const tableBorderRadii = {
   alyson: '2.5rem',
 }
 const tableHeaderTextStyles = {
-  lojing: 'tail.1',
+  lojing: 'lojing.tableHeader',
   alyson: 'internmatch.tableHeader',
 }
 
@@ -69,13 +69,18 @@ const tableMarginXValues = {
   alyson: '0',
 }
 
+const tableMarginYValues = {
+  lojing: '0',
+  alyson: '5',
+}
+
 const tableBackgroundLightColors = {
   lojing: 'white',
   alyson: '#EDF8F8',
 }
 
 const tableBackgroundDarkColors = {
-  lojing: 'gray.700',
+  lojing: '#F4F5F5',
   alyson: '#E0F2F2',
 }
 
@@ -90,7 +95,7 @@ const tableHeaderMargins = {
 
 const askWidths = {
   lojing: 'max(24rem, 30vw)',
-  alyson: 'min(100%, 50rem)',
+  alyson: 'min(100%, 24rem)',
 }
 
 const tplVertFormJustifies = {
@@ -103,6 +108,21 @@ const tplVertJustifies = {
 
 const tplHoriJustifies = {
   lojing: 'flex-start',
+}
+
+const tableCellCSSValues = {
+  alyson: 'im-cell',
+  lojing: 'lj-cell',
+}
+
+const tableHeaderCSSValues = {
+  alyson: 'im-header',
+  lojing: 'lj-header',
+}
+
+const tableTitleCSSValues = {
+  alyson: 'im-title',
+  lojing: 'lj-title',
 }
 
 const useProductColors = () => {
@@ -132,10 +152,14 @@ const useProductColors = () => {
   const tableBorderRadius = tableBorderRadii[clientId] || 'none'
   const tableHeaderTextStyle = tableHeaderTextStyles[clientId] || 'tail.1'
   const tableMarginX = tableMarginXValues[clientId] || '5'
+  const tableMarginY = tableMarginYValues[clientId] || '0'
   const tableBackgroundLightColor = tableBackgroundLightColors[clientId] || 'white'
   const tableBackgroundDarkColor = tableBackgroundDarkColors[clientId] || 'gray.700'
   const tableDividerColor = tableDividerColors[clientId] || 'white'
   const tableHeaderMargin = tableHeaderMargins[clientId] || 0
+  const tableCellCSS = tableCellCSSValues[clientId]
+  const tableHeaderCSS = tableHeaderCSSValues[clientId]
+  const tableTitleCSS = tableTitleCSSValues[clientId]
 
   const tplVertJustify = tplVertJustifies[clientId] || 'flex-start'
   const tplVertFormJustify = tplVertFormJustifies[clientId] || 'flex-start'
@@ -162,6 +186,10 @@ const useProductColors = () => {
     tableBorderRadius,
     tableHeaderTextStyle,
     tableMarginX,
+    tableMarginY,
+    tableCellCSS,
+    tableHeaderCSS,
+    tableTitleCSS,
     tableBackgroundDarkColor,
     tableBackgroundLightColor,
     tableDividerColor,

@@ -107,6 +107,7 @@ const Write = ({
         placeholderName={placeholderName}
         mandatory={mandatory}
         labelTextColor={isProductInternmatch ? `${realm}.primary` : labelTextColor}
+        realm={realm}
       />
       <RadioGroup value={value} onChange={onChange}>
         <Stack direction={verticalAligned ? 'row' : 'column'}>

@@ -12,7 +12,6 @@ import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
 import useGetProductName from 'utils/helpers/get-product-name'
 import isJson from 'utils/helpers/is-json'
-import { useIsMobile } from 'utils/hooks'
 import useProductColors from 'utils/productColors'
 
 const AddressPicker = ({
@@ -44,7 +43,6 @@ const AddressPicker = ({
   const fieldNotEmpty = fieldState[questionCode]
 
   const dataValue = data?.value
-  const isMobile = useIsMobile()
 
   let errorMessage = errormsg || `Please choose one of the options from the suggestion list`
 
@@ -137,12 +135,7 @@ const AddressPicker = ({
   const { inputStyles, labelStyles } = useStyles(hasValidData, isFocused)
 
   return (
-    <Box
-      maxW={isMobile ? 'inherit' : '40rem'}
-      position={'relative'}
-      mt={isFocused ? 6 : 0}
-      transition="all 0.25s ease"
-    >
+    <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
       <HStack
         ref={labelRef}
         paddingStart={6}
@@ -188,7 +181,7 @@ const AddressPicker = ({
         {hasError && (
           <Text
             textStyle="product.errorText"
-            color={isProductIM ? `${realm}.secondary` : 'error.50'}
+            color={isProductIM ? `${realm}.secondary` : 'red.500'}
           >
             {errorMessage}
           </Text>
