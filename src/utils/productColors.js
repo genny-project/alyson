@@ -95,7 +95,7 @@ const tableHeaderMargins = {
 
 const askWidths = {
   lojing: 'max(24rem, 30vw)',
-  alyson: 'min(100%, 50rem)',
+  alyson: 'min(100%, 24rem)',
 }
 
 const tplVertFormJustifies = {
