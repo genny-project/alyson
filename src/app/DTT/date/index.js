@@ -95,7 +95,7 @@ const Write = ({
   const [isPreviousDate, setIsPreviousDate] = useState(true)
   const [errorMessage, setErrorMessage] = useState(initialErrorMsg)
 
-  const [dateValue, setDateValue] = useState(null)
+  const [dateValue, setDateValue] = useState(getDate(data?.value || ''))
   const [isFocused, setIsFocused] = useState(false)
 
   const onlyYear = typeName === 'year'
@@ -231,61 +231,7 @@ const Write = ({
     </InputGroup>
   ))
 
-  return isPreviousDate && data?.value && dateValue ? (
-    <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
-      <HStack
-        ref={labelRef}
-        paddingStart={isFocused || isProductInternMatch ? 6 : 12}
-        {...labelStyles}
-        top={isFocused ? `calc(-${labelRef?.current?.clientHeight}px - .25rem)` : 4}
-      >
-        {placeholderName && (
-          <MandatorySymbol
-            placeholderName={placeholderName}
-            labelTextColor={isProductInternMatch ? `${realm}.primary` : labelTextColor}
-            realm={realm}
-            mandatory={mandatory}
-          />
-        )}
-
-        {(!failedValidation && fieldNotEmpty) ||
-        (!failedValidation && dateValue && isNotStringifiedEmptyArray(dateValue)) ? (
-          <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
-        ) : null}
-      </HStack>
-      <DateChip
-        onlyYear={onlyYear}
-        includeTime={includeTime}
-        onClick={() => {
-          onSendAnswer('')
-          setDateValue(null)
-        }}
-        date={getDate(selectedDateInIsoFormat || '')}
-        realm={realm}
-        isProductInternMatch={isProductInternMatch}
-      />
-    </Box>
-  ) : data?.value ? (
-    <VStack alignItems={'flex-start'}>
-      {placeholderName && (
-        <MandatorySymbol
-          placeholderName={placeholderName}
-          labelTextColor={isProductInternMatch ? `${realm}.primary` : labelTextColor}
-          realm={realm}
-          mandatory={mandatory}
-        />
-      )}
-      <DateChip
-        onlyYear={onlyYear}
-        includeTime={includeTime}
-        onClick={() => {
-          onSendAnswer('')
-          setDateValue(null)
-        }}
-        date={getDate(data?.value || '')}
-      />
-    </VStack>
-  ) : (
+  return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
       <HStack
         ref={labelRef}
@@ -343,3 +289,59 @@ const DatePickerComponent = {
 }
 
 export default DatePickerComponent
+
+// isPreviousDate && data?.value && dateValue ? (
+//   <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
+//     <HStack
+//       ref={labelRef}
+//       paddingStart={isFocused || isProductInternMatch ? 6 : 12}
+//       {...labelStyles}
+//       top={isFocused ? `calc(-${labelRef?.current?.clientHeight}px - .25rem)` : 4}
+//     >
+//       {placeholderName && (
+//         <MandatorySymbol
+//           placeholderName={placeholderName}
+//           labelTextColor={isProductInternMatch ? `${realm}.primary` : labelTextColor}
+//           realm={realm}
+//           mandatory={mandatory}
+//         />
+//       )}
+
+//       {(!failedValidation && fieldNotEmpty) ||
+//       (!failedValidation && dateValue && isNotStringifiedEmptyArray(dateValue)) ? (
+//         <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} />
+//       ) : null}
+//     </HStack>
+//     <DateChip
+//       onlyYear={onlyYear}
+//       includeTime={includeTime}
+//       onClick={() => {
+//         onSendAnswer('')
+//         setDateValue(null)
+//       }}
+//       date={getDate(selectedDateInIsoFormat || '')}
+//       realm={realm}
+//       isProductInternMatch={isProductInternMatch}
+//     />
+//   </Box>
+// ) : data?.value ? (
+//   <VStack alignItems={'flex-start'}>
+//     {placeholderName && (
+//       <MandatorySymbol
+//         placeholderName={placeholderName}
+//         labelTextColor={isProductInternMatch ? `${realm}.primary` : labelTextColor}
+//         realm={realm}
+//         mandatory={mandatory}
+//       />
+//     )}
+//     <DateChip
+//       onlyYear={onlyYear}
+//       includeTime={includeTime}
+//       onClick={() => {
+//         onSendAnswer('')
+//         setDateValue(null)
+//       }}
+//       date={getDate(data?.value || '')}
+//     />
+//   </VStack>
+// ) :
