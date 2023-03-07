@@ -2,19 +2,19 @@ import { Box, Divider, Grid, HStack, Text, VStack, Wrap, WrapItem } from '@chakr
 import { compose, equals, filter, find, includes, isEmpty, not } from 'ramda'
 import { selectCode, selectCodeUnary } from 'redux/db/selectors'
 
-import AmenityField from './amenity-field'
+import { faCalendarDay } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Attribute from 'app/BE/attribute'
 import Button from 'app/DTT/event_button'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MapView from 'app/layouts/map_view'
-import { faCalendarDay } from '@fortawesome/free-solid-svg-icons'
 import { format } from 'date-fns'
-import useGetDetailData from '../get-detail-data'
-import { useIsMobile } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined'
-import FavouriteComponent from '../../template-components/favourite-component'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
+import { useIsMobile } from 'utils/hooks'
+import FavouriteComponent from '../../template-components/favourite-component'
+import useGetDetailData from '../get-detail-data'
+import AmenityField from './amenity-field'
 
 const TemplatePropertyDetailView = ({ mappedPcm }) => {
   const { baseEntityCode, fields } = useGetDetailData(mappedPcm)
@@ -56,20 +56,21 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
   const state = compose(useSelector, selectCodeUnary(baseEntityCode))(stateCode)?.valueString || ''
 
   const amentities = filter(includes('PRI_NUMBER_OF_'))(fields) || []
+  const addressFull = useSelector(selectCode(baseEntityCode, 'PRI_ADDRESS_FULL'))?.valueString || ''
 
   const rooms = filter(includes('ROOM'))(fields) || []
 
   const descriptionCode = findCode('PRI_DESCRIPTION') || findCode('PRI_PROPERTY_DESCRIPTION')
   const rentAmountCode = findCode('PRI_RENTAL_AMOUNT')
   const rentAmount =
-    compose(useSelector, selectCodeUnary(baseEntityCode))(rentAmountCode)?.value || ''
+    compose(useSelector, selectCodeUnary(baseEntityCode))(rentAmountCode)?.valueInteger || ''
 
   const rentFreqCode = findCode('_LNK_RENTAL_FREQUENCY__PRI_NAME')
   const rentFreq =
     compose(useSelector, selectCodeUnary(baseEntityCode))(rentFreqCode)?.value || 'week'
 
   const availableFromDate =
-    useSelector(selectCode(baseEntityCode, 'PRI_AVAILABLE_DATE'))?.value || ''
+    useSelector(selectCode(baseEntityCode, 'PRI_AVAILABLE_DATE'))?.valueDate || ''
 
   const availableFromDateReadableFormat = isNotNullOrUndefinedOrEmpty(availableFromDate)
     ? format(new Date(availableFromDate), 'dd MMM yyyy')
@@ -78,7 +79,8 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
   //PRI_IMAGES is now used for the multi image display
   const imageCode = findCode('PRI_IMAGES') || findCode('PRI_IMAGE_URL')
   //Get suburb, state if both not null, otherwise just the one that isn't null
-  const location = !!suburb && !!state ? `${suburb}, ${state}` : suburb || state
+  const location =
+    !!suburb && !!state ? `${suburb}, ${state}` : !!addressFull ? addressFull : suburb || state
 
   const buttonConfig = {
     variant: 'solid',

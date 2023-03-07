@@ -1,19 +1,29 @@
 import { Box, HStack, Text } from '@chakra-ui/react'
-import { equals, filter, includes, isEmpty, map, not } from 'ramda'
+import { compose, equals, filter, includes, isEmpty, map, not } from 'ramda'
+import { selectCode, selectCodeUnary } from 'redux/db/selectors'
 
 import sendEvtClick from 'app/ASKS/utils/send-evt-click'
 import Attribute from 'app/BE/attribute'
+import FavouriteComponent from 'app/PCM/templates/template-components/favourite-component/index.js'
 import AmenityField from 'app/PCM/templates/tpl-detail-view/tpl-property-detail-view/amenity-field.js'
 import { useSelector } from 'react-redux'
-import { selectCode } from 'redux/db/selectors'
+import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { useIsMobile } from 'utils/hooks'
 
 const CardItem = ({ mappedValues, baseEntityCode, primaryColor, sbeCode }) => {
   const isMobile = useIsMobile()
+  const userCode = useSelector(selectCode('USER'))
+  const userType = useSelector(selectCode(userCode, 'LNK_ROLE'))?.value || ''
+  const isAgentOrAdmin = includes('ADMIN', userType) || includes('AGENT', userType)
+
+  const userFavouritesAttribute =
+    compose(useSelector, selectCodeUnary(userCode))('LNK_FAV_PROPS') || {}
+  const userFavourites = safelyParseJson(userFavouritesAttribute?.value, [])
+  const isStarred = includes(baseEntityCode)(userFavourites)
 
   const isTableProperties = equals(sbeCode, 'SBE_TABLE_PROPERTIES')
 
-  const attrName = useSelector(selectCode(baseEntityCode, 'PRI_CREATED'))?.attributeName || ''
+  const attrName = useSelector(selectCode(baseEntityCode, 'PRI_CREATED_DATE'))?.attributeName || ''
 
   const suburb =
     useSelector(
@@ -39,15 +49,14 @@ const CardItem = ({ mappedValues, baseEntityCode, primaryColor, sbeCode }) => {
   const location = !!suburb && !!state ? `${suburb}, ${state}` : suburb || state || ''
 
   const amenities = filter(includes('PRI_NUMBER_OF_'))(mappedValues) || []
-  const displayImages =
-    useSelector(selectCode(baseEntityCode, '_LNK_PROPERTY__PRI_IMAGES'))?.value || []
+  const displayImages = useSelector(selectCode(baseEntityCode, 'PRI_IMAGES'))?.value || []
   const hasDisplayImage = not(isEmpty(displayImages))
 
   const rentalAmt = useSelector(selectCode(baseEntityCode, 'PRI_RENTAL_AMOUNT'))?.value || ''
   const rentalFreq =
     useSelector(selectCode(baseEntityCode, '_LNK_RENTAL_FREQUENCY__PRI_NAME'))?.value || ''
 
-  const createdDate = useSelector(selectCode(baseEntityCode, 'PRI_CREATED'))?.value || ''
+  const createdDate = useSelector(selectCode(baseEntityCode, 'PRI_CREATED_DATE'))?.valueDate || ''
 
   const handleDetailView = () => {
     sendEvtClick({
@@ -72,7 +81,6 @@ const CardItem = ({ mappedValues, baseEntityCode, primaryColor, sbeCode }) => {
         position={'relative'}
         cursor={'pointer'}
         minH={!isMobile && !!hasDisplayImage ? '18.5rem' : 'inherit'}
-        onClick={handleDetailView}
       >
         {!!hasDisplayImage && (
           <Box
@@ -85,16 +93,17 @@ const CardItem = ({ mappedValues, baseEntityCode, primaryColor, sbeCode }) => {
             borderRadius={'xl'}
             overflow={'hidden'}
             maxH={'18.5rem'}
+            onClick={handleDetailView}
           >
             <Attribute
               code={baseEntityCode}
-              attribute={'_LNK_PROPERTY__PRI_IMAGES'}
+              attribute={'PRI_IMAGES'}
               config={{ carddisplay: 'true', showSingleImgOnly: 'true' }}
             />
           </Box>
         )}
 
-        {!!createdDate && (
+        {!!createdDate && !isAgentOrAdmin ? (
           <HStack
             position={isMobile ? 'static' : 'absolute'}
             top={8}
@@ -107,16 +116,35 @@ const CardItem = ({ mappedValues, baseEntityCode, primaryColor, sbeCode }) => {
             marginBlock={isMobile ? 3 : 0}
           >
             <Text>{attrName}</Text>
-            <Attribute code={baseEntityCode} attribute={'PRI_CREATED'} />
+            <Attribute code={baseEntityCode} attribute={'PRI_CREATED_DATE'} />
+          </HStack>
+        ) : (
+          <HStack
+            position={isMobile ? 'static' : 'absolute'}
+            top={8}
+            right={3}
+            fontSize={'sm'}
+            borderBottom={`1px solid `}
+            borderBottomColor={primaryColor}
+            w={'fit-content'}
+            marginBlock={isMobile ? 3 : 0}
+          >
+            <FavouriteComponent
+              starred={isStarred}
+              sourceCode={userCode}
+              targetCode={baseEntityCode}
+              showLabel={true}
+            />
           </HStack>
         )}
 
-        <Box mt={isMobile ? 3 : 16}>
+        <Box mt={isMobile ? 3 : 16} onClick={handleDetailView}>
           <Text fontSize={'1.13rem'} fontWeight={'700'} mb={'.75rem'}>
             {propertyName}
           </Text>
 
           <Text
+            onClick={handleDetailView}
             _empty={{
               display: 'none',
             }}
