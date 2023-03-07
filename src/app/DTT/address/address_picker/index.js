@@ -137,12 +137,7 @@ const AddressPicker = ({
   const { inputStyles, labelStyles } = useStyles(hasValidData, isFocused)
 
   return (
-    <Box
-      maxW={isMobile ? 'inherit' : '40rem'}
-      position={'relative'}
-      mt={isFocused ? 6 : 0}
-      transition="all 0.25s ease"
-    >
+    <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
       <HStack
         ref={labelRef}
         paddingStart={6}
