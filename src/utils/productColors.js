@@ -60,7 +60,7 @@ const tableBorderRadii = {
   alyson: '2.5rem',
 }
 const tableHeaderTextStyles = {
-  lojing: 'tail.1',
+  lojing: 'lojing.tableHeader',
   alyson: 'internmatch.tableHeader',
 }
 

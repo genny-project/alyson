@@ -4,6 +4,8 @@ export const defaultProjectTheme = {
   fonts: {
     internmatchHeader: `'Inconsolata', monospace`,
     internmatchBody: `'Almarai', sans-serif`,
+    lojingHeader: 'Proxima Nova, Nunito, Roboto, sans-serif',
+    lojingBody: 'Proxima Nova, Nunito, Roboto, sans-serif',
   },
   colors: {
     background: {
@@ -344,6 +346,14 @@ export const defaultProjectTheme = {
         fontWeight: '200',
         lineHeight: '1.2',
         fontFamily: `'Inconsolata', sans-serif`,
+      },
+    },
+    lojing: {
+      tableHeader: {
+        fontSize: '1rem',
+        fontWeight: 500,
+        lineHeight: '1.19',
+        fontFamily: `'Proxima Nova', 'Nunito', 'Roboto', sans-serif`,
       },
     },
   },
