@@ -182,7 +182,7 @@ const Write = ({
   }, [dateValue])
 
   const DateInput = forwardRef(({ value, onClick }, ref) => (
-    <InputGroup role="group" maxW={isMobile ? 'inherit' : '24.25rem'}>
+    <InputGroup role="group">
       <Input
         id={questionCode}
         test-id={questionCode}
