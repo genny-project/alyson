@@ -156,6 +156,8 @@ const Ask = ({
     skipRedux,
   })
 
+  const isFullWidth = equals(component, 'business_locations')
+
   if (!question) return null
 
   if (readonly) {
@@ -226,7 +228,7 @@ const Ask = ({
       p={highlightedQuestion === attributeCode ? '3' : '0'}
       transition="all 0.5s ease"
       mt={config?.mt ?? 5}
-      w={askWidth}
+      w={isFullWidth ? 'min(100%,52rem)' : askWidth}
     >
       {
         <HStack

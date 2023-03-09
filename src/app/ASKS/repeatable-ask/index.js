@@ -67,21 +67,23 @@ const RepeatableAsk = ({
     <VStack w="100%" justifyItems="flex-start" alignItems="flex-start">
       {(values ?? []).map((value, index) => (
         <HStack alignItems={'flex-start'}>
-          <Element
-            key={`${questionCode}-${index}`}
-            questionCode={questionCode}
-            regexPattern={regexPattern}
-            errorMessage={errorMessage}
-            parentCode={parentCode}
-            placeholderName={placeholderName}
-            attributeCode={attributeCode}
-            targetCode={targetCode}
-            mandatory={mandatory}
-            clientId={clientId}
-            data={makeChildData(value)}
-            repeated={`${index}`}
-            onSendAnswer={onUpdateValue(index)}
-          />
+          <Box w="max(100%, 25rem)">
+            <Element
+              key={`${questionCode}-${index}`}
+              questionCode={questionCode}
+              regexPattern={regexPattern}
+              errorMessage={errorMessage}
+              parentCode={parentCode}
+              placeholderName={placeholderName}
+              attributeCode={attributeCode}
+              targetCode={targetCode}
+              mandatory={mandatory}
+              clientId={clientId}
+              data={makeChildData(value)}
+              repeated={`${index}`}
+              onSendAnswer={onUpdateValue(index)}
+            />
+          </Box>
           {((mandatory && index !== 0) || !mandatory) && (
             <Button onClick={() => onRemove(index)}>X</Button>
           )}

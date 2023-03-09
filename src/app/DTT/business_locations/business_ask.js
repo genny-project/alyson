@@ -43,7 +43,7 @@ const BusinessAsk = ({
   }, [value])
 
   return (
-    <HStack alignItems={'flex-start'}>
+    <HStack alignItems={'flex-start'} w="100%" spacing={5}>
       <AddressPicker
         questionCode={questionCode}
         regexPattern={regexPattern}
