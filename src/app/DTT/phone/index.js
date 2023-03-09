@@ -88,7 +88,6 @@ const Write = ({
   const isProductInternMatch = useIsProductInternmatch()
 
   let countryObject = getCountryObjectFromUserInput(userInput)
-  let getSpecificCountryInfo = getCountryInfoFromCountryList(userInput)
   let countryObjectFromUserInput = pathOr({}, [0])(countryObject)
   let { code, icon } = countryObjectFromUserInput
   let countryCodeFromUserInput = !!code ? code : ''
