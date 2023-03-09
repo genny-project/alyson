@@ -1,12 +1,14 @@
-import { isEmpty, replace } from 'ramda'
+import './table.css'
+
 import { HStack, IconButton, Text, Th } from '@chakra-ui/react'
+import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons'
+import { isEmpty, replace } from 'ramda'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import sendEvtClick from 'app/ASKS/utils/send-evt-click'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons'
-import sendEvtClick from 'app/ASKS/utils/send-evt-click'
 import useProductColors from 'utils/productColors'
-import './table.css'
 
 const Cell = ({ attribute, parentCode }) => {
   const userCode = useSelector(selectCode('USER'))
@@ -31,7 +33,7 @@ const Cell = ({ attribute, parentCode }) => {
   }
 
   return (
-    <Th borderColor={tableDividerColor} borderTopWidth="1px" className={tableCellCSS}>
+    <Th py={4} borderColor={tableDividerColor} borderTopWidth="1px" className={tableCellCSS}>
       <HStack marginY={tableHeaderMargin}>
         <Text textTransform={'none'} textStyle={tableHeaderTextStyle}>
           {data?.attributeName}

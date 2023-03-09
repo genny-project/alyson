@@ -1,8 +1,10 @@
-import { HStack } from '@chakra-ui/react'
-import RepeatableAsk from 'app/ASKS/repeatable-ask'
+import { Box, Stack } from '@chakra-ui/react'
 import { isEmpty, lensProp, set } from 'ramda'
 import { useEffect, useState } from 'react'
+
+import RepeatableAsk from 'app/ASKS/repeatable-ask'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
+import { useIsMobile } from 'utils/hooks'
 import AddressPicker from '../address/address_picker'
 import Text from '../text'
 
@@ -18,6 +20,7 @@ const BusinessAsk = ({
   targetCode,
   clientId,
 }) => {
+  const isMobile = useIsMobile()
   const [value, setValue] = useState(safelyParseJson(data?.value), {})
 
   const textValue = JSON.stringify(value?.departments || [''])
@@ -43,35 +46,40 @@ const BusinessAsk = ({
   }, [value])
 
   return (
-    <HStack alignItems={'flex-start'} w="100%" spacing={5}>
-      <AddressPicker
-        questionCode={questionCode}
-        regexPattern={regexPattern}
-        errorMessage={errorMessage}
-        parentCode={parentCode}
-        placeholderName={placeholderName}
-        attributeCode={attributeCode}
-        targetCode={targetCode}
-        mandatory={true}
-        clientId={clientId}
-        data={addressData}
-        onSendAnswer={onAddressUpdate}
-      />
-      <RepeatableAsk
-        questionCode={questionCode}
-        regexPattern={regexPattern}
-        errorMessage={errorMessage}
-        parentCode={parentCode}
-        placeholderName={placeholderName}
-        attributeCode={attributeCode}
-        targetCode={targetCode}
-        mandatory={true}
-        clientId={clientId}
-        onSendAnswer={onTextUpdate}
-        data={textData}
-        component={Text.Write}
-      />
-    </HStack>
+    <Stack direction={isMobile ? 'column' : 'row'} alignItems={'flex-start'} w="100%" spacing={5}>
+      <Box w={'min(100%, 25rem)'}>
+        <AddressPicker
+          questionCode={questionCode}
+          regexPattern={regexPattern}
+          errorMessage={errorMessage}
+          parentCode={parentCode}
+          placeholderName={placeholderName}
+          attributeCode={attributeCode}
+          targetCode={targetCode}
+          mandatory={true}
+          clientId={clientId}
+          data={addressData}
+          onSendAnswer={onAddressUpdate}
+        />
+      </Box>
+
+      <Box w={'min(100%, 25rem)'}>
+        <RepeatableAsk
+          questionCode={questionCode}
+          regexPattern={regexPattern}
+          errorMessage={errorMessage}
+          parentCode={parentCode}
+          placeholderName={placeholderName}
+          attributeCode={attributeCode}
+          targetCode={targetCode}
+          mandatory={true}
+          clientId={clientId}
+          onSendAnswer={onTextUpdate}
+          data={textData}
+          component={Text.Write}
+        />
+      </Box>
+    </Stack>
   )
 }
 

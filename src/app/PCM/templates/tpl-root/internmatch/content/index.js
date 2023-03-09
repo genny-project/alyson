@@ -10,11 +10,7 @@ import PcmField from 'app/PCM/components/pcm-field'
 const Content = ({ isMobile, PRI_LOC3, mappedPcm, depth }) => {
   return (
     <Box id="main-display" pb={1} overflow="auto" gridArea={isMobile ? 'main/nav' : 'main'}>
-      <Box
-        paddingTop="1.63rem"
-        paddingInlineStart={'clamp(1rem, 5vw, 6.69rem)'}
-        paddingInlineEnd={'1rem'}
-      >
+      <Box paddingTop="1.63rem" paddingInline={'clamp(1rem, 6vw, 6.69rem)'}>
         {/* Main Page Content */}
         <PcmField code={PRI_LOC3} mappedPcm={mappedPcm} depth={depth} />
         <DisplayDrawer />

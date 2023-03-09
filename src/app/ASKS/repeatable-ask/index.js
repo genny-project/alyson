@@ -1,5 +1,5 @@
 import { Box, Button, HStack, VStack } from '@chakra-ui/react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons'
 import {
   adjust,
   append,
@@ -13,10 +13,11 @@ import {
   remove,
   set,
 } from 'ramda'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react'
 import isNotEmpty from 'utils/helpers/is-not-empty'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 const RepeatableAsk = ({
   questionCode,
@@ -66,8 +67,8 @@ const RepeatableAsk = ({
   return (
     <VStack w="100%" justifyItems="flex-start" alignItems="flex-start">
       {(values ?? []).map((value, index) => (
-        <HStack alignItems={'flex-start'}>
-          <Box w="max(100%, 25rem)">
+        <HStack w={'100%'} alignItems={'flex-start'}>
+          <Box w={'full'} position={'relative'}>
             <Element
               key={`${questionCode}-${index}`}
               questionCode={questionCode}
@@ -85,7 +86,9 @@ const RepeatableAsk = ({
             />
           </Box>
           {((mandatory && index !== 0) || !mandatory) && (
-            <Button onClick={() => onRemove(index)}>X</Button>
+            <Button onClick={() => onRemove(index)} position={'absolute'} right={'-2.75rem'}>
+              <FontAwesomeIcon icon={faTimes} />
+            </Button>
           )}
         </HStack>
       ))}
