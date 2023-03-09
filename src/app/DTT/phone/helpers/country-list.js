@@ -295,7 +295,17 @@ const countryList = [
     icon: '🇩🇲',
   },
   {
-    code: '+1-809, 1-829, 1-849',
+    code: '+1-809',
+    name: 'Dominican Republic',
+    icon: '🇩🇴',
+  },
+  {
+    code: '+1-829',
+    name: 'Dominican Republic',
+    icon: '🇩🇴',
+  },
+  {
+    code: '+1-849',
     name: 'Dominican Republic',
     icon: '🇩🇴',
   },
@@ -850,7 +860,12 @@ const countryList = [
     icon: '🇵🇹',
   },
   {
-    code: '+1-787, 1-939',
+    code: '+1-787',
+    name: 'Puerto Rico',
+    icon: '🇵🇷',
+  },
+  {
+    code: '+1-939',
     name: 'Puerto Rico',
     icon: '🇵🇷',
   },

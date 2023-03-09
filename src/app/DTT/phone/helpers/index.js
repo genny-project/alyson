@@ -26,12 +26,11 @@ const getCountryInfo = countryList => countryCode => requiredInfo => {
 export const getCountryInfoFromCountryList = getCountryInfo(countryList)
 
 export const getCountryObjectFromExistingUserInput = countryList => userInput => {
-  const initialInput = compose(head, splitAt(5))(userInput)
+  const initialInput = compose(head, splitAt(8))(userInput)
   let firstCharacterOfInitialInput = initialInput.charAt(0)
   let initialInputWithPlusPrefix = equals(firstCharacterOfInitialInput)('+')
     ? initialInput
     : `+${initialInput}`
-
   return reduce((acc, countryObject) => {
     let { code } = countryObject
     acc = includes(`${code}`, initialInputWithPlusPrefix) ? acc.concat(countryObject) : acc

@@ -5,22 +5,19 @@ import {
   Button,
   HStack,
   Input,
-  Popover,
-  PopoverArrow,
-  PopoverBody,
-  PopoverContent,
-  Portal,
+  Menu,
+  MenuButton,
+  MenuList,
   Text,
   useClipboard,
-  useDisclosure,
   useToast,
 } from '@chakra-ui/react'
 import { faAngleDown, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
-import { compose, equals, pathOr } from 'ramda'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { compose, equals, map, pathOr } from 'ramda'
+import { useEffect, useRef, useState } from 'react'
 import { ACKMESSAGEKEY, maxNumberOfRetries } from 'utils/constants'
 import { getCountryInfoFromCountryList, getCountryObjectFromUserInput } from './helpers'
-import { FixedSizeList } from 'react-window'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useClearFieldMessage from 'app/DTT/helpers/clear-field-message'
 import ErrorDisplay from 'app/DTT/helpers/error-display'
@@ -57,19 +54,20 @@ const Write = ({
 }) => {
   let regex
   const formatChars = {
-    //- is included due to certain island nations using them
     P: '[+0123456789]',
     0: '[-0123456789]',
   }
-  const mask = `P00000000000`
+  const mask = `P0000000000000000`
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value || '')
   const [isFocused, setIsFocused] = useState(false)
   const [countryCode, setCountryCode] = useState(null)
   const [countryFlag, setCountryFlag] = useState(null)
-  const [isDuplicatedCountryCode, setIsDuplicatedCountryCode] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
+
   const inputRef = useRef()
   const labelRef = useRef()
+  const duplicatedCountryRef = useRef()
   const retrySendingAnswerRef = useRef(0)
 
   const { dispatch } = useError()
@@ -78,7 +76,7 @@ const Write = ({
   const { hasFieldMessage, fieldMessage } = useGetFieldMessage(parentCode, questionCode)
   const { labelTextColor } = useProductColors()
   const handleClearFieldMessage = useClearFieldMessage(parentCode, attributeCode, questionCode)
-  const { isOpen, onToggle, onClose } = useDisclosure()
+
   let hasErrorMessage = isNotNullOrUndefinedOrEmpty(errorMessage)
   const failedValidation = errorState[questionCode]
   const isInvalid = getIsInvalid(userInput)(regex)
@@ -89,8 +87,8 @@ const Write = ({
   const realm = useGetProductName().toLowerCase()
   const isProductInternMatch = useIsProductInternmatch()
 
-  let countryObject = useMemo(() => getCountryObjectFromUserInput(userInput), [userInput])
-  let getSpecificCountryInfo = useMemo(() => getCountryInfoFromCountryList(userInput), [userInput])
+  let countryObject = getCountryObjectFromUserInput(userInput)
+  let getSpecificCountryInfo = getCountryInfoFromCountryList(userInput)
   let countryObjectFromUserInput = pathOr({}, [0])(countryObject)
   let { code, icon } = countryObjectFromUserInput
   let countryCodeFromUserInput = !!code ? code : ''
@@ -106,19 +104,12 @@ const Write = ({
   }
 
   const handleSelectCountry = (code, icon) => {
+    setIsOpen(false)
     setCountryCode(code)
     setCountryFlag(icon)
     setuserInput(code)
-    onToggle()
-    equals(code)('+1') && setIsDuplicatedCountryCode(true)
+    equals(code)('+1') && (duplicatedCountryRef.current = true)
   }
-
-  useEffect(() => {
-    let firstTwoCharacters = userInput.slice(0, 2)
-    equals(firstTwoCharacters)('+1')
-      ? setIsDuplicatedCountryCode(true)
-      : setIsDuplicatedCountryCode(false)
-  }, [userInput])
 
   try {
     regexPattern = regexPattern.replaceAll('\\\\', '\\')
@@ -129,14 +120,18 @@ const Write = ({
   }
 
   useEffect(() => {
+    let firstTwoCharacters = userInput.slice(0, 2)
+    equals(firstTwoCharacters)('+1')
+      ? (duplicatedCountryRef.current = true)
+      : (duplicatedCountryRef.current = false)
     userInput ? setIsFocused(true) : setIsFocused(false)
     retrySendingAnswerRef.current = 0
-    let countryIcon = getSpecificCountryInfo('icon')
-    !!countryIcon && !isDuplicatedCountryCode && setCountryFlag(countryIcon)
-    if (!isDuplicatedCountryCode) {
+    if (!duplicatedCountryRef.current) {
       !!countryFlagFromUserInput ? setCountryFlag(countryFlagFromUserInput) : setCountryFlag('Code')
+    } else {
+      setCountryFlag(countryFlag)
     }
-  }, [userInput, isDuplicatedCountryCode])
+  }, [userInput])
 
   useEffect(() => {
     !!data?.value && setuserInput(data?.value)
@@ -166,26 +161,6 @@ const Write = ({
     !!countryCodeFromUserInput ? setCountryCode(countryCodeFromUserInput) : setCountryCode('')
   }, [countryCode])
 
-  const countryItem = ({ index, style }) => {
-    const { icon, code, name } = countryList[index]
-    return (
-      <div style={style}>
-        <Button
-          w="full"
-          h={'2rem'}
-          textTransform={'none'}
-          fontWeight={300}
-          justifyContent="flex-start"
-          bg="transparent"
-          key={`${code}-${name}`}
-          onClick={() => handleSelectCountry(code, icon)}
-        >
-          {`${icon} ${code} ${name}`}
-        </Button>
-      </div>
-    )
-  }
-
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
       <HStack
@@ -209,43 +184,56 @@ const Write = ({
       </HStack>
 
       <HStack spacing={0}>
-        <Popover
-          isOpen={isOpen}
-          placement="bottom-start"
-          returnFocusOnClose={false}
-          onClose={onClose}
-        >
-          <Button
-            as={Button}
-            bg="transparent"
-            position={'absolute'}
-            zIndex={10}
-            onClick={onToggle}
-            _hover={{ background: 'transparent', color: `${realm}.primary` }}
-            _active={{ background: 'transparent' }}
-            _focusVisible={{ background: 'transparent' }}
+        {
+          <Menu
+            isLazy
+            isOpen={isOpen}
+            onClose={() => {
+              setIsOpen(false)
+            }}
           >
-            <HStack>
-              <Text fontSize={'md'}>{!!countryFlag ? `${countryFlag}` : 'Code'}</Text>
-              <FontAwesomeIcon color={`${realm}.primary`} icon={faAngleDown} size="sm" />
-            </HStack>
-          </Button>
-          <Portal>
-            <PopoverContent zIndex={'popover'}>
-              <PopoverArrow />
-              <PopoverBody padding={0}>
-                <FixedSizeList
-                  //cannot supply REM value, so have to calculate integer value
-                  height={parseInt(window.getComputedStyle(document.documentElement).fontSize) * 20}
-                  itemSize={parseInt(getComputedStyle(document.documentElement).fontSize) * 2}
-                  itemCount={countryList.length}
+            <MenuButton
+              as={Button}
+              bg="transparent"
+              position={'absolute'}
+              zIndex={10}
+              _hover={{ background: 'transparent', color: `${realm}.primary` }}
+              _active={{ background: 'transparent' }}
+              _focusVisible={{ background: 'transparent' }}
+              onClick={() => {
+                setIsOpen(!isOpen)
+              }}
+            >
+              <HStack>
+                <Text fontSize={'md'}>{!!countryFlag ? `${countryFlag}` : 'Code'}</Text>
+                <FontAwesomeIcon color={`${realm}.primary`} icon={faAngleDown} size="sm" />
+              </HStack>
+            </MenuButton>
+            <MenuList zIndex={100} overflow={'auto'} maxH={'20rem'}>
+              {map(({ code, icon, name }) => (
+                //menuItem was causing severe performance issues, which Button does not
+                //hence the need to reimplement menuItem functionality on a button in its stead
+                <Button
+                  display={'flex'}
+                  padding={'5px'}
+                  as="button"
+                  w="full"
+                  leftIcon={<Text>{icon}</Text>}
+                  _hover={{ backgroundColor: 'lightgrey' }}
+                  verticalAlign={'left'}
+                  __css={{ backgroundColor: 'transparent' }}
+                  key={`${code}-${name}`}
+                  onClick={e => {
+                    handleSelectCountry(code, icon)
+                  }}
                 >
-                  {countryItem}
-                </FixedSizeList>
-              </PopoverBody>
-            </PopoverContent>
-          </Portal>
-        </Popover>
+                  {`${code} ${name}`}
+                </Button>
+              ))(countryList)}
+            </MenuList>
+          </Menu>
+        }
+
         <Input
           as={InputMask}
           mask={mask}
