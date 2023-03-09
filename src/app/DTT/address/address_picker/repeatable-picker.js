@@ -26,7 +26,7 @@ const RepeatableAddressPicker = ({
   regexPattern,
   errorMessage,
   parentCode,
-  placeholder,
+  placeholderName,
   attributeCode,
   targetCode,
   mandatory,
@@ -83,7 +83,7 @@ const RepeatableAddressPicker = ({
               regexPattern={regexPattern}
               errorMessage={errorMessage}
               parentCode={parentCode}
-              placeholder={placeholder}
+              placeholderName={placeholderName}
               attributeCode={attributeCode}
               targetCode={targetCode}
               mandatory={mandatory}
