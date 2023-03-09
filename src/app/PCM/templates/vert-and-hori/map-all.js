@@ -17,7 +17,6 @@ const mapAll = (mappedPcm, depth, isInternmatch = false, config = {}) => {
       const evtAttrCode = includes('EVT_', attributeCode)
       const isEvtNext = equals(attributeCode, 'EVT_NEXT')
       const isEvtSubmit = equals(attributeCode, 'EVT_SUBMIT')
-      console.log(index, count)
       return (
         <Box
           key={attributeCode}

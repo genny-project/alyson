@@ -20,7 +20,6 @@ import useGetFieldMessage from 'utils/fieldMessage'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
 import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
 import useGetProductName from 'utils/helpers/get-product-name'
-import { useIsMobile } from 'utils/hooks'
 import useProductColors from 'utils/productColors'
 import { onSendMessage } from 'vertx'
 import { getValue } from './get-value'
@@ -41,7 +40,6 @@ const Write = ({
   const realm = useGetProductName().toLowerCase()
   const isProductInternMatch = useIsProductInternmatch()
   const labelRef = useRef()
-  const isMobile = useIsMobile()
 
   const dropdownData =
     useSelector(
@@ -161,12 +159,7 @@ const Write = ({
     value && Array.isArray(value) && value.map(i => i.value)
 
   return (
-    <Box
-      maxW={isMobile ? 'inherit' : '24.25rem'}
-      position={'relative'}
-      mt={isFocused ? 6 : 0}
-      transition="all 0.25s ease"
-    >
+    <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
       <HStack
         ref={labelRef}
         paddingStart={6}
