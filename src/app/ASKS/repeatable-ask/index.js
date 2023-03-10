@@ -33,6 +33,8 @@ const RepeatableAsk = ({
   clientId,
   component,
   maxOptions = 10,
+  firstWidth = '100%',
+  extraWidth = '100%',
   emptyValue = '',
   addButtonFirstText = 'Add New',
   addButtonAnotherText = 'Add Another',
@@ -67,7 +69,7 @@ const RepeatableAsk = ({
   return (
     <VStack w="100%" justifyItems="flex-start" alignItems="flex-start">
       {(values ?? []).map((value, index) => (
-        <HStack w={'100%'} alignItems={'flex-start'}>
+        <HStack w={index === 0 ? firstWidth : extraWidth} alignItems={'flex-start'}>
           <Box w={'full'} position={'relative'}>
             <Element
               key={`${questionCode}-${index}`}
@@ -86,7 +88,13 @@ const RepeatableAsk = ({
             />
           </Box>
           {((mandatory && index !== 0) || !mandatory) && (
-            <Button onClick={() => onRemove(index)} position={'absolute'} right={'-2.75rem'}>
+            <Button
+              onClick={() => onRemove(index)}
+              bg={'transparent'}
+              color="product.secondary"
+              position={'absolute'}
+              right={'-2.75rem'}
+            >
               <FontAwesomeIcon icon={faTimes} />
             </Button>
           )}

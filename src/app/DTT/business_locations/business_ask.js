@@ -76,6 +76,7 @@ const BusinessAsk = ({
           clientId={clientId}
           onSendAnswer={onTextUpdate}
           data={textData}
+          extraWidth={'80%'}
           component={Text.Write}
         />
       </Box>
