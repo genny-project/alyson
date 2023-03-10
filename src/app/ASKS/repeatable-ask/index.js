@@ -35,6 +35,7 @@ const RepeatableAsk = ({
   maxOptions = 10,
   firstWidth = '100%',
   extraWidth = '100%',
+  deleteTop = true,
   emptyValue = '',
   addButtonFirstText = 'Add New',
   addButtonAnotherText = 'Add Another',
@@ -64,6 +65,10 @@ const RepeatableAsk = ({
     setValues(append(emptyValue)(values))
   }
 
+  const topMap = { top: 2 }
+  const bottomMap = { bottom: 1 }
+  const propMap = deleteTop ? topMap : bottomMap
+
   const Element = component
 
   return (
@@ -86,18 +91,19 @@ const RepeatableAsk = ({
               repeated={`${index}`}
               onSendAnswer={onUpdateValue(index)}
             />
+            {((mandatory && index !== 0) || !mandatory) && (
+              <Button
+                onClick={() => onRemove(index)}
+                bg={'transparent'}
+                color="product.secondary"
+                position={'absolute'}
+                right="-2.75rem"
+                {...propMap}
+              >
+                <FontAwesomeIcon icon={faTimes} />
+              </Button>
+            )}
           </Box>
-          {((mandatory && index !== 0) || !mandatory) && (
-            <Button
-              onClick={() => onRemove(index)}
-              bg={'transparent'}
-              color="product.secondary"
-              position={'absolute'}
-              right={'-2.75rem'}
-            >
-              <FontAwesomeIcon icon={faTimes} />
-            </Button>
-          )}
         </HStack>
       ))}
 
