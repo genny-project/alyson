@@ -12,7 +12,7 @@ const TemplateSidebarOne = ({ mappedPcm, maxItemCount, isSidebarCollapsed }) => 
   const evtButtons = mapQuestionGroup((ask, question, index) => {
     return (
       <EvtButton
-        key={`${ask?.attributeCode}_${index}` || ''}
+        key={`${mappedPcm.PRI_QUESTION_CODE}-${ask?.questionCode}`}
         questionCode={mappedPcm.PRI_QUESTION_CODE}
         childCode={ask?.questionCode || ''}
         iconId={question?.icon || ''}
