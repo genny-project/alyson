@@ -1,3 +1,4 @@
+import { Box } from '@chakra-ui/react'
 import RepeatableAsk from 'app/ASKS/repeatable-ask'
 import BusinessAsk from 'app/DTT/business_ask'
 
@@ -34,7 +35,7 @@ const Write = ({
 }
 
 const Read = () => {
-  return <div>read</div>
+  return <Box>Implement Me!</Box>
 }
 
 const BusinessLocations = {
