@@ -39,6 +39,7 @@ const RepeatableAsk = ({
   emptyValue = '',
   addButtonFirstText = 'Add New',
   addButtonAnotherText = 'Add Another',
+  secondPlaceholderName = '',
 }) => {
   const defaultValue = mandatory ? `${emptyValue}` : ''
 
@@ -65,7 +66,7 @@ const RepeatableAsk = ({
     setValues(append(emptyValue)(values))
   }
 
-  const topMap = { top: 2 }
+  const topMap = { top: 1 }
   const bottomMap = { bottom: 1 }
   const propMap = deleteTop ? topMap : bottomMap
 
@@ -82,7 +83,9 @@ const RepeatableAsk = ({
               regexPattern={regexPattern}
               errorMessage={errorMessage}
               parentCode={parentCode}
-              placeholderName={placeholderName}
+              placeholderName={
+                index === 0 ? placeholderName : secondPlaceholderName || placeholderName
+              }
               attributeCode={attributeCode}
               targetCode={targetCode}
               mandatory={mandatory}
