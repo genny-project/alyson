@@ -1,4 +1,4 @@
-import './table.css'
+import 'app/SBE/table/table.css'
 
 import { HStack, IconButton, Text, Th } from '@chakra-ui/react'
 import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons'

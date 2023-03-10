@@ -1,4 +1,4 @@
-import './table.css'
+import 'app/SBE/table/table.css'
 
 import { Box, HStack, Table, Text, useColorModeValue, useTheme } from '@chakra-ui/react'
 import getActions, { getTableActions } from '../utils/get-actions'

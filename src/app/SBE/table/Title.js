@@ -3,7 +3,7 @@ import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
 import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
 import useProductColors from 'utils/productColors'
-import './table.css'
+import 'app/SBE/table/table.css'
 
 const TableTitle = ({ sbeCode }) => {
   const title = useSelector(selectCode(sbeCode, 'SCH_TITLE'))

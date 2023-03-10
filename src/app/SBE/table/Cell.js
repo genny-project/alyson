@@ -1,4 +1,4 @@
-import './table.css'
+import 'app/SBE/table/table.css'
 
 import { Td } from '@chakra-ui/react'
 import Attribute from 'app/BE/attribute'
