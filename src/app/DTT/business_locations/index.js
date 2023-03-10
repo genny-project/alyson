@@ -8,20 +8,22 @@ const Write = ({
   regexPattern,
   errorMessage,
   parentCode,
-  placeholderName,
   attributeCode,
   targetCode,
   mandatory,
   clientId,
 }) => {
+  const placeholderName = 'What is your head office business address?'
+  const secondaryPlaceholderName = 'Would you like to add another location?'
+
   return (
     <RepeatableAsk
       id={questionCode}
       questionCode={questionCode}
       onSendAnswer={onSendAnswer}
       data={data}
-      placeholderName={'What is your head office business address?'}
-      secondPlaceholderName={'Would you like to add another location?'}
+      placeholderName={placeholderName}
+      secondPlaceholderName={secondaryPlaceholderName}
       mandatory={mandatory}
       clientId={clientId}
       emptyValue={'{}'}

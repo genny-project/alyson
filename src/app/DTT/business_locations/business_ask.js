@@ -46,6 +46,9 @@ const BusinessAsk = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [departments, addressValue])
 
+  const departmentPlaceholderName = 'What departments/faculties do you have?'
+  const departmentSecondaryPlaceholderName = 'Would you like to add another department?'
+
   return (
     <Stack direction={isMobile ? 'column' : 'row'} alignItems={'flex-start'} w="100%" spacing={5}>
       <Box w={'min(100%, 25rem)'}>
@@ -70,8 +73,8 @@ const BusinessAsk = ({
           regexPattern={regexPattern}
           errorMessage={errorMessage}
           parentCode={parentCode}
-          placeholderName={'What departments/faculties do you have?'}
-          secondPlaceholderName={'Would you like to add another department?'}
+          placeholderName={departmentPlaceholderName}
+          secondPlaceholderName={departmentSecondaryPlaceholderName}
           attributeCode={attributeCode}
           targetCode={targetCode}
           mandatory={true}
