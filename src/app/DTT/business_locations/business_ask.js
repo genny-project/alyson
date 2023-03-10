@@ -21,7 +21,7 @@ const BusinessAsk = ({
   clientId,
 }) => {
   const isMobile = useIsMobile()
-  const [value, setValue] = useState(safelyParseJson(data?.value), {})
+  const [value, setValue] = useState(safelyParseJson(data?.value))
 
   const textValue = JSON.stringify(value?.departments || [''])
   const addressValue = value?.address || ''
