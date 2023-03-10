@@ -1,5 +1,5 @@
 import RepeatableAsk from 'app/ASKS/repeatable-ask'
-import BusinessAsk from './business_ask'
+import BusinessAsk from 'app/DTT/business_ask'
 
 const Write = ({
   questionCode,
