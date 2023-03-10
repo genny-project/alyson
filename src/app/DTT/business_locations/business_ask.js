@@ -23,8 +23,9 @@ const BusinessAsk = ({
   const isMobile = useIsMobile()
   const [value, setValue] = useState(safelyParseJson(data?.value))
 
-  const textValue = JSON.stringify(value?.departments || [''])
-  const addressValue = value?.address || ''
+  let textValue = JSON.stringify(value?.departments || [''])
+  let addressValue = value?.address || ''
+  let departments = value?.departments || []
 
   const textData = set(lensProp('value'), textValue)(data)
   const addressData = set(lensProp('value'), addressValue)(data)
@@ -38,12 +39,12 @@ const BusinessAsk = ({
   }
 
   useEffect(() => {
-    if (!isEmpty(value?.departments || '') && !isEmpty(value?.address || '')) {
+    if (!isEmpty(departments || '') && !isEmpty(addressValue || '')) {
       onSendAnswer(value)
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value])
+  }, [departments, addressValue])
 
   return (
     <Stack direction={isMobile ? 'column' : 'row'} alignItems={'flex-start'} w="100%" spacing={5}>
