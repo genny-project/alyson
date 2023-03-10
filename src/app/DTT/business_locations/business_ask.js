@@ -5,8 +5,8 @@ import { useEffect, useState } from 'react'
 import RepeatableAsk from 'app/ASKS/repeatable-ask'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { useIsMobile } from 'utils/hooks'
-import AddressPicker from '../address/address_picker'
-import Text from '../text'
+import AddressPicker from 'app/DTT/address/address_picker'
+import Text from 'app/DTT/text'
 
 const BusinessAsk = ({
   questionCode,
