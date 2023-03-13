@@ -96,6 +96,8 @@ const Write = ({
   mandatory,
   component,
 }) => {
+  const realm = useGetProductName().toLowerCase()
+  const isProductInternmatch = useIsProductInternmatch()
   const api = useApi()
   const typeName = dttData?.typeName || ''
   const isImageType = equals(typeName, 'Image') || equals(component, 'multi_upload')
@@ -116,7 +118,7 @@ const Write = ({
   const src = isImageType ? getImageSrc(dataValue) : getDocumentSrc(dataValue)
   const [fileName, setFileName] = useState('')
   const [showDocument, setShowDocument] = useState(false)
-  const [dropzone, setDropzone] = useState(!!video)
+  const [dropzone, setDropzone] = useState(!!video || isProductInternmatch)
   const [loading, setLoading] = useState(false)
   const [progress, setProgress] = useState(null)
   const openDropzone = () => setDropzone(true)
@@ -125,9 +127,6 @@ const Write = ({
   const { labelTextColor } = useProductColors()
   let maxFiles = equals(component, 'multi_upload') ? 10 : 1
   let multiUpload = equals(component, 'multi_upload') ? true : false
-
-  const realm = useGetProductName().toLowerCase()
-  const isProductInternmatch = useIsProductInternmatch()
 
   const docs = [
     {
