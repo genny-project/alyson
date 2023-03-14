@@ -113,6 +113,7 @@ const Write = ({
         ref={labelRef}
         paddingStart={isProductInternMatch ? 6 : 12}
         {...labelStyles}
+        h={'auto'}
         top={`calc(-${labelRef?.current?.clientHeight}px - .25rem)`}
       >
         {placeholderName && (

@@ -123,16 +123,13 @@ export const Write = ({
     hasValidData,
     isFocused,
     isInvalid,
+    labelRef,
+    placeholderName,
   )
 
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
-      <HStack
-        ref={labelRef}
-        paddingStart={isFocused ? 6 : !!icon ? 12 : 6}
-        {...labelStyles}
-        top={isFocused ? `calc(-${labelRef?.current?.clientHeight}px - .25rem)` : 4}
-      >
+      <HStack ref={labelRef} paddingStart={isFocused ? 6 : !!icon ? 12 : 6} {...labelStyles}>
         <MandatorySymbol
           placeholderName={placeholderName}
           mandatory={mandatory}

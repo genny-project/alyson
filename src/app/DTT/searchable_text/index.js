@@ -28,6 +28,7 @@ export const Write = ({
   attributeCode,
   config = {},
 }) => {
+  const labelRef = useRef()
   const realm = useGetProductName().toLowerCase()
   const isProductInternMatch = useIsProductInternmatch()
   const dropdownData =
@@ -55,7 +56,7 @@ export const Write = ({
   const [askedForDropDownData, setAskedForDropDownData] = useState(false)
 
   const hasValidData = not(empty(userInput))
-  const { inputStyles, labelStyles } = useStyles(hasValidData, isFocused)
+  const { inputStyles, labelStyles } = useStyles(hasValidData, isFocused, labelRef)
 
   const { fieldTextColor, labelTextColor } = useProductColors()
 
@@ -153,6 +154,7 @@ export const Write = ({
       transition="all 0.25s ease"
     >
       <HStack
+        ref={labelRef}
         paddingStart={6}
         top={isFocused || (userInput ?? '').length > 0 ? '-1.5rem' : 3}
         {...labelStyles}
