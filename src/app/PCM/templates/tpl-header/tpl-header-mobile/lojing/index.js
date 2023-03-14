@@ -1,15 +1,15 @@
-import { Box, Flex, HStack, Spacer } from '@chakra-ui/react'
+import { Box, Flex, HStack, Image, Spacer } from '@chakra-ui/react'
 
 import PcmField from 'app/PCM/components/pcm-field'
 
 const TemplateHeaderMobile = ({ mappedPcm, depth }) => {
-  const { PRI_LOC1, PRI_LOC2, PRI_LOC3, PRI_LOC4 } = mappedPcm
+  const { PRI_LOC2, PRI_LOC3, PRI_LOC4 } = mappedPcm
 
   return (
     <nav>
       <Flex align="center" paddingBlock="4" paddingInlineStart={14} paddingInlineEnd={4}>
         <Box mx={5} alignItems="center" m="auto">
-          <PcmField code={PRI_LOC1} mappedPcm={mappedPcm} depth={depth} />
+          <Image src={'/lojing-logo.png'} alt={''} w={'7.5rem'} />
         </Box>
         <Spacer />
         <HStack spacing={6}>

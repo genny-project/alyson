@@ -18,7 +18,7 @@ const AddressPicker = ({
   onSendAnswer,
   data,
   questionCode,
-  placeholder,
+  placeholderName,
   mandatory,
   errorMessage: errormsg,
   repeated = '',
@@ -142,9 +142,9 @@ const AddressPicker = ({
         {...labelStyles}
         top={isFocused ? `calc(-${labelRef?.current?.clientHeight}px - .25rem)` : 4}
       >
-        {placeholder && (
+        {placeholderName && (
           <MandatorySymbol
-            placeholderName={placeholder}
+            placeholderName={placeholderName}
             mandatory={mandatory}
             labelTextColor={isProductIM ? `${realm}.primary` : labelTextColor}
             realm={realm}

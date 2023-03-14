@@ -5,14 +5,14 @@ import InternmatchSidebar from 'app/PCM/templates/tpl-sidebar-one/internmatch'
 import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
 
 const TemplateSidebarOne = ({ mappedPcm, maxItemCount, isSidebarCollapsed }) => {
-  const maxItems = maxItemCount || Math.floor(window.innerHeight - 60) / 100
+  let maxItems = maxItemCount || Math.floor(window.innerHeight - 60) / 95
 
   const isProductInternmatch = useIsProductInternmatch()
 
   const evtButtons = mapQuestionGroup((ask, question, index) => {
     return (
       <EvtButton
-        key={ask?.attributeCode || ''}
+        key={`${mappedPcm.PRI_QUESTION_CODE}-${ask?.questionCode}`}
         questionCode={mappedPcm.PRI_QUESTION_CODE}
         childCode={ask?.questionCode || ''}
         iconId={question?.icon || ''}

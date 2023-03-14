@@ -1,21 +1,22 @@
+import 'app/SBE/table/table.css'
+
 import { Box, HStack, Table, Text, useColorModeValue, useTheme } from '@chakra-ui/react'
 import getActions, { getTableActions } from '../utils/get-actions'
 
 import Action from 'app/BE/action'
-import Body from 'app/SBE/table/Body'
-import Download from 'app/SBE/download'
-import Header from 'app/SBE/table/Header'
 import MapSearch from 'app/SBE/display_modes/map_view'
+import Download from 'app/SBE/download'
+import Body from 'app/SBE/table/Body'
+import Header from 'app/SBE/table/Header'
 import Pagination from 'app/SBE/table/Pagination'
 import Title from 'app/SBE/table/Title'
 import getColumns from 'app/SBE/utils/get-columns'
-import { selectCode } from 'redux/db/selectors'
-import { useIsMobile } from 'utils/hooks'
-import { useSelector } from 'react-redux'
-import useProductColors from 'utils/productColors'
 import { Iconly } from 'react-iconly'
+import { useSelector } from 'react-redux'
+import { selectCode } from 'redux/db/selectors'
 import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
-import './table.css'
+import { useIsMobile } from 'utils/hooks'
+import useProductColors from 'utils/productColors'
 
 const DataTable = ({ parentCode, mapSearch, passedComponents = [], userCode }) => {
   const {
@@ -32,7 +33,13 @@ const DataTable = ({ parentCode, mapSearch, passedComponents = [], userCode }) =
   const bgColor = useColorModeValue(tableBackgroundLightColor, tableBackgroundDarkColor)
   const isMobile = useIsMobile()
   const theme = useTheme()
-  if (!tableData) return null
+
+  if (!tableData)
+    return (
+      <Text pt={5} px={10}>
+        {'No data found.'}
+      </Text>
+    )
 
   const columns = getColumns(tableData)
   const actions = getActions(tableData)

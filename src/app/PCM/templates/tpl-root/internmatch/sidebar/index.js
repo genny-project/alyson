@@ -29,7 +29,7 @@ const Sidebar = ({
       <DrawerContent>
         <DrawerCloseButton color={theme.colors.text.dark} />
         <DrawerBody
-          paddingTop={14}
+          paddingTop={5}
           paddingInline={0}
           bg="internmatch.primary"
           fontFamily={theme.fonts.internMatchBody}

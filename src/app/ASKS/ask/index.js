@@ -52,6 +52,7 @@ import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates
 import useGetProductName from 'utils/helpers/get-product-name'
 import { useMobileValue } from 'utils/hooks'
 import useProductColors from 'utils/productColors'
+import BusinessLocations from 'app/DTT/business_locations'
 
 const Ask = ({
   parentCode,
@@ -155,6 +156,8 @@ const Ask = ({
     skipRedux,
   })
 
+  const isFullWidth = equals(component, 'business_locations')
+
   if (!question) return null
 
   if (readonly) {
@@ -225,7 +228,7 @@ const Ask = ({
       p={highlightedQuestion === attributeCode ? '3' : '0'}
       transition="all 0.5s ease"
       mt={config?.mt ?? 5}
-      w={askWidth}
+      w={isFullWidth ? 'min(100%,52rem)' : askWidth}
     >
       {
         <HStack
@@ -291,6 +294,21 @@ const Ask = ({
           mandatory={mandatory}
           clientId={clientId}
           repeatable={component === 'repeatable_address'}
+        />
+      )}
+      {component === 'business_locations' && (
+        <BusinessLocations.Write
+          questionCode={questionCode}
+          onSendAnswer={onSendAnswer}
+          data={data}
+          regexPattern={regexPattern}
+          errorMessage={errorMessage}
+          parentCode={parentCode}
+          placeholderName={placeholderName}
+          attributeCode={attributeCode}
+          targetCode={targetCode}
+          mandatory={mandatory}
+          clientId={clientId}
         />
       )}
       {(component === 'dropdown' || component === 'tag') && (
