@@ -75,10 +75,13 @@ const RepeatableAsk = ({
   return (
     <VStack w="100%" justifyItems="flex-start" alignItems="flex-start">
       {(values ?? []).map((value, index) => (
-        <HStack w={index === 0 ? firstWidth : extraWidth} alignItems={'flex-start'}>
+        <HStack
+          key={`${questionCode}-${index}`}
+          w={index === 0 ? firstWidth : extraWidth}
+          alignItems={'flex-start'}
+        >
           <Box w={'full'} position={'relative'}>
             <Element
-              key={`${questionCode}-${index}`}
               questionCode={questionCode}
               regexPattern={regexPattern}
               errorMessage={errorMessage}
