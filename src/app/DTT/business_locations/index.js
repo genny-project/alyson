@@ -1,6 +1,6 @@
 import { Box } from '@chakra-ui/react'
 import RepeatableAsk from 'app/ASKS/repeatable-ask'
-import BusinessAsk from 'app/DTT/business_locations'
+import BusinessAsk from 'app/DTT/business_locations/business_ask.js'
 
 const Write = ({
   questionCode,
