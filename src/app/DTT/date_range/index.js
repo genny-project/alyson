@@ -1,5 +1,5 @@
 import { Box, HStack } from '@chakra-ui/react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { DateInDay, DateInMonth, DateInYear } from './granularity'
 
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
@@ -27,6 +27,7 @@ const Write = ({
   placeholder,
   mandatory,
 }) => {
+  const labelRef = useRef()
   const { labelTextColor } = useProductColors()
 
   const realm = useGetProductName().toLowerCase()
@@ -85,7 +86,13 @@ const Write = ({
 
   const FieldLabel = ({ placeholder, mandatory, isFocused }) => {
     return (
-      <HStack paddingStart={6} {...labelStyles}>
+      <HStack
+        ref={labelRef}
+        paddingStart={6}
+        {...labelStyles}
+        top={isFocused ? `calc(-${labelRef?.current?.clientHeight}px + .5rem)` : 0}
+        h={'full'}
+      >
         {placeholder && (
           <MandatorySymbol
             placeholderName={placeholder}

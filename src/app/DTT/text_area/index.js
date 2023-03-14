@@ -118,8 +118,8 @@ export const Write = ({
         ref={labelRef}
         paddingStart={isFocused || isProductInternMatch ? 6 : 12}
         {...labelStyles}
-        top={isFocused ? `calc(-${labelRef?.current?.clientHeight}px - .25rem)` : 0}
-        h={isFocused ? labelRef?.current?.clientHeight : 'full'}
+        top={isFocused ? `calc(-${labelRef?.current?.clientHeight}px + .5rem)` : 0}
+        h={'full'}
       >
         {placeholderName && (
           <MandatorySymbol

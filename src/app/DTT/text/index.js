@@ -132,8 +132,8 @@ export const Write = ({
         ref={labelRef}
         paddingStart={isFocused ? 6 : !!icon ? 12 : 6}
         {...labelStyles}
-        top={isFocused ? `calc(-${labelRef?.current?.clientHeight}px - .25rem)` : 0}
-        h={isFocused ? labelRef?.current?.clientHeight : 'full'}
+        top={isFocused ? `calc(-${labelRef?.current?.clientHeight}px + .5rem)` : 0}
+        h={'full'}
       >
         <MandatorySymbol
           placeholderName={placeholderName}

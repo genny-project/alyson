@@ -14,6 +14,7 @@ import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
 import { Select as CSelect } from 'chakra-react-select'
 import debounce from 'lodash.debounce'
 import { useSelector } from 'react-redux'
+import { labelMinHeight } from 'utils/constants.js'
 import { useError } from 'utils/contexts/ErrorContext'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useGetFieldMessage from 'utils/fieldMessage'
@@ -58,7 +59,7 @@ const Write = ({
   const [inputValue, setInputValue] = useState('')
   const [updated, setUpdated] = useState(false)
   const [isFocused, setIsFocused] = useState(true)
-  const [labelHeight, setLabelHeight] = useState(17)
+  const [labelHeight, setLabelHeight] = useState(labelMinHeight)
 
   const [askedForDropDownData, setAskedForDropDownData] = useState(false)
 
@@ -164,8 +165,8 @@ const Write = ({
         ref={labelRef}
         paddingStart={6}
         {...labelStyles}
-        h={isFocused ? labelHeight : 'full'}
-        top={isFocused ? `calc(-${labelHeight}px - .25rem)` : 0}
+        h={'full'}
+        top={isFocused ? `calc(-${labelHeight}px + .5rem)` : 0}
       >
         {placeholderName && (
           <MandatorySymbol
