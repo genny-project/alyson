@@ -56,3 +56,4 @@ export const adminConfirmedQuestionCode = 'QUE_ADMIN_CONFIRMED'
 export const iconColor = '#FFFFFF'
 export const selectedSidebarBoxColor = '#CDD6D6'
 export const iconColorOnHighlight = '#EA5024'
+export const labelMinHeight = 18

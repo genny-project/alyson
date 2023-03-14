@@ -149,7 +149,8 @@ const Write = ({
       <HStack
         ref={labelRef}
         {...labelStyles}
-        paddingStart={6}
+        paddingInline={6}
+        h={'auto'}
         top={isFocused ? `calc(-${labelRef?.current?.clientHeight}px - .25rem)` : '4.5rem'}
       >
         {placeholderName && (

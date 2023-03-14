@@ -110,7 +110,7 @@ export const Write = ({
   }
 
   const hasValidData = userInput && !isInvalid
-  const { inputStyles, labelStyles } = useStyles(hasValidData, isFocused)
+  const { inputStyles, labelStyles } = useStyles(hasValidData, isFocused, labelRef)
 
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
@@ -118,7 +118,6 @@ export const Write = ({
         ref={labelRef}
         paddingStart={isFocused || isProductInternMatch ? 6 : 12}
         {...labelStyles}
-        top={isFocused ? `calc(-${labelRef?.current?.clientHeight}px - .25rem)` : 4}
       >
         {placeholderName && (
           <MandatorySymbol

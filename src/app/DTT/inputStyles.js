@@ -1,12 +1,15 @@
 import { useTheme } from '@chakra-ui/react'
+import { labelMinHeight } from 'utils/constants.js'
 import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
 import useGetProductName from 'utils/helpers/get-product-name'
 import useProductColors from 'utils/productColors'
 
-const useStyles = (hasValidData, isFocused, isInvalid = false) => {
+const useStyles = (hasValidData, isFocused, isInvalid = false, labelRef = null) => {
   const realm = useGetProductName().toLowerCase()
   const isProductInternMatch = useIsProductInternmatch()
   const theme = useTheme()
+
+  const labelHeight = labelRef?.current?.children[0]?.clientHeight || labelMinHeight
 
   const {
     fieldBackgroundColor,
@@ -124,9 +127,13 @@ const useStyles = (hasValidData, isFocused, isInvalid = false) => {
   const labelStyles = {
     position: 'absolute',
     zIndex: theme.zIndices.docked,
-    top: isFocused ? '-1.5rem' : isProductInternMatch ? 4 : 3,
+    top: isFocused ? `calc(-${labelHeight}px - .25rem)` : 0,
     left: 0,
     w: 'full',
+    h: isFocused ? `${labelHeight}px` : 'full',
+    maxH: '47px',
+    overflow: 'hidden',
+    paddingEnd: 4,
     justifyContent: 'space-between',
     pointerEvents: 'none',
     transition: 'all 0.25s ease',

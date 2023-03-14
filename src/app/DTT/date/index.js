@@ -9,7 +9,6 @@ import {
   InputLeftElement,
   InputRightElement,
   Text,
-  VStack,
 } from '@chakra-ui/react'
 import { faCalendarDay, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { differenceInYears, format, isBefore, parseISO, startOfTomorrow } from 'date-fns'
@@ -37,7 +36,6 @@ import safelyParseDate from 'utils/helpers/safely-parse-date'
 import getDate from 'utils/helpers/timezone_magic/get-date'
 import timeBasedOnTimeZone from 'utils/helpers/timezone_magic/time-based-on-timezone'
 import useProductColors from 'utils/productColors'
-import DateChip from './DateChip'
 
 const Read = ({ data, typeName = '', config }) => {
   const includeTime = includes('LocalDateTime', typeName)
@@ -135,7 +133,7 @@ const Write = ({
   const selectedDateInIsoFormat = !!dateValue ? safelyParseDate(dateValue).toISOString() : ''
 
   const hasValidData = dateValue && !isInvalid
-  const { inputStyles, labelStyles } = useStyles(hasValidData, isFocused)
+  const { inputStyles, labelStyles } = useStyles(hasValidData, isFocused, labelRef)
 
   useEffect(() => {
     isInvalid ? setErrorStatus(true) : setErrorStatus(false)
@@ -230,12 +228,7 @@ const Write = ({
 
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
-      <HStack
-        ref={labelRef}
-        paddingStart={isProductInternMatch ? 6 : 12}
-        {...labelStyles}
-        top={isFocused ? `calc(-${labelRef?.current?.clientHeight}px - .25rem)` : 4}
-      >
+      <HStack ref={labelRef} paddingStart={isProductInternMatch ? 6 : 12} {...labelStyles}>
         {placeholderName && (
           <MandatorySymbol
             placeholderName={placeholderName}

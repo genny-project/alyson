@@ -74,7 +74,7 @@ const Write = ({
   const handleClearFieldMessage = useClearFieldMessage(parentCode, attributeCode, questionCode)
   const hasValidData = not(equals(value.length, 0))
 
-  const { inputStyles, labelStyles } = useStyles(hasValidData, isFocused)
+  const { inputStyles, labelStyles } = useStyles(hasValidData, isFocused, labelRef)
 
   const ddEvent = debounce(
     value =>
@@ -160,12 +160,7 @@ const Write = ({
 
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
-      <HStack
-        ref={labelRef}
-        paddingStart={6}
-        {...labelStyles}
-        top={isFocused ? `calc(-${labelHeight}px - .25rem)` : 4}
-      >
+      <HStack ref={labelRef} paddingStart={6} {...labelStyles}>
         {placeholderName && (
           <MandatorySymbol
             placeholderName={placeholderName}
