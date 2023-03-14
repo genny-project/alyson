@@ -204,7 +204,12 @@ const DropZone = ({
   return (
     <VStack>
       <Tooltip label="Click to close the file uploader">
-        <Button mt="2" alignSelf="flex-end" onClick={() => closeDropzone()}>{`Close`}</Button>
+        <Button
+          hidden={isProductInternmatch}
+          mt="2"
+          alignSelf="flex-end"
+          onClick={() => closeDropzone()}
+        >{`Close`}</Button>
       </Tooltip>
       <Box
         w="100%"
@@ -332,6 +337,7 @@ const DropZone = ({
                     borderRadius="full"
                     paddingInline={10}
                     fontWeight="normal"
+                    hidden={isProductInternmatch}
                   >
                     {`Cancel`}
                   </Button>
