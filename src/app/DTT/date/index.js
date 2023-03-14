@@ -133,7 +133,7 @@ const Write = ({
   const selectedDateInIsoFormat = !!dateValue ? safelyParseDate(dateValue).toISOString() : ''
 
   const hasValidData = dateValue && !isInvalid
-  const { inputStyles, labelStyles } = useStyles(hasValidData, isFocused, labelRef)
+  const { inputStyles, labelStyles } = useStyles(hasValidData, isFocused)
 
   useEffect(() => {
     isInvalid ? setErrorStatus(true) : setErrorStatus(false)
@@ -228,7 +228,13 @@ const Write = ({
 
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
-      <HStack ref={labelRef} paddingStart={isProductInternMatch ? 6 : 12} {...labelStyles}>
+      <HStack
+        ref={labelRef}
+        paddingStart={isProductInternMatch ? 6 : 12}
+        {...labelStyles}
+        top={isFocused ? `calc(-${labelRef?.current?.clientHeight}px - .25rem)` : 0}
+        h={isFocused ? labelRef?.current?.clientHeight : 'full'}
+      >
         {placeholderName && (
           <MandatorySymbol
             placeholderName={placeholderName}

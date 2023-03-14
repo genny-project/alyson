@@ -160,7 +160,13 @@ const Write = ({
 
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
-      <HStack ref={labelRef} paddingStart={6} {...labelStyles}>
+      <HStack
+        ref={labelRef}
+        paddingStart={6}
+        {...labelStyles}
+        h={isFocused ? labelHeight : 'full'}
+        top={isFocused ? `calc(-${labelHeight}px - .25rem)` : 0}
+      >
         {placeholderName && (
           <MandatorySymbol
             placeholderName={placeholderName}
