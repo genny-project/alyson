@@ -29,5 +29,11 @@ export const isNotDate = compose(not, isDate)
 export const isRegExp = is(RegExp)
 export const isNotRegExp = compose(not, isRegExp)
 
+/**
+ * Object also includes `Function` and `Array`
+ */
 export const isObject = allPass([is(Object), isNotDate, isNotRegExp])
+/**
+ * Object also includes `Function` and `Array`
+ */
 export const isNotObject = compose(not, isObject)
