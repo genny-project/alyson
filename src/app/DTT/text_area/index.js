@@ -1,4 +1,4 @@
-import { Box, HStack, Textarea, useTheme } from '@chakra-ui/react'
+import { Box, HStack, Textarea } from '@chakra-ui/react'
 import { useEffect, useRef, useState } from 'react'
 
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
@@ -37,7 +37,6 @@ export const Write = ({
   sanatise,
 }) => {
   let regex
-  const theme = useTheme()
   const labelRef = useRef()
   const realm = useGetProductName().toLowerCase()
   const isProductInternMatch = useIsProductInternmatch()
