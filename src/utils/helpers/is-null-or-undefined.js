@@ -7,6 +7,9 @@ export const isNullOrUndefinedOrEmpty = anyPass([isNull, isUndefined, isEmpty])
 export const isNullOrUndefinedOrFalse = anyPass([isNull, isUndefined, not])
 
 export const isNotEmpty = compose(not, isEmpty)
+/**
+ * The same as using !!val
+ */
 export const doubleBang = compose(not, not)
 
 export const isNotUndefined = compose(not, isUndefined)
