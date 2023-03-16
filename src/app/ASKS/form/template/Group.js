@@ -10,6 +10,7 @@ import ReactPlayer from 'react-player'
 import Timeline from './Timeline'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { useSelector } from 'react-redux'
+import { isArray } from 'utils/helpers/is-type'
 
 const Group = ({
   label,
@@ -68,7 +69,7 @@ const Group = ({
           {subHeader && <Text textStyle="head.3">{subHeader}</Text>}
           {video && <ReactPlayer url={video.url} />}
           {flatten(questions).map((type, idx) =>
-            Array.isArray(type) ? (
+            isArray(type) ? (
               <Stack direction={'column'} align="start" w="full" key={idx}>
                 {type.map(code => (
                   <Ask

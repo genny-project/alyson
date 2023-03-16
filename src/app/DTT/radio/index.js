@@ -9,7 +9,7 @@ import { selectCode } from 'redux/db/selectors'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useGetProductName from 'utils/helpers/get-product-name'
 import isJson from 'utils/helpers/is-json'
-import isNullOrUndefined from 'utils/helpers/is-null-or-undefined'
+import { isNullOrUndefined } from 'utils/helpers/is-null-or-undefined'
 import useProductColors from 'utils/productColors'
 
 const Read = ({ data, boolean }) => {

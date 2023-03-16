@@ -16,8 +16,8 @@ import {
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react'
-import isNotEmpty from 'utils/helpers/is-not-empty'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
+import { isNotEmpty } from 'utils/helpers/is-null-or-undefined'
 
 const RepeatableAsk = ({
   questionCode,

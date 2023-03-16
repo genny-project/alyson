@@ -19,6 +19,7 @@ import { selectCode, selectKeys } from 'redux/db/selectors'
 import { useRef, useState } from 'react'
 
 import { useSelector } from 'react-redux'
+import { isObject } from 'utils/helpers/is-type'
 
 const DeveloperConsole = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -82,7 +83,7 @@ const DeveloperConsole = () => {
                       <>
                         <Text size="lg">Has Keys</Text>
                         {selection.map((key, index) =>
-                          typeof key === 'object' ? (
+                          isObject(key) ? (
                             Object.keys(key).map(key_2 => (
                               <Text
                                 borderRadius="lg"
@@ -113,7 +114,7 @@ const DeveloperConsole = () => {
                       <>
                         <Text size="lg">Has VALUE</Text>
 
-                        {typeof selection === 'object' ? (
+                        {isObject(selection) ? (
                           Object.keys(selection).map(key => (
                             <HStack key={key}>
                               <Text w="15rem">{key}</Text>

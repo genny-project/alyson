@@ -1,3 +1,5 @@
-const deArrayifyValue = array => (Array.isArray(array) ? (!!array ? array[0] : '') : array)
+import { isArray } from 'utils/helpers/is-type'
+
+const deArrayifyValue = array => (isArray ? (!!array ? array[0] : '') : array)
 
 export default deArrayifyValue

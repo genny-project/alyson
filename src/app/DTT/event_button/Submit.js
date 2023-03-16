@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import { useError } from 'utils/contexts/ErrorContext'
+import { isFunction } from 'utils/helpers/is-type'
 import useProductColors from 'utils/productColors'
 import { onSendMessage } from 'vertx'
 
@@ -32,7 +33,7 @@ const Submit = ({ askData, onFinish, parentCode, realm, isProductIM }) => {
       processId: askData.processId,
     })
     if (questionCode === 'QUE_SUBMIT') {
-      typeof onFinish === 'function' && onFinish()
+      isFunction(onFinish) && onFinish()
       setLoading(true)
     }
   }

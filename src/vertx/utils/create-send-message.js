@@ -1,6 +1,7 @@
 import { eventBus } from 'vertx'
 import log from 'utils/log'
 import showLogs from 'utils/helpers/show-logs'
+import { isArray } from 'utils/helpers/is-type'
 
 const createSendMessage = (token, onSendMsg) => (data, options = {}) => {
   const showConsoleLogs = showLogs
@@ -8,7 +9,7 @@ const createSendMessage = (token, onSendMsg) => (data, options = {}) => {
 
   const message = {
     data: {
-      ...(Array.isArray(data) ? { items: data } : { data }),
+      ...(isArray(data) ? { items: data } : { data }),
       token,
       msg_type,
       event_type,

@@ -1,5 +1,5 @@
 import { match, reduce, replace } from 'ramda'
-import isNotEmpty from 'utils/helpers/is-not-empty'
+import { isNotEmpty } from 'utils/helpers/is-null-or-undefined'
 
 const mapText = string => mappedPcm => attributeMap => {
   const regex = /\$\{.*?\}{1,2}/m

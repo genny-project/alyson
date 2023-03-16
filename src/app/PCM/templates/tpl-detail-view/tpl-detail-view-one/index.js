@@ -1,6 +1,6 @@
 import { Box, HStack, VStack } from '@chakra-ui/react'
 import { slice, min } from 'ramda'
-import isNotEmpty from 'utils/helpers/is-not-empty'
+import { isNotEmpty } from 'utils/helpers/is-null-or-undefined'
 
 import DetailField from '../detail-field'
 import useGetDetailData from '../get-detail-data'

@@ -9,6 +9,7 @@ import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { selectForm } from 'redux/app/selectors'
 import { selectCode } from 'redux/db/selectors'
+import { isArray, isNumber } from 'utils/helpers/is-type'
 
 const FormBuilder = () => {
   const parentCode = useSelector(selectForm)
@@ -40,7 +41,7 @@ const FormBuilder = () => {
 
   const updateQuestionCode = (groupIdx, questionIdx, rowIdx) => ({ target: { value } }) => {
     let newGroup = config.groups[groupIdx]
-    if (typeof rowIdx === 'number') {
+    if (isNumber(rowIdx)) {
       newGroup.questions[questionIdx][rowIdx] = value
     } else {
       newGroup.questions[questionIdx] = value
@@ -120,7 +121,7 @@ const FormBuilder = () => {
                   onChange={updateGroup('subHeader', groupIdx)}
                 />
                 {questions.map((type, questionsIdx) =>
-                  Array.isArray(type) ? (
+                  isArray(type) ? (
                     <HStack align="start" w="full" justify="space-between" key={questionsIdx}>
                       {type.map((code, rowIdx) => (
                         <Input

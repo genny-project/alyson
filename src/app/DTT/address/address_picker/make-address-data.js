@@ -11,6 +11,7 @@ import {
   either,
   always,
 } from 'ramda'
+import { isFunction } from 'utils/helpers/is-type'
 
 const convertTypes = {
   street_number: 'street_number',
@@ -38,14 +39,12 @@ const addMetaData = data => (addressObject = {}) => ({
     )(data),
   },
   ...{
-    latitude:
-      typeof path([0, 'geometry', 'location', 'lat'], data) === 'function'
-        ? path([0, 'geometry', 'location', 'lat'], data)()
-        : 0,
-    longitude:
-      typeof path([0, 'geometry', 'location', 'lng'], data) === 'function'
-        ? path([0, 'geometry', 'location', 'lng'], data)()
-        : 0,
+    latitude: isFunction(path([0, 'geometry', 'location', 'lat'], data))
+      ? path([0, 'geometry', 'location', 'lat'], data)()
+      : 0,
+    longitude: isFunction(path([0, 'geometry', 'location', 'lng'], data))
+      ? path([0, 'geometry', 'location', 'lng'], data)()
+      : 0,
   },
   ...addressObject,
 })

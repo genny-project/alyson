@@ -26,10 +26,9 @@ import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
 import useGetProductName from 'utils/helpers/get-product-name'
-import isArray from 'utils/helpers/is-array'
 import isJson from 'utils/helpers/is-json'
-import isString from 'utils/helpers/is-string'
 import useProductColors from 'utils/productColors'
+import { isArray, isString } from 'utils/helpers/is-type'
 
 const Read = ({ code, data, dttData, parentCode, variant, config = {} }) => {
   const typeName = dttData?.typeName || ''
