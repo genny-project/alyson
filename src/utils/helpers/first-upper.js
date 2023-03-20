@@ -1,8 +1,8 @@
-import { toUpper, compose, toLower, join, adjust, split } from 'ramda'
+import { toUpper, compose, toLower, join, adjust, split, toString } from 'ramda'
 
 /**
- * Takes an input string and returns that string with the first letter uppercase.
+ * Takes an input and returns that string with the first letter uppercase.
  */
-const firstUpper = compose(join(''), adjust(0, toUpper), split(''), toLower)
+const firstUpper = compose(join(''), adjust(0, toUpper), split(''), toLower, toString)
 
 export default firstUpper
