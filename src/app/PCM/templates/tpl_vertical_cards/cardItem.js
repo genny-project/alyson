@@ -2,10 +2,14 @@ import { Box, HStack, Text } from '@chakra-ui/react'
 import { compose, equals, filter, includes, isEmpty, map, not } from 'ramda'
 import { selectCode, selectCodeUnary } from 'redux/db/selectors'
 
+import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import sendEvtClick from 'app/ASKS/utils/send-evt-click'
 import Attribute from 'app/BE/attribute'
+import ContextMenu from 'app/BE/context/index.js'
 import FavouriteComponent from 'app/PCM/templates/template-components/favourite-component/index.js'
 import AmenityField from 'app/PCM/templates/tpl-detail-view/tpl-property-detail-view/amenity-field.js'
+import getActions from 'app/SBE/utils/get-actions.js'
 import { useSelector } from 'react-redux'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { useIsMobile } from 'utils/hooks'
@@ -22,6 +26,8 @@ const CardItem = ({ mappedValues, baseEntityCode, primaryColor, sbeCode }) => {
   const isStarred = includes(baseEntityCode)(userFavourites)
 
   const isTableProperties = equals(sbeCode, 'SBE_TABLE_PROPERTIES')
+  const tableData = useSelector(selectCode(sbeCode))
+  const actions = getActions(tableData)
 
   const attrName = useSelector(selectCode(baseEntityCode, 'PRI_CREATED_DATE'))?.attributeName || ''
 
@@ -66,6 +72,25 @@ const CardItem = ({ mappedValues, baseEntityCode, primaryColor, sbeCode }) => {
     })
   }
 
+  const TableActionMenu = () => {
+    return (
+      <>
+        {!!actions?.length && (
+          <ContextMenu
+            actions={actions}
+            code={baseEntityCode}
+            parentCode={sbeCode}
+            button={
+              <Text as="span" paddingInline={2}>
+                <FontAwesomeIcon color="grey" icon={faEllipsisV} />
+              </Text>
+            }
+          />
+        )}
+      </>
+    )
+  }
+
   return (
     <>
       <Box
@@ -108,33 +133,47 @@ const CardItem = ({ mappedValues, baseEntityCode, primaryColor, sbeCode }) => {
             position={isMobile ? 'static' : 'absolute'}
             top={8}
             right={3}
-            fontSize={'sm'}
-            paddingBlockEnd={1}
-            borderBottom={`1px solid `}
-            borderBottomColor={primaryColor}
-            w={'fit-content'}
             marginBlock={isMobile ? 3 : 0}
+            alignItems={'center'}
           >
-            <Text>{attrName}</Text>
-            <Attribute code={baseEntityCode} attribute={'PRI_CREATED_DATE'} />
+            <HStack
+              fontSize={'sm'}
+              paddingBlockEnd={1}
+              borderBottom={`1px solid `}
+              borderBottomColor={primaryColor}
+              w={'fit-content'}
+              marginInlineEnd={4}
+            >
+              <Text>{attrName}</Text>
+              <Attribute code={baseEntityCode} attribute={'PRI_CREATED_DATE'} />
+            </HStack>
+
+            <TableActionMenu />
           </HStack>
         ) : (
           <HStack
             position={isMobile ? 'static' : 'absolute'}
             top={8}
             right={3}
-            fontSize={'sm'}
-            borderBottom={`1px solid `}
-            borderBottomColor={primaryColor}
-            w={'fit-content'}
             marginBlock={isMobile ? 3 : 0}
+            alignItems={'center'}
           >
-            <FavouriteComponent
-              starred={isStarred}
-              sourceCode={userCode}
-              targetCode={baseEntityCode}
-              showLabel={true}
-            />
+            <HStack
+              fontSize={'sm'}
+              borderBottom={`1px solid `}
+              borderBottomColor={primaryColor}
+              w={'fit-content'}
+              marginInlineEnd={4}
+            >
+              <FavouriteComponent
+                starred={isStarred}
+                sourceCode={userCode}
+                targetCode={baseEntityCode}
+                showLabel={true}
+              />
+            </HStack>
+
+            <TableActionMenu />
           </HStack>
         )}
 
