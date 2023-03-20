@@ -1,14 +1,16 @@
-import { Box, Grid } from '@chakra-ui/react'
+import { Box, Grid, HStack, Text } from '@chakra-ui/react'
 import { filter, includes, map } from 'ramda'
-import { getColumnDefs, getFields } from '../../helpers/sbe-utils'
 import { selectCode, selectKeys } from 'redux/db/selectors'
+import { getColumnDefs, getFields } from '../../helpers/sbe-utils'
 
-import CardItem from './cardItem'
+import { faBinoculars } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import useGetMappedBaseEntity from 'app/PCM/helpers/use-get-mapped-base-entity'
 import Title from 'app/SBE/table/Title'
 import { useGetActionsFromCode } from 'app/SBE/utils/get-actions'
-import useGetMappedBaseEntity from 'app/PCM/helpers/use-get-mapped-base-entity'
-import useProductColors from 'utils/productColors'
 import { useSelector } from 'react-redux'
+import useProductColors from 'utils/productColors'
+import CardItem from './cardItem'
 
 const TemplateVerticalCards = ({ mappedPcm, depth }) => {
   const sbeCodePrefix = mappedPcm?.PRI_LOC1 || ''
@@ -26,12 +28,11 @@ const TemplateVerticalCards = ({ mappedPcm, depth }) => {
 
   return (
     <>
-      {!!rows.length && (
-        <Box padding={'10px'}>
-          <Box paddingBottom={3}>
-            <Title sbeCode={sbeCode} />
-          </Box>
-
+      <Box padding={'10px'}>
+        <Box paddingBottom={3}>
+          <Title sbeCode={sbeCode} />
+        </Box>
+        {!!rows.length ? (
           <Grid gap={4}>
             {map(item => (
               <CardItem
@@ -44,8 +45,13 @@ const TemplateVerticalCards = ({ mappedPcm, depth }) => {
               />
             ))(rows)}
           </Grid>
-        </Box>
-      )}
+        ) : (
+          <HStack textStyle={'body.error'} marginBlockStart={4}>
+            <FontAwesomeIcon icon={faBinoculars} size="2x" />
+            <Text>{'We looked, nothing seems to be here!'}</Text>
+          </HStack>
+        )}
+      </Box>
     </>
   )
 }
