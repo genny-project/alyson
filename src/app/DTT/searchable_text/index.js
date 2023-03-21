@@ -56,7 +56,7 @@ export const Write = ({
   const [askedForDropDownData, setAskedForDropDownData] = useState(false)
 
   const hasValidData = not(empty(userInput))
-  const { inputStyles, labelStyles } = useStyles(hasValidData, isFocused, labelRef)
+  const { inputStyles, labelStyles } = useStyles(hasValidData, isFocused)
 
   const { fieldTextColor, labelTextColor } = useProductColors()
 
@@ -158,6 +158,7 @@ export const Write = ({
         paddingStart={6}
         top={isFocused || (userInput ?? '').length > 0 ? '-1.5rem' : 3}
         {...labelStyles}
+        h={isFocused ? labelRef?.current?.clientHeight : 'full'}
       >
         {placeholderName && (
           <MandatorySymbol

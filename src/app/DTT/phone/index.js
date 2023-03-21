@@ -94,7 +94,7 @@ const Write = ({
   let countryFlagFromUserInput = !!icon ? icon : ''
 
   const hasValidData = userInput && !isInvalid
-  const { inputStyles, labelStyles } = useStyles(hasValidData, isFocused, labelRef)
+  const { inputStyles, labelStyles } = useStyles(hasValidData, isFocused)
 
   const onBlur = e => {
     e.target.value ? setIsFocused(true) : setIsFocused(false)
@@ -165,7 +165,13 @@ const Write = ({
 
   return (
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
-      <HStack ref={labelRef} paddingStart={isFocused ? 6 : 20} {...labelStyles}>
+      <HStack
+        ref={labelRef}
+        paddingStart={isFocused ? 6 : 20}
+        {...labelStyles}
+        top={isFocused ? `calc(-${labelRef?.current?.clientHeight}px + .5rem)` : 0}
+        h={'full'}
+      >
         <MandatorySymbol
           placeholderName={placeholderName}
           mandatory={mandatory}

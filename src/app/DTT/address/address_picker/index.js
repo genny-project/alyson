@@ -140,8 +140,8 @@ const AddressPicker = ({
         ref={labelRef}
         paddingStart={6}
         {...labelStyles}
-        h={isFocused ? `${labelRef?.current?.clientHeight}px` : 'full'}
-        top={isFocused ? `calc(-${labelRef?.current?.clientHeight}px - .25rem)` : 0}
+        h={'full'}
+        top={isFocused ? `calc(-${labelRef?.current?.clientHeight}px + .5rem)` : 0}
       >
         {placeholderName && (
           <MandatorySymbol
