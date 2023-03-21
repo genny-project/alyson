@@ -20,13 +20,12 @@ import {
   faTimesCircle,
 } from '@fortawesome/free-solid-svg-icons'
 import { compose, equals, includes, isEmpty, map, pathOr, split } from 'ramda'
+import { useIsProductInternmatch, useIsProductLojing } from 'utils/helpers/check-product-name'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react'
 import { useDropzone } from 'react-dropzone'
-import { lojing } from 'utils/constants'
 import { isImageField } from 'utils/functions'
-import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
 import useGetProductName from 'utils/helpers/get-product-name'
 import { useIsMobile } from 'utils/hooks'
 import useProductColors from 'utils/productColors'
@@ -47,6 +46,7 @@ const DropZone = ({
   const isMobile = useIsMobile()
 
   const isProductInternmatch = useIsProductInternmatch()
+  const isProductLojing = useIsProductLojing()
   const productName = useGetProductName().toLocaleLowerCase()
 
   const uploaderText = multiUpload
@@ -296,7 +296,7 @@ const DropZone = ({
               {preview}
             </Grid>
             <Flex justify="center" w={'full'}>
-              {equals(clientId)(lojing) ? (
+              {isProductLojing ? (
                 <HStack>
                   <Button
                     variant="outline"

@@ -176,7 +176,8 @@ const Write = ({
         <MandatorySymbol
           placeholderName={label}
           mandatory={mandatory}
-          labelTextColor={labelTextColor}
+          labelTextColor={isProductInternmatch ? `${realm}.primary` : labelTextColor}
+          realm={realm}
         />
         {data?.value ? <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} /> : null}
       </HStack>
