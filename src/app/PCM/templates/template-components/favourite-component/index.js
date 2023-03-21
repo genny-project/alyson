@@ -41,7 +41,7 @@ const FavouriteComponent = ({ starred, sourceCode, targetCode, showLabel }) => {
       <FontAwesomeIcon
         position="absolute"
         icon={faStar}
-        size="md"
+        size="sm"
         color={isStarred ? 'product.primary' : '#C0C0C0'}
       />
       {!!showLabel && (
