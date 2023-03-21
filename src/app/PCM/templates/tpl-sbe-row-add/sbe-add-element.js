@@ -2,6 +2,7 @@ import Ask from 'app/ASKS/ask'
 import getAskFromAttribute from 'app/PCM/helpers/get-ask-from-attribute'
 import { not, set, lensProp } from 'ramda'
 import debugOut from 'utils/debug-out'
+import { isObject } from 'utils/helpers/is-type'
 
 const SBEAddElement = ({
   parentCode,
@@ -25,8 +26,8 @@ const SBEAddElement = ({
   return (
     <Ask
       passedAskData={askDataWithDisabled}
-      answerCallback={(askData, value) => {
-        onChange(typeof value === 'object' ? value[0] : value)
+      answerCallback={(_, value) => {
+        onChange(isObject(value) ? value[0] : value)
       }}
       passedValue={value}
       sourceCode={sourceCode}

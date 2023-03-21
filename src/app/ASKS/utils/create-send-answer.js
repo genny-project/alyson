@@ -1,6 +1,7 @@
+import { isObject } from 'utils/helpers/is-type'
 import { onSendMessage } from 'vertx'
 
-const getFormattedValue = value => (typeof value === 'object' ? JSON.stringify(value) : value)
+const getFormattedValue = value => (isObject(value) ? JSON.stringify(value) : value)
 
 const createSendAnswer = (fieldData, { passedTargetCode } = {}) => value => {
   const {

@@ -130,7 +130,7 @@ const Write = ({
   const formatInputDate = dateValue ? format(inputDate, 'yyyy-MM-dd') : today
   const diffInYears = differenceInYears(parseISO(today), parseISO(formatInputDate))
 
-  const selectedDateInIsoFormat = !!dateValue ? safelyParseDate(dateValue).toISOString() : ''
+  // const selectedDateInIsoFormat = !!dateValue ? safelyParseDate(dateValue).toISOString() : ''
 
   const hasValidData = dateValue && !isInvalid
   const { inputStyles, labelStyles } = useStyles(hasValidData, isFocused, labelRef)

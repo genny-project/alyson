@@ -16,7 +16,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import AddressPicker from 'app/DTT/address/address_picker'
 import { useState } from 'react'
-import isNotEmpty from 'utils/helpers/is-not-empty'
+import { isNotEmpty } from 'utils/helpers/is-null-or-undefined'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 
 const RepeatableAddressPicker = ({

@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Keyable } from 'utils/types'
 import { ReactChildren } from 'react'
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
+import { isFunction } from 'utils/helpers/is-type'
 
 const styles = {
   default: {
@@ -54,7 +55,7 @@ const Chip = ({
 }: ChipProps) => {
   const stylesConfig = styles[variant]
 
-  if (typeof onClick === 'function')
+  if (isFunction(onClick))
     return (
       <ChakraButton
         whiteSpace={'normal'}

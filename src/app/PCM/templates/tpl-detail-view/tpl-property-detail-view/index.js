@@ -15,6 +15,7 @@ import { useIsMobile } from 'utils/hooks'
 import FavouriteComponent from '../../template-components/favourite-component'
 import useGetDetailData from '../get-detail-data'
 import AmenityField from './amenity-field'
+import { isObject } from 'utils/helpers/is-type'
 
 const TemplatePropertyDetailView = ({ mappedPcm }) => {
   const { baseEntityCode, fields } = useGetDetailData(mappedPcm)
@@ -39,8 +40,7 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
 
   const isMobile = useIsMobile()
 
-  let showApplyButton =
-    equals(typeof applyButtonData, 'object') && compose(not, isEmpty)(applyButtonData)
+  let showApplyButton = equals(isObject(applyButtonData)) && compose(not, isEmpty)(applyButtonData)
 
   const textColor = 'product.primary500'
   const buttonColor = 'product.secondary'

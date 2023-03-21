@@ -5,7 +5,7 @@ import { split, length, includes } from 'ramda'
 import sendEvtClick from 'app/ASKS/utils/send-evt-click'
 import getAskFromAttribute from 'app/PCM/helpers/get-ask-from-attribute'
 import { format } from 'date-fns'
-import isNotEmpty from 'utils/helpers/is-not-empty'
+import { isNotEmpty } from 'utils/helpers/is-null-or-undefined'
 
 const FieldRow = ({ baseEntityCode, sourceCode, processId, data, index, mappedPcm }) => {
   const deleteEventCode = mappedPcm?.PRI_LOC2 || ''

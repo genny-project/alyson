@@ -2,6 +2,7 @@ import { MenuItem } from '@chakra-ui/react'
 import { selectCode } from 'redux/db/selectors'
 import sendEvtClick from 'app/ASKS/utils/send-evt-click'
 import { useSelector } from 'react-redux'
+import { isFunction } from 'utils/helpers/is-type'
 
 const ChildMenuItem = ({ onClose, questionCode, childCode, rootCode, targetCode }) => {
   const data = useSelector(selectCode(questionCode, childCode))
@@ -19,7 +20,7 @@ const ChildMenuItem = ({ onClose, questionCode, childCode, rootCode, targetCode 
       targetCode: targetCode,
       processId: processId,
     })
-    typeof onClose === 'function' && onClose()
+    isFunction(onClose) && onClose()
   }
 
   return (

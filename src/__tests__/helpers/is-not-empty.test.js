@@ -1,4 +1,4 @@
-import isNotEmpty from 'utils/helpers/is-not-empty'
+import { isNotEmpty } from 'utils/helpers/is-null-or-undefined'
 
 describe('Is Not Empty', () => {
   it('should true if the list is not empty and false if it is empty.', () => {
