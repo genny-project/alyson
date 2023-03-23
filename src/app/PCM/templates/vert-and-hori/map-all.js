@@ -13,6 +13,9 @@ const mapAll = (mappedPcm, depth, isInternmatch = false, config = {}) => {
     const attributeCode =
       ask?.attributeCode ?? ask?.question?.attributeCode ?? question?.attributeCode ?? ''
 
+    const isEvtExploreProperties = equals(attributeCode, 'EVT_EXPLORE_PROPERTIES')
+    const isEvtGetPreApproved = equals(attributeCode, 'EVT_GET_PRE_APPROVED')
+
     if (notIncludes(attributeCode)(values(spillLocs))) {
       const evtAttrCode = includes('EVT_', attributeCode)
       const isEvtNext = equals(attributeCode, 'EVT_NEXT')
@@ -20,7 +23,7 @@ const mapAll = (mappedPcm, depth, isInternmatch = false, config = {}) => {
       return (
         <Box
           key={attributeCode}
-          w={'full'}
+          w={isEvtExploreProperties || isEvtGetPreApproved ? 'auto' : 'full'}
           textAlign={
             isInternmatch &&
             (evtAttrCode || isEvtNext || isEvtSubmit) &&
@@ -38,11 +41,16 @@ const mapAll = (mappedPcm, depth, isInternmatch = false, config = {}) => {
   })(mappedPcm.PRI_QUESTION_CODE)
 
   const filteredUndefinedQuestionGroup = filter(item => !!item)(questionGrp)
+
   const mappedDefinedLocs = mapSpillLocs(loc => {
     return (
       <Box
         key={loc}
-        w={'full'}
+        w={
+          equals(loc, 'EVT_EXPLORE_PROPERTIES') || equals(loc, 'EVT_GET_PRE_APPROVED')
+            ? 'auto'
+            : 'full'
+        }
         textAlign={includes('EVENTS', loc) && isInternmatch ? 'end' : 'start'}
       >
         <PcmField code={loc} mappedPcm={mappedPcm} depth={depth} config={config} />

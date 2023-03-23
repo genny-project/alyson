@@ -14,7 +14,8 @@ import {
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import sendEvtClick from 'app/ASKS/utils/send-evt-click'
-import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
+import { useIsProductLojing } from 'utils/helpers/check-product-name.js'
+import setIconName from 'utils/helpers/getIconNames.js'
 import icons from 'utils/icons'
 
 const DefaultEventButton = ({
@@ -30,23 +31,40 @@ const DefaultEventButton = ({
   processId,
 }) => {
   const theme = useTheme()
-  const bgColor = useGetAttributeFromProjectBaseEntity('PRI_COLOR')?.valueString || '#234371'
+  const isProductLojing = useIsProductLojing()
+  const bgColor = isProductLojing ? 'lojing.gradient100' : '#234371'
   const color = theme.colors.text.dark
 
   if (!childAsks) {
     let box = (
       <Box display="flex" alignItems="center" justifyContent="center" cursor={'pointer'}>
         {icons[trueQuestionCode] ? (
-          <FontAwesomeIcon icon={icons[trueQuestionCode]} size="2x" color="#AAE3E2" />
+          <FontAwesomeIcon
+            icon={icons[trueQuestionCode]}
+            size={'2x'}
+            color={isProductLojing ? color : '#AAE3E2'}
+            className={`icon icon-${name}`}
+          />
         ) : iconId ? (
           <Image boxSize="35px" objectFit={'contain'} src={src} alt="" />
         ) : (
-          <Box />
+          <Text
+            as="span"
+            className={`icon icon-${setIconName(name)}`}
+            marginInlineEnd={1}
+            fontSize={20}
+          />
         )}
       </Box>
     )
     let text = (
-      <Text color={color} fontSize={vert ? 12 : 15} fontWeight="700" textAlign={'center'} w="full">
+      <Text
+        color={color}
+        fontSize={vert ? 12 : 16}
+        fontWeight="500"
+        textAlign={trueQuestionCode || iconId ? 'start' : 'center'}
+        w="full"
+      >
         {name}
       </Text>
     )
@@ -60,16 +78,23 @@ const DefaultEventButton = ({
         onClick={handleClick}
         as="button"
         w={'full'}
+        rounded={isProductLojing ? 'full' : 'initial'}
       >
         {box}
         {text}
       </VStack>
     ) : (
-      <Box padding={1} borderRadius="lg" background={bgColor} width={`${name.length + 2}ch`}>
+      <Box
+        borderRadius="lg"
+        background={bgColor}
+        // width={`${name.length + 5}ch`}
+        rounded={isProductLojing ? 'full' : 'initial'}
+      >
         <HStack
           spacing={iconId || icons[trueQuestionCode] ? 2 : 0}
           role="group"
-          p="1"
+          paddingBlock={2}
+          paddingInline={4}
           test-id={trueQuestionCode}
           onClick={handleClick}
           alignItems={'center'}

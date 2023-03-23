@@ -168,7 +168,7 @@ export const defaultProjectTheme = {
       light: '#FFFFFF',
       dark: '#000000',
 
-      gradient100: 'linear-gradient(340deg, #EF8567, #F18B32)',
+      gradient100: 'linear-gradient(264.44deg, #F18B32 12.95%, #EF8567 86.79%)',
 
       sidebar: '#024754',
     },
