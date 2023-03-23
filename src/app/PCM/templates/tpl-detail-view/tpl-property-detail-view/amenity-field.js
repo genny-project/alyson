@@ -16,9 +16,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import debugOut from 'utils/debug-out'
+import { useIsProductLojing } from 'utils/helpers/check-product-name.js'
 import firstUpper from 'utils/helpers/first-upper'
 
 const AmenityField = ({ attributeCode, code }) => {
+  const isLojing = useIsProductLojing()
   const entityAttribute = useSelector(selectCode(code, attributeCode))
 
   const titleUpper = toUpper(replace('NUMBER_OF')('')(attributeCode))
@@ -52,18 +54,23 @@ const AmenityField = ({ attributeCode, code }) => {
 
   return (
     <Box
+      color="product.primary"
       borderWidth="1px"
       borderColor="product.primary"
       borderRadius="3xl"
       py={1}
       px={3}
       fontSize={'sm'}
+      _groupHover={{
+        borderColor: 'white',
+        color: 'white',
+      }}
     >
       <HStack>
-        <Text as="span" color="product.primary">
+        <Text as="span">
           <FontAwesomeIcon icon={icon} />
         </Text>
-        <Text color="product.primary">
+        <Text>
           {value} {key}
         </Text>
       </HStack>
