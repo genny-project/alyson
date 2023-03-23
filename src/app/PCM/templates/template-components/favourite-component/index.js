@@ -14,7 +14,7 @@ const FavouriteComponent = ({ starred, sourceCode, targetCode, showLabel }) => {
     sendEvtClick({
       targetCode: targetCode,
       sourceCode: sourceCode,
-      attributeCode: 'ACT_FAV_TOGGLE',
+      code: 'ACT_FAV_TOGGLE',
       value: stringify(value),
     })
   }
