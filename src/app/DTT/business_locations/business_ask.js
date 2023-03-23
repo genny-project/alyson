@@ -47,7 +47,7 @@ const BusinessAsk = ({
   }, [departments, addressValue])
 
   const departmentPlaceholderName = 'What departments/faculties do you have?'
-  const departmentSecondaryPlaceholderName = 'Would you like to add another department?'
+  const departmentSecondaryPlaceholderName = 'Add another department/faculty?'
 
   return (
     <Stack direction={isMobile ? 'column' : 'row'} alignItems={'flex-start'} w="100%" spacing={5}>
