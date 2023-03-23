@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import sendEvtClick from 'app/ASKS/utils/send-evt-click'
 import debounce from 'lodash.debounce'
 import { useState } from 'react'
+import stringify from 'utils/helpers/stringify'
 
 const FavouriteComponent = ({ starred, sourceCode, targetCode, showLabel }) => {
   const [isStarred, setIsStarred] = useState(starred)
@@ -13,8 +14,8 @@ const FavouriteComponent = ({ starred, sourceCode, targetCode, showLabel }) => {
     sendEvtClick({
       targetCode: targetCode,
       sourceCode: sourceCode,
-      attributeCode: 'ACT_FAV_TOGGLE',
-      value: value,
+      code: 'ACT_FAV_TOGGLE',
+      value: stringify(value),
     })
   }
   const debouncedEvt = debounce(sendEvt, 500)
