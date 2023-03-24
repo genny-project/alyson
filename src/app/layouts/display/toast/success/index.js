@@ -17,7 +17,7 @@ const SuccessToast = props => {
     if (newToast && includes(status, 'SUCCESS'))
       toast({
         duration: 5000,
-        status: status,
+        status,
         position: 'top-right',
         render: () => (
           <HStack

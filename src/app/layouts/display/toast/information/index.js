@@ -17,7 +17,7 @@ const InfoToast = props => {
     if (newToast && includes(status, 'INFO'))
       toast({
         duration: 5000,
-        status: status,
+        status,
         position: 'top-right',
         render: () => (
           <HStack
