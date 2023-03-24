@@ -3,8 +3,8 @@ import { selectAttributes, selectCode } from 'redux/db/selectors'
 
 import { Text } from '@chakra-ui/react'
 import getSpillLocs from 'app/PCM/helpers/get-spill-locs'
-import mapText from './map-text'
 import { useSelector } from 'react-redux'
+import mapText from './map-text'
 
 const TemplateText = ({ mappedPcm, depth }) => {
   const questionCode = mappedPcm.PRI_QUESTION_CODE || ''
@@ -46,9 +46,23 @@ const TemplateText = ({ mappedPcm, depth }) => {
     TPL_TEXT_HEADER_6: 'xl',
   }
 
-  const fontSize = fontSizes[mappedPcm.PRI_TEMPLATE_CODE] || 'md'
+  const fontWeights = {
+    TPL_TEXT_HEADER_1: 900,
+    TPL_TEXT_HEADER_2: 900,
+    TPL_TEXT_HEADER_3: 700,
+    TPL_TEXT_HEADER_4: 600,
+    TPL_TEXT_HEADER_5: 500,
+    TPL_TEXT_HEADER_6: 500,
+  }
 
-  return <Text fontSize={fontSize}>{mapText(mainString)(spillLocs)(attributeMap)}</Text>
+  const fontSize = fontSizes[mappedPcm.PRI_TEMPLATE_CODE] || 'md'
+  const fontWeight = fontWeights[mappedPcm.PRI_TEMPLATE_CODE] || '400'
+
+  return (
+    <Text fontSize={fontSize} fontWeight={fontWeight}>
+      {mapText(mainString)(spillLocs)(attributeMap)}
+    </Text>
+  )
 }
 
 export default TemplateText
