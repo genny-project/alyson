@@ -30,7 +30,8 @@ import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
 import useGetProductName from 'utils/helpers/get-product-name'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined'
 import useProductColors from 'utils/productColors'
-import useStyles from '../inputStyles'
+import useStyles from 'app/DTT/inputStyles'
+import InputMask from 'react-input-mask'
 
 export const Write = ({
   questionCode,
@@ -43,6 +44,7 @@ export const Write = ({
   placeholderName,
   mandatory,
   icon,
+  inputmask,
 }) => {
   let regex
   const productName = useGetProductName()
@@ -197,6 +199,8 @@ export const Write = ({
         <Input
           isInvalid={isInvalid}
           test-id={questionCode}
+          as={InputMask}
+          mask={inputmask}
           id={questionCode}
           ref={inputRef}
           onClick={() => setIsFocused(true)}
