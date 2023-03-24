@@ -1,6 +1,15 @@
 import 'app/SBE/table/table.css'
 
-import { Box, HStack, Table, Text, useColorModeValue, useTheme } from '@chakra-ui/react'
+import {
+  Box,
+  Center,
+  CircularProgress,
+  HStack,
+  Table,
+  Text,
+  useColorModeValue,
+  useTheme,
+} from '@chakra-ui/react'
 import getActions, { getTableActions } from '../utils/get-actions'
 
 import Action from 'app/BE/action'
@@ -36,9 +45,9 @@ const DataTable = ({ parentCode, mapSearch, passedComponents = [], userCode }) =
 
   if (!tableData)
     return (
-      <Text pt={5} px={10}>
-        {'No data found.'}
-      </Text>
+      <Center>
+        <CircularProgress isIndeterminate />
+      </Center>
     )
 
   const columns = getColumns(tableData)
