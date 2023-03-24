@@ -15,6 +15,7 @@ import Attribute from 'app/BE/attribute'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import ABN from 'app/DTT/abn'
 import Address from 'app/DTT/address'
+import BusinessLocations from 'app/DTT/business_locations'
 import CheckBox from 'app/DTT/check_box'
 import Date from 'app/DTT/date'
 import DateRange from 'app/DTT/date_range'
@@ -52,7 +53,6 @@ import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates
 import useGetProductName from 'utils/helpers/get-product-name'
 import { useMobileValue } from 'utils/hooks'
 import useProductColors from 'utils/productColors'
-import BusinessLocations from 'app/DTT/business_locations'
 
 const Ask = ({
   parentCode,
@@ -166,7 +166,12 @@ const Ask = ({
         <CText id={attributeCode} w={labelWidth} textStyle="body.1">
           {name}
         </CText>
-        <Attribute config={{ textStyle: 'body.1' }} code={targetCode} attribute={attributeCode} />
+        <Attribute
+          parentCode={parentCode}
+          config={{ textStyle: 'body.1' }}
+          code={targetCode}
+          attribute={attributeCode}
+        />
       </HStack>
     )
   }
@@ -494,6 +499,7 @@ const Ask = ({
           targetCode={targetCode}
           mandatory={mandatory}
           clientId={clientId}
+          config={config}
         />
       )}
       {component === 'richtext_editor' && (

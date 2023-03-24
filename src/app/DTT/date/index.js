@@ -66,6 +66,7 @@ const Write = ({
   attributeCode,
   placeholderName,
   mandatory,
+  config,
 }) => {
   let initialErrorMsg = 'You can only valid date.'
 
@@ -135,6 +136,10 @@ const Write = ({
   const hasValidData = dateValue && !isInvalid
   const { inputStyles, labelStyles } = useStyles(hasValidData, isFocused)
 
+  let customBgColor = config?.customBgColor || ''
+  let { bg: productBasedBgColor, ...rest } = inputStyles
+  let bgColor = customBgColor || productBasedBgColor
+
   useEffect(() => {
     isInvalid ? setErrorStatus(true) : setErrorStatus(false)
   }, [isInvalid])
@@ -191,7 +196,8 @@ const Write = ({
         paddingBlock={3}
         paddingInlineStart={isFocused || isProductInternMatch ? 6 : 12}
         paddingInlineEnd={6}
-        {...inputStyles}
+        {...rest}
+        bg={bgColor}
       />
 
       {isProductInternMatch ? (

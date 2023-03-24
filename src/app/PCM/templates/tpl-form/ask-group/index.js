@@ -7,7 +7,7 @@ import { selectCode } from 'redux/db/selectors'
 import debugOut from 'utils/debug-out'
 import useProductColors from 'utils/productColors'
 
-const AskGroup = ({ questionCode, level, properties, first = false }) => {
+const AskGroup = ({ questionCode, level, properties, first = false, config }) => {
   const childAsks = useSelector(selectCode(questionCode)) || []
   const title = useSelector(selectCode(questionCode, 'title')) || ''
 
@@ -34,6 +34,7 @@ const AskGroup = ({ questionCode, level, properties, first = false }) => {
           questionCode={code}
           level={level}
           properties={properties}
+          config={config}
         />
       ))}
     </VStack>
