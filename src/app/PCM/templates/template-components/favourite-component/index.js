@@ -32,21 +32,24 @@ const FavouriteComponent = ({ starred, sourceCode, targetCode, showLabel }) => {
       onClick={onClick}
       m={0}
       p={0}
-      bg="#ffffff"
       padding={1}
       h={'auto'}
       w={'auto'}
       borderRadius={0}
-      _focus={{ outline: 'none' }}
+      bg={'transparent'}
+      _focus={{ outline: 'none', bg: 'transparent' }}
+      _active={{ outline: 'none', bg: 'transparent' }}
+      _focusVisible={{ outline: 'none', bg: 'transparent' }}
+      _hover={{ bg: 'transparent' }}
     >
       <FontAwesomeIcon
         position="absolute"
         icon={faStar}
         size="sm"
-        color={isStarred ? 'product.primary' : '#C0C0C0'}
+        color={isStarred ? 'product.primary' : 'product.primary'}
       />
       {!!showLabel && (
-        <Text as="span" ml={2}>
+        <Text as="span" ml={2} borderBottom={'1px solid currentColor'}>
           {isStarred ? 'Remove from Favourite' : 'Add to Favourite'}
         </Text>
       )}

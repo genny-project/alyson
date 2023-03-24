@@ -11,6 +11,7 @@ import FavouriteComponent from 'app/PCM/templates/template-components/favourite-
 import AmenityField from 'app/PCM/templates/tpl-detail-view/tpl-property-detail-view/amenity-field.js'
 import getActions from 'app/SBE/utils/get-actions.js'
 import { useSelector } from 'react-redux'
+import { useIsProductLojing } from 'utils/helpers/check-product-name.js'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { useIsMobile } from 'utils/hooks'
 
@@ -19,6 +20,7 @@ const CardItem = ({ mappedValues, baseEntityCode, primaryColor, sbeCode }) => {
   const userCode = useSelector(selectCode('USER'))
   const userType = useSelector(selectCode(userCode, 'LNK_ROLE'))?.value || ''
   const isAgentOrAdmin = includes('ADMIN', userType) || includes('AGENT', userType)
+  const isLojing = useIsProductLojing()
 
   const userFavouritesAttribute =
     compose(useSelector, selectCodeUnary(userCode))('LNK_FAV_PROPS') || {}
@@ -81,8 +83,13 @@ const CardItem = ({ mappedValues, baseEntityCode, primaryColor, sbeCode }) => {
             code={baseEntityCode}
             parentCode={sbeCode}
             button={
-              <Text as="span" paddingInline={2}>
-                <FontAwesomeIcon color="grey" icon={faEllipsisV} />
+              <Text
+                as="span"
+                paddingInline={2}
+                color="lojing.primary"
+                _groupHover={{ color: 'white' }}
+              >
+                <FontAwesomeIcon icon={faEllipsisV} />
               </Text>
             }
           />
@@ -94,6 +101,7 @@ const CardItem = ({ mappedValues, baseEntityCode, primaryColor, sbeCode }) => {
   return (
     <>
       <Box
+        role={'group'}
         paddingBlock={3}
         paddingInlineStart={isMobile || !hasDisplayImage ? 3 : '21.5rem'}
         paddingInlineEnd={3}
@@ -106,6 +114,11 @@ const CardItem = ({ mappedValues, baseEntityCode, primaryColor, sbeCode }) => {
         position={'relative'}
         cursor={'pointer'}
         minH={!isMobile && !!hasDisplayImage ? '18.5rem' : 'inherit'}
+        _hover={{
+          bg: isLojing ? 'lojing.gradient100' : 'white',
+          borderColor: isLojing ? 'transparent' : primaryColor,
+          color: isLojing ? 'white' : primaryColor,
+        }}
       >
         {!!hasDisplayImage && (
           <Box
@@ -128,13 +141,14 @@ const CardItem = ({ mappedValues, baseEntityCode, primaryColor, sbeCode }) => {
           </Box>
         )}
 
-        {!!createdDate && !isAgentOrAdmin ? (
+        {!!createdDate && !isAgentOrAdmin && (
           <HStack
             position={isMobile ? 'static' : 'absolute'}
             top={8}
             right={3}
             marginBlock={isMobile ? 3 : 0}
             alignItems={'center'}
+            display={'none'}
           >
             <HStack
               fontSize={'sm'}
@@ -150,32 +164,23 @@ const CardItem = ({ mappedValues, baseEntityCode, primaryColor, sbeCode }) => {
 
             <TableActionMenu />
           </HStack>
-        ) : (
-          <HStack
-            position={isMobile ? 'static' : 'absolute'}
-            top={8}
-            right={3}
-            marginBlock={isMobile ? 3 : 0}
-            alignItems={'center'}
-          >
-            <HStack
-              fontSize={'sm'}
-              borderBottom={`1px solid `}
-              borderBottomColor={primaryColor}
-              w={'fit-content'}
-              marginInlineEnd={4}
-            >
-              <FavouriteComponent
-                starred={isStarred}
-                sourceCode={userCode}
-                targetCode={baseEntityCode}
-                showLabel={true}
-              />
-            </HStack>
-
-            <TableActionMenu />
-          </HStack>
         )}
+
+        <HStack
+          position={isMobile ? 'static' : 'absolute'}
+          top={8}
+          right={3}
+          marginBlock={isMobile ? 3 : 0}
+          alignItems={'center'}
+        >
+          <FavouriteComponent
+            starred={isStarred}
+            sourceCode={userCode}
+            targetCode={baseEntityCode}
+            showLabel={true}
+          />
+          {!!isAgentOrAdmin && <TableActionMenu />}
+        </HStack>
 
         <Box mt={isMobile ? 3 : 16} onClick={handleDetailView}>
           <Text fontSize={'1.13rem'} fontWeight={'700'} mb={'.75rem'}>
@@ -240,6 +245,9 @@ const CardItem = ({ mappedValues, baseEntityCode, primaryColor, sbeCode }) => {
               borderRadius={'full'}
               display={'inline-flex'}
               fontSize={'sm'}
+              _groupHover={{
+                color: primaryColor,
+              }}
             >
               {`$${rentalAmt} / ${rentalFreq}`}
             </Text>

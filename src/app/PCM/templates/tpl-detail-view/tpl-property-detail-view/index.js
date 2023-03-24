@@ -10,12 +10,12 @@ import MapView from 'app/layouts/map_view'
 import { format } from 'date-fns'
 import { useSelector } from 'react-redux'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined'
+import { isObject } from 'utils/helpers/is-type'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { useIsMobile } from 'utils/hooks'
 import FavouriteComponent from '../../template-components/favourite-component'
 import useGetDetailData from '../get-detail-data'
 import AmenityField from './amenity-field'
-import { isObject } from 'utils/helpers/is-type'
 
 const TemplatePropertyDetailView = ({ mappedPcm }) => {
   const { baseEntityCode, fields } = useGetDetailData(mappedPcm)
@@ -179,7 +179,7 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
             ))}
           </Wrap>
         </VStack>
-        <VStack w={'min(100%, 25rem)'} spacing={0}>
+        <VStack w={'min(100%, 30rem)'} spacing={0}>
           <Box
             width={'100%'}
             padding={5}
