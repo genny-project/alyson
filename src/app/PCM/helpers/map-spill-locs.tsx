@@ -1,4 +1,5 @@
 import { append, forEach, keys, sort } from 'ramda'
+import sortPriLocs from 'app/PCM/helpers/sort-pri-locs'
 
 /**
  * `spillLocs` - A mapped PCM object defined like `{PRI_LOC1:PCM_SIDEBAR,...}` <br/>
@@ -14,7 +15,7 @@ const mapSpillLocs = (fn: (loc: string) => JSX.Element) => (spillLocs: { [x: str
         out = append(fn(spillLocs[x])!, out)
       }
     },
-    sort((a: string, b: string) => a.localeCompare(b), keys(spillLocs) as string[]),
+    sort((a: string, b: string) => sortPriLocs(a)(b), keys(spillLocs) as string[]),
   )
 
   return out
