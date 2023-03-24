@@ -152,26 +152,26 @@ const DropZone = ({
           borderRadius={4}
           position="relative"
           key={`${preview}-${idx}`}
-          templateColumns={'5rem 1fr'}
+          templateColumns={'repeat(auto-fit, minmax(5rem, 25rem))'}
           gap={'.5rem'}
-          placeItems={'center'}
+          placeContent={'baseline'}
         >
           <AspectRatio
             bg={'#f4f5f5'}
             border={'1px solid #f7f7f7'}
-            height={'3rem'}
+            height={'4.5rem'}
             borderRadius={4}
-            width={'5rem'}
+            width={'11rem'}
             overflow={'hidden'}
           >
             <Image src={preview} alt={`Thumb ${name}`} />
           </AspectRatio>
 
           <Box flex={1} paddingInlineEnd={3}>
-            <Text noOfLines={1} fontSize={'sm'} fontWeight={'500'}>
+            <Text noOfLines={2} fontSize={'sm'} fontWeight={'500'}>
               {name}
             </Text>
-            <Text fontSize={'sm'}>{`${fileType[0]} | ${fileSizeRounded} | ${fileType[1]}`}</Text>
+            <Text fontSize={'xs'}>{`${fileType[0]} | ${fileSizeRounded} | ${fileType[1]}`}</Text>
           </Box>
 
           <Text
@@ -209,7 +209,9 @@ const DropZone = ({
           mt="2"
           alignSelf="flex-end"
           onClick={() => closeDropzone()}
-        >{`Close`}</Button>
+        >
+          {`Close`}
+        </Button>
       </Tooltip>
       <Box
         w="100%"
@@ -252,7 +254,6 @@ const DropZone = ({
                 >
                   <FontAwesomeIcon
                     icon={faCloudUploadAlt}
-                    size={80}
                     color={'inherit'}
                     style={{
                       width: 80,
@@ -291,7 +292,7 @@ const DropZone = ({
             <Grid
               mb={4}
               gap={3}
-              templateColumns={preview.length === 1 ? '1fr' : 'repeat(auto-fit, 100px)'}
+              templateColumns={preview.length === 1 ? '1fr' : 'repeat(auto-fit, 175px)'}
             >
               {preview}
             </Grid>
