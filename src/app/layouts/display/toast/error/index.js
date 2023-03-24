@@ -3,43 +3,40 @@ import { Iconly } from 'react-iconly'
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { selectToast } from 'redux/app/selectors'
-
-const status = 'error'
-const description = 'Error alert'
-const bgColor = '#F3E6EE'
-const borderColor = '#EA5024'
-const icon = 'Danger'
-const iconColor = '#D8201E'
+import { includes } from 'ramda'
 
 const ErrorToast = props => {
   const { onClick } = props
 
   const toast = useToast()
   const newToast = useSelector(selectToast)
+  const status = newToast?.code
+  const description = newToast?.message
 
   useEffect(() => {
-    if (newToast)
+    if (newToast && includes(status, 'ERROR'))
       toast({
         duration: 5000,
-        status,
+        status: status,
+        position: 'top-right',
         render: () => (
           <HStack
             paddingBlock={'5'}
             paddingInline={'10'}
             borderWidth={'1px'}
-            borderColor={borderColor}
+            borderColor={'#EA5024'}
             borderRadius={'2.5rem'}
             color={'black'}
-            bg={bgColor}
+            bg={'#F3E6EE'}
             justifyContent="space-between"
           >
             <HStack>
               <Iconly
-                name={icon}
+                name={'Danger'}
                 size={'large'}
                 set={'bulk'}
                 primaryColor={'white'}
-                secondaryColor={iconColor}
+                secondaryColor={'#D8201E'}
               />
               <Text fontSize={'16px'}>{description}</Text>
             </HStack>
@@ -47,7 +44,7 @@ const ErrorToast = props => {
               name={'CloseSquare'}
               set={'two-tone'}
               primaryColor={'rgba(255,255,255,0'}
-              secondaryColor={iconColor}
+              secondaryColor={'#D8201E'}
               onClick={onClick}
               cursor={'pointer'}
             />
