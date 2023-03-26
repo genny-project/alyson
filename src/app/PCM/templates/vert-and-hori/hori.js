@@ -19,7 +19,7 @@ const hori = mappingFunction => (mappedPcm, depth, config) => {
     <Stack
       spacing={isMobile ? 1 : 5}
       direction={isMobile && !isPCMEvents ? 'column' : 'row'}
-      w={isPCMEvents && !isInternmatch ? askWidth : 'min(100%,52rem)'}
+      w={!isInternmatch ? askWidth : 'min(100%,52rem)'}
       justifySelf={'flex-start'}
       justifyItems={tplHoriJustify}
       alignItems={isFormsPcm ? 'flex-end' : 'flex-start'}
