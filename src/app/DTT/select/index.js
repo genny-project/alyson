@@ -21,11 +21,11 @@ import useGetFieldMessage from 'utils/fieldMessage'
 import { isNotStringifiedEmptyArray } from 'utils/functionals'
 import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
 import useGetProductName from 'utils/helpers/get-product-name'
+import { isArray } from 'utils/helpers/is-type'
 import useProductColors from 'utils/productColors'
 import { onSendMessage } from 'vertx'
 import { getValue } from './get-value'
 import mapOptions from './map-options'
-import { isArray } from 'utils/helpers/is-type'
 
 const Write = ({
   questionCode,
@@ -38,6 +38,7 @@ const Write = ({
   parentCode,
   attributeCode,
   mandatory,
+  config,
 }) => {
   const realm = useGetProductName().toLowerCase()
   const isProductInternMatch = useIsProductInternmatch()
@@ -77,6 +78,9 @@ const Write = ({
   const hasValidData = not(equals(value.length, 0))
 
   const { inputStyles, labelStyles } = useStyles(hasValidData, isFocused, labelRef)
+  let customBgColor = config?.customBgColor || ''
+  let { bg: productBasedBgColor, ...rest } = inputStyles
+  let bgColor = customBgColor || productBasedBgColor
 
   const ddEvent = debounce(
     value =>
@@ -228,7 +232,8 @@ const Write = ({
             ...provided,
             paddingInline: '0.5rem',
             paddingBlock: '0.5rem',
-            ...inputStyles,
+            ...rest,
+            bg: bgColor,
           }),
           menu: provided => ({
             ...provided,

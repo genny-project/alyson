@@ -12,18 +12,18 @@ import {
   PopoverTrigger,
   Portal,
   Text,
-  VStack,
   useDisclosure,
+  VStack,
 } from '@chakra-ui/react'
+import { equals, not } from 'ramda'
 
-import AddressPicker from './address_picker'
-import Card from 'app/layouts/components/card'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import HeroIconButton from 'app/layouts/components/hero_icon_button'
-import StreetView from './street_view'
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
-import { not } from 'ramda'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Card from 'app/layouts/components/card'
+import HeroIconButton from 'app/layouts/components/hero_icon_button'
+import AddressPicker from './address_picker'
 import RepeatableAddressPicker from './address_picker/repeatable-picker'
+import StreetView from './street_view'
 
 const Write = ({
   questionCode,
@@ -64,9 +64,25 @@ const Write = ({
   }
 }
 
-const Read = ({ data, config = {} }) => {
+const Read = ({ parentCode, data, config = {} }) => {
   const { isOpen, onToggle } = useDisclosure({ defaultIsOpen: false })
   const { hideIcon } = config
+
+  const isSubmitFormField = equals(parentCode, 'QUE_SUBMIT_APPLICATION')
+
+  const submitFormFieldStyles = {
+    bg: 'white',
+    w: 'full',
+    paddingBlock: '.25remß',
+    paddingInline: 6,
+    fontWeight: 400,
+    fontSize: 'sm',
+    height: 'auto',
+    borderRadius: 'calc(0.25rem - 1px)',
+    margin: '.5rem 0 1rem  !important',
+  }
+
+  const styles = isSubmitFormField ? submitFormFieldStyles : {}
 
   if (!data?.value) return null
 
@@ -85,7 +101,7 @@ const Read = ({ data, config = {} }) => {
   ) : hideIcon ? (
     <Text minW="8rem">{data.value}</Text>
   ) : (
-    <HStack>
+    <HStack {...styles}>
       <Popover isLazy>
         <PopoverTrigger>
           <>

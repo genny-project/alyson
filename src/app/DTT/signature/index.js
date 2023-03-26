@@ -1,14 +1,16 @@
 import { Badge, Box, IconButton, Input, Text, VStack } from '@chakra-ui/react'
 import { useEffect, useRef, useState } from 'react'
 
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import SignatureCanvas from 'react-signature-canvas'
-import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
+import { useIsMobile } from 'utils/hooks'
 
 const Write = ({ questionCode, data, onSendAnswer }) => {
   const signatureRef = useRef(null)
   const canvasRef = useRef(null)
   const [text, setText] = useState('')
+  const isMobile = useIsMobile()
 
   const handleClear = () => {
     setText('')
@@ -51,7 +53,7 @@ const Write = ({ questionCode, data, onSendAnswer }) => {
           const canvas = canvasRef.current
           onSendAnswer(canvas.toDataURL())
         }}
-        w="500px"
+        w="min(100%, 25rem)"
         value={text}
         test-id={`${questionCode}-text`}
         onChange={e => setText(e.target.value)}
@@ -73,7 +75,7 @@ const Write = ({ questionCode, data, onSendAnswer }) => {
           ref={ref => (signatureRef.current = ref)}
           onEnd={() => onSendAnswer(signatureRef.current.toDataURL())}
           canvasProps={{
-            width: '500',
+            width: '300',
             height: '200',
             allowTain: true,
           }}

@@ -1,10 +1,10 @@
 import Ask from 'app/ASKS/ask'
-import { selectCode } from 'redux/db/selectors'
-import { useSelector } from 'react-redux'
-import { equals } from 'ramda'
 import AskGroup from 'app/PCM/templates/tpl-form/ask-group'
+import { equals } from 'ramda'
+import { useSelector } from 'react-redux'
+import { selectCode } from 'redux/db/selectors'
 
-const FormAsk = ({ parentCode, questionCode, level, properties, first = false }) => {
+const FormAsk = ({ parentCode, questionCode, level, properties, first = false, config }) => {
   const attributeCode = useSelector(selectCode(questionCode, 'attributeCode'))
   const targetCode = useSelector(selectCode(questionCode, 'targetCode'))
 
@@ -17,6 +17,8 @@ const FormAsk = ({ parentCode, questionCode, level, properties, first = false })
         first={first}
         targetCode={targetCode}
         properties={properties}
+        config={config}
+        parentCode={parentCode}
       />
     )
   } else {
@@ -27,6 +29,7 @@ const FormAsk = ({ parentCode, questionCode, level, properties, first = false })
         key={`${parentCode}-${questionCode}`}
         passedTargetCode={targetCode}
         properties={properties}
+        config={config}
       />
     )
   }

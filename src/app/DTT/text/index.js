@@ -19,6 +19,7 @@ import DetailViewTags from 'app/DTT/text/detailview_tags'
 import AnswerAcknowledge from 'app/layouts/components/form/answer_acknowledge'
 import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
 import debounce from 'lodash.debounce'
+import { equals } from 'ramda'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import { useError } from 'utils/contexts/ErrorContext'
@@ -234,8 +235,25 @@ export const Write = ({
   )
 }
 
-export const Read = ({ data, config = {}, hasIndicatorIcon }) => {
+export const Read = ({ data, config = {}, hasIndicatorIcon, parentCode }) => {
   const { detailViewTags } = config
+  const isSubmitFormField = equals(parentCode, 'QUE_SUBMIT_APPLICATION')
+
+  console.log(isSubmitFormField)
+
+  const submitFormFieldStyles = {
+    bg: 'white',
+    w: 'full',
+    paddingBlock: 3,
+    paddingInline: 6,
+    fontWeight: 400,
+    fontSize: 'sm',
+    height: 'auto',
+    borderRadius: 'calc(0.25rem - 1px)',
+    margin: '.5rem 0 1rem  !important',
+  }
+
+  const styles = isSubmitFormField ? submitFormFieldStyles : {}
 
   if (detailViewTags) {
     return <DetailViewTags data={data} />
@@ -249,7 +267,11 @@ export const Read = ({ data, config = {}, hasIndicatorIcon }) => {
     )
   }
 
-  return <ChakraText {...config}>{data?.value || config.defaultValue}</ChakraText>
+  return (
+    <ChakraText {...styles} {...config}>
+      {data?.value || config.defaultValue}
+    </ChakraText>
+  )
 }
 
 const Text = {

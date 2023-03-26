@@ -94,7 +94,7 @@ const tableHeaderMargins = {
 }
 
 const askWidths = {
-  lojing: 'max(25rem, 30vw)',
+  lojing: 'min(100%, 25rem)',
   alyson: 'min(100%, 25rem)',
 }
 

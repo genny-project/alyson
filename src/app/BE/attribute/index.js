@@ -68,7 +68,13 @@ const Attribute = ({
   ) : component === 'phone' ? (
     <Phone.Read data={data} size={size} />
   ) : component === 'text' ? (
-    <Text.Read size={size} data={data} config={config} hasIndicatorIcon={hasIndicatorIcon} />
+    <Text.Read
+      parentCode={parentCode}
+      size={size}
+      data={data}
+      config={config}
+      hasIndicatorIcon={hasIndicatorIcon}
+    />
   ) : component === 'textarea' ? (
     <TextArea.Read size={size} data={data} config={config} />
   ) : component === 'upload' || component === 'multi_upload' ? (
@@ -98,7 +104,7 @@ const Attribute = ({
   ) : component === 'video' ? (
     <Video.Read mini={mini} dataType={dttData} data={data} styles={styles} config={config} />
   ) : component === 'address' ? (
-    <Address.Read data={data} config={config} />
+    <Address.Read data={data} config={config} parentCode={parentCode} />
   ) : component === 'abn_number' ? (
     <ABN.Read data={data} />
   ) : component === 'link' ? (
