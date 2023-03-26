@@ -6,12 +6,10 @@ import { selectToast } from 'redux/app/selectors'
 import { includes } from 'ramda'
 
 const InfoToast = props => {
-  const { onClick } = props
+  const { onClick, status, description } = props
 
   const toast = useToast()
   const newToast = useSelector(selectToast)
-  const status = newToast?.code
-  const description = newToast?.message
 
   useEffect(() => {
     if (newToast && includes(status, 'INFO'))
