@@ -26,6 +26,7 @@ import { selectCode } from 'redux/db/selectors'
 import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
 import { useIsMobile } from 'utils/hooks'
 import useProductColors from 'utils/productColors'
+import { useEffect, useState } from 'react'
 
 const DataTable = ({ parentCode, mapSearch, passedComponents = [], userCode }) => {
   const {
@@ -42,13 +43,26 @@ const DataTable = ({ parentCode, mapSearch, passedComponents = [], userCode }) =
   const bgColor = useColorModeValue(tableBackgroundLightColor, tableBackgroundDarkColor)
   const isMobile = useIsMobile()
   const theme = useTheme()
+  const [isLoading, setIsLoading] = useState(true)
 
-  if (!tableData)
-    return (
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false)
+    }, 5000)
+    return () => clearTimeout(timer)
+  }, [])
+
+  if (!tableData) {
+    return isLoading ? (
       <Center>
         <CircularProgress isIndeterminate />
       </Center>
+    ) : (
+      <Text pt={5} px={10}>
+        {'No data found.'}
+      </Text>
     )
+  }
 
   const columns = getColumns(tableData)
   const actions = getActions(tableData)
