@@ -52,10 +52,6 @@ export const Write = ({
   const realm = productName.toLowerCase()
   const isProductInternMatch = useIsProductInternmatch()
 
-  const formatChars = {
-    0: '[0123456789]',
-  }
-
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value || '')
   const [isFocused, setIsFocused] = useState(false)
@@ -126,7 +122,7 @@ export const Write = ({
   }, [userInput])
 
   const hasValidData = userInput && !isInvalid
-  const { inputStyles, labelStyles, inputGroupStyles } = useStyles(
+  const { inputStyles, labelStyles, inputGroupStyles, maskFormatChars } = useStyles(
     hasValidData,
     isFocused,
     isInvalid,
@@ -181,7 +177,7 @@ export const Write = ({
           <Input
             isInvalid={isInvalid}
             test-id={questionCode}
-            formatChars={formatChars}
+            formatChars={maskFormatChars}
             maskChar={null}
             id={questionCode}
             ref={inputRef}
@@ -208,7 +204,7 @@ export const Write = ({
           test-id={questionCode}
           as={InputMask}
           mask={inputmask}
-          formatChars={formatChars}
+          formatChars={maskFormatChars}
           maskChar={null}
           id={questionCode}
           ref={inputRef}

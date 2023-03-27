@@ -16,6 +16,13 @@ const useStyles = (hasValidData, isFocused, isInvalid = false) => {
     fieldTextColor,
   } = useProductColors()
 
+  const maskFormatChars = {
+    P: '[+0-9]',
+    0: '[0-9]',
+    a: '[A-Za-z]',
+    '*': '[A-Za-z0-9]',
+  }
+
   const inputGroupStyles = {
     w: 'full',
     h: 'auto',
@@ -135,7 +142,7 @@ const useStyles = (hasValidData, isFocused, isInvalid = false) => {
     transition: 'all 0.25s ease',
   }
 
-  return { inputStyles, labelStyles, inputGroupStyles }
+  return { inputStyles, labelStyles, inputGroupStyles, maskFormatChars }
 }
 
 export default useStyles

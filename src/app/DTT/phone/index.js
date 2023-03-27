@@ -54,10 +54,6 @@ const Write = ({
   inputmask,
 }) => {
   let regex
-  const formatChars = {
-    P: '[+0123456789]',
-    0: '[0123456789]',
-  }
   const mask = inputmask ?? `P00000000000`
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value || '')
@@ -94,7 +90,7 @@ const Write = ({
   let countryFlagFromUserInput = !!icon ? icon : ''
 
   const hasValidData = userInput && !isInvalid
-  const { inputStyles, labelStyles } = useStyles(hasValidData, isFocused)
+  const { inputStyles, labelStyles, maskFormatChars } = useStyles(hasValidData, isFocused)
 
   const onBlur = e => {
     e.target.value ? setIsFocused(true) : setIsFocused(false)
@@ -216,7 +212,7 @@ const Write = ({
         <Input
           as={InputMask}
           mask={mask}
-          formatChars={formatChars}
+          formatChars={maskFormatChars}
           maskChar={null}
           test-id={questionCode}
           id={questionCode}
