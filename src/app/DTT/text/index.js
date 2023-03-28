@@ -15,11 +15,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import useClearFieldMessage from 'app/DTT/helpers/clear-field-message'
 import ErrorDisplay from 'app/DTT/helpers/error-display'
+import useStyles from 'app/DTT/inputStyles'
 import DetailViewTags from 'app/DTT/text/detailview_tags'
 import AnswerAcknowledge from 'app/layouts/components/form/answer_acknowledge'
 import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
 import debounce from 'lodash.debounce'
 import { equals } from 'ramda'
+import InputMask from 'react-input-mask'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import { useError } from 'utils/contexts/ErrorContext'
@@ -31,8 +33,6 @@ import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
 import useGetProductName from 'utils/helpers/get-product-name'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined'
 import useProductColors from 'utils/productColors'
-import useStyles from 'app/DTT/inputStyles'
-import InputMask from 'react-input-mask'
 
 export const Write = ({
   questionCode,
@@ -234,8 +234,6 @@ export const Write = ({
 export const Read = ({ data, config = {}, hasIndicatorIcon, parentCode }) => {
   const { detailViewTags } = config
   const isSubmitFormField = equals(parentCode, 'QUE_SUBMIT_APPLICATION')
-
-  console.log(isSubmitFormField)
 
   const submitFormFieldStyles = {
     bg: 'white',
