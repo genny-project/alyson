@@ -43,7 +43,10 @@ const TemplateSubmitApplication = ({ mappedPcm, depth, ...rest }) => {
           parentCode={applicationQuestionCode}
           level={0}
           properties={rest}
-          config={{ customBgColor: 'white' }}
+          config={{
+            customBgColor: 'white',
+            submitApplication: true,
+          }}
         />
       </Box>
 
@@ -76,6 +79,7 @@ const TemplateSubmitApplication = ({ mappedPcm, depth, ...rest }) => {
           parentCode={signatureQuestionCode}
           level={0}
           properties={rest}
+          config={{ customBgColor: '#f4f5f6' }}
         />
 
         <FormAsk

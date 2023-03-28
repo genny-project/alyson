@@ -139,6 +139,7 @@ const Write = ({
   let customBgColor = config?.customBgColor || ''
   let { bg: productBasedBgColor, ...rest } = inputStyles
   let bgColor = customBgColor || productBasedBgColor
+  let isSubmitApplicationForm = config?.submitApplication || false
 
   useEffect(() => {
     isInvalid ? setErrorStatus(true) : setErrorStatus(false)
@@ -198,6 +199,7 @@ const Write = ({
         paddingInlineEnd={6}
         {...rest}
         bg={bgColor}
+        marginBlockEnd={isSubmitApplicationForm ? '1rem' : 0}
       />
 
       {isProductInternMatch ? (
@@ -236,7 +238,7 @@ const Write = ({
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
       <HStack
         ref={labelRef}
-        paddingStart={isProductInternMatch ? 6 : 12}
+        paddingStart={isSubmitApplicationForm && isFocused ? 0 : isProductInternMatch ? 6 : 12}
         {...labelStyles}
         top={isFocused ? `calc(-${labelRef?.current?.clientHeight}px + .5rem)` : 0}
         h={'full'}
@@ -247,6 +249,7 @@ const Write = ({
             labelTextColor={isProductInternMatch ? `${realm}.primary` : labelTextColor}
             realm={realm}
             mandatory={mandatory}
+            isSubmitApplicationForm={isSubmitApplicationForm}
           />
         )}
 

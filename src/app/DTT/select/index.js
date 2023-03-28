@@ -82,6 +82,8 @@ const Write = ({
   let { bg: productBasedBgColor, ...rest } = inputStyles
   let bgColor = customBgColor || productBasedBgColor
 
+  let isSubmitApplicationForm = config?.submitApplication || false
+
   const ddEvent = debounce(
     value =>
       onSendMessage(
@@ -167,7 +169,7 @@ const Write = ({
     <Box position={'relative'} mt={isFocused ? 6 : 0} transition="all 0.25s ease">
       <HStack
         ref={labelRef}
-        paddingStart={6}
+        paddingStart={isSubmitApplicationForm && isFocused ? 0 : 6}
         {...labelStyles}
         h={'full'}
         top={isFocused ? `calc(-${labelHeight}px + .5rem)` : 0}
@@ -178,6 +180,7 @@ const Write = ({
             labelTextColor={isProductInternMatch ? `${realm}.primary` : labelTextColor}
             realm={realm}
             mandatory={mandatory}
+            isSubmitApplicationForm={isSubmitApplicationForm}
           />
         )}
 
@@ -227,6 +230,7 @@ const Write = ({
             w: 'full',
             //Minimum width for the save search fields
             minW: 24,
+            marginBlockEnd: isSubmitApplicationForm ? '1rem' : 0,
           }),
           control: provided => ({
             ...provided,

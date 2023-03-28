@@ -1,15 +1,27 @@
 import { Text } from '@chakra-ui/react'
 import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
 
-const MandatorySymbol = ({ placeholderName, mandatory, labelTextColor, realm }) => {
+const MandatorySymbol = ({
+  placeholderName,
+  mandatory,
+  labelTextColor,
+  realm,
+  isSubmitApplicationForm = false,
+}) => {
   const isProductInternMatch = useIsProductInternmatch()
   return (
     placeholderName && (
       <Text
         as="label"
-        fontSize={'sm'}
-        fontWeight={'normal'}
-        color={isProductInternMatch ? `${realm}.primary` : labelTextColor}
+        fontSize={isSubmitApplicationForm ? 'md' : 'sm'}
+        fontWeight={isSubmitApplicationForm ? '700' : 'normal'}
+        color={
+          isSubmitApplicationForm
+            ? 'gray.800'
+            : isProductInternMatch
+            ? `${realm}.primary`
+            : labelTextColor
+        }
         textStyle={!!isProductInternMatch && `${realm}.labelStyles`}
       >
         {placeholderName}
