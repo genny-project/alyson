@@ -244,7 +244,7 @@ export const Read = ({ data, config = {}, hasIndicatorIcon, parentCode }) => {
     fontSize: 'sm',
     height: 'auto',
     borderRadius: 'calc(0.25rem - 1px)',
-    margin: '.5rem 0 1rem  !important',
+    margin: '.5rem 0 1rem !important',
   }
 
   const styles = isSubmitFormField ? submitFormFieldStyles : {}

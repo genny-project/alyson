@@ -6,11 +6,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import SignatureCanvas from 'react-signature-canvas'
 import { useIsMobile } from 'utils/hooks'
 
-const Write = ({ questionCode, data, onSendAnswer }) => {
+const Write = ({ questionCode, data, onSendAnswer, config }) => {
   const signatureRef = useRef(null)
   const canvasRef = useRef(null)
   const [text, setText] = useState('')
   const isMobile = useIsMobile()
+
+  let bgColor = config?.customBgColor || 'transparent'
 
   const handleClear = () => {
     setText('')
@@ -62,7 +64,7 @@ const Write = ({ questionCode, data, onSendAnswer }) => {
       <Box hidden={!text} boxShadow="md">
         <canvas ref={canvasRef} width="500" height="200" />
       </Box>
-      <Box hidden={!!text} boxShadow="md">
+      <Box hidden={!!text} boxShadow="md" bg={bgColor}>
         <IconButton
           position="absolute"
           variant="unstyled"

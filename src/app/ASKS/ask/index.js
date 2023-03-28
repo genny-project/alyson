@@ -591,6 +591,7 @@ const Ask = ({
           attributeCode={attributeCode}
           targetCode={targetCode}
           clientId={clientId}
+          config={config}
         />
       )}
       {component === 'link' && (
