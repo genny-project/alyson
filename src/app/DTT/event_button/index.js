@@ -1,4 +1,4 @@
-import { Button, useTheme } from '@chakra-ui/react'
+import { Button, CircularProgress, useTheme } from '@chakra-ui/react'
 import { equals, includes } from 'ramda'
 
 import isSubmitButton from 'app/DTT/event_button/helpers/is-submit.js'
@@ -7,6 +7,7 @@ import useGetProductName from 'utils/helpers/get-product-name'
 import useProductColors from 'utils/productColors'
 import { onSendMessage } from 'vertx'
 import Submit from './Submit'
+import { isNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined'
 
 const EventButton = ({ askData, onFinish, parentCode, sourceCode, config }) => {
   const { questionCode, targetCode, name, disabled, processId, attributeCode } = askData
@@ -17,6 +18,10 @@ const EventButton = ({ askData, onFinish, parentCode, sourceCode, config }) => {
   const isProductIM = equals(productName, internmatch)
 
   const { buttonBackgroundColor } = useProductColors()
+
+  if (isNullOrUndefinedOrEmpty(questionCode)) {
+    return <CircularProgress isIndeterminate />
+  }
 
   const buttonVariant = includes('_PREVIOUS', questionCode) ? 'outline' : 'solid'
   const isOutlineButton = equals(buttonVariant, 'outline')
