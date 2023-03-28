@@ -191,7 +191,7 @@ const Write = ({
       </HStack>
 
       <CSelect
-        // menuIsOpen={false}
+        // menuIsOpen
         useBasicStyles
         isMulti={isMulti}
         options={options}
@@ -238,7 +238,7 @@ const Write = ({
           menu: provided => ({
             ...provided,
             marginBlock: 0,
-            paddingBlock: isProductInternMatch ? 0 : 3,
+            paddingBlock: 0,
             border: 0,
             borderRadius: '0.25rem 0.25rem 1.25rem 1.25rem',
             boxShadow: '0px 4px 15px -2px rgba(0, 0, 0, 0.25)',
