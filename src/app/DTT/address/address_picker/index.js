@@ -13,6 +13,7 @@ import { isNotStringifiedEmptyArray } from 'utils/functionals'
 import useGetProductName from 'utils/helpers/get-product-name'
 import isJson from 'utils/helpers/is-json'
 import useProductColors from 'utils/productColors'
+import makeAddressData from './make-address-data'
 
 const AddressPicker = ({
   onSendAnswer,
@@ -69,7 +70,7 @@ const AddressPicker = ({
       setIsInputValidated(true)
       setHasError(false)
       setuserInput(place?.formatted_address)
-      onSendAnswer(place?.formatted_address)
+      onSendAnswer(makeAddressData(place ?? {}))
       dispatchFieldMessage({ payload: questionCode })
     }
   }

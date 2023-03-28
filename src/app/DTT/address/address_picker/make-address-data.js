@@ -21,6 +21,9 @@ const convertTypes = {
   administrative_area_level_2: 'suburb',
   administrative_area_level_1: 'state',
   locality: 'suburb',
+  sublocality_level_1: 'suburb',
+  sublocality: 'suburb',
+  neighborhood: 'suburb',
   country: 'country',
   postal_code: 'postal_code',
 }
@@ -28,22 +31,22 @@ const convertTypes = {
 const makeType = types => convertTypes[head(types)]
 
 const addMetaData = data => (addressObject = {}) => ({
-  ...path([0, 'access_points', 0, 'location'], data),
+  ...path(['access_points', 0, 'location'], data),
   ...{
-    full_address: path([0, 'formatted_address'], data),
+    full_address: prop('formatted_address')(data) || '',
     street_address: compose(
       head,
       split(','),
       either(identity, always('')),
-      path([0, 'formatted_address']),
+      prop('formatted_address'),
     )(data),
   },
   ...{
-    latitude: isFunction(path([0, 'geometry', 'location', 'lat'], data))
-      ? path([0, 'geometry', 'location', 'lat'], data)()
+    latitude: isFunction(path(['geometry', 'location', 'lat'], data))
+      ? path(['geometry', 'location', 'lat'], data)()
       : 0,
-    longitude: isFunction(path([0, 'geometry', 'location', 'lng'], data))
-      ? path([0, 'geometry', 'location', 'lng'], data)()
+    longitude: isFunction(path(['geometry', 'location', 'lng'], data))
+      ? path(['geometry', 'location', 'lng'], data)()
       : 0,
   },
   ...addressObject,
@@ -57,7 +60,6 @@ const makeAddressData = data =>
     map(({ long_name, types }) => ({ [makeType(types)]: long_name })),
     either(identity, always([])),
     prop('address_components'),
-    head,
   )(data)
 
 export default makeAddressData
