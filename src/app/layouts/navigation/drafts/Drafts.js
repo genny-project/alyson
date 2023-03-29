@@ -1,5 +1,7 @@
 import { Box, Center, HStack, Text, VStack } from '@chakra-ui/layout'
 import { Menu, MenuButton, MenuList } from '@chakra-ui/menu'
+import { compose, equals, includes } from 'ramda'
+import { selectCode, selectCodeUnary } from 'redux/db/selectors'
 import { useGetLabel, useIsMobile } from 'utils/hooks'
 
 import { useTheme } from '@chakra-ui/react'
@@ -7,10 +9,8 @@ import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import Draft from 'app/layouts/navigation/drafts/Draft'
-import { equals } from 'ramda'
 import { Iconly } from 'react-iconly'
 import { useSelector } from 'react-redux'
-import { selectCode } from 'redux/db/selectors'
 import { useIsProductLojing } from 'utils/helpers/check-product-name'
 import getUserType from 'utils/helpers/get-user-type'
 import icons from 'utils/icons'
@@ -19,9 +19,15 @@ const Drafts = ({ code: DRAFT_GROUP, textColor }) => {
   const theme = useTheme()
   const userCode = useSelector(selectCode('USER'))
   const userType = getUserType(useSelector(selectCode(userCode)))
+  const userRole = useSelector(selectCode(userCode, 'LNK_ROLE'))?.value || ''
+  const isTenant = includes('_TENANT', userRole)
+
   const drafts = (useSelector(selectCode(DRAFT_GROUP)) || []).filter(
     code => code.indexOf('TASK') !== -1,
   )
+
+  let draftsWholeData = compose(useSelector, selectCodeUnary(DRAFT_GROUP))('wholeData')
+
   const label = useGetLabel(DRAFT_GROUP)
 
   const iconColor = useGetAttributeFromProjectBaseEntity('PRI_COLOR')?.valueString || '#234371'
@@ -84,9 +90,13 @@ const Drafts = ({ code: DRAFT_GROUP, textColor }) => {
         </MenuButton>
 
         <MenuList>
-          {drafts.reverse().map(draft => (
-            <Draft key={draft} parentCode={DRAFT_GROUP} code={draft} />
-          ))}
+          {!!isTenant
+            ? draftsWholeData.map(draft => (
+                <Draft key={draft} parentCode={DRAFT_GROUP} code={draft?.question?.code || ''} />
+              ))
+            : drafts
+                .reverse()
+                .map(draft => <Draft key={draft} parentCode={DRAFT_GROUP} code={draft} />)}
         </MenuList>
       </Menu>
     </Box>
