@@ -14,6 +14,7 @@ import useGetProductName from 'utils/helpers/get-product-name'
 import isJson from 'utils/helpers/is-json'
 import useProductColors from 'utils/productColors'
 import makeAddressData from './make-address-data'
+import debugOut from 'utils/debug-out'
 
 const AddressPicker = ({
   onSendAnswer,
@@ -124,6 +125,7 @@ const AddressPicker = ({
         }
       }
     } catch (error) {
+      debugOut.error(error)
       console.log(
         'There was an error connecting to the Google API services, please try again later!',
       )

@@ -9,7 +9,7 @@ import Button from 'app/DTT/event_button'
 import MapView from 'app/layouts/map_view'
 import { format } from 'date-fns'
 import { useSelector } from 'react-redux'
-import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined'
+import { doubleBang, isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined'
 import { isObject } from 'utils/helpers/is-type'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { useIsMobile } from 'utils/hooks'
@@ -56,7 +56,12 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
   const state = compose(useSelector, selectCodeUnary(baseEntityCode))(stateCode)?.valueString || ''
 
   const amentities = filter(includes('PRI_NUMBER_OF_'))(fields) || []
-  const addressFull = useSelector(selectCode(baseEntityCode, 'PRI_ADDRESS_FULL'))?.valueString || ''
+  const addressFullJson =
+    useSelector(selectCode(baseEntityCode, 'PRI_ADDRESS_FULL'))?.valueString || ''
+  const addressFull = safelyParseJson(addressFullJson)
+  const addressSuburb = addressFull?.suburb
+  const addressState = addressFull?.state
+  const streetAddress = addressFull?.streetAddress
 
   const rooms = filter(includes('ROOM'))(fields) || []
 
@@ -78,9 +83,23 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
 
   //PRI_IMAGES is now used for the multi image display
   const imageCode = findCode('PRI_IMAGES') || findCode('PRI_IMAGE_URL')
+
   //Get suburb, state if both not null, otherwise just the one that isn't null
-  const location =
-    !!suburb && !!state ? `${suburb}, ${state}` : !!addressFull ? addressFull : suburb || state
+  const getLocation = () => {
+    let _suburb = suburb || addressSuburb
+    let _state = state || addressState
+    if (doubleBang(_suburb) && doubleBang(_state)) {
+      return `${suburb}, ${state}`
+    }
+    if (doubleBang(_suburb) || doubleBang(_state)) {
+      return _suburb || _state
+    }
+    if (doubleBang(streetAddress)) {
+      return streetAddress
+    }
+  }
+
+  const location = getLocation()
 
   const buttonConfig = {
     variant: 'solid',
