@@ -26,7 +26,7 @@ const Drafts = ({ code: DRAFT_GROUP, textColor }) => {
     code => code.indexOf('TASK') !== -1,
   )
 
-  let draftsWholeData = compose(useSelector, selectCodeUnary(DRAFT_GROUP))('wholeData')
+  let draftsWholeData = compose(useSelector, selectCodeUnary(DRAFT_GROUP))('wholeData') || []
 
   const label = useGetLabel(DRAFT_GROUP)
 
