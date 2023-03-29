@@ -1,10 +1,9 @@
 import { Button, Text } from '@chakra-ui/react'
 
-import { faStar } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import sendEvtClick from 'app/ASKS/utils/send-evt-click'
 import debounce from 'lodash.debounce'
 import { useState } from 'react'
+import { Iconly } from 'react-iconly'
 import stringify from 'utils/helpers/stringify'
 
 const FavouriteComponent = ({ starred, sourceCode, targetCode, showLabel }) => {
@@ -42,12 +41,7 @@ const FavouriteComponent = ({ starred, sourceCode, targetCode, showLabel }) => {
       _focusVisible={{ outline: 'none', bg: 'transparent' }}
       _hover={{ bg: 'transparent' }}
     >
-      <FontAwesomeIcon
-        position="absolute"
-        icon={faStar}
-        size="sm"
-        color={isStarred ? 'product.primary' : 'product.primary'}
-      />
+      <Iconly name="Star" set={isStarred ? 'bold' : 'two-tone'} />
       {!!showLabel && (
         <Text as="span" ml={2} borderBottom={'1px solid currentColor'}>
           {isStarred ? 'Remove from Favourite' : 'Add to Favourite'}
