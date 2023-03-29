@@ -1,17 +1,19 @@
 import { equals, includes } from 'ramda'
 
 import { Stack } from '@chakra-ui/react'
+import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
 import { useIsMobile } from 'utils/hooks'
 import useProductColors from 'utils/productColors'
-import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
 
 const hori = mappingFunction => (mappedPcm, depth, config) => {
   const isMobile = useIsMobile()
 
   const { tplHoriJustify, askWidth } = useProductColors()
-  const { PRI_NAME: pcmName, code: pcmCode } = mappedPcm
+  const { PRI_NAME: pcmName, code: pcmCode, parentCode } = mappedPcm
   const isPCMEvents = equals(pcmName, 'PCM Events')
   const isFormsPcm = includes('_FORM', pcmCode)
+
+  const isFullWidthForm = equals(parentCode, 'PCM_FORM_TENANT')
 
   const isInternmatch = useIsProductInternmatch()
 
@@ -19,12 +21,13 @@ const hori = mappingFunction => (mappedPcm, depth, config) => {
     <Stack
       spacing={isMobile ? 1 : 5}
       direction={isMobile && !isPCMEvents ? 'column' : 'row'}
-      w={!isInternmatch ? askWidth : 'min(100%,52rem)'}
+      w={isPCMEvents && !isInternmatch ? askWidth : isFullWidthForm ? 'full' : 'min(100%,52rem)'}
       justifySelf={'flex-start'}
       justifyItems={tplHoriJustify}
-      alignItems={isFormsPcm ? 'flex-end' : 'flex-start'}
+      alignItems={isFormsPcm && !equals(parentCode, 'PCM_FORM_TENANT') ? 'flex-end' : 'flex-start'}
+      _empty={{ display: 'none' }}
     >
-      {mappingFunction(mappedPcm, depth, isInternmatch, config ?? { config: { mt: 0 } })}
+      {mappingFunction(mappedPcm, depth, isInternmatch, config ?? { config: { mt: 0, bg: 'red' } })}
     </Stack>
   )
 }

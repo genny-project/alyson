@@ -22,6 +22,7 @@ const mapAll = (mappedPcm, depth, isInternmatch = false, config = {}) => {
       const isEvtSubmit = equals(attributeCode, 'EVT_SUBMIT')
       return (
         <Box
+          _empty={{ display: 'none' }}
           key={attributeCode}
           w={isEvtExploreProperties || isEvtGetPreApproved ? 'auto' : 'full'}
           textAlign={
@@ -45,6 +46,7 @@ const mapAll = (mappedPcm, depth, isInternmatch = false, config = {}) => {
   const mappedDefinedLocs = mapSpillLocs(loc => {
     return (
       <Box
+        _empty={{ display: 'none' }}
         key={loc}
         w={
           equals(loc, 'EVT_EXPLORE_PROPERTIES') || equals(loc, 'EVT_GET_PRE_APPROVED')
