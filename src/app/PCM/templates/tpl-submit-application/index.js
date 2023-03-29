@@ -1,9 +1,9 @@
 import { Box, Grid } from '@chakra-ui/react'
 
 import FormAsk from 'app/PCM/templates/tpl-form/form-ask'
-import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import { useIsMobile } from 'utils/hooks'
+import { useSelector } from 'react-redux'
 
 const TemplateSubmitApplication = ({ mappedPcm, depth, ...rest }) => {
   const isMobile = useIsMobile()
@@ -59,8 +59,9 @@ const TemplateSubmitApplication = ({ mappedPcm, depth, ...rest }) => {
         paddingInlineEnd={4}
         display={'flex'}
         justifyContent={'center'}
-        alignItems={'center'}
+        alignItems={isMobile ? 'flex-start' : 'center'}
         flexDirection={'column'}
+        isolation={'isolate'}
         _after={{
           content: '""',
           position: 'absolute',
@@ -79,7 +80,7 @@ const TemplateSubmitApplication = ({ mappedPcm, depth, ...rest }) => {
           parentCode={signatureQuestionCode}
           level={0}
           properties={rest}
-          config={{ customBgColor: '#f4f5f6' }}
+          config={{ customBgColor: '#f4f5f6', fontWeight: '700' }}
         />
 
         <FormAsk
