@@ -20,7 +20,7 @@ const EventButton = ({ askData, onFinish, parentCode, sourceCode, config }) => {
 
   const { buttonBackgroundColor } = useProductColors()
 
-  if (!doubleBang(questionCode) && !isString(questionCode)) {
+  if (!questionCode && !isString(questionCode)) {
     return null
   }
 
