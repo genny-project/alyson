@@ -1,9 +1,9 @@
 import { Badge, Box, IconButton, Input, Text, VStack } from '@chakra-ui/react'
 import { useEffect, useRef, useState } from 'react'
 
-import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import SignatureCanvas from 'react-signature-canvas'
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import { useIsMobile } from 'utils/hooks'
 
 const Write = ({ questionCode, data, onSendAnswer, config }) => {
@@ -13,6 +13,7 @@ const Write = ({ questionCode, data, onSendAnswer, config }) => {
   const isMobile = useIsMobile()
 
   let bgColor = config?.customBgColor || 'transparent'
+  let fontWeight = config?.fontWeight || 'normal'
 
   const handleClear = () => {
     setText('')
@@ -49,7 +50,9 @@ const Write = ({ questionCode, data, onSendAnswer, config }) => {
 
   return (
     <VStack>
-      <Text>Start typing your name, or draw on the pad</Text>
+      <Text textAlign={'left'} w={'full'} fontWeight={fontWeight}>
+        Start typing your name, or draw on the pad
+      </Text>
       <Input
         onBlur={() => {
           const canvas = canvasRef.current
@@ -64,7 +67,7 @@ const Write = ({ questionCode, data, onSendAnswer, config }) => {
       <Box hidden={!text} boxShadow="md">
         <canvas ref={canvasRef} width="500" height="200" />
       </Box>
-      <Box hidden={!!text} boxShadow="md" bg={bgColor}>
+      <Box hidden={!!text} boxShadow="md" bg={bgColor} w={'full'}>
         <IconButton
           position="absolute"
           variant="unstyled"
