@@ -64,7 +64,7 @@ const TemplateText = ({ mappedPcm, depth }) => {
   const fontColor = fontColors[mappedPcm.PRI_TEMPLATE_CODE] || ''
 
   return (
-    <Text fontSize={fontSize} fontWeight={fontWeight} fontColor={fontColor}>
+    <Text fontSize={fontSize} fontWeight={fontWeight} color={fontColor}>
       {mapText(mainString)(spillLocs)(attributeMap)}
     </Text>
   )
