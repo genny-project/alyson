@@ -27,7 +27,6 @@ const Drafts = ({ code: DRAFT_GROUP, textColor }) => {
   )
 
   let draftsWholeData = compose(useSelector, selectCodeUnary(DRAFT_GROUP))('wholeData') || []
-  console.log(draftsWholeData)
 
   const label = useGetLabel(DRAFT_GROUP)
 
