@@ -13,15 +13,19 @@ const hori = mappingFunction => (mappedPcm, depth, config) => {
   const isPCMEvents = equals(pcmName, 'PCM Events')
   const isFormsPcm = includes('_FORM', pcmCode)
 
-  const isFullWidthForm = equals(parentCode, 'PCM_FORM_TENANT')
-
   const isInternmatch = useIsProductInternmatch()
 
   return (
     <Stack
       spacing={isMobile ? 1 : 5}
       direction={isMobile && !isPCMEvents ? 'column' : 'row'}
-      w={isPCMEvents && !isInternmatch ? askWidth : isFullWidthForm ? 'full' : 'min(100%,52rem)'}
+      w={
+        isPCMEvents && !isInternmatch
+          ? askWidth
+          : isFormsPcm && !isInternmatch
+          ? 'full'
+          : 'min(100%,52rem)'
+      }
       justifySelf={'flex-start'}
       justifyItems={tplHoriJustify}
       alignItems={isFormsPcm && !equals(parentCode, 'PCM_FORM_TENANT') ? 'flex-end' : 'flex-start'}
