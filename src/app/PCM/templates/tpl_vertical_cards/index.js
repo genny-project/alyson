@@ -17,6 +17,7 @@ const TemplateVerticalCards = ({ mappedPcm, depth }) => {
   const sbeCode = (filter(key => includes(sbeCodePrefix)(key) && !includes('@')(key))(keys) || [
     '',
   ])[0]
+
   const actions = useGetActionsFromCode(sbeCode) || []
   const actionCodes = map(act => act?.attributeCode || '')(actions)
   const mappedSbe = useGetMappedBaseEntity(sbeCode)
