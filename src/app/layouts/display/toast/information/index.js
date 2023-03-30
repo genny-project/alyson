@@ -14,7 +14,7 @@ const InfoToast = props => {
   useEffect(() => {
     if (newToast && includes(status, 'INFO'))
       toast({
-        duration: 5000,
+        duration: 30000,
         status,
         position: 'top-right',
         render: () => (
@@ -27,17 +27,16 @@ const InfoToast = props => {
             color={'black'}
             bg={'#FFFFFF'}
             justifyContent="space-between"
+            fontFamily={'almarai'}
           >
-            <HStack>
-              <Iconly
-                name={'InfoCircle'}
-                size={'large'}
-                set={'bulk'}
-                primaryColor={'white'}
-                secondaryColor={'#E4BAC8'}
-              />
-              <Text fontSize={'16px'}>{description}</Text>
-            </HStack>
+            <Iconly
+              name={'InfoCircle'}
+              size={'large'}
+              set={'bulk'}
+              primaryColor={'white'}
+              secondaryColor={'#E4BAC8'}
+            />
+            <Text fontSize={'16px'}>{description}</Text>
 
             <Iconly
               name={'CloseSquare'}
@@ -45,6 +44,7 @@ const InfoToast = props => {
               primaryColor={'rgba(255,255,255,0'}
               secondaryColor={'#E4BAC8'}
               onClick={onClick}
+              size={'xlarge'}
               cursor={'pointer'}
             />
           </HStack>
