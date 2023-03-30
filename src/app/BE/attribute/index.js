@@ -127,6 +127,8 @@ const Attribute = ({
     <ProgressBar data={data} />
   ) : component === 'radio' || component === 'boolean' ? (
     <Radio.Read data={data} boolean={component === 'boolean'} />
+  ) : component === 'time' ? (
+    <Text.Read data={data} />
   ) : (
     <CText>{data?.value}</CText>
   )
