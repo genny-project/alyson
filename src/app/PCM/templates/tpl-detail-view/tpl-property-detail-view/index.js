@@ -19,7 +19,7 @@ import AmenityField from './amenity-field'
 
 const TemplatePropertyDetailView = ({ mappedPcm }) => {
   const { baseEntityCode, fields } = useGetDetailData(mappedPcm)
-  const { PRI_QUESTION_CODE: questionCode } = mappedPcm
+  const { PRI_QUESTION_CODE: questionCode, PRI_LOC2 } = mappedPcm
 
   const userCode = compose(useSelector, selectCode)('USER')
 
@@ -131,11 +131,13 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
                 textTransform: 'capitalize',
               }}
             />
-            <FavouriteComponent
-              starred={isStarred}
-              sourceCode={userCode}
-              targetCode={baseEntityCode}
-            />
+            {!!PRI_LOC2 && (
+              <FavouriteComponent
+                starred={isStarred}
+                sourceCode={userCode}
+                targetCode={baseEntityCode}
+              />
+            )}
           </HStack>
 
           <Text color={textColor} fontSize={'2xl'} fontWeight={'normal'} paddingBlockStart={2}>

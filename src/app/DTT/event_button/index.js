@@ -8,7 +8,6 @@ import useGetProductName from 'utils/helpers/get-product-name'
 import useProductColors from 'utils/productColors'
 import { onSendMessage } from 'vertx'
 import Submit from './Submit'
-import { doubleBang } from 'utils/helpers/is-null-or-undefined'
 
 const EventButton = ({ askData, onFinish, parentCode, sourceCode, config }) => {
   const { questionCode, targetCode, name, disabled, processId, attributeCode } = askData

@@ -16,11 +16,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import debugOut from 'utils/debug-out'
-import { useIsProductLojing } from 'utils/helpers/check-product-name.js'
 import firstUpper from 'utils/helpers/first-upper'
 
 const AmenityField = ({ attributeCode, code }) => {
-  const isLojing = useIsProductLojing()
   const entityAttribute = useSelector(selectCode(code, attributeCode))
 
   const titleUpper = toUpper(replace('NUMBER_OF')('')(attributeCode))
