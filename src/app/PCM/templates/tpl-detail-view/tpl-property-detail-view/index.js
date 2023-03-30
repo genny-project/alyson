@@ -85,21 +85,16 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
   const imageCode = findCode('PRI_IMAGES') || findCode('PRI_IMAGE_URL')
 
   //Get suburb, state if both not null, otherwise just the one that isn't null
-  const getLocation = () => {
-    let _suburb = suburb || addressSuburb
-    let _state = state || addressState
-    if (doubleBang(_suburb) && doubleBang(_state)) {
-      return `${suburb}, ${state}`
-    }
-    if (doubleBang(_suburb) || doubleBang(_state)) {
-      return _suburb || _state
-    }
-    if (doubleBang(streetAddress)) {
-      return streetAddress
-    }
+  let location = ''
+  let displaySuburb = suburb || addressSuburb
+  let displayState = state || addressState
+  if (doubleBang(displaySuburb) && doubleBang(displayState)) {
+    location = `${suburb}, ${state}`
+  } else if (doubleBang(displaySuburb) || doubleBang(displayState)) {
+    location = displaySuburb || displayState
+  } else if (doubleBang(streetAddress)) {
+    location = streetAddress
   }
-
-  const location = getLocation()
 
   const buttonConfig = {
     variant: 'solid',
