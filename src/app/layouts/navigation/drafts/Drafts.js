@@ -27,6 +27,7 @@ const Drafts = ({ code: DRAFT_GROUP, textColor }) => {
   )
 
   let draftsWholeData = compose(useSelector, selectCodeUnary(DRAFT_GROUP))('wholeData') || []
+  console.log(draftsWholeData)
 
   const label = useGetLabel(DRAFT_GROUP)
 
@@ -92,7 +93,12 @@ const Drafts = ({ code: DRAFT_GROUP, textColor }) => {
         <MenuList>
           {!!isTenant
             ? draftsWholeData.map(draft => (
-                <Draft key={draft} parentCode={DRAFT_GROUP} code={draft?.question?.code || ''} />
+                <Draft
+                  key={draft?.name}
+                  parentCode={DRAFT_GROUP}
+                  code={draft?.question?.code || ''}
+                  recipientCodeArray={[]}
+                />
               ))
             : drafts
                 .reverse()
