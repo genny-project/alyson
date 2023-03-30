@@ -94,7 +94,7 @@ const AddressPicker = ({
   }, [userInput])
 
   useEffect(() => {
-    setuserInput(returnValue)
+    setuserInput(returnValue?.formatted_address)
   }, [returnValue])
 
   useEffect(() => {

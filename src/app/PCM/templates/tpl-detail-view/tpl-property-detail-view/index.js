@@ -13,9 +13,9 @@ import { doubleBang, isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-o
 import { isObject } from 'utils/helpers/is-type'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { useIsMobile } from 'utils/hooks'
-import FavouriteComponent from '../../template-components/favourite-component'
-import useGetDetailData from '../get-detail-data'
-import AmenityField from './amenity-field'
+import FavouriteComponent from 'app/PCM/templates/template-components/favourite-component'
+import useGetDetailData from 'app/PCM/templates/tpl-detail-view/get-detail-data'
+import AmenityField from 'app/PCM/templates/tpl-detail-view/tpl-property-detail-view/amenity-field'
 
 const TemplatePropertyDetailView = ({ mappedPcm }) => {
   const { baseEntityCode, fields } = useGetDetailData(mappedPcm)

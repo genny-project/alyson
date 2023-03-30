@@ -25,7 +25,7 @@ const FavouriteComponent = ({ starred, sourceCode, targetCode, showLabel }) => {
     debouncedEvt(newStarred)
     setIsStarred(newStarred)
   }
-
+  console.log(isStarred)
   return (
     <Button
       onClick={onClick}
@@ -41,10 +41,10 @@ const FavouriteComponent = ({ starred, sourceCode, targetCode, showLabel }) => {
       _focusVisible={{ outline: 'none', bg: 'transparent' }}
       _hover={{ bg: 'transparent' }}
     >
-      <Iconly name="Star" set={!isStarred ? 'bold' : 'two-tone'} />
+      <Iconly name="Star" set={isStarred ? 'bold' : 'two-tone'} />
       {!!showLabel && (
         <Text as="span" ml={2} borderBottom={'1px solid currentColor'}>
-          {!isStarred ? 'Remove from Favourite' : 'Add to Favourite'}
+          {isStarred ? 'Remove from Favourite' : 'Add to Favourite'}
         </Text>
       )}
     </Button>
