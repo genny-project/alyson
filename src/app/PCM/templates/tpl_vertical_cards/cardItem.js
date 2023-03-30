@@ -26,7 +26,6 @@ const CardItem = ({ mappedValues, baseEntityCode, primaryColor, sbeCode }) => {
     compose(useSelector, selectCodeUnary(userCode))('LNK_FAV_PROPS') || {}
   const userFavourites = safelyParseJson(userFavouritesAttribute?.value, [])
   const isStarred = includes(baseEntityCode)(userFavourites)
-
   const isTableProperties = equals(sbeCode, 'SBE_TABLE_PROPERTIES')
   const tableData = useSelector(selectCode(sbeCode))
   const actions = getActions(tableData)
