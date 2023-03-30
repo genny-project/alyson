@@ -14,7 +14,7 @@ const InfoToast = props => {
   useEffect(() => {
     if (newToast && includes(status, 'INFO'))
       toast({
-        duration: 30000,
+        duration: 5000,
         status,
         position: 'top-right',
         render: () => (
