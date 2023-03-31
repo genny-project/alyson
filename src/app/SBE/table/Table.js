@@ -48,7 +48,7 @@ const DataTable = ({ parentCode, mapSearch, passedComponents = [], userCode }) =
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false)
-    }, 5000)
+    }, 3000)
     return () => clearTimeout(timer)
   }, [])
 
