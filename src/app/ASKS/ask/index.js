@@ -722,23 +722,6 @@ const Ask = ({
           clientId={clientId}
         />
       )}
-      {component === 'time' && (
-        <Text.Write
-          questionCode={questionCode}
-          mandatory={mandatory}
-          data={data}
-          onSendAnswer={onSendAnswer}
-          regexPattern={regexPattern}
-          errorMessage={errorMessage}
-          attributeCode={attributeCode}
-          targetCode={targetCode}
-          parentCode={parentCode}
-          placeholderName={placeholderName}
-          clientId={clientId}
-          inputmask={inputmask}
-          type="time"
-        />
-      )}
       <FormErrorMessage>{feedback}</FormErrorMessage>
     </FormControl>
   )

@@ -46,7 +46,6 @@ export const Write = ({
   mandatory,
   icon,
   inputmask,
-  type,
 }) => {
   let regex
   const productName = useGetProductName()
@@ -176,7 +175,6 @@ export const Write = ({
           </InputLeftAddon>
 
           <Input
-            type={type}
             isInvalid={isInvalid}
             test-id={questionCode}
             formatChars={maskFormatChars}
@@ -198,13 +196,10 @@ export const Write = ({
               background: 'transparent',
               borderColor: 'transparent',
             }}
-            //check to disable hint text for time type et al
-            textColor={!isFocused && !userInput ? 'transparent' : inputStyles.textColor}
           />
         </InputGroup>
       ) : (
         <Input
-          type={type}
           isInvalid={isInvalid}
           test-id={questionCode}
           as={InputMask}
@@ -221,7 +216,6 @@ export const Write = ({
           paddingInlineEnd={6}
           paddingInlineStart={!!icon ? 1 : 6}
           {...inputStyles}
-          textColor={!isFocused && !userInput ? 'transparent' : inputStyles.textColor}
         />
       )}
       <ErrorDisplay
