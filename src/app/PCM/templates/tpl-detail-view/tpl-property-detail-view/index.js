@@ -16,10 +16,11 @@ import { useIsMobile } from 'utils/hooks'
 import FavouriteComponent from 'app/PCM/templates/template-components/favourite-component'
 import useGetDetailData from 'app/PCM/templates/tpl-detail-view/get-detail-data'
 import AmenityField from 'app/PCM/templates/tpl-detail-view/tpl-property-detail-view/amenity-field'
+import getLocValues from 'app/PCM/helpers/get_loc_values'
 
 const TemplatePropertyDetailView = ({ mappedPcm }) => {
   const { baseEntityCode, fields } = useGetDetailData(mappedPcm)
-  const { PRI_QUESTION_CODE: questionCode, PRI_LOC2 } = mappedPcm
+  const { PRI_QUESTION_CODE: questionCode } = mappedPcm
 
   const userCode = compose(useSelector, selectCode)('USER')
 
@@ -39,8 +40,6 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
   const coordinates = { latitude, longitude }
 
   const isMobile = useIsMobile()
-
-  let showApplyButton = equals(isObject(applyButtonData)) && compose(not, isEmpty)(applyButtonData)
 
   const textColor = 'product.primary500'
   const buttonColor = 'product.secondary'
@@ -96,6 +95,14 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
     location = streetAddress
   }
 
+  const locValues = getLocValues(mappedPcm)
+
+  let showApplyButton =
+    includes('EVT_APPLY')(locValues) &&
+    equals(isObject(applyButtonData)) &&
+    compose(not, isEmpty)(applyButtonData)
+  let showFavouritesButton = includes('EVT_FAVOURITE')(locValues)
+
   const buttonConfig = {
     variant: 'solid',
     bg: buttonColor,
@@ -126,7 +133,7 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
                 textTransform: 'capitalize',
               }}
             />
-            {!!PRI_LOC2 && (
+            {showFavouritesButton && (
               <FavouriteComponent
                 starred={isStarred}
                 sourceCode={userCode}

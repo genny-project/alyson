@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src: url('fonts/icomoon.eot?eqspkr');
-  src: url('fonts/icomoon.eot?eqspkr#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?eqspkr') format('truetype'),
-    url('fonts/icomoon.woff?eqspkr') format('woff'),
-    url('fonts/icomoon.svg?eqspkr#icomoon') format('svg');
+  src: url('fonts/icomoon.eot?seuiqr');
+  src: url('fonts/icomoon.eot?seuiqr#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?seuiqr') format('truetype'),
+    url('fonts/icomoon.woff?seuiqr') format('woff'),
+    url('fonts/icomoon.svg?seuiqr#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -26,6 +26,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-createLivingProfile:before {
+  content: '\e902';
+  color: #fff;
+}
 .icon-exploreProperties:before {
   content: '\e900';
   color: #fff;
