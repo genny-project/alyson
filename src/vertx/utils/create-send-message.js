@@ -1,11 +1,17 @@
-import { eventBus } from 'vertx'
-import log from 'utils/log'
-import showLogs from 'utils/helpers/show-logs'
 import { isArray } from 'utils/helpers/is-type'
+import showLogs from 'utils/helpers/show-logs'
+import log from 'utils/log'
+import { eventBus } from 'vertx'
 
-const createSendMessage = (token, onSendMsg) => (data, options = {}) => {
+const createSendMessage = (token, onSendMsg) => (data, options = {}, receipientCodes) => {
   const showConsoleLogs = showLogs
-  const { msg_type = 'EVT_MSG', event_type = 'BTN_CLICK', redirect = true, ...rest } = options
+  const {
+    msg_type = 'EVT_MSG',
+    event_type = 'BTN_CLICK',
+    redirect = true,
+    recipientCodeArray = receipientCodes,
+    ...rest
+  } = options
 
   const message = {
     data: {
@@ -14,6 +20,7 @@ const createSendMessage = (token, onSendMsg) => (data, options = {}) => {
       msg_type,
       event_type,
       redirect,
+      recipientCodeArray,
       ...rest,
     },
   }

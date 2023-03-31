@@ -35,6 +35,10 @@ const Drafts = ({ code: DRAFT_GROUP, textColor }) => {
   const isMobile = useIsMobile()
   const isProductLojing = useIsProductLojing()
 
+  const getAskInformationBasedOnKey = compose(useSelector, selectCodeUnary(DRAFT_GROUP))
+  const sourceCode = getAskInformationBasedOnKey('sourceCode')
+  const targetCode = getAskInformationBasedOnKey('targetCode')
+
   if (equals(userType)('INTERN')) return null
 
   return (
@@ -92,7 +96,13 @@ const Drafts = ({ code: DRAFT_GROUP, textColor }) => {
         <MenuList>
           {!!isTenant
             ? draftsWholeData.map(draft => (
-                <Draft key={draft} parentCode={DRAFT_GROUP} code={draft?.question?.code || ''} />
+                <Draft
+                  key={draft?.name}
+                  parentCode={DRAFT_GROUP}
+                  code={draft?.question?.code || ''}
+                  sourceCode={sourceCode}
+                  targetCode={targetCode}
+                />
               ))
             : drafts
                 .reverse()
