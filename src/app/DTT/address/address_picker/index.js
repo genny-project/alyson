@@ -32,7 +32,7 @@ const AddressPicker = ({
   const labelRef = useRef()
 
   const autoCompleteRef = useRef(null)
-  const [userInput, setuserInput] = useState(null)
+
   const [isFocused, setIsFocused] = useState(false)
   const [isInputValidated, setIsInputValidated] = useState(true)
   const [hasError, setHasError] = useState(false)
@@ -57,6 +57,10 @@ const AddressPicker = ({
   }
 
   const returnValue = getReturnValue(dataValue)
+
+  const [userInput, setuserInput] = useState(
+    returnValue?.formatted_address || returnValue?.full_address,
+  )
 
   const { labelTextColor } = useProductColors()
 

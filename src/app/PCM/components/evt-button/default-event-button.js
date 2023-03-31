@@ -87,7 +87,7 @@ const DefaultEventButton = ({
       <Box
         borderRadius="lg"
         background={bgColor}
-        // width={`${name.length + 5}ch`}
+        width={'full'}
         rounded={isProductLojing ? 'full' : 'initial'}
       >
         <HStack
