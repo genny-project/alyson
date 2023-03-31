@@ -214,7 +214,7 @@ const DropZone = ({
         </Button>
       </Tooltip>
       <Box
-        w="100%"
+        w="full"
         p={4}
         mt={'1rem'}
         bg={'white'}

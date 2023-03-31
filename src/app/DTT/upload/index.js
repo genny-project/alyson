@@ -180,7 +180,7 @@ const Write = ({
         />
         {data?.value ? <FontAwesomeIcon opacity="0.5" color="green" icon={faCheckCircle} /> : null}
       </HStack>
-      <Box w={'full'} hidden={loading}>
+      <Box hidden={loading} alignSelf={'flex-start'} w="full">
         {isImageType ? (
           <ImageType.Write
             handleSave={handleSave}
@@ -268,7 +268,7 @@ const Write = ({
           )}
 
           <Progress
-            w="30rem"
+            w="full"
             h="1rem"
             colorScheme={'green'}
             borderRadius="md"
