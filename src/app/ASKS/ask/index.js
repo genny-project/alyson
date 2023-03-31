@@ -377,22 +377,24 @@ const Ask = ({
           config={config}
         />
       )}
-      {component === 'text' && (
-        <Text.Write
-          questionCode={questionCode}
-          mandatory={mandatory}
-          data={data}
-          onSendAnswer={onSendAnswer}
-          regexPattern={regexPattern}
-          errorMessage={errorMessage}
-          attributeCode={attributeCode}
-          targetCode={targetCode}
-          parentCode={parentCode}
-          placeholderName={placeholderName}
-          clientId={clientId}
-          inputmask={inputmask}
-        />
-      )}
+      {component === 'text' ||
+        (component === 'time' && (
+          <Text.Write
+            questionCode={questionCode}
+            mandatory={mandatory}
+            data={data}
+            onSendAnswer={onSendAnswer}
+            regexPattern={regexPattern}
+            errorMessage={errorMessage}
+            attributeCode={attributeCode}
+            targetCode={targetCode}
+            parentCode={parentCode}
+            placeholderName={placeholderName}
+            clientId={clientId}
+            inputmask={inputmask}
+            type={component === 'time' ? 'time' : 'text'}
+          />
+        ))}
       {component === 'favourites' && (
         <Favourites.Write
           questionCode={questionCode}
@@ -720,23 +722,6 @@ const Ask = ({
           attributeCode={attributeCode}
           targetCode={targetCode}
           clientId={clientId}
-        />
-      )}
-      {component === 'time' && (
-        <Text.Write
-          questionCode={questionCode}
-          mandatory={mandatory}
-          data={data}
-          onSendAnswer={onSendAnswer}
-          regexPattern={regexPattern}
-          errorMessage={errorMessage}
-          attributeCode={attributeCode}
-          targetCode={targetCode}
-          parentCode={parentCode}
-          placeholderName={placeholderName}
-          clientId={clientId}
-          inputmask={inputmask}
-          type="time"
         />
       )}
       <FormErrorMessage>{feedback}</FormErrorMessage>
