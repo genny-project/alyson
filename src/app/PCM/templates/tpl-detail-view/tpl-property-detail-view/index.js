@@ -101,8 +101,7 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
     includes('EVT_APPLY')(locValues) &&
     equals(isObject(applyButtonData)) &&
     compose(not, isEmpty)(applyButtonData)
-  let showFavouritesButton = includes('ACT_FAV_TOGGLE')(locValues)
-  console.log(locValues)
+  let showFavouritesButton = includes('EVT_FAVOURITE')(locValues)
 
   const buttonConfig = {
     variant: 'solid',
