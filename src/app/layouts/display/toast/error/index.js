@@ -45,6 +45,7 @@ const ErrorToast = props => {
               secondaryColor={'#D8201E'}
               onClick={onClick}
               cursor={'pointer'}
+              size={'xlarge'}
             />
           </HStack>
         ),
