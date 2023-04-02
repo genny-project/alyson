@@ -33,7 +33,7 @@ const AmenityField = ({ attributeCode, code }) => {
   // if a is not null or undefined, foo = a
   // if a is null or undefined, foo = b
   // Unlike ||, which if foo = a || b, and a = falsey value, then foo = b
-  const value = entityAttribute?.value ?? '?'
+  const value = entityAttribute?.valueInteger ?? '?'
 
   if (equals(value)('?')) {
     debugOut.error(`${code}.${attributeCode} has no value!`)
