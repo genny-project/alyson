@@ -43,12 +43,11 @@ const Read = ({ data, typeName = '', config }) => {
 
   if (!data.value) return null
 
-  const date = timeBasedOnTimeZone(
+  let date = timeBasedOnTimeZone(
     includes('Z', data.value || '') ? new Date(data.value) : new Date(data.value + 'Z'),
     { includeTime, onlyYear },
   )
-
-  if (date === 'Invalid Date') return null
+  if (date === 'Invalid Date') date = data.value
   return (
     <Text minW="10rem" {...config}>
       {date}
