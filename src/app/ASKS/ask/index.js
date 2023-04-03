@@ -377,24 +377,23 @@ const Ask = ({
           config={config}
         />
       )}
-      {component === 'text' ||
-        (component === 'time' && (
-          <Text.Write
-            questionCode={questionCode}
-            mandatory={mandatory}
-            data={data}
-            onSendAnswer={onSendAnswer}
-            regexPattern={regexPattern}
-            errorMessage={errorMessage}
-            attributeCode={attributeCode}
-            targetCode={targetCode}
-            parentCode={parentCode}
-            placeholderName={placeholderName}
-            clientId={clientId}
-            inputmask={inputmask}
-            type={component === 'time' ? 'time' : 'text'}
-          />
-        ))}
+      {(component === 'text' || component === 'time') && (
+        <Text.Write
+          questionCode={questionCode}
+          mandatory={mandatory}
+          data={data}
+          onSendAnswer={onSendAnswer}
+          regexPattern={regexPattern}
+          errorMessage={errorMessage}
+          attributeCode={attributeCode}
+          targetCode={targetCode}
+          parentCode={parentCode}
+          placeholderName={placeholderName}
+          clientId={clientId}
+          inputmask={inputmask}
+          type={component === 'time' ? 'time' : 'text'}
+        />
+      )}
       {component === 'favourites' && (
         <Favourites.Write
           questionCode={questionCode}
