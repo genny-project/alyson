@@ -45,6 +45,7 @@ const SuccessToast = props => {
               secondaryColor={'#063231'}
               onClick={onClick}
               cursor={'pointer'}
+              size={'xlarge'}
             />
           </HStack>
         ),
