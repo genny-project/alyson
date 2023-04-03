@@ -6,7 +6,7 @@ import BasicInformation from './basicInformation'
 import CheckLists from './checkLists'
 import EventButton from 'app/DTT/event_button'
 import UploadedDocuments from './uploadedDocuments'
-import { compose } from 'ramda'
+import { compose, equals } from 'ramda'
 import { useIsMobile } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 
@@ -14,14 +14,19 @@ const TemplateApplicationDetailView = ({ mappedPcm, depth }) => {
   const theme = useTheme()
   const isMobile = useIsMobile()
 
-  const userCode = compose(useSelector, selectCode)('USER')
-  const userFirstName = compose(useSelector, selectCodeUnary(userCode))('PRI_FIRSTNAME')?.value
-
-  const sbeCode = mappedPcm.PRI_LOC1
-  const targetCode = useSelector(selectCode(sbeCode, 'PRI_TARGET_CODE'))?.value
-  const isStudent = useSelector(selectCode(targetCode, 'LNK_CAMPUS_SELECTION'))?.value
-
   const questionCode = mappedPcm.PRI_QUESTION_CODE
+
+  const userCode = useSelector(selectCode('USER'))
+
+  const userFirstName =
+    compose(useSelector, selectCodeUnary(userCode))('PRI_FIRSTNAME')?.value || 'there!'
+
+  const targetCode = compose(useSelector, selectCodeUnary(questionCode))('targetCode') || ''
+
+  const escapeChars = str => str.replace(/[[\]']+/g, '').replace(/"/g, '')
+  const reasonToMoveCode = useSelector(selectCode(targetCode, 'LNK_MOVE_REASON'))?.value || ''
+  const reasonToMoveCodeFormatted = escapeChars(reasonToMoveCode)
+  const isStudent = equals(reasonToMoveCodeFormatted)('SEL_MOVE_REASON_STUDY')
 
   const markCompleteButtonData = useSelector(selectCode(questionCode, 'QUE_MARK_AS_COMPLETE')) || {}
   const { sourceCode } = markCompleteButtonData || {}

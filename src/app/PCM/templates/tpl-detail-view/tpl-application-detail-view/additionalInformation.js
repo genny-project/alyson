@@ -35,7 +35,7 @@ const AdditionalInformation = ({ code, isStudent }) => {
   const companyConfirmation = [
     { label: companyNameLabel, attr: companyName },
     { label: 'Company Exists?', attr: companyExists },
-    { label: `Company Confirms Employment of ${name}?`, attr: confirmEmployment },
+    { label: `Company Confirms Employment of ${name || 'tenant'}?`, attr: confirmEmployment },
   ]
 
   return (
