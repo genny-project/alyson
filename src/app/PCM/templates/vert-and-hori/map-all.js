@@ -15,6 +15,10 @@ const mapAll = (mappedPcm, depth, isInternmatch = false, config = {}) => {
 
     const isEvtExploreProperties = equals(attributeCode, 'EVT_EXPLORE_PROPERTIES')
     const isEvtGetPreApproved = equals(attributeCode, 'EVT_GET_PRE_APPROVED')
+    const isEvtCreateLivingProfile = equals(attributeCode, 'EVT_CREATE_LIVING_PROFILE')
+
+    const isLivingProfileEvents =
+      isEvtExploreProperties || isEvtGetPreApproved || isEvtCreateLivingProfile
 
     if (notIncludes(attributeCode)(values(spillLocs))) {
       const evtAttrCode = includes('EVT_', attributeCode)
@@ -24,7 +28,7 @@ const mapAll = (mappedPcm, depth, isInternmatch = false, config = {}) => {
         <Box
           _empty={{ display: 'none' }}
           key={attributeCode}
-          w={isEvtExploreProperties || isEvtGetPreApproved ? 'auto' : 'full'}
+          w={isLivingProfileEvents ? 'auto' : 'full'}
           textAlign={
             isInternmatch &&
             (evtAttrCode || isEvtNext || isEvtSubmit) &&
@@ -44,15 +48,17 @@ const mapAll = (mappedPcm, depth, isInternmatch = false, config = {}) => {
   const filteredUndefinedQuestionGroup = filter(item => !!item)(questionGrp)
 
   const mappedDefinedLocs = mapSpillLocs(loc => {
+    const isEvtExploreProperties = equals(loc, 'EVT_EXPLORE_PROPERTIES')
+    const isEvtGetPreApproved = equals(loc, 'EVT_GET_PRE_APPROVED')
+    const isEvtCreateLivingProfile = equals(loc, 'EVT_CREATE_LIVING_PROFILE')
+
+    const isLivingProfileEvents =
+      isEvtExploreProperties || isEvtGetPreApproved || isEvtCreateLivingProfile
     return (
       <Box
         _empty={{ display: 'none' }}
         key={loc}
-        w={
-          equals(loc, 'EVT_EXPLORE_PROPERTIES') || equals(loc, 'EVT_GET_PRE_APPROVED')
-            ? 'auto'
-            : 'full'
-        }
+        w={isLivingProfileEvents ? 'auto' : 'full'}
         textAlign={includes('EVENTS', loc) && isInternmatch ? 'end' : 'start'}
       >
         <PcmField code={loc} mappedPcm={mappedPcm} depth={depth} config={config} />

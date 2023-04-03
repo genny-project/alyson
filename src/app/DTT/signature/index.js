@@ -4,13 +4,11 @@ import { useEffect, useRef, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import SignatureCanvas from 'react-signature-canvas'
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
-import { useIsMobile } from 'utils/hooks'
 
 const Write = ({ questionCode, data, onSendAnswer, config }) => {
   const signatureRef = useRef(null)
   const canvasRef = useRef(null)
   const [text, setText] = useState('')
-  const isMobile = useIsMobile()
 
   let bgColor = config?.customBgColor || 'transparent'
   let fontWeight = config?.fontWeight || 'normal'

@@ -1,9 +1,11 @@
 import { Box, Grid } from '@chakra-ui/react'
 
+import PcmField from 'app/PCM/components/pcm-field'
+import useGetMappedPcm from 'app/PCM/helpers/get-mapped-pcm'
 import FormAsk from 'app/PCM/templates/tpl-form/form-ask'
+import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import { useIsMobile } from 'utils/hooks'
-import { useSelector } from 'react-redux'
 
 const TemplateSubmitApplication = ({ mappedPcm, depth, ...rest }) => {
   const isMobile = useIsMobile()
@@ -13,9 +15,10 @@ const TemplateSubmitApplication = ({ mappedPcm, depth, ...rest }) => {
   const applicationQuestionCode =
     useSelector(selectCode(applicationFormCode, 'PRI_QUESTION_CODE'))?.value || ''
 
-  const signatureFormCode = useSelector(selectCode(pcmCode, 'PRI_LOC2'))?.value || ''
-  const signatureQuestionCode =
-    useSelector(selectCode(signatureFormCode, 'PRI_QUESTION_CODE'))?.value || ''
+  const signaturePcmCode = useSelector(selectCode(pcmCode, 'PRI_LOC2'))?.value || ''
+  const signatureMappedPcm = useGetMappedPcm(signaturePcmCode)
+
+  const { PRI_LOC1, PRI_LOC2 } = signatureMappedPcm
 
   return (
     <Grid templateColumns={isMobile ? '1fr' : '1fr 1fr'} placeItems={'center'} gap={'1rem'}>
@@ -74,12 +77,10 @@ const TemplateSubmitApplication = ({ mappedPcm, depth, ...rest }) => {
           zIndex: '-1',
         }}
       >
-        <FormAsk
-          first={true}
-          questionCode={signatureQuestionCode}
-          parentCode={signatureQuestionCode}
-          level={0}
-          properties={rest}
+        <PcmField code={PRI_LOC1} mappedPcm={signatureMappedPcm} />
+        <PcmField
+          code={PRI_LOC2}
+          mappedPcm={signatureMappedPcm}
           config={{ customBgColor: '#f4f5f6', fontWeight: '700' }}
         />
 

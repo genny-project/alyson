@@ -9,13 +9,14 @@ import Button from 'app/DTT/event_button'
 import MapView from 'app/layouts/map_view'
 import { format } from 'date-fns'
 import { useSelector } from 'react-redux'
-import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined'
+import { doubleBang, isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined'
 import { isObject } from 'utils/helpers/is-type'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { useIsMobile } from 'utils/hooks'
-import FavouriteComponent from '../../template-components/favourite-component'
-import useGetDetailData from '../get-detail-data'
-import AmenityField from './amenity-field'
+import FavouriteComponent from 'app/PCM/templates/template-components/favourite-component'
+import useGetDetailData from 'app/PCM/templates/tpl-detail-view/get-detail-data'
+import AmenityField from 'app/PCM/templates/tpl-detail-view/tpl-property-detail-view/amenity-field'
+import getLocValues from 'app/PCM/helpers/get_loc_values'
 
 const TemplatePropertyDetailView = ({ mappedPcm }) => {
   const { baseEntityCode, fields } = useGetDetailData(mappedPcm)
@@ -40,8 +41,6 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
 
   const isMobile = useIsMobile()
 
-  let showApplyButton = equals(isObject(applyButtonData)) && compose(not, isEmpty)(applyButtonData)
-
   const textColor = 'product.primary500'
   const buttonColor = 'product.secondary'
 
@@ -56,7 +55,12 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
   const state = compose(useSelector, selectCodeUnary(baseEntityCode))(stateCode)?.valueString || ''
 
   const amentities = filter(includes('PRI_NUMBER_OF_'))(fields) || []
-  const addressFull = useSelector(selectCode(baseEntityCode, 'PRI_ADDRESS_FULL'))?.valueString || ''
+  const addressFullJson =
+    useSelector(selectCode(baseEntityCode, 'PRI_ADDRESS_FULL'))?.valueString || ''
+  const addressFull = safelyParseJson(addressFullJson)
+  const addressSuburb = addressFull?.suburb
+  const addressState = addressFull?.state
+  const streetAddress = addressFull?.streetAddress
 
   const rooms = filter(includes('ROOM'))(fields) || []
 
@@ -78,9 +82,26 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
 
   //PRI_IMAGES is now used for the multi image display
   const imageCode = findCode('PRI_IMAGES') || findCode('PRI_IMAGE_URL')
+
   //Get suburb, state if both not null, otherwise just the one that isn't null
-  const location =
-    !!suburb && !!state ? `${suburb}, ${state}` : !!addressFull ? addressFull : suburb || state
+  let location = ''
+  let displaySuburb = suburb || addressSuburb
+  let displayState = state || addressState
+  if (doubleBang(displaySuburb) && doubleBang(displayState)) {
+    location = `${suburb}, ${state}`
+  } else if (doubleBang(displaySuburb) || doubleBang(displayState)) {
+    location = displaySuburb || displayState
+  } else if (doubleBang(streetAddress)) {
+    location = streetAddress
+  }
+
+  const locValues = getLocValues(mappedPcm)
+
+  let showApplyButton =
+    includes('EVT_APPLY')(locValues) &&
+    equals(isObject(applyButtonData)) &&
+    compose(not, isEmpty)(applyButtonData)
+  let showFavouritesButton = includes('EVT_FAVOURITE')(locValues)
 
   const buttonConfig = {
     variant: 'solid',
@@ -112,11 +133,13 @@ const TemplatePropertyDetailView = ({ mappedPcm }) => {
                 textTransform: 'capitalize',
               }}
             />
-            <FavouriteComponent
-              starred={isStarred}
-              sourceCode={userCode}
-              targetCode={baseEntityCode}
-            />
+            {showFavouritesButton && (
+              <FavouriteComponent
+                starred={isStarred}
+                sourceCode={userCode}
+                targetCode={baseEntityCode}
+              />
+            )}
           </HStack>
 
           <Text color={textColor} fontSize={'2xl'} fontWeight={'normal'} paddingBlockStart={2}>

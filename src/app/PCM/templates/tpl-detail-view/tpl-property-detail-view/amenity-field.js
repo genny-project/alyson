@@ -14,7 +14,6 @@ import { find, includes, keys, replace, toUpper } from 'ramda'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
-
 import firstUpper from 'utils/helpers/first-upper'
 
 const AmenityField = ({ attributeCode, code }) => {

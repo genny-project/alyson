@@ -25,7 +25,6 @@ const FavouriteComponent = ({ starred, sourceCode, targetCode, showLabel }) => {
     debouncedEvt(newStarred)
     setIsStarred(newStarred)
   }
-
   return (
     <Button
       onClick={onClick}

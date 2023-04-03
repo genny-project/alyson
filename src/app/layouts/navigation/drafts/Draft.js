@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import { onSendMessage } from 'vertx'
 
-const Draft = ({ code, parentCode }) => {
+const Draft = ({ code, parentCode, sourceCode = '', targetCode = '' }) => {
   const draft = useSelector(selectCode(parentCode, code))
 
   if (!draft) return null
@@ -14,6 +14,8 @@ const Draft = ({ code, parentCode }) => {
         onSendMessage({
           code,
           parentCode,
+          sourceCode,
+          targetCode,
         })
       }
     >
