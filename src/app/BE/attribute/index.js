@@ -114,7 +114,7 @@ const Attribute = ({
   ) : component === 'time_zone' ? (
     <TimeZonePicker.Read data={data} />
   ) : component === 'checkbox' ? (
-    <CheckBox.Read data={data} />
+    <CheckBox.Read data={data} dataType={dttData} />
   ) : component === 'flag' ? (
     <Flag.Read data={data} />
   ) : component === 'html_editor_tinymce' ? (
