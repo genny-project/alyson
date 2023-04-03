@@ -10,17 +10,14 @@ import {
   faToilet,
   faWarehouse,
 } from '@fortawesome/free-solid-svg-icons'
-import { equals, find, includes, keys, replace, toUpper } from 'ramda'
-
+import { find, includes, keys, replace, toUpper } from 'ramda'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
-import debugOut from 'utils/debug-out'
-import { useIsProductLojing } from 'utils/helpers/check-product-name.js'
+
 import firstUpper from 'utils/helpers/first-upper'
 
 const AmenityField = ({ attributeCode, code }) => {
-  const isLojing = useIsProductLojing()
   const entityAttribute = useSelector(selectCode(code, attributeCode))
 
   const titleUpper = toUpper(replace('NUMBER_OF')('')(attributeCode))
@@ -28,16 +25,9 @@ const AmenityField = ({ attributeCode, code }) => {
   const title = firstUpper(titleUpper)
   const key = firstUpper(title.split('_').pop())
 
-  // https://plainenglish.io/blog/javascript-operator <- explandation of the "Nullish" operator,
-  // but basically if foo = a ?? b then
-  // if a is not null or undefined, foo = a
-  // if a is null or undefined, foo = b
-  // Unlike ||, which if foo = a || b, and a = falsey value, then foo = b
-  const value = entityAttribute?.valueInteger ?? '?'
-
-  if (equals(value)('?')) {
-    debugOut.error(`${code}.${attributeCode} has no value!`)
-  }
+  const entityAttributeValueInteger = entityAttribute?.valueInteger
+  const entityAttributeValue = entityAttribute?.value
+  const value = entityAttributeValueInteger || entityAttributeValue || ''
 
   const iconSet = {
     Toilet: faToilet,
