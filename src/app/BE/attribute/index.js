@@ -67,7 +67,7 @@ const Attribute = ({
     <Email.Read data={data} size={size} />
   ) : component === 'phone' ? (
     <Phone.Read data={data} size={size} />
-  ) : component === 'text' ? (
+  ) : component === 'text' || component === 'time' ? (
     <Text.Read
       parentCode={parentCode}
       size={size}
@@ -127,8 +127,6 @@ const Attribute = ({
     <ProgressBar data={data} />
   ) : component === 'radio' || component === 'boolean' ? (
     <Radio.Read data={data} boolean={component === 'boolean'} />
-  ) : component === 'time' ? (
-    <Text.Read data={data} />
   ) : (
     <CText>{data?.value}</CText>
   )
