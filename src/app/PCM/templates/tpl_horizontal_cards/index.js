@@ -62,14 +62,7 @@ const Card = ({ mappedValues, baseEntityCode, actions, sbeCode, primaryColor }) 
 
   if (isPropertyCard) {
     mappedValues = filter(includes('PRI_IMAGES'))(mappedValues)
-    extraRows = [
-      <Text fontWeight="400" color="product.primary" alignSelf={'start'} key={'CARD_ADDRESS'}>
-        {suburb}, {state}
-      </Text>,
-      <Text fontWeight="400" color="product.primary" alignSelf={'start'} key={'CARD_LANKMARK'}>
-        {distance} km to {landmark}
-      </Text>,
-    ]
+    extraRows = [`${suburb}, ${state}`, `${distance} km to ${landmark}`]
   }
 
   const row = (item, key, index) => {
@@ -151,7 +144,7 @@ const Card = ({ mappedValues, baseEntityCode, actions, sbeCode, primaryColor }) 
             index,
           )
         })}
-        {extraRows.map(item => item)}
+        {extraRows.map(item => row(<Text>{item}</Text>, item))}
       </VStack>
     </Box>
   )
