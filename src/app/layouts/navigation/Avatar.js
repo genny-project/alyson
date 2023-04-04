@@ -20,7 +20,7 @@ import { equals } from 'ramda'
 import { Iconly } from 'react-iconly'
 import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
-import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
+import { useIsProductInternmatch, useIsProductLojing } from 'utils/helpers/check-product-name'
 import useGetProductName from 'utils/helpers/get-product-name'
 import { onSendMessage } from 'vertx'
 
@@ -31,7 +31,13 @@ const AvatarMenu = ({ code: QUE_AVATAR_GRP }) => {
   const isMobile = useIsMobile()
 
   const realm = useGetRealm()
-  const imageAttr = equals('mentormatch', realm) ? 'PRI_USER_PROFILE_PICTURE' : 'PRI_IMAGE_URL'
+  const isProductLojing = useIsProductLojing()
+
+  const imageAttr = equals('mentormatch', realm)
+    ? 'PRI_USER_PROFILE_PICTURE'
+    : isProductLojing
+    ? 'PRI_IMAGE'
+    : 'PRI_IMAGE_URL'
 
   const userImage = useSelector(selectCode(userCode, imageAttr))
 
