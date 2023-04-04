@@ -63,10 +63,10 @@ const Card = ({ mappedValues, baseEntityCode, actions, sbeCode, primaryColor }) 
   if (isPropertyCard) {
     mappedValues = filter(includes('PRI_IMAGES'))(mappedValues)
     extraRows = [
-      <Box color="product.primary" alignSelf={'start'} key={'CARD_ADDRESS'}>
+      <Text fontWeight="400" color="product.primary" alignSelf={'start'} key={'CARD_ADDRESS'}>
         {suburb}, {state}
-      </Box>,
-      <Text color="product.primary" alignSelf={'start'} key={'CARD_LANKMARK'}>
+      </Text>,
+      <Text fontWeight="400" color="product.primary" alignSelf={'start'} key={'CARD_LANKMARK'}>
         {distance} km to {landmark}
       </Text>,
     ]
