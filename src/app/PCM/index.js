@@ -37,7 +37,7 @@ const Pcm = ({ code, properties, depth, config, isSidebarCollapsed }) => {
 
   if (depth > maxRecursiveDepth) {
     return (
-      <VStack>
+      <VStack _empty={{ display: 'none' }}>
         <FontAwesomeIcon color="red" icon={faExclamationTriangle} />
         <Text>{`Maxiumum Recursive Depth Exceeded!`}</Text>
       </VStack>
