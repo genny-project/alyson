@@ -67,7 +67,7 @@ const Attribute = ({
     <Email.Read data={data} size={size} />
   ) : component === 'phone' ? (
     <Phone.Read data={data} size={size} />
-  ) : component === 'text' ? (
+  ) : component === 'text' || component === 'time' ? (
     <Text.Read
       parentCode={parentCode}
       size={size}

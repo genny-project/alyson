@@ -377,7 +377,7 @@ const Ask = ({
           config={config}
         />
       )}
-      {component === 'text' && (
+      {(component === 'text' || component === 'time') && (
         <Text.Write
           questionCode={questionCode}
           mandatory={mandatory}
@@ -391,6 +391,7 @@ const Ask = ({
           placeholderName={placeholderName}
           clientId={clientId}
           inputmask={inputmask}
+          type={component === 'time' ? 'time' : 'text'}
         />
       )}
       {component === 'favourites' && (
