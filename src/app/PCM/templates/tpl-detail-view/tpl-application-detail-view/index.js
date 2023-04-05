@@ -10,15 +10,14 @@ import { compose } from 'ramda'
 import { useIsMobile } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 
-const TemplateApplicationDetailView = ({ mappedPcm, depth }) => {
+const TemplateApplicationDetailView = ({ mappedPcm }) => {
   const theme = useTheme()
   const isMobile = useIsMobile()
 
   const userCode = compose(useSelector, selectCode)('USER')
   const userFirstName = compose(useSelector, selectCodeUnary(userCode))('PRI_FIRSTNAME')?.value
 
-  const sbeCode = mappedPcm.PRI_LOC1
-  const targetCode = useSelector(selectCode(sbeCode, 'PRI_TARGET_CODE'))?.value
+  const targetCode = mappedPcm?.PRI_TARGET_CODE
   const isStudent = useSelector(selectCode(targetCode, 'LNK_CAMPUS_SELECTION'))?.value
 
   const questionCode = mappedPcm.PRI_QUESTION_CODE
