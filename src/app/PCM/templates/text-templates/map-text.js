@@ -1,4 +1,4 @@
-import { match, reduce, replace } from 'ramda'
+import { includes, match, reduce, replace } from 'ramda'
 import { isNotEmpty } from 'utils/helpers/is-null-or-undefined'
 
 const mapText = string => mappedPcm => attributeMap => {
@@ -27,6 +27,10 @@ const mapText = string => mappedPcm => attributeMap => {
     }
 
     data = sub ? attributeMap[mappedPcm[loc]] : mappedPcm[loc]
+
+    if (includes('PRI_')(data)) {
+      data = attributeMap[data]
+    }
 
     if (loc) {
       acc = replace(elem)(data)(acc)
