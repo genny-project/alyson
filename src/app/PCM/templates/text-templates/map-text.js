@@ -1,4 +1,4 @@
-import { includes, match, reduce, replace } from 'ramda'
+import { includes, match, reduce, replace, keys } from 'ramda'
 import { isNotEmpty } from 'utils/helpers/is-null-or-undefined'
 
 const mapText = string => mappedPcm => attributeMap => {
@@ -15,6 +15,8 @@ const mapText = string => mappedPcm => attributeMap => {
     let data = undefined
     let sub = false
 
+    const attribueMapKeys = keys(attributeMap)
+
     if (isNotEmpty(match(subRegex)(elem))) {
       replacerMatches = match(subField)(elem)
       sub = true
@@ -28,7 +30,7 @@ const mapText = string => mappedPcm => attributeMap => {
 
     data = sub ? attributeMap[mappedPcm[loc]] : mappedPcm[loc]
 
-    if (includes('PRI_')(data)) {
+    if (includes('PRI_')(data) && includes(data)(attribueMapKeys)) {
       data = attributeMap[data]
     }
 
