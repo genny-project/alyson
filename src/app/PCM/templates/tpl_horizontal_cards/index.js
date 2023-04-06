@@ -1,4 +1,4 @@
-import { Box, Grid, HStack, VStack, theme } from '@chakra-ui/react'
+import { Box, Grid, HStack, Text, VStack, theme } from '@chakra-ui/react'
 import { filter, includes, map } from 'ramda'
 import { getColumnDefs, getFields } from '../../helpers/sbe-utils'
 import { selectCode, selectKeys } from 'redux/db/selectors'
@@ -48,9 +48,77 @@ const TemplateHorizontalCards = ({ mappedPcm, depth }) => {
   )
 }
 
-//Image is hardcoded for the demo, need to remove it after the demo.
-
 const Card = ({ mappedValues, baseEntityCode, actions, sbeCode, primaryColor }) => {
+  // PROPERT checks for PROPERTIES and PROPERTY
+  const isPropertyCard = includes('PROPERT')(sbeCode) || includes('APARTMENT')(sbeCode)
+
+  let extraRows = []
+
+  const suburb = useSelector(selectCode(baseEntityCode, 'PRI_ADDRESS_SUBURB'))?.value || ''
+  const state = useSelector(selectCode(baseEntityCode, 'PRI_ADDRESS_STATE'))?.value || ''
+  const distance = useSelector(selectCode(baseEntityCode, 'PRI_LANDMARK_DISTANCE'))?.value || ''
+  const landmark = useSelector(selectCode(baseEntityCode, 'PRI_LANDMARK'))?.value || ''
+
+  if (isPropertyCard) {
+    mappedValues = filter(includes('PRI_IMAGES'))(mappedValues)
+    if (!!distance && !!landmark) {
+      extraRows = [`${suburb}, ${state}`, `${distance} km to ${landmark}`]
+    }
+  }
+
+  const row = (item, key, index) => {
+    const fontSize = index === 0 ? 'xl' : 'md'
+    return (
+      <HStack
+        justify={'space-between'}
+        fontSize={fontSize}
+        key={key}
+        alignSelf="start"
+        color="product.primary"
+        fontWeight="400"
+        w={'full'}
+        position={'relative'}
+        _groupHover={{
+          color: 'white',
+        }}
+      >
+        <Box
+          w={'min(100%, 40rem)'}
+          h={'auto'}
+          borderRadius={0}
+          borderTopLeftRadius={'xl'}
+          borderTopRightRadius={'xl'}
+          overflow={'hidden'}
+        >
+          {item}
+        </Box>
+
+        {index === 0 && (
+          <Box position={'absolute'} top={2} right={2} zIndex={theme.zIndices.modal}>
+            <ContextMenu
+              actions={actions}
+              code={baseEntityCode}
+              parentCode={sbeCode}
+              button={
+                <Box
+                  align="start"
+                  border="1px"
+                  borderColor="gray.200"
+                  borderRadius="6px"
+                  px="2"
+                  bg="white"
+                  color={'#004654 !important'}
+                >
+                  <FontAwesomeIcon icon={faEllipsisV} size="xs" />
+                </Box>
+              }
+            />
+          </Box>
+        )}
+      </HStack>
+    )
+  }
+
   return (
     <Box
       p={3}
@@ -67,62 +135,17 @@ const Card = ({ mappedValues, baseEntityCode, actions, sbeCode, primaryColor }) 
     >
       <VStack spacing={2}>
         {mappedValues.map((value, index) => {
-          const fontSize = index === 0 ? 'xl' : 'md'
-
-          return (
-            <HStack
-              justify={'space-between'}
-              fontSize={fontSize}
-              key={`CARD-ATTRIBUTE-${baseEntityCode}-${value}`}
-              alignSelf="start"
-              color="product.primary"
-              fontWeight="400"
-              w={'full'}
-              position={'relative'}
-              _groupHover={{
-                color: 'white',
-              }}
-            >
-              <Box
-                w={'min(100%, 40rem)'}
-                h={'auto'}
-                borderRadius={0}
-                borderTopLeftRadius={'xl'}
-                borderTopRightRadius={'xl'}
-                overflow={'hidden'}
-              >
-                <Attribute
-                  code={baseEntityCode}
-                  attribute={value}
-                  config={{ carddisplay: 'true', showSingleImgOnly: 'true' }}
-                />
-              </Box>
-
-              {index === 0 && (
-                <Box position={'absolute'} top={2} right={2} zIndex={theme.zIndices.modal}>
-                  <ContextMenu
-                    actions={actions}
-                    code={baseEntityCode}
-                    parentCode={sbeCode}
-                    button={
-                      <Box
-                        align="start"
-                        border="1px"
-                        borderColor="gray.200"
-                        borderRadius="6px"
-                        px="2"
-                        bg="white"
-                        color={'#004654 !important'}
-                      >
-                        <FontAwesomeIcon icon={faEllipsisV} size="xs" />
-                      </Box>
-                    }
-                  />
-                </Box>
-              )}
-            </HStack>
+          return row(
+            <Attribute
+              code={baseEntityCode}
+              attribute={value}
+              config={{ carddisplay: 'true', showSingleImgOnly: 'true' }}
+            />,
+            `CARD-ATTRIBUTE-${baseEntityCode}-${value}`,
+            index,
           )
         })}
+        {extraRows.map(item => row(<Text>{item}</Text>, item))}
       </VStack>
     </Box>
   )
