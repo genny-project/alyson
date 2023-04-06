@@ -38,6 +38,7 @@ const Write = ({
   parentCode,
   attributeCode,
   mandatory,
+  processId,
   config,
 }) => {
   const realm = useGetProductName().toLowerCase()
@@ -54,7 +55,7 @@ const Write = ({
 
   const options = mapOptions(dropdownData)
   const isMulti = includes('multiple', dataType.typeName || '') || component === 'tag'
-  const processId = useSelector(selectCode(questionCode, 'processId'))
+
   const sourceCode = useSelector(selectCode('USER'))
 
   const [value, setValue] = useState(getValue(data, options))
