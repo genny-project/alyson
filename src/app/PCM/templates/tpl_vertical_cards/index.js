@@ -10,6 +10,7 @@ import { useGetActionsFromCode } from 'app/SBE/utils/get-actions'
 import { useSelector } from 'react-redux'
 import useProductColors from 'utils/productColors'
 import CardItem from './cardItem'
+import getLocValues from 'app/PCM/helpers/get_loc_values'
 
 const TemplateVerticalCards = ({ mappedPcm, depth }) => {
   const sbeCodePrefix = mappedPcm?.PRI_LOC1 || ''
@@ -26,6 +27,10 @@ const TemplateVerticalCards = ({ mappedPcm, depth }) => {
   const rows = useSelector(selectCode(sbeCode, 'rows')) || []
   const { fieldTextColor } = useProductColors()
   const showPagination = equals(sbeCode, 'SBE_TABLE_PROPERTIES')
+
+  const locValues = getLocValues(mappedPcm, 'PRI_LOC1')
+
+  const showFavourites = includes('EVT_FAVOURITE')(locValues)
 
   return (
     <>
@@ -50,6 +55,7 @@ const TemplateVerticalCards = ({ mappedPcm, depth }) => {
                 baseEntityCode={item}
                 primaryColor={fieldTextColor}
                 sbeCode={sbeCode}
+                showFavourites={showFavourites}
               />
             ))(rows)}
           </Grid>
