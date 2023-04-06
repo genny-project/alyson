@@ -48,9 +48,8 @@ const TemplateHorizontalCards = ({ mappedPcm, depth }) => {
   )
 }
 
-//Image is hardcoded for the demo, need to remove it after the demo.
-
 const Card = ({ mappedValues, baseEntityCode, actions, sbeCode, primaryColor }) => {
+  // PROPERT checks for PROPERTIES and PROPERTY
   const isPropertyCard = includes('PROPERT')(sbeCode) || includes('APARTMENT')(sbeCode)
 
   let extraRows = []
@@ -62,7 +61,9 @@ const Card = ({ mappedValues, baseEntityCode, actions, sbeCode, primaryColor }) 
 
   if (isPropertyCard) {
     mappedValues = filter(includes('PRI_IMAGES'))(mappedValues)
-    extraRows = [`${suburb}, ${state}`, `${distance} km to ${landmark}`]
+    if (!!distance && !!landmark) {
+      extraRows = [`${suburb}, ${state}`, `${distance} km to ${landmark}`]
+    }
   }
 
   const row = (item, key, index) => {
