@@ -7,21 +7,21 @@ import {
   MenuItem,
   MenuList,
   Text,
-  useTheme,
   VStack,
+  useTheme,
 } from '@chakra-ui/react'
 import { compose, map } from 'ramda'
+import { faCaretDown, faCheck, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import sendEvtClick from 'app/ASKS/utils/send-evt-click'
-import { setCurrentSidebarItem } from 'redux/app'
-import { selectCodeUnary } from 'redux/db/selectors'
-import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
-import { useIsMobile } from 'utils/hooks'
 import icons from 'utils/icons'
 import labels from 'utils/labels'
+import { selectCodeUnary } from 'redux/db/selectors'
+import sendEvtClick from 'app/ASKS/utils/send-evt-click'
+import { setCurrentSidebarItem } from 'redux/app'
+import { useIsMobile } from 'utils/hooks'
+import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
 
 const AsksMenu = ({
   questionCode,
@@ -53,58 +53,121 @@ const AsksMenu = ({
   return (
     <Box>
       <Menu>
-        <MenuButton
-          opacity={isProductInternmatch ? 1 : 0.8}
-          _hover={{ opacity: 1 }}
-          test-id={questionCode}
-        >
-          <VStack color="grey" test-id={questionCode}>
-            <Center
-              bg={productSpecificIconBackgroundColour || 'product.secondary'}
-              color={theme.colors.background.light}
-              h={isProductInternmatch ? '10' : '8'}
-              w={isProductInternmatch ? '10' : '8'}
-              borderRadius="50%"
-              border={iconBorder}
-              filter={iconShadow}
+        {({ isOpen }) => (
+          <>
+            <MenuButton
+              opacity={isProductInternmatch ? 1 : 0.8}
+              _hover={{ opacity: 1 }}
+              test-id={questionCode}
             >
-              <FontAwesomeIcon
-                icon={icons[questionCode]}
-                color={productSpecificIconColour || 'inherit'}
-              />
-            </Center>
-            {!isMobile && !hideLabel && (
-              <HStack spacing={1}>
-                <Text fontSize="xs" color="#234371">
-                  {labels[questionCode]}
-                </Text>
-                <FontAwesomeIcon icon={faCaretDown} />
-              </HStack>
-            )}
-          </VStack>
-        </MenuButton>
-        <MenuList>
-          {map(({ label, code, attributeCode }) => (
-            <MenuItem
-              onClick={() => {
-                dispatchSetCurrentSidebarItem(null)
-                sendEvtClick({
-                  code: code,
-                  parentCode: questionCode,
-                  sourceCode: sourceCode,
-                  targetCode: targetCode,
-                  processId: processId,
-                  attributeCode: attributeCode,
-                })
-              }}
-              test-id={code}
-              key={code}
-              fontSize={'sm'}
+              <VStack color="grey" test-id={questionCode}>
+                <Center
+                  bg={productSpecificIconBackgroundColour || 'product.secondary'}
+                  color={theme.colors.background.light}
+                  h={isProductInternmatch ? '10' : '8'}
+                  w={isProductInternmatch ? '10' : '8'}
+                  borderRadius="50%"
+                  border={iconBorder}
+                  filter={iconShadow}
+                >
+                  <FontAwesomeIcon
+                    icon={icons[questionCode]}
+                    color={productSpecificIconColour || 'inherit'}
+                  />
+                </Center>
+                {!isMobile && !hideLabel && (
+                  <HStack spacing={1}>
+                    <Text fontSize="xs" color="#234371">
+                      {labels[questionCode]}
+                    </Text>
+                    <FontAwesomeIcon icon={faCaretDown} />
+                  </HStack>
+                )}
+              </VStack>
+            </MenuButton>
+
+            <MenuList
+              w={isMobile ? 'auto' : '22rem'}
+              p={0}
+              bg={isProductInternmatch ? 'internmatch.primary' : 'white'}
+              borderRadius={isProductInternmatch ? '1.88rem' : '0.5rem'}
+              overflow={'hidden'}
+              transform={
+                isProductInternmatch && isOpen ? 'translate(2px, -57px) !important' : 'none'
+              }
             >
-              {label}
-            </MenuItem>
-          ))(labelsAndQuestionCode || [])}
-        </MenuList>
+              {isOpen && isProductInternmatch && (
+                <MenuItem
+                  border={'1px solid'}
+                  borderColor={'internmatch.primary'}
+                  bg={'internmatch.primary400'}
+                  borderRadius={'4rem'}
+                  color={'internmatch.primary'}
+                  _focus={{ bg: 'internmatch.primary400' }}
+                >
+                  <Text
+                    w={'full'}
+                    padding={'.5rem 1.5rem'}
+                    display={'flex'}
+                    justifyContent={'space-between'}
+                  >
+                    {'Add'}
+                  </Text>
+                  <FontAwesomeIcon icon={faPlus} />
+                </MenuItem>
+              )}
+              {map(({ label, code, attributeCode, index }) => (
+                <MenuItem
+                  onClick={() => {
+                    dispatchSetCurrentSidebarItem(null)
+                    sendEvtClick({
+                      code: code,
+                      parentCode: questionCode,
+                      sourceCode: sourceCode,
+                      targetCode: targetCode,
+                      processId: processId,
+                      attributeCode: attributeCode,
+                    })
+                  }}
+                  test-id={code}
+                  key={code}
+                  fontSize={'sm'}
+                  color={isProductInternmatch ? 'white' : 'inherit'}
+                  paddingInline={0}
+                  _hover={{
+                    backgroundColor: isProductInternmatch ? 'internmatch.secondary' : '#EEE',
+                  }}
+                  _active={{
+                    backgroundColor: isProductInternmatch ? 'internmatch.secondary' : '#EEE',
+                  }}
+                  _focus={{
+                    backgroundColor: 'transparent',
+                  }}
+                >
+                  <Text
+                    role="group"
+                    w={'full'}
+                    padding={'.5rem 1.5rem'}
+                    display={'flex'}
+                    justifyContent={'space-between'}
+                  >
+                    {label}
+                    {isProductInternmatch ? (
+                      <Box
+                        as="span"
+                        marginInlineStart={'auto'}
+                        opacity={0}
+                        _groupHover={{ opacity: 1 }}
+                      >
+                        <FontAwesomeIcon icon={faCheck} />
+                      </Box>
+                    ) : null}
+                  </Text>
+                </MenuItem>
+              ))(labelsAndQuestionCode || [])}
+            </MenuList>
+          </>
+        )}
       </Menu>
     </Box>
   )
