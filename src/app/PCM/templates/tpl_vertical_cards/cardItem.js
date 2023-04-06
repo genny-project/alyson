@@ -15,7 +15,7 @@ import { useIsProductLojing } from 'utils/helpers/check-product-name.js'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { useIsMobile } from 'utils/hooks'
 
-const CardItem = ({ mappedValues, baseEntityCode, primaryColor, sbeCode }) => {
+const CardItem = ({ mappedValues, baseEntityCode, primaryColor, sbeCode, showFavourites }) => {
   const isMobile = useIsMobile()
   const userCode = useSelector(selectCode('USER'))
   const userType = useSelector(selectCode(userCode, 'LNK_ROLE'))?.value || ''
@@ -172,12 +172,14 @@ const CardItem = ({ mappedValues, baseEntityCode, primaryColor, sbeCode }) => {
           marginBlock={isMobile ? 3 : 0}
           alignItems={'center'}
         >
-          <FavouriteComponent
-            starred={isStarred}
-            sourceCode={userCode}
-            targetCode={baseEntityCode}
-            showLabel={true}
-          />
+          {showFavourites && (
+            <FavouriteComponent
+              starred={isStarred}
+              sourceCode={userCode}
+              targetCode={baseEntityCode}
+              showLabel={true}
+            />
+          )}
           {!!isAgentOrAdmin && <TableActionMenu />}
         </HStack>
 
