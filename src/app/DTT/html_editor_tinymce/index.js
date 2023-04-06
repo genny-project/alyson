@@ -17,8 +17,8 @@ import {
   PopoverHeader,
   PopoverTrigger,
   Text,
-  useDisclosure,
   VStack,
+  useDisclosure,
 } from '@chakra-ui/react'
 import { faCheckCircle, faExpand } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useRef, useState } from 'react'
@@ -63,7 +63,7 @@ const Write = ({
 
   const editorRef = useRef(null)
 
-  const [userInput, setUserInput] = useState(data?.value)
+  const [userInput, setUserInput] = useState(data?.value ?? '')
 
   const [errorStatus, setErrorStatus] = useState(false)
   const { dispatch } = useError()
@@ -97,10 +97,9 @@ const Write = ({
       : dispatch({ type: ACTIONS.SET_TO_FALSE, payload: questionCode })
   }, [dispatch, isInvalid, questionCode])
 
-  const handleEditorChange = () => {
-    const value = editorRef.current.getContent()
-    setUserInput(value)
-  }
+  useEffect(() => {
+    setUserInput(data?.value ?? '')
+  }, [data?.value])
 
   const handleSave = () => {
     onSendAnswer(userInput)
@@ -135,11 +134,12 @@ const Write = ({
         <Editor
           apiKey={tinyMCEKEY}
           onInit={(evt, editor) => (editorRef.current = editor)}
+          initialValue={data?.value}
           value={userInput ? userInput : ''}
           id={questionCode}
           onFocus={() => setIsFocused(true)}
           onBlur={handleSave}
-          onEditorChange={handleEditorChange}
+          onEditorChange={(newValue, editor) => setUserInput(newValue)}
           spellCheck={true}
           lang="en"
           placeholder={placeholderName || ' '}
