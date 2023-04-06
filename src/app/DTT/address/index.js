@@ -24,6 +24,7 @@ import HeroIconButton from 'app/layouts/components/hero_icon_button'
 import AddressPicker from './address_picker'
 import RepeatableAddressPicker from './address_picker/repeatable-picker'
 import StreetView from './street_view'
+import isJson from 'utils/helpers/is-json'
 
 const Write = ({
   questionCode,
@@ -86,6 +87,16 @@ const Read = ({ parentCode, data, config = {} }) => {
 
   if (!data?.value) return null
 
+  const parseData = dataValue => {
+    const isValueJson = isJson(dataValue)
+    const parsedDataValueObject = isValueJson ? JSON.parse(dataValue) : undefined
+    const parsedDataValue = parsedDataValueObject?.full_address
+    if (isValueJson) return parsedDataValue
+    return dataValue
+  }
+
+  const dataVal = parseData(data?.value)
+
   return config?.collapse ? (
     <VStack align="start">
       <HStack onClick={onToggle} cursor="pointer">
@@ -120,7 +131,7 @@ const Read = ({ parentCode, data, config = {} }) => {
             <PopoverContent style={{ width: '42rem', height: '34rem' }}>
               <PopoverArrow />
               <PopoverCloseButton />
-              <PopoverHeader>{`${data.attributeName}, ${data.value}`}</PopoverHeader>
+              <PopoverHeader>{`${data.attributeName}, ${dataVal}`}</PopoverHeader>
               <PopoverBody>
                 <StreetView address={data.value} />
               </PopoverBody>
@@ -130,14 +141,14 @@ const Read = ({ parentCode, data, config = {} }) => {
           <PopoverContent style={{ width: '42rem', height: '34rem' }}>
             <PopoverArrow />
             <PopoverCloseButton />
-            <PopoverHeader>{`${data.attributeName}, ${data.value}`}</PopoverHeader>
+            <PopoverHeader>{`${data.attributeName}, ${dataVal}`}</PopoverHeader>
             <PopoverBody>
               <StreetView address={data.value} />
             </PopoverBody>
           </PopoverContent>
         )}
       </Popover>
-      <Text minW="8rem">{data.value}</Text>
+      <Text minW="8rem">{dataVal}</Text>
     </HStack>
   )
 }
