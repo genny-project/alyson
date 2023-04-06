@@ -19,7 +19,6 @@ const Drafts = ({ code: DRAFT_GROUP, textColor }) => {
   const theme = useTheme()
   const userCode = useSelector(selectCode('USER'))
   const userType = getUserType(useSelector(selectCode(userCode)))
-  /// We cannot use LNK_ROLE in the future!!! make sure not to select it in the future or this will fail
   const userRole = useSelector(selectCode(userCode, 'LNK_ROLE'))?.value || ''
   const isTenant = includes('_TENANT', userRole)
 

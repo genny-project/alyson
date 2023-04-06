@@ -18,7 +18,6 @@ import { useIsMobile } from 'utils/hooks'
 const CardItem = ({ mappedValues, baseEntityCode, primaryColor, sbeCode, showFavourites }) => {
   const isMobile = useIsMobile()
   const userCode = useSelector(selectCode('USER'))
-  /// We cannot use LNK_ROLE in the future!!! make sure not to select it in the future or this will fail
   const userType = useSelector(selectCode(userCode, 'LNK_ROLE'))?.value || ''
   const isAgentOrAdmin = includes('ADMIN', userType) || includes('AGENT', userType)
   const isLojing = useIsProductLojing()
