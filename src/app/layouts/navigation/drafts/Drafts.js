@@ -8,36 +8,39 @@ import { useTheme } from '@chakra-ui/react'
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
-import Draft from 'app/layouts/navigation/drafts/Draft'
+import NotificationHandler from 'app/layouts/navigation/drafts/Draft'
 import { Iconly } from 'react-iconly'
 import { useSelector } from 'react-redux'
 import { useIsProductLojing } from 'utils/helpers/check-product-name'
 import getUserType from 'utils/helpers/get-user-type'
 import icons from 'utils/icons'
 
-const Drafts = ({ code: DRAFT_GROUP, textColor }) => {
+const Notification = ({ code: NOTIFICATION_GROUP, textColor }) => {
   const theme = useTheme()
   const userCode = useSelector(selectCode('USER'))
   const userType = getUserType(useSelector(selectCode(userCode)))
   const userRole = useSelector(selectCode(userCode, 'LNK_ROLE'))?.value || ''
   const isTenant = includes('_TENANT', userRole)
 
-  const drafts = (useSelector(selectCode(DRAFT_GROUP)) || []).filter(
+  const notification = (useSelector(selectCode(NOTIFICATION_GROUP)) || []).filter(
     code => code.indexOf('TASK') !== -1,
   )
 
-  let draftsWholeData = compose(useSelector, selectCodeUnary(DRAFT_GROUP))('wholeData') || []
+  let notificationWholeData =
+    compose(useSelector, selectCodeUnary(NOTIFICATION_GROUP))('wholeData') || []
   let notificationCount =
-    Array.isArray(draftsWholeData) && !!draftsWholeData.length ? draftsWholeData.length : ''
+    Array.isArray(notificationWholeData) && !!notificationWholeData.length
+      ? notificationWholeData.length
+      : ''
 
-  const label = useGetLabel(DRAFT_GROUP)
+  const label = useGetLabel(NOTIFICATION_GROUP)
 
   const iconColor = useGetAttributeFromProjectBaseEntity('PRI_COLOR')?.valueString || '#234371'
 
   const isMobile = useIsMobile()
   const isProductLojing = useIsProductLojing()
 
-  const getAskInformationBasedOnKey = compose(useSelector, selectCodeUnary(DRAFT_GROUP))
+  const getAskInformationBasedOnKey = compose(useSelector, selectCodeUnary(NOTIFICATION_GROUP))
   const sourceCode = getAskInformationBasedOnKey('sourceCode')
   const targetCode = getAskInformationBasedOnKey('targetCode')
 
@@ -47,14 +50,14 @@ const Drafts = ({ code: DRAFT_GROUP, textColor }) => {
     <Box>
       <Menu>
         <MenuButton fontSize={'sm'}>
-          <VStack color="grey" test-id={DRAFT_GROUP}>
+          <VStack color="grey" test-id={NOTIFICATION_GROUP}>
             <Box>
               {isProductLojing ? (
                 <FontAwesomeIcon
                   size={isProductLojing ? 'lg' : '2x'}
                   w="8"
                   h="8"
-                  icon={icons[DRAFT_GROUP]}
+                  icon={icons[NOTIFICATION_GROUP]}
                   color={iconColor}
                 />
               ) : (
@@ -97,22 +100,28 @@ const Drafts = ({ code: DRAFT_GROUP, textColor }) => {
 
         <MenuList>
           {!!isTenant
-            ? draftsWholeData.map(draft => (
-                <Draft
-                  key={draft?.name}
-                  parentCode={DRAFT_GROUP}
-                  code={draft?.question?.code || ''}
+            ? notificationWholeData.map(notification => (
+                <NotificationHandler
+                  key={notification?.name}
+                  parentCode={NOTIFICATION_GROUP}
+                  code={notification?.question?.code || ''}
                   sourceCode={sourceCode}
                   targetCode={targetCode}
                 />
               ))
-            : drafts
+            : notification
                 .reverse()
-                .map(draft => <Draft key={draft} parentCode={DRAFT_GROUP} code={draft} />)}
+                .map(notification => (
+                  <NotificationHandler
+                    key={notification}
+                    parentCode={NOTIFICATION_GROUP}
+                    code={notification}
+                  />
+                ))}
         </MenuList>
       </Menu>
     </Box>
   )
 }
 
-export default Drafts
+export default Notification
