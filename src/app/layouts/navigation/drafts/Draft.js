@@ -3,10 +3,10 @@ import { useSelector } from 'react-redux'
 import { selectCode } from 'redux/db/selectors'
 import { onSendMessage } from 'vertx'
 
-const Draft = ({ code, parentCode, sourceCode = '', targetCode = '' }) => {
-  const draft = useSelector(selectCode(parentCode, code))
+const NotificationHandler = ({ code, parentCode, sourceCode = '', targetCode = '' }) => {
+  const notification = useSelector(selectCode(parentCode, code))
 
-  if (!draft) return null
+  if (!notification) return null
   return (
     <MenuItem
       fontSize={'sm'}
@@ -19,9 +19,9 @@ const Draft = ({ code, parentCode, sourceCode = '', targetCode = '' }) => {
         })
       }
     >
-      {draft?.name || 'Untitled Draft'}
+      {notification?.name || 'Untitled Draft'}
     </MenuItem>
   )
 }
 
-export default Draft
+export default NotificationHandler
