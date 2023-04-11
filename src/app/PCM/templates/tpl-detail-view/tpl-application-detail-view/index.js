@@ -20,7 +20,7 @@ const TemplateApplicationDetailView = ({ mappedPcm }) => {
   const questionCode = mappedPcm.PRI_QUESTION_CODE || ''
   const targetCode = compose(useSelector, selectCode)(questionCode, 'targetCode') || ''
 
-  const isStudent = useSelector(selectCode(targetCode, 'LNK_CAMPUS_SELECTION'))?.value
+  const isStudent = useSelector(selectCode(targetCode, 'LNK_EDU_PROVIDER'))?.value
 
   const markCompleteButtonData = useSelector(selectCode(questionCode, 'QUE_MARK_AS_COMPLETE')) || {}
   const { sourceCode } = markCompleteButtonData || {}

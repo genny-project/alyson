@@ -32,7 +32,7 @@ const BasicInformation = ({ code, isStudent }) => {
   const reasonToMoveCode = useSelector(selectCode(code, 'LNK_MOVE_REASON'))?.value || ''
   const reasonToMoveCodeFormatted = escapeChars(reasonToMoveCode)
 
-  const campusSelectionCode = useSelector(selectCode(code, 'LNK_CAMPUS_SELECTION'))?.value || ''
+  const campusSelectionCode = useSelector(selectCode(code, 'LNK_EDU_PROVIDER'))?.value || ''
   const campusSelectionCodeFormatted = escapeChars(campusSelectionCode)
 
   const reasonToMove = useSelector(selectCode(reasonToMoveCodeFormatted, 'PRI_NAME'))?.value || ''
