@@ -8,7 +8,7 @@ import {
 
 import Ask from 'app/ASKS/ask'
 
-const CheckLists = ({ code: passedQuestionCode }) => {
+const CheckLists = ({ code: passedQuestionCode, isStudent }) => {
   const CheckListItem = ({ parentCode, questionCode }) => {
     return <Ask parentCode={parentCode} questionCode={questionCode} />
   }
@@ -17,14 +17,18 @@ const CheckLists = ({ code: passedQuestionCode }) => {
     <Box>
       <Grid gap="1rem">
         <CheckListItem parentCode={passedQuestionCode} questionCode={matchesVisaQuestionCode} />
-        <CheckListItem
-          parentCode={passedQuestionCode}
-          questionCode={matchesEmpContractQuestionCode}
-        />
-        <CheckListItem
-          parentCode={passedQuestionCode}
-          questionCode={websiteInvestigatedQuestionCode}
-        />
+        {!isStudent && (
+          <CheckListItem
+            parentCode={passedQuestionCode}
+            questionCode={matchesEmpContractQuestionCode}
+          />
+        )}
+        {!isStudent && (
+          <CheckListItem
+            parentCode={passedQuestionCode}
+            questionCode={websiteInvestigatedQuestionCode}
+          />
+        )}
         <CheckListItem parentCode={passedQuestionCode} questionCode={adminConfirmedQuestionCode} />
       </Grid>
     </Box>

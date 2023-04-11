@@ -20,7 +20,7 @@ const TemplateApplicationDetailView = ({ mappedPcm }) => {
   const questionCode = mappedPcm.PRI_QUESTION_CODE || ''
   const targetCode = compose(useSelector, selectCode)(questionCode, 'targetCode') || ''
 
-  const isStudent = useSelector(selectCode(targetCode, 'LNK_CAMPUS_SELECTION'))?.value
+  const isStudent = !useSelector(selectCode(targetCode, 'PRI_COMPANY_NAME'))?.value
 
   const markCompleteButtonData = useSelector(selectCode(questionCode, 'QUE_MARK_AS_COMPLETE')) || {}
   const { sourceCode } = markCompleteButtonData || {}
@@ -59,7 +59,7 @@ const TemplateApplicationDetailView = ({ mappedPcm }) => {
         marginBlockStart={'clamp(1rem, 3vw, 3.75rem)'}
       >
         <AdditionalInformation code={targetCode} isStudent={isStudent} />
-        <CheckLists mappedPcm={mappedPcm} code={questionCode} />
+        <CheckLists mappedPcm={mappedPcm} code={questionCode} isStudent={isStudent} />
       </Grid>
 
       <Stack
