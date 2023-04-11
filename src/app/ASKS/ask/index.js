@@ -53,6 +53,7 @@ import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates
 import useGetProductName from 'utils/helpers/get-product-name'
 import { useMobileValue } from 'utils/hooks'
 import useProductColors from 'utils/productColors'
+import ApplicationDetailViewFlag from 'app/DTT/flag/application_detail_view_flag'
 
 const Ask = ({
   parentCode,
@@ -65,6 +66,7 @@ const Ask = ({
   secondaryColor,
   answerCallback,
   passedValue,
+  overrideComponent,
   skipRedux = false,
   skipSendAnswer = false,
 }) => {
@@ -119,7 +121,8 @@ const Ask = ({
   )
 
   const { html = '', helper = '' } = question || {}
-  const { component = forcedComponent || 'text', typeName, inputmask } = dataType
+  const component = overrideComponent ?? dataType?.component ?? forcedComponent ?? 'text'
+  const { typeName, inputmask } = dataType
 
   const feedback = data?.feedback
   const onSendAnswerWithNovalue = createSendAnswer(askData, { passedTargetCode })
@@ -375,6 +378,21 @@ const Ask = ({
           clientId={clientId}
           boolean={equals('boolean')(component)}
           config={config}
+        />
+      )}
+      {component === 'approve' && (
+        <ApplicationDetailViewFlag
+          questionCode={questionCode}
+          mandatory={mandatory}
+          data={data}
+          onSendAnswer={onSendAnswer}
+          regexPattern={regexPattern}
+          errorMessage={errorMessage}
+          attributeCode={attributeCode}
+          targetCode={targetCode}
+          parentCode={parentCode}
+          placeholderName={placeholderName}
+          clientId={clientId}
         />
       )}
       {(component === 'text' || component === 'time') && (

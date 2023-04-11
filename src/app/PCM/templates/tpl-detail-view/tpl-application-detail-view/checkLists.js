@@ -10,12 +10,12 @@ import Ask from 'app/ASKS/ask'
 
 const CheckLists = ({ code: passedQuestionCode, isStudent }) => {
   const CheckListItem = ({ parentCode, questionCode }) => {
-    return <Ask parentCode={parentCode} questionCode={questionCode} />
+    return <Ask overrideComponent={'approve'} parentCode={parentCode} questionCode={questionCode} />
   }
 
   return (
     <Box>
-      <Grid gap="1rem">
+      <Grid>
         <CheckListItem parentCode={passedQuestionCode} questionCode={matchesVisaQuestionCode} />
         {!isStudent && (
           <CheckListItem
