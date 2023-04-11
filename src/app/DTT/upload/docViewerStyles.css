@@ -1,3 +1,12 @@
+#react-doc-viewer #header-bar:empty {
+  display: none;
+}
+
+#react-doc-viewer #proxy-renderer > div[id*='renderer'] {
+  max-height: 10rem;
+  border: 1px solid #fefefe;
+}
+
 #react-doc-viewer #image-renderer {
   background-image: none;
 }

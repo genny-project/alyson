@@ -87,7 +87,7 @@ const TemplateSubmitApplication = ({ mappedPcm, depth, ...rest }) => {
         <FormAsk
           first={true}
           questionCode={'QUE_SUBMIT'}
-          parentCode={'QUE_SUBMIT'}
+          parentCode={'QUE_EVENTS'}
           level={0}
           properties={rest}
         />

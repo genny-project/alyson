@@ -46,6 +46,10 @@ const TemplateText = ({ mappedPcm, depth }) => {
     TPL_TEXT_HEADER_6: 'xl',
   }
 
+  const fontColors = {
+    TPL_TEXT_RED: 'red',
+  }
+
   const fontWeights = {
     TPL_TEXT_HEADER_1: 900,
     TPL_TEXT_HEADER_2: 900,
@@ -57,9 +61,10 @@ const TemplateText = ({ mappedPcm, depth }) => {
 
   const fontSize = fontSizes[mappedPcm.PRI_TEMPLATE_CODE] || 'md'
   const fontWeight = fontWeights[mappedPcm.PRI_TEMPLATE_CODE] || '400'
+  const fontColor = fontColors[mappedPcm.PRI_TEMPLATE_CODE]
 
   return (
-    <Text fontSize={fontSize} fontWeight={fontWeight}>
+    <Text color={fontColor} fontSize={fontSize} fontWeight={fontWeight}>
       {mapText(mainString)(spillLocs)(attributeMap)}
     </Text>
   )

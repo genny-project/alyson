@@ -1,4 +1,4 @@
-import { Image, Text as CText } from '@chakra-ui/react'
+import { Text as CText, Image } from '@chakra-ui/react'
 import { default as JournalProgress, default as ProgressBar } from 'app/DTT/progress'
 
 import ABN from 'app/DTT/abn'
@@ -67,7 +67,7 @@ const Attribute = ({
     <Email.Read data={data} size={size} />
   ) : component === 'phone' ? (
     <Phone.Read data={data} size={size} />
-  ) : component === 'text' ? (
+  ) : component === 'text' || component === 'time' ? (
     <Text.Read
       parentCode={parentCode}
       size={size}

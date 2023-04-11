@@ -2,8 +2,8 @@ import { Box, Flex, Grid } from '@chakra-ui/react'
 
 import Attribute from 'app/BE/attribute'
 import { map } from 'ramda'
-import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
+import { selectCode } from 'redux/db/selectors'
 
 const AdditionalInformation = ({ code, isStudent }) => {
   const companyName = useSelector(selectCode(code, 'PRI_COMPANY_NAME'))?.value || ''
@@ -42,24 +42,8 @@ const AdditionalInformation = ({ code, isStudent }) => {
     <Box>
       <Grid gap={'1rem'}>
         {map(({ code, label, attr }) => (
-          <Flex
-            paddingBlock={'1rem'}
-            paddingInline={'clamp(1rem, 3vw, 2.88rem)'}
-            borderRadius={42}
-            bg={'#f4f5f5'}
-            fontSize={12}
-            fontWeight={600}
-            color={'#7d7d7d'}
-            key={label}
-          >
-            {`${label}:`}&nbsp;
-            <Attribute code={code} attribute={attr} />
-          </Flex>
-        ))(tenantInformationLists)}
-
-        {!isStudent && (
           <>
-            {map(({ label, attr }) => (
+            {!!label || !!attr ? (
               <Flex
                 paddingBlock={'1rem'}
                 paddingInline={'clamp(1rem, 3vw, 2.88rem)'}
@@ -70,8 +54,33 @@ const AdditionalInformation = ({ code, isStudent }) => {
                 color={'#7d7d7d'}
                 key={label}
               >
-                {`${label}: ${attr}`}
+                {`${label}: `}&nbsp;
+                <Attribute code={code} attribute={attr} />
               </Flex>
+            ) : null}
+          </>
+        ))(tenantInformationLists)}
+
+        {!isStudent && (
+          <>
+            {map(({ label, attr }) => (
+              <>
+                {!!label || !!attr ? (
+                  <Flex
+                    paddingBlock={'1rem'}
+                    paddingInline={'clamp(1rem, 3vw, 2.88rem)'}
+                    borderRadius={42}
+                    bg={'#f4f5f5'}
+                    fontSize={12}
+                    fontWeight={600}
+                    color={'#7d7d7d'}
+                    key={label}
+                  >
+                    {label ? `${label}: ` : ''}
+                    {attr ? attr : ''}
+                  </Flex>
+                ) : null}
+              </>
             ))(companyConfirmation)}
           </>
         )}

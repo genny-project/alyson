@@ -2,7 +2,7 @@ import { Button, Text } from '@chakra-ui/react'
 
 import sendEvtClick from 'app/ASKS/utils/send-evt-click'
 import debounce from 'lodash.debounce'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Iconly } from 'react-iconly'
 import stringify from 'utils/helpers/stringify'
 
@@ -18,6 +18,10 @@ const FavouriteComponent = ({ starred, sourceCode, targetCode, showLabel }) => {
     })
   }
   const debouncedEvt = debounce(sendEvt, 500)
+
+  useEffect(() => {
+    setIsStarred(starred)
+  }, [isStarred, starred])
 
   const onClick = () => {
     const newStarred = !isStarred

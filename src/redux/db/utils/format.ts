@@ -134,6 +134,7 @@ export const formatAsk = (state: DBState, replace: Boolean) => (item: Item) => {
 
   if (childAsks.length) {
     initialiseKey(state, wholeDataKey, childAsks)
+
     if (replace) {
       state[wholeDataKey] = childAsks
     }
@@ -146,9 +147,6 @@ export const formatAsk = (state: DBState, replace: Boolean) => (item: Item) => {
 
     pushUniqueString(codes, childAskCode)
     state[`${questionCode}@${childAskCode}`] = childAsk
-
-    // We really need to store questions recursively
-    formatAsk(state, replace)(childAsk)
   }, sortByIndex(childAsks))
 
   if (!childAsks.length) {
