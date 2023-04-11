@@ -27,6 +27,8 @@ const Drafts = ({ code: DRAFT_GROUP, textColor }) => {
   )
 
   let draftsWholeData = compose(useSelector, selectCodeUnary(DRAFT_GROUP))('wholeData') || []
+  let notificationCount =
+    Array.isArray(draftsWholeData) && !!draftsWholeData.length ? draftsWholeData.length : ''
 
   const label = useGetLabel(DRAFT_GROUP)
 
@@ -38,6 +40,12 @@ const Drafts = ({ code: DRAFT_GROUP, textColor }) => {
   const getAskInformationBasedOnKey = compose(useSelector, selectCodeUnary(DRAFT_GROUP))
   const sourceCode = getAskInformationBasedOnKey('sourceCode')
   const targetCode = getAskInformationBasedOnKey('targetCode')
+
+  console.log(
+    '%c 🙀🙀🙀🙀🙀🙀 Testing 🙀🙀🙀🙀🙀🙀🙀 ',
+    'background: silver; color: black; padding: 0.5rem',
+    { drafts, draftsWholeData, getAskInformationBasedOnKey },
+  )
 
   if (equals(userType)('INTERN')) return null
 
@@ -76,9 +84,9 @@ const Drafts = ({ code: DRAFT_GROUP, textColor }) => {
                 borderRadius="100%"
                 w={4}
                 h={4}
-                hidden={!drafts.length || drafts.length === 1}
+                hidden={!notificationCount}
               >
-                <Text textStyle="tail.2">{drafts.length - 1}</Text>
+                <Text textStyle="tail.2">{notificationCount}</Text>
               </Center>
             </Box>
             {!isMobile && isProductLojing && (
