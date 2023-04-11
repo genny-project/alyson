@@ -30,6 +30,7 @@ const Write = ({
       emptyValue={'{}'}
       errorMessage={errorMessage}
       component={BusinessAsk}
+      centerDeleteButton
     />
   )
 }

@@ -40,12 +40,11 @@ const RepeatableAsk = ({
   addButtonFirstText = 'Add New',
   addButtonAnotherText = 'Add Another',
   secondPlaceholderName = '',
+  centerDeleteButton = false,
 }) => {
   const defaultValue = mandatory ? `${emptyValue}` : ''
-
   const [values, setValues] = useState(safelyParseJson(data?.value || `[${defaultValue}]`))
   const makeChildData = value => set(lensProp('value'), value)(data)
-
   const validAnswer = compose(not, includes(''))(values)
 
   const updateValues = fn => {
@@ -70,10 +69,11 @@ const RepeatableAsk = ({
   const bottomMap = { bottom: 1 }
   const propMap = deleteTop ? topMap : bottomMap
 
-  const Element = component
+  const showDeleteButton = index => (mandatory && index !== 0) || !mandatory
 
+  const Element = component
   return (
-    <VStack w="100%" justifyItems="flex-start" alignItems="flex-start">
+    <VStack w="100%" justifyItems="flex-start" alignItems="flex-start" spacing={5}>
       {(values ?? []).map((value, index) => (
         <HStack
           key={`${questionCode}-${index}`}
@@ -97,13 +97,31 @@ const RepeatableAsk = ({
               repeated={`${index}`}
               onSendAnswer={onUpdateValue(index)}
             />
-            {((mandatory && index !== 0) || !mandatory) && (
+            {showDeleteButton(index) && centerDeleteButton && (
+              <VStack
+                position={'absolute'}
+                right="-2.75rem"
+                top="0"
+                height={'100%'}
+                justifyContent={'center'}
+              >
+                <Button
+                  onClick={() => onRemove(index)}
+                  bg={'transparent'}
+                  color="product.secondary"
+                  {...propMap}
+                >
+                  <FontAwesomeIcon icon={faTimes} />
+                </Button>
+              </VStack>
+            )}
+            {showDeleteButton(index) && !centerDeleteButton && (
               <Button
                 onClick={() => onRemove(index)}
                 bg={'transparent'}
                 color="product.secondary"
-                position={'absolute'}
                 right="-2.75rem"
+                position={'absolute'}
                 {...propMap}
               >
                 <FontAwesomeIcon icon={faTimes} />
@@ -116,10 +134,11 @@ const RepeatableAsk = ({
       <Button
         disabled={!validAnswer || length(values) >= maxOptions}
         fontWeight={'normal'}
-        bg={'#FDEDE9'}
+        bg={'transparent'}
         onClick={onAddAnother}
         color={'product.secondary'}
-        borderRadius={'md'}
+        border={'solid 2px'}
+        borderRadius={'3xl'}
         fontSize={'sm'}
         paddingInline={8}
         w={'auto'}
