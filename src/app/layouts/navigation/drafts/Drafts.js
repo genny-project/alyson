@@ -41,12 +41,6 @@ const Drafts = ({ code: DRAFT_GROUP, textColor }) => {
   const sourceCode = getAskInformationBasedOnKey('sourceCode')
   const targetCode = getAskInformationBasedOnKey('targetCode')
 
-  console.log(
-    '%c 🙀🙀🙀🙀🙀🙀 Testing 🙀🙀🙀🙀🙀🙀🙀 ',
-    'background: silver; color: black; padding: 0.5rem',
-    { drafts, draftsWholeData, getAskInformationBasedOnKey },
-  )
-
   if (equals(userType)('INTERN')) return null
 
   return (
