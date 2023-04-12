@@ -18,14 +18,17 @@ const TemplateApplicationDetailView = ({ mappedPcm }) => {
   const userFirstName = compose(useSelector, selectCodeUnary(userCode))('PRI_FIRSTNAME')?.value
 
   const questionCode = mappedPcm.PRI_QUESTION_CODE || ''
-  const targetCode = compose(useSelector, selectCode)(questionCode, 'targetCode') || ''
+  const targetCode = compose(useSelector, selectCodeUnary(questionCode))('targetCode') || ''
 
-  const isStudent = useSelector(selectCode(targetCode, 'LNK_EDU_PROVIDER'))?.value
+  const isStudent = compose(useSelector, selectCodeUnary(targetCode))('LNK_EDU_PROVIDER')?.value
 
-  const markCompleteButtonData = useSelector(selectCode(questionCode, 'QUE_MARK_AS_COMPLETE')) || {}
+  const markCompleteButtonData =
+    compose(useSelector, selectCodeUnary(targetCode))('QUE_MARK_AS_COMPLETE') || {}
   const { sourceCode } = markCompleteButtonData || {}
 
-  const isApproved = useSelector(selectCode(targetCode, 'PRI_APPROVED'))?.value
+  const isApproved = compose(useSelector, selectCodeUnary(targetCode))('PRI_APPROVED')?.value
+
+  console.log({ isApproved })
 
   const buttonStyles = {
     width: 'auto !important',
