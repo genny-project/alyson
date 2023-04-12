@@ -28,8 +28,6 @@ const TemplateApplicationDetailView = ({ mappedPcm }) => {
 
   const isApproved = compose(useSelector, selectCodeUnary(targetCode))('PRI_APPROVED')?.value
 
-  console.log({ isApproved })
-
   const buttonStyles = {
     width: 'auto !important',
     borderRadius: 20,
