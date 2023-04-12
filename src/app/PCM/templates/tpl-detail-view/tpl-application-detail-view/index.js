@@ -25,6 +25,8 @@ const TemplateApplicationDetailView = ({ mappedPcm }) => {
   const markCompleteButtonData = useSelector(selectCode(questionCode, 'QUE_MARK_AS_COMPLETE')) || {}
   const { sourceCode } = markCompleteButtonData || {}
 
+  const isApproved = useSelector(selectCode(targetCode, 'PRI_APPROVED'))?.value
+
   const buttonStyles = {
     width: 'auto !important',
     borderRadius: 20,
@@ -47,9 +49,13 @@ const TemplateApplicationDetailView = ({ mappedPcm }) => {
   return (
     <>
       <Text fontSize="2.25rem" fontWeight={'400'}>{`Hi ${userFirstName}`}</Text>
-      <Text marginBlock={5}>{'Please review these pending Pre-Approval Applications'}</Text>
+      <Text marginBlock={5}>
+        {isApproved
+          ? 'Please review these Pre-Approval Applications'
+          : 'Please review these pending Pre-Approval Applications'}
+      </Text>
 
-      <BasicInformation code={targetCode} isStudent={isStudent} />
+      <BasicInformation code={targetCode} isStudent={isStudent} isApproved={isApproved} />
 
       <UploadedDocuments code={targetCode} />
 

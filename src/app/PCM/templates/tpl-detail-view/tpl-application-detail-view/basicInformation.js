@@ -16,7 +16,7 @@ import useApi from 'api'
 import { useIsMobile } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 
-const BasicInformation = ({ code, isStudent }) => {
+const BasicInformation = ({ code, isStudent, isApproved }) => {
   const theme = useTheme()
   const isMobile = useIsMobile()
   const { getImageSrc } = useApi()
@@ -103,7 +103,7 @@ const BasicInformation = ({ code, isStudent }) => {
       >
         <FontAwesomeIcon icon={faHourglass} />
         <Text as="span" marginInlineStart={4}>
-          {'Pending Approval'}
+          {isApproved ? 'Application Approved' : 'Pending Approval'}
         </Text>
       </Text>
     </Grid>
