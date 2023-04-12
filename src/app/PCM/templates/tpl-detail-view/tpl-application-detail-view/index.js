@@ -18,12 +18,15 @@ const TemplateApplicationDetailView = ({ mappedPcm }) => {
   const userFirstName = compose(useSelector, selectCodeUnary(userCode))('PRI_FIRSTNAME')?.value
 
   const questionCode = mappedPcm.PRI_QUESTION_CODE || ''
-  const targetCode = compose(useSelector, selectCode)(questionCode, 'targetCode') || ''
+  const targetCode = compose(useSelector, selectCodeUnary(questionCode))('targetCode') || ''
 
-  const isStudent = useSelector(selectCode(targetCode, 'LNK_CAMPUS_SELECTION'))?.value
+  const isStudent = compose(useSelector, selectCodeUnary(targetCode))('LNK_EDU_PROVIDER')?.value
 
-  const markCompleteButtonData = useSelector(selectCode(questionCode, 'QUE_MARK_AS_COMPLETE')) || {}
+  const markCompleteButtonData =
+    compose(useSelector, selectCodeUnary(targetCode))('QUE_MARK_AS_COMPLETE') || {}
   const { sourceCode } = markCompleteButtonData || {}
+
+  const isApproved = compose(useSelector, selectCodeUnary(targetCode))('PRI_APPROVED')?.value
 
   const buttonStyles = {
     width: 'auto !important',
@@ -47,9 +50,13 @@ const TemplateApplicationDetailView = ({ mappedPcm }) => {
   return (
     <>
       <Text fontSize="2.25rem" fontWeight={'400'}>{`Hi ${userFirstName}`}</Text>
-      <Text marginBlock={5}>{'Please review these pending Pre-Approval Applications'}</Text>
+      <Text marginBlock={5}>
+        {isApproved
+          ? 'Please review these Pre-Approval Applications'
+          : 'Please review these pending Pre-Approval Applications'}
+      </Text>
 
-      <BasicInformation code={targetCode} isStudent={isStudent} />
+      <BasicInformation code={targetCode} isStudent={isStudent} isApproved={isApproved} />
 
       <UploadedDocuments code={targetCode} />
 

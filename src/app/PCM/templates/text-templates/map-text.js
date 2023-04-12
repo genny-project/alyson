@@ -1,50 +1,21 @@
-import { includes, match, reduce, replace, keys } from 'ramda'
-import { isNotEmpty } from 'utils/helpers/is-null-or-undefined'
+import { match, replace, isEmpty, head } from 'ramda'
 
 const mapText = string => mappedPcm => attributeMap => {
-  const regex = /\$\{.*?\}{1,2}/m
-  const subRegex = /\$\{{2}.*?\}{2}/m
-  const subField = /(?<=\$\{{2}).*?(?=\}{2})/m
-  const field = /(?<=\$\{{1}).*?(?=\}{1})/m
+  const fieldRegex = /\$\{.*?\}{1,2}/m
+  const keyRegex = /(?<=\$\{{1}).*?(?=\}{1})/m
 
-  const matches = match(regex)(string)
+  const fieldMatch = match(fieldRegex)(string)
 
-  const out = reduce((acc, elem) => {
-    let replacerMatches
-    let loc = undefined
-    let data = undefined
-    let sub = false
-
-    const attribueMapKeys = keys(attributeMap)
-
-    if (isNotEmpty(match(subRegex)(elem))) {
-      replacerMatches = match(subField)(elem)
-      sub = true
-    } else {
-      replacerMatches = match(field)(elem)
-    }
-
-    if (isNotEmpty(replacerMatches)) {
-      loc = replacerMatches[0]
-    }
-
-    data = sub ? attributeMap[mappedPcm[loc]] : mappedPcm[loc]
-
-    if (includes('PRI_')(data) && includes(data)(attribueMapKeys)) {
-      data = attributeMap[data]
-    }
-
-    if (loc) {
-      acc = replace(elem)(data)(acc)
-    }
-
-    return acc
-  }, string)(matches)
-
-  if (isNotEmpty(match(regex)(out))) {
-    return mapText(out)(mappedPcm)(attributeMap)
+  if (isEmpty(fieldMatch)) {
+    return string
   } else {
-    return out
+    const fieldString = head(fieldMatch)
+    const key = head(match(keyRegex)(fieldString)) || ''
+
+    const attributeCode = mappedPcm[key] || ''
+    const replacement = attributeMap[attributeCode] || ''
+    const newString = replace(fieldString)(replacement)(string)
+    return mapText(newString)(mappedPcm)(attributeMap)
   }
 }
 

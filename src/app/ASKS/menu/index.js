@@ -21,7 +21,7 @@ import { selectCodeUnary } from 'redux/db/selectors'
 import sendEvtClick from 'app/ASKS/utils/send-evt-click'
 import { setCurrentSidebarItem } from 'redux/app'
 import { useIsMobile } from 'utils/hooks'
-import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
+import { useIsProductInternmatch, useIsProductLojing } from 'utils/helpers/check-product-name'
 
 const AsksMenu = ({
   questionCode,
@@ -48,6 +48,7 @@ const AsksMenu = ({
   const dispatch = useDispatch()
   const dispatchSetCurrentSidebarItem = compose(dispatch, setCurrentSidebarItem)
   const isProductInternmatch = useIsProductInternmatch()
+  const isProductLojing = useIsProductLojing()
 
   if (!wholeData?.length) return null
   return (
@@ -87,7 +88,7 @@ const AsksMenu = ({
             </MenuButton>
 
             <MenuList
-              w={isMobile ? 'auto' : '22rem'}
+              w={isProductInternmatch && isMobile ? 'auto' : isProductLojing ? 'auto' : '22rem'}
               p={0}
               bg={isProductInternmatch ? 'internmatch.primary' : 'white'}
               borderRadius={isProductInternmatch ? '1.88rem' : '0.5rem'}
@@ -147,7 +148,7 @@ const AsksMenu = ({
                   <Text
                     role="group"
                     w={'full'}
-                    padding={'.5rem 1.5rem'}
+                    padding={isProductInternmatch ? '.5rem 1.5rem' : '.15rem 1.5rem'}
                     display={'flex'}
                     justifyContent={'space-between'}
                   >
