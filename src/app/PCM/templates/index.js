@@ -69,6 +69,7 @@ const templateHandlerMachine = depth => mappedPcm => parentCode => rest => {
     TPL_TEXT_HEADER_4: <TemplateText {...mandatoryProps} />,
     TPL_TEXT_HEADER_5: <TemplateText {...mandatoryProps} />,
     TPL_TEXT_HEADER_6: <TemplateText {...mandatoryProps} />,
+    TPL_TEXT_RED: <TemplateText {...mandatoryProps} />,
     TPL_CARD: <TemplateCard {...mandatoryProps} />,
     TPL_DETAIL_VIEW: <TemplateDetailView {...mandatoryProps} />,
     TPL_HORIZONTAL_CARDS: <TemplateHorizontalCards {...mandatoryProps} />,
