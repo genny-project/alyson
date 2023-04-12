@@ -7,13 +7,7 @@ import useGetProductName from 'utils/helpers/get-product-name'
 import { isNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined'
 import useProductColors from 'utils/productColors'
 
-const ApplicationDetailViewFlag = ({
-  questionCode,
-  data,
-  onSendAnswer,
-  placeholderName: label,
-  mandatory,
-}) => {
+const LabelledFlag = ({ questionCode, data, onSendAnswer, placeholderName: label, mandatory }) => {
   const realm = useGetProductName().toLowerCase()
   const isProductInternmatch = useIsProductInternmatch()
 
@@ -79,4 +73,4 @@ const ApplicationDetailViewFlag = ({
   )
 }
 
-export default ApplicationDetailViewFlag
+export default LabelledFlag

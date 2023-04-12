@@ -53,7 +53,6 @@ import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates
 import useGetProductName from 'utils/helpers/get-product-name'
 import { useMobileValue } from 'utils/hooks'
 import useProductColors from 'utils/productColors'
-import ApplicationDetailViewFlag from 'app/DTT/flag/application_detail_view_flag'
 
 const Ask = ({
   parentCode,
@@ -380,21 +379,6 @@ const Ask = ({
           config={config}
         />
       )}
-      {component === 'approve' && (
-        <ApplicationDetailViewFlag
-          questionCode={questionCode}
-          mandatory={mandatory}
-          data={data}
-          onSendAnswer={onSendAnswer}
-          regexPattern={regexPattern}
-          errorMessage={errorMessage}
-          attributeCode={attributeCode}
-          targetCode={targetCode}
-          parentCode={parentCode}
-          placeholderName={placeholderName}
-          clientId={clientId}
-        />
-      )}
       {(component === 'text' || component === 'time') && (
         <Text.Write
           questionCode={questionCode}
@@ -713,21 +697,23 @@ const Ask = ({
           clientId={clientId}
         />
       )}
-      {component === 'flag' && (
-        <Flag.Write
-          data={data}
-          questionCode={questionCode}
-          onSendAnswer={onSendAnswer}
-          regexPattern={regexPattern}
-          errorMessage={errorMessage}
-          parentCode={parentCode}
-          placeholderName={placeholderName}
-          attributeCode={attributeCode}
-          targetCode={targetCode}
-          clientId={clientId}
-          mandatory={mandatory}
-        />
-      )}
+      {component === 'flag' ||
+        (component === 'labelled_flag' && (
+          <Flag.Write
+            data={data}
+            questionCode={questionCode}
+            onSendAnswer={onSendAnswer}
+            regexPattern={regexPattern}
+            errorMessage={errorMessage}
+            parentCode={parentCode}
+            placeholderName={placeholderName}
+            attributeCode={attributeCode}
+            targetCode={targetCode}
+            clientId={clientId}
+            mandatory={mandatory}
+            labelled={component === 'labelled_flag'}
+          />
+        ))}
       {component === 'progress' && (
         <ProgressBar
           data={data}
