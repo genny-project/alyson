@@ -25,7 +25,7 @@ const hori = mappingFunction => (mappedPcm, depth, config) => {
         isPCMEvents && !isInternmatch
           ? askWidth
           : isFormsPcm && !isInternmatch
-          ? 'full'
+          ? 'min(100%, 78rem)'
           : 'min(100%,52rem)'
       }
       justifySelf={'flex-start'}

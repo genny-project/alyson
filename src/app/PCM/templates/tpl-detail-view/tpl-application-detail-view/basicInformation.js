@@ -16,7 +16,7 @@ import useApi from 'api'
 import { useIsMobile } from 'utils/hooks'
 import { useSelector } from 'react-redux'
 
-const BasicInformation = ({ code, isStudent }) => {
+const BasicInformation = ({ code, isStudent, isApproved }) => {
   const theme = useTheme()
   const isMobile = useIsMobile()
   const { getImageSrc } = useApi()
@@ -32,7 +32,7 @@ const BasicInformation = ({ code, isStudent }) => {
   const reasonToMoveCode = useSelector(selectCode(code, 'LNK_MOVE_REASON'))?.value || ''
   const reasonToMoveCodeFormatted = escapeChars(reasonToMoveCode)
 
-  const campusSelectionCode = useSelector(selectCode(code, 'LNK_CAMPUS_SELECTION'))?.value || ''
+  const campusSelectionCode = useSelector(selectCode(code, 'LNK_EDU_PROVIDER'))?.value || ''
   const campusSelectionCodeFormatted = escapeChars(campusSelectionCode)
 
   const reasonToMove = useSelector(selectCode(reasonToMoveCodeFormatted, 'PRI_NAME'))?.value || ''
@@ -103,7 +103,7 @@ const BasicInformation = ({ code, isStudent }) => {
       >
         <FontAwesomeIcon icon={faHourglass} />
         <Text as="span" marginInlineStart={4}>
-          {'Pending Approval'}
+          {isApproved ? 'Application Approved' : 'Pending Approval'}
         </Text>
       </Text>
     </Grid>

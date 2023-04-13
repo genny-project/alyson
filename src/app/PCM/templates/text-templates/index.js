@@ -23,7 +23,7 @@ const TemplateText = ({ mappedPcm, depth }) => {
   }, [])(wholeData || [])
 
   const attributes = useSelector(selectAttributes(targetCode, attributeCodes))
-  const attributesFiltered = filter(elem => elem)(attributes)
+  const attributesFiltered = filter(elem => !!elem)(attributes)
 
   const attributeMap = reduce((acc, elem) => {
     const attrCode = spillLocs[elem]
