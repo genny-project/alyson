@@ -66,20 +66,20 @@ const LabelledFlag = ({
       >
         <HStack>
           <Box
-            bg={selected ? 'white' : 'transparent'}
-            color={selected ? '#004654' : 'white'}
-            padding={3}
-            borderRadius="full"
-          >
-            {labels[0]}
-          </Box>
-          <Box
             bg={!selected ? 'white' : 'transparent'}
             color={!selected ? '#004654' : 'white'}
             padding={3}
             borderRadius="full"
           >
             {labels[1]}
+          </Box>
+          <Box
+            bg={selected ? 'white' : 'transparent'}
+            color={selected ? '#004654' : 'white'}
+            padding={3}
+            borderRadius="full"
+          >
+            {labels[0]}
           </Box>
         </HStack>
       </Button>
