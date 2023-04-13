@@ -1,13 +1,13 @@
 import { Box, Grid, Text, VStack, useTheme } from '@chakra-ui/react'
-import { useSelector } from 'react-redux'
+import { compose, map } from 'ramda'
+import { selectCode, selectCodeUnary } from 'redux/db/selectors'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCloudDownloadAlt } from '@fortawesome/free-solid-svg-icons'
-import { compose, map } from 'ramda'
-
-import { selectCodeUnary } from 'redux/db/selectors'
-import useProductColors from 'utils/productColors'
-import useApi from 'api'
 import isJson from 'utils/helpers/is-json'
+import useApi from 'api'
+import useProductColors from 'utils/productColors'
+import { useSelector } from 'react-redux'
 
 const UploadedDocuments = ({ code }) => {
   const theme = useTheme()
@@ -15,14 +15,30 @@ const UploadedDocuments = ({ code }) => {
   const api = useApi()
   const { getDocumentSrc } = api
 
-  const bankStatement = compose(useSelector, selectCodeUnary(code))('PRI_BANK_STATEMENT')?.value
-  const visaStatus = compose(useSelector, selectCodeUnary(code))('PRI_VISA')?.value
-  const passport = compose(useSelector, selectCodeUnary(code))('PRI_PASSPORT')?.value
+  const bankStatement =
+    compose(useSelector, selectCodeUnary(code))('PRI_BANK_STATEMENT')?.value || ''
+  const visaStatus = compose(useSelector, selectCodeUnary(code))('PRI_VISA')?.value || ''
+  const passport = compose(useSelector, selectCodeUnary(code))('PRI_PASSPORT')?.value || ''
+  const proofOfEmployment =
+    compose(useSelector, selectCodeUnary(code))('PRI_PROOF_OF_EMPLOYMENT')?.value || ''
+  const proofOfAcceptance =
+    compose(useSelector, selectCodeUnary(code))('PRI_PROOF_OF_ACCEPTANCE')?.value || ''
+
+  const bankStatementLabel =
+    useSelector(selectCode(code, 'PRI_BANK_STATEMENT'))?.attribute?.name || ''
+  const visaStatusLabel = useSelector(selectCode(code, 'PRI_VISA'))?.attribute?.name || ''
+  const passportLabel = useSelector(selectCode(code, 'PRI_PASSPORT'))?.attribute?.name || ''
+  const proofOfEmpLabel =
+    useSelector(selectCode(code, 'PRI_PROOF_OF_EMPLOYMENT'))?.attribute?.name || ''
+  const proofOfAcceptanceLabel =
+    useSelector(selectCode(code, 'PRI_PROOF_OF_ACCEPTANCE'))?.attribute?.name || ''
 
   const documents = [
-    { title: 'Bank Statement', attr: bankStatement },
-    { title: 'VISA Status', attr: visaStatus },
-    { title: 'Passport', attr: passport },
+    { title: bankStatementLabel, attr: bankStatement },
+    { title: visaStatusLabel, attr: visaStatus },
+    { title: passportLabel, attr: passport },
+    { title: proofOfEmpLabel, attr: proofOfEmployment },
+    { title: proofOfAcceptanceLabel, attr: proofOfAcceptance },
   ]
 
   const onClick = attribute => {
@@ -41,7 +57,7 @@ const UploadedDocuments = ({ code }) => {
           gap={'clamp(1rem, 2vw, 3.25rem)'}
         >
           {map(({ title, attr }) => (
-            <Box key={title} _empty={{ display: 'none' }}>
+            <>
               {!!attr && (
                 <VStack
                   key={title}
@@ -84,7 +100,7 @@ const UploadedDocuments = ({ code }) => {
                   </Text>
                 </VStack>
               )}
-            </Box>
+            </>
           ))(documents)}
         </Grid>
       </Box>
