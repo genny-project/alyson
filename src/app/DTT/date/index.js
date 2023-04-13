@@ -47,11 +47,14 @@ const Read = ({ data, typeName = '', config }) => {
     includes('Z', data.value || '') ? new Date(data.value) : new Date(data.value + 'Z'),
     { includeTime, onlyYear },
   )
-
-  if (date === 'Invalid Date') return null
+  let displayValue = date
+  if (date === 'Invalid Date') {
+    if (includeTime) return null
+    displayValue = data?.value
+  }
   return (
     <Text minW="10rem" {...config}>
-      {date}
+      {displayValue}
     </Text>
   )
 }
