@@ -53,6 +53,7 @@ import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates
 import useGetProductName from 'utils/helpers/get-product-name'
 import { useMobileValue } from 'utils/hooks'
 import useProductColors from 'utils/productColors'
+import RepeatableAsk from '../repeatable-ask'
 
 const Ask = ({
   parentCode,
@@ -722,6 +723,28 @@ const Ask = ({
           attributeCode={attributeCode}
           targetCode={targetCode}
           clientId={clientId}
+        />
+      )}
+      {component === 'repeatable_dropdown' && (
+        <RepeatableAsk
+          config={config}
+          targetCode={targetCode}
+          questionCode={questionCode}
+          groupCode={groupCode}
+          attributeCode={attributeCode}
+          onSendAnswer={onSendAnswer}
+          placeholder={description}
+          mandatory={mandatory}
+          dataType={dataType}
+          data={data}
+          label={name}
+          parentCode={parentCode}
+          regexPattern={regexPattern}
+          errorMessage={errorMessage}
+          processId={processId}
+          placeholderName={placeholderName}
+          clientId={clientId}
+          component={Select.Write}
         />
       )}
       <FormErrorMessage>{feedback}</FormErrorMessage>
