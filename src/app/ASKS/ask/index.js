@@ -697,25 +697,24 @@ const Ask = ({
           clientId={clientId}
         />
       )}
-      {component === 'flag' ||
-        (component === 'labelled_flag' && (
-          <Flag.Write
-            data={data}
-            questionCode={questionCode}
-            onSendAnswer={onSendAnswer}
-            regexPattern={regexPattern}
-            errorMessage={errorMessage}
-            parentCode={parentCode}
-            placeholderName={placeholderName}
-            attributeCode={attributeCode}
-            targetCode={targetCode}
-            clientId={clientId}
-            mandatory={mandatory}
-            html={html}
-            config={config}
-            labelled={component === 'labelled_flag'}
-          />
-        ))}
+      {(component === 'flag' || component === 'labelled_flag') && (
+        <Flag.Write
+          data={data}
+          questionCode={questionCode}
+          onSendAnswer={onSendAnswer}
+          regexPattern={regexPattern}
+          errorMessage={errorMessage}
+          parentCode={parentCode}
+          placeholderName={placeholderName}
+          attributeCode={attributeCode}
+          targetCode={targetCode}
+          clientId={clientId}
+          mandatory={mandatory}
+          html={html}
+          config={config}
+          labelled={component === 'labelled_flag'}
+        />
+      )}
       {component === 'progress' && (
         <ProgressBar
           data={data}

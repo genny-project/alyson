@@ -3,8 +3,8 @@ import { Switch } from '@chakra-ui/react'
 import { onSendMessage } from 'vertx'
 import { selectCode } from 'redux/db/selectors'
 import { useSelector } from 'react-redux'
-import LabelledFlag from './labelled-flag'
-import DefaultFlag from './default-flag'
+import LabelledFlag from 'app/DTT/flag/labelled-flag'
+import DefaultFlag from 'app/DTT/flag/default-flag'
 
 const Read = ({ data = {} }) => {
   const sourceCode = useSelector(selectCode('USER'))
