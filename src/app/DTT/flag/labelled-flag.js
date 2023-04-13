@@ -1,5 +1,6 @@
 import { Box, Button, HStack } from '@chakra-ui/react'
 import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
+import { split } from 'ramda'
 import { useEffect, useState } from 'react'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
@@ -7,9 +8,22 @@ import useGetProductName from 'utils/helpers/get-product-name'
 import { isNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined'
 import useProductColors from 'utils/productColors'
 
-const LabelledFlag = ({ questionCode, data, onSendAnswer, placeholderName: label, mandatory }) => {
+const LabelledFlag = ({
+  questionCode,
+  data,
+  onSendAnswer,
+  placeholderName: label,
+  mandatory,
+  html,
+  config,
+}) => {
   const realm = useGetProductName().toLowerCase()
   const isProductInternmatch = useIsProductInternmatch()
+
+  const htmlLabels = split(';')(data?.html?.labels || 'Yes;No')
+  const configLabels = split(';')(config?.labels || 'Yes;No')
+
+  const labels = !!data?.html?.labels ? htmlLabels : configLabels
 
   const [selected, setSelected] = useState(data?.value || false)
 
@@ -57,7 +71,7 @@ const LabelledFlag = ({ questionCode, data, onSendAnswer, placeholderName: label
             padding={3}
             borderRadius="full"
           >
-            Approved
+            {labels[0]}
           </Box>
           <Box
             bg={!selected ? 'white' : 'transparent'}
@@ -65,7 +79,7 @@ const LabelledFlag = ({ questionCode, data, onSendAnswer, placeholderName: label
             padding={3}
             borderRadius="full"
           >
-            Rejected
+            {labels[1]}
           </Box>
         </HStack>
       </Button>

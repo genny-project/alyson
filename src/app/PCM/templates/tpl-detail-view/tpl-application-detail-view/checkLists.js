@@ -16,6 +16,7 @@ const CheckLists = ({ code: passedQuestionCode, isStudent }) => {
     return (
       <Ask
         overrideComponent={'labelled_flag'}
+        config={{ labels: 'Approved;Rejected' }}
         parentCode={parentCode}
         questionCode={questionCode}
       />

@@ -711,6 +711,8 @@ const Ask = ({
             targetCode={targetCode}
             clientId={clientId}
             mandatory={mandatory}
+            html={html}
+            config={config}
             labelled={component === 'labelled_flag'}
           />
         ))}

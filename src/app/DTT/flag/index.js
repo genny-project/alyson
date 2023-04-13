@@ -26,6 +26,8 @@ const Write = ({
   placeholderName: label,
   mandatory,
   labelled,
+  html,
+  config,
 }) => {
   if (labelled) {
     return (
@@ -35,6 +37,8 @@ const Write = ({
         onSendAnswer={onSendAnswer}
         placeholderName={label}
         mandatory={mandatory}
+        html={html}
+        config={config}
       />
     )
   } else {
