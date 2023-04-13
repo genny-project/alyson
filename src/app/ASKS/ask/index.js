@@ -16,7 +16,8 @@ import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import ABN from 'app/DTT/abn'
 import Address from 'app/DTT/address'
 import BusinessLocations from 'app/DTT/business_locations'
-import CheckBox from 'app/DTT/check_box'
+import MultiCheckBox from 'app/DTT/check_box'
+import SingleCheckBox from 'app/DTT/check_box/single-check-box'
 import Date from 'app/DTT/date'
 import DateRange from 'app/DTT/date_range'
 import Email from 'app/DTT/email'
@@ -195,7 +196,7 @@ const Ask = ({
     )
   if (component === 'checkbox')
     return (
-      <CheckBox.Write
+      <SingleCheckBox.Write
         data={data}
         questionCode={questionCode}
         onSendAnswer={onSendAnswer}
@@ -268,6 +269,22 @@ const Ask = ({
           placeholderName={placeholderName}
           targetCode={targetCode}
           mandatory={mandatory}
+          clientId={clientId}
+        />
+      )}
+      {component === 'multi_checkbox' && (
+        <MultiCheckBox.Write
+          data={data}
+          questionCode={questionCode}
+          onSendAnswer={onSendAnswer}
+          label={name}
+          isRequired={mandatory}
+          id={attributeCode}
+          regexPattern={regexPattern}
+          errorMessage={errorMessage}
+          parentCode={parentCode}
+          attributeCode={attributeCode}
+          targetCode={targetCode}
           clientId={clientId}
         />
       )}
@@ -672,7 +689,7 @@ const Ask = ({
         />
       )}
       {component === 'checkbox' && (
-        <CheckBox.Write
+        <SingleCheckBox.Write
           data={data}
           questionCode={questionCode}
           onSendAnswer={onSendAnswer}

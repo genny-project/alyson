@@ -114,9 +114,9 @@ const Write = ({
   )
 }
 
-const Checkbox = {
+const MultiCheckbox = {
   Write,
   Read,
 }
 
-export default Checkbox
+export default MultiCheckbox
