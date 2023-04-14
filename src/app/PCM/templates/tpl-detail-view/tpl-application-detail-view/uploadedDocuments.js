@@ -1,5 +1,5 @@
 import { Box, Grid, Text, VStack, useTheme } from '@chakra-ui/react'
-import { compose, map } from 'ramda'
+import { map, compose } from 'ramda'
 import { selectCode, selectCodeUnary } from 'redux/db/selectors'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -8,6 +8,12 @@ import isJson from 'utils/helpers/is-json'
 import useApi from 'api'
 import useProductColors from 'utils/productColors'
 import { useSelector } from 'react-redux'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
+import { isNotEmpty } from 'utils/helpers/is-null-or-undefined'
+import { fileSizeFormat } from 'utils/helpers/file-size-format'
+import { fileTypeFormat } from 'utils/helpers/file-type-format'
+import { rejectNullOrUndefined } from 'utils/helpers/reject-undefined'
 
 const UploadedDocuments = ({ code }) => {
   const theme = useTheme()
@@ -33,18 +39,54 @@ const UploadedDocuments = ({ code }) => {
   const proofOfAcceptanceLabel =
     useSelector(selectCode(code, 'PRI_PROOF_OF_ACCEPTANCE'))?.attribute?.name || ''
 
-  const documents = [
-    { title: bankStatementLabel, attr: bankStatement },
-    { title: visaStatusLabel, attr: visaStatus },
-    { title: passportLabel, attr: passport },
-    { title: proofOfEmpLabel, attr: proofOfEmployment },
-    { title: proofOfAcceptanceLabel, attr: proofOfAcceptance },
-  ]
+  const [documents, setDocuments] = useState([
+    { title: bankStatementLabel, attr: bankStatement, metadata: '' },
+    { title: visaStatusLabel, attr: visaStatus, metadata: '' },
+    { title: passportLabel, attr: passport, metadata: '' },
+    { title: proofOfEmpLabel, attr: proofOfEmployment, metadata: '' },
+    { title: proofOfAcceptanceLabel, attr: proofOfAcceptance, metadata: '' },
+  ])
+
+  const getUuid = attribute => {
+    const uuidArray = isJson(attribute) ? JSON.parse(attribute) : attribute
+    return uuidArray[0]
+  }
+
+  useEffect(() => {
+    const getMetadata = async () => {
+      let promises = map(document => {
+        if (isNotEmpty(document.attr)) {
+          const url = getDocumentSrc(getUuid(document.attr))
+          return axios
+            .get(url, { headers: { Authorization: `bearer ${api.token}` } })
+            .then(response => {
+              const type = response.headers['content-type']
+              const size = response.headers['content-length']
+
+              const item = {
+                title: document.title,
+                attr: document.attr,
+                metadata: `${fileSizeFormat(size)} - ${fileTypeFormat(type)}`,
+              }
+              return item
+            })
+        }
+      })(documents)
+
+      promises = rejectNullOrUndefined(promises)
+
+      Promise.all(promises).then(results => {
+        setDocuments(results)
+      })
+    }
+
+    getMetadata()
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const onClick = attribute => {
-    const uuidArray = isJson(attribute) ? JSON.parse(attribute) : attribute
-    const uuid = uuidArray[0]
-    const src = getDocumentSrc(uuid)
+    const src = getDocumentSrc(getUuid(attribute))
     window.open(src)
   }
 
@@ -56,7 +98,7 @@ const UploadedDocuments = ({ code }) => {
           templateColumns={'repeat(auto-fill, minmax(13.5rem, 1fr))'}
           gap={'clamp(1rem, 2vw, 3.25rem)'}
         >
-          {map(({ title, attr }) => (
+          {map(({ title, attr, metadata }) => (
             <>
               {!!attr && (
                 <VStack
@@ -93,10 +135,9 @@ const UploadedDocuments = ({ code }) => {
                     color={'#8a8a8a'}
                     fontWeight="400"
                     marginBlockStart={'3px !important'}
-                    display={'none'}
                     _groupHover={{ color: theme.colors.text.dark }}
                   >
-                    {'size-type'}
+                    {metadata || 'Loading...'}
                   </Text>
                 </VStack>
               )}
