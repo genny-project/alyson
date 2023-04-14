@@ -32,6 +32,7 @@ const RepeatableAsk = ({
   mandatory,
   clientId,
   component,
+  processId,
   dataType,
   maxOptions = 10,
   firstWidth = '100%',
@@ -91,6 +92,7 @@ const RepeatableAsk = ({
                 index === 0 ? placeholderName : secondPlaceholderName || placeholderName
               }
               attributeCode={attributeCode}
+              processId={processId}
               targetCode={targetCode}
               dataType={dataType}
               mandatory={mandatory}
