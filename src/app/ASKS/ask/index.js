@@ -66,6 +66,7 @@ const Ask = ({
   secondaryColor,
   answerCallback,
   passedValue,
+  overrideComponent,
   skipRedux = false,
   skipSendAnswer = false,
 }) => {
@@ -120,7 +121,8 @@ const Ask = ({
   )
 
   const { html = '', helper = '' } = question || {}
-  const { component = forcedComponent || 'text', typeName, inputmask } = dataType
+  const component = overrideComponent ?? dataType?.component ?? forcedComponent ?? 'text'
+  const { typeName, inputmask } = dataType
 
   const feedback = data?.feedback
   const onSendAnswerWithNovalue = createSendAnswer(askData, { passedTargetCode })
@@ -696,7 +698,7 @@ const Ask = ({
           clientId={clientId}
         />
       )}
-      {component === 'flag' && (
+      {(component === 'flag' || component === 'labelled_flag') && (
         <Flag.Write
           data={data}
           questionCode={questionCode}
@@ -709,6 +711,9 @@ const Ask = ({
           targetCode={targetCode}
           clientId={clientId}
           mandatory={mandatory}
+          html={html}
+          config={config}
+          labelled={component === 'labelled_flag'}
         />
       )}
       {component === 'progress' && (

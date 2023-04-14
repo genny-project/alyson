@@ -20,10 +20,11 @@ const TemplateApplicationDetailView = ({ mappedPcm }) => {
   const questionCode = mappedPcm.PRI_QUESTION_CODE || ''
   const targetCode = compose(useSelector, selectCodeUnary(questionCode))('targetCode') || ''
 
-  const isStudent = compose(useSelector, selectCodeUnary(targetCode))('LNK_EDU_PROVIDER')?.value
+  // Currently using this to check student as it has been inconsistent whether or not LNK_EDU_PROVIDER has been present, however company name has always been there
+  const isStudent = !useSelector(selectCode(targetCode, 'PRI_COMPANY_NAME'))?.value
 
-  const markCompleteButtonData =
-    compose(useSelector, selectCodeUnary(targetCode))('QUE_MARK_AS_COMPLETE') || {}
+  const markCompleteButtonData = useSelector(selectCode(questionCode, 'QUE_MARK_AS_COMPLETE')) || {}
+
   const { sourceCode } = markCompleteButtonData || {}
 
   const isApproved = compose(useSelector, selectCodeUnary(targetCode))('PRI_APPROVED')?.value
@@ -66,7 +67,7 @@ const TemplateApplicationDetailView = ({ mappedPcm }) => {
         marginBlockStart={'clamp(1rem, 3vw, 3.75rem)'}
       >
         <AdditionalInformation code={targetCode} isStudent={isStudent} />
-        <CheckLists mappedPcm={mappedPcm} code={questionCode} />
+        <CheckLists mappedPcm={mappedPcm} code={questionCode} isStudent={isStudent} />
       </Grid>
 
       <Stack

@@ -50,7 +50,15 @@ const BusinessAsk = ({
   const departmentSecondaryPlaceholderName = 'Add another department/faculty?'
 
   return (
-    <Stack direction={isMobile ? 'column' : 'row'} alignItems={'flex-start'} w="100%" spacing={5}>
+    <Stack
+      direction={isMobile ? 'column' : 'row'}
+      alignItems={'flex-start'}
+      w="100%"
+      spacing={5}
+      bg="white"
+      padding={8}
+      borderRadius="3xl"
+    >
       <Box w={'min(100%, 25rem)'}>
         <AddressPicker
           questionCode={questionCode}
