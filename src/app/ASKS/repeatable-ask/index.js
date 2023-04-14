@@ -32,6 +32,7 @@ const RepeatableAsk = ({
   mandatory,
   clientId,
   component,
+  dataType,
   maxOptions = 10,
   firstWidth = '100%',
   extraWidth = '100%',
@@ -91,6 +92,7 @@ const RepeatableAsk = ({
               }
               attributeCode={attributeCode}
               targetCode={targetCode}
+              dataType={dataType}
               mandatory={mandatory}
               clientId={clientId}
               data={makeChildData(value)}

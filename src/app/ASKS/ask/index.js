@@ -53,7 +53,7 @@ import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates
 import useGetProductName from 'utils/helpers/get-product-name'
 import { useMobileValue } from 'utils/hooks'
 import useProductColors from 'utils/productColors'
-import RepeatableAsk from '../repeatable-ask'
+import RepeatableAsk from 'app/ASKS/repeatable-ask'
 
 const Ask = ({
   parentCode,
