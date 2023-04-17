@@ -193,7 +193,7 @@ const Ask = ({
         </HStack>
       </FormControl>
     )
-  if (component === 'single_checkbox')
+  if (component === 'checkbox')
     return (
       <Checkbox.Write
         data={data}
@@ -672,7 +672,7 @@ const Ask = ({
           clientId={clientId}
         />
       )}
-      {(component === 'single_checkbox' || component === 'checkbox') && (
+      {component === 'checkbox' && (
         <Checkbox.Write
           data={data}
           questionCode={questionCode}
