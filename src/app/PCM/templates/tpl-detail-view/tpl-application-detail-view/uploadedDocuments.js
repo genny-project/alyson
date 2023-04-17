@@ -58,7 +58,7 @@ const UploadedDocuments = ({ code }) => {
         if (isNotEmpty(document.attr)) {
           const url = getDocumentSrc(getUuid(document.attr))
           return axios
-            .get(url, { headers: { Authorization: `bearer ${api.token}` } })
+            .head(url, { headers: { Authorization: `bearer ${api.token}` } })
             .then(response => {
               const type = response.headers['content-type']
               const size = response.headers['content-length']
