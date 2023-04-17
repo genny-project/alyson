@@ -18,6 +18,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 import { isNotEmpty } from 'utils/helpers/is-null-or-undefined'
+import { getAsArray } from 'utils/helpers/get_as_array'
 
 const RepeatableAsk = ({
   questionCode,
@@ -75,9 +76,10 @@ const RepeatableAsk = ({
   const showDeleteButton = index => (mandatory && index !== 0) || !mandatory
 
   const Element = component
+  let mapValues = getAsArray(values || [])
   return (
     <VStack w="100%" justifyItems="flex-start" alignItems="flex-start" spacing={5}>
-      {(values ?? []).map((value, index) => (
+      {mapValues.map((value, index) => (
         <HStack
           key={`${questionCode}-${index}`}
           w={index === 0 ? firstWidth : extraWidth}
