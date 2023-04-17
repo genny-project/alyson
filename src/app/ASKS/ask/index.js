@@ -52,7 +52,6 @@ import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates
 import useGetProductName from 'utils/helpers/get-product-name'
 import { useMobileValue } from 'utils/hooks'
 import useProductColors from 'utils/productColors'
-import RepeatableAsk from 'app/ASKS/repeatable-ask'
 import Checkbox from 'app/DTT/check_box'
 
 const Ask = ({
@@ -320,7 +319,7 @@ const Ask = ({
           clientId={clientId}
         />
       )}
-      {(component === 'dropdown' || component === 'tag') && (
+      {(component === 'dropdown' || component === 'tag' || component === 'repeatable_dropdown') && (
         <Select.Write
           config={config}
           targetCode={targetCode}
@@ -730,28 +729,6 @@ const Ask = ({
           attributeCode={attributeCode}
           targetCode={targetCode}
           clientId={clientId}
-        />
-      )}
-      {component === 'repeatable_dropdown' && (
-        <RepeatableAsk
-          config={config}
-          targetCode={targetCode}
-          questionCode={questionCode}
-          groupCode={groupCode}
-          attributeCode={attributeCode}
-          onSendAnswer={onSendAnswer}
-          placeholder={description}
-          mandatory={mandatory}
-          dataType={dataType}
-          data={data}
-          label={name}
-          parentCode={parentCode}
-          regexPattern={regexPattern}
-          errorMessage={errorMessage}
-          processId={processId}
-          placeholderName={placeholderName}
-          clientId={clientId}
-          component={Select.Write}
         />
       )}
       <FormErrorMessage>{feedback}</FormErrorMessage>
