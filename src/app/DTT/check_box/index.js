@@ -59,8 +59,6 @@ const Write = ({
       newValue = append(selectedValue)(newValue)
     }
 
-    console.log(newValue)
-
     setValue(newValue)
     onSendAnswer(newValue)
     dispatchFieldMessage({ payload: questionCode })
