@@ -319,7 +319,7 @@ const Ask = ({
           clientId={clientId}
         />
       )}
-      {(component === 'dropdown' || component === 'tag') && (
+      {(component === 'dropdown' || component === 'tag' || component === 'repeatable_dropdown') && (
         <Select.Write
           config={config}
           targetCode={targetCode}
