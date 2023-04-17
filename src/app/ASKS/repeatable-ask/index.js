@@ -43,8 +43,9 @@ const RepeatableAsk = ({
   addButtonAnotherText = 'Add Another',
   secondPlaceholderName = '',
   centerDeleteButton = false,
+  showEmptyValueOnLoad = false,
 }) => {
-  const defaultValue = mandatory ? `${emptyValue}` : ''
+  const defaultValue = mandatory || showEmptyValueOnLoad ? `${emptyValue}` : ''
   const [values, setValues] = useState(safelyParseJson(data?.value || `[${defaultValue}]`))
   const makeChildData = value => set(lensProp('value'), value)(data)
   const validAnswer = compose(not, includes(''))(values)
