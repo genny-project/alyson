@@ -1,4 +1,4 @@
-import { Button, useTheme } from '@chakra-ui/react'
+import { Box, Button, useTheme } from '@chakra-ui/react'
 import { equals, includes } from 'ramda'
 
 import isSubmitButton from 'app/DTT/event_button/helpers/is-submit.js'
@@ -7,9 +7,11 @@ import { internmatch } from 'utils/constants'
 import useGetProductName from 'utils/helpers/get-product-name'
 import useProductColors from 'utils/productColors'
 import { onSendMessage } from 'vertx'
-import Submit from './Submit'
+import Submit from 'app/DTT/event_button/Submit'
 
-const EventButton = ({ askData, onFinish, parentCode, sourceCode, config }) => {
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+const EventButton = ({ askData, onFinish, parentCode, sourceCode, config, icon }) => {
   const { questionCode, targetCode, name, disabled, processId, attributeCode } = askData
   const theme = useTheme()
 
@@ -126,6 +128,11 @@ const EventButton = ({ askData, onFinish, parentCode, sourceCode, config }) => {
             : theme.colors.text.dark,
       }}
     >
+      {!!icon && (
+        <Box paddingRight={3}>
+          <FontAwesomeIcon size="lg" icon={icon} />
+        </Box>
+      )}
       {name}
     </Button>
   )

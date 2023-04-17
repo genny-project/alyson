@@ -9,6 +9,7 @@ import UploadedDocuments from './uploadedDocuments'
 import { compose } from 'ramda'
 import { useIsMobile } from 'utils/hooks'
 import { useSelector } from 'react-redux'
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 
 const TemplateApplicationDetailView = ({ mappedPcm }) => {
   const theme = useTheme()
@@ -80,6 +81,7 @@ const TemplateApplicationDetailView = ({ mappedPcm }) => {
           parentCode={questionCode}
           sourceCode={sourceCode}
           config={buttonStyles}
+          icon={faCheckCircle}
         />
       </Stack>
     </>
