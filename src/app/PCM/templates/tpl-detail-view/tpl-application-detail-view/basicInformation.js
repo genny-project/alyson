@@ -24,7 +24,7 @@ const BasicInformation = ({ code, isStudent, isApproved }) => {
   const escapeChars = str => str.replace(/[[\]']+/g, '').replace(/"/g, '')
 
   const tenantFullName = useSelector(selectCode(code, 'PRI_NAME'))?.value || ''
-  const tenantImageCode = useSelector(selectCode(code, 'PRI_IMAGE'))?.value || ''
+  const tenantImageCode = useSelector(selectCode(code, 'PRI_USER_PROFILE_PICTURE'))?.value || ''
   const tenantImage = escapeChars(tenantImageCode)
 
   const tenantJobRole = useSelector(selectCode(code, 'PRI_ROLE_AT_COMPANY'))?.value || ''
