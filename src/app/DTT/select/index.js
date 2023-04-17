@@ -17,3 +17,5 @@ const Select = {
   Write,
   Read,
 }
+
+export default Select
