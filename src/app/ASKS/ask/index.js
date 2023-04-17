@@ -16,7 +16,6 @@ import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import ABN from 'app/DTT/abn'
 import Address from 'app/DTT/address'
 import BusinessLocations from 'app/DTT/business_locations'
-import CheckBox from 'app/DTT/check_box'
 import Date from 'app/DTT/date'
 import DateRange from 'app/DTT/date_range'
 import Email from 'app/DTT/email'
@@ -53,6 +52,7 @@ import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates
 import useGetProductName from 'utils/helpers/get-product-name'
 import { useMobileValue } from 'utils/hooks'
 import useProductColors from 'utils/productColors'
+import Checkbox from 'app/DTT/check_box'
 
 const Ask = ({
   parentCode,
@@ -195,11 +195,12 @@ const Ask = ({
     )
   if (component === 'checkbox')
     return (
-      <CheckBox.Write
+      <Checkbox.Write
         data={data}
         questionCode={questionCode}
         onSendAnswer={onSendAnswer}
         label={name}
+        typeName={typeName}
         isRequired={mandatory}
         id={attributeCode}
         regexPattern={regexPattern}
@@ -672,7 +673,7 @@ const Ask = ({
         />
       )}
       {component === 'checkbox' && (
-        <CheckBox.Write
+        <Checkbox.Write
           data={data}
           questionCode={questionCode}
           onSendAnswer={onSendAnswer}
@@ -683,6 +684,7 @@ const Ask = ({
           attributeCode={attributeCode}
           targetCode={targetCode}
           clientId={clientId}
+          typeName={typeName}
         />
       )}
       {component === 'log_rocket_session' && (
