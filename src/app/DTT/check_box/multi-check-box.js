@@ -11,9 +11,9 @@ import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import useGetProductName from 'utils/helpers/get-product-name'
 import isJson from 'utils/helpers/is-json'
 import useProductColors from 'utils/productColors'
-import { isArray } from 'utils/helpers/is-type'
 import Select from 'app/DTT/select'
 import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
+import { getAsArray } from 'utils/helpers/get_as_array'
 
 const Read = ({ data, dataType }) => <Select.Read data={data} dataType={dataType} />
 
@@ -26,33 +26,36 @@ const Write = ({
   mandatory,
   config,
 }) => {
-  const realm = useGetProductName().toLowerCase()
-  const isProductInternmatch = useIsProductInternmatch()
-  const colorScheme = useGetAttributeFromProjectBaseEntity('PRI_SECONDARY_COLOR')?.valueString
-  let dataValueFromBackend = isJson(data?.value) ? JSON.parse(data.value) : data.value || ''
-  const isDataValueArray = Array.isArray(dataValueFromBackend)
-  const dataValue = isDataValueArray ? path([0])(dataValueFromBackend) : dataValueFromBackend
+  const getDataValue = data => {
+    let dataValueFromBackend = isJson(data?.value) ? JSON.parse(data.value) : data.value || ''
+    let isDataValueArray = Array.isArray(dataValueFromBackend)
+    return isDataValueArray ? path([0])(dataValueFromBackend) : dataValueFromBackend
+  }
+
+  const [value, setValue] = useState(getDataValue(data))
+  const selectedData =
+    compose(useSelector, selectCode)(`${parentCode}-${questionCode}-options`) || []
   const isProductLojing = useIsProductLojing()
-  const [value, setValue] = useState(dataValue)
+  const isProductInternmatch = useIsProductInternmatch()
+  const realm = useGetProductName().toLowerCase()
+  const colorScheme = useGetAttributeFromProjectBaseEntity('PRI_SECONDARY_COLOR')?.valueString
+  const { labelTextColor } = useProductColors()
+  const { dispatchFieldMessage } = useIsFieldNotEmpty()
 
   const { vertical } = config || {}
   //change default orientation for lojing while preserving config functionality
   const verticalAligned = vertical || isProductLojing ? true : false
-  const selectedData =
-    compose(useSelector, selectCode)(`${parentCode}-${questionCode}-options`) || []
+
+  const dataValue = getDataValue(data)
 
   const options = map(({ code, name }) => ({ label: name, value: code }))(selectedData)
-
-  const { labelTextColor } = useProductColors()
-
-  const { dispatchFieldMessage } = useIsFieldNotEmpty()
 
   useEffect(() => {
     setValue(dataValue)
   }, [dataValue])
 
   const onChange = selectedValue => {
-    let newValue = isArray(value) ? value : !!value ? [value] : []
+    let newValue = getAsArray(value)
     if (includes(selectedValue)(newValue)) {
       newValue = reject(equals(selectedValue))(newValue)
     } else {
