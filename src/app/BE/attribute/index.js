@@ -3,7 +3,7 @@ import { default as JournalProgress, default as ProgressBar } from 'app/DTT/prog
 
 import ABN from 'app/DTT/abn'
 import Address from 'app/DTT/address'
-import CheckBox from 'app/DTT/check_box'
+import Checkbox from 'app/DTT/check_box'
 import Date from 'app/DTT/date'
 import Email from 'app/DTT/email'
 import Favourites from 'app/DTT/favourites'
@@ -114,7 +114,7 @@ const Attribute = ({
   ) : component === 'time_zone' ? (
     <TimeZonePicker.Read data={data} />
   ) : component === 'checkbox' ? (
-    <CheckBox.Read data={data} dataType={dttData} />
+    <Checkbox.Read data={data} dataType={dttData} typeName={typeName} />
   ) : component === 'flag' ? (
     <Flag.Read data={data} />
   ) : component === 'html_editor_tinymce' ? (
