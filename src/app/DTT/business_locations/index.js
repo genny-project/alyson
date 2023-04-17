@@ -14,7 +14,7 @@ const Write = ({
   mandatory,
   clientId,
 }) => {
-  const placeholderName = 'What is your head office business address?'
+  const placeholderName = 'What is your head office address?'
   const secondaryPlaceholderName = 'Would you like to add another location?'
 
   return (
