@@ -272,23 +272,6 @@ const Ask = ({
           clientId={clientId}
         />
       )}
-      {component === 'checkbox' && (
-        <Checkbox.Write
-          typeName={typeName}
-          data={data}
-          questionCode={questionCode}
-          onSendAnswer={onSendAnswer}
-          label={name}
-          isRequired={mandatory}
-          id={attributeCode}
-          regexPattern={regexPattern}
-          errorMessage={errorMessage}
-          parentCode={parentCode}
-          attributeCode={attributeCode}
-          targetCode={targetCode}
-          clientId={clientId}
-        />
-      )}
       {component === 'phone' && (
         <Phone.Write
           questionCode={questionCode}
@@ -689,7 +672,7 @@ const Ask = ({
           clientId={clientId}
         />
       )}
-      {component === 'single_checkbox' && (
+      {(component === 'single_checkbox' || component === 'checkbox') && (
         <Checkbox.Write
           data={data}
           questionCode={questionCode}
