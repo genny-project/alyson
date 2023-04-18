@@ -1,4 +1,4 @@
-import { Avatar, Box, HStack, VStack, Text, Divider } from '@chakra-ui/react'
+import { Avatar, Box, HStack, VStack, Text, Divider, Grid } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Iconly } from 'react-iconly'
 import { faLinkedin } from '@fortawesome/free-brands-svg-icons'
@@ -21,7 +21,13 @@ const UserCard = () => {
   }
 
   return (
-    <Box width={'33rem'} height={'18rem'} borderRadius={'2.5rem'} bg={'#FFFFFF'}>
+    <Box
+      width={'33rem'}
+      height={'18rem'}
+      borderRadius={'2.5rem'}
+      bg={'#FFFFFF'}
+      justifyContent={'center'}
+    >
       <VStack>
         <Avatar size={'2xl'} src={imageSrc} marginTop={'-3.75rem'} />
         <HStack>
@@ -47,15 +53,15 @@ const UserCard = () => {
           <FontAwesomeIcon icon={faLinkedin} color={'#EA5024'} cursor={'pointer'} />
         </HStack>
 
-        <HStack alignItems={'baseline'} justifyContent={'center'}>
+        <Grid spacing={0} templateColumns={'repeat(3, 1fr)'} gap="1rem">
           {data.map(({ icon, dataValue }, index) => (
-            <HStack
-              key={`${dataValue}-${index}`}
-              h={'3rem'}
-              marginTop={'2.5rem'}
-              paddingInline={'1.5rem'}
-            >
-              <Box>
+            <HStack key={`${dataValue}-${index}`}>
+              <Box
+                display={'flex'}
+                alignItems={'center'}
+                justifyContent={'center'}
+                flexDirection={'column'}
+              >
                 <Iconly name={icon} set={'two-tone'} />
                 <Text fontSize={'14px'} maxW={'6.5rem'} textAlign={'center'} color={'#829998'}>
                   {dataValue}
@@ -66,7 +72,7 @@ const UserCard = () => {
               ) : null}
             </HStack>
           ))}
-        </HStack>
+        </Grid>
       </VStack>
     </Box>
   )
