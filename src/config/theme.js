@@ -126,6 +126,7 @@ export const defaultProjectTheme = {
       primary400: '#96D5D3',
       primary: '#063231',
       primary400Alpha40: 'rgb(150 213 211 / .4)',
+      500: '#96D5D3',
 
       secondary: '#EA5024',
       secondary400: '#E4BAC8',
