@@ -1,5 +1,5 @@
 import { Box, Text } from '@chakra-ui/react'
-import { TemplateHori, TemplateHoriAll, TemplateVert, TemplateVertAll } from './vert-and-hori'
+import { TemplateHori, TemplateVert } from './vert-and-hori'
 
 import TemplateAddItems from 'app/PCM/templates/tpl-add-items'
 import TemplateApplicationDetailView from 'app/PCM/templates/tpl-detail-view/tpl-application-detail-view'
@@ -51,9 +51,10 @@ const templateHandlerMachine = depth => mappedPcm => parentCode => rest => {
     TPL_ROOT: <TemplateRoot showTemplateNames={showTemplateNames} {...mandatoryProps} />,
     TPL_SIDEBAR_1: <TemplateSidebarOne {...mandatoryProps} />,
     TPL_VERT: <TemplateVert {...mandatoryProps} />,
-    TPL_VERT_ALL: <TemplateVertAll {...mandatoryProps} />,
+    TPL_VERT_ALL: <TemplateVert {...mandatoryProps} />,
     TPL_HORI: <TemplateHori {...mandatoryProps} />,
-    TPL_HORI_ALL: <TemplateHoriAll {...mandatoryProps} />,
+    TPL_HORI_ALL: <TemplateHori {...mandatoryProps} />,
+    TPL_HORI_CARD: <TemplateHori showCard {...mandatoryProps} />,
     TPL_HEADER_1: <TemplateHeader {...mandatoryProps} />,
     TPL_DISPLAY: <TemplateDisplay {...mandatoryProps} />,
     TPL_LOGO: <TemplateLogo {...mandatoryProps} />,
