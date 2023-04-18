@@ -13,11 +13,15 @@ const ContactDetailsCard = () => {
       bg={'#FFFFFF'}
       borderRadius={'2.5rem'}
       paddingInline={'1rem'}
+      fontFamily={'Almarai'}
     >
-      <HStack paddingInline={'3rem'} paddingBlock={'2rem'} justifyContent={'space-between'}>
-        <Text fontFamily={'Almarai'} fontSize={'20px'}>
-          {title}
-        </Text>
+      <HStack
+        paddingInline={'3rem'}
+        paddingBlock={'2rem'}
+        justifyContent={'space-between'}
+        alignItems={'flex-start'}
+      >
+        <Text fontSize={'20px'}>{title}</Text>
         <VStack alignItems={'flex-start'}>
           <HStack>
             <Iconly name={'Call'} set={'light'} />

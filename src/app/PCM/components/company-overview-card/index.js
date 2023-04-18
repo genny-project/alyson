@@ -16,14 +16,14 @@ const CompanyOverviewCard = () => {
     >
       <HStack alignItems={'flex-start'}>
         <VStack alignItems={'flex-start'} paddingBlock={'2rem'} paddingInline={'3rem'} flex={1}>
-          <Text fontSize={'12px'} color={'#829998'} marginBottom={'-0.5rem'}>
+          <Text fontSize={'12px'} color={'#829998'}>
             {'Industry'}
           </Text>
           <Text fontSize={'16px'}>{industryInformation}</Text>
         </VStack>
 
         <VStack alignItems={'flex-start'} paddingBlock={'2rem'} paddingInline={'3rem'} flex={1.5}>
-          <Text fontSize={'12px'} color={'#829998'} marginBottom={'-0.5rem'}>
+          <Text fontSize={'12px'} color={'#829998'}>
             {'Specialization'}
           </Text>
           <Text fontSize={'16px'}>{specializationInfo}</Text>
@@ -35,7 +35,7 @@ const CompanyOverviewCard = () => {
         paddingInline={'3rem'}
         marginTop={'-1rem'}
       >
-        <Text fontSize={'12px'} color={'#829998'} marginBottom={'-0.5rem'}>
+        <Text fontSize={'12px'} color={'#829998'}>
           {'About Us'}
         </Text>
         <Text fontSize={'16px'}>{description}</Text>
