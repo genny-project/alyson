@@ -7,7 +7,6 @@ import { useState } from 'react'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 
 const UserCard = () => {
-  const arrayOfIcons = ['faStar', 'faStar', 'faStar', 'faStar', 'faStar']
   const name = 'Pascal Satori'
   const data = [
     { icon: 'Work', dataValue: 'Design & Margeting' },
@@ -15,7 +14,6 @@ const UserCard = () => {
     { icon: 'Location', dataValue: 'Melbourne, Australia' },
   ]
   const imageSrc = 'https://bit.ly/dan-abramov'
-  const url = 'https://www.linkedin.com/'
 
   const [rating, setRating] = useState(0)
   const handleStarRating = index => {
@@ -27,10 +25,10 @@ const UserCard = () => {
       <VStack>
         <Avatar size={'2xl'} src={imageSrc} marginTop={'-3.75rem'} />
         <HStack>
-          {arrayOfIcons.map((_, index) => (
+          {[...Array(5)].map((_, index) => (
             <FontAwesomeIcon
+              key={index}
               icon={faStar}
-              color={'#96D5D3'}
               onClick={() => handleStarRating(index)}
               size={'xs'}
               style={{
@@ -49,7 +47,7 @@ const UserCard = () => {
           <FontAwesomeIcon icon={faLinkedin} color={'#EA5024'} cursor={'pointer'} />
         </HStack>
 
-        <HStack>
+        <HStack alignItems={'baseline'} justifyContent={'center'}>
           {data.map(({ icon, dataValue }, index) => (
             <HStack
               key={`${dataValue}-${index}`}
@@ -57,19 +55,14 @@ const UserCard = () => {
               marginTop={'2.5rem'}
               paddingInline={'1.5rem'}
             >
-              <Box alignItems={'center'}>
+              <Box>
                 <Iconly name={icon} set={'two-tone'} />
                 <Text fontSize={'14px'} maxW={'6.5rem'} textAlign={'center'} color={'#829998'}>
                   {dataValue}
                 </Text>
               </Box>
               {lt(index, data.length - 1) ? (
-                <Divider
-                  orientation={'vertical'}
-                  h={'4.2rem'}
-                  borderColor={'#06323161'}
-                  marginInlineStart={'1.5rem'}
-                />
+                <Divider orientation={'vertical'} h={'4.2rem'} borderColor={'#06323161'} />
               ) : null}
             </HStack>
           ))}

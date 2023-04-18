@@ -10,7 +10,6 @@ const ContactDetailsCard = () => {
     <Box width={'33rem'} height={'10rem'} bg={'#FFFFFF'} borderRadius={'2.5rem'}>
       <HStack paddingInline={'3rem'} paddingBlock={'2rem'} justifyContent={'space-between'}>
         <Text fontFamily={'Almarai'} fontSize={'20px'}>
-          {' '}
           {title}
         </Text>
         <VStack alignItems={'flex-start'}>
