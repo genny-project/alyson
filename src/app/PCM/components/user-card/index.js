@@ -27,6 +27,7 @@ const UserCard = () => {
       borderRadius={'2.5rem'}
       bg={'#FFFFFF'}
       justifyContent={'center'}
+      paddingInline={'1rem'}
     >
       <VStack>
         <Avatar size={'2xl'} src={imageSrc} marginTop={'-3.75rem'} />
@@ -61,6 +62,7 @@ const UserCard = () => {
                 alignItems={'center'}
                 justifyContent={'center'}
                 flexDirection={'column'}
+                paddingInline={'1.5rem'}
               >
                 <Iconly name={icon} set={'two-tone'} />
                 <Text fontSize={'14px'} maxW={'6.5rem'} textAlign={'center'} color={'#829998'}>
