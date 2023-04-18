@@ -4,7 +4,7 @@ import { selectCodeUnary } from 'redux/db/selectors'
 import { Box, HStack, Text } from '@chakra-ui/react'
 
 const TemplateListItemsItem = ({ code }) => {
-  const name = compose(useSelector, selectCodeUnary(code))('PRI_NAME') || ''
+  const name = compose(useSelector, selectCodeUnary(code))('PRI_NAME')?.value || ''
 
   return (
     <HStack>
