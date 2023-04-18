@@ -12,9 +12,9 @@ const TemplateListItemsItem = ({ code }) => {
         borderRadius={'sm'}
         borderColor={'#AADBA3'}
         borderWidth={'2px'}
-        color={'#55B748'}
-        width="1rem"
-        height="1rem"
+        bg={'#55B748'}
+        width="16px"
+        height="16px"
         paddingRight={4}
       />
       <Text>{name}</Text>
