@@ -8,7 +8,7 @@ const TemplateListItems = ({ mappedPcm }) => {
   const sbeCode = mappedPcm?.PRI_LOC1 ?? ''
   const rows = compose(useSelector, selectRows)(sbeCode) || []
 
-  return <VStack>{map(row => <TemplateListItemsItem code={row} />)(rows)}</VStack>
+  return <VStack>{map(row => <TemplateListItemsItem key={row} code={row} />)(rows)}</VStack>
 }
 
 export default TemplateListItems
