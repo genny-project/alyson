@@ -31,6 +31,7 @@ import TemplateVerticalCards from 'app/PCM/templates/tpl_vertical_cards'
 import debugOut from 'utils/debug-out'
 import hasNot from 'utils/helpers/has-not'
 import showTemplateNames from 'utils/helpers/show-template-names'
+import TemplateListItems from 'app/PCM/templates/tpl-list-items'
 
 /**
  * Takes in a mappedPcm, a templateCode and some misc properties and returns a template component.
@@ -86,6 +87,7 @@ const templateHandlerMachine = depth => mappedPcm => parentCode => rest => {
     TPL_VERTICAL_CARDS: <TemplateVerticalCards {...mandatoryProps} />,
     TPL_SEARCH_BAR: <TemplateSearchBar {...mandatoryProps} />,
     TPL_SUBMIT_APPLICATION: <TemplateSubmitApplication {...mandatoryProps} />,
+    TPL_LIST_ITEMS: <TemplateListItems {...mandatoryProps} />,
   }
 
   const { PRI_TEMPLATE_CODE: templateCode } = mappedPcm
