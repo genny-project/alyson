@@ -35,21 +35,6 @@ import showTemplateNames from 'utils/helpers/show-template-names'
 /**
  * Takes in a mappedPcm, a templateCode and some misc properties and returns a template component.
  *
-
-    
-          
-            
-    
-
-          
-          
-            
-    
-
-          
-    
-    @@ -73,7 +72,7 @@ const templateHandlerMachine = depth => mappedPcm => parentCode => rest => {
-  
  * If the template does not exist, it will return the default template
  *
  */
@@ -60,6 +45,7 @@ const templateHandlerMachine = depth => mappedPcm => parentCode => rest => {
     parentCode,
     ...rest,
   }
+
   const listOfTemplates = {
     TPL_DEFAULT: <TemplateDefault />,
     TPL_ROOT: <TemplateRoot showTemplateNames={showTemplateNames} {...mandatoryProps} />,
@@ -91,7 +77,6 @@ const templateHandlerMachine = depth => mappedPcm => parentCode => rest => {
     TPL_ADD_ITEMS: <TemplateAddItems {...mandatoryProps} />,
     TPL_BELL: <TemplateBell {...mandatoryProps} />,
     TPL_AVATAR: <TemplateAvatar {...mandatoryProps} />,
-
     TPL_PROPERTY_DETAIL_VIEW: <TemplatePropertyDetailView {...mandatoryProps} />,
     TPL_APPLICATION_DETAIL_VIEW: <TemplateApplicationDetailView {...mandatoryProps} />,
     TPL_SBE_DETAIL_VIEW: <TemplateSBEDetailView {...mandatoryProps} />,
@@ -102,17 +87,22 @@ const templateHandlerMachine = depth => mappedPcm => parentCode => rest => {
     TPL_SEARCH_BAR: <TemplateSearchBar {...mandatoryProps} />,
     TPL_SUBMIT_APPLICATION: <TemplateSubmitApplication {...mandatoryProps} />,
   }
+
   const { PRI_TEMPLATE_CODE: templateCode } = mappedPcm
   let noMatchingTemplates = hasNot(templateCode)(listOfTemplates)
   const defaultTemplate = <TemplateDefault />
   let matchingTemplate = listOfTemplates[templateCode]
   let template = noMatchingTemplates ? defaultTemplate : matchingTemplate
+
   if (noMatchingTemplates) {
     debugOut.warn(`No template exists for code: ${templateCode}! Falling back on default tempalte!`)
     return undefined
   }
+
   const code = mappedPcm?.code || mappedPcm?.PRI_NAME || 'No code or name'
+
   const color = Math.random().toString(16).substr(-6)
+
   return showTemplateNames ? (
     <Box position={'relative'}>
       <Text
@@ -137,4 +127,5 @@ const templateHandlerMachine = depth => mappedPcm => parentCode => rest => {
     template
   )
 }
+
 export default templateHandlerMachine

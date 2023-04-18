@@ -14,9 +14,7 @@ const AboutPanel = props => {
       borderTopColor={'#B4C1C1'}
     >
       <Wrap paddingInline={'1rem'} spacing={'2.5rem'} marginLeft={'-5rem'}>
-        <WrapItem>
-          <VideoCard props={props} />
-        </WrapItem>
+        <WrapItem>{/* <VideoCard props={props} /> */}</WrapItem>
         <WrapItem>
           <CompanyOverviewCard />
         </WrapItem>
