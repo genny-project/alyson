@@ -7,7 +7,13 @@ const ContactDetailsCard = () => {
   const email = 'gerard@outcome.life'
 
   return (
-    <Box width={'33rem'} height={'10rem'} bg={'#FFFFFF'} borderRadius={'2.5rem'}>
+    <Box
+      width={'33rem'}
+      height={'10rem'}
+      bg={'#FFFFFF'}
+      borderRadius={'2.5rem'}
+      paddingInline={'1rem'}
+    >
       <HStack paddingInline={'3rem'} paddingBlock={'2rem'} justifyContent={'space-between'}>
         <Text fontFamily={'Almarai'} fontSize={'20px'}>
           {title}
