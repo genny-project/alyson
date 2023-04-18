@@ -30,8 +30,7 @@ import TemplateVerticalCards from 'app/PCM/templates/tpl_vertical_cards'
 import debugOut from 'utils/debug-out'
 import hasNot from 'utils/helpers/has-not'
 import showTemplateNames from 'utils/helpers/show-template-names'
-import TemplateHostCompanyProfile from './tpl-host-company-profile/index'
-
+import TemplateHostCompanyProfile from './tpl-host-company-profile'
 /**
  * Takes in a mappedPcm, a templateCode and some misc properties and returns a template component.
  *
@@ -73,7 +72,7 @@ const templateHandlerMachine = depth => mappedPcm => parentCode => rest => {
     TPL_CARD: <TemplateCard {...mandatoryProps} />,
     TPL_DETAIL_VIEW: <TemplateDetailView {...mandatoryProps} />,
     TPL_HORIZONTAL_CARDS: <TemplateHorizontalCards {...mandatoryProps} />,
-    TPL_PROCESS: <TemplateHostCompanyProfile {...mandatoryProps} />,
+    TPL_PROCESS: <TemplateHostCompanyProfile />,
     TPL_ADD_ITEMS: <TemplateAddItems {...mandatoryProps} />,
     TPL_BELL: <TemplateBell {...mandatoryProps} />,
     TPL_AVATAR: <TemplateAvatar {...mandatoryProps} />,
