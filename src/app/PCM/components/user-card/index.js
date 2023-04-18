@@ -1,10 +1,11 @@
-import { Avatar, Box, HStack, VStack, Text, Divider, Grid } from '@chakra-ui/react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Iconly } from 'react-iconly'
+import { Avatar, Box, Divider, Grid, HStack, Text, VStack } from '@chakra-ui/react'
+
 import { faLinkedin } from '@fortawesome/free-brands-svg-icons'
+import { faStar } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { lt } from 'ramda'
 import { useState } from 'react'
-import { faStar } from '@fortawesome/free-solid-svg-icons'
+import { Iconly } from 'react-iconly'
 
 const UserCard = () => {
   const name = 'Pascal Satori'
@@ -53,14 +54,15 @@ const UserCard = () => {
           <FontAwesomeIcon icon={faLinkedin} color={'#EA5024'} cursor={'pointer'} />
         </HStack>
 
-        <Grid spacing={0} templateColumns={'repeat(3, 1fr)'} gap="1rem">
+        <Grid spacing={0} templateColumns={'repeat(3, 1fr)'} gap="1rem" paddingInline={2}>
           {data.map(({ icon, dataValue }, index) => (
-            <HStack key={`${dataValue}-${index}`}>
+            <HStack key={`${dataValue}-${index}`} h={'full'}>
               <Box
                 display={'flex'}
                 alignItems={'center'}
-                justifyContent={'center'}
+                justifyContent={'flex-start'}
                 flexDirection={'column'}
+                h={'full'}
               >
                 <Iconly name={icon} set={'two-tone'} />
                 <Text fontSize={'14px'} maxW={'6.5rem'} textAlign={'center'} color={'#829998'}>
