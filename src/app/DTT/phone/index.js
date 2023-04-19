@@ -39,7 +39,7 @@ import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
 import useGetProductName from 'utils/helpers/get-product-name'
 import { isNotNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined'
 import useProductColors from 'utils/productColors'
-import countryList from './helpers/country-list'
+import countryList from 'src/app/DTT/phone/helpers/country-list'
 
 const Write = ({
   questionCode,
@@ -54,7 +54,7 @@ const Write = ({
   inputmask,
 }) => {
   let regex
-  const mask = inputmask ?? `P00000000000`
+  const mask = `P00000000000`
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value || '')
   const [isFocused, setIsFocused] = useState(false)
