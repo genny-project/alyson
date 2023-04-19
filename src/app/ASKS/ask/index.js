@@ -1,10 +1,10 @@
 import {
+  Text as CText,
   FormControl,
   FormErrorMessage,
   FormHelperText,
   FormLabel,
   HStack,
-  Text as CText,
 } from '@chakra-ui/react'
 import { compose, equals, lensProp, pathOr, set } from 'ramda'
 import { useDispatch, useSelector } from 'react-redux'
@@ -16,6 +16,7 @@ import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import ABN from 'app/DTT/abn'
 import Address from 'app/DTT/address'
 import BusinessLocations from 'app/DTT/business_locations'
+import Checkbox from 'app/DTT/check_box'
 import Date from 'app/DTT/date'
 import DateRange from 'app/DTT/date_range'
 import Email from 'app/DTT/email'
@@ -52,7 +53,6 @@ import dispatchBaseEntityUpdates from 'utils/helpers/dispatch-baseentity-updates
 import useGetProductName from 'utils/helpers/get-product-name'
 import { useMobileValue } from 'utils/hooks'
 import useProductColors from 'utils/productColors'
-import Checkbox from 'app/DTT/check_box'
 
 const Ask = ({
   parentCode,
@@ -236,7 +236,13 @@ const Ask = ({
       p={highlightedQuestion === attributeCode ? '3' : '0'}
       transition="all 0.5s ease"
       mt={config?.mt ?? 5}
-      w={isFullWidth ? 'min(100%,52rem)' : askWidth}
+      w={
+        isFullWidth
+          ? 'min(100%, 52rem)'
+          : component === 'upload' || component === 'richtext_editor'
+          ? 'min(100%, 52rem)'
+          : askWidth
+      }
     >
       {
         <HStack
