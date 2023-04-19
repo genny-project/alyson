@@ -13,8 +13,7 @@ const TemplateListItemsItem = ({ code }) => {
         borderColor={'#AADBA3'}
         borderWidth={'2px'}
         bg={'#55B748'}
-        width="16px"
-        height="16px"
+        style={{ width: '16px', aspectRatio: 1 }}
         paddingRight={4}
       />
       <Text>{name}</Text>
