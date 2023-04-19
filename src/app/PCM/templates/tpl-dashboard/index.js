@@ -8,7 +8,7 @@ import TrainingPanel from 'app/PCM/templates/tpl-dashboard/tab-panels/training-p
 const TemplateDashboard = () => {
   return (
     <Box>
-      <Text fontSize={'36px'} marginLeft={'1.5rem'} marginTop={'-1.5rem'}>
+      <Text fontSize={'36px'} marginLeft={'1.5rem'} marginTop={'-1.5rem'} alignItems={'flex-start'}>
         Dashboard
       </Text>
       <HStack marginLeft={'1rem'} marginTop={'2rem'} spacing={'2rem'} marginRight={'-5rem'}>
