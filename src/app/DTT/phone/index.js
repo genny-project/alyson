@@ -54,7 +54,7 @@ const Write = ({
   inputmask,
 }) => {
   let regex
-  const mask = `P00000000000`
+  const mask = inputmask ?? `P00000000000`
   const [errorStatus, setErrorStatus] = useState(false)
   const [userInput, setuserInput] = useState(data?.value || '')
   const [isFocused, setIsFocused] = useState(false)
