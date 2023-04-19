@@ -199,7 +199,7 @@ const Ask = ({
         data={data}
         questionCode={questionCode}
         onSendAnswer={onSendAnswer}
-        label={name}
+        placeholderName={name}
         typeName={typeName}
         isRequired={mandatory}
         id={attributeCode}
@@ -319,7 +319,7 @@ const Ask = ({
           clientId={clientId}
         />
       )}
-      {(component === 'dropdown' || component === 'tag') && (
+      {(component === 'dropdown' || component === 'tag' || component === 'repeatable_dropdown') && (
         <Select.Write
           config={config}
           targetCode={targetCode}

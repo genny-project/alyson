@@ -5,7 +5,7 @@ import { useIsMobile } from 'utils/hooks'
 import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
 import useProductColors from 'utils/productColors'
 
-const hori = mappingFunction => (mappedPcm, depth, config) => {
+const hori = mappingFunction => (mappedPcm, depth, config, showCard = false) => {
   const isMobile = useIsMobile()
 
   const { tplHoriJustify, askWidth } = useProductColors()
@@ -19,6 +19,8 @@ const hori = mappingFunction => (mappedPcm, depth, config) => {
 
   return (
     <Stack
+      borderRadius={showCard ? 'full' : 'none'}
+      bg={showCard ? 'white' : 'transparent'}
       spacing={isMobile ? 1 : 5}
       direction={isMobile && !isPCMEvents ? 'column' : 'row'}
       w={

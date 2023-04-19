@@ -8,14 +8,9 @@ import vert from './vert'
  */
 export const TemplateVert = ({ mappedPcm, depth, config }) => vert(mapAll)(mappedPcm, depth, config)
 
-export const TemplateVertAll = ({ mappedPcm, depth, config }) =>
-  vert(mapAll)(mappedPcm, depth, config)
-
 /**
  * Returns all mapped attributes in a horizontal list.
  * Currently uses a more expensive mapping of attributes as this may take in locs
  */
-export const TemplateHori = ({ mappedPcm, depth, config }) => hori(mapAll)(mappedPcm, depth, config)
-
-export const TemplateHoriAll = ({ mappedPcm, depth, config }) =>
-  hori(mapAll)(mappedPcm, depth, config)
+export const TemplateHori = ({ mappedPcm, depth, config, showCard = false }) =>
+  hori(mapAll)(mappedPcm, depth, config, showCard)

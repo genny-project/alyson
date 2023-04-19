@@ -90,7 +90,6 @@ const BusinessAsk = ({
           onSendAnswer={onTextUpdate}
           data={textData}
           deleteTop={false}
-          extraWidth={'90%'}
           component={Text.Write}
         />
       </Box>
