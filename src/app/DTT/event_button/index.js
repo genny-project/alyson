@@ -70,6 +70,7 @@ const EventButton = ({ askData, onFinish, parentCode, sourceCode, config }) => {
       // w={'6.5rem'}
       fontSize={'sm'}
       fontWeight={isProductIM ? 400 : 600}
+      fontStyle={'italic'}
       color={
         isProductIM && isOutlineButton
           ? `${realm}.secondary`
