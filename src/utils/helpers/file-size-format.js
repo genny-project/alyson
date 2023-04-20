@@ -9,5 +9,5 @@ export const fileSizeFormat = fileSize => {
   const unit = p < length(magnitudes) ? magnitudes[p] : last(magnitudes)
   const value = (fileSize / Math.pow(10, p * 3)).toFixed(1)
 
-  return `${unit} ${value}`
+  return `${value} ${unit}`
 }
