@@ -249,6 +249,7 @@ const Write = ({
             boxShadow: '0px 4px 15px -2px rgba(0, 0, 0, 0.25)',
             zIndex: 100,
             bg: isProductInternMatch ? `${realm}.primary` : 'initial',
+            overflow: 'hidden',
           }),
           menuList: provided => ({
             ...provided,
