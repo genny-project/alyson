@@ -52,6 +52,7 @@ const templateHandlerMachine = depth => mappedPcm => parentCode => rest => {
     TPL_SIDEBAR_1: <TemplateSidebarOne {...mandatoryProps} />,
     TPL_VERT: <TemplateVert {...mandatoryProps} />,
     TPL_VERT_ALL: <TemplateVert {...mandatoryProps} />,
+    TPL_VERT_CARD: <TemplateVert showCard {...mandatoryProps} />,
     TPL_HORI: <TemplateHori {...mandatoryProps} />,
     TPL_HORI_ALL: <TemplateHori {...mandatoryProps} />,
     TPL_HORI_CARD: <TemplateHori showCard {...mandatoryProps} />,
