@@ -55,7 +55,8 @@ const UploadedDocuments = ({ code }) => {
   useEffect(() => {
     const getMetadata = async () => {
       let results = await mapAsync(document => {
-        if (isNotEmpty(document.attr)) {
+        const attribute = document?.attr ?? {}
+        if (isNotEmpty(attribute)) {
           const uuid = getUuid(document.attr)
           return getMediaHeaders(uuid).then(headers => {
             const type = headers['content-type']
@@ -73,29 +74,6 @@ const UploadedDocuments = ({ code }) => {
 
       results = rejectNullOrUndefined(results)
       setDocuments(results)
-
-      // let promises = map(document => {
-      //   if (isNotEmpty(document.attr)) {
-      //     const uuid = getUuid(document.attr)
-      //     return getMediaHeaders(uuid).then(headers => {
-      //       const type = headers['content-type']
-      //       const size = headers['content-length']
-
-      //       const item = {
-      //         title: document.title,
-      //         attr: document.attr,
-      //         metadata: `${fileSizeFormat(size)} - ${fileTypeFormat(type)}`,
-      //       }
-      //       return item
-      //     })
-      //   }
-      // })(documents)
-
-      // promises = rejectNullOrUndefined(promises)
-
-      // Promise.all(promises).then(results => {
-      //   setDocuments(results)
-      // })
     }
 
     getMetadata()

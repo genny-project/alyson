@@ -42,10 +42,7 @@ const useApi = () => {
     const call = async method => await axios({ method: method, ...settings })
     // Calling on HEAD first, as that will be a lot smaller in terms of data called.
     // If HEAD fails, use GET as a fallback, which will be slower but prevents an error
-    let response = await call('HEAD')
-    if (response.status !== 200) {
-      response = await call('GET')
-    }
+    let response = await call('HEAD').catch(async _ => await call('GET'))
 
     return response?.headers || {}
   }
