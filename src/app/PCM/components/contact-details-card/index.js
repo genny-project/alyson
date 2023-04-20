@@ -1,10 +1,12 @@
-import { Box, HStack, Text, VStack } from '@chakra-ui/react'
-import { Iconly } from 'react-iconly'
+import { Box, Grid, HStack, Text, VStack } from '@chakra-ui/react'
 
-const ContactDetailsCard = () => {
+import Attribute from 'app/BE/attribute/index.js'
+import { Iconly } from 'react-iconly'
+import { useIsMobile } from 'utils/hooks'
+
+const ContactDetailsCard = ({ targetCode }) => {
   const title = 'Contact Details'
-  const phoneNumber = '+61 0410 604 021'
-  const email = 'gerard@outcome.life'
+  const isMobile = useIsMobile()
 
   return (
     <Box
@@ -15,24 +17,26 @@ const ContactDetailsCard = () => {
       paddingInline={'1rem'}
       fontFamily={'Almarai'}
     >
-      <HStack
+      <Grid
+        templateColumns={isMobile ? '1fr' : '1fr 1fr'}
         paddingInline={'3rem'}
         paddingBlock={'2rem'}
         justifyContent={'space-between'}
         alignItems={'flex-start'}
       >
         <Text fontSize={'20px'}>{title}</Text>
+
         <VStack alignItems={'flex-start'}>
           <HStack>
             <Iconly name={'Call'} set={'light'} />
-            <Text fontSize={'14px'}>{phoneNumber} </Text>
+            <Attribute code={targetCode} attribute={'PRI_MOBILE'} />
           </HStack>
           <HStack>
             <Iconly name={'Message'} set={'two-tone'} />
-            <Text fontSize={'14px'}>{email} </Text>
+            <Attribute code={targetCode} attribute={'PRI_EMAIL'} />
           </HStack>
         </VStack>
-      </HStack>
+      </Grid>
     </Box>
   )
 }

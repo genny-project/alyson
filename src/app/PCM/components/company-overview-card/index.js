@@ -1,10 +1,12 @@
 import { Box, HStack, Text, VStack } from '@chakra-ui/react'
 
-const CompanyOverviewCard = () => {
-  const industryInformation = 'Marketing, Design, Branding'
-  const specializationInfo = 'Digital Marketing, UI/UX Design, Web Development, Branding'
-  const description =
-    'Brunch tote bag glossier twee, organic offal semiotics microdosing tattooed before they sold out. Brunch distillery prism iPhone, snackwave trust fund sriracha sriracha single-origin snackwave trust fund sriracha sriracha single-origin snackwave trust fund sriracha sriracha single-origin snackwave trust fund sriracha sriracha single-origin snackwave trust fund sriracha sriracha sriracha single-origin coffee listicle paleo etsy fashion axe intelligentsia brunch tote bag glossier twee, organic offal seminotics.'
+import { useSelector } from 'react-redux'
+import { selectCode } from 'redux/db/selectors'
+
+const CompanyOverviewCard = ({ targetCode }) => {
+  const description = useSelector(selectCode(targetCode, 'PRI_COMPANY_DESCRIPTION'))?.value || '-'
+  const industryInformation = useSelector(selectCode(targetCode, 'LNK_BEST_KEYWORD'))?.value || '-'
+  const specializationInfo = useSelector(selectCode(targetCode, 'LNK_BEST_KEYWORD'))?.value || '-'
 
   return (
     <Box
@@ -38,7 +40,7 @@ const CompanyOverviewCard = () => {
         <Text fontSize={'12px'} color={'#829998'}>
           {'About Us'}
         </Text>
-        <Text fontSize={'16px'}>{description}</Text>
+        <Text dangerouslySetInnerHTML={{ __html: description }} fontSize={'1rem'} />
       </VStack>
     </Box>
   )

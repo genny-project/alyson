@@ -1,10 +1,10 @@
-import { IconButton } from '@chakra-ui/react'
+import { includes, toLower } from 'ramda'
 import { useEffect, useState } from 'react'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faGlobe } from '@fortawesome/free-solid-svg-icons'
+import { IconButton } from '@chakra-ui/react'
 import { faLinkedinIn } from '@fortawesome/free-brands-svg-icons'
-import { includes, toLower } from 'ramda'
+import { faGlobe } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Text from '../text'
 
 const Read = ({ data, config = {} }) => {
@@ -19,11 +19,11 @@ const Read = ({ data, config = {} }) => {
       <a href={href}>
         <FontAwesomeIcon
           size="lg"
-          icon={faLinkedinIn}
+          icon={config?.icon || faLinkedinIn}
           test-id={data?.baseEntityCode}
           {...config}
           isDisabled={!data?.value}
-          color="#3182CE"
+          color={config?.color || '#3182CE'}
         />
       </a>
     )
