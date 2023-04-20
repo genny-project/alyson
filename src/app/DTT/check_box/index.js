@@ -13,7 +13,6 @@ const Write = ({
   config,
 }) => {
   const singleCheckbox = compose(includes('boolean'), toLower)(typeName)
-
   if (singleCheckbox) {
     return (
       <SingleCheckBox.Write

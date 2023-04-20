@@ -63,7 +63,7 @@ const Write = ({
   }
 
   return (
-    <Stack ml={1} direction={'row'} spacing={1} justifyContent={'space-between'}>
+    <Stack ml={1} direction={'row'} spacing={1} justifyContent={'flex-start'}>
       <MandatorySymbol
         placeholderName={placeholderName}
         mandatory={mandatory}
