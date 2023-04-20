@@ -87,6 +87,7 @@ const Write = ({
                   _checked={{
                     bg: isProductInternmatch ? `${realm}.secondary` : colorScheme,
                     borderColor: isProductInternmatch ? `${realm}.secondary` : colorScheme,
+                    color: isProductInternmatch ? `${realm}.secondary` : colorScheme,
                   }}
                   _disabled={{
                     opacity: '.4',
