@@ -55,9 +55,11 @@ const ProgressBar = props => {
         h={isProductInternMatch ? '1.25rem' : '.75rem'}
         border={isProductInternMatch ? '1px solid #CDD6D6' : 0}
       />
-      <Text as="label" fontSize={'sm'} fontWeight={500} color={'#EF8567'} fontFamily="Roboto">
-        {label}
-      </Text>
+      {!isProductInternMatch && (
+        <Text as="label" fontSize={'sm'} fontWeight={500} color={'#EF8567'} fontFamily="Roboto">
+          {label}
+        </Text>
+      )}
     </Box>
   )
 }
