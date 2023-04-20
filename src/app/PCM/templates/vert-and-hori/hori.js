@@ -19,7 +19,7 @@ const hori = mappingFunction => (mappedPcm, depth, config, showCard = false) => 
 
   return (
     <Stack
-      borderRadius={showCard ? 'full' : 'none'}
+      borderRadius={showCard ? '3xl' : 'none'}
       bg={showCard ? 'white' : 'transparent'}
       spacing={isMobile ? 1 : 5}
       direction={isMobile && !isPCMEvents ? 'column' : 'row'}

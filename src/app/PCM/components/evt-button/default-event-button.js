@@ -32,8 +32,8 @@ const DefaultEventButton = ({
 }) => {
   const theme = useTheme()
   const isProductLojing = useIsProductLojing()
-  const bgColor = isProductLojing ? 'lojing.gradient100' : '#234371'
-  const color = theme.colors.text.dark
+  const bgColor = isProductLojing ? 'lojing.gradient100' : 'transparent'
+  const color = isProductLojing ? theme.colors.text.dark : 'product.secondary'
 
   if (!childAsks) {
     let box = (

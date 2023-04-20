@@ -1,4 +1,4 @@
-import { includes } from 'ramda'
+import { compose, includes, toLower } from 'ramda'
 import MultiCheckbox from 'app/DTT/check_box/multi-check-box'
 import SingleCheckBox from 'app/DTT/check_box/single-check-box'
 
@@ -12,7 +12,7 @@ const Write = ({
   mandatory,
   config,
 }) => {
-  const singleCheckbox = includes('Boolean')(typeName)
+  const singleCheckbox = compose(includes('boolean'), toLower)(typeName)
 
   if (singleCheckbox) {
     return (

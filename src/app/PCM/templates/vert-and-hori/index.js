@@ -6,7 +6,8 @@ import vert from './vert'
  * Returns all mapped attributes in a vertical list.
  * Currently uses a more expensive mapping of attributes as this may take in locs
  */
-export const TemplateVert = ({ mappedPcm, depth, config }) => vert(mapAll)(mappedPcm, depth, config)
+export const TemplateVert = ({ mappedPcm, depth, config, showCard = false }) =>
+  vert(mapAll)(mappedPcm, depth, config, showCard)
 
 /**
  * Returns all mapped attributes in a horizontal list.
