@@ -39,10 +39,15 @@ const useApi = () => {
         Authorization: `bearer ${token}`,
       },
     }
-    const call = async method => await axios({ method: method, ...settings })
+    const call = method => axios({ method: method, ...settings })
     // Calling on HEAD first, as that will be a lot smaller in terms of data called.
     // If HEAD fails, use GET as a fallback, which will be slower but prevents an error
-    let response = await call('HEAD').catch(async _ => await call('GET'))
+    let response
+    try {
+      response = await call('HEAD')
+    } catch (_) {
+      response = await call('GET')
+    }
 
     return response?.headers || {}
   }

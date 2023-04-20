@@ -1,21 +1,13 @@
-import { reduce } from 'ramda'
+import { last, length } from 'ramda'
+import { getMagnitude } from 'utils/helpers/get-magnitude'
 
 export const fileSizeFormat = fileSize => {
   const magnitudes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB']
-  let i = 0
-  let magnitude = magnitudes[i]
 
-  const size = reduce((acc, elem) => {
-    const divided = fileSize / Math.pow(10, i * 3)
+  const magnitude = getMagnitude(fileSize)
+  const p = Math.floor(magnitude / 3)
+  const unit = p < length(magnitudes) ? magnitudes[p] : last(magnitudes)
+  const value = (fileSize / Math.pow(10, p * 3)).toFixed(1)
 
-    if (divided >= 1) {
-      magnitude = elem
-      acc = divided.toFixed(1)
-    }
-    i++
-
-    return acc
-  })(fileSize, magnitudes)
-
-  return `${size} ${magnitude}`
+  return `${unit} ${value}`
 }
