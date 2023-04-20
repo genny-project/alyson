@@ -31,6 +31,25 @@ const useApi = () => {
     },
   }
 
+  const getMediaHeaders = async uuid => {
+    if (!uuid) return {}
+    const settings = {
+      url: `${MEDIA_URL}/${uuid}`,
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    }
+    const call = async method => await axios({ method: method, ...settings })
+    // Calling on HEAD first, as that will be a lot smaller in terms of data called.
+    // If HEAD fails, use GET as a fallback, which will be slower but prevents an error
+    let response = await call('HEAD')
+    if (response.status !== 200) {
+      response = await call('GET')
+    }
+
+    return response?.headers || {}
+  }
+
   const postMediaFile = async ({ data, onUploadProgress = identity }) => {
     const response = await axios({
       ...mediaSettings,
@@ -107,6 +126,7 @@ const useApi = () => {
     getSrc,
     getVideoSrc,
     getMediaFileName,
+    getMediaHeaders,
     callAbnLookup,
     token,
   }

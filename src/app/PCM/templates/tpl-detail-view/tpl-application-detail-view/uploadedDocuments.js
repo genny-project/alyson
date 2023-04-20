@@ -9,17 +9,17 @@ import useApi from 'api'
 import useProductColors from 'utils/productColors'
 import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 import { isNotEmpty } from 'utils/helpers/is-null-or-undefined'
 import { fileSizeFormat } from 'utils/helpers/file-size-format'
 import { fileTypeFormat } from 'utils/helpers/file-type-format'
 import { rejectNullOrUndefined } from 'utils/helpers/reject-undefined'
+import { mapAsync } from 'utils/helpers/map-async'
 
 const UploadedDocuments = ({ code }) => {
   const theme = useTheme()
   const { fieldHoverBackgroundColor } = useProductColors()
   const api = useApi()
-  const { getDocumentSrc } = api
+  const { getMediaHeaders, getDocumentSrc } = api
 
   const bankStatement =
     compose(useSelector, selectCodeUnary(code))('PRI_BANK_STATEMENT')?.value || ''
@@ -54,30 +54,48 @@ const UploadedDocuments = ({ code }) => {
 
   useEffect(() => {
     const getMetadata = async () => {
-      let promises = map(document => {
+      let results = await mapAsync(document => {
         if (isNotEmpty(document.attr)) {
-          const url = getDocumentSrc(getUuid(document.attr))
-          return axios
-            .head(url, { headers: { Authorization: `bearer ${api.token}` } })
-            .then(response => {
-              const type = response.headers['content-type']
-              const size = response.headers['content-length']
+          const uuid = getUuid(document.attr)
+          return getMediaHeaders(uuid).then(headers => {
+            const type = headers['content-type']
+            const size = headers['content-length']
 
-              const item = {
-                title: document.title,
-                attr: document.attr,
-                metadata: `${fileSizeFormat(size)} - ${fileTypeFormat(type)}`,
-              }
-              return item
-            })
+            const item = {
+              title: document.title,
+              attr: document.attr,
+              metadata: `${fileSizeFormat(size)} - ${fileTypeFormat(type)}`,
+            }
+            return item
+          })
         }
       })(documents)
 
-      promises = rejectNullOrUndefined(promises)
+      results = rejectNullOrUndefined(results)
+      setDocuments(results)
 
-      Promise.all(promises).then(results => {
-        setDocuments(results)
-      })
+      // let promises = map(document => {
+      //   if (isNotEmpty(document.attr)) {
+      //     const uuid = getUuid(document.attr)
+      //     return getMediaHeaders(uuid).then(headers => {
+      //       const type = headers['content-type']
+      //       const size = headers['content-length']
+
+      //       const item = {
+      //         title: document.title,
+      //         attr: document.attr,
+      //         metadata: `${fileSizeFormat(size)} - ${fileTypeFormat(type)}`,
+      //       }
+      //       return item
+      //     })
+      //   }
+      // })(documents)
+
+      // promises = rejectNullOrUndefined(promises)
+
+      // Promise.all(promises).then(results => {
+      //   setDocuments(results)
+      // })
     }
 
     getMetadata()
