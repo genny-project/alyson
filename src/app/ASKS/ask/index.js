@@ -239,7 +239,7 @@ const Ask = ({
       w={
         isFullWidth
           ? 'min(100%, 52rem)'
-          : component === 'upload' || component === 'richtext_editor'
+          : component === 'upload' || component === 'richtext_editor' || component === 'html_editor'
           ? 'min(100%, 52rem)'
           : askWidth
       }
