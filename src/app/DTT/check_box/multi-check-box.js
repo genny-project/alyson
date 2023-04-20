@@ -2,7 +2,7 @@ import 'app/DTT/check_box/styles.scss'
 import { Checkbox as CCheckbox, Stack } from '@chakra-ui/react'
 import { append, compose, equals, includes, map, path, reject } from 'ramda'
 import { useEffect, useState } from 'react'
-import { useIsProductInternmatch, useIsProductLojing } from 'utils/helpers/check-product-name'
+import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
 
 import MandatorySymbol from 'app/layouts/components/form/mandatory-symbol'
 import { useSelector } from 'react-redux'
@@ -35,16 +35,11 @@ const Write = ({
   const [value, setValue] = useState(getDataValue(data))
   const selectedData =
     compose(useSelector, selectCode)(`${parentCode}-${questionCode}-options`) || []
-  const isProductLojing = useIsProductLojing()
   const isProductInternmatch = useIsProductInternmatch()
   const realm = useGetProductName().toLowerCase()
   const colorScheme = useGetAttributeFromProjectBaseEntity('PRI_SECONDARY_COLOR')?.valueString
   const { labelTextColor } = useProductColors()
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
-
-  const { vertical } = config || {}
-  //change default orientation for lojing while preserving config functionality
-  const verticalAligned = vertical || isProductLojing ? true : false
 
   const dataValue = getDataValue(data)
 
@@ -67,22 +62,15 @@ const Write = ({
     dispatchFieldMessage({ payload: questionCode })
   }
 
-  const outerStackVertical = verticalAligned || (options?.length || 0) > 2
-
   return (
-    <Stack
-      ml={1}
-      direction={outerStackVertical ? 'column' : 'row'} // just making sure that longer sets of options don't end up weirdly arranged
-      spacing={outerStackVertical ? 0 : 1}
-      justifyContent={outerStackVertical ? 'space-between' : 'flex-start'}
-    >
+    <Stack ml={1} direction={'row'} spacing={1} justifyContent={'space-between'}>
       <MandatorySymbol
         placeholderName={placeholderName}
         mandatory={mandatory}
         labelTextColor={isProductInternmatch ? `${realm}.primary` : labelTextColor}
         realm={realm}
       />
-      <Stack direction={verticalAligned ? 'row' : 'column'}>
+      <Stack direction={'row'}>
         {options &&
           map(
             option =>
@@ -93,6 +81,7 @@ const Write = ({
                   key={`${option.value}`}
                   test-id={`${option.value}-${parentCode}`}
                   value={option.value}
+                  borderColor={`${realm.primary}`}
                   isChecked={includes(option.value)(value || [])}
                   onChange={() => onChange(option.value)}
                   _checked={{
