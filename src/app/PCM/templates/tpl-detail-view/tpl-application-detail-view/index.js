@@ -1,14 +1,15 @@
 import { Grid, Stack, Text, useTheme } from '@chakra-ui/react'
 import { selectCode, selectCodeUnary } from 'redux/db/selectors'
 
-import AdditionalInformation from './additionalInformation'
-import BasicInformation from './basicInformation'
-import CheckLists from './checkLists'
+import AdditionalInformation from 'app/PCM/templates/tpl-detail-view/tpl-application-detail-view/additionalInformation'
+import BasicInformation from 'app/PCM/templates/tpl-detail-view/tpl-application-detail-view/basicInformation'
+import CheckLists from 'app/PCM/templates/tpl-detail-view/tpl-application-detail-view/checkLists'
 import EventButton from 'app/DTT/event_button'
-import UploadedDocuments from './uploadedDocuments'
+import UploadedDocuments from 'app/PCM/templates/tpl-detail-view/tpl-application-detail-view/uploadedDocuments'
 import { compose } from 'ramda'
 import { useIsMobile } from 'utils/hooks'
 import { useSelector } from 'react-redux'
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 
 const TemplateApplicationDetailView = ({ mappedPcm }) => {
   const theme = useTheme()
@@ -80,6 +81,7 @@ const TemplateApplicationDetailView = ({ mappedPcm }) => {
           parentCode={questionCode}
           sourceCode={sourceCode}
           config={buttonStyles}
+          icon={faCheckCircle}
         />
       </Stack>
     </>
