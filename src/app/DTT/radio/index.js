@@ -11,7 +11,6 @@ import useGetProductName from 'utils/helpers/get-product-name'
 import isJson from 'utils/helpers/is-json'
 import { isNullOrUndefined } from 'utils/helpers/is-null-or-undefined'
 import useProductColors from 'utils/productColors'
-import { useTheme } from '@emotion/react'
 
 const Read = ({ data, boolean }) => {
   const labels = split(';')(data?.html?.labels || 'Yes;No')
@@ -83,8 +82,6 @@ const Write = ({
   // This checks if it is an Stringified Array
 
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
-
-  const theme = useTheme()
 
   useEffect(() => {
     setValue(dataValue)
