@@ -53,6 +53,7 @@ import useGetProductName from 'utils/helpers/get-product-name'
 import { useMobileValue } from 'utils/hooks'
 import useProductColors from 'utils/productColors'
 import Checkbox from 'app/DTT/check_box'
+import Time from 'app/DTT/time'
 
 const Ask = ({
   parentCode,
@@ -380,7 +381,7 @@ const Ask = ({
           config={config}
         />
       )}
-      {(component === 'text' || component === 'time') && (
+      {component === 'text' && (
         <Text.Write
           questionCode={questionCode}
           mandatory={mandatory}
@@ -728,6 +729,28 @@ const Ask = ({
           placeholderName={placeholderName}
           attributeCode={attributeCode}
           targetCode={targetCode}
+          clientId={clientId}
+        />
+      )}
+      {component === 'time' && (
+        <Time.Write
+          config={config}
+          targetCode={targetCode}
+          questionCode={questionCode}
+          groupCode={groupCode}
+          attributeCode={attributeCode}
+          onSendAnswer={onSendAnswer}
+          placeholder={description}
+          mandatory={mandatory}
+          component={component}
+          dataType={dataType}
+          data={data}
+          label={name}
+          parentCode={parentCode}
+          regexPattern={regexPattern}
+          errorMessage={errorMessage}
+          processId={processId}
+          placeholderName={placeholderName}
           clientId={clientId}
         />
       )}
