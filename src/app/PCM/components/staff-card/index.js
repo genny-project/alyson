@@ -27,7 +27,7 @@ const StaffCard = () => {
           <Divider width={'7.5rem'} orientation={'horizontal'} borderColor={'#B4C1C1'} />
           <Text fontSize={'14px'}>{position} </Text>
           <Text fontSize={'12px'} color={'#829998'} marginTop={'-0.25rem'}>
-            {companyName}{' '}
+            {companyName}
           </Text>
         </VStack>
       </Grid>
@@ -41,7 +41,6 @@ const StaffCard = () => {
       >
         {'View Managed Opportunities'}
       </Box>
-      {/* <Text fontSize={'16px'} color={'#EA5024'} marginTop={'1.5rem'} marginLeft={'0.75rem'}>{'View Managed Opportunities'} </Text> */}
     </Box>
   )
 }
