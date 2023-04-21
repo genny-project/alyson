@@ -1,5 +1,5 @@
 import { Box, Center, HStack, Text, VStack } from '@chakra-ui/layout'
-import { Menu, MenuButton, MenuList } from '@chakra-ui/menu'
+import { Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/menu'
 import { compose, equals, includes } from 'ramda'
 import { selectCode, selectCodeUnary } from 'redux/db/selectors'
 import { useGetLabel, useIsMobile } from 'utils/hooks'
@@ -14,6 +14,7 @@ import { useSelector } from 'react-redux'
 import { useIsProductLojing } from 'utils/helpers/check-product-name'
 import getUserType from 'utils/helpers/get-user-type'
 import icons from 'utils/icons'
+import { isNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined'
 
 const Notification = ({ code: NOTIFICATION_GROUP, textColor }) => {
   const theme = useTheme()
@@ -97,27 +98,31 @@ const Notification = ({ code: NOTIFICATION_GROUP, textColor }) => {
             )}
           </VStack>
         </MenuButton>
-
         <MenuList>
-          {!!isTenant
-            ? notificationWholeData.map(notification => (
+          {isNullOrUndefinedOrEmpty(notificationWholeData) &&
+          isNullOrUndefinedOrEmpty(notification) ? (
+            <MenuItem isDisabled>No Notifications</MenuItem>
+          ) : !!isTenant ? (
+            notificationWholeData.map(notification => (
+              <NotificationHandler
+                key={notification?.name}
+                parentCode={NOTIFICATION_GROUP}
+                code={notification?.question?.code || ''}
+                sourceCode={sourceCode}
+                targetCode={targetCode}
+              />
+            ))
+          ) : (
+            notification
+              .reverse()
+              .map(notification => (
                 <NotificationHandler
-                  key={notification?.name}
+                  key={notification}
                   parentCode={NOTIFICATION_GROUP}
-                  code={notification?.question?.code || ''}
-                  sourceCode={sourceCode}
-                  targetCode={targetCode}
+                  code={notification}
                 />
               ))
-            : notification
-                .reverse()
-                .map(notification => (
-                  <NotificationHandler
-                    key={notification}
-                    parentCode={NOTIFICATION_GROUP}
-                    code={notification}
-                  />
-                ))}
+          )}
         </MenuList>
       </Menu>
     </Box>
