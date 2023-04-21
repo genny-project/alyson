@@ -11,6 +11,7 @@ import useGetProductName from 'utils/helpers/get-product-name'
 import isJson from 'utils/helpers/is-json'
 import { isNullOrUndefined } from 'utils/helpers/is-null-or-undefined'
 import useProductColors from 'utils/productColors'
+import { useTheme } from '@emotion/react'
 
 const Read = ({ data, boolean }) => {
   const labels = split(';')(data?.html?.labels || 'Yes;No')
@@ -83,6 +84,8 @@ const Write = ({
 
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
 
+  const theme = useTheme()
+
   useEffect(() => {
     setValue(dataValue)
   }, [dataValue])
@@ -99,9 +102,9 @@ const Write = ({
   return (
     <Stack
       ml={1}
-      direction={outerStackVertical ? 'row' : 'column'} // just making sure that longer sets of options don't end up weirdly arranged
-      spacing={outerStackVertical ? 0 : 1}
-      justifyContent={outerStackVertical ? 'space-between' : 'flex-start'}
+      direction={outerStackVertical || !boolean ? 'row' : 'column'} // just making sure that longer sets of options don't end up weirdly arranged
+      spacing={outerStackVertical || !boolean ? 0 : 2}
+      justifyContent={outerStackVertical || !boolean ? 'space-between' : 'flex-start'}
     >
       <MandatorySymbol
         placeholderName={placeholderName}
@@ -110,7 +113,7 @@ const Write = ({
         realm={realm}
       />
       <RadioGroup value={value} onChange={onChange}>
-        <Stack direction={verticalAligned ? 'row' : 'column'}>
+        <Stack direction={verticalAligned || !boolean ? 'row' : 'column'} spacing={3}>
           {options &&
             map(
               option =>
@@ -120,6 +123,7 @@ const Write = ({
                     key={`${option.value}`}
                     test-id={`${option.value}-${parentCode}`}
                     value={option.value}
+                    borderColor={`${realm}.primary`}
                   >
                     {`${option.label}`}
                   </CRadio>

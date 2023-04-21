@@ -1,5 +1,5 @@
 import 'app/DTT/check_box/styles.scss'
-import { Checkbox as CCheckbox, Stack } from '@chakra-ui/react'
+import { Checkbox as CCheckbox, HStack, Stack, Text, useTheme } from '@chakra-ui/react'
 import { append, compose, equals, includes, map, path, reject } from 'ramda'
 import { useEffect, useState } from 'react'
 import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
@@ -43,6 +43,8 @@ const Write = ({
 
   const dataValue = getDataValue(data)
 
+  const theme = useTheme()
+
   const options = map(({ code, name }) => ({ label: name, value: code }))(selectedData)
 
   useEffect(() => {
@@ -75,29 +77,30 @@ const Write = ({
           map(
             option =>
               option && (
-                <CCheckbox
-                  m="1"
-                  id={questionCode}
-                  key={`${option.value}`}
-                  test-id={`${option.value}-${parentCode}`}
-                  value={option.value}
-                  borderColor={`${realm.primary}`}
-                  isChecked={includes(option.value)(value || [])}
-                  onChange={() => onChange(option.value)}
-                  _checked={{
-                    bg: isProductInternmatch ? `${realm}.secondary` : colorScheme,
-                    borderColor: isProductInternmatch ? `${realm}.secondary` : colorScheme,
-                    color: isProductInternmatch ? `${realm}.secondary` : colorScheme,
-                  }}
-                  _disabled={{
-                    opacity: '.4',
-                  }}
-                  _groupHover={{
-                    borderColor: isProductInternmatch ? `${realm}.secondary` : colorScheme,
-                  }}
-                >
-                  {`${option.label}`}
-                </CCheckbox>
+                <HStack mx="1">
+                  <CCheckbox
+                    id={questionCode}
+                    key={`${option.value}`}
+                    test-id={`${option.value}-${parentCode}`}
+                    value={option.value}
+                    borderColor={`${realm}.primary`}
+                    isChecked={includes(option.value)(value || [])}
+                    onChange={() => onChange(option.value)}
+                    colorScheme={theme.colors}
+                    _checked={{
+                      bg: isProductInternmatch ? `${realm}.secondary` : colorScheme,
+                      borderColor: isProductInternmatch ? `${realm}.secondary` : colorScheme,
+                      color: isProductInternmatch ? `${realm}.secondary` : colorScheme,
+                    }}
+                    _disabled={{
+                      opacity: '.4',
+                    }}
+                    _groupHover={{
+                      borderColor: isProductInternmatch ? `${realm}.secondary` : colorScheme,
+                    }}
+                  ></CCheckbox>
+                  <Text>{`${option.label}`}</Text>
+                </HStack>
               ),
           )(options)}
       </Stack>
