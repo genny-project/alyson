@@ -14,7 +14,6 @@ import { useSelector } from 'react-redux'
 import { useIsProductLojing } from 'utils/helpers/check-product-name'
 import getUserType from 'utils/helpers/get-user-type'
 import icons from 'utils/icons'
-import { isNullOrUndefinedOrEmpty } from 'utils/helpers/is-null-or-undefined'
 
 const Notification = ({ code: NOTIFICATION_GROUP, textColor }) => {
   const theme = useTheme()
@@ -99,8 +98,7 @@ const Notification = ({ code: NOTIFICATION_GROUP, textColor }) => {
           </VStack>
         </MenuButton>
         <MenuList>
-          {isNullOrUndefinedOrEmpty(notificationWholeData) &&
-          isNullOrUndefinedOrEmpty(notification) ? (
+          {notificationCount >= 1 ? (
             <MenuItem isDisabled>No Notifications</MenuItem>
           ) : !!isTenant ? (
             notificationWholeData.map(notification => (
