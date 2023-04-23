@@ -1,8 +1,9 @@
 import { Box, Wrap, WrapItem } from '@chakra-ui/react'
+
 import CompanyOverviewCard from 'app/PCM/components/company-overview-card'
 import VideoCard from 'app/PCM/components/video-card'
 
-const AboutPanel = props => {
+const AboutPanel = ({ targetCode }) => {
   return (
     <Box
       marginRight={'-4rem'}
@@ -14,9 +15,9 @@ const AboutPanel = props => {
       borderTopColor={'#B4C1C1'}
     >
       <Wrap paddingInline={'1rem'} spacing={'2.5rem'} marginLeft={'-5rem'}>
-        <WrapItem>{/* <VideoCard props={props} /> */}</WrapItem>
+        <WrapItem>{<VideoCard targetCode={targetCode} />}</WrapItem>
         <WrapItem>
-          <CompanyOverviewCard />
+          <CompanyOverviewCard targetCode={targetCode} />
         </WrapItem>
       </Wrap>
     </Box>

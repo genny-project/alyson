@@ -1,37 +1,38 @@
 import { Box, Text } from '@chakra-ui/react'
 import { TemplateHori, TemplateVert } from './vert-and-hori'
 
+import TemplateText from 'app/PCM/templates/text-templates'
 import TemplateAddItems from 'app/PCM/templates/tpl-add-items'
-import TemplateApplicationDetailView from 'app/PCM/templates/tpl-detail-view/tpl-application-detail-view'
 import TemplateAvatar from 'app/PCM/templates/tpl-avatar'
 import TemplateBell from 'app/PCM/templates/tpl-bell'
 import TemplateCard from 'app/PCM/templates/tpl-card'
 import TemplateContent from 'app/PCM/templates/tpl-content'
 import TemplateDefault from 'app/PCM/templates/tpl-default'
 import TemplateDetailView from 'app/PCM/templates/tpl-detail-view'
+import TemplateApplicationDetailView from 'app/PCM/templates/tpl-detail-view/tpl-application-detail-view'
+import TemplatePropertyDetailView from 'app/PCM/templates/tpl-detail-view/tpl-property-detail-view'
+import TemplateSBEDetailView from 'app/PCM/templates/tpl-detail-view/tpl-sbe-detail-view'
 import TemplateDisplay from 'app/PCM/templates/tpl-display'
 import TemplateForm from 'app/PCM/templates/tpl-form'
 import TemplateHeader from 'app/PCM/templates/tpl-header'
-import TemplateHorizontalCards from 'app/PCM/templates/tpl_horizontal_cards'
+import TemplateHostCompanyProfile from 'app/PCM/templates/tpl-host-company-profile/index.js'
+import TemplateListItems from 'app/PCM/templates/tpl-list-items'
 import TemplateLogo from 'app/PCM/templates/tpl-logo'
-import TemplatePopup from 'app/PCM/templates/tpl_popup'
 import TemplateProcess from 'app/PCM/templates/tpl-process'
 import TemplateProgressBar from 'app/PCM/templates/tpl-progress-bar'
-import TemplatePropertyDetailView from 'app/PCM/templates/tpl-detail-view/tpl-property-detail-view'
 import TemplateRoot from 'app/PCM/templates/tpl-root'
-import TemplateSBEDetailView from 'app/PCM/templates/tpl-detail-view/tpl-sbe-detail-view'
 import TemplateSBERowAdd from 'app/PCM/templates/tpl-sbe-row-add'
 import TemplateSBESelect from 'app/PCM/templates/tpl-sbe-select'
 import TemplateSearchBar from 'app/PCM/templates/tpl-search-bar'
 import TemplateSidebarOne from 'app/PCM/templates/tpl-sidebar-one'
 import TemplateSubmitApplication from 'app/PCM/templates/tpl-submit-application/index.js'
 import TemplateTable from 'app/PCM/templates/tpl-table'
-import TemplateText from 'app/PCM/templates/text-templates'
+import TemplateHorizontalCards from 'app/PCM/templates/tpl_horizontal_cards'
+import TemplatePopup from 'app/PCM/templates/tpl_popup'
 import TemplateVerticalCards from 'app/PCM/templates/tpl_vertical_cards'
 import debugOut from 'utils/debug-out'
 import hasNot from 'utils/helpers/has-not'
 import showTemplateNames from 'utils/helpers/show-template-names'
-import TemplateListItems from 'app/PCM/templates/tpl-list-items'
 
 /**
  * Takes in a mappedPcm, a templateCode and some misc properties and returns a template component.
@@ -90,6 +91,7 @@ const templateHandlerMachine = depth => mappedPcm => parentCode => rest => {
     TPL_SEARCH_BAR: <TemplateSearchBar {...mandatoryProps} />,
     TPL_SUBMIT_APPLICATION: <TemplateSubmitApplication {...mandatoryProps} />,
     TPL_LIST_ITEMS: <TemplateListItems {...mandatoryProps} />,
+    TPL_HOST_CPY_PROFILE: <TemplateHostCompanyProfile {...mandatoryProps} />,
   }
 
   const { PRI_TEMPLATE_CODE: templateCode } = mappedPcm
