@@ -1,4 +1,4 @@
-import { Text as CText, Image } from '@chakra-ui/react'
+import { Text as ChakraText, Image } from '@chakra-ui/react'
 import { default as JournalProgress, default as ProgressBar } from 'app/DTT/progress'
 
 import ABN from 'app/DTT/abn'
@@ -126,9 +126,9 @@ const Attribute = ({
   ) : component === 'progress' ? (
     <ProgressBar data={data} />
   ) : component === 'radio' || component === 'boolean' ? (
-    <Radio.Read data={data} boolean={component === 'boolean'} />
+    <Radio.Read data={data} isBooleanSelect={component === 'boolean'} />
   ) : (
-    <CText>{data?.value}</CText>
+    <ChakraText>{data?.value}</ChakraText>
   )
 }
 

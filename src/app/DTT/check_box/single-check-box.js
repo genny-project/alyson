@@ -8,6 +8,7 @@ import { useGetAttributeFromProjectBaseEntity } from 'app/BE/project-be'
 import { useIsFieldNotEmpty } from 'utils/contexts/IsFieldNotEmptyContext'
 import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
 import useGetProductName from 'utils/helpers/get-product-name'
+import { useTheme } from '@emotion/react'
 
 const Read = ({ data }) => {
   return (
@@ -22,6 +23,7 @@ const Read = ({ data }) => {
 }
 
 const Write = ({ questionCode, data, onSendAnswer, isRequired, label }) => {
+  const theme = useTheme()
   const realm = useGetProductName().toLowerCase()
   const isProductInternmatch = useIsProductInternmatch()
   const { dispatchFieldMessage } = useIsFieldNotEmpty()
@@ -60,6 +62,7 @@ const Write = ({ questionCode, data, onSendAnswer, isRequired, label }) => {
       <FormControl
         onClick={toggle}
         isRequired={isRequired}
+        colorScheme={theme.colors}
         color={
           data?.value === 'true'
             ? `${realm}.secondary`
