@@ -9,7 +9,7 @@ const vert = mappingFunction => (mappedPcm, depth, config, showCard = false) => 
 
   return (
     <Grid
-      w={isForm ? 'min(100%, 50rem)' : 'full'}
+      w={isForm ? 'min(100%, 52rem)' : 'full'}
       borderRadius={showCard ? '3xl' : undefined}
       bg={showCard ? 'white' : undefined}
       paddingX={showCard ? 5 : undefined}

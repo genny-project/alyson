@@ -1,8 +1,8 @@
 import { equals, includes } from 'ramda'
 
 import { Stack } from '@chakra-ui/react'
-import { useIsMobile } from 'utils/hooks'
 import { useIsProductInternmatch } from 'utils/helpers/check-product-name'
+import { useIsMobile } from 'utils/hooks'
 import useProductColors from 'utils/productColors'
 
 const hori = mappingFunction => (mappedPcm, depth, config, showCard = false) => {
@@ -16,7 +16,7 @@ const hori = mappingFunction => (mappedPcm, depth, config, showCard = false) => 
     includes('_FORM_UNIVERSITY_DETAILS', pcmCode) || includes('_FORM_WORK_DETAILS', pcmCode)
 
   const isInternmatch = useIsProductInternmatch()
-
+  const isImageUpload = includes('IMAGE_UPLOAD', pcmCode)
   return (
     <Stack
       borderRadius={showCard ? '3xl' : 'none'}
@@ -28,12 +28,14 @@ const hori = mappingFunction => (mappedPcm, depth, config, showCard = false) => 
           ? askWidth
           : isFormsPcm && !isInternmatch
           ? 'min(100%, 78rem)'
-          : 'min(100%,52rem)'
+          : 'min(100%, 52rem)'
       }
       justifySelf={'flex-start'}
       justifyItems={tplHoriJustify}
       alignItems={
-        tenantPreApprovalForms
+        isImageUpload
+          ? 'center'
+          : tenantPreApprovalForms
           ? 'flex-start'
           : isFormsPcm && !equals(parentCode, 'PCM_FORM_TENANT')
           ? 'flex-end'

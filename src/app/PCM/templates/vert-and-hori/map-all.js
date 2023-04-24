@@ -54,12 +54,16 @@ const mapAll = (mappedPcm, depth, isInternmatch = false, config = {}) => {
 
     const isLivingProfileEvents =
       isEvtExploreProperties || isEvtGetPreApproved || isEvtCreateLivingProfile
+
+    const isImageUploadTitle = includes('IMAGE_UPLOAD_TITLE', loc)
+    const isImageUploadQue = includes('IMAGE_UPLOAD_QUE', loc)
     return (
       <Box
         _empty={{ display: 'none' }}
         key={loc}
         w={isLivingProfileEvents ? 'auto' : 'full'}
         textAlign={includes('EVENTS', loc) && isInternmatch ? 'end' : 'start'}
+        flex={isImageUploadTitle ? '0 0 14rem' : isImageUploadQue ? '0 0 calc(100% - 15rem)' : 1}
       >
         <PcmField code={loc} mappedPcm={mappedPcm} depth={depth} config={config} />
       </Box>
