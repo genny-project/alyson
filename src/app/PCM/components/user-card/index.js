@@ -3,7 +3,6 @@ import { Avatar, Box, Divider, Grid, HStack, Text, VStack } from '@chakra-ui/rea
 import { faLinkedin } from '@fortawesome/free-brands-svg-icons'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import useApi from 'api'
 import Attribute from 'app/BE/attribute/index.js'
 import { lt } from 'ramda'
 import { useState } from 'react'
@@ -17,7 +16,6 @@ const UserCard = ({ targetCode }) => {
   const companyUrl = useSelector(selectCode(targetCode, 'PRI_COMPANY_WEBSITE_URL'))?.value || ''
   const companyAddress = useSelector(selectCode(targetCode, 'PRI_BUSINESS_LOCATIONS'))?.value || ''
   const companyWork = useSelector(selectCode(targetCode, 'LNK_BEST_KEYWORD'))?.value || ''
-  const { getImageSrc } = useApi
 
   const data = [
     { icon: 'Work', dataValue: companyWork },

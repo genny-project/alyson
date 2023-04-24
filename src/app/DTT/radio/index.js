@@ -121,6 +121,21 @@ const Write = ({
                     test-id={`${option.value}-${parentCode}`}
                     value={option.value}
                     borderColor={`${realm}.primary`}
+                    size="lg"
+                    _checked={{
+                      _before: {
+                        content: `""`,
+                        display: 'inline-block',
+                        position: 'relative',
+                        width: '50%',
+                        height: '50%',
+                        borderRadius: '50%',
+                        background: 'currentColor',
+                        padding: '1.5',
+                      },
+                      borderColor: `${realm}.secondary`,
+                      color: `${realm}.secondary`,
+                    }}
                   >
                     {`${option.label}`}
                   </CRadio>
