@@ -1,5 +1,5 @@
 import {
-  Text as CText,
+  Text as ChakraText,
   FormControl,
   FormErrorMessage,
   FormHelperText,
@@ -165,9 +165,9 @@ const Ask = ({
   if (readonly) {
     return (
       <HStack flexWrap={'wrap'} w={askWidth}>
-        <CText id={attributeCode} w={labelWidth} textStyle="body.1">
+        <ChakraText id={attributeCode} w={labelWidth} textStyle="body.1">
           {name}
-        </CText>
+        </ChakraText>
         <Attribute
           parentCode={parentCode}
           config={{ textStyle: 'body.1' }}
@@ -382,7 +382,7 @@ const Ask = ({
           placeholderName={placeholderName}
           targetCode={targetCode}
           clientId={clientId}
-          boolean={equals('boolean')(component)}
+          isBooleanSelect={equals('boolean')(component)}
           config={config}
         />
       )}

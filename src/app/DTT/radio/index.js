@@ -1,4 +1,4 @@
-import { Radio as CRadio, RadioGroup, Stack, Text } from '@chakra-ui/react'
+import { Radio as ChakraRadio, RadioGroup, Stack, Text } from '@chakra-ui/react'
 import { compose, equals, map, path, split } from 'ramda'
 import { useEffect, useState } from 'react'
 import { useIsProductInternmatch, useIsProductLojing } from 'utils/helpers/check-product-name'
@@ -12,7 +12,7 @@ import isJson from 'utils/helpers/is-json'
 import { isNullOrUndefined } from 'utils/helpers/is-null-or-undefined'
 import useProductColors from 'utils/productColors'
 
-const Read = ({ data, boolean }) => {
+const Read = ({ data, isBooleanSelect }) => {
   const labels = split(';')(data?.html?.labels || 'Yes;No')
   const name = useSelector(selectCode(data?.attributeCode, 'attributeName')) || ''
 
@@ -23,7 +23,7 @@ const Read = ({ data, boolean }) => {
     ? 'No'
     : dataValue
 
-  if (boolean) {
+  if (isBooleanSelect) {
     return <Text>{displayDataValue}</Text>
   }
 
@@ -50,7 +50,7 @@ const Write = ({
   placeholderName,
   html,
   mandatory,
-  boolean,
+  isBooleanSelect,
   config,
 }) => {
   const realm = useGetProductName().toLowerCase()
@@ -75,7 +75,7 @@ const Write = ({
     { label: labels[0], value: true },
     { label: labels[1], value: false },
   ]
-  const options = boolean ? booleanOptions : selectedOptions
+  const options = isBooleanSelect ? booleanOptions : selectedOptions
 
   const { labelTextColor } = useProductColors()
 
@@ -88,9 +88,9 @@ const Write = ({
   }, [dataValue])
 
   const onChange = value => {
-    const newValue = boolean ? equals(value)('true') : value
+    const newValue = isBooleanSelect ? equals(value)('true') : value
     setValue(newValue)
-    onSendAnswer(boolean ? value : [value])
+    onSendAnswer(isBooleanSelect ? value : [value])
     dispatchFieldMessage({ payload: questionCode })
   }
 
@@ -99,9 +99,9 @@ const Write = ({
   return (
     <Stack
       ml={1}
-      direction={outerStackVertical || !boolean ? 'row' : 'column'} // just making sure that longer sets of options don't end up weirdly arranged
-      spacing={outerStackVertical || !boolean ? 0 : 2}
-      justifyContent={outerStackVertical || !boolean ? 'space-between' : 'flex-start'}
+      direction={outerStackVertical || !isBooleanSelect ? 'row' : 'column'} // just making sure that longer sets of options don't end up weirdly arranged
+      spacing={outerStackVertical || !isBooleanSelect ? 0 : 2}
+      justifyContent={outerStackVertical || !isBooleanSelect ? 'space-between' : 'flex-start'}
     >
       <MandatorySymbol
         placeholderName={placeholderName}
@@ -110,12 +110,12 @@ const Write = ({
         realm={realm}
       />
       <RadioGroup value={value} onChange={onChange}>
-        <Stack direction={verticalAligned || !boolean ? 'row' : 'column'} spacing={3}>
+        <Stack direction={verticalAligned || !isBooleanSelect ? 'row' : 'column'} spacing={3}>
           {options &&
             map(
               option =>
                 option && (
-                  <CRadio
+                  <ChakraRadio
                     id={questionCode}
                     key={`${option.value}`}
                     test-id={`${option.value}-${parentCode}`}
@@ -138,7 +138,7 @@ const Write = ({
                     }}
                   >
                     {`${option.label}`}
-                  </CRadio>
+                  </ChakraRadio>
                 ),
             )(options)}
         </Stack>
