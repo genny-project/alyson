@@ -48,12 +48,18 @@ const TemplateText = ({ mappedPcm, depth }) => {
 
   const fontColors = {
     TPL_TEXT_RED: 'red',
+    TPL_TEXT_HEADER_1: 'rgba(6, 50, 49, 1)',
+    TPL_TEXT_HEADER_2: 'rgba(6, 50, 49, 1)',
+    TPL_TEXT_HEADER_3: 'rgba(6, 50, 49, 1)',
+    TPL_TEXT_HEADER_4: 'rgba(6, 50, 49, 1)',
+    TPL_TEXT_HEADER_5: 'rgba(6, 50, 49, 1)',
+    TPL_TEXT_HEADER_6: 'rgba(6, 50, 49, 1)',
   }
 
   const fontWeights = {
     TPL_TEXT_HEADER_1: 900,
     TPL_TEXT_HEADER_2: 900,
-    TPL_TEXT_HEADER_3: 700,
+    TPL_TEXT_HEADER_3: 500,
     TPL_TEXT_HEADER_4: 600,
     TPL_TEXT_HEADER_5: 500,
     TPL_TEXT_HEADER_6: 500,
