@@ -51,7 +51,7 @@ const ProgressBar = props => {
         w="full"
         colorScheme={isProductInternMatch ? 'internmatch' : 'orange'}
         borderRadius={isProductInternMatch ? 'lg' : 'md'}
-        value={'25' || dataValueInPercentage}
+        value={dataValueInPercentage}
         h={isProductInternMatch ? '1.25rem' : '.75rem'}
         border={isProductInternMatch ? '1px solid #CDD6D6' : 0}
       />
