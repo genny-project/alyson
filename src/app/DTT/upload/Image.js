@@ -90,7 +90,9 @@ const Write = ({
           >
             {name}
           </Button>
-          {!multiUpload && (
+
+          {/* out of scope according to KBIM figma
+           {!multiUpload && (
             <Button
               onClick={() => setOpenSnap(true)}
               leftIcon={<FontAwesomeIcon icon={faCamera} />}
@@ -105,7 +107,7 @@ const Write = ({
             >
               {`Take Photo`}
             </Button>
-          )}
+          )} */}
         </ButtonGroup>
       </div>
     </div>
