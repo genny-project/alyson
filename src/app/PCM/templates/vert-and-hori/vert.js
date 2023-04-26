@@ -10,9 +10,10 @@ const vert = mappingFunction => (mappedPcm, depth, config, showCard = false) => 
   return (
     <Grid
       w={isForm ? 'min(100%, 50rem)' : 'full'}
-      borderRadius={showCard ? '3xl' : undefined}
+      borderRadius={showCard ? '2.5rem' : undefined}
       bg={showCard ? 'white' : undefined}
-      paddingX={showCard ? 5 : undefined}
+      paddingBlock={showCard ? 6 : undefined}
+      paddingInline={showCard ? 10 : undefined}
       alignItems="start"
       justifyItems={isForm ? tplVertFormJustify : tplVertJustify}
       gap={3}

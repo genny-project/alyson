@@ -7,8 +7,8 @@ import {
   MenuItem,
   MenuList,
   Text,
-  useTheme,
   VStack,
+  useTheme,
 } from '@chakra-ui/react'
 
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
@@ -29,6 +29,7 @@ const DefaultEventButton = ({
   sourceCode,
   targetCode,
   processId,
+  showCard = false,
 }) => {
   const theme = useTheme()
   const isProductLojing = useIsProductLojing()
@@ -93,8 +94,8 @@ const DefaultEventButton = ({
         <HStack
           spacing={iconId || icons[trueQuestionCode] ? 2 : 0}
           role="group"
-          paddingBlock={2}
-          paddingInline={4}
+          paddingBlock={showCard ? 0 : 2}
+          paddingInline={showCard ? 0 : 4}
           test-id={trueQuestionCode}
           onClick={handleClick}
           alignItems={'center'}

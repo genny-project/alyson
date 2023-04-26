@@ -4,7 +4,7 @@ import { multiply, pathOr } from 'ramda'
 import { useIsProductInternmatch } from 'utils/helpers/check-product-name.js'
 import safelyParseJson from 'utils/helpers/safely-parse-json'
 
-const ProgressBar = props => {
+const ProgressBar = (props, showCard = false) => {
   const { data, value } = props
   const { internshipProgress = 0, completedJournals = 0 } = safelyParseJson(value)
   const dataValue = data?.value || data?.valueDouble || 0
@@ -23,8 +23,6 @@ const ProgressBar = props => {
     }
   })()
 
-  const hasBoxStyle = false
-
   return internshipProgress || completedJournals ? (
     <VStack alignItems="start">
       <Text> {`Internship Progress`} </Text>
@@ -41,19 +39,21 @@ const ProgressBar = props => {
     <Box
       flex={'1 1 100%'}
       w="full"
-      margin={'1rem 0 0 0 !important'}
-      paddingBlock={isProductInternMatch || hasBoxStyle ? 6 : 0}
-      paddingInline={isProductInternMatch || hasBoxStyle ? 12 : 0}
-      borderRadius={isProductInternMatch || hasBoxStyle ? '2.5rem' : 0}
-      background={isProductInternMatch || hasBoxStyle ? 'white' : 'transparent'}
+      margin={showCard ? '0 !important' : '1rem 0 0 0 !important'}
+      paddingBlock={showCard ? 0 : 2}
+      paddingInline={showCard ? 0 : 2}
+      borderRadius={showCard ? '2.5rem' : 0}
+      background={showCard ? 'red' : 'transparent'}
+      spacing={showCard ? 0 : 3}
+      transform={showCard ? 'translateY(-.5rem)' : 'translateY(0)'}
     >
       <Progress
         w="full"
-        colorScheme={isProductInternMatch ? 'internmatch' : 'orange'}
-        borderRadius={isProductInternMatch ? 'lg' : 'md'}
+        colorScheme={showCard ? 'internmatch' : 'orange'}
+        borderRadius={showCard ? 'lg' : 'md'}
         value={dataValueInPercentage}
-        h={isProductInternMatch ? '1.25rem' : '.75rem'}
-        border={isProductInternMatch ? '1px solid #CDD6D6' : 0}
+        h={showCard ? '1.25rem' : '.75rem'}
+        border={showCard ? '1px solid #CDD6D6' : 0}
       />
       {!isProductInternMatch && (
         <Text as="label" fontSize={'sm'} fontWeight={500} color={'#EF8567'} fontFamily="Roboto">
