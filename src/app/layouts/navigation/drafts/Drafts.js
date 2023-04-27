@@ -1,5 +1,5 @@
 import { Box, Center, HStack, Text, VStack } from '@chakra-ui/layout'
-import { Menu, MenuButton, MenuList } from '@chakra-ui/menu'
+import { Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/menu'
 import { compose, equals, includes } from 'ramda'
 import { selectCode, selectCodeUnary } from 'redux/db/selectors'
 import { useGetLabel, useIsMobile } from 'utils/hooks'
@@ -97,27 +97,30 @@ const Notification = ({ code: NOTIFICATION_GROUP, textColor }) => {
             )}
           </VStack>
         </MenuButton>
-
         <MenuList>
-          {!!isTenant
-            ? notificationWholeData.map(notification => (
+          {notificationCount >= 1 ? (
+            <MenuItem isDisabled>No Notifications</MenuItem>
+          ) : !!isTenant ? (
+            notificationWholeData.map(notification => (
+              <NotificationHandler
+                key={notification?.name}
+                parentCode={NOTIFICATION_GROUP}
+                code={notification?.question?.code || ''}
+                sourceCode={sourceCode}
+                targetCode={targetCode}
+              />
+            ))
+          ) : (
+            notification
+              .reverse()
+              .map(notification => (
                 <NotificationHandler
-                  key={notification?.name}
+                  key={notification}
                   parentCode={NOTIFICATION_GROUP}
-                  code={notification?.question?.code || ''}
-                  sourceCode={sourceCode}
-                  targetCode={targetCode}
+                  code={notification}
                 />
               ))
-            : notification
-                .reverse()
-                .map(notification => (
-                  <NotificationHandler
-                    key={notification}
-                    parentCode={NOTIFICATION_GROUP}
-                    code={notification}
-                  />
-                ))}
+          )}
         </MenuList>
       </Menu>
     </Box>
